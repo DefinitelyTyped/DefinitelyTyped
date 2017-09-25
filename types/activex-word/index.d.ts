@@ -4778,83 +4778,83 @@ declare namespace Word {
     class AddIn {
         private 'Word.AddIn_typekey': AddIn;
         private constructor();
-        public readonly Application: Application;
-        public readonly Autoload: boolean;
-        public readonly Compiled: boolean;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public Installed: boolean;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Path: string;
+        readonly Application: Application;
+        readonly Autoload: boolean;
+        readonly Compiled: boolean;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        Installed: boolean;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Path: string;
     }
 
     class AddIns {
         private 'Word.AddIns_typekey': AddIns;
         private constructor();
-        public Add(FileName: string, Install?: any): AddIn;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): AddIn;
-        public readonly Parent: any;
-        public Unload(RemoveFromList: boolean): void;
+        Add(FileName: string, Install?: any): AddIn;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): AddIn;
+        readonly Parent: any;
+        Unload(RemoveFromList: boolean): void;
     }
 
     class Adjustments {
         private 'Word.Adjustments_typekey': Adjustments;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): number;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): number;
+        readonly Parent: any;
     }
 
     class Application {
         private 'Word.Application_typekey': Application;
         private constructor();
-        public Activate(): void;
-        public readonly ActiveDocument: Document;
-        public readonly ActiveEncryptionSession: number;
-        public ActivePrinter: string;
-        public readonly ActiveProtectedViewWindow: ProtectedViewWindow;
-        public readonly ActiveWindow: Window;
-        public AddAddress(TagID: SafeArray<string>, Value: SafeArray<string>): void;
-        public readonly AddIns: AddIns;
-        public readonly AnswerWizard: Office.AnswerWizard;
-        public readonly Application: Application;
-        public readonly ArbitraryXMLSupportAvailable: boolean;
-        public readonly Assistance: Office.IAssistance;
-        public readonly Assistant: Office.Assistant;
-        public readonly AutoCaptions: AutoCaptions;
-        public readonly AutoCorrect: AutoCorrect;
-        public readonly AutoCorrectEmail: AutoCorrect;
-        public AutomaticChange(): void;
-        public AutomationSecurity: Office.MsoAutomationSecurity;
-        public readonly BackgroundPrintingStatus: number;
-        public readonly BackgroundSavingStatus: number;
-        public readonly Bibliography: Bibliography;
-        public BrowseExtraFileTypes: string;
-        public readonly Browser: Browser;
-        public readonly Build: string;
-        public readonly BuildFeatureCrew: string;
-        public readonly BuildFull: string;
-        public BuildKeyCode(Arg1: WdKey, Arg2?: any, Arg3?: any, Arg4?: any): number;
-        public readonly CapsLock: boolean;
-        public Caption: string;
-        public readonly CaptionLabels: CaptionLabels;
-        public CentimetersToPoints(Centimeters: number): number;
-        public ChangeFileOpenDirectory(Path: string): void;
-        public CheckGrammar(String: string): boolean;
-        public CheckLanguage: boolean;
-        public CheckSpelling(
+        Activate(): void;
+        readonly ActiveDocument: Document;
+        readonly ActiveEncryptionSession: number;
+        ActivePrinter: string;
+        readonly ActiveProtectedViewWindow: ProtectedViewWindow;
+        readonly ActiveWindow: Window;
+        AddAddress(TagID: SafeArray<string>, Value: SafeArray<string>): void;
+        readonly AddIns: AddIns;
+        readonly AnswerWizard: Office.AnswerWizard;
+        readonly Application: Application;
+        readonly ArbitraryXMLSupportAvailable: boolean;
+        readonly Assistance: Office.IAssistance;
+        readonly Assistant: Office.Assistant;
+        readonly AutoCaptions: AutoCaptions;
+        readonly AutoCorrect: AutoCorrect;
+        readonly AutoCorrectEmail: AutoCorrect;
+        AutomaticChange(): void;
+        AutomationSecurity: Office.MsoAutomationSecurity;
+        readonly BackgroundPrintingStatus: number;
+        readonly BackgroundSavingStatus: number;
+        readonly Bibliography: Bibliography;
+        BrowseExtraFileTypes: string;
+        readonly Browser: Browser;
+        readonly Build: string;
+        readonly BuildFeatureCrew: string;
+        readonly BuildFull: string;
+        BuildKeyCode(Arg1: WdKey, Arg2?: any, Arg3?: any, Arg4?: any): number;
+        readonly CapsLock: boolean;
+        Caption: string;
+        readonly CaptionLabels: CaptionLabels;
+        CentimetersToPoints(Centimeters: number): number;
+        ChangeFileOpenDirectory(Path: string): void;
+        CheckGrammar(String: string): boolean;
+        CheckLanguage: boolean;
+        CheckSpelling(
             Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
             CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): boolean;
-        public CleanString(String: string): string;
-        public readonly COMAddIns: Office.COMAddIns;
-        public readonly CommandBars: Office.CommandBars;
+        CleanString(String: string): string;
+        readonly COMAddIns: Office.COMAddIns;
+        readonly CommandBars: Office.CommandBars;
 
         /**
          * @param Word.WdCompareDestination [Destination=2]
@@ -4872,90 +4872,90 @@ declare namespace Word {
          * @param string [RevisedAuthor='']
          * @param boolean [IgnoreAllComparisonWarnings=false]
          */
-        public CompareDocuments(
+        CompareDocuments(
             OriginalDocument: Document, RevisedDocument: Document, Destination?: WdCompareDestination, Granularity?: WdGranularity, CompareFormatting?: boolean,
             CompareCaseChanges?: boolean, CompareWhitespace?: boolean, CompareTables?: boolean, CompareHeaders?: boolean, CompareFootnotes?: boolean,
             CompareTextboxes?: boolean, CompareFields?: boolean, CompareComments?: boolean, CompareMoves?: boolean, RevisedAuthor?: string, IgnoreAllComparisonWarnings?: boolean): Document;
-        public readonly Creator: number;
-        public readonly CustomDictionaries: Dictionaries;
-        public CustomizationContext: any;
-        public DDEExecute(Channel: number, Command: string): void;
-        public DDEInitiate(App: string, Topic: string): number;
-        public DDEPoke(Channel: number, Item: string, Data: string): void;
-        public DDERequest(Channel: number, Item: string): string;
-        public DDETerminate(Channel: number): void;
-        public DDETerminateAll(): void;
-        public DefaultLegalBlackline: boolean;
-        public DefaultSaveFormat: string;
-        public DefaultTableSeparator: string;
-        public DefaultWebOptions(): DefaultWebOptions;
-        public readonly Dialogs: Dialogs;
-        public DiscussionSupport(Range: any, cid: any, piCSE: any): void;
-        public DisplayAlerts: WdAlertLevel;
-        public DisplayAutoCompleteTips: boolean;
-        public DisplayDocumentInformationPanel: boolean;
-        public DisplayRecentFiles: boolean;
-        public DisplayScreenTips: boolean;
-        public DisplayScrollBars: boolean;
-        public DisplayStatusBar: boolean;
-        public readonly Documents: Documents;
-        public DontResetInsertionPointProperties: boolean;
-        public readonly Dummy1: boolean;
-        public Dummy2(): boolean;
-        public Dummy4(): void;
-        public readonly EmailOptions: EmailOptions;
-        public EmailTemplate: string;
-        public EnableCancelKey: WdEnableCancelKey;
-        public FeatureInstall: Office.MsoFeatureInstall;
-        public readonly FileConverters: FileConverters;
-        public FileDialog(FileDialogType: Office.MsoFileDialogType): Office.FileDialog;
-        public readonly FileSearch: Office.FileSearch;
-        public FileValidation: Office.MsoFileValidationMode;
-        public FindKey(KeyCode: number, KeyCode2?: any): KeyBinding;
-        public readonly FocusInMailHeader: boolean;
-        public readonly FontNames: FontNames;
-        public GetAddress(
+        readonly Creator: number;
+        readonly CustomDictionaries: Dictionaries;
+        CustomizationContext: any;
+        DDEExecute(Channel: number, Command: string): void;
+        DDEInitiate(App: string, Topic: string): number;
+        DDEPoke(Channel: number, Item: string, Data: string): void;
+        DDERequest(Channel: number, Item: string): string;
+        DDETerminate(Channel: number): void;
+        DDETerminateAll(): void;
+        DefaultLegalBlackline: boolean;
+        DefaultSaveFormat: string;
+        DefaultTableSeparator: string;
+        DefaultWebOptions(): DefaultWebOptions;
+        readonly Dialogs: Dialogs;
+        DiscussionSupport(Range: any, cid: any, piCSE: any): void;
+        DisplayAlerts: WdAlertLevel;
+        DisplayAutoCompleteTips: boolean;
+        DisplayDocumentInformationPanel: boolean;
+        DisplayRecentFiles: boolean;
+        DisplayScreenTips: boolean;
+        DisplayScrollBars: boolean;
+        DisplayStatusBar: boolean;
+        readonly Documents: Documents;
+        DontResetInsertionPointProperties: boolean;
+        readonly Dummy1: boolean;
+        Dummy2(): boolean;
+        Dummy4(): void;
+        readonly EmailOptions: EmailOptions;
+        EmailTemplate: string;
+        EnableCancelKey: WdEnableCancelKey;
+        FeatureInstall: Office.MsoFeatureInstall;
+        readonly FileConverters: FileConverters;
+        FileDialog(FileDialogType: Office.MsoFileDialogType): Office.FileDialog;
+        readonly FileSearch: Office.FileSearch;
+        FileValidation: Office.MsoFileValidationMode;
+        FindKey(KeyCode: number, KeyCode2?: any): KeyBinding;
+        readonly FocusInMailHeader: boolean;
+        readonly FontNames: FontNames;
+        GetAddress(
             Name?: any, AddressProperties?: any, UseAutoText?: any, DisplaySelectDialog?: any, SelectDialog?: any, CheckNamesDialog?: any, RecentAddressesChoice?: any,
             UpdateRecentAddresses?: any): string;
-        public GetDefaultTheme(DocumentType: WdDocumentMedium): string;
-        public GetSpellingSuggestions(
+        GetDefaultTheme(DocumentType: WdDocumentMedium): string;
+        GetSpellingSuggestions(
             Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, SuggestionMode?: any, CustomDictionary2?: any, CustomDictionary3?: any,
             CustomDictionary4?: any, CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any,
             CustomDictionary10?: any): SpellingSuggestions;
-        public GoBack(): void;
-        public GoForward(): void;
-        public readonly HangulHanjaDictionaries: HangulHanjaConversionDictionaries;
-        public Height: number;
-        public Help(HelpType: any): void;
-        public HelpTool(): void;
-        public InchesToPoints(Inches: number): number;
-        public International(Index: WdInternationalIndex): any;
-        public IsObjectValid(Object: any): boolean;
-        public readonly IsSandboxed: boolean;
-        public readonly KeyBindings: KeyBindings;
+        GoBack(): void;
+        GoForward(): void;
+        readonly HangulHanjaDictionaries: HangulHanjaConversionDictionaries;
+        Height: number;
+        Help(HelpType: any): void;
+        HelpTool(): void;
+        InchesToPoints(Inches: number): number;
+        International(Index: WdInternationalIndex): any;
+        IsObjectValid(Object: any): boolean;
+        readonly IsSandboxed: boolean;
+        readonly KeyBindings: KeyBindings;
 
         /** @param number [LangId=0] */
-        public Keyboard(LangId?: number): number;
-        public KeyboardBidi(): void;
-        public KeyboardLatin(): void;
-        public KeysBoundTo(KeyCategory: WdKeyCategory, Command: string, CommandParameter?: any): KeysBoundTo;
-        public KeyString(KeyCode: number, KeyCode2?: any): string;
-        public readonly LandscapeFontNames: FontNames;
-        public readonly Language: Office.MsoLanguageID;
-        public readonly Languages: Languages;
-        public readonly LanguageSettings: Office.LanguageSettings;
-        public Left: number;
-        public LinesToPoints(Lines: number): number;
-        public ListCommands(ListAllCommands: boolean): void;
-        public readonly ListGalleries: ListGalleries;
-        public LoadMasterList(FileName: string): void;
-        public LookupNameProperties(Name: string): void;
-        public readonly MacroContainer: any;
-        public readonly MailingLabel: MailingLabel;
-        public readonly MailMessage: MailMessage;
-        public readonly MailSystem: WdMailSystem;
-        public readonly MAPIAvailable: boolean;
-        public readonly MathCoprocessorAvailable: boolean;
+        Keyboard(LangId?: number): number;
+        KeyboardBidi(): void;
+        KeyboardLatin(): void;
+        KeysBoundTo(KeyCategory: WdKeyCategory, Command: string, CommandParameter?: any): KeysBoundTo;
+        KeyString(KeyCode: number, KeyCode2?: any): string;
+        readonly LandscapeFontNames: FontNames;
+        readonly Language: Office.MsoLanguageID;
+        readonly Languages: Languages;
+        readonly LanguageSettings: Office.LanguageSettings;
+        Left: number;
+        LinesToPoints(Lines: number): number;
+        ListCommands(ListAllCommands: boolean): void;
+        readonly ListGalleries: ListGalleries;
+        LoadMasterList(FileName: string): void;
+        LookupNameProperties(Name: string): void;
+        readonly MacroContainer: any;
+        readonly MailingLabel: MailingLabel;
+        readonly MailMessage: MailMessage;
+        readonly MailSystem: WdMailSystem;
+        readonly MAPIAvailable: boolean;
+        readonly MathCoprocessorAvailable: boolean;
 
         /**
          * @param Word.WdCompareDestination [Destination=2]
@@ -4974,354 +4974,354 @@ declare namespace Word {
          * @param string [RevisedAuthor='']
          * @param Word.WdMergeFormatFrom [FormatFrom=2]
          */
-        public MergeDocuments(
+        MergeDocuments(
             OriginalDocument: Document, RevisedDocument: Document, Destination?: WdCompareDestination, Granularity?: WdGranularity, CompareFormatting?: boolean,
             CompareCaseChanges?: boolean, CompareWhitespace?: boolean, CompareTables?: boolean, CompareHeaders?: boolean, CompareFootnotes?: boolean,
             CompareTextboxes?: boolean, CompareFields?: boolean, CompareComments?: boolean, CompareMoves?: boolean, OriginalAuthor?: string, RevisedAuthor?: string,
             FormatFrom?: WdMergeFormatFrom): Document;
-        public MillimetersToPoints(Millimeters: number): number;
-        public MountVolume(Zone: string, Server: string, Volume: string, User?: any, UserPassword?: any, VolumePassword?: any): number;
-        public readonly MouseAvailable: boolean;
-        public Move(Left: number, Top: number): void;
-        public readonly Name: string;
-        public readonly NewDocument: Office.NewFile;
-        public NewWindow(): Window;
-        public NextLetter(): void;
-        public readonly NormalTemplate: Template;
-        public readonly NumLock: boolean;
-        public readonly OMathAutoCorrect: OMathAutoCorrect;
-        public OnTime(When: any, Name: string, Tolerance?: any): void;
-        public OpenAttachmentsInFullScreen: boolean;
-        public readonly Options: Options;
-        public OrganizerCopy(Source: string, Destination: string, Name: string, Object: WdOrganizerObject): void;
-        public OrganizerDelete(Source: string, Name: string, Object: WdOrganizerObject): void;
-        public OrganizerRename(Source: string, Name: string, NewName: string, Object: WdOrganizerObject): void;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public readonly PathSeparator: string;
-        public PicasToPoints(Picas: number): number;
-        public readonly PickerDialog: Office.PickerDialog;
-        public PixelsToPoints(Pixels: number, fVertical?: any): number;
-        public PointsToCentimeters(Points: number): number;
-        public PointsToInches(Points: number): number;
-        public PointsToLines(Points: number): number;
-        public PointsToMillimeters(Points: number): number;
-        public PointsToPicas(Points: number): number;
-        public PointsToPixels(Points: number, fVertical?: any): number;
-        public readonly PortraitFontNames: FontNames;
-        public PrintOut(
+        MillimetersToPoints(Millimeters: number): number;
+        MountVolume(Zone: string, Server: string, Volume: string, User?: any, UserPassword?: any, VolumePassword?: any): number;
+        readonly MouseAvailable: boolean;
+        Move(Left: number, Top: number): void;
+        readonly Name: string;
+        readonly NewDocument: Office.NewFile;
+        NewWindow(): Window;
+        NextLetter(): void;
+        readonly NormalTemplate: Template;
+        readonly NumLock: boolean;
+        readonly OMathAutoCorrect: OMathAutoCorrect;
+        OnTime(When: any, Name: string, Tolerance?: any): void;
+        OpenAttachmentsInFullScreen: boolean;
+        readonly Options: Options;
+        OrganizerCopy(Source: string, Destination: string, Name: string, Object: WdOrganizerObject): void;
+        OrganizerDelete(Source: string, Name: string, Object: WdOrganizerObject): void;
+        OrganizerRename(Source: string, Name: string, NewName: string, Object: WdOrganizerObject): void;
+        readonly Parent: any;
+        readonly Path: string;
+        readonly PathSeparator: string;
+        PicasToPoints(Picas: number): number;
+        readonly PickerDialog: Office.PickerDialog;
+        PixelsToPoints(Pixels: number, fVertical?: any): number;
+        PointsToCentimeters(Points: number): number;
+        PointsToInches(Points: number): number;
+        PointsToLines(Points: number): number;
+        PointsToMillimeters(Points: number): number;
+        PointsToPicas(Points: number): number;
+        PointsToPixels(Points: number, fVertical?: any): number;
+        readonly PortraitFontNames: FontNames;
+        PrintOut(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, FileName?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any,
             PrintZoomPaperWidth?: any, PrintZoomPaperHeight?: any): void;
-        public PrintOut2000(
+        PrintOut2000(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, FileName?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any,
             PrintZoomPaperWidth?: any, PrintZoomPaperHeight?: any): void;
-        public PrintOutOld(
+        PrintOutOld(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, FileName?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any): void;
-        public PrintPreview: boolean;
-        public ProductCode(): string;
-        public readonly ProtectedViewWindows: ProtectedViewWindows;
-        public PutFocusInMailHeader(): void;
-        public Quit(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
-        public readonly RecentFiles: RecentFiles;
-        public Repeat(Times?: any): boolean;
-        public ResetIgnoreAll(): void;
-        public Resize(Width: number, Height: number): void;
-        public RestrictLinkedStyles: boolean;
-        public Run(
+        PrintPreview: boolean;
+        ProductCode(): string;
+        readonly ProtectedViewWindows: ProtectedViewWindows;
+        PutFocusInMailHeader(): void;
+        Quit(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
+        readonly RecentFiles: RecentFiles;
+        Repeat(Times?: any): boolean;
+        ResetIgnoreAll(): void;
+        Resize(Width: number, Height: number): void;
+        RestrictLinkedStyles: boolean;
+        Run(
             MacroName: string, varg1?: any, varg2?: any, varg3?: any, varg4?: any, varg5?: any, varg6?: any, varg7?: any, varg8?: any, varg9?: any, varg10?: any,
             varg11?: any, varg12?: any, varg13?: any, varg14?: any, varg15?: any, varg16?: any, varg17?: any, varg18?: any, varg19?: any, varg20?: any, varg21?: any,
             varg22?: any, varg23?: any, varg24?: any, varg25?: any, varg26?: any, varg27?: any, varg28?: any, varg29?: any, varg30?: any): any;
-        public RunOld(MacroName: string): void;
-        public ScreenRefresh(): void;
-        public ScreenUpdating: boolean;
-        public readonly Selection: Selection;
-        public SendFax(): void;
-        public SetDefaultTheme(Name: string, DocumentType: WdDocumentMedium): void;
-        public ShowClipboard(): void;
-        public ShowMe(): void;
-        public ShowStartupDialog: boolean;
-        public ShowStylePreviews: boolean;
-        public ShowVisualBasicEditor: boolean;
-        public ShowWindowsInTaskbar: boolean;
-        public readonly SmartArtColors: Office.SmartArtColors;
-        public readonly SmartArtLayouts: Office.SmartArtLayouts;
-        public readonly SmartArtQuickStyles: Office.SmartArtQuickStyles;
-        public readonly SmartTagRecognizers: SmartTagRecognizers;
-        public readonly SmartTagTypes: SmartTagTypes;
-        public readonly SpecialMode: boolean;
-        public StartupPath: string;
-        public StatusBar: string;
-        public SubstituteFont(UnavailableFont: string, SubstituteFont: string): void;
-        public SynonymInfo(Word: string, LanguageID?: any): SynonymInfo;
-        public readonly System: System;
-        public readonly TaskPanes: TaskPanes;
-        public readonly Tasks: Tasks;
-        public readonly Templates: Templates;
-        public ThreeWayMerge(LocalDocument: Document, ServerDocument: Document, BaseDocument: Document, FavorSource: boolean): void;
-        public ToggleKeyboard(): void;
-        public Top: number;
-        public readonly UndoRecord: UndoRecord;
-        public readonly UsableHeight: number;
-        public readonly UsableWidth: number;
-        public UserAddress: string;
-        public readonly UserControl: boolean;
-        public UserInitials: string;
-        public UserName: string;
-        public readonly VBE: VBIDE.VBE;
-        public readonly Version: string;
-        public Visible: boolean;
-        public Width: number;
-        public readonly Windows: Windows;
-        public WindowState: WdWindowState;
-        public readonly WordBasic: any;
-        public readonly XMLNamespaces: XMLNamespaces;
+        RunOld(MacroName: string): void;
+        ScreenRefresh(): void;
+        ScreenUpdating: boolean;
+        readonly Selection: Selection;
+        SendFax(): void;
+        SetDefaultTheme(Name: string, DocumentType: WdDocumentMedium): void;
+        ShowClipboard(): void;
+        ShowMe(): void;
+        ShowStartupDialog: boolean;
+        ShowStylePreviews: boolean;
+        ShowVisualBasicEditor: boolean;
+        ShowWindowsInTaskbar: boolean;
+        readonly SmartArtColors: Office.SmartArtColors;
+        readonly SmartArtLayouts: Office.SmartArtLayouts;
+        readonly SmartArtQuickStyles: Office.SmartArtQuickStyles;
+        readonly SmartTagRecognizers: SmartTagRecognizers;
+        readonly SmartTagTypes: SmartTagTypes;
+        readonly SpecialMode: boolean;
+        StartupPath: string;
+        StatusBar: string;
+        SubstituteFont(UnavailableFont: string, SubstituteFont: string): void;
+        SynonymInfo(Word: string, LanguageID?: any): SynonymInfo;
+        readonly System: System;
+        readonly TaskPanes: TaskPanes;
+        readonly Tasks: Tasks;
+        readonly Templates: Templates;
+        ThreeWayMerge(LocalDocument: Document, ServerDocument: Document, BaseDocument: Document, FavorSource: boolean): void;
+        ToggleKeyboard(): void;
+        Top: number;
+        readonly UndoRecord: UndoRecord;
+        readonly UsableHeight: number;
+        readonly UsableWidth: number;
+        UserAddress: string;
+        readonly UserControl: boolean;
+        UserInitials: string;
+        UserName: string;
+        readonly VBE: VBIDE.VBE;
+        readonly Version: string;
+        Visible: boolean;
+        Width: number;
+        readonly Windows: Windows;
+        WindowState: WdWindowState;
+        readonly WordBasic: any;
+        readonly XMLNamespaces: XMLNamespaces;
     }
 
     class AutoCaption {
         private 'Word.AutoCaption_typekey': AutoCaption;
         private constructor();
-        public readonly Application: Application;
-        public AutoInsert: boolean;
-        public CaptionLabel: any;
-        public readonly Creator: number;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        AutoInsert: boolean;
+        CaptionLabel: any;
+        readonly Creator: number;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class AutoCaptions {
         private 'Word.AutoCaptions_typekey': AutoCaptions;
         private constructor();
-        public readonly Application: Application;
-        public CancelAutoInsert(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): AutoCaption;
-        public readonly Parent: any;
+        readonly Application: Application;
+        CancelAutoInsert(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): AutoCaption;
+        readonly Parent: any;
     }
 
     class AutoCorrect {
         private 'Word.AutoCorrect_typekey': AutoCorrect;
         private constructor();
-        public readonly Application: Application;
-        public CorrectCapsLock: boolean;
-        public CorrectDays: boolean;
-        public CorrectHangulAndAlphabet: boolean;
-        public CorrectInitialCaps: boolean;
-        public CorrectKeyboardSetting: boolean;
-        public CorrectSentenceCaps: boolean;
-        public CorrectTableCells: boolean;
-        public readonly Creator: number;
-        public DisplayAutoCorrectOptions: boolean;
-        public readonly Entries: AutoCorrectEntries;
-        public FirstLetterAutoAdd: boolean;
-        public readonly FirstLetterExceptions: FirstLetterExceptions;
-        public HangulAndAlphabetAutoAdd: boolean;
-        public readonly HangulAndAlphabetExceptions: HangulAndAlphabetExceptions;
-        public OtherCorrectionsAutoAdd: boolean;
-        public readonly OtherCorrectionsExceptions: OtherCorrectionsExceptions;
-        public readonly Parent: any;
-        public ReplaceText: boolean;
-        public ReplaceTextFromSpellingChecker: boolean;
-        public TwoInitialCapsAutoAdd: boolean;
-        public readonly TwoInitialCapsExceptions: TwoInitialCapsExceptions;
+        readonly Application: Application;
+        CorrectCapsLock: boolean;
+        CorrectDays: boolean;
+        CorrectHangulAndAlphabet: boolean;
+        CorrectInitialCaps: boolean;
+        CorrectKeyboardSetting: boolean;
+        CorrectSentenceCaps: boolean;
+        CorrectTableCells: boolean;
+        readonly Creator: number;
+        DisplayAutoCorrectOptions: boolean;
+        readonly Entries: AutoCorrectEntries;
+        FirstLetterAutoAdd: boolean;
+        readonly FirstLetterExceptions: FirstLetterExceptions;
+        HangulAndAlphabetAutoAdd: boolean;
+        readonly HangulAndAlphabetExceptions: HangulAndAlphabetExceptions;
+        OtherCorrectionsAutoAdd: boolean;
+        readonly OtherCorrectionsExceptions: OtherCorrectionsExceptions;
+        readonly Parent: any;
+        ReplaceText: boolean;
+        ReplaceTextFromSpellingChecker: boolean;
+        TwoInitialCapsAutoAdd: boolean;
+        readonly TwoInitialCapsExceptions: TwoInitialCapsExceptions;
     }
 
     class AutoCorrectEntries {
         private 'Word.AutoCorrectEntries_typekey': AutoCorrectEntries;
         private constructor();
-        public Add(Name: string, Value: string): AutoCorrectEntry;
-        public AddRichText(Name: string, Range: Range): AutoCorrectEntry;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): AutoCorrectEntry;
-        public readonly Parent: any;
+        Add(Name: string, Value: string): AutoCorrectEntry;
+        AddRichText(Name: string, Range: Range): AutoCorrectEntry;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): AutoCorrectEntry;
+        readonly Parent: any;
     }
 
     class AutoCorrectEntry {
         private 'Word.AutoCorrectEntry_typekey': AutoCorrectEntry;
         private constructor();
-        public readonly Application: Application;
-        public Apply(Range: Range): void;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public Name: string;
-        public readonly Parent: any;
-        public readonly RichText: boolean;
-        public Value: string;
+        readonly Application: Application;
+        Apply(Range: Range): void;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        Name: string;
+        readonly Parent: any;
+        readonly RichText: boolean;
+        Value: string;
     }
 
     class AutoTextEntries {
         private 'Word.AutoTextEntries_typekey': AutoTextEntries;
         private constructor();
-        public Add(Name: string, Range: Range): AutoTextEntry;
-        public AppendToSpike(Range: Range): AutoTextEntry;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): AutoTextEntry;
-        public readonly Parent: any;
+        Add(Name: string, Range: Range): AutoTextEntry;
+        AppendToSpike(Range: Range): AutoTextEntry;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): AutoTextEntry;
+        readonly Parent: any;
     }
 
     class AutoTextEntry {
         private 'Word.AutoTextEntry_typekey': AutoTextEntry;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public Insert(Where: Range, RichText?: any): Range;
-        public Name: string;
-        public readonly Parent: any;
-        public readonly StyleName: string;
-        public Value: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        Insert(Where: Range, RichText?: any): Range;
+        Name: string;
+        readonly Parent: any;
+        readonly StyleName: string;
+        Value: string;
     }
 
     class Bibliography {
         private 'Word.Bibliography_typekey': Bibliography;
         private constructor();
-        public readonly Application: Application;
-        public BibliographyStyle: string;
-        public readonly Creator: number;
-        public GenerateUniqueTag(): string;
-        public readonly Parent: any;
-        public readonly Sources: Sources;
+        readonly Application: Application;
+        BibliographyStyle: string;
+        readonly Creator: number;
+        GenerateUniqueTag(): string;
+        readonly Parent: any;
+        readonly Sources: Sources;
     }
 
     class Bookmark {
         private 'Word.Bookmark_typekey': Bookmark;
         private constructor();
-        public readonly Application: Application;
-        public readonly Column: boolean;
-        public Copy(Name: string): Bookmark;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Empty: boolean;
-        public End: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public Select(): void;
-        public Start: number;
-        public readonly StoryType: WdStoryType;
+        readonly Application: Application;
+        readonly Column: boolean;
+        Copy(Name: string): Bookmark;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Empty: boolean;
+        End: number;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Range: Range;
+        Select(): void;
+        Start: number;
+        readonly StoryType: WdStoryType;
     }
 
     class Bookmarks {
         private 'Word.Bookmarks_typekey': Bookmarks;
         private constructor();
-        public Add(Name: string, Range?: any): Bookmark;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public DefaultSorting: WdBookmarkSortBy;
-        public Exists(Name: string): boolean;
-        public Item(Index: number | string): Bookmark;
-        public readonly Parent: any;
-        public ShowHidden: boolean;
+        Add(Name: string, Range?: any): Bookmark;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        DefaultSorting: WdBookmarkSortBy;
+        Exists(Name: string): boolean;
+        Item(Index: number | string): Bookmark;
+        readonly Parent: any;
+        ShowHidden: boolean;
     }
 
     class Border {
         private 'Word.Border_typekey': Border;
         private constructor();
-        public readonly Application: Application;
-        public ArtStyle: WdPageBorderArt;
-        public ArtWidth: number;
-        public Color: WdColor;
-        public ColorIndex: WdColorIndex;
-        public readonly Creator: number;
-        public readonly Inside: boolean;
-        public LineStyle: WdLineStyle;
-        public LineWidth: WdLineWidth;
-        public readonly Parent: any;
-        public Visible: boolean;
+        readonly Application: Application;
+        ArtStyle: WdPageBorderArt;
+        ArtWidth: number;
+        Color: WdColor;
+        ColorIndex: WdColorIndex;
+        readonly Creator: number;
+        readonly Inside: boolean;
+        LineStyle: WdLineStyle;
+        LineWidth: WdLineWidth;
+        readonly Parent: any;
+        Visible: boolean;
     }
 
     class Borders {
         private 'Word.Borders_typekey': Borders;
         private constructor();
-        public AlwaysInFront: boolean;
-        public readonly Application: Application;
-        public ApplyPageBordersToAllSections(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public DistanceFrom: WdBorderDistanceFrom;
-        public DistanceFromBottom: number;
-        public DistanceFromLeft: number;
-        public DistanceFromRight: number;
-        public DistanceFromTop: number;
-        public Enable: boolean | WdConstants.wdUndefined | WdLineStyle;
-        public EnableFirstPageInSection: boolean;
-        public EnableOtherPagesInSection: boolean;
-        public readonly HasHorizontal: boolean;
-        public readonly HasVertical: boolean;
-        public InsideColor: WdColor;
-        public InsideColorIndex: WdColorIndex;
-        public InsideLineStyle: WdLineStyle;
-        public InsideLineWidth: WdLineWidth;
-        public Item(Index: WdBorderType): Border;
-        public JoinBorders: boolean;
-        public OutsideColor: WdColor;
-        public OutsideColorIndex: WdColorIndex;
-        public OutsideLineStyle: WdLineStyle;
-        public OutsideLineWidth: WdLineWidth;
-        public readonly Parent: any;
-        public Shadow: boolean;
-        public SurroundFooter: boolean;
-        public SurroundHeader: boolean;
+        AlwaysInFront: boolean;
+        readonly Application: Application;
+        ApplyPageBordersToAllSections(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        DistanceFrom: WdBorderDistanceFrom;
+        DistanceFromBottom: number;
+        DistanceFromLeft: number;
+        DistanceFromRight: number;
+        DistanceFromTop: number;
+        Enable: boolean | WdConstants.wdUndefined | WdLineStyle;
+        EnableFirstPageInSection: boolean;
+        EnableOtherPagesInSection: boolean;
+        readonly HasHorizontal: boolean;
+        readonly HasVertical: boolean;
+        InsideColor: WdColor;
+        InsideColorIndex: WdColorIndex;
+        InsideLineStyle: WdLineStyle;
+        InsideLineWidth: WdLineWidth;
+        Item(Index: WdBorderType): Border;
+        JoinBorders: boolean;
+        OutsideColor: WdColor;
+        OutsideColorIndex: WdColorIndex;
+        OutsideLineStyle: WdLineStyle;
+        OutsideLineWidth: WdLineWidth;
+        readonly Parent: any;
+        Shadow: boolean;
+        SurroundFooter: boolean;
+        SurroundHeader: boolean;
     }
 
     class Break {
         private 'Word.Break_typekey': Break;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly PageIndex: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly PageIndex: number;
+        readonly Parent: any;
+        readonly Range: Range;
     }
 
     class Breaks {
         private 'Word.Breaks_typekey': Breaks;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Break;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Break;
+        readonly Parent: any;
     }
 
     class Browser {
         private 'Word.Browser_typekey': Browser;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Next(): void;
-        public readonly Parent: any;
-        public Previous(): void;
-        public Target: WdBrowseTarget;
+        readonly Application: Application;
+        readonly Creator: number;
+        Next(): void;
+        readonly Parent: any;
+        Previous(): void;
+        Target: WdBrowseTarget;
     }
 
     class BuildingBlock {
         private 'Word.BuildingBlock_typekey': BuildingBlock;
         private constructor();
-        public readonly Application: Application;
-        public readonly Category: Category;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Description: string;
-        public readonly ID: string;
-        public readonly Index: number;
-        public Insert(Where: Range, RichText?: any): Range;
-        public InsertOptions: number;
-        public Name: string;
-        public readonly Parent: any;
-        public readonly Type: BuildingBlockType;
-        public Value: string;
+        readonly Application: Application;
+        readonly Category: Category;
+        readonly Creator: number;
+        Delete(): void;
+        Description: string;
+        readonly ID: string;
+        readonly Index: number;
+        Insert(Where: Range, RichText?: any): Range;
+        InsertOptions: number;
+        Name: string;
+        readonly Parent: any;
+        readonly Type: BuildingBlockType;
+        Value: string;
     }
 
     class BuildingBlockEntries {
@@ -5329,12 +5329,12 @@ declare namespace Word {
         private constructor();
 
         /** @param Word.WdDocPartInsertOptions [InsertOptions=0] */
-        public Add(Name: string, Type: WdBuildingBlockTypes, Category: string, Range: Range, Description: any, InsertOptions?: WdDocPartInsertOptions): BuildingBlock;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): BuildingBlock;
-        public readonly Parent: any;
+        Add(Name: string, Type: WdBuildingBlockTypes, Category: string, Range: Range, Description: any, InsertOptions?: WdDocPartInsertOptions): BuildingBlock;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): BuildingBlock;
+        readonly Parent: any;
     }
 
     class BuildingBlocks {
@@ -5342,546 +5342,546 @@ declare namespace Word {
         private constructor();
 
         /** @param Word.WdDocPartInsertOptions [InsertOptions=0] */
-        public Add(Name: string, Range: Range, Description: any, InsertOptions?: WdDocPartInsertOptions): BuildingBlock;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): BuildingBlock;
-        public readonly Parent: any;
+        Add(Name: string, Range: Range, Description: any, InsertOptions?: WdDocPartInsertOptions): BuildingBlock;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): BuildingBlock;
+        readonly Parent: any;
     }
 
     class BuildingBlockType {
         private 'Word.BuildingBlockType_typekey': BuildingBlockType;
         private constructor();
-        public readonly Application: Application;
-        public readonly Categories: Categories;
-        public readonly Creator: number;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Categories: Categories;
+        readonly Creator: number;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class BuildingBlockTypes {
         private 'Word.BuildingBlockTypes_typekey': BuildingBlockTypes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: WdBuildingBlockTypes): BuildingBlockType;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: WdBuildingBlockTypes): BuildingBlockType;
+        readonly Parent: any;
     }
 
     class CalloutFormat {
         private 'Word.CalloutFormat_typekey': CalloutFormat;
         private constructor();
-        public Accent: Office.MsoTriState;
-        public Angle: Office.MsoCalloutAngleType;
-        public readonly Application: Application;
-        public AutoAttach: Office.MsoTriState;
-        public readonly AutoLength: Office.MsoTriState;
-        public AutomaticLength(): void;
-        public Border: Office.MsoTriState;
-        public readonly Creator: number;
-        public CustomDrop(Drop: number): void;
-        public CustomLength(Length: number): void;
-        public readonly Drop: number;
-        public readonly DropType: Office.MsoCalloutDropType;
-        public Gap: number;
-        public readonly Length: number;
-        public readonly Parent: any;
-        public PresetDrop(DropType: Office.MsoCalloutDropType): void;
-        public Type: Office.MsoCalloutType;
+        Accent: Office.MsoTriState;
+        Angle: Office.MsoCalloutAngleType;
+        readonly Application: Application;
+        AutoAttach: Office.MsoTriState;
+        readonly AutoLength: Office.MsoTriState;
+        AutomaticLength(): void;
+        Border: Office.MsoTriState;
+        readonly Creator: number;
+        CustomDrop(Drop: number): void;
+        CustomLength(Length: number): void;
+        readonly Drop: number;
+        readonly DropType: Office.MsoCalloutDropType;
+        Gap: number;
+        readonly Length: number;
+        readonly Parent: any;
+        PresetDrop(DropType: Office.MsoCalloutDropType): void;
+        Type: Office.MsoCalloutType;
     }
 
     class CanvasShapes {
         private 'Word.CanvasShapes_typekey': CanvasShapes;
         private constructor();
-        public AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddCurve(SafeArrayOfPoints: any): Shape;
-        public AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
-        public AddPolyline(SafeArrayOfPoints: any): Shape;
-        public AddShape(Type: number, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextEffect(
+        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
+        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: number, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextEffect(
             PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
             Left: number, Top: number): Shape;
-        public readonly Application: Application;
-        public BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
-        public SelectAll(): void;
+        readonly Application: Application;
+        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
+        SelectAll(): void;
     }
 
     class CaptionLabel {
         private 'Word.CaptionLabel_typekey': CaptionLabel;
         private constructor();
-        public readonly Application: Application;
-        public readonly BuiltIn: boolean;
-        public ChapterStyleLevel: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly ID: WdCaptionLabelID;
-        public IncludeChapterNumber: boolean;
-        public readonly Name: string;
-        public NumberStyle: WdCaptionNumberStyle;
-        public readonly Parent: any;
-        public Position: WdCaptionPosition;
-        public Separator: WdSeparatorType;
+        readonly Application: Application;
+        readonly BuiltIn: boolean;
+        ChapterStyleLevel: number;
+        readonly Creator: number;
+        Delete(): void;
+        readonly ID: WdCaptionLabelID;
+        IncludeChapterNumber: boolean;
+        readonly Name: string;
+        NumberStyle: WdCaptionNumberStyle;
+        readonly Parent: any;
+        Position: WdCaptionPosition;
+        Separator: WdSeparatorType;
     }
 
     class CaptionLabels {
         private 'Word.CaptionLabels_typekey': CaptionLabels;
         private constructor();
-        public Add(Name: string): CaptionLabel;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CaptionLabel;
-        public readonly Parent: any;
+        Add(Name: string): CaptionLabel;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CaptionLabel;
+        readonly Parent: any;
     }
 
     class Categories {
         private 'Word.Categories_typekey': Categories;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Category;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Category;
+        readonly Parent: any;
     }
 
     class Category {
         private 'Word.Category_typekey': Category;
         private constructor();
-        public readonly Application: Application;
-        public readonly BuildingBlocks: BuildingBlocks;
-        public readonly Creator: number;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Type: BuildingBlockType;
+        readonly Application: Application;
+        readonly BuildingBlocks: BuildingBlocks;
+        readonly Creator: number;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Type: BuildingBlockType;
     }
 
     class Cell {
         private 'Word.Cell_typekey': Cell;
         private constructor();
-        public readonly Application: Application;
-        public AutoSum(): void;
-        public Borders: Borders;
-        public BottomPadding: number;
-        public readonly Column: Column;
-        public readonly ColumnIndex: number;
-        public readonly Creator: number;
-        public Delete(ShiftCells?: any): void;
-        public FitText: boolean;
-        public Formula(Formula?: any, NumFormat?: any): void;
-        public Height: number;
-        public HeightRule: WdRowHeightRule;
-        public ID: string;
-        public LeftPadding: number;
-        public Merge(MergeTo: Cell): void;
-        public readonly NestingLevel: number;
-        public readonly Next: Cell;
-        public readonly Parent: any;
-        public PreferredWidth: number;
-        public PreferredWidthType: WdPreferredWidthType;
-        public readonly Previous: Cell;
-        public readonly Range: Range;
-        public RightPadding: number;
-        public readonly Row: Row;
-        public readonly RowIndex: number;
-        public Select(): void;
-        public SetHeight(RowHeight: any, HeightRule: WdRowHeightRule): void;
-        public SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
-        public readonly Shading: Shading;
-        public Split(NumRows?: any, NumColumns?: any): void;
-        public readonly Tables: Tables;
-        public TopPadding: number;
-        public VerticalAlignment: WdCellVerticalAlignment;
-        public Width: number;
-        public WordWrap: boolean;
+        readonly Application: Application;
+        AutoSum(): void;
+        Borders: Borders;
+        BottomPadding: number;
+        readonly Column: Column;
+        readonly ColumnIndex: number;
+        readonly Creator: number;
+        Delete(ShiftCells?: any): void;
+        FitText: boolean;
+        Formula(Formula?: any, NumFormat?: any): void;
+        Height: number;
+        HeightRule: WdRowHeightRule;
+        ID: string;
+        LeftPadding: number;
+        Merge(MergeTo: Cell): void;
+        readonly NestingLevel: number;
+        readonly Next: Cell;
+        readonly Parent: any;
+        PreferredWidth: number;
+        PreferredWidthType: WdPreferredWidthType;
+        readonly Previous: Cell;
+        readonly Range: Range;
+        RightPadding: number;
+        readonly Row: Row;
+        readonly RowIndex: number;
+        Select(): void;
+        SetHeight(RowHeight: any, HeightRule: WdRowHeightRule): void;
+        SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
+        readonly Shading: Shading;
+        Split(NumRows?: any, NumColumns?: any): void;
+        readonly Tables: Tables;
+        TopPadding: number;
+        VerticalAlignment: WdCellVerticalAlignment;
+        Width: number;
+        WordWrap: boolean;
     }
 
     class Cells {
         private 'Word.Cells_typekey': Cells;
         private constructor();
-        public Add(BeforeCell?: any): Cell;
-        public readonly Application: Application;
-        public AutoFit(): void;
-        public Borders: Borders;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(ShiftCells?: any): void;
-        public DistributeHeight(): void;
-        public DistributeWidth(): void;
-        public Height: number;
-        public HeightRule: WdRowHeightRule;
-        public Item(Index: number): Cell;
-        public Merge(): void;
-        public readonly NestingLevel: number;
-        public readonly Parent: any;
-        public PreferredWidth: number;
-        public PreferredWidthType: WdPreferredWidthType;
-        public SetHeight(RowHeight: any, HeightRule: WdRowHeightRule): void;
-        public SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
-        public readonly Shading: Shading;
-        public Split(NumRows?: any, NumColumns?: any, MergeBeforeSplit?: any): void;
-        public VerticalAlignment: WdCellVerticalAlignment;
-        public Width: number;
+        Add(BeforeCell?: any): Cell;
+        readonly Application: Application;
+        AutoFit(): void;
+        Borders: Borders;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(ShiftCells?: any): void;
+        DistributeHeight(): void;
+        DistributeWidth(): void;
+        Height: number;
+        HeightRule: WdRowHeightRule;
+        Item(Index: number): Cell;
+        Merge(): void;
+        readonly NestingLevel: number;
+        readonly Parent: any;
+        PreferredWidth: number;
+        PreferredWidthType: WdPreferredWidthType;
+        SetHeight(RowHeight: any, HeightRule: WdRowHeightRule): void;
+        SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
+        readonly Shading: Shading;
+        Split(NumRows?: any, NumColumns?: any, MergeBeforeSplit?: any): void;
+        VerticalAlignment: WdCellVerticalAlignment;
+        Width: number;
     }
 
     class Characters {
         private 'Word.Characters_typekey': Characters;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly First: Range;
-        public Item(Index: number): Range;
-        public readonly Last: Range;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly First: Range;
+        Item(Index: number): Range;
+        readonly Last: Range;
+        readonly Parent: any;
     }
 
     class Chart {
         private 'Word.Chart_typekey': Chart;
         private constructor();
-        public readonly Application: any;
-        public ApplyChartTemplate(FileName: string): void;
-        public ApplyCustomType(ChartType: Office.XlChartType, TypeName?: any): void;
+        readonly Application: any;
+        ApplyChartTemplate(FileName: string): void;
+        ApplyCustomType(ChartType: Office.XlChartType, TypeName?: any): void;
 
         /** @param Word.XlDataLabelsType [Type=2] */
-        public ApplyDataLabels(
+        ApplyDataLabels(
             Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any,
             ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
-        public ApplyLayout(Layout: number, ChartType?: any): void;
-        public readonly Area3DGroup: ChartGroup;
-        public AreaGroups(Index?: any): any;
-        public AutoFormat(Gallery: number, Format?: any): void;
-        public AutoScaling: boolean;
+        ApplyLayout(Layout: number, ChartType?: any): void;
+        readonly Area3DGroup: ChartGroup;
+        AreaGroups(Index?: any): any;
+        AutoFormat(Gallery: number, Format?: any): void;
+        AutoScaling: boolean;
 
         /** @param Word.XlAxisGroup [AxisGroup=1] */
-        public Axes(Type: any, AxisGroup?: XlAxisGroup): any;
-        public readonly BackWall: Walls;
-        public readonly Bar3DGroup: ChartGroup;
-        public BarGroups(Index?: any): any;
-        public BarShape: XlBarShape;
-        public readonly ChartArea: ChartArea;
-        public readonly ChartData: ChartData;
-        public ChartGroups(Index?: any): any;
-        public ChartStyle: any;
-        public readonly ChartTitle: ChartTitle;
-        public ChartType: Office.XlChartType;
-        public ChartWizard(
+        Axes(Type: any, AxisGroup?: XlAxisGroup): any;
+        readonly BackWall: Walls;
+        readonly Bar3DGroup: ChartGroup;
+        BarGroups(Index?: any): any;
+        BarShape: XlBarShape;
+        readonly ChartArea: ChartArea;
+        readonly ChartData: ChartData;
+        ChartGroups(Index?: any): any;
+        ChartStyle: any;
+        readonly ChartTitle: ChartTitle;
+        ChartType: Office.XlChartType;
+        ChartWizard(
             Source?: any, Gallery?: any, Format?: any, PlotBy?: any, CategoryLabels?: any, SeriesLabels?: any, HasLegend?: any, Title?: any, CategoryTitle?: any,
             ValueTitle?: any, ExtraTitle?: any): void;
-        public ClearToMatchStyle(): void;
-        public readonly Column3DGroup: ChartGroup;
-        public ColumnGroups(Index?: any): any;
-        public Copy(Before?: any, After?: any): void;
+        ClearToMatchStyle(): void;
+        readonly Column3DGroup: ChartGroup;
+        ColumnGroups(Index?: any): any;
+        Copy(Before?: any, After?: any): void;
 
         /**
          * @param Word.XlPictureAppearance [Appearance=1]
          * @param Word.XlCopyPictureFormat [Format=-4147]
          * @param Word.XlPictureAppearance [Size=2]
          */
-        public CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance): void;
-        public readonly Corners: Corners;
-        public readonly Creator: number;
-        public readonly DataTable: DataTable;
-        public Delete(): any;
-        public DepthPercent: number;
-        public DisplayBlanksAs: XlDisplayBlanksAs;
-        public DoughnutGroups(Index?: any): any;
-        public Elevation: number;
-        public Export(FileName: string, FilterName?: any, Interactive?: any): boolean;
-        public readonly Floor: Floor;
-        public GapDepth: number;
-        public GetChartElement(x: number, y: number, ElementID: number, Arg1: number, Arg2: number): void;
-        public HasAxis(Index1?: any, Index2?: any): any;
-        public HasDataTable: boolean;
-        public HasLegend: boolean;
-        public HasPivotFields: boolean;
-        public HasTitle: boolean;
-        public HeightPercent: number;
-        public readonly Legend: Legend;
-        public readonly Line3DGroup: ChartGroup;
-        public LineGroups(Index?: any): any;
-        public readonly Parent: any;
-        public Paste(Type?: any): void;
-        public Perspective: number;
-        public readonly Pie3DGroup: ChartGroup;
-        public PieGroups(Index?: any): any;
-        public readonly PivotLayout: any;
-        public readonly PlotArea: PlotArea;
-        public PlotBy: XlRowCol;
-        public PlotVisibleOnly: boolean;
-        public RadarGroups(Index?: any): any;
-        public Refresh(): void;
-        public RightAngleAxes: any;
-        public Rotation: any;
-        public SaveChartTemplate(FileName: string): void;
-        public Select(Replace?: any): any;
-        public SeriesCollection(Index?: any): any;
-        public SetBackgroundPicture(FileName: string): void;
-        public SetDefaultChart(Name: any): void;
-        public SetElement(Element: Office.MsoChartElementType): void;
-        public SetSourceData(Source: string, PlotBy?: any): void;
-        public readonly Shapes: any;
-        public ShowAllFieldButtons: boolean;
-        public ShowAxisFieldButtons: boolean;
-        public ShowDataLabelsOverMaximum: boolean;
-        public ShowLegendFieldButtons: boolean;
-        public ShowReportFilterFieldButtons: boolean;
-        public ShowValueFieldButtons: boolean;
-        public readonly SideWall: Walls;
-        public SubType: number;
-        public readonly SurfaceGroup: ChartGroup;
-        public Type: number;
-        public readonly Walls: Walls;
-        public XYGroups(Index?: any): any;
+        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance): void;
+        readonly Corners: Corners;
+        readonly Creator: number;
+        readonly DataTable: DataTable;
+        Delete(): any;
+        DepthPercent: number;
+        DisplayBlanksAs: XlDisplayBlanksAs;
+        DoughnutGroups(Index?: any): any;
+        Elevation: number;
+        Export(FileName: string, FilterName?: any, Interactive?: any): boolean;
+        readonly Floor: Floor;
+        GapDepth: number;
+        GetChartElement(x: number, y: number, ElementID: number, Arg1: number, Arg2: number): void;
+        HasAxis(Index1?: any, Index2?: any): any;
+        HasDataTable: boolean;
+        HasLegend: boolean;
+        HasPivotFields: boolean;
+        HasTitle: boolean;
+        HeightPercent: number;
+        readonly Legend: Legend;
+        readonly Line3DGroup: ChartGroup;
+        LineGroups(Index?: any): any;
+        readonly Parent: any;
+        Paste(Type?: any): void;
+        Perspective: number;
+        readonly Pie3DGroup: ChartGroup;
+        PieGroups(Index?: any): any;
+        readonly PivotLayout: any;
+        readonly PlotArea: PlotArea;
+        PlotBy: XlRowCol;
+        PlotVisibleOnly: boolean;
+        RadarGroups(Index?: any): any;
+        Refresh(): void;
+        RightAngleAxes: any;
+        Rotation: any;
+        SaveChartTemplate(FileName: string): void;
+        Select(Replace?: any): any;
+        SeriesCollection(Index?: any): any;
+        SetBackgroundPicture(FileName: string): void;
+        SetDefaultChart(Name: any): void;
+        SetElement(Element: Office.MsoChartElementType): void;
+        SetSourceData(Source: string, PlotBy?: any): void;
+        readonly Shapes: any;
+        ShowAllFieldButtons: boolean;
+        ShowAxisFieldButtons: boolean;
+        ShowDataLabelsOverMaximum: boolean;
+        ShowLegendFieldButtons: boolean;
+        ShowReportFilterFieldButtons: boolean;
+        ShowValueFieldButtons: boolean;
+        readonly SideWall: Walls;
+        SubType: number;
+        readonly SurfaceGroup: ChartGroup;
+        Type: number;
+        readonly Walls: Walls;
+        XYGroups(Index?: any): any;
     }
 
     class ChartArea {
         private 'Word.ChartArea_typekey': ChartArea;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public Clear(): any;
-        public ClearContents(): any;
-        public ClearFormats(): any;
-        public Copy(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        Clear(): any;
+        ClearContents(): any;
+        ClearFormats(): any;
+        Copy(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        Height: number;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class ChartBorder {
         private 'Word.ChartBorder_typekey': ChartBorder;
         private constructor();
-        public readonly Application: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public LineStyle: any;
-        public readonly Parent: any;
-        public Weight: any;
+        readonly Application: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        LineStyle: any;
+        readonly Parent: any;
+        Weight: any;
     }
 
     class ChartCharacters {
         private 'Word.ChartCharacters_typekey': ChartCharacters;
         private constructor();
-        public readonly Application: any;
-        public Caption: string;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Font: ChartFont;
-        public Insert(String: string): any;
-        public readonly Parent: any;
-        public PhoneticCharacters: string;
-        public Text: string;
+        readonly Application: any;
+        Caption: string;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Font: ChartFont;
+        Insert(String: string): any;
+        readonly Parent: any;
+        PhoneticCharacters: string;
+        Text: string;
     }
 
     class ChartColorFormat {
         private 'Word.ChartColorFormat_typekey': ChartColorFormat;
         private constructor();
-        public readonly _Default: number;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public readonly RGB: number;
-        public SchemeColor: number;
-        public readonly Type: number;
+        readonly _Default: number;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Parent: any;
+        readonly RGB: number;
+        SchemeColor: number;
+        readonly Type: number;
     }
 
     class ChartData {
         private 'Word.ChartData_typekey': ChartData;
         private constructor();
-        public Activate(): void;
-        public BreakLink(): void;
-        public readonly IsLinked: boolean;
-        public readonly Workbook: any;
+        Activate(): void;
+        BreakLink(): void;
+        readonly IsLinked: boolean;
+        readonly Workbook: any;
     }
 
     class ChartFillFormat {
         private 'Word.ChartFillFormat_typekey': ChartFillFormat;
         private constructor();
-        public readonly Application: any;
-        public readonly BackColor: ChartColorFormat;
-        public readonly Creator: number;
-        public readonly ForeColor: ChartColorFormat;
-        public readonly GradientColorType: Office.MsoGradientColorType;
-        public readonly GradientDegree: number;
-        public readonly GradientStyle: Office.MsoGradientStyle;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: Office.MsoPatternType;
-        public Patterned(Pattern: Office.MsoPatternType): void;
-        public PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
-        public readonly PresetGradientType: Office.MsoPresetGradientType;
-        public readonly PresetTexture: Office.MsoPresetTexture;
-        public PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
-        public Solid(): void;
-        public readonly TextureName: string;
-        public readonly TextureType: Office.MsoTextureType;
-        public TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
-        public readonly Type: Office.MsoFillType;
-        public UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: Office.MsoTriState;
+        readonly Application: any;
+        readonly BackColor: ChartColorFormat;
+        readonly Creator: number;
+        readonly ForeColor: ChartColorFormat;
+        readonly GradientColorType: Office.MsoGradientColorType;
+        readonly GradientDegree: number;
+        readonly GradientStyle: Office.MsoGradientStyle;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: Office.MsoPatternType;
+        Patterned(Pattern: Office.MsoPatternType): void;
+        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        readonly PresetGradientType: Office.MsoPresetGradientType;
+        readonly PresetTexture: Office.MsoPresetTexture;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
+        Solid(): void;
+        readonly TextureName: string;
+        readonly TextureType: Office.MsoTextureType;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
+        readonly Type: Office.MsoFillType;
+        UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any): void;
+        UserTextured(TextureFile: string): void;
+        Visible: Office.MsoTriState;
     }
 
     class ChartFont {
         private 'Word.ChartFont_typekey': ChartFont;
         private constructor();
-        public readonly Application: any;
-        public Background: any;
-        public Bold: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public FontStyle: any;
-        public Italic: any;
-        public Name: any;
-        public OutlineFont: any;
-        public readonly Parent: any;
-        public Shadow: any;
-        public Size: any;
-        public StrikeThrough: any;
-        public Subscript: any;
-        public Superscript: any;
-        public Underline: any;
+        readonly Application: any;
+        Background: any;
+        Bold: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        FontStyle: any;
+        Italic: any;
+        Name: any;
+        OutlineFont: any;
+        readonly Parent: any;
+        Shadow: any;
+        Size: any;
+        StrikeThrough: any;
+        Subscript: any;
+        Superscript: any;
+        Underline: any;
     }
 
     class ChartFormat {
         private 'Word.ChartFormat_typekey': ChartFormat;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Fill: FillFormat;
-        public readonly Glow: GlowFormat;
-        public readonly Line: LineFormat;
-        public readonly Parent: any;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Shadow: ShadowFormat;
-        public readonly SoftEdge: SoftEdgeFormat;
-        public readonly TextFrame2: Office.TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Fill: FillFormat;
+        readonly Glow: GlowFormat;
+        readonly Line: LineFormat;
+        readonly Parent: any;
+        readonly PictureFormat: PictureFormat;
+        readonly Shadow: ShadowFormat;
+        readonly SoftEdge: SoftEdgeFormat;
+        readonly TextFrame2: Office.TextFrame2;
+        readonly ThreeD: ThreeDFormat;
     }
 
     class ChartGroup {
         private 'Word.ChartGroup_typekey': ChartGroup;
         private constructor();
-        public readonly Application: any;
-        public AxisGroup: XlAxisGroup;
-        public BubbleScale: number;
-        public readonly Creator: number;
-        public DoughnutHoleSize: number;
-        public readonly DownBars: DownBars;
-        public readonly DropLines: DropLines;
-        public FirstSliceAngle: number;
-        public GapWidth: number;
-        public Has3DShading: boolean;
-        public HasDropLines: boolean;
-        public HasHiLoLines: boolean;
-        public HasRadarAxisLabels: boolean;
-        public HasSeriesLines: boolean;
-        public HasUpDownBars: boolean;
-        public readonly HiLoLines: HiLoLines;
-        public readonly Index: number;
-        public Overlap: number;
-        public readonly Parent: any;
-        public readonly RadarAxisLabels: TickLabels;
-        public SecondPlotSize: number;
-        public SeriesCollection(Index?: any): any;
-        public readonly SeriesLines: SeriesLines;
-        public ShowNegativeBubbles: boolean;
-        public SizeRepresents: XlSizeRepresents;
-        public SplitType: XlChartSplitType;
-        public SplitValue: any;
-        public SubType: number;
-        public Type: number;
-        public readonly UpBars: UpBars;
-        public VaryByCategories: boolean;
+        readonly Application: any;
+        AxisGroup: XlAxisGroup;
+        BubbleScale: number;
+        readonly Creator: number;
+        DoughnutHoleSize: number;
+        readonly DownBars: DownBars;
+        readonly DropLines: DropLines;
+        FirstSliceAngle: number;
+        GapWidth: number;
+        Has3DShading: boolean;
+        HasDropLines: boolean;
+        HasHiLoLines: boolean;
+        HasRadarAxisLabels: boolean;
+        HasSeriesLines: boolean;
+        HasUpDownBars: boolean;
+        readonly HiLoLines: HiLoLines;
+        readonly Index: number;
+        Overlap: number;
+        readonly Parent: any;
+        readonly RadarAxisLabels: TickLabels;
+        SecondPlotSize: number;
+        SeriesCollection(Index?: any): any;
+        readonly SeriesLines: SeriesLines;
+        ShowNegativeBubbles: boolean;
+        SizeRepresents: XlSizeRepresents;
+        SplitType: XlChartSplitType;
+        SplitValue: any;
+        SubType: number;
+        Type: number;
+        readonly UpBars: UpBars;
+        VaryByCategories: boolean;
     }
 
     class ChartTitle {
         private 'Word.ChartTitle_typekey': ChartTitle;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public Caption: string;
-        public Characters(Start?: any, Length?: any): ChartCharacters;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public Formula: string;
-        public FormulaLocal: string;
-        public FormulaR1C1: string;
-        public FormulaR1C1Local: string;
-        public readonly Height: number;
-        public HorizontalAlignment: any;
-        public IncludeInLayout: boolean;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public Orientation: any;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public ReadingOrder: number;
-        public Select(): any;
-        public Shadow: boolean;
-        public Text: string;
-        public Top: number;
-        public VerticalAlignment: any;
-        public readonly Width: number;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        Caption: string;
+        Characters(Start?: any, Length?: any): ChartCharacters;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        Formula: string;
+        FormulaLocal: string;
+        FormulaR1C1: string;
+        FormulaR1C1Local: string;
+        readonly Height: number;
+        HorizontalAlignment: any;
+        IncludeInLayout: boolean;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        Orientation: any;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        ReadingOrder: number;
+        Select(): any;
+        Shadow: boolean;
+        Text: string;
+        Top: number;
+        VerticalAlignment: any;
+        readonly Width: number;
     }
 
     class CheckBox {
         private 'Word.CheckBox_typekey': CheckBox;
         private constructor();
-        public readonly Application: Application;
-        public AutoSize: boolean;
-        public readonly Creator: number;
-        public Default: boolean;
-        public readonly Parent: any;
-        public Size: number;
-        public readonly Valid: boolean;
-        public Value: boolean;
+        readonly Application: Application;
+        AutoSize: boolean;
+        readonly Creator: number;
+        Default: boolean;
+        readonly Parent: any;
+        Size: number;
+        readonly Valid: boolean;
+        Value: boolean;
     }
 
     class CoAuthLock {
         private 'Word.CoAuthLock_typekey': CoAuthLock;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly HeaderFooter: boolean;
-        public readonly Owner: CoAuthor;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly Type: WdLockType;
-        public Unlock(): void;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly HeaderFooter: boolean;
+        readonly Owner: CoAuthor;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly Type: WdLockType;
+        Unlock(): void;
     }
 
     class CoAuthLocks {
@@ -5889,285 +5889,285 @@ declare namespace Word {
         private constructor();
 
         /** @param Word.WdLockType [Type=1] */
-        public Add(Range: any, Type?: WdLockType): CoAuthLock;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): CoAuthLock;
-        public readonly Parent: any;
-        public RemoveEphemeralLocks(): void;
+        Add(Range: any, Type?: WdLockType): CoAuthLock;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): CoAuthLock;
+        readonly Parent: any;
+        RemoveEphemeralLocks(): void;
     }
 
     class CoAuthor {
         private 'Word.CoAuthor_typekey': CoAuthor;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly EmailAddress: string;
-        public readonly ID: string;
-        public readonly IsMe: boolean;
-        public readonly Locks: CoAuthLocks;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly EmailAddress: string;
+        readonly ID: string;
+        readonly IsMe: boolean;
+        readonly Locks: CoAuthLocks;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class CoAuthoring {
         private 'Word.CoAuthoring_typekey': CoAuthoring;
         private constructor();
-        public readonly Application: Application;
-        public readonly Authors: CoAuthors;
-        public readonly CanMerge: boolean;
-        public readonly CanShare: boolean;
-        public readonly Conflicts: Conflicts;
-        public readonly Creator: number;
-        public readonly Locks: CoAuthLocks;
-        public readonly Me: CoAuthor;
-        public readonly Parent: any;
-        public readonly PendingUpdates: boolean;
-        public readonly Updates: CoAuthUpdates;
+        readonly Application: Application;
+        readonly Authors: CoAuthors;
+        readonly CanMerge: boolean;
+        readonly CanShare: boolean;
+        readonly Conflicts: Conflicts;
+        readonly Creator: number;
+        readonly Locks: CoAuthLocks;
+        readonly Me: CoAuthor;
+        readonly Parent: any;
+        readonly PendingUpdates: boolean;
+        readonly Updates: CoAuthUpdates;
     }
 
     class CoAuthors {
         private 'Word.CoAuthors_typekey': CoAuthors;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CoAuthor;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CoAuthor;
+        readonly Parent: any;
     }
 
     class CoAuthUpdate {
         private 'Word.CoAuthUpdate_typekey': CoAuthUpdate;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Parent: any;
+        readonly Range: Range;
     }
 
     class CoAuthUpdates {
         private 'Word.CoAuthUpdates_typekey': CoAuthUpdates;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): CoAuthUpdate;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): CoAuthUpdate;
+        readonly Parent: any;
     }
 
     class ColorFormat {
         private 'Word.ColorFormat_typekey': ColorFormat;
         private constructor();
-        public readonly Application: Application;
-        public Black: number;
-        public Brightness: number;
-        public readonly Creator: number;
-        public Cyan: number;
-        public Ink(Index: number): number;
-        public Magenta: number;
-        public Name: string;
-        public ObjectThemeColor: WdThemeColorIndex;
-        public OverPrint: Office.MsoTriState;
-        public readonly Parent: any;
-        public RGB: number;
-        public SchemeColor: number;
-        public SetCMYK(Cyan: number, Magenta: number, Yellow: number, Black: number): void;
-        public TintAndShade: number;
-        public readonly Type: Office.MsoColorType;
-        public Yellow: number;
+        readonly Application: Application;
+        Black: number;
+        Brightness: number;
+        readonly Creator: number;
+        Cyan: number;
+        Ink(Index: number): number;
+        Magenta: number;
+        Name: string;
+        ObjectThemeColor: WdThemeColorIndex;
+        OverPrint: Office.MsoTriState;
+        readonly Parent: any;
+        RGB: number;
+        SchemeColor: number;
+        SetCMYK(Cyan: number, Magenta: number, Yellow: number, Black: number): void;
+        TintAndShade: number;
+        readonly Type: Office.MsoColorType;
+        Yellow: number;
     }
 
     class Column {
         private 'Word.Column_typekey': Column;
         private constructor();
-        public readonly Application: Application;
-        public AutoFit(): void;
-        public Borders: Borders;
-        public readonly Cells: Cells;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly IsFirst: boolean;
-        public readonly IsLast: boolean;
-        public readonly NestingLevel: number;
-        public readonly Next: Column;
-        public readonly Parent: any;
-        public PreferredWidth: number;
-        public PreferredWidthType: WdPreferredWidthType;
-        public readonly Previous: Column;
-        public Select(): void;
-        public SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
-        public readonly Shading: Shading;
-        public Sort(
+        readonly Application: Application;
+        AutoFit(): void;
+        Borders: Borders;
+        readonly Cells: Cells;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly IsFirst: boolean;
+        readonly IsLast: boolean;
+        readonly NestingLevel: number;
+        readonly Next: Column;
+        readonly Parent: any;
+        PreferredWidth: number;
+        PreferredWidthType: WdPreferredWidthType;
+        readonly Previous: Column;
+        Select(): void;
+        SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
+        readonly Shading: Shading;
+        Sort(
             ExcludeHeader?: any, SortFieldType?: any, SortOrder?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any, IgnoreDiacritics?: any,
             IgnoreHe?: any, LanguageID?: any): void;
-        public SortOld(ExcludeHeader?: any, SortFieldType?: any, SortOrder?: any, CaseSensitive?: any, LanguageID?: any): void;
-        public Width: number;
+        SortOld(ExcludeHeader?: any, SortFieldType?: any, SortOrder?: any, CaseSensitive?: any, LanguageID?: any): void;
+        Width: number;
     }
 
     class Columns {
         private 'Word.Columns_typekey': Columns;
         private constructor();
-        public Add(BeforeColumn?: any): Column;
-        public readonly Application: Application;
-        public AutoFit(): void;
-        public Borders: Borders;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public DistributeWidth(): void;
-        public readonly First: Column;
-        public Item(Index: number): Column;
-        public readonly Last: Column;
-        public readonly NestingLevel: number;
-        public readonly Parent: any;
-        public PreferredWidth: number;
-        public PreferredWidthType: WdPreferredWidthType;
-        public Select(): void;
-        public SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
-        public readonly Shading: Shading;
-        public Width: number;
+        Add(BeforeColumn?: any): Column;
+        readonly Application: Application;
+        AutoFit(): void;
+        Borders: Borders;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): void;
+        DistributeWidth(): void;
+        readonly First: Column;
+        Item(Index: number): Column;
+        readonly Last: Column;
+        readonly NestingLevel: number;
+        readonly Parent: any;
+        PreferredWidth: number;
+        PreferredWidthType: WdPreferredWidthType;
+        Select(): void;
+        SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
+        readonly Shading: Shading;
+        Width: number;
     }
 
     class Comment {
         private 'Word.Comment_typekey': Comment;
         private constructor();
-        public readonly Application: Application;
-        public Author: string;
-        public readonly Creator: number;
-        public readonly Date: VarDate;
-        public Delete(): void;
-        public Edit(): void;
-        public readonly Index: number;
-        public Initial: string;
-        public readonly IsInk: boolean;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly Reference: Range;
-        public readonly Scope: Range;
-        public ShowTip: boolean;
+        readonly Application: Application;
+        Author: string;
+        readonly Creator: number;
+        readonly Date: VarDate;
+        Delete(): void;
+        Edit(): void;
+        readonly Index: number;
+        Initial: string;
+        readonly IsInk: boolean;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly Reference: Range;
+        readonly Scope: Range;
+        ShowTip: boolean;
     }
 
     class Comments {
         private 'Word.Comments_typekey': Comments;
         private constructor();
-        public Add(Range: Range, Text?: any): Comment;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Comment;
-        public readonly Parent: any;
-        public ShowBy: string;
+        Add(Range: Range, Text?: any): Comment;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Comment;
+        readonly Parent: any;
+        ShowBy: string;
     }
 
     class ConditionalStyle {
         private 'Word.ConditionalStyle_typekey': ConditionalStyle;
         private constructor();
-        public readonly Application: Application;
-        public Borders: Borders;
-        public BottomPadding: number;
-        public readonly Creator: number;
-        public Font: Font;
-        public LeftPadding: number;
-        public ParagraphFormat: ParagraphFormat;
-        public readonly Parent: any;
-        public RightPadding: number;
-        public readonly Shading: Shading;
-        public TopPadding: number;
+        readonly Application: Application;
+        Borders: Borders;
+        BottomPadding: number;
+        readonly Creator: number;
+        Font: Font;
+        LeftPadding: number;
+        ParagraphFormat: ParagraphFormat;
+        readonly Parent: any;
+        RightPadding: number;
+        readonly Shading: Shading;
+        TopPadding: number;
     }
 
     class Conflict {
         private 'Word.Conflict_typekey': Conflict;
         private constructor();
-        public Accept(): void;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Index: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public Reject(): void;
-        public readonly Type: WdRevisionType;
+        Accept(): void;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Index: number;
+        readonly Parent: any;
+        readonly Range: Range;
+        Reject(): void;
+        readonly Type: WdRevisionType;
     }
 
     class Conflicts {
         private 'Word.Conflicts_typekey': Conflicts;
         private constructor();
-        public AcceptAll(): void;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Conflict;
-        public readonly Parent: any;
-        public RejectAll(): void;
+        AcceptAll(): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Conflict;
+        readonly Parent: any;
+        RejectAll(): void;
     }
 
     class ConnectorFormat {
         private 'Word.ConnectorFormat_typekey': ConnectorFormat;
         private constructor();
-        public readonly Application: Application;
-        public BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly BeginConnected: Office.MsoTriState;
-        public readonly BeginConnectedShape: Shape;
-        public readonly BeginConnectionSite: number;
-        public BeginDisconnect(): void;
-        public readonly Creator: number;
-        public EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly EndConnected: Office.MsoTriState;
-        public readonly EndConnectedShape: Shape;
-        public readonly EndConnectionSite: number;
-        public EndDisconnect(): void;
-        public readonly Parent: any;
-        public Type: Office.MsoConnectorType;
+        readonly Application: Application;
+        BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly BeginConnected: Office.MsoTriState;
+        readonly BeginConnectedShape: Shape;
+        readonly BeginConnectionSite: number;
+        BeginDisconnect(): void;
+        readonly Creator: number;
+        EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly EndConnected: Office.MsoTriState;
+        readonly EndConnectedShape: Shape;
+        readonly EndConnectionSite: number;
+        EndDisconnect(): void;
+        readonly Parent: any;
+        Type: Office.MsoConnectorType;
     }
 
     class ContentControl {
         private 'Word.ContentControl_typekey': ContentControl;
         private constructor();
-        public readonly Application: Application;
-        public BuildingBlockCategory: string;
-        public BuildingBlockType: WdBuildingBlockTypes;
-        public Checked: boolean;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public DateCalendarType: WdCalendarType;
-        public DateDisplayFormat: string;
-        public DateDisplayLocale: WdLanguageID;
-        public DateStorageFormat: WdContentControlDateStorageFormat;
-        public DefaultTextStyle: any;
+        readonly Application: Application;
+        BuildingBlockCategory: string;
+        BuildingBlockType: WdBuildingBlockTypes;
+        Checked: boolean;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        DateCalendarType: WdCalendarType;
+        DateDisplayFormat: string;
+        DateDisplayLocale: WdLanguageID;
+        DateStorageFormat: WdContentControlDateStorageFormat;
+        DefaultTextStyle: any;
 
         /** @param boolean [DeleteContents=false] */
-        public Delete(DeleteContents?: boolean): void;
-        public readonly DropdownListEntries: ContentControlListEntries;
-        public readonly ID: string;
-        public LockContentControl: boolean;
-        public LockContents: boolean;
-        public MultiLine: boolean;
-        public readonly Parent: any;
-        public readonly ParentContentControl: ContentControl;
-        public readonly PlaceholderText: BuildingBlock;
-        public readonly Range: Range;
+        Delete(DeleteContents?: boolean): void;
+        readonly DropdownListEntries: ContentControlListEntries;
+        readonly ID: string;
+        LockContentControl: boolean;
+        LockContents: boolean;
+        MultiLine: boolean;
+        readonly Parent: any;
+        readonly ParentContentControl: ContentControl;
+        readonly PlaceholderText: BuildingBlock;
+        readonly Range: Range;
 
         /** @param string [Font=''] */
-        public SetCheckedSymbol(CharacterNumber: number, Font?: string): void;
+        SetCheckedSymbol(CharacterNumber: number, Font?: string): void;
 
         /**
          * @param Word.BuildingBlock [BuildingBlock=0]
          * @param Word.Range [Range=0]
          * @param string [Text='']
          */
-        public SetPlaceholderText(BuildingBlock?: BuildingBlock, Range?: Range, Text?: string): void;
+        SetPlaceholderText(BuildingBlock?: BuildingBlock, Range?: Range, Text?: string): void;
 
         /** @param string [Font=''] */
-        public SetUncheckedSymbol(CharacterNumber: number, Font?: string): void;
-        public readonly ShowingPlaceholderText: boolean;
-        public Tag: string;
-        public Temporary: boolean;
-        public Title: string;
-        public Type: WdContentControlType;
-        public Ungroup(): void;
-        public readonly XMLMapping: XMLMapping;
+        SetUncheckedSymbol(CharacterNumber: number, Font?: string): void;
+        readonly ShowingPlaceholderText: boolean;
+        Tag: string;
+        Temporary: boolean;
+        Title: string;
+        Type: WdContentControlType;
+        Ungroup(): void;
+        readonly XMLMapping: XMLMapping;
     }
 
     class ContentControlListEntries {
@@ -6178,28 +6178,28 @@ declare namespace Word {
          * @param string [Value='']
          * @param number [Index=0]
          */
-        public Add(Text: string, Value?: string, Index?: number): ContentControlListEntry;
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): ContentControlListEntry;
-        public readonly Parent: any;
+        Add(Text: string, Value?: string, Index?: number): ContentControlListEntry;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): ContentControlListEntry;
+        readonly Parent: any;
     }
 
     class ContentControlListEntry {
         private 'Word.ContentControlListEntry_typekey': ContentControlListEntry;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Index: number;
-        public MoveDown(): void;
-        public MoveUp(): void;
-        public readonly Parent: any;
-        public Select(): void;
-        public Text: string;
-        public Value: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        Index: number;
+        MoveDown(): void;
+        MoveUp(): void;
+        readonly Parent: any;
+        Select(): void;
+        Text: string;
+        Value: string;
     }
 
     class ContentControls {
@@ -6207,136 +6207,136 @@ declare namespace Word {
         private constructor();
 
         /** @param Word.WdContentControlType [Type=0] */
-        public Add(Type?: WdContentControlType, Range?: any): ContentControl;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): ContentControl;
-        public readonly Parent: any;
+        Add(Type?: WdContentControlType, Range?: any): ContentControl;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): ContentControl;
+        readonly Parent: any;
     }
 
     class Corners {
         private 'Word.Corners_typekey': Corners;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class CustomLabel {
         private 'Word.CustomLabel_typekey': CustomLabel;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly DotMatrix: boolean;
-        public Height: number;
-        public HorizontalPitch: number;
-        public readonly Index: number;
-        public Name: string;
-        public NumberAcross: number;
-        public NumberDown: number;
-        public PageSize: WdCustomLabelPageSize;
-        public readonly Parent: any;
-        public SideMargin: number;
-        public TopMargin: number;
-        public readonly Valid: boolean;
-        public VerticalPitch: number;
-        public Width: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly DotMatrix: boolean;
+        Height: number;
+        HorizontalPitch: number;
+        readonly Index: number;
+        Name: string;
+        NumberAcross: number;
+        NumberDown: number;
+        PageSize: WdCustomLabelPageSize;
+        readonly Parent: any;
+        SideMargin: number;
+        TopMargin: number;
+        readonly Valid: boolean;
+        VerticalPitch: number;
+        Width: number;
     }
 
     class CustomLabels {
         private 'Word.CustomLabels_typekey': CustomLabels;
         private constructor();
-        public Add(Name: string, DotMatrix?: any): CustomLabel;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CustomLabel;
-        public readonly Parent: any;
+        Add(Name: string, DotMatrix?: any): CustomLabel;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CustomLabel;
+        readonly Parent: any;
     }
 
     class CustomProperties {
         private 'Word.CustomProperties_typekey': CustomProperties;
         private constructor();
-        public Add(Name: string, Value: string): CustomProperty;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CustomProperty;
-        public readonly Parent: any;
+        Add(Name: string, Value: string): CustomProperty;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CustomProperty;
+        readonly Parent: any;
     }
 
     class CustomProperty {
         private 'Word.CustomProperty_typekey': CustomProperty;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Value: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Name: string;
+        readonly Parent: any;
+        Value: string;
     }
 
     class DataTable {
         private 'Word.DataTable_typekey': DataTable;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public HasBorderHorizontal: boolean;
-        public HasBorderOutline: boolean;
-        public HasBorderVertical: boolean;
-        public readonly Parent: any;
-        public Select(): void;
-        public ShowLegendKey: boolean;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        HasBorderHorizontal: boolean;
+        HasBorderOutline: boolean;
+        HasBorderVertical: boolean;
+        readonly Parent: any;
+        Select(): void;
+        ShowLegendKey: boolean;
     }
 
     class DefaultWebOptions {
         private 'Word.DefaultWebOptions_typekey': DefaultWebOptions;
         private constructor();
-        public AllowPNG: boolean;
-        public AlwaysSaveInDefaultEncoding: boolean;
-        public readonly Application: Application;
-        public BrowserLevel: WdBrowserLevel;
-        public CheckIfOfficeIsHTMLEditor: boolean;
-        public CheckIfWordIsDefaultHTMLEditor: boolean;
-        public readonly Creator: number;
-        public Encoding: Office.MsoEncoding;
-        public readonly FolderSuffix: string;
-        public readonly Fonts: Office.WebPageFonts;
-        public OptimizeForBrowser: boolean;
-        public OrganizeInFolder: boolean;
-        public readonly Parent: any;
-        public PixelsPerInch: number;
-        public RelyOnCSS: boolean;
-        public RelyOnVML: boolean;
-        public SaveNewWebPagesAsWebArchives: boolean;
-        public ScreenSize: Office.MsoScreenSize;
-        public TargetBrowser: Office.MsoTargetBrowser;
-        public UpdateLinksOnSave: boolean;
-        public UseLongFileNames: boolean;
+        AllowPNG: boolean;
+        AlwaysSaveInDefaultEncoding: boolean;
+        readonly Application: Application;
+        BrowserLevel: WdBrowserLevel;
+        CheckIfOfficeIsHTMLEditor: boolean;
+        CheckIfWordIsDefaultHTMLEditor: boolean;
+        readonly Creator: number;
+        Encoding: Office.MsoEncoding;
+        readonly FolderSuffix: string;
+        readonly Fonts: Office.WebPageFonts;
+        OptimizeForBrowser: boolean;
+        OrganizeInFolder: boolean;
+        readonly Parent: any;
+        PixelsPerInch: number;
+        RelyOnCSS: boolean;
+        RelyOnVML: boolean;
+        SaveNewWebPagesAsWebArchives: boolean;
+        ScreenSize: Office.MsoScreenSize;
+        TargetBrowser: Office.MsoTargetBrowser;
+        UpdateLinksOnSave: boolean;
+        UseLongFileNames: boolean;
     }
 
     class Diagram {
         private 'Word.Diagram_typekey': Diagram;
         private constructor();
-        public readonly Application: Application;
-        public AutoFormat: Office.MsoTriState;
-        public AutoLayout: Office.MsoTriState;
-        public Convert(Type: Office.MsoDiagramType): void;
-        public readonly Creator: number;
-        public FitText(): void;
-        public readonly Nodes: DiagramNodes;
-        public readonly Parent: any;
-        public Reverse: Office.MsoTriState;
-        public readonly Type: Office.MsoDiagramType;
+        readonly Application: Application;
+        AutoFormat: Office.MsoTriState;
+        AutoLayout: Office.MsoTriState;
+        Convert(Type: Office.MsoDiagramType): void;
+        readonly Creator: number;
+        FitText(): void;
+        readonly Nodes: DiagramNodes;
+        readonly Parent: any;
+        Reverse: Office.MsoTriState;
+        readonly Type: Office.MsoDiagramType;
     }
 
     class DiagramNode {
@@ -6347,31 +6347,31 @@ declare namespace Word {
          * @param Office.MsoRelativeNodePosition [Pos=2]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        public AddNode(Pos?: Office.MsoRelativeNodePosition, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
-        public readonly Application: Application;
-        public readonly Children: DiagramNodeChildren;
+        AddNode(Pos?: Office.MsoRelativeNodePosition, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
+        readonly Application: Application;
+        readonly Children: DiagramNodeChildren;
 
         /**
          * @param Word.DiagramNode [TargetNode=0]
          * @param Office.MsoRelativeNodePosition [Pos=2]
          */
-        public CloneNode(copyChildren: boolean, TargetNode?: DiagramNode, Pos?: Office.MsoRelativeNodePosition): DiagramNode;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Diagram: Diagram;
-        public Layout: Office.MsoOrgChartLayoutType;
-        public MoveNode(TargetNode: DiagramNode, Pos: Office.MsoRelativeNodePosition): void;
-        public NextNode(): DiagramNode;
-        public readonly Parent: any;
-        public PrevNode(): DiagramNode;
-        public ReplaceNode(TargetNode: DiagramNode): void;
-        public readonly Root: DiagramNode;
-        public readonly Shape: Shape;
+        CloneNode(copyChildren: boolean, TargetNode?: DiagramNode, Pos?: Office.MsoRelativeNodePosition): DiagramNode;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Diagram: Diagram;
+        Layout: Office.MsoOrgChartLayoutType;
+        MoveNode(TargetNode: DiagramNode, Pos: Office.MsoRelativeNodePosition): void;
+        NextNode(): DiagramNode;
+        readonly Parent: any;
+        PrevNode(): DiagramNode;
+        ReplaceNode(TargetNode: DiagramNode): void;
+        readonly Root: DiagramNode;
+        readonly Shape: Shape;
 
         /** @param Office.MsoRelativeNodePosition [Pos=-1] */
-        public SwapNode(TargetNode: DiagramNode, Pos?: Office.MsoRelativeNodePosition): void;
-        public readonly TextShape: Shape;
-        public TransferChildren(ReceivingNode: DiagramNode): void;
+        SwapNode(TargetNode: DiagramNode, Pos?: Office.MsoRelativeNodePosition): void;
+        readonly TextShape: Shape;
+        TransferChildren(ReceivingNode: DiagramNode): void;
     }
 
     class DiagramNodeChildren {
@@ -6382,199 +6382,199 @@ declare namespace Word {
          * @param any [Index=-1]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        public AddNode(Index?: any, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly FirstChild: DiagramNode;
-        public Item(Index: any): DiagramNode;
-        public readonly LastChild: DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        AddNode(Index?: any, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly FirstChild: DiagramNode;
+        Item(Index: any): DiagramNode;
+        readonly LastChild: DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class DiagramNodes {
         private 'Word.DiagramNodes_typekey': DiagramNodes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class Dialog {
         private 'Word.Dialog_typekey': Dialog;
         private constructor();
-        public readonly Application: Application;
-        public readonly CommandBarId: number;
-        public readonly CommandName: string;
-        public readonly Creator: number;
-        public DefaultTab: WdWordDialogTab;
-        public Display(TimeOut?: number): number;
-        public Execute(): void;
-        public readonly Parent: any;
-        public Show(TimeOut?: any): number;
-        public readonly Type: WdWordDialog;
-        public Update(): void;
+        readonly Application: Application;
+        readonly CommandBarId: number;
+        readonly CommandName: string;
+        readonly Creator: number;
+        DefaultTab: WdWordDialogTab;
+        Display(TimeOut?: number): number;
+        Execute(): void;
+        readonly Parent: any;
+        Show(TimeOut?: any): number;
+        readonly Type: WdWordDialog;
+        Update(): void;
     }
 
     class Dialogs {
         private 'Word.Dialogs_typekey': Dialogs;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: WdWordDialog): Dialog;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: WdWordDialog): Dialog;
+        readonly Parent: any;
     }
 
     class Dictionaries {
         private 'Word.Dictionaries_typekey': Dictionaries;
         private constructor();
-        public ActiveCustomDictionary: Dictionary;
-        public Add(FileName: string): Dictionary;
-        public readonly Application: Application;
-        public ClearAll(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Dictionary;
-        public readonly Maximum: number;
-        public readonly Parent: any;
+        ActiveCustomDictionary: Dictionary;
+        Add(FileName: string): Dictionary;
+        readonly Application: Application;
+        ClearAll(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Dictionary;
+        readonly Maximum: number;
+        readonly Parent: any;
     }
 
     class Dictionary {
         private 'Word.Dictionary_typekey': Dictionary;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public LanguageID: WdLanguageID;
-        public LanguageSpecific: boolean;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public readonly ReadOnly: boolean;
-        public readonly Type: WdDictionaryType;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        LanguageID: WdLanguageID;
+        LanguageSpecific: boolean;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Path: string;
+        readonly ReadOnly: boolean;
+        readonly Type: WdDictionaryType;
     }
 
     class Document {
         private 'Word.Document_typekey': Document;
         private constructor();
-        public _CodeName: string;
-        public AcceptAllRevisions(): void;
-        public AcceptAllRevisionsShown(): void;
-        public Activate(): void;
-        public readonly ActiveTheme: string;
-        public readonly ActiveThemeDisplayName: string;
-        public readonly ActiveWindow: Window;
-        public ActiveWritingStyle(LanguageID: any): string;
-        public AddDocumentWorkspaceHeader(RichFormat: boolean, Url: string, Title: string, Description: string, ID: string): void;
-        public AddMeetingWorkspaceHeader(SkipIfAbsent: boolean, Url: string, Title: string, Description: string, ID: string): void;
-        public AddToFavorites(): void;
-        public readonly Application: Application;
-        public ApplyDocumentTheme(FileName: string): void;
-        public ApplyQuickStyleSet(Name: string): void;
-        public ApplyQuickStyleSet2(Style: any): void;
-        public ApplyTheme(Name: string): void;
-        public AttachedTemplate: Template;
-        public AutoFormat(): void;
-        public AutoFormatOverride: boolean;
-        public AutoHyphenation: boolean;
-        public AutoSummarize(Length?: any, Mode?: any, UpdateProperties?: any): Range;
-        public Background: Shape;
-        public readonly Bibliography: Bibliography;
-        public readonly Bookmarks: Bookmarks;
-        public readonly BuiltInDocumentProperties: Office.DocumentProperties<Application>;
-        public CanCheckin(): boolean;
-        public readonly Characters: Characters;
-        public CheckConsistency(): void;
-        public CheckGrammar(): void;
+        _CodeName: string;
+        AcceptAllRevisions(): void;
+        AcceptAllRevisionsShown(): void;
+        Activate(): void;
+        readonly ActiveTheme: string;
+        readonly ActiveThemeDisplayName: string;
+        readonly ActiveWindow: Window;
+        ActiveWritingStyle(LanguageID: any): string;
+        AddDocumentWorkspaceHeader(RichFormat: boolean, Url: string, Title: string, Description: string, ID: string): void;
+        AddMeetingWorkspaceHeader(SkipIfAbsent: boolean, Url: string, Title: string, Description: string, ID: string): void;
+        AddToFavorites(): void;
+        readonly Application: Application;
+        ApplyDocumentTheme(FileName: string): void;
+        ApplyQuickStyleSet(Name: string): void;
+        ApplyQuickStyleSet2(Style: any): void;
+        ApplyTheme(Name: string): void;
+        AttachedTemplate: Template;
+        AutoFormat(): void;
+        AutoFormatOverride: boolean;
+        AutoHyphenation: boolean;
+        AutoSummarize(Length?: any, Mode?: any, UpdateProperties?: any): Range;
+        Background: Shape;
+        readonly Bibliography: Bibliography;
+        readonly Bookmarks: Bookmarks;
+        readonly BuiltInDocumentProperties: Office.DocumentProperties<Application>;
+        CanCheckin(): boolean;
+        readonly Characters: Characters;
+        CheckConsistency(): void;
+        CheckGrammar(): void;
 
         /**
          * @param boolean [SaveChanges=true]
          * @param boolean [MakePublic=false]
          */
-        public CheckIn(SaveChanges?: boolean, Comments?: any, MakePublic?: boolean): void;
+        CheckIn(SaveChanges?: boolean, Comments?: any, MakePublic?: boolean): void;
 
         /**
          * @param boolean [SaveChanges=true]
          * @param boolean [MakePublic=false]
          */
-        public CheckInWithVersion(SaveChanges?: boolean, Comments?: any, MakePublic?: boolean, VersionType?: any): void;
-        public CheckNewSmartTags(): void;
-        public CheckSpelling(
+        CheckInWithVersion(SaveChanges?: boolean, Comments?: any, MakePublic?: boolean, VersionType?: any): void;
+        CheckNewSmartTags(): void;
+        CheckSpelling(
             CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
             CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): void;
-        public readonly ChildNodeSuggestions: XMLChildNodeSuggestions;
-        public ClickAndTypeParagraphStyle: any;
-        public Close(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
-        public ClosePrintPreview(): void;
-        public readonly CoAuthoring: CoAuthoring;
-        public readonly CodeName: string;
-        public readonly CommandBars: Office.CommandBars;
-        public readonly Comments: Comments;
-        public Compare(
+        readonly ChildNodeSuggestions: XMLChildNodeSuggestions;
+        ClickAndTypeParagraphStyle: any;
+        Close(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
+        ClosePrintPreview(): void;
+        readonly CoAuthoring: CoAuthoring;
+        readonly CodeName: string;
+        readonly CommandBars: Office.CommandBars;
+        readonly Comments: Comments;
+        Compare(
             Name: string, AuthorName?: any, CompareTarget?: any, DetectFormatChanges?: any, IgnoreAllComparisonWarnings?: any, AddToRecentFiles?: any,
             RemovePersonalInformation?: any, RemoveDateAndTime?: any): void;
-        public Compare2000(Name: string): void;
-        public Compare2002(Name: string, AuthorName?: any, CompareTarget?: any, DetectFormatChanges?: any, IgnoreAllComparisonWarnings?: any, AddToRecentFiles?: any): void;
-        public Compatibility(Type: WdCompatibility): boolean;
-        public readonly CompatibilityMode: number;
-        public ComputeStatistics(Statistic: WdStatistic, IncludeFootnotesAndEndnotes?: any): number;
-        public ConsecutiveHyphensLimit: number;
-        public readonly Container: any;
-        public readonly Content: Range;
-        public readonly ContentControls: ContentControls;
-        public readonly ContentTypeProperties: Office.MetaProperties;
-        public Convert(): void;
-        public ConvertAutoHyphens(): void;
-        public ConvertNumbersToText(NumberType?: any): void;
-        public ConvertVietDoc(CodePageOrigin: number): void;
-        public CopyStylesFromTemplate(Template: string): void;
-        public CountNumberedItems(NumberType?: any, Level?: any): number;
-        public CreateLetterContent(
+        Compare2000(Name: string): void;
+        Compare2002(Name: string, AuthorName?: any, CompareTarget?: any, DetectFormatChanges?: any, IgnoreAllComparisonWarnings?: any, AddToRecentFiles?: any): void;
+        Compatibility(Type: WdCompatibility): boolean;
+        readonly CompatibilityMode: number;
+        ComputeStatistics(Statistic: WdStatistic, IncludeFootnotesAndEndnotes?: any): number;
+        ConsecutiveHyphensLimit: number;
+        readonly Container: any;
+        readonly Content: Range;
+        readonly ContentControls: ContentControls;
+        readonly ContentTypeProperties: Office.MetaProperties;
+        Convert(): void;
+        ConvertAutoHyphens(): void;
+        ConvertNumbersToText(NumberType?: any): void;
+        ConvertVietDoc(CodePageOrigin: number): void;
+        CopyStylesFromTemplate(Template: string): void;
+        CountNumberedItems(NumberType?: any, Level?: any): number;
+        CreateLetterContent(
             DateFormat: string, IncludeHeaderFooter: boolean, PageDesign: string, LetterStyle: WdLetterStyle, Letterhead: boolean,
             LetterheadLocation: WdLetterheadLocation, LetterheadSize: number, RecipientName: string, RecipientAddress: string, Salutation: string,
             SalutationType: WdSalutationType, RecipientReference: string, MailingInstructions: string, AttentionLine: string, Subject: string, CCList: string,
             ReturnAddress: string, SenderName: string, Closing: string, SenderCompany: string, SenderJobTitle: string, SenderInitials: string, EnclosureNumber: number,
             InfoBlock?: any, RecipientCode?: any, RecipientGender?: any, ReturnAddressShortForm?: any, SenderCity?: any, SenderCode?: any, SenderGender?: any, SenderReference?: any): LetterContent;
-        public readonly Creator: number;
-        public readonly CurrentRsid: number;
-        public readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
-        public readonly CustomXMLParts: Office.CustomXMLParts;
-        public DataForm(): void;
-        public readonly DefaultTableStyle: any;
-        public DefaultTabStop: number;
-        public DefaultTargetFrame: string;
-        public DeleteAllComments(): void;
-        public DeleteAllCommentsShown(): void;
-        public DeleteAllEditableRanges(EditorID?: any): void;
-        public DeleteAllInkAnnotations(): void;
-        public DetectLanguage(): void;
-        public DisableFeatures: boolean;
-        public DisableFeaturesIntroducedAfter: WdDisableFeaturesIntroducedAfter;
-        public readonly DocID: number;
-        public readonly DocumentInspectors: Office.DocumentInspectors;
-        public readonly DocumentLibraryVersions: Office.DocumentLibraryVersions;
-        public readonly DocumentTheme: Office.OfficeTheme;
-        public DoNotEmbedSystemFonts: boolean;
-        public DowngradeDocument(): void;
-        public readonly Dummy1: undefined;
-        public Dummy2(): void;
-        public readonly Dummy3: undefined;
-        public Dummy4(): void;
-        public EditionOptions(Type: WdEditionType, Option: WdEditionOption, Name: string, Format?: any): void;
-        public readonly Email: Email;
-        public EmbedLinguisticData: boolean;
-        public EmbedSmartTags: boolean;
-        public EmbedTrueTypeFonts: boolean;
-        public EncryptionProvider: string;
-        public readonly Endnotes: Endnotes;
-        public EndReview(): void;
-        public EnforceStyle: boolean;
-        public readonly Envelope: Envelope;
+        readonly Creator: number;
+        readonly CurrentRsid: number;
+        readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
+        readonly CustomXMLParts: Office.CustomXMLParts;
+        DataForm(): void;
+        readonly DefaultTableStyle: any;
+        DefaultTabStop: number;
+        DefaultTargetFrame: string;
+        DeleteAllComments(): void;
+        DeleteAllCommentsShown(): void;
+        DeleteAllEditableRanges(EditorID?: any): void;
+        DeleteAllInkAnnotations(): void;
+        DetectLanguage(): void;
+        DisableFeatures: boolean;
+        DisableFeaturesIntroducedAfter: WdDisableFeaturesIntroducedAfter;
+        readonly DocID: number;
+        readonly DocumentInspectors: Office.DocumentInspectors;
+        readonly DocumentLibraryVersions: Office.DocumentLibraryVersions;
+        readonly DocumentTheme: Office.OfficeTheme;
+        DoNotEmbedSystemFonts: boolean;
+        DowngradeDocument(): void;
+        readonly Dummy1: undefined;
+        Dummy2(): void;
+        readonly Dummy3: undefined;
+        Dummy4(): void;
+        EditionOptions(Type: WdEditionType, Option: WdEditionOption, Name: string, Format?: any): void;
+        readonly Email: Email;
+        EmbedLinguisticData: boolean;
+        EmbedSmartTags: boolean;
+        EmbedTrueTypeFonts: boolean;
+        EncryptionProvider: string;
+        readonly Endnotes: Endnotes;
+        EndReview(): void;
+        EnforceStyle: boolean;
+        readonly Envelope: Envelope;
 
         /**
          * @param boolean [OpenAfterExport=false]
@@ -6590,1029 +6590,1029 @@ declare namespace Word {
          * @param boolean [BitmapMissingFonts=true]
          * @param boolean [UseISO19005_1=false]
          */
-        public ExportAsFixedFormat(
+        ExportAsFixedFormat(
             OutputFileName: string, ExportFormat: WdExportFormat, OpenAfterExport?: boolean, OptimizeFor?: WdExportOptimizeFor, Range?: WdExportRange, From?: number,
             To?: number, Item?: WdExportItem, IncludeDocProps?: boolean, KeepIRM?: boolean, CreateBookmarks?: WdExportCreateBookmarks, DocStructureTags?: boolean,
             BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, FixedFormatExtClassPtr?: any): void;
-        public FarEastLineBreakLanguage: WdFarEastLineBreakLanguageID;
-        public FarEastLineBreakLevel: WdFarEastLineBreakLevel;
-        public readonly Fields: Fields;
-        public Final: boolean;
-        public FitToPages(): void;
-        public FollowHyperlink(Address?: any, SubAddress?: any, NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
-        public readonly Footnotes: Footnotes;
-        public FormattingShowClear: boolean;
-        public FormattingShowFilter: WdShowFilter;
-        public FormattingShowFont: boolean;
-        public FormattingShowNextLevel: boolean;
-        public FormattingShowNumbering: boolean;
-        public FormattingShowParagraph: boolean;
-        public FormattingShowUserStyleName: boolean;
-        public readonly FormFields: FormFields;
-        public readonly FormsDesign: boolean;
-        public ForwardMailer(): void;
-        public readonly Frames: Frames;
-        public readonly Frameset: Frameset;
-        public FreezeLayout(): void;
-        public readonly FullName: string;
-        public GetCrossReferenceItems(ReferenceType: any): any;
-        public GetLetterContent(): LetterContent;
-        public GetWorkflowTasks(): Office.WorkflowTasks;
-        public GetWorkflowTemplates(): Office.WorkflowTemplates;
-        public GoTo(What?: any, Which?: any, Count?: any, Name?: any): Range;
-        public GrammarChecked: boolean;
-        public readonly GrammaticalErrors: ProofreadingErrors;
-        public GridDistanceHorizontal: number;
-        public GridDistanceVertical: number;
-        public GridOriginFromMargin: boolean;
-        public GridOriginHorizontal: number;
-        public GridOriginVertical: number;
-        public GridSpaceBetweenHorizontalLines: number;
-        public GridSpaceBetweenVerticalLines: number;
-        public HasMailer: boolean;
-        public readonly HasPassword: boolean;
-        public HasRoutingSlip: boolean;
-        public readonly HasVBProject: boolean;
-        public readonly HTMLDivisions: HTMLDivisions;
-        public readonly HTMLProject: Office.HTMLProject;
-        public readonly Hyperlinks: Hyperlinks;
-        public HyphenateCaps: boolean;
-        public HyphenationZone: number;
-        public readonly Indexes: Indexes;
-        public readonly InlineShapes: InlineShapes;
-        public readonly IsMasterDocument: boolean;
-        public readonly IsSubdocument: boolean;
-        public JustificationMode: WdJustificationMode;
-        public KerningByAlgorithm: boolean;
-        public Kind: WdDocumentKind;
-        public LanguageDetected: boolean;
-        public readonly ListParagraphs: ListParagraphs;
-        public readonly Lists: Lists;
-        public readonly ListTemplates: ListTemplates;
-        public LockQuickStyleSet: boolean;
-        public LockServerFile(): void;
-        public LockTheme: boolean;
-        public readonly MailEnvelope: Office.MsoEnvelope;
-        public readonly Mailer: Mailer;
-        public readonly MailMerge: MailMerge;
-        public MakeCompatibilityDefault(): void;
-        public ManualHyphenation(): void;
-        public Merge(FileName: string, MergeTarget?: any, DetectFormatChanges?: any, UseFormattingFrom?: any, AddToRecentFiles?: any): void;
-        public Merge2000(FileName: string): void;
-        public readonly Name: string;
-        public NoLineBreakAfter: string;
-        public NoLineBreakBefore: string;
-        public OMathBreakBin: WdOMathBreakBin;
-        public OMathBreakSub: WdOMathBreakSub;
-        public OMathFontName: string;
-        public OMathIntSubSupLim: boolean;
-        public OMathJc: WdOMathJc;
-        public OMathLeftMargin: number;
-        public OMathNarySupSubLim: boolean;
-        public OMathRightMargin: number;
-        public readonly OMaths: OMaths;
-        public OMathSmallFrac: boolean;
-        public OMathWrap: number;
-        public readonly OpenEncoding: Office.MsoEncoding;
-        public OptimizeForWord97: boolean;
-        public readonly OriginalDocumentTitle: string;
-        public PageSetup: PageSetup;
-        public readonly Paragraphs: Paragraphs;
-        public readonly Parent: any;
-        public readonly Password: string;
-        public readonly PasswordEncryptionAlgorithm: string;
-        public readonly PasswordEncryptionFileProperties: boolean;
-        public readonly PasswordEncryptionKeyLength: number;
-        public readonly PasswordEncryptionProvider: string;
-        public readonly Path: string;
-        public readonly Permission: Office.Permission;
-        public Post(): void;
-        public PresentIt(): void;
-        public PrintFormsData: boolean;
-        public PrintFractionalWidths: boolean;
-        public PrintOut(
+        FarEastLineBreakLanguage: WdFarEastLineBreakLanguageID;
+        FarEastLineBreakLevel: WdFarEastLineBreakLevel;
+        readonly Fields: Fields;
+        Final: boolean;
+        FitToPages(): void;
+        FollowHyperlink(Address?: any, SubAddress?: any, NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
+        readonly Footnotes: Footnotes;
+        FormattingShowClear: boolean;
+        FormattingShowFilter: WdShowFilter;
+        FormattingShowFont: boolean;
+        FormattingShowNextLevel: boolean;
+        FormattingShowNumbering: boolean;
+        FormattingShowParagraph: boolean;
+        FormattingShowUserStyleName: boolean;
+        readonly FormFields: FormFields;
+        readonly FormsDesign: boolean;
+        ForwardMailer(): void;
+        readonly Frames: Frames;
+        readonly Frameset: Frameset;
+        FreezeLayout(): void;
+        readonly FullName: string;
+        GetCrossReferenceItems(ReferenceType: any): any;
+        GetLetterContent(): LetterContent;
+        GetWorkflowTasks(): Office.WorkflowTasks;
+        GetWorkflowTemplates(): Office.WorkflowTemplates;
+        GoTo(What?: any, Which?: any, Count?: any, Name?: any): Range;
+        GrammarChecked: boolean;
+        readonly GrammaticalErrors: ProofreadingErrors;
+        GridDistanceHorizontal: number;
+        GridDistanceVertical: number;
+        GridOriginFromMargin: boolean;
+        GridOriginHorizontal: number;
+        GridOriginVertical: number;
+        GridSpaceBetweenHorizontalLines: number;
+        GridSpaceBetweenVerticalLines: number;
+        HasMailer: boolean;
+        readonly HasPassword: boolean;
+        HasRoutingSlip: boolean;
+        readonly HasVBProject: boolean;
+        readonly HTMLDivisions: HTMLDivisions;
+        readonly HTMLProject: Office.HTMLProject;
+        readonly Hyperlinks: Hyperlinks;
+        HyphenateCaps: boolean;
+        HyphenationZone: number;
+        readonly Indexes: Indexes;
+        readonly InlineShapes: InlineShapes;
+        readonly IsMasterDocument: boolean;
+        readonly IsSubdocument: boolean;
+        JustificationMode: WdJustificationMode;
+        KerningByAlgorithm: boolean;
+        Kind: WdDocumentKind;
+        LanguageDetected: boolean;
+        readonly ListParagraphs: ListParagraphs;
+        readonly Lists: Lists;
+        readonly ListTemplates: ListTemplates;
+        LockQuickStyleSet: boolean;
+        LockServerFile(): void;
+        LockTheme: boolean;
+        readonly MailEnvelope: Office.MsoEnvelope;
+        readonly Mailer: Mailer;
+        readonly MailMerge: MailMerge;
+        MakeCompatibilityDefault(): void;
+        ManualHyphenation(): void;
+        Merge(FileName: string, MergeTarget?: any, DetectFormatChanges?: any, UseFormattingFrom?: any, AddToRecentFiles?: any): void;
+        Merge2000(FileName: string): void;
+        readonly Name: string;
+        NoLineBreakAfter: string;
+        NoLineBreakBefore: string;
+        OMathBreakBin: WdOMathBreakBin;
+        OMathBreakSub: WdOMathBreakSub;
+        OMathFontName: string;
+        OMathIntSubSupLim: boolean;
+        OMathJc: WdOMathJc;
+        OMathLeftMargin: number;
+        OMathNarySupSubLim: boolean;
+        OMathRightMargin: number;
+        readonly OMaths: OMaths;
+        OMathSmallFrac: boolean;
+        OMathWrap: number;
+        readonly OpenEncoding: Office.MsoEncoding;
+        OptimizeForWord97: boolean;
+        readonly OriginalDocumentTitle: string;
+        PageSetup: PageSetup;
+        readonly Paragraphs: Paragraphs;
+        readonly Parent: any;
+        readonly Password: string;
+        readonly PasswordEncryptionAlgorithm: string;
+        readonly PasswordEncryptionFileProperties: boolean;
+        readonly PasswordEncryptionKeyLength: number;
+        readonly PasswordEncryptionProvider: string;
+        readonly Path: string;
+        readonly Permission: Office.Permission;
+        Post(): void;
+        PresentIt(): void;
+        PrintFormsData: boolean;
+        PrintFractionalWidths: boolean;
+        PrintOut(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
             PrintZoomPaperHeight?: any): void;
-        public PrintOut2000(
+        PrintOut2000(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
             PrintZoomPaperHeight?: any): void;
-        public PrintOutOld(
+        PrintOutOld(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any): void;
-        public PrintPostScriptOverText: boolean;
-        public PrintPreview(): void;
-        public PrintRevisions: boolean;
-        public Protect(Type: WdProtectionType, NoReset?: any, Password?: any, UseIRM?: any, EnforceStyleLock?: any): void;
-        public Protect2002(Type: WdProtectionType, NoReset?: any, Password?: any): void;
-        public readonly ProtectionType: WdProtectionType;
-        public Range(Start?: number, End?: number): Range;
-        public readonly ReadabilityStatistics: ReadabilityStatistics;
-        public ReadingLayoutSizeX: number;
-        public ReadingLayoutSizeY: number;
-        public ReadingModeLayoutFrozen: boolean;
-        public readonly ReadOnly: boolean;
-        public ReadOnlyRecommended: boolean;
-        public RecheckSmartTags(): void;
-        public Redo(Times?: any): boolean;
-        public RejectAllRevisions(): void;
-        public RejectAllRevisionsShown(): void;
-        public Reload(): void;
-        public ReloadAs(Encoding: Office.MsoEncoding): void;
-        public RemoveDateAndTime: boolean;
-        public RemoveDocumentInformation(RemoveDocInfoType: WdRemoveDocInfoType): void;
-        public RemoveDocumentWorkspaceHeader(ID: string): void;
-        public RemoveLockedStyles(): void;
-        public RemoveNumbers(NumberType?: any): void;
-        public RemovePersonalInformation: boolean;
-        public RemoveSmartTags(): void;
-        public RemoveTheme(): void;
-        public Repaginate(): void;
-        public Reply(): void;
-        public ReplyAll(): void;
-        public ReplyWithChanges(ShowMessage?: any): void;
-        public readonly Research: Research;
-        public ResetFormFields(): void;
-        public readonly RevisedDocumentTitle: string;
-        public readonly Revisions: Revisions;
-        public Route(): void;
-        public readonly Routed: boolean;
-        public readonly RoutingSlip: RoutingSlip;
-        public RunAutoMacro(Which: WdAutoMacros): void;
-        public RunLetterWizard(LetterContent?: any, WizardMode?: any): void;
-        public Save(): void;
-        public SaveAs(
+        PrintPostScriptOverText: boolean;
+        PrintPreview(): void;
+        PrintRevisions: boolean;
+        Protect(Type: WdProtectionType, NoReset?: any, Password?: any, UseIRM?: any, EnforceStyleLock?: any): void;
+        Protect2002(Type: WdProtectionType, NoReset?: any, Password?: any): void;
+        readonly ProtectionType: WdProtectionType;
+        Range(Start?: number, End?: number): Range;
+        readonly ReadabilityStatistics: ReadabilityStatistics;
+        ReadingLayoutSizeX: number;
+        ReadingLayoutSizeY: number;
+        ReadingModeLayoutFrozen: boolean;
+        readonly ReadOnly: boolean;
+        ReadOnlyRecommended: boolean;
+        RecheckSmartTags(): void;
+        Redo(Times?: any): boolean;
+        RejectAllRevisions(): void;
+        RejectAllRevisionsShown(): void;
+        Reload(): void;
+        ReloadAs(Encoding: Office.MsoEncoding): void;
+        RemoveDateAndTime: boolean;
+        RemoveDocumentInformation(RemoveDocInfoType: WdRemoveDocInfoType): void;
+        RemoveDocumentWorkspaceHeader(ID: string): void;
+        RemoveLockedStyles(): void;
+        RemoveNumbers(NumberType?: any): void;
+        RemovePersonalInformation: boolean;
+        RemoveSmartTags(): void;
+        RemoveTheme(): void;
+        Repaginate(): void;
+        Reply(): void;
+        ReplyAll(): void;
+        ReplyWithChanges(ShowMessage?: any): void;
+        readonly Research: Research;
+        ResetFormFields(): void;
+        readonly RevisedDocumentTitle: string;
+        readonly Revisions: Revisions;
+        Route(): void;
+        readonly Routed: boolean;
+        readonly RoutingSlip: RoutingSlip;
+        RunAutoMacro(Which: WdAutoMacros): void;
+        RunLetterWizard(LetterContent?: any, WizardMode?: any): void;
+        Save(): void;
+        SaveAs(
             FileName?: any, FileFormat?: any, LockComments?: any, Password?: any, AddToRecentFiles?: any, WritePassword?: any, ReadOnlyRecommended?: any,
             EmbedTrueTypeFonts?: any, SaveNativePictureFormat?: any, SaveFormsData?: any, SaveAsAOCELetter?: any, Encoding?: any, InsertLineBreaks?: any,
             AllowSubstitutions?: any, LineEnding?: any, AddBiDiMarks?: any): void;
-        public SaveAs2(
+        SaveAs2(
             FileName?: any, FileFormat?: any, LockComments?: any, Password?: any, AddToRecentFiles?: any, WritePassword?: any, ReadOnlyRecommended?: any,
             EmbedTrueTypeFonts?: any, SaveNativePictureFormat?: any, SaveFormsData?: any, SaveAsAOCELetter?: any, Encoding?: any, InsertLineBreaks?: any,
             AllowSubstitutions?: any, LineEnding?: any, AddBiDiMarks?: any, CompatibilityMode?: any): void;
-        public SaveAs2000(
+        SaveAs2000(
             FileName?: any, FileFormat?: any, LockComments?: any, Password?: any, AddToRecentFiles?: any, WritePassword?: any, ReadOnlyRecommended?: any,
             EmbedTrueTypeFonts?: any, SaveNativePictureFormat?: any, SaveFormsData?: any, SaveAsAOCELetter?: any): void;
-        public SaveAsQuickStyleSet(FileName: string): void;
-        public Saved: boolean;
-        public SaveEncoding: Office.MsoEncoding;
-        public readonly SaveFormat: number;
-        public SaveFormsData: boolean;
-        public SaveSubsetFonts: boolean;
-        public sblt(s: string): void;
-        public readonly Scripts: Office.Scripts;
-        public readonly Sections: Sections;
-        public Select(): void;
-        public SelectAllEditableRanges(EditorID?: any): void;
-        public SelectContentControlsByTag(Tag: string): ContentControls;
-        public SelectContentControlsByTitle(Title: string): ContentControls;
-        public SelectLinkedControls(Node: Office.CustomXMLNode): ContentControls;
+        SaveAsQuickStyleSet(FileName: string): void;
+        Saved: boolean;
+        SaveEncoding: Office.MsoEncoding;
+        readonly SaveFormat: number;
+        SaveFormsData: boolean;
+        SaveSubsetFonts: boolean;
+        sblt(s: string): void;
+        readonly Scripts: Office.Scripts;
+        readonly Sections: Sections;
+        Select(): void;
+        SelectAllEditableRanges(EditorID?: any): void;
+        SelectContentControlsByTag(Tag: string): ContentControls;
+        SelectContentControlsByTitle(Title: string): ContentControls;
+        SelectLinkedControls(Node: Office.CustomXMLNode): ContentControls;
 
         /**
          * @param string [PrefixMapping='']
          * @param boolean [FastSearchSkippingTextNodes=true]
          */
-        public SelectNodes(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNodes;
+        SelectNodes(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNodes;
 
         /**
          * @param string [PrefixMapping='']
          * @param boolean [FastSearchSkippingTextNodes=true]
          */
-        public SelectSingleNode(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNode;
+        SelectSingleNode(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNode;
 
         /** @param Office.CustomXMLPart [Stream=0] */
-        public SelectUnlinkedControls(Stream?: Office.CustomXMLPart): ContentControls;
-        public SendFax(Address: string, Subject?: any): void;
-        public SendFaxOverInternet(Recipients?: any, Subject?: any, ShowMessage?: any): void;
-        public SendForReview(Recipients?: any, Subject?: any, ShowMessage?: any, IncludeAttachment?: any): void;
-        public SendMail(): void;
-        public SendMailer(FileFormat?: any, Priority?: any): void;
-        public readonly Sentences: Sentences;
-        public readonly ServerPolicy: Office.ServerPolicy;
-        public SetCompatibilityMode(Mode: number): void;
-        public SetDefaultTableStyle(Style: any, SetInTemplate: boolean): void;
-        public SetLetterContent(LetterContent: any): void;
-        public SetPasswordEncryptionOptions(PasswordEncryptionProvider: string, PasswordEncryptionAlgorithm: string, PasswordEncryptionKeyLength: number, PasswordEncryptionFileProperties?: any): void;
-        public readonly Shapes: Shapes;
-        public readonly SharedWorkspace: Office.SharedWorkspace;
-        public ShowGrammaticalErrors: boolean;
-        public ShowRevisions: boolean;
-        public ShowSpellingErrors: boolean;
-        public ShowSummary: boolean;
-        public readonly Signatures: Office.SignatureSet;
-        public readonly SmartDocument: Office.SmartDocument;
-        public readonly SmartTags: SmartTags;
-        public SmartTagsAsXMLProps: boolean;
-        public SnapToGrid: boolean;
-        public SnapToShapes: boolean;
-        public SpellingChecked: boolean;
-        public readonly SpellingErrors: ProofreadingErrors;
-        public readonly StoryRanges: StoryRanges;
-        public readonly Styles: Styles;
-        public readonly StyleSheets: StyleSheets;
-        public StyleSortMethod: WdStyleSort;
-        public readonly Subdocuments: Subdocuments;
-        public SummaryLength: number;
-        public SummaryViewMode: WdSummaryMode;
-        public readonly Sync: Office.Sync;
-        public readonly Tables: Tables;
-        public readonly TablesOfAuthorities: TablesOfAuthorities;
-        public readonly TablesOfAuthoritiesCategories: TablesOfAuthoritiesCategories;
-        public readonly TablesOfContents: TablesOfContents;
-        public readonly TablesOfFigures: TablesOfFigures;
-        public TextEncoding: Office.MsoEncoding;
-        public TextLineEnding: WdLineEndingType;
-        public ToggleFormsDesign(): void;
-        public TrackFormatting: boolean;
-        public TrackMoves: boolean;
-        public TrackRevisions: boolean;
+        SelectUnlinkedControls(Stream?: Office.CustomXMLPart): ContentControls;
+        SendFax(Address: string, Subject?: any): void;
+        SendFaxOverInternet(Recipients?: any, Subject?: any, ShowMessage?: any): void;
+        SendForReview(Recipients?: any, Subject?: any, ShowMessage?: any, IncludeAttachment?: any): void;
+        SendMail(): void;
+        SendMailer(FileFormat?: any, Priority?: any): void;
+        readonly Sentences: Sentences;
+        readonly ServerPolicy: Office.ServerPolicy;
+        SetCompatibilityMode(Mode: number): void;
+        SetDefaultTableStyle(Style: any, SetInTemplate: boolean): void;
+        SetLetterContent(LetterContent: any): void;
+        SetPasswordEncryptionOptions(PasswordEncryptionProvider: string, PasswordEncryptionAlgorithm: string, PasswordEncryptionKeyLength: number, PasswordEncryptionFileProperties?: any): void;
+        readonly Shapes: Shapes;
+        readonly SharedWorkspace: Office.SharedWorkspace;
+        ShowGrammaticalErrors: boolean;
+        ShowRevisions: boolean;
+        ShowSpellingErrors: boolean;
+        ShowSummary: boolean;
+        readonly Signatures: Office.SignatureSet;
+        readonly SmartDocument: Office.SmartDocument;
+        readonly SmartTags: SmartTags;
+        SmartTagsAsXMLProps: boolean;
+        SnapToGrid: boolean;
+        SnapToShapes: boolean;
+        SpellingChecked: boolean;
+        readonly SpellingErrors: ProofreadingErrors;
+        readonly StoryRanges: StoryRanges;
+        readonly Styles: Styles;
+        readonly StyleSheets: StyleSheets;
+        StyleSortMethod: WdStyleSort;
+        readonly Subdocuments: Subdocuments;
+        SummaryLength: number;
+        SummaryViewMode: WdSummaryMode;
+        readonly Sync: Office.Sync;
+        readonly Tables: Tables;
+        readonly TablesOfAuthorities: TablesOfAuthorities;
+        readonly TablesOfAuthoritiesCategories: TablesOfAuthoritiesCategories;
+        readonly TablesOfContents: TablesOfContents;
+        readonly TablesOfFigures: TablesOfFigures;
+        TextEncoding: Office.MsoEncoding;
+        TextLineEnding: WdLineEndingType;
+        ToggleFormsDesign(): void;
+        TrackFormatting: boolean;
+        TrackMoves: boolean;
+        TrackRevisions: boolean;
 
         /** @param boolean [DataOnly=true] */
-        public TransformDocument(Path: string, DataOnly?: boolean): void;
-        public readonly Type: WdDocumentType;
-        public Undo(Times?: any): boolean;
-        public UndoClear(): void;
-        public UnfreezeLayout(): void;
-        public Unprotect(Password?: any): void;
-        public UpdateStyles(): void;
-        public UpdateStylesOnOpen: boolean;
-        public UpdateSummaryProperties(): void;
-        public UseMathDefaults: boolean;
-        public UserControl: boolean;
-        public readonly Variables: Variables;
-        public readonly VBASigned: boolean;
-        public readonly VBProject: VBIDE.VBProject;
-        public readonly Versions: Versions;
-        public ViewCode(): void;
-        public ViewPropertyBrowser(): void;
-        public readonly WebOptions: WebOptions;
-        public WebPagePreview(): void;
-        public readonly Windows: Windows;
-        public readonly WordOpenXML: string;
-        public readonly Words: Words;
-        public readonly WritePassword: string;
-        public readonly WriteReserved: boolean;
-        public XMLHideNamespaces: boolean;
-        public readonly XMLNodes: XMLNodes;
-        public XMLSaveDataOnly: boolean;
-        public XMLSaveThroughXSLT: string;
-        public readonly XMLSchemaReferences: XMLSchemaReferences;
-        public readonly XMLSchemaViolations: XMLNodes;
-        public XMLShowAdvancedErrors: boolean;
-        public XMLUseXSLTWhenSaving: boolean;
+        TransformDocument(Path: string, DataOnly?: boolean): void;
+        readonly Type: WdDocumentType;
+        Undo(Times?: any): boolean;
+        UndoClear(): void;
+        UnfreezeLayout(): void;
+        Unprotect(Password?: any): void;
+        UpdateStyles(): void;
+        UpdateStylesOnOpen: boolean;
+        UpdateSummaryProperties(): void;
+        UseMathDefaults: boolean;
+        UserControl: boolean;
+        readonly Variables: Variables;
+        readonly VBASigned: boolean;
+        readonly VBProject: VBIDE.VBProject;
+        readonly Versions: Versions;
+        ViewCode(): void;
+        ViewPropertyBrowser(): void;
+        readonly WebOptions: WebOptions;
+        WebPagePreview(): void;
+        readonly Windows: Windows;
+        readonly WordOpenXML: string;
+        readonly Words: Words;
+        readonly WritePassword: string;
+        readonly WriteReserved: boolean;
+        XMLHideNamespaces: boolean;
+        readonly XMLNodes: XMLNodes;
+        XMLSaveDataOnly: boolean;
+        XMLSaveThroughXSLT: string;
+        readonly XMLSchemaReferences: XMLSchemaReferences;
+        readonly XMLSchemaViolations: XMLNodes;
+        XMLShowAdvancedErrors: boolean;
+        XMLUseXSLTWhenSaving: boolean;
     }
 
     class Documents {
         private 'Word.Documents_typekey': Documents;
         private constructor();
-        public Add(Template?: string, NewTemplate?: boolean, DocumentType?: WdNewDocumentType, Visible?: boolean): Document;
+        Add(Template?: string, NewTemplate?: boolean, DocumentType?: WdNewDocumentType, Visible?: boolean): Document;
 
         /** @param string [PostID=''] */
-        public AddBlogDocument(ProviderID: string, PostURL: string, BlogName: string, PostID?: string): Document;
-        public AddOld(Template?: any, NewTemplate?: any): Document;
-        public readonly Application: Application;
-        public CanCheckOut(FileName: string): boolean;
-        public CheckOut(FileName: string): void;
-        public Close(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number | string): Document;
-        public Open(
+        AddBlogDocument(ProviderID: string, PostURL: string, BlogName: string, PostID?: string): Document;
+        AddOld(Template?: any, NewTemplate?: any): Document;
+        readonly Application: Application;
+        CanCheckOut(FileName: string): boolean;
+        CheckOut(FileName: string): void;
+        Close(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number | string): Document;
+        Open(
             FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any, OpenAndRepair?: any, DocumentDirection?: any,
             NoEncodingDialog?: any, XMLTransform?: any): Document;
-        public Open2000(
+        Open2000(
             FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any): Document;
-        public Open2002(
+        Open2002(
             FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any, OpenAndRepair?: any, DocumentDirection?: any, NoEncodingDialog?: any): Document;
-        public OpenNoRepairDialog(
+        OpenNoRepairDialog(
             FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any, OpenAndRepair?: any, DocumentDirection?: any,
             NoEncodingDialog?: any, XMLTransform?: any): Document;
-        public OpenOld(
+        OpenOld(
             FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any): Document;
-        public readonly Parent: any;
-        public Save(NoPrompt?: any, OriginalFormat?: any): void;
+        readonly Parent: any;
+        Save(NoPrompt?: any, OriginalFormat?: any): void;
     }
 
     class DownBars {
         private 'Word.DownBars_typekey': DownBars;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class DropCap {
         private 'Word.DropCap_typekey': DropCap;
         private constructor();
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Creator: number;
-        public DistanceFromText: number;
-        public Enable(): void;
-        public FontName: string;
-        public LinesToDrop: number;
-        public readonly Parent: any;
-        public Position: WdDropPosition;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Creator: number;
+        DistanceFromText: number;
+        Enable(): void;
+        FontName: string;
+        LinesToDrop: number;
+        readonly Parent: any;
+        Position: WdDropPosition;
     }
 
     class DropDown {
         private 'Word.DropDown_typekey': DropDown;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Default: number;
-        public readonly ListEntries: ListEntries;
-        public readonly Parent: any;
-        public readonly Valid: boolean;
-        public Value: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        Default: number;
+        readonly ListEntries: ListEntries;
+        readonly Parent: any;
+        readonly Valid: boolean;
+        Value: number;
     }
 
     class DropLines {
         private 'Word.DropLines_typekey': DropLines;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): void;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): void;
     }
 
     class Editor {
         private 'Word.Editor_typekey': Editor;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public DeleteAll(): void;
-        public readonly ID: string;
-        public readonly Name: string;
-        public readonly NextRange: Range;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public SelectAll(): void;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        DeleteAll(): void;
+        readonly ID: string;
+        readonly Name: string;
+        readonly NextRange: Range;
+        readonly Parent: any;
+        readonly Range: Range;
+        SelectAll(): void;
     }
 
     class Editors {
         private 'Word.Editors_typekey': Editors;
         private constructor();
-        public Add(EditorID: any): Editor;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Editor;
-        public readonly Parent: any;
+        Add(EditorID: any): Editor;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Editor;
+        readonly Parent: any;
     }
 
     class Email {
         private 'Word.Email_typekey': Email;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly CurrentEmailAuthor: EmailAuthor;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly CurrentEmailAuthor: EmailAuthor;
+        readonly Parent: any;
     }
 
     class EmailAuthor {
         private 'Word.EmailAuthor_typekey': EmailAuthor;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public readonly Style: Style;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Parent: any;
+        readonly Style: Style;
     }
 
     class EmailOptions {
         private 'Word.EmailOptions_typekey': EmailOptions;
         private constructor();
-        public readonly Application: Application;
-        public AutoFormatAsYouTypeApplyBorders: boolean;
-        public AutoFormatAsYouTypeApplyBulletedLists: boolean;
-        public AutoFormatAsYouTypeApplyClosings: boolean;
-        public AutoFormatAsYouTypeApplyDates: boolean;
-        public AutoFormatAsYouTypeApplyFirstIndents: boolean;
-        public AutoFormatAsYouTypeApplyHeadings: boolean;
-        public AutoFormatAsYouTypeApplyNumberedLists: boolean;
-        public AutoFormatAsYouTypeApplyTables: boolean;
-        public AutoFormatAsYouTypeAutoLetterWizard: boolean;
-        public AutoFormatAsYouTypeDefineStyles: boolean;
-        public AutoFormatAsYouTypeDeleteAutoSpaces: boolean;
-        public AutoFormatAsYouTypeFormatListItemBeginning: boolean;
-        public AutoFormatAsYouTypeInsertClosings: boolean;
-        public AutoFormatAsYouTypeInsertOvers: boolean;
-        public AutoFormatAsYouTypeMatchParentheses: boolean;
-        public AutoFormatAsYouTypeReplaceFarEastDashes: boolean;
-        public AutoFormatAsYouTypeReplaceFractions: boolean;
-        public AutoFormatAsYouTypeReplaceHyperlinks: boolean;
-        public AutoFormatAsYouTypeReplaceOrdinals: boolean;
-        public AutoFormatAsYouTypeReplacePlainTextEmphasis: boolean;
-        public AutoFormatAsYouTypeReplaceQuotes: boolean;
-        public AutoFormatAsYouTypeReplaceSymbols: boolean;
-        public readonly ComposeStyle: Style;
-        public readonly Creator: number;
-        public readonly Dummy1: boolean;
-        public readonly Dummy2: boolean;
-        public Dummy3(): void;
-        public readonly EmailSignature: EmailSignature;
-        public EmbedSmartTag: boolean;
-        public HTMLFidelity: WdEmailHTMLFidelity;
-        public MarkComments: boolean;
-        public MarkCommentsWith: string;
-        public NewColorOnReply: boolean;
-        public readonly Parent: any;
-        public readonly PlainTextStyle: Style;
-        public RelyOnCSS: boolean;
-        public readonly ReplyStyle: Style;
-        public TabIndentKey: boolean;
-        public ThemeName: string;
-        public UseThemeStyle: boolean;
-        public UseThemeStyleOnReply: boolean;
+        readonly Application: Application;
+        AutoFormatAsYouTypeApplyBorders: boolean;
+        AutoFormatAsYouTypeApplyBulletedLists: boolean;
+        AutoFormatAsYouTypeApplyClosings: boolean;
+        AutoFormatAsYouTypeApplyDates: boolean;
+        AutoFormatAsYouTypeApplyFirstIndents: boolean;
+        AutoFormatAsYouTypeApplyHeadings: boolean;
+        AutoFormatAsYouTypeApplyNumberedLists: boolean;
+        AutoFormatAsYouTypeApplyTables: boolean;
+        AutoFormatAsYouTypeAutoLetterWizard: boolean;
+        AutoFormatAsYouTypeDefineStyles: boolean;
+        AutoFormatAsYouTypeDeleteAutoSpaces: boolean;
+        AutoFormatAsYouTypeFormatListItemBeginning: boolean;
+        AutoFormatAsYouTypeInsertClosings: boolean;
+        AutoFormatAsYouTypeInsertOvers: boolean;
+        AutoFormatAsYouTypeMatchParentheses: boolean;
+        AutoFormatAsYouTypeReplaceFarEastDashes: boolean;
+        AutoFormatAsYouTypeReplaceFractions: boolean;
+        AutoFormatAsYouTypeReplaceHyperlinks: boolean;
+        AutoFormatAsYouTypeReplaceOrdinals: boolean;
+        AutoFormatAsYouTypeReplacePlainTextEmphasis: boolean;
+        AutoFormatAsYouTypeReplaceQuotes: boolean;
+        AutoFormatAsYouTypeReplaceSymbols: boolean;
+        readonly ComposeStyle: Style;
+        readonly Creator: number;
+        readonly Dummy1: boolean;
+        readonly Dummy2: boolean;
+        Dummy3(): void;
+        readonly EmailSignature: EmailSignature;
+        EmbedSmartTag: boolean;
+        HTMLFidelity: WdEmailHTMLFidelity;
+        MarkComments: boolean;
+        MarkCommentsWith: string;
+        NewColorOnReply: boolean;
+        readonly Parent: any;
+        readonly PlainTextStyle: Style;
+        RelyOnCSS: boolean;
+        readonly ReplyStyle: Style;
+        TabIndentKey: boolean;
+        ThemeName: string;
+        UseThemeStyle: boolean;
+        UseThemeStyleOnReply: boolean;
     }
 
     class EmailSignature {
         private 'Word.EmailSignature_typekey': EmailSignature;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly EmailSignatureEntries: EmailSignatureEntries;
-        public NewMessageSignature: string;
-        public readonly Parent: any;
-        public ReplyMessageSignature: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly EmailSignatureEntries: EmailSignatureEntries;
+        NewMessageSignature: string;
+        readonly Parent: any;
+        ReplyMessageSignature: string;
     }
 
     class EmailSignatureEntries {
         private 'Word.EmailSignatureEntries_typekey': EmailSignatureEntries;
         private constructor();
-        public Add(Name: string, Range: Range): EmailSignatureEntry;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): EmailSignatureEntry;
-        public readonly Parent: any;
+        Add(Name: string, Range: Range): EmailSignatureEntry;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): EmailSignatureEntry;
+        readonly Parent: any;
     }
 
     class EmailSignatureEntry {
         private 'Word.EmailSignatureEntry_typekey': EmailSignatureEntry;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        Name: string;
+        readonly Parent: any;
     }
 
     class Endnote {
         private 'Word.Endnote_typekey': Endnote;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly Reference: Range;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly Reference: Range;
     }
 
     class EndnoteOptions {
         private 'Word.EndnoteOptions_typekey': EndnoteOptions;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Location: WdEndnoteLocation;
-        public NumberingRule: WdNumberingRule;
-        public NumberStyle: WdNoteNumberStyle;
-        public readonly Parent: any;
-        public StartingNumber: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        Location: WdEndnoteLocation;
+        NumberingRule: WdNumberingRule;
+        NumberStyle: WdNoteNumberStyle;
+        readonly Parent: any;
+        StartingNumber: number;
     }
 
     class Endnotes {
         private 'Word.Endnotes_typekey': Endnotes;
         private constructor();
-        public Add(Range: Range, Reference?: any, Text?: any): Endnote;
-        public readonly Application: Application;
-        public readonly ContinuationNotice: Range;
-        public readonly ContinuationSeparator: Range;
-        public Convert(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Endnote;
-        public Location: WdEndnoteLocation;
-        public NumberingRule: WdNumberingRule;
-        public NumberStyle: WdNoteNumberStyle;
-        public readonly Parent: any;
-        public ResetContinuationNotice(): void;
-        public ResetContinuationSeparator(): void;
-        public ResetSeparator(): void;
-        public readonly Separator: Range;
-        public StartingNumber: number;
-        public SwapWithFootnotes(): void;
+        Add(Range: Range, Reference?: any, Text?: any): Endnote;
+        readonly Application: Application;
+        readonly ContinuationNotice: Range;
+        readonly ContinuationSeparator: Range;
+        Convert(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Endnote;
+        Location: WdEndnoteLocation;
+        NumberingRule: WdNumberingRule;
+        NumberStyle: WdNoteNumberStyle;
+        readonly Parent: any;
+        ResetContinuationNotice(): void;
+        ResetContinuationSeparator(): void;
+        ResetSeparator(): void;
+        readonly Separator: Range;
+        StartingNumber: number;
+        SwapWithFootnotes(): void;
     }
 
     class Envelope {
         private 'Word.Envelope_typekey': Envelope;
         private constructor();
-        public readonly Address: Range;
-        public AddressFromLeft: number;
-        public AddressFromTop: number;
-        public readonly AddressStyle: Style;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public DefaultFaceUp: boolean;
-        public DefaultHeight: number;
-        public DefaultOmitReturnAddress: boolean;
-        public DefaultOrientation: WdEnvelopeOrientation;
-        public DefaultPrintBarCode: boolean;
-        public DefaultPrintFIMA: boolean;
-        public DefaultSize: string;
-        public DefaultWidth: number;
-        public FeedSource: WdPaperTray;
-        public Insert(
+        readonly Address: Range;
+        AddressFromLeft: number;
+        AddressFromTop: number;
+        readonly AddressStyle: Style;
+        readonly Application: Application;
+        readonly Creator: number;
+        DefaultFaceUp: boolean;
+        DefaultHeight: number;
+        DefaultOmitReturnAddress: boolean;
+        DefaultOrientation: WdEnvelopeOrientation;
+        DefaultPrintBarCode: boolean;
+        DefaultPrintFIMA: boolean;
+        DefaultSize: string;
+        DefaultWidth: number;
+        FeedSource: WdPaperTray;
+        Insert(
             ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
             Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
             DefaultFaceUp?: any, DefaultOrientation?: any, PrintEPostage?: any, Vertical?: any, RecipientNamefromLeft?: any, RecipientNamefromTop?: any,
             RecipientPostalfromLeft?: any, RecipientPostalfromTop?: any, SenderNamefromLeft?: any, SenderNamefromTop?: any, SenderPostalfromLeft?: any, SenderPostalfromTop?: any): void;
-        public Insert2000(
+        Insert2000(
             ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
             Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
             DefaultFaceUp?: any, DefaultOrientation?: any): void;
-        public Options(): void;
-        public readonly Parent: any;
-        public PrintOut(
+        Options(): void;
+        readonly Parent: any;
+        PrintOut(
             ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
             Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
             DefaultFaceUp?: any, DefaultOrientation?: any, PrintEPostage?: any, Vertical?: any, RecipientNamefromLeft?: any, RecipientNamefromTop?: any,
             RecipientPostalfromLeft?: any, RecipientPostalfromTop?: any, SenderNamefromLeft?: any, SenderNamefromTop?: any, SenderPostalfromLeft?: any, SenderPostalfromTop?: any): void;
-        public PrintOut2000(
+        PrintOut2000(
             ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
             Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
             DefaultFaceUp?: any, DefaultOrientation?: any): void;
-        public RecipientNamefromLeft: number;
-        public RecipientNamefromTop: number;
-        public RecipientPostalfromLeft: number;
-        public RecipientPostalfromTop: number;
-        public readonly ReturnAddress: Range;
-        public ReturnAddressFromLeft: number;
-        public ReturnAddressFromTop: number;
-        public readonly ReturnAddressStyle: Style;
-        public SenderNamefromLeft: number;
-        public SenderNamefromTop: number;
-        public SenderPostalfromLeft: number;
-        public SenderPostalfromTop: number;
-        public UpdateDocument(): void;
-        public Vertical: boolean;
+        RecipientNamefromLeft: number;
+        RecipientNamefromTop: number;
+        RecipientPostalfromLeft: number;
+        RecipientPostalfromTop: number;
+        readonly ReturnAddress: Range;
+        ReturnAddressFromLeft: number;
+        ReturnAddressFromTop: number;
+        readonly ReturnAddressStyle: Style;
+        SenderNamefromLeft: number;
+        SenderNamefromTop: number;
+        SenderPostalfromLeft: number;
+        SenderPostalfromTop: number;
+        UpdateDocument(): void;
+        Vertical: boolean;
     }
 
     class Field {
         private 'Word.Field_typekey': Field;
         private constructor();
-        public readonly Application: Application;
-        public Code: Range;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Data: string;
-        public Delete(): void;
-        public DoClick(): void;
-        public readonly Index: number;
-        public readonly InlineShape: InlineShape;
-        public readonly Kind: WdFieldKind;
-        public readonly LinkFormat: LinkFormat;
-        public Locked: boolean;
-        public readonly Next: Field;
-        public readonly OLEFormat: OLEFormat;
-        public readonly Parent: any;
-        public readonly Previous: Field;
-        public Result: Range;
-        public Select(): void;
-        public ShowCodes: boolean;
-        public readonly Type: WdFieldType;
-        public Unlink(): void;
-        public Update(): boolean;
-        public UpdateSource(): void;
+        readonly Application: Application;
+        Code: Range;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Data: string;
+        Delete(): void;
+        DoClick(): void;
+        readonly Index: number;
+        readonly InlineShape: InlineShape;
+        readonly Kind: WdFieldKind;
+        readonly LinkFormat: LinkFormat;
+        Locked: boolean;
+        readonly Next: Field;
+        readonly OLEFormat: OLEFormat;
+        readonly Parent: any;
+        readonly Previous: Field;
+        Result: Range;
+        Select(): void;
+        ShowCodes: boolean;
+        readonly Type: WdFieldType;
+        Unlink(): void;
+        Update(): boolean;
+        UpdateSource(): void;
     }
 
     class Fields {
         private 'Word.Fields_typekey': Fields;
         private constructor();
-        public Add(Range: Range, Type?: any, Text?: any, PreserveFormatting?: any): Field;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Field;
-        public Locked: number;
-        public readonly Parent: any;
-        public ToggleShowCodes(): void;
-        public Unlink(): void;
-        public Update(): number;
-        public UpdateSource(): void;
+        Add(Range: Range, Type?: any, Text?: any, PreserveFormatting?: any): Field;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Field;
+        Locked: number;
+        readonly Parent: any;
+        ToggleShowCodes(): void;
+        Unlink(): void;
+        Update(): number;
+        UpdateSource(): void;
     }
 
     class FileConverter {
         private 'Word.FileConverter_typekey': FileConverter;
         private constructor();
-        public readonly Application: Application;
-        public readonly CanOpen: boolean;
-        public readonly CanSave: boolean;
-        public readonly ClassName: string;
-        public readonly Creator: number;
-        public readonly Extensions: string;
-        public readonly FormatName: string;
-        public readonly Name: string;
-        public readonly OpenFormat: number;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public readonly SaveFormat: number;
+        readonly Application: Application;
+        readonly CanOpen: boolean;
+        readonly CanSave: boolean;
+        readonly ClassName: string;
+        readonly Creator: number;
+        readonly Extensions: string;
+        readonly FormatName: string;
+        readonly Name: string;
+        readonly OpenFormat: number;
+        readonly Parent: any;
+        readonly Path: string;
+        readonly SaveFormat: number;
     }
 
     class FileConverters {
         private 'Word.FileConverters_typekey': FileConverters;
         private constructor();
-        public readonly Application: Application;
-        public ConvertMacWordChevrons: WdChevronConvertRule;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): FileConverter;
-        public readonly Parent: any;
+        readonly Application: Application;
+        ConvertMacWordChevrons: WdChevronConvertRule;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): FileConverter;
+        readonly Parent: any;
     }
 
     class FillFormat {
         private 'Word.FillFormat_typekey': FillFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly BackColor: ColorFormat;
-        public Background(): void;
-        public readonly Creator: number;
-        public readonly ForeColor: ColorFormat;
-        public GradientAngle: number;
-        public readonly GradientColorType: Office.MsoGradientColorType;
-        public readonly GradientDegree: number;
-        public readonly GradientStops: Office.GradientStops;
-        public readonly GradientStyle: Office.MsoGradientStyle;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: Office.MsoPatternType;
-        public Patterned(Pattern: Office.MsoPatternType): void;
-        public readonly PictureEffects: Office.PictureEffects;
-        public PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
-        public readonly PresetGradientType: Office.MsoPresetGradientType;
-        public readonly PresetTexture: Office.MsoPresetTexture;
-        public PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
-        public RotateWithObject: Office.MsoTriState;
-        public Solid(): void;
-        public TextureAlignment: Office.MsoTextureAlignment;
-        public TextureHorizontalScale: number;
-        public readonly TextureName: string;
-        public TextureOffsetX: number;
-        public TextureOffsetY: number;
-        public TextureTile: Office.MsoTriState;
-        public readonly TextureType: Office.MsoTextureType;
-        public TextureVerticalScale: number;
-        public Transparency: number;
-        public TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
-        public readonly Type: Office.MsoFillType;
-        public UserPicture(PictureFile: string): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: Office.MsoTriState;
+        readonly Application: Application;
+        readonly BackColor: ColorFormat;
+        Background(): void;
+        readonly Creator: number;
+        readonly ForeColor: ColorFormat;
+        GradientAngle: number;
+        readonly GradientColorType: Office.MsoGradientColorType;
+        readonly GradientDegree: number;
+        readonly GradientStops: Office.GradientStops;
+        readonly GradientStyle: Office.MsoGradientStyle;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: Office.MsoPatternType;
+        Patterned(Pattern: Office.MsoPatternType): void;
+        readonly PictureEffects: Office.PictureEffects;
+        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        readonly PresetGradientType: Office.MsoPresetGradientType;
+        readonly PresetTexture: Office.MsoPresetTexture;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
+        RotateWithObject: Office.MsoTriState;
+        Solid(): void;
+        TextureAlignment: Office.MsoTextureAlignment;
+        TextureHorizontalScale: number;
+        readonly TextureName: string;
+        TextureOffsetX: number;
+        TextureOffsetY: number;
+        TextureTile: Office.MsoTriState;
+        readonly TextureType: Office.MsoTextureType;
+        TextureVerticalScale: number;
+        Transparency: number;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
+        readonly Type: Office.MsoFillType;
+        UserPicture(PictureFile: string): void;
+        UserTextured(TextureFile: string): void;
+        Visible: Office.MsoTriState;
     }
 
     class Find<TParent = Range | Selection> {
         private 'Word.Find_typekey': Find;
         private constructor();
-        public readonly Application: Application;
-        public ClearAllFuzzyOptions(): void;
-        public ClearFormatting(): void;
-        public ClearHitHighlight(): boolean;
-        public CorrectHangulEndings: boolean;
-        public readonly Creator: number;
-        public Execute(
+        readonly Application: Application;
+        ClearAllFuzzyOptions(): void;
+        ClearFormatting(): void;
+        ClearHitHighlight(): boolean;
+        CorrectHangulEndings: boolean;
+        readonly Creator: number;
+        Execute(
             FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
             Format?: boolean, ReplaceWith?: string, Replace?: WdReplace, MatchKashida?: boolean, MatchDiacritics?: boolean, MatchAlefHamza?: boolean, MatchControl?: boolean): boolean;
-        public Execute2007(
+        Execute2007(
             FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
             Format?: boolean, ReplaceWith?: string, Replace?: WdReplace, MatchKashida?: boolean, MatchDiacritics?: boolean, MatchAlefHamza?: boolean, MatchControl?: boolean, MatchPrefix?: boolean,
             MatchSuffix?: boolean, MatchPhrase?: boolean, IgnoreSpace?: boolean, IgnorePunct?: boolean): boolean;
-        public ExecuteOld(
+        ExecuteOld(
             FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
             Format?: boolean, ReplaceWith?: string, Replace?: WdReplace): boolean;
-        public Font: Font;
-        public Format: boolean;
-        public Forward: boolean;
-        public readonly Found: boolean;
-        public readonly Frame: Frame;
-        public HanjaPhoneticHangul: boolean;
-        public Highlight: number;
-        public HitHighlight(
+        Font: Font;
+        Format: boolean;
+        Forward: boolean;
+        readonly Found: boolean;
+        readonly Frame: Frame;
+        HanjaPhoneticHangul: boolean;
+        Highlight: number;
+        HitHighlight(
             FindText: any, HighlightColor?: any, TextColor?: any, MatchCase?: any, MatchWholeWord?: any, MatchPrefix?: any, MatchSuffix?: any, MatchPhrase?: any,
             MatchWildcards?: any, MatchSoundsLike?: any, MatchAllWordForms?: any, MatchByte?: any, MatchFuzzy?: any, MatchKashida?: any, MatchDiacritics?: any,
             MatchAlefHamza?: any, MatchControl?: any, IgnoreSpace?: any, IgnorePunct?: any, HanjaPhoneticHangul?: any): boolean;
-        public IgnorePunct: boolean;
-        public IgnoreSpace: boolean;
-        public LanguageID: WdLanguageID;
-        public LanguageIDFarEast: WdLanguageID;
-        public LanguageIDOther: WdLanguageID;
-        public MatchAlefHamza: boolean;
-        public MatchAllWordForms: boolean;
-        public MatchByte: boolean;
-        public MatchCase: boolean;
-        public MatchControl: boolean;
-        public MatchDiacritics: boolean;
-        public MatchFuzzy: boolean;
-        public MatchKashida: boolean;
-        public MatchPhrase: boolean;
-        public MatchPrefix: boolean;
-        public MatchSoundsLike: boolean;
-        public MatchSuffix: boolean;
-        public MatchWholeWord: boolean;
-        public MatchWildcards: boolean;
-        public NoProofing: number;
-        public ParagraphFormat: ParagraphFormat;
-        public readonly Parent: TParent;
-        public readonly Replacement: Replacement;
-        public SetAllFuzzyOptions(): void;
-        public Style: any;
-        public Text: string;
-        public Wrap: WdFindWrap;
+        IgnorePunct: boolean;
+        IgnoreSpace: boolean;
+        LanguageID: WdLanguageID;
+        LanguageIDFarEast: WdLanguageID;
+        LanguageIDOther: WdLanguageID;
+        MatchAlefHamza: boolean;
+        MatchAllWordForms: boolean;
+        MatchByte: boolean;
+        MatchCase: boolean;
+        MatchControl: boolean;
+        MatchDiacritics: boolean;
+        MatchFuzzy: boolean;
+        MatchKashida: boolean;
+        MatchPhrase: boolean;
+        MatchPrefix: boolean;
+        MatchSoundsLike: boolean;
+        MatchSuffix: boolean;
+        MatchWholeWord: boolean;
+        MatchWildcards: boolean;
+        NoProofing: number;
+        ParagraphFormat: ParagraphFormat;
+        readonly Parent: TParent;
+        readonly Replacement: Replacement;
+        SetAllFuzzyOptions(): void;
+        Style: any;
+        Text: string;
+        Wrap: WdFindWrap;
     }
 
     class FirstLetterException {
         private 'Word.FirstLetterException_typekey': FirstLetterException;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class FirstLetterExceptions {
         private 'Word.FirstLetterExceptions_typekey': FirstLetterExceptions;
         private constructor();
-        public Add(Name: string): FirstLetterException;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): FirstLetterException;
-        public readonly Parent: any;
+        Add(Name: string): FirstLetterException;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): FirstLetterException;
+        readonly Parent: any;
     }
 
     class Floor {
         private 'Word.Floor_typekey': Floor;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class Font {
         private 'Word.Font_typekey': Font;
         private constructor();
-        public AllCaps: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public Animation: WdAnimation;
-        public readonly Application: Application;
-        public Bold: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public BoldBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public Borders: Borders;
-        public Color: WdColor;
-        public ColorIndex: WdColorIndex;
-        public ColorIndexBi: WdColorIndex;
-        public ContextualAlternates: number;
-        public readonly Creator: number;
-        public DiacriticColor: WdColor;
-        public DisableCharacterSpaceGrid: boolean;
-        public DoubleStrikeThrough: number;
-        public readonly Duplicate: Font;
-        public Emboss: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public EmphasisMark: WdEmphasisMark;
-        public Engrave: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public Fill: FillFormat;
-        public Glow: GlowFormat;
-        public Grow(): void;
-        public Hidden: number;
-        public Italic: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public ItalicBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public Kerning: number;
-        public Ligatures: WdLigatures;
-        public Line: LineFormat;
-        public Name: string;
-        public NameAscii: string;
-        public NameBi: string;
-        public NameFarEast: string;
-        public NameOther: string;
-        public NumberForm: WdNumberForm;
-        public NumberSpacing: WdNumberSpacing;
-        public Outline: number;
-        public readonly Parent: any;
-        public Position: number;
-        public Reflection: ReflectionFormat;
-        public Reset(): void;
-        public Scaling: number;
-        public SetAsTemplateDefault(): void;
-        public readonly Shading: Shading;
-        public Shadow: number;
-        public Shrink(): void;
-        public Size: number;
-        public SizeBi: number;
-        public SmallCaps: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public Spacing: number;
-        public StrikeThrough: number;
-        public StylisticSet: WdStylisticSet;
-        public Subscript: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public Superscript: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public readonly TextColor: ColorFormat;
-        public TextShadow: ShadowFormat;
-        public ThreeD: ThreeDFormat;
-        public Underline: WdUnderline;
-        public UnderlineColor: WdColor;
+        AllCaps: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        Animation: WdAnimation;
+        readonly Application: Application;
+        Bold: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        BoldBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        Borders: Borders;
+        Color: WdColor;
+        ColorIndex: WdColorIndex;
+        ColorIndexBi: WdColorIndex;
+        ContextualAlternates: number;
+        readonly Creator: number;
+        DiacriticColor: WdColor;
+        DisableCharacterSpaceGrid: boolean;
+        DoubleStrikeThrough: number;
+        readonly Duplicate: Font;
+        Emboss: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        EmphasisMark: WdEmphasisMark;
+        Engrave: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        Fill: FillFormat;
+        Glow: GlowFormat;
+        Grow(): void;
+        Hidden: number;
+        Italic: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        ItalicBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        Kerning: number;
+        Ligatures: WdLigatures;
+        Line: LineFormat;
+        Name: string;
+        NameAscii: string;
+        NameBi: string;
+        NameFarEast: string;
+        NameOther: string;
+        NumberForm: WdNumberForm;
+        NumberSpacing: WdNumberSpacing;
+        Outline: number;
+        readonly Parent: any;
+        Position: number;
+        Reflection: ReflectionFormat;
+        Reset(): void;
+        Scaling: number;
+        SetAsTemplateDefault(): void;
+        readonly Shading: Shading;
+        Shadow: number;
+        Shrink(): void;
+        Size: number;
+        SizeBi: number;
+        SmallCaps: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        Spacing: number;
+        StrikeThrough: number;
+        StylisticSet: WdStylisticSet;
+        Subscript: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        Superscript: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        readonly TextColor: ColorFormat;
+        TextShadow: ShadowFormat;
+        ThreeD: ThreeDFormat;
+        Underline: WdUnderline;
+        UnderlineColor: WdColor;
     }
 
     class FontNames {
         private 'Word.FontNames_typekey': FontNames;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): string;
+        readonly Parent: any;
     }
 
     class Footnote {
         private 'Word.Footnote_typekey': Footnote;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly Reference: Range;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly Reference: Range;
     }
 
     class FootnoteOptions {
         private 'Word.FootnoteOptions_typekey': FootnoteOptions;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Location: WdFootnoteLocation;
-        public NumberingRule: WdNumberingRule;
-        public NumberStyle: WdNoteNumberStyle;
-        public readonly Parent: any;
-        public StartingNumber: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        Location: WdFootnoteLocation;
+        NumberingRule: WdNumberingRule;
+        NumberStyle: WdNoteNumberStyle;
+        readonly Parent: any;
+        StartingNumber: number;
     }
 
     class Footnotes {
         private 'Word.Footnotes_typekey': Footnotes;
         private constructor();
-        public Add(Range: Range, Reference?: any, Text?: any): Footnote;
-        public readonly Application: Application;
-        public readonly ContinuationNotice: Range;
-        public readonly ContinuationSeparator: Range;
-        public Convert(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Footnote;
-        public Location: WdFootnoteLocation;
-        public NumberingRule: WdNumberingRule;
-        public NumberStyle: WdNoteNumberStyle;
-        public readonly Parent: any;
-        public ResetContinuationNotice(): void;
-        public ResetContinuationSeparator(): void;
-        public ResetSeparator(): void;
-        public readonly Separator: Range;
-        public StartingNumber: number;
-        public SwapWithEndnotes(): void;
+        Add(Range: Range, Reference?: any, Text?: any): Footnote;
+        readonly Application: Application;
+        readonly ContinuationNotice: Range;
+        readonly ContinuationSeparator: Range;
+        Convert(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Footnote;
+        Location: WdFootnoteLocation;
+        NumberingRule: WdNumberingRule;
+        NumberStyle: WdNoteNumberStyle;
+        readonly Parent: any;
+        ResetContinuationNotice(): void;
+        ResetContinuationSeparator(): void;
+        ResetSeparator(): void;
+        readonly Separator: Range;
+        StartingNumber: number;
+        SwapWithEndnotes(): void;
     }
 
     class FormField {
         private 'Word.FormField_typekey': FormField;
         private constructor();
-        public readonly Application: Application;
-        public CalculateOnExit: boolean;
-        public readonly CheckBox: CheckBox;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly DropDown: DropDown;
-        public Enabled: boolean;
-        public EntryMacro: string;
-        public ExitMacro: string;
-        public HelpText: string;
-        public Name: string;
-        public readonly Next: FormField;
-        public OwnHelp: boolean;
-        public OwnStatus: boolean;
-        public readonly Parent: any;
-        public readonly Previous: FormField;
-        public readonly Range: Range;
-        public Result: string;
-        public Select(): void;
-        public StatusText: string;
-        public readonly TextInput: TextInput;
-        public readonly Type: WdFieldType;
+        readonly Application: Application;
+        CalculateOnExit: boolean;
+        readonly CheckBox: CheckBox;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
+        readonly DropDown: DropDown;
+        Enabled: boolean;
+        EntryMacro: string;
+        ExitMacro: string;
+        HelpText: string;
+        Name: string;
+        readonly Next: FormField;
+        OwnHelp: boolean;
+        OwnStatus: boolean;
+        readonly Parent: any;
+        readonly Previous: FormField;
+        readonly Range: Range;
+        Result: string;
+        Select(): void;
+        StatusText: string;
+        readonly TextInput: TextInput;
+        readonly Type: WdFieldType;
     }
 
     class FormFields {
         private 'Word.FormFields_typekey': FormFields;
         private constructor();
-        public Add(Range: Range, Type: WdFieldType): FormField;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): FormField;
-        public readonly Parent: any;
-        public Shaded: boolean;
+        Add(Range: Range, Type: WdFieldType): FormField;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): FormField;
+        readonly Parent: any;
+        Shaded: boolean;
     }
 
     class Frame {
         private 'Word.Frame_typekey': Frame;
         private constructor();
-        public readonly Application: Application;
-        public Borders: Borders;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
-        public Height: number;
-        public HeightRule: WdFrameSizeRule;
-        public HorizontalDistanceFromText: number;
-        public HorizontalPosition: number;
-        public LockAnchor: boolean;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public RelativeHorizontalPosition: WdRelativeHorizontalPosition;
-        public RelativeVerticalPosition: WdRelativeVerticalPosition;
-        public Select(): void;
-        public readonly Shading: Shading;
-        public TextWrap: boolean;
-        public VerticalDistanceFromText: number;
-        public VerticalPosition: number;
-        public Width: number;
-        public WidthRule: WdFrameSizeRule;
+        readonly Application: Application;
+        Borders: Borders;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
+        Height: number;
+        HeightRule: WdFrameSizeRule;
+        HorizontalDistanceFromText: number;
+        HorizontalPosition: number;
+        LockAnchor: boolean;
+        readonly Parent: any;
+        readonly Range: Range;
+        RelativeHorizontalPosition: WdRelativeHorizontalPosition;
+        RelativeVerticalPosition: WdRelativeVerticalPosition;
+        Select(): void;
+        readonly Shading: Shading;
+        TextWrap: boolean;
+        VerticalDistanceFromText: number;
+        VerticalPosition: number;
+        Width: number;
+        WidthRule: WdFrameSizeRule;
     }
 
     class Frames {
         private 'Word.Frames_typekey': Frames;
         private constructor();
-        public Add(Range: Range): Frame;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Item(Index: number): Frame;
-        public readonly Parent: any;
+        Add(Range: Range): Frame;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): void;
+        Item(Index: number): Frame;
+        readonly Parent: any;
     }
 
     class Frameset {
         private 'Word.Frameset_typekey': Frameset;
         private constructor();
-        public AddNewFrame(Where: WdFramesetNewFrameLocation): Frameset;
-        public readonly Application: Application;
-        public readonly ChildFramesetCount: number;
-        public ChildFramesetItem(Index: number): Frameset;
-        public readonly Creator: number;
-        public Delete(): void;
-        public FrameDefaultURL: string;
-        public FrameDisplayBorders: boolean;
-        public FrameLinkToFile: boolean;
-        public FrameName: string;
-        public FrameResizable: boolean;
-        public FrameScrollbarType: WdScrollbarType;
-        public FramesetBorderColor: WdColor;
-        public FramesetBorderWidth: number;
-        public Height: number;
-        public HeightType: WdFramesetSizeType;
-        public readonly Parent: any;
-        public readonly ParentFrameset: Frameset;
-        public readonly Type: WdFramesetType;
-        public Width: number;
-        public WidthType: WdFramesetSizeType;
+        AddNewFrame(Where: WdFramesetNewFrameLocation): Frameset;
+        readonly Application: Application;
+        readonly ChildFramesetCount: number;
+        ChildFramesetItem(Index: number): Frameset;
+        readonly Creator: number;
+        Delete(): void;
+        FrameDefaultURL: string;
+        FrameDisplayBorders: boolean;
+        FrameLinkToFile: boolean;
+        FrameName: string;
+        FrameResizable: boolean;
+        FrameScrollbarType: WdScrollbarType;
+        FramesetBorderColor: WdColor;
+        FramesetBorderWidth: number;
+        Height: number;
+        HeightType: WdFramesetSizeType;
+        readonly Parent: any;
+        readonly ParentFrameset: Frameset;
+        readonly Type: WdFramesetType;
+        Width: number;
+        WidthType: WdFramesetSizeType;
     }
 
     class FreeformBuilder {
@@ -7625,376 +7625,376 @@ declare namespace Word {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        public AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
-        public readonly Application: Application;
-        public ConvertToShape(Anchor?: any): Shape;
-        public readonly Creator: number;
-        public readonly Parent: any;
+        AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        readonly Application: Application;
+        ConvertToShape(Anchor?: any): Shape;
+        readonly Creator: number;
+        readonly Parent: any;
     }
 
     class Global {
         private 'Word.Global_typekey': Global;
         private constructor();
-        public readonly ActiveDocument: Document;
-        public ActivePrinter: string;
-        public readonly ActiveProtectedViewWindow: ProtectedViewWindow;
-        public readonly ActiveWindow: Window;
-        public readonly AddIns: AddIns;
-        public readonly AnswerWizard: Office.AnswerWizard;
-        public readonly Application: Application;
-        public readonly Assistant: Office.Assistant;
-        public readonly AutoCaptions: AutoCaptions;
-        public readonly AutoCorrect: AutoCorrect;
-        public readonly AutoCorrectEmail: AutoCorrect;
-        public BuildKeyCode(Arg1: WdKey, Arg2?: any, Arg3?: any, Arg4?: any): number;
-        public readonly CaptionLabels: CaptionLabels;
-        public CentimetersToPoints(Centimeters: number): number;
-        public ChangeFileOpenDirectory(Path: string): void;
-        public CheckSpelling(
+        readonly ActiveDocument: Document;
+        ActivePrinter: string;
+        readonly ActiveProtectedViewWindow: ProtectedViewWindow;
+        readonly ActiveWindow: Window;
+        readonly AddIns: AddIns;
+        readonly AnswerWizard: Office.AnswerWizard;
+        readonly Application: Application;
+        readonly Assistant: Office.Assistant;
+        readonly AutoCaptions: AutoCaptions;
+        readonly AutoCorrect: AutoCorrect;
+        readonly AutoCorrectEmail: AutoCorrect;
+        BuildKeyCode(Arg1: WdKey, Arg2?: any, Arg3?: any, Arg4?: any): number;
+        readonly CaptionLabels: CaptionLabels;
+        CentimetersToPoints(Centimeters: number): number;
+        ChangeFileOpenDirectory(Path: string): void;
+        CheckSpelling(
             Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
             CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): boolean;
-        public CleanString(String: string): string;
-        public readonly CommandBars: Office.CommandBars;
-        public readonly Creator: number;
-        public readonly CustomDictionaries: Dictionaries;
-        public CustomizationContext: any;
-        public DDEExecute(Channel: number, Command: string): void;
-        public DDEInitiate(App: string, Topic: string): number;
-        public DDEPoke(Channel: number, Item: string, Data: string): void;
-        public DDERequest(Channel: number, Item: string): string;
-        public DDETerminate(Channel: number): void;
-        public DDETerminateAll(): void;
-        public readonly Dialogs: Dialogs;
-        public readonly Documents: Documents;
-        public readonly FileConverters: FileConverters;
-        public FindKey(KeyCode: number, KeyCode2?: any): KeyBinding;
-        public readonly FontNames: FontNames;
-        public GetSpellingSuggestions(
+        CleanString(String: string): string;
+        readonly CommandBars: Office.CommandBars;
+        readonly Creator: number;
+        readonly CustomDictionaries: Dictionaries;
+        CustomizationContext: any;
+        DDEExecute(Channel: number, Command: string): void;
+        DDEInitiate(App: string, Topic: string): number;
+        DDEPoke(Channel: number, Item: string, Data: string): void;
+        DDERequest(Channel: number, Item: string): string;
+        DDETerminate(Channel: number): void;
+        DDETerminateAll(): void;
+        readonly Dialogs: Dialogs;
+        readonly Documents: Documents;
+        readonly FileConverters: FileConverters;
+        FindKey(KeyCode: number, KeyCode2?: any): KeyBinding;
+        readonly FontNames: FontNames;
+        GetSpellingSuggestions(
             Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, SuggestionMode?: any, CustomDictionary2?: any, CustomDictionary3?: any,
             CustomDictionary4?: any, CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any,
             CustomDictionary10?: any): SpellingSuggestions;
-        public readonly HangulHanjaDictionaries: HangulHanjaConversionDictionaries;
-        public Help(HelpType: any): void;
-        public InchesToPoints(Inches: number): number;
-        public IsObjectValid(Object: any): boolean;
-        public readonly IsSandboxed: boolean;
-        public readonly KeyBindings: KeyBindings;
-        public KeysBoundTo(KeyCategory: WdKeyCategory, Command: string, CommandParameter?: any): KeysBoundTo;
-        public KeyString(KeyCode: number, KeyCode2?: any): string;
-        public readonly LandscapeFontNames: FontNames;
-        public readonly Languages: Languages;
-        public readonly LanguageSettings: Office.LanguageSettings;
-        public LinesToPoints(Lines: number): number;
-        public readonly ListGalleries: ListGalleries;
-        public readonly MacroContainer: any;
-        public MillimetersToPoints(Millimeters: number): number;
-        public readonly Name: string;
-        public NewWindow(): Window;
-        public readonly NormalTemplate: Template;
-        public readonly Options: Options;
-        public readonly Parent: any;
-        public PicasToPoints(Picas: number): number;
-        public PixelsToPoints(Pixels: number, fVertical?: any): number;
-        public PointsToCentimeters(Points: number): number;
-        public PointsToInches(Points: number): number;
-        public PointsToLines(Points: number): number;
-        public PointsToMillimeters(Points: number): number;
-        public PointsToPicas(Points: number): number;
-        public PointsToPixels(Points: number, fVertical?: any): number;
-        public readonly PortraitFontNames: FontNames;
-        public PrintPreview: boolean;
-        public readonly ProtectedViewWindows: ProtectedViewWindows;
-        public readonly RecentFiles: RecentFiles;
-        public Repeat(Times?: any): boolean;
-        public readonly Selection: Selection;
-        public ShowVisualBasicEditor: boolean;
-        public readonly StatusBar: string;
-        public SynonymInfo(Word: string, LanguageID?: any): SynonymInfo;
-        public readonly System: System;
-        public readonly Tasks: Tasks;
-        public readonly Templates: Templates;
-        public readonly VBE: VBIDE.VBE;
-        public readonly Windows: Windows;
-        public readonly WordBasic: any;
+        readonly HangulHanjaDictionaries: HangulHanjaConversionDictionaries;
+        Help(HelpType: any): void;
+        InchesToPoints(Inches: number): number;
+        IsObjectValid(Object: any): boolean;
+        readonly IsSandboxed: boolean;
+        readonly KeyBindings: KeyBindings;
+        KeysBoundTo(KeyCategory: WdKeyCategory, Command: string, CommandParameter?: any): KeysBoundTo;
+        KeyString(KeyCode: number, KeyCode2?: any): string;
+        readonly LandscapeFontNames: FontNames;
+        readonly Languages: Languages;
+        readonly LanguageSettings: Office.LanguageSettings;
+        LinesToPoints(Lines: number): number;
+        readonly ListGalleries: ListGalleries;
+        readonly MacroContainer: any;
+        MillimetersToPoints(Millimeters: number): number;
+        readonly Name: string;
+        NewWindow(): Window;
+        readonly NormalTemplate: Template;
+        readonly Options: Options;
+        readonly Parent: any;
+        PicasToPoints(Picas: number): number;
+        PixelsToPoints(Pixels: number, fVertical?: any): number;
+        PointsToCentimeters(Points: number): number;
+        PointsToInches(Points: number): number;
+        PointsToLines(Points: number): number;
+        PointsToMillimeters(Points: number): number;
+        PointsToPicas(Points: number): number;
+        PointsToPixels(Points: number, fVertical?: any): number;
+        readonly PortraitFontNames: FontNames;
+        PrintPreview: boolean;
+        readonly ProtectedViewWindows: ProtectedViewWindows;
+        readonly RecentFiles: RecentFiles;
+        Repeat(Times?: any): boolean;
+        readonly Selection: Selection;
+        ShowVisualBasicEditor: boolean;
+        readonly StatusBar: string;
+        SynonymInfo(Word: string, LanguageID?: any): SynonymInfo;
+        readonly System: System;
+        readonly Tasks: Tasks;
+        readonly Templates: Templates;
+        readonly VBE: VBIDE.VBE;
+        readonly Windows: Windows;
+        readonly WordBasic: any;
     }
 
     class GlowFormat {
         private 'Word.GlowFormat_typekey': GlowFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly Color: ColorFormat;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public Radius: number;
-        public Transparency: number;
+        readonly Application: Application;
+        readonly Color: ColorFormat;
+        readonly Creator: number;
+        readonly Parent: any;
+        Radius: number;
+        Transparency: number;
     }
 
     class GroupShapes {
         private 'Word.GroupShapes_typekey': GroupShapes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
     }
 
     class HangulAndAlphabetException {
         private 'Word.HangulAndAlphabetException_typekey': HangulAndAlphabetException;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class HangulAndAlphabetExceptions {
         private 'Word.HangulAndAlphabetExceptions_typekey': HangulAndAlphabetExceptions;
         private constructor();
-        public Add(Name: string): HangulAndAlphabetException;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): HangulAndAlphabetException;
-        public readonly Parent: any;
+        Add(Name: string): HangulAndAlphabetException;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): HangulAndAlphabetException;
+        readonly Parent: any;
     }
 
     class HangulHanjaConversionDictionaries {
         private 'Word.HangulHanjaConversionDictionaries_typekey': HangulHanjaConversionDictionaries;
         private constructor();
-        public ActiveCustomDictionary: Dictionary;
-        public Add(FileName: string): Dictionary;
-        public readonly Application: Application;
-        public readonly BuiltinDictionary: Dictionary;
-        public ClearAll(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Dictionary;
-        public readonly Maximum: number;
-        public readonly Parent: any;
+        ActiveCustomDictionary: Dictionary;
+        Add(FileName: string): Dictionary;
+        readonly Application: Application;
+        readonly BuiltinDictionary: Dictionary;
+        ClearAll(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Dictionary;
+        readonly Maximum: number;
+        readonly Parent: any;
     }
 
     class HeaderFooter {
         private 'Word.HeaderFooter_typekey': HeaderFooter;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Exists: boolean;
-        public readonly Index: WdHeaderFooterIndex;
-        public readonly IsHeader: boolean;
-        public LinkToPrevious: boolean;
-        public readonly PageNumbers: PageNumbers;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly Shapes: Shapes;
+        readonly Application: Application;
+        readonly Creator: number;
+        Exists: boolean;
+        readonly Index: WdHeaderFooterIndex;
+        readonly IsHeader: boolean;
+        LinkToPrevious: boolean;
+        readonly PageNumbers: PageNumbers;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly Shapes: Shapes;
     }
 
     class HeadersFooters {
         private 'Word.HeadersFooters_typekey': HeadersFooters;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: WdHeaderFooterIndex): HeaderFooter;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: WdHeaderFooterIndex): HeaderFooter;
+        readonly Parent: any;
     }
 
     class HeadingStyle {
         private 'Word.HeadingStyle_typekey': HeadingStyle;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Level: number;
-        public readonly Parent: any;
-        public Style: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        Level: number;
+        readonly Parent: any;
+        Style: any;
     }
 
     class HeadingStyles {
         private 'Word.HeadingStyles_typekey': HeadingStyles;
         private constructor();
-        public Add(Style: any, Level: number): HeadingStyle;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): HeadingStyle;
-        public readonly Parent: any;
+        Add(Style: any, Level: number): HeadingStyle;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): HeadingStyle;
+        readonly Parent: any;
     }
 
     class HiLoLines {
         private 'Word.HiLoLines_typekey': HiLoLines;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): void;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): void;
     }
 
     class HorizontalLineFormat {
         private 'Word.HorizontalLineFormat_typekey': HorizontalLineFormat;
         private constructor();
-        public Alignment: WdHorizontalLineAlignment;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public NoShade: boolean;
-        public readonly Parent: any;
-        public PercentWidth: number;
-        public WidthType: WdHorizontalLineWidthType;
+        Alignment: WdHorizontalLineAlignment;
+        readonly Application: Application;
+        readonly Creator: number;
+        NoShade: boolean;
+        readonly Parent: any;
+        PercentWidth: number;
+        WidthType: WdHorizontalLineWidthType;
     }
 
     class HTMLDivision {
         private 'Word.HTMLDivision_typekey': HTMLDivision;
         private constructor();
-        public readonly Application: Application;
-        public readonly Borders: Borders;
-        public readonly Creator: number;
-        public Delete(): void;
-        public HTMLDivisionParent(LevelsUp?: any): HTMLDivision;
-        public readonly HTMLDivisions: HTMLDivisions;
-        public LeftIndent: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public RightIndent: number;
-        public SpaceAfter: number;
-        public SpaceBefore: number;
+        readonly Application: Application;
+        readonly Borders: Borders;
+        readonly Creator: number;
+        Delete(): void;
+        HTMLDivisionParent(LevelsUp?: any): HTMLDivision;
+        readonly HTMLDivisions: HTMLDivisions;
+        LeftIndent: number;
+        readonly Parent: any;
+        readonly Range: Range;
+        RightIndent: number;
+        SpaceAfter: number;
+        SpaceBefore: number;
     }
 
     class HTMLDivisions {
         private 'Word.HTMLDivisions_typekey': HTMLDivisions;
         private constructor();
-        public Add(Range?: any): HTMLDivision;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): HTMLDivision;
-        public readonly NestingLevel: number;
-        public readonly Parent: any;
+        Add(Range?: any): HTMLDivision;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): HTMLDivision;
+        readonly NestingLevel: number;
+        readonly Parent: any;
     }
 
     class Hyperlink {
         private 'Word.Hyperlink_typekey': Hyperlink;
         private constructor();
-        public Address: string;
-        public readonly AddressOld: string;
-        public AddToFavorites(): void;
-        public readonly Application: Application;
-        public CreateNewDocument(FileName: string, EditNow: boolean, Overwrite: boolean): void;
-        public readonly Creator: number;
-        public Delete(): void;
-        public EmailSubject: string;
-        public readonly ExtraInfoRequired: boolean;
-        public Follow(NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public ScreenTip: string;
-        public readonly Shape: Shape;
-        public SubAddress: string;
-        public readonly SubAddressOld: string;
-        public Target: string;
-        public TextToDisplay: string;
-        public readonly Type: Office.MsoHyperlinkType;
+        Address: string;
+        readonly AddressOld: string;
+        AddToFavorites(): void;
+        readonly Application: Application;
+        CreateNewDocument(FileName: string, EditNow: boolean, Overwrite: boolean): void;
+        readonly Creator: number;
+        Delete(): void;
+        EmailSubject: string;
+        readonly ExtraInfoRequired: boolean;
+        Follow(NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Range: Range;
+        ScreenTip: string;
+        readonly Shape: Shape;
+        SubAddress: string;
+        readonly SubAddressOld: string;
+        Target: string;
+        TextToDisplay: string;
+        readonly Type: Office.MsoHyperlinkType;
     }
 
     class Hyperlinks {
         private 'Word.Hyperlinks_typekey': Hyperlinks;
         private constructor();
-        public _Add(Anchor: any, Address?: any, SubAddress?: any): Hyperlink;
-        public Add(Anchor: any, Address?: any, SubAddress?: any, ScreenTip?: any, TextToDisplay?: any, Target?: any): Hyperlink;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Hyperlink;
-        public readonly Parent: any;
+        _Add(Anchor: any, Address?: any, SubAddress?: any): Hyperlink;
+        Add(Anchor: any, Address?: any, SubAddress?: any, ScreenTip?: any, TextToDisplay?: any, Target?: any): Hyperlink;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Hyperlink;
+        readonly Parent: any;
     }
 
     class Index {
         private 'Word.Index_typekey': Index;
         private constructor();
-        public AccentedLetters: boolean;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Filter: WdIndexFilter;
-        public HeadingSeparator: WdHeadingSeparator;
-        public IndexLanguage: WdLanguageID;
-        public NumberOfColumns: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public RightAlignPageNumbers: boolean;
-        public SortBy: WdIndexSortBy;
-        public TabLeader: WdTabLeader;
-        public Type: WdIndexType;
-        public Update(): void;
+        AccentedLetters: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        Filter: WdIndexFilter;
+        HeadingSeparator: WdHeadingSeparator;
+        IndexLanguage: WdLanguageID;
+        NumberOfColumns: number;
+        readonly Parent: any;
+        readonly Range: Range;
+        RightAlignPageNumbers: boolean;
+        SortBy: WdIndexSortBy;
+        TabLeader: WdTabLeader;
+        Type: WdIndexType;
+        Update(): void;
     }
 
     class Indexes {
         private 'Word.Indexes_typekey': Indexes;
         private constructor();
-        public Add(Range: Range, HeadingSeparator?: any, RightAlignPageNumbers?: any, Type?: any, NumberOfColumns?: any, AccentedLetters?: any, SortBy?: any, IndexLanguage?: any): Index;
-        public AddOld(Range: Range, HeadingSeparator?: any, RightAlignPageNumbers?: any, Type?: any, NumberOfColumns?: any, AccentedLetters?: any): Index;
-        public readonly Application: Application;
-        public AutoMarkEntries(ConcordanceFileName: string): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Format: WdIndexFormat;
-        public Item(Index: number): Index;
-        public MarkAllEntries(Range: Range, Entry?: any, EntryAutoText?: any, CrossReference?: any, CrossReferenceAutoText?: any, BookmarkName?: any, Bold?: any, Italic?: any): void;
-        public MarkEntry(Range: Range, Entry?: any, EntryAutoText?: any, CrossReference?: any, CrossReferenceAutoText?: any, BookmarkName?: any, Bold?: any, Italic?: any, Reading?: any): Field;
-        public readonly Parent: any;
+        Add(Range: Range, HeadingSeparator?: any, RightAlignPageNumbers?: any, Type?: any, NumberOfColumns?: any, AccentedLetters?: any, SortBy?: any, IndexLanguage?: any): Index;
+        AddOld(Range: Range, HeadingSeparator?: any, RightAlignPageNumbers?: any, Type?: any, NumberOfColumns?: any, AccentedLetters?: any): Index;
+        readonly Application: Application;
+        AutoMarkEntries(ConcordanceFileName: string): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Format: WdIndexFormat;
+        Item(Index: number): Index;
+        MarkAllEntries(Range: Range, Entry?: any, EntryAutoText?: any, CrossReference?: any, CrossReferenceAutoText?: any, BookmarkName?: any, Bold?: any, Italic?: any): void;
+        MarkEntry(Range: Range, Entry?: any, EntryAutoText?: any, CrossReference?: any, CrossReferenceAutoText?: any, BookmarkName?: any, Bold?: any, Italic?: any, Reading?: any): Field;
+        readonly Parent: any;
     }
 
     class InlineShape {
         private 'Word.InlineShape_typekey': InlineShape;
         private constructor();
-        public Activate(): void;
-        public AlternativeText: string;
-        public readonly AnchorID: number;
-        public readonly Application: Application;
-        public Borders: Borders;
-        public readonly Chart: Chart;
-        public ConvertToShape(): Shape;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly EditID: number;
-        public readonly Field: Field;
-        public readonly Fill: FillFormat;
-        public readonly Glow: GlowFormat;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: Office.MsoTriState;
-        public readonly HasSmartArt: Office.MsoTriState;
-        public Height: number;
-        public readonly HorizontalLineFormat: HorizontalLineFormat;
-        public readonly Hyperlink: Hyperlink;
-        public readonly IsPictureBullet: boolean;
-        public readonly Line: LineFormat;
-        public readonly LinkFormat: LinkFormat;
-        public LockAspectRatio: Office.MsoTriState;
-        public readonly OLEFormat: OLEFormat;
-        public readonly OWSAnchor: number;
-        public readonly Parent: any;
-        public PictureFormat: PictureFormat;
-        public readonly Range: Range;
-        public readonly Reflection: ReflectionFormat;
-        public Reset(): void;
-        public ScaleHeight: number;
-        public ScaleWidth: number;
-        public readonly Script: Office.Script;
-        public Select(): void;
-        public readonly Shadow: ShadowFormat;
-        public readonly SmartArt: Office.SmartArt;
-        public readonly SoftEdge: SoftEdgeFormat;
-        public TextEffect: TextEffectFormat;
-        public Title: string;
-        public readonly Type: WdInlineShapeType;
-        public Width: number;
+        Activate(): void;
+        AlternativeText: string;
+        readonly AnchorID: number;
+        readonly Application: Application;
+        Borders: Borders;
+        readonly Chart: Chart;
+        ConvertToShape(): Shape;
+        readonly Creator: number;
+        Delete(): void;
+        readonly EditID: number;
+        readonly Field: Field;
+        readonly Fill: FillFormat;
+        readonly Glow: GlowFormat;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: Office.MsoTriState;
+        readonly HasSmartArt: Office.MsoTriState;
+        Height: number;
+        readonly HorizontalLineFormat: HorizontalLineFormat;
+        readonly Hyperlink: Hyperlink;
+        readonly IsPictureBullet: boolean;
+        readonly Line: LineFormat;
+        readonly LinkFormat: LinkFormat;
+        LockAspectRatio: Office.MsoTriState;
+        readonly OLEFormat: OLEFormat;
+        readonly OWSAnchor: number;
+        readonly Parent: any;
+        PictureFormat: PictureFormat;
+        readonly Range: Range;
+        readonly Reflection: ReflectionFormat;
+        Reset(): void;
+        ScaleHeight: number;
+        ScaleWidth: number;
+        readonly Script: Office.Script;
+        Select(): void;
+        readonly Shadow: ShadowFormat;
+        readonly SmartArt: Office.SmartArt;
+        readonly SoftEdge: SoftEdgeFormat;
+        TextEffect: TextEffectFormat;
+        Title: string;
+        readonly Type: WdInlineShapeType;
+        Width: number;
     }
 
     class InlineShapes {
@@ -8002,1610 +8002,1610 @@ declare namespace Word {
         private constructor();
 
         /** @param Office.XlChartType [Type=-1] */
-        public AddChart(Type?: Office.XlChartType, Range?: any): InlineShape;
-        public AddHorizontalLine(FileName: string, Range?: any): InlineShape;
-        public AddHorizontalLineStandard(Range?: any): InlineShape;
-        public AddOLEControl(ClassType?: any, Range?: any): InlineShape;
-        public AddOLEObject(ClassType?: any, FileName?: any, LinkToFile?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Range?: any): InlineShape;
-        public AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Range?: any): InlineShape;
-        public AddPictureBullet(FileName: string, Range?: any): InlineShape;
-        public AddSmartArt(Layout: Office.SmartArtLayout, Range?: any): InlineShape;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): InlineShape;
-        public New(Range: Range): InlineShape;
-        public readonly Parent: any;
+        AddChart(Type?: Office.XlChartType, Range?: any): InlineShape;
+        AddHorizontalLine(FileName: string, Range?: any): InlineShape;
+        AddHorizontalLineStandard(Range?: any): InlineShape;
+        AddOLEControl(ClassType?: any, Range?: any): InlineShape;
+        AddOLEObject(ClassType?: any, FileName?: any, LinkToFile?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Range?: any): InlineShape;
+        AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Range?: any): InlineShape;
+        AddPictureBullet(FileName: string, Range?: any): InlineShape;
+        AddSmartArt(Layout: Office.SmartArtLayout, Range?: any): InlineShape;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): InlineShape;
+        New(Range: Range): InlineShape;
+        readonly Parent: any;
     }
 
     class Interior {
         private 'Word.Interior_typekey': Interior;
         private constructor();
-        public readonly Application: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public InvertIfNegative: any;
-        public readonly Parent: any;
-        public Pattern: any;
-        public PatternColor: any;
-        public PatternColorIndex: any;
+        readonly Application: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        InvertIfNegative: any;
+        readonly Parent: any;
+        Pattern: any;
+        PatternColor: any;
+        PatternColorIndex: any;
     }
 
     class KeyBinding {
         private 'Word.KeyBinding_typekey': KeyBinding;
         private constructor();
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Command: string;
-        public readonly CommandParameter: string;
-        public readonly Context: any;
-        public readonly Creator: number;
-        public Disable(): void;
-        public Execute(): void;
-        public readonly KeyCategory: WdKeyCategory;
-        public readonly KeyCode: number;
-        public readonly KeyCode2: number;
-        public readonly KeyString: string;
-        public readonly Parent: any;
-        public readonly Protected: boolean;
-        public Rebind(KeyCategory: WdKeyCategory, Command: string, CommandParameter?: any): void;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Command: string;
+        readonly CommandParameter: string;
+        readonly Context: any;
+        readonly Creator: number;
+        Disable(): void;
+        Execute(): void;
+        readonly KeyCategory: WdKeyCategory;
+        readonly KeyCode: number;
+        readonly KeyCode2: number;
+        readonly KeyString: string;
+        readonly Parent: any;
+        readonly Protected: boolean;
+        Rebind(KeyCategory: WdKeyCategory, Command: string, CommandParameter?: any): void;
     }
 
     class KeyBindings {
         private 'Word.KeyBindings_typekey': KeyBindings;
         private constructor();
-        public Add(KeyCategory: WdKeyCategory, Command: string, KeyCode: number, KeyCode2?: any, CommandParameter?: any): KeyBinding;
-        public readonly Application: Application;
-        public ClearAll(): void;
-        public readonly Context: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): KeyBinding;
-        public Key(KeyCode: number, KeyCode2?: any): KeyBinding;
-        public readonly Parent: any;
+        Add(KeyCategory: WdKeyCategory, Command: string, KeyCode: number, KeyCode2?: any, CommandParameter?: any): KeyBinding;
+        readonly Application: Application;
+        ClearAll(): void;
+        readonly Context: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): KeyBinding;
+        Key(KeyCode: number, KeyCode2?: any): KeyBinding;
+        readonly Parent: any;
     }
 
     class KeysBoundTo {
         private 'Word.KeysBoundTo_typekey': KeysBoundTo;
         private constructor();
-        public readonly Application: Application;
-        public readonly Command: string;
-        public readonly CommandParameter: string;
-        public readonly Context: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): KeyBinding;
-        public Key(KeyCode: number, KeyCode2?: any): KeyBinding;
-        public readonly KeyCategory: WdKeyCategory;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Command: string;
+        readonly CommandParameter: string;
+        readonly Context: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): KeyBinding;
+        Key(KeyCode: number, KeyCode2?: any): KeyBinding;
+        readonly KeyCategory: WdKeyCategory;
+        readonly Parent: any;
     }
 
     class Language {
         private 'Word.Language_typekey': Language;
         private constructor();
-        public readonly ActiveGrammarDictionary: Dictionary;
-        public readonly ActiveHyphenationDictionary: Dictionary;
-        public readonly ActiveSpellingDictionary: Dictionary;
-        public readonly ActiveThesaurusDictionary: Dictionary;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public DefaultWritingStyle: string;
-        public readonly ID: WdLanguageID;
-        public readonly Name: string;
-        public readonly NameLocal: string;
-        public readonly Parent: any;
-        public SpellingDictionaryType: WdDictionaryType;
-        public readonly WritingStyleList: any;
+        readonly ActiveGrammarDictionary: Dictionary;
+        readonly ActiveHyphenationDictionary: Dictionary;
+        readonly ActiveSpellingDictionary: Dictionary;
+        readonly ActiveThesaurusDictionary: Dictionary;
+        readonly Application: Application;
+        readonly Creator: number;
+        DefaultWritingStyle: string;
+        readonly ID: WdLanguageID;
+        readonly Name: string;
+        readonly NameLocal: string;
+        readonly Parent: any;
+        SpellingDictionaryType: WdDictionaryType;
+        readonly WritingStyleList: any;
     }
 
     class Languages {
         private 'Word.Languages_typekey': Languages;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Language;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Language;
+        readonly Parent: any;
     }
 
     class Legend {
         private 'Word.Legend_typekey': Legend;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public Clear(): any;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public IncludeInLayout: boolean;
-        public readonly Interior: Interior;
-        public Left: number;
-        public LegendEntries(Index?: any): any;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlLegendPosition;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        Clear(): any;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        Height: number;
+        IncludeInLayout: boolean;
+        readonly Interior: Interior;
+        Left: number;
+        LegendEntries(Index?: any): any;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlLegendPosition;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class LetterContent {
         private 'Word.LetterContent_typekey': LetterContent;
         private constructor();
-        public readonly Application: Application;
-        public AttentionLine: string;
-        public CCList: string;
-        public Closing: string;
-        public readonly Creator: number;
-        public DateFormat: string;
-        public readonly Duplicate: LetterContent;
-        public EnclosureNumber: number;
-        public IncludeHeaderFooter: boolean;
-        public InfoBlock: boolean;
-        public Letterhead: boolean;
-        public LetterheadLocation: WdLetterheadLocation;
-        public LetterheadSize: number;
-        public LetterStyle: WdLetterStyle;
-        public MailingInstructions: string;
-        public PageDesign: string;
-        public readonly Parent: any;
-        public RecipientAddress: string;
-        public RecipientCode: string;
-        public RecipientGender: WdSalutationGender;
-        public RecipientName: string;
-        public RecipientReference: string;
-        public ReturnAddress: string;
-        public ReturnAddressShortForm: string;
-        public Salutation: string;
-        public SalutationType: WdSalutationType;
-        public SenderCity: string;
-        public SenderCode: string;
-        public SenderCompany: string;
-        public SenderGender: WdSalutationGender;
-        public SenderInitials: string;
-        public SenderJobTitle: string;
-        public SenderName: string;
-        public SenderReference: string;
-        public Subject: string;
+        readonly Application: Application;
+        AttentionLine: string;
+        CCList: string;
+        Closing: string;
+        readonly Creator: number;
+        DateFormat: string;
+        readonly Duplicate: LetterContent;
+        EnclosureNumber: number;
+        IncludeHeaderFooter: boolean;
+        InfoBlock: boolean;
+        Letterhead: boolean;
+        LetterheadLocation: WdLetterheadLocation;
+        LetterheadSize: number;
+        LetterStyle: WdLetterStyle;
+        MailingInstructions: string;
+        PageDesign: string;
+        readonly Parent: any;
+        RecipientAddress: string;
+        RecipientCode: string;
+        RecipientGender: WdSalutationGender;
+        RecipientName: string;
+        RecipientReference: string;
+        ReturnAddress: string;
+        ReturnAddressShortForm: string;
+        Salutation: string;
+        SalutationType: WdSalutationType;
+        SenderCity: string;
+        SenderCode: string;
+        SenderCompany: string;
+        SenderGender: WdSalutationGender;
+        SenderInitials: string;
+        SenderJobTitle: string;
+        SenderName: string;
+        SenderReference: string;
+        Subject: string;
     }
 
     class Line {
         private 'Word.Line_typekey': Line;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Height: number;
-        public readonly Left: number;
-        public readonly LineType: WdLineType;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly Rectangles: Rectangles;
-        public readonly Top: number;
-        public readonly Width: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Height: number;
+        readonly Left: number;
+        readonly LineType: WdLineType;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly Rectangles: Rectangles;
+        readonly Top: number;
+        readonly Width: number;
     }
 
     class LineFormat {
         private 'Word.LineFormat_typekey': LineFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly BackColor: ColorFormat;
-        public BeginArrowheadLength: Office.MsoArrowheadLength;
-        public BeginArrowheadStyle: Office.MsoArrowheadStyle;
-        public BeginArrowheadWidth: Office.MsoArrowheadWidth;
-        public readonly Creator: number;
-        public DashStyle: Office.MsoLineDashStyle;
-        public EndArrowheadLength: Office.MsoArrowheadLength;
-        public EndArrowheadStyle: Office.MsoArrowheadStyle;
-        public EndArrowheadWidth: Office.MsoArrowheadWidth;
-        public readonly ForeColor: ColorFormat;
-        public InsetPen: Office.MsoTriState;
-        public readonly Parent: any;
-        public Pattern: Office.MsoPatternType;
-        public Style: Office.MsoLineStyle;
-        public Transparency: number;
-        public Visible: Office.MsoTriState;
-        public Weight: number;
+        readonly Application: Application;
+        readonly BackColor: ColorFormat;
+        BeginArrowheadLength: Office.MsoArrowheadLength;
+        BeginArrowheadStyle: Office.MsoArrowheadStyle;
+        BeginArrowheadWidth: Office.MsoArrowheadWidth;
+        readonly Creator: number;
+        DashStyle: Office.MsoLineDashStyle;
+        EndArrowheadLength: Office.MsoArrowheadLength;
+        EndArrowheadStyle: Office.MsoArrowheadStyle;
+        EndArrowheadWidth: Office.MsoArrowheadWidth;
+        readonly ForeColor: ColorFormat;
+        InsetPen: Office.MsoTriState;
+        readonly Parent: any;
+        Pattern: Office.MsoPatternType;
+        Style: Office.MsoLineStyle;
+        Transparency: number;
+        Visible: Office.MsoTriState;
+        Weight: number;
     }
 
     class LineNumbering {
         private 'Word.LineNumbering_typekey': LineNumbering;
         private constructor();
-        public Active: number;
-        public readonly Application: Application;
-        public CountBy: number;
-        public readonly Creator: number;
-        public DistanceFromText: number;
-        public readonly Parent: any;
-        public RestartMode: WdNumberingRule;
-        public StartingNumber: number;
+        Active: number;
+        readonly Application: Application;
+        CountBy: number;
+        readonly Creator: number;
+        DistanceFromText: number;
+        readonly Parent: any;
+        RestartMode: WdNumberingRule;
+        StartingNumber: number;
     }
 
     class Lines {
         private 'Word.Lines_typekey': Lines;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Line;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Line;
+        readonly Parent: any;
     }
 
     class LinkFormat {
         private 'Word.LinkFormat_typekey': LinkFormat;
         private constructor();
-        public readonly Application: Application;
-        public AutoUpdate: boolean;
-        public BreakLink(): void;
-        public readonly Creator: number;
-        public Locked: boolean;
-        public readonly Parent: any;
-        public SavePictureWithDocument: boolean;
-        public SourceFullName: string;
-        public readonly SourceName: string;
-        public readonly SourcePath: string;
-        public readonly Type: WdLinkType;
-        public Update(): void;
+        readonly Application: Application;
+        AutoUpdate: boolean;
+        BreakLink(): void;
+        readonly Creator: number;
+        Locked: boolean;
+        readonly Parent: any;
+        SavePictureWithDocument: boolean;
+        SourceFullName: string;
+        readonly SourceName: string;
+        readonly SourcePath: string;
+        readonly Type: WdLinkType;
+        Update(): void;
     }
 
     class List {
         private 'Word.List_typekey': List;
         private constructor();
-        public readonly Application: Application;
-        public ApplyListTemplate(ListTemplate: ListTemplate, ContinuePreviousList?: any, DefaultListBehavior?: any): void;
-        public ApplyListTemplateOld(ListTemplate: ListTemplate, ContinuePreviousList?: any): void;
-        public ApplyListTemplateWithLevel(ListTemplate: ListTemplate, ContinuePreviousList?: any, DefaultListBehavior?: any, ApplyLevel?: any): void;
-        public CanContinuePreviousList(ListTemplate: ListTemplate): WdContinue;
-        public ConvertNumbersToText(NumberType?: any): void;
-        public CountNumberedItems(NumberType?: any, Level?: any): number;
-        public readonly Creator: number;
-        public readonly ListParagraphs: ListParagraphs;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public RemoveNumbers(NumberType?: any): void;
-        public readonly SingleListTemplate: boolean;
-        public readonly StyleName: string;
+        readonly Application: Application;
+        ApplyListTemplate(ListTemplate: ListTemplate, ContinuePreviousList?: any, DefaultListBehavior?: any): void;
+        ApplyListTemplateOld(ListTemplate: ListTemplate, ContinuePreviousList?: any): void;
+        ApplyListTemplateWithLevel(ListTemplate: ListTemplate, ContinuePreviousList?: any, DefaultListBehavior?: any, ApplyLevel?: any): void;
+        CanContinuePreviousList(ListTemplate: ListTemplate): WdContinue;
+        ConvertNumbersToText(NumberType?: any): void;
+        CountNumberedItems(NumberType?: any, Level?: any): number;
+        readonly Creator: number;
+        readonly ListParagraphs: ListParagraphs;
+        readonly Parent: any;
+        readonly Range: Range;
+        RemoveNumbers(NumberType?: any): void;
+        readonly SingleListTemplate: boolean;
+        readonly StyleName: string;
     }
 
     class ListEntries {
         private 'Word.ListEntries_typekey': ListEntries;
         private constructor();
-        public Add(Name: string, Index?: any): ListEntry;
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): ListEntry;
-        public readonly Parent: any;
+        Add(Name: string, Index?: any): ListEntry;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): ListEntry;
+        readonly Parent: any;
     }
 
     class ListEntry {
         private 'Word.ListEntry_typekey': ListEntry;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        Name: string;
+        readonly Parent: any;
     }
 
     class ListFormat {
         private 'Word.ListFormat_typekey': ListFormat;
         private constructor();
-        public readonly Application: Application;
-        public ApplyBulletDefault(DefaultListBehavior?: any): void;
-        public ApplyBulletDefaultOld(): void;
-        public ApplyListTemplate(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any, DefaultListBehavior?: any): void;
-        public ApplyListTemplateOld(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any): void;
-        public ApplyListTemplateWithLevel(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any, DefaultListBehavior?: any, ApplyLevel?: any): void;
-        public ApplyNumberDefault(DefaultListBehavior?: any): void;
-        public ApplyNumberDefaultOld(): void;
-        public ApplyOutlineNumberDefault(DefaultListBehavior?: any): void;
-        public ApplyOutlineNumberDefaultOld(): void;
-        public CanContinuePreviousList(ListTemplate: ListTemplate): WdContinue;
-        public ConvertNumbersToText(NumberType?: any): void;
-        public CountNumberedItems(NumberType?: any, Level?: any): number;
-        public readonly Creator: number;
-        public readonly List: List;
-        public ListIndent(): void;
-        public ListLevelNumber: number;
-        public ListOutdent(): void;
-        public readonly ListPictureBullet: InlineShape;
-        public readonly ListString: string;
-        public readonly ListTemplate: ListTemplate;
-        public readonly ListType: WdListType;
-        public readonly ListValue: number;
-        public readonly Parent: any;
-        public RemoveNumbers(NumberType?: any): void;
-        public readonly SingleList: boolean;
-        public readonly SingleListTemplate: boolean;
+        readonly Application: Application;
+        ApplyBulletDefault(DefaultListBehavior?: any): void;
+        ApplyBulletDefaultOld(): void;
+        ApplyListTemplate(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any, DefaultListBehavior?: any): void;
+        ApplyListTemplateOld(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any): void;
+        ApplyListTemplateWithLevel(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any, DefaultListBehavior?: any, ApplyLevel?: any): void;
+        ApplyNumberDefault(DefaultListBehavior?: any): void;
+        ApplyNumberDefaultOld(): void;
+        ApplyOutlineNumberDefault(DefaultListBehavior?: any): void;
+        ApplyOutlineNumberDefaultOld(): void;
+        CanContinuePreviousList(ListTemplate: ListTemplate): WdContinue;
+        ConvertNumbersToText(NumberType?: any): void;
+        CountNumberedItems(NumberType?: any, Level?: any): number;
+        readonly Creator: number;
+        readonly List: List;
+        ListIndent(): void;
+        ListLevelNumber: number;
+        ListOutdent(): void;
+        readonly ListPictureBullet: InlineShape;
+        readonly ListString: string;
+        readonly ListTemplate: ListTemplate;
+        readonly ListType: WdListType;
+        readonly ListValue: number;
+        readonly Parent: any;
+        RemoveNumbers(NumberType?: any): void;
+        readonly SingleList: boolean;
+        readonly SingleListTemplate: boolean;
     }
 
     class ListGalleries {
         private 'Word.ListGalleries_typekey': ListGalleries;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: WdListGalleryType): ListGallery;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: WdListGalleryType): ListGallery;
+        readonly Parent: any;
     }
 
     class ListGallery {
         private 'Word.ListGallery_typekey': ListGallery;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly ListTemplates: ListTemplates;
-        public Modified(Index: number): boolean;
-        public readonly Parent: any;
-        public Reset(Index: number): void;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly ListTemplates: ListTemplates;
+        Modified(Index: number): boolean;
+        readonly Parent: any;
+        Reset(Index: number): void;
     }
 
     class ListLevel {
         private 'Word.ListLevel_typekey': ListLevel;
         private constructor();
-        public Alignment: WdListLevelAlignment;
-        public readonly Application: Application;
-        public ApplyPictureBullet(FileName: string): InlineShape;
-        public readonly Creator: number;
-        public Font: Font;
-        public readonly Index: number;
-        public LinkedStyle: string;
-        public NumberFormat: string;
-        public NumberPosition: number;
-        public NumberStyle: WdListNumberStyle;
-        public readonly Parent: any;
-        public readonly PictureBullet: InlineShape;
-        public ResetOnHigher: number;
-        public ResetOnHigherOld: boolean;
-        public StartAt: number;
-        public TabPosition: number;
-        public TextPosition: number;
-        public TrailingCharacter: WdTrailingCharacter;
+        Alignment: WdListLevelAlignment;
+        readonly Application: Application;
+        ApplyPictureBullet(FileName: string): InlineShape;
+        readonly Creator: number;
+        Font: Font;
+        readonly Index: number;
+        LinkedStyle: string;
+        NumberFormat: string;
+        NumberPosition: number;
+        NumberStyle: WdListNumberStyle;
+        readonly Parent: any;
+        readonly PictureBullet: InlineShape;
+        ResetOnHigher: number;
+        ResetOnHigherOld: boolean;
+        StartAt: number;
+        TabPosition: number;
+        TextPosition: number;
+        TrailingCharacter: WdTrailingCharacter;
     }
 
     class ListLevels {
         private 'Word.ListLevels_typekey': ListLevels;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): ListLevel;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): ListLevel;
+        readonly Parent: any;
     }
 
     class ListParagraphs {
         private 'Word.ListParagraphs_typekey': ListParagraphs;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Paragraph;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Paragraph;
+        readonly Parent: any;
     }
 
     class Lists {
         private 'Word.Lists_typekey': Lists;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): List;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): List;
+        readonly Parent: any;
     }
 
     class ListTemplate {
         private 'Word.ListTemplate_typekey': ListTemplate;
         private constructor();
-        public readonly Application: Application;
-        public Convert(Level?: any): ListTemplate;
-        public readonly Creator: number;
-        public readonly ListLevels: ListLevels;
-        public Name: string;
-        public OutlineNumbered: boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        Convert(Level?: any): ListTemplate;
+        readonly Creator: number;
+        readonly ListLevels: ListLevels;
+        Name: string;
+        OutlineNumbered: boolean;
+        readonly Parent: any;
     }
 
     class ListTemplates {
         private 'Word.ListTemplates_typekey': ListTemplates;
         private constructor();
-        public Add(OutlineNumbered?: any, Name?: any): ListTemplate;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): ListTemplate;
-        public readonly Parent: any;
+        Add(OutlineNumbered?: any, Name?: any): ListTemplate;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): ListTemplate;
+        readonly Parent: any;
     }
 
     class Mailer {
         private 'Word.Mailer_typekey': Mailer;
         private constructor();
-        public readonly Application: Application;
-        public BCCRecipients: any;
-        public CCRecipients: any;
-        public readonly Creator: number;
-        public Enclosures: any;
-        public readonly Parent: any;
-        public readonly Received: boolean;
-        public Recipients: any;
-        public readonly SendDateTime: VarDate;
-        public readonly Sender: string;
-        public Subject: string;
+        readonly Application: Application;
+        BCCRecipients: any;
+        CCRecipients: any;
+        readonly Creator: number;
+        Enclosures: any;
+        readonly Parent: any;
+        readonly Received: boolean;
+        Recipients: any;
+        readonly SendDateTime: VarDate;
+        readonly Sender: string;
+        Subject: string;
     }
 
     class MailingLabel {
         private 'Word.MailingLabel_typekey': MailingLabel;
         private constructor();
-        public readonly Application: Application;
-        public CreateNewDocument(Name?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any, PrintEPostageLabel?: any, Vertical?: any): Document;
-        public CreateNewDocument2000(Name?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any): Document;
-        public CreateNewDocumentByID(LabelID?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any, PrintEPostageLabel?: any, Vertical?: any): Document;
-        public readonly Creator: number;
-        public readonly CustomLabels: CustomLabels;
-        public DefaultLabelName: string;
-        public DefaultLaserTray: WdPaperTray;
-        public DefaultPrintBarCode: boolean;
-        public LabelOptions(): void;
-        public readonly Parent: any;
-        public PrintOut(Name?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any, PrintEPostageLabel?: any, Vertical?: any): void;
-        public PrintOut2000(Name?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any): void;
-        public PrintOutByID(LabelID?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any, PrintEPostageLabel?: any, Vertical?: any): void;
-        public Vertical: boolean;
+        readonly Application: Application;
+        CreateNewDocument(Name?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any, PrintEPostageLabel?: any, Vertical?: any): Document;
+        CreateNewDocument2000(Name?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any): Document;
+        CreateNewDocumentByID(LabelID?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any, PrintEPostageLabel?: any, Vertical?: any): Document;
+        readonly Creator: number;
+        readonly CustomLabels: CustomLabels;
+        DefaultLabelName: string;
+        DefaultLaserTray: WdPaperTray;
+        DefaultPrintBarCode: boolean;
+        LabelOptions(): void;
+        readonly Parent: any;
+        PrintOut(Name?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any, PrintEPostageLabel?: any, Vertical?: any): void;
+        PrintOut2000(Name?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any): void;
+        PrintOutByID(LabelID?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any, PrintEPostageLabel?: any, Vertical?: any): void;
+        Vertical: boolean;
     }
 
     class MailMerge {
         private 'Word.MailMerge_typekey': MailMerge;
         private constructor();
-        public readonly Application: Application;
-        public Check(): void;
-        public CreateDataSource(
+        readonly Application: Application;
+        Check(): void;
+        CreateDataSource(
             Name?: any, PasswordDocument?: any, WritePasswordDocument?: any, HeaderRecord?: any, MSQuery?: any, SQLStatement?: any, SQLStatement1?: any, Connection?: any, LinkToSource?: any): void;
-        public CreateHeaderSource(Name: string, PasswordDocument?: any, WritePasswordDocument?: any, HeaderRecord?: any): void;
-        public readonly Creator: number;
-        public readonly DataSource: MailMergeDataSource;
-        public Destination: WdMailMergeDestination;
-        public EditDataSource(): void;
-        public EditHeaderSource(): void;
-        public EditMainDocument(): void;
-        public Execute(Pause?: any): void;
-        public readonly Fields: MailMergeFields;
-        public HighlightMergeFields: boolean;
-        public MailAddressFieldName: string;
-        public MailAsAttachment: boolean;
-        public MailFormat: WdMailMergeMailFormat;
-        public MailSubject: string;
-        public MainDocumentType: WdMailMergeMainDocType;
-        public OpenDataSource(
+        CreateHeaderSource(Name: string, PasswordDocument?: any, WritePasswordDocument?: any, HeaderRecord?: any): void;
+        readonly Creator: number;
+        readonly DataSource: MailMergeDataSource;
+        Destination: WdMailMergeDestination;
+        EditDataSource(): void;
+        EditHeaderSource(): void;
+        EditMainDocument(): void;
+        Execute(Pause?: any): void;
+        readonly Fields: MailMergeFields;
+        HighlightMergeFields: boolean;
+        MailAddressFieldName: string;
+        MailAsAttachment: boolean;
+        MailFormat: WdMailMergeMailFormat;
+        MailSubject: string;
+        MainDocumentType: WdMailMergeMainDocType;
+        OpenDataSource(
             Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, LinkToSource?: any, AddToRecentFiles?: any, PasswordDocument?: any,
             PasswordTemplate?: any, Revert?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any, Connection?: any, SQLStatement?: any, SQLStatement1?: any,
             OpenExclusive?: any, SubType?: any): void;
-        public OpenDataSource2000(
+        OpenDataSource2000(
             Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, LinkToSource?: any, AddToRecentFiles?: any, PasswordDocument?: any,
             PasswordTemplate?: any, Revert?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any, Connection?: any, SQLStatement?: any, SQLStatement1?: any): void;
-        public OpenHeaderSource(
+        OpenHeaderSource(
             Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, OpenExclusive?: any): void;
-        public OpenHeaderSource2000(
+        OpenHeaderSource2000(
             Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any): void;
-        public readonly Parent: any;
-        public ShowSendToCustom: string;
-        public ShowWizard(InitialState: any, ShowDocumentStep?: any, ShowTemplateStep?: any, ShowDataStep?: any, ShowWriteStep?: any, ShowPreviewStep?: any, ShowMergeStep?: any): void;
-        public readonly State: WdMailMergeState;
-        public SuppressBlankLines: boolean;
-        public UseAddressBook(Type: string): void;
-        public ViewMailMergeFieldCodes: number;
-        public WizardState: number;
+        readonly Parent: any;
+        ShowSendToCustom: string;
+        ShowWizard(InitialState: any, ShowDocumentStep?: any, ShowTemplateStep?: any, ShowDataStep?: any, ShowWriteStep?: any, ShowPreviewStep?: any, ShowMergeStep?: any): void;
+        readonly State: WdMailMergeState;
+        SuppressBlankLines: boolean;
+        UseAddressBook(Type: string): void;
+        ViewMailMergeFieldCodes: number;
+        WizardState: number;
     }
 
     class MailMergeDataField {
         private 'Word.MailMergeDataField_typekey': MailMergeDataField;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Value: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Value: string;
     }
 
     class MailMergeDataFields {
         private 'Word.MailMergeDataFields_typekey': MailMergeDataFields;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): MailMergeDataField;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): MailMergeDataField;
+        readonly Parent: any;
     }
 
     class MailMergeDataSource {
         private 'Word.MailMergeDataSource_typekey': MailMergeDataSource;
         private constructor();
-        public ActiveRecord: WdMailMergeActiveRecord;
-        public readonly Application: Application;
-        public Close(): void;
-        public readonly ConnectString: string;
-        public readonly Creator: number;
-        public readonly DataFields: MailMergeDataFields;
-        public readonly FieldNames: MailMergeFieldNames;
-        public FindRecord(FindText: string, Field?: any): boolean;
-        public FindRecord2000(FindText: string, Field: string): boolean;
-        public FirstRecord: number;
-        public readonly HeaderSourceName: string;
-        public readonly HeaderSourceType: WdMailMergeDataSource;
-        public Included: boolean;
-        public InvalidAddress: boolean;
-        public InvalidComments: string;
-        public LastRecord: number;
-        public readonly MappedDataFields: MappedDataFields;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public QueryString: string;
-        public readonly RecordCount: number;
-        public SetAllErrorFlags(Invalid: boolean, InvalidComment: string): void;
-        public SetAllIncludedFlags(Included: boolean): void;
-        public readonly TableName: string;
-        public readonly Type: WdMailMergeDataSource;
+        ActiveRecord: WdMailMergeActiveRecord;
+        readonly Application: Application;
+        Close(): void;
+        readonly ConnectString: string;
+        readonly Creator: number;
+        readonly DataFields: MailMergeDataFields;
+        readonly FieldNames: MailMergeFieldNames;
+        FindRecord(FindText: string, Field?: any): boolean;
+        FindRecord2000(FindText: string, Field: string): boolean;
+        FirstRecord: number;
+        readonly HeaderSourceName: string;
+        readonly HeaderSourceType: WdMailMergeDataSource;
+        Included: boolean;
+        InvalidAddress: boolean;
+        InvalidComments: string;
+        LastRecord: number;
+        readonly MappedDataFields: MappedDataFields;
+        readonly Name: string;
+        readonly Parent: any;
+        QueryString: string;
+        readonly RecordCount: number;
+        SetAllErrorFlags(Invalid: boolean, InvalidComment: string): void;
+        SetAllIncludedFlags(Included: boolean): void;
+        readonly TableName: string;
+        readonly Type: WdMailMergeDataSource;
     }
 
     class MailMergeField {
         private 'Word.MailMergeField_typekey': MailMergeField;
         private constructor();
-        public readonly Application: Application;
-        public Code: Range;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
-        public Locked: boolean;
-        public readonly Next: MailMergeField;
-        public readonly Parent: any;
-        public readonly Previous: MailMergeField;
-        public Select(): void;
-        public readonly Type: WdFieldType;
+        readonly Application: Application;
+        Code: Range;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
+        Locked: boolean;
+        readonly Next: MailMergeField;
+        readonly Parent: any;
+        readonly Previous: MailMergeField;
+        Select(): void;
+        readonly Type: WdFieldType;
     }
 
     class MailMergeFieldName {
         private 'Word.MailMergeFieldName_typekey': MailMergeFieldName;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class MailMergeFieldNames {
         private 'Word.MailMergeFieldNames_typekey': MailMergeFieldNames;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): MailMergeFieldName;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): MailMergeFieldName;
+        readonly Parent: any;
     }
 
     class MailMergeFields {
         private 'Word.MailMergeFields_typekey': MailMergeFields;
         private constructor();
-        public Add(Range: Range, Name: string): MailMergeField;
-        public AddAsk(Range: Range, Name: string, Prompt?: any, DefaultAskText?: any, AskOnce?: any): MailMergeField;
-        public AddFillIn(Range: Range, Prompt?: any, DefaultFillInText?: any, AskOnce?: any): MailMergeField;
-        public AddIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any, TrueAutoText?: any, TrueText?: any, FalseAutoText?: any, FalseText?: any): MailMergeField;
-        public AddMergeRec(Range: Range): MailMergeField;
-        public AddMergeSeq(Range: Range): MailMergeField;
-        public AddNext(Range: Range): MailMergeField;
-        public AddNextIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any): MailMergeField;
-        public AddSet(Range: Range, Name: string, ValueText?: any, ValueAutoText?: any): MailMergeField;
-        public AddSkipIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any): MailMergeField;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): MailMergeField;
-        public readonly Parent: any;
+        Add(Range: Range, Name: string): MailMergeField;
+        AddAsk(Range: Range, Name: string, Prompt?: any, DefaultAskText?: any, AskOnce?: any): MailMergeField;
+        AddFillIn(Range: Range, Prompt?: any, DefaultFillInText?: any, AskOnce?: any): MailMergeField;
+        AddIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any, TrueAutoText?: any, TrueText?: any, FalseAutoText?: any, FalseText?: any): MailMergeField;
+        AddMergeRec(Range: Range): MailMergeField;
+        AddMergeSeq(Range: Range): MailMergeField;
+        AddNext(Range: Range): MailMergeField;
+        AddNextIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any): MailMergeField;
+        AddSet(Range: Range, Name: string, ValueText?: any, ValueAutoText?: any): MailMergeField;
+        AddSkipIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any): MailMergeField;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): MailMergeField;
+        readonly Parent: any;
     }
 
     class MailMessage {
         private 'Word.MailMessage_typekey': MailMessage;
         private constructor();
-        public readonly Application: Application;
-        public CheckName(): void;
-        public readonly Creator: number;
-        public Delete(): void;
-        public DisplayMoveDialog(): void;
-        public DisplayProperties(): void;
-        public DisplaySelectNamesDialog(): void;
-        public Forward(): void;
-        public GoToNext(): void;
-        public GoToPrevious(): void;
-        public readonly Parent: any;
-        public Reply(): void;
-        public ReplyAll(): void;
-        public ToggleHeader(): void;
+        readonly Application: Application;
+        CheckName(): void;
+        readonly Creator: number;
+        Delete(): void;
+        DisplayMoveDialog(): void;
+        DisplayProperties(): void;
+        DisplaySelectNamesDialog(): void;
+        Forward(): void;
+        GoToNext(): void;
+        GoToPrevious(): void;
+        readonly Parent: any;
+        Reply(): void;
+        ReplyAll(): void;
+        ToggleHeader(): void;
     }
 
     class MappedDataField {
         private 'Word.MappedDataField_typekey': MappedDataField;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public DataFieldIndex: number;
-        public readonly DataFieldName: string;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Value: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        DataFieldIndex: number;
+        readonly DataFieldName: string;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Value: string;
     }
 
     class MappedDataFields {
         private 'Word.MappedDataFields_typekey': MappedDataFields;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: WdMappedDataFields): MappedDataField;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: WdMappedDataFields): MappedDataField;
+        readonly Parent: any;
     }
 
     class OLEControl {
         private 'Word.OLEControl_typekey': OLEControl;
         private constructor();
-        public Activate(): void;
-        public AltHTML: string;
-        public readonly Automation: any;
-        public Copy(): void;
-        public Cut(): void;
-        public Delete(): void;
-        public Height: number;
-        public Left: number;
-        public Name: string;
-        public Select(): void;
-        public Top: number;
-        public Width: number;
+        Activate(): void;
+        AltHTML: string;
+        readonly Automation: any;
+        Copy(): void;
+        Cut(): void;
+        Delete(): void;
+        Height: number;
+        Left: number;
+        Name: string;
+        Select(): void;
+        Top: number;
+        Width: number;
     }
 
     class OLEFormat {
         private 'Word.OLEFormat_typekey': OLEFormat;
         private constructor();
-        public Activate(): void;
-        public ActivateAs(ClassType: string): void;
-        public readonly Application: Application;
-        public ClassType: string;
-        public ConvertTo(ClassType?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any): void;
-        public readonly Creator: number;
-        public DisplayAsIcon: boolean;
-        public DoVerb(VerbIndex?: any): void;
-        public Edit(): void;
-        public IconIndex: number;
-        public IconLabel: string;
-        public IconName: string;
-        public readonly IconPath: string;
-        public readonly Label: string;
-        public readonly Object: any;
-        public Open(): void;
-        public readonly Parent: any;
-        public PreserveFormattingOnUpdate: boolean;
-        public readonly ProgID: string;
+        Activate(): void;
+        ActivateAs(ClassType: string): void;
+        readonly Application: Application;
+        ClassType: string;
+        ConvertTo(ClassType?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any): void;
+        readonly Creator: number;
+        DisplayAsIcon: boolean;
+        DoVerb(VerbIndex?: any): void;
+        Edit(): void;
+        IconIndex: number;
+        IconLabel: string;
+        IconName: string;
+        readonly IconPath: string;
+        readonly Label: string;
+        readonly Object: any;
+        Open(): void;
+        readonly Parent: any;
+        PreserveFormattingOnUpdate: boolean;
+        readonly ProgID: string;
     }
 
     class OMath {
         private 'Word.OMath_typekey': OMath;
         private constructor();
-        public AlignPoint: number;
-        public readonly Application: Application;
-        public readonly ArgIndex: number;
-        public ArgSize: number;
-        public readonly Breaks: OMathBreaks;
-        public BuildUp(): void;
-        public ConvertToLiteralText(): void;
-        public ConvertToMathText(): void;
-        public ConvertToNormalText(): void;
-        public readonly Creator: number;
-        public readonly Functions: OMathFunctions;
-        public Justification: WdOMathJc;
-        public Linearize(): void;
-        public readonly NestingLevel: number;
-        public readonly Parent: any;
-        public readonly ParentArg: OMath;
-        public readonly ParentCol: OMathMatCol;
-        public readonly ParentFunction: OMathFunction;
-        public readonly ParentOMath: OMath;
-        public readonly ParentRow: OMathMatRow;
-        public readonly Range: Range;
-        public Remove(): void;
-        public Type: WdOMathType;
+        AlignPoint: number;
+        readonly Application: Application;
+        readonly ArgIndex: number;
+        ArgSize: number;
+        readonly Breaks: OMathBreaks;
+        BuildUp(): void;
+        ConvertToLiteralText(): void;
+        ConvertToMathText(): void;
+        ConvertToNormalText(): void;
+        readonly Creator: number;
+        readonly Functions: OMathFunctions;
+        Justification: WdOMathJc;
+        Linearize(): void;
+        readonly NestingLevel: number;
+        readonly Parent: any;
+        readonly ParentArg: OMath;
+        readonly ParentCol: OMathMatCol;
+        readonly ParentFunction: OMathFunction;
+        readonly ParentOMath: OMath;
+        readonly ParentRow: OMathMatRow;
+        readonly Range: Range;
+        Remove(): void;
+        Type: WdOMathType;
     }
 
     class OMathAcc {
         private 'Word.OMathAcc_typekey': OMathAcc;
         private constructor();
-        public readonly Application: Application;
-        public Char: number;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
+        readonly Application: Application;
+        Char: number;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
     }
 
     class OMathArgs {
         private 'Word.OMathArgs_typekey': OMathArgs;
         private constructor();
-        public Add(BeforeArg?: any): OMath;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): OMath;
-        public readonly Parent: any;
+        Add(BeforeArg?: any): OMath;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): OMath;
+        readonly Parent: any;
     }
 
     class OMathAutoCorrect {
         private 'Word.OMathAutoCorrect_typekey': OMathAutoCorrect;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Entries: OMathAutoCorrectEntries;
-        public readonly Functions: OMathRecognizedFunctions;
-        public readonly Parent: any;
-        public ReplaceText: boolean;
-        public UseOutsideOMath: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Entries: OMathAutoCorrectEntries;
+        readonly Functions: OMathRecognizedFunctions;
+        readonly Parent: any;
+        ReplaceText: boolean;
+        UseOutsideOMath: boolean;
     }
 
     class OMathAutoCorrectEntries {
         private 'Word.OMathAutoCorrectEntries_typekey': OMathAutoCorrectEntries;
         private constructor();
-        public Add(Name: string, Value: string): OMathAutoCorrectEntry;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): OMathAutoCorrectEntry;
-        public readonly Parent: any;
+        Add(Name: string, Value: string): OMathAutoCorrectEntry;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): OMathAutoCorrectEntry;
+        readonly Parent: any;
     }
 
     class OMathAutoCorrectEntry {
         private 'Word.OMathAutoCorrectEntry_typekey': OMathAutoCorrectEntry;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public Name: string;
-        public readonly Parent: any;
-        public Value: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        Name: string;
+        readonly Parent: any;
+        Value: string;
     }
 
     class OMathBar {
         private 'Word.OMathBar_typekey': OMathBar;
         private constructor();
-        public readonly Application: Application;
-        public BarTop: boolean;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
+        readonly Application: Application;
+        BarTop: boolean;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
     }
 
     class OMathBorderBox {
         private 'Word.OMathBorderBox_typekey': OMathBorderBox;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public HideBot: boolean;
-        public HideLeft: boolean;
-        public HideRight: boolean;
-        public HideTop: boolean;
-        public readonly Parent: any;
-        public StrikeBLTR: boolean;
-        public StrikeH: boolean;
-        public StrikeTLBR: boolean;
-        public StrikeV: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        HideBot: boolean;
+        HideLeft: boolean;
+        HideRight: boolean;
+        HideTop: boolean;
+        readonly Parent: any;
+        StrikeBLTR: boolean;
+        StrikeH: boolean;
+        StrikeTLBR: boolean;
+        StrikeV: boolean;
     }
 
     class OMathBox {
         private 'Word.OMathBox_typekey': OMathBox;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Diff: boolean;
-        public readonly E: OMath;
-        public NoBreak: boolean;
-        public OpEmu: boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Diff: boolean;
+        readonly E: OMath;
+        NoBreak: boolean;
+        OpEmu: boolean;
+        readonly Parent: any;
     }
 
     class OMathBreak {
         private 'Word.OMathBreak_typekey': OMathBreak;
         private constructor();
-        public AlignAt: number;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Parent: any;
-        public readonly Range: Range;
+        AlignAt: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Parent: any;
+        readonly Range: Range;
     }
 
     class OMathBreaks {
         private 'Word.OMathBreaks_typekey': OMathBreaks;
         private constructor();
-        public Add(Range: Range): OMathBreak;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): OMathBreak;
-        public readonly Parent: any;
+        Add(Range: Range): OMathBreak;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): OMathBreak;
+        readonly Parent: any;
     }
 
     class OMathDelim {
         private 'Word.OMathDelim_typekey': OMathDelim;
         private constructor();
-        public readonly Application: Application;
-        public BegChar: number;
-        public readonly Creator: number;
-        public readonly E: OMathArgs;
-        public EndChar: number;
-        public Grow: boolean;
-        public NoLeftChar: boolean;
-        public NoRightChar: boolean;
-        public readonly Parent: any;
-        public SepChar: number;
-        public Shape: WdOMathShapeType;
+        readonly Application: Application;
+        BegChar: number;
+        readonly Creator: number;
+        readonly E: OMathArgs;
+        EndChar: number;
+        Grow: boolean;
+        NoLeftChar: boolean;
+        NoRightChar: boolean;
+        readonly Parent: any;
+        SepChar: number;
+        Shape: WdOMathShapeType;
     }
 
     class OMathEqArray {
         private 'Word.OMathEqArray_typekey': OMathEqArray;
         private constructor();
-        public Align: WdOMathVertAlignType;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMathArgs;
-        public MaxDist: boolean;
-        public ObjDist: boolean;
-        public readonly Parent: any;
-        public RowSpacing: number;
-        public RowSpacingRule: WdOMathSpacingRule;
+        Align: WdOMathVertAlignType;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMathArgs;
+        MaxDist: boolean;
+        ObjDist: boolean;
+        readonly Parent: any;
+        RowSpacing: number;
+        RowSpacingRule: WdOMathSpacingRule;
     }
 
     class OMathFrac {
         private 'Word.OMathFrac_typekey': OMathFrac;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Den: OMath;
-        public readonly Num: OMath;
-        public readonly Parent: any;
-        public Type: WdOMathFracType;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Den: OMath;
+        readonly Num: OMath;
+        readonly Parent: any;
+        Type: WdOMathFracType;
     }
 
     class OMathFunc {
         private 'Word.OMathFunc_typekey': OMathFunc;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly FName: OMath;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly FName: OMath;
+        readonly Parent: any;
     }
 
     class OMathFunction {
         private 'Word.OMathFunction_typekey': OMathFunction;
         private constructor();
-        public readonly Acc: OMathAcc;
-        public readonly Application: Application;
-        public readonly Args: OMathArgs;
-        public readonly Bar: OMathBar;
-        public readonly BorderBox: OMathBorderBox;
-        public readonly Box: OMathBox;
-        public readonly Creator: number;
-        public readonly Delim: OMathDelim;
-        public readonly EqArray: OMathEqArray;
-        public readonly Frac: OMathFrac;
-        public readonly Func: OMathFunc;
-        public readonly GroupChar: OMathGroupChar;
-        public readonly LimLow: OMathLimLow;
-        public readonly LimUpp: OMathLimUpp;
-        public readonly Mat: OMathMat;
-        public readonly Nary: OMathNary;
-        public readonly OMath: OMath;
-        public readonly Parent: any;
-        public readonly Phantom: OMathPhantom;
-        public readonly Rad: OMathRad;
-        public readonly Range: Range;
-        public Remove(): OMathFunction;
-        public readonly ScrPre: OMathScrPre;
-        public readonly ScrSub: OMathScrSub;
-        public readonly ScrSubSup: OMathScrSubSup;
-        public readonly ScrSup: OMathScrSup;
-        public readonly Type: WdOMathFunctionType;
+        readonly Acc: OMathAcc;
+        readonly Application: Application;
+        readonly Args: OMathArgs;
+        readonly Bar: OMathBar;
+        readonly BorderBox: OMathBorderBox;
+        readonly Box: OMathBox;
+        readonly Creator: number;
+        readonly Delim: OMathDelim;
+        readonly EqArray: OMathEqArray;
+        readonly Frac: OMathFrac;
+        readonly Func: OMathFunc;
+        readonly GroupChar: OMathGroupChar;
+        readonly LimLow: OMathLimLow;
+        readonly LimUpp: OMathLimUpp;
+        readonly Mat: OMathMat;
+        readonly Nary: OMathNary;
+        readonly OMath: OMath;
+        readonly Parent: any;
+        readonly Phantom: OMathPhantom;
+        readonly Rad: OMathRad;
+        readonly Range: Range;
+        Remove(): OMathFunction;
+        readonly ScrPre: OMathScrPre;
+        readonly ScrSub: OMathScrSub;
+        readonly ScrSubSup: OMathScrSubSup;
+        readonly ScrSup: OMathScrSup;
+        readonly Type: WdOMathFunctionType;
     }
 
     class OMathFunctions {
         private 'Word.OMathFunctions_typekey': OMathFunctions;
         private constructor();
-        public Add(Range: Range, Type: WdOMathFunctionType, NumArgs?: any, NumCols?: any): OMathFunction;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): OMathFunction;
-        public readonly Parent: any;
+        Add(Range: Range, Type: WdOMathFunctionType, NumArgs?: any, NumCols?: any): OMathFunction;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): OMathFunction;
+        readonly Parent: any;
     }
 
     class OMathGroupChar {
         private 'Word.OMathGroupChar_typekey': OMathGroupChar;
         private constructor();
-        public AlignTop: boolean;
-        public readonly Application: Application;
-        public Char: number;
-        public CharTop: boolean;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
+        AlignTop: boolean;
+        readonly Application: Application;
+        Char: number;
+        CharTop: boolean;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
     }
 
     class OMathLimLow {
         private 'Word.OMathLimLow_typekey': OMathLimLow;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Lim: OMath;
-        public readonly Parent: any;
-        public ToLimUpp(): OMathFunction;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Lim: OMath;
+        readonly Parent: any;
+        ToLimUpp(): OMathFunction;
     }
 
     class OMathLimUpp {
         private 'Word.OMathLimUpp_typekey': OMathLimUpp;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Lim: OMath;
-        public readonly Parent: any;
-        public ToLimLow(): OMathFunction;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Lim: OMath;
+        readonly Parent: any;
+        ToLimLow(): OMathFunction;
     }
 
     class OMathMat {
         private 'Word.OMathMat_typekey': OMathMat;
         private constructor();
-        public Align: WdOMathVertAlignType;
-        public readonly Application: Application;
-        public Cell(Row: number, Col: number): OMath;
-        public ColGap: number;
-        public ColGapRule: WdOMathSpacingRule;
-        public readonly Cols: OMathMatCols;
-        public ColSpacing: number;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public PlcHoldHidden: boolean;
-        public readonly Rows: OMathMatRows;
-        public RowSpacing: number;
-        public RowSpacingRule: WdOMathSpacingRule;
+        Align: WdOMathVertAlignType;
+        readonly Application: Application;
+        Cell(Row: number, Col: number): OMath;
+        ColGap: number;
+        ColGapRule: WdOMathSpacingRule;
+        readonly Cols: OMathMatCols;
+        ColSpacing: number;
+        readonly Creator: number;
+        readonly Parent: any;
+        PlcHoldHidden: boolean;
+        readonly Rows: OMathMatRows;
+        RowSpacing: number;
+        RowSpacingRule: WdOMathSpacingRule;
     }
 
     class OMathMatCol {
         private 'Word.OMathMatCol_typekey': OMathMatCol;
         private constructor();
-        public Align: WdOMathHorizAlignType;
-        public readonly Application: Application;
-        public readonly Args: OMathArgs;
-        public readonly ColIndex: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Parent: any;
+        Align: WdOMathHorizAlignType;
+        readonly Application: Application;
+        readonly Args: OMathArgs;
+        readonly ColIndex: number;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Parent: any;
     }
 
     class OMathMatCols {
         private 'Word.OMathMatCols_typekey': OMathMatCols;
         private constructor();
-        public Add(BeforeCol?: any): OMathMatCol;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): OMathMatCol;
-        public readonly Parent: any;
+        Add(BeforeCol?: any): OMathMatCol;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): OMathMatCol;
+        readonly Parent: any;
     }
 
     class OMathMatRow {
         private 'Word.OMathMatRow_typekey': OMathMatRow;
         private constructor();
-        public readonly Application: Application;
-        public readonly Args: OMathArgs;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Parent: any;
-        public readonly RowIndex: number;
+        readonly Application: Application;
+        readonly Args: OMathArgs;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Parent: any;
+        readonly RowIndex: number;
     }
 
     class OMathMatRows {
         private 'Word.OMathMatRows_typekey': OMathMatRows;
         private constructor();
-        public Add(BeforeRow?: any): OMathMatRow;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): OMathMatRow;
-        public readonly Parent: any;
+        Add(BeforeRow?: any): OMathMatRow;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): OMathMatRow;
+        readonly Parent: any;
     }
 
     class OMathNary {
         private 'Word.OMathNary_typekey': OMathNary;
         private constructor();
-        public readonly Application: Application;
-        public Char: number;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public Grow: boolean;
-        public HideSub: boolean;
-        public HideSup: boolean;
-        public readonly Parent: any;
-        public readonly Sub: OMath;
-        public SubSupLim: boolean;
-        public readonly Sup: OMath;
+        readonly Application: Application;
+        Char: number;
+        readonly Creator: number;
+        readonly E: OMath;
+        Grow: boolean;
+        HideSub: boolean;
+        HideSup: boolean;
+        readonly Parent: any;
+        readonly Sub: OMath;
+        SubSupLim: boolean;
+        readonly Sup: OMath;
     }
 
     class OMathPhantom {
         private 'Word.OMathPhantom_typekey': OMathPhantom;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
-        public Show: boolean;
-        public Smash: boolean;
-        public Transp: boolean;
-        public ZeroAsc: boolean;
-        public ZeroDesc: boolean;
-        public ZeroWid: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
+        Show: boolean;
+        Smash: boolean;
+        Transp: boolean;
+        ZeroAsc: boolean;
+        ZeroDesc: boolean;
+        ZeroWid: boolean;
     }
 
     class OMathRad {
         private 'Word.OMathRad_typekey': OMathRad;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Deg: OMath;
-        public readonly E: OMath;
-        public HideDeg: boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Deg: OMath;
+        readonly E: OMath;
+        HideDeg: boolean;
+        readonly Parent: any;
     }
 
     class OMathRecognizedFunction {
         private 'Word.OMathRecognizedFunction_typekey': OMathRecognizedFunction;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class OMathRecognizedFunctions {
         private 'Word.OMathRecognizedFunctions_typekey': OMathRecognizedFunctions;
         private constructor();
-        public Add(Name: string): OMathRecognizedFunction;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): OMathRecognizedFunction;
-        public readonly Parent: any;
+        Add(Name: string): OMathRecognizedFunction;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): OMathRecognizedFunction;
+        readonly Parent: any;
     }
 
     class OMaths {
         private 'Word.OMaths_typekey': OMaths;
         private constructor();
-        public Add(Range: Range): Range;
-        public readonly Application: Application;
-        public BuildUp(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): OMath;
-        public Linearize(): void;
-        public readonly Parent: any;
+        Add(Range: Range): Range;
+        readonly Application: Application;
+        BuildUp(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): OMath;
+        Linearize(): void;
+        readonly Parent: any;
     }
 
     class OMathScrPre {
         private 'Word.OMathScrPre_typekey': OMathScrPre;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
-        public readonly Sub: OMath;
-        public readonly Sup: OMath;
-        public ToScrSubSup(): OMathFunction;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
+        readonly Sub: OMath;
+        readonly Sup: OMath;
+        ToScrSubSup(): OMathFunction;
     }
 
     class OMathScrSub {
         private 'Word.OMathScrSub_typekey': OMathScrSub;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
-        public readonly Sub: OMath;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
+        readonly Sub: OMath;
     }
 
     class OMathScrSubSup {
         private 'Word.OMathScrSubSup_typekey': OMathScrSubSup;
         private constructor();
-        public AlignScripts: boolean;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
-        public RemoveSub(): OMathFunction;
-        public RemoveSup(): OMathFunction;
-        public readonly Sub: OMath;
-        public readonly Sup: OMath;
-        public ToScrPre(): OMathFunction;
+        AlignScripts: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
+        RemoveSub(): OMathFunction;
+        RemoveSup(): OMathFunction;
+        readonly Sub: OMath;
+        readonly Sup: OMath;
+        ToScrPre(): OMathFunction;
     }
 
     class OMathScrSup {
         private 'Word.OMathScrSup_typekey': OMathScrSup;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly E: OMath;
-        public readonly Parent: any;
-        public readonly Sup: OMath;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly E: OMath;
+        readonly Parent: any;
+        readonly Sup: OMath;
     }
 
     class Options {
         private 'Word.Options_typekey': Options;
         private constructor();
-        public AddBiDirectionalMarksWhenSavingTextFile: boolean;
-        public AddControlCharacters: boolean;
-        public AddHebDoubleQuote: boolean;
-        public AllowAccentedUppercase: boolean;
-        public AllowClickAndTypeMouse: boolean;
-        public AllowCombinedAuxiliaryForms: boolean;
-        public AllowCompoundNounProcessing: boolean;
-        public AllowDragAndDrop: boolean;
-        public AllowFastSave: boolean;
-        public AllowOpenInDraftView: boolean;
-        public AllowPixelUnits: boolean;
-        public AllowReadingMode: boolean;
-        public AlwaysUseClearType: boolean;
-        public AnimateScreenMovements: boolean;
-        public readonly Application: Application;
-        public ApplyFarEastFontsToAscii: boolean;
-        public ArabicMode: WdAraSpeller;
-        public ArabicNumeral: WdArabicNumeral;
-        public AutoCreateNewDrawings: boolean;
-        public AutoFormatApplyBulletedLists: boolean;
-        public AutoFormatApplyFirstIndents: boolean;
-        public AutoFormatApplyHeadings: boolean;
-        public AutoFormatApplyLists: boolean;
-        public AutoFormatApplyOtherParas: boolean;
-        public AutoFormatAsYouTypeApplyBorders: boolean;
-        public AutoFormatAsYouTypeApplyBulletedLists: boolean;
-        public AutoFormatAsYouTypeApplyClosings: boolean;
-        public AutoFormatAsYouTypeApplyDates: boolean;
-        public AutoFormatAsYouTypeApplyFirstIndents: boolean;
-        public AutoFormatAsYouTypeApplyHeadings: boolean;
-        public AutoFormatAsYouTypeApplyNumberedLists: boolean;
-        public AutoFormatAsYouTypeApplyTables: boolean;
-        public AutoFormatAsYouTypeAutoLetterWizard: boolean;
-        public AutoFormatAsYouTypeDefineStyles: boolean;
-        public AutoFormatAsYouTypeDeleteAutoSpaces: boolean;
-        public AutoFormatAsYouTypeFormatListItemBeginning: boolean;
-        public AutoFormatAsYouTypeInsertClosings: boolean;
-        public AutoFormatAsYouTypeInsertOvers: boolean;
-        public AutoFormatAsYouTypeMatchParentheses: boolean;
-        public AutoFormatAsYouTypeReplaceFarEastDashes: boolean;
-        public AutoFormatAsYouTypeReplaceFractions: boolean;
-        public AutoFormatAsYouTypeReplaceHyperlinks: boolean;
-        public AutoFormatAsYouTypeReplaceOrdinals: boolean;
-        public AutoFormatAsYouTypeReplacePlainTextEmphasis: boolean;
-        public AutoFormatAsYouTypeReplaceQuotes: boolean;
-        public AutoFormatAsYouTypeReplaceSymbols: boolean;
-        public AutoFormatDeleteAutoSpaces: boolean;
-        public AutoFormatMatchParentheses: boolean;
-        public AutoFormatPlainTextWordMail: boolean;
-        public AutoFormatPreserveStyles: boolean;
-        public AutoFormatReplaceFarEastDashes: boolean;
-        public AutoFormatReplaceFractions: boolean;
-        public AutoFormatReplaceHyperlinks: boolean;
-        public AutoFormatReplaceOrdinals: boolean;
-        public AutoFormatReplacePlainTextEmphasis: boolean;
-        public AutoFormatReplaceQuotes: boolean;
-        public AutoFormatReplaceSymbols: boolean;
-        public AutoKeyboardSwitching: boolean;
-        public AutoWordSelection: boolean;
-        public BackgroundOpen: boolean;
-        public BackgroundSave: boolean;
-        public BibliographySort: string;
-        public BibliographyStyle: string;
-        public BlueScreen: boolean;
-        public BrazilReform: WdPortugueseReform;
-        public ButtonFieldClicks: number;
-        public CheckGrammarAsYouType: boolean;
-        public CheckGrammarWithSpelling: boolean;
-        public CheckHangulEndings: boolean;
-        public CheckSpellingAsYouType: boolean;
-        public CommentsColor: WdColorIndex;
-        public ConfirmConversions: boolean;
-        public ContextualSpeller: boolean;
-        public ConvertHighAnsiToFarEast: boolean;
-        public CreateBackup: boolean;
-        public readonly Creator: number;
-        public CtrlClickHyperlinkToOpen: boolean;
-        public CursorMovement: WdCursorMovement;
-        public DefaultBorderColor: WdColor;
-        public DefaultBorderColorIndex: WdColorIndex;
-        public DefaultBorderLineStyle: WdLineStyle;
-        public DefaultBorderLineWidth: WdLineWidth;
-        public DefaultEPostageApp: string;
-        public DefaultFilePath(Path: WdDefaultFilePath): string;
-        public DefaultHighlightColorIndex: WdColorIndex;
-        public DefaultOpenFormat: WdOpenFormat;
-        public DefaultTextEncoding: Office.MsoEncoding;
-        public DefaultTray: string;
-        public DefaultTrayID: number;
-        public DeletedCellColor: WdCellColor;
-        public DeletedTextColor: WdColorIndex;
-        public DeletedTextMark: WdDeletedTextMark;
-        public DiacriticColorVal: WdColor;
-        public DisableFeaturesbyDefault: boolean;
-        public DisableFeaturesIntroducedAfterbyDefault: WdDisableFeaturesIntroducedAfter;
-        public DisplayGridLines: boolean;
-        public DisplayPasteOptions: boolean;
-        public DisplaySmartTagButtons: boolean;
-        public DocumentViewDirection: WdDocumentViewDirection;
-        public DoNotPromptForConvert: boolean;
-        public EnableHangulHanjaRecentOrdering: boolean;
-        public EnableLegacyIMEMode: boolean;
-        public EnableLivePreview: boolean;
-        public EnableMisusedWordsDictionary: boolean;
-        public EnableSound: boolean;
-        public readonly EnvelopeFeederInstalled: boolean;
-        public FormatScanning: boolean;
-        public FrenchReform: WdFrenchSpeller;
-        public GridDistanceHorizontal: number;
-        public GridDistanceVertical: number;
-        public GridOriginHorizontal: number;
-        public GridOriginVertical: number;
-        public HangulHanjaFastConversion: boolean;
-        public HebrewMode: WdHebSpellStart;
-        public IgnoreInternetAndFileAddresses: boolean;
-        public IgnoreMixedDigits: boolean;
-        public IgnoreUppercase: boolean;
-        public IMEAutomaticControl: boolean;
-        public InlineConversion: boolean;
-        public InsertedCellColor: WdCellColor;
-        public InsertedTextColor: WdColorIndex;
-        public InsertedTextMark: WdInsertedTextMark;
-        public INSKeyForOvertype: boolean;
-        public INSKeyForPaste: boolean;
-        public InterpretHighAnsi: WdHighAnsiText;
-        public LabelSmartTags: boolean;
-        public LocalNetworkFile: boolean;
-        public MapPaperSize: boolean;
-        public MatchFuzzyAY: boolean;
-        public MatchFuzzyBV: boolean;
-        public MatchFuzzyByte: boolean;
-        public MatchFuzzyCase: boolean;
-        public MatchFuzzyDash: boolean;
-        public MatchFuzzyDZ: boolean;
-        public MatchFuzzyHF: boolean;
-        public MatchFuzzyHiragana: boolean;
-        public MatchFuzzyIterationMark: boolean;
-        public MatchFuzzyKanji: boolean;
-        public MatchFuzzyKiKu: boolean;
-        public MatchFuzzyOldKana: boolean;
-        public MatchFuzzyProlongedSoundMark: boolean;
-        public MatchFuzzyPunctuation: boolean;
-        public MatchFuzzySmallKana: boolean;
-        public MatchFuzzySpace: boolean;
-        public MatchFuzzyTC: boolean;
-        public MatchFuzzyZJ: boolean;
-        public MeasurementUnit: WdMeasurementUnits;
-        public MergedCellColor: WdCellColor;
-        public MonthNames: WdMonthNames;
-        public MoveFromTextColor: WdColorIndex;
-        public MoveFromTextMark: WdMoveFromTextMark;
-        public MoveToTextColor: WdColorIndex;
-        public MoveToTextMark: WdMoveToTextMark;
-        public MultipleWordConversionsMode: WdMultipleWordConversionsMode;
-        public OMathAutoBuildUp: boolean;
-        public OMathCopyLF: boolean;
-        public OptimizeForWord97byDefault: boolean;
-        public Overtype: boolean;
-        public Pagination: boolean;
-        public readonly Parent: any;
-        public PasteAdjustParagraphSpacing: boolean;
-        public PasteAdjustTableFormatting: boolean;
-        public PasteAdjustWordSpacing: boolean;
-        public PasteFormatBetweenDocuments: WdPasteOptions;
-        public PasteFormatBetweenStyledDocuments: WdPasteOptions;
-        public PasteFormatFromExternalSource: WdPasteOptions;
-        public PasteFormatWithinDocument: WdPasteOptions;
-        public PasteMergeFromPPT: boolean;
-        public PasteMergeFromXL: boolean;
-        public PasteMergeLists: boolean;
-        public PasteOptionKeepBulletsAndNumbers: boolean;
-        public PasteSmartCutPaste: boolean;
-        public PasteSmartStyleBehavior: boolean;
-        public PictureEditor: string;
-        public PictureWrapType: WdWrapTypeMerged;
-        public PortugalReform: WdPortugueseReform;
-        public PrecisePositioning: boolean;
-        public PrintBackground: boolean;
-        public PrintBackgrounds: boolean;
-        public PrintComments: boolean;
-        public PrintDraft: boolean;
-        public PrintDrawingObjects: boolean;
-        public PrintEvenPagesInAscendingOrder: boolean;
-        public PrintFieldCodes: boolean;
-        public PrintHiddenText: boolean;
-        public PrintOddPagesInAscendingOrder: boolean;
-        public PrintProperties: boolean;
-        public PrintReverse: boolean;
-        public PrintXMLTag: boolean;
-        public PromptUpdateStyle: boolean;
-        public RepeatWord: boolean;
-        public ReplaceSelection: boolean;
-        public RevisedLinesColor: WdColorIndex;
-        public RevisedLinesMark: WdRevisedLinesMark;
-        public RevisedPropertiesColor: WdColorIndex;
-        public RevisedPropertiesMark: WdRevisedPropertiesMark;
-        public RevisionsBalloonPrintOrientation: WdRevisionsBalloonPrintOrientation;
-        public RTFInClipboard: boolean;
-        public SaveInterval: number;
-        public SaveNormalPrompt: boolean;
-        public SavePropertiesPrompt: boolean;
-        public SendMailAttach: boolean;
-        public SequenceCheck: boolean;
-        public SetWPHelpOptions(CommandKeyHelp?: any, DocNavigationKeys?: any, MouseSimulation?: any, DemoGuidance?: any, DemoSpeed?: any, HelpType?: any): void;
-        public ShortMenuNames: boolean;
-        public ShowControlCharacters: boolean;
-        public ShowDevTools: boolean;
-        public ShowDiacritics: boolean;
-        public ShowFormatError: boolean;
-        public ShowMarkupOpenSave: boolean;
-        public ShowMenuFloaties: boolean;
-        public ShowReadabilityStatistics: boolean;
-        public ShowSelectionFloaties: boolean;
-        public SmartCursoring: boolean;
-        public SmartCutPaste: boolean;
-        public SmartParaSelection: boolean;
-        public SnapToGrid: boolean;
-        public SnapToShapes: boolean;
-        public SpanishMode: WdSpanishSpeller;
-        public SplitCellColor: WdCellColor;
-        public StoreRSIDOnSave: boolean;
-        public StrictFinalYaa: boolean;
-        public StrictInitialAlefHamza: boolean;
-        public StrictRussianE: boolean;
-        public StrictTaaMarboota: boolean;
-        public SuggestFromMainDictionaryOnly: boolean;
-        public SuggestSpellingCorrections: boolean;
-        public TabIndentKey: boolean;
-        public TypeNReplace: boolean;
-        public UpdateFieldsAtPrint: boolean;
-        public UpdateFieldsWithTrackedChangesAtPrint: boolean;
-        public UpdateLinksAtOpen: boolean;
-        public UpdateLinksAtPrint: boolean;
-        public UpdateStyleListBehavior: WdUpdateStyleListBehavior;
-        public UseCharacterUnit: boolean;
-        public UseDiffDiacColor: boolean;
-        public UseGermanSpellingReform: boolean;
-        public UseNormalStyleForList: boolean;
-        public VirusProtection: boolean;
-        public VisualSelection: WdVisualSelection;
-        public WarnBeforeSavingPrintingSendingMarkup: boolean;
-        public WPDocNavKeys: boolean;
-        public WPHelp: boolean;
+        AddBiDirectionalMarksWhenSavingTextFile: boolean;
+        AddControlCharacters: boolean;
+        AddHebDoubleQuote: boolean;
+        AllowAccentedUppercase: boolean;
+        AllowClickAndTypeMouse: boolean;
+        AllowCombinedAuxiliaryForms: boolean;
+        AllowCompoundNounProcessing: boolean;
+        AllowDragAndDrop: boolean;
+        AllowFastSave: boolean;
+        AllowOpenInDraftView: boolean;
+        AllowPixelUnits: boolean;
+        AllowReadingMode: boolean;
+        AlwaysUseClearType: boolean;
+        AnimateScreenMovements: boolean;
+        readonly Application: Application;
+        ApplyFarEastFontsToAscii: boolean;
+        ArabicMode: WdAraSpeller;
+        ArabicNumeral: WdArabicNumeral;
+        AutoCreateNewDrawings: boolean;
+        AutoFormatApplyBulletedLists: boolean;
+        AutoFormatApplyFirstIndents: boolean;
+        AutoFormatApplyHeadings: boolean;
+        AutoFormatApplyLists: boolean;
+        AutoFormatApplyOtherParas: boolean;
+        AutoFormatAsYouTypeApplyBorders: boolean;
+        AutoFormatAsYouTypeApplyBulletedLists: boolean;
+        AutoFormatAsYouTypeApplyClosings: boolean;
+        AutoFormatAsYouTypeApplyDates: boolean;
+        AutoFormatAsYouTypeApplyFirstIndents: boolean;
+        AutoFormatAsYouTypeApplyHeadings: boolean;
+        AutoFormatAsYouTypeApplyNumberedLists: boolean;
+        AutoFormatAsYouTypeApplyTables: boolean;
+        AutoFormatAsYouTypeAutoLetterWizard: boolean;
+        AutoFormatAsYouTypeDefineStyles: boolean;
+        AutoFormatAsYouTypeDeleteAutoSpaces: boolean;
+        AutoFormatAsYouTypeFormatListItemBeginning: boolean;
+        AutoFormatAsYouTypeInsertClosings: boolean;
+        AutoFormatAsYouTypeInsertOvers: boolean;
+        AutoFormatAsYouTypeMatchParentheses: boolean;
+        AutoFormatAsYouTypeReplaceFarEastDashes: boolean;
+        AutoFormatAsYouTypeReplaceFractions: boolean;
+        AutoFormatAsYouTypeReplaceHyperlinks: boolean;
+        AutoFormatAsYouTypeReplaceOrdinals: boolean;
+        AutoFormatAsYouTypeReplacePlainTextEmphasis: boolean;
+        AutoFormatAsYouTypeReplaceQuotes: boolean;
+        AutoFormatAsYouTypeReplaceSymbols: boolean;
+        AutoFormatDeleteAutoSpaces: boolean;
+        AutoFormatMatchParentheses: boolean;
+        AutoFormatPlainTextWordMail: boolean;
+        AutoFormatPreserveStyles: boolean;
+        AutoFormatReplaceFarEastDashes: boolean;
+        AutoFormatReplaceFractions: boolean;
+        AutoFormatReplaceHyperlinks: boolean;
+        AutoFormatReplaceOrdinals: boolean;
+        AutoFormatReplacePlainTextEmphasis: boolean;
+        AutoFormatReplaceQuotes: boolean;
+        AutoFormatReplaceSymbols: boolean;
+        AutoKeyboardSwitching: boolean;
+        AutoWordSelection: boolean;
+        BackgroundOpen: boolean;
+        BackgroundSave: boolean;
+        BibliographySort: string;
+        BibliographyStyle: string;
+        BlueScreen: boolean;
+        BrazilReform: WdPortugueseReform;
+        ButtonFieldClicks: number;
+        CheckGrammarAsYouType: boolean;
+        CheckGrammarWithSpelling: boolean;
+        CheckHangulEndings: boolean;
+        CheckSpellingAsYouType: boolean;
+        CommentsColor: WdColorIndex;
+        ConfirmConversions: boolean;
+        ContextualSpeller: boolean;
+        ConvertHighAnsiToFarEast: boolean;
+        CreateBackup: boolean;
+        readonly Creator: number;
+        CtrlClickHyperlinkToOpen: boolean;
+        CursorMovement: WdCursorMovement;
+        DefaultBorderColor: WdColor;
+        DefaultBorderColorIndex: WdColorIndex;
+        DefaultBorderLineStyle: WdLineStyle;
+        DefaultBorderLineWidth: WdLineWidth;
+        DefaultEPostageApp: string;
+        DefaultFilePath(Path: WdDefaultFilePath): string;
+        DefaultHighlightColorIndex: WdColorIndex;
+        DefaultOpenFormat: WdOpenFormat;
+        DefaultTextEncoding: Office.MsoEncoding;
+        DefaultTray: string;
+        DefaultTrayID: number;
+        DeletedCellColor: WdCellColor;
+        DeletedTextColor: WdColorIndex;
+        DeletedTextMark: WdDeletedTextMark;
+        DiacriticColorVal: WdColor;
+        DisableFeaturesbyDefault: boolean;
+        DisableFeaturesIntroducedAfterbyDefault: WdDisableFeaturesIntroducedAfter;
+        DisplayGridLines: boolean;
+        DisplayPasteOptions: boolean;
+        DisplaySmartTagButtons: boolean;
+        DocumentViewDirection: WdDocumentViewDirection;
+        DoNotPromptForConvert: boolean;
+        EnableHangulHanjaRecentOrdering: boolean;
+        EnableLegacyIMEMode: boolean;
+        EnableLivePreview: boolean;
+        EnableMisusedWordsDictionary: boolean;
+        EnableSound: boolean;
+        readonly EnvelopeFeederInstalled: boolean;
+        FormatScanning: boolean;
+        FrenchReform: WdFrenchSpeller;
+        GridDistanceHorizontal: number;
+        GridDistanceVertical: number;
+        GridOriginHorizontal: number;
+        GridOriginVertical: number;
+        HangulHanjaFastConversion: boolean;
+        HebrewMode: WdHebSpellStart;
+        IgnoreInternetAndFileAddresses: boolean;
+        IgnoreMixedDigits: boolean;
+        IgnoreUppercase: boolean;
+        IMEAutomaticControl: boolean;
+        InlineConversion: boolean;
+        InsertedCellColor: WdCellColor;
+        InsertedTextColor: WdColorIndex;
+        InsertedTextMark: WdInsertedTextMark;
+        INSKeyForOvertype: boolean;
+        INSKeyForPaste: boolean;
+        InterpretHighAnsi: WdHighAnsiText;
+        LabelSmartTags: boolean;
+        LocalNetworkFile: boolean;
+        MapPaperSize: boolean;
+        MatchFuzzyAY: boolean;
+        MatchFuzzyBV: boolean;
+        MatchFuzzyByte: boolean;
+        MatchFuzzyCase: boolean;
+        MatchFuzzyDash: boolean;
+        MatchFuzzyDZ: boolean;
+        MatchFuzzyHF: boolean;
+        MatchFuzzyHiragana: boolean;
+        MatchFuzzyIterationMark: boolean;
+        MatchFuzzyKanji: boolean;
+        MatchFuzzyKiKu: boolean;
+        MatchFuzzyOldKana: boolean;
+        MatchFuzzyProlongedSoundMark: boolean;
+        MatchFuzzyPunctuation: boolean;
+        MatchFuzzySmallKana: boolean;
+        MatchFuzzySpace: boolean;
+        MatchFuzzyTC: boolean;
+        MatchFuzzyZJ: boolean;
+        MeasurementUnit: WdMeasurementUnits;
+        MergedCellColor: WdCellColor;
+        MonthNames: WdMonthNames;
+        MoveFromTextColor: WdColorIndex;
+        MoveFromTextMark: WdMoveFromTextMark;
+        MoveToTextColor: WdColorIndex;
+        MoveToTextMark: WdMoveToTextMark;
+        MultipleWordConversionsMode: WdMultipleWordConversionsMode;
+        OMathAutoBuildUp: boolean;
+        OMathCopyLF: boolean;
+        OptimizeForWord97byDefault: boolean;
+        Overtype: boolean;
+        Pagination: boolean;
+        readonly Parent: any;
+        PasteAdjustParagraphSpacing: boolean;
+        PasteAdjustTableFormatting: boolean;
+        PasteAdjustWordSpacing: boolean;
+        PasteFormatBetweenDocuments: WdPasteOptions;
+        PasteFormatBetweenStyledDocuments: WdPasteOptions;
+        PasteFormatFromExternalSource: WdPasteOptions;
+        PasteFormatWithinDocument: WdPasteOptions;
+        PasteMergeFromPPT: boolean;
+        PasteMergeFromXL: boolean;
+        PasteMergeLists: boolean;
+        PasteOptionKeepBulletsAndNumbers: boolean;
+        PasteSmartCutPaste: boolean;
+        PasteSmartStyleBehavior: boolean;
+        PictureEditor: string;
+        PictureWrapType: WdWrapTypeMerged;
+        PortugalReform: WdPortugueseReform;
+        PrecisePositioning: boolean;
+        PrintBackground: boolean;
+        PrintBackgrounds: boolean;
+        PrintComments: boolean;
+        PrintDraft: boolean;
+        PrintDrawingObjects: boolean;
+        PrintEvenPagesInAscendingOrder: boolean;
+        PrintFieldCodes: boolean;
+        PrintHiddenText: boolean;
+        PrintOddPagesInAscendingOrder: boolean;
+        PrintProperties: boolean;
+        PrintReverse: boolean;
+        PrintXMLTag: boolean;
+        PromptUpdateStyle: boolean;
+        RepeatWord: boolean;
+        ReplaceSelection: boolean;
+        RevisedLinesColor: WdColorIndex;
+        RevisedLinesMark: WdRevisedLinesMark;
+        RevisedPropertiesColor: WdColorIndex;
+        RevisedPropertiesMark: WdRevisedPropertiesMark;
+        RevisionsBalloonPrintOrientation: WdRevisionsBalloonPrintOrientation;
+        RTFInClipboard: boolean;
+        SaveInterval: number;
+        SaveNormalPrompt: boolean;
+        SavePropertiesPrompt: boolean;
+        SendMailAttach: boolean;
+        SequenceCheck: boolean;
+        SetWPHelpOptions(CommandKeyHelp?: any, DocNavigationKeys?: any, MouseSimulation?: any, DemoGuidance?: any, DemoSpeed?: any, HelpType?: any): void;
+        ShortMenuNames: boolean;
+        ShowControlCharacters: boolean;
+        ShowDevTools: boolean;
+        ShowDiacritics: boolean;
+        ShowFormatError: boolean;
+        ShowMarkupOpenSave: boolean;
+        ShowMenuFloaties: boolean;
+        ShowReadabilityStatistics: boolean;
+        ShowSelectionFloaties: boolean;
+        SmartCursoring: boolean;
+        SmartCutPaste: boolean;
+        SmartParaSelection: boolean;
+        SnapToGrid: boolean;
+        SnapToShapes: boolean;
+        SpanishMode: WdSpanishSpeller;
+        SplitCellColor: WdCellColor;
+        StoreRSIDOnSave: boolean;
+        StrictFinalYaa: boolean;
+        StrictInitialAlefHamza: boolean;
+        StrictRussianE: boolean;
+        StrictTaaMarboota: boolean;
+        SuggestFromMainDictionaryOnly: boolean;
+        SuggestSpellingCorrections: boolean;
+        TabIndentKey: boolean;
+        TypeNReplace: boolean;
+        UpdateFieldsAtPrint: boolean;
+        UpdateFieldsWithTrackedChangesAtPrint: boolean;
+        UpdateLinksAtOpen: boolean;
+        UpdateLinksAtPrint: boolean;
+        UpdateStyleListBehavior: WdUpdateStyleListBehavior;
+        UseCharacterUnit: boolean;
+        UseDiffDiacColor: boolean;
+        UseGermanSpellingReform: boolean;
+        UseNormalStyleForList: boolean;
+        VirusProtection: boolean;
+        VisualSelection: WdVisualSelection;
+        WarnBeforeSavingPrintingSendingMarkup: boolean;
+        WPDocNavKeys: boolean;
+        WPHelp: boolean;
     }
 
     class OtherCorrectionsException {
         private 'Word.OtherCorrectionsException_typekey': OtherCorrectionsException;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class OtherCorrectionsExceptions {
         private 'Word.OtherCorrectionsExceptions_typekey': OtherCorrectionsExceptions;
         private constructor();
-        public Add(Name: string): OtherCorrectionsException;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): OtherCorrectionsException;
-        public readonly Parent: any;
+        Add(Name: string): OtherCorrectionsException;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): OtherCorrectionsException;
+        readonly Parent: any;
     }
 
     class Page {
         private 'Word.Page_typekey': Page;
         private constructor();
-        public readonly Application: Application;
-        public readonly Breaks: Breaks;
-        public readonly Creator: number;
-        public readonly EnhMetaFileBits: any;
-        public readonly Height: number;
-        public readonly Left: number;
-        public readonly Parent: any;
-        public readonly Rectangles: Rectangles;
-        public readonly Top: number;
-        public readonly Width: number;
+        readonly Application: Application;
+        readonly Breaks: Breaks;
+        readonly Creator: number;
+        readonly EnhMetaFileBits: any;
+        readonly Height: number;
+        readonly Left: number;
+        readonly Parent: any;
+        readonly Rectangles: Rectangles;
+        readonly Top: number;
+        readonly Width: number;
     }
 
     class PageNumber {
         private 'Word.PageNumber_typekey': PageNumber;
         private constructor();
-        public Alignment: WdPageNumberAlignment;
-        public readonly Application: Application;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Parent: any;
-        public Select(): void;
+        Alignment: WdPageNumberAlignment;
+        readonly Application: Application;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
+        readonly Index: number;
+        readonly Parent: any;
+        Select(): void;
     }
 
     class PageNumbers {
         private 'Word.PageNumbers_typekey': PageNumbers;
         private constructor();
-        public Add(PageNumberAlignment?: any, FirstPage?: any): PageNumber;
-        public readonly Application: Application;
-        public ChapterPageSeparator: WdSeparatorType;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public DoubleQuote: boolean;
-        public HeadingLevelForChapter: number;
-        public IncludeChapterNumber: boolean;
-        public Item(Index: number): PageNumber;
-        public NumberStyle: WdPageNumberStyle;
-        public readonly Parent: any;
-        public RestartNumberingAtSection: boolean;
-        public ShowFirstPageNumber: boolean;
-        public StartingNumber: number;
+        Add(PageNumberAlignment?: any, FirstPage?: any): PageNumber;
+        readonly Application: Application;
+        ChapterPageSeparator: WdSeparatorType;
+        readonly Count: number;
+        readonly Creator: number;
+        DoubleQuote: boolean;
+        HeadingLevelForChapter: number;
+        IncludeChapterNumber: boolean;
+        Item(Index: number): PageNumber;
+        NumberStyle: WdPageNumberStyle;
+        readonly Parent: any;
+        RestartNumberingAtSection: boolean;
+        ShowFirstPageNumber: boolean;
+        StartingNumber: number;
     }
 
     class Pages {
         private 'Word.Pages_typekey': Pages;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Page;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Page;
+        readonly Parent: any;
     }
 
     class PageSetup {
         private 'Word.PageSetup_typekey': PageSetup;
         private constructor();
-        public readonly Application: Application;
-        public BookFoldPrinting: boolean;
-        public BookFoldPrintingSheets: number;
-        public BookFoldRevPrinting: boolean;
-        public BottomMargin: number;
-        public CharsLine: number;
-        public readonly Creator: number;
-        public DifferentFirstPageHeaderFooter: number;
-        public FirstPageTray: WdPaperTray;
-        public FooterDistance: number;
-        public Gutter: number;
-        public GutterOnTop: boolean;
-        public GutterPos: WdGutterStyle;
-        public GutterStyle: WdGutterStyleOld;
-        public HeaderDistance: number;
-        public LayoutMode: WdLayoutMode;
-        public LeftMargin: number;
-        public LineNumbering: LineNumbering;
-        public LinesPage: number;
-        public MirrorMargins: number;
-        public OddAndEvenPagesHeaderFooter: number;
-        public Orientation: WdOrientation;
-        public OtherPagesTray: WdPaperTray;
-        public PageHeight: number;
-        public PageWidth: number;
-        public PaperSize: WdPaperSize;
-        public readonly Parent: any;
-        public RightMargin: number;
-        public SectionDirection: WdSectionDirection;
-        public SectionStart: WdSectionStart;
-        public SetAsTemplateDefault(): void;
-        public ShowGrid: boolean;
-        public SuppressEndnotes: number;
-        public TextColumns: TextColumns;
-        public TogglePortrait(): void;
-        public TopMargin: number;
-        public TwoPagesOnOne: boolean;
-        public VerticalAlignment: WdVerticalAlignment;
+        readonly Application: Application;
+        BookFoldPrinting: boolean;
+        BookFoldPrintingSheets: number;
+        BookFoldRevPrinting: boolean;
+        BottomMargin: number;
+        CharsLine: number;
+        readonly Creator: number;
+        DifferentFirstPageHeaderFooter: number;
+        FirstPageTray: WdPaperTray;
+        FooterDistance: number;
+        Gutter: number;
+        GutterOnTop: boolean;
+        GutterPos: WdGutterStyle;
+        GutterStyle: WdGutterStyleOld;
+        HeaderDistance: number;
+        LayoutMode: WdLayoutMode;
+        LeftMargin: number;
+        LineNumbering: LineNumbering;
+        LinesPage: number;
+        MirrorMargins: number;
+        OddAndEvenPagesHeaderFooter: number;
+        Orientation: WdOrientation;
+        OtherPagesTray: WdPaperTray;
+        PageHeight: number;
+        PageWidth: number;
+        PaperSize: WdPaperSize;
+        readonly Parent: any;
+        RightMargin: number;
+        SectionDirection: WdSectionDirection;
+        SectionStart: WdSectionStart;
+        SetAsTemplateDefault(): void;
+        ShowGrid: boolean;
+        SuppressEndnotes: number;
+        TextColumns: TextColumns;
+        TogglePortrait(): void;
+        TopMargin: number;
+        TwoPagesOnOne: boolean;
+        VerticalAlignment: WdVerticalAlignment;
     }
 
     class Pane {
         private 'Word.Pane_typekey': Pane;
         private constructor();
-        public Activate(): void;
-        public readonly Application: Application;
-        public AutoScroll(Velocity: number): void;
-        public BrowseToWindow: boolean;
-        public readonly BrowseWidth: number;
-        public Close(): void;
-        public readonly Creator: number;
-        public DisplayRulers: boolean;
-        public DisplayVerticalRuler: boolean;
-        public readonly Document: Document;
-        public readonly Frameset: Frameset;
-        public HorizontalPercentScrolled: number;
-        public readonly Index: number;
-        public LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
-        public MinimumFontSize: number;
-        public NewFrameset(): void;
-        public readonly Next: Pane;
-        public readonly Pages: Pages;
-        public PageScroll(Down?: any, Up?: any): void;
-        public readonly Parent: any;
-        public readonly Previous: Pane;
-        public readonly Selection: Selection;
-        public SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
-        public TOCInFrameset(): void;
-        public VerticalPercentScrolled: number;
-        public readonly View: View;
-        public readonly Zooms: Zooms;
+        Activate(): void;
+        readonly Application: Application;
+        AutoScroll(Velocity: number): void;
+        BrowseToWindow: boolean;
+        readonly BrowseWidth: number;
+        Close(): void;
+        readonly Creator: number;
+        DisplayRulers: boolean;
+        DisplayVerticalRuler: boolean;
+        readonly Document: Document;
+        readonly Frameset: Frameset;
+        HorizontalPercentScrolled: number;
+        readonly Index: number;
+        LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
+        MinimumFontSize: number;
+        NewFrameset(): void;
+        readonly Next: Pane;
+        readonly Pages: Pages;
+        PageScroll(Down?: any, Up?: any): void;
+        readonly Parent: any;
+        readonly Previous: Pane;
+        readonly Selection: Selection;
+        SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
+        TOCInFrameset(): void;
+        VerticalPercentScrolled: number;
+        readonly View: View;
+        readonly Zooms: Zooms;
     }
 
     class Panes {
         private 'Word.Panes_typekey': Panes;
         private constructor();
-        public Add(SplitVertical?: any): Pane;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Pane;
-        public readonly Parent: any;
+        Add(SplitVertical?: any): Pane;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Pane;
+        readonly Parent: any;
     }
 
     class Paragraph {
         private 'Word.Paragraph_typekey': Paragraph;
         private constructor();
-        public AddSpaceBetweenFarEastAndAlpha: number;
-        public AddSpaceBetweenFarEastAndDigit: number;
-        public Alignment: WdParagraphAlignment;
-        public readonly Application: Application;
-        public AutoAdjustRightIndent: number;
-        public BaseLineAlignment: WdBaselineAlignment;
-        public Borders: Borders;
-        public CharacterUnitFirstLineIndent: number;
-        public CharacterUnitLeftIndent: number;
-        public CharacterUnitRightIndent: number;
-        public CloseUp(): void;
-        public readonly Creator: number;
-        public DisableLineHeightGrid: number;
-        public readonly DropCap: DropCap;
-        public FarEastLineBreakControl: number;
-        public FirstLineIndent: number;
-        public Format: ParagraphFormat;
-        public HalfWidthPunctuationOnTopOfLine: number;
-        public HangingPunctuation: number;
-        public Hyphenation: number;
-        public ID: string;
-        public Indent(): void;
-        public IndentCharWidth(Count: number): void;
-        public IndentFirstLineCharWidth(Count: number): void;
-        public readonly IsStyleSeparator: boolean;
-        public JoinList(): void;
-        public KeepTogether: number;
-        public KeepWithNext: number;
-        public LeftIndent: number;
-        public LineSpacing: number;
-        public LineSpacingRule: WdLineSpacing;
-        public LineUnitAfter: number;
-        public LineUnitBefore: number;
+        AddSpaceBetweenFarEastAndAlpha: number;
+        AddSpaceBetweenFarEastAndDigit: number;
+        Alignment: WdParagraphAlignment;
+        readonly Application: Application;
+        AutoAdjustRightIndent: number;
+        BaseLineAlignment: WdBaselineAlignment;
+        Borders: Borders;
+        CharacterUnitFirstLineIndent: number;
+        CharacterUnitLeftIndent: number;
+        CharacterUnitRightIndent: number;
+        CloseUp(): void;
+        readonly Creator: number;
+        DisableLineHeightGrid: number;
+        readonly DropCap: DropCap;
+        FarEastLineBreakControl: number;
+        FirstLineIndent: number;
+        Format: ParagraphFormat;
+        HalfWidthPunctuationOnTopOfLine: number;
+        HangingPunctuation: number;
+        Hyphenation: number;
+        ID: string;
+        Indent(): void;
+        IndentCharWidth(Count: number): void;
+        IndentFirstLineCharWidth(Count: number): void;
+        readonly IsStyleSeparator: boolean;
+        JoinList(): void;
+        KeepTogether: number;
+        KeepWithNext: number;
+        LeftIndent: number;
+        LineSpacing: number;
+        LineSpacingRule: WdLineSpacing;
+        LineUnitAfter: number;
+        LineUnitBefore: number;
 
         /**
          * @param number [Level1=0]
@@ -9618,320 +9618,320 @@ declare namespace Word {
          * @param number [Level8=0]
          * @param number [Level9=0]
          */
-        public ListAdvanceTo(Level1?: number, Level2?: number, Level3?: number, Level4?: number, Level5?: number, Level6?: number, Level7?: number, Level8?: number, Level9?: number): void;
-        public ListNumberOriginal(Level: number): number;
-        public MirrorIndents: number;
-        public Next(Count?: any): Paragraph;
-        public NoLineNumber: number;
-        public OpenOrCloseUp(): void;
-        public OpenUp(): void;
-        public Outdent(): void;
-        public OutlineDemote(): void;
-        public OutlineDemoteToBody(): void;
-        public OutlineLevel: WdOutlineLevel;
-        public OutlinePromote(): void;
-        public PageBreakBefore: number;
-        public readonly ParaID: number;
-        public readonly Parent: any;
-        public Previous(Count?: any): Paragraph;
-        public readonly Range: Range;
-        public ReadingOrder: WdReadingOrder;
-        public Reset(): void;
-        public ResetAdvanceTo(): void;
-        public RightIndent: number;
-        public SelectNumber(): void;
-        public SeparateList(): void;
-        public readonly Shading: Shading;
-        public Space1(): void;
-        public Space15(): void;
-        public Space2(): void;
-        public SpaceAfter: number;
-        public SpaceAfterAuto: number;
-        public SpaceBefore: number;
-        public SpaceBeforeAuto: number;
-        public Style: any;
-        public TabHangingIndent(Count: number): void;
-        public TabIndent(Count: number): void;
-        public TabStops: TabStops;
-        public TextboxTightWrap: WdTextboxTightWrap;
-        public readonly TextID: number;
-        public WidowControl: number;
-        public WordWrap: number;
+        ListAdvanceTo(Level1?: number, Level2?: number, Level3?: number, Level4?: number, Level5?: number, Level6?: number, Level7?: number, Level8?: number, Level9?: number): void;
+        ListNumberOriginal(Level: number): number;
+        MirrorIndents: number;
+        Next(Count?: any): Paragraph;
+        NoLineNumber: number;
+        OpenOrCloseUp(): void;
+        OpenUp(): void;
+        Outdent(): void;
+        OutlineDemote(): void;
+        OutlineDemoteToBody(): void;
+        OutlineLevel: WdOutlineLevel;
+        OutlinePromote(): void;
+        PageBreakBefore: number;
+        readonly ParaID: number;
+        readonly Parent: any;
+        Previous(Count?: any): Paragraph;
+        readonly Range: Range;
+        ReadingOrder: WdReadingOrder;
+        Reset(): void;
+        ResetAdvanceTo(): void;
+        RightIndent: number;
+        SelectNumber(): void;
+        SeparateList(): void;
+        readonly Shading: Shading;
+        Space1(): void;
+        Space15(): void;
+        Space2(): void;
+        SpaceAfter: number;
+        SpaceAfterAuto: number;
+        SpaceBefore: number;
+        SpaceBeforeAuto: number;
+        Style: any;
+        TabHangingIndent(Count: number): void;
+        TabIndent(Count: number): void;
+        TabStops: TabStops;
+        TextboxTightWrap: WdTextboxTightWrap;
+        readonly TextID: number;
+        WidowControl: number;
+        WordWrap: number;
     }
 
     class ParagraphFormat {
         private 'Word.ParagraphFormat_typekey': ParagraphFormat;
         private constructor();
-        public AddSpaceBetweenFarEastAndAlpha: number;
-        public AddSpaceBetweenFarEastAndDigit: number;
-        public Alignment: WdParagraphAlignment;
-        public readonly Application: Application;
-        public AutoAdjustRightIndent: number;
-        public BaseLineAlignment: WdBaselineAlignment;
-        public Borders: Borders;
-        public CharacterUnitFirstLineIndent: number;
-        public CharacterUnitLeftIndent: number;
-        public CharacterUnitRightIndent: number;
-        public CloseUp(): void;
-        public readonly Creator: number;
-        public DisableLineHeightGrid: number;
-        public readonly Duplicate: ParagraphFormat;
-        public FarEastLineBreakControl: number;
-        public FirstLineIndent: number;
-        public HalfWidthPunctuationOnTopOfLine: number;
-        public HangingPunctuation: number;
-        public Hyphenation: number;
-        public IndentCharWidth(Count: number): void;
-        public IndentFirstLineCharWidth(Count: number): void;
-        public KeepTogether: number;
-        public KeepWithNext: number;
-        public LeftIndent: number;
-        public LineSpacing: number;
-        public LineSpacingRule: WdLineSpacing;
-        public LineUnitAfter: number;
-        public LineUnitBefore: number;
-        public MirrorIndents: number;
-        public NoLineNumber: number;
-        public OpenOrCloseUp(): void;
-        public OpenUp(): void;
-        public OutlineLevel: WdOutlineLevel;
-        public PageBreakBefore: number;
-        public readonly Parent: any;
-        public ReadingOrder: WdReadingOrder;
-        public Reset(): void;
-        public RightIndent: number;
-        public readonly Shading: Shading;
-        public Space1(): void;
-        public Space15(): void;
-        public Space2(): void;
-        public SpaceAfter: number;
-        public SpaceAfterAuto: number;
-        public SpaceBefore: number;
-        public SpaceBeforeAuto: number;
-        public Style: any;
-        public TabHangingIndent(Count: number): void;
-        public TabIndent(Count: number): void;
-        public TabStops: TabStops;
-        public TextboxTightWrap: WdTextboxTightWrap;
-        public WidowControl: number;
-        public WordWrap: number;
+        AddSpaceBetweenFarEastAndAlpha: number;
+        AddSpaceBetweenFarEastAndDigit: number;
+        Alignment: WdParagraphAlignment;
+        readonly Application: Application;
+        AutoAdjustRightIndent: number;
+        BaseLineAlignment: WdBaselineAlignment;
+        Borders: Borders;
+        CharacterUnitFirstLineIndent: number;
+        CharacterUnitLeftIndent: number;
+        CharacterUnitRightIndent: number;
+        CloseUp(): void;
+        readonly Creator: number;
+        DisableLineHeightGrid: number;
+        readonly Duplicate: ParagraphFormat;
+        FarEastLineBreakControl: number;
+        FirstLineIndent: number;
+        HalfWidthPunctuationOnTopOfLine: number;
+        HangingPunctuation: number;
+        Hyphenation: number;
+        IndentCharWidth(Count: number): void;
+        IndentFirstLineCharWidth(Count: number): void;
+        KeepTogether: number;
+        KeepWithNext: number;
+        LeftIndent: number;
+        LineSpacing: number;
+        LineSpacingRule: WdLineSpacing;
+        LineUnitAfter: number;
+        LineUnitBefore: number;
+        MirrorIndents: number;
+        NoLineNumber: number;
+        OpenOrCloseUp(): void;
+        OpenUp(): void;
+        OutlineLevel: WdOutlineLevel;
+        PageBreakBefore: number;
+        readonly Parent: any;
+        ReadingOrder: WdReadingOrder;
+        Reset(): void;
+        RightIndent: number;
+        readonly Shading: Shading;
+        Space1(): void;
+        Space15(): void;
+        Space2(): void;
+        SpaceAfter: number;
+        SpaceAfterAuto: number;
+        SpaceBefore: number;
+        SpaceBeforeAuto: number;
+        Style: any;
+        TabHangingIndent(Count: number): void;
+        TabIndent(Count: number): void;
+        TabStops: TabStops;
+        TextboxTightWrap: WdTextboxTightWrap;
+        WidowControl: number;
+        WordWrap: number;
     }
 
     class Paragraphs {
         private 'Word.Paragraphs_typekey': Paragraphs;
         private constructor();
-        public Add(Range?: any): Paragraph;
-        public AddSpaceBetweenFarEastAndAlpha: number;
-        public AddSpaceBetweenFarEastAndDigit: number;
-        public Alignment: WdParagraphAlignment;
-        public readonly Application: Application;
-        public AutoAdjustRightIndent: number;
-        public BaseLineAlignment: WdBaselineAlignment;
-        public Borders: Borders;
-        public CharacterUnitFirstLineIndent: number;
-        public CharacterUnitLeftIndent: number;
-        public CharacterUnitRightIndent: number;
-        public CloseUp(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public DecreaseSpacing(): void;
-        public DisableLineHeightGrid: number;
-        public FarEastLineBreakControl: number;
-        public readonly First: Paragraph;
-        public FirstLineIndent: number;
-        public Format: ParagraphFormat;
-        public HalfWidthPunctuationOnTopOfLine: number;
-        public HangingPunctuation: number;
-        public Hyphenation: number;
-        public IncreaseSpacing(): void;
-        public Indent(): void;
-        public IndentCharWidth(Count: number): void;
-        public IndentFirstLineCharWidth(Count: number): void;
-        public Item(Index: number): Paragraph;
-        public KeepTogether: number;
-        public KeepWithNext: number;
-        public readonly Last: Paragraph;
-        public LeftIndent: number;
-        public LineSpacing: number;
-        public LineSpacingRule: WdLineSpacing;
-        public LineUnitAfter: number;
-        public LineUnitBefore: number;
-        public NoLineNumber: number;
-        public OpenOrCloseUp(): void;
-        public OpenUp(): void;
-        public Outdent(): void;
-        public OutlineDemote(): void;
-        public OutlineDemoteToBody(): void;
-        public OutlineLevel: WdOutlineLevel;
-        public OutlinePromote(): void;
-        public PageBreakBefore: number;
-        public readonly Parent: any;
-        public ReadingOrder: WdReadingOrder;
-        public Reset(): void;
-        public RightIndent: number;
-        public readonly Shading: Shading;
-        public Space1(): void;
-        public Space15(): void;
-        public Space2(): void;
-        public SpaceAfter: number;
-        public SpaceAfterAuto: number;
-        public SpaceBefore: number;
-        public SpaceBeforeAuto: number;
-        public Style: any;
-        public TabHangingIndent(Count: number): void;
-        public TabIndent(Count: number): void;
-        public TabStops: TabStops;
-        public WidowControl: number;
-        public WordWrap: number;
+        Add(Range?: any): Paragraph;
+        AddSpaceBetweenFarEastAndAlpha: number;
+        AddSpaceBetweenFarEastAndDigit: number;
+        Alignment: WdParagraphAlignment;
+        readonly Application: Application;
+        AutoAdjustRightIndent: number;
+        BaseLineAlignment: WdBaselineAlignment;
+        Borders: Borders;
+        CharacterUnitFirstLineIndent: number;
+        CharacterUnitLeftIndent: number;
+        CharacterUnitRightIndent: number;
+        CloseUp(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        DecreaseSpacing(): void;
+        DisableLineHeightGrid: number;
+        FarEastLineBreakControl: number;
+        readonly First: Paragraph;
+        FirstLineIndent: number;
+        Format: ParagraphFormat;
+        HalfWidthPunctuationOnTopOfLine: number;
+        HangingPunctuation: number;
+        Hyphenation: number;
+        IncreaseSpacing(): void;
+        Indent(): void;
+        IndentCharWidth(Count: number): void;
+        IndentFirstLineCharWidth(Count: number): void;
+        Item(Index: number): Paragraph;
+        KeepTogether: number;
+        KeepWithNext: number;
+        readonly Last: Paragraph;
+        LeftIndent: number;
+        LineSpacing: number;
+        LineSpacingRule: WdLineSpacing;
+        LineUnitAfter: number;
+        LineUnitBefore: number;
+        NoLineNumber: number;
+        OpenOrCloseUp(): void;
+        OpenUp(): void;
+        Outdent(): void;
+        OutlineDemote(): void;
+        OutlineDemoteToBody(): void;
+        OutlineLevel: WdOutlineLevel;
+        OutlinePromote(): void;
+        PageBreakBefore: number;
+        readonly Parent: any;
+        ReadingOrder: WdReadingOrder;
+        Reset(): void;
+        RightIndent: number;
+        readonly Shading: Shading;
+        Space1(): void;
+        Space15(): void;
+        Space2(): void;
+        SpaceAfter: number;
+        SpaceAfterAuto: number;
+        SpaceBefore: number;
+        SpaceBeforeAuto: number;
+        Style: any;
+        TabHangingIndent(Count: number): void;
+        TabIndent(Count: number): void;
+        TabStops: TabStops;
+        WidowControl: number;
+        WordWrap: number;
     }
 
     class PictureFormat {
         private 'Word.PictureFormat_typekey': PictureFormat;
         private constructor();
-        public readonly Application: Application;
-        public Brightness: number;
-        public ColorType: Office.MsoPictureColorType;
-        public Contrast: number;
-        public readonly Creator: number;
-        public Crop: Office.Crop;
-        public CropBottom: number;
-        public CropLeft: number;
-        public CropRight: number;
-        public CropTop: number;
-        public IncrementBrightness(Increment: number): void;
-        public IncrementContrast(Increment: number): void;
-        public readonly Parent: any;
-        public TransparencyColor: number;
-        public TransparentBackground: Office.MsoTriState;
+        readonly Application: Application;
+        Brightness: number;
+        ColorType: Office.MsoPictureColorType;
+        Contrast: number;
+        readonly Creator: number;
+        Crop: Office.Crop;
+        CropBottom: number;
+        CropLeft: number;
+        CropRight: number;
+        CropTop: number;
+        IncrementBrightness(Increment: number): void;
+        IncrementContrast(Increment: number): void;
+        readonly Parent: any;
+        TransparencyColor: number;
+        TransparentBackground: Office.MsoTriState;
     }
 
     class PlotArea {
         private 'Word.PlotArea_typekey': PlotArea;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public InsideHeight: number;
-        public InsideLeft: number;
-        public InsideTop: number;
-        public InsideWidth: number;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public Select(): any;
-        public Top: number;
-        public Width: number;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        Height: number;
+        InsideHeight: number;
+        InsideLeft: number;
+        InsideTop: number;
+        InsideWidth: number;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        Select(): any;
+        Top: number;
+        Width: number;
     }
 
     class ProofreadingErrors {
         private 'Word.ProofreadingErrors_typekey': ProofreadingErrors;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Range;
-        public readonly Parent: any;
-        public readonly Type: WdProofreadingErrorType;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Range;
+        readonly Parent: any;
+        readonly Type: WdProofreadingErrorType;
     }
 
     class ProtectedViewWindow {
         private 'Word.ProtectedViewWindow_typekey': ProtectedViewWindow;
         private constructor();
-        public Activate(): void;
-        public readonly Active: boolean;
-        public readonly Application: Application;
-        public Caption: string;
-        public Close(): void;
-        public readonly Creator: number;
-        public readonly Document: Document;
-        public Edit(PasswordTemplate?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any): Document;
-        public Height: number;
-        public readonly Index: number;
-        public Left: number;
-        public readonly Parent: any;
-        public readonly SourceName: string;
-        public readonly SourcePath: string;
-        public ToggleRibbon(): void;
-        public Top: number;
-        public Visible: boolean;
-        public Width: number;
-        public WindowState: WdWindowState;
+        Activate(): void;
+        readonly Active: boolean;
+        readonly Application: Application;
+        Caption: string;
+        Close(): void;
+        readonly Creator: number;
+        readonly Document: Document;
+        Edit(PasswordTemplate?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any): Document;
+        Height: number;
+        readonly Index: number;
+        Left: number;
+        readonly Parent: any;
+        readonly SourceName: string;
+        readonly SourcePath: string;
+        ToggleRibbon(): void;
+        Top: number;
+        Visible: boolean;
+        Width: number;
+        WindowState: WdWindowState;
     }
 
     class ProtectedViewWindows {
         private 'Word.ProtectedViewWindows_typekey': ProtectedViewWindows;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): ProtectedViewWindow;
-        public Open(FileName: any, AddToRecentFiles?: any, PasswordDocument?: any, Visible?: any, OpenAndRepair?: any): ProtectedViewWindow;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): ProtectedViewWindow;
+        Open(FileName: any, AddToRecentFiles?: any, PasswordDocument?: any, Visible?: any, OpenAndRepair?: any): ProtectedViewWindow;
+        readonly Parent: any;
     }
 
     class Range {
         private 'Word.Range_typekey': Range;
         private constructor();
-        public readonly Application: Application;
-        public AutoFormat(): void;
-        public Bold: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public BoldBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public readonly BookmarkID: number;
-        public readonly Bookmarks: Bookmarks;
-        public Borders: Borders;
-        public Calculate(): number;
-        public readonly CanEdit: number;
-        public readonly CanPaste: number;
-        public Case: WdCharacterCase;
-        public readonly Cells: Cells;
-        public readonly Characters: Characters;
-        public readonly CharacterStyle: any;
-        public CharacterWidth: WdCharacterWidth;
-        public CheckGrammar(): void;
-        public CheckSpelling(
+        readonly Application: Application;
+        AutoFormat(): void;
+        Bold: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        BoldBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        readonly BookmarkID: number;
+        readonly Bookmarks: Bookmarks;
+        Borders: Borders;
+        Calculate(): number;
+        readonly CanEdit: number;
+        readonly CanPaste: number;
+        Case: WdCharacterCase;
+        readonly Cells: Cells;
+        readonly Characters: Characters;
+        readonly CharacterStyle: any;
+        CharacterWidth: WdCharacterWidth;
+        CheckGrammar(): void;
+        CheckSpelling(
             CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
             CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): void;
-        public CheckSynonyms(): void;
+        CheckSynonyms(): void;
 
         /** @param WdCollapseDirection [Direction=wdCollapseStart] */
-        public Collapse(Direction?: WdCollapseDirection): void;
-        public readonly Columns: Columns;
-        public CombineCharacters: boolean;
-        public readonly Comments: Comments;
-        public ComputeStatistics(Statistic: WdStatistic): number;
-        public readonly Conflicts: Conflicts;
-        public readonly ContentControls: ContentControls;
-        public ConvertHangulAndHanja(ConversionsMode?: any, FastConversion?: any, CheckHangulEnding?: any, EnableRecentOrdering?: any, CustomDictionary?: any): void;
-        public ConvertToTable(
+        Collapse(Direction?: WdCollapseDirection): void;
+        readonly Columns: Columns;
+        CombineCharacters: boolean;
+        readonly Comments: Comments;
+        ComputeStatistics(Statistic: WdStatistic): number;
+        readonly Conflicts: Conflicts;
+        readonly ContentControls: ContentControls;
+        ConvertHangulAndHanja(ConversionsMode?: any, FastConversion?: any, CheckHangulEnding?: any, EnableRecentOrdering?: any, CustomDictionary?: any): void;
+        ConvertToTable(
             Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
             ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any, AutoFitBehavior?: any, DefaultTableBehavior?: any): Table;
-        public ConvertToTableOld(
+        ConvertToTableOld(
             Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
             ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any): Table;
-        public Copy(): void;
-        public CopyAsPicture(): void;
-        public CreatePublisher(Edition?: any, ContainsPICT?: any, ContainsRTF?: any, ContainsText?: any): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(Unit?: WdUnits, Count?: number): number;
-        public DetectLanguage(): void;
-        public DisableCharacterSpaceGrid: boolean;
-        public readonly Document: Document;
-        public readonly Duplicate: Range;
-        public readonly Editors: Editors;
-        public EmphasisMark: WdEmphasisMark;
-        public End: number;
-        public readonly EndnoteOptions: EndnoteOptions;
-        public readonly Endnotes: Endnotes;
-        public EndOf(Unit?: any, Extend?: any): number;
-        public readonly EnhMetaFileBits: any;
-        public Expand(Unit?: any): number;
+        Copy(): void;
+        CopyAsPicture(): void;
+        CreatePublisher(Edition?: any, ContainsPICT?: any, ContainsRTF?: any, ContainsText?: any): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(Unit?: WdUnits, Count?: number): number;
+        DetectLanguage(): void;
+        DisableCharacterSpaceGrid: boolean;
+        readonly Document: Document;
+        readonly Duplicate: Range;
+        readonly Editors: Editors;
+        EmphasisMark: WdEmphasisMark;
+        End: number;
+        readonly EndnoteOptions: EndnoteOptions;
+        readonly Endnotes: Endnotes;
+        EndOf(Unit?: any, Extend?: any): number;
+        readonly EnhMetaFileBits: any;
+        Expand(Unit?: any): number;
 
         /**
          * @param boolean [OpenAfterExport=false]
@@ -9945,107 +9945,107 @@ declare namespace Word {
          * @param boolean [BitmapMissingFonts=true]
          * @param boolean [UseISO19005_1=false]
          */
-        public ExportAsFixedFormat(
+        ExportAsFixedFormat(
             OutputFileName: string, ExportFormat: WdExportFormat, OpenAfterExport?: boolean, OptimizeFor?: WdExportOptimizeFor, ExportCurrentPage?: boolean,
             Item?: WdExportItem, IncludeDocProps?: boolean, KeepIRM?: boolean, CreateBookmarks?: WdExportCreateBookmarks, DocStructureTags?: boolean,
             BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, FixedFormatExtClassPtr?: any): void;
-        public ExportFragment(FileName: string, Format: WdSaveFormat): void;
-        public readonly Fields: Fields;
-        public readonly Find: Find<Range>;
-        public FitTextWidth: number;
-        public Font: Font;
-        public readonly FootnoteOptions: FootnoteOptions;
-        public readonly Footnotes: Footnotes;
-        public FormattedText: Range;
-        public readonly FormFields: FormFields;
-        public readonly Frames: Frames;
-        public GetSpellingSuggestions(
+        ExportFragment(FileName: string, Format: WdSaveFormat): void;
+        readonly Fields: Fields;
+        readonly Find: Find<Range>;
+        FitTextWidth: number;
+        Font: Font;
+        readonly FootnoteOptions: FootnoteOptions;
+        readonly Footnotes: Footnotes;
+        FormattedText: Range;
+        readonly FormFields: FormFields;
+        readonly Frames: Frames;
+        GetSpellingSuggestions(
             CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, SuggestionMode?: any, CustomDictionary2?: any, CustomDictionary3?: any,
             CustomDictionary4?: any, CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any,
             CustomDictionary10?: any): SpellingSuggestions;
-        public GoTo(What?: any, Which?: any, Count?: any, Name?: any): Range;
-        public GoToEditableRange(EditorID?: any): Range;
-        public GoToNext(What: WdGoToItem): Range;
-        public GoToPrevious(What: WdGoToItem): Range;
-        public GrammarChecked: boolean;
-        public readonly GrammaticalErrors: ProofreadingErrors;
-        public HighlightColorIndex: WdColorIndex;
-        public HorizontalInVertical: WdHorizontalInVerticalType;
-        public readonly HTMLDivisions: HTMLDivisions;
-        public readonly Hyperlinks: Hyperlinks;
-        public ID: string;
+        GoTo(What?: any, Which?: any, Count?: any, Name?: any): Range;
+        GoToEditableRange(EditorID?: any): Range;
+        GoToNext(What: WdGoToItem): Range;
+        GoToPrevious(What: WdGoToItem): Range;
+        GrammarChecked: boolean;
+        readonly GrammaticalErrors: ProofreadingErrors;
+        HighlightColorIndex: WdColorIndex;
+        HorizontalInVertical: WdHorizontalInVerticalType;
+        readonly HTMLDivisions: HTMLDivisions;
+        readonly Hyperlinks: Hyperlinks;
+        ID: string;
 
         /** @param boolean [MatchDestination=false] */
-        public ImportFragment(FileName: string, MatchDestination?: boolean): void;
-        public Information(Type: WdInformation): any;
-        public readonly InlineShapes: InlineShapes;
-        public InRange(Range: Range): boolean;
-        public InsertAfter(Text: string): void;
+        ImportFragment(FileName: string, MatchDestination?: boolean): void;
+        Information(Type: WdInformation): any;
+        readonly InlineShapes: InlineShapes;
+        InRange(Range: Range): boolean;
+        InsertAfter(Text: string): void;
 
         /** @param number [RelativeTo=0] */
-        public InsertAlignmentTab(Alignment: number, RelativeTo?: number): void;
-        public InsertAutoText(): void;
-        public InsertBefore(Text: string): void;
-        public InsertBreak(Type?: any): void;
-        public InsertCaption(Label: any, Title?: any, TitleAutoText?: any, Position?: any, ExcludeLabel?: any): void;
-        public InsertCaptionXP(Label: any, Title?: any, TitleAutoText?: any, Position?: any): void;
-        public InsertCrossReference(
+        InsertAlignmentTab(Alignment: number, RelativeTo?: number): void;
+        InsertAutoText(): void;
+        InsertBefore(Text: string): void;
+        InsertBreak(Type?: any): void;
+        InsertCaption(Label: any, Title?: any, TitleAutoText?: any, Position?: any, ExcludeLabel?: any): void;
+        InsertCaptionXP(Label: any, Title?: any, TitleAutoText?: any, Position?: any): void;
+        InsertCrossReference(
             ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any, SeparateNumbers?: any, SeparatorString?: any): void;
-        public InsertCrossReference_2002(ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any): void;
-        public InsertDatabase(
+        InsertCrossReference_2002(ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any): void;
+        InsertDatabase(
             Format?: any, Style?: any, LinkToSource?: any, Connection?: any, SQLStatement?: any, SQLStatement1?: any, PasswordDocument?: any, PasswordTemplate?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, DataSource?: any, From?: any, To?: any, IncludeFields?: any): void;
-        public InsertDateTime(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any, DateLanguage?: any, CalendarType?: any): void;
-        public InsertDateTimeOld(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any): void;
-        public InsertFile(FileName: string, Range?: any, ConfirmConversions?: any, Link?: any, Attachment?: any): void;
-        public InsertParagraph(): void;
-        public InsertParagraphAfter(): void;
-        public InsertParagraphBefore(): void;
-        public InsertSymbol(CharacterNumber: number, Font?: any, Unicode?: any, Bias?: any): void;
-        public InsertXML(XML: string, Transform?: any): void;
-        public InStory(Range: Range): boolean;
-        public readonly IsEndOfRowMark: boolean;
-        public IsEqual(Range: Range): boolean;
-        public Italic: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public ItalicBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
-        public Kana: WdKana;
-        public LanguageDetected: boolean;
-        public LanguageID: WdLanguageID;
-        public LanguageIDFarEast: WdLanguageID;
-        public LanguageIDOther: WdLanguageID;
-        public readonly ListFormat: ListFormat;
-        public readonly ListParagraphs: ListParagraphs;
-        public readonly ListStyle: any;
-        public readonly Locks: CoAuthLocks;
-        public LookupNameProperties(): void;
-        public ModifyEnclosure(Style: any, Symbol?: any, EnclosedText?: any): void;
-        public Move(Unit?: WdUnits, Count?: number): number;
-        public MoveEnd(Unit?: WdUnits, Count?: number): number;
-        public MoveEndUntil(Cset: any, Count?: any): number;
-        public MoveEndWhile(Cset: any, Count?: any): number;
-        public MoveStart(Unit?: WdUnits, Count?: number): number;
-        public MoveStartUntil(Cset: any, Count?: any): number;
-        public MoveStartWhile(Cset: any, Count?: any): number;
-        public MoveUntil(Cset: any, Count?: any): number;
-        public MoveWhile(Cset: any, Count?: any): number;
-        public Next(Unit?: any, Count?: any): Range;
-        public readonly NextStoryRange: Range;
-        public NextSubdocument(): void;
-        public NoProofing: number;
-        public readonly OMaths: OMaths;
-        public Orientation: WdTextOrientation;
-        public PageSetup: PageSetup;
-        public ParagraphFormat: ParagraphFormat;
-        public readonly Paragraphs: Paragraphs;
-        public readonly ParagraphStyle: any;
-        public readonly Parent: any;
-        public readonly ParentContentControl: ContentControl;
-        public Paste(): void;
-        public PasteAndFormat(Type: WdRecoveryType): void;
-        public PasteAppendTable(): void;
-        public PasteAsNestedTable(): void;
-        public PasteExcelTable(LinkedToExcel: boolean, WordFormatting: boolean, RTF: boolean): void;
-        public PasteSpecial(IconIndex?: any, Link?: any, Placement?: any, DisplayAsIcon?: any, DataType?: any, IconFileName?: any, IconLabel?: any): void;
+        InsertDateTime(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any, DateLanguage?: any, CalendarType?: any): void;
+        InsertDateTimeOld(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any): void;
+        InsertFile(FileName: string, Range?: any, ConfirmConversions?: any, Link?: any, Attachment?: any): void;
+        InsertParagraph(): void;
+        InsertParagraphAfter(): void;
+        InsertParagraphBefore(): void;
+        InsertSymbol(CharacterNumber: number, Font?: any, Unicode?: any, Bias?: any): void;
+        InsertXML(XML: string, Transform?: any): void;
+        InStory(Range: Range): boolean;
+        readonly IsEndOfRowMark: boolean;
+        IsEqual(Range: Range): boolean;
+        Italic: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        ItalicBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        Kana: WdKana;
+        LanguageDetected: boolean;
+        LanguageID: WdLanguageID;
+        LanguageIDFarEast: WdLanguageID;
+        LanguageIDOther: WdLanguageID;
+        readonly ListFormat: ListFormat;
+        readonly ListParagraphs: ListParagraphs;
+        readonly ListStyle: any;
+        readonly Locks: CoAuthLocks;
+        LookupNameProperties(): void;
+        ModifyEnclosure(Style: any, Symbol?: any, EnclosedText?: any): void;
+        Move(Unit?: WdUnits, Count?: number): number;
+        MoveEnd(Unit?: WdUnits, Count?: number): number;
+        MoveEndUntil(Cset: any, Count?: any): number;
+        MoveEndWhile(Cset: any, Count?: any): number;
+        MoveStart(Unit?: WdUnits, Count?: number): number;
+        MoveStartUntil(Cset: any, Count?: any): number;
+        MoveStartWhile(Cset: any, Count?: any): number;
+        MoveUntil(Cset: any, Count?: any): number;
+        MoveWhile(Cset: any, Count?: any): number;
+        Next(Unit?: any, Count?: any): Range;
+        readonly NextStoryRange: Range;
+        NextSubdocument(): void;
+        NoProofing: number;
+        readonly OMaths: OMaths;
+        Orientation: WdTextOrientation;
+        PageSetup: PageSetup;
+        ParagraphFormat: ParagraphFormat;
+        readonly Paragraphs: Paragraphs;
+        readonly ParagraphStyle: any;
+        readonly Parent: any;
+        readonly ParentContentControl: ContentControl;
+        Paste(): void;
+        PasteAndFormat(Type: WdRecoveryType): void;
+        PasteAppendTable(): void;
+        PasteAsNestedTable(): void;
+        PasteExcelTable(LinkedToExcel: boolean, WordFormatting: boolean, RTF: boolean): void;
+        PasteSpecial(IconIndex?: any, Link?: any, Placement?: any, DisplayAsIcon?: any, DataType?: any, IconFileName?: any, IconLabel?: any): void;
 
         /**
          * @param Word.WdPhoneticGuideAlignmentType [Alignment=-1]
@@ -10053,178 +10053,178 @@ declare namespace Word {
          * @param number [FontSize=0]
          * @param string [FontName='']
          */
-        public PhoneticGuide(Text: string, Alignment?: WdPhoneticGuideAlignmentType, Raise?: number, FontSize?: number, FontName?: string): void;
-        public Previous(Unit?: any, Count?: any): Range;
-        public readonly PreviousBookmarkID: number;
-        public PreviousSubdocument(): void;
-        public readonly ReadabilityStatistics: ReadabilityStatistics;
-        public Relocate(Direction: number): void;
-        public readonly Revisions: Revisions;
-        public readonly Rows: Rows;
-        public readonly Scripts: Office.Scripts;
-        public readonly Sections: Sections;
-        public Select(): void;
-        public readonly Sentences: Sentences;
-        public SetListLevel(Level: number): void;
-        public SetRange(Start: number, End: number): void;
-        public readonly Shading: Shading;
-        public readonly ShapeRange: ShapeRange;
-        public ShowAll: boolean;
-        public readonly SmartTags: SmartTags;
-        public Sort(
+        PhoneticGuide(Text: string, Alignment?: WdPhoneticGuideAlignmentType, Raise?: number, FontSize?: number, FontName?: string): void;
+        Previous(Unit?: any, Count?: any): Range;
+        readonly PreviousBookmarkID: number;
+        PreviousSubdocument(): void;
+        readonly ReadabilityStatistics: ReadabilityStatistics;
+        Relocate(Direction: number): void;
+        readonly Revisions: Revisions;
+        readonly Rows: Rows;
+        readonly Scripts: Office.Scripts;
+        readonly Sections: Sections;
+        Select(): void;
+        readonly Sentences: Sentences;
+        SetListLevel(Level: number): void;
+        SetRange(Start: number, End: number): void;
+        readonly Shading: Shading;
+        readonly ShapeRange: ShapeRange;
+        ShowAll: boolean;
+        readonly SmartTags: SmartTags;
+        Sort(
             ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
             SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any,
             IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any): void;
-        public SortAscending(): void;
-        public SortDescending(): void;
-        public SortOld(
+        SortAscending(): void;
+        SortDescending(): void;
+        SortOld(
             ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
             SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, LanguageID?: any): void;
-        public SpellingChecked: boolean;
-        public readonly SpellingErrors: ProofreadingErrors;
-        public Start: number;
-        public StartOf(Unit?: any, Extend?: any): number;
-        public readonly StoryLength: number;
-        public readonly StoryType: WdStoryType;
-        public Style: any;
-        public readonly Subdocuments: Subdocuments;
-        public SubscribeTo(Edition: string, Format?: any): void;
-        public readonly SynonymInfo: SynonymInfo;
-        public readonly Tables: Tables;
-        public readonly TableStyle: any;
+        SpellingChecked: boolean;
+        readonly SpellingErrors: ProofreadingErrors;
+        Start: number;
+        StartOf(Unit?: any, Extend?: any): number;
+        readonly StoryLength: number;
+        readonly StoryType: WdStoryType;
+        Style: any;
+        readonly Subdocuments: Subdocuments;
+        SubscribeTo(Edition: string, Format?: any): void;
+        readonly SynonymInfo: SynonymInfo;
+        readonly Tables: Tables;
+        readonly TableStyle: any;
 
         /**
          * @param Word.WdTCSCConverterDirection [WdTCSCConverterDirection=2]
          * @param boolean [CommonTerms=false]
          * @param boolean [UseVariants=false]
          */
-        public TCSCConverter(WdTCSCConverterDirection?: WdTCSCConverterDirection, CommonTerms?: boolean, UseVariants?: boolean): void;
-        public Text: string;
-        public TextRetrievalMode: TextRetrievalMode;
-        public readonly TopLevelTables: Tables;
-        public TwoLinesInOne: WdTwoLinesInOneType;
-        public Underline: WdUnderline;
-        public readonly Updates: CoAuthUpdates;
-        public WholeStory(): void;
-        public readonly WordOpenXML: string;
-        public readonly Words: Words;
+        TCSCConverter(WdTCSCConverterDirection?: WdTCSCConverterDirection, CommonTerms?: boolean, UseVariants?: boolean): void;
+        Text: string;
+        TextRetrievalMode: TextRetrievalMode;
+        readonly TopLevelTables: Tables;
+        TwoLinesInOne: WdTwoLinesInOneType;
+        Underline: WdUnderline;
+        readonly Updates: CoAuthUpdates;
+        WholeStory(): void;
+        readonly WordOpenXML: string;
+        readonly Words: Words;
 
         /** @param boolean [DataOnly=false] */
-        public XML(DataOnly?: boolean): string;
-        public readonly XMLNodes: XMLNodes;
-        public readonly XMLParentNode: XMLNode;
+        XML(DataOnly?: boolean): string;
+        readonly XMLNodes: XMLNodes;
+        readonly XMLParentNode: XMLNode;
     }
 
     class ReadabilityStatistic {
         private 'Word.ReadabilityStatistic_typekey': ReadabilityStatistic;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Value: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Value: number;
     }
 
     class ReadabilityStatistics {
         private 'Word.ReadabilityStatistics_typekey': ReadabilityStatistics;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): ReadabilityStatistic;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): ReadabilityStatistic;
+        readonly Parent: any;
     }
 
     class RecentFile {
         private 'Word.RecentFile_typekey': RecentFile;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public Open(): Document;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public ReadOnly: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        Open(): Document;
+        readonly Parent: any;
+        readonly Path: string;
+        ReadOnly: boolean;
     }
 
     class RecentFiles {
         private 'Word.RecentFiles_typekey': RecentFiles;
         private constructor();
-        public Add(Document: any, ReadOnly?: any): RecentFile;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): RecentFile;
-        public Maximum: number;
-        public readonly Parent: any;
+        Add(Document: any, ReadOnly?: any): RecentFile;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): RecentFile;
+        Maximum: number;
+        readonly Parent: any;
     }
 
     class Rectangle {
         private 'Word.Rectangle_typekey': Rectangle;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Height: number;
-        public readonly Left: number;
-        public readonly Lines: Lines;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly RectangleType: WdRectangleType;
-        public readonly Top: number;
-        public readonly Width: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Height: number;
+        readonly Left: number;
+        readonly Lines: Lines;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly RectangleType: WdRectangleType;
+        readonly Top: number;
+        readonly Width: number;
     }
 
     class Rectangles {
         private 'Word.Rectangles_typekey': Rectangles;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Rectangle;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Rectangle;
+        readonly Parent: any;
     }
 
     class ReflectionFormat {
         private 'Word.ReflectionFormat_typekey': ReflectionFormat;
         private constructor();
-        public readonly Application: Application;
-        public Blur: number;
-        public readonly Creator: number;
-        public Offset: number;
-        public readonly Parent: any;
-        public Size: number;
-        public Transparency: number;
-        public Type: Office.MsoReflectionType;
+        readonly Application: Application;
+        Blur: number;
+        readonly Creator: number;
+        Offset: number;
+        readonly Parent: any;
+        Size: number;
+        Transparency: number;
+        Type: Office.MsoReflectionType;
     }
 
     class Replacement {
         private 'Word.Replacement_typekey': Replacement;
         private constructor();
-        public readonly Application: Application;
-        public ClearFormatting(): void;
-        public readonly Creator: number;
-        public Font: Font;
-        public readonly Frame: Frame;
-        public Highlight: number;
-        public LanguageID: WdLanguageID;
-        public LanguageIDFarEast: WdLanguageID;
-        public NoProofing: number;
-        public ParagraphFormat: ParagraphFormat;
-        public readonly Parent: any;
-        public Style: any;
-        public Text: string;
+        readonly Application: Application;
+        ClearFormatting(): void;
+        readonly Creator: number;
+        Font: Font;
+        readonly Frame: Frame;
+        Highlight: number;
+        LanguageID: WdLanguageID;
+        LanguageIDFarEast: WdLanguageID;
+        NoProofing: number;
+        ParagraphFormat: ParagraphFormat;
+        readonly Parent: any;
+        Style: any;
+        Text: string;
     }
 
     class Research {
         private 'Word.Research_typekey': Research;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public FavoriteService: string;
-        public IsResearchService(ServiceID: string): boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        FavoriteService: string;
+        IsResearchService(ServiceID: string): boolean;
+        readonly Parent: any;
 
         /**
          * @param string [QueryString='']
@@ -10232,232 +10232,232 @@ declare namespace Word {
          * @param boolean [UseSelection=false]
          * @param boolean [LaunchQuery=true]
          */
-        public Query(ServiceID: string, QueryString?: string, QueryLanguage?: WdLanguageID, UseSelection?: boolean, LaunchQuery?: boolean): any;
-        public SetLanguagePair(LanguageFrom: WdLanguageID, LanguageTo: WdLanguageID): any;
+        Query(ServiceID: string, QueryString?: string, QueryLanguage?: WdLanguageID, UseSelection?: boolean, LaunchQuery?: boolean): any;
+        SetLanguagePair(LanguageFrom: WdLanguageID, LanguageTo: WdLanguageID): any;
     }
 
     class Reviewer {
         private 'Word.Reviewer_typekey': Reviewer;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public Visible: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Parent: any;
+        Visible: boolean;
     }
 
     class Reviewers {
         private 'Word.Reviewers_typekey': Reviewers;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Reviewer;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Reviewer;
+        readonly Parent: any;
     }
 
     class Revision {
         private 'Word.Revision_typekey': Revision;
         private constructor();
-        public Accept(): void;
-        public readonly Application: Application;
-        public readonly Author: string;
-        public readonly Cells: Cells;
-        public readonly Creator: number;
-        public readonly Date: VarDate;
-        public readonly FormatDescription: string;
-        public readonly Index: number;
-        public readonly MovedRange: Range;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public Reject(): void;
-        public readonly Style: Style;
-        public readonly Type: WdRevisionType;
+        Accept(): void;
+        readonly Application: Application;
+        readonly Author: string;
+        readonly Cells: Cells;
+        readonly Creator: number;
+        readonly Date: VarDate;
+        readonly FormatDescription: string;
+        readonly Index: number;
+        readonly MovedRange: Range;
+        readonly Parent: any;
+        readonly Range: Range;
+        Reject(): void;
+        readonly Style: Style;
+        readonly Type: WdRevisionType;
     }
 
     class Revisions {
         private 'Word.Revisions_typekey': Revisions;
         private constructor();
-        public AcceptAll(): void;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Revision;
-        public readonly Parent: any;
-        public RejectAll(): void;
+        AcceptAll(): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Revision;
+        readonly Parent: any;
+        RejectAll(): void;
     }
 
     class RoutingSlip {
         private 'Word.RoutingSlip_typekey': RoutingSlip;
         private constructor();
-        public AddRecipient(Recipient: string): void;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delivery: WdRoutingSlipDelivery;
-        public Message: string;
-        public readonly Parent: any;
-        public Protect: WdProtectionType;
-        public Recipients(Index?: any): any;
-        public Reset(): void;
-        public ReturnWhenDone: boolean;
-        public readonly Status: WdRoutingSlipStatus;
-        public Subject: string;
-        public TrackStatus: boolean;
+        AddRecipient(Recipient: string): void;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delivery: WdRoutingSlipDelivery;
+        Message: string;
+        readonly Parent: any;
+        Protect: WdProtectionType;
+        Recipients(Index?: any): any;
+        Reset(): void;
+        ReturnWhenDone: boolean;
+        readonly Status: WdRoutingSlipStatus;
+        Subject: string;
+        TrackStatus: boolean;
     }
 
     class Row {
         private 'Word.Row_typekey': Row;
         private constructor();
-        public Alignment: WdRowAlignment;
-        public AllowBreakAcrossPages: number;
-        public readonly Application: Application;
-        public Borders: Borders;
-        public readonly Cells: Cells;
-        public ConvertToText(Separator?: any, NestedTables?: any): Range;
-        public ConvertToTextOld(Separator?: any): Range;
-        public readonly Creator: number;
-        public Delete(): void;
-        public HeadingFormat: number;
-        public Height: number;
-        public HeightRule: WdRowHeightRule;
-        public ID: string;
-        public readonly Index: number;
-        public readonly IsFirst: boolean;
-        public readonly IsLast: boolean;
-        public LeftIndent: number;
-        public readonly NestingLevel: number;
-        public readonly Next: Row;
-        public readonly Parent: any;
-        public readonly Previous: Row;
-        public readonly Range: Range;
-        public Select(): void;
-        public SetHeight(RowHeight: number, HeightRule: WdRowHeightRule): void;
-        public SetLeftIndent(LeftIndent: number, RulerStyle: WdRulerStyle): void;
-        public readonly Shading: Shading;
-        public SpaceBetweenColumns: number;
+        Alignment: WdRowAlignment;
+        AllowBreakAcrossPages: number;
+        readonly Application: Application;
+        Borders: Borders;
+        readonly Cells: Cells;
+        ConvertToText(Separator?: any, NestedTables?: any): Range;
+        ConvertToTextOld(Separator?: any): Range;
+        readonly Creator: number;
+        Delete(): void;
+        HeadingFormat: number;
+        Height: number;
+        HeightRule: WdRowHeightRule;
+        ID: string;
+        readonly Index: number;
+        readonly IsFirst: boolean;
+        readonly IsLast: boolean;
+        LeftIndent: number;
+        readonly NestingLevel: number;
+        readonly Next: Row;
+        readonly Parent: any;
+        readonly Previous: Row;
+        readonly Range: Range;
+        Select(): void;
+        SetHeight(RowHeight: number, HeightRule: WdRowHeightRule): void;
+        SetLeftIndent(LeftIndent: number, RulerStyle: WdRulerStyle): void;
+        readonly Shading: Shading;
+        SpaceBetweenColumns: number;
     }
 
     class Rows {
         private 'Word.Rows_typekey': Rows;
         private constructor();
-        public Add(BeforeRow?: any): Row;
-        public Alignment: WdRowAlignment;
-        public AllowBreakAcrossPages: number;
-        public AllowOverlap: number;
-        public readonly Application: Application;
-        public Borders: Borders;
-        public ConvertToText(Separator?: any, NestedTables?: any): Range;
-        public ConvertToTextOld(Separator?: any): Range;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public DistanceBottom: number;
-        public DistanceLeft: number;
-        public DistanceRight: number;
-        public DistanceTop: number;
-        public DistributeHeight(): void;
-        public readonly First: Row;
-        public HeadingFormat: number;
-        public Height: number;
-        public HeightRule: WdRowHeightRule;
-        public HorizontalPosition: number;
-        public Item(Index: number): Row;
-        public readonly Last: Row;
-        public LeftIndent: number;
-        public readonly NestingLevel: number;
-        public readonly Parent: any;
-        public RelativeHorizontalPosition: WdRelativeHorizontalPosition;
-        public RelativeVerticalPosition: WdRelativeVerticalPosition;
-        public Select(): void;
-        public SetHeight(RowHeight: number, HeightRule: WdRowHeightRule): void;
-        public SetLeftIndent(LeftIndent: number, RulerStyle: WdRulerStyle): void;
-        public readonly Shading: Shading;
-        public SpaceBetweenColumns: number;
-        public TableDirection: WdTableDirection;
-        public VerticalPosition: number;
-        public WrapAroundText: number;
+        Add(BeforeRow?: any): Row;
+        Alignment: WdRowAlignment;
+        AllowBreakAcrossPages: number;
+        AllowOverlap: number;
+        readonly Application: Application;
+        Borders: Borders;
+        ConvertToText(Separator?: any, NestedTables?: any): Range;
+        ConvertToTextOld(Separator?: any): Range;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): void;
+        DistanceBottom: number;
+        DistanceLeft: number;
+        DistanceRight: number;
+        DistanceTop: number;
+        DistributeHeight(): void;
+        readonly First: Row;
+        HeadingFormat: number;
+        Height: number;
+        HeightRule: WdRowHeightRule;
+        HorizontalPosition: number;
+        Item(Index: number): Row;
+        readonly Last: Row;
+        LeftIndent: number;
+        readonly NestingLevel: number;
+        readonly Parent: any;
+        RelativeHorizontalPosition: WdRelativeHorizontalPosition;
+        RelativeVerticalPosition: WdRelativeVerticalPosition;
+        Select(): void;
+        SetHeight(RowHeight: number, HeightRule: WdRowHeightRule): void;
+        SetLeftIndent(LeftIndent: number, RulerStyle: WdRulerStyle): void;
+        readonly Shading: Shading;
+        SpaceBetweenColumns: number;
+        TableDirection: WdTableDirection;
+        VerticalPosition: number;
+        WrapAroundText: number;
     }
 
     class Section {
         private 'Word.Section_typekey': Section;
         private constructor();
-        public readonly Application: Application;
-        public Borders: Borders;
-        public readonly Creator: number;
-        public readonly Footers: HeadersFooters;
-        public readonly Headers: HeadersFooters;
-        public readonly Index: number;
-        public PageSetup: PageSetup;
-        public readonly Parent: any;
-        public ProtectedForForms: boolean;
-        public readonly Range: Range;
+        readonly Application: Application;
+        Borders: Borders;
+        readonly Creator: number;
+        readonly Footers: HeadersFooters;
+        readonly Headers: HeadersFooters;
+        readonly Index: number;
+        PageSetup: PageSetup;
+        readonly Parent: any;
+        ProtectedForForms: boolean;
+        readonly Range: Range;
     }
 
     class Sections {
         private 'Word.Sections_typekey': Sections;
         private constructor();
-        public Add(Range?: any, Start?: any): Section;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly First: Section;
-        public Item(Index: number): Section;
-        public readonly Last: Section;
-        public PageSetup: PageSetup;
-        public readonly Parent: any;
+        Add(Range?: any, Start?: any): Section;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly First: Section;
+        Item(Index: number): Section;
+        readonly Last: Section;
+        PageSetup: PageSetup;
+        readonly Parent: any;
     }
 
     class Selection {
         private 'Word.Selection_typekey': Selection;
         private constructor();
-        public readonly Active: boolean;
-        public readonly Application: Application;
-        public BoldRun(): void;
-        public readonly BookmarkID: number;
-        public readonly Bookmarks: Bookmarks;
-        public Borders: Borders;
-        public Calculate(): number;
-        public readonly Cells: Cells;
-        public readonly Characters: Characters;
-        public readonly ChildShapeRange: ShapeRange;
-        public ClearCharacterAllFormatting(): void;
-        public ClearCharacterDirectFormatting(): void;
-        public ClearCharacterStyle(): void;
-        public ClearFormatting(): void;
-        public ClearParagraphAllFormatting(): void;
-        public ClearParagraphDirectFormatting(): void;
-        public ClearParagraphStyle(): void;
+        readonly Active: boolean;
+        readonly Application: Application;
+        BoldRun(): void;
+        readonly BookmarkID: number;
+        readonly Bookmarks: Bookmarks;
+        Borders: Borders;
+        Calculate(): number;
+        readonly Cells: Cells;
+        readonly Characters: Characters;
+        readonly ChildShapeRange: ShapeRange;
+        ClearCharacterAllFormatting(): void;
+        ClearCharacterDirectFormatting(): void;
+        ClearCharacterStyle(): void;
+        ClearFormatting(): void;
+        ClearParagraphAllFormatting(): void;
+        ClearParagraphDirectFormatting(): void;
+        ClearParagraphStyle(): void;
 
         /** @param WdCollapseDirection [Direction=wdCollapseStart] */
-        public Collapse(Direction?: WdCollapseDirection): void;
-        public readonly Columns: Columns;
-        public ColumnSelectMode: boolean;
-        public readonly Comments: Comments;
-        public readonly ContentControls: ContentControls;
-        public ConvertToTable(
+        Collapse(Direction?: WdCollapseDirection): void;
+        readonly Columns: Columns;
+        ColumnSelectMode: boolean;
+        readonly Comments: Comments;
+        readonly ContentControls: ContentControls;
+        ConvertToTable(
             Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
             ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any, AutoFitBehavior?: any, DefaultTableBehavior?: any): Table;
-        public ConvertToTableOld(
+        ConvertToTableOld(
             Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
             ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any): Table;
-        public Copy(): void;
-        public CopyAsPicture(): void;
-        public CopyFormat(): void;
-        public CreateAutoTextEntry(Name: string, StyleName: string): AutoTextEntry;
-        public CreateTextbox(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(Unit?: WdUnits, Count?: number): number;
-        public DetectLanguage(): void;
-        public readonly Document: Document;
-        public readonly Editors: Editors;
-        public End: number;
-        public EndKey(Unit?: any, Extend?: any): number;
-        public readonly EndnoteOptions: EndnoteOptions;
-        public readonly Endnotes: Endnotes;
-        public EndOf(Unit?: any, Extend?: any): number;
-        public readonly EnhMetaFileBits: any;
-        public EscapeKey(): void;
-        public Expand(Unit?: any): number;
+        Copy(): void;
+        CopyAsPicture(): void;
+        CopyFormat(): void;
+        CreateAutoTextEntry(Name: string, StyleName: string): AutoTextEntry;
+        CreateTextbox(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(Unit?: WdUnits, Count?: number): number;
+        DetectLanguage(): void;
+        readonly Document: Document;
+        readonly Editors: Editors;
+        End: number;
+        EndKey(Unit?: any, Extend?: any): number;
+        readonly EndnoteOptions: EndnoteOptions;
+        readonly Endnotes: Endnotes;
+        EndOf(Unit?: any, Extend?: any): number;
+        readonly EnhMetaFileBits: any;
+        EscapeKey(): void;
+        Expand(Unit?: any): number;
 
         /**
          * @param boolean [OpenAfterExport=false]
@@ -10471,347 +10471,347 @@ declare namespace Word {
          * @param boolean [BitmapMissingFonts=true]
          * @param boolean [UseISO19005_1=false]
          */
-        public ExportAsFixedFormat(
+        ExportAsFixedFormat(
             OutputFileName: string, ExportFormat: WdExportFormat, OpenAfterExport?: boolean, OptimizeFor?: WdExportOptimizeFor, ExportCurrentPage?: boolean,
             Item?: WdExportItem, IncludeDocProps?: boolean, KeepIRM?: boolean, CreateBookmarks?: WdExportCreateBookmarks, DocStructureTags?: boolean,
             BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, FixedFormatExtClassPtr?: any): void;
-        public Extend(Character?: any): void;
-        public ExtendMode: boolean;
-        public readonly Fields: Fields;
-        public readonly Find: Find<Selection>;
-        public FitTextWidth: number;
-        public Flags: WdSelectionFlags;
-        public Font: Font;
-        public readonly FootnoteOptions: FootnoteOptions;
-        public readonly Footnotes: Footnotes;
-        public FormattedText: Range;
-        public readonly FormFields: FormFields;
-        public readonly Frames: Frames;
-        public GoTo(What?: any, Which?: any, Count?: any, Name?: any): Range;
-        public GoToEditableRange(EditorID?: any): Range;
-        public GoToNext(What: WdGoToItem): Range;
-        public GoToPrevious(What: WdGoToItem): Range;
-        public readonly HasChildShapeRange: boolean;
-        public readonly HeaderFooter: HeaderFooter;
-        public HomeKey(Unit?: any, Extend?: any): number;
-        public readonly HTMLDivisions: HTMLDivisions;
-        public readonly Hyperlinks: Hyperlinks;
-        public Information(Type: WdInformation): any;
-        public readonly InlineShapes: InlineShapes;
-        public InRange(Range: Range): boolean;
-        public InsertAfter(Text: string): void;
-        public InsertBefore(Text: string): void;
-        public InsertBreak(Type?: any): void;
-        public InsertCaption(Label: any, Title?: any, TitleAutoText?: any, Position?: any, ExcludeLabel?: any): void;
-        public InsertCaptionXP(Label: any, Title?: any, TitleAutoText?: any, Position?: any): void;
-        public InsertCells(ShiftCells?: any): void;
-        public InsertColumns(): void;
-        public InsertColumnsRight(): void;
-        public InsertCrossReference(
+        Extend(Character?: any): void;
+        ExtendMode: boolean;
+        readonly Fields: Fields;
+        readonly Find: Find<Selection>;
+        FitTextWidth: number;
+        Flags: WdSelectionFlags;
+        Font: Font;
+        readonly FootnoteOptions: FootnoteOptions;
+        readonly Footnotes: Footnotes;
+        FormattedText: Range;
+        readonly FormFields: FormFields;
+        readonly Frames: Frames;
+        GoTo(What?: any, Which?: any, Count?: any, Name?: any): Range;
+        GoToEditableRange(EditorID?: any): Range;
+        GoToNext(What: WdGoToItem): Range;
+        GoToPrevious(What: WdGoToItem): Range;
+        readonly HasChildShapeRange: boolean;
+        readonly HeaderFooter: HeaderFooter;
+        HomeKey(Unit?: any, Extend?: any): number;
+        readonly HTMLDivisions: HTMLDivisions;
+        readonly Hyperlinks: Hyperlinks;
+        Information(Type: WdInformation): any;
+        readonly InlineShapes: InlineShapes;
+        InRange(Range: Range): boolean;
+        InsertAfter(Text: string): void;
+        InsertBefore(Text: string): void;
+        InsertBreak(Type?: any): void;
+        InsertCaption(Label: any, Title?: any, TitleAutoText?: any, Position?: any, ExcludeLabel?: any): void;
+        InsertCaptionXP(Label: any, Title?: any, TitleAutoText?: any, Position?: any): void;
+        InsertCells(ShiftCells?: any): void;
+        InsertColumns(): void;
+        InsertColumnsRight(): void;
+        InsertCrossReference(
             ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any, SeparateNumbers?: any, SeparatorString?: any): void;
-        public InsertCrossReference_2002(ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any): void;
-        public InsertDateTime(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any, DateLanguage?: any, CalendarType?: any): void;
-        public InsertDateTimeOld(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any): void;
-        public InsertFile(FileName: string, Range?: any, ConfirmConversions?: any, Link?: any, Attachment?: any): void;
-        public InsertFormula(Formula?: any, NumberFormat?: any): void;
-        public InsertNewPage(): void;
-        public InsertParagraph(): void;
-        public InsertParagraphAfter(): void;
-        public InsertParagraphBefore(): void;
-        public InsertRows(NumRows?: any): void;
-        public InsertRowsAbove(NumRows?: any): void;
-        public InsertRowsBelow(NumRows?: any): void;
-        public InsertStyleSeparator(): void;
-        public InsertSymbol(CharacterNumber: number, Font?: any, Unicode?: any, Bias?: any): void;
-        public InsertXML(XML: string, Transform?: any): void;
-        public InStory(Range: Range): boolean;
-        public readonly IPAtEndOfLine: boolean;
-        public readonly IsEndOfRowMark: boolean;
-        public IsEqual(Range: Range): boolean;
-        public ItalicRun(): void;
-        public LanguageDetected: boolean;
-        public LanguageID: WdLanguageID;
-        public LanguageIDFarEast: WdLanguageID;
-        public LanguageIDOther: WdLanguageID;
-        public LtrPara(): void;
-        public LtrRun(): void;
-        public Move(Unit?: WdUnits, Count?: number): number;
-        public MoveDown(Unit?: WdUnits, Count?: number): number;
-        public MoveEnd(Unit?: WdUnits, Count?: number): number;
-        public MoveEndUntil(Cset: any, Count?: any): number;
-        public MoveEndWhile(Cset: any, Count?: any): number;
-        public MoveLeft(Unit?: WdUnits, Count?: number): number;
-        public MoveRight(Unit?: WdUnits, Count?: number): number;
-        public MoveStart(Unit?: WdUnits, Count?: number): number;
-        public MoveStartUntil(Cset: any, Count?: any): number;
-        public MoveStartWhile(Cset: any, Count?: any): number;
-        public MoveUntil(Cset: any, Count?: any): number;
-        public MoveUp(Unit?: WdUnits, Count?: number): number;
-        public MoveWhile(Cset: any, Count?: any): number;
-        public Next(Unit?: WdUnits, Count?: number): Range;
-        public NextField(): Field;
-        public NextRevision(Wrap?: any): Revision;
-        public NextSubdocument(): void;
-        public NoProofing: number;
-        public readonly OMaths: OMaths;
-        public Orientation: WdTextOrientation;
-        public PageSetup: PageSetup;
-        public ParagraphFormat: ParagraphFormat;
-        public readonly Paragraphs: Paragraphs;
-        public readonly Parent: any;
-        public readonly ParentContentControl: ContentControl;
-        public Paste(): void;
-        public PasteAndFormat(Type: WdRecoveryType): void;
-        public PasteAppendTable(): void;
-        public PasteAsNestedTable(): void;
-        public PasteExcelTable(LinkedToExcel: boolean, WordFormatting: boolean, RTF: boolean): void;
-        public PasteFormat(): void;
-        public PasteSpecial(IconIndex?: any, Link?: any, Placement?: any, DisplayAsIcon?: any, DataType?: any, IconFileName?: any, IconLabel?: any): void;
-        public Previous(Unit?: any, Count?: any): Range;
-        public readonly PreviousBookmarkID: number;
-        public PreviousField(): Field;
-        public PreviousRevision(Wrap?: any): Revision;
-        public PreviousSubdocument(): void;
-        public readonly Range: Range;
-        public ReadingModeGrowFont(): void;
-        public ReadingModeShrinkFont(): void;
-        public readonly Rows: Rows;
-        public RtlPara(): void;
-        public RtlRun(): void;
-        public readonly Sections: Sections;
-        public Select(): void;
-        public SelectCell(): void;
-        public SelectColumn(): void;
-        public SelectCurrentAlignment(): void;
-        public SelectCurrentColor(): void;
-        public SelectCurrentFont(): void;
-        public SelectCurrentIndent(): void;
-        public SelectCurrentSpacing(): void;
-        public SelectCurrentTabs(): void;
-        public SelectRow(): void;
-        public readonly Sentences: Sentences;
-        public SetRange(Start: number, End: number): void;
-        public readonly Shading: Shading;
-        public readonly ShapeRange: ShapeRange;
-        public Shrink(): void;
-        public ShrinkDiscontiguousSelection(): void;
-        public readonly SmartTags: SmartTags;
-        public Sort(
+        InsertCrossReference_2002(ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any): void;
+        InsertDateTime(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any, DateLanguage?: any, CalendarType?: any): void;
+        InsertDateTimeOld(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any): void;
+        InsertFile(FileName: string, Range?: any, ConfirmConversions?: any, Link?: any, Attachment?: any): void;
+        InsertFormula(Formula?: any, NumberFormat?: any): void;
+        InsertNewPage(): void;
+        InsertParagraph(): void;
+        InsertParagraphAfter(): void;
+        InsertParagraphBefore(): void;
+        InsertRows(NumRows?: any): void;
+        InsertRowsAbove(NumRows?: any): void;
+        InsertRowsBelow(NumRows?: any): void;
+        InsertStyleSeparator(): void;
+        InsertSymbol(CharacterNumber: number, Font?: any, Unicode?: any, Bias?: any): void;
+        InsertXML(XML: string, Transform?: any): void;
+        InStory(Range: Range): boolean;
+        readonly IPAtEndOfLine: boolean;
+        readonly IsEndOfRowMark: boolean;
+        IsEqual(Range: Range): boolean;
+        ItalicRun(): void;
+        LanguageDetected: boolean;
+        LanguageID: WdLanguageID;
+        LanguageIDFarEast: WdLanguageID;
+        LanguageIDOther: WdLanguageID;
+        LtrPara(): void;
+        LtrRun(): void;
+        Move(Unit?: WdUnits, Count?: number): number;
+        MoveDown(Unit?: WdUnits, Count?: number): number;
+        MoveEnd(Unit?: WdUnits, Count?: number): number;
+        MoveEndUntil(Cset: any, Count?: any): number;
+        MoveEndWhile(Cset: any, Count?: any): number;
+        MoveLeft(Unit?: WdUnits, Count?: number): number;
+        MoveRight(Unit?: WdUnits, Count?: number): number;
+        MoveStart(Unit?: WdUnits, Count?: number): number;
+        MoveStartUntil(Cset: any, Count?: any): number;
+        MoveStartWhile(Cset: any, Count?: any): number;
+        MoveUntil(Cset: any, Count?: any): number;
+        MoveUp(Unit?: WdUnits, Count?: number): number;
+        MoveWhile(Cset: any, Count?: any): number;
+        Next(Unit?: WdUnits, Count?: number): Range;
+        NextField(): Field;
+        NextRevision(Wrap?: any): Revision;
+        NextSubdocument(): void;
+        NoProofing: number;
+        readonly OMaths: OMaths;
+        Orientation: WdTextOrientation;
+        PageSetup: PageSetup;
+        ParagraphFormat: ParagraphFormat;
+        readonly Paragraphs: Paragraphs;
+        readonly Parent: any;
+        readonly ParentContentControl: ContentControl;
+        Paste(): void;
+        PasteAndFormat(Type: WdRecoveryType): void;
+        PasteAppendTable(): void;
+        PasteAsNestedTable(): void;
+        PasteExcelTable(LinkedToExcel: boolean, WordFormatting: boolean, RTF: boolean): void;
+        PasteFormat(): void;
+        PasteSpecial(IconIndex?: any, Link?: any, Placement?: any, DisplayAsIcon?: any, DataType?: any, IconFileName?: any, IconLabel?: any): void;
+        Previous(Unit?: any, Count?: any): Range;
+        readonly PreviousBookmarkID: number;
+        PreviousField(): Field;
+        PreviousRevision(Wrap?: any): Revision;
+        PreviousSubdocument(): void;
+        readonly Range: Range;
+        ReadingModeGrowFont(): void;
+        ReadingModeShrinkFont(): void;
+        readonly Rows: Rows;
+        RtlPara(): void;
+        RtlRun(): void;
+        readonly Sections: Sections;
+        Select(): void;
+        SelectCell(): void;
+        SelectColumn(): void;
+        SelectCurrentAlignment(): void;
+        SelectCurrentColor(): void;
+        SelectCurrentFont(): void;
+        SelectCurrentIndent(): void;
+        SelectCurrentSpacing(): void;
+        SelectCurrentTabs(): void;
+        SelectRow(): void;
+        readonly Sentences: Sentences;
+        SetRange(Start: number, End: number): void;
+        readonly Shading: Shading;
+        readonly ShapeRange: ShapeRange;
+        Shrink(): void;
+        ShrinkDiscontiguousSelection(): void;
+        readonly SmartTags: SmartTags;
+        Sort(
             ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
             SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any,
             IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any, SubFieldNumber?: any, SubFieldNumber2?: any, SubFieldNumber3?: any): void;
-        public Sort2000(
+        Sort2000(
             ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
             SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any,
             IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any): void;
-        public SortAscending(): void;
-        public SortDescending(): void;
-        public SortOld(
+        SortAscending(): void;
+        SortDescending(): void;
+        SortOld(
             ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
             SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, LanguageID?: any): void;
-        public SplitTable(): void;
-        public Start: number;
-        public StartIsActive: boolean;
-        public StartOf(Unit?: any, Extend?: any): number;
-        public readonly StoryLength: number;
-        public readonly StoryType: WdStoryType;
-        public Style: any;
-        public readonly Tables: Tables;
-        public Text: string;
-        public ToggleCharacterCode(): void;
-        public readonly TopLevelTables: Tables;
-        public readonly Type: WdSelectionType;
-        public TypeBackspace(): void;
-        public TypeParagraph(): void;
-        public TypeText(Text: string): void;
-        public WholeStory(): void;
-        public readonly WordOpenXML: string;
-        public readonly Words: Words;
+        SplitTable(): void;
+        Start: number;
+        StartIsActive: boolean;
+        StartOf(Unit?: any, Extend?: any): number;
+        readonly StoryLength: number;
+        readonly StoryType: WdStoryType;
+        Style: any;
+        readonly Tables: Tables;
+        Text: string;
+        ToggleCharacterCode(): void;
+        readonly TopLevelTables: Tables;
+        readonly Type: WdSelectionType;
+        TypeBackspace(): void;
+        TypeParagraph(): void;
+        TypeText(Text: string): void;
+        WholeStory(): void;
+        readonly WordOpenXML: string;
+        readonly Words: Words;
 
         /** @param boolean [DataOnly=false] */
-        public XML(DataOnly?: boolean): string;
-        public readonly XMLNodes: XMLNodes;
-        public readonly XMLParentNode: XMLNode;
+        XML(DataOnly?: boolean): string;
+        readonly XMLNodes: XMLNodes;
+        readonly XMLParentNode: XMLNode;
     }
 
     class Sentences {
         private 'Word.Sentences_typekey': Sentences;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly First: Range;
-        public Item(Index: number): Range;
-        public readonly Last: Range;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly First: Range;
+        Item(Index: number): Range;
+        readonly Last: Range;
+        readonly Parent: any;
     }
 
     class SeriesLines {
         private 'Word.SeriesLines_typekey': SeriesLines;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class Shading {
         private 'Word.Shading_typekey': Shading;
         private constructor();
-        public readonly Application: Application;
-        public BackgroundPatternColor: WdColor;
-        public BackgroundPatternColorIndex: WdColorIndex;
-        public readonly Creator: number;
-        public ForegroundPatternColor: WdColor;
-        public ForegroundPatternColorIndex: WdColorIndex;
-        public readonly Parent: any;
-        public Texture: WdTextureIndex;
+        readonly Application: Application;
+        BackgroundPatternColor: WdColor;
+        BackgroundPatternColorIndex: WdColorIndex;
+        readonly Creator: number;
+        ForegroundPatternColor: WdColor;
+        ForegroundPatternColorIndex: WdColorIndex;
+        readonly Parent: any;
+        Texture: WdTextureIndex;
     }
 
     class ShadowFormat {
         private 'Word.ShadowFormat_typekey': ShadowFormat;
         private constructor();
-        public readonly Application: Application;
-        public Blur: number;
-        public readonly Creator: number;
-        public readonly ForeColor: ColorFormat;
-        public IncrementOffsetX(Increment: number): void;
-        public IncrementOffsetY(Increment: number): void;
-        public Obscured: Office.MsoTriState;
-        public OffsetX: number;
-        public OffsetY: number;
-        public readonly Parent: any;
-        public RotateWithShape: Office.MsoTriState;
-        public Size: number;
-        public Style: Office.MsoShadowStyle;
-        public Transparency: number;
-        public Type: Office.MsoShadowType;
-        public Visible: Office.MsoTriState;
+        readonly Application: Application;
+        Blur: number;
+        readonly Creator: number;
+        readonly ForeColor: ColorFormat;
+        IncrementOffsetX(Increment: number): void;
+        IncrementOffsetY(Increment: number): void;
+        Obscured: Office.MsoTriState;
+        OffsetX: number;
+        OffsetY: number;
+        readonly Parent: any;
+        RotateWithShape: Office.MsoTriState;
+        Size: number;
+        Style: Office.MsoShadowStyle;
+        Transparency: number;
+        Type: Office.MsoShadowType;
+        Visible: Office.MsoTriState;
     }
 
     class Shape {
         private 'Word.Shape_typekey': Shape;
         private constructor();
-        public Activate(): void;
-        public readonly Adjustments: Adjustments;
-        public AlternativeText: string;
-        public readonly Anchor: Range;
-        public readonly AnchorID: number;
-        public readonly Application: Application;
-        public Apply(): void;
-        public AutoShapeType: Office.MsoAutoShapeType;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: CanvasShapes;
-        public readonly Chart: Chart;
-        public readonly Child: Office.MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: Office.MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public ConvertToFrame(): Frame;
-        public ConvertToInlineShape(): InlineShape;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Diagram: Office.IMsoDiagram;
-        public readonly DiagramNode: DiagramNode;
-        public Duplicate(): Shape;
-        public readonly EditID: number;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: Office.MsoFlipCmd): void;
-        public readonly Glow: GlowFormat;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: Office.MsoTriState;
-        public readonly HasDiagram: Office.MsoTriState;
-        public readonly HasDiagramNode: Office.MsoTriState;
-        public readonly HasSmartArt: Office.MsoTriState;
-        public Height: number;
-        public HeightRelative: number;
-        public readonly HorizontalFlip: Office.MsoTriState;
-        public readonly Hyperlink: Hyperlink;
-        public readonly ID: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public LayoutInCell: number;
-        public Left: number;
-        public LeftRelative: number;
-        public readonly Line: LineFormat;
-        public readonly LinkFormat: LinkFormat;
-        public LockAnchor: number;
-        public LockAspectRatio: Office.MsoTriState;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly OLEFormat: OLEFormat;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Reflection: ReflectionFormat;
-        public RelativeHorizontalPosition: WdRelativeHorizontalPosition;
-        public RelativeHorizontalSize: WdRelativeHorizontalSize;
-        public RelativeVerticalPosition: WdRelativeVerticalPosition;
-        public RelativeVerticalSize: WdRelativeVerticalSize;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public readonly RTF: string;
+        Activate(): void;
+        readonly Adjustments: Adjustments;
+        AlternativeText: string;
+        readonly Anchor: Range;
+        readonly AnchorID: number;
+        readonly Application: Application;
+        Apply(): void;
+        AutoShapeType: Office.MsoAutoShapeType;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: CanvasShapes;
+        readonly Chart: Chart;
+        readonly Child: Office.MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: Office.MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        ConvertToFrame(): Frame;
+        ConvertToInlineShape(): InlineShape;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Diagram: Office.IMsoDiagram;
+        readonly DiagramNode: DiagramNode;
+        Duplicate(): Shape;
+        readonly EditID: number;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
+        readonly Glow: GlowFormat;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: Office.MsoTriState;
+        readonly HasDiagram: Office.MsoTriState;
+        readonly HasDiagramNode: Office.MsoTriState;
+        readonly HasSmartArt: Office.MsoTriState;
+        Height: number;
+        HeightRelative: number;
+        readonly HorizontalFlip: Office.MsoTriState;
+        readonly Hyperlink: Hyperlink;
+        readonly ID: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        LayoutInCell: number;
+        Left: number;
+        LeftRelative: number;
+        readonly Line: LineFormat;
+        readonly LinkFormat: LinkFormat;
+        LockAnchor: number;
+        LockAspectRatio: Office.MsoTriState;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly OLEFormat: OLEFormat;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        readonly PictureFormat: PictureFormat;
+        readonly Reflection: ReflectionFormat;
+        RelativeHorizontalPosition: WdRelativeHorizontalPosition;
+        RelativeHorizontalSize: WdRelativeHorizontalSize;
+        RelativeVerticalPosition: WdRelativeVerticalPosition;
+        RelativeVerticalSize: WdRelativeVerticalSize;
+        RerouteConnections(): void;
+        Rotation: number;
+        readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [Scale=0] */
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [Scale=0] */
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
-        public readonly Script: Office.Script;
-        public Select(Replace?: any): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: Office.MsoShapeStyleIndex;
-        public readonly SmartArt: Office.SmartArt;
-        public readonly SoftEdge: SoftEdgeFormat;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: Office.TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public TopRelative: number;
-        public readonly Type: Office.MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public readonly VerticalFlip: Office.MsoTriState;
-        public readonly Vertices: any;
-        public Visible: Office.MsoTriState;
-        public Width: number;
-        public WidthRelative: number;
-        public readonly WrapFormat: WrapFormat;
-        public ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
+        readonly Script: Office.Script;
+        Select(Replace?: any): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: Office.MsoShapeStyleIndex;
+        readonly SmartArt: Office.SmartArt;
+        readonly SoftEdge: SoftEdgeFormat;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: Office.TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        TopRelative: number;
+        readonly Type: Office.MsoShapeType;
+        Ungroup(): ShapeRange;
+        readonly VerticalFlip: Office.MsoTriState;
+        readonly Vertices: any;
+        Visible: Office.MsoTriState;
+        Width: number;
+        WidthRelative: number;
+        readonly WrapFormat: WrapFormat;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class ShapeNode {
         private 'Word.ShapeNode_typekey': ShapeNode;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly EditingType: Office.MsoEditingType;
-        public readonly Parent: any;
-        public readonly Points: any;
-        public readonly SegmentType: Office.MsoSegmentType;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly EditingType: Office.MsoEditingType;
+        readonly Parent: any;
+        readonly Points: any;
+        readonly SegmentType: Office.MsoSegmentType;
     }
 
     class ShapeNodes {
         private 'Word.ShapeNodes_typekey': ShapeNodes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(Index: number): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(Index: number): void;
 
         /**
          * @param number [X2=0]
@@ -10819,1371 +10819,1371 @@ declare namespace Word {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        public Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
-        public Item(Index: any): ShapeNode;
-        public readonly Parent: any;
-        public SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
-        public SetPosition(Index: number, X1: number, Y1: number): void;
-        public SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType): void;
+        Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Item(Index: any): ShapeNode;
+        readonly Parent: any;
+        SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
+        SetPosition(Index: number, X1: number, Y1: number): void;
+        SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType): void;
     }
 
     class ShapeRange {
         private 'Word.ShapeRange_typekey': ShapeRange;
         private constructor();
-        public Activate(): void;
-        public readonly Adjustments: Adjustments;
-        public Align(Align: Office.MsoAlignCmd, RelativeTo: number): void;
-        public AlternativeText: string;
-        public readonly Anchor: Range;
-        public readonly Application: Application;
-        public Apply(): void;
-        public AutoShapeType: Office.MsoAutoShapeType;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: CanvasShapes;
-        public readonly Child: Office.MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: Office.MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public ConvertToFrame(): Frame;
-        public ConvertToInlineShape(): InlineShape;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Diagram: Office.IMsoDiagram;
-        public readonly DiagramNode: DiagramNode;
-        public Distribute(Distribute: Office.MsoDistributeCmd, RelativeTo: number): void;
-        public Duplicate(): ShapeRange;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: Office.MsoFlipCmd): void;
-        public readonly Glow: GlowFormat;
-        public Group(): Shape;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasDiagram: Office.MsoTriState;
-        public readonly HasDiagramNode: Office.MsoTriState;
-        public Height: number;
-        public HeightRelative: number;
-        public readonly HorizontalFlip: Office.MsoTriState;
-        public readonly Hyperlink: Hyperlink;
-        public readonly ID: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public Item(Index: any): Shape;
-        public LayoutInCell: number;
-        public Left: number;
-        public LeftRelative: number;
-        public readonly Line: LineFormat;
-        public LockAnchor: number;
-        public LockAspectRatio: Office.MsoTriState;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Reflection: ReflectionFormat;
-        public Regroup(): Shape;
-        public RelativeHorizontalPosition: WdRelativeHorizontalPosition;
-        public RelativeHorizontalSize: WdRelativeHorizontalSize;
-        public RelativeVerticalPosition: WdRelativeVerticalPosition;
-        public RelativeVerticalSize: WdRelativeVerticalSize;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public readonly RTF: string;
+        Activate(): void;
+        readonly Adjustments: Adjustments;
+        Align(Align: Office.MsoAlignCmd, RelativeTo: number): void;
+        AlternativeText: string;
+        readonly Anchor: Range;
+        readonly Application: Application;
+        Apply(): void;
+        AutoShapeType: Office.MsoAutoShapeType;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: CanvasShapes;
+        readonly Child: Office.MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: Office.MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        ConvertToFrame(): Frame;
+        ConvertToInlineShape(): InlineShape;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Diagram: Office.IMsoDiagram;
+        readonly DiagramNode: DiagramNode;
+        Distribute(Distribute: Office.MsoDistributeCmd, RelativeTo: number): void;
+        Duplicate(): ShapeRange;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
+        readonly Glow: GlowFormat;
+        Group(): Shape;
+        readonly GroupItems: GroupShapes;
+        readonly HasDiagram: Office.MsoTriState;
+        readonly HasDiagramNode: Office.MsoTriState;
+        Height: number;
+        HeightRelative: number;
+        readonly HorizontalFlip: Office.MsoTriState;
+        readonly Hyperlink: Hyperlink;
+        readonly ID: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Item(Index: any): Shape;
+        LayoutInCell: number;
+        Left: number;
+        LeftRelative: number;
+        readonly Line: LineFormat;
+        LockAnchor: number;
+        LockAspectRatio: Office.MsoTriState;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        readonly PictureFormat: PictureFormat;
+        readonly Reflection: ReflectionFormat;
+        Regroup(): Shape;
+        RelativeHorizontalPosition: WdRelativeHorizontalPosition;
+        RelativeHorizontalSize: WdRelativeHorizontalSize;
+        RelativeVerticalPosition: WdRelativeVerticalPosition;
+        RelativeVerticalSize: WdRelativeVerticalSize;
+        RerouteConnections(): void;
+        Rotation: number;
+        readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [Scale=0] */
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [Scale=0] */
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
-        public Select(Replace?: any): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: Office.MsoShapeStyleIndex;
-        public readonly SoftEdge: SoftEdgeFormat;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: Office.TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public TopRelative: number;
-        public readonly Type: Office.MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public readonly VerticalFlip: Office.MsoTriState;
-        public readonly Vertices: any;
-        public Visible: Office.MsoTriState;
-        public Width: number;
-        public WidthRelative: number;
-        public readonly WrapFormat: WrapFormat;
-        public ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: Office.MsoScaleFrom): void;
+        Select(Replace?: any): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: Office.MsoShapeStyleIndex;
+        readonly SoftEdge: SoftEdgeFormat;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: Office.TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        TopRelative: number;
+        readonly Type: Office.MsoShapeType;
+        Ungroup(): ShapeRange;
+        readonly VerticalFlip: Office.MsoTriState;
+        readonly Vertices: any;
+        Visible: Office.MsoTriState;
+        Width: number;
+        WidthRelative: number;
+        readonly WrapFormat: WrapFormat;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class Shapes {
         private 'Word.Shapes_typekey': Shapes;
         private constructor();
-        public AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
-        public AddCanvas(Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddCanvas(Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
 
         /** @param Office.XlChartType [Type=-1] */
-        public AddChart(Type?: Office.XlChartType, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
-        public AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddCurve(SafeArrayOfPoints: any, Anchor?: any): Shape;
-        public AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
-        public AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
-        public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number, Anchor?: any): Shape;
-        public AddOLEControl(ClassType?: any, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
-        public AddOLEObject(
+        AddChart(Type?: Office.XlChartType, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
+        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any, Anchor?: any): Shape;
+        AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number, Anchor?: any): Shape;
+        AddOLEControl(ClassType?: any, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
+        AddOLEObject(
             ClassType?: any, FileName?: any, LinkToFile?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Left?: any, Top?: any,
             Width?: any, Height?: any, Anchor?: any): Shape;
-        public AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
-        public AddPolyline(SafeArrayOfPoints: any, Anchor?: any): Shape;
-        public AddShape(Type: number, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
-        public AddSmartArt(Layout: Office.SmartArtLayout, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
-        public AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
-        public AddTextEffect(
+        AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
+        AddPolyline(SafeArrayOfPoints: any, Anchor?: any): Shape;
+        AddShape(Type: number, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddSmartArt(Layout: Office.SmartArtLayout, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
+        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddTextEffect(
             PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
             Left: number, Top: number, Anchor?: any): Shape;
-        public readonly Application: Application;
-        public BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
-        public SelectAll(): void;
+        readonly Application: Application;
+        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
+        SelectAll(): void;
     }
 
     class SmartTag {
         private 'Word.SmartTag_typekey': SmartTag;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly DownloadURL: string;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Properties: CustomProperties;
-        public readonly Range: Range;
-        public Select(): void;
-        public readonly SmartTagActions: SmartTagActions;
-        public readonly XML: string;
-        public readonly XMLNode: XMLNode;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly DownloadURL: string;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Properties: CustomProperties;
+        readonly Range: Range;
+        Select(): void;
+        readonly SmartTagActions: SmartTagActions;
+        readonly XML: string;
+        readonly XMLNode: XMLNode;
     }
 
     class SmartTagAction {
         private 'Word.SmartTagAction_typekey': SmartTagAction;
         private constructor();
-        public readonly ActiveXControl: any;
-        public readonly Application: Application;
-        public CheckboxState: boolean;
-        public readonly Creator: number;
-        public Execute(): void;
-        public ExpandDocumentFragment: boolean;
-        public ExpandHelp: boolean;
-        public ListSelection: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly PresentInPane: boolean;
-        public RadioGroupSelection: number;
-        public TextboxText: string;
-        public readonly Type: WdSmartTagControlType;
+        readonly ActiveXControl: any;
+        readonly Application: Application;
+        CheckboxState: boolean;
+        readonly Creator: number;
+        Execute(): void;
+        ExpandDocumentFragment: boolean;
+        ExpandHelp: boolean;
+        ListSelection: number;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly PresentInPane: boolean;
+        RadioGroupSelection: number;
+        TextboxText: string;
+        readonly Type: WdSmartTagControlType;
     }
 
     class SmartTagActions {
         private 'Word.SmartTagActions_typekey': SmartTagActions;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartTagAction;
-        public readonly Parent: any;
-        public ReloadActions(): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartTagAction;
+        readonly Parent: any;
+        ReloadActions(): void;
     }
 
     class SmartTagRecognizer {
         private 'Word.SmartTagRecognizer_typekey': SmartTagRecognizer;
         private constructor();
-        public readonly Application: Application;
-        public readonly Caption: string;
-        public readonly Creator: number;
-        public Enabled: boolean;
-        public readonly FullName: string;
-        public readonly Parent: any;
-        public readonly ProgID: string;
+        readonly Application: Application;
+        readonly Caption: string;
+        readonly Creator: number;
+        Enabled: boolean;
+        readonly FullName: string;
+        readonly Parent: any;
+        readonly ProgID: string;
     }
 
     class SmartTagRecognizers {
         private 'Word.SmartTagRecognizers_typekey': SmartTagRecognizers;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartTagRecognizer;
-        public readonly Parent: any;
-        public ReloadRecognizers(): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartTagRecognizer;
+        readonly Parent: any;
+        ReloadRecognizers(): void;
     }
 
     class SmartTags {
         private 'Word.SmartTags_typekey': SmartTags;
         private constructor();
-        public Add(Name: string, Range?: any, Properties?: any): SmartTag;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartTag;
-        public readonly Parent: any;
-        public SmartTagsByType(Name: string): SmartTags;
+        Add(Name: string, Range?: any, Properties?: any): SmartTag;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartTag;
+        readonly Parent: any;
+        SmartTagsByType(Name: string): SmartTags;
     }
 
     class SmartTagType {
         private 'Word.SmartTagType_typekey': SmartTagType;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly FriendlyName: string;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly SmartTagActions: SmartTagActions;
-        public readonly SmartTagRecognizers: SmartTagRecognizers;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly FriendlyName: string;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly SmartTagActions: SmartTagActions;
+        readonly SmartTagRecognizers: SmartTagRecognizers;
     }
 
     class SmartTagTypes {
         private 'Word.SmartTagTypes_typekey': SmartTagTypes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartTagType;
-        public readonly Parent: any;
-        public ReloadAll(): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartTagType;
+        readonly Parent: any;
+        ReloadAll(): void;
     }
 
     class SoftEdgeFormat {
         private 'Word.SoftEdgeFormat_typekey': SoftEdgeFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public Radius: number;
-        public Type: Office.MsoSoftEdgeType;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Parent: any;
+        Radius: number;
+        Type: Office.MsoSoftEdgeType;
     }
 
     class Source {
         private 'Word.Source_typekey': Source;
         private constructor();
-        public readonly Application: Application;
-        public readonly Cited: boolean;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Field(Name: string): string;
-        public readonly Parent: any;
-        public readonly Tag: string;
-        public readonly XML: string;
+        readonly Application: Application;
+        readonly Cited: boolean;
+        readonly Creator: number;
+        Delete(): void;
+        Field(Name: string): string;
+        readonly Parent: any;
+        readonly Tag: string;
+        readonly XML: string;
     }
 
     class Sources {
         private 'Word.Sources_typekey': Sources;
         private constructor();
-        public Add(Data: string): void;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Source;
-        public readonly Parent: any;
+        Add(Data: string): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Source;
+        readonly Parent: any;
     }
 
     class SpellingSuggestion {
         private 'Word.SpellingSuggestion_typekey': SpellingSuggestion;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class SpellingSuggestions {
         private 'Word.SpellingSuggestions_typekey': SpellingSuggestions;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): SpellingSuggestion;
-        public readonly Parent: any;
-        public readonly SpellingErrorType: WdSpellingErrorType;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): SpellingSuggestion;
+        readonly Parent: any;
+        readonly SpellingErrorType: WdSpellingErrorType;
     }
 
     class StoryRanges {
         private 'Word.StoryRanges_typekey': StoryRanges;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: WdStoryType): Range;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: WdStoryType): Range;
+        readonly Parent: any;
     }
 
     class Style {
         private 'Word.Style_typekey': Style;
         private constructor();
-        public readonly Application: Application;
-        public AutomaticallyUpdate: boolean;
-        public BaseStyle: any;
-        public Borders: Borders;
-        public readonly BuiltIn: boolean;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Description: string;
-        public Font: Font;
-        public readonly Frame: Frame;
-        public Hidden: boolean;
-        public readonly InUse: boolean;
-        public LanguageID: WdLanguageID;
-        public LanguageIDFarEast: WdLanguageID;
-        public readonly Linked: boolean;
-        public LinkStyle: any;
-        public LinkToListTemplate(ListTemplate: ListTemplate, ListLevelNumber?: any): void;
-        public readonly ListLevelNumber: number;
-        public readonly ListTemplate: ListTemplate;
-        public Locked: boolean;
-        public NameLocal: string;
-        public NextParagraphStyle: any;
-        public NoProofing: number;
-        public NoSpaceBetweenParagraphsOfSameStyle: boolean;
-        public ParagraphFormat: ParagraphFormat;
-        public readonly Parent: any;
-        public Priority: number;
-        public QuickStyle: boolean;
-        public readonly Shading: Shading;
-        public readonly Table: TableStyle;
-        public readonly Type: WdStyleType;
-        public UnhideWhenUsed: boolean;
-        public Visibility: boolean;
+        readonly Application: Application;
+        AutomaticallyUpdate: boolean;
+        BaseStyle: any;
+        Borders: Borders;
+        readonly BuiltIn: boolean;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Description: string;
+        Font: Font;
+        readonly Frame: Frame;
+        Hidden: boolean;
+        readonly InUse: boolean;
+        LanguageID: WdLanguageID;
+        LanguageIDFarEast: WdLanguageID;
+        readonly Linked: boolean;
+        LinkStyle: any;
+        LinkToListTemplate(ListTemplate: ListTemplate, ListLevelNumber?: any): void;
+        readonly ListLevelNumber: number;
+        readonly ListTemplate: ListTemplate;
+        Locked: boolean;
+        NameLocal: string;
+        NextParagraphStyle: any;
+        NoProofing: number;
+        NoSpaceBetweenParagraphsOfSameStyle: boolean;
+        ParagraphFormat: ParagraphFormat;
+        readonly Parent: any;
+        Priority: number;
+        QuickStyle: boolean;
+        readonly Shading: Shading;
+        readonly Table: TableStyle;
+        readonly Type: WdStyleType;
+        UnhideWhenUsed: boolean;
+        Visibility: boolean;
     }
 
     class Styles {
         private 'Word.Styles_typekey': Styles;
         private constructor();
-        public Add(Name: string, Type?: any): Style;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Style;
-        public readonly Parent: any;
+        Add(Name: string, Type?: any): Style;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Style;
+        readonly Parent: any;
     }
 
     class StyleSheet {
         private 'Word.StyleSheet_typekey': StyleSheet;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly FullName: string;
-        public readonly Index: number;
-        public Move(Precedence: WdStyleSheetPrecedence): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public Title: string;
-        public Type: WdStyleSheetLinkType;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly FullName: string;
+        readonly Index: number;
+        Move(Precedence: WdStyleSheetPrecedence): void;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Path: string;
+        Title: string;
+        Type: WdStyleSheetLinkType;
     }
 
     class StyleSheets {
         private 'Word.StyleSheets_typekey': StyleSheets;
         private constructor();
-        public Add(FileName: string, LinkType: WdStyleSheetLinkType, Title: string, Precedence: WdStyleSheetPrecedence): StyleSheet;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): StyleSheet;
-        public readonly Parent: any;
+        Add(FileName: string, LinkType: WdStyleSheetLinkType, Title: string, Precedence: WdStyleSheetPrecedence): StyleSheet;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): StyleSheet;
+        readonly Parent: any;
     }
 
     class Subdocument {
         private 'Word.Subdocument_typekey': Subdocument;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly HasFile: boolean;
-        public readonly Level: number;
-        public Locked: boolean;
-        public readonly Name: string;
-        public Open(): Document;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public readonly Range: Range;
-        public Split(Range: Range): void;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly HasFile: boolean;
+        readonly Level: number;
+        Locked: boolean;
+        readonly Name: string;
+        Open(): Document;
+        readonly Parent: any;
+        readonly Path: string;
+        readonly Range: Range;
+        Split(Range: Range): void;
     }
 
     class Subdocuments {
         private 'Word.Subdocuments_typekey': Subdocuments;
         private constructor();
-        public AddFromFile(
+        AddFromFile(
             Name: any, ConfirmConversions?: any, ReadOnly?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any): Subdocument;
-        public AddFromRange(Range: Range): Subdocument;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Expanded: boolean;
-        public Item(Index: number): Subdocument;
-        public Merge(FirstSubdocument?: any, LastSubdocument?: any): void;
-        public readonly Parent: any;
-        public Select(): void;
+        AddFromRange(Range: Range): Subdocument;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): void;
+        Expanded: boolean;
+        Item(Index: number): Subdocument;
+        Merge(FirstSubdocument?: any, LastSubdocument?: any): void;
+        readonly Parent: any;
+        Select(): void;
     }
 
     class SynonymInfo {
         private 'Word.SynonymInfo_typekey': SynonymInfo;
         private constructor();
-        public readonly AntonymList: any;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Found: boolean;
-        public readonly MeaningCount: number;
-        public readonly MeaningList: any;
-        public readonly Parent: any;
-        public readonly PartOfSpeechList: any;
-        public readonly RelatedExpressionList: any;
-        public readonly RelatedWordList: any;
-        public SynonymList(Meaning: any): any;
-        public readonly Word: string;
+        readonly AntonymList: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Found: boolean;
+        readonly MeaningCount: number;
+        readonly MeaningList: any;
+        readonly Parent: any;
+        readonly PartOfSpeechList: any;
+        readonly RelatedExpressionList: any;
+        readonly RelatedWordList: any;
+        SynonymList(Meaning: any): any;
+        readonly Word: string;
     }
 
     class System {
         private 'Word.System_typekey': System;
         private constructor();
-        public readonly Application: Application;
-        public readonly ComputerType: string;
-        public Connect(Path: string, Drive?: any, Password?: any): void;
-        public readonly Country: WdCountry;
-        public readonly CountryRegion: WdCountry;
-        public readonly Creator: number;
-        public Cursor: WdCursorType;
-        public readonly FreeDiskSpace: number;
-        public readonly HorizontalResolution: number;
-        public readonly LanguageDesignation: string;
-        public readonly MacintoshName: string;
-        public readonly MathCoprocessorInstalled: boolean;
-        public MSInfo(): void;
-        public readonly OperatingSystem: string;
-        public readonly Parent: any;
-        public PrivateProfileString(FileName: string, Section: string, Key: string): string;
-        public readonly ProcessorType: string;
-        public ProfileString(Section: string, Key: string): string;
-        public readonly QuickDrawInstalled: boolean;
-        public readonly Version: string;
-        public readonly VerticalResolution: number;
+        readonly Application: Application;
+        readonly ComputerType: string;
+        Connect(Path: string, Drive?: any, Password?: any): void;
+        readonly Country: WdCountry;
+        readonly CountryRegion: WdCountry;
+        readonly Creator: number;
+        Cursor: WdCursorType;
+        readonly FreeDiskSpace: number;
+        readonly HorizontalResolution: number;
+        readonly LanguageDesignation: string;
+        readonly MacintoshName: string;
+        readonly MathCoprocessorInstalled: boolean;
+        MSInfo(): void;
+        readonly OperatingSystem: string;
+        readonly Parent: any;
+        PrivateProfileString(FileName: string, Section: string, Key: string): string;
+        readonly ProcessorType: string;
+        ProfileString(Section: string, Key: string): string;
+        readonly QuickDrawInstalled: boolean;
+        readonly Version: string;
+        readonly VerticalResolution: number;
     }
 
     class Table {
         private 'Word.Table_typekey': Table;
         private constructor();
-        public AllowAutoFit: boolean;
-        public AllowPageBreaks: boolean;
-        public readonly Application: Application;
-        public ApplyStyleColumnBands: boolean;
-        public ApplyStyleDirectFormatting(StyleName: string): void;
-        public ApplyStyleFirstColumn: boolean;
-        public ApplyStyleHeadingRows: boolean;
-        public ApplyStyleLastColumn: boolean;
-        public ApplyStyleLastRow: boolean;
-        public ApplyStyleRowBands: boolean;
-        public AutoFitBehavior(Behavior: WdAutoFitBehavior): void;
-        public AutoFormat(
+        AllowAutoFit: boolean;
+        AllowPageBreaks: boolean;
+        readonly Application: Application;
+        ApplyStyleColumnBands: boolean;
+        ApplyStyleDirectFormatting(StyleName: string): void;
+        ApplyStyleFirstColumn: boolean;
+        ApplyStyleHeadingRows: boolean;
+        ApplyStyleLastColumn: boolean;
+        ApplyStyleLastRow: boolean;
+        ApplyStyleRowBands: boolean;
+        AutoFitBehavior(Behavior: WdAutoFitBehavior): void;
+        AutoFormat(
             Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any, ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any,
             ApplyLastColumn?: any, AutoFit?: any): void;
-        public readonly AutoFormatType: number;
-        public Borders: Borders;
-        public BottomPadding: number;
-        public Cell(Row: number, Column: number): Cell;
-        public readonly Columns: Columns;
-        public ConvertToText(Separator?: any, NestedTables?: any): Range;
-        public ConvertToTextOld(Separator?: any): Range;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Descr: string;
-        public ID: string;
-        public LeftPadding: number;
-        public readonly NestingLevel: number;
-        public readonly Parent: any;
-        public PreferredWidth: number;
-        public PreferredWidthType: WdPreferredWidthType;
-        public readonly Range: Range;
-        public RightPadding: number;
-        public readonly Rows: Rows;
-        public Select(): void;
-        public readonly Shading: Shading;
-        public Sort(
+        readonly AutoFormatType: number;
+        Borders: Borders;
+        BottomPadding: number;
+        Cell(Row: number, Column: number): Cell;
+        readonly Columns: Columns;
+        ConvertToText(Separator?: any, NestedTables?: any): Range;
+        ConvertToTextOld(Separator?: any): Range;
+        readonly Creator: number;
+        Delete(): void;
+        Descr: string;
+        ID: string;
+        LeftPadding: number;
+        readonly NestingLevel: number;
+        readonly Parent: any;
+        PreferredWidth: number;
+        PreferredWidthType: WdPreferredWidthType;
+        readonly Range: Range;
+        RightPadding: number;
+        readonly Rows: Rows;
+        Select(): void;
+        readonly Shading: Shading;
+        Sort(
             ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
             SortFieldType3?: any, SortOrder3?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any, IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any): void;
-        public SortAscending(): void;
-        public SortDescending(): void;
-        public SortOld(
+        SortAscending(): void;
+        SortDescending(): void;
+        SortOld(
             ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
             SortFieldType3?: any, SortOrder3?: any, CaseSensitive?: any, LanguageID?: any): void;
-        public Spacing: number;
-        public Split(BeforeRow: any): Table;
-        public Style: any;
-        public TableDirection: WdTableDirection;
-        public readonly Tables: Tables;
-        public Title: string;
-        public TopPadding: number;
-        public readonly Uniform: boolean;
-        public UpdateAutoFormat(): void;
+        Spacing: number;
+        Split(BeforeRow: any): Table;
+        Style: any;
+        TableDirection: WdTableDirection;
+        readonly Tables: Tables;
+        Title: string;
+        TopPadding: number;
+        readonly Uniform: boolean;
+        UpdateAutoFormat(): void;
     }
 
     class TableOfAuthorities {
         private 'Word.TableOfAuthorities_typekey': TableOfAuthorities;
         private constructor();
-        public readonly Application: Application;
-        public Bookmark: string;
-        public Category: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public EntrySeparator: string;
-        public IncludeCategoryHeader: boolean;
-        public IncludeSequenceName: string;
-        public KeepEntryFormatting: boolean;
-        public PageNumberSeparator: string;
-        public PageRangeSeparator: string;
-        public readonly Parent: any;
-        public Passim: boolean;
-        public readonly Range: Range;
-        public Separator: string;
-        public TabLeader: WdTabLeader;
-        public Update(): void;
+        readonly Application: Application;
+        Bookmark: string;
+        Category: number;
+        readonly Creator: number;
+        Delete(): void;
+        EntrySeparator: string;
+        IncludeCategoryHeader: boolean;
+        IncludeSequenceName: string;
+        KeepEntryFormatting: boolean;
+        PageNumberSeparator: string;
+        PageRangeSeparator: string;
+        readonly Parent: any;
+        Passim: boolean;
+        readonly Range: Range;
+        Separator: string;
+        TabLeader: WdTabLeader;
+        Update(): void;
     }
 
     class TableOfAuthoritiesCategory {
         private 'Word.TableOfAuthoritiesCategory_typekey': TableOfAuthoritiesCategory;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Index: number;
-        public Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Index: number;
+        Name: string;
+        readonly Parent: any;
     }
 
     class TableOfContents {
         private 'Word.TableOfContents_typekey': TableOfContents;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly HeadingStyles: HeadingStyles;
-        public HidePageNumbersInWeb: boolean;
-        public IncludePageNumbers: boolean;
-        public LowerHeadingLevel: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public RightAlignPageNumbers: boolean;
-        public TabLeader: WdTabLeader;
-        public TableID: string;
-        public Update(): void;
-        public UpdatePageNumbers(): void;
-        public UpperHeadingLevel: number;
-        public UseFields: boolean;
-        public UseHeadingStyles: boolean;
-        public UseHyperlinks: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly HeadingStyles: HeadingStyles;
+        HidePageNumbersInWeb: boolean;
+        IncludePageNumbers: boolean;
+        LowerHeadingLevel: number;
+        readonly Parent: any;
+        readonly Range: Range;
+        RightAlignPageNumbers: boolean;
+        TabLeader: WdTabLeader;
+        TableID: string;
+        Update(): void;
+        UpdatePageNumbers(): void;
+        UpperHeadingLevel: number;
+        UseFields: boolean;
+        UseHeadingStyles: boolean;
+        UseHyperlinks: boolean;
     }
 
     class TableOfFigures {
         private 'Word.TableOfFigures_typekey': TableOfFigures;
         private constructor();
-        public readonly Application: Application;
-        public Caption: string;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly HeadingStyles: HeadingStyles;
-        public HidePageNumbersInWeb: boolean;
-        public IncludeLabel: boolean;
-        public IncludePageNumbers: boolean;
-        public LowerHeadingLevel: number;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public RightAlignPageNumbers: boolean;
-        public TabLeader: WdTabLeader;
-        public TableID: string;
-        public Update(): void;
-        public UpdatePageNumbers(): void;
-        public UpperHeadingLevel: number;
-        public UseFields: boolean;
-        public UseHeadingStyles: boolean;
-        public UseHyperlinks: boolean;
+        readonly Application: Application;
+        Caption: string;
+        readonly Creator: number;
+        Delete(): void;
+        readonly HeadingStyles: HeadingStyles;
+        HidePageNumbersInWeb: boolean;
+        IncludeLabel: boolean;
+        IncludePageNumbers: boolean;
+        LowerHeadingLevel: number;
+        readonly Parent: any;
+        readonly Range: Range;
+        RightAlignPageNumbers: boolean;
+        TabLeader: WdTabLeader;
+        TableID: string;
+        Update(): void;
+        UpdatePageNumbers(): void;
+        UpperHeadingLevel: number;
+        UseFields: boolean;
+        UseHeadingStyles: boolean;
+        UseHyperlinks: boolean;
     }
 
     class Tables {
         private 'Word.Tables_typekey': Tables;
         private constructor();
-        public Add(Range: Range, NumRows: number, NumColumns: number, DefaultTableBehavior?: any, AutoFitBehavior?: any): Table;
-        public AddOld(Range: Range, NumRows: number, NumColumns: number): Table;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Table;
-        public readonly NestingLevel: number;
-        public readonly Parent: any;
+        Add(Range: Range, NumRows: number, NumColumns: number, DefaultTableBehavior?: any, AutoFitBehavior?: any): Table;
+        AddOld(Range: Range, NumRows: number, NumColumns: number): Table;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Table;
+        readonly NestingLevel: number;
+        readonly Parent: any;
     }
 
     class TablesOfAuthorities {
         private 'Word.TablesOfAuthorities_typekey': TablesOfAuthorities;
         private constructor();
-        public Add(
+        Add(
             Range: Range, Category?: any, Bookmark?: any, Passim?: any, KeepEntryFormatting?: any, Separator?: any, IncludeSequenceName?: any, EntrySeparator?: any,
             PageRangeSeparator?: any, IncludeCategoryHeader?: any, PageNumberSeparator?: any): TableOfAuthorities;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Format: WdToaFormat;
-        public Item(Index: number): TableOfAuthorities;
-        public MarkAllCitations(ShortCitation: string, LongCitation?: any, LongCitationAutoText?: any, Category?: any): void;
-        public MarkCitation(Range: Range, ShortCitation: string, LongCitation?: any, LongCitationAutoText?: any, Category?: any): Field;
-        public NextCitation(ShortCitation: string): void;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Format: WdToaFormat;
+        Item(Index: number): TableOfAuthorities;
+        MarkAllCitations(ShortCitation: string, LongCitation?: any, LongCitationAutoText?: any, Category?: any): void;
+        MarkCitation(Range: Range, ShortCitation: string, LongCitation?: any, LongCitationAutoText?: any, Category?: any): Field;
+        NextCitation(ShortCitation: string): void;
+        readonly Parent: any;
     }
 
     class TablesOfAuthoritiesCategories {
         private 'Word.TablesOfAuthoritiesCategories_typekey': TablesOfAuthoritiesCategories;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): TableOfAuthoritiesCategory;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): TableOfAuthoritiesCategory;
+        readonly Parent: any;
     }
 
     class TablesOfContents {
         private 'Word.TablesOfContents_typekey': TablesOfContents;
         private constructor();
-        public Add(
+        Add(
             Range: Range, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any, RightAlignPageNumbers?: any,
             IncludePageNumbers?: any, AddedStyles?: any, UseHyperlinks?: any, HidePageNumbersInWeb?: any, UseOutlineLevels?: any): TableOfContents;
-        public Add2000(
+        Add2000(
             Range: Range, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any, RightAlignPageNumbers?: any,
             IncludePageNumbers?: any, AddedStyles?: any, UseHyperlinks?: any, HidePageNumbersInWeb?: any): TableOfContents;
-        public AddOld(
+        AddOld(
             Range: Range, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any, RightAlignPageNumbers?: any,
             IncludePageNumbers?: any, AddedStyles?: any): TableOfContents;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Format: WdTocFormat;
-        public Item(Index: number): TableOfContents;
-        public MarkEntry(Range: Range, Entry?: any, EntryAutoText?: any, TableID?: any, Level?: any): Field;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Format: WdTocFormat;
+        Item(Index: number): TableOfContents;
+        MarkEntry(Range: Range, Entry?: any, EntryAutoText?: any, TableID?: any, Level?: any): Field;
+        readonly Parent: any;
     }
 
     class TablesOfFigures {
         private 'Word.TablesOfFigures_typekey': TablesOfFigures;
         private constructor();
-        public Add(
+        Add(
             Range: Range, Caption?: any, IncludeLabel?: any, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any,
             RightAlignPageNumbers?: any, IncludePageNumbers?: any, AddedStyles?: any, UseHyperlinks?: any, HidePageNumbersInWeb?: any): TableOfFigures;
-        public AddOld(
+        AddOld(
             Range: Range, Caption?: any, IncludeLabel?: any, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any,
             RightAlignPageNumbers?: any, IncludePageNumbers?: any, AddedStyles?: any): TableOfFigures;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Format: WdTofFormat;
-        public Item(Index: number): TableOfFigures;
-        public MarkEntry(Range: Range, Entry?: any, EntryAutoText?: any, TableID?: any, Level?: any): Field;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Format: WdTofFormat;
+        Item(Index: number): TableOfFigures;
+        MarkEntry(Range: Range, Entry?: any, EntryAutoText?: any, TableID?: any, Level?: any): Field;
+        readonly Parent: any;
     }
 
     class TableStyle {
         private 'Word.TableStyle_typekey': TableStyle;
         private constructor();
-        public Alignment: WdRowAlignment;
-        public AllowBreakAcrossPage: number;
-        public AllowPageBreaks: boolean;
-        public readonly Application: Application;
-        public Borders: Borders;
-        public BottomPadding: number;
-        public ColumnStripe: number;
-        public Condition(ConditionCode: WdConditionCode): ConditionalStyle;
-        public readonly Creator: number;
-        public LeftIndent: number;
-        public LeftPadding: number;
-        public readonly Parent: any;
-        public RightPadding: number;
-        public RowStripe: number;
-        public readonly Shading: Shading;
-        public Spacing: number;
-        public TableDirection: WdTableDirection;
-        public TopPadding: number;
+        Alignment: WdRowAlignment;
+        AllowBreakAcrossPage: number;
+        AllowPageBreaks: boolean;
+        readonly Application: Application;
+        Borders: Borders;
+        BottomPadding: number;
+        ColumnStripe: number;
+        Condition(ConditionCode: WdConditionCode): ConditionalStyle;
+        readonly Creator: number;
+        LeftIndent: number;
+        LeftPadding: number;
+        readonly Parent: any;
+        RightPadding: number;
+        RowStripe: number;
+        readonly Shading: Shading;
+        Spacing: number;
+        TableDirection: WdTableDirection;
+        TopPadding: number;
     }
 
     class TabStop {
         private 'Word.TabStop_typekey': TabStop;
         private constructor();
-        public Alignment: WdTabAlignment;
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Creator: number;
-        public readonly CustomTab: boolean;
-        public Leader: WdTabLeader;
-        public readonly Next: TabStop;
-        public readonly Parent: any;
-        public Position: number;
-        public readonly Previous: TabStop;
+        Alignment: WdTabAlignment;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Creator: number;
+        readonly CustomTab: boolean;
+        Leader: WdTabLeader;
+        readonly Next: TabStop;
+        readonly Parent: any;
+        Position: number;
+        readonly Previous: TabStop;
     }
 
     class TabStops {
         private 'Word.TabStops_typekey': TabStops;
         private constructor();
-        public Add(Position: number, Alignment?: any, Leader?: any): TabStop;
-        public After(Position: number): TabStop;
-        public readonly Application: Application;
-        public Before(Position: number): TabStop;
-        public ClearAll(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): TabStop;
-        public readonly Parent: any;
+        Add(Position: number, Alignment?: any, Leader?: any): TabStop;
+        After(Position: number): TabStop;
+        readonly Application: Application;
+        Before(Position: number): TabStop;
+        ClearAll(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): TabStop;
+        readonly Parent: any;
     }
 
     class Task {
         private 'Word.Task_typekey': Task;
         private constructor();
-        public Activate(Wait?: any): void;
-        public readonly Application: Application;
-        public Close(): void;
-        public readonly Creator: number;
-        public Height: number;
-        public Left: number;
-        public Move(Left: number, Top: number): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Resize(Width: number, Height: number): void;
-        public SendWindowMessage(Message: number, wParam: number, lParam: number): void;
-        public Top: number;
-        public Visible: boolean;
-        public Width: number;
-        public WindowState: WdWindowState;
+        Activate(Wait?: any): void;
+        readonly Application: Application;
+        Close(): void;
+        readonly Creator: number;
+        Height: number;
+        Left: number;
+        Move(Left: number, Top: number): void;
+        readonly Name: string;
+        readonly Parent: any;
+        Resize(Width: number, Height: number): void;
+        SendWindowMessage(Message: number, wParam: number, lParam: number): void;
+        Top: number;
+        Visible: boolean;
+        Width: number;
+        WindowState: WdWindowState;
     }
 
     class TaskPane {
         private 'Word.TaskPane_typekey': TaskPane;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public Visible: boolean;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Parent: any;
+        Visible: boolean;
     }
 
     class TaskPanes {
         private 'Word.TaskPanes_typekey': TaskPanes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: WdTaskPanes): TaskPane;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: WdTaskPanes): TaskPane;
+        readonly Parent: any;
     }
 
     class Tasks {
         private 'Word.Tasks_typekey': Tasks;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Exists(Name: string): boolean;
-        public ExitWindows(): void;
-        public Item(Index: any): Task;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Exists(Name: string): boolean;
+        ExitWindows(): void;
+        Item(Index: any): Task;
+        readonly Parent: any;
     }
 
     class Template {
         private 'Word.Template_typekey': Template;
         private constructor();
-        public readonly Application: Application;
-        public readonly AutoTextEntries: AutoTextEntries;
-        public readonly BuildingBlockEntries: BuildingBlockEntries;
-        public readonly BuildingBlockTypes: BuildingBlockTypes;
-        public readonly BuiltInDocumentProperties: Office.DocumentProperties<Application>;
-        public readonly Creator: number;
-        public readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
-        public FarEastLineBreakLanguage: WdFarEastLineBreakLanguageID;
-        public FarEastLineBreakLevel: WdFarEastLineBreakLevel;
-        public readonly FullName: string;
-        public JustificationMode: WdJustificationMode;
-        public KerningByAlgorithm: boolean;
-        public LanguageID: WdLanguageID;
-        public LanguageIDFarEast: WdLanguageID;
-        public readonly ListTemplates: ListTemplates;
-        public readonly Name: string;
-        public NoLineBreakAfter: string;
-        public NoLineBreakBefore: string;
-        public NoProofing: number;
-        public OpenAsDocument(): Document;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public Save(): void;
-        public Saved: boolean;
-        public readonly Type: WdTemplateType;
-        public readonly VBProject: VBIDE.VBProject;
+        readonly Application: Application;
+        readonly AutoTextEntries: AutoTextEntries;
+        readonly BuildingBlockEntries: BuildingBlockEntries;
+        readonly BuildingBlockTypes: BuildingBlockTypes;
+        readonly BuiltInDocumentProperties: Office.DocumentProperties<Application>;
+        readonly Creator: number;
+        readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
+        FarEastLineBreakLanguage: WdFarEastLineBreakLanguageID;
+        FarEastLineBreakLevel: WdFarEastLineBreakLevel;
+        readonly FullName: string;
+        JustificationMode: WdJustificationMode;
+        KerningByAlgorithm: boolean;
+        LanguageID: WdLanguageID;
+        LanguageIDFarEast: WdLanguageID;
+        readonly ListTemplates: ListTemplates;
+        readonly Name: string;
+        NoLineBreakAfter: string;
+        NoLineBreakBefore: string;
+        NoProofing: number;
+        OpenAsDocument(): Document;
+        readonly Parent: any;
+        readonly Path: string;
+        Save(): void;
+        Saved: boolean;
+        readonly Type: WdTemplateType;
+        readonly VBProject: VBIDE.VBProject;
     }
 
     class Templates {
         private 'Word.Templates_typekey': Templates;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Template;
-        public LoadBuildingBlocks(): void;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Template;
+        LoadBuildingBlocks(): void;
+        readonly Parent: any;
     }
 
     class TextColumn {
         private 'Word.TextColumn_typekey': TextColumn;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public SpaceAfter: number;
-        public Width: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Parent: any;
+        SpaceAfter: number;
+        Width: number;
     }
 
     class TextColumns {
         private 'Word.TextColumns_typekey': TextColumns;
         private constructor();
-        public Add(Width?: any, Spacing?: any, EvenlySpaced?: any): TextColumn;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public EvenlySpaced: number;
-        public FlowDirection: WdFlowDirection;
-        public Item(Index: number): TextColumn;
-        public LineBetween: number;
-        public readonly Parent: any;
-        public SetCount(NumColumns: number): void;
-        public Spacing: number;
-        public Width: number;
+        Add(Width?: any, Spacing?: any, EvenlySpaced?: any): TextColumn;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        EvenlySpaced: number;
+        FlowDirection: WdFlowDirection;
+        Item(Index: number): TextColumn;
+        LineBetween: number;
+        readonly Parent: any;
+        SetCount(NumColumns: number): void;
+        Spacing: number;
+        Width: number;
     }
 
     class TextEffectFormat {
         private 'Word.TextEffectFormat_typekey': TextEffectFormat;
         private constructor();
-        public Alignment: Office.MsoTextEffectAlignment;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public FontBold: Office.MsoTriState;
-        public FontItalic: Office.MsoTriState;
-        public FontName: string;
-        public FontSize: number;
-        public KernedPairs: Office.MsoTriState;
-        public NormalizedHeight: Office.MsoTriState;
-        public readonly Parent: any;
-        public PresetShape: Office.MsoPresetTextEffectShape;
-        public PresetTextEffect: Office.MsoPresetTextEffect;
-        public RotatedChars: Office.MsoTriState;
-        public Text: string;
-        public ToggleVerticalText(): void;
-        public Tracking: number;
+        Alignment: Office.MsoTextEffectAlignment;
+        readonly Application: Application;
+        readonly Creator: number;
+        FontBold: Office.MsoTriState;
+        FontItalic: Office.MsoTriState;
+        FontName: string;
+        FontSize: number;
+        KernedPairs: Office.MsoTriState;
+        NormalizedHeight: Office.MsoTriState;
+        readonly Parent: any;
+        PresetShape: Office.MsoPresetTextEffectShape;
+        PresetTextEffect: Office.MsoPresetTextEffect;
+        RotatedChars: Office.MsoTriState;
+        Text: string;
+        ToggleVerticalText(): void;
+        Tracking: number;
     }
 
     class TextFrame {
         private 'Word.TextFrame_typekey': TextFrame;
         private constructor();
-        public readonly Application: Application;
-        public AutoSize: number;
-        public BreakForwardLink(): void;
-        public readonly Column: Office.TextColumn2;
-        public readonly ContainingRange: Range;
-        public readonly Creator: number;
-        public DeleteText(): void;
-        public readonly HasText: number;
-        public HorizontalAnchor: Office.MsoHorizontalAnchor;
-        public MarginBottom: number;
-        public MarginLeft: number;
-        public MarginRight: number;
-        public MarginTop: number;
-        public Next: TextFrame;
-        public NoTextRotation: Office.MsoTriState;
-        public Orientation: Office.MsoTextOrientation;
-        public readonly Overflowing: boolean;
-        public readonly Parent: Shape;
-        public PathFormat: Office.MsoPathFormat;
-        public Previous: TextFrame;
-        public readonly TextRange: Range;
-        public readonly ThreeD: ThreeDFormat;
-        public ValidLinkTarget(TargetTextFrame: TextFrame): boolean;
-        public VerticalAnchor: Office.MsoVerticalAnchor;
-        public WarpFormat: Office.MsoWarpFormat;
-        public WordWrap: number;
+        readonly Application: Application;
+        AutoSize: number;
+        BreakForwardLink(): void;
+        readonly Column: Office.TextColumn2;
+        readonly ContainingRange: Range;
+        readonly Creator: number;
+        DeleteText(): void;
+        readonly HasText: number;
+        HorizontalAnchor: Office.MsoHorizontalAnchor;
+        MarginBottom: number;
+        MarginLeft: number;
+        MarginRight: number;
+        MarginTop: number;
+        Next: TextFrame;
+        NoTextRotation: Office.MsoTriState;
+        Orientation: Office.MsoTextOrientation;
+        readonly Overflowing: boolean;
+        readonly Parent: Shape;
+        PathFormat: Office.MsoPathFormat;
+        Previous: TextFrame;
+        readonly TextRange: Range;
+        readonly ThreeD: ThreeDFormat;
+        ValidLinkTarget(TargetTextFrame: TextFrame): boolean;
+        VerticalAnchor: Office.MsoVerticalAnchor;
+        WarpFormat: Office.MsoWarpFormat;
+        WordWrap: number;
     }
 
     class TextInput {
         private 'Word.TextInput_typekey': TextInput;
         private constructor();
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Creator: number;
-        public Default: string;
-        public EditType(Type: WdTextFormFieldType, Default?: any, Format?: any, Enabled?: any): void;
-        public readonly Format: string;
-        public readonly Parent: any;
-        public readonly Type: WdTextFormFieldType;
-        public readonly Valid: boolean;
-        public Width: number;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Creator: number;
+        Default: string;
+        EditType(Type: WdTextFormFieldType, Default?: any, Format?: any, Enabled?: any): void;
+        readonly Format: string;
+        readonly Parent: any;
+        readonly Type: WdTextFormFieldType;
+        readonly Valid: boolean;
+        Width: number;
     }
 
     class TextRetrievalMode {
         private 'Word.TextRetrievalMode_typekey': TextRetrievalMode;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Duplicate: TextRetrievalMode;
-        public IncludeFieldCodes: boolean;
-        public IncludeHiddenText: boolean;
-        public readonly Parent: any;
-        public ViewType: WdViewType;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Duplicate: TextRetrievalMode;
+        IncludeFieldCodes: boolean;
+        IncludeHiddenText: boolean;
+        readonly Parent: any;
+        ViewType: WdViewType;
     }
 
     class ThreeDFormat {
         private 'Word.ThreeDFormat_typekey': ThreeDFormat;
         private constructor();
-        public readonly Application: Application;
-        public BevelBottomDepth: number;
-        public BevelBottomInset: number;
-        public BevelBottomType: Office.MsoBevelType;
-        public BevelTopDepth: number;
-        public BevelTopInset: number;
-        public BevelTopType: Office.MsoBevelType;
-        public readonly ContourColor: ColorFormat;
-        public ContourWidth: number;
-        public readonly Creator: number;
-        public Depth: number;
-        public readonly ExtrusionColor: ColorFormat;
-        public ExtrusionColorType: Office.MsoExtrusionColorType;
-        public FieldOfView: number;
-        public IncrementRotationHorizontal(Increment: number): void;
-        public IncrementRotationVertical(Increment: number): void;
-        public IncrementRotationX(Increment: number): void;
-        public IncrementRotationY(Increment: number): void;
-        public IncrementRotationZ(Increment: number): void;
-        public LightAngle: number;
-        public readonly Parent: any;
-        public Perspective: Office.MsoTriState;
-        public readonly PresetCamera: Office.MsoPresetCamera;
-        public readonly PresetExtrusionDirection: Office.MsoPresetExtrusionDirection;
-        public PresetLighting: Office.MsoLightRigType;
-        public PresetLightingDirection: Office.MsoPresetLightingDirection;
-        public PresetLightingSoftness: Office.MsoPresetLightingSoftness;
-        public PresetMaterial: Office.MsoPresetMaterial;
-        public readonly PresetThreeDFormat: Office.MsoPresetThreeDFormat;
-        public ProjectText: Office.MsoTriState;
-        public ResetRotation(): void;
-        public RotationX: number;
-        public RotationY: number;
-        public RotationZ: number;
-        public SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection): void;
-        public SetPresetCamera(PresetCamera: Office.MsoPresetCamera): void;
-        public SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat): void;
-        public Visible: Office.MsoTriState;
-        public Z: number;
+        readonly Application: Application;
+        BevelBottomDepth: number;
+        BevelBottomInset: number;
+        BevelBottomType: Office.MsoBevelType;
+        BevelTopDepth: number;
+        BevelTopInset: number;
+        BevelTopType: Office.MsoBevelType;
+        readonly ContourColor: ColorFormat;
+        ContourWidth: number;
+        readonly Creator: number;
+        Depth: number;
+        readonly ExtrusionColor: ColorFormat;
+        ExtrusionColorType: Office.MsoExtrusionColorType;
+        FieldOfView: number;
+        IncrementRotationHorizontal(Increment: number): void;
+        IncrementRotationVertical(Increment: number): void;
+        IncrementRotationX(Increment: number): void;
+        IncrementRotationY(Increment: number): void;
+        IncrementRotationZ(Increment: number): void;
+        LightAngle: number;
+        readonly Parent: any;
+        Perspective: Office.MsoTriState;
+        readonly PresetCamera: Office.MsoPresetCamera;
+        readonly PresetExtrusionDirection: Office.MsoPresetExtrusionDirection;
+        PresetLighting: Office.MsoLightRigType;
+        PresetLightingDirection: Office.MsoPresetLightingDirection;
+        PresetLightingSoftness: Office.MsoPresetLightingSoftness;
+        PresetMaterial: Office.MsoPresetMaterial;
+        readonly PresetThreeDFormat: Office.MsoPresetThreeDFormat;
+        ProjectText: Office.MsoTriState;
+        ResetRotation(): void;
+        RotationX: number;
+        RotationY: number;
+        RotationZ: number;
+        SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection): void;
+        SetPresetCamera(PresetCamera: Office.MsoPresetCamera): void;
+        SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat): void;
+        Visible: Office.MsoTriState;
+        Z: number;
     }
 
     class TickLabels {
         private 'Word.TickLabels_typekey': TickLabels;
         private constructor();
-        public Alignment: number;
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Depth: number;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public MultiLevel: boolean;
-        public readonly Name: string;
-        public NumberFormat: string;
-        public NumberFormatLinked: boolean;
-        public NumberFormatLocal: any;
-        public Offset: number;
-        public Orientation: XlTickLabelOrientation;
-        public readonly Parent: any;
-        public ReadingOrder: number;
-        public Select(): any;
+        Alignment: number;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Depth: number;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        MultiLevel: boolean;
+        readonly Name: string;
+        NumberFormat: string;
+        NumberFormatLinked: boolean;
+        NumberFormatLocal: any;
+        Offset: number;
+        Orientation: XlTickLabelOrientation;
+        readonly Parent: any;
+        ReadingOrder: number;
+        Select(): any;
     }
 
     class TwoInitialCapsException {
         private 'Word.TwoInitialCapsException_typekey': TwoInitialCapsException;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class TwoInitialCapsExceptions {
         private 'Word.TwoInitialCapsExceptions_typekey': TwoInitialCapsExceptions;
         private constructor();
-        public Add(Name: string): TwoInitialCapsException;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): TwoInitialCapsException;
-        public readonly Parent: any;
+        Add(Name: string): TwoInitialCapsException;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): TwoInitialCapsException;
+        readonly Parent: any;
     }
 
     class UndoRecord {
         private 'Word.UndoRecord_typekey': UndoRecord;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly CustomRecordLevel: number;
-        public readonly CustomRecordName: string;
-        public EndCustomRecord(): void;
-        public readonly IsRecordingCustomRecord: boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly CustomRecordLevel: number;
+        readonly CustomRecordName: string;
+        EndCustomRecord(): void;
+        readonly IsRecordingCustomRecord: boolean;
+        readonly Parent: any;
 
         /** @param string [Name=''] */
-        public StartCustomRecord(Name?: string): void;
+        StartCustomRecord(Name?: string): void;
     }
 
     class UpBars {
         private 'Word.UpBars_typekey': UpBars;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class Variable {
         private 'Word.Variable_typekey': Variable;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Value: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Value: string;
     }
 
     class Variables {
         private 'Word.Variables_typekey': Variables;
         private constructor();
-        public Add(Name: string, Value?: any): Variable;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number | string): Variable;
-        public readonly Parent: any;
+        Add(Name: string, Value?: any): Variable;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number | string): Variable;
+        readonly Parent: any;
     }
 
     class Version {
         private 'Word.Version_typekey': Version;
         private constructor();
-        public readonly Application: Application;
-        public readonly Comment: string;
-        public readonly Creator: number;
-        public readonly Date: VarDate;
-        public Delete(): void;
-        public readonly Index: number;
-        public Open(): Document;
-        public OpenOld(): void;
-        public readonly Parent: any;
-        public readonly SavedBy: string;
+        readonly Application: Application;
+        readonly Comment: string;
+        readonly Creator: number;
+        readonly Date: VarDate;
+        Delete(): void;
+        readonly Index: number;
+        Open(): Document;
+        OpenOld(): void;
+        readonly Parent: any;
+        readonly SavedBy: string;
     }
 
     class Versions {
         private 'Word.Versions_typekey': Versions;
         private constructor();
-        public readonly Application: Application;
-        public AutoVersion: WdAutoVersions;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): Version;
-        public readonly Parent: any;
-        public Save(Comment?: any): void;
+        readonly Application: Application;
+        AutoVersion: WdAutoVersions;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): Version;
+        readonly Parent: any;
+        Save(Comment?: any): void;
     }
 
     class View {
         private 'Word.View_typekey': View;
         private constructor();
-        public readonly Application: Application;
-        public BrowseToWindow: number;
-        public CollapseOutline(Range?: any): void;
-        public ConflictMode: boolean;
-        public readonly Creator: number;
-        public DisplayBackgrounds: boolean;
-        public DisplayPageBoundaries: boolean;
-        public DisplaySmartTags: boolean;
-        public Draft: boolean;
-        public EnlargeFontsLessThan: number;
-        public ExpandOutline(Range?: any): void;
-        public FieldShading: WdFieldShading;
-        public FullScreen: boolean;
-        public Magnifier: boolean;
-        public MailMergeDataView: boolean;
-        public MarkupMode: WdRevisionsMode;
-        public NextHeaderFooter(): void;
-        public Panning: boolean;
-        public readonly Parent: any;
-        public PreviousHeaderFooter(): void;
-        public ReadingLayout: boolean;
-        public ReadingLayoutActualView: boolean;
-        public ReadingLayoutAllowEditing: boolean;
-        public ReadingLayoutAllowMultiplePages: boolean;
-        public ReadingLayoutTruncateMargins: WdReadingLayoutMargin;
-        public readonly Reviewers: Reviewers;
-        public RevisionsBalloonShowConnectingLines: boolean;
-        public RevisionsBalloonSide: WdRevisionsBalloonMargin;
-        public RevisionsBalloonWidth: number;
-        public RevisionsBalloonWidthType: WdRevisionsBalloonWidthType;
-        public RevisionsMode: WdRevisionsMode;
-        public RevisionsView: WdRevisionsView;
-        public SeekView: WdSeekView;
-        public ShadeEditableRanges: number;
-        public ShowAll: boolean;
-        public ShowAllHeadings(): void;
-        public ShowAnimation: boolean;
-        public ShowBookmarks: boolean;
-        public ShowComments: boolean;
-        public ShowCropMarks: boolean;
-        public ShowDrawings: boolean;
-        public ShowFieldCodes: boolean;
-        public ShowFirstLineOnly: boolean;
-        public ShowFormat: boolean;
-        public ShowFormatChanges: boolean;
-        public ShowHeading(Level: number): void;
-        public ShowHiddenText: boolean;
-        public ShowHighlight: boolean;
-        public ShowHyphens: boolean;
-        public ShowInkAnnotations: boolean;
-        public ShowInsertionsAndDeletions: boolean;
-        public ShowMainTextLayer: boolean;
-        public ShowMarkupAreaHighlight: boolean;
-        public ShowObjectAnchors: boolean;
-        public ShowOptionalBreaks: boolean;
-        public ShowOtherAuthors: boolean;
-        public ShowParagraphs: boolean;
-        public ShowPicturePlaceHolders: boolean;
-        public ShowRevisionsAndComments: boolean;
-        public ShowSpaces: boolean;
-        public ShowTabs: boolean;
-        public ShowTextBoundaries: boolean;
-        public ShowXMLMarkup: number;
-        public SplitSpecial: WdSpecialPane;
-        public TableGridlines: boolean;
-        public Type: WdViewType;
-        public WrapToWindow: boolean;
-        public readonly Zoom: Zoom;
+        readonly Application: Application;
+        BrowseToWindow: number;
+        CollapseOutline(Range?: any): void;
+        ConflictMode: boolean;
+        readonly Creator: number;
+        DisplayBackgrounds: boolean;
+        DisplayPageBoundaries: boolean;
+        DisplaySmartTags: boolean;
+        Draft: boolean;
+        EnlargeFontsLessThan: number;
+        ExpandOutline(Range?: any): void;
+        FieldShading: WdFieldShading;
+        FullScreen: boolean;
+        Magnifier: boolean;
+        MailMergeDataView: boolean;
+        MarkupMode: WdRevisionsMode;
+        NextHeaderFooter(): void;
+        Panning: boolean;
+        readonly Parent: any;
+        PreviousHeaderFooter(): void;
+        ReadingLayout: boolean;
+        ReadingLayoutActualView: boolean;
+        ReadingLayoutAllowEditing: boolean;
+        ReadingLayoutAllowMultiplePages: boolean;
+        ReadingLayoutTruncateMargins: WdReadingLayoutMargin;
+        readonly Reviewers: Reviewers;
+        RevisionsBalloonShowConnectingLines: boolean;
+        RevisionsBalloonSide: WdRevisionsBalloonMargin;
+        RevisionsBalloonWidth: number;
+        RevisionsBalloonWidthType: WdRevisionsBalloonWidthType;
+        RevisionsMode: WdRevisionsMode;
+        RevisionsView: WdRevisionsView;
+        SeekView: WdSeekView;
+        ShadeEditableRanges: number;
+        ShowAll: boolean;
+        ShowAllHeadings(): void;
+        ShowAnimation: boolean;
+        ShowBookmarks: boolean;
+        ShowComments: boolean;
+        ShowCropMarks: boolean;
+        ShowDrawings: boolean;
+        ShowFieldCodes: boolean;
+        ShowFirstLineOnly: boolean;
+        ShowFormat: boolean;
+        ShowFormatChanges: boolean;
+        ShowHeading(Level: number): void;
+        ShowHiddenText: boolean;
+        ShowHighlight: boolean;
+        ShowHyphens: boolean;
+        ShowInkAnnotations: boolean;
+        ShowInsertionsAndDeletions: boolean;
+        ShowMainTextLayer: boolean;
+        ShowMarkupAreaHighlight: boolean;
+        ShowObjectAnchors: boolean;
+        ShowOptionalBreaks: boolean;
+        ShowOtherAuthors: boolean;
+        ShowParagraphs: boolean;
+        ShowPicturePlaceHolders: boolean;
+        ShowRevisionsAndComments: boolean;
+        ShowSpaces: boolean;
+        ShowTabs: boolean;
+        ShowTextBoundaries: boolean;
+        ShowXMLMarkup: number;
+        SplitSpecial: WdSpecialPane;
+        TableGridlines: boolean;
+        Type: WdViewType;
+        WrapToWindow: boolean;
+        readonly Zoom: Zoom;
     }
 
     class Walls {
         private 'Word.Walls_typekey': Walls;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: ChartBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public PictureUnit: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: any;
+        readonly Border: ChartBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        PictureUnit: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class WebOptions {
         private 'Word.WebOptions_typekey': WebOptions;
         private constructor();
-        public AllowPNG: boolean;
-        public readonly Application: Application;
-        public BrowserLevel: WdBrowserLevel;
-        public readonly Creator: number;
-        public Encoding: Office.MsoEncoding;
-        public readonly FolderSuffix: string;
-        public OptimizeForBrowser: boolean;
-        public OrganizeInFolder: boolean;
-        public readonly Parent: any;
-        public PixelsPerInch: number;
-        public RelyOnCSS: boolean;
-        public RelyOnVML: boolean;
-        public ScreenSize: Office.MsoScreenSize;
-        public TargetBrowser: Office.MsoTargetBrowser;
-        public UseDefaultFolderSuffix(): void;
-        public UseLongFileNames: boolean;
+        AllowPNG: boolean;
+        readonly Application: Application;
+        BrowserLevel: WdBrowserLevel;
+        readonly Creator: number;
+        Encoding: Office.MsoEncoding;
+        readonly FolderSuffix: string;
+        OptimizeForBrowser: boolean;
+        OrganizeInFolder: boolean;
+        readonly Parent: any;
+        PixelsPerInch: number;
+        RelyOnCSS: boolean;
+        RelyOnVML: boolean;
+        ScreenSize: Office.MsoScreenSize;
+        TargetBrowser: Office.MsoTargetBrowser;
+        UseDefaultFolderSuffix(): void;
+        UseLongFileNames: boolean;
     }
 
     class Window {
         private 'Word.Window_typekey': Window;
         private constructor();
-        public Activate(): void;
-        public readonly Active: boolean;
-        public readonly ActivePane: Pane;
-        public readonly Application: Application;
-        public Caption: string;
-        public Close(SaveChanges?: any, RouteDocument?: any): void;
-        public readonly Creator: number;
-        public DisplayHorizontalScrollBar: boolean;
-        public DisplayLeftScrollBar: boolean;
-        public DisplayRightRuler: boolean;
-        public DisplayRulers: boolean;
-        public DisplayScreenTips: boolean;
-        public DisplayVerticalRuler: boolean;
-        public DisplayVerticalScrollBar: boolean;
-        public readonly Document: Document;
-        public DocumentMap: boolean;
-        public DocumentMapPercentWidth: number;
-        public EnvelopeVisible: boolean;
-        public GetPoint(ScreenPixelsLeft: number, ScreenPixelsTop: number, ScreenPixelsWidth: number, ScreenPixelsHeight: number, obj: any): void;
-        public Height: number;
-        public HorizontalPercentScrolled: number;
-        public IMEMode: WdIMEMode;
-        public readonly Index: number;
-        public LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
-        public Left: number;
-        public NewWindow(): Window;
-        public readonly Next: Window;
-        public PageScroll(Down?: any, Up?: any): void;
-        public readonly Panes: Panes;
-        public readonly Parent: any;
-        public readonly Previous: Window;
-        public PrintOut(
+        Activate(): void;
+        readonly Active: boolean;
+        readonly ActivePane: Pane;
+        readonly Application: Application;
+        Caption: string;
+        Close(SaveChanges?: any, RouteDocument?: any): void;
+        readonly Creator: number;
+        DisplayHorizontalScrollBar: boolean;
+        DisplayLeftScrollBar: boolean;
+        DisplayRightRuler: boolean;
+        DisplayRulers: boolean;
+        DisplayScreenTips: boolean;
+        DisplayVerticalRuler: boolean;
+        DisplayVerticalScrollBar: boolean;
+        readonly Document: Document;
+        DocumentMap: boolean;
+        DocumentMapPercentWidth: number;
+        EnvelopeVisible: boolean;
+        GetPoint(ScreenPixelsLeft: number, ScreenPixelsTop: number, ScreenPixelsWidth: number, ScreenPixelsHeight: number, obj: any): void;
+        Height: number;
+        HorizontalPercentScrolled: number;
+        IMEMode: WdIMEMode;
+        readonly Index: number;
+        LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
+        Left: number;
+        NewWindow(): Window;
+        readonly Next: Window;
+        PageScroll(Down?: any, Up?: any): void;
+        readonly Panes: Panes;
+        readonly Parent: any;
+        readonly Previous: Window;
+        PrintOut(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
             PrintZoomPaperHeight?: any): void;
-        public PrintOut2000(
+        PrintOut2000(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
             PrintZoomPaperHeight?: any): void;
-        public PrintOutOld(
+        PrintOutOld(
             Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
             PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any): void;
-        public RangeFromPoint(x: number, y: number): any;
-        public ScrollIntoView(obj: any, Start?: any): void;
-        public readonly Selection: Selection;
-        public SetFocus(): void;
-        public ShowSourceDocuments: WdShowSourceDocuments;
-        public SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
-        public Split: boolean;
-        public SplitVertical: number;
-        public StyleAreaWidth: number;
-        public Thumbnails: boolean;
-        public ToggleRibbon(): void;
-        public ToggleShowAllReviewers(): void;
-        public Top: number;
-        public readonly Type: WdWindowType;
-        public readonly UsableHeight: number;
-        public readonly UsableWidth: number;
-        public VerticalPercentScrolled: number;
-        public readonly View: View;
-        public Visible: boolean;
-        public Width: number;
-        public readonly WindowNumber: number;
-        public WindowState: WdWindowState;
+        RangeFromPoint(x: number, y: number): any;
+        ScrollIntoView(obj: any, Start?: any): void;
+        readonly Selection: Selection;
+        SetFocus(): void;
+        ShowSourceDocuments: WdShowSourceDocuments;
+        SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): void;
+        Split: boolean;
+        SplitVertical: number;
+        StyleAreaWidth: number;
+        Thumbnails: boolean;
+        ToggleRibbon(): void;
+        ToggleShowAllReviewers(): void;
+        Top: number;
+        readonly Type: WdWindowType;
+        readonly UsableHeight: number;
+        readonly UsableWidth: number;
+        VerticalPercentScrolled: number;
+        readonly View: View;
+        Visible: boolean;
+        Width: number;
+        readonly WindowNumber: number;
+        WindowState: WdWindowState;
     }
 
     class Windows {
         private 'Word.Windows_typekey': Windows;
         private constructor();
-        public Add(Window?: any): Window;
-        public readonly Application: Application;
-        public Arrange(ArrangeStyle?: any): void;
-        public BreakSideBySide(): boolean;
-        public CompareSideBySideWith(Document: any): boolean;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Window;
-        public readonly Parent: any;
-        public ResetPositionsSideBySide(): void;
-        public SyncScrollingSideBySide: boolean;
+        Add(Window?: any): Window;
+        readonly Application: Application;
+        Arrange(ArrangeStyle?: any): void;
+        BreakSideBySide(): boolean;
+        CompareSideBySideWith(Document: any): boolean;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Window;
+        readonly Parent: any;
+        ResetPositionsSideBySide(): void;
+        SyncScrollingSideBySide: boolean;
     }
 
     class Words {
         private 'Word.Words_typekey': Words;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly First: Range;
-        public Item(Index: number): Range;
-        public readonly Last: Range;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly First: Range;
+        Item(Index: number): Range;
+        readonly Last: Range;
+        readonly Parent: any;
     }
 
     class WrapFormat {
         private 'Word.WrapFormat_typekey': WrapFormat;
         private constructor();
-        public AllowOverlap: number;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public DistanceBottom: number;
-        public DistanceLeft: number;
-        public DistanceRight: number;
-        public DistanceTop: number;
-        public readonly Parent: any;
-        public Side: WdWrapSideType;
-        public Type: WdWrapType;
+        AllowOverlap: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        DistanceBottom: number;
+        DistanceLeft: number;
+        DistanceRight: number;
+        DistanceTop: number;
+        readonly Parent: any;
+        Side: WdWrapSideType;
+        Type: WdWrapType;
     }
 
     class XMLChildNodeSuggestion {
         private 'Word.XMLChildNodeSuggestion_typekey': XMLChildNodeSuggestion;
         private constructor();
-        public readonly Application: Application;
-        public readonly BaseName: string;
-        public readonly Creator: number;
-        public Insert(Range?: any): XMLNode;
-        public readonly NamespaceURI: string;
-        public readonly Parent: any;
-        public readonly XMLSchemaReference: XMLSchemaReference;
+        readonly Application: Application;
+        readonly BaseName: string;
+        readonly Creator: number;
+        Insert(Range?: any): XMLNode;
+        readonly NamespaceURI: string;
+        readonly Parent: any;
+        readonly XMLSchemaReference: XMLSchemaReference;
     }
 
     class XMLChildNodeSuggestions {
         private 'Word.XMLChildNodeSuggestions_typekey': XMLChildNodeSuggestions;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): XMLChildNodeSuggestion;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): XMLChildNodeSuggestion;
+        readonly Parent: any;
     }
 
     class XMLMapping {
         private 'Word.XMLMapping_typekey': XMLMapping;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly CustomXMLNode: Office.CustomXMLNode;
-        public readonly CustomXMLPart: Office.CustomXMLPart;
-        public Delete(): void;
-        public readonly IsMapped: boolean;
-        public readonly Parent: any;
-        public readonly PrefixMappings: string;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly CustomXMLNode: Office.CustomXMLNode;
+        readonly CustomXMLPart: Office.CustomXMLPart;
+        Delete(): void;
+        readonly IsMapped: boolean;
+        readonly Parent: any;
+        readonly PrefixMappings: string;
 
         /**
          * @param string [PrefixMapping='']
          * @param Office.CustomXMLPart [Source=0]
          */
-        public SetMapping(XPath: string, PrefixMapping?: string, Source?: Office.CustomXMLPart): boolean;
-        public SetMappingByNode(Node: Office.CustomXMLNode): boolean;
-        public readonly XPath: string;
+        SetMapping(XPath: string, PrefixMapping?: string, Source?: Office.CustomXMLPart): boolean;
+        SetMappingByNode(Node: Office.CustomXMLNode): boolean;
+        readonly XPath: string;
     }
 
     class XMLNamespace {
@@ -12191,20 +12191,20 @@ declare namespace Word {
         private constructor();
 
         /** @param boolean [AllUsers=false] */
-        public Alias(AllUsers?: boolean): string;
-        public readonly Application: Application;
-        public AttachToDocument(Document: any): void;
-        public readonly Creator: number;
+        Alias(AllUsers?: boolean): string;
+        readonly Application: Application;
+        AttachToDocument(Document: any): void;
+        readonly Creator: number;
 
         /** @param boolean [AllUsers=false] */
-        public DefaultTransform(AllUsers?: boolean): XSLTransform;
-        public Delete(): void;
+        DefaultTransform(AllUsers?: boolean): XSLTransform;
+        Delete(): void;
 
         /** @param boolean [AllUsers=false] */
-        public Location(AllUsers?: boolean): string;
-        public readonly Parent: any;
-        public readonly URI: string;
-        public readonly XSLTransforms: XSLTransforms;
+        Location(AllUsers?: boolean): string;
+        readonly Parent: any;
+        readonly URI: string;
+        readonly XSLTransforms: XSLTransforms;
     }
 
     class XMLNamespaces {
@@ -12212,93 +12212,93 @@ declare namespace Word {
         private constructor();
 
         /** @param boolean [InstallForAllUsers=false] */
-        public Add(Path: string, NamespaceURI: any, Alias: any, InstallForAllUsers?: boolean): XMLNamespace;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
+        Add(Path: string, NamespaceURI: any, Alias: any, InstallForAllUsers?: boolean): XMLNamespace;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
 
         /** @param boolean [InstallForAllUsers=false] */
-        public InstallManifest(Path: string, InstallForAllUsers?: boolean): void;
-        public Item(Index: any): XMLNamespace;
-        public readonly Parent: any;
+        InstallManifest(Path: string, InstallForAllUsers?: boolean): void;
+        Item(Index: any): XMLNamespace;
+        readonly Parent: any;
     }
 
     class XMLNode {
         private 'Word.XMLNode_typekey': XMLNode;
         private constructor();
-        public readonly Application: Application;
-        public readonly Attributes: XMLNodes;
-        public readonly BaseName: string;
-        public readonly ChildNodes: XMLNodes;
-        public readonly ChildNodeSuggestions: XMLChildNodeSuggestions;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly FirstChild: XMLNode;
-        public readonly HasChildNodes: boolean;
-        public readonly LastChild: XMLNode;
-        public readonly Level: WdXMLNodeLevel;
-        public readonly NamespaceURI: string;
-        public readonly NextSibling: XMLNode;
-        public readonly NodeType: WdXMLNodeType;
-        public NodeValue: string;
-        public readonly OwnerDocument: Document;
-        public readonly Parent: any;
-        public readonly ParentNode: XMLNode;
-        public PlaceholderText: string;
-        public readonly PreviousSibling: XMLNode;
-        public readonly Range: Range;
-        public RemoveChild(ChildElement: XMLNode): void;
+        readonly Application: Application;
+        readonly Attributes: XMLNodes;
+        readonly BaseName: string;
+        readonly ChildNodes: XMLNodes;
+        readonly ChildNodeSuggestions: XMLChildNodeSuggestions;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
+        readonly FirstChild: XMLNode;
+        readonly HasChildNodes: boolean;
+        readonly LastChild: XMLNode;
+        readonly Level: WdXMLNodeLevel;
+        readonly NamespaceURI: string;
+        readonly NextSibling: XMLNode;
+        readonly NodeType: WdXMLNodeType;
+        NodeValue: string;
+        readonly OwnerDocument: Document;
+        readonly Parent: any;
+        readonly ParentNode: XMLNode;
+        PlaceholderText: string;
+        readonly PreviousSibling: XMLNode;
+        readonly Range: Range;
+        RemoveChild(ChildElement: XMLNode): void;
 
         /**
          * @param string [PrefixMapping='']
          * @param boolean [FastSearchSkippingTextNodes=true]
          */
-        public SelectNodes(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNodes;
+        SelectNodes(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNodes;
 
         /**
          * @param string [PrefixMapping='']
          * @param boolean [FastSearchSkippingTextNodes=true]
          */
-        public SelectSingleNode(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNode;
+        SelectSingleNode(XPath: string, PrefixMapping?: string, FastSearchSkippingTextNodes?: boolean): XMLNode;
 
         /** @param boolean [ClearedAutomatically=true] */
-        public SetValidationError(Status: WdXMLValidationStatus, ErrorText: any, ClearedAutomatically?: boolean): void;
-        public readonly SmartTag: SmartTag;
-        public Text: string;
-        public Validate(): void;
+        SetValidationError(Status: WdXMLValidationStatus, ErrorText: any, ClearedAutomatically?: boolean): void;
+        readonly SmartTag: SmartTag;
+        Text: string;
+        Validate(): void;
 
         /** @param boolean [Advanced=false] */
-        public ValidationErrorText(Advanced?: boolean): string;
-        public readonly ValidationStatus: WdXMLValidationStatus;
-        public readonly WordOpenXML: string;
+        ValidationErrorText(Advanced?: boolean): string;
+        readonly ValidationStatus: WdXMLValidationStatus;
+        readonly WordOpenXML: string;
 
         /** @param boolean [DataOnly=false] */
-        public XML(DataOnly?: boolean): string;
+        XML(DataOnly?: boolean): string;
     }
 
     class XMLNodes {
         private 'Word.XMLNodes_typekey': XMLNodes;
         private constructor();
-        public Add(Name: string, Namespace: string, Range?: any): XMLNode;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): XMLNode;
-        public readonly Parent: any;
+        Add(Name: string, Namespace: string, Range?: any): XMLNode;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): XMLNode;
+        readonly Parent: any;
     }
 
     class XMLSchemaReference {
         private 'Word.XMLSchemaReference_typekey': XMLSchemaReference;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Location: string;
-        public readonly NamespaceURI: string;
-        public readonly Parent: any;
-        public Reload(): void;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Location: string;
+        readonly NamespaceURI: string;
+        readonly Parent: any;
+        Reload(): void;
     }
 
     class XMLSchemaReferences {
@@ -12306,18 +12306,18 @@ declare namespace Word {
         private constructor();
 
         /** @param boolean [InstallForAllUsers=false] */
-        public Add(NamespaceURI: any, Alias: any, FileName: any, InstallForAllUsers?: boolean): XMLSchemaReference;
-        public AllowSaveAsXMLWithoutValidation: boolean;
-        public readonly Application: Application;
-        public AutomaticValidation: boolean;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public HideValidationErrors: boolean;
-        public IgnoreMixedContent: boolean;
-        public Item(Index: any): XMLSchemaReference;
-        public readonly Parent: any;
-        public ShowPlaceholderText: boolean;
-        public Validate(): void;
+        Add(NamespaceURI: any, Alias: any, FileName: any, InstallForAllUsers?: boolean): XMLSchemaReference;
+        AllowSaveAsXMLWithoutValidation: boolean;
+        readonly Application: Application;
+        AutomaticValidation: boolean;
+        readonly Count: number;
+        readonly Creator: number;
+        HideValidationErrors: boolean;
+        IgnoreMixedContent: boolean;
+        Item(Index: any): XMLSchemaReference;
+        readonly Parent: any;
+        ShowPlaceholderText: boolean;
+        Validate(): void;
     }
 
     class XSLTransform {
@@ -12325,15 +12325,15 @@ declare namespace Word {
         private constructor();
 
         /** @param boolean [AllUsers=false] */
-        public Alias(AllUsers?: boolean): string;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly ID: string;
+        Alias(AllUsers?: boolean): string;
+        readonly Application: Application;
+        readonly Creator: number;
+        Delete(): void;
+        readonly ID: string;
 
         /** @param boolean [AllUsers=false] */
-        public Location(AllUsers?: boolean): string;
-        public readonly Parent: any;
+        Location(AllUsers?: boolean): string;
+        readonly Parent: any;
     }
 
     class XSLTransforms {
@@ -12341,33 +12341,33 @@ declare namespace Word {
         private constructor();
 
         /** @param boolean [InstallForAllUsers=false] */
-        public Add(Location: string, Alias: any, InstallForAllUsers?: boolean): XSLTransform;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): XSLTransform;
-        public readonly Parent: any;
+        Add(Location: string, Alias: any, InstallForAllUsers?: boolean): XSLTransform;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): XSLTransform;
+        readonly Parent: any;
     }
 
     class Zoom {
         private 'Word.Zoom_typekey': Zoom;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public PageColumns: number;
-        public PageFit: WdPageFit;
-        public PageRows: number;
-        public readonly Parent: any;
-        public Percentage: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        PageColumns: number;
+        PageFit: WdPageFit;
+        PageRows: number;
+        readonly Parent: any;
+        Percentage: number;
     }
 
     class Zooms {
         private 'Word.Zooms_typekey': Zooms;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public Item(Index: WdViewType): Zoom;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: number;
+        Item(Index: WdViewType): Zoom;
+        readonly Parent: any;
     }
 
     namespace EventHelperTypes {

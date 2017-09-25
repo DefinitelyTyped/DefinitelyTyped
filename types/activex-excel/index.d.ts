@@ -2953,1250 +2953,1250 @@ declare namespace Excel {
     class Action {
         private 'Excel.Action_typekey': Action;
         private constructor();
-        public readonly Application: Application;
-        public readonly Caption: string;
-        public readonly Content: string;
-        public readonly Coordinate: string;
-        public readonly Creator: XlCreator;
-        public Execute(): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Type: XlActionType;
+        readonly Application: Application;
+        readonly Caption: string;
+        readonly Content: string;
+        readonly Coordinate: string;
+        readonly Creator: XlCreator;
+        Execute(): void;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Type: XlActionType;
     }
 
     class Actions {
         private 'Excel.Actions_typekey': Actions;
         private constructor();
-        public _Default(Index: any): Action;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Action;
-        public readonly Parent: any;
+        _Default(Index: any): Action;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Action;
+        readonly Parent: any;
     }
 
     class AddIn {
         private 'Excel.AddIn_typekey': AddIn;
         private constructor();
-        public readonly Application: Application;
-        public readonly Author: string;
-        public readonly CLSID: string;
-        public readonly Comments: string;
-        public readonly Creator: XlCreator;
-        public readonly FullName: string;
-        public Installed: boolean;
-        public readonly IsOpen: boolean;
-        public readonly Keywords: string;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public readonly progID: string;
-        public readonly Subject: string;
-        public readonly Title: string;
+        readonly Application: Application;
+        readonly Author: string;
+        readonly CLSID: string;
+        readonly Comments: string;
+        readonly Creator: XlCreator;
+        readonly FullName: string;
+        Installed: boolean;
+        readonly IsOpen: boolean;
+        readonly Keywords: string;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Path: string;
+        readonly progID: string;
+        readonly Subject: string;
+        readonly Title: string;
     }
 
     class AddIns {
         private 'Excel.AddIns_typekey': AddIns;
         private constructor();
-        public _Default(Index: any): AddIn;
-        public Add(Filename: string, CopyFile?: any): AddIn;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): AddIn;
-        public readonly Parent: any;
+        _Default(Index: any): AddIn;
+        Add(Filename: string, CopyFile?: any): AddIn;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): AddIn;
+        readonly Parent: any;
     }
 
     class AddIns2 {
         private 'Excel.AddIns2_typekey': AddIns2;
         private constructor();
-        public _Default(Index: any): AddIn;
-        public Add(Filename: string, CopyFile?: any): AddIn;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): AddIn;
-        public readonly Parent: any;
+        _Default(Index: any): AddIn;
+        Add(Filename: string, CopyFile?: any): AddIn;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): AddIn;
+        readonly Parent: any;
     }
 
     class Adjustments {
         private 'Excel.Adjustments_typekey': Adjustments;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): number;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): number;
+        readonly Parent: any;
     }
 
     class AllowEditRange {
         private 'Excel.AllowEditRange_typekey': AllowEditRange;
         private constructor();
-        public ChangePassword(Password: string): void;
-        public Delete(): void;
-        public Range: Range;
-        public Title: string;
-        public Unprotect(Password?: any): void;
-        public readonly Users: UserAccessList;
+        ChangePassword(Password: string): void;
+        Delete(): void;
+        Range: Range;
+        Title: string;
+        Unprotect(Password?: any): void;
+        readonly Users: UserAccessList;
     }
 
     class AllowEditRanges {
         private 'Excel.AllowEditRanges_typekey': AllowEditRanges;
         private constructor();
-        public _Default(Index: any): AllowEditRange;
-        public Add(Title: string, Range: Range, Password?: any): AllowEditRange;
-        public readonly Count: number;
-        public Item(Index: any): AllowEditRange;
+        _Default(Index: any): AllowEditRange;
+        Add(Title: string, Range: Range, Password?: any): AllowEditRange;
+        readonly Count: number;
+        Item(Index: any): AllowEditRange;
     }
 
     class Application {
         private 'Excel.Application_typekey': Application;
         private constructor();
-        public readonly _Default: string;
-        public _Evaluate(Name: any): any;
-        public _FindFile(): void;
-        public _MacroOptions(
+        readonly _Default: string;
+        _Evaluate(Name: any): any;
+        _FindFile(): void;
+        _MacroOptions(
             Macro?: any, Description?: any, HasMenu?: any, MenuText?: any, HasShortcutKey?: any, ShortcutKey?: any, Category?: any, StatusBar?: any, HelpContextID?: any, HelpFile?: any): void;
-        public _Run2(
+        _Run2(
             Macro?: any, Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public _Wait(Time: any): void;
-        public _WSFunction(
+        _Wait(Time: any): void;
+        _WSFunction(
             Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public ActivateMicrosoftApp(Index: XlMSApplication): void;
-        public readonly ActiveCell: Range;
-        public readonly ActiveChart: Chart;
-        public readonly ActiveDialog: DialogSheet;
-        public readonly ActiveEncryptionSession: number;
-        public readonly ActiveMenuBar: MenuBar;
-        public ActivePrinter: string;
-        public readonly ActiveProtectedViewWindow: ProtectedViewWindow;
-        public readonly ActiveSheet: Worksheet | Chart | DialogSheet;
-        public readonly ActiveWindow: Window;
-        public readonly ActiveWorkbook: Workbook;
-        public AddChartAutoFormat(Chart: any, Name: string, Description?: any): void;
-        public AddCustomList(ListArray: any, ByRow?: any): void;
-        public readonly AddIns: AddIns;
-        public readonly AddIns2: AddIns2;
-        public AlertBeforeOverwriting: boolean;
-        public AltStartupPath: string;
-        public AlwaysUseClearType: boolean;
-        public readonly AnswerWizard: Office.AnswerWizard;
-        public readonly Application: Application;
-        public readonly ArbitraryXMLSupportAvailable: boolean;
-        public AskToUpdateLinks: boolean;
-        public readonly Assistance: Office.IAssistance;
-        public readonly Assistant: Office.Assistant;
-        public readonly AutoCorrect: AutoCorrect;
-        public AutoFormatAsYouTypeReplaceHyperlinks: boolean;
-        public AutomationSecurity: Office.MsoAutomationSecurity;
-        public AutoPercentEntry: boolean;
-        public readonly AutoRecover: AutoRecover;
-        public readonly Build: number;
-        public Calculate(): void;
-        public CalculateBeforeSave: boolean;
-        public CalculateFull(): void;
-        public CalculateFullRebuild(): void;
-        public CalculateUntilAsyncQueriesDone(): void;
-        public Calculation: XlCalculation;
-        public CalculationInterruptKey: XlCalculationInterruptKey;
-        public readonly CalculationState: XlCalculationState;
-        public readonly CalculationVersion: number;
-        public Caller(Index?: any): any;
-        public readonly CanPlaySounds: boolean;
-        public readonly CanRecordSounds: boolean;
-        public Caption: string;
-        public CellDragAndDrop: boolean;
-        public readonly Cells: Range;
-        public CentimetersToPoints(Centimeters: number): number;
-        public readonly Charts: Sheets;
-        public CheckAbort(KeepAbort?: any): void;
-        public CheckSpelling(Word: string, CustomDictionary?: any, IgnoreUppercase?: any): boolean;
-        public ClipboardFormats(Index?: any): any;
-        public ClusterConnector: string;
-        public ColorButtons: boolean;
-        public readonly Columns: Range;
-        public readonly COMAddIns: Office.COMAddIns;
-        public readonly CommandBars: Office.CommandBars;
-        public CommandUnderlines: XlCommandUnderlines;
-        public ConstrainNumeric: boolean;
-        public ControlCharacters: boolean;
-        public ConvertFormula(Formula: any, FromReferenceStyle: XlReferenceStyle, ToReferenceStyle?: any, ToAbsolute?: any, RelativeTo?: any): any;
-        public CopyObjectsWithCells: boolean;
-        public readonly Creator: XlCreator;
-        public Cursor: XlMousePointer;
-        public CursorMovement: number;
-        public readonly CustomListCount: number;
-        public CutCopyMode: XlCutCopyMode;
-        public DataEntryMode: number;
-        public readonly DDEAppReturnCode: number;
-        public DDEExecute(Channel: number, String: string): void;
-        public DDEInitiate(App: string, Topic: string): number;
-        public DDEPoke(Channel: number, Item: any, Data: any): void;
-        public DDERequest(Channel: number, Item: string): any;
-        public DDETerminate(Channel: number): void;
-        public DecimalSeparator: string;
-        public DefaultFilePath: string;
-        public DefaultSaveFormat: XlFileFormat;
-        public DefaultSheetDirection: number;
-        public readonly DefaultWebOptions: DefaultWebOptions;
-        public DeferAsyncQueries: boolean;
-        public DeleteChartAutoFormat(Name: string): void;
-        public DeleteCustomList(ListNum: number): void;
-        public readonly Dialogs: Dialogs;
-        public readonly DialogSheets: Sheets;
-        public DisplayAlerts: boolean;
-        public DisplayClipboardWindow: boolean;
-        public DisplayCommentIndicator: XlCommentDisplayMode;
-        public DisplayDocumentActionTaskPane: boolean;
-        public DisplayDocumentInformationPanel: boolean;
-        public DisplayExcel4Menus: boolean;
-        public DisplayFormulaAutoComplete: boolean;
-        public DisplayFormulaBar: boolean;
-        public DisplayFullScreen: boolean;
-        public DisplayFunctionToolTips: boolean;
-        public DisplayInfoWindow: boolean;
-        public DisplayInsertOptions: boolean;
-        public DisplayNoteIndicator: boolean;
-        public DisplayPasteOptions: boolean;
-        public DisplayRecentFiles: boolean;
-        public DisplayScrollBars: boolean;
-        public DisplayStatusBar: boolean;
-        public DisplayXMLSourcePane(XmlMap?: any): void;
-        public DoubleClick(): void;
-        public Dummy1(Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
-        public Dummy10(arg?: any): boolean;
-        public readonly Dummy101: any;
-        public Dummy11(): void;
-        public Dummy12(p1: PivotTable, p2: PivotTable): void;
-        public Dummy13(
+        ActivateMicrosoftApp(Index: XlMSApplication): void;
+        readonly ActiveCell: Range;
+        readonly ActiveChart: Chart;
+        readonly ActiveDialog: DialogSheet;
+        readonly ActiveEncryptionSession: number;
+        readonly ActiveMenuBar: MenuBar;
+        ActivePrinter: string;
+        readonly ActiveProtectedViewWindow: ProtectedViewWindow;
+        readonly ActiveSheet: Worksheet | Chart | DialogSheet;
+        readonly ActiveWindow: Window;
+        readonly ActiveWorkbook: Workbook;
+        AddChartAutoFormat(Chart: any, Name: string, Description?: any): void;
+        AddCustomList(ListArray: any, ByRow?: any): void;
+        readonly AddIns: AddIns;
+        readonly AddIns2: AddIns2;
+        AlertBeforeOverwriting: boolean;
+        AltStartupPath: string;
+        AlwaysUseClearType: boolean;
+        readonly AnswerWizard: Office.AnswerWizard;
+        readonly Application: Application;
+        readonly ArbitraryXMLSupportAvailable: boolean;
+        AskToUpdateLinks: boolean;
+        readonly Assistance: Office.IAssistance;
+        readonly Assistant: Office.Assistant;
+        readonly AutoCorrect: AutoCorrect;
+        AutoFormatAsYouTypeReplaceHyperlinks: boolean;
+        AutomationSecurity: Office.MsoAutomationSecurity;
+        AutoPercentEntry: boolean;
+        readonly AutoRecover: AutoRecover;
+        readonly Build: number;
+        Calculate(): void;
+        CalculateBeforeSave: boolean;
+        CalculateFull(): void;
+        CalculateFullRebuild(): void;
+        CalculateUntilAsyncQueriesDone(): void;
+        Calculation: XlCalculation;
+        CalculationInterruptKey: XlCalculationInterruptKey;
+        readonly CalculationState: XlCalculationState;
+        readonly CalculationVersion: number;
+        Caller(Index?: any): any;
+        readonly CanPlaySounds: boolean;
+        readonly CanRecordSounds: boolean;
+        Caption: string;
+        CellDragAndDrop: boolean;
+        readonly Cells: Range;
+        CentimetersToPoints(Centimeters: number): number;
+        readonly Charts: Sheets;
+        CheckAbort(KeepAbort?: any): void;
+        CheckSpelling(Word: string, CustomDictionary?: any, IgnoreUppercase?: any): boolean;
+        ClipboardFormats(Index?: any): any;
+        ClusterConnector: string;
+        ColorButtons: boolean;
+        readonly Columns: Range;
+        readonly COMAddIns: Office.COMAddIns;
+        readonly CommandBars: Office.CommandBars;
+        CommandUnderlines: XlCommandUnderlines;
+        ConstrainNumeric: boolean;
+        ControlCharacters: boolean;
+        ConvertFormula(Formula: any, FromReferenceStyle: XlReferenceStyle, ToReferenceStyle?: any, ToAbsolute?: any, RelativeTo?: any): any;
+        CopyObjectsWithCells: boolean;
+        readonly Creator: XlCreator;
+        Cursor: XlMousePointer;
+        CursorMovement: number;
+        readonly CustomListCount: number;
+        CutCopyMode: XlCutCopyMode;
+        DataEntryMode: number;
+        readonly DDEAppReturnCode: number;
+        DDEExecute(Channel: number, String: string): void;
+        DDEInitiate(App: string, Topic: string): number;
+        DDEPoke(Channel: number, Item: any, Data: any): void;
+        DDERequest(Channel: number, Item: string): any;
+        DDETerminate(Channel: number): void;
+        DecimalSeparator: string;
+        DefaultFilePath: string;
+        DefaultSaveFormat: XlFileFormat;
+        DefaultSheetDirection: number;
+        readonly DefaultWebOptions: DefaultWebOptions;
+        DeferAsyncQueries: boolean;
+        DeleteChartAutoFormat(Name: string): void;
+        DeleteCustomList(ListNum: number): void;
+        readonly Dialogs: Dialogs;
+        readonly DialogSheets: Sheets;
+        DisplayAlerts: boolean;
+        DisplayClipboardWindow: boolean;
+        DisplayCommentIndicator: XlCommentDisplayMode;
+        DisplayDocumentActionTaskPane: boolean;
+        DisplayDocumentInformationPanel: boolean;
+        DisplayExcel4Menus: boolean;
+        DisplayFormulaAutoComplete: boolean;
+        DisplayFormulaBar: boolean;
+        DisplayFullScreen: boolean;
+        DisplayFunctionToolTips: boolean;
+        DisplayInfoWindow: boolean;
+        DisplayInsertOptions: boolean;
+        DisplayNoteIndicator: boolean;
+        DisplayPasteOptions: boolean;
+        DisplayRecentFiles: boolean;
+        DisplayScrollBars: boolean;
+        DisplayStatusBar: boolean;
+        DisplayXMLSourcePane(XmlMap?: any): void;
+        DoubleClick(): void;
+        Dummy1(Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
+        Dummy10(arg?: any): boolean;
+        readonly Dummy101: any;
+        Dummy11(): void;
+        Dummy12(p1: PivotTable, p2: PivotTable): void;
+        Dummy13(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public Dummy14(): void;
-        public Dummy2(Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any): any;
-        public Dummy20(grfCompareFunctions: number): any;
-        public Dummy22: boolean;
-        public Dummy23: boolean;
-        public Dummy3(): any;
-        public Dummy4(
+        Dummy14(): void;
+        Dummy2(Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any): any;
+        Dummy20(grfCompareFunctions: number): any;
+        Dummy22: boolean;
+        Dummy23: boolean;
+        Dummy3(): any;
+        Dummy4(
             Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any): any;
-        public Dummy5(Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any): any;
-        public Dummy6(): any;
-        public Dummy7(): any;
-        public Dummy8(Arg1?: any): any;
-        public Dummy9(): any;
-        public EditDirectlyInCell: boolean;
-        public EnableAnimations: boolean;
-        public EnableAutoComplete: boolean;
-        public EnableCancelKey: XlEnableCancelKey;
-        public EnableEvents: boolean;
-        public EnableLargeOperationAlert: boolean;
-        public EnableLivePreview: boolean;
-        public EnableSound: boolean;
-        public EnableTipWizard: boolean;
-        public readonly ErrorCheckingOptions: ErrorCheckingOptions;
-        public Evaluate(Name: any): any;
-        public readonly Excel4IntlMacroSheets: Sheets;
-        public readonly Excel4MacroSheets: Sheets;
-        public ExecuteExcel4Macro(String: string): any;
-        public ExtendList: boolean;
-        public FeatureInstall: Office.MsoFeatureInstall;
-        public FileConverters(Index1?: any, Index2?: any): any;
-        public FileDialog(fileDialogType: Office.MsoFileDialogType): Office.FileDialog;
-        public readonly FileExportConverters: FileExportConverters;
-        public readonly FileFind: Office.IFind;
-        public readonly FileSearch: Office.FileSearch;
-        public FileValidation: Office.MsoFileValidationMode;
-        public FileValidationPivot: XlFileValidationPivotMode;
-        public FindFile(): boolean;
-        public FindFormat: CellFormat;
-        public FixedDecimal: boolean;
-        public FixedDecimalPlaces: number;
-        public FormulaBarHeight: number;
-        public GenerateGetPivotData: boolean;
-        public GenerateTableRefs: XlGenerateTableRefs;
-        public GetCustomListContents(ListNum: number): any;
-        public GetCustomListNum(ListArray: any): number;
-        public GetOpenFilename(FileFilter?: any, FilterIndex?: any, Title?: any, ButtonText?: any, MultiSelect?: any): any;
-        public GetPhonetic(Text?: any): string;
-        public GetSaveAsFilename(InitialFilename?: any, FileFilter?: any, FilterIndex?: any, Title?: any, ButtonText?: any): any;
-        public Goto(Reference?: any, Scroll?: any): void;
-        public Height: number;
-        public Help(HelpFile?: any, HelpContextID?: any): void;
-        public HighQualityModeForGraphics: boolean;
-        public readonly Hinstance: number;
-        public readonly HinstancePtr: any;
-        public readonly Hwnd: number;
-        public IgnoreRemoteRequests: boolean;
-        public InchesToPoints(Inches: number): number;
-        public InputBox(Prompt: string, Title?: any, Default?: any, Left?: any, Top?: any, HelpFile?: any, HelpContextID?: any, Type?: any): any;
-        public Interactive: boolean;
-        public International(Index?: any): any;
-        public Intersect(
+        Dummy5(Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any): any;
+        Dummy6(): any;
+        Dummy7(): any;
+        Dummy8(Arg1?: any): any;
+        Dummy9(): any;
+        EditDirectlyInCell: boolean;
+        EnableAnimations: boolean;
+        EnableAutoComplete: boolean;
+        EnableCancelKey: XlEnableCancelKey;
+        EnableEvents: boolean;
+        EnableLargeOperationAlert: boolean;
+        EnableLivePreview: boolean;
+        EnableSound: boolean;
+        EnableTipWizard: boolean;
+        readonly ErrorCheckingOptions: ErrorCheckingOptions;
+        Evaluate(Name: any): any;
+        readonly Excel4IntlMacroSheets: Sheets;
+        readonly Excel4MacroSheets: Sheets;
+        ExecuteExcel4Macro(String: string): any;
+        ExtendList: boolean;
+        FeatureInstall: Office.MsoFeatureInstall;
+        FileConverters(Index1?: any, Index2?: any): any;
+        FileDialog(fileDialogType: Office.MsoFileDialogType): Office.FileDialog;
+        readonly FileExportConverters: FileExportConverters;
+        readonly FileFind: Office.IFind;
+        readonly FileSearch: Office.FileSearch;
+        FileValidation: Office.MsoFileValidationMode;
+        FileValidationPivot: XlFileValidationPivotMode;
+        FindFile(): boolean;
+        FindFormat: CellFormat;
+        FixedDecimal: boolean;
+        FixedDecimalPlaces: number;
+        FormulaBarHeight: number;
+        GenerateGetPivotData: boolean;
+        GenerateTableRefs: XlGenerateTableRefs;
+        GetCustomListContents(ListNum: number): any;
+        GetCustomListNum(ListArray: any): number;
+        GetOpenFilename(FileFilter?: any, FilterIndex?: any, Title?: any, ButtonText?: any, MultiSelect?: any): any;
+        GetPhonetic(Text?: any): string;
+        GetSaveAsFilename(InitialFilename?: any, FileFilter?: any, FilterIndex?: any, Title?: any, ButtonText?: any): any;
+        Goto(Reference?: any, Scroll?: any): void;
+        Height: number;
+        Help(HelpFile?: any, HelpContextID?: any): void;
+        HighQualityModeForGraphics: boolean;
+        readonly Hinstance: number;
+        readonly HinstancePtr: any;
+        readonly Hwnd: number;
+        IgnoreRemoteRequests: boolean;
+        InchesToPoints(Inches: number): number;
+        InputBox(Prompt: string, Title?: any, Default?: any, Left?: any, Top?: any, HelpFile?: any, HelpContextID?: any, Type?: any): any;
+        Interactive: boolean;
+        International(Index?: any): any;
+        Intersect(
             Arg1: Range, Arg2: Range, Arg3?: Range, Arg4?: Range, Arg5?: Range, Arg6?: Range, Arg7?: Range, Arg8?: Range, Arg9?: Range, Arg10?: Range, Arg11?: Range, Arg12?: Range,
             Arg13?: Range, Arg14?: Range, Arg15?: Range, Arg16?: Range, Arg17?: Range, Arg18?: Range, Arg19?: Range, Arg20?: Range, Arg21?: Range, Arg22?: Range, Arg23?: Range, Arg24?: Range,
             Arg25?: Range, Arg26?: Range, Arg27?: Range, Arg28?: Range, Arg29?: Range, Arg30?: Range): Range;
-        public readonly IsSandboxed: boolean;
-        public Iteration: boolean;
-        public readonly LanguageSettings: Office.LanguageSettings;
-        public LargeButtons: boolean;
-        public LargeOperationCellThousandCount: number;
-        public Left: number;
-        public readonly LibraryPath: string;
-        public MacroOptions(
+        readonly IsSandboxed: boolean;
+        Iteration: boolean;
+        readonly LanguageSettings: Office.LanguageSettings;
+        LargeButtons: boolean;
+        LargeOperationCellThousandCount: number;
+        Left: number;
+        readonly LibraryPath: string;
+        MacroOptions(
             Macro?: any, Description?: any, HasMenu?: any, MenuText?: any, HasShortcutKey?: any, ShortcutKey?: any, Category?: any, StatusBar?: any, HelpContextID?: any,
             HelpFile?: any, ArgumentDescriptions?: any): void;
-        public MailLogoff(): void;
-        public MailLogon(Name?: any, Password?: any, DownloadNewMail?: any): void;
-        public readonly MailSession: any;
-        public readonly MailSystem: XlMailSystem;
-        public MapPaperSize: boolean;
-        public readonly MathCoprocessorAvailable: boolean;
-        public MaxChange: number;
-        public MaxIterations: number;
-        public MeasurementUnit: number;
-        public readonly MemoryFree: number;
-        public readonly MemoryTotal: number;
-        public readonly MemoryUsed: number;
-        public readonly MenuBars: MenuBars;
-        public readonly Modules: Modules;
-        public readonly MouseAvailable: boolean;
-        public MoveAfterReturn: boolean;
-        public MoveAfterReturnDirection: XlDirection;
-        public readonly MultiThreadedCalculation: MultiThreadedCalculation;
-        public readonly Name: string;
-        public readonly Names: Names;
-        public readonly NetworkTemplatesPath: string;
-        public readonly NewWorkbook: Office.NewFile;
-        public NextLetter(): Workbook;
-        public readonly ODBCErrors: ODBCErrors;
-        public ODBCTimeout: number;
-        public readonly OLEDBErrors: OLEDBErrors;
-        public OnCalculate: string;
-        public OnData: string;
-        public OnDoubleClick: string;
-        public OnEntry: string;
-        public OnKey(Key: string, Procedure?: any): void;
-        public OnRepeat(Text: string, Procedure: string): void;
-        public OnSheetActivate: string;
-        public OnSheetDeactivate: string;
-        public OnTime(EarliestTime: any, Procedure: string, LatestTime?: any, Schedule?: any): void;
-        public OnUndo(Text: string, Procedure: string): void;
-        public OnWindow: string;
-        public readonly OperatingSystem: string;
-        public readonly OrganizationName: string;
-        public readonly Parent: Application;
-        public readonly Path: string;
-        public readonly PathSeparator: string;
-        public PivotTableSelection: boolean;
-        public PreviousSelections(Index?: any): any;
-        public PrintCommunication: boolean;
-        public readonly ProductCode: string;
-        public PromptForSummaryInfo: boolean;
-        public readonly ProtectedViewWindows: ProtectedViewWindows;
-        public Quit(): void;
-        public readonly Quitting: boolean;
-        public Range(Cell1: string | Range, Cell2?: string | Range): Range;
-        public readonly Ready: boolean;
-        public readonly RecentFiles: RecentFiles;
-        public RecordMacro(BasicCode?: any, XlmCode?: any): void;
-        public readonly RecordRelative: boolean;
-        public ReferenceStyle: XlReferenceStyle;
-        public RegisteredFunctions(Index1?: any, Index2?: any): any;
-        public RegisterXLL(Filename: string): boolean;
-        public Repeat(): void;
-        public ReplaceFormat: CellFormat;
-        public ResetTipWizard(): void;
-        public RollZoom: boolean;
-        public readonly Rows: Range;
-        public readonly RTD: RTD;
-        public Run(
+        MailLogoff(): void;
+        MailLogon(Name?: any, Password?: any, DownloadNewMail?: any): void;
+        readonly MailSession: any;
+        readonly MailSystem: XlMailSystem;
+        MapPaperSize: boolean;
+        readonly MathCoprocessorAvailable: boolean;
+        MaxChange: number;
+        MaxIterations: number;
+        MeasurementUnit: number;
+        readonly MemoryFree: number;
+        readonly MemoryTotal: number;
+        readonly MemoryUsed: number;
+        readonly MenuBars: MenuBars;
+        readonly Modules: Modules;
+        readonly MouseAvailable: boolean;
+        MoveAfterReturn: boolean;
+        MoveAfterReturnDirection: XlDirection;
+        readonly MultiThreadedCalculation: MultiThreadedCalculation;
+        readonly Name: string;
+        readonly Names: Names;
+        readonly NetworkTemplatesPath: string;
+        readonly NewWorkbook: Office.NewFile;
+        NextLetter(): Workbook;
+        readonly ODBCErrors: ODBCErrors;
+        ODBCTimeout: number;
+        readonly OLEDBErrors: OLEDBErrors;
+        OnCalculate: string;
+        OnData: string;
+        OnDoubleClick: string;
+        OnEntry: string;
+        OnKey(Key: string, Procedure?: any): void;
+        OnRepeat(Text: string, Procedure: string): void;
+        OnSheetActivate: string;
+        OnSheetDeactivate: string;
+        OnTime(EarliestTime: any, Procedure: string, LatestTime?: any, Schedule?: any): void;
+        OnUndo(Text: string, Procedure: string): void;
+        OnWindow: string;
+        readonly OperatingSystem: string;
+        readonly OrganizationName: string;
+        readonly Parent: Application;
+        readonly Path: string;
+        readonly PathSeparator: string;
+        PivotTableSelection: boolean;
+        PreviousSelections(Index?: any): any;
+        PrintCommunication: boolean;
+        readonly ProductCode: string;
+        PromptForSummaryInfo: boolean;
+        readonly ProtectedViewWindows: ProtectedViewWindows;
+        Quit(): void;
+        readonly Quitting: boolean;
+        Range(Cell1: string | Range, Cell2?: string | Range): Range;
+        readonly Ready: boolean;
+        readonly RecentFiles: RecentFiles;
+        RecordMacro(BasicCode?: any, XlmCode?: any): void;
+        readonly RecordRelative: boolean;
+        ReferenceStyle: XlReferenceStyle;
+        RegisteredFunctions(Index1?: any, Index2?: any): any;
+        RegisterXLL(Filename: string): boolean;
+        Repeat(): void;
+        ReplaceFormat: CellFormat;
+        ResetTipWizard(): void;
+        RollZoom: boolean;
+        readonly Rows: Range;
+        readonly RTD: RTD;
+        Run(
             Macro?: any, Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public Save(Filename?: any): void;
-        public SaveISO8601Dates: boolean;
-        public SaveWorkspace(Filename?: any): void;
-        public ScreenUpdating: boolean;
-        public readonly Selection: any;
-        public SendKeys(Keys: any, Wait?: any): void;
-        public SetDefaultChart(FormatName?: any, Gallery?: any): void;
-        public SharePointVersion(bstrUrl: string): number;
-        public readonly Sheets: Sheets;
-        public SheetsInNewWorkbook: number;
-        public ShortcutMenus(Index: number): Menu;
-        public ShowChartTipNames: boolean;
-        public ShowChartTipValues: boolean;
-        public ShowDevTools: boolean;
-        public ShowMenuFloaties: boolean;
-        public ShowSelectionFloaties: boolean;
-        public ShowStartupDialog: boolean;
-        public ShowToolTips: boolean;
-        public ShowWindowsInTaskbar: boolean;
-        public readonly SmartArtColors: Office.SmartArtColors;
-        public readonly SmartArtLayouts: Office.SmartArtLayouts;
-        public readonly SmartArtQuickStyles: Office.SmartArtQuickStyles;
-        public readonly SmartTagRecognizers: SmartTagRecognizers;
-        public readonly Speech: Speech;
-        public readonly SpellingOptions: SpellingOptions;
-        public StandardFont: string;
-        public StandardFontSize: number;
-        public readonly StartupPath: string;
-        public StatusBar: any;
-        public Support(Object: any, ID: number, arg?: any): any;
-        public readonly TemplatesPath: string;
-        public readonly ThisCell: Range;
-        public readonly ThisWorkbook: Workbook;
-        public ThousandsSeparator: string;
-        public readonly Toolbars: Toolbars;
-        public Top: number;
-        public TransitionMenuKey: string;
-        public TransitionMenuKeyAction: number;
-        public TransitionNavigKeys: boolean;
-        public UILanguage: number;
-        public Undo(): void;
-        public Union(
+        Save(Filename?: any): void;
+        SaveISO8601Dates: boolean;
+        SaveWorkspace(Filename?: any): void;
+        ScreenUpdating: boolean;
+        readonly Selection: any;
+        SendKeys(Keys: any, Wait?: any): void;
+        SetDefaultChart(FormatName?: any, Gallery?: any): void;
+        SharePointVersion(bstrUrl: string): number;
+        readonly Sheets: Sheets;
+        SheetsInNewWorkbook: number;
+        ShortcutMenus(Index: number): Menu;
+        ShowChartTipNames: boolean;
+        ShowChartTipValues: boolean;
+        ShowDevTools: boolean;
+        ShowMenuFloaties: boolean;
+        ShowSelectionFloaties: boolean;
+        ShowStartupDialog: boolean;
+        ShowToolTips: boolean;
+        ShowWindowsInTaskbar: boolean;
+        readonly SmartArtColors: Office.SmartArtColors;
+        readonly SmartArtLayouts: Office.SmartArtLayouts;
+        readonly SmartArtQuickStyles: Office.SmartArtQuickStyles;
+        readonly SmartTagRecognizers: SmartTagRecognizers;
+        readonly Speech: Speech;
+        readonly SpellingOptions: SpellingOptions;
+        StandardFont: string;
+        StandardFontSize: number;
+        readonly StartupPath: string;
+        StatusBar: any;
+        Support(Object: any, ID: number, arg?: any): any;
+        readonly TemplatesPath: string;
+        readonly ThisCell: Range;
+        readonly ThisWorkbook: Workbook;
+        ThousandsSeparator: string;
+        readonly Toolbars: Toolbars;
+        Top: number;
+        TransitionMenuKey: string;
+        TransitionMenuKeyAction: number;
+        TransitionNavigKeys: boolean;
+        UILanguage: number;
+        Undo(): void;
+        Union(
             Arg1: Range, Arg2: Range, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): Range;
-        public readonly UsableHeight: number;
-        public readonly UsableWidth: number;
-        public UseClusterConnector: boolean;
-        public readonly UsedObjects: UsedObjects;
-        public UserControl: boolean;
-        public readonly UserLibraryPath: string;
-        public UserName: string;
-        public UseSystemSeparators: boolean;
-        public readonly Value: string;
-        public readonly VBE: VBIDE.VBE;
-        public readonly Version: string;
-        public Visible: boolean;
-        public Volatile(Volatile?: any): void;
-        public Wait(Time: any): boolean;
-        public WarnOnFunctionNameConflict: boolean;
-        public readonly Watches: Watches;
-        public Width: number;
-        public readonly Windows: Windows;
-        public readonly WindowsForPens: boolean;
-        public WindowState: XlWindowState;
-        public readonly Workbooks: Workbooks;
-        public readonly WorksheetFunction: WorksheetFunction;
-        public readonly Worksheets: Sheets;
+        readonly UsableHeight: number;
+        readonly UsableWidth: number;
+        UseClusterConnector: boolean;
+        readonly UsedObjects: UsedObjects;
+        UserControl: boolean;
+        readonly UserLibraryPath: string;
+        UserName: string;
+        UseSystemSeparators: boolean;
+        readonly Value: string;
+        readonly VBE: VBIDE.VBE;
+        readonly Version: string;
+        Visible: boolean;
+        Volatile(Volatile?: any): void;
+        Wait(Time: any): boolean;
+        WarnOnFunctionNameConflict: boolean;
+        readonly Watches: Watches;
+        Width: number;
+        readonly Windows: Windows;
+        readonly WindowsForPens: boolean;
+        WindowState: XlWindowState;
+        readonly Workbooks: Workbooks;
+        readonly WorksheetFunction: WorksheetFunction;
+        readonly Worksheets: Sheets;
     }
 
     class Areas {
         private 'Excel.Areas_typekey': Areas;
         private constructor();
-        public _Default(Index: number): Range;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): Range;
-        public readonly Parent: any;
+        _Default(Index: number): Range;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): Range;
+        readonly Parent: any;
     }
 
     class AutoCorrect {
         private 'Excel.AutoCorrect_typekey': AutoCorrect;
         private constructor();
-        public AddReplacement(What: string, Replacement: string): any;
-        public readonly Application: Application;
-        public AutoExpandListRange: boolean;
-        public AutoFillFormulasInLists: boolean;
-        public CapitalizeNamesOfDays: boolean;
-        public CorrectCapsLock: boolean;
-        public CorrectSentenceCap: boolean;
-        public readonly Creator: XlCreator;
-        public DeleteReplacement(What: string): any;
-        public DisplayAutoCorrectOptions: boolean;
-        public readonly Parent: any;
-        public ReplacementList(Index?: any): any;
-        public ReplaceText: boolean;
-        public TwoInitialCapitals: boolean;
+        AddReplacement(What: string, Replacement: string): any;
+        readonly Application: Application;
+        AutoExpandListRange: boolean;
+        AutoFillFormulasInLists: boolean;
+        CapitalizeNamesOfDays: boolean;
+        CorrectCapsLock: boolean;
+        CorrectSentenceCap: boolean;
+        readonly Creator: XlCreator;
+        DeleteReplacement(What: string): any;
+        DisplayAutoCorrectOptions: boolean;
+        readonly Parent: any;
+        ReplacementList(Index?: any): any;
+        ReplaceText: boolean;
+        TwoInitialCapitals: boolean;
     }
 
     class AutoFilter {
         private 'Excel.AutoFilter_typekey': AutoFilter;
         private constructor();
-        public readonly Application: Application;
-        public ApplyFilter(): void;
-        public readonly Creator: XlCreator;
-        public readonly FilterMode: boolean;
-        public readonly Filters: Filters;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public ShowAllData(): void;
-        public readonly Sort: Sort;
+        readonly Application: Application;
+        ApplyFilter(): void;
+        readonly Creator: XlCreator;
+        readonly FilterMode: boolean;
+        readonly Filters: Filters;
+        readonly Parent: any;
+        readonly Range: Range;
+        ShowAllData(): void;
+        readonly Sort: Sort;
     }
 
     class AutoRecover {
         private 'Excel.AutoRecover_typekey': AutoRecover;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Enabled: boolean;
-        public readonly Parent: any;
-        public Path: string;
-        public Time: number;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Enabled: boolean;
+        readonly Parent: any;
+        Path: string;
+        Time: number;
     }
 
     class Border {
         private 'Excel.Border_typekey': Border;
         private constructor();
-        public readonly Application: Application;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: XlCreator;
-        public LineStyle: XlLineStyle | Constants.xlGray25 | Constants.xlGray50 | Constants.xlGray75 | Constants.xlAutomatic;
-        public readonly Parent: any;
-        public ThemeColor: any;
-        public TintAndShade: any;
-        public Weight: any;
+        readonly Application: Application;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: XlCreator;
+        LineStyle: XlLineStyle | Constants.xlGray25 | Constants.xlGray50 | Constants.xlGray75 | Constants.xlAutomatic;
+        readonly Parent: any;
+        ThemeColor: any;
+        TintAndShade: any;
+        Weight: any;
     }
 
     class Borders {
         private 'Excel.Borders_typekey': Borders;
         private constructor();
-        public _Default(Index: XlBordersIndex): Border;
-        public readonly Application: Application;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: XlBordersIndex): Border;
-        public LineStyle: any;
-        public readonly Parent: any;
-        public ThemeColor: any;
-        public TintAndShade: any;
-        public Value: any;
-        public Weight: any;
+        _Default(Index: XlBordersIndex): Border;
+        readonly Application: Application;
+        Color: any;
+        ColorIndex: any;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: XlBordersIndex): Border;
+        LineStyle: any;
+        readonly Parent: any;
+        ThemeColor: any;
+        TintAndShade: any;
+        Value: any;
+        Weight: any;
     }
 
     class CalculatedFields {
         private 'Excel.CalculatedFields_typekey': CalculatedFields;
         private constructor();
-        public _Add(Name: string, Formula: string): PivotField;
-        public _Default(Field: any): PivotField;
-        public Add(Name: string, Formula: string, UseStandardFormula?: any): PivotField;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotField;
-        public readonly Parent: any;
+        _Add(Name: string, Formula: string): PivotField;
+        _Default(Field: any): PivotField;
+        Add(Name: string, Formula: string, UseStandardFormula?: any): PivotField;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotField;
+        readonly Parent: any;
     }
 
     class CalculatedItems {
         private 'Excel.CalculatedItems_typekey': CalculatedItems;
         private constructor();
-        public _Add(Name: string, Formula: string): PivotItem;
-        public _Default(Field: any): PivotItem;
-        public Add(Name: string, Formula: string, UseStandardFormula?: any): PivotItem;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotItem;
-        public readonly Parent: any;
+        _Add(Name: string, Formula: string): PivotItem;
+        _Default(Field: any): PivotItem;
+        Add(Name: string, Formula: string, UseStandardFormula?: any): PivotItem;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotItem;
+        readonly Parent: any;
     }
 
     class CalculatedMember {
         private 'Excel.CalculatedMember_typekey': CalculatedMember;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly DisplayFolder: string;
-        public readonly Dynamic: boolean;
-        public FlattenHierarchies: boolean;
-        public readonly Formula: string;
-        public HierarchizeDistinct: boolean;
-        public readonly IsValid: boolean;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly SolveOrder: number;
-        public readonly SourceName: string;
-        public readonly Type: XlCalculatedMemberType;
+        readonly _Default: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly DisplayFolder: string;
+        readonly Dynamic: boolean;
+        FlattenHierarchies: boolean;
+        readonly Formula: string;
+        HierarchizeDistinct: boolean;
+        readonly IsValid: boolean;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly SolveOrder: number;
+        readonly SourceName: string;
+        readonly Type: XlCalculatedMemberType;
     }
 
     class CalculatedMembers {
         private 'Excel.CalculatedMembers_typekey': CalculatedMembers;
         private constructor();
-        public _Add(Name: string, Formula: string, SolveOrder?: any, Type?: any): CalculatedMember;
-        public _Default(Index: any): CalculatedMember;
-        public Add(Name: string, Formula: any, SolveOrder?: any, Type?: any, Dynamic?: any, DisplayFolder?: any, HierarchizeDistinct?: any): CalculatedMember;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): CalculatedMember;
-        public readonly Parent: any;
+        _Add(Name: string, Formula: string, SolveOrder?: any, Type?: any): CalculatedMember;
+        _Default(Index: any): CalculatedMember;
+        Add(Name: string, Formula: any, SolveOrder?: any, Type?: any, Dynamic?: any, DisplayFolder?: any, HierarchizeDistinct?: any): CalculatedMember;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): CalculatedMember;
+        readonly Parent: any;
     }
 
     class CalloutFormat {
         private 'Excel.CalloutFormat_typekey': CalloutFormat;
         private constructor();
-        public Accent: Office.MsoTriState;
-        public Angle: Office.MsoCalloutAngleType;
-        public readonly Application: any;
-        public AutoAttach: Office.MsoTriState;
-        public readonly AutoLength: Office.MsoTriState;
-        public AutomaticLength(): void;
-        public Border: Office.MsoTriState;
-        public readonly Creator: number;
-        public CustomDrop(Drop: number): void;
-        public CustomLength(Length: number): void;
-        public readonly Drop: number;
-        public readonly DropType: Office.MsoCalloutDropType;
-        public Gap: number;
-        public readonly Length: number;
-        public readonly Parent: any;
-        public PresetDrop(DropType: Office.MsoCalloutDropType): void;
-        public Type: Office.MsoCalloutType;
+        Accent: Office.MsoTriState;
+        Angle: Office.MsoCalloutAngleType;
+        readonly Application: any;
+        AutoAttach: Office.MsoTriState;
+        readonly AutoLength: Office.MsoTriState;
+        AutomaticLength(): void;
+        Border: Office.MsoTriState;
+        readonly Creator: number;
+        CustomDrop(Drop: number): void;
+        CustomLength(Length: number): void;
+        readonly Drop: number;
+        readonly DropType: Office.MsoCalloutDropType;
+        Gap: number;
+        readonly Length: number;
+        readonly Parent: any;
+        PresetDrop(DropType: Office.MsoCalloutDropType): void;
+        Type: Office.MsoCalloutType;
     }
 
     class CellFormat {
         private 'Excel.CellFormat_typekey': CellFormat;
         private constructor();
-        public AddIndent: any;
-        public readonly Application: Application;
-        public Borders: Borders;
-        public Clear(): void;
-        public readonly Creator: XlCreator;
-        public Font: Font;
-        public FormulaHidden: any;
-        public HorizontalAlignment: any;
-        public IndentLevel: any;
-        public Interior: Interior;
-        public Locked: any;
-        public MergeCells: any;
-        public NumberFormat: any;
-        public NumberFormatLocal: any;
-        public Orientation: any;
-        public readonly Parent: any;
-        public ShrinkToFit: any;
-        public VerticalAlignment: any;
-        public WrapText: any;
+        AddIndent: any;
+        readonly Application: Application;
+        Borders: Borders;
+        Clear(): void;
+        readonly Creator: XlCreator;
+        Font: Font;
+        FormulaHidden: any;
+        HorizontalAlignment: any;
+        IndentLevel: any;
+        Interior: Interior;
+        Locked: any;
+        MergeCells: any;
+        NumberFormat: any;
+        NumberFormatLocal: any;
+        Orientation: any;
+        readonly Parent: any;
+        ShrinkToFit: any;
+        VerticalAlignment: any;
+        WrapText: any;
     }
 
     class Characters {
         private 'Excel.Characters_typekey': Characters;
         private constructor();
-        public readonly Application: Application;
-        public Caption: string;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Font: Font;
-        public Insert(String: string): any;
-        public readonly Parent: any;
-        public PhoneticCharacters: string;
-        public Text: string;
+        readonly Application: Application;
+        Caption: string;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Font: Font;
+        Insert(String: string): any;
+        readonly Parent: any;
+        PhoneticCharacters: string;
+        Text: string;
     }
 
     class Chart {
         private 'Excel.Chart_typekey': Chart;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
 
         /** @param Excel.XlDataLabelsType [Type=2] */
-        public _ApplyDataLabels(Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
-        public _CodeName: string;
-        public _Evaluate(Name: any): any;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
-        public _SaveAs(
+        _ApplyDataLabels(Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
+        _CodeName: string;
+        _Evaluate(Name: any): any;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
+        _SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any): void;
-        public Activate(): void;
-        public readonly Application: Application;
-        public ApplyChartTemplate(Filename: string): void;
-        public ApplyCustomType(ChartType: XlChartType, TypeName?: any): void;
+        Activate(): void;
+        readonly Application: Application;
+        ApplyChartTemplate(Filename: string): void;
+        ApplyCustomType(ChartType: XlChartType, TypeName?: any): void;
 
         /** @param Excel.XlDataLabelsType [Type=2] */
-        public ApplyDataLabels(
+        ApplyDataLabels(
             Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any,
             ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
-        public ApplyLayout(Layout: number, ChartType?: any): void;
-        public Arcs(Index?: any): any;
-        public readonly Area3DGroup: ChartGroup;
-        public AreaGroups(Index?: any): any;
-        public AutoFormat(Gallery: number, Format?: any): void;
-        public AutoScaling: boolean;
+        ApplyLayout(Layout: number, ChartType?: any): void;
+        Arcs(Index?: any): any;
+        readonly Area3DGroup: ChartGroup;
+        AreaGroups(Index?: any): any;
+        AutoFormat(Gallery: number, Format?: any): void;
+        AutoScaling: boolean;
 
         /** @param Excel.XlAxisGroup [AxisGroup=1] */
-        public Axes(Type: any, AxisGroup?: XlAxisGroup): any;
-        public readonly BackWall: Walls;
-        public readonly Bar3DGroup: ChartGroup;
-        public BarGroups(Index?: any): any;
-        public BarShape: XlBarShape;
-        public Buttons(Index?: any): any;
-        public readonly ChartArea: ChartArea;
-        public ChartGroups(Index?: any): any;
-        public ChartObjects(Index?: any): any;
-        public ChartStyle: any;
-        public readonly ChartTitle: ChartTitle;
-        public ChartType: XlChartType;
-        public ChartWizard(
+        Axes(Type: any, AxisGroup?: XlAxisGroup): any;
+        readonly BackWall: Walls;
+        readonly Bar3DGroup: ChartGroup;
+        BarGroups(Index?: any): any;
+        BarShape: XlBarShape;
+        Buttons(Index?: any): any;
+        readonly ChartArea: ChartArea;
+        ChartGroups(Index?: any): any;
+        ChartObjects(Index?: any): any;
+        ChartStyle: any;
+        readonly ChartTitle: ChartTitle;
+        ChartType: XlChartType;
+        ChartWizard(
             Source?: any, Gallery?: any, Format?: any, PlotBy?: any, CategoryLabels?: any, SeriesLabels?: any, HasLegend?: any, Title?: any, CategoryTitle?: any,
             ValueTitle?: any, ExtraTitle?: any): void;
-        public CheckBoxes(Index?: any): any;
-        public CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): void;
-        public ClearToMatchStyle(): void;
-        public readonly CodeName: string;
-        public readonly Column3DGroup: ChartGroup;
-        public ColumnGroups(Index?: any): any;
-        public Copy(Before?: any, After?: any): void;
-        public CopyChartBuild(): void;
+        CheckBoxes(Index?: any): any;
+        CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): void;
+        ClearToMatchStyle(): void;
+        readonly CodeName: string;
+        readonly Column3DGroup: ChartGroup;
+        ColumnGroups(Index?: any): any;
+        Copy(Before?: any, After?: any): void;
+        CopyChartBuild(): void;
 
         /**
          * @param Excel.XlPictureAppearance [Appearance=1]
          * @param Excel.XlCopyPictureFormat [Format=-4147]
          * @param Excel.XlPictureAppearance [Size=2]
          */
-        public CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance): void;
-        public readonly Corners: Corners;
+        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance): void;
+        readonly Corners: Corners;
 
         /**
          * @param Excel.XlPictureAppearance [Appearance=1]
          * @param Excel.XlPictureAppearance [Size=1]
          */
-        public CreatePublisher(Edition: any, Appearance?: XlPictureAppearance, Size?: XlPictureAppearance, ContainsPICT?: any, ContainsBIFF?: any, ContainsRTF?: any, ContainsVALU?: any): void;
-        public readonly Creator: XlCreator;
-        public readonly DataTable: DataTable;
-        public Delete(): void;
-        public DepthPercent: number;
-        public Deselect(): void;
-        public DisplayBlanksAs: XlDisplayBlanksAs;
-        public DoughnutGroups(Index?: any): any;
-        public DrawingObjects(Index?: any): any;
-        public Drawings(Index?: any): any;
-        public DropDowns(Index?: any): any;
-        public Dummy24: boolean;
-        public Dummy25: boolean;
-        public Elevation: number;
-        public Evaluate(Name: any): any;
-        public Export(Filename: string, FilterName?: any, Interactive?: any): boolean;
-        public ExportAsFixedFormat(
+        CreatePublisher(Edition: any, Appearance?: XlPictureAppearance, Size?: XlPictureAppearance, ContainsPICT?: any, ContainsBIFF?: any, ContainsRTF?: any, ContainsVALU?: any): void;
+        readonly Creator: XlCreator;
+        readonly DataTable: DataTable;
+        Delete(): void;
+        DepthPercent: number;
+        Deselect(): void;
+        DisplayBlanksAs: XlDisplayBlanksAs;
+        DoughnutGroups(Index?: any): any;
+        DrawingObjects(Index?: any): any;
+        Drawings(Index?: any): any;
+        DropDowns(Index?: any): any;
+        Dummy24: boolean;
+        Dummy25: boolean;
+        Elevation: number;
+        Evaluate(Name: any): any;
+        Export(Filename: string, FilterName?: any, Interactive?: any): boolean;
+        ExportAsFixedFormat(
             Type: XlFixedFormatType, Filename?: any, Quality?: any, IncludeDocProperties?: any, IgnorePrintAreas?: any, From?: any, To?: any, OpenAfterPublish?: any,
             FixedFormatExtClassPtr?: any): void;
-        public readonly Floor: Floor;
-        public GapDepth: number;
-        public GetChartElement(x: number, y: number, ElementID: number, Arg1: number, Arg2: number): void;
-        public GroupBoxes(Index?: any): any;
-        public GroupObjects(Index?: any): any;
-        public HasAxis(Index1?: any, Index2?: any): any;
-        public HasDataTable: boolean;
-        public HasLegend: boolean;
-        public HasPivotFields: boolean;
-        public HasTitle: boolean;
-        public HeightPercent: number;
-        public readonly Hyperlinks: Hyperlinks;
-        public readonly Index: number;
-        public Labels(Index?: any): any;
-        public readonly Legend: Legend;
-        public readonly Line3DGroup: ChartGroup;
-        public LineGroups(Index?: any): any;
-        public Lines(Index?: any): any;
-        public ListBoxes(Index?: any): any;
-        public Location(Where: XlChartLocation, Name?: any): Chart;
-        public readonly MailEnvelope: Office.MsoEnvelope;
-        public Move(Before?: any, After?: any): void;
-        public Name: string;
-        public readonly Next: any;
-        public OLEObjects(Index?: any): any;
-        public OnDoubleClick: string;
-        public OnSheetActivate: string;
-        public OnSheetDeactivate: string;
-        public OptionButtons(Index?: any): any;
-        public Ovals(Index?: any): any;
-        public readonly PageSetup: PageSetup;
-        public readonly Parent: any;
-        public Paste(Type?: any): void;
-        public Perspective: number;
-        public Pictures(Index?: any): any;
-        public readonly Pie3DGroup: ChartGroup;
-        public PieGroups(Index?: any): any;
-        public readonly PivotLayout: PivotLayout;
-        public readonly PlotArea: PlotArea;
-        public PlotBy: XlRowCol;
-        public PlotVisibleOnly: boolean;
-        public readonly Previous: any;
-        public readonly PrintedCommentPages: number;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public PrintPreview(EnableChanges?: any): void;
-        public Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
-        public readonly ProtectContents: boolean;
-        public ProtectData: boolean;
-        public readonly ProtectDrawingObjects: boolean;
-        public ProtectFormatting: boolean;
-        public ProtectGoalSeek: boolean;
-        public readonly ProtectionMode: boolean;
-        public ProtectSelection: boolean;
-        public RadarGroups(Index?: any): any;
-        public Rectangles(Index?: any): any;
-        public Refresh(): void;
-        public RightAngleAxes: any;
-        public Rotation: any;
-        public SaveAs(
+        readonly Floor: Floor;
+        GapDepth: number;
+        GetChartElement(x: number, y: number, ElementID: number, Arg1: number, Arg2: number): void;
+        GroupBoxes(Index?: any): any;
+        GroupObjects(Index?: any): any;
+        HasAxis(Index1?: any, Index2?: any): any;
+        HasDataTable: boolean;
+        HasLegend: boolean;
+        HasPivotFields: boolean;
+        HasTitle: boolean;
+        HeightPercent: number;
+        readonly Hyperlinks: Hyperlinks;
+        readonly Index: number;
+        Labels(Index?: any): any;
+        readonly Legend: Legend;
+        readonly Line3DGroup: ChartGroup;
+        LineGroups(Index?: any): any;
+        Lines(Index?: any): any;
+        ListBoxes(Index?: any): any;
+        Location(Where: XlChartLocation, Name?: any): Chart;
+        readonly MailEnvelope: Office.MsoEnvelope;
+        Move(Before?: any, After?: any): void;
+        Name: string;
+        readonly Next: any;
+        OLEObjects(Index?: any): any;
+        OnDoubleClick: string;
+        OnSheetActivate: string;
+        OnSheetDeactivate: string;
+        OptionButtons(Index?: any): any;
+        Ovals(Index?: any): any;
+        readonly PageSetup: PageSetup;
+        readonly Parent: any;
+        Paste(Type?: any): void;
+        Perspective: number;
+        Pictures(Index?: any): any;
+        readonly Pie3DGroup: ChartGroup;
+        PieGroups(Index?: any): any;
+        readonly PivotLayout: PivotLayout;
+        readonly PlotArea: PlotArea;
+        PlotBy: XlRowCol;
+        PlotVisibleOnly: boolean;
+        readonly Previous: any;
+        readonly PrintedCommentPages: number;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        PrintPreview(EnableChanges?: any): void;
+        Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
+        readonly ProtectContents: boolean;
+        ProtectData: boolean;
+        readonly ProtectDrawingObjects: boolean;
+        ProtectFormatting: boolean;
+        ProtectGoalSeek: boolean;
+        readonly ProtectionMode: boolean;
+        ProtectSelection: boolean;
+        RadarGroups(Index?: any): any;
+        Rectangles(Index?: any): any;
+        Refresh(): void;
+        RightAngleAxes: any;
+        Rotation: any;
+        SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any, Local?: any): void;
-        public SaveChartTemplate(Filename: string): void;
-        public readonly Scripts: Office.Scripts;
-        public ScrollBars(Index?: any): any;
-        public Select(Replace?: any): void;
-        public SeriesCollection(Index?: any): any;
-        public SetBackgroundPicture(Filename: string): void;
-        public SetDefaultChart(Name: any): void;
-        public SetElement(Element: Office.MsoChartElementType): void;
-        public SetSourceData(Source: Range, PlotBy?: any): void;
-        public readonly Shapes: Shapes;
-        public ShowAllFieldButtons: boolean;
-        public ShowAxisFieldButtons: boolean;
-        public ShowDataLabelsOverMaximum: boolean;
-        public ShowLegendFieldButtons: boolean;
-        public ShowReportFilterFieldButtons: boolean;
-        public ShowValueFieldButtons: boolean;
-        public ShowWindow: boolean;
-        public readonly SideWall: Walls;
-        public SizeWithWindow: boolean;
-        public Spinners(Index?: any): any;
-        public SubType: number;
-        public readonly SurfaceGroup: ChartGroup;
-        public readonly Tab: Tab;
-        public TextBoxes(Index?: any): any;
-        public Type: number;
-        public Unprotect(Password?: any): void;
-        public Visible: XlSheetVisibility;
-        public readonly Walls: Walls;
-        public WallsAndGridlines2D: boolean;
-        public XYGroups(Index?: any): any;
+        SaveChartTemplate(Filename: string): void;
+        readonly Scripts: Office.Scripts;
+        ScrollBars(Index?: any): any;
+        Select(Replace?: any): void;
+        SeriesCollection(Index?: any): any;
+        SetBackgroundPicture(Filename: string): void;
+        SetDefaultChart(Name: any): void;
+        SetElement(Element: Office.MsoChartElementType): void;
+        SetSourceData(Source: Range, PlotBy?: any): void;
+        readonly Shapes: Shapes;
+        ShowAllFieldButtons: boolean;
+        ShowAxisFieldButtons: boolean;
+        ShowDataLabelsOverMaximum: boolean;
+        ShowLegendFieldButtons: boolean;
+        ShowReportFilterFieldButtons: boolean;
+        ShowValueFieldButtons: boolean;
+        ShowWindow: boolean;
+        readonly SideWall: Walls;
+        SizeWithWindow: boolean;
+        Spinners(Index?: any): any;
+        SubType: number;
+        readonly SurfaceGroup: ChartGroup;
+        readonly Tab: Tab;
+        TextBoxes(Index?: any): any;
+        Type: number;
+        Unprotect(Password?: any): void;
+        Visible: XlSheetVisibility;
+        readonly Walls: Walls;
+        WallsAndGridlines2D: boolean;
+        XYGroups(Index?: any): any;
     }
 
     class ChartArea {
         private 'Excel.ChartArea_typekey': ChartArea;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: Border;
-        public Clear(): any;
-        public ClearContents(): any;
-        public ClearFormats(): any;
-        public Copy(): any;
-        public readonly Creator: XlCreator;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: Font;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public RoundedCorners: boolean;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: Border;
+        Clear(): any;
+        ClearContents(): any;
+        ClearFormats(): any;
+        Copy(): any;
+        readonly Creator: XlCreator;
+        readonly Fill: ChartFillFormat;
+        readonly Font: Font;
+        readonly Format: ChartFormat;
+        Height: number;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        RoundedCorners: boolean;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class ChartColorFormat {
         private 'Excel.ChartColorFormat_typekey': ChartColorFormat;
         private constructor();
-        public readonly _Default: number;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public readonly RGB: number;
-        public SchemeColor: number;
-        public readonly Type: number;
+        readonly _Default: number;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        readonly RGB: number;
+        SchemeColor: number;
+        readonly Type: number;
     }
 
     class ChartFillFormat {
         private 'Excel.ChartFillFormat_typekey': ChartFillFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly BackColor: ChartColorFormat;
-        public readonly Creator: XlCreator;
-        public readonly ForeColor: ChartColorFormat;
-        public readonly GradientColorType: Office.MsoGradientColorType;
-        public readonly GradientDegree: number;
-        public readonly GradientStyle: Office.MsoGradientStyle;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: Office.MsoPatternType;
-        public Patterned(Pattern: Office.MsoPatternType): void;
-        public PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
-        public readonly PresetGradientType: Office.MsoPresetGradientType;
-        public readonly PresetTexture: Office.MsoPresetTexture;
-        public PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
-        public Solid(): void;
-        public readonly TextureName: string;
-        public readonly TextureType: Office.MsoTextureType;
-        public TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
-        public readonly Type: Office.MsoFillType;
-        public UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: Office.MsoTriState;
+        readonly Application: Application;
+        readonly BackColor: ChartColorFormat;
+        readonly Creator: XlCreator;
+        readonly ForeColor: ChartColorFormat;
+        readonly GradientColorType: Office.MsoGradientColorType;
+        readonly GradientDegree: number;
+        readonly GradientStyle: Office.MsoGradientStyle;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: Office.MsoPatternType;
+        Patterned(Pattern: Office.MsoPatternType): void;
+        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        readonly PresetGradientType: Office.MsoPresetGradientType;
+        readonly PresetTexture: Office.MsoPresetTexture;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
+        Solid(): void;
+        readonly TextureName: string;
+        readonly TextureType: Office.MsoTextureType;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
+        readonly Type: Office.MsoFillType;
+        UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any): void;
+        UserTextured(TextureFile: string): void;
+        Visible: Office.MsoTriState;
     }
 
     class ChartFormat {
         private 'Excel.ChartFormat_typekey': ChartFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Fill: FillFormat;
-        public readonly Glow: Office.GlowFormat;
-        public readonly Line: LineFormat;
-        public readonly Parent: any;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Shadow: ShadowFormat;
-        public readonly SoftEdge: Office.SoftEdgeFormat;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Fill: FillFormat;
+        readonly Glow: Office.GlowFormat;
+        readonly Line: LineFormat;
+        readonly Parent: any;
+        readonly PictureFormat: PictureFormat;
+        readonly Shadow: ShadowFormat;
+        readonly SoftEdge: Office.SoftEdgeFormat;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
     }
 
     class ChartGroup {
         private 'Excel.ChartGroup_typekey': ChartGroup;
         private constructor();
-        public readonly Application: Application;
-        public AxisGroup: XlAxisGroup;
-        public BubbleScale: number;
-        public readonly Creator: XlCreator;
-        public DoughnutHoleSize: number;
-        public readonly DownBars: DownBars;
-        public readonly DropLines: DropLines;
-        public FirstSliceAngle: number;
-        public GapWidth: number;
-        public Has3DShading: boolean;
-        public HasDropLines: boolean;
-        public HasHiLoLines: boolean;
-        public HasRadarAxisLabels: boolean;
-        public HasSeriesLines: boolean;
-        public HasUpDownBars: boolean;
-        public readonly HiLoLines: HiLoLines;
-        public readonly Index: number;
-        public Overlap: number;
-        public readonly Parent: any;
-        public readonly RadarAxisLabels: TickLabels;
-        public SecondPlotSize: number;
-        public SeriesCollection(Index?: any): any;
-        public readonly SeriesLines: SeriesLines;
-        public ShowNegativeBubbles: boolean;
-        public SizeRepresents: XlSizeRepresents;
-        public SplitType: XlChartSplitType;
-        public SplitValue: any;
-        public SubType: number;
-        public Type: number;
-        public readonly UpBars: UpBars;
-        public VaryByCategories: boolean;
+        readonly Application: Application;
+        AxisGroup: XlAxisGroup;
+        BubbleScale: number;
+        readonly Creator: XlCreator;
+        DoughnutHoleSize: number;
+        readonly DownBars: DownBars;
+        readonly DropLines: DropLines;
+        FirstSliceAngle: number;
+        GapWidth: number;
+        Has3DShading: boolean;
+        HasDropLines: boolean;
+        HasHiLoLines: boolean;
+        HasRadarAxisLabels: boolean;
+        HasSeriesLines: boolean;
+        HasUpDownBars: boolean;
+        readonly HiLoLines: HiLoLines;
+        readonly Index: number;
+        Overlap: number;
+        readonly Parent: any;
+        readonly RadarAxisLabels: TickLabels;
+        SecondPlotSize: number;
+        SeriesCollection(Index?: any): any;
+        readonly SeriesLines: SeriesLines;
+        ShowNegativeBubbles: boolean;
+        SizeRepresents: XlSizeRepresents;
+        SplitType: XlChartSplitType;
+        SplitValue: any;
+        SubType: number;
+        Type: number;
+        readonly UpBars: UpBars;
+        VaryByCategories: boolean;
     }
 
     class ChartTitle {
         private 'Excel.ChartTitle_typekey': ChartTitle;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: Border;
-        public Caption: string;
-        public Characters(Start?: any, Length?: any): Characters;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: Font;
-        public readonly Format: ChartFormat;
-        public Formula: string;
-        public FormulaLocal: string;
-        public FormulaR1C1: string;
-        public FormulaR1C1Local: string;
-        public readonly Height: number;
-        public HorizontalAlignment: any;
-        public IncludeInLayout: boolean;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public Orientation: any;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public ReadingOrder: number;
-        public Select(): any;
-        public Shadow: boolean;
-        public Text: string;
-        public Top: number;
-        public VerticalAlignment: any;
-        public readonly Width: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: Border;
+        Caption: string;
+        Characters(Start?: any, Length?: any): Characters;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: Font;
+        readonly Format: ChartFormat;
+        Formula: string;
+        FormulaLocal: string;
+        FormulaR1C1: string;
+        FormulaR1C1Local: string;
+        readonly Height: number;
+        HorizontalAlignment: any;
+        IncludeInLayout: boolean;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        Orientation: any;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        ReadingOrder: number;
+        Select(): any;
+        Shadow: boolean;
+        Text: string;
+        Top: number;
+        VerticalAlignment: any;
+        readonly Width: number;
     }
 
     class ColorFormat {
         private 'Excel.ColorFormat_typekey': ColorFormat;
         private constructor();
-        public readonly Application: any;
-        public Brightness: number;
-        public readonly Creator: number;
-        public ObjectThemeColor: Office.MsoThemeColorIndex;
-        public readonly Parent: any;
-        public RGB: Office.MsoRGBType;
-        public SchemeColor: number;
-        public TintAndShade: number;
-        public readonly Type: Office.MsoColorType;
+        readonly Application: any;
+        Brightness: number;
+        readonly Creator: number;
+        ObjectThemeColor: Office.MsoThemeColorIndex;
+        readonly Parent: any;
+        RGB: Office.MsoRGBType;
+        SchemeColor: number;
+        TintAndShade: number;
+        readonly Type: Office.MsoColorType;
     }
 
     class Comment {
         private 'Excel.Comment_typekey': Comment;
         private constructor();
-        public readonly Application: Application;
-        public readonly Author: string;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Next(): Comment;
-        public readonly Parent: any;
-        public Previous(): Comment;
-        public readonly Shape: Shape;
-        public Text(Text?: any, Start?: any, Overwrite?: any): string;
-        public Visible: boolean;
+        readonly Application: Application;
+        readonly Author: string;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Next(): Comment;
+        readonly Parent: any;
+        Previous(): Comment;
+        readonly Shape: Shape;
+        Text(Text?: any, Start?: any, Overwrite?: any): string;
+        Visible: boolean;
     }
 
     class Comments {
         private 'Excel.Comments_typekey': Comments;
         private constructor();
-        public _Default(Index: number): Comment;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): Comment;
-        public readonly Parent: any;
+        _Default(Index: number): Comment;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): Comment;
+        readonly Parent: any;
     }
 
     class Connections {
         private 'Excel.Connections_typekey': Connections;
         private constructor();
-        public _Default(Index: any): WorkbookConnection;
-        public Add(Name: string, Description: string, ConnectionString: any, CommandText: any, lCmdtype?: any): WorkbookConnection;
-        public AddFromFile(Filename: string): WorkbookConnection;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): WorkbookConnection;
-        public readonly Parent: any;
+        _Default(Index: any): WorkbookConnection;
+        Add(Name: string, Description: string, ConnectionString: any, CommandText: any, lCmdtype?: any): WorkbookConnection;
+        AddFromFile(Filename: string): WorkbookConnection;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): WorkbookConnection;
+        readonly Parent: any;
     }
 
     class ConnectorFormat {
         private 'Excel.ConnectorFormat_typekey': ConnectorFormat;
         private constructor();
-        public readonly Application: Application;
-        public BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly BeginConnected: Office.MsoTriState;
-        public readonly BeginConnectedShape: Shape;
-        public readonly BeginConnectionSite: number;
-        public BeginDisconnect(): void;
-        public readonly Creator: XlCreator;
-        public EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly EndConnected: Office.MsoTriState;
-        public readonly EndConnectedShape: Shape;
-        public readonly EndConnectionSite: number;
-        public EndDisconnect(): void;
-        public readonly Parent: any;
-        public Type: Office.MsoConnectorType;
+        readonly Application: Application;
+        BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly BeginConnected: Office.MsoTriState;
+        readonly BeginConnectedShape: Shape;
+        readonly BeginConnectionSite: number;
+        BeginDisconnect(): void;
+        readonly Creator: XlCreator;
+        EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly EndConnected: Office.MsoTriState;
+        readonly EndConnectedShape: Shape;
+        readonly EndConnectionSite: number;
+        EndDisconnect(): void;
+        readonly Parent: any;
+        Type: Office.MsoConnectorType;
     }
 
     class ControlFormat {
         private 'Excel.ControlFormat_typekey': ControlFormat;
         private constructor();
-        public _Default: number;
-        public AddItem(Text: string, Index?: any): void;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public DropDownLines: number;
-        public Enabled: boolean;
-        public LargeChange: number;
-        public LinkedCell: string;
-        public List(Index?: any): any;
-        public ListCount: number;
-        public ListFillRange: string;
-        public ListIndex: number;
-        public LockedText: boolean;
-        public Max: number;
-        public Min: number;
-        public MultiSelect: number;
-        public readonly Parent: any;
-        public PrintObject: boolean;
-        public RemoveAllItems(): void;
-        public RemoveItem(Index: number, Count?: any): void;
-        public SmallChange: number;
-        public Value: number;
+        _Default: number;
+        AddItem(Text: string, Index?: any): void;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        DropDownLines: number;
+        Enabled: boolean;
+        LargeChange: number;
+        LinkedCell: string;
+        List(Index?: any): any;
+        ListCount: number;
+        ListFillRange: string;
+        ListIndex: number;
+        LockedText: boolean;
+        Max: number;
+        Min: number;
+        MultiSelect: number;
+        readonly Parent: any;
+        PrintObject: boolean;
+        RemoveAllItems(): void;
+        RemoveItem(Index: number, Count?: any): void;
+        SmallChange: number;
+        Value: number;
     }
 
     class Corners {
         private 'Excel.Corners_typekey': Corners;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class CubeField {
         private 'Excel.CubeField_typekey': CubeField;
         private constructor();
-        public _AddMemberPropertyField(Property: string, PropertyOrder?: any): void;
-        public readonly _Caption: string;
-        public AddMemberPropertyField(Property: string, PropertyOrder?: any, PropertyDisplayedIn?: any): void;
-        public readonly AllItemsVisible: boolean;
-        public readonly Application: Application;
-        public Caption: string;
-        public ClearManualFilter(): void;
-        public CreatePivotFields(): void;
-        public readonly Creator: XlCreator;
-        public readonly CubeFieldSubType: XlCubeFieldSubType;
-        public readonly CubeFieldType: XlCubeFieldType;
-        public CurrentPageName: string;
-        public Delete(): void;
-        public DragToColumn: boolean;
-        public DragToData: boolean;
-        public DragToHide: boolean;
-        public DragToPage: boolean;
-        public DragToRow: boolean;
-        public EnableMultiplePageItems: boolean;
-        public FlattenHierarchies: boolean;
-        public readonly HasMemberProperties: boolean;
-        public HiddenLevels: number;
-        public HierarchizeDistinct: boolean;
-        public IncludeNewItemsInFilter: boolean;
-        public readonly IsDate: boolean;
-        public LayoutForm: XlLayoutFormType;
-        public LayoutSubtotalLocation: XlSubtototalLocationType;
-        public readonly Name: string;
-        public Orientation: XlPivotFieldOrientation;
-        public readonly Parent: any;
-        public readonly PivotFields: PivotFields;
-        public Position: number;
-        public ShowInFieldList: boolean;
-        public readonly TreeviewControl: TreeviewControl;
-        public readonly Value: string;
+        _AddMemberPropertyField(Property: string, PropertyOrder?: any): void;
+        readonly _Caption: string;
+        AddMemberPropertyField(Property: string, PropertyOrder?: any, PropertyDisplayedIn?: any): void;
+        readonly AllItemsVisible: boolean;
+        readonly Application: Application;
+        Caption: string;
+        ClearManualFilter(): void;
+        CreatePivotFields(): void;
+        readonly Creator: XlCreator;
+        readonly CubeFieldSubType: XlCubeFieldSubType;
+        readonly CubeFieldType: XlCubeFieldType;
+        CurrentPageName: string;
+        Delete(): void;
+        DragToColumn: boolean;
+        DragToData: boolean;
+        DragToHide: boolean;
+        DragToPage: boolean;
+        DragToRow: boolean;
+        EnableMultiplePageItems: boolean;
+        FlattenHierarchies: boolean;
+        readonly HasMemberProperties: boolean;
+        HiddenLevels: number;
+        HierarchizeDistinct: boolean;
+        IncludeNewItemsInFilter: boolean;
+        readonly IsDate: boolean;
+        LayoutForm: XlLayoutFormType;
+        LayoutSubtotalLocation: XlSubtototalLocationType;
+        readonly Name: string;
+        Orientation: XlPivotFieldOrientation;
+        readonly Parent: any;
+        readonly PivotFields: PivotFields;
+        Position: number;
+        ShowInFieldList: boolean;
+        readonly TreeviewControl: TreeviewControl;
+        readonly Value: string;
     }
 
     class CubeFields {
         private 'Excel.CubeFields_typekey': CubeFields;
         private constructor();
-        public _Default(Index: any): CubeField;
-        public AddSet(Name: string, Caption: string): CubeField;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): CubeField;
-        public readonly Parent: any;
+        _Default(Index: any): CubeField;
+        AddSet(Name: string, Caption: string): CubeField;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): CubeField;
+        readonly Parent: any;
     }
 
     class CustomProperties {
         private 'Excel.CustomProperties_typekey': CustomProperties;
         private constructor();
-        public _Default(Index: any): CustomProperty;
-        public Add(Name: string, Value: any): CustomProperty;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): CustomProperty;
-        public readonly Parent: any;
+        _Default(Index: any): CustomProperty;
+        Add(Name: string, Value: any): CustomProperty;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): CustomProperty;
+        readonly Parent: any;
     }
 
     class CustomProperty {
         private 'Excel.CustomProperty_typekey': CustomProperty;
         private constructor();
-        public readonly _Default: any;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Name: string;
-        public readonly Parent: any;
-        public Value: any;
+        readonly _Default: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Name: string;
+        readonly Parent: any;
+        Value: any;
     }
 
     class CustomView {
         private 'Excel.CustomView_typekey': CustomView;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly PrintSettings: boolean;
-        public readonly RowColSettings: boolean;
-        public Show(): void;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly PrintSettings: boolean;
+        readonly RowColSettings: boolean;
+        Show(): void;
     }
 
     class CustomViews {
         private 'Excel.CustomViews_typekey': CustomViews;
         private constructor();
-        public _Default(ViewName: any): CustomView;
-        public Add(ViewName: string, PrintSettings?: any, RowColSettings?: any): CustomView;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(ViewName: any): CustomView;
-        public readonly Parent: any;
+        _Default(ViewName: any): CustomView;
+        Add(ViewName: string, PrintSettings?: any, RowColSettings?: any): CustomView;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(ViewName: any): CustomView;
+        readonly Parent: any;
     }
 
     class DataTable {
         private 'Excel.DataTable_typekey': DataTable;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: Border;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Font: Font;
-        public readonly Format: ChartFormat;
-        public HasBorderHorizontal: boolean;
-        public HasBorderOutline: boolean;
-        public HasBorderVertical: boolean;
-        public readonly Parent: any;
-        public Select(): void;
-        public ShowLegendKey: boolean;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: Border;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Font: Font;
+        readonly Format: ChartFormat;
+        HasBorderHorizontal: boolean;
+        HasBorderOutline: boolean;
+        HasBorderVertical: boolean;
+        readonly Parent: any;
+        Select(): void;
+        ShowLegendKey: boolean;
     }
 
     class DefaultWebOptions {
         private 'Excel.DefaultWebOptions_typekey': DefaultWebOptions;
         private constructor();
-        public AllowPNG: boolean;
-        public AlwaysSaveInDefaultEncoding: boolean;
-        public readonly Application: Application;
-        public CheckIfOfficeIsHTMLEditor: boolean;
-        public readonly Creator: XlCreator;
-        public DownloadComponents: boolean;
-        public Encoding: Office.MsoEncoding;
-        public readonly FolderSuffix: string;
-        public readonly Fonts: Office.WebPageFonts;
-        public LoadPictures: boolean;
-        public LocationOfComponents: string;
-        public OrganizeInFolder: boolean;
-        public readonly Parent: any;
-        public PixelsPerInch: number;
-        public RelyOnCSS: boolean;
-        public RelyOnVML: boolean;
-        public SaveHiddenData: boolean;
-        public SaveNewWebPagesAsWebArchives: boolean;
-        public ScreenSize: Office.MsoScreenSize;
-        public TargetBrowser: Office.MsoTargetBrowser;
-        public UpdateLinksOnSave: boolean;
-        public UseLongFileNames: boolean;
+        AllowPNG: boolean;
+        AlwaysSaveInDefaultEncoding: boolean;
+        readonly Application: Application;
+        CheckIfOfficeIsHTMLEditor: boolean;
+        readonly Creator: XlCreator;
+        DownloadComponents: boolean;
+        Encoding: Office.MsoEncoding;
+        readonly FolderSuffix: string;
+        readonly Fonts: Office.WebPageFonts;
+        LoadPictures: boolean;
+        LocationOfComponents: string;
+        OrganizeInFolder: boolean;
+        readonly Parent: any;
+        PixelsPerInch: number;
+        RelyOnCSS: boolean;
+        RelyOnVML: boolean;
+        SaveHiddenData: boolean;
+        SaveNewWebPagesAsWebArchives: boolean;
+        ScreenSize: Office.MsoScreenSize;
+        TargetBrowser: Office.MsoTargetBrowser;
+        UpdateLinksOnSave: boolean;
+        UseLongFileNames: boolean;
     }
 
     class Diagram {
         private 'Excel.Diagram_typekey': Diagram;
         private constructor();
-        public readonly Application: Application;
-        public AutoFormat: Office.MsoTriState;
-        public AutoLayout: Office.MsoTriState;
-        public Convert(Type: Office.MsoDiagramType): void;
-        public readonly Creator: XlCreator;
-        public FitText(): void;
-        public readonly Nodes: DiagramNodes;
-        public readonly Parent: any;
-        public Reverse: Office.MsoTriState;
-        public readonly Type: Office.MsoDiagramType;
+        readonly Application: Application;
+        AutoFormat: Office.MsoTriState;
+        AutoLayout: Office.MsoTriState;
+        Convert(Type: Office.MsoDiagramType): void;
+        readonly Creator: XlCreator;
+        FitText(): void;
+        readonly Nodes: DiagramNodes;
+        readonly Parent: any;
+        Reverse: Office.MsoTriState;
+        readonly Type: Office.MsoDiagramType;
     }
 
     class DiagramNode {
@@ -4207,28 +4207,28 @@ declare namespace Excel {
          * @param Office.MsoRelativeNodePosition [pos=2]
          * @param Office.MsoDiagramNodeType [nodeType=1]
          */
-        public AddNode(pos?: Office.MsoRelativeNodePosition, nodeType?: Office.MsoDiagramNodeType): DiagramNode;
-        public readonly Application: any;
-        public readonly Children: DiagramNodeChildren;
+        AddNode(pos?: Office.MsoRelativeNodePosition, nodeType?: Office.MsoDiagramNodeType): DiagramNode;
+        readonly Application: any;
+        readonly Children: DiagramNodeChildren;
 
         /** @param Office.MsoRelativeNodePosition [pos=2] */
-        public CloneNode(copyChildren: boolean, pTargetNode: DiagramNode, pos?: Office.MsoRelativeNodePosition): DiagramNode;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Diagram: Office.IMsoDiagram;
-        public Layout: Office.MsoOrgChartLayoutType;
-        public MoveNode(pTargetNode: DiagramNode, pos: Office.MsoRelativeNodePosition): void;
-        public NextNode(): DiagramNode;
-        public readonly Parent: any;
-        public PrevNode(): DiagramNode;
-        public ReplaceNode(pTargetNode: DiagramNode): void;
-        public readonly Root: DiagramNode;
-        public readonly Shape: Shape;
+        CloneNode(copyChildren: boolean, pTargetNode: DiagramNode, pos?: Office.MsoRelativeNodePosition): DiagramNode;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Diagram: Office.IMsoDiagram;
+        Layout: Office.MsoOrgChartLayoutType;
+        MoveNode(pTargetNode: DiagramNode, pos: Office.MsoRelativeNodePosition): void;
+        NextNode(): DiagramNode;
+        readonly Parent: any;
+        PrevNode(): DiagramNode;
+        ReplaceNode(pTargetNode: DiagramNode): void;
+        readonly Root: DiagramNode;
+        readonly Shape: Shape;
 
         /** @param boolean [swapChildren=true] */
-        public SwapNode(pTargetNode: DiagramNode, swapChildren?: boolean): void;
-        public readonly TextShape: Shape;
-        public TransferChildren(pReceivingNode: DiagramNode): void;
+        SwapNode(pTargetNode: DiagramNode, swapChildren?: boolean): void;
+        readonly TextShape: Shape;
+        TransferChildren(pReceivingNode: DiagramNode): void;
     }
 
     class DiagramNodeChildren {
@@ -4239,35 +4239,35 @@ declare namespace Excel {
          * @param any [Index=-1]
          * @param Office.MsoDiagramNodeType [nodeType=1]
          */
-        public AddNode(Index?: any, nodeType?: Office.MsoDiagramNodeType): DiagramNode;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly FirstChild: DiagramNode;
-        public Item(Index: any): DiagramNode;
-        public readonly LastChild: DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        AddNode(Index?: any, nodeType?: Office.MsoDiagramNodeType): DiagramNode;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly FirstChild: DiagramNode;
+        Item(Index: any): DiagramNode;
+        readonly LastChild: DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class DiagramNodes {
         private 'Excel.DiagramNodes_typekey': DiagramNodes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class Dialog {
         private 'Excel.Dialog_typekey': Dialog;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public Show(
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        Show(
             Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): boolean;
@@ -4276,801 +4276,801 @@ declare namespace Excel {
     class DialogFrame {
         private 'Excel.DialogFrame_typekey': DialogFrame;
         private constructor();
-        public readonly Application: Application;
-        public Caption: string;
-        public Characters(Start?: any, Length?: any): Characters;
-        public CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): any;
+        readonly Application: Application;
+        Caption: string;
+        Characters(Start?: any, Length?: any): Characters;
+        CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): any;
 
         /**
          * @param Excel.XlPictureAppearance [Appearance=2]
          * @param Excel.XlCopyPictureFormat [Format=-4147]
          */
-        public CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat): any;
-        public readonly Creator: XlCreator;
-        public Height: number;
-        public Left: number;
-        public Locked: boolean;
-        public LockedText: boolean;
-        public Name: string;
-        public OnAction: string;
-        public readonly Parent: any;
-        public Select(Replace?: any): any;
-        public readonly ShapeRange: ShapeRange;
-        public Text: string;
-        public Top: number;
-        public Width: number;
+        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat): any;
+        readonly Creator: XlCreator;
+        Height: number;
+        Left: number;
+        Locked: boolean;
+        LockedText: boolean;
+        Name: string;
+        OnAction: string;
+        readonly Parent: any;
+        Select(Replace?: any): any;
+        readonly ShapeRange: ShapeRange;
+        Text: string;
+        Top: number;
+        Width: number;
     }
 
     class Dialogs {
         private 'Excel.Dialogs_typekey': Dialogs;
         private constructor();
-        public _Default(Index: XlBuiltInDialog): Dialog;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: XlBuiltInDialog): Dialog;
-        public readonly Parent: any;
+        _Default(Index: XlBuiltInDialog): Dialog;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: XlBuiltInDialog): Dialog;
+        readonly Parent: any;
     }
 
     class DialogSheet {
         private 'Excel.DialogSheet_typekey': DialogSheet;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public _CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any, IgnoreFinalYaa?: any, SpellScript?: any): void;
-        public _CodeName: string;
-        public _DisplayRightToLeft: number;
-        public _Evaluate(Name: any): any;
-        public _PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any): void;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
-        public _SaveAs(
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        _CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any, IgnoreFinalYaa?: any, SpellScript?: any): void;
+        _CodeName: string;
+        _DisplayRightToLeft: number;
+        _Evaluate(Name: any): any;
+        _PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any): void;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
+        _SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any): void;
-        public Activate(): void;
-        public readonly Application: Application;
-        public Arcs(Index?: any): any;
-        public readonly AutoFilter: AutoFilter;
-        public Buttons(Index?: any): any;
-        public ChartObjects(Index?: any): any;
-        public CheckBoxes(Index?: any): any;
-        public CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): void;
-        public CircleInvalid(): void;
-        public ClearCircles(): void;
-        public readonly CodeName: string;
-        public readonly Comments: Comments;
-        public Copy(Before?: any, After?: any): void;
-        public readonly Creator: XlCreator;
-        public readonly CustomProperties: CustomProperties;
-        public DefaultButton: any;
-        public Delete(): void;
-        public readonly DialogFrame: DialogFrame;
-        public DisplayAutomaticPageBreaks: boolean;
-        public DisplayPageBreaks: boolean;
-        public DisplayRightToLeft: boolean;
-        public DrawingObjects(Index?: any): any;
-        public Drawings(Index?: any): any;
-        public DropDowns(Index?: any): any;
-        public EditBoxes(Index?: any): any;
-        public EnableAutoFilter: boolean;
-        public EnableCalculation: boolean;
-        public EnableFormatConditionsCalculation: boolean;
-        public EnableOutlining: boolean;
-        public EnablePivotTable: boolean;
-        public EnableSelection: XlEnableSelection;
-        public Evaluate(Name: any): any;
-        public ExportAsFixedFormat(
+        Activate(): void;
+        readonly Application: Application;
+        Arcs(Index?: any): any;
+        readonly AutoFilter: AutoFilter;
+        Buttons(Index?: any): any;
+        ChartObjects(Index?: any): any;
+        CheckBoxes(Index?: any): any;
+        CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): void;
+        CircleInvalid(): void;
+        ClearCircles(): void;
+        readonly CodeName: string;
+        readonly Comments: Comments;
+        Copy(Before?: any, After?: any): void;
+        readonly Creator: XlCreator;
+        readonly CustomProperties: CustomProperties;
+        DefaultButton: any;
+        Delete(): void;
+        readonly DialogFrame: DialogFrame;
+        DisplayAutomaticPageBreaks: boolean;
+        DisplayPageBreaks: boolean;
+        DisplayRightToLeft: boolean;
+        DrawingObjects(Index?: any): any;
+        Drawings(Index?: any): any;
+        DropDowns(Index?: any): any;
+        EditBoxes(Index?: any): any;
+        EnableAutoFilter: boolean;
+        EnableCalculation: boolean;
+        EnableFormatConditionsCalculation: boolean;
+        EnableOutlining: boolean;
+        EnablePivotTable: boolean;
+        EnableSelection: XlEnableSelection;
+        Evaluate(Name: any): any;
+        ExportAsFixedFormat(
             Type: XlFixedFormatType, Filename?: any, Quality?: any, IncludeDocProperties?: any, IgnorePrintAreas?: any, From?: any, To?: any, OpenAfterPublish?: any,
             FixedFormatExtClassPtr?: any): void;
-        public Focus: any;
-        public GroupBoxes(Index?: any): any;
-        public GroupObjects(Index?: any): any;
-        public Hide(Cancel?: any): boolean;
-        public readonly HPageBreaks: HPageBreaks;
-        public readonly Hyperlinks: Hyperlinks;
-        public readonly Index: number;
-        public Labels(Index?: any): any;
-        public Lines(Index?: any): any;
-        public ListBoxes(Index?: any): any;
-        public readonly MailEnvelope: Office.MsoEnvelope;
-        public Move(Before?: any, After?: any): void;
-        public Name: string;
-        public readonly Names: Names;
-        public readonly Next: any;
-        public OLEObjects(Index?: any): any;
-        public OnDoubleClick: string;
-        public OnSheetActivate: string;
-        public OnSheetDeactivate: string;
-        public OptionButtons(Index?: any): any;
-        public Ovals(Index?: any): any;
-        public readonly PageSetup: PageSetup;
-        public readonly Parent: any;
-        public Paste(Destination?: any, Link?: any): void;
-        public PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, NoHTMLFormatting?: any): void;
-        public Pictures(Index?: any): any;
-        public readonly Previous: any;
-        public readonly PrintedCommentPages: number;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public PrintPreview(EnableChanges?: any): void;
-        public Protect(
+        Focus: any;
+        GroupBoxes(Index?: any): any;
+        GroupObjects(Index?: any): any;
+        Hide(Cancel?: any): boolean;
+        readonly HPageBreaks: HPageBreaks;
+        readonly Hyperlinks: Hyperlinks;
+        readonly Index: number;
+        Labels(Index?: any): any;
+        Lines(Index?: any): any;
+        ListBoxes(Index?: any): any;
+        readonly MailEnvelope: Office.MsoEnvelope;
+        Move(Before?: any, After?: any): void;
+        Name: string;
+        readonly Names: Names;
+        readonly Next: any;
+        OLEObjects(Index?: any): any;
+        OnDoubleClick: string;
+        OnSheetActivate: string;
+        OnSheetDeactivate: string;
+        OptionButtons(Index?: any): any;
+        Ovals(Index?: any): any;
+        readonly PageSetup: PageSetup;
+        readonly Parent: any;
+        Paste(Destination?: any, Link?: any): void;
+        PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, NoHTMLFormatting?: any): void;
+        Pictures(Index?: any): any;
+        readonly Previous: any;
+        readonly PrintedCommentPages: number;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        PrintPreview(EnableChanges?: any): void;
+        Protect(
             Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any, AllowFormattingCells?: any, AllowFormattingColumns?: any,
             AllowFormattingRows?: any, AllowInsertingColumns?: any, AllowInsertingRows?: any, AllowInsertingHyperlinks?: any, AllowDeletingColumns?: any,
             AllowDeletingRows?: any, AllowSorting?: any, AllowFiltering?: any, AllowUsingPivotTables?: any): void;
-        public readonly ProtectContents: boolean;
-        public readonly ProtectDrawingObjects: boolean;
-        public readonly Protection: Protection;
-        public readonly ProtectionMode: boolean;
-        public readonly ProtectScenarios: boolean;
-        public readonly QueryTables: QueryTables;
-        public Rectangles(Index?: any): any;
-        public ResetAllPageBreaks(): void;
-        public SaveAs(
+        readonly ProtectContents: boolean;
+        readonly ProtectDrawingObjects: boolean;
+        readonly Protection: Protection;
+        readonly ProtectionMode: boolean;
+        readonly ProtectScenarios: boolean;
+        readonly QueryTables: QueryTables;
+        Rectangles(Index?: any): any;
+        ResetAllPageBreaks(): void;
+        SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any, Local?: any): void;
-        public readonly Scripts: Office.Scripts;
-        public ScrollArea: string;
-        public ScrollBars(Index?: any): any;
-        public Select(Replace?: any): void;
-        public readonly Shapes: Shapes;
-        public Show(): boolean;
-        public readonly SmartTags: SmartTags;
-        public readonly Sort: Sort;
-        public Spinners(Index?: any): any;
-        public readonly Tab: Tab;
-        public TextBoxes(Index?: any): any;
-        public Unprotect(Password?: any): void;
-        public Visible: XlSheetVisibility;
-        public readonly VPageBreaks: VPageBreaks;
+        readonly Scripts: Office.Scripts;
+        ScrollArea: string;
+        ScrollBars(Index?: any): any;
+        Select(Replace?: any): void;
+        readonly Shapes: Shapes;
+        Show(): boolean;
+        readonly SmartTags: SmartTags;
+        readonly Sort: Sort;
+        Spinners(Index?: any): any;
+        readonly Tab: Tab;
+        TextBoxes(Index?: any): any;
+        Unprotect(Password?: any): void;
+        Visible: XlSheetVisibility;
+        readonly VPageBreaks: VPageBreaks;
     }
 
     class DisplayFormat {
         private 'Excel.DisplayFormat_typekey': DisplayFormat;
         private constructor();
-        public readonly AddIndent: any;
-        public readonly Application: Application;
-        public readonly Borders: Borders;
-        public Characters(Start?: any, Length?: any): Characters;
-        public readonly Creator: XlCreator;
-        public readonly Font: Font;
-        public readonly FormulaHidden: any;
-        public readonly HorizontalAlignment: any;
-        public readonly IndentLevel: any;
-        public readonly Interior: Interior;
-        public readonly Locked: any;
-        public readonly MergeCells: any;
-        public readonly NumberFormat: any;
-        public readonly NumberFormatLocal: any;
-        public readonly Orientation: any;
-        public readonly Parent: any;
-        public readonly ReadingOrder: number;
-        public readonly ShrinkToFit: any;
-        public readonly Style: any;
-        public readonly VerticalAlignment: any;
-        public readonly WrapText: any;
+        readonly AddIndent: any;
+        readonly Application: Application;
+        readonly Borders: Borders;
+        Characters(Start?: any, Length?: any): Characters;
+        readonly Creator: XlCreator;
+        readonly Font: Font;
+        readonly FormulaHidden: any;
+        readonly HorizontalAlignment: any;
+        readonly IndentLevel: any;
+        readonly Interior: Interior;
+        readonly Locked: any;
+        readonly MergeCells: any;
+        readonly NumberFormat: any;
+        readonly NumberFormatLocal: any;
+        readonly Orientation: any;
+        readonly Parent: any;
+        readonly ReadingOrder: number;
+        readonly ShrinkToFit: any;
+        readonly Style: any;
+        readonly VerticalAlignment: any;
+        readonly WrapText: any;
     }
 
     class DownBars {
         private 'Excel.DownBars_typekey': DownBars;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: Border;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class DropLines {
         private 'Excel.DropLines_typekey': DropLines;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: Border;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class Error {
         private 'Excel.Error_typekey': Error;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Ignore: boolean;
-        public readonly Parent: any;
-        public readonly Value: boolean;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Ignore: boolean;
+        readonly Parent: any;
+        readonly Value: boolean;
     }
 
     class ErrorCheckingOptions {
         private 'Excel.ErrorCheckingOptions_typekey': ErrorCheckingOptions;
         private constructor();
-        public readonly Application: Application;
-        public BackgroundChecking: boolean;
-        public readonly Creator: XlCreator;
-        public EmptyCellReferences: boolean;
-        public EvaluateToError: boolean;
-        public InconsistentFormula: boolean;
-        public InconsistentTableFormula: boolean;
-        public IndicatorColorIndex: XlColorIndex;
-        public ListDataValidation: boolean;
-        public NumberAsText: boolean;
-        public OmittedCells: boolean;
-        public readonly Parent: any;
-        public TextDate: boolean;
-        public UnlockedFormulaCells: boolean;
+        readonly Application: Application;
+        BackgroundChecking: boolean;
+        readonly Creator: XlCreator;
+        EmptyCellReferences: boolean;
+        EvaluateToError: boolean;
+        InconsistentFormula: boolean;
+        InconsistentTableFormula: boolean;
+        IndicatorColorIndex: XlColorIndex;
+        ListDataValidation: boolean;
+        NumberAsText: boolean;
+        OmittedCells: boolean;
+        readonly Parent: any;
+        TextDate: boolean;
+        UnlockedFormulaCells: boolean;
     }
 
     class Errors {
         private 'Excel.Errors_typekey': Errors;
         private constructor();
-        public _Default(Index: any): Error;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Error;
-        public readonly Parent: any;
+        _Default(Index: any): Error;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Item(Index: any): Error;
+        readonly Parent: any;
     }
 
     class FileExportConverter {
         private 'Excel.FileExportConverter_typekey': FileExportConverter;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Description: string;
-        public readonly Extensions: string;
-        public readonly FileFormat: number;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Description: string;
+        readonly Extensions: string;
+        readonly FileFormat: number;
+        readonly Parent: any;
     }
 
     class FileExportConverters {
         private 'Excel.FileExportConverters_typekey': FileExportConverters;
         private constructor();
-        public _Default(Index: any): FileExportConverter;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): FileExportConverter;
-        public readonly Parent: any;
+        _Default(Index: any): FileExportConverter;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): FileExportConverter;
+        readonly Parent: any;
     }
 
     class FillFormat {
         private 'Excel.FillFormat_typekey': FillFormat;
         private constructor();
-        public readonly Application: any;
-        public BackColor: ColorFormat;
-        public Background(): void;
-        public readonly Creator: number;
-        public ForeColor: ColorFormat;
-        public GradientAngle: number;
-        public readonly GradientColorType: Office.MsoGradientColorType;
-        public readonly GradientDegree: number;
-        public readonly GradientStops: Office.GradientStops;
-        public readonly GradientStyle: Office.MsoGradientStyle;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: Office.MsoPatternType;
-        public Patterned(Pattern: Office.MsoPatternType): void;
-        public readonly PictureEffects: Office.PictureEffects;
-        public PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
-        public readonly PresetGradientType: Office.MsoPresetGradientType;
-        public readonly PresetTexture: Office.MsoPresetTexture;
-        public PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
-        public RotateWithObject: Office.MsoTriState;
-        public Solid(): void;
-        public TextureAlignment: Office.MsoTextureAlignment;
-        public TextureHorizontalScale: number;
-        public readonly TextureName: string;
-        public TextureOffsetX: number;
-        public TextureOffsetY: number;
-        public TextureTile: Office.MsoTriState;
-        public readonly TextureType: Office.MsoTextureType;
-        public TextureVerticalScale: number;
-        public Transparency: number;
-        public TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
-        public readonly Type: Office.MsoFillType;
-        public UserPicture(PictureFile: string): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: Office.MsoTriState;
+        readonly Application: any;
+        BackColor: ColorFormat;
+        Background(): void;
+        readonly Creator: number;
+        ForeColor: ColorFormat;
+        GradientAngle: number;
+        readonly GradientColorType: Office.MsoGradientColorType;
+        readonly GradientDegree: number;
+        readonly GradientStops: Office.GradientStops;
+        readonly GradientStyle: Office.MsoGradientStyle;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: Office.MsoPatternType;
+        Patterned(Pattern: Office.MsoPatternType): void;
+        readonly PictureEffects: Office.PictureEffects;
+        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        readonly PresetGradientType: Office.MsoPresetGradientType;
+        readonly PresetTexture: Office.MsoPresetTexture;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
+        RotateWithObject: Office.MsoTriState;
+        Solid(): void;
+        TextureAlignment: Office.MsoTextureAlignment;
+        TextureHorizontalScale: number;
+        readonly TextureName: string;
+        TextureOffsetX: number;
+        TextureOffsetY: number;
+        TextureTile: Office.MsoTriState;
+        readonly TextureType: Office.MsoTextureType;
+        TextureVerticalScale: number;
+        Transparency: number;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
+        readonly Type: Office.MsoFillType;
+        UserPicture(PictureFile: string): void;
+        UserTextured(TextureFile: string): void;
+        Visible: Office.MsoTriState;
     }
 
     class Filter {
         private 'Excel.Filter_typekey': Filter;
         private constructor();
-        public readonly _Operator: XlAutoFilterOperator;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public readonly Criteria1: any;
-        public readonly Criteria2: any;
-        public readonly On: boolean;
-        public Operator: XlAutoFilterOperator;
-        public readonly Parent: any;
+        readonly _Operator: XlAutoFilterOperator;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        readonly Criteria1: any;
+        readonly Criteria2: any;
+        readonly On: boolean;
+        Operator: XlAutoFilterOperator;
+        readonly Parent: any;
     }
 
     class Filters {
         private 'Excel.Filters_typekey': Filters;
         private constructor();
-        public _Default(Index: number): Filter;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): Filter;
-        public readonly Parent: any;
+        _Default(Index: number): Filter;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): Filter;
+        readonly Parent: any;
     }
 
     class Floor {
         private 'Excel.Floor_typekey': Floor;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public ClearFormats(): any;
-        public readonly Creator: XlCreator;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: Application;
+        readonly Border: Border;
+        ClearFormats(): any;
+        readonly Creator: XlCreator;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class Font {
         private 'Excel.Font_typekey': Font;
         private constructor();
-        public readonly Application: Application;
-        public Background: any;
-        public Bold: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: XlCreator;
-        public FontStyle: any;
-        public Italic: any;
-        public Name: any;
-        public OutlineFont: any;
-        public readonly Parent: any;
-        public Shadow: any;
-        public Size: any;
-        public Strikethrough: any;
-        public Subscript: any;
-        public Superscript: any;
-        public ThemeColor: any;
-        public ThemeFont: XlThemeFont;
-        public TintAndShade: any;
-        public Underline: any;
+        readonly Application: Application;
+        Background: any;
+        Bold: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: XlCreator;
+        FontStyle: any;
+        Italic: any;
+        Name: any;
+        OutlineFont: any;
+        readonly Parent: any;
+        Shadow: any;
+        Size: any;
+        Strikethrough: any;
+        Subscript: any;
+        Superscript: any;
+        ThemeColor: any;
+        ThemeFont: XlThemeFont;
+        TintAndShade: any;
+        Underline: any;
     }
 
     class FormatColor {
         private 'Excel.FormatColor_typekey': FormatColor;
         private constructor();
-        public readonly Application: Application;
-        public Color: any;
-        public ColorIndex: XlColorIndex;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public ThemeColor: any;
-        public TintAndShade: any;
+        readonly Application: Application;
+        Color: any;
+        ColorIndex: XlColorIndex;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        ThemeColor: any;
+        TintAndShade: any;
     }
 
     class FormatConditions {
         private 'Excel.FormatConditions_typekey': FormatConditions;
         private constructor();
-        public _Default(Index: any): any;
-        public Add(Type: XlFormatConditionType, Operator?: any, Formula1?: any, Formula2?: any, String?: any, TextOperator?: any, DateOperator?: any, ScopeType?: any): any;
-        public AddAboveAverage(): any;
-        public AddColorScale(ColorScaleType: number): any;
-        public AddDatabar(): any;
-        public AddIconSetCondition(): any;
-        public AddTop10(): any;
-        public AddUniqueValues(): any;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Item(Index: any): any;
-        public readonly Parent: any;
+        _Default(Index: any): any;
+        Add(Type: XlFormatConditionType, Operator?: any, Formula1?: any, Formula2?: any, String?: any, TextOperator?: any, DateOperator?: any, ScopeType?: any): any;
+        AddAboveAverage(): any;
+        AddColorScale(ColorScaleType: number): any;
+        AddDatabar(): any;
+        AddIconSetCondition(): any;
+        AddTop10(): any;
+        AddUniqueValues(): any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Item(Index: any): any;
+        readonly Parent: any;
     }
 
     class FreeformBuilder {
         private 'Excel.FreeformBuilder_typekey': FreeformBuilder;
         private constructor();
-        public AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: any, Y2?: any, X3?: any, Y3?: any): void;
-        public readonly Application: Application;
-        public ConvertToShape(): Shape;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
+        AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: any, Y2?: any, X3?: any, Y3?: any): void;
+        readonly Application: Application;
+        ConvertToShape(): Shape;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
     }
 
     class Global {
         private 'Excel.Global_typekey': Global;
         private constructor();
-        public _Evaluate(Name: any): any;
-        public _Run2(
+        _Evaluate(Name: any): any;
+        _Run2(
             Macro?: any, Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public readonly ActiveCell: Range;
-        public readonly ActiveChart: Chart;
-        public readonly ActiveDialog: DialogSheet;
-        public readonly ActiveMenuBar: MenuBar;
-        public ActivePrinter: string;
-        public readonly ActiveSheet: any;
-        public readonly ActiveWindow: Window;
-        public readonly ActiveWorkbook: Workbook;
-        public readonly AddIns: AddIns;
-        public readonly Application: Application;
-        public readonly Assistant: Office.Assistant;
-        public Calculate(): void;
-        public readonly Cells: Range;
-        public readonly Charts: Sheets;
-        public readonly Columns: Range;
-        public readonly CommandBars: Office.CommandBars;
-        public readonly Creator: XlCreator;
-        public readonly DDEAppReturnCode: number;
-        public DDEExecute(Channel: number, String: string): void;
-        public DDEInitiate(App: string, Topic: string): number;
-        public DDEPoke(Channel: number, Item: any, Data: any): void;
-        public DDERequest(Channel: number, Item: string): any;
-        public DDETerminate(Channel: number): void;
-        public readonly DialogSheets: Sheets;
-        public Evaluate(Name: any): any;
-        public readonly Excel4IntlMacroSheets: Sheets;
-        public readonly Excel4MacroSheets: Sheets;
-        public ExecuteExcel4Macro(String: string): any;
-        public Intersect(
+        readonly ActiveCell: Range;
+        readonly ActiveChart: Chart;
+        readonly ActiveDialog: DialogSheet;
+        readonly ActiveMenuBar: MenuBar;
+        ActivePrinter: string;
+        readonly ActiveSheet: any;
+        readonly ActiveWindow: Window;
+        readonly ActiveWorkbook: Workbook;
+        readonly AddIns: AddIns;
+        readonly Application: Application;
+        readonly Assistant: Office.Assistant;
+        Calculate(): void;
+        readonly Cells: Range;
+        readonly Charts: Sheets;
+        readonly Columns: Range;
+        readonly CommandBars: Office.CommandBars;
+        readonly Creator: XlCreator;
+        readonly DDEAppReturnCode: number;
+        DDEExecute(Channel: number, String: string): void;
+        DDEInitiate(App: string, Topic: string): number;
+        DDEPoke(Channel: number, Item: any, Data: any): void;
+        DDERequest(Channel: number, Item: string): any;
+        DDETerminate(Channel: number): void;
+        readonly DialogSheets: Sheets;
+        Evaluate(Name: any): any;
+        readonly Excel4IntlMacroSheets: Sheets;
+        readonly Excel4MacroSheets: Sheets;
+        ExecuteExcel4Macro(String: string): any;
+        Intersect(
             Arg1: Range, Arg2: Range, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): Range;
-        public readonly MenuBars: MenuBars;
-        public readonly Modules: Modules;
-        public readonly Names: Names;
-        public readonly Parent: Application;
-        public Range(Cell1: any, Cell2?: any): Range;
-        public readonly Rows: Range;
-        public Run(
+        readonly MenuBars: MenuBars;
+        readonly Modules: Modules;
+        readonly Names: Names;
+        readonly Parent: Application;
+        Range(Cell1: any, Cell2?: any): Range;
+        readonly Rows: Range;
+        Run(
             Macro?: any, Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public readonly Selection: any;
-        public SendKeys(Keys: any, Wait?: any): void;
-        public readonly Sheets: Sheets;
-        public ShortcutMenus(Index: number): Menu;
-        public readonly ThisWorkbook: Workbook;
-        public readonly Toolbars: Toolbars;
-        public Union(
+        readonly Selection: any;
+        SendKeys(Keys: any, Wait?: any): void;
+        readonly Sheets: Sheets;
+        ShortcutMenus(Index: number): Menu;
+        readonly ThisWorkbook: Workbook;
+        readonly Toolbars: Toolbars;
+        Union(
             Arg1: Range, Arg2: Range, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): Range;
-        public readonly Windows: Windows;
-        public readonly Workbooks: Workbooks;
-        public readonly WorksheetFunction: WorksheetFunction;
-        public readonly Worksheets: Sheets;
+        readonly Windows: Windows;
+        readonly Workbooks: Workbooks;
+        readonly WorksheetFunction: WorksheetFunction;
+        readonly Worksheets: Sheets;
     }
 
     class Graphic {
         private 'Excel.Graphic_typekey': Graphic;
         private constructor();
-        public readonly Application: Application;
-        public Brightness: number;
-        public ColorType: Office.MsoPictureColorType;
-        public Contrast: number;
-        public readonly Creator: XlCreator;
-        public CropBottom: number;
-        public CropLeft: number;
-        public CropRight: number;
-        public CropTop: number;
-        public Filename: string;
-        public Height: number;
-        public LockAspectRatio: Office.MsoTriState;
-        public readonly Parent: any;
-        public Width: number;
+        readonly Application: Application;
+        Brightness: number;
+        ColorType: Office.MsoPictureColorType;
+        Contrast: number;
+        readonly Creator: XlCreator;
+        CropBottom: number;
+        CropLeft: number;
+        CropRight: number;
+        CropTop: number;
+        Filename: string;
+        Height: number;
+        LockAspectRatio: Office.MsoTriState;
+        readonly Parent: any;
+        Width: number;
     }
 
     class GroupShapes {
         private 'Excel.GroupShapes_typekey': GroupShapes;
         private constructor();
-        public _Default(Index: any): Shape;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
+        _Default(Index: any): Shape;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
     }
 
     class HeaderFooter {
         private 'Excel.HeaderFooter_typekey': HeaderFooter;
         private constructor();
-        public readonly Picture: Graphic;
-        public Text: string;
+        readonly Picture: Graphic;
+        Text: string;
     }
 
     class HiLoLines {
         private 'Excel.HiLoLines_typekey': HiLoLines;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: Border;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class HPageBreak {
         private 'Excel.HPageBreak_typekey': HPageBreak;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public DragOff(Direction: XlDirection, RegionIndex: number): void;
-        public readonly Extent: XlPageBreakExtent;
-        public Location: Range;
-        public readonly Parent: Worksheet;
-        public Type: XlPageBreak;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        DragOff(Direction: XlDirection, RegionIndex: number): void;
+        readonly Extent: XlPageBreakExtent;
+        Location: Range;
+        readonly Parent: Worksheet;
+        Type: XlPageBreak;
     }
 
     class HPageBreaks {
         private 'Excel.HPageBreaks_typekey': HPageBreaks;
         private constructor();
-        public _Default(Index: number): HPageBreak;
-        public Add(Before: any): HPageBreak;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): HPageBreak;
-        public readonly Parent: any;
+        _Default(Index: number): HPageBreak;
+        Add(Before: any): HPageBreak;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): HPageBreak;
+        readonly Parent: any;
     }
 
     class Hyperlink {
         private 'Excel.Hyperlink_typekey': Hyperlink;
         private constructor();
-        public Address: string;
-        public AddToFavorites(): void;
-        public readonly Application: Application;
-        public CreateNewDocument(Filename: string, EditNow: boolean, Overwrite: boolean): void;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public EmailSubject: string;
-        public Follow(NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public ScreenTip: string;
-        public readonly Shape: Shape;
-        public SubAddress: string;
-        public TextToDisplay: string;
-        public readonly Type: number;
+        Address: string;
+        AddToFavorites(): void;
+        readonly Application: Application;
+        CreateNewDocument(Filename: string, EditNow: boolean, Overwrite: boolean): void;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        EmailSubject: string;
+        Follow(NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Range: Range;
+        ScreenTip: string;
+        readonly Shape: Shape;
+        SubAddress: string;
+        TextToDisplay: string;
+        readonly Type: number;
     }
 
     class Hyperlinks {
         private 'Excel.Hyperlinks_typekey': Hyperlinks;
         private constructor();
-        public _Default(Index: any): Hyperlink;
-        public Add(Anchor: any, Address: string, SubAddress?: any, ScreenTip?: any, TextToDisplay?: any): any;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Item(Index: any): Hyperlink;
-        public readonly Parent: any;
+        _Default(Index: any): Hyperlink;
+        Add(Anchor: any, Address: string, SubAddress?: any, ScreenTip?: any, TextToDisplay?: any): any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Item(Index: any): Hyperlink;
+        readonly Parent: any;
     }
 
     class Icon {
         private 'Excel.Icon_typekey': Icon;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Index: number;
-        public readonly Parent: IconSet;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Index: number;
+        readonly Parent: IconSet;
     }
 
     class IconSet {
         private 'Excel.IconSet_typekey': IconSet;
         private constructor();
-        public _Default(Index: any): Icon;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public readonly ID: XlIconSet;
-        public Item(Index: any): Icon;
-        public readonly Parent: any;
+        _Default(Index: any): Icon;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        readonly ID: XlIconSet;
+        Item(Index: any): Icon;
+        readonly Parent: any;
     }
 
     class IconSets {
         private 'Excel.IconSets_typekey': IconSets;
         private constructor();
-        public _Default(Index: any): any;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): any;
-        public readonly Parent: any;
+        _Default(Index: any): any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): any;
+        readonly Parent: any;
     }
 
     class Interior {
         private 'Excel.Interior_typekey': Interior;
         private constructor();
-        public readonly Application: Application;
-        public Color: any;
-        public ColorIndex: number | XlColorIndex;
-        public readonly Creator: XlCreator;
-        public readonly Gradient: any;
-        public InvertIfNegative: any;
-        public readonly Parent: any;
-        public Pattern: any;
-        public PatternColor: any;
-        public PatternColorIndex: any;
-        public PatternThemeColor: any;
-        public PatternTintAndShade: any;
-        public ThemeColor: any;
-        public TintAndShade: any;
+        readonly Application: Application;
+        Color: any;
+        ColorIndex: number | XlColorIndex;
+        readonly Creator: XlCreator;
+        readonly Gradient: any;
+        InvertIfNegative: any;
+        readonly Parent: any;
+        Pattern: any;
+        PatternColor: any;
+        PatternColorIndex: any;
+        PatternThemeColor: any;
+        PatternTintAndShade: any;
+        ThemeColor: any;
+        TintAndShade: any;
     }
 
     class Legend {
         private 'Excel.Legend_typekey': Legend;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: Border;
-        public Clear(): any;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: Font;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public IncludeInLayout: boolean;
-        public readonly Interior: Interior;
-        public Left: number;
-        public LegendEntries(Index?: any): any;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlLegendPosition;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: Border;
+        Clear(): any;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: Font;
+        readonly Format: ChartFormat;
+        Height: number;
+        IncludeInLayout: boolean;
+        readonly Interior: Interior;
+        Left: number;
+        LegendEntries(Index?: any): any;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlLegendPosition;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class LineFormat {
         private 'Excel.LineFormat_typekey': LineFormat;
         private constructor();
-        public readonly Application: any;
-        public BackColor: ColorFormat;
-        public BeginArrowheadLength: Office.MsoArrowheadLength;
-        public BeginArrowheadStyle: Office.MsoArrowheadStyle;
-        public BeginArrowheadWidth: Office.MsoArrowheadWidth;
-        public readonly Creator: number;
-        public DashStyle: Office.MsoLineDashStyle;
-        public EndArrowheadLength: Office.MsoArrowheadLength;
-        public EndArrowheadStyle: Office.MsoArrowheadStyle;
-        public EndArrowheadWidth: Office.MsoArrowheadWidth;
-        public ForeColor: ColorFormat;
-        public InsetPen: Office.MsoTriState;
-        public readonly Parent: any;
-        public Pattern: Office.MsoPatternType;
-        public Style: Office.MsoLineStyle;
-        public Transparency: number;
-        public Visible: Office.MsoTriState;
-        public Weight: number;
+        readonly Application: any;
+        BackColor: ColorFormat;
+        BeginArrowheadLength: Office.MsoArrowheadLength;
+        BeginArrowheadStyle: Office.MsoArrowheadStyle;
+        BeginArrowheadWidth: Office.MsoArrowheadWidth;
+        readonly Creator: number;
+        DashStyle: Office.MsoLineDashStyle;
+        EndArrowheadLength: Office.MsoArrowheadLength;
+        EndArrowheadStyle: Office.MsoArrowheadStyle;
+        EndArrowheadWidth: Office.MsoArrowheadWidth;
+        ForeColor: ColorFormat;
+        InsetPen: Office.MsoTriState;
+        readonly Parent: any;
+        Pattern: Office.MsoPatternType;
+        Style: Office.MsoLineStyle;
+        Transparency: number;
+        Visible: Office.MsoTriState;
+        Weight: number;
     }
 
     class LinkFormat {
         private 'Excel.LinkFormat_typekey': LinkFormat;
         private constructor();
-        public readonly Application: Application;
-        public AutoUpdate: boolean;
-        public readonly Creator: XlCreator;
-        public Locked: boolean;
-        public readonly Parent: any;
-        public Update(): void;
+        readonly Application: Application;
+        AutoUpdate: boolean;
+        readonly Creator: XlCreator;
+        Locked: boolean;
+        readonly Parent: any;
+        Update(): void;
     }
 
     class ListColumn {
         private 'Excel.ListColumn_typekey': ListColumn;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly DataBodyRange: Range;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly ListDataFormat: ListDataFormat;
-        public Name: string;
-        public readonly Parent: any;
-        public readonly Range: Range;
-        public readonly SharePointFormula: string;
-        public readonly Total: Range;
-        public TotalsCalculation: XlTotalsCalculation;
-        public readonly XPath: XPath;
+        readonly _Default: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly DataBodyRange: Range;
+        Delete(): void;
+        readonly Index: number;
+        readonly ListDataFormat: ListDataFormat;
+        Name: string;
+        readonly Parent: any;
+        readonly Range: Range;
+        readonly SharePointFormula: string;
+        readonly Total: Range;
+        TotalsCalculation: XlTotalsCalculation;
+        readonly XPath: XPath;
     }
 
     class ListColumns {
         private 'Excel.ListColumns_typekey': ListColumns;
         private constructor();
-        public _Default(Index: any): ListColumn;
-        public Add(Position?: any): ListColumn;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): ListColumn;
-        public readonly Parent: any;
+        _Default(Index: any): ListColumn;
+        Add(Position?: any): ListColumn;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): ListColumn;
+        readonly Parent: any;
     }
 
     class ListDataFormat {
         private 'Excel.ListDataFormat_typekey': ListDataFormat;
         private constructor();
-        public readonly _Default: XlListDataType;
-        public readonly AllowFillIn: boolean;
-        public readonly Application: Application;
-        public readonly Choices: any;
-        public readonly Creator: XlCreator;
-        public readonly DecimalPlaces: number;
-        public readonly DefaultValue: any;
-        public readonly IsPercent: boolean;
-        public readonly lcid: number;
-        public readonly MaxCharacters: number;
-        public readonly MaxNumber: any;
-        public readonly MinNumber: any;
-        public readonly Parent: any;
-        public readonly ReadOnly: boolean;
-        public readonly Required: boolean;
-        public readonly Type: XlListDataType;
+        readonly _Default: XlListDataType;
+        readonly AllowFillIn: boolean;
+        readonly Application: Application;
+        readonly Choices: any;
+        readonly Creator: XlCreator;
+        readonly DecimalPlaces: number;
+        readonly DefaultValue: any;
+        readonly IsPercent: boolean;
+        readonly lcid: number;
+        readonly MaxCharacters: number;
+        readonly MaxNumber: any;
+        readonly MinNumber: any;
+        readonly Parent: any;
+        readonly ReadOnly: boolean;
+        readonly Required: boolean;
+        readonly Type: XlListDataType;
     }
 
     class ListObject {
         private 'Excel.ListObject_typekey': ListObject;
         private constructor();
-        public readonly _Default: string;
-        public readonly Active: boolean;
-        public AlternativeText: string;
-        public readonly Application: Application;
-        public readonly AutoFilter: AutoFilter;
-        public Comment: string;
-        public readonly Creator: XlCreator;
-        public readonly DataBodyRange: Range;
-        public Delete(): void;
-        public DisplayName: string;
-        public readonly DisplayRightToLeft: boolean;
-        public ExportToVisio(): void;
-        public readonly HeaderRowRange: Range;
-        public readonly InsertRowRange: Range;
-        public readonly ListColumns: ListColumns;
-        public readonly ListRows: ListRows;
-        public Name: string;
-        public readonly Parent: any;
-        public Publish(Target: any, LinkSource: boolean): string;
-        public readonly QueryTable: QueryTable;
-        public readonly Range: Range;
-        public Refresh(): void;
-        public Resize(Range: Range): void;
-        public readonly SharePointURL: string;
-        public ShowAutoFilter: boolean;
-        public ShowHeaders: boolean;
-        public ShowTableStyleColumnStripes: boolean;
-        public ShowTableStyleFirstColumn: boolean;
-        public ShowTableStyleLastColumn: boolean;
-        public ShowTableStyleRowStripes: boolean;
-        public ShowTotals: boolean;
-        public readonly Sort: Sort;
-        public readonly SourceType: XlListObjectSourceType;
-        public Summary: string;
-        public TableStyle: any;
-        public readonly TotalsRowRange: Range;
-        public Unlink(): void;
-        public Unlist(): void;
+        readonly _Default: string;
+        readonly Active: boolean;
+        AlternativeText: string;
+        readonly Application: Application;
+        readonly AutoFilter: AutoFilter;
+        Comment: string;
+        readonly Creator: XlCreator;
+        readonly DataBodyRange: Range;
+        Delete(): void;
+        DisplayName: string;
+        readonly DisplayRightToLeft: boolean;
+        ExportToVisio(): void;
+        readonly HeaderRowRange: Range;
+        readonly InsertRowRange: Range;
+        readonly ListColumns: ListColumns;
+        readonly ListRows: ListRows;
+        Name: string;
+        readonly Parent: any;
+        Publish(Target: any, LinkSource: boolean): string;
+        readonly QueryTable: QueryTable;
+        readonly Range: Range;
+        Refresh(): void;
+        Resize(Range: Range): void;
+        readonly SharePointURL: string;
+        ShowAutoFilter: boolean;
+        ShowHeaders: boolean;
+        ShowTableStyleColumnStripes: boolean;
+        ShowTableStyleFirstColumn: boolean;
+        ShowTableStyleLastColumn: boolean;
+        ShowTableStyleRowStripes: boolean;
+        ShowTotals: boolean;
+        readonly Sort: Sort;
+        readonly SourceType: XlListObjectSourceType;
+        Summary: string;
+        TableStyle: any;
+        readonly TotalsRowRange: Range;
+        Unlink(): void;
+        Unlist(): void;
 
         /** @param Excel.XlListConflict [iConflictType=0] */
-        public UpdateChanges(iConflictType?: XlListConflict): void;
-        public readonly XmlMap: XmlMap;
+        UpdateChanges(iConflictType?: XlListConflict): void;
+        readonly XmlMap: XmlMap;
     }
 
     class ListObjects {
@@ -5081,1566 +5081,1566 @@ declare namespace Excel {
          * @param Excel.XlListObjectSourceType [SourceType=1]
          * @param Excel.XlYesNoGuess [XlListObjectHasHeaders=0]
          */
-        public _Add(SourceType?: XlListObjectSourceType, Source?: any, LinkSource?: any, XlListObjectHasHeaders?: XlYesNoGuess, Destination?: any): ListObject;
-        public _Default(Index: any): ListObject;
+        _Add(SourceType?: XlListObjectSourceType, Source?: any, LinkSource?: any, XlListObjectHasHeaders?: XlYesNoGuess, Destination?: any): ListObject;
+        _Default(Index: any): ListObject;
 
         /**
          * @param Excel.XlListObjectSourceType [SourceType=1]
          * @param Excel.XlYesNoGuess [XlListObjectHasHeaders=0]
          */
-        public Add(SourceType?: XlListObjectSourceType, Source?: any, LinkSource?: any, XlListObjectHasHeaders?: XlYesNoGuess, Destination?: any, TableStyleName?: any): ListObject;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): ListObject;
-        public readonly Parent: any;
+        Add(SourceType?: XlListObjectSourceType, Source?: any, LinkSource?: any, XlListObjectHasHeaders?: XlYesNoGuess, Destination?: any, TableStyleName?: any): ListObject;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): ListObject;
+        readonly Parent: any;
     }
 
     class ListRow {
         private 'Excel.ListRow_typekey': ListRow;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly InvalidData: boolean;
-        public readonly Parent: any;
-        public readonly Range: Range;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Index: number;
+        readonly InvalidData: boolean;
+        readonly Parent: any;
+        readonly Range: Range;
     }
 
     class ListRows {
         private 'Excel.ListRows_typekey': ListRows;
         private constructor();
-        public _Add(Position?: any): ListRow;
-        public _Default(Index: any): ListRow;
-        public Add(Position?: any, AlwaysInsert?: any): ListRow;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): ListRow;
-        public readonly Parent: any;
+        _Add(Position?: any): ListRow;
+        _Default(Index: any): ListRow;
+        Add(Position?: any, AlwaysInsert?: any): ListRow;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): ListRow;
+        readonly Parent: any;
     }
 
     class Mailer {
         private 'Excel.Mailer_typekey': Mailer;
         private constructor();
-        public readonly Application: Application;
-        public BCCRecipients: any;
-        public CCRecipients: any;
-        public readonly Creator: XlCreator;
-        public Enclosures: any;
-        public readonly Parent: any;
-        public readonly Received: boolean;
-        public readonly SendDateTime: VarDate;
-        public readonly Sender: string;
-        public Subject: string;
-        public ToRecipients: any;
-        public WhichAddress: any;
+        readonly Application: Application;
+        BCCRecipients: any;
+        CCRecipients: any;
+        readonly Creator: XlCreator;
+        Enclosures: any;
+        readonly Parent: any;
+        readonly Received: boolean;
+        readonly SendDateTime: VarDate;
+        readonly Sender: string;
+        Subject: string;
+        ToRecipients: any;
+        WhichAddress: any;
     }
 
     class Menu {
         private 'Excel.Menu_typekey': Menu;
         private constructor();
-        public readonly Application: Application;
-        public Caption: string;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Enabled: boolean;
-        public readonly Index: number;
-        public readonly MenuItems: MenuItems;
-        public readonly Parent: any;
+        readonly Application: Application;
+        Caption: string;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Enabled: boolean;
+        readonly Index: number;
+        readonly MenuItems: MenuItems;
+        readonly Parent: any;
     }
 
     class MenuBar {
         private 'Excel.MenuBar_typekey': MenuBar;
         private constructor();
-        public Activate(): void;
-        public readonly Application: Application;
-        public readonly BuiltIn: boolean;
-        public Caption: string;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Menus: Menus;
-        public readonly Parent: any;
-        public Reset(): void;
+        Activate(): void;
+        readonly Application: Application;
+        readonly BuiltIn: boolean;
+        Caption: string;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Index: number;
+        readonly Menus: Menus;
+        readonly Parent: any;
+        Reset(): void;
     }
 
     class MenuBars {
         private 'Excel.MenuBars_typekey': MenuBars;
         private constructor();
-        public _Default(Index: any): MenuBar;
-        public Add(Name?: any): MenuBar;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): MenuBar;
-        public readonly Parent: any;
+        _Default(Index: any): MenuBar;
+        Add(Name?: any): MenuBar;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): MenuBar;
+        readonly Parent: any;
     }
 
     class MenuItem {
         private 'Excel.MenuItem_typekey': MenuItem;
         private constructor();
-        public readonly Application: Application;
-        public Caption: string;
-        public Checked: boolean;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Enabled: boolean;
-        public HelpContextID: number;
-        public HelpFile: string;
-        public readonly Index: number;
-        public OnAction: string;
-        public readonly Parent: any;
-        public StatusBar: string;
+        readonly Application: Application;
+        Caption: string;
+        Checked: boolean;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Enabled: boolean;
+        HelpContextID: number;
+        HelpFile: string;
+        readonly Index: number;
+        OnAction: string;
+        readonly Parent: any;
+        StatusBar: string;
     }
 
     class MenuItems {
         private 'Excel.MenuItems_typekey': MenuItems;
         private constructor();
-        public _Default(Index: any): any;
-        public Add(Caption: string, OnAction?: any, ShortcutKey?: any, Before?: any, Restore?: any, StatusBar?: any, HelpFile?: any, HelpContextID?: any): MenuItem;
-        public AddMenu(Caption: string, Before?: any, Restore?: any): Menu;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): any;
-        public readonly Parent: any;
+        _Default(Index: any): any;
+        Add(Caption: string, OnAction?: any, ShortcutKey?: any, Before?: any, Restore?: any, StatusBar?: any, HelpFile?: any, HelpContextID?: any): MenuItem;
+        AddMenu(Caption: string, Before?: any, Restore?: any): Menu;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): any;
+        readonly Parent: any;
     }
 
     class Menus {
         private 'Excel.Menus_typekey': Menus;
         private constructor();
-        public _Default(Index: any): Menu;
-        public Add(Caption: string, Before?: any, Restore?: any): Menu;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Menu;
-        public readonly Parent: any;
+        _Default(Index: any): Menu;
+        Add(Caption: string, Before?: any, Restore?: any): Menu;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Menu;
+        readonly Parent: any;
     }
 
     class Module {
         private 'Excel.Module_typekey': Module;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public _CodeName: string;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
-        public _SaveAs(
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        _CodeName: string;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
+        _SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any): void;
-        public Activate(): void;
-        public readonly Application: Application;
-        public readonly CodeName: string;
-        public Copy(Before?: any, After?: any): void;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Index: number;
-        public InsertFile(Filename: any, Merge?: any): any;
-        public Move(Before?: any, After?: any): void;
-        public Name: string;
-        public readonly Next: any;
-        public OnDoubleClick: string;
-        public OnSheetActivate: string;
-        public OnSheetDeactivate: string;
-        public readonly PageSetup: PageSetup;
-        public readonly Parent: any;
-        public readonly Previous: any;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
-        public readonly ProtectContents: boolean;
-        public readonly ProtectionMode: boolean;
-        public SaveAs(
+        Activate(): void;
+        readonly Application: Application;
+        readonly CodeName: string;
+        Copy(Before?: any, After?: any): void;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Index: number;
+        InsertFile(Filename: any, Merge?: any): any;
+        Move(Before?: any, After?: any): void;
+        Name: string;
+        readonly Next: any;
+        OnDoubleClick: string;
+        OnSheetActivate: string;
+        OnSheetDeactivate: string;
+        readonly PageSetup: PageSetup;
+        readonly Parent: any;
+        readonly Previous: any;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
+        readonly ProtectContents: boolean;
+        readonly ProtectionMode: boolean;
+        SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any): void;
-        public Select(Replace?: any): void;
-        public readonly Shapes: Shapes;
-        public Unprotect(Password?: any): void;
-        public Visible: XlSheetVisibility;
+        Select(Replace?: any): void;
+        readonly Shapes: Shapes;
+        Unprotect(Password?: any): void;
+        Visible: XlSheetVisibility;
     }
 
     class Modules {
         private 'Excel.Modules_typekey': Modules;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public _Default(Index: any): any;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public Add(Before?: any, After?: any, Count?: any): Module;
-        public readonly Application: Application;
-        public Copy(Before?: any, After?: any): void;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly HPageBreaks: HPageBreaks;
-        public Item(Index: any): any;
-        public Move(Before?: any, After?: any): void;
-        public readonly Parent: any;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
-        public Select(Replace?: any): void;
-        public Visible: any;
-        public readonly VPageBreaks: VPageBreaks;
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        _Default(Index: any): any;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        Add(Before?: any, After?: any, Count?: any): Module;
+        readonly Application: Application;
+        Copy(Before?: any, After?: any): void;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly HPageBreaks: HPageBreaks;
+        Item(Index: any): any;
+        Move(Before?: any, After?: any): void;
+        readonly Parent: any;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
+        Select(Replace?: any): void;
+        Visible: any;
+        readonly VPageBreaks: VPageBreaks;
     }
 
     class MultiThreadedCalculation {
         private 'Excel.MultiThreadedCalculation_typekey': MultiThreadedCalculation;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Enabled: boolean;
-        public readonly Parent: any;
-        public ThreadCount: number;
-        public ThreadMode: XlThreadMode;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Enabled: boolean;
+        readonly Parent: any;
+        ThreadCount: number;
+        ThreadMode: XlThreadMode;
     }
 
     class Name {
         private 'Excel.Name_typekey': Name;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public Category: string;
-        public CategoryLocal: string;
-        public Comment: string;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Index: number;
-        public MacroType: XlXLMMacroType;
-        public Name: string;
-        public NameLocal: string;
-        public readonly Parent: any;
-        public RefersTo: any;
-        public RefersToLocal: any;
-        public RefersToR1C1: any;
-        public RefersToR1C1Local: any;
-        public readonly RefersToRange: Range;
-        public ShortcutKey: string;
-        public readonly ValidWorkbookParameter: boolean;
-        public Value: string;
-        public Visible: boolean;
-        public WorkbookParameter: boolean;
+        readonly _Default: string;
+        readonly Application: Application;
+        Category: string;
+        CategoryLocal: string;
+        Comment: string;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Index: number;
+        MacroType: XlXLMMacroType;
+        Name: string;
+        NameLocal: string;
+        readonly Parent: any;
+        RefersTo: any;
+        RefersToLocal: any;
+        RefersToR1C1: any;
+        RefersToR1C1Local: any;
+        readonly RefersToRange: Range;
+        ShortcutKey: string;
+        readonly ValidWorkbookParameter: boolean;
+        Value: string;
+        Visible: boolean;
+        WorkbookParameter: boolean;
     }
 
     class Names {
         private 'Excel.Names_typekey': Names;
         private constructor();
-        public _Default(Index?: any, IndexLocal?: any, RefersTo?: any): Name;
-        public Add(
+        _Default(Index?: any, IndexLocal?: any, RefersTo?: any): Name;
+        Add(
             Name?: any, RefersTo?: any, Visible?: any, MacroType?: any, ShortcutKey?: any, Category?: any, NameLocal?: any, RefersToLocal?: any, CategoryLocal?: any,
             RefersToR1C1?: any, RefersToR1C1Local?: any): Name;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index?: any, IndexLocal?: any, RefersTo?: any): Name;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index?: any, IndexLocal?: any, RefersTo?: any): Name;
+        readonly Parent: any;
     }
 
     class ODBCConnection {
         private 'Excel.ODBCConnection_typekey': ODBCConnection;
         private constructor();
-        public AlwaysUseConnectionFile: boolean;
-        public readonly Application: Application;
-        public BackgroundQuery: boolean;
-        public CancelRefresh(): void;
-        public CommandText: any;
-        public CommandType: XlCmdType;
-        public Connection: any;
-        public readonly Creator: XlCreator;
-        public EnableRefresh: boolean;
-        public readonly Parent: any;
-        public Refresh(): void;
-        public readonly RefreshDate: VarDate;
-        public readonly Refreshing: boolean;
-        public RefreshOnFileOpen: boolean;
-        public RefreshPeriod: number;
-        public RobustConnect: XlRobustConnect;
-        public SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
-        public SavePassword: boolean;
-        public ServerCredentialsMethod: XlCredentialsMethod;
-        public ServerSSOApplicationID: string;
-        public SourceConnectionFile: string;
-        public SourceData: any;
-        public SourceDataFile: string;
+        AlwaysUseConnectionFile: boolean;
+        readonly Application: Application;
+        BackgroundQuery: boolean;
+        CancelRefresh(): void;
+        CommandText: any;
+        CommandType: XlCmdType;
+        Connection: any;
+        readonly Creator: XlCreator;
+        EnableRefresh: boolean;
+        readonly Parent: any;
+        Refresh(): void;
+        readonly RefreshDate: VarDate;
+        readonly Refreshing: boolean;
+        RefreshOnFileOpen: boolean;
+        RefreshPeriod: number;
+        RobustConnect: XlRobustConnect;
+        SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
+        SavePassword: boolean;
+        ServerCredentialsMethod: XlCredentialsMethod;
+        ServerSSOApplicationID: string;
+        SourceConnectionFile: string;
+        SourceData: any;
+        SourceDataFile: string;
     }
 
     class ODBCError {
         private 'Excel.ODBCError_typekey': ODBCError;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly ErrorString: string;
-        public readonly Parent: any;
-        public readonly SqlState: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly ErrorString: string;
+        readonly Parent: any;
+        readonly SqlState: string;
     }
 
     class ODBCErrors {
         private 'Excel.ODBCErrors_typekey': ODBCErrors;
         private constructor();
-        public _Default(Index: number): ODBCError;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): ODBCError;
-        public readonly Parent: any;
+        _Default(Index: number): ODBCError;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): ODBCError;
+        readonly Parent: any;
     }
 
     class OLEDBConnection {
         private 'Excel.OLEDBConnection_typekey': OLEDBConnection;
         private constructor();
-        public readonly ADOConnection: any;
-        public AlwaysUseConnectionFile: boolean;
-        public readonly Application: Application;
-        public BackgroundQuery: boolean;
-        public readonly CalculatedMembers: CalculatedMembers;
-        public CancelRefresh(): void;
-        public CommandText: any;
-        public CommandType: XlCmdType;
-        public Connection: any;
-        public readonly Creator: XlCreator;
-        public EnableRefresh: boolean;
-        public readonly IsConnected: boolean;
-        public LocalConnection: any;
-        public LocaleID: number;
-        public MaintainConnection: boolean;
-        public MakeConnection(): void;
-        public MaxDrillthroughRecords: number;
-        public readonly OLAP: boolean;
-        public readonly Parent: any;
-        public Reconnect(): void;
-        public Refresh(): void;
-        public readonly RefreshDate: VarDate;
-        public readonly Refreshing: boolean;
-        public RefreshOnFileOpen: boolean;
-        public RefreshPeriod: number;
-        public RetrieveInOfficeUILang: boolean;
-        public RobustConnect: XlRobustConnect;
-        public SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
-        public SavePassword: boolean;
-        public ServerCredentialsMethod: XlCredentialsMethod;
-        public ServerFillColor: boolean;
-        public ServerFontStyle: boolean;
-        public ServerNumberFormat: boolean;
-        public ServerSSOApplicationID: string;
-        public ServerTextColor: boolean;
-        public SourceConnectionFile: string;
-        public SourceDataFile: string;
-        public UseLocalConnection: boolean;
+        readonly ADOConnection: any;
+        AlwaysUseConnectionFile: boolean;
+        readonly Application: Application;
+        BackgroundQuery: boolean;
+        readonly CalculatedMembers: CalculatedMembers;
+        CancelRefresh(): void;
+        CommandText: any;
+        CommandType: XlCmdType;
+        Connection: any;
+        readonly Creator: XlCreator;
+        EnableRefresh: boolean;
+        readonly IsConnected: boolean;
+        LocalConnection: any;
+        LocaleID: number;
+        MaintainConnection: boolean;
+        MakeConnection(): void;
+        MaxDrillthroughRecords: number;
+        readonly OLAP: boolean;
+        readonly Parent: any;
+        Reconnect(): void;
+        Refresh(): void;
+        readonly RefreshDate: VarDate;
+        readonly Refreshing: boolean;
+        RefreshOnFileOpen: boolean;
+        RefreshPeriod: number;
+        RetrieveInOfficeUILang: boolean;
+        RobustConnect: XlRobustConnect;
+        SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
+        SavePassword: boolean;
+        ServerCredentialsMethod: XlCredentialsMethod;
+        ServerFillColor: boolean;
+        ServerFontStyle: boolean;
+        ServerNumberFormat: boolean;
+        ServerSSOApplicationID: string;
+        ServerTextColor: boolean;
+        SourceConnectionFile: string;
+        SourceDataFile: string;
+        UseLocalConnection: boolean;
     }
 
     class OLEDBError {
         private 'Excel.OLEDBError_typekey': OLEDBError;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly ErrorString: string;
-        public readonly Native: number;
-        public readonly Number: number;
-        public readonly Parent: any;
-        public readonly SqlState: string;
-        public readonly Stage: number;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly ErrorString: string;
+        readonly Native: number;
+        readonly Number: number;
+        readonly Parent: any;
+        readonly SqlState: string;
+        readonly Stage: number;
     }
 
     class OLEDBErrors {
         private 'Excel.OLEDBErrors_typekey': OLEDBErrors;
         private constructor();
-        public _Default(Index: number): OLEDBError;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): OLEDBError;
-        public readonly Parent: any;
+        _Default(Index: number): OLEDBError;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): OLEDBError;
+        readonly Parent: any;
     }
 
     class OLEFormat {
         private 'Excel.OLEFormat_typekey': OLEFormat;
         private constructor();
-        public Activate(): void;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Object: any;
-        public readonly Parent: any;
-        public readonly progID: string;
-        public Verb(Verb?: any): void;
+        Activate(): void;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Object: any;
+        readonly Parent: any;
+        readonly progID: string;
+        Verb(Verb?: any): void;
     }
 
     class OLEObject {
         private 'Excel.OLEObject_typekey': OLEObject;
         private constructor();
-        public Activate(): any;
-        public AltHTML: string;
-        public readonly Application: Application;
-        public AutoLoad: boolean;
-        public AutoUpdate: boolean;
-        public readonly Border: Border;
-        public readonly BottomRightCell: Range;
-        public BringToFront(): any;
-        public Copy(): any;
+        Activate(): any;
+        AltHTML: string;
+        readonly Application: Application;
+        AutoLoad: boolean;
+        AutoUpdate: boolean;
+        readonly Border: Border;
+        readonly BottomRightCell: Range;
+        BringToFront(): any;
+        Copy(): any;
 
         /**
          * @param Excel.XlPictureAppearance [Appearance=2]
          * @param Excel.XlCopyPictureFormat [Format=-4147]
          */
-        public CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat): any;
-        public readonly Creator: XlCreator;
-        public Cut(): any;
-        public Delete(): any;
-        public Duplicate(): any;
-        public Enabled: boolean;
-        public Height: number;
-        public readonly Index: number;
-        public readonly Interior: Interior;
-        public Left: number;
-        public LinkedCell: string;
-        public ListFillRange: string;
-        public Locked: boolean;
-        public Name: string;
-        public readonly Object: any;
-        public readonly OLEType: any;
-        public OnAction: string;
-        public readonly Parent: any;
-        public Placement: any;
-        public PrintObject: boolean;
-        public readonly progID: string;
-        public Select(Replace?: any): any;
-        public SendToBack(): any;
-        public Shadow: boolean;
-        public readonly ShapeRange: ShapeRange;
-        public SourceName: string;
-        public Top: number;
-        public readonly TopLeftCell: Range;
-        public Update(): any;
+        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat): any;
+        readonly Creator: XlCreator;
+        Cut(): any;
+        Delete(): any;
+        Duplicate(): any;
+        Enabled: boolean;
+        Height: number;
+        readonly Index: number;
+        readonly Interior: Interior;
+        Left: number;
+        LinkedCell: string;
+        ListFillRange: string;
+        Locked: boolean;
+        Name: string;
+        readonly Object: any;
+        readonly OLEType: any;
+        OnAction: string;
+        readonly Parent: any;
+        Placement: any;
+        PrintObject: boolean;
+        readonly progID: string;
+        Select(Replace?: any): any;
+        SendToBack(): any;
+        Shadow: boolean;
+        readonly ShapeRange: ShapeRange;
+        SourceName: string;
+        Top: number;
+        readonly TopLeftCell: Range;
+        Update(): any;
 
         /** @param Excel.XlOLEVerb [Verb=1] */
-        public Verb(Verb?: XlOLEVerb): any;
-        public Visible: boolean;
-        public Width: number;
-        public readonly ZOrder: number;
+        Verb(Verb?: XlOLEVerb): any;
+        Visible: boolean;
+        Width: number;
+        readonly ZOrder: number;
     }
 
     class Outline {
         private 'Excel.Outline_typekey': Outline;
         private constructor();
-        public readonly Application: Application;
-        public AutomaticStyles: boolean;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public ShowLevels(RowLevels?: any, ColumnLevels?: any): any;
-        public SummaryColumn: XlSummaryColumn;
-        public SummaryRow: XlSummaryRow;
+        readonly Application: Application;
+        AutomaticStyles: boolean;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        ShowLevels(RowLevels?: any, ColumnLevels?: any): any;
+        SummaryColumn: XlSummaryColumn;
+        SummaryRow: XlSummaryRow;
     }
 
     class Page {
         private 'Excel.Page_typekey': Page;
         private constructor();
-        public readonly CenterFooter: HeaderFooter;
-        public readonly CenterHeader: HeaderFooter;
-        public readonly LeftFooter: HeaderFooter;
-        public readonly LeftHeader: HeaderFooter;
-        public readonly RightFooter: HeaderFooter;
-        public readonly RightHeader: HeaderFooter;
+        readonly CenterFooter: HeaderFooter;
+        readonly CenterHeader: HeaderFooter;
+        readonly LeftFooter: HeaderFooter;
+        readonly LeftHeader: HeaderFooter;
+        readonly RightFooter: HeaderFooter;
+        readonly RightHeader: HeaderFooter;
     }
 
     class Pages {
         private 'Excel.Pages_typekey': Pages;
         private constructor();
-        public _Default(Index: any): Page;
-        public readonly Count: number;
-        public Item(Index: any): Page;
+        _Default(Index: any): Page;
+        readonly Count: number;
+        Item(Index: any): Page;
     }
 
     class PageSetup {
         private 'Excel.PageSetup_typekey': PageSetup;
         private constructor();
-        public AlignMarginsHeaderFooter: boolean;
-        public readonly Application: Application;
-        public BlackAndWhite: boolean;
-        public BottomMargin: number;
-        public CenterFooter: string;
-        public readonly CenterFooterPicture: Graphic;
-        public CenterHeader: string;
-        public readonly CenterHeaderPicture: Graphic;
-        public CenterHorizontally: boolean;
-        public CenterVertically: boolean;
-        public ChartSize: XlObjectSize;
-        public readonly Creator: XlCreator;
-        public DifferentFirstPageHeaderFooter: boolean;
-        public Draft: boolean;
-        public readonly EvenPage: Page;
-        public readonly FirstPage: Page;
-        public FirstPageNumber: number;
-        public FitToPagesTall: any;
-        public FitToPagesWide: any;
-        public FooterMargin: number;
-        public HeaderMargin: number;
-        public LeftFooter: string;
-        public readonly LeftFooterPicture: Graphic;
-        public LeftHeader: string;
-        public readonly LeftHeaderPicture: Graphic;
-        public LeftMargin: number;
-        public OddAndEvenPagesHeaderFooter: boolean;
-        public Order: XlOrder;
-        public Orientation: XlPageOrientation;
-        public readonly Pages: Pages;
-        public PaperSize: XlPaperSize;
-        public readonly Parent: any;
-        public PrintArea: string;
-        public PrintComments: XlPrintLocation;
-        public PrintErrors: XlPrintErrors;
-        public PrintGridlines: boolean;
-        public PrintHeadings: boolean;
-        public PrintNotes: boolean;
-        public PrintQuality(Index?: any): any;
-        public PrintTitleColumns: string;
-        public PrintTitleRows: string;
-        public RightFooter: string;
-        public readonly RightFooterPicture: Graphic;
-        public RightHeader: string;
-        public readonly RightHeaderPicture: Graphic;
-        public RightMargin: number;
-        public ScaleWithDocHeaderFooter: boolean;
-        public TopMargin: number;
-        public Zoom: any;
+        AlignMarginsHeaderFooter: boolean;
+        readonly Application: Application;
+        BlackAndWhite: boolean;
+        BottomMargin: number;
+        CenterFooter: string;
+        readonly CenterFooterPicture: Graphic;
+        CenterHeader: string;
+        readonly CenterHeaderPicture: Graphic;
+        CenterHorizontally: boolean;
+        CenterVertically: boolean;
+        ChartSize: XlObjectSize;
+        readonly Creator: XlCreator;
+        DifferentFirstPageHeaderFooter: boolean;
+        Draft: boolean;
+        readonly EvenPage: Page;
+        readonly FirstPage: Page;
+        FirstPageNumber: number;
+        FitToPagesTall: any;
+        FitToPagesWide: any;
+        FooterMargin: number;
+        HeaderMargin: number;
+        LeftFooter: string;
+        readonly LeftFooterPicture: Graphic;
+        LeftHeader: string;
+        readonly LeftHeaderPicture: Graphic;
+        LeftMargin: number;
+        OddAndEvenPagesHeaderFooter: boolean;
+        Order: XlOrder;
+        Orientation: XlPageOrientation;
+        readonly Pages: Pages;
+        PaperSize: XlPaperSize;
+        readonly Parent: any;
+        PrintArea: string;
+        PrintComments: XlPrintLocation;
+        PrintErrors: XlPrintErrors;
+        PrintGridlines: boolean;
+        PrintHeadings: boolean;
+        PrintNotes: boolean;
+        PrintQuality(Index?: any): any;
+        PrintTitleColumns: string;
+        PrintTitleRows: string;
+        RightFooter: string;
+        readonly RightFooterPicture: Graphic;
+        RightHeader: string;
+        readonly RightHeaderPicture: Graphic;
+        RightMargin: number;
+        ScaleWithDocHeaderFooter: boolean;
+        TopMargin: number;
+        Zoom: any;
     }
 
     class Pane {
         private 'Excel.Pane_typekey': Pane;
         private constructor();
-        public Activate(): boolean;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Index: number;
-        public LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
-        public readonly Parent: any;
-        public PointsToScreenPixelsX(Points: number): number;
-        public PointsToScreenPixelsY(Points: number): number;
-        public ScrollColumn: number;
-        public ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: any): void;
-        public ScrollRow: number;
-        public SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
-        public readonly VisibleRange: Range;
+        Activate(): boolean;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Index: number;
+        LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
+        readonly Parent: any;
+        PointsToScreenPixelsX(Points: number): number;
+        PointsToScreenPixelsY(Points: number): number;
+        ScrollColumn: number;
+        ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: any): void;
+        ScrollRow: number;
+        SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
+        readonly VisibleRange: Range;
     }
 
     class Panes {
         private 'Excel.Panes_typekey': Panes;
         private constructor();
-        public _Default(Index: number): Pane;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): Pane;
-        public readonly Parent: any;
+        _Default(Index: number): Pane;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): Pane;
+        readonly Parent: any;
     }
 
     class Parameter {
         private 'Excel.Parameter_typekey': Parameter;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public DataType: XlParameterDataType;
-        public Name: string;
-        public readonly Parent: any;
-        public readonly PromptString: string;
-        public RefreshOnChange: boolean;
-        public SetParam(Type: XlParameterType, Value: any): void;
-        public readonly SourceRange: Range;
-        public readonly Type: XlParameterType;
-        public readonly Value: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        DataType: XlParameterDataType;
+        Name: string;
+        readonly Parent: any;
+        readonly PromptString: string;
+        RefreshOnChange: boolean;
+        SetParam(Type: XlParameterType, Value: any): void;
+        readonly SourceRange: Range;
+        readonly Type: XlParameterType;
+        readonly Value: any;
     }
 
     class Parameters {
         private 'Excel.Parameters_typekey': Parameters;
         private constructor();
-        public _Default(Index: any): Parameter;
-        public Add(Name: string, iDataType?: any): Parameter;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Item(Index: any): Parameter;
-        public readonly Parent: any;
+        _Default(Index: any): Parameter;
+        Add(Name: string, iDataType?: any): Parameter;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Item(Index: any): Parameter;
+        readonly Parent: any;
     }
 
     class Phonetic {
         private 'Excel.Phonetic_typekey': Phonetic;
         private constructor();
-        public Alignment: number;
-        public readonly Application: Application;
-        public CharacterType: number;
-        public readonly Creator: XlCreator;
-        public readonly Font: Font;
-        public readonly Parent: any;
-        public Text: string;
-        public Visible: boolean;
+        Alignment: number;
+        readonly Application: Application;
+        CharacterType: number;
+        readonly Creator: XlCreator;
+        readonly Font: Font;
+        readonly Parent: any;
+        Text: string;
+        Visible: boolean;
     }
 
     class Phonetics {
         private 'Excel.Phonetics_typekey': Phonetics;
         private constructor();
-        public _Default(Index: number): any;
-        public Add(Start: number, Length: number, Text: string): void;
-        public Alignment: number;
-        public readonly Application: Application;
-        public CharacterType: number;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Font: Font;
-        public Item(Index: number): any;
-        public readonly Length: number;
-        public readonly Parent: any;
-        public readonly Start: number;
-        public Text: string;
-        public Visible: boolean;
+        _Default(Index: number): any;
+        Add(Start: number, Length: number, Text: string): void;
+        Alignment: number;
+        readonly Application: Application;
+        CharacterType: number;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Font: Font;
+        Item(Index: number): any;
+        readonly Length: number;
+        readonly Parent: any;
+        readonly Start: number;
+        Text: string;
+        Visible: boolean;
     }
 
     class PictureFormat {
         private 'Excel.PictureFormat_typekey': PictureFormat;
         private constructor();
-        public readonly Application: any;
-        public Brightness: number;
-        public ColorType: Office.MsoPictureColorType;
-        public Contrast: number;
-        public readonly Creator: number;
-        public readonly Crop: Office.Crop;
-        public CropBottom: number;
-        public CropLeft: number;
-        public CropRight: number;
-        public CropTop: number;
-        public IncrementBrightness(Increment: number): void;
-        public IncrementContrast(Increment: number): void;
-        public readonly Parent: any;
-        public TransparencyColor: Office.MsoRGBType;
-        public TransparentBackground: Office.MsoTriState;
+        readonly Application: any;
+        Brightness: number;
+        ColorType: Office.MsoPictureColorType;
+        Contrast: number;
+        readonly Creator: number;
+        readonly Crop: Office.Crop;
+        CropBottom: number;
+        CropLeft: number;
+        CropRight: number;
+        CropTop: number;
+        IncrementBrightness(Increment: number): void;
+        IncrementContrast(Increment: number): void;
+        readonly Parent: any;
+        TransparencyColor: Office.MsoRGBType;
+        TransparentBackground: Office.MsoTriState;
     }
 
     class PivotAxis {
         private 'Excel.PivotAxis_typekey': PivotAxis;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public readonly PivotLines: PivotLines;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        readonly PivotLines: PivotLines;
     }
 
     class PivotCache {
         private 'Excel.PivotCache_typekey': PivotCache;
         private constructor();
-        public readonly ADOConnection: any;
-        public readonly Application: Application;
-        public BackgroundQuery: boolean;
-        public CommandText: any;
-        public CommandType: XlCmdType;
-        public Connection: any;
-        public CreatePivotTable(TableDestination: any, TableName?: any, ReadData?: any, DefaultVersion?: any): PivotTable;
-        public readonly Creator: XlCreator;
-        public EnableRefresh: boolean;
-        public readonly Index: number;
-        public readonly IsConnected: boolean;
-        public LocalConnection: any;
-        public MaintainConnection: boolean;
-        public MakeConnection(): void;
-        public readonly MemoryUsed: number;
-        public MissingItemsLimit: XlPivotTableMissingItems;
-        public readonly OLAP: boolean;
-        public OptimizeCache: boolean;
-        public readonly Parent: any;
-        public readonly QueryType: XlQueryType;
-        public readonly RecordCount: number;
-        public Recordset: any;
-        public Refresh(): void;
-        public readonly RefreshDate: VarDate;
-        public readonly RefreshName: string;
-        public RefreshOnFileOpen: boolean;
-        public RefreshPeriod: number;
-        public ResetTimer(): void;
-        public RobustConnect: XlRobustConnect;
-        public SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
-        public SavePassword: boolean;
-        public SourceConnectionFile: string;
-        public SourceData: any;
-        public readonly SourceDataFile: string;
-        public readonly SourceType: XlPivotTableSourceType;
-        public Sql: any;
-        public UpgradeOnRefresh: boolean;
-        public UseLocalConnection: boolean;
-        public readonly Version: XlPivotTableVersionList;
-        public readonly WorkbookConnection: WorkbookConnection;
+        readonly ADOConnection: any;
+        readonly Application: Application;
+        BackgroundQuery: boolean;
+        CommandText: any;
+        CommandType: XlCmdType;
+        Connection: any;
+        CreatePivotTable(TableDestination: any, TableName?: any, ReadData?: any, DefaultVersion?: any): PivotTable;
+        readonly Creator: XlCreator;
+        EnableRefresh: boolean;
+        readonly Index: number;
+        readonly IsConnected: boolean;
+        LocalConnection: any;
+        MaintainConnection: boolean;
+        MakeConnection(): void;
+        readonly MemoryUsed: number;
+        MissingItemsLimit: XlPivotTableMissingItems;
+        readonly OLAP: boolean;
+        OptimizeCache: boolean;
+        readonly Parent: any;
+        readonly QueryType: XlQueryType;
+        readonly RecordCount: number;
+        Recordset: any;
+        Refresh(): void;
+        readonly RefreshDate: VarDate;
+        readonly RefreshName: string;
+        RefreshOnFileOpen: boolean;
+        RefreshPeriod: number;
+        ResetTimer(): void;
+        RobustConnect: XlRobustConnect;
+        SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
+        SavePassword: boolean;
+        SourceConnectionFile: string;
+        SourceData: any;
+        readonly SourceDataFile: string;
+        readonly SourceType: XlPivotTableSourceType;
+        Sql: any;
+        UpgradeOnRefresh: boolean;
+        UseLocalConnection: boolean;
+        readonly Version: XlPivotTableVersionList;
+        readonly WorkbookConnection: WorkbookConnection;
     }
 
     class PivotCaches {
         private 'Excel.PivotCaches_typekey': PivotCaches;
         private constructor();
-        public _Default(Index: any): PivotCache;
-        public Add(SourceType: XlPivotTableSourceType, SourceData?: any): PivotCache;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Create(SourceType: XlPivotTableSourceType, SourceData?: any, Version?: any): PivotCache;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotCache;
-        public readonly Parent: any;
+        _Default(Index: any): PivotCache;
+        Add(SourceType: XlPivotTableSourceType, SourceData?: any): PivotCache;
+        readonly Application: Application;
+        readonly Count: number;
+        Create(SourceType: XlPivotTableSourceType, SourceData?: any, Version?: any): PivotCache;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotCache;
+        readonly Parent: any;
     }
 
     class PivotCell {
         private 'Excel.PivotCell_typekey': PivotCell;
         private constructor();
-        public AllocateChange(): void;
-        public readonly Application: Application;
-        public readonly CellChanged: XlCellChangedState;
-        public readonly ColumnItems: PivotItemList;
-        public readonly Creator: XlCreator;
-        public readonly CustomSubtotalFunction: XlConsolidationFunction;
-        public readonly DataField: PivotField;
-        public readonly DataSourceValue: any;
-        public DiscardChange(): void;
-        public readonly Dummy18: string;
-        public readonly MDX: string;
-        public readonly Parent: any;
-        public readonly PivotCellType: XlPivotCellType;
-        public readonly PivotColumnLine: PivotLine;
-        public readonly PivotField: PivotField;
-        public readonly PivotItem: PivotItem;
-        public readonly PivotRowLine: PivotLine;
-        public readonly PivotTable: PivotTable;
-        public readonly Range: Range;
-        public readonly RowItems: PivotItemList;
+        AllocateChange(): void;
+        readonly Application: Application;
+        readonly CellChanged: XlCellChangedState;
+        readonly ColumnItems: PivotItemList;
+        readonly Creator: XlCreator;
+        readonly CustomSubtotalFunction: XlConsolidationFunction;
+        readonly DataField: PivotField;
+        readonly DataSourceValue: any;
+        DiscardChange(): void;
+        readonly Dummy18: string;
+        readonly MDX: string;
+        readonly Parent: any;
+        readonly PivotCellType: XlPivotCellType;
+        readonly PivotColumnLine: PivotLine;
+        readonly PivotField: PivotField;
+        readonly PivotItem: PivotItem;
+        readonly PivotRowLine: PivotLine;
+        readonly PivotTable: PivotTable;
+        readonly Range: Range;
+        readonly RowItems: PivotItemList;
     }
 
     class PivotField {
         private 'Excel.PivotField_typekey': PivotField;
         private constructor();
-        public _AutoSort(Order: number, Field: string): void;
-        public _Default: string;
-        public AddPageItem(Item: string, ClearList?: any): void;
-        public readonly AllItemsVisible: boolean;
-        public readonly Application: Application;
-        public AutoShow(Type: number, Range: number, Count: number, Field: string): void;
-        public readonly AutoShowCount: number;
-        public readonly AutoShowField: string;
-        public readonly AutoShowRange: number;
-        public readonly AutoShowType: number;
-        public AutoSort(Order: number, Field: string, PivotLine?: any, CustomSubtotal?: any): void;
-        public readonly AutoSortCustomSubtotal: number;
-        public readonly AutoSortField: string;
-        public readonly AutoSortOrder: number;
-        public readonly AutoSortPivotLine: PivotLine;
-        public BaseField: any;
-        public BaseItem: any;
-        public CalculatedItems(): CalculatedItems;
-        public Calculation: XlPivotFieldCalculation;
-        public Caption: string;
-        public readonly ChildField: PivotField;
-        public ChildItems(Index?: any): any;
-        public ClearAllFilters(): void;
-        public ClearLabelFilters(): void;
-        public ClearManualFilter(): void;
-        public ClearValueFilters(): void;
-        public readonly Creator: XlCreator;
-        public readonly CubeField: CubeField;
-        public CurrentPage: any;
-        public CurrentPageList: any;
-        public CurrentPageName: string;
-        public DatabaseSort: boolean;
-        public readonly DataRange: Range;
-        public readonly DataType: XlPivotFieldDataType;
-        public Delete(): void;
-        public readonly DisplayAsCaption: boolean;
-        public DisplayAsTooltip: boolean;
-        public DisplayInReport: boolean;
-        public DragToColumn: boolean;
-        public DragToData: boolean;
-        public DragToHide: boolean;
-        public DragToPage: boolean;
-        public DragToRow: boolean;
-        public DrilledDown: boolean;
-        public DrillTo(Field: string): void;
-        public EnableItemSelection: boolean;
-        public EnableMultiplePageItems: boolean;
-        public Formula: string;
-        public Function: XlConsolidationFunction;
-        public readonly GroupLevel: any;
-        public Hidden: boolean;
-        public HiddenItems(Index?: any): any;
-        public HiddenItemsList: any;
-        public IncludeNewItemsInFilter: boolean;
-        public readonly IsCalculated: boolean;
-        public readonly IsMemberProperty: boolean;
-        public readonly LabelRange: Range;
-        public LayoutBlankLine: boolean;
-        public LayoutCompactRow: boolean;
-        public LayoutForm: XlLayoutFormType;
-        public LayoutPageBreak: boolean;
-        public LayoutSubtotalLocation: XlSubtototalLocationType;
-        public MemberPropertyCaption: string;
-        public readonly MemoryUsed: number;
-        public Name: string;
-        public NumberFormat: string;
-        public Orientation: XlPivotFieldOrientation;
-        public readonly Parent: any;
-        public readonly ParentField: PivotField;
-        public ParentItems(Index?: any): any;
-        public readonly PivotFilters: PivotFilters;
-        public PivotItems(Index?: any): any;
-        public Position: any;
-        public PropertyOrder: number;
-        public readonly PropertyParentField: PivotField;
-        public RepeatLabels: boolean;
-        public ServerBased: boolean;
-        public ShowAllItems: boolean;
-        public ShowDetail: boolean;
-        public readonly ShowingInAxis: boolean;
-        public readonly SourceCaption: string;
-        public readonly SourceName: string;
-        public StandardFormula: string;
-        public SubtotalName: string;
-        public Subtotals(Index?: any): any;
-        public readonly TotalLevels: any;
-        public UseMemberPropertyAsCaption: boolean;
-        public Value: string;
-        public VisibleItems(Index?: any): any;
-        public VisibleItemsList: any;
+        _AutoSort(Order: number, Field: string): void;
+        _Default: string;
+        AddPageItem(Item: string, ClearList?: any): void;
+        readonly AllItemsVisible: boolean;
+        readonly Application: Application;
+        AutoShow(Type: number, Range: number, Count: number, Field: string): void;
+        readonly AutoShowCount: number;
+        readonly AutoShowField: string;
+        readonly AutoShowRange: number;
+        readonly AutoShowType: number;
+        AutoSort(Order: number, Field: string, PivotLine?: any, CustomSubtotal?: any): void;
+        readonly AutoSortCustomSubtotal: number;
+        readonly AutoSortField: string;
+        readonly AutoSortOrder: number;
+        readonly AutoSortPivotLine: PivotLine;
+        BaseField: any;
+        BaseItem: any;
+        CalculatedItems(): CalculatedItems;
+        Calculation: XlPivotFieldCalculation;
+        Caption: string;
+        readonly ChildField: PivotField;
+        ChildItems(Index?: any): any;
+        ClearAllFilters(): void;
+        ClearLabelFilters(): void;
+        ClearManualFilter(): void;
+        ClearValueFilters(): void;
+        readonly Creator: XlCreator;
+        readonly CubeField: CubeField;
+        CurrentPage: any;
+        CurrentPageList: any;
+        CurrentPageName: string;
+        DatabaseSort: boolean;
+        readonly DataRange: Range;
+        readonly DataType: XlPivotFieldDataType;
+        Delete(): void;
+        readonly DisplayAsCaption: boolean;
+        DisplayAsTooltip: boolean;
+        DisplayInReport: boolean;
+        DragToColumn: boolean;
+        DragToData: boolean;
+        DragToHide: boolean;
+        DragToPage: boolean;
+        DragToRow: boolean;
+        DrilledDown: boolean;
+        DrillTo(Field: string): void;
+        EnableItemSelection: boolean;
+        EnableMultiplePageItems: boolean;
+        Formula: string;
+        Function: XlConsolidationFunction;
+        readonly GroupLevel: any;
+        Hidden: boolean;
+        HiddenItems(Index?: any): any;
+        HiddenItemsList: any;
+        IncludeNewItemsInFilter: boolean;
+        readonly IsCalculated: boolean;
+        readonly IsMemberProperty: boolean;
+        readonly LabelRange: Range;
+        LayoutBlankLine: boolean;
+        LayoutCompactRow: boolean;
+        LayoutForm: XlLayoutFormType;
+        LayoutPageBreak: boolean;
+        LayoutSubtotalLocation: XlSubtototalLocationType;
+        MemberPropertyCaption: string;
+        readonly MemoryUsed: number;
+        Name: string;
+        NumberFormat: string;
+        Orientation: XlPivotFieldOrientation;
+        readonly Parent: any;
+        readonly ParentField: PivotField;
+        ParentItems(Index?: any): any;
+        readonly PivotFilters: PivotFilters;
+        PivotItems(Index?: any): any;
+        Position: any;
+        PropertyOrder: number;
+        readonly PropertyParentField: PivotField;
+        RepeatLabels: boolean;
+        ServerBased: boolean;
+        ShowAllItems: boolean;
+        ShowDetail: boolean;
+        readonly ShowingInAxis: boolean;
+        readonly SourceCaption: string;
+        readonly SourceName: string;
+        StandardFormula: string;
+        SubtotalName: string;
+        Subtotals(Index?: any): any;
+        readonly TotalLevels: any;
+        UseMemberPropertyAsCaption: boolean;
+        Value: string;
+        VisibleItems(Index?: any): any;
+        VisibleItemsList: any;
     }
 
     class PivotFields {
         private 'Excel.PivotFields_typekey': PivotFields;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): any;
-        public readonly Parent: PivotTable;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): any;
+        readonly Parent: PivotTable;
     }
 
     class PivotFilter {
         private 'Excel.PivotFilter_typekey': PivotFilter;
         private constructor();
-        public readonly Active: boolean;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly DataCubeField: CubeField;
-        public readonly DataField: PivotField;
-        public Delete(): void;
-        public readonly Description: string;
-        public readonly FilterType: XlPivotFilterType;
-        public readonly IsMemberPropertyFilter: boolean;
-        public readonly MemberPropertyField: PivotField;
-        public readonly Name: string;
-        public Order: number;
-        public readonly Parent: any;
-        public readonly PivotField: PivotField;
-        public readonly Value1: any;
-        public readonly Value2: any;
+        readonly Active: boolean;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly DataCubeField: CubeField;
+        readonly DataField: PivotField;
+        Delete(): void;
+        readonly Description: string;
+        readonly FilterType: XlPivotFilterType;
+        readonly IsMemberPropertyFilter: boolean;
+        readonly MemberPropertyField: PivotField;
+        readonly Name: string;
+        Order: number;
+        readonly Parent: any;
+        readonly PivotField: PivotField;
+        readonly Value1: any;
+        readonly Value2: any;
     }
 
     class PivotFilters {
         private 'Excel.PivotFilters_typekey': PivotFilters;
         private constructor();
-        public _Default(Index: any): PivotFilter;
-        public Add(Type: XlPivotFilterType, DataField?: any, Value1?: any, Value2?: any, Order?: any, Name?: any, Description?: any, MemberPropertyField?: any): PivotFilter;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotFilter;
-        public readonly Parent: any;
+        _Default(Index: any): PivotFilter;
+        Add(Type: XlPivotFilterType, DataField?: any, Value1?: any, Value2?: any, Order?: any, Name?: any, Description?: any, MemberPropertyField?: any): PivotFilter;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotFilter;
+        readonly Parent: any;
     }
 
     class PivotFormula {
         private 'Excel.PivotFormula_typekey': PivotFormula;
         private constructor();
-        public _Default: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Formula: string;
-        public Index: number;
-        public readonly Parent: any;
-        public StandardFormula: string;
-        public Value: string;
+        _Default: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Formula: string;
+        Index: number;
+        readonly Parent: any;
+        StandardFormula: string;
+        Value: string;
     }
 
     class PivotFormulas {
         private 'Excel.PivotFormulas_typekey': PivotFormulas;
         private constructor();
-        public _Add(Formula: string): PivotFormula;
-        public _Default(Index: any): PivotFormula;
-        public Add(Formula: string, UseStandardFormula?: any): PivotFormula;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotFormula;
-        public readonly Parent: any;
+        _Add(Formula: string): PivotFormula;
+        _Default(Index: any): PivotFormula;
+        Add(Formula: string, UseStandardFormula?: any): PivotFormula;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotFormula;
+        readonly Parent: any;
     }
 
     class PivotItem {
         private 'Excel.PivotItem_typekey': PivotItem;
         private constructor();
-        public _Default: string;
-        public readonly Application: Application;
-        public Caption: string;
-        public ChildItems(Index?: any): any;
-        public readonly Creator: XlCreator;
-        public readonly DataRange: Range;
-        public Delete(): void;
-        public DrilledDown: boolean;
-        public DrillTo(Field: string): void;
-        public Formula: string;
-        public readonly IsCalculated: boolean;
-        public readonly LabelRange: Range;
-        public Name: string;
-        public readonly Parent: PivotField;
-        public readonly ParentItem: PivotItem;
-        public readonly ParentShowDetail: boolean;
-        public Position: number;
-        public readonly RecordCount: number;
-        public ShowDetail: boolean;
-        public readonly SourceName: any;
-        public readonly SourceNameStandard: string;
-        public StandardFormula: string;
-        public Value: string;
-        public Visible: boolean;
+        _Default: string;
+        readonly Application: Application;
+        Caption: string;
+        ChildItems(Index?: any): any;
+        readonly Creator: XlCreator;
+        readonly DataRange: Range;
+        Delete(): void;
+        DrilledDown: boolean;
+        DrillTo(Field: string): void;
+        Formula: string;
+        readonly IsCalculated: boolean;
+        readonly LabelRange: Range;
+        Name: string;
+        readonly Parent: PivotField;
+        readonly ParentItem: PivotItem;
+        readonly ParentShowDetail: boolean;
+        Position: number;
+        readonly RecordCount: number;
+        ShowDetail: boolean;
+        readonly SourceName: any;
+        readonly SourceNameStandard: string;
+        StandardFormula: string;
+        Value: string;
+        Visible: boolean;
     }
 
     class PivotItemList {
         private 'Excel.PivotItemList_typekey': PivotItemList;
         private constructor();
-        public _Default(Field: any): PivotItem;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotItem;
-        public readonly Parent: any;
+        _Default(Field: any): PivotItem;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotItem;
+        readonly Parent: any;
     }
 
     class PivotLayout {
         private 'Excel.PivotLayout_typekey': PivotLayout;
         private constructor();
-        public AddFields(RowFields?: any, ColumnFields?: any, PageFields?: any, AppendField?: any): void;
-        public readonly Application: Application;
-        public ColumnFields(Index?: any): any;
-        public readonly Creator: XlCreator;
-        public readonly CubeFields: CubeFields;
-        public DataFields(Index?: any): any;
-        public HiddenFields(Index?: any): any;
-        public InnerDetail: string;
-        public PageFields(Index?: any): any;
-        public readonly Parent: any;
-        public readonly PivotCache: PivotCache;
-        public PivotFields(Index?: any): any;
-        public readonly PivotTable: PivotTable;
-        public RowFields(Index?: any): any;
-        public VisibleFields(Index?: any): any;
+        AddFields(RowFields?: any, ColumnFields?: any, PageFields?: any, AppendField?: any): void;
+        readonly Application: Application;
+        ColumnFields(Index?: any): any;
+        readonly Creator: XlCreator;
+        readonly CubeFields: CubeFields;
+        DataFields(Index?: any): any;
+        HiddenFields(Index?: any): any;
+        InnerDetail: string;
+        PageFields(Index?: any): any;
+        readonly Parent: any;
+        readonly PivotCache: PivotCache;
+        PivotFields(Index?: any): any;
+        readonly PivotTable: PivotTable;
+        RowFields(Index?: any): any;
+        VisibleFields(Index?: any): any;
     }
 
     class PivotLine {
         private 'Excel.PivotLine_typekey': PivotLine;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly LineType: XlPivotLineType;
-        public readonly Parent: any;
-        public readonly PivotLineCells: PivotLineCells;
-        public readonly Position: number;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly LineType: XlPivotLineType;
+        readonly Parent: any;
+        readonly PivotLineCells: PivotLineCells;
+        readonly Position: number;
     }
 
     class PivotLineCells {
         private 'Excel.PivotLineCells_typekey': PivotLineCells;
         private constructor();
-        public _Default(Index: any): PivotCell;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotCell;
-        public readonly Parent: any;
+        _Default(Index: any): PivotCell;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotCell;
+        readonly Parent: any;
     }
 
     class PivotLines {
         private 'Excel.PivotLines_typekey': PivotLines;
         private constructor();
-        public _Default(Index: any): PivotLine;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotLine;
-        public readonly Parent: any;
+        _Default(Index: any): PivotLine;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotLine;
+        readonly Parent: any;
     }
 
     class PivotTable {
         private 'Excel.PivotTable_typekey': PivotTable;
         private constructor();
-        public _Default: string;
+        _Default: string;
 
         /** @param Excel.XlPTSelectionMode [Mode=0] */
-        public _PivotSelect(Name: string, Mode?: XlPTSelectionMode): void;
-        public readonly ActiveFilters: PivotFilters;
-        public AddDataField(Field: any, Caption?: any, Function?: any): PivotField;
-        public AddFields(RowFields?: any, ColumnFields?: any, PageFields?: any, AddToTable?: any): any;
-        public AllocateChanges(): void;
-        public Allocation: XlAllocation;
-        public AllocationMethod: XlAllocationMethod;
-        public AllocationValue: XlAllocationValue;
-        public AllocationWeightExpression: string;
-        public AllowMultipleFilters: boolean;
-        public AlternativeText: string;
-        public readonly Application: Application;
-        public CacheIndex: number;
-        public CalculatedFields(): CalculatedFields;
-        public readonly CalculatedMembers: CalculatedMembers;
-        public CalculatedMembersInFilters: boolean;
-        public ChangeConnection(conn: WorkbookConnection): void;
-        public readonly ChangeList: PivotTableChangeList;
-        public ChangePivotCache(PivotCache: any): void;
-        public ClearAllFilters(): void;
-        public ClearTable(): void;
-        public ColumnFields(Index?: any): any;
-        public ColumnGrand: boolean;
-        public readonly ColumnRange: Range;
-        public CommitChanges(): void;
-        public CompactLayoutColumnHeader: string;
-        public CompactLayoutRowHeader: string;
-        public CompactRowIndent: number;
-        public ConvertToFormulas(ConvertFilters: boolean): void;
-        public CreateCubeFile(File: string, Measures?: any, Levels?: any, Members?: any, Properties?: any): string;
-        public readonly Creator: XlCreator;
-        public readonly CubeFields: CubeFields;
-        public readonly DataBodyRange: Range;
-        public DataFields(Index?: any): any;
-        public readonly DataLabelRange: Range;
-        public readonly DataPivotField: PivotField;
-        public DiscardChanges(): void;
-        public DisplayContextTooltips: boolean;
-        public DisplayEmptyColumn: boolean;
-        public DisplayEmptyRow: boolean;
-        public DisplayErrorString: boolean;
-        public DisplayFieldCaptions: boolean;
-        public DisplayImmediateItems: boolean;
-        public DisplayMemberPropertyTooltips: boolean;
-        public DisplayNullString: boolean;
-        public Dummy15(
+        _PivotSelect(Name: string, Mode?: XlPTSelectionMode): void;
+        readonly ActiveFilters: PivotFilters;
+        AddDataField(Field: any, Caption?: any, Function?: any): PivotField;
+        AddFields(RowFields?: any, ColumnFields?: any, PageFields?: any, AddToTable?: any): any;
+        AllocateChanges(): void;
+        Allocation: XlAllocation;
+        AllocationMethod: XlAllocationMethod;
+        AllocationValue: XlAllocationValue;
+        AllocationWeightExpression: string;
+        AllowMultipleFilters: boolean;
+        AlternativeText: string;
+        readonly Application: Application;
+        CacheIndex: number;
+        CalculatedFields(): CalculatedFields;
+        readonly CalculatedMembers: CalculatedMembers;
+        CalculatedMembersInFilters: boolean;
+        ChangeConnection(conn: WorkbookConnection): void;
+        readonly ChangeList: PivotTableChangeList;
+        ChangePivotCache(PivotCache: any): void;
+        ClearAllFilters(): void;
+        ClearTable(): void;
+        ColumnFields(Index?: any): any;
+        ColumnGrand: boolean;
+        readonly ColumnRange: Range;
+        CommitChanges(): void;
+        CompactLayoutColumnHeader: string;
+        CompactLayoutRowHeader: string;
+        CompactRowIndent: number;
+        ConvertToFormulas(ConvertFilters: boolean): void;
+        CreateCubeFile(File: string, Measures?: any, Levels?: any, Members?: any, Properties?: any): string;
+        readonly Creator: XlCreator;
+        readonly CubeFields: CubeFields;
+        readonly DataBodyRange: Range;
+        DataFields(Index?: any): any;
+        readonly DataLabelRange: Range;
+        readonly DataPivotField: PivotField;
+        DiscardChanges(): void;
+        DisplayContextTooltips: boolean;
+        DisplayEmptyColumn: boolean;
+        DisplayEmptyRow: boolean;
+        DisplayErrorString: boolean;
+        DisplayFieldCaptions: boolean;
+        DisplayImmediateItems: boolean;
+        DisplayMemberPropertyTooltips: boolean;
+        DisplayNullString: boolean;
+        Dummy15(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public EnableDataValueEditing: boolean;
-        public EnableDrilldown: boolean;
-        public EnableFieldDialog: boolean;
-        public EnableFieldList: boolean;
-        public EnableWizard: boolean;
-        public EnableWriteback: boolean;
-        public ErrorString: string;
-        public FieldListSortAscending: boolean;
-        public Format(Format: XlPivotFormatType): void;
-        public GetData(Name: string): number;
-        public GetPivotData(
+        EnableDataValueEditing: boolean;
+        EnableDrilldown: boolean;
+        EnableFieldDialog: boolean;
+        EnableFieldList: boolean;
+        EnableWizard: boolean;
+        EnableWriteback: boolean;
+        ErrorString: string;
+        FieldListSortAscending: boolean;
+        Format(Format: XlPivotFormatType): void;
+        GetData(Name: string): number;
+        GetPivotData(
             DataField?: any, Field1?: any, Item1?: any, Field2?: any, Item2?: any, Field3?: any, Item3?: any, Field4?: any, Item4?: any, Field5?: any, Item5?: any,
             Field6?: any, Item6?: any, Field7?: any, Item7?: any, Field8?: any, Item8?: any, Field9?: any, Item9?: any, Field10?: any, Item10?: any, Field11?: any,
             Item11?: any, Field12?: any, Item12?: any, Field13?: any, Item13?: any, Field14?: any, Item14?: any): Range;
-        public GrandTotalName: string;
-        public HasAutoFormat: boolean;
-        public HiddenFields(Index?: any): any;
-        public InGridDropZones: boolean;
-        public InnerDetail: string;
-        public LayoutRowDefault: XlLayoutRowType;
-        public ListFormulas(): void;
-        public Location: string;
-        public ManualUpdate: boolean;
-        public readonly MDX: string;
-        public MergeLabels: boolean;
-        public Name: string;
-        public NullString: string;
-        public PageFieldOrder: number;
-        public PageFields(Index?: any): any;
-        public PageFieldStyle: string;
-        public PageFieldWrapCount: number;
-        public readonly PageRange: Range;
-        public readonly PageRangeCells: Range;
-        public readonly Parent: any;
-        public PivotCache(): PivotCache;
-        public readonly PivotColumnAxis: PivotAxis;
-        public PivotFields(Index?: any): any;
-        public readonly PivotFormulas: PivotFormulas;
-        public readonly PivotRowAxis: PivotAxis;
+        GrandTotalName: string;
+        HasAutoFormat: boolean;
+        HiddenFields(Index?: any): any;
+        InGridDropZones: boolean;
+        InnerDetail: string;
+        LayoutRowDefault: XlLayoutRowType;
+        ListFormulas(): void;
+        Location: string;
+        ManualUpdate: boolean;
+        readonly MDX: string;
+        MergeLabels: boolean;
+        Name: string;
+        NullString: string;
+        PageFieldOrder: number;
+        PageFields(Index?: any): any;
+        PageFieldStyle: string;
+        PageFieldWrapCount: number;
+        readonly PageRange: Range;
+        readonly PageRangeCells: Range;
+        readonly Parent: any;
+        PivotCache(): PivotCache;
+        readonly PivotColumnAxis: PivotAxis;
+        PivotFields(Index?: any): any;
+        readonly PivotFormulas: PivotFormulas;
+        readonly PivotRowAxis: PivotAxis;
 
         /** @param Excel.XlPTSelectionMode [Mode=0] */
-        public PivotSelect(Name: string, Mode?: XlPTSelectionMode, UseStandardName?: any): void;
-        public PivotSelection: string;
-        public PivotSelectionStandard: string;
-        public PivotTableWizard(
+        PivotSelect(Name: string, Mode?: XlPTSelectionMode, UseStandardName?: any): void;
+        PivotSelection: string;
+        PivotSelectionStandard: string;
+        PivotTableWizard(
             SourceType?: any, SourceData?: any, TableDestination?: any, TableName?: any, RowGrand?: any, ColumnGrand?: any, SaveData?: any, HasAutoFormat?: any,
             AutoPage?: any, Reserved?: any, BackgroundQuery?: any, OptimizeCache?: any, PageFieldOrder?: any, PageFieldWrapCount?: any, ReadData?: any, Connection?: any): void;
-        public PreserveFormatting: boolean;
-        public PrintDrillIndicators: boolean;
-        public PrintTitles: boolean;
-        public RefreshDataSourceValues(): void;
-        public readonly RefreshDate: VarDate;
-        public readonly RefreshName: string;
-        public RefreshTable(): boolean;
-        public RepeatAllLabels(Repeat: XlPivotFieldRepeatLabels): void;
-        public RepeatItemsOnEachPrintedPage: boolean;
-        public RowAxisLayout(RowLayout: XlLayoutRowType): void;
-        public RowFields(Index?: any): any;
-        public RowGrand: boolean;
-        public readonly RowRange: Range;
-        public SaveData: boolean;
-        public SelectionMode: XlPTSelectionMode;
-        public ShowCellBackgroundFromOLAP: boolean;
-        public ShowDrillIndicators: boolean;
-        public ShowPageMultipleItemLabel: boolean;
-        public ShowPages(PageField?: any): any;
-        public ShowTableStyleColumnHeaders: boolean;
-        public ShowTableStyleColumnStripes: boolean;
-        public ShowTableStyleLastColumn: boolean;
-        public ShowTableStyleRowHeaders: boolean;
-        public ShowTableStyleRowStripes: boolean;
-        public ShowValuesRow: boolean;
-        public readonly Slicers: Slicers;
-        public SmallGrid: boolean;
-        public SortUsingCustomLists: boolean;
-        public SourceData: any;
-        public SubtotalHiddenPageItems: boolean;
-        public SubtotalLocation(Location: XlSubtototalLocationType): void;
-        public Summary: string;
-        public readonly TableRange1: Range;
-        public readonly TableRange2: Range;
-        public TableStyle: string;
-        public TableStyle2: any;
-        public Tag: string;
-        public TotalsAnnotation: boolean;
-        public Update(): void;
-        public VacatedStyle: string;
-        public Value: string;
-        public readonly Version: XlPivotTableVersionList;
-        public ViewCalculatedMembers: boolean;
-        public VisibleFields(Index?: any): any;
-        public VisualTotals: boolean;
-        public VisualTotalsForSets: boolean;
+        PreserveFormatting: boolean;
+        PrintDrillIndicators: boolean;
+        PrintTitles: boolean;
+        RefreshDataSourceValues(): void;
+        readonly RefreshDate: VarDate;
+        readonly RefreshName: string;
+        RefreshTable(): boolean;
+        RepeatAllLabels(Repeat: XlPivotFieldRepeatLabels): void;
+        RepeatItemsOnEachPrintedPage: boolean;
+        RowAxisLayout(RowLayout: XlLayoutRowType): void;
+        RowFields(Index?: any): any;
+        RowGrand: boolean;
+        readonly RowRange: Range;
+        SaveData: boolean;
+        SelectionMode: XlPTSelectionMode;
+        ShowCellBackgroundFromOLAP: boolean;
+        ShowDrillIndicators: boolean;
+        ShowPageMultipleItemLabel: boolean;
+        ShowPages(PageField?: any): any;
+        ShowTableStyleColumnHeaders: boolean;
+        ShowTableStyleColumnStripes: boolean;
+        ShowTableStyleLastColumn: boolean;
+        ShowTableStyleRowHeaders: boolean;
+        ShowTableStyleRowStripes: boolean;
+        ShowValuesRow: boolean;
+        readonly Slicers: Slicers;
+        SmallGrid: boolean;
+        SortUsingCustomLists: boolean;
+        SourceData: any;
+        SubtotalHiddenPageItems: boolean;
+        SubtotalLocation(Location: XlSubtototalLocationType): void;
+        Summary: string;
+        readonly TableRange1: Range;
+        readonly TableRange2: Range;
+        TableStyle: string;
+        TableStyle2: any;
+        Tag: string;
+        TotalsAnnotation: boolean;
+        Update(): void;
+        VacatedStyle: string;
+        Value: string;
+        readonly Version: XlPivotTableVersionList;
+        ViewCalculatedMembers: boolean;
+        VisibleFields(Index?: any): any;
+        VisualTotals: boolean;
+        VisualTotalsForSets: boolean;
     }
 
     class PivotTableChangeList {
         private 'Excel.PivotTableChangeList_typekey': PivotTableChangeList;
         private constructor();
-        public _Default(Index: any): ValueChange;
-        public Add(Tuple: string, Value: number, AllocationValue?: any, AllocationMethod?: any, AllocationWeightExpression?: any): ValueChange;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): ValueChange;
-        public readonly Parent: any;
+        _Default(Index: any): ValueChange;
+        Add(Tuple: string, Value: number, AllocationValue?: any, AllocationMethod?: any, AllocationWeightExpression?: any): ValueChange;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): ValueChange;
+        readonly Parent: any;
     }
 
     class PlotArea {
         private 'Excel.PlotArea_typekey': PlotArea;
         private constructor();
-        public readonly _InsideHeight: number;
-        public readonly _InsideLeft: number;
-        public readonly _InsideTop: number;
-        public readonly _InsideWidth: number;
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public ClearFormats(): any;
-        public readonly Creator: XlCreator;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public InsideHeight: number;
-        public InsideLeft: number;
-        public InsideTop: number;
-        public InsideWidth: number;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public Select(): any;
-        public Top: number;
-        public Width: number;
+        readonly _InsideHeight: number;
+        readonly _InsideLeft: number;
+        readonly _InsideTop: number;
+        readonly _InsideWidth: number;
+        readonly Application: Application;
+        readonly Border: Border;
+        ClearFormats(): any;
+        readonly Creator: XlCreator;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        Height: number;
+        InsideHeight: number;
+        InsideLeft: number;
+        InsideTop: number;
+        InsideWidth: number;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        Select(): any;
+        Top: number;
+        Width: number;
     }
 
     class ProtectedViewWindow {
         private 'Excel.ProtectedViewWindow_typekey': ProtectedViewWindow;
         private constructor();
-        public readonly _Default: string;
-        public Activate(): void;
-        public Caption: string;
-        public Close(): boolean;
-        public Edit(WriteResPassword?: any, UpdateLinks?: any): Workbook;
-        public EnableResize: boolean;
-        public Height: number;
-        public Left: number;
-        public readonly SourceName: string;
-        public readonly SourcePath: string;
-        public Top: number;
-        public Visible: boolean;
-        public Width: number;
-        public WindowState: XlProtectedViewWindowState;
-        public readonly Workbook: Workbook;
+        readonly _Default: string;
+        Activate(): void;
+        Caption: string;
+        Close(): boolean;
+        Edit(WriteResPassword?: any, UpdateLinks?: any): Workbook;
+        EnableResize: boolean;
+        Height: number;
+        Left: number;
+        readonly SourceName: string;
+        readonly SourcePath: string;
+        Top: number;
+        Visible: boolean;
+        Width: number;
+        WindowState: XlProtectedViewWindowState;
+        readonly Workbook: Workbook;
     }
 
     class ProtectedViewWindows {
         private 'Excel.ProtectedViewWindows_typekey': ProtectedViewWindows;
         private constructor();
-        public _Default(Index: any): ProtectedViewWindow;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): ProtectedViewWindow;
-        public Open(Filename: string, Password?: any, AddToMru?: any, RepairMode?: any): ProtectedViewWindow;
-        public readonly Parent: any;
+        _Default(Index: any): ProtectedViewWindow;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): ProtectedViewWindow;
+        Open(Filename: string, Password?: any, AddToMru?: any, RepairMode?: any): ProtectedViewWindow;
+        readonly Parent: any;
     }
 
     class Protection {
         private 'Excel.Protection_typekey': Protection;
         private constructor();
-        public readonly AllowDeletingColumns: boolean;
-        public readonly AllowDeletingRows: boolean;
-        public readonly AllowEditRanges: AllowEditRanges;
-        public readonly AllowFiltering: boolean;
-        public readonly AllowFormattingCells: boolean;
-        public readonly AllowFormattingColumns: boolean;
-        public readonly AllowFormattingRows: boolean;
-        public readonly AllowInsertingColumns: boolean;
-        public readonly AllowInsertingHyperlinks: boolean;
-        public readonly AllowInsertingRows: boolean;
-        public readonly AllowSorting: boolean;
-        public readonly AllowUsingPivotTables: boolean;
+        readonly AllowDeletingColumns: boolean;
+        readonly AllowDeletingRows: boolean;
+        readonly AllowEditRanges: AllowEditRanges;
+        readonly AllowFiltering: boolean;
+        readonly AllowFormattingCells: boolean;
+        readonly AllowFormattingColumns: boolean;
+        readonly AllowFormattingRows: boolean;
+        readonly AllowInsertingColumns: boolean;
+        readonly AllowInsertingHyperlinks: boolean;
+        readonly AllowInsertingRows: boolean;
+        readonly AllowSorting: boolean;
+        readonly AllowUsingPivotTables: boolean;
     }
 
     class PublishObject {
         private 'Excel.PublishObject_typekey': PublishObject;
         private constructor();
-        public readonly Application: Application;
-        public AutoRepublish: boolean;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly DivID: string;
-        public Filename: string;
-        public HtmlType: XlHtmlType;
-        public readonly Parent: any;
-        public Publish(Create?: any): void;
-        public readonly Sheet: string;
-        public readonly Source: string;
-        public readonly SourceType: XlSourceType;
-        public Title: string;
+        readonly Application: Application;
+        AutoRepublish: boolean;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly DivID: string;
+        Filename: string;
+        HtmlType: XlHtmlType;
+        readonly Parent: any;
+        Publish(Create?: any): void;
+        readonly Sheet: string;
+        readonly Source: string;
+        readonly SourceType: XlSourceType;
+        Title: string;
     }
 
     class PublishObjects {
         private 'Excel.PublishObjects_typekey': PublishObjects;
         private constructor();
-        public _Default(Index: any): PublishObject;
-        public Add(SourceType: XlSourceType, Filename: string, Sheet?: any, Source?: any, HtmlType?: any, DivID?: any, Title?: any): PublishObject;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Item(Index: any): PublishObject;
-        public readonly Parent: any;
-        public Publish(): void;
+        _Default(Index: any): PublishObject;
+        Add(SourceType: XlSourceType, Filename: string, Sheet?: any, Source?: any, HtmlType?: any, DivID?: any, Title?: any): PublishObject;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Item(Index: any): PublishObject;
+        readonly Parent: any;
+        Publish(): void;
     }
 
     class QueryTable {
         private 'Excel.QueryTable_typekey': QueryTable;
         private constructor();
-        public AdjustColumnWidth: boolean;
-        public readonly Application: Application;
-        public BackgroundQuery: boolean;
-        public CancelRefresh(): void;
-        public CommandText: any;
-        public CommandType: XlCmdType;
-        public Connection: any;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Destination: Range;
-        public EditWebPage: any;
-        public EnableEditing: boolean;
-        public EnableRefresh: boolean;
-        public readonly FetchedRowOverflow: boolean;
-        public FieldNames: boolean;
-        public FillAdjacentFormulas: boolean;
-        public HasAutoFormat: boolean;
-        public readonly ListObject: ListObject;
-        public MaintainConnection: boolean;
-        public Name: string;
-        public readonly Parameters: Parameters;
-        public readonly Parent: any;
-        public PostText: string;
-        public PreserveColumnInfo: boolean;
-        public PreserveFormatting: boolean;
-        public readonly QueryType: XlQueryType;
-        public Recordset: any;
-        public Refresh(BackgroundQuery?: any): boolean;
-        public readonly Refreshing: boolean;
-        public RefreshOnFileOpen: boolean;
-        public RefreshPeriod: number;
-        public RefreshStyle: XlCellInsertionMode;
-        public ResetTimer(): void;
-        public readonly ResultRange: Range;
-        public RobustConnect: XlRobustConnect;
-        public RowNumbers: boolean;
-        public SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
-        public SaveData: boolean;
-        public SavePassword: boolean;
-        public readonly Sort: Sort;
-        public SourceConnectionFile: string;
-        public SourceDataFile: string;
-        public Sql: any;
-        public TablesOnlyFromHTML: boolean;
-        public TextFileColumnDataTypes: any;
-        public TextFileCommaDelimiter: boolean;
-        public TextFileConsecutiveDelimiter: boolean;
-        public TextFileDecimalSeparator: string;
-        public TextFileFixedColumnWidths: any;
-        public TextFileOtherDelimiter: string;
-        public TextFileParseType: XlTextParsingType;
-        public TextFilePlatform: number;
-        public TextFilePromptOnRefresh: boolean;
-        public TextFileSemicolonDelimiter: boolean;
-        public TextFileSpaceDelimiter: boolean;
-        public TextFileStartRow: number;
-        public TextFileTabDelimiter: boolean;
-        public TextFileTextQualifier: XlTextQualifier;
-        public TextFileThousandsSeparator: string;
-        public TextFileTrailingMinusNumbers: boolean;
-        public TextFileVisualLayout: XlTextVisualLayoutType;
-        public WebConsecutiveDelimitersAsOne: boolean;
-        public WebDisableDateRecognition: boolean;
-        public WebDisableRedirections: boolean;
-        public WebFormatting: XlWebFormatting;
-        public WebPreFormattedTextToColumns: boolean;
-        public WebSelectionType: XlWebSelectionType;
-        public WebSingleBlockTextImport: boolean;
-        public WebTables: string;
-        public readonly WorkbookConnection: WorkbookConnection;
+        AdjustColumnWidth: boolean;
+        readonly Application: Application;
+        BackgroundQuery: boolean;
+        CancelRefresh(): void;
+        CommandText: any;
+        CommandType: XlCmdType;
+        Connection: any;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Destination: Range;
+        EditWebPage: any;
+        EnableEditing: boolean;
+        EnableRefresh: boolean;
+        readonly FetchedRowOverflow: boolean;
+        FieldNames: boolean;
+        FillAdjacentFormulas: boolean;
+        HasAutoFormat: boolean;
+        readonly ListObject: ListObject;
+        MaintainConnection: boolean;
+        Name: string;
+        readonly Parameters: Parameters;
+        readonly Parent: any;
+        PostText: string;
+        PreserveColumnInfo: boolean;
+        PreserveFormatting: boolean;
+        readonly QueryType: XlQueryType;
+        Recordset: any;
+        Refresh(BackgroundQuery?: any): boolean;
+        readonly Refreshing: boolean;
+        RefreshOnFileOpen: boolean;
+        RefreshPeriod: number;
+        RefreshStyle: XlCellInsertionMode;
+        ResetTimer(): void;
+        readonly ResultRange: Range;
+        RobustConnect: XlRobustConnect;
+        RowNumbers: boolean;
+        SaveAsODC(ODCFileName: string, Description?: any, Keywords?: any): void;
+        SaveData: boolean;
+        SavePassword: boolean;
+        readonly Sort: Sort;
+        SourceConnectionFile: string;
+        SourceDataFile: string;
+        Sql: any;
+        TablesOnlyFromHTML: boolean;
+        TextFileColumnDataTypes: any;
+        TextFileCommaDelimiter: boolean;
+        TextFileConsecutiveDelimiter: boolean;
+        TextFileDecimalSeparator: string;
+        TextFileFixedColumnWidths: any;
+        TextFileOtherDelimiter: string;
+        TextFileParseType: XlTextParsingType;
+        TextFilePlatform: number;
+        TextFilePromptOnRefresh: boolean;
+        TextFileSemicolonDelimiter: boolean;
+        TextFileSpaceDelimiter: boolean;
+        TextFileStartRow: number;
+        TextFileTabDelimiter: boolean;
+        TextFileTextQualifier: XlTextQualifier;
+        TextFileThousandsSeparator: string;
+        TextFileTrailingMinusNumbers: boolean;
+        TextFileVisualLayout: XlTextVisualLayoutType;
+        WebConsecutiveDelimitersAsOne: boolean;
+        WebDisableDateRecognition: boolean;
+        WebDisableRedirections: boolean;
+        WebFormatting: XlWebFormatting;
+        WebPreFormattedTextToColumns: boolean;
+        WebSelectionType: XlWebSelectionType;
+        WebSingleBlockTextImport: boolean;
+        WebTables: string;
+        readonly WorkbookConnection: WorkbookConnection;
     }
 
     class QueryTables {
         private 'Excel.QueryTables_typekey': QueryTables;
         private constructor();
-        public _Default(Index: any): QueryTable;
-        public Add(Connection: any, Destination: Range, Sql?: any): QueryTable;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): QueryTable;
-        public readonly Parent: any;
+        _Default(Index: any): QueryTable;
+        Add(Connection: any, Destination: Range, Sql?: any): QueryTable;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): QueryTable;
+        readonly Parent: any;
     }
 
     class Range {
         private 'Excel.Range_typekey': Range;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): any;
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): any;
 
         /**
          * @param Excel.XlBorderWeight [Weight=2]
          * @param Excel.XlColorIndex [ColorIndex=-4105]
          */
-        public _BorderAround(LineStyle: any, Weight?: XlBorderWeight, ColorIndex?: XlColorIndex, Color?: any): any;
-        public _Default(RowIndex?: any, ColumnIndex?: any): any;
+        _BorderAround(LineStyle: any, Weight?: XlBorderWeight, ColorIndex?: XlColorIndex, Color?: any): any;
+        _Default(RowIndex?: any, ColumnIndex?: any): any;
 
         /**
          * @param Excel.XlPasteType [Paste=-4104]
          * @param Excel.XlPasteSpecialOperation [Operation=-4142]
          */
-        public _PasteSpecial(Paste?: XlPasteType, Operation?: XlPasteSpecialOperation, SkipBlanks?: any, Transpose?: any): any;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
-        public Activate(): any;
-        public AddComment(Text?: any): Comment;
-        public AddIndent: any;
+        _PasteSpecial(Paste?: XlPasteType, Operation?: XlPasteSpecialOperation, SkipBlanks?: any, Transpose?: any): any;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
+        Activate(): any;
+        AddComment(Text?: any): Comment;
+        AddIndent: any;
 
         /** @param Excel.XlReferenceStyle [ReferenceStyle=1] */
-        public Address(RowAbsolute?: boolean, ColumnAbsolute?: boolean, ReferenceStyle?: XlReferenceStyle, External?: boolean, RelativeTo?: Excel.Range): string;
+        Address(RowAbsolute?: boolean, ColumnAbsolute?: boolean, ReferenceStyle?: XlReferenceStyle, External?: boolean, RelativeTo?: Excel.Range): string;
 
         /** @param Excel.XlReferenceStyle [ReferenceStyle=1] */
-        public AddressLocal(RowAbsolute: any, ColumnAbsolute: any, ReferenceStyle?: XlReferenceStyle, External?: any, RelativeTo?: any): string;
-        public AdvancedFilter(Action: XlFilterAction.xlFilterCopy, CriteriaRange?: Range, CopyToRange?: Range, Unique?: boolean): any;
-        public AdvancedFilter(Action: XlFilterAction, CriteriaRange?: Range, CopyToRange?: undefined, Unique?: boolean): any;
-        public AllocateChanges(): void;
-        public readonly AllowEdit: boolean;
-        public readonly Application: Application;
+        AddressLocal(RowAbsolute: any, ColumnAbsolute: any, ReferenceStyle?: XlReferenceStyle, External?: any, RelativeTo?: any): string;
+        AdvancedFilter(Action: XlFilterAction.xlFilterCopy, CriteriaRange?: Range, CopyToRange?: Range, Unique?: boolean): any;
+        AdvancedFilter(Action: XlFilterAction, CriteriaRange?: Range, CopyToRange?: undefined, Unique?: boolean): any;
+        AllocateChanges(): void;
+        readonly AllowEdit: boolean;
+        readonly Application: Application;
 
         /** @param Excel.XlApplyNamesOrder [Order=1] */
-        public ApplyNames(Names: any, IgnoreRelativeAbsolute: any, UseRowColumnNames: any, OmitColumn: any, OmitRow: any, Order?: XlApplyNamesOrder, AppendLast?: any): any;
-        public ApplyOutlineStyles(): any;
-        public readonly Areas: Areas;
-        public AutoComplete(String: string): string;
+        ApplyNames(Names: any, IgnoreRelativeAbsolute: any, UseRowColumnNames: any, OmitColumn: any, OmitRow: any, Order?: XlApplyNamesOrder, AppendLast?: any): any;
+        ApplyOutlineStyles(): any;
+        readonly Areas: Areas;
+        AutoComplete(String: string): string;
 
         /** @param Excel.XlAutoFillType [Type=0] */
-        public AutoFill(Destination: Range, Type?: XlAutoFillType): any;
+        AutoFill(Destination: Range, Type?: XlAutoFillType): any;
 
         /** @param Excel.XlAutoFilterOperator [Operator=1] */
-        public AutoFilter(Field: any, Criteria1: any, Operator?: XlAutoFilterOperator, Criteria2?: any, VisibleDropDown?: any): any;
-        public AutoFit(): any;
+        AutoFilter(Field: any, Criteria1: any, Operator?: XlAutoFilterOperator, Criteria2?: any, VisibleDropDown?: any): any;
+        AutoFit(): any;
 
         /** @param Excel.XlRangeAutoFormat [Format=1] */
-        public AutoFormat(Format?: XlRangeAutoFormat, Number?: any, Font?: any, Alignment?: any, Border?: any, Pattern?: any, Width?: any): any;
-        public AutoOutline(): any;
+        AutoFormat(Format?: XlRangeAutoFormat, Number?: any, Font?: any, Alignment?: any, Border?: any, Pattern?: any, Width?: any): any;
+        AutoOutline(): any;
 
         /**
          * @param Excel.XlBorderWeight [Weight=2]
          * @param Excel.XlColorIndex [ColorIndex=-4105]
          */
-        public BorderAround(LineStyle: any, Weight?: XlBorderWeight, ColorIndex?: XlColorIndex, Color?: any, ThemeColor?: any): any;
-        public readonly Borders: Borders;
-        public Calculate(): any;
-        public CalculateRowMajorOrder(): any;
-        public readonly Cells: Range;
-        public Characters(Start?: any, Length?: any): Characters;
-        public CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): any;
-        public Clear(): any;
-        public ClearComments(): void;
-        public ClearContents(): any;
-        public ClearFormats(): any;
-        public ClearHyperlinks(): void;
-        public ClearNotes(): any;
-        public ClearOutline(): any;
-        public readonly Column: number;
-        public ColumnDifferences(Comparison: any): Range;
-        public readonly Columns: Range;
-        public ColumnWidth: any;
-        public readonly Comment: Comment;
-        public Consolidate(Sources?: any, Function?: any, TopRow?: any, LeftColumn?: any, CreateLinks?: any): any;
-        public Copy(Destination?: any): any;
-        public CopyFromRecordset(Data: any, MaxRows?: any, MaxColumns?: any): number;
+        BorderAround(LineStyle: any, Weight?: XlBorderWeight, ColorIndex?: XlColorIndex, Color?: any, ThemeColor?: any): any;
+        readonly Borders: Borders;
+        Calculate(): any;
+        CalculateRowMajorOrder(): any;
+        readonly Cells: Range;
+        Characters(Start?: any, Length?: any): Characters;
+        CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): any;
+        Clear(): any;
+        ClearComments(): void;
+        ClearContents(): any;
+        ClearFormats(): any;
+        ClearHyperlinks(): void;
+        ClearNotes(): any;
+        ClearOutline(): any;
+        readonly Column: number;
+        ColumnDifferences(Comparison: any): Range;
+        readonly Columns: Range;
+        ColumnWidth: any;
+        readonly Comment: Comment;
+        Consolidate(Sources?: any, Function?: any, TopRow?: any, LeftColumn?: any, CreateLinks?: any): any;
+        Copy(Destination?: any): any;
+        CopyFromRecordset(Data: any, MaxRows?: any, MaxColumns?: any): number;
 
         /**
          * @param Excel.XlPictureAppearance [Appearance=1]
          * @param Excel.XlCopyPictureFormat [Format=-4147]
          */
-        public CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat): any;
-        public readonly Count: number;
-        public readonly CountLarge: any;
-        public CreateNames(Top?: any, Left?: any, Bottom?: any, Right?: any): any;
+        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat): any;
+        readonly Count: number;
+        readonly CountLarge: any;
+        CreateNames(Top?: any, Left?: any, Bottom?: any, Right?: any): any;
 
         /** @param Excel.XlPictureAppearance [Appearance=1] */
-        public CreatePublisher(Edition: any, Appearance?: XlPictureAppearance, ContainsPICT?: any, ContainsBIFF?: any, ContainsRTF?: any, ContainsVALU?: any): any;
-        public readonly Creator: XlCreator;
-        public readonly CurrentArray: Range;
-        public readonly CurrentRegion: Range;
-        public Cut(Destination?: any): any;
+        CreatePublisher(Edition: any, Appearance?: XlPictureAppearance, ContainsPICT?: any, ContainsBIFF?: any, ContainsRTF?: any, ContainsVALU?: any): any;
+        readonly Creator: XlCreator;
+        readonly CurrentArray: Range;
+        readonly CurrentRegion: Range;
+        Cut(Destination?: any): any;
 
         /**
          * @param Excel.XlDataSeriesType [Type=-4132]
          * @param Excel.XlDataSeriesDate [Date=1]
          */
-        public DataSeries(Rowcol: any, Type?: XlDataSeriesType, Date?: XlDataSeriesDate, Step?: any, Stop?: any, Trend?: any): any;
-        public Delete(Shift?: any): any;
-        public readonly Dependents: Range;
-        public DialogBox(): any;
-        public readonly DirectDependents: Range;
-        public readonly DirectPrecedents: Range;
-        public Dirty(): void;
-        public DiscardChanges(): void;
-        public readonly DisplayFormat: DisplayFormat;
+        DataSeries(Rowcol: any, Type?: XlDataSeriesType, Date?: XlDataSeriesDate, Step?: any, Stop?: any, Trend?: any): any;
+        Delete(Shift?: any): any;
+        readonly Dependents: Range;
+        DialogBox(): any;
+        readonly DirectDependents: Range;
+        readonly DirectPrecedents: Range;
+        Dirty(): void;
+        DiscardChanges(): void;
+        readonly DisplayFormat: DisplayFormat;
 
         /**
          * @param Excel.XlPictureAppearance [Appearance=1]
          * @param Excel.XlPictureAppearance [ChartSize=1]
          */
-        public EditionOptions(Type: XlEditionType, Option: XlEditionOptionsOption, Name: any, Reference: any, Appearance?: XlPictureAppearance, ChartSize?: XlPictureAppearance, Format?: any): any;
-        public End(Direction: XlDirection): Range;
-        public readonly EntireColumn: Range;
-        public readonly EntireRow: Range;
-        public readonly Errors: Errors;
-        public ExportAsFixedFormat(
+        EditionOptions(Type: XlEditionType, Option: XlEditionOptionsOption, Name: any, Reference: any, Appearance?: XlPictureAppearance, ChartSize?: XlPictureAppearance, Format?: any): any;
+        End(Direction: XlDirection): Range;
+        readonly EntireColumn: Range;
+        readonly EntireRow: Range;
+        readonly Errors: Errors;
+        ExportAsFixedFormat(
             Type: XlFixedFormatType, Filename?: any, Quality?: any, IncludeDocProperties?: any, IgnorePrintAreas?: any, From?: any, To?: any, OpenAfterPublish?: any,
             FixedFormatExtClassPtr?: any): void;
-        public FillDown(): any;
-        public FillLeft(): any;
-        public FillRight(): any;
-        public FillUp(): any;
+        FillDown(): any;
+        FillLeft(): any;
+        FillRight(): any;
+        FillUp(): any;
 
         /** @param Excel.XlSearchDirection [SearchDirection=1] */
-        public Find(What: any, After?: any, LookIn?: Excel.XlFindLookIn, LookAt?: Excel.XlLookAt, SearchOrder?: Excel.XlSearchOrder, SearchDirection?: XlSearchDirection, MatchCase?: boolean,
+        Find(What: any, After?: any, LookIn?: Excel.XlFindLookIn, LookAt?: Excel.XlLookAt, SearchOrder?: Excel.XlSearchOrder, SearchDirection?: XlSearchDirection, MatchCase?: boolean,
                     MatchByte?: boolean, SearchFormat?: any): Range;
-        public FindNext(After?: any): Range;
-        public FindPrevious(After?: any): Range;
-        public readonly Font: Font;
-        public readonly FormatConditions: FormatConditions;
-        public Formula: any;
-        public FormulaArray: any;
-        public FormulaHidden: any;
-        public FormulaLabel: XlFormulaLabel;
-        public FormulaLocal: any;
-        public FormulaR1C1: any;
-        public FormulaR1C1Local: any;
-        public FunctionWizard(): any;
-        public GoalSeek(Goal: any, ChangingCell: Range): boolean;
-        public Group(Start?: any, End?: any, By?: any, Periods?: any): any;
-        public readonly HasArray: any;
-        public readonly HasFormula: any;
-        public readonly Height: any;
-        public Hidden: any;
-        public HorizontalAlignment: any;
-        public readonly Hyperlinks: Hyperlinks;
-        public ID: string;
-        public IndentLevel: any;
-        public Insert(Shift?: any, CopyOrigin?: any): any;
-        public InsertIndent(InsertAmount: number): void;
-        public readonly Interior: Interior;
-        public Item(RowIndex: number, ColumnIndex?: number): Range;
-        public Item(Address: string): Range;
-        public Justify(): any;
-        public readonly Left: any;
-        public readonly ListHeaderRows: number;
-        public ListNames(): any;
-        public readonly ListObject: ListObject;
-        public readonly LocationInTable: XlLocationInTable;
-        public Locked: any;
-        public readonly MDX: string;
-        public Merge(Across?: any): void;
-        public readonly MergeArea: Range;
-        public MergeCells: any;
-        public Name: any;
-        public NavigateArrow(TowardPrecedent?: any, ArrowNumber?: any, LinkNumber?: any): any;
-        public readonly Next: Range;
-        public NoteText(Text?: any, Start?: any, Length?: any): string;
-        public NumberFormat: any;
-        public NumberFormatLocal: any;
-        public Offset(RowOffset?: number, ColumnOffset?: number): Range;
-        public Orientation: any;
-        public OutlineLevel: any;
-        public PageBreak: number;
-        public readonly Parent: any;
-        public Parse(ParseLine?: any, Destination?: any): any;
+        FindNext(After?: any): Range;
+        FindPrevious(After?: any): Range;
+        readonly Font: Font;
+        readonly FormatConditions: FormatConditions;
+        Formula: any;
+        FormulaArray: any;
+        FormulaHidden: any;
+        FormulaLabel: XlFormulaLabel;
+        FormulaLocal: any;
+        FormulaR1C1: any;
+        FormulaR1C1Local: any;
+        FunctionWizard(): any;
+        GoalSeek(Goal: any, ChangingCell: Range): boolean;
+        Group(Start?: any, End?: any, By?: any, Periods?: any): any;
+        readonly HasArray: any;
+        readonly HasFormula: any;
+        readonly Height: any;
+        Hidden: any;
+        HorizontalAlignment: any;
+        readonly Hyperlinks: Hyperlinks;
+        ID: string;
+        IndentLevel: any;
+        Insert(Shift?: any, CopyOrigin?: any): any;
+        InsertIndent(InsertAmount: number): void;
+        readonly Interior: Interior;
+        Item(RowIndex: number, ColumnIndex?: number): Range;
+        Item(Address: string): Range;
+        Justify(): any;
+        readonly Left: any;
+        readonly ListHeaderRows: number;
+        ListNames(): any;
+        readonly ListObject: ListObject;
+        readonly LocationInTable: XlLocationInTable;
+        Locked: any;
+        readonly MDX: string;
+        Merge(Across?: any): void;
+        readonly MergeArea: Range;
+        MergeCells: any;
+        Name: any;
+        NavigateArrow(TowardPrecedent?: any, ArrowNumber?: any, LinkNumber?: any): any;
+        readonly Next: Range;
+        NoteText(Text?: any, Start?: any, Length?: any): string;
+        NumberFormat: any;
+        NumberFormatLocal: any;
+        Offset(RowOffset?: number, ColumnOffset?: number): Range;
+        Orientation: any;
+        OutlineLevel: any;
+        PageBreak: number;
+        readonly Parent: any;
+        Parse(ParseLine?: any, Destination?: any): any;
 
         /**
          * @param Excel.XlPasteType [Paste=-4104]
          * @param Excel.XlPasteSpecialOperation [Operation=-4142]
          */
-        public PasteSpecial(Paste?: XlPasteType, Operation?: XlPasteSpecialOperation, SkipBlanks?: any, Transpose?: any): any;
-        public readonly Phonetic: Phonetic;
-        public readonly Phonetics: Phonetics;
-        public readonly PivotCell: PivotCell;
-        public readonly PivotField: PivotField;
-        public readonly PivotItem: PivotItem;
-        public readonly PivotTable: PivotTable;
-        public readonly Precedents: Range;
-        public readonly PrefixCharacter: any;
-        public readonly Previous: Range;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
-        public PrintPreview(EnableChanges?: any): any;
-        public readonly QueryTable: QueryTable;
-        public Range(Cell1: any, Cell2?: any): Range;
-        public ReadingOrder: number;
+        PasteSpecial(Paste?: XlPasteType, Operation?: XlPasteSpecialOperation, SkipBlanks?: any, Transpose?: any): any;
+        readonly Phonetic: Phonetic;
+        readonly Phonetics: Phonetics;
+        readonly PivotCell: PivotCell;
+        readonly PivotField: PivotField;
+        readonly PivotItem: PivotItem;
+        readonly PivotTable: PivotTable;
+        readonly Precedents: Range;
+        readonly PrefixCharacter: any;
+        readonly Previous: Range;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
+        PrintPreview(EnableChanges?: any): any;
+        readonly QueryTable: QueryTable;
+        Range(Cell1: any, Cell2?: any): Range;
+        ReadingOrder: number;
 
         /** @param Excel.XlYesNoGuess [Header=2] */
-        public RemoveDuplicates(Columns: any, Header?: XlYesNoGuess): void;
-        public RemoveSubtotal(): any;
-        public Replace(What: any, Replacement: any, LookAt?: any, SearchOrder?: any, MatchCase?: any, MatchByte?: any, SearchFormat?: any, ReplaceFormat?: any): boolean;
-        public Resize(RowSize?: any, ColumnSize?: any): Range;
-        public readonly Row: number;
-        public RowDifferences(Comparison: any): Range;
-        public RowHeight: any;
-        public readonly Rows: Range;
-        public Run(
+        RemoveDuplicates(Columns: any, Header?: XlYesNoGuess): void;
+        RemoveSubtotal(): any;
+        Replace(What: any, Replacement: any, LookAt?: any, SearchOrder?: any, MatchCase?: any, MatchByte?: any, SearchFormat?: any, ReplaceFormat?: any): boolean;
+        Resize(RowSize?: any, ColumnSize?: any): Range;
+        readonly Row: number;
+        RowDifferences(Comparison: any): Range;
+        RowHeight: any;
+        readonly Rows: Range;
+        Run(
             Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public Select(): any;
-        public readonly ServerActions: Actions;
-        public SetPhonetic(): void;
-        public Show(): any;
-        public ShowDependents(Remove?: any): any;
-        public ShowDetail: any;
-        public ShowErrors(): any;
-        public ShowPrecedents(Remove?: any): any;
-        public ShrinkToFit: any;
-        public readonly SmartTags: SmartTags;
+        Select(): any;
+        readonly ServerActions: Actions;
+        SetPhonetic(): void;
+        Show(): any;
+        ShowDependents(Remove?: any): any;
+        ShowDetail: any;
+        ShowErrors(): any;
+        ShowPrecedents(Remove?: any): any;
+        ShrinkToFit: any;
+        readonly SmartTags: SmartTags;
 
         /**
          * @param Excel.XlSortOrder [Order1=1]
@@ -6653,7 +6653,7 @@ declare namespace Excel {
          * @param Excel.XlSortDataOption [DataOption2=0]
          * @param Excel.XlSortDataOption [DataOption3=0]
          */
-        public Sort(
+        Sort(
             Key1: any, Order1?: XlSortOrder, Key2?: any, Type?: any, Order2?: XlSortOrder, Key3?: any, Order3?: XlSortOrder, Header?: XlYesNoGuess, OrderCustom?: any,
             MatchCase?: any, Orientation?: XlSortOrientation, SortMethod?: XlSortMethod, DataOption1?: XlSortDataOption, DataOption2?: XlSortDataOption, DataOption3?: XlSortDataOption): any;
 
@@ -6668,276 +6668,276 @@ declare namespace Excel {
          * @param Excel.XlSortDataOption [DataOption2=0]
          * @param Excel.XlSortDataOption [DataOption3=0]
          */
-        public SortSpecial(
+        SortSpecial(
             SortMethod?: XlSortMethod, Key1?: any, Order1?: XlSortOrder, Type?: any, Key2?: any, Order2?: XlSortOrder, Key3?: any, Order3?: XlSortOrder,
             Header?: XlYesNoGuess, OrderCustom?: any, MatchCase?: any, Orientation?: XlSortOrientation, DataOption1?: XlSortDataOption, DataOption2?: XlSortDataOption,
             DataOption3?: XlSortDataOption): any;
-        public readonly SoundNote: SoundNote;
-        public readonly SparklineGroups: SparklineGroups;
-        public Speak(SpeakDirection?: any, SpeakFormulas?: any): void;
-        public SpecialCells(Type: XlCellType, Value?: any): Range;
-        public Style: any;
+        readonly SoundNote: SoundNote;
+        readonly SparklineGroups: SparklineGroups;
+        Speak(SpeakDirection?: any, SpeakFormulas?: any): void;
+        SpecialCells(Type: XlCellType, Value?: any): Range;
+        Style: any;
 
         /** @param Excel.XlSubscribeToFormat [Format=-4158] */
-        public SubscribeTo(Edition: string, Format?: XlSubscribeToFormat): any;
+        SubscribeTo(Edition: string, Format?: XlSubscribeToFormat): any;
 
         /** @param Excel.XlSummaryRow [SummaryBelowData=1] */
-        public Subtotal(GroupBy: number, Function: XlConsolidationFunction, TotalList: any, Replace: any, PageBreaks: any, SummaryBelowData?: XlSummaryRow): any;
-        public readonly Summary: any;
-        public Table(RowInput?: any, ColumnInput?: any): any;
-        public readonly Text: any;
+        Subtotal(GroupBy: number, Function: XlConsolidationFunction, TotalList: any, Replace: any, PageBreaks: any, SummaryBelowData?: XlSummaryRow): any;
+        readonly Summary: any;
+        Table(RowInput?: any, ColumnInput?: any): any;
+        readonly Text: any;
 
         /**
          * @param Excel.XlTextParsingType [DataType=1]
          * @param Excel.XlTextQualifier [TextQualifier=1]
          */
-        public TextToColumns(
+        TextToColumns(
             Destination: any, DataType?: XlTextParsingType, TextQualifier?: XlTextQualifier, ConsecutiveDelimiter?: any, Tab?: any, Semicolon?: any, Comma?: any,
             Space?: any, Other?: any, OtherChar?: any, FieldInfo?: any, DecimalSeparator?: any, ThousandsSeparator?: any, TrailingMinusNumbers?: any): any;
-        public readonly Top: any;
-        public Ungroup(): any;
-        public UnMerge(): void;
-        public UseStandardHeight: any;
-        public UseStandardWidth: any;
-        public readonly Validation: Validation;
-        public Value(RangeValueDataType?: XlRangeValueDataType): any;
-        public Value2: any;
-        public VerticalAlignment: any;
-        public readonly Width: any;
-        public readonly Worksheet: Worksheet;
-        public WrapText: any;
-        public readonly XPath: XPath;
+        readonly Top: any;
+        Ungroup(): any;
+        UnMerge(): void;
+        UseStandardHeight: any;
+        UseStandardWidth: any;
+        readonly Validation: Validation;
+        Value(RangeValueDataType?: XlRangeValueDataType): any;
+        Value2: any;
+        VerticalAlignment: any;
+        readonly Width: any;
+        readonly Worksheet: Worksheet;
+        WrapText: any;
+        readonly XPath: XPath;
     }
 
     class Ranges {
         private 'Excel.Ranges_typekey': Ranges;
         private constructor();
-        public _Default(Index: any): Range;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Range;
-        public readonly Parent: any;
+        _Default(Index: any): Range;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Range;
+        readonly Parent: any;
     }
 
     class RecentFile {
         private 'Excel.RecentFile_typekey': RecentFile;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public Open(): Workbook;
-        public readonly Parent: any;
-        public readonly Path: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        Open(): Workbook;
+        readonly Parent: any;
+        readonly Path: string;
     }
 
     class RecentFiles {
         private 'Excel.RecentFiles_typekey': RecentFiles;
         private constructor();
-        public _Default(Index: number): RecentFile;
-        public Add(Name: string): RecentFile;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): RecentFile;
-        public Maximum: number;
-        public readonly Parent: any;
+        _Default(Index: number): RecentFile;
+        Add(Name: string): RecentFile;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): RecentFile;
+        Maximum: number;
+        readonly Parent: any;
     }
 
     class Research {
         private 'Excel.Research_typekey': Research;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public IsResearchService(ServiceID: string): boolean;
-        public readonly Parent: any;
-        public Query(ServiceID: string, QueryString?: any, QueryLanguage?: any, UseSelection?: any, LaunchQuery?: any): any;
-        public SetLanguagePair(LanguageFrom: number, LanguageTo: number): any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        IsResearchService(ServiceID: string): boolean;
+        readonly Parent: any;
+        Query(ServiceID: string, QueryString?: any, QueryLanguage?: any, UseSelection?: any, LaunchQuery?: any): any;
+        SetLanguagePair(LanguageFrom: number, LanguageTo: number): any;
     }
 
     class RoutingSlip {
         private 'Excel.RoutingSlip_typekey': RoutingSlip;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delivery: XlRoutingSlipDelivery;
-        public Message: any;
-        public readonly Parent: any;
-        public Recipients(Index?: any): any;
-        public Reset(): any;
-        public ReturnWhenDone: boolean;
-        public readonly Status: XlRoutingSlipStatus;
-        public Subject: any;
-        public TrackStatus: boolean;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delivery: XlRoutingSlipDelivery;
+        Message: any;
+        readonly Parent: any;
+        Recipients(Index?: any): any;
+        Reset(): any;
+        ReturnWhenDone: boolean;
+        readonly Status: XlRoutingSlipStatus;
+        Subject: any;
+        TrackStatus: boolean;
     }
 
     class RTD {
         private 'Excel.RTD_typekey': RTD;
         private constructor();
-        public RefreshData(): void;
-        public RestartServers(): void;
-        public ThrottleInterval: number;
+        RefreshData(): void;
+        RestartServers(): void;
+        ThrottleInterval: number;
     }
 
     class SeriesLines {
         private 'Excel.SeriesLines_typekey': SeriesLines;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: Border;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class ServerViewableItems {
         private 'Excel.ServerViewableItems_typekey': ServerViewableItems;
         private constructor();
-        public _Default(Index: any): any;
-        public Add(Obj: any): any;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(Index: any): void;
-        public DeleteAll(): void;
-        public Item(Index: any): any;
-        public readonly Parent: any;
+        _Default(Index: any): any;
+        Add(Obj: any): any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(Index: any): void;
+        DeleteAll(): void;
+        Item(Index: any): any;
+        readonly Parent: any;
     }
 
     class ShadowFormat {
         private 'Excel.ShadowFormat_typekey': ShadowFormat;
         private constructor();
-        public readonly Application: any;
-        public Blur: number;
-        public readonly Creator: number;
-        public ForeColor: ColorFormat;
-        public IncrementOffsetX(Increment: number): void;
-        public IncrementOffsetY(Increment: number): void;
-        public Obscured: Office.MsoTriState;
-        public OffsetX: number;
-        public OffsetY: number;
-        public readonly Parent: any;
-        public RotateWithShape: Office.MsoTriState;
-        public Size: number;
-        public Style: Office.MsoShadowStyle;
-        public Transparency: number;
-        public Type: Office.MsoShadowType;
-        public Visible: Office.MsoTriState;
+        readonly Application: any;
+        Blur: number;
+        readonly Creator: number;
+        ForeColor: ColorFormat;
+        IncrementOffsetX(Increment: number): void;
+        IncrementOffsetY(Increment: number): void;
+        Obscured: Office.MsoTriState;
+        OffsetX: number;
+        OffsetY: number;
+        readonly Parent: any;
+        RotateWithShape: Office.MsoTriState;
+        Size: number;
+        Style: Office.MsoShadowStyle;
+        Transparency: number;
+        Type: Office.MsoShadowType;
+        Visible: Office.MsoTriState;
     }
 
     class Shape {
         private 'Excel.Shape_typekey': Shape;
         private constructor();
-        public readonly Adjustments: Adjustments;
-        public AlternativeText: string;
-        public readonly Application: Application;
-        public Apply(): void;
-        public AutoShapeType: Office.MsoAutoShapeType;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public BlackWhiteMode: Office.MsoBlackWhiteMode;
-        public readonly BottomRightCell: Range;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: Office.CanvasShapes;
-        public readonly Chart: Chart;
-        public readonly Child: Office.MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: Office.MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public readonly ControlFormat: ControlFormat;
-        public Copy(): void;
-        public CopyPicture(Appearance?: any, Format?: any): void;
-        public readonly Creator: XlCreator;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly Diagram: Diagram;
-        public readonly DiagramNode: DiagramNode;
-        public readonly DrawingObject: any;
-        public Duplicate(): Shape;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: Office.MsoFlipCmd): void;
-        public readonly FormControlType: XlFormControl;
-        public readonly Glow: Office.GlowFormat;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: Office.MsoTriState;
-        public readonly HasDiagram: Office.MsoTriState;
-        public readonly HasDiagramNode: Office.MsoTriState;
-        public readonly HasSmartArt: Office.MsoTriState;
-        public Height: number;
-        public readonly HorizontalFlip: Office.MsoTriState;
-        public readonly Hyperlink: Hyperlink;
-        public readonly ID: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public Left: number;
-        public readonly Line: LineFormat;
-        public readonly LinkFormat: LinkFormat;
-        public LockAspectRatio: Office.MsoTriState;
-        public Locked: boolean;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly OLEFormat: OLEFormat;
-        public OnAction: string;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public readonly PictureFormat: PictureFormat;
-        public Placement: XlPlacement;
-        public readonly Reflection: Office.ReflectionFormat;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
-        public readonly Script: Office.Script;
-        public Select(Replace?: any): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: Office.MsoShapeStyleIndex;
-        public readonly SmartArt: Office.SmartArt;
-        public readonly SoftEdge: Office.SoftEdgeFormat;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public readonly TopLeftCell: Range;
-        public readonly Type: Office.MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public readonly VerticalFlip: Office.MsoTriState;
-        public readonly Vertices: any;
-        public Visible: Office.MsoTriState;
-        public Width: number;
-        public ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        readonly Adjustments: Adjustments;
+        AlternativeText: string;
+        readonly Application: Application;
+        Apply(): void;
+        AutoShapeType: Office.MsoAutoShapeType;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        BlackWhiteMode: Office.MsoBlackWhiteMode;
+        readonly BottomRightCell: Range;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: Office.CanvasShapes;
+        readonly Chart: Chart;
+        readonly Child: Office.MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: Office.MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        readonly ControlFormat: ControlFormat;
+        Copy(): void;
+        CopyPicture(Appearance?: any, Format?: any): void;
+        readonly Creator: XlCreator;
+        Cut(): void;
+        Delete(): void;
+        readonly Diagram: Diagram;
+        readonly DiagramNode: DiagramNode;
+        readonly DrawingObject: any;
+        Duplicate(): Shape;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
+        readonly FormControlType: XlFormControl;
+        readonly Glow: Office.GlowFormat;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: Office.MsoTriState;
+        readonly HasDiagram: Office.MsoTriState;
+        readonly HasDiagramNode: Office.MsoTriState;
+        readonly HasSmartArt: Office.MsoTriState;
+        Height: number;
+        readonly HorizontalFlip: Office.MsoTriState;
+        readonly Hyperlink: Hyperlink;
+        readonly ID: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Left: number;
+        readonly Line: LineFormat;
+        readonly LinkFormat: LinkFormat;
+        LockAspectRatio: Office.MsoTriState;
+        Locked: boolean;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly OLEFormat: OLEFormat;
+        OnAction: string;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        readonly PictureFormat: PictureFormat;
+        Placement: XlPlacement;
+        readonly Reflection: Office.ReflectionFormat;
+        RerouteConnections(): void;
+        Rotation: number;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
+        readonly Script: Office.Script;
+        Select(Replace?: any): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: Office.MsoShapeStyleIndex;
+        readonly SmartArt: Office.SmartArt;
+        readonly SoftEdge: Office.SoftEdgeFormat;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        readonly TopLeftCell: Range;
+        readonly Type: Office.MsoShapeType;
+        Ungroup(): ShapeRange;
+        readonly VerticalFlip: Office.MsoTriState;
+        readonly Vertices: any;
+        Visible: Office.MsoTriState;
+        Width: number;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class ShapeNode {
         private 'Excel.ShapeNode_typekey': ShapeNode;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly EditingType: Office.MsoEditingType;
-        public readonly Parent: any;
-        public readonly Points: any;
-        public readonly SegmentType: Office.MsoSegmentType;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly EditingType: Office.MsoEditingType;
+        readonly Parent: any;
+        readonly Points: any;
+        readonly SegmentType: Office.MsoSegmentType;
     }
 
     class ShapeNodes {
         private 'Excel.ShapeNodes_typekey': ShapeNodes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(Index: number): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(Index: number): void;
 
         /**
          * @param number [X2=0]
@@ -6945,1440 +6945,1440 @@ declare namespace Excel {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        public Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
-        public Item(Index: any): ShapeNode;
-        public readonly Parent: any;
-        public SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
-        public SetPosition(Index: number, X1: number, Y1: number): void;
-        public SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType): void;
+        Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Item(Index: any): ShapeNode;
+        readonly Parent: any;
+        SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
+        SetPosition(Index: number, X1: number, Y1: number): void;
+        SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType): void;
     }
 
     class ShapeRange {
         private 'Excel.ShapeRange_typekey': ShapeRange;
         private constructor();
-        public _Default(Index: any): Shape;
-        public readonly Adjustments: Adjustments;
-        public Align(AlignCmd: Office.MsoAlignCmd, RelativeTo: Office.MsoTriState): void;
-        public AlternativeText: string;
-        public readonly Application: Application;
-        public Apply(): void;
-        public AutoShapeType: Office.MsoAutoShapeType;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public BlackWhiteMode: Office.MsoBlackWhiteMode;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: Office.CanvasShapes;
-        public readonly Chart: Chart;
-        public readonly Child: Office.MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: Office.MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Diagram: Diagram;
-        public readonly DiagramNode: DiagramNode;
-        public Distribute(DistributeCmd: Office.MsoDistributeCmd, RelativeTo: Office.MsoTriState): void;
-        public Duplicate(): ShapeRange;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: Office.MsoFlipCmd): void;
-        public readonly Glow: Office.GlowFormat;
-        public Group(): Shape;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: Office.MsoTriState;
-        public readonly HasDiagram: Office.MsoTriState;
-        public readonly HasDiagramNode: Office.MsoTriState;
-        public Height: number;
-        public readonly HorizontalFlip: Office.MsoTriState;
-        public readonly ID: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public Item(Index: any): Shape;
-        public Left: number;
-        public readonly Line: LineFormat;
-        public LockAspectRatio: Office.MsoTriState;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Reflection: Office.ReflectionFormat;
-        public Regroup(): Shape;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
-        public Select(Replace?: any): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: Office.MsoShapeStyleIndex;
-        public readonly SoftEdge: Office.SoftEdgeFormat;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public readonly Type: Office.MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public readonly VerticalFlip: Office.MsoTriState;
-        public readonly Vertices: any;
-        public Visible: Office.MsoTriState;
-        public Width: number;
-        public ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        _Default(Index: any): Shape;
+        readonly Adjustments: Adjustments;
+        Align(AlignCmd: Office.MsoAlignCmd, RelativeTo: Office.MsoTriState): void;
+        AlternativeText: string;
+        readonly Application: Application;
+        Apply(): void;
+        AutoShapeType: Office.MsoAutoShapeType;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        BlackWhiteMode: Office.MsoBlackWhiteMode;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: Office.CanvasShapes;
+        readonly Chart: Chart;
+        readonly Child: Office.MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: Office.MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Diagram: Diagram;
+        readonly DiagramNode: DiagramNode;
+        Distribute(DistributeCmd: Office.MsoDistributeCmd, RelativeTo: Office.MsoTriState): void;
+        Duplicate(): ShapeRange;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
+        readonly Glow: Office.GlowFormat;
+        Group(): Shape;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: Office.MsoTriState;
+        readonly HasDiagram: Office.MsoTriState;
+        readonly HasDiagramNode: Office.MsoTriState;
+        Height: number;
+        readonly HorizontalFlip: Office.MsoTriState;
+        readonly ID: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Item(Index: any): Shape;
+        Left: number;
+        readonly Line: LineFormat;
+        LockAspectRatio: Office.MsoTriState;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        readonly PictureFormat: PictureFormat;
+        readonly Reflection: Office.ReflectionFormat;
+        Regroup(): Shape;
+        RerouteConnections(): void;
+        Rotation: number;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, Scale?: any): void;
+        Select(Replace?: any): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: Office.MsoShapeStyleIndex;
+        readonly SoftEdge: Office.SoftEdgeFormat;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        readonly Type: Office.MsoShapeType;
+        Ungroup(): ShapeRange;
+        readonly VerticalFlip: Office.MsoTriState;
+        readonly Vertices: any;
+        Visible: Office.MsoTriState;
+        Width: number;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class Shapes {
         private 'Excel.Shapes_typekey': Shapes;
         private constructor();
-        public _Default(Index: any): Shape;
-        public AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddChart(XlChartType?: any, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
-        public AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddCurve(SafeArrayOfPoints: any): Shape;
-        public AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddFormControl(Type: XlFormControl, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddOLEObject(ClassType?: any, Filename?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Left?: any, Top?: any, Width?: any,
+        _Default(Index: any): Shape;
+        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
+        AddChart(XlChartType?: any, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
+        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
+        AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddFormControl(Type: XlFormControl, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddOLEObject(ClassType?: any, Filename?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Left?: any, Top?: any, Width?: any,
                             Height?: any): Shape;
-        public AddPicture(Filename: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddPolyline(SafeArrayOfPoints: any): Shape;
-        public AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddSmartArt(Layout: Office.SmartArtLayout, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
-        public AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextEffect(
+        AddPicture(Filename: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddSmartArt(Layout: Office.SmartArtLayout, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
+        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextEffect(
             PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
             Left: number, Top: number): Shape;
-        public readonly Application: Application;
-        public BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
-        public SelectAll(): void;
+        readonly Application: Application;
+        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
+        SelectAll(): void;
     }
 
     class Sheets {
         private 'Excel.Sheets_typekey': Sheets;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public _Default(Index: any): any;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public Add(Before?: any, After?: any, Count?: any, Type?: any): any;
-        public readonly Application: Application;
-        public Copy(Before?: any, After?: any): void;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        _Default(Index: any): any;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        Add(Before?: any, After?: any, Count?: any, Type?: any): any;
+        readonly Application: Application;
+        Copy(Before?: any, After?: any): void;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
 
         /** @param Excel.XlFillWith [Type=-4104] */
-        public FillAcrossSheets(Range: Range, Type?: XlFillWith): void;
-        public readonly HPageBreaks: HPageBreaks;
-        public Item(Index: string | number): Worksheet | Chart | DialogSheet;
-        public Item(Indexes: SafeArray<string | number>): Sheets;
-        public Move(Before?: any, After?: any): void;
-        public readonly Parent: any;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
-        public PrintPreview(EnableChanges?: any): void;
-        public Select(Replace?: boolean): void;
-        public Visible: any;
-        public readonly VPageBreaks: VPageBreaks;
+        FillAcrossSheets(Range: Range, Type?: XlFillWith): void;
+        readonly HPageBreaks: HPageBreaks;
+        Item(Index: string | number): Worksheet | Chart | DialogSheet;
+        Item(Indexes: SafeArray<string | number>): Sheets;
+        Move(Before?: any, After?: any): void;
+        readonly Parent: any;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
+        PrintPreview(EnableChanges?: any): void;
+        Select(Replace?: boolean): void;
+        Visible: any;
+        readonly VPageBreaks: VPageBreaks;
     }
 
     class SheetViews {
         private 'Excel.SheetViews_typekey': SheetViews;
         private constructor();
-        public _Default(Index: any): any;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): any;
-        public readonly Parent: any;
+        _Default(Index: any): any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): any;
+        readonly Parent: any;
     }
 
     class Slicer {
         private 'Excel.Slicer_typekey': Slicer;
         private constructor();
-        public readonly ActiveItem: SlicerItem;
-        public readonly Application: Application;
-        public Caption: string;
-        public ColumnWidth: number;
-        public Copy(): void;
-        public readonly Creator: XlCreator;
-        public Cut(): void;
-        public Delete(): void;
-        public DisableMoveResizeUI: boolean;
-        public DisplayHeader: boolean;
-        public Height: number;
-        public Left: number;
-        public Locked: boolean;
-        public Name: string;
-        public NumberOfColumns: number;
-        public readonly Parent: any;
-        public RowHeight: number;
-        public readonly Shape: Shape;
-        public readonly SlicerCache: SlicerCache;
-        public readonly SlicerCacheLevel: SlicerCacheLevel;
-        public Style: any;
-        public Top: number;
-        public Width: number;
+        readonly ActiveItem: SlicerItem;
+        readonly Application: Application;
+        Caption: string;
+        ColumnWidth: number;
+        Copy(): void;
+        readonly Creator: XlCreator;
+        Cut(): void;
+        Delete(): void;
+        DisableMoveResizeUI: boolean;
+        DisplayHeader: boolean;
+        Height: number;
+        Left: number;
+        Locked: boolean;
+        Name: string;
+        NumberOfColumns: number;
+        readonly Parent: any;
+        RowHeight: number;
+        readonly Shape: Shape;
+        readonly SlicerCache: SlicerCache;
+        readonly SlicerCacheLevel: SlicerCacheLevel;
+        Style: any;
+        Top: number;
+        Width: number;
     }
 
     class SlicerCache {
         private 'Excel.SlicerCache_typekey': SlicerCache;
         private constructor();
-        public readonly Application: Application;
-        public ClearManualFilter(): void;
-        public readonly Creator: XlCreator;
-        public CrossFilterType: XlSlicerCrossFilterType;
-        public Delete(): void;
-        public readonly Index: number;
-        public Name: string;
-        public readonly OLAP: boolean;
-        public readonly Parent: any;
-        public readonly PivotTables: SlicerPivotTables;
-        public ShowAllItems: boolean;
-        public readonly SlicerCacheLevels: SlicerCacheLevels;
-        public readonly SlicerItems: SlicerItems;
-        public readonly Slicers: Slicers;
-        public SortItems: XlSlicerSort;
-        public SortUsingCustomLists: boolean;
-        public readonly SourceName: string;
-        public readonly SourceType: XlPivotTableSourceType;
-        public readonly VisibleSlicerItems: SlicerItems;
-        public VisibleSlicerItemsList: any;
-        public readonly WorkbookConnection: WorkbookConnection;
+        readonly Application: Application;
+        ClearManualFilter(): void;
+        readonly Creator: XlCreator;
+        CrossFilterType: XlSlicerCrossFilterType;
+        Delete(): void;
+        readonly Index: number;
+        Name: string;
+        readonly OLAP: boolean;
+        readonly Parent: any;
+        readonly PivotTables: SlicerPivotTables;
+        ShowAllItems: boolean;
+        readonly SlicerCacheLevels: SlicerCacheLevels;
+        readonly SlicerItems: SlicerItems;
+        readonly Slicers: Slicers;
+        SortItems: XlSlicerSort;
+        SortUsingCustomLists: boolean;
+        readonly SourceName: string;
+        readonly SourceType: XlPivotTableSourceType;
+        readonly VisibleSlicerItems: SlicerItems;
+        VisibleSlicerItemsList: any;
+        readonly WorkbookConnection: WorkbookConnection;
     }
 
     class SlicerCacheLevel {
         private 'Excel.SlicerCacheLevel_typekey': SlicerCacheLevel;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public CrossFilterType: XlSlicerCrossFilterType;
-        public readonly Name: string;
-        public readonly Ordinal: number;
-        public readonly Parent: any;
-        public readonly SlicerItems: SlicerItems;
-        public SortItems: XlSlicerSort;
-        public readonly VisibleSlicerItemsList: any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        CrossFilterType: XlSlicerCrossFilterType;
+        readonly Name: string;
+        readonly Ordinal: number;
+        readonly Parent: any;
+        readonly SlicerItems: SlicerItems;
+        SortItems: XlSlicerSort;
+        readonly VisibleSlicerItemsList: any;
     }
 
     class SlicerCacheLevels {
         private 'Excel.SlicerCacheLevels_typekey': SlicerCacheLevels;
         private constructor();
-        public _Default(Level?: any): SlicerCacheLevel;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Level?: any): SlicerCacheLevel;
-        public readonly Parent: any;
+        _Default(Level?: any): SlicerCacheLevel;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Level?: any): SlicerCacheLevel;
+        readonly Parent: any;
     }
 
     class SlicerCaches {
         private 'Excel.SlicerCaches_typekey': SlicerCaches;
         private constructor();
-        public _Default(Index: any): SlicerCache;
-        public Add(Source: any, SourceField: any, Name?: any): SlicerCache;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): SlicerCache;
-        public readonly Parent: any;
+        _Default(Index: any): SlicerCache;
+        Add(Source: any, SourceField: any, Name?: any): SlicerCache;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): SlicerCache;
+        readonly Parent: any;
     }
 
     class SlicerItem {
         private 'Excel.SlicerItem_typekey': SlicerItem;
         private constructor();
-        public readonly Application: Application;
-        public readonly Caption: string;
-        public readonly Creator: XlCreator;
-        public readonly HasData: boolean;
-        public readonly Name: string;
-        public readonly Parent: SlicerCache;
-        public Selected: boolean;
-        public readonly SourceName: any;
-        public readonly SourceNameStandard: string;
-        public readonly Value: string;
+        readonly Application: Application;
+        readonly Caption: string;
+        readonly Creator: XlCreator;
+        readonly HasData: boolean;
+        readonly Name: string;
+        readonly Parent: SlicerCache;
+        Selected: boolean;
+        readonly SourceName: any;
+        readonly SourceNameStandard: string;
+        readonly Value: string;
     }
 
     class SlicerItems {
         private 'Excel.SlicerItems_typekey': SlicerItems;
         private constructor();
-        public _Default(Index: any): SlicerItem;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): SlicerItem;
-        public readonly Parent: any;
+        _Default(Index: any): SlicerItem;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): SlicerItem;
+        readonly Parent: any;
     }
 
     class SlicerPivotTables {
         private 'Excel.SlicerPivotTables_typekey': SlicerPivotTables;
         private constructor();
-        public _Default(Index: any): PivotTable;
-        public AddPivotTable(PivotTable: PivotTable): void;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): PivotTable;
-        public readonly Parent: any;
-        public RemovePivotTable(PivotTable: any): void;
+        _Default(Index: any): PivotTable;
+        AddPivotTable(PivotTable: PivotTable): void;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): PivotTable;
+        readonly Parent: any;
+        RemovePivotTable(PivotTable: any): void;
     }
 
     class Slicers {
         private 'Excel.Slicers_typekey': Slicers;
         private constructor();
-        public _Default(Index: any): Slicer;
-        public Add(SlicerDestination: any, Level?: any, Name?: any, Caption?: any, Top?: any, Left?: any, Width?: any, Height?: any): Slicer;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Slicer;
-        public readonly Parent: any;
+        _Default(Index: any): Slicer;
+        Add(SlicerDestination: any, Level?: any, Name?: any, Caption?: any, Top?: any, Left?: any, Width?: any, Height?: any): Slicer;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Slicer;
+        readonly Parent: any;
     }
 
     class SmartTag {
         private 'Excel.SmartTag_typekey': SmartTag;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly DownloadURL: string;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Properties: CustomProperties;
-        public readonly Range: Range;
-        public readonly SmartTagActions: SmartTagActions;
-        public readonly XML: string;
+        readonly _Default: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly DownloadURL: string;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Properties: CustomProperties;
+        readonly Range: Range;
+        readonly SmartTagActions: SmartTagActions;
+        readonly XML: string;
     }
 
     class SmartTagAction {
         private 'Excel.SmartTagAction_typekey': SmartTagAction;
         private constructor();
-        public readonly _Default: string;
-        public readonly ActiveXControl: any;
-        public readonly Application: Application;
-        public CheckboxState: boolean;
-        public readonly Creator: XlCreator;
-        public Execute(): void;
-        public ExpandHelp: boolean;
-        public ListSelection: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly PresentInPane: boolean;
-        public RadioGroupSelection: number;
-        public TextboxText: string;
-        public readonly Type: XlSmartTagControlType;
+        readonly _Default: string;
+        readonly ActiveXControl: any;
+        readonly Application: Application;
+        CheckboxState: boolean;
+        readonly Creator: XlCreator;
+        Execute(): void;
+        ExpandHelp: boolean;
+        ListSelection: number;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly PresentInPane: boolean;
+        RadioGroupSelection: number;
+        TextboxText: string;
+        readonly Type: XlSmartTagControlType;
     }
 
     class SmartTagActions {
         private 'Excel.SmartTagActions_typekey': SmartTagActions;
         private constructor();
-        public _Default(Index: any): SmartTagAction;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): SmartTagAction;
-        public readonly Parent: any;
+        _Default(Index: any): SmartTagAction;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): SmartTagAction;
+        readonly Parent: any;
     }
 
     class SmartTagOptions {
         private 'Excel.SmartTagOptions_typekey': SmartTagOptions;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public DisplaySmartTags: XlSmartTagDisplayMode;
-        public EmbedSmartTags: boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        DisplaySmartTags: XlSmartTagDisplayMode;
+        EmbedSmartTags: boolean;
+        readonly Parent: any;
     }
 
     class SmartTagRecognizer {
         private 'Excel.SmartTagRecognizer_typekey': SmartTagRecognizer;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Enabled: boolean;
-        public readonly FullName: string;
-        public readonly Parent: any;
-        public readonly progID: string;
+        readonly _Default: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Enabled: boolean;
+        readonly FullName: string;
+        readonly Parent: any;
+        readonly progID: string;
     }
 
     class SmartTagRecognizers {
         private 'Excel.SmartTagRecognizers_typekey': SmartTagRecognizers;
         private constructor();
-        public _Default(Index: any): SmartTagRecognizer;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): SmartTagRecognizer;
-        public readonly Parent: any;
-        public Recognize: boolean;
+        _Default(Index: any): SmartTagRecognizer;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): SmartTagRecognizer;
+        readonly Parent: any;
+        Recognize: boolean;
     }
 
     class SmartTags {
         private 'Excel.SmartTags_typekey': SmartTags;
         private constructor();
-        public _Default(Index: any): SmartTag;
-        public Add(SmartTagType: string): SmartTag;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
+        _Default(Index: any): SmartTag;
+        Add(SmartTagType: string): SmartTag;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
     }
 
     class Sort {
         private 'Excel.Sort_typekey': Sort;
         private constructor();
-        public readonly Application: Application;
-        public Apply(): void;
-        public readonly Creator: XlCreator;
-        public Header: XlYesNoGuess;
-        public MatchCase: boolean;
-        public Orientation: XlSortOrientation;
-        public readonly Parent: any;
-        public readonly Rng: Range;
-        public SetRange(Rng: Range): void;
-        public readonly SortFields: SortFields;
-        public SortMethod: XlSortMethod;
+        readonly Application: Application;
+        Apply(): void;
+        readonly Creator: XlCreator;
+        Header: XlYesNoGuess;
+        MatchCase: boolean;
+        Orientation: XlSortOrientation;
+        readonly Parent: any;
+        readonly Rng: Range;
+        SetRange(Rng: Range): void;
+        readonly SortFields: SortFields;
+        SortMethod: XlSortMethod;
     }
 
     class SortField {
         private 'Excel.SortField_typekey': SortField;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public CustomOrder: any;
-        public DataOption: XlSortDataOption;
-        public Delete(): void;
-        public readonly Key: Range;
-        public ModifyKey(Key: Range): void;
-        public Order: XlSortOrder;
-        public readonly Parent: any;
-        public Priority: number;
-        public SetIcon(Icon: Icon): void;
-        public SortOn: XlSortOn;
-        public readonly SortOnValue: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        CustomOrder: any;
+        DataOption: XlSortDataOption;
+        Delete(): void;
+        readonly Key: Range;
+        ModifyKey(Key: Range): void;
+        Order: XlSortOrder;
+        readonly Parent: any;
+        Priority: number;
+        SetIcon(Icon: Icon): void;
+        SortOn: XlSortOn;
+        readonly SortOnValue: any;
     }
 
     class SortFields {
         private 'Excel.SortFields_typekey': SortFields;
         private constructor();
-        public _Default(Index: any): SortField;
-        public Add(Key: Range, SortOn?: any, Order?: any, CustomOrder?: any, DataOption?: any): SortField;
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): SortField;
-        public readonly Parent: any;
+        _Default(Index: any): SortField;
+        Add(Key: Range, SortOn?: any, Order?: any, CustomOrder?: any, DataOption?: any): SortField;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): SortField;
+        readonly Parent: any;
     }
 
     class SoundNote {
         private 'Excel.SoundNote_typekey': SoundNote;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public Import(Filename: string): any;
-        public readonly Parent: any;
-        public Play(): any;
-        public Record(): any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        Import(Filename: string): any;
+        readonly Parent: any;
+        Play(): any;
+        Record(): any;
     }
 
     class SparkAxes {
         private 'Excel.SparkAxes_typekey': SparkAxes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Horizontal: SparkHorizontalAxis;
-        public readonly Parent: any;
-        public readonly Vertical: SparkVerticalAxis;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Horizontal: SparkHorizontalAxis;
+        readonly Parent: any;
+        readonly Vertical: SparkVerticalAxis;
     }
 
     class SparkColor {
         private 'Excel.SparkColor_typekey': SparkColor;
         private constructor();
-        public readonly Application: Application;
-        public readonly Color: FormatColor;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public Visible: boolean;
+        readonly Application: Application;
+        readonly Color: FormatColor;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        Visible: boolean;
     }
 
     class SparkHorizontalAxis {
         private 'Excel.SparkHorizontalAxis_typekey': SparkHorizontalAxis;
         private constructor();
-        public readonly Application: Application;
-        public readonly Axis: SparkColor;
-        public readonly Creator: XlCreator;
-        public readonly IsDateAxis: boolean;
-        public readonly Parent: any;
-        public RightToLeftPlotOrder: boolean;
+        readonly Application: Application;
+        readonly Axis: SparkColor;
+        readonly Creator: XlCreator;
+        readonly IsDateAxis: boolean;
+        readonly Parent: any;
+        RightToLeftPlotOrder: boolean;
     }
 
     class Sparkline {
         private 'Excel.Sparkline_typekey': Sparkline;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Location: Range;
-        public ModifyLocation(Range: Range): void;
-        public ModifySourceData(Formula: string): void;
-        public readonly Parent: any;
-        public SourceData: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Location: Range;
+        ModifyLocation(Range: Range): void;
+        ModifySourceData(Formula: string): void;
+        readonly Parent: any;
+        SourceData: string;
     }
 
     class SparklineGroup {
         private 'Excel.SparklineGroup_typekey': SparklineGroup;
         private constructor();
-        public readonly Application: Application;
-        public readonly Axes: SparkAxes;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public DateRange: string;
-        public Delete(): void;
-        public DisplayBlanksAs: XlDisplayBlanksAs;
-        public DisplayHidden: boolean;
-        public Item(Index: any): Sparkline;
-        public LineWeight: any;
-        public Location: Range;
-        public Modify(Location: Range, SourceData: string): void;
-        public ModifyDateRange(DateRange: string): void;
-        public ModifyLocation(Location: Range): void;
-        public ModifySourceData(SourceData: string): void;
-        public readonly Parent: any;
-        public PlotBy: XlSparklineRowCol;
-        public readonly Points: SparkPoints;
-        public readonly SeriesColor: FormatColor;
-        public SourceData: string;
-        public Type: XlSparkType;
+        readonly Application: Application;
+        readonly Axes: SparkAxes;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        DateRange: string;
+        Delete(): void;
+        DisplayBlanksAs: XlDisplayBlanksAs;
+        DisplayHidden: boolean;
+        Item(Index: any): Sparkline;
+        LineWeight: any;
+        Location: Range;
+        Modify(Location: Range, SourceData: string): void;
+        ModifyDateRange(DateRange: string): void;
+        ModifyLocation(Location: Range): void;
+        ModifySourceData(SourceData: string): void;
+        readonly Parent: any;
+        PlotBy: XlSparklineRowCol;
+        readonly Points: SparkPoints;
+        readonly SeriesColor: FormatColor;
+        SourceData: string;
+        Type: XlSparkType;
     }
 
     class SparklineGroups {
         private 'Excel.SparklineGroups_typekey': SparklineGroups;
         private constructor();
-        public _Default(Index: any): SparklineGroup;
-        public Add(Type: XlSparkType, SourceData: string): SparklineGroup;
-        public readonly Application: Application;
-        public Clear(): void;
-        public ClearGroups(): void;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Group(Location: Range): void;
-        public Item(Index: any): SparklineGroup;
-        public readonly Parent: any;
-        public Ungroup(): void;
+        _Default(Index: any): SparklineGroup;
+        Add(Type: XlSparkType, SourceData: string): SparklineGroup;
+        readonly Application: Application;
+        Clear(): void;
+        ClearGroups(): void;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Group(Location: Range): void;
+        Item(Index: any): SparklineGroup;
+        readonly Parent: any;
+        Ungroup(): void;
     }
 
     class SparkPoints {
         private 'Excel.SparkPoints_typekey': SparkPoints;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Firstpoint: SparkColor;
-        public readonly Highpoint: SparkColor;
-        public readonly Lastpoint: SparkColor;
-        public readonly Lowpoint: SparkColor;
-        public readonly Markers: SparkColor;
-        public readonly Negative: SparkColor;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Firstpoint: SparkColor;
+        readonly Highpoint: SparkColor;
+        readonly Lastpoint: SparkColor;
+        readonly Lowpoint: SparkColor;
+        readonly Markers: SparkColor;
+        readonly Negative: SparkColor;
+        readonly Parent: any;
     }
 
     class SparkVerticalAxis {
         private 'Excel.SparkVerticalAxis_typekey': SparkVerticalAxis;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public CustomMaxScaleValue: any;
-        public CustomMinScaleValue: any;
-        public MaxScaleType: XlSparkScale;
-        public MinScaleType: XlSparkScale;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        CustomMaxScaleValue: any;
+        CustomMinScaleValue: any;
+        MaxScaleType: XlSparkScale;
+        MinScaleType: XlSparkScale;
+        readonly Parent: any;
     }
 
     class Speech {
         private 'Excel.Speech_typekey': Speech;
         private constructor();
-        public Direction: XlSpeakDirection;
-        public Speak(Text: string, SpeakAsync?: any, SpeakXML?: any, Purge?: any): void;
-        public SpeakCellOnEnter: boolean;
+        Direction: XlSpeakDirection;
+        Speak(Text: string, SpeakAsync?: any, SpeakXML?: any, Purge?: any): void;
+        SpeakCellOnEnter: boolean;
     }
 
     class SpellingOptions {
         private 'Excel.SpellingOptions_typekey': SpellingOptions;
         private constructor();
-        public ArabicModes: XlArabicModes;
-        public ArabicStrictAlefHamza: boolean;
-        public ArabicStrictFinalYaa: boolean;
-        public ArabicStrictTaaMarboota: boolean;
-        public BrazilReform: XlPortugueseReform;
-        public DictLang: number;
-        public GermanPostReform: boolean;
-        public HebrewModes: XlHebrewModes;
-        public IgnoreCaps: boolean;
-        public IgnoreFileNames: boolean;
-        public IgnoreMixedDigits: boolean;
-        public KoreanCombineAux: boolean;
-        public KoreanProcessCompound: boolean;
-        public KoreanUseAutoChangeList: boolean;
-        public PortugalReform: XlPortugueseReform;
-        public RussianStrictE: boolean;
-        public SpanishModes: XlSpanishModes;
-        public SuggestMainOnly: boolean;
-        public UserDict: string;
+        ArabicModes: XlArabicModes;
+        ArabicStrictAlefHamza: boolean;
+        ArabicStrictFinalYaa: boolean;
+        ArabicStrictTaaMarboota: boolean;
+        BrazilReform: XlPortugueseReform;
+        DictLang: number;
+        GermanPostReform: boolean;
+        HebrewModes: XlHebrewModes;
+        IgnoreCaps: boolean;
+        IgnoreFileNames: boolean;
+        IgnoreMixedDigits: boolean;
+        KoreanCombineAux: boolean;
+        KoreanProcessCompound: boolean;
+        KoreanUseAutoChangeList: boolean;
+        PortugalReform: XlPortugueseReform;
+        RussianStrictE: boolean;
+        SpanishModes: XlSpanishModes;
+        SuggestMainOnly: boolean;
+        UserDict: string;
     }
 
     class Style {
         private 'Excel.Style_typekey': Style;
         private constructor();
-        public readonly _Default: string;
-        public AddIndent: boolean;
-        public readonly Application: Application;
-        public readonly Borders: Borders;
-        public readonly BuiltIn: boolean;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Font: Font;
-        public FormulaHidden: boolean;
-        public HorizontalAlignment: XlHAlign;
-        public IncludeAlignment: boolean;
-        public IncludeBorder: boolean;
-        public IncludeFont: boolean;
-        public IncludeNumber: boolean;
-        public IncludePatterns: boolean;
-        public IncludeProtection: boolean;
-        public IndentLevel: number;
-        public readonly Interior: Interior;
-        public Locked: boolean;
-        public MergeCells: any;
-        public readonly Name: string;
-        public readonly NameLocal: string;
-        public NumberFormat: string;
-        public NumberFormatLocal: string;
-        public Orientation: XlOrientation;
-        public readonly Parent: any;
-        public ReadingOrder: number;
-        public ShrinkToFit: boolean;
-        public readonly Value: string;
-        public VerticalAlignment: XlVAlign;
-        public WrapText: boolean;
+        readonly _Default: string;
+        AddIndent: boolean;
+        readonly Application: Application;
+        readonly Borders: Borders;
+        readonly BuiltIn: boolean;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Font: Font;
+        FormulaHidden: boolean;
+        HorizontalAlignment: XlHAlign;
+        IncludeAlignment: boolean;
+        IncludeBorder: boolean;
+        IncludeFont: boolean;
+        IncludeNumber: boolean;
+        IncludePatterns: boolean;
+        IncludeProtection: boolean;
+        IndentLevel: number;
+        readonly Interior: Interior;
+        Locked: boolean;
+        MergeCells: any;
+        readonly Name: string;
+        readonly NameLocal: string;
+        NumberFormat: string;
+        NumberFormatLocal: string;
+        Orientation: XlOrientation;
+        readonly Parent: any;
+        ReadingOrder: number;
+        ShrinkToFit: boolean;
+        readonly Value: string;
+        VerticalAlignment: XlVAlign;
+        WrapText: boolean;
     }
 
     class Styles {
         private 'Excel.Styles_typekey': Styles;
         private constructor();
-        public _Default(Index: any): Style;
-        public Add(Name: string, BasedOn?: any): Style;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Style;
-        public Merge(Workbook: any): any;
-        public readonly Parent: any;
+        _Default(Index: any): Style;
+        Add(Name: string, BasedOn?: any): Style;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Style;
+        Merge(Workbook: any): any;
+        readonly Parent: any;
     }
 
     class Tab {
         private 'Excel.Tab_typekey': Tab;
         private constructor();
-        public readonly Application: Application;
-        public Color: any;
-        public ColorIndex: XlColorIndex;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public ThemeColor: XlThemeColor;
-        public TintAndShade: any;
+        readonly Application: Application;
+        Color: any;
+        ColorIndex: XlColorIndex;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        ThemeColor: XlThemeColor;
+        TintAndShade: any;
     }
 
     class TableStyle {
         private 'Excel.TableStyle_typekey': TableStyle;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public readonly BuiltIn: boolean;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Duplicate(NewTableStyleName?: any): TableStyle;
-        public readonly Name: string;
-        public readonly NameLocal: string;
-        public readonly Parent: any;
-        public ShowAsAvailablePivotTableStyle: boolean;
-        public ShowAsAvailableSlicerStyle: boolean;
-        public ShowAsAvailableTableStyle: boolean;
-        public readonly TableStyleElements: TableStyleElements;
+        readonly _Default: string;
+        readonly Application: Application;
+        readonly BuiltIn: boolean;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Duplicate(NewTableStyleName?: any): TableStyle;
+        readonly Name: string;
+        readonly NameLocal: string;
+        readonly Parent: any;
+        ShowAsAvailablePivotTableStyle: boolean;
+        ShowAsAvailableSlicerStyle: boolean;
+        ShowAsAvailableTableStyle: boolean;
+        readonly TableStyleElements: TableStyleElements;
     }
 
     class TableStyleElement {
         private 'Excel.TableStyleElement_typekey': TableStyleElement;
         private constructor();
-        public readonly Application: Application;
-        public readonly Borders: Borders;
-        public Clear(): void;
-        public readonly Creator: XlCreator;
-        public readonly Font: Font;
-        public readonly HasFormat: boolean;
-        public readonly Interior: Interior;
-        public readonly Parent: any;
-        public StripeSize: number;
+        readonly Application: Application;
+        readonly Borders: Borders;
+        Clear(): void;
+        readonly Creator: XlCreator;
+        readonly Font: Font;
+        readonly HasFormat: boolean;
+        readonly Interior: Interior;
+        readonly Parent: any;
+        StripeSize: number;
     }
 
     class TableStyleElements {
         private 'Excel.TableStyleElements_typekey': TableStyleElements;
         private constructor();
-        public _Default(Index: XlTableStyleElementType): TableStyleElement;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: XlTableStyleElementType): TableStyleElement;
-        public readonly Parent: any;
+        _Default(Index: XlTableStyleElementType): TableStyleElement;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: XlTableStyleElementType): TableStyleElement;
+        readonly Parent: any;
     }
 
     class TableStyles {
         private 'Excel.TableStyles_typekey': TableStyles;
         private constructor();
-        public _Default(Index: any): TableStyle;
-        public Add(TableStyleName: string): TableStyle;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): TableStyle;
-        public readonly Parent: any;
+        _Default(Index: any): TableStyle;
+        Add(TableStyleName: string): TableStyle;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): TableStyle;
+        readonly Parent: any;
     }
 
     class TextEffectFormat {
         private 'Excel.TextEffectFormat_typekey': TextEffectFormat;
         private constructor();
-        public Alignment: Office.MsoTextEffectAlignment;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public FontBold: Office.MsoTriState;
-        public FontItalic: Office.MsoTriState;
-        public FontName: string;
-        public FontSize: number;
-        public KernedPairs: Office.MsoTriState;
-        public NormalizedHeight: Office.MsoTriState;
-        public readonly Parent: any;
-        public PresetShape: Office.MsoPresetTextEffectShape;
-        public PresetTextEffect: Office.MsoPresetTextEffect;
-        public RotatedChars: Office.MsoTriState;
-        public Text: string;
-        public ToggleVerticalText(): void;
-        public Tracking: number;
+        Alignment: Office.MsoTextEffectAlignment;
+        readonly Application: any;
+        readonly Creator: number;
+        FontBold: Office.MsoTriState;
+        FontItalic: Office.MsoTriState;
+        FontName: string;
+        FontSize: number;
+        KernedPairs: Office.MsoTriState;
+        NormalizedHeight: Office.MsoTriState;
+        readonly Parent: any;
+        PresetShape: Office.MsoPresetTextEffectShape;
+        PresetTextEffect: Office.MsoPresetTextEffect;
+        RotatedChars: Office.MsoTriState;
+        Text: string;
+        ToggleVerticalText(): void;
+        Tracking: number;
     }
 
     class TextFrame {
         private 'Excel.TextFrame_typekey': TextFrame;
         private constructor();
-        public readonly Application: Application;
-        public AutoMargins: boolean;
-        public AutoSize: boolean;
-        public Characters(Start?: any, Length?: any): Characters;
-        public readonly Creator: XlCreator;
-        public HorizontalAlignment: XlHAlign;
-        public HorizontalOverflow: XlOartHorizontalOverflow;
-        public MarginBottom: number;
-        public MarginLeft: number;
-        public MarginRight: number;
-        public MarginTop: number;
-        public Orientation: Office.MsoTextOrientation;
-        public readonly Parent: any;
-        public ReadingOrder: number;
-        public VerticalAlignment: XlVAlign;
-        public VerticalOverflow: XlOartVerticalOverflow;
+        readonly Application: Application;
+        AutoMargins: boolean;
+        AutoSize: boolean;
+        Characters(Start?: any, Length?: any): Characters;
+        readonly Creator: XlCreator;
+        HorizontalAlignment: XlHAlign;
+        HorizontalOverflow: XlOartHorizontalOverflow;
+        MarginBottom: number;
+        MarginLeft: number;
+        MarginRight: number;
+        MarginTop: number;
+        Orientation: Office.MsoTextOrientation;
+        readonly Parent: any;
+        ReadingOrder: number;
+        VerticalAlignment: XlVAlign;
+        VerticalOverflow: XlOartVerticalOverflow;
     }
 
     class TextFrame2 {
         private 'Excel.TextFrame2_typekey': TextFrame2;
         private constructor();
-        public readonly Application: any;
-        public AutoSize: Office.MsoAutoSize;
-        public readonly Column: Office.TextColumn2;
-        public readonly Creator: number;
-        public DeleteText(): void;
-        public readonly HasText: Office.MsoTriState;
-        public HorizontalAnchor: Office.MsoHorizontalAnchor;
-        public MarginBottom: number;
-        public MarginLeft: number;
-        public MarginRight: number;
-        public MarginTop: number;
-        public NoTextRotation: Office.MsoTriState;
-        public Orientation: Office.MsoTextOrientation;
-        public readonly Parent: any;
-        public PathFormat: Office.MsoPathFormat;
-        public readonly Ruler: Office.Ruler2;
-        public readonly TextRange: Office.TextRange2;
-        public readonly ThreeD: ThreeDFormat;
-        public VerticalAnchor: Office.MsoVerticalAnchor;
-        public WarpFormat: Office.MsoWarpFormat;
-        public WordArtformat: Office.MsoPresetTextEffect;
-        public WordWrap: Office.MsoTriState;
+        readonly Application: any;
+        AutoSize: Office.MsoAutoSize;
+        readonly Column: Office.TextColumn2;
+        readonly Creator: number;
+        DeleteText(): void;
+        readonly HasText: Office.MsoTriState;
+        HorizontalAnchor: Office.MsoHorizontalAnchor;
+        MarginBottom: number;
+        MarginLeft: number;
+        MarginRight: number;
+        MarginTop: number;
+        NoTextRotation: Office.MsoTriState;
+        Orientation: Office.MsoTextOrientation;
+        readonly Parent: any;
+        PathFormat: Office.MsoPathFormat;
+        readonly Ruler: Office.Ruler2;
+        readonly TextRange: Office.TextRange2;
+        readonly ThreeD: ThreeDFormat;
+        VerticalAnchor: Office.MsoVerticalAnchor;
+        WarpFormat: Office.MsoWarpFormat;
+        WordArtformat: Office.MsoPresetTextEffect;
+        WordWrap: Office.MsoTriState;
     }
 
     class ThreeDFormat {
         private 'Excel.ThreeDFormat_typekey': ThreeDFormat;
         private constructor();
-        public readonly Application: any;
-        public BevelBottomDepth: number;
-        public BevelBottomInset: number;
-        public BevelBottomType: Office.MsoBevelType;
-        public BevelTopDepth: number;
-        public BevelTopInset: number;
-        public BevelTopType: Office.MsoBevelType;
-        public readonly ContourColor: ColorFormat;
-        public ContourWidth: number;
-        public readonly Creator: number;
-        public Depth: number;
-        public readonly ExtrusionColor: ColorFormat;
-        public ExtrusionColorType: Office.MsoExtrusionColorType;
-        public FieldOfView: number;
-        public IncrementRotationHorizontal(Increment: number): void;
-        public IncrementRotationVertical(Increment: number): void;
-        public IncrementRotationX(Increment: number): void;
-        public IncrementRotationY(Increment: number): void;
-        public IncrementRotationZ(Increment: number): void;
-        public LightAngle: number;
-        public readonly Parent: any;
-        public Perspective: Office.MsoTriState;
-        public readonly PresetCamera: Office.MsoPresetCamera;
-        public readonly PresetExtrusionDirection: Office.MsoPresetExtrusionDirection;
-        public PresetLighting: Office.MsoLightRigType;
-        public PresetLightingDirection: Office.MsoPresetLightingDirection;
-        public PresetLightingSoftness: Office.MsoPresetLightingSoftness;
-        public PresetMaterial: Office.MsoPresetMaterial;
-        public readonly PresetThreeDFormat: Office.MsoPresetThreeDFormat;
-        public ProjectText: Office.MsoTriState;
-        public ResetRotation(): void;
-        public RotationX: number;
-        public RotationY: number;
-        public RotationZ: number;
-        public SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection): void;
-        public SetPresetCamera(PresetCamera: Office.MsoPresetCamera): void;
-        public SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat): void;
-        public Visible: Office.MsoTriState;
-        public Z: number;
+        readonly Application: any;
+        BevelBottomDepth: number;
+        BevelBottomInset: number;
+        BevelBottomType: Office.MsoBevelType;
+        BevelTopDepth: number;
+        BevelTopInset: number;
+        BevelTopType: Office.MsoBevelType;
+        readonly ContourColor: ColorFormat;
+        ContourWidth: number;
+        readonly Creator: number;
+        Depth: number;
+        readonly ExtrusionColor: ColorFormat;
+        ExtrusionColorType: Office.MsoExtrusionColorType;
+        FieldOfView: number;
+        IncrementRotationHorizontal(Increment: number): void;
+        IncrementRotationVertical(Increment: number): void;
+        IncrementRotationX(Increment: number): void;
+        IncrementRotationY(Increment: number): void;
+        IncrementRotationZ(Increment: number): void;
+        LightAngle: number;
+        readonly Parent: any;
+        Perspective: Office.MsoTriState;
+        readonly PresetCamera: Office.MsoPresetCamera;
+        readonly PresetExtrusionDirection: Office.MsoPresetExtrusionDirection;
+        PresetLighting: Office.MsoLightRigType;
+        PresetLightingDirection: Office.MsoPresetLightingDirection;
+        PresetLightingSoftness: Office.MsoPresetLightingSoftness;
+        PresetMaterial: Office.MsoPresetMaterial;
+        readonly PresetThreeDFormat: Office.MsoPresetThreeDFormat;
+        ProjectText: Office.MsoTriState;
+        ResetRotation(): void;
+        RotationX: number;
+        RotationY: number;
+        RotationZ: number;
+        SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection): void;
+        SetPresetCamera(PresetCamera: Office.MsoPresetCamera): void;
+        SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat): void;
+        Visible: Office.MsoTriState;
+        Z: number;
     }
 
     class TickLabels {
         private 'Excel.TickLabels_typekey': TickLabels;
         private constructor();
-        public Alignment: number;
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Depth: number;
-        public readonly Font: Font;
-        public readonly Format: ChartFormat;
-        public MultiLevel: boolean;
-        public readonly Name: string;
-        public NumberFormat: string;
-        public NumberFormatLinked: boolean;
-        public NumberFormatLocal: any;
-        public Offset: number;
-        public Orientation: XlTickLabelOrientation;
-        public readonly Parent: any;
-        public ReadingOrder: number;
-        public Select(): any;
+        Alignment: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Depth: number;
+        readonly Font: Font;
+        readonly Format: ChartFormat;
+        MultiLevel: boolean;
+        readonly Name: string;
+        NumberFormat: string;
+        NumberFormatLinked: boolean;
+        NumberFormatLocal: any;
+        Offset: number;
+        Orientation: XlTickLabelOrientation;
+        readonly Parent: any;
+        ReadingOrder: number;
+        Select(): any;
     }
 
     class Toolbar {
         private 'Excel.Toolbar_typekey': Toolbar;
         private constructor();
-        public readonly Application: Application;
-        public readonly BuiltIn: boolean;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Height: number;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: number;
-        public Protection: XlToolbarProtection;
-        public Reset(): void;
-        public readonly ToolbarButtons: ToolbarButtons;
-        public Top: number;
-        public Visible: boolean;
-        public Width: number;
+        readonly Application: Application;
+        readonly BuiltIn: boolean;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Height: number;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: number;
+        Protection: XlToolbarProtection;
+        Reset(): void;
+        readonly ToolbarButtons: ToolbarButtons;
+        Top: number;
+        Visible: boolean;
+        Width: number;
     }
 
     class ToolbarButton {
         private 'Excel.ToolbarButton_typekey': ToolbarButton;
         private constructor();
-        public readonly Application: Application;
-        public readonly BuiltIn: boolean;
-        public BuiltInFace: boolean;
-        public Copy(Toolbar: Toolbar, Before: number): void;
-        public CopyFace(): void;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Edit(): void;
-        public Enabled: boolean;
-        public HelpContextID: number;
-        public HelpFile: string;
-        public readonly ID: number;
-        public readonly IsGap: boolean;
-        public Move(Toolbar: Toolbar, Before: number): void;
-        public Name: string;
-        public OnAction: string;
-        public readonly Parent: any;
-        public PasteFace(): void;
-        public Pushed: boolean;
-        public Reset(): void;
-        public StatusBar: string;
-        public Width: number;
+        readonly Application: Application;
+        readonly BuiltIn: boolean;
+        BuiltInFace: boolean;
+        Copy(Toolbar: Toolbar, Before: number): void;
+        CopyFace(): void;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Edit(): void;
+        Enabled: boolean;
+        HelpContextID: number;
+        HelpFile: string;
+        readonly ID: number;
+        readonly IsGap: boolean;
+        Move(Toolbar: Toolbar, Before: number): void;
+        Name: string;
+        OnAction: string;
+        readonly Parent: any;
+        PasteFace(): void;
+        Pushed: boolean;
+        Reset(): void;
+        StatusBar: string;
+        Width: number;
     }
 
     class ToolbarButtons {
         private 'Excel.ToolbarButtons_typekey': ToolbarButtons;
         private constructor();
-        public _Default(Index: number): ToolbarButton;
-        public Add(Button?: any, Before?: any, OnAction?: any, Pushed?: any, Enabled?: any, StatusBar?: any, HelpFile?: any, HelpContextID?: any): ToolbarButton;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): ToolbarButton;
-        public readonly Parent: any;
+        _Default(Index: number): ToolbarButton;
+        Add(Button?: any, Before?: any, OnAction?: any, Pushed?: any, Enabled?: any, StatusBar?: any, HelpFile?: any, HelpContextID?: any): ToolbarButton;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): ToolbarButton;
+        readonly Parent: any;
     }
 
     class Toolbars {
         private 'Excel.Toolbars_typekey': Toolbars;
         private constructor();
-        public _Default(Index: any): Toolbar;
-        public Add(Name?: any): Toolbar;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Toolbar;
-        public readonly Parent: any;
+        _Default(Index: any): Toolbar;
+        Add(Name?: any): Toolbar;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Toolbar;
+        readonly Parent: any;
     }
 
     class TreeviewControl {
         private 'Excel.TreeviewControl_typekey': TreeviewControl;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Drilled: any;
-        public Hidden: any;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Drilled: any;
+        Hidden: any;
+        readonly Parent: any;
     }
 
     class UpBars {
         private 'Excel.UpBars_typekey': UpBars;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public readonly Creator: XlCreator;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: Border;
+        readonly Creator: XlCreator;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class UsedObjects {
         private 'Excel.UsedObjects_typekey': UsedObjects;
         private constructor();
-        public _Default(Index: any): any;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): any;
-        public readonly Parent: any;
+        _Default(Index: any): any;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): any;
+        readonly Parent: any;
     }
 
     class UserAccess {
         private 'Excel.UserAccess_typekey': UserAccess;
         private constructor();
-        public AllowEdit: boolean;
-        public Delete(): void;
-        public readonly Name: string;
+        AllowEdit: boolean;
+        Delete(): void;
+        readonly Name: string;
     }
 
     class UserAccessList {
         private 'Excel.UserAccessList_typekey': UserAccessList;
         private constructor();
-        public _Default(Index: any): UserAccess;
-        public Add(Name: string, AllowEdit: boolean): UserAccess;
-        public readonly Count: number;
-        public DeleteAll(): void;
-        public Item(Index: any): UserAccess;
+        _Default(Index: any): UserAccess;
+        Add(Name: string, AllowEdit: boolean): UserAccess;
+        readonly Count: number;
+        DeleteAll(): void;
+        Item(Index: any): UserAccess;
     }
 
     class Validation {
         private 'Excel.Validation_typekey': Validation;
         private constructor();
-        public Add(Type: XlDVType, AlertStyle?: any, Operator?: any, Formula1?: any, Formula2?: any): void;
-        public readonly AlertStyle: number;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public ErrorMessage: string;
-        public ErrorTitle: string;
-        public readonly Formula1: string;
-        public readonly Formula2: string;
-        public IgnoreBlank: boolean;
-        public IMEMode: number;
-        public InCellDropdown: boolean;
-        public InputMessage: string;
-        public InputTitle: string;
-        public Modify(Type?: any, AlertStyle?: any, Operator?: any, Formula1?: any, Formula2?: any): void;
-        public readonly Operator: number;
-        public readonly Parent: any;
-        public ShowError: boolean;
-        public ShowInput: boolean;
-        public readonly Type: number;
-        public readonly Value: boolean;
+        Add(Type: XlDVType, AlertStyle?: any, Operator?: any, Formula1?: any, Formula2?: any): void;
+        readonly AlertStyle: number;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        ErrorMessage: string;
+        ErrorTitle: string;
+        readonly Formula1: string;
+        readonly Formula2: string;
+        IgnoreBlank: boolean;
+        IMEMode: number;
+        InCellDropdown: boolean;
+        InputMessage: string;
+        InputTitle: string;
+        Modify(Type?: any, AlertStyle?: any, Operator?: any, Formula1?: any, Formula2?: any): void;
+        readonly Operator: number;
+        readonly Parent: any;
+        ShowError: boolean;
+        ShowInput: boolean;
+        readonly Type: number;
+        readonly Value: boolean;
     }
 
     class ValueChange {
         private 'Excel.ValueChange_typekey': ValueChange;
         private constructor();
-        public readonly AllocationMethod: XlAllocationMethod;
-        public readonly AllocationValue: XlAllocationValue;
-        public readonly AllocationWeightExpression: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Order: number;
-        public readonly Parent: any;
-        public readonly PivotCell: PivotCell;
-        public readonly Tuple: string;
-        public readonly Value: number;
-        public readonly VisibleInPivotTable: boolean;
+        readonly AllocationMethod: XlAllocationMethod;
+        readonly AllocationValue: XlAllocationValue;
+        readonly AllocationWeightExpression: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Order: number;
+        readonly Parent: any;
+        readonly PivotCell: PivotCell;
+        readonly Tuple: string;
+        readonly Value: number;
+        readonly VisibleInPivotTable: boolean;
     }
 
     class VPageBreak {
         private 'Excel.VPageBreak_typekey': VPageBreak;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public DragOff(Direction: XlDirection, RegionIndex: number): void;
-        public readonly Extent: XlPageBreakExtent;
-        public Location: Range;
-        public readonly Parent: Worksheet;
-        public Type: XlPageBreak;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        DragOff(Direction: XlDirection, RegionIndex: number): void;
+        readonly Extent: XlPageBreakExtent;
+        Location: Range;
+        readonly Parent: Worksheet;
+        Type: XlPageBreak;
     }
 
     class VPageBreaks {
         private 'Excel.VPageBreaks_typekey': VPageBreaks;
         private constructor();
-        public _Default(Index: number): VPageBreak;
-        public Add(Before: any): VPageBreak;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number): VPageBreak;
-        public readonly Parent: any;
+        _Default(Index: number): VPageBreak;
+        Add(Before: any): VPageBreak;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number): VPageBreak;
+        readonly Parent: any;
     }
 
     class Walls {
         private 'Excel.Walls_typekey': Walls;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: Border;
-        public ClearFormats(): any;
-        public readonly Creator: XlCreator;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public PictureUnit: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: Application;
+        readonly Border: Border;
+        ClearFormats(): any;
+        readonly Creator: XlCreator;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        PictureUnit: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class Watch {
         private 'Excel.Watch_typekey': Watch;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public readonly Parent: any;
-        public readonly Source: any;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        readonly Parent: any;
+        readonly Source: any;
     }
 
     class Watches {
         private 'Excel.Watches_typekey': Watches;
         private constructor();
-        public _Default(Index: any): Watch;
-        public Add(Source: any): Watch;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Item(Index: any): Watch;
-        public readonly Parent: any;
+        _Default(Index: any): Watch;
+        Add(Source: any): Watch;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Item(Index: any): Watch;
+        readonly Parent: any;
     }
 
     class WebOptions {
         private 'Excel.WebOptions_typekey': WebOptions;
         private constructor();
-        public AllowPNG: boolean;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public DownloadComponents: boolean;
-        public Encoding: Office.MsoEncoding;
-        public readonly FolderSuffix: string;
-        public LocationOfComponents: string;
-        public OrganizeInFolder: boolean;
-        public readonly Parent: any;
-        public PixelsPerInch: number;
-        public RelyOnCSS: boolean;
-        public RelyOnVML: boolean;
-        public ScreenSize: Office.MsoScreenSize;
-        public TargetBrowser: Office.MsoTargetBrowser;
-        public UseDefaultFolderSuffix(): void;
-        public UseLongFileNames: boolean;
+        AllowPNG: boolean;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        DownloadComponents: boolean;
+        Encoding: Office.MsoEncoding;
+        readonly FolderSuffix: string;
+        LocationOfComponents: string;
+        OrganizeInFolder: boolean;
+        readonly Parent: any;
+        PixelsPerInch: number;
+        RelyOnCSS: boolean;
+        RelyOnVML: boolean;
+        ScreenSize: Office.MsoScreenSize;
+        TargetBrowser: Office.MsoTargetBrowser;
+        UseDefaultFolderSuffix(): void;
+        UseLongFileNames: boolean;
     }
 
     class Window {
         private 'Excel.Window_typekey': Window;
         private constructor();
-        public _DisplayRightToLeft: boolean;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
-        public Activate(): any;
-        public ActivateNext(): any;
-        public ActivatePrevious(): any;
-        public readonly ActiveCell: Range;
-        public readonly ActiveChart: Chart;
-        public readonly ActivePane: Pane;
-        public readonly ActiveSheet: any;
-        public readonly ActiveSheetView: any;
-        public readonly Application: Application;
-        public AutoFilterDateGrouping: boolean;
-        public Caption: any;
-        public Close(SaveChanges?: any, Filename?: any, RouteWorkbook?: any): boolean;
-        public readonly Creator: XlCreator;
-        public DisplayFormulas: boolean;
-        public DisplayGridlines: boolean;
-        public DisplayHeadings: boolean;
-        public DisplayHorizontalScrollBar: boolean;
-        public DisplayOutline: boolean;
-        public DisplayRightToLeft: boolean;
-        public DisplayRuler: boolean;
-        public DisplayVerticalScrollBar: boolean;
-        public DisplayWhitespace: boolean;
-        public DisplayWorkbookTabs: boolean;
-        public DisplayZeros: boolean;
-        public EnableResize: boolean;
-        public FreezePanes: boolean;
-        public GridlineColor: number;
-        public GridlineColorIndex: XlColorIndex;
-        public Height: number;
-        public readonly Index: number;
-        public LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
-        public Left: number;
-        public NewWindow(): Window;
-        public OnWindow: string;
-        public readonly Panes: Panes;
-        public readonly Parent: any;
-        public PointsToScreenPixelsX(Points: number): number;
-        public PointsToScreenPixelsY(Points: number): number;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
-        public PrintPreview(EnableChanges?: any): any;
-        public RangeFromPoint(x: number, y: number): any;
-        public readonly RangeSelection: Range;
-        public ScrollColumn: number;
-        public ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: any): void;
-        public ScrollRow: number;
-        public ScrollWorkbookTabs(Sheets?: any, Position?: any): any;
-        public readonly SelectedSheets: Sheets;
-        public readonly Selection: any;
-        public readonly SheetViews: SheetViews;
-        public SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
-        public Split: boolean;
-        public SplitColumn: number;
-        public SplitHorizontal: number;
-        public SplitRow: number;
-        public SplitVertical: number;
-        public TabRatio: number;
-        public Top: number;
-        public readonly Type: XlWindowType;
-        public readonly UsableHeight: number;
-        public readonly UsableWidth: number;
-        public View: XlWindowView;
-        public Visible: boolean;
-        public readonly VisibleRange: Range;
-        public Width: number;
-        public readonly WindowNumber: number;
-        public WindowState: XlWindowState;
-        public Zoom: any;
+        _DisplayRightToLeft: boolean;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
+        Activate(): any;
+        ActivateNext(): any;
+        ActivatePrevious(): any;
+        readonly ActiveCell: Range;
+        readonly ActiveChart: Chart;
+        readonly ActivePane: Pane;
+        readonly ActiveSheet: any;
+        readonly ActiveSheetView: any;
+        readonly Application: Application;
+        AutoFilterDateGrouping: boolean;
+        Caption: any;
+        Close(SaveChanges?: any, Filename?: any, RouteWorkbook?: any): boolean;
+        readonly Creator: XlCreator;
+        DisplayFormulas: boolean;
+        DisplayGridlines: boolean;
+        DisplayHeadings: boolean;
+        DisplayHorizontalScrollBar: boolean;
+        DisplayOutline: boolean;
+        DisplayRightToLeft: boolean;
+        DisplayRuler: boolean;
+        DisplayVerticalScrollBar: boolean;
+        DisplayWhitespace: boolean;
+        DisplayWorkbookTabs: boolean;
+        DisplayZeros: boolean;
+        EnableResize: boolean;
+        FreezePanes: boolean;
+        GridlineColor: number;
+        GridlineColorIndex: XlColorIndex;
+        Height: number;
+        readonly Index: number;
+        LargeScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
+        Left: number;
+        NewWindow(): Window;
+        OnWindow: string;
+        readonly Panes: Panes;
+        readonly Parent: any;
+        PointsToScreenPixelsX(Points: number): number;
+        PointsToScreenPixelsY(Points: number): number;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): any;
+        PrintPreview(EnableChanges?: any): any;
+        RangeFromPoint(x: number, y: number): any;
+        readonly RangeSelection: Range;
+        ScrollColumn: number;
+        ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: any): void;
+        ScrollRow: number;
+        ScrollWorkbookTabs(Sheets?: any, Position?: any): any;
+        readonly SelectedSheets: Sheets;
+        readonly Selection: any;
+        readonly SheetViews: SheetViews;
+        SmallScroll(Down?: any, Up?: any, ToRight?: any, ToLeft?: any): any;
+        Split: boolean;
+        SplitColumn: number;
+        SplitHorizontal: number;
+        SplitRow: number;
+        SplitVertical: number;
+        TabRatio: number;
+        Top: number;
+        readonly Type: XlWindowType;
+        readonly UsableHeight: number;
+        readonly UsableWidth: number;
+        View: XlWindowView;
+        Visible: boolean;
+        readonly VisibleRange: Range;
+        Width: number;
+        readonly WindowNumber: number;
+        WindowState: XlWindowState;
+        Zoom: any;
     }
 
     class Windows {
         private 'Excel.Windows_typekey': Windows;
         private constructor();
-        public _Default(Index: any): Window;
-        public readonly Application: Application;
+        _Default(Index: any): Window;
+        readonly Application: Application;
 
         /** @param Excel.XlArrangeStyle [ArrangeStyle=1] */
-        public Arrange(ArrangeStyle?: XlArrangeStyle, ActiveWorkbook?: any, SyncHorizontal?: any, SyncVertical?: any): any;
-        public BreakSideBySide(): boolean;
-        public CompareSideBySideWith(WindowName: any): boolean;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): Window;
-        public readonly Parent: any;
-        public ResetPositionsSideBySide(): void;
-        public SyncScrollingSideBySide: boolean;
+        Arrange(ArrangeStyle?: XlArrangeStyle, ActiveWorkbook?: any, SyncHorizontal?: any, SyncVertical?: any): any;
+        BreakSideBySide(): boolean;
+        CompareSideBySideWith(WindowName: any): boolean;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): Window;
+        readonly Parent: any;
+        ResetPositionsSideBySide(): void;
+        SyncScrollingSideBySide: boolean;
     }
 
     class Workbook {
         private 'Excel.Workbook_typekey': Workbook;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public _CodeName: string;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public _Protect(Password?: any, Structure?: any, Windows?: any): void;
-        public _ProtectSharing(Filename?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, SharingPassword?: any): void;
-        public readonly _ReadOnlyRecommended: boolean;
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        _CodeName: string;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        _Protect(Password?: any, Structure?: any, Windows?: any): void;
+        _ProtectSharing(Filename?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, SharingPassword?: any): void;
+        readonly _ReadOnlyRecommended: boolean;
 
         /** @param Excel.XlSaveAsAccessMode [AccessMode=1] */
-        public _SaveAs(
+        _SaveAs(
             Filename: string, FileFormat?: Excel.XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
             ConflictResolution?: Excel.XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
-        public AcceptAllChanges(When?: any, Who?: any, Where?: any): void;
-        public AcceptLabelsInFormulas: boolean;
-        public AccuracyVersion: number;
-        public Activate(): void;
-        public readonly ActiveChart: Chart;
-        public readonly ActiveSheet: any;
-        public readonly ActiveSlicer: Slicer;
-        public AddToFavorites(): void;
-        public readonly Application: Application;
-        public ApplyTheme(Filename: string): void;
-        public Author: string;
-        public AutoUpdateFrequency: number;
-        public AutoUpdateSaveChanges: boolean;
-        public BreakLink(Name: string, Type: XlLinkType): void;
-        public readonly BuiltinDocumentProperties: Office.DocumentProperties<Application>;
-        public readonly CalculationVersion: number;
-        public CanCheckIn(): boolean;
-        public ChangeFileAccess(Mode: XlFileAccess, WritePassword?: any, Notify?: any): void;
-        public ChangeHistoryDuration: number;
+        AcceptAllChanges(When?: any, Who?: any, Where?: any): void;
+        AcceptLabelsInFormulas: boolean;
+        AccuracyVersion: number;
+        Activate(): void;
+        readonly ActiveChart: Chart;
+        readonly ActiveSheet: any;
+        readonly ActiveSlicer: Slicer;
+        AddToFavorites(): void;
+        readonly Application: Application;
+        ApplyTheme(Filename: string): void;
+        Author: string;
+        AutoUpdateFrequency: number;
+        AutoUpdateSaveChanges: boolean;
+        BreakLink(Name: string, Type: XlLinkType): void;
+        readonly BuiltinDocumentProperties: Office.DocumentProperties<Application>;
+        readonly CalculationVersion: number;
+        CanCheckIn(): boolean;
+        ChangeFileAccess(Mode: XlFileAccess, WritePassword?: any, Notify?: any): void;
+        ChangeHistoryDuration: number;
 
         /** @param Excel.XlLinkType [Type=1] */
-        public ChangeLink(Name: string, NewName: string, Type?: XlLinkType): void;
-        public readonly Charts: Sheets;
-        public CheckCompatibility: boolean;
-        public CheckIn(SaveChanges?: any, Comments?: any, MakePublic?: any): void;
-        public CheckInWithVersion(SaveChanges?: any, Comments?: any, MakePublic?: any, VersionType?: any): void;
-        public Close(SaveChanges?: any, Filename?: any, RouteWorkbook?: any): void;
-        public readonly CodeName: string;
-        public Colors(Index?: any): any;
-        public readonly CommandBars: Office.CommandBars;
-        public Comments: string;
-        public ConflictResolution: XlSaveConflictResolution;
-        public readonly Connections: Connections;
-        public readonly ConnectionsDisabled: boolean;
-        public readonly Container: any;
-        public readonly ContentTypeProperties: Office.MetaProperties;
-        public readonly CreateBackup: boolean;
-        public readonly Creator: XlCreator;
-        public readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
-        public readonly CustomViews: CustomViews;
-        public readonly CustomXMLParts: Office.CustomXMLParts;
-        public Date1904: boolean;
-        public DefaultPivotTableStyle: any;
-        public DefaultSlicerStyle: any;
-        public DefaultTableStyle: any;
-        public DeleteNumberFormat(NumberFormat: string): void;
-        public readonly DialogSheets: Sheets;
-        public DisplayDrawingObjects: XlDisplayDrawingObjects;
-        public DisplayInkComments: boolean;
-        public readonly DocumentInspectors: Office.DocumentInspectors;
-        public readonly DocumentLibraryVersions: Office.DocumentLibraryVersions;
-        public DoNotPromptForConvert: boolean;
-        public Dummy16(): void;
-        public Dummy17(calcid: number): void;
-        public Dummy26(): void;
-        public Dummy27(): void;
-        public EnableAutoRecover: boolean;
-        public EnableConnections(): void;
-        public EncryptionProvider: string;
-        public EndReview(): void;
-        public EnvelopeVisible: boolean;
-        public readonly Excel4IntlMacroSheets: Sheets;
-        public readonly Excel4MacroSheets: Sheets;
-        public readonly Excel8CompatibilityMode: boolean;
-        public ExclusiveAccess(): boolean;
-        public ExportAsFixedFormat(
+        ChangeLink(Name: string, NewName: string, Type?: XlLinkType): void;
+        readonly Charts: Sheets;
+        CheckCompatibility: boolean;
+        CheckIn(SaveChanges?: any, Comments?: any, MakePublic?: any): void;
+        CheckInWithVersion(SaveChanges?: any, Comments?: any, MakePublic?: any, VersionType?: any): void;
+        Close(SaveChanges?: any, Filename?: any, RouteWorkbook?: any): void;
+        readonly CodeName: string;
+        Colors(Index?: any): any;
+        readonly CommandBars: Office.CommandBars;
+        Comments: string;
+        ConflictResolution: XlSaveConflictResolution;
+        readonly Connections: Connections;
+        readonly ConnectionsDisabled: boolean;
+        readonly Container: any;
+        readonly ContentTypeProperties: Office.MetaProperties;
+        readonly CreateBackup: boolean;
+        readonly Creator: XlCreator;
+        readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
+        readonly CustomViews: CustomViews;
+        readonly CustomXMLParts: Office.CustomXMLParts;
+        Date1904: boolean;
+        DefaultPivotTableStyle: any;
+        DefaultSlicerStyle: any;
+        DefaultTableStyle: any;
+        DeleteNumberFormat(NumberFormat: string): void;
+        readonly DialogSheets: Sheets;
+        DisplayDrawingObjects: XlDisplayDrawingObjects;
+        DisplayInkComments: boolean;
+        readonly DocumentInspectors: Office.DocumentInspectors;
+        readonly DocumentLibraryVersions: Office.DocumentLibraryVersions;
+        DoNotPromptForConvert: boolean;
+        Dummy16(): void;
+        Dummy17(calcid: number): void;
+        Dummy26(): void;
+        Dummy27(): void;
+        EnableAutoRecover: boolean;
+        EnableConnections(): void;
+        EncryptionProvider: string;
+        EndReview(): void;
+        EnvelopeVisible: boolean;
+        readonly Excel4IntlMacroSheets: Sheets;
+        readonly Excel4MacroSheets: Sheets;
+        readonly Excel8CompatibilityMode: boolean;
+        ExclusiveAccess(): boolean;
+        ExportAsFixedFormat(
             Type: XlFixedFormatType, Filename?: any, Quality?: any, IncludeDocProperties?: any, IgnorePrintAreas?: any, From?: any, To?: any, OpenAfterPublish?: any,
             FixedFormatExtClassPtr?: any): void;
-        public readonly FileFormat: XlFileFormat;
-        public Final: boolean;
-        public FollowHyperlink(Address: string, SubAddress?: any, NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
-        public ForceFullCalculation: boolean;
-        public ForwardMailer(): void;
-        public readonly FullName: string;
-        public readonly FullNameURLEncoded: string;
-        public GetWorkflowTasks(): Office.WorkflowTasks;
-        public GetWorkflowTemplates(): Office.WorkflowTemplates;
-        public HasMailer: boolean;
-        public readonly HasPassword: boolean;
-        public HasRoutingSlip: boolean;
-        public readonly HasVBProject: boolean;
-        public HighlightChangesOnScreen: boolean;
-        public HighlightChangesOptions(When?: any, Who?: any, Where?: any): void;
-        public readonly HTMLProject: Office.HTMLProject;
-        public readonly IconSets: IconSets;
-        public InactiveListBorderVisible: boolean;
-        public IsAddin: boolean;
-        public readonly IsInplace: boolean;
-        public KeepChangeHistory: boolean;
-        public Keywords: string;
-        public LinkInfo(Name: string, LinkInfo: XlLinkInfo, Type?: any, EditionRef?: any): any;
-        public LinkSources(Type?: any): any;
-        public ListChangesOnNewSheet: boolean;
-        public LockServerFile(): void;
-        public readonly Mailer: Mailer;
-        public MergeWorkbook(Filename: any): void;
-        public readonly Modules: Sheets;
-        public readonly MultiUserEditing: boolean;
-        public readonly Name: string;
-        public readonly Names: Names;
-        public NewWindow(): Window;
-        public OnSave: string;
-        public OnSheetActivate: string;
-        public OnSheetDeactivate: string;
-        public OpenLinks(Name: string, ReadOnly?: any, Type?: any): void;
-        public readonly Parent: any;
-        public Password: string;
-        public readonly PasswordEncryptionAlgorithm: string;
-        public readonly PasswordEncryptionFileProperties: boolean;
-        public readonly PasswordEncryptionKeyLength: number;
-        public readonly PasswordEncryptionProvider: string;
-        public readonly Path: string;
-        public readonly Permission: Office.Permission;
-        public PersonalViewListSettings: boolean;
-        public PersonalViewPrintSettings: boolean;
-        public PivotCaches(): PivotCaches;
-        public PivotTableWizard(
+        readonly FileFormat: XlFileFormat;
+        Final: boolean;
+        FollowHyperlink(Address: string, SubAddress?: any, NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
+        ForceFullCalculation: boolean;
+        ForwardMailer(): void;
+        readonly FullName: string;
+        readonly FullNameURLEncoded: string;
+        GetWorkflowTasks(): Office.WorkflowTasks;
+        GetWorkflowTemplates(): Office.WorkflowTemplates;
+        HasMailer: boolean;
+        readonly HasPassword: boolean;
+        HasRoutingSlip: boolean;
+        readonly HasVBProject: boolean;
+        HighlightChangesOnScreen: boolean;
+        HighlightChangesOptions(When?: any, Who?: any, Where?: any): void;
+        readonly HTMLProject: Office.HTMLProject;
+        readonly IconSets: IconSets;
+        InactiveListBorderVisible: boolean;
+        IsAddin: boolean;
+        readonly IsInplace: boolean;
+        KeepChangeHistory: boolean;
+        Keywords: string;
+        LinkInfo(Name: string, LinkInfo: XlLinkInfo, Type?: any, EditionRef?: any): any;
+        LinkSources(Type?: any): any;
+        ListChangesOnNewSheet: boolean;
+        LockServerFile(): void;
+        readonly Mailer: Mailer;
+        MergeWorkbook(Filename: any): void;
+        readonly Modules: Sheets;
+        readonly MultiUserEditing: boolean;
+        readonly Name: string;
+        readonly Names: Names;
+        NewWindow(): Window;
+        OnSave: string;
+        OnSheetActivate: string;
+        OnSheetDeactivate: string;
+        OpenLinks(Name: string, ReadOnly?: any, Type?: any): void;
+        readonly Parent: any;
+        Password: string;
+        readonly PasswordEncryptionAlgorithm: string;
+        readonly PasswordEncryptionFileProperties: boolean;
+        readonly PasswordEncryptionKeyLength: number;
+        readonly PasswordEncryptionProvider: string;
+        readonly Path: string;
+        readonly Permission: Office.Permission;
+        PersonalViewListSettings: boolean;
+        PersonalViewPrintSettings: boolean;
+        PivotCaches(): PivotCaches;
+        PivotTableWizard(
             SourceType?: any, SourceData?: any, TableDestination?: any, TableName?: any, RowGrand?: any, ColumnGrand?: any, SaveData?: any, HasAutoFormat?: any,
             AutoPage?: any, Reserved?: any, BackgroundQuery?: any, OptimizeCache?: any, PageFieldOrder?: any, PageFieldWrapCount?: any, ReadData?: any, Connection?: any): void;
-        public Post(DestName?: any): void;
-        public PrecisionAsDisplayed: boolean;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
-        public PrintPreview(EnableChanges?: any): void;
-        public Protect(Password?: any, Structure?: any, Windows?: any): void;
-        public ProtectSharing(Filename?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, SharingPassword?: any, FileFormat?: any): void;
-        public readonly ProtectStructure: boolean;
-        public readonly ProtectWindows: boolean;
-        public readonly PublishObjects: PublishObjects;
-        public PurgeChangeHistoryNow(Days: number, SharingPassword?: any): void;
-        public readonly ReadOnly: boolean;
-        public ReadOnlyRecommended: boolean;
-        public RecheckSmartTags(): void;
-        public RefreshAll(): void;
-        public RejectAllChanges(When?: any, Who?: any, Where?: any): void;
-        public ReloadAs(Encoding: Office.MsoEncoding): void;
-        public RemoveDocumentInformation(RemoveDocInfoType: XlRemoveDocInfoType): void;
-        public RemovePersonalInformation: boolean;
-        public RemoveUser(Index: number): void;
-        public Reply(): void;
-        public ReplyAll(): void;
-        public ReplyWithChanges(ShowMessage?: any): void;
-        public readonly Research: Research;
-        public ResetColors(): void;
-        public readonly RevisionNumber: number;
-        public Route(): void;
-        public readonly Routed: boolean;
-        public readonly RoutingSlip: RoutingSlip;
-        public RunAutoMacros(Which: XlRunAutoMacro): void;
-        public Save(): void;
+        Post(DestName?: any): void;
+        PrecisionAsDisplayed: boolean;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
+        PrintPreview(EnableChanges?: any): void;
+        Protect(Password?: any, Structure?: any, Windows?: any): void;
+        ProtectSharing(Filename?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, SharingPassword?: any, FileFormat?: any): void;
+        readonly ProtectStructure: boolean;
+        readonly ProtectWindows: boolean;
+        readonly PublishObjects: PublishObjects;
+        PurgeChangeHistoryNow(Days: number, SharingPassword?: any): void;
+        readonly ReadOnly: boolean;
+        ReadOnlyRecommended: boolean;
+        RecheckSmartTags(): void;
+        RefreshAll(): void;
+        RejectAllChanges(When?: any, Who?: any, Where?: any): void;
+        ReloadAs(Encoding: Office.MsoEncoding): void;
+        RemoveDocumentInformation(RemoveDocInfoType: XlRemoveDocInfoType): void;
+        RemovePersonalInformation: boolean;
+        RemoveUser(Index: number): void;
+        Reply(): void;
+        ReplyAll(): void;
+        ReplyWithChanges(ShowMessage?: any): void;
+        readonly Research: Research;
+        ResetColors(): void;
+        readonly RevisionNumber: number;
+        Route(): void;
+        readonly Routed: boolean;
+        readonly RoutingSlip: RoutingSlip;
+        RunAutoMacros(Which: XlRunAutoMacro): void;
+        Save(): void;
 
         /** @param Excel.XlSaveAsAccessMode [AccessMode=1] */
-        public SaveAs(
+        SaveAs(
             Filename: string, FileFormat?: Excel.XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
             ConflictResolution?: Excel.XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
-        public SaveAsXMLData(Filename: string, Map: XmlMap): void;
-        public SaveCopyAs(Filename?: any): void;
-        public Saved: boolean;
-        public SaveLinkValues: boolean;
-        public sblt(s: string): void;
-        public SendFaxOverInternet(Recipients?: any, Subject?: any, ShowMessage?: any): void;
-        public SendForReview(Recipients?: any, Subject?: any, ShowMessage?: any, IncludeAttachment?: any): void;
-        public SendMail(Recipients: any, Subject?: any, ReturnReceipt?: any): void;
+        SaveAsXMLData(Filename: string, Map: XmlMap): void;
+        SaveCopyAs(Filename?: any): void;
+        Saved: boolean;
+        SaveLinkValues: boolean;
+        sblt(s: string): void;
+        SendFaxOverInternet(Recipients?: any, Subject?: any, ShowMessage?: any): void;
+        SendForReview(Recipients?: any, Subject?: any, ShowMessage?: any, IncludeAttachment?: any): void;
+        SendMail(Recipients: any, Subject?: any, ReturnReceipt?: any): void;
 
         /** @param Excel.XlPriority [Priority=-4143] */
-        public SendMailer(FileFormat: any, Priority?: XlPriority): void;
-        public readonly ServerPolicy: Office.ServerPolicy;
-        public readonly ServerViewableItems: ServerViewableItems;
-        public SetLinkOnData(Name: string, Procedure?: any): void;
-        public SetPasswordEncryptionOptions(PasswordEncryptionProvider?: any, PasswordEncryptionAlgorithm?: any, PasswordEncryptionKeyLength?: any, PasswordEncryptionFileProperties?: any): void;
-        public readonly SharedWorkspace: Office.SharedWorkspace;
-        public readonly Sheets: Sheets;
-        public ShowConflictHistory: boolean;
-        public ShowPivotChartActiveFields: boolean;
-        public ShowPivotTableFieldList: boolean;
-        public readonly Signatures: Office.SignatureSet;
-        public readonly SlicerCaches: SlicerCaches;
-        public readonly SmartDocument: Office.SmartDocument;
-        public readonly SmartTagOptions: SmartTagOptions;
-        public readonly Styles: Styles;
-        public Subject: string;
-        public readonly Sync: Office.Sync;
-        public readonly TableStyles: TableStyles;
-        public TemplateRemoveExtData: boolean;
-        public readonly Theme: Office.OfficeTheme;
-        public Title: string;
-        public ToggleFormsDesign(): void;
-        public Unprotect(Password?: any): void;
-        public UnprotectSharing(SharingPassword?: any): void;
-        public UpdateFromFile(): void;
-        public UpdateLink(Name?: any, Type?: any): void;
-        public UpdateLinks: XlUpdateLinks;
-        public UpdateRemoteReferences: boolean;
-        public UserControl: boolean;
-        public readonly UserStatus: any;
-        public readonly VBASigned: boolean;
-        public readonly VBProject: VBIDE.VBProject;
-        public readonly WebOptions: WebOptions;
-        public WebPagePreview(): void;
-        public readonly Windows: Windows;
-        public readonly Worksheets: Sheets;
-        public WritePassword: string;
-        public readonly WriteReserved: boolean;
-        public readonly WriteReservedBy: string;
-        public XmlImport(Url: string, ImportMap: XmlMap, Overwrite?: any, Destination?: any): XlXmlImportResult;
-        public XmlImportXml(Data: string, ImportMap: XmlMap, Overwrite?: any, Destination?: any): XlXmlImportResult;
-        public readonly XmlMaps: XmlMaps;
-        public readonly XmlNamespaces: XmlNamespaces;
+        SendMailer(FileFormat: any, Priority?: XlPriority): void;
+        readonly ServerPolicy: Office.ServerPolicy;
+        readonly ServerViewableItems: ServerViewableItems;
+        SetLinkOnData(Name: string, Procedure?: any): void;
+        SetPasswordEncryptionOptions(PasswordEncryptionProvider?: any, PasswordEncryptionAlgorithm?: any, PasswordEncryptionKeyLength?: any, PasswordEncryptionFileProperties?: any): void;
+        readonly SharedWorkspace: Office.SharedWorkspace;
+        readonly Sheets: Sheets;
+        ShowConflictHistory: boolean;
+        ShowPivotChartActiveFields: boolean;
+        ShowPivotTableFieldList: boolean;
+        readonly Signatures: Office.SignatureSet;
+        readonly SlicerCaches: SlicerCaches;
+        readonly SmartDocument: Office.SmartDocument;
+        readonly SmartTagOptions: SmartTagOptions;
+        readonly Styles: Styles;
+        Subject: string;
+        readonly Sync: Office.Sync;
+        readonly TableStyles: TableStyles;
+        TemplateRemoveExtData: boolean;
+        readonly Theme: Office.OfficeTheme;
+        Title: string;
+        ToggleFormsDesign(): void;
+        Unprotect(Password?: any): void;
+        UnprotectSharing(SharingPassword?: any): void;
+        UpdateFromFile(): void;
+        UpdateLink(Name?: any, Type?: any): void;
+        UpdateLinks: XlUpdateLinks;
+        UpdateRemoteReferences: boolean;
+        UserControl: boolean;
+        readonly UserStatus: any;
+        readonly VBASigned: boolean;
+        readonly VBProject: VBIDE.VBProject;
+        readonly WebOptions: WebOptions;
+        WebPagePreview(): void;
+        readonly Windows: Windows;
+        readonly Worksheets: Sheets;
+        WritePassword: string;
+        readonly WriteReserved: boolean;
+        readonly WriteReservedBy: string;
+        XmlImport(Url: string, ImportMap: XmlMap, Overwrite?: any, Destination?: any): XlXmlImportResult;
+        XmlImportXml(Data: string, ImportMap: XmlMap, Overwrite?: any, Destination?: any): XlXmlImportResult;
+        readonly XmlMaps: XmlMaps;
+        readonly XmlNamespaces: XmlNamespaces;
     }
 
     class WorkbookConnection {
         private 'Excel.WorkbookConnection_typekey': WorkbookConnection;
         private constructor();
-        public _Default: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public Delete(): void;
-        public Description: string;
-        public Name: string;
-        public readonly ODBCConnection: ODBCConnection;
-        public readonly OLEDBConnection: OLEDBConnection;
-        public readonly Parent: any;
-        public readonly Ranges: Ranges;
-        public Refresh(): void;
-        public readonly Type: XlConnectionType;
+        _Default: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        Delete(): void;
+        Description: string;
+        Name: string;
+        readonly ODBCConnection: ODBCConnection;
+        readonly OLEDBConnection: OLEDBConnection;
+        readonly Parent: any;
+        readonly Ranges: Ranges;
+        Refresh(): void;
+        readonly Type: XlConnectionType;
     }
 
     class Workbooks {
@@ -8386,776 +8386,776 @@ declare namespace Excel {
         private constructor();
 
         /** @param Excel.XlTextQualifier [TextQualifier=1] */
-        public __OpenText(
+        __OpenText(
             Filename: string, Origin: any, StartRow: any, DataType: any, TextQualifier?: XlTextQualifier, ConsecutiveDelimiter?: any, Tab?: any, Semicolon?: any,
             Comma?: any, Space?: any, Other?: any, OtherChar?: any, FieldInfo?: any, TextVisualLayout?: any): void;
-        public _Default(Index: any): Workbook;
-        public _Open(
+        _Default(Index: any): Workbook;
+        _Open(
             Filename: string, UpdateLinks?: any, ReadOnly?: any, Format?: any, Password?: any, WriteResPassword?: any, IgnoreReadOnlyRecommended?: any, Origin?: any,
             Delimiter?: any, Editable?: any, Notify?: any, Converter?: any, AddToMru?: any): Workbook;
 
         /** @param Excel.XlTextQualifier [TextQualifier=1] */
-        public _OpenText(
+        _OpenText(
             Filename: string, Origin: any, StartRow: any, DataType: any, TextQualifier?: XlTextQualifier, ConsecutiveDelimiter?: any, Tab?: any, Semicolon?: any,
             Comma?: any, Space?: any, Other?: any, OtherChar?: any, FieldInfo?: any, TextVisualLayout?: any, DecimalSeparator?: any, ThousandsSeparator?: any): void;
-        public _OpenXML(Filename: string, Stylesheets?: any): Workbook;
-        public Add(Template?: any): Workbook;
-        public readonly Application: Application;
-        public CanCheckOut(Filename: string): boolean;
-        public CheckOut(Filename: string): void;
-        public Close(): void;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: number | string): Workbook;
-        public Open(
+        _OpenXML(Filename: string, Stylesheets?: any): Workbook;
+        Add(Template?: any): Workbook;
+        readonly Application: Application;
+        CanCheckOut(Filename: string): boolean;
+        CheckOut(Filename: string): void;
+        Close(): void;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: number | string): Workbook;
+        Open(
             Filename: string, UpdateLinks?: any, ReadOnly?: any, Format?: any, Password?: any, WriteResPassword?: any, IgnoreReadOnlyRecommended?: any, Origin?: any,
             Delimiter?: any, Editable?: any, Notify?: any, Converter?: any, AddToMru?: any, Local?: any, CorruptLoad?: any): Workbook;
-        public OpenDatabase(Filename: string, CommandText?: any, CommandType?: any, BackgroundQuery?: any, ImportDataAs?: any): Workbook;
+        OpenDatabase(Filename: string, CommandText?: any, CommandType?: any, BackgroundQuery?: any, ImportDataAs?: any): Workbook;
 
         /** @param Excel.XlTextQualifier [TextQualifier=1] */
-        public OpenText(
+        OpenText(
             Filename: string, Origin: any, StartRow: any, DataType: any, TextQualifier?: XlTextQualifier, ConsecutiveDelimiter?: any, Tab?: any, Semicolon?: any,
             Comma?: any, Space?: any, Other?: any, OtherChar?: any, FieldInfo?: any, TextVisualLayout?: any, DecimalSeparator?: any, ThousandsSeparator?: any,
             TrailingMinusNumbers?: any, Local?: any): void;
-        public OpenXML(Filename: string, Stylesheets?: any, LoadOption?: any): Workbook;
-        public readonly Parent: any;
+        OpenXML(Filename: string, Stylesheets?: any, LoadOption?: any): Workbook;
+        readonly Parent: any;
     }
 
     class Worksheet {
         private 'Excel.Worksheet_typekey': Worksheet;
         private constructor();
-        public __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
-        public _CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any, IgnoreFinalYaa?: any, SpellScript?: any): void;
-        public _CodeName: string;
-        public _DisplayRightToLeft: number;
-        public _Evaluate(Name: any): any;
-        public _PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any): void;
-        public _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
-        public _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
-        public _SaveAs(
+        __PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any): void;
+        _CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any, IgnoreFinalYaa?: any, SpellScript?: any): void;
+        _CodeName: string;
+        _DisplayRightToLeft: number;
+        _Evaluate(Name: any): any;
+        _PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any): void;
+        _PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any): void;
+        _Protect(Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any): void;
+        _SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any): void;
-        public Activate(): void;
-        public readonly Application: Application;
-        public Arcs(Index?: any): any;
-        public readonly AutoFilter: AutoFilter;
-        public AutoFilterMode: boolean;
-        public Buttons(Index?: any): any;
-        public Calculate(): void;
-        public readonly Cells: Range;
-        public ChartObjects(Index?: any): any;
-        public CheckBoxes(Index?: any): any;
-        public CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): void;
-        public CircleInvalid(): void;
-        public readonly CircularReference: Range;
-        public ClearArrows(): void;
-        public ClearCircles(): void;
-        public readonly CodeName: string;
-        public readonly Columns: Range;
-        public readonly Comments: Comments;
-        public readonly ConsolidationFunction: XlConsolidationFunction;
-        public readonly ConsolidationOptions: any;
-        public readonly ConsolidationSources: any;
-        public Copy(Before?: any, After?: any): void;
-        public readonly Creator: XlCreator;
-        public readonly CustomProperties: CustomProperties;
-        public Delete(): void;
-        public DisplayAutomaticPageBreaks: boolean;
-        public DisplayPageBreaks: boolean;
-        public DisplayRightToLeft: boolean;
-        public DrawingObjects(Index?: any): any;
-        public Drawings(Index?: any): any;
-        public DropDowns(Index?: any): any;
-        public EnableAutoFilter: boolean;
-        public EnableCalculation: boolean;
-        public EnableFormatConditionsCalculation: boolean;
-        public EnableOutlining: boolean;
-        public EnablePivotTable: boolean;
-        public EnableSelection: XlEnableSelection;
-        public Evaluate(Name: any): any;
-        public ExportAsFixedFormat(
+        Activate(): void;
+        readonly Application: Application;
+        Arcs(Index?: any): any;
+        readonly AutoFilter: AutoFilter;
+        AutoFilterMode: boolean;
+        Buttons(Index?: any): any;
+        Calculate(): void;
+        readonly Cells: Range;
+        ChartObjects(Index?: any): any;
+        CheckBoxes(Index?: any): any;
+        CheckSpelling(CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, SpellLang?: any): void;
+        CircleInvalid(): void;
+        readonly CircularReference: Range;
+        ClearArrows(): void;
+        ClearCircles(): void;
+        readonly CodeName: string;
+        readonly Columns: Range;
+        readonly Comments: Comments;
+        readonly ConsolidationFunction: XlConsolidationFunction;
+        readonly ConsolidationOptions: any;
+        readonly ConsolidationSources: any;
+        Copy(Before?: any, After?: any): void;
+        readonly Creator: XlCreator;
+        readonly CustomProperties: CustomProperties;
+        Delete(): void;
+        DisplayAutomaticPageBreaks: boolean;
+        DisplayPageBreaks: boolean;
+        DisplayRightToLeft: boolean;
+        DrawingObjects(Index?: any): any;
+        Drawings(Index?: any): any;
+        DropDowns(Index?: any): any;
+        EnableAutoFilter: boolean;
+        EnableCalculation: boolean;
+        EnableFormatConditionsCalculation: boolean;
+        EnableOutlining: boolean;
+        EnablePivotTable: boolean;
+        EnableSelection: XlEnableSelection;
+        Evaluate(Name: any): any;
+        ExportAsFixedFormat(
             Type: XlFixedFormatType, Filename?: any, Quality?: any, IncludeDocProperties?: any, IgnorePrintAreas?: any, From?: any, To?: any, OpenAfterPublish?: any,
             FixedFormatExtClassPtr?: any): void;
-        public readonly FilterMode: boolean;
-        public GroupBoxes(Index?: any): any;
-        public GroupObjects(Index?: any): any;
-        public readonly HPageBreaks: HPageBreaks;
-        public readonly Hyperlinks: Hyperlinks;
-        public readonly Index: number;
-        public Labels(Index?: any): any;
-        public Lines(Index?: any): any;
-        public ListBoxes(Index?: any): any;
-        public readonly ListObjects: ListObjects;
-        public readonly MailEnvelope: Office.MsoEnvelope;
-        public Move(Before?: any, After?: any): void;
-        public Name: string;
-        public readonly Names: Names;
-        public readonly Next: any;
-        public OLEObjects(Index?: any): any;
-        public OnCalculate: string;
-        public OnData: string;
-        public OnDoubleClick: string;
-        public OnEntry: string;
-        public OnSheetActivate: string;
-        public OnSheetDeactivate: string;
-        public OptionButtons(Index?: any): any;
-        public readonly Outline: Outline;
-        public Ovals(Index?: any): any;
-        public readonly PageSetup: PageSetup;
-        public readonly Parent: any;
-        public Paste(Destination?: any, Link?: any): void;
-        public PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, NoHTMLFormatting?: any): void;
-        public Pictures(Index?: any): any;
-        public PivotTables(Index?: any): any;
-        public PivotTableWizard(
+        readonly FilterMode: boolean;
+        GroupBoxes(Index?: any): any;
+        GroupObjects(Index?: any): any;
+        readonly HPageBreaks: HPageBreaks;
+        readonly Hyperlinks: Hyperlinks;
+        readonly Index: number;
+        Labels(Index?: any): any;
+        Lines(Index?: any): any;
+        ListBoxes(Index?: any): any;
+        readonly ListObjects: ListObjects;
+        readonly MailEnvelope: Office.MsoEnvelope;
+        Move(Before?: any, After?: any): void;
+        Name: string;
+        readonly Names: Names;
+        readonly Next: any;
+        OLEObjects(Index?: any): any;
+        OnCalculate: string;
+        OnData: string;
+        OnDoubleClick: string;
+        OnEntry: string;
+        OnSheetActivate: string;
+        OnSheetDeactivate: string;
+        OptionButtons(Index?: any): any;
+        readonly Outline: Outline;
+        Ovals(Index?: any): any;
+        readonly PageSetup: PageSetup;
+        readonly Parent: any;
+        Paste(Destination?: any, Link?: any): void;
+        PasteSpecial(Format?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, NoHTMLFormatting?: any): void;
+        Pictures(Index?: any): any;
+        PivotTables(Index?: any): any;
+        PivotTableWizard(
             SourceType?: any, SourceData?: any, TableDestination?: any, TableName?: any, RowGrand?: any, ColumnGrand?: any, SaveData?: any, HasAutoFormat?: any,
             AutoPage?: any, Reserved?: any, BackgroundQuery?: any, OptimizeCache?: any, PageFieldOrder?: any, PageFieldWrapCount?: any, ReadData?: any, Connection?: any): PivotTable;
-        public readonly Previous: any;
-        public readonly PrintedCommentPages: number;
-        public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
-        public PrintPreview(EnableChanges?: any): void;
-        public Protect(
+        readonly Previous: any;
+        readonly PrintedCommentPages: number;
+        PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
+        PrintPreview(EnableChanges?: any): void;
+        Protect(
             Password?: any, DrawingObjects?: any, Contents?: any, Scenarios?: any, UserInterfaceOnly?: any, AllowFormattingCells?: any, AllowFormattingColumns?: any,
             AllowFormattingRows?: any, AllowInsertingColumns?: any, AllowInsertingRows?: any, AllowInsertingHyperlinks?: any, AllowDeletingColumns?: any,
             AllowDeletingRows?: any, AllowSorting?: any, AllowFiltering?: any, AllowUsingPivotTables?: any): void;
-        public readonly ProtectContents: boolean;
-        public readonly ProtectDrawingObjects: boolean;
-        public readonly Protection: Protection;
-        public readonly ProtectionMode: boolean;
-        public readonly ProtectScenarios: boolean;
-        public readonly QueryTables: QueryTables;
-        public Range(Cell1: string | Range, Cell2?: string | Range): Range;
-        public Rectangles(Index?: any): any;
-        public ResetAllPageBreaks(): void;
-        public readonly Rows: Range;
-        public SaveAs(
+        readonly ProtectContents: boolean;
+        readonly ProtectDrawingObjects: boolean;
+        readonly Protection: Protection;
+        readonly ProtectionMode: boolean;
+        readonly ProtectScenarios: boolean;
+        readonly QueryTables: QueryTables;
+        Range(Cell1: string | Range, Cell2?: string | Range): Range;
+        Rectangles(Index?: any): any;
+        ResetAllPageBreaks(): void;
+        readonly Rows: Range;
+        SaveAs(
             Filename: string, FileFormat?: any, Password?: any, WriteResPassword?: any, ReadOnlyRecommended?: any, CreateBackup?: any, AddToMru?: any, TextCodepage?: any,
             TextVisualLayout?: any, Local?: any): void;
-        public Scenarios(Index?: any): any;
-        public readonly Scripts: Office.Scripts;
-        public ScrollArea: string;
-        public ScrollBars(Index?: any): any;
-        public Select(Replace?: any): void;
-        public SetBackgroundPicture(Filename: string): void;
-        public readonly Shapes: Shapes;
-        public ShowAllData(): void;
-        public ShowDataForm(): void;
-        public readonly SmartTags: SmartTags;
-        public readonly Sort: Sort;
-        public Spinners(Index?: any): any;
-        public readonly StandardHeight: number;
-        public StandardWidth: number;
-        public readonly Tab: Tab;
-        public TextBoxes(Index?: any): any;
-        public TransitionExpEval: boolean;
-        public TransitionFormEntry: boolean;
-        public readonly Type: XlSheetType;
-        public Unprotect(Password?: any): void;
-        public readonly UsedRange: Range;
-        public Visible: XlSheetVisibility;
-        public readonly VPageBreaks: VPageBreaks;
-        public XmlDataQuery(XPath: string, SelectionNamespaces?: any, Map?: any): Range;
-        public XmlMapQuery(XPath: string, SelectionNamespaces?: any, Map?: any): Range;
+        Scenarios(Index?: any): any;
+        readonly Scripts: Office.Scripts;
+        ScrollArea: string;
+        ScrollBars(Index?: any): any;
+        Select(Replace?: any): void;
+        SetBackgroundPicture(Filename: string): void;
+        readonly Shapes: Shapes;
+        ShowAllData(): void;
+        ShowDataForm(): void;
+        readonly SmartTags: SmartTags;
+        readonly Sort: Sort;
+        Spinners(Index?: any): any;
+        readonly StandardHeight: number;
+        StandardWidth: number;
+        readonly Tab: Tab;
+        TextBoxes(Index?: any): any;
+        TransitionExpEval: boolean;
+        TransitionFormEntry: boolean;
+        readonly Type: XlSheetType;
+        Unprotect(Password?: any): void;
+        readonly UsedRange: Range;
+        Visible: XlSheetVisibility;
+        readonly VPageBreaks: VPageBreaks;
+        XmlDataQuery(XPath: string, SelectionNamespaces?: any, Map?: any): Range;
+        XmlMapQuery(XPath: string, SelectionNamespaces?: any, Map?: any): Range;
     }
 
     class WorksheetFunction {
         private 'Excel.WorksheetFunction_typekey': WorksheetFunction;
         private constructor();
-        public _WSFunction(
+        _WSFunction(
             Arg1?: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public AccrInt(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
-        public AccrIntM(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
-        public Acos(Arg1: number): number;
-        public Acosh(Arg1: number): number;
-        public Aggregate(
+        AccrInt(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
+        AccrIntM(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
+        Acos(Arg1: number): number;
+        Acosh(Arg1: number): number;
+        Aggregate(
             Arg1: number, Arg2: number, Arg3: Range, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public AmorDegrc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
-        public AmorLinc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
-        public And(
+        AmorDegrc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
+        AmorLinc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
+        And(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): boolean;
-        public readonly Application: Application;
-        public Asc(Arg1: string): string;
-        public Asin(Arg1: number): number;
-        public Asinh(Arg1: number): number;
-        public Atan2(Arg1: number, Arg2: number): number;
-        public Atanh(Arg1: number): number;
-        public AveDev(
+        readonly Application: Application;
+        Asc(Arg1: string): string;
+        Asin(Arg1: number): number;
+        Asinh(Arg1: number): number;
+        Atan2(Arg1: number, Arg2: number): number;
+        Atanh(Arg1: number): number;
+        AveDev(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Average(
+        Average(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public AverageIf(Arg1: Range, Arg2: any, Arg3?: any): number;
-        public AverageIfs(
+        AverageIf(Arg1: Range, Arg2: any, Arg3?: any): number;
+        AverageIfs(
             Arg1: Range, Arg2: Range, Arg3: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any): number;
-        public BahtText(Arg1: number): string;
-        public BesselI(Arg1: any, Arg2: any): number;
-        public BesselJ(Arg1: any, Arg2: any): number;
-        public BesselK(Arg1: any, Arg2: any): number;
-        public BesselY(Arg1: any, Arg2: any): number;
-        public Beta_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean, Arg5?: any, Arg6?: any): number;
-        public Beta_Inv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
-        public BetaDist(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
-        public BetaInv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
-        public Bin2Dec(Arg1: any): string;
-        public Bin2Hex(Arg1: any, Arg2?: any): string;
-        public Bin2Oct(Arg1: any, Arg2?: any): string;
-        public Binom_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public Binom_Inv(Arg1: number, Arg2: number, Arg3: number): number;
-        public BinomDist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public Ceiling(Arg1: number, Arg2: number): number;
-        public Ceiling_Precise(Arg1: number, Arg2?: any): number;
-        public ChiDist(Arg1: number, Arg2: number): number;
-        public ChiInv(Arg1: number, Arg2: number): number;
-        public ChiSq_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
-        public ChiSq_Dist_RT(Arg1: number, Arg2: number): number;
-        public ChiSq_Inv(Arg1: number, Arg2: number): number;
-        public ChiSq_Inv_RT(Arg1: number, Arg2: number): number;
-        public ChiSq_Test(Arg1: any, Arg2: any): number;
-        public ChiTest(Arg1: any, Arg2: any): number;
-        public Choose(
+        BahtText(Arg1: number): string;
+        BesselI(Arg1: any, Arg2: any): number;
+        BesselJ(Arg1: any, Arg2: any): number;
+        BesselK(Arg1: any, Arg2: any): number;
+        BesselY(Arg1: any, Arg2: any): number;
+        Beta_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean, Arg5?: any, Arg6?: any): number;
+        Beta_Inv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
+        BetaDist(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
+        BetaInv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
+        Bin2Dec(Arg1: any): string;
+        Bin2Hex(Arg1: any, Arg2?: any): string;
+        Bin2Oct(Arg1: any, Arg2?: any): string;
+        Binom_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        Binom_Inv(Arg1: number, Arg2: number, Arg3: number): number;
+        BinomDist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        Ceiling(Arg1: number, Arg2: number): number;
+        Ceiling_Precise(Arg1: number, Arg2?: any): number;
+        ChiDist(Arg1: number, Arg2: number): number;
+        ChiInv(Arg1: number, Arg2: number): number;
+        ChiSq_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
+        ChiSq_Dist_RT(Arg1: number, Arg2: number): number;
+        ChiSq_Inv(Arg1: number, Arg2: number): number;
+        ChiSq_Inv_RT(Arg1: number, Arg2: number): number;
+        ChiSq_Test(Arg1: any, Arg2: any): number;
+        ChiTest(Arg1: any, Arg2: any): number;
+        Choose(
             Arg1: any, Arg2: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public Clean(Arg1: string): string;
-        public Combin(Arg1: number, Arg2: number): number;
-        public Complex(Arg1: any, Arg2: any, Arg3?: any): string;
-        public Confidence(Arg1: number, Arg2: number, Arg3: number): number;
-        public Confidence_Norm(Arg1: number, Arg2: number, Arg3: number): number;
-        public Confidence_T(Arg1: number, Arg2: number, Arg3: number): number;
-        public Convert(Arg1: any, Arg2: any, Arg3: any): number;
-        public Correl(Arg1: any, Arg2: any): number;
-        public Cosh(Arg1: number): number;
-        public Count(
+        Clean(Arg1: string): string;
+        Combin(Arg1: number, Arg2: number): number;
+        Complex(Arg1: any, Arg2: any, Arg3?: any): string;
+        Confidence(Arg1: number, Arg2: number, Arg3: number): number;
+        Confidence_Norm(Arg1: number, Arg2: number, Arg3: number): number;
+        Confidence_T(Arg1: number, Arg2: number, Arg3: number): number;
+        Convert(Arg1: any, Arg2: any, Arg3: any): number;
+        Correl(Arg1: any, Arg2: any): number;
+        Cosh(Arg1: number): number;
+        Count(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public CountA(
+        CountA(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public CountBlank(Arg1: Range): number;
-        public CountIf(Arg1: Range, Arg2: string | number): number;
-        public CountIfs(
+        CountBlank(Arg1: Range): number;
+        CountIf(Arg1: Range, Arg2: string | number): number;
+        CountIfs(
             Arg1: Range, Arg2: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public CoupDayBs(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
-        public CoupDays(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
-        public CoupDaysNc(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
-        public CoupNcd(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
-        public CoupNum(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
-        public CoupPcd(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
-        public Covar(Arg1: any, Arg2: any): number;
-        public Covariance_P(Arg1: any, Arg2: any): number;
-        public Covariance_S(Arg1: any, Arg2: any): number;
-        public readonly Creator: XlCreator;
-        public CritBinom(Arg1: number, Arg2: number, Arg3: number): number;
-        public CumIPmt(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any): number;
-        public CumPrinc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any): number;
-        public DAverage(Arg1: Range, Arg2: any, Arg3: any): number;
-        public Days360(Arg1: any, Arg2: any, Arg3?: any): number;
-        public Db(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any): number;
-        public Dbcs(Arg1: string): string;
-        public DCount(Arg1: Range, Arg2: any, Arg3: any): number;
-        public DCountA(Arg1: Range, Arg2: any, Arg3: any): number;
-        public Ddb(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any): number;
-        public Dec2Bin(Arg1: any, Arg2?: any): string;
-        public Dec2Hex(Arg1: any, Arg2?: any): string;
-        public Dec2Oct(Arg1: any, Arg2?: any): string;
-        public Degrees(Arg1: number): number;
-        public Delta(Arg1: any, Arg2?: any): number;
-        public DevSq(
+        CoupDayBs(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
+        CoupDays(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
+        CoupDaysNc(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
+        CoupNcd(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
+        CoupNum(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
+        CoupPcd(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): number;
+        Covar(Arg1: any, Arg2: any): number;
+        Covariance_P(Arg1: any, Arg2: any): number;
+        Covariance_S(Arg1: any, Arg2: any): number;
+        readonly Creator: XlCreator;
+        CritBinom(Arg1: number, Arg2: number, Arg3: number): number;
+        CumIPmt(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any): number;
+        CumPrinc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any): number;
+        DAverage(Arg1: Range, Arg2: any, Arg3: any): number;
+        Days360(Arg1: any, Arg2: any, Arg3?: any): number;
+        Db(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any): number;
+        Dbcs(Arg1: string): string;
+        DCount(Arg1: Range, Arg2: any, Arg3: any): number;
+        DCountA(Arg1: Range, Arg2: any, Arg3: any): number;
+        Ddb(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any): number;
+        Dec2Bin(Arg1: any, Arg2?: any): string;
+        Dec2Hex(Arg1: any, Arg2?: any): string;
+        Dec2Oct(Arg1: any, Arg2?: any): string;
+        Degrees(Arg1: number): number;
+        Delta(Arg1: any, Arg2?: any): number;
+        DevSq(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public DGet(Arg1: Range, Arg2: any, Arg3: any): any;
-        public Disc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
-        public DMax(Arg1: Range, Arg2: any, Arg3: any): number;
-        public DMin(Arg1: Range, Arg2: any, Arg3: any): number;
-        public Dollar(Arg1: number, Arg2?: any): string;
-        public DollarDe(Arg1: any, Arg2: any): number;
-        public DollarFr(Arg1: any, Arg2: any): number;
-        public DProduct(Arg1: Range, Arg2: any, Arg3: any): number;
-        public DStDev(Arg1: Range, Arg2: any, Arg3: any): number;
-        public DStDevP(Arg1: Range, Arg2: any, Arg3: any): number;
-        public DSum(Arg1: Range, Arg2: any, Arg3: any): number;
-        public Dummy19(
+        DGet(Arg1: Range, Arg2: any, Arg3: any): any;
+        Disc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
+        DMax(Arg1: Range, Arg2: any, Arg3: any): number;
+        DMin(Arg1: Range, Arg2: any, Arg3: any): number;
+        Dollar(Arg1: number, Arg2?: any): string;
+        DollarDe(Arg1: any, Arg2: any): number;
+        DollarFr(Arg1: any, Arg2: any): number;
+        DProduct(Arg1: Range, Arg2: any, Arg3: any): number;
+        DStDev(Arg1: Range, Arg2: any, Arg3: any): number;
+        DStDevP(Arg1: Range, Arg2: any, Arg3: any): number;
+        DSum(Arg1: Range, Arg2: any, Arg3: any): number;
+        Dummy19(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public Dummy21(Arg1: number, Arg2: number): number;
-        public Duration(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
-        public DVar(Arg1: Range, Arg2: any, Arg3: any): number;
-        public DVarP(Arg1: Range, Arg2: any, Arg3: any): number;
-        public EDate(Arg1: any, Arg2: any): number;
-        public Effect(Arg1: any, Arg2: any): number;
-        public EoMonth(Arg1: any, Arg2: any): number;
-        public Erf(Arg1: any, Arg2?: any): number;
-        public Erf_Precise(Arg1: any): number;
-        public ErfC(Arg1: any): number;
-        public ErfC_Precise(Arg1: any): number;
-        public Even(Arg1: number): number;
-        public Expon_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
-        public ExponDist(Arg1: number, Arg2: number, Arg3: boolean): number;
-        public F_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public F_Dist_RT(Arg1: number, Arg2: number, Arg3: number): number;
-        public F_Inv(Arg1: number, Arg2: number, Arg3: number): number;
-        public F_Inv_RT(Arg1: number, Arg2: number, Arg3: number): number;
-        public F_Test(Arg1: any, Arg2: any): number;
-        public Fact(Arg1: number): number;
-        public FactDouble(Arg1: any): number;
-        public FDist(Arg1: number, Arg2: number, Arg3: number): number;
-        public Find(Arg1: string, Arg2: string, Arg3?: any): number;
-        public FindB(Arg1: string, Arg2: string, Arg3?: any): number;
-        public FInv(Arg1: number, Arg2: number, Arg3: number): number;
-        public Fisher(Arg1: number): number;
-        public FisherInv(Arg1: number): number;
-        public Fixed(Arg1: number, Arg2?: any, Arg3?: any): string;
-        public Floor(Arg1: number, Arg2: number): number;
-        public Floor_Precise(Arg1: number, Arg2?: any): number;
-        public Forecast(Arg1: number, Arg2: any, Arg3: any): number;
-        public Frequency(Arg1: any, Arg2: any): any;
-        public FTest(Arg1: any, Arg2: any): number;
-        public Fv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
-        public FVSchedule(Arg1: any, Arg2: any): number;
-        public Gamma_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public Gamma_Inv(Arg1: number, Arg2: number, Arg3: number): number;
-        public GammaDist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public GammaInv(Arg1: number, Arg2: number, Arg3: number): number;
-        public GammaLn(Arg1: number): number;
-        public GammaLn_Precise(Arg1: number): number;
-        public Gcd(
+        Dummy21(Arg1: number, Arg2: number): number;
+        Duration(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
+        DVar(Arg1: Range, Arg2: any, Arg3: any): number;
+        DVarP(Arg1: Range, Arg2: any, Arg3: any): number;
+        EDate(Arg1: any, Arg2: any): number;
+        Effect(Arg1: any, Arg2: any): number;
+        EoMonth(Arg1: any, Arg2: any): number;
+        Erf(Arg1: any, Arg2?: any): number;
+        Erf_Precise(Arg1: any): number;
+        ErfC(Arg1: any): number;
+        ErfC_Precise(Arg1: any): number;
+        Even(Arg1: number): number;
+        Expon_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
+        ExponDist(Arg1: number, Arg2: number, Arg3: boolean): number;
+        F_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        F_Dist_RT(Arg1: number, Arg2: number, Arg3: number): number;
+        F_Inv(Arg1: number, Arg2: number, Arg3: number): number;
+        F_Inv_RT(Arg1: number, Arg2: number, Arg3: number): number;
+        F_Test(Arg1: any, Arg2: any): number;
+        Fact(Arg1: number): number;
+        FactDouble(Arg1: any): number;
+        FDist(Arg1: number, Arg2: number, Arg3: number): number;
+        Find(Arg1: string, Arg2: string, Arg3?: any): number;
+        FindB(Arg1: string, Arg2: string, Arg3?: any): number;
+        FInv(Arg1: number, Arg2: number, Arg3: number): number;
+        Fisher(Arg1: number): number;
+        FisherInv(Arg1: number): number;
+        Fixed(Arg1: number, Arg2?: any, Arg3?: any): string;
+        Floor(Arg1: number, Arg2: number): number;
+        Floor_Precise(Arg1: number, Arg2?: any): number;
+        Forecast(Arg1: number, Arg2: any, Arg3: any): number;
+        Frequency(Arg1: any, Arg2: any): any;
+        FTest(Arg1: any, Arg2: any): number;
+        Fv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
+        FVSchedule(Arg1: any, Arg2: any): number;
+        Gamma_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        Gamma_Inv(Arg1: number, Arg2: number, Arg3: number): number;
+        GammaDist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        GammaInv(Arg1: number, Arg2: number, Arg3: number): number;
+        GammaLn(Arg1: number): number;
+        GammaLn_Precise(Arg1: number): number;
+        Gcd(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public GeoMean(
+        GeoMean(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public GeStep(Arg1: any, Arg2?: any): number;
-        public Growth(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
-        public HarMean(
+        GeStep(Arg1: any, Arg2?: any): number;
+        Growth(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
+        HarMean(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Hex2Bin(Arg1: any, Arg2?: any): string;
-        public Hex2Dec(Arg1: any): string;
-        public Hex2Oct(Arg1: any, Arg2?: any): string;
-        public HLookup(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): any;
-        public HypGeom_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5: boolean): number;
-        public HypGeomDist(Arg1: number, Arg2: number, Arg3: number, Arg4: number): number;
-        public IfError(Arg1: any, Arg2: any): any;
-        public ImAbs(Arg1: any): string;
-        public Imaginary(Arg1: any): number;
-        public ImArgument(Arg1: any): string;
-        public ImConjugate(Arg1: any): string;
-        public ImCos(Arg1: any): string;
-        public ImDiv(Arg1: any, Arg2: any): string;
-        public ImExp(Arg1: any): string;
-        public ImLn(Arg1: any): string;
-        public ImLog10(Arg1: any): string;
-        public ImLog2(Arg1: any): string;
-        public ImPower(Arg1: any, Arg2: any): string;
-        public ImProduct(
+        Hex2Bin(Arg1: any, Arg2?: any): string;
+        Hex2Dec(Arg1: any): string;
+        Hex2Oct(Arg1: any, Arg2?: any): string;
+        HLookup(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): any;
+        HypGeom_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5: boolean): number;
+        HypGeomDist(Arg1: number, Arg2: number, Arg3: number, Arg4: number): number;
+        IfError(Arg1: any, Arg2: any): any;
+        ImAbs(Arg1: any): string;
+        Imaginary(Arg1: any): number;
+        ImArgument(Arg1: any): string;
+        ImConjugate(Arg1: any): string;
+        ImCos(Arg1: any): string;
+        ImDiv(Arg1: any, Arg2: any): string;
+        ImExp(Arg1: any): string;
+        ImLn(Arg1: any): string;
+        ImLog10(Arg1: any): string;
+        ImLog2(Arg1: any): string;
+        ImPower(Arg1: any, Arg2: any): string;
+        ImProduct(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): string;
-        public ImReal(Arg1: any): number;
-        public ImSin(Arg1: any): string;
-        public ImSqrt(Arg1: any): string;
-        public ImSub(Arg1: any, Arg2: any): string;
-        public ImSum(
+        ImReal(Arg1: any): number;
+        ImSin(Arg1: any): string;
+        ImSqrt(Arg1: any): string;
+        ImSub(Arg1: any, Arg2: any): string;
+        ImSum(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): string;
-        public Index(Arg1: any, Arg2: number, Arg3?: any, Arg4?: any): any;
-        public Intercept(Arg1: any, Arg2: any): number;
-        public IntRate(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
-        public Ipmt(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any, Arg6?: any): number;
-        public Irr(Arg1: any, Arg2?: any): number;
-        public IsErr(Arg1: any): boolean;
-        public IsError(Arg1: any): boolean;
-        public IsEven(Arg1: any): boolean;
-        public IsLogical(Arg1: any): boolean;
-        public IsNA(Arg1: any): boolean;
-        public IsNonText(Arg1: any): boolean;
-        public IsNumber(Arg1: any): boolean;
-        public ISO_Ceiling(Arg1: number, Arg2?: any): number;
-        public IsOdd(Arg1: any): boolean;
-        public Ispmt(Arg1: number, Arg2: number, Arg3: number, Arg4: number): number;
-        public IsText(Arg1: any): boolean;
-        public IsThaiDigit(Arg1: string): boolean;
-        public Kurt(
+        Index(Arg1: any, Arg2: number, Arg3?: any, Arg4?: any): any;
+        Intercept(Arg1: any, Arg2: any): number;
+        IntRate(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
+        Ipmt(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any, Arg6?: any): number;
+        Irr(Arg1: any, Arg2?: any): number;
+        IsErr(Arg1: any): boolean;
+        IsError(Arg1: any): boolean;
+        IsEven(Arg1: any): boolean;
+        IsLogical(Arg1: any): boolean;
+        IsNA(Arg1: any): boolean;
+        IsNonText(Arg1: any): boolean;
+        IsNumber(Arg1: any): boolean;
+        ISO_Ceiling(Arg1: number, Arg2?: any): number;
+        IsOdd(Arg1: any): boolean;
+        Ispmt(Arg1: number, Arg2: number, Arg3: number, Arg4: number): number;
+        IsText(Arg1: any): boolean;
+        IsThaiDigit(Arg1: string): boolean;
+        Kurt(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Large(Arg1: any, Arg2: number): number;
-        public Lcm(
+        Large(Arg1: any, Arg2: number): number;
+        Lcm(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public LinEst(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
-        public Ln(Arg1: number): number;
-        public Log(Arg1: number, Arg2?: any): number;
-        public Log10(Arg1: number): number;
-        public LogEst(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
-        public LogInv(Arg1: number, Arg2: number, Arg3: number): number;
-        public LogNorm_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public LogNorm_Inv(Arg1: number, Arg2: number, Arg3: number): number;
-        public LogNormDist(Arg1: number, Arg2: number, Arg3: number): number;
-        public Lookup(Arg1: any, Arg2: any, Arg3?: any): any;
-        public Match(Arg1: any, Arg2: any, Arg3?: any): number;
-        public Max(
+        LinEst(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
+        Ln(Arg1: number): number;
+        Log(Arg1: number, Arg2?: any): number;
+        Log10(Arg1: number): number;
+        LogEst(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
+        LogInv(Arg1: number, Arg2: number, Arg3: number): number;
+        LogNorm_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        LogNorm_Inv(Arg1: number, Arg2: number, Arg3: number): number;
+        LogNormDist(Arg1: number, Arg2: number, Arg3: number): number;
+        Lookup(Arg1: any, Arg2: any, Arg3?: any): any;
+        Match(Arg1: any, Arg2: any, Arg3?: any): number;
+        Max(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public MDeterm(Arg1: any): number;
-        public MDuration(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
-        public Median(
+        MDeterm(Arg1: any): number;
+        MDuration(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
+        Median(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Min(
+        Min(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public MInverse(Arg1: any): any;
-        public MIrr(Arg1: any, Arg2: number, Arg3: number): number;
-        public MMult(Arg1: any, Arg2: any): any;
-        public Mode(
+        MInverse(Arg1: any): any;
+        MIrr(Arg1: any, Arg2: number, Arg3: number): number;
+        MMult(Arg1: any, Arg2: any): any;
+        Mode(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Mode_Mult(
+        Mode_Mult(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): any;
-        public Mode_Sngl(
+        Mode_Sngl(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public MRound(Arg1: any, Arg2: any): number;
-        public MultiNomial(
+        MRound(Arg1: any, Arg2: any): number;
+        MultiNomial(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public NegBinom_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public NegBinomDist(Arg1: number, Arg2: number, Arg3: number): number;
-        public NetworkDays(Arg1: any, Arg2: any, Arg3?: any): number;
-        public NetworkDays_Intl(Arg1: any, Arg2: any, Arg3?: any, Arg4?: any): number;
-        public Nominal(Arg1: any, Arg2: any): number;
-        public Norm_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public Norm_Inv(Arg1: number, Arg2: number, Arg3: number): number;
-        public Norm_S_Dist(Arg1: number, Arg2: boolean): number;
-        public Norm_S_Inv(Arg1: number): number;
-        public NormDist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public NormInv(Arg1: number, Arg2: number, Arg3: number): number;
-        public NormSDist(Arg1: number): number;
-        public NormSInv(Arg1: number): number;
-        public NPer(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
-        public Npv(
+        NegBinom_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        NegBinomDist(Arg1: number, Arg2: number, Arg3: number): number;
+        NetworkDays(Arg1: any, Arg2: any, Arg3?: any): number;
+        NetworkDays_Intl(Arg1: any, Arg2: any, Arg3?: any, Arg4?: any): number;
+        Nominal(Arg1: any, Arg2: any): number;
+        Norm_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        Norm_Inv(Arg1: number, Arg2: number, Arg3: number): number;
+        Norm_S_Dist(Arg1: number, Arg2: boolean): number;
+        Norm_S_Inv(Arg1: number): number;
+        NormDist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        NormInv(Arg1: number, Arg2: number, Arg3: number): number;
+        NormSDist(Arg1: number): number;
+        NormSInv(Arg1: number): number;
+        NPer(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
+        Npv(
             Arg1: number, Arg2: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Oct2Bin(Arg1: any, Arg2?: any): string;
-        public Oct2Dec(Arg1: any): string;
-        public Oct2Hex(Arg1: any, Arg2?: any): string;
-        public Odd(Arg1: number): number;
-        public OddFPrice(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8: any, Arg9?: any): number;
-        public OddFYield(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8: any, Arg9?: any): number;
-        public OddLPrice(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8?: any): number;
-        public OddLYield(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8?: any): number;
-        public Or(
+        Oct2Bin(Arg1: any, Arg2?: any): string;
+        Oct2Dec(Arg1: any): string;
+        Oct2Hex(Arg1: any, Arg2?: any): string;
+        Odd(Arg1: number): number;
+        OddFPrice(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8: any, Arg9?: any): number;
+        OddFYield(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8: any, Arg9?: any): number;
+        OddLPrice(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8?: any): number;
+        OddLYield(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7: any, Arg8?: any): number;
+        Or(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): boolean;
-        public readonly Parent: any;
-        public Pearson(Arg1: any, Arg2: any): number;
-        public Percentile(Arg1: any, Arg2: number): number;
-        public Percentile_Exc(Arg1: any, Arg2: number): number;
-        public Percentile_Inc(Arg1: any, Arg2: number): number;
-        public PercentRank(Arg1: any, Arg2: number, Arg3?: any): number;
-        public PercentRank_Exc(Arg1: any, Arg2: number, Arg3?: any): number;
-        public PercentRank_Inc(Arg1: any, Arg2: number, Arg3?: any): number;
-        public Permut(Arg1: number, Arg2: number): number;
-        public Phonetic(Arg1: Range): string;
-        public Pi(): number;
-        public Pmt(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
-        public Poisson(Arg1: number, Arg2: number, Arg3: boolean): number;
-        public Poisson_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
-        public Power(Arg1: number, Arg2: number): number;
-        public Ppmt(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any, Arg6?: any): number;
-        public Price(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
-        public PriceDisc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
-        public PriceMat(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
-        public Prob(Arg1: any, Arg2: any, Arg3: number, Arg4?: any): number;
-        public Product(
+        readonly Parent: any;
+        Pearson(Arg1: any, Arg2: any): number;
+        Percentile(Arg1: any, Arg2: number): number;
+        Percentile_Exc(Arg1: any, Arg2: number): number;
+        Percentile_Inc(Arg1: any, Arg2: number): number;
+        PercentRank(Arg1: any, Arg2: number, Arg3?: any): number;
+        PercentRank_Exc(Arg1: any, Arg2: number, Arg3?: any): number;
+        PercentRank_Inc(Arg1: any, Arg2: number, Arg3?: any): number;
+        Permut(Arg1: number, Arg2: number): number;
+        Phonetic(Arg1: Range): string;
+        Pi(): number;
+        Pmt(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
+        Poisson(Arg1: number, Arg2: number, Arg3: boolean): number;
+        Poisson_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
+        Power(Arg1: number, Arg2: number): number;
+        Ppmt(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5?: any, Arg6?: any): number;
+        Price(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6: any, Arg7?: any): number;
+        PriceDisc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
+        PriceMat(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
+        Prob(Arg1: any, Arg2: any, Arg3: number, Arg4?: any): number;
+        Product(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Proper(Arg1: string): string;
-        public Pv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
-        public Quartile(Arg1: any, Arg2: number): number;
-        public Quartile_Exc(Arg1: any, Arg2: number): number;
-        public Quartile_Inc(Arg1: any, Arg2: number): number;
-        public Quotient(Arg1: any, Arg2: any): number;
-        public Radians(Arg1: number): number;
-        public RandBetween(Arg1: any, Arg2: any): number;
-        public Rank(Arg1: number, Arg2: Range, Arg3?: any): number;
-        public Rank_Avg(Arg1: number, Arg2: Range, Arg3?: any): number;
-        public Rank_Eq(Arg1: number, Arg2: Range, Arg3?: any): number;
-        public Rate(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any, Arg6?: any): number;
-        public Received(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
-        public Replace(Arg1: string, Arg2: number, Arg3: number, Arg4: string): string;
-        public ReplaceB(Arg1: string, Arg2: number, Arg3: number, Arg4: string): string;
-        public Rept(Arg1: string, Arg2: number): string;
-        public Roman(Arg1: number, Arg2?: any): string;
-        public Round(Arg1: number, Arg2: number): number;
-        public RoundBahtDown(Arg1: number): number;
-        public RoundBahtUp(Arg1: number): number;
-        public RoundDown(Arg1: number, Arg2: number): number;
-        public RoundUp(Arg1: number, Arg2: number): number;
-        public RSq(Arg1: any, Arg2: any): number;
-        public RTD(
+        Proper(Arg1: string): string;
+        Pv(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any): number;
+        Quartile(Arg1: any, Arg2: number): number;
+        Quartile_Exc(Arg1: any, Arg2: number): number;
+        Quartile_Inc(Arg1: any, Arg2: number): number;
+        Quotient(Arg1: any, Arg2: any): number;
+        Radians(Arg1: number): number;
+        RandBetween(Arg1: any, Arg2: any): number;
+        Rank(Arg1: number, Arg2: Range, Arg3?: any): number;
+        Rank_Avg(Arg1: number, Arg2: Range, Arg3?: any): number;
+        Rank_Eq(Arg1: number, Arg2: Range, Arg3?: any): number;
+        Rate(Arg1: number, Arg2: number, Arg3: number, Arg4?: any, Arg5?: any, Arg6?: any): number;
+        Received(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
+        Replace(Arg1: string, Arg2: number, Arg3: number, Arg4: string): string;
+        ReplaceB(Arg1: string, Arg2: number, Arg3: number, Arg4: string): string;
+        Rept(Arg1: string, Arg2: number): string;
+        Roman(Arg1: number, Arg2?: any): string;
+        Round(Arg1: number, Arg2: number): number;
+        RoundBahtDown(Arg1: number): number;
+        RoundBahtUp(Arg1: number): number;
+        RoundDown(Arg1: number, Arg2: number): number;
+        RoundUp(Arg1: number, Arg2: number): number;
+        RSq(Arg1: any, Arg2: any): number;
+        RTD(
             progID: any, server: any, topic1: any, topic2?: any, topic3?: any, topic4?: any, topic5?: any, topic6?: any, topic7?: any, topic8?: any, topic9?: any,
             topic10?: any, topic11?: any, topic12?: any, topic13?: any, topic14?: any, topic15?: any, topic16?: any, topic17?: any, topic18?: any, topic19?: any,
             topic20?: any, topic21?: any, topic22?: any, topic23?: any, topic24?: any, topic25?: any, topic26?: any, topic27?: any, topic28?: any): any;
-        public Search(Arg1: string, Arg2: string, Arg3?: any): number;
-        public SearchB(Arg1: string, Arg2: string, Arg3?: any): number;
-        public SeriesSum(Arg1: any, Arg2: any, Arg3: any, Arg4: any): number;
-        public Sinh(Arg1: number): number;
-        public Skew(
+        Search(Arg1: string, Arg2: string, Arg3?: any): number;
+        SearchB(Arg1: string, Arg2: string, Arg3?: any): number;
+        SeriesSum(Arg1: any, Arg2: any, Arg3: any, Arg4: any): number;
+        Sinh(Arg1: number): number;
+        Skew(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Sln(Arg1: number, Arg2: number, Arg3: number): number;
-        public Slope(Arg1: any, Arg2: any): number;
-        public Small(Arg1: any, Arg2: number): number;
-        public SqrtPi(Arg1: any): number;
-        public Standardize(Arg1: number, Arg2: number, Arg3: number): number;
-        public StDev(
+        Sln(Arg1: number, Arg2: number, Arg3: number): number;
+        Slope(Arg1: any, Arg2: any): number;
+        Small(Arg1: any, Arg2: number): number;
+        SqrtPi(Arg1: any): number;
+        Standardize(Arg1: number, Arg2: number, Arg3: number): number;
+        StDev(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public StDev_P(
+        StDev_P(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public StDev_S(
+        StDev_S(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public StDevP(
+        StDevP(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public StEyx(Arg1: any, Arg2: any): number;
-        public Substitute(Arg1: string, Arg2: string, Arg3: string, Arg4?: any): string;
-        public Subtotal(
+        StEyx(Arg1: any, Arg2: any): number;
+        Substitute(Arg1: string, Arg2: string, Arg3: string, Arg4?: any): string;
+        Subtotal(
             Arg1: number, Arg2: Range, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Sum(
+        Sum(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public SumIf(Arg1: Range, Arg2: any, Arg3?: any): number;
-        public SumIfs(
+        SumIf(Arg1: Range, Arg2: any, Arg3?: any): number;
+        SumIfs(
             Arg1: Range, Arg2: Range, Arg3: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
             Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
             Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any): number;
-        public SumProduct(
+        SumProduct(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public SumSq(
+        SumSq(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public SumX2MY2(Arg1: any, Arg2: any): number;
-        public SumX2PY2(Arg1: any, Arg2: any): number;
-        public SumXMY2(Arg1: any, Arg2: any): number;
-        public Syd(Arg1: number, Arg2: number, Arg3: number, Arg4: number): number;
-        public T_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
-        public T_Dist_2T(Arg1: number, Arg2: number): number;
-        public T_Dist_RT(Arg1: number, Arg2: number): number;
-        public T_Inv(Arg1: number, Arg2: number): number;
-        public T_Inv_2T(Arg1: number, Arg2: number): number;
-        public T_Test(Arg1: any, Arg2: any, Arg3: number, Arg4: number): number;
-        public Tanh(Arg1: number): number;
-        public TBillEq(Arg1: any, Arg2: any, Arg3?: any): number;
-        public TBillPrice(Arg1: any, Arg2: any, Arg3?: any): number;
-        public TBillYield(Arg1: any, Arg2: any, Arg3?: any): number;
-        public TDist(Arg1: number, Arg2: number, Arg3: number): number;
-        public Text(Arg1: any, Arg2: string): string;
-        public ThaiDayOfWeek(Arg1: number): string;
-        public ThaiDigit(Arg1: string): string;
-        public ThaiMonthOfYear(Arg1: number): string;
-        public ThaiNumSound(Arg1: number): string;
-        public ThaiNumString(Arg1: number): string;
-        public ThaiStringLength(Arg1: string): number;
-        public ThaiYear(Arg1: number): number;
-        public TInv(Arg1: number, Arg2: number): number;
-        public Transpose(Arg1: any): any;
-        public Trend(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
-        public Trim(Arg1: string): string;
-        public TrimMean(Arg1: any, Arg2: number): number;
-        public TTest(Arg1: any, Arg2: any, Arg3: number, Arg4: number): number;
-        public USDollar(Arg1: number, Arg2: number): string;
-        public Var(
+        SumX2MY2(Arg1: any, Arg2: any): number;
+        SumX2PY2(Arg1: any, Arg2: any): number;
+        SumXMY2(Arg1: any, Arg2: any): number;
+        Syd(Arg1: number, Arg2: number, Arg3: number, Arg4: number): number;
+        T_Dist(Arg1: number, Arg2: number, Arg3: boolean): number;
+        T_Dist_2T(Arg1: number, Arg2: number): number;
+        T_Dist_RT(Arg1: number, Arg2: number): number;
+        T_Inv(Arg1: number, Arg2: number): number;
+        T_Inv_2T(Arg1: number, Arg2: number): number;
+        T_Test(Arg1: any, Arg2: any, Arg3: number, Arg4: number): number;
+        Tanh(Arg1: number): number;
+        TBillEq(Arg1: any, Arg2: any, Arg3?: any): number;
+        TBillPrice(Arg1: any, Arg2: any, Arg3?: any): number;
+        TBillYield(Arg1: any, Arg2: any, Arg3?: any): number;
+        TDist(Arg1: number, Arg2: number, Arg3: number): number;
+        Text(Arg1: any, Arg2: string): string;
+        ThaiDayOfWeek(Arg1: number): string;
+        ThaiDigit(Arg1: string): string;
+        ThaiMonthOfYear(Arg1: number): string;
+        ThaiNumSound(Arg1: number): string;
+        ThaiNumString(Arg1: number): string;
+        ThaiStringLength(Arg1: string): number;
+        ThaiYear(Arg1: number): number;
+        TInv(Arg1: number, Arg2: number): number;
+        Transpose(Arg1: any): any;
+        Trend(Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any): any;
+        Trim(Arg1: string): string;
+        TrimMean(Arg1: any, Arg2: number): number;
+        TTest(Arg1: any, Arg2: any, Arg3: number, Arg4: number): number;
+        USDollar(Arg1: number, Arg2: number): string;
+        Var(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Var_P(
+        Var_P(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Var_S(
+        Var_S(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public VarP(
+        VarP(
             Arg1: any, Arg2?: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
-        public Vdb(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5: number, Arg6?: any, Arg7?: any): number;
-        public VLookup(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): any;
-        public Weekday(Arg1: any, Arg2?: any): number;
-        public WeekNum(Arg1: any, Arg2?: any): number;
-        public Weibull(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public Weibull_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
-        public WorkDay(Arg1: any, Arg2: any, Arg3?: any): number;
-        public WorkDay_Intl(Arg1: any, Arg2: any, Arg3?: any, Arg4?: any): number;
-        public Xirr(Arg1: any, Arg2: any, Arg3?: any): number;
-        public Xnpv(Arg1: any, Arg2: any): number;
-        public YearFrac(Arg1: any, Arg2: any, Arg3?: any): number;
-        public YieldDisc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
-        public YieldMat(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
-        public Z_Test(Arg1: any, Arg2: number, Arg3?: any): number;
-        public ZTest(Arg1: any, Arg2: number, Arg3?: any): number;
+        Vdb(Arg1: number, Arg2: number, Arg3: number, Arg4: number, Arg5: number, Arg6?: any, Arg7?: any): number;
+        VLookup(Arg1: any, Arg2: any, Arg3: any, Arg4?: any): any;
+        Weekday(Arg1: any, Arg2?: any): number;
+        WeekNum(Arg1: any, Arg2?: any): number;
+        Weibull(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        Weibull_Dist(Arg1: number, Arg2: number, Arg3: number, Arg4: boolean): number;
+        WorkDay(Arg1: any, Arg2: any, Arg3?: any): number;
+        WorkDay_Intl(Arg1: any, Arg2: any, Arg3?: any, Arg4?: any): number;
+        Xirr(Arg1: any, Arg2: any, Arg3?: any): number;
+        Xnpv(Arg1: any, Arg2: any): number;
+        YearFrac(Arg1: any, Arg2: any, Arg3?: any): number;
+        YieldDisc(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5?: any): number;
+        YieldMat(Arg1: any, Arg2: any, Arg3: any, Arg4: any, Arg5: any, Arg6?: any): number;
+        Z_Test(Arg1: any, Arg2: number, Arg3?: any): number;
+        ZTest(Arg1: any, Arg2: number, Arg3?: any): number;
     }
 
     class XmlDataBinding {
         private 'Excel.XmlDataBinding_typekey': XmlDataBinding;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public ClearSettings(): void;
-        public readonly Creator: XlCreator;
-        public LoadSettings(Url: string): void;
-        public readonly Parent: any;
-        public Refresh(): XlXmlImportResult;
-        public readonly SourceUrl: string;
+        readonly _Default: string;
+        readonly Application: Application;
+        ClearSettings(): void;
+        readonly Creator: XlCreator;
+        LoadSettings(Url: string): void;
+        readonly Parent: any;
+        Refresh(): XlXmlImportResult;
+        readonly SourceUrl: string;
     }
 
     class XmlMap {
         private 'Excel.XmlMap_typekey': XmlMap;
         private constructor();
-        public readonly _Default: string;
-        public AdjustColumnWidth: boolean;
-        public AppendOnImport: boolean;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly DataBinding: XmlDataBinding;
-        public Delete(): void;
-        public Export(Url: string, Overwrite?: any): XlXmlExportResult;
-        public ExportXml(Data: string): XlXmlExportResult;
-        public Import(Url: string, Overwrite?: any): XlXmlImportResult;
-        public ImportXml(XmlData: string, Overwrite?: any): XlXmlImportResult;
-        public readonly IsExportable: boolean;
-        public Name: string;
-        public readonly Parent: any;
-        public PreserveColumnFilter: boolean;
-        public PreserveNumberFormatting: boolean;
-        public readonly RootElementName: string;
-        public readonly RootElementNamespace: XmlNamespace;
-        public SaveDataSourceDefinition: boolean;
-        public readonly Schemas: XmlSchemas;
-        public ShowImportExportValidationErrors: boolean;
-        public readonly WorkbookConnection: WorkbookConnection;
+        readonly _Default: string;
+        AdjustColumnWidth: boolean;
+        AppendOnImport: boolean;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly DataBinding: XmlDataBinding;
+        Delete(): void;
+        Export(Url: string, Overwrite?: any): XlXmlExportResult;
+        ExportXml(Data: string): XlXmlExportResult;
+        Import(Url: string, Overwrite?: any): XlXmlImportResult;
+        ImportXml(XmlData: string, Overwrite?: any): XlXmlImportResult;
+        readonly IsExportable: boolean;
+        Name: string;
+        readonly Parent: any;
+        PreserveColumnFilter: boolean;
+        PreserveNumberFormatting: boolean;
+        readonly RootElementName: string;
+        readonly RootElementNamespace: XmlNamespace;
+        SaveDataSourceDefinition: boolean;
+        readonly Schemas: XmlSchemas;
+        ShowImportExportValidationErrors: boolean;
+        readonly WorkbookConnection: WorkbookConnection;
     }
 
     class XmlMaps {
         private 'Excel.XmlMaps_typekey': XmlMaps;
         private constructor();
-        public _Default(Index: any): XmlMap;
-        public Add(Schema: string, RootElementName?: any): XmlMap;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): XmlMap;
-        public readonly Parent: any;
+        _Default(Index: any): XmlMap;
+        Add(Schema: string, RootElementName?: any): XmlMap;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): XmlMap;
+        readonly Parent: any;
     }
 
     class XmlNamespace {
         private 'Excel.XmlNamespace_typekey': XmlNamespace;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Parent: any;
-        public readonly Prefix: string;
-        public readonly Uri: string;
+        readonly _Default: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Parent: any;
+        readonly Prefix: string;
+        readonly Uri: string;
     }
 
     class XmlNamespaces {
         private 'Excel.XmlNamespaces_typekey': XmlNamespaces;
         private constructor();
-        public _Default(Index: any): XmlNamespace;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public InstallManifest(Path: string, InstallForAllUsers?: any): void;
-        public Item(Index: any): XmlNamespace;
-        public readonly Parent: any;
-        public readonly Value: string;
+        _Default(Index: any): XmlNamespace;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        InstallManifest(Path: string, InstallForAllUsers?: any): void;
+        Item(Index: any): XmlNamespace;
+        readonly Parent: any;
+        readonly Value: string;
     }
 
     class XmlSchema {
         private 'Excel.XmlSchema_typekey': XmlSchema;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: XlCreator;
-        public readonly Name: string;
-        public readonly Namespace: XmlNamespace;
-        public readonly Parent: any;
-        public readonly XML: string;
+        readonly Application: Application;
+        readonly Creator: XlCreator;
+        readonly Name: string;
+        readonly Namespace: XmlNamespace;
+        readonly Parent: any;
+        readonly XML: string;
     }
 
     class XmlSchemas {
         private 'Excel.XmlSchemas_typekey': XmlSchemas;
         private constructor();
-        public _Default(Index: any): XmlSchema;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public readonly Creator: XlCreator;
-        public Item(Index: any): XmlSchema;
-        public readonly Parent: any;
+        _Default(Index: any): XmlSchema;
+        readonly Application: Application;
+        readonly Count: number;
+        readonly Creator: XlCreator;
+        Item(Index: any): XmlSchema;
+        readonly Parent: any;
     }
 
     class XPath {
         private 'Excel.XPath_typekey': XPath;
         private constructor();
-        public readonly _Default: string;
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Creator: XlCreator;
-        public readonly Map: XmlMap;
-        public readonly Parent: any;
-        public readonly Repeating: boolean;
-        public SetValue(Map: XmlMap, XPath: string, SelectionNamespace?: any, Repeating?: any): void;
-        public readonly Value: string;
+        readonly _Default: string;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Creator: XlCreator;
+        readonly Map: XmlMap;
+        readonly Parent: any;
+        readonly Repeating: boolean;
+        SetValue(Map: XmlMap, XPath: string, SelectionNamespace?: any, Repeating?: any): void;
+        readonly Value: string;
     }
 
     namespace EventHelperTypes {

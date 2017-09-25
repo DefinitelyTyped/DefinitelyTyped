@@ -1788,81 +1788,81 @@ declare namespace PowerPoint {
     class ActionSetting {
         private 'PowerPoint.ActionSetting_typekey': ActionSetting;
         private constructor();
-        public Action: PpActionType;
-        public ActionVerb: string;
-        public AnimateAction: Office.MsoTriState;
-        public readonly Application: Application;
-        public readonly Hyperlink: Hyperlink;
-        public readonly Parent: any;
-        public Run: string;
-        public ShowAndReturn: Office.MsoTriState;
-        public SlideShowName: string;
-        public readonly SoundEffect: SoundEffect;
+        Action: PpActionType;
+        ActionVerb: string;
+        AnimateAction: Office.MsoTriState;
+        readonly Application: Application;
+        readonly Hyperlink: Hyperlink;
+        readonly Parent: any;
+        Run: string;
+        ShowAndReturn: Office.MsoTriState;
+        SlideShowName: string;
+        readonly SoundEffect: SoundEffect;
     }
 
     class ActionSettings {
         private 'PowerPoint.ActionSettings_typekey': ActionSettings;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: PpMouseActivation): ActionSetting;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: PpMouseActivation): ActionSetting;
+        readonly Parent: any;
     }
 
     class AddIn {
         private 'PowerPoint.AddIn_typekey': AddIn;
         private constructor();
-        public readonly Application: Application;
-        public AutoLoad: Office.MsoTriState;
-        public DisplayAlerts: Office.MsoTriState;
-        public readonly FullName: string;
-        public Loaded: Office.MsoTriState;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Path: string;
-        public Registered: Office.MsoTriState;
-        public readonly RegisteredInHKLM: Office.MsoTriState;
+        readonly Application: Application;
+        AutoLoad: Office.MsoTriState;
+        DisplayAlerts: Office.MsoTriState;
+        readonly FullName: string;
+        Loaded: Office.MsoTriState;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Path: string;
+        Registered: Office.MsoTriState;
+        readonly RegisteredInHKLM: Office.MsoTriState;
     }
 
     class AddIns {
         private 'PowerPoint.AddIns_typekey': AddIns;
         private constructor();
-        public Add(FileName: string): AddIn;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: any): AddIn;
-        public readonly Parent: any;
-        public Remove(Index: any): void;
+        Add(FileName: string): AddIn;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: any): AddIn;
+        readonly Parent: any;
+        Remove(Index: any): void;
     }
 
     class Adjustments {
         private 'PowerPoint.Adjustments_typekey': Adjustments;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): number;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): number;
+        readonly Parent: any;
     }
 
     class AnimationBehavior {
         private 'PowerPoint.AnimationBehavior_typekey': AnimationBehavior;
         private constructor();
-        public Accumulate: MsoAnimAccumulate;
-        public Additive: MsoAnimAdditive;
-        public readonly Application: Application;
-        public readonly ColorEffect: ColorEffect;
-        public readonly CommandEffect: CommandEffect;
-        public Delete(): void;
-        public readonly FilterEffect: FilterEffect;
-        public readonly MotionEffect: MotionEffect;
-        public readonly Parent: any;
-        public readonly PropertyEffect: PropertyEffect;
-        public readonly RotationEffect: RotationEffect;
-        public readonly ScaleEffect: ScaleEffect;
-        public readonly SetEffect: SetEffect;
-        public readonly Timing: Timing;
-        public Type: MsoAnimType;
+        Accumulate: MsoAnimAccumulate;
+        Additive: MsoAnimAdditive;
+        readonly Application: Application;
+        readonly ColorEffect: ColorEffect;
+        readonly CommandEffect: CommandEffect;
+        Delete(): void;
+        readonly FilterEffect: FilterEffect;
+        readonly MotionEffect: MotionEffect;
+        readonly Parent: any;
+        readonly PropertyEffect: PropertyEffect;
+        readonly RotationEffect: RotationEffect;
+        readonly ScaleEffect: ScaleEffect;
+        readonly SetEffect: SetEffect;
+        readonly Timing: Timing;
+        Type: MsoAnimType;
     }
 
     class AnimationBehaviors {
@@ -1870,22 +1870,22 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        public Add(Type: MsoAnimType, Index?: number): AnimationBehavior;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): AnimationBehavior;
-        public readonly Parent: any;
+        Add(Type: MsoAnimType, Index?: number): AnimationBehavior;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): AnimationBehavior;
+        readonly Parent: any;
     }
 
     class AnimationPoint {
         private 'PowerPoint.AnimationPoint_typekey': AnimationPoint;
         private constructor();
-        public readonly Application: Application;
-        public Delete(): void;
-        public Formula: string;
-        public readonly Parent: any;
-        public Time: number;
-        public Value: any;
+        readonly Application: Application;
+        Delete(): void;
+        Formula: string;
+        readonly Parent: any;
+        Time: number;
+        Value: any;
     }
 
     class AnimationPoints {
@@ -1893,235 +1893,235 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        public Add(Index?: number): AnimationPoint;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): AnimationPoint;
-        public readonly Parent: any;
-        public Smooth: Office.MsoTriState;
+        Add(Index?: number): AnimationPoint;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): AnimationPoint;
+        readonly Parent: any;
+        Smooth: Office.MsoTriState;
     }
 
     class AnimationSettings {
         private 'PowerPoint.AnimationSettings_typekey': AnimationSettings;
         private constructor();
-        public AdvanceMode: PpAdvanceMode;
-        public AdvanceTime: number;
-        public AfterEffect: PpAfterEffect;
-        public Animate: Office.MsoTriState;
-        public AnimateBackground: Office.MsoTriState;
-        public AnimateTextInReverse: Office.MsoTriState;
-        public AnimationOrder: number;
-        public readonly Application: Application;
-        public ChartUnitEffect: PpChartUnitEffect;
-        public readonly DimColor: ColorFormat;
-        public EntryEffect: PpEntryEffect;
-        public readonly Parent: any;
-        public readonly PlaySettings: PlaySettings;
-        public readonly SoundEffect: SoundEffect;
-        public TextLevelEffect: PpTextLevelEffect;
-        public TextUnitEffect: PpTextUnitEffect;
+        AdvanceMode: PpAdvanceMode;
+        AdvanceTime: number;
+        AfterEffect: PpAfterEffect;
+        Animate: Office.MsoTriState;
+        AnimateBackground: Office.MsoTriState;
+        AnimateTextInReverse: Office.MsoTriState;
+        AnimationOrder: number;
+        readonly Application: Application;
+        ChartUnitEffect: PpChartUnitEffect;
+        readonly DimColor: ColorFormat;
+        EntryEffect: PpEntryEffect;
+        readonly Parent: any;
+        readonly PlaySettings: PlaySettings;
+        readonly SoundEffect: SoundEffect;
+        TextLevelEffect: PpTextLevelEffect;
+        TextUnitEffect: PpTextUnitEffect;
     }
 
     class Application {
         private 'PowerPoint.Application_typekey': Application;
         private constructor();
-        public Activate(): void;
-        public readonly Active: Office.MsoTriState;
-        public readonly ActiveEncryptionSession: number;
-        public readonly ActivePresentation: Presentation;
-        public readonly ActivePrinter: string;
-        public readonly ActiveProtectedViewWindow: ProtectedViewWindow;
-        public readonly ActiveWindow: DocumentWindow;
-        public readonly AddIns: AddIns;
-        public readonly AnswerWizard: Office.AnswerWizard;
-        public readonly Assistance: Office.IAssistance;
-        public readonly Assistant: Office.Assistant;
-        public readonly AutoCorrect: AutoCorrect;
-        public AutomationSecurity: Office.MsoAutomationSecurity;
-        public readonly Build: string;
-        public Caption: string;
-        public readonly COMAddIns: Office.COMAddIns;
-        public readonly CommandBars: Office.CommandBars;
-        public readonly Creator: number;
-        public readonly DefaultWebOptions: DefaultWebOptions;
-        public readonly Dialogs: any;
-        public DisplayAlerts: PpAlertLevel;
-        public DisplayDocumentInformationPanel: boolean;
-        public DisplayGridLines: Office.MsoTriState;
-        public FeatureInstall: Office.MsoFeatureInstall;
-        public readonly FileConverters: FileConverters;
-        public FileDialog(Type: Office.MsoFileDialogType): Office.FileDialog;
-        public readonly FileFind: Office.IFind;
-        public readonly FileSearch: Office.FileSearch;
-        public FileValidation: Office.MsoFileValidationMode;
+        Activate(): void;
+        readonly Active: Office.MsoTriState;
+        readonly ActiveEncryptionSession: number;
+        readonly ActivePresentation: Presentation;
+        readonly ActivePrinter: string;
+        readonly ActiveProtectedViewWindow: ProtectedViewWindow;
+        readonly ActiveWindow: DocumentWindow;
+        readonly AddIns: AddIns;
+        readonly AnswerWizard: Office.AnswerWizard;
+        readonly Assistance: Office.IAssistance;
+        readonly Assistant: Office.Assistant;
+        readonly AutoCorrect: AutoCorrect;
+        AutomationSecurity: Office.MsoAutomationSecurity;
+        readonly Build: string;
+        Caption: string;
+        readonly COMAddIns: Office.COMAddIns;
+        readonly CommandBars: Office.CommandBars;
+        readonly Creator: number;
+        readonly DefaultWebOptions: DefaultWebOptions;
+        readonly Dialogs: any;
+        DisplayAlerts: PpAlertLevel;
+        DisplayDocumentInformationPanel: boolean;
+        DisplayGridLines: Office.MsoTriState;
+        FeatureInstall: Office.MsoFeatureInstall;
+        readonly FileConverters: FileConverters;
+        FileDialog(Type: Office.MsoFileDialogType): Office.FileDialog;
+        readonly FileFind: Office.IFind;
+        readonly FileSearch: Office.FileSearch;
+        FileValidation: Office.MsoFileValidationMode;
 
         /** @param boolean [Persist=false] */
-        public GetOptionFlag(Option: number, Persist?: boolean): boolean;
-        public Height: number;
+        GetOptionFlag(Option: number, Persist?: boolean): boolean;
+        Height: number;
 
         /**
          * @param string [HelpFile='vbapp10.chm']
          * @param number [ContextID=0]
          */
-        public Help(HelpFile?: string, ContextID?: number): void;
-        public readonly IsSandboxed: boolean;
-        public readonly LanguageSettings: Office.LanguageSettings;
-        public LaunchPublishSlidesDialog(SlideLibraryUrl: string): void;
-        public LaunchSendToPPTDialog(SlideUrls: any): void;
-        public Left: number;
-        public readonly Marker: any;
-        public readonly MsoDebugOptions: Office.MsoDebugOptions;
-        public readonly Name: string;
-        public readonly NewPresentation: Office.NewFile;
-        public readonly OperatingSystem: string;
-        public readonly Options: Options;
-        public readonly Path: string;
-        public PPFileDialog(Type: PpFileDialogType): any;
-        public readonly Presentations: Presentations;
-        public readonly ProductCode: string;
-        public readonly ProtectedViewWindows: ProtectedViewWindows;
-        public Quit(): void;
-        public readonly ResampleMediaTasks: ResampleMediaTasks;
-        public Run(MacroName: string, ...safeArrayOfParams: any[]): any;
+        Help(HelpFile?: string, ContextID?: number): void;
+        readonly IsSandboxed: boolean;
+        readonly LanguageSettings: Office.LanguageSettings;
+        LaunchPublishSlidesDialog(SlideLibraryUrl: string): void;
+        LaunchSendToPPTDialog(SlideUrls: any): void;
+        Left: number;
+        readonly Marker: any;
+        readonly MsoDebugOptions: Office.MsoDebugOptions;
+        readonly Name: string;
+        readonly NewPresentation: Office.NewFile;
+        readonly OperatingSystem: string;
+        readonly Options: Options;
+        readonly Path: string;
+        PPFileDialog(Type: PpFileDialogType): any;
+        readonly Presentations: Presentations;
+        readonly ProductCode: string;
+        readonly ProtectedViewWindows: ProtectedViewWindows;
+        Quit(): void;
+        readonly ResampleMediaTasks: ResampleMediaTasks;
+        Run(MacroName: string, ...safeArrayOfParams: any[]): any;
 
         /** @param boolean [Persist=false] */
-        public SetOptionFlag(Option: number, State: boolean, Persist?: boolean): void;
-        public SetPerfMarker(Marker: number): void;
-        public ShowStartupDialog: Office.MsoTriState;
-        public ShowWindowsInTaskbar: Office.MsoTriState;
-        public readonly SlideShowWindows: SlideShowWindows;
-        public readonly SmartArtColors: Office.SmartArtColors;
-        public readonly SmartArtLayouts: Office.SmartArtLayouts;
-        public readonly SmartArtQuickStyles: Office.SmartArtQuickStyles;
-        public StartNewUndoEntry(): void;
-        public Top: number;
-        public readonly VBE: VBIDE.VBE;
-        public readonly Version: string;
-        public Visible: Office.MsoTriState;
-        public Width: number;
-        public readonly Windows: DocumentWindows;
-        public WindowState: PpWindowState;
+        SetOptionFlag(Option: number, State: boolean, Persist?: boolean): void;
+        SetPerfMarker(Marker: number): void;
+        ShowStartupDialog: Office.MsoTriState;
+        ShowWindowsInTaskbar: Office.MsoTriState;
+        readonly SlideShowWindows: SlideShowWindows;
+        readonly SmartArtColors: Office.SmartArtColors;
+        readonly SmartArtLayouts: Office.SmartArtLayouts;
+        readonly SmartArtQuickStyles: Office.SmartArtQuickStyles;
+        StartNewUndoEntry(): void;
+        Top: number;
+        readonly VBE: VBIDE.VBE;
+        readonly Version: string;
+        Visible: Office.MsoTriState;
+        Width: number;
+        readonly Windows: DocumentWindows;
+        WindowState: PpWindowState;
     }
 
     class AutoCorrect {
         private 'PowerPoint.AutoCorrect_typekey': AutoCorrect;
         private constructor();
-        public DisplayAutoCorrectOptions: boolean;
-        public DisplayAutoLayoutOptions: boolean;
+        DisplayAutoCorrectOptions: boolean;
+        DisplayAutoLayoutOptions: boolean;
     }
 
     class Borders {
         private 'PowerPoint.Borders_typekey': Borders;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(BorderType: PpBorderType): LineFormat;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(BorderType: PpBorderType): LineFormat;
+        readonly Parent: any;
     }
 
     class Broadcast {
         private 'PowerPoint.Broadcast_typekey': Broadcast;
         private constructor();
-        public readonly Application: Application;
-        public readonly AttendeeUrl: string;
-        public End(): void;
-        public readonly IsBroadcasting: boolean;
-        public readonly Parent: any;
-        public Start(serverUrl: string): void;
+        readonly Application: Application;
+        readonly AttendeeUrl: string;
+        End(): void;
+        readonly IsBroadcasting: boolean;
+        readonly Parent: any;
+        Start(serverUrl: string): void;
     }
 
     class BulletFormat {
         private 'PowerPoint.BulletFormat_typekey': BulletFormat;
         private constructor();
-        public readonly Application: Application;
-        public Character: number;
-        public readonly Font: Font;
-        public readonly Number: number;
-        public readonly Parent: any;
-        public Picture(Picture: string): void;
-        public RelativeSize: number;
-        public StartValue: number;
-        public Style: PpNumberedBulletStyle;
-        public Type: PpBulletType;
-        public UseTextColor: Office.MsoTriState;
-        public UseTextFont: Office.MsoTriState;
-        public Visible: Office.MsoTriState;
+        readonly Application: Application;
+        Character: number;
+        readonly Font: Font;
+        readonly Number: number;
+        readonly Parent: any;
+        Picture(Picture: string): void;
+        RelativeSize: number;
+        StartValue: number;
+        Style: PpNumberedBulletStyle;
+        Type: PpBulletType;
+        UseTextColor: Office.MsoTriState;
+        UseTextFont: Office.MsoTriState;
+        Visible: Office.MsoTriState;
     }
 
     class CalloutFormat {
         private 'PowerPoint.CalloutFormat_typekey': CalloutFormat;
         private constructor();
-        public Accent: Office.MsoTriState;
-        public Angle: Office.MsoCalloutAngleType;
-        public readonly Application: any;
-        public AutoAttach: Office.MsoTriState;
-        public readonly AutoLength: Office.MsoTriState;
-        public AutomaticLength(): void;
-        public Border: Office.MsoTriState;
-        public readonly Creator: number;
-        public CustomDrop(Drop: number): void;
-        public CustomLength(Length: number): void;
-        public readonly Drop: number;
-        public readonly DropType: Office.MsoCalloutDropType;
-        public Gap: number;
-        public readonly Length: number;
-        public readonly Parent: any;
-        public PresetDrop(DropType: Office.MsoCalloutDropType): void;
-        public Type: Office.MsoCalloutType;
+        Accent: Office.MsoTriState;
+        Angle: Office.MsoCalloutAngleType;
+        readonly Application: any;
+        AutoAttach: Office.MsoTriState;
+        readonly AutoLength: Office.MsoTriState;
+        AutomaticLength(): void;
+        Border: Office.MsoTriState;
+        readonly Creator: number;
+        CustomDrop(Drop: number): void;
+        CustomLength(Length: number): void;
+        readonly Drop: number;
+        readonly DropType: Office.MsoCalloutDropType;
+        Gap: number;
+        readonly Length: number;
+        readonly Parent: any;
+        PresetDrop(DropType: Office.MsoCalloutDropType): void;
+        Type: Office.MsoCalloutType;
     }
 
     class CanvasShapes {
         private 'PowerPoint.CanvasShapes_typekey': CanvasShapes;
         private constructor();
-        public AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddCurve(SafeArrayOfPoints: any): Shape;
-        public AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
+        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddPicture(FileName: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
-        public AddPolyline(SafeArrayOfPoints: any): Shape;
-        public AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextEffect(
+        AddPicture(FileName: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextEffect(
             PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
             Left: number, Top: number): Shape;
-        public readonly Application: any;
-        public readonly Background: Shape;
-        public BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
-        public SelectAll(): void;
+        readonly Application: any;
+        readonly Background: Shape;
+        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
+        SelectAll(): void;
     }
 
     class Cell {
         private 'PowerPoint.Cell_typekey': Cell;
         private constructor();
-        public readonly Application: Application;
-        public readonly Borders: Borders;
-        public Merge(MergeTo: Cell): void;
-        public readonly Parent: any;
-        public Select(): void;
-        public readonly Selected: boolean;
-        public readonly Shape: Shape;
-        public Split(NumRows: number, NumColumns: number): void;
+        readonly Application: Application;
+        readonly Borders: Borders;
+        Merge(MergeTo: Cell): void;
+        readonly Parent: any;
+        Select(): void;
+        readonly Selected: boolean;
+        readonly Shape: Shape;
+        Split(NumRows: number, NumColumns: number): void;
     }
 
     class CellRange {
         private 'PowerPoint.CellRange_typekey': CellRange;
         private constructor();
-        public readonly Application: Application;
-        public readonly Borders: Borders;
-        public readonly Count: number;
-        public Item(Index: number): Cell;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Borders: Borders;
+        readonly Count: number;
+        Item(Index: number): Cell;
+        readonly Parent: any;
     }
 
     class Chart {
@@ -2129,361 +2129,361 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param PowerPoint.XlDataLabelsType [Type=2] */
-        public _ApplyDataLabels(Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
-        public AlternativeText: string;
-        public readonly Application: Application;
-        public ApplyChartTemplate(FileName: string): void;
-        public ApplyCustomType(ChartType: Office.XlChartType, TypeName?: any): void;
+        _ApplyDataLabels(Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
+        AlternativeText: string;
+        readonly Application: Application;
+        ApplyChartTemplate(FileName: string): void;
+        ApplyCustomType(ChartType: Office.XlChartType, TypeName?: any): void;
 
         /** @param PowerPoint.XlDataLabelsType [Type=2] */
-        public ApplyDataLabels(
+        ApplyDataLabels(
             Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any,
             ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
-        public ApplyLayout(Layout: number, ChartType?: any): void;
-        public readonly Area3DGroup: ChartGroup;
-        public AreaGroups(Index?: any): any;
-        public AutoFormat(Gallery: number, Format?: any): void;
-        public AutoScaling: boolean;
+        ApplyLayout(Layout: number, ChartType?: any): void;
+        readonly Area3DGroup: ChartGroup;
+        AreaGroups(Index?: any): any;
+        AutoFormat(Gallery: number, Format?: any): void;
+        AutoScaling: boolean;
 
         /** @param PowerPoint.XlAxisGroup [AxisGroup=1] */
-        public Axes(Type: any, AxisGroup?: XlAxisGroup): any;
-        public readonly BackWall: Walls;
-        public readonly Bar3DGroup: ChartGroup;
-        public BarGroups(Index?: any): any;
-        public BarShape: XlBarShape;
-        public readonly ChartArea: ChartArea;
-        public readonly ChartData: ChartData;
-        public ChartGroups(Index?: any): any;
-        public ChartStyle: any;
-        public readonly ChartTitle: ChartTitle;
-        public ChartType: Office.XlChartType;
-        public ChartWizard(
+        Axes(Type: any, AxisGroup?: XlAxisGroup): any;
+        readonly BackWall: Walls;
+        readonly Bar3DGroup: ChartGroup;
+        BarGroups(Index?: any): any;
+        BarShape: XlBarShape;
+        readonly ChartArea: ChartArea;
+        readonly ChartData: ChartData;
+        ChartGroups(Index?: any): any;
+        ChartStyle: any;
+        readonly ChartTitle: ChartTitle;
+        ChartType: Office.XlChartType;
+        ChartWizard(
             Source?: any, Gallery?: any, Format?: any, PlotBy?: any, CategoryLabels?: any, SeriesLabels?: any, HasLegend?: any, Title?: any, CategoryTitle?: any,
             ValueTitle?: any, ExtraTitle?: any): void;
-        public ClearToMatchStyle(): void;
-        public readonly Column3DGroup: ChartGroup;
-        public ColumnGroups(Index?: any): any;
-        public Copy(Before?: any, After?: any): void;
+        ClearToMatchStyle(): void;
+        readonly Column3DGroup: ChartGroup;
+        ColumnGroups(Index?: any): any;
+        Copy(Before?: any, After?: any): void;
 
         /**
          * @param PowerPoint.XlPictureAppearance [Appearance=1]
          * @param PowerPoint.XlCopyPictureFormat [Format=-4147]
          * @param PowerPoint.XlPictureAppearance [Size=2]
          */
-        public CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance): void;
-        public readonly Corners: Corners;
-        public readonly Creator: number;
-        public readonly DataTable: DataTable;
-        public Delete(): void;
-        public DepthPercent: number;
-        public DisplayBlanksAs: XlDisplayBlanksAs;
-        public DoughnutGroups(Index?: any): any;
-        public Elevation: number;
-        public Export(FileName: string, FilterName?: any, Interactive?: any): boolean;
-        public readonly Floor: Floor;
-        public readonly Format: ChartFormat;
-        public GapDepth: number;
-        public GetChartElement(X: number, Y: number, ElementID: number, Arg1: number, Arg2: number): void;
-        public HasAxis(Index1?: any, Index2?: any): any;
-        public HasDataTable: boolean;
-        public HasLegend: boolean;
-        public HasPivotFields: boolean;
-        public HasTitle: boolean;
-        public HeightPercent: number;
-        public readonly Legend: Legend;
-        public readonly Line3DGroup: ChartGroup;
-        public LineGroups(Index?: any): any;
-        public Name: string;
-        public readonly Parent: any;
-        public Paste(Type?: any): void;
-        public Perspective: number;
-        public readonly Pie3DGroup: ChartGroup;
-        public PieGroups(Index?: any): any;
-        public readonly PlotArea: PlotArea;
-        public PlotBy: XlRowCol;
-        public PlotVisibleOnly: boolean;
-        public RadarGroups(Index?: any): any;
-        public Refresh(): void;
-        public RightAngleAxes: any;
-        public Rotation: any;
-        public SaveChartTemplate(FileName: string): void;
-        public Select(Replace?: any): void;
-        public SeriesCollection(Index?: any): any;
-        public SetBackgroundPicture(FileName: string): void;
-        public SetDefaultChart(Name: any): void;
-        public SetElement(Element: Office.MsoChartElementType): void;
-        public SetSourceData(Source: string, PlotBy?: any): void;
-        public readonly Shapes: Shapes;
-        public ShowAllFieldButtons: boolean;
-        public ShowAxisFieldButtons: boolean;
-        public ShowDataLabelsOverMaximum: boolean;
-        public ShowLegendFieldButtons: boolean;
-        public ShowReportFilterFieldButtons: boolean;
-        public ShowValueFieldButtons: boolean;
-        public readonly SideWall: Walls;
-        public Subtype: number;
-        public readonly SurfaceGroup: ChartGroup;
-        public Title: string;
-        public Type: number;
-        public readonly Walls: Walls;
-        public XYGroups(Index?: any): any;
+        CopyPicture(Appearance?: XlPictureAppearance, Format?: XlCopyPictureFormat, Size?: XlPictureAppearance): void;
+        readonly Corners: Corners;
+        readonly Creator: number;
+        readonly DataTable: DataTable;
+        Delete(): void;
+        DepthPercent: number;
+        DisplayBlanksAs: XlDisplayBlanksAs;
+        DoughnutGroups(Index?: any): any;
+        Elevation: number;
+        Export(FileName: string, FilterName?: any, Interactive?: any): boolean;
+        readonly Floor: Floor;
+        readonly Format: ChartFormat;
+        GapDepth: number;
+        GetChartElement(X: number, Y: number, ElementID: number, Arg1: number, Arg2: number): void;
+        HasAxis(Index1?: any, Index2?: any): any;
+        HasDataTable: boolean;
+        HasLegend: boolean;
+        HasPivotFields: boolean;
+        HasTitle: boolean;
+        HeightPercent: number;
+        readonly Legend: Legend;
+        readonly Line3DGroup: ChartGroup;
+        LineGroups(Index?: any): any;
+        Name: string;
+        readonly Parent: any;
+        Paste(Type?: any): void;
+        Perspective: number;
+        readonly Pie3DGroup: ChartGroup;
+        PieGroups(Index?: any): any;
+        readonly PlotArea: PlotArea;
+        PlotBy: XlRowCol;
+        PlotVisibleOnly: boolean;
+        RadarGroups(Index?: any): any;
+        Refresh(): void;
+        RightAngleAxes: any;
+        Rotation: any;
+        SaveChartTemplate(FileName: string): void;
+        Select(Replace?: any): void;
+        SeriesCollection(Index?: any): any;
+        SetBackgroundPicture(FileName: string): void;
+        SetDefaultChart(Name: any): void;
+        SetElement(Element: Office.MsoChartElementType): void;
+        SetSourceData(Source: string, PlotBy?: any): void;
+        readonly Shapes: Shapes;
+        ShowAllFieldButtons: boolean;
+        ShowAxisFieldButtons: boolean;
+        ShowDataLabelsOverMaximum: boolean;
+        ShowLegendFieldButtons: boolean;
+        ShowReportFilterFieldButtons: boolean;
+        ShowValueFieldButtons: boolean;
+        readonly SideWall: Walls;
+        Subtype: number;
+        readonly SurfaceGroup: ChartGroup;
+        Title: string;
+        Type: number;
+        readonly Walls: Walls;
+        XYGroups(Index?: any): any;
     }
 
     class ChartArea {
         private 'PowerPoint.ChartArea_typekey': ChartArea;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public Clear(): any;
-        public ClearContents(): any;
-        public ClearFormats(): any;
-        public Copy(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        Clear(): any;
+        ClearContents(): any;
+        ClearFormats(): any;
+        Copy(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        Height: number;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class ChartBorder {
         private 'PowerPoint.ChartBorder_typekey': ChartBorder;
         private constructor();
-        public readonly Application: Application;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public LineStyle: any;
-        public readonly Parent: any;
-        public Weight: any;
+        readonly Application: Application;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        LineStyle: any;
+        readonly Parent: any;
+        Weight: any;
     }
 
     class ChartCharacters {
         private 'PowerPoint.ChartCharacters_typekey': ChartCharacters;
         private constructor();
-        public readonly Application: Application;
-        public Caption: string;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Font: ChartFont;
-        public Insert(String: string): any;
-        public readonly Parent: any;
-        public PhoneticCharacters: string;
-        public Text: string;
+        readonly Application: Application;
+        Caption: string;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Font: ChartFont;
+        Insert(String: string): any;
+        readonly Parent: any;
+        PhoneticCharacters: string;
+        Text: string;
     }
 
     class ChartColorFormat {
         private 'PowerPoint.ChartColorFormat_typekey': ChartColorFormat;
         private constructor();
-        public readonly _Default: number;
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public readonly RGB: number;
-        public SchemeColor: number;
-        public readonly Type: number;
+        readonly _Default: number;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Parent: any;
+        readonly RGB: number;
+        SchemeColor: number;
+        readonly Type: number;
     }
 
     class ChartData {
         private 'PowerPoint.ChartData_typekey': ChartData;
         private constructor();
-        public Activate(): void;
-        public BreakLink(): void;
-        public readonly IsLinked: boolean;
-        public readonly Workbook: any;
+        Activate(): void;
+        BreakLink(): void;
+        readonly IsLinked: boolean;
+        readonly Workbook: any;
     }
 
     class ChartFillFormat {
         private 'PowerPoint.ChartFillFormat_typekey': ChartFillFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly BackColor: ChartColorFormat;
-        public readonly Creator: number;
-        public readonly ForeColor: ChartColorFormat;
-        public readonly GradientColorType: Office.MsoGradientColorType;
-        public readonly GradientDegree: number;
-        public readonly GradientStyle: Office.MsoGradientStyle;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: Office.MsoPatternType;
-        public Patterned(Pattern: Office.MsoPatternType): void;
-        public PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
-        public readonly PresetGradientType: Office.MsoPresetGradientType;
-        public readonly PresetTexture: Office.MsoPresetTexture;
-        public PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
-        public Solid(): void;
-        public readonly TextureName: string;
-        public readonly TextureType: Office.MsoTextureType;
-        public TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
-        public readonly Type: Office.MsoFillType;
-        public UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: Office.MsoTriState;
+        readonly Application: Application;
+        readonly BackColor: ChartColorFormat;
+        readonly Creator: number;
+        readonly ForeColor: ChartColorFormat;
+        readonly GradientColorType: Office.MsoGradientColorType;
+        readonly GradientDegree: number;
+        readonly GradientStyle: Office.MsoGradientStyle;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: Office.MsoPatternType;
+        Patterned(Pattern: Office.MsoPatternType): void;
+        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        readonly PresetGradientType: Office.MsoPresetGradientType;
+        readonly PresetTexture: Office.MsoPresetTexture;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
+        Solid(): void;
+        readonly TextureName: string;
+        readonly TextureType: Office.MsoTextureType;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
+        readonly Type: Office.MsoFillType;
+        UserPicture(PictureFile?: any, PictureFormat?: any, PictureStackUnit?: any, PicturePlacement?: any): void;
+        UserTextured(TextureFile: string): void;
+        Visible: Office.MsoTriState;
     }
 
     class ChartFont {
         private 'PowerPoint.ChartFont_typekey': ChartFont;
         private constructor();
-        public readonly Application: Application;
-        public Background: any;
-        public Bold: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public FontStyle: any;
-        public Italic: any;
-        public Name: any;
-        public OutlineFont: any;
-        public readonly Parent: any;
-        public Shadow: any;
-        public Size: any;
-        public Strikethrough: any;
-        public Subscript: any;
-        public Superscript: any;
-        public Underline: any;
+        readonly Application: Application;
+        Background: any;
+        Bold: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        FontStyle: any;
+        Italic: any;
+        Name: any;
+        OutlineFont: any;
+        readonly Parent: any;
+        Shadow: any;
+        Size: any;
+        Strikethrough: any;
+        Subscript: any;
+        Superscript: any;
+        Underline: any;
     }
 
     class ChartFormat {
         private 'PowerPoint.ChartFormat_typekey': ChartFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Fill: FillFormat;
-        public readonly Glow: Office.GlowFormat;
-        public readonly Line: LineFormat;
-        public readonly Parent: any;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Shadow: ShadowFormat;
-        public readonly SoftEdge: Office.SoftEdgeFormat;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Fill: FillFormat;
+        readonly Glow: Office.GlowFormat;
+        readonly Line: LineFormat;
+        readonly Parent: any;
+        readonly PictureFormat: PictureFormat;
+        readonly Shadow: ShadowFormat;
+        readonly SoftEdge: Office.SoftEdgeFormat;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
     }
 
     class ChartGroup {
         private 'PowerPoint.ChartGroup_typekey': ChartGroup;
         private constructor();
-        public readonly Application: Application;
-        public AxisGroup: XlAxisGroup;
-        public BubbleScale: number;
-        public readonly Creator: number;
-        public DoughnutHoleSize: number;
-        public readonly DownBars: DownBars;
-        public readonly DropLines: DropLines;
-        public FirstSliceAngle: number;
-        public GapWidth: number;
-        public Has3DShading: boolean;
-        public HasDropLines: boolean;
-        public HasHiLoLines: boolean;
-        public HasRadarAxisLabels: boolean;
-        public HasSeriesLines: boolean;
-        public HasUpDownBars: boolean;
-        public readonly HiLoLines: HiLoLines;
-        public readonly Index: number;
-        public Overlap: number;
-        public readonly Parent: any;
-        public readonly RadarAxisLabels: TickLabels;
-        public SecondPlotSize: number;
-        public SeriesCollection(Index?: any): any;
-        public readonly SeriesLines: SeriesLines;
-        public ShowNegativeBubbles: boolean;
-        public SizeRepresents: XlSizeRepresents;
-        public SplitType: XlChartSplitType;
-        public SplitValue: any;
-        public Subtype: number;
-        public Type: number;
-        public readonly UpBars: UpBars;
-        public VaryByCategories: boolean;
+        readonly Application: Application;
+        AxisGroup: XlAxisGroup;
+        BubbleScale: number;
+        readonly Creator: number;
+        DoughnutHoleSize: number;
+        readonly DownBars: DownBars;
+        readonly DropLines: DropLines;
+        FirstSliceAngle: number;
+        GapWidth: number;
+        Has3DShading: boolean;
+        HasDropLines: boolean;
+        HasHiLoLines: boolean;
+        HasRadarAxisLabels: boolean;
+        HasSeriesLines: boolean;
+        HasUpDownBars: boolean;
+        readonly HiLoLines: HiLoLines;
+        readonly Index: number;
+        Overlap: number;
+        readonly Parent: any;
+        readonly RadarAxisLabels: TickLabels;
+        SecondPlotSize: number;
+        SeriesCollection(Index?: any): any;
+        readonly SeriesLines: SeriesLines;
+        ShowNegativeBubbles: boolean;
+        SizeRepresents: XlSizeRepresents;
+        SplitType: XlChartSplitType;
+        SplitValue: any;
+        Subtype: number;
+        Type: number;
+        readonly UpBars: UpBars;
+        VaryByCategories: boolean;
     }
 
     class ChartTitle {
         private 'PowerPoint.ChartTitle_typekey': ChartTitle;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public Caption: string;
-        public Characters(Start?: any, Length?: any): ChartCharacters;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public Formula: string;
-        public FormulaLocal: string;
-        public FormulaR1C1: string;
-        public FormulaR1C1Local: string;
-        public readonly Height: number;
-        public HorizontalAlignment: any;
-        public IncludeInLayout: boolean;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public Orientation: any;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public ReadingOrder: number;
-        public Select(): any;
-        public Shadow: boolean;
-        public Text: string;
-        public Top: number;
-        public VerticalAlignment: any;
-        public readonly Width: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        Caption: string;
+        Characters(Start?: any, Length?: any): ChartCharacters;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        Formula: string;
+        FormulaLocal: string;
+        FormulaR1C1: string;
+        FormulaR1C1Local: string;
+        readonly Height: number;
+        HorizontalAlignment: any;
+        IncludeInLayout: boolean;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        Orientation: any;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        ReadingOrder: number;
+        Select(): any;
+        Shadow: boolean;
+        Text: string;
+        Top: number;
+        VerticalAlignment: any;
+        readonly Width: number;
     }
 
     class Coauthoring {
         private 'PowerPoint.Coauthoring_typekey': Coauthoring;
         private constructor();
-        public readonly Application: Application;
-        public readonly CoauthorCount: number;
-        public EndReview(): void;
-        public FavorServerEditsDuringMerge: boolean;
-        public readonly MergeMode: boolean;
-        public readonly Parent: any;
-        public readonly PendingUpdates: boolean;
+        readonly Application: Application;
+        readonly CoauthorCount: number;
+        EndReview(): void;
+        FavorServerEditsDuringMerge: boolean;
+        readonly MergeMode: boolean;
+        readonly Parent: any;
+        readonly PendingUpdates: boolean;
     }
 
     class ColorEffect {
         private 'PowerPoint.ColorEffect_typekey': ColorEffect;
         private constructor();
-        public readonly Application: Application;
-        public readonly By: ColorFormat;
-        public readonly From: ColorFormat;
-        public readonly Parent: any;
-        public readonly To: ColorFormat;
+        readonly Application: Application;
+        readonly By: ColorFormat;
+        readonly From: ColorFormat;
+        readonly Parent: any;
+        readonly To: ColorFormat;
     }
 
     class ColorFormat {
         private 'PowerPoint.ColorFormat_typekey': ColorFormat;
         private constructor();
-        public readonly Application: any;
-        public Brightness: number;
-        public readonly Creator: number;
-        public ObjectThemeColor: Office.MsoThemeColorIndex;
-        public readonly Parent: any;
-        public RGB: Office.MsoRGBType;
-        public SchemeColor: PpColorSchemeIndex;
-        public TintAndShade: number;
-        public readonly Type: Office.MsoColorType;
+        readonly Application: any;
+        Brightness: number;
+        readonly Creator: number;
+        ObjectThemeColor: Office.MsoThemeColorIndex;
+        readonly Parent: any;
+        RGB: Office.MsoRGBType;
+        SchemeColor: PpColorSchemeIndex;
+        TintAndShade: number;
+        readonly Type: Office.MsoColorType;
     }
 
     class ColorScheme {
         private 'PowerPoint.ColorScheme_typekey': ColorScheme;
         private constructor();
-        public readonly Application: Application;
-        public Colors(SchemeColor: PpColorSchemeIndex): RGBColor;
-        public readonly Count: number;
-        public Delete(): void;
-        public readonly Parent: any;
+        readonly Application: Application;
+        Colors(SchemeColor: PpColorSchemeIndex): RGBColor;
+        readonly Count: number;
+        Delete(): void;
+        readonly Parent: any;
     }
 
     class ColorSchemes {
@@ -2491,22 +2491,22 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param PowerPoint.ColorScheme [Scheme=0] */
-        public Add(Scheme?: ColorScheme): ColorScheme;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): ColorScheme;
-        public readonly Parent: any;
+        Add(Scheme?: ColorScheme): ColorScheme;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): ColorScheme;
+        readonly Parent: any;
     }
 
     class Column {
         private 'PowerPoint.Column_typekey': Column;
         private constructor();
-        public readonly Application: Application;
-        public readonly Cells: CellRange;
-        public Delete(): void;
-        public readonly Parent: any;
-        public Select(): void;
-        public Width: number;
+        readonly Application: Application;
+        readonly Cells: CellRange;
+        Delete(): void;
+        readonly Parent: any;
+        Select(): void;
+        Width: number;
     }
 
     class Columns {
@@ -2514,186 +2514,186 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [BeforeColumn=-1] */
-        public Add(BeforeColumn?: number): Column;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): Column;
-        public readonly Parent: any;
+        Add(BeforeColumn?: number): Column;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): Column;
+        readonly Parent: any;
     }
 
     class CommandEffect {
         private 'PowerPoint.CommandEffect_typekey': CommandEffect;
         private constructor();
-        public readonly Application: Application;
-        public bookmark: string;
-        public Command: string;
-        public readonly Parent: any;
-        public Type: MsoAnimCommandType;
+        readonly Application: Application;
+        bookmark: string;
+        Command: string;
+        readonly Parent: any;
+        Type: MsoAnimCommandType;
     }
 
     class Comment {
         private 'PowerPoint.Comment_typekey': Comment;
         private constructor();
-        public readonly Application: Application;
-        public readonly Author: string;
-        public readonly AuthorIndex: number;
-        public readonly AuthorInitials: string;
-        public readonly DateTime: VarDate;
-        public Delete(): void;
-        public readonly Left: number;
-        public readonly Parent: any;
-        public readonly Text: string;
-        public readonly Top: number;
+        readonly Application: Application;
+        readonly Author: string;
+        readonly AuthorIndex: number;
+        readonly AuthorInitials: string;
+        readonly DateTime: VarDate;
+        Delete(): void;
+        readonly Left: number;
+        readonly Parent: any;
+        readonly Text: string;
+        readonly Top: number;
     }
 
     class Comments {
         private 'PowerPoint.Comments_typekey': Comments;
         private constructor();
-        public Add(Left: number, Top: number, Author: string, AuthorInitials: string, Text: string): Comment;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): Comment;
-        public readonly Parent: any;
+        Add(Left: number, Top: number, Author: string, AuthorInitials: string, Text: string): Comment;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): Comment;
+        readonly Parent: any;
     }
 
     class ConnectorFormat {
         private 'PowerPoint.ConnectorFormat_typekey': ConnectorFormat;
         private constructor();
-        public readonly Application: any;
-        public BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly BeginConnected: Office.MsoTriState;
-        public readonly BeginConnectedShape: Shape;
-        public readonly BeginConnectionSite: number;
-        public BeginDisconnect(): void;
-        public readonly Creator: number;
-        public EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly EndConnected: Office.MsoTriState;
-        public readonly EndConnectedShape: Shape;
-        public readonly EndConnectionSite: number;
-        public EndDisconnect(): void;
-        public readonly Parent: any;
-        public Type: Office.MsoConnectorType;
+        readonly Application: any;
+        BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly BeginConnected: Office.MsoTriState;
+        readonly BeginConnectedShape: Shape;
+        readonly BeginConnectionSite: number;
+        BeginDisconnect(): void;
+        readonly Creator: number;
+        EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly EndConnected: Office.MsoTriState;
+        readonly EndConnectedShape: Shape;
+        readonly EndConnectionSite: number;
+        EndDisconnect(): void;
+        readonly Parent: any;
+        Type: Office.MsoConnectorType;
     }
 
     class Corners {
         private 'PowerPoint.Corners_typekey': Corners;
         private constructor();
-        public readonly Application: Application;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Creator: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class CustomerData {
         private 'PowerPoint.CustomerData_typekey': CustomerData;
         private constructor();
-        public Add(): Office.CustomXMLPart;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Delete(Id: string): void;
-        public Item(Id: string): Office.CustomXMLPart;
-        public readonly Parent: any;
+        Add(): Office.CustomXMLPart;
+        readonly Application: Application;
+        readonly Count: number;
+        Delete(Id: string): void;
+        Item(Id: string): Office.CustomXMLPart;
+        readonly Parent: any;
     }
 
     class CustomLayout {
         private 'PowerPoint.CustomLayout_typekey': CustomLayout;
         private constructor();
-        public readonly Application: Application;
-        public readonly Background: ShapeRange;
-        public Copy(): void;
-        public readonly CustomerData: CustomerData;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly Design: Design;
-        public DisplayMasterShapes: Office.MsoTriState;
-        public Duplicate(): CustomLayout;
-        public FollowMasterBackground: Office.MsoTriState;
-        public readonly HeadersFooters: HeadersFooters;
-        public readonly Height: number;
-        public readonly Hyperlinks: Hyperlinks;
-        public readonly Index: number;
-        public MatchingName: string;
-        public MoveTo(toPos: number): void;
-        public Name: string;
-        public readonly Parent: any;
-        public Preserved: Office.MsoTriState;
-        public Select(): void;
-        public readonly Shapes: Shapes;
-        public readonly SlideShowTransition: SlideShowTransition;
-        public readonly ThemeColorScheme: Office.ThemeColorScheme;
-        public readonly TimeLine: TimeLine;
-        public readonly Width: number;
+        readonly Application: Application;
+        readonly Background: ShapeRange;
+        Copy(): void;
+        readonly CustomerData: CustomerData;
+        Cut(): void;
+        Delete(): void;
+        readonly Design: Design;
+        DisplayMasterShapes: Office.MsoTriState;
+        Duplicate(): CustomLayout;
+        FollowMasterBackground: Office.MsoTriState;
+        readonly HeadersFooters: HeadersFooters;
+        readonly Height: number;
+        readonly Hyperlinks: Hyperlinks;
+        readonly Index: number;
+        MatchingName: string;
+        MoveTo(toPos: number): void;
+        Name: string;
+        readonly Parent: any;
+        Preserved: Office.MsoTriState;
+        Select(): void;
+        readonly Shapes: Shapes;
+        readonly SlideShowTransition: SlideShowTransition;
+        readonly ThemeColorScheme: Office.ThemeColorScheme;
+        readonly TimeLine: TimeLine;
+        readonly Width: number;
     }
 
     class CustomLayouts {
         private 'PowerPoint.CustomLayouts_typekey': CustomLayouts;
         private constructor();
-        public Add(Index: number): CustomLayout;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: any): CustomLayout;
-        public readonly Parent: any;
+        Add(Index: number): CustomLayout;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: any): CustomLayout;
+        readonly Parent: any;
 
         /** @param number [Index=-1] */
-        public Paste(Index?: number): CustomLayout;
+        Paste(Index?: number): CustomLayout;
     }
 
     class DataTable {
         private 'PowerPoint.DataTable_typekey': DataTable;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public HasBorderHorizontal: boolean;
-        public HasBorderOutline: boolean;
-        public HasBorderVertical: boolean;
-        public readonly Parent: any;
-        public Select(): void;
-        public ShowLegendKey: boolean;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        HasBorderHorizontal: boolean;
+        HasBorderOutline: boolean;
+        HasBorderVertical: boolean;
+        readonly Parent: any;
+        Select(): void;
+        ShowLegendKey: boolean;
     }
 
     class DefaultWebOptions {
         private 'PowerPoint.DefaultWebOptions_typekey': DefaultWebOptions;
         private constructor();
-        public AllowPNG: Office.MsoTriState;
-        public AlwaysSaveInDefaultEncoding: Office.MsoTriState;
-        public CheckIfOfficeIsHTMLEditor: Office.MsoTriState;
-        public Encoding: Office.MsoEncoding;
-        public readonly FolderSuffix: string;
-        public readonly Fonts: Office.WebPageFonts;
-        public FrameColors: PpFrameColors;
-        public HTMLVersion: PpHTMLVersion;
-        public IncludeNavigation: Office.MsoTriState;
-        public OrganizeInFolder: Office.MsoTriState;
-        public RelyOnVML: Office.MsoTriState;
-        public ResizeGraphics: Office.MsoTriState;
-        public SaveNewWebPagesAsWebArchives: Office.MsoTriState;
-        public ScreenSize: Office.MsoScreenSize;
-        public ShowSlideAnimation: Office.MsoTriState;
-        public TargetBrowser: Office.MsoTargetBrowser;
-        public UpdateLinksOnSave: Office.MsoTriState;
-        public UseLongFileNames: Office.MsoTriState;
+        AllowPNG: Office.MsoTriState;
+        AlwaysSaveInDefaultEncoding: Office.MsoTriState;
+        CheckIfOfficeIsHTMLEditor: Office.MsoTriState;
+        Encoding: Office.MsoEncoding;
+        readonly FolderSuffix: string;
+        readonly Fonts: Office.WebPageFonts;
+        FrameColors: PpFrameColors;
+        HTMLVersion: PpHTMLVersion;
+        IncludeNavigation: Office.MsoTriState;
+        OrganizeInFolder: Office.MsoTriState;
+        RelyOnVML: Office.MsoTriState;
+        ResizeGraphics: Office.MsoTriState;
+        SaveNewWebPagesAsWebArchives: Office.MsoTriState;
+        ScreenSize: Office.MsoScreenSize;
+        ShowSlideAnimation: Office.MsoTriState;
+        TargetBrowser: Office.MsoTargetBrowser;
+        UpdateLinksOnSave: Office.MsoTriState;
+        UseLongFileNames: Office.MsoTriState;
     }
 
     class Design {
         private 'PowerPoint.Design_typekey': Design;
         private constructor();
-        public AddTitleMaster(): Master;
-        public readonly Application: Application;
-        public Delete(): void;
-        public readonly HasTitleMaster: Office.MsoTriState;
-        public readonly Index: number;
-        public MoveTo(toPos: number): void;
-        public Name: string;
-        public readonly Parent: any;
-        public Preserved: Office.MsoTriState;
-        public readonly SlideMaster: Master;
-        public readonly TitleMaster: Master;
+        AddTitleMaster(): Master;
+        readonly Application: Application;
+        Delete(): void;
+        readonly HasTitleMaster: Office.MsoTriState;
+        readonly Index: number;
+        MoveTo(toPos: number): void;
+        Name: string;
+        readonly Parent: any;
+        Preserved: Office.MsoTriState;
+        readonly SlideMaster: Master;
+        readonly TitleMaster: Master;
     }
 
     class Designs {
@@ -2701,32 +2701,32 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        public Add(designName: string, Index?: number): Design;
-        public readonly Application: Application;
+        Add(designName: string, Index?: number): Design;
+        readonly Application: Application;
 
         /** @param number [Index=-1] */
-        public Clone(pOriginal: Design, Index?: number): Design;
-        public readonly Count: number;
-        public Item(Index: any): Design;
+        Clone(pOriginal: Design, Index?: number): Design;
+        readonly Count: number;
+        Item(Index: any): Design;
 
         /** @param number [Index=-1] */
-        public Load(TemplateName: string, Index?: number): Design;
-        public readonly Parent: any;
+        Load(TemplateName: string, Index?: number): Design;
+        readonly Parent: any;
     }
 
     class Diagram {
         private 'PowerPoint.Diagram_typekey': Diagram;
         private constructor();
-        public readonly Application: any;
-        public AutoFormat: Office.MsoTriState;
-        public AutoLayout: Office.MsoTriState;
-        public Convert(Type: Office.MsoDiagramType): void;
-        public readonly Creator: number;
-        public FitText(): void;
-        public readonly Nodes: DiagramNodes;
-        public readonly Parent: any;
-        public Reverse: Office.MsoTriState;
-        public readonly Type: Office.MsoDiagramType;
+        readonly Application: any;
+        AutoFormat: Office.MsoTriState;
+        AutoLayout: Office.MsoTriState;
+        Convert(Type: Office.MsoDiagramType): void;
+        readonly Creator: number;
+        FitText(): void;
+        readonly Nodes: DiagramNodes;
+        readonly Parent: any;
+        Reverse: Office.MsoTriState;
+        readonly Type: Office.MsoDiagramType;
     }
 
     class DiagramNode {
@@ -2737,28 +2737,28 @@ declare namespace PowerPoint {
          * @param Office.MsoRelativeNodePosition [Pos=2]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        public AddNode(Pos?: Office.MsoRelativeNodePosition, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
-        public readonly Application: any;
-        public readonly Children: DiagramNodeChildren;
+        AddNode(Pos?: Office.MsoRelativeNodePosition, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
+        readonly Application: any;
+        readonly Children: DiagramNodeChildren;
 
         /** @param Office.MsoRelativeNodePosition [Pos=2] */
-        public CloneNode(CopyChildren: boolean, TargetNode: DiagramNode, Pos?: Office.MsoRelativeNodePosition): DiagramNode;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Diagram: Diagram;
-        public Layout: Office.MsoOrgChartLayoutType;
-        public MoveNode(TargetNode: DiagramNode, Pos: Office.MsoRelativeNodePosition): void;
-        public NextNode(): DiagramNode;
-        public readonly Parent: any;
-        public PrevNode(): DiagramNode;
-        public ReplaceNode(TargetNode: DiagramNode): void;
-        public readonly Root: DiagramNode;
-        public readonly Shape: Shape;
+        CloneNode(CopyChildren: boolean, TargetNode: DiagramNode, Pos?: Office.MsoRelativeNodePosition): DiagramNode;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Diagram: Diagram;
+        Layout: Office.MsoOrgChartLayoutType;
+        MoveNode(TargetNode: DiagramNode, Pos: Office.MsoRelativeNodePosition): void;
+        NextNode(): DiagramNode;
+        readonly Parent: any;
+        PrevNode(): DiagramNode;
+        ReplaceNode(TargetNode: DiagramNode): void;
+        readonly Root: DiagramNode;
+        readonly Shape: Shape;
 
         /** @param boolean [SwapChildren=true] */
-        public SwapNode(TargetNode: DiagramNode, SwapChildren?: boolean): void;
-        public readonly TextShape: Shape;
-        public TransferChildren(ReceivingNode: DiagramNode): void;
+        SwapNode(TargetNode: DiagramNode, SwapChildren?: boolean): void;
+        readonly TextShape: Shape;
+        TransferChildren(ReceivingNode: DiagramNode): void;
     }
 
     class DiagramNodeChildren {
@@ -2769,42 +2769,42 @@ declare namespace PowerPoint {
          * @param any [Index=-1]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        public AddNode(Index?: any, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly FirstChild: DiagramNode;
-        public Item(Index: any): DiagramNode;
-        public readonly LastChild: DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        AddNode(Index?: any, NodeType?: Office.MsoDiagramNodeType): DiagramNode;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly FirstChild: DiagramNode;
+        Item(Index: any): DiagramNode;
+        readonly LastChild: DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class DiagramNodes {
         private 'PowerPoint.DiagramNodes_typekey': DiagramNodes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class DocumentWindow {
         private 'PowerPoint.DocumentWindow_typekey': DocumentWindow;
         private constructor();
-        public Activate(): void;
-        public readonly Active: Office.MsoTriState;
-        public readonly ActivePane: Pane;
-        public readonly Application: Application;
-        public BlackAndWhite: Office.MsoTriState;
-        public readonly Caption: string;
-        public Close(): void;
-        public ExpandSection(sectionIndex: number, Expand: boolean): void;
-        public FitToPage(): void;
-        public Height: number;
-        public IsSectionExpanded(sectionIndex: number): boolean;
+        Activate(): void;
+        readonly Active: Office.MsoTriState;
+        readonly ActivePane: Pane;
+        readonly Application: Application;
+        BlackAndWhite: Office.MsoTriState;
+        readonly Caption: string;
+        Close(): void;
+        ExpandSection(sectionIndex: number, Expand: boolean): void;
+        FitToPage(): void;
+        Height: number;
+        IsSectionExpanded(sectionIndex: number): boolean;
 
         /**
          * @param number [Down=1]
@@ -2812,19 +2812,19 @@ declare namespace PowerPoint {
          * @param number [ToRight=0]
          * @param number [ToLeft=0]
          */
-        public LargeScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number): void;
-        public Left: number;
-        public NewWindow(): DocumentWindow;
-        public readonly Panes: Panes;
-        public readonly Parent: any;
-        public PointsToScreenPixelsX(Points: number): number;
-        public PointsToScreenPixelsY(Points: number): number;
-        public readonly Presentation: Presentation;
-        public RangeFromPoint(X: number, Y: number): any;
+        LargeScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number): void;
+        Left: number;
+        NewWindow(): DocumentWindow;
+        readonly Panes: Panes;
+        readonly Parent: any;
+        PointsToScreenPixelsX(Points: number): number;
+        PointsToScreenPixelsY(Points: number): number;
+        readonly Presentation: Presentation;
+        RangeFromPoint(X: number, Y: number): any;
 
         /** @param Office.MsoTriState [Start=-1] */
-        public ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: Office.MsoTriState): void;
-        public readonly Selection: Selection;
+        ScrollIntoView(Left: number, Top: number, Width: number, Height: number, Start?: Office.MsoTriState): void;
+        readonly Selection: Selection;
 
         /**
          * @param number [Down=1]
@@ -2832,244 +2832,244 @@ declare namespace PowerPoint {
          * @param number [ToRight=0]
          * @param number [ToLeft=0]
          */
-        public SmallScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number): void;
-        public SplitHorizontal: number;
-        public SplitVertical: number;
-        public Top: number;
-        public readonly View: View;
-        public ViewType: PpViewType;
-        public Width: number;
-        public WindowState: PpWindowState;
+        SmallScroll(Down?: number, Up?: number, ToRight?: number, ToLeft?: number): void;
+        SplitHorizontal: number;
+        SplitVertical: number;
+        Top: number;
+        readonly View: View;
+        ViewType: PpViewType;
+        Width: number;
+        WindowState: PpWindowState;
     }
 
     class DocumentWindows {
         private 'PowerPoint.DocumentWindows_typekey': DocumentWindows;
         private constructor();
-        public readonly Application: Application;
+        readonly Application: Application;
 
         /** @param PowerPoint.PpArrangeStyle [arrangeStyle=1] */
-        public Arrange(arrangeStyle?: PpArrangeStyle): void;
-        public readonly Count: number;
-        public Item(Index: number): DocumentWindow;
-        public readonly Parent: any;
+        Arrange(arrangeStyle?: PpArrangeStyle): void;
+        readonly Count: number;
+        Item(Index: number): DocumentWindow;
+        readonly Parent: any;
     }
 
     class DownBars {
         private 'PowerPoint.DownBars_typekey': DownBars;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class DropLines {
         private 'PowerPoint.DropLines_typekey': DropLines;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class Effect {
         private 'PowerPoint.Effect_typekey': Effect;
         private constructor();
-        public readonly Application: Application;
-        public readonly Behaviors: AnimationBehaviors;
-        public Delete(): void;
-        public readonly DisplayName: string;
-        public readonly EffectInformation: EffectInformation;
-        public readonly EffectParameters: EffectParameters;
-        public EffectType: MsoAnimEffect;
-        public Exit: Office.MsoTriState;
-        public readonly Index: number;
-        public MoveAfter(Effect: Effect): void;
-        public MoveBefore(Effect: Effect): void;
-        public MoveTo(toPos: number): void;
-        public Paragraph: number;
-        public readonly Parent: any;
-        public Shape: Shape;
-        public readonly TextRangeLength: number;
-        public readonly TextRangeStart: number;
-        public readonly Timing: Timing;
+        readonly Application: Application;
+        readonly Behaviors: AnimationBehaviors;
+        Delete(): void;
+        readonly DisplayName: string;
+        readonly EffectInformation: EffectInformation;
+        readonly EffectParameters: EffectParameters;
+        EffectType: MsoAnimEffect;
+        Exit: Office.MsoTriState;
+        readonly Index: number;
+        MoveAfter(Effect: Effect): void;
+        MoveBefore(Effect: Effect): void;
+        MoveTo(toPos: number): void;
+        Paragraph: number;
+        readonly Parent: any;
+        Shape: Shape;
+        readonly TextRangeLength: number;
+        readonly TextRangeStart: number;
+        readonly Timing: Timing;
     }
 
     class EffectInformation {
         private 'PowerPoint.EffectInformation_typekey': EffectInformation;
         private constructor();
-        public readonly AfterEffect: MsoAnimAfterEffect;
-        public readonly AnimateBackground: Office.MsoTriState;
-        public readonly AnimateTextInReverse: Office.MsoTriState;
-        public readonly Application: Application;
-        public readonly BuildByLevelEffect: MsoAnimateByLevel;
-        public readonly Dim: ColorFormat;
-        public readonly Parent: any;
-        public readonly PlaySettings: PlaySettings;
-        public readonly SoundEffect: SoundEffect;
-        public readonly TextUnitEffect: MsoAnimTextUnitEffect;
+        readonly AfterEffect: MsoAnimAfterEffect;
+        readonly AnimateBackground: Office.MsoTriState;
+        readonly AnimateTextInReverse: Office.MsoTriState;
+        readonly Application: Application;
+        readonly BuildByLevelEffect: MsoAnimateByLevel;
+        readonly Dim: ColorFormat;
+        readonly Parent: any;
+        readonly PlaySettings: PlaySettings;
+        readonly SoundEffect: SoundEffect;
+        readonly TextUnitEffect: MsoAnimTextUnitEffect;
     }
 
     class EffectParameters {
         private 'PowerPoint.EffectParameters_typekey': EffectParameters;
         private constructor();
-        public Amount: number;
-        public readonly Application: Application;
-        public readonly Color2: ColorFormat;
-        public Direction: MsoAnimDirection;
-        public FontName: string;
-        public readonly Parent: any;
-        public Relative: Office.MsoTriState;
-        public Size: number;
+        Amount: number;
+        readonly Application: Application;
+        readonly Color2: ColorFormat;
+        Direction: MsoAnimDirection;
+        FontName: string;
+        readonly Parent: any;
+        Relative: Office.MsoTriState;
+        Size: number;
     }
 
     class ExtraColors {
         private 'PowerPoint.ExtraColors_typekey': ExtraColors;
         private constructor();
-        public Add(Type: Office.MsoRGBType): void;
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Count: number;
-        public Item(Index: number): Office.MsoRGBType;
-        public readonly Parent: any;
+        Add(Type: Office.MsoRGBType): void;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Count: number;
+        Item(Index: number): Office.MsoRGBType;
+        readonly Parent: any;
     }
 
     class FileConverter {
         private 'PowerPoint.FileConverter_typekey': FileConverter;
         private constructor();
-        public readonly Application: Application;
-        public readonly CanOpen: boolean;
-        public readonly CanSave: boolean;
-        public readonly ClassName: string;
-        public readonly Creator: FileConverters;
-        public readonly Extensions: string;
-        public readonly FormatName: string;
-        public readonly Name: string;
-        public readonly OpenFormat: number;
-        public readonly Parent: FileConverters;
-        public readonly Path: string;
-        public readonly SaveFormat: number;
+        readonly Application: Application;
+        readonly CanOpen: boolean;
+        readonly CanSave: boolean;
+        readonly ClassName: string;
+        readonly Creator: FileConverters;
+        readonly Extensions: string;
+        readonly FormatName: string;
+        readonly Name: string;
+        readonly OpenFormat: number;
+        readonly Parent: FileConverters;
+        readonly Path: string;
+        readonly SaveFormat: number;
     }
 
     class FileConverters {
         private 'PowerPoint.FileConverters_typekey': FileConverters;
         private constructor();
-        public readonly Count: number;
-        public Item(Index: any): FileConverter;
+        readonly Count: number;
+        Item(Index: any): FileConverter;
     }
 
     class FillFormat {
         private 'PowerPoint.FillFormat_typekey': FillFormat;
         private constructor();
-        public readonly Application: any;
-        public BackColor: ColorFormat;
-        public Background(): void;
-        public readonly Creator: number;
-        public ForeColor: ColorFormat;
-        public GradientAngle: number;
-        public readonly GradientColorType: Office.MsoGradientColorType;
-        public readonly GradientDegree: number;
-        public readonly GradientStops: Office.GradientStops;
-        public readonly GradientStyle: Office.MsoGradientStyle;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: Office.MsoPatternType;
-        public Patterned(Pattern: Office.MsoPatternType): void;
-        public readonly PictureEffects: Office.PictureEffects;
-        public PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
-        public readonly PresetGradientType: Office.MsoPresetGradientType;
-        public readonly PresetTexture: Office.MsoPresetTexture;
-        public PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
-        public RotateWithObject: Office.MsoTriState;
-        public Solid(): void;
-        public TextureAlignment: Office.MsoTextureAlignment;
-        public TextureHorizontalScale: number;
-        public readonly TextureName: string;
-        public TextureOffsetX: number;
-        public TextureOffsetY: number;
-        public TextureTile: Office.MsoTriState;
-        public readonly TextureType: Office.MsoTextureType;
-        public TextureVerticalScale: number;
-        public Transparency: number;
-        public TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
-        public readonly Type: Office.MsoFillType;
-        public UserPicture(PictureFile: string): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: Office.MsoTriState;
+        readonly Application: any;
+        BackColor: ColorFormat;
+        Background(): void;
+        readonly Creator: number;
+        ForeColor: ColorFormat;
+        GradientAngle: number;
+        readonly GradientColorType: Office.MsoGradientColorType;
+        readonly GradientDegree: number;
+        readonly GradientStops: Office.GradientStops;
+        readonly GradientStyle: Office.MsoGradientStyle;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: Office.MsoGradientStyle, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: Office.MsoPatternType;
+        Patterned(Pattern: Office.MsoPatternType): void;
+        readonly PictureEffects: Office.PictureEffects;
+        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        readonly PresetGradientType: Office.MsoPresetGradientType;
+        readonly PresetTexture: Office.MsoPresetTexture;
+        PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
+        RotateWithObject: Office.MsoTriState;
+        Solid(): void;
+        TextureAlignment: Office.MsoTextureAlignment;
+        TextureHorizontalScale: number;
+        readonly TextureName: string;
+        TextureOffsetX: number;
+        TextureOffsetY: number;
+        TextureTile: Office.MsoTriState;
+        readonly TextureType: Office.MsoTextureType;
+        TextureVerticalScale: number;
+        Transparency: number;
+        TwoColorGradient(Style: Office.MsoGradientStyle, Variant: number): void;
+        readonly Type: Office.MsoFillType;
+        UserPicture(PictureFile: string): void;
+        UserTextured(TextureFile: string): void;
+        Visible: Office.MsoTriState;
     }
 
     class FilterEffect {
         private 'PowerPoint.FilterEffect_typekey': FilterEffect;
         private constructor();
-        public readonly Application: Application;
-        public readonly Parent: any;
-        public Reveal: Office.MsoTriState;
-        public Subtype: MsoAnimFilterEffectSubtype;
-        public Type: MsoAnimFilterEffectType;
+        readonly Application: Application;
+        readonly Parent: any;
+        Reveal: Office.MsoTriState;
+        Subtype: MsoAnimFilterEffectSubtype;
+        Type: MsoAnimFilterEffectType;
     }
 
     class Floor {
         private 'PowerPoint.Floor_typekey': Floor;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class Font {
         private 'PowerPoint.Font_typekey': Font;
         private constructor();
-        public readonly Application: Application;
-        public AutoRotateNumbers: Office.MsoTriState;
-        public BaselineOffset: number;
-        public Bold: Office.MsoTriState;
-        public readonly Color: ColorFormat;
-        public readonly Embeddable: Office.MsoTriState;
-        public readonly Embedded: Office.MsoTriState;
-        public Emboss: Office.MsoTriState;
-        public Italic: Office.MsoTriState;
-        public Name: string;
-        public NameAscii: string;
-        public NameComplexScript: string;
-        public NameFarEast: string;
-        public NameOther: string;
-        public readonly Parent: any;
-        public Shadow: Office.MsoTriState;
-        public Size: number;
-        public Subscript: Office.MsoTriState;
-        public Superscript: Office.MsoTriState;
-        public Underline: Office.MsoTriState;
+        readonly Application: Application;
+        AutoRotateNumbers: Office.MsoTriState;
+        BaselineOffset: number;
+        Bold: Office.MsoTriState;
+        readonly Color: ColorFormat;
+        readonly Embeddable: Office.MsoTriState;
+        readonly Embedded: Office.MsoTriState;
+        Emboss: Office.MsoTriState;
+        Italic: Office.MsoTriState;
+        Name: string;
+        NameAscii: string;
+        NameComplexScript: string;
+        NameFarEast: string;
+        NameOther: string;
+        readonly Parent: any;
+        Shadow: Office.MsoTriState;
+        Size: number;
+        Subscript: Office.MsoTriState;
+        Superscript: Office.MsoTriState;
+        Underline: Office.MsoTriState;
     }
 
     class Fonts {
         private 'PowerPoint.Fonts_typekey': Fonts;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: any): Font;
-        public readonly Parent: any;
-        public Replace(Original: string, Replacement: string): void;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: any): Font;
+        readonly Parent: any;
+        Replace(Original: string, Replacement: string): void;
     }
 
     class FreeformBuilder {
@@ -3082,240 +3082,240 @@ declare namespace PowerPoint {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        public AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
-        public readonly Application: any;
-        public ConvertToShape(): Shape;
-        public readonly Creator: number;
-        public readonly Parent: any;
+        AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        readonly Application: any;
+        ConvertToShape(): Shape;
+        readonly Creator: number;
+        readonly Parent: any;
     }
 
     class Global {
         private 'PowerPoint.Global_typekey': Global;
         private constructor();
-        public readonly ActivePresentation: Presentation;
-        public readonly ActiveProtectedViewWindow: ProtectedViewWindow;
-        public readonly ActiveWindow: DocumentWindow;
-        public readonly AddIns: AddIns;
-        public readonly AnswerWizard: Office.AnswerWizard;
-        public readonly Application: Application;
-        public readonly Assistant: Office.Assistant;
-        public readonly CommandBars: Office.CommandBars;
-        public readonly Dialogs: any;
-        public readonly FileConverters: FileConverters;
-        public readonly IsSandboxed: boolean;
-        public readonly Presentations: Presentations;
-        public readonly ProtectedViewWindows: ProtectedViewWindows;
-        public readonly SlideShowWindows: SlideShowWindows;
-        public readonly Windows: DocumentWindows;
+        readonly ActivePresentation: Presentation;
+        readonly ActiveProtectedViewWindow: ProtectedViewWindow;
+        readonly ActiveWindow: DocumentWindow;
+        readonly AddIns: AddIns;
+        readonly AnswerWizard: Office.AnswerWizard;
+        readonly Application: Application;
+        readonly Assistant: Office.Assistant;
+        readonly CommandBars: Office.CommandBars;
+        readonly Dialogs: any;
+        readonly FileConverters: FileConverters;
+        readonly IsSandboxed: boolean;
+        readonly Presentations: Presentations;
+        readonly ProtectedViewWindows: ProtectedViewWindows;
+        readonly SlideShowWindows: SlideShowWindows;
+        readonly Windows: DocumentWindows;
     }
 
     class GroupShapes {
         private 'PowerPoint.GroupShapes_typekey': GroupShapes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
     }
 
     class HeaderFooter {
         private 'PowerPoint.HeaderFooter_typekey': HeaderFooter;
         private constructor();
-        public readonly Application: Application;
-        public Format: PpDateTimeFormat;
-        public readonly Parent: any;
-        public Text: string;
-        public UseFormat: Office.MsoTriState;
-        public Visible: Office.MsoTriState;
+        readonly Application: Application;
+        Format: PpDateTimeFormat;
+        readonly Parent: any;
+        Text: string;
+        UseFormat: Office.MsoTriState;
+        Visible: Office.MsoTriState;
     }
 
     class HeadersFooters {
         private 'PowerPoint.HeadersFooters_typekey': HeadersFooters;
         private constructor();
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly DateAndTime: HeaderFooter;
-        public DisplayOnTitleSlide: Office.MsoTriState;
-        public readonly Footer: HeaderFooter;
-        public readonly Header: HeaderFooter;
-        public readonly Parent: any;
-        public readonly SlideNumber: HeaderFooter;
+        readonly Application: Application;
+        Clear(): void;
+        readonly DateAndTime: HeaderFooter;
+        DisplayOnTitleSlide: Office.MsoTriState;
+        readonly Footer: HeaderFooter;
+        readonly Header: HeaderFooter;
+        readonly Parent: any;
+        readonly SlideNumber: HeaderFooter;
     }
 
     class HiLoLines {
         private 'PowerPoint.HiLoLines_typekey': HiLoLines;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class Hyperlink {
         private 'PowerPoint.Hyperlink_typekey': Hyperlink;
         private constructor();
-        public Address: string;
-        public AddToFavorites(): void;
-        public readonly Application: Application;
-        public CreateNewDocument(FileName: string, EditNow: Office.MsoTriState, Overwrite: Office.MsoTriState): void;
-        public Delete(): void;
-        public EmailSubject: string;
-        public Follow(): void;
-        public readonly Parent: any;
-        public ScreenTip: string;
-        public ShowAndReturn: Office.MsoTriState;
-        public SubAddress: string;
-        public TextToDisplay: string;
-        public readonly Type: Office.MsoHyperlinkType;
+        Address: string;
+        AddToFavorites(): void;
+        readonly Application: Application;
+        CreateNewDocument(FileName: string, EditNow: Office.MsoTriState, Overwrite: Office.MsoTriState): void;
+        Delete(): void;
+        EmailSubject: string;
+        Follow(): void;
+        readonly Parent: any;
+        ScreenTip: string;
+        ShowAndReturn: Office.MsoTriState;
+        SubAddress: string;
+        TextToDisplay: string;
+        readonly Type: Office.MsoHyperlinkType;
     }
 
     class Hyperlinks {
         private 'PowerPoint.Hyperlinks_typekey': Hyperlinks;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): Hyperlink;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): Hyperlink;
+        readonly Parent: any;
     }
 
     class Interior {
         private 'PowerPoint.Interior_typekey': Interior;
         private constructor();
-        public readonly Application: Application;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public InvertIfNegative: any;
-        public readonly Parent: any;
-        public Pattern: any;
-        public PatternColor: any;
-        public PatternColorIndex: any;
+        readonly Application: Application;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        InvertIfNegative: any;
+        readonly Parent: any;
+        Pattern: any;
+        PatternColor: any;
+        PatternColorIndex: any;
     }
 
     class Legend {
         private 'PowerPoint.Legend_typekey': Legend;
         private constructor();
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Border: ChartBorder;
-        public Clear(): any;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public IncludeInLayout: boolean;
-        public readonly Interior: Interior;
-        public Left: number;
-        public LegendEntries(Index?: any): any;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlLegendPosition;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Border: ChartBorder;
+        Clear(): any;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        Height: number;
+        IncludeInLayout: boolean;
+        readonly Interior: Interior;
+        Left: number;
+        LegendEntries(Index?: any): any;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlLegendPosition;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class LineFormat {
         private 'PowerPoint.LineFormat_typekey': LineFormat;
         private constructor();
-        public readonly Application: any;
-        public BackColor: ColorFormat;
-        public BeginArrowheadLength: Office.MsoArrowheadLength;
-        public BeginArrowheadStyle: Office.MsoArrowheadStyle;
-        public BeginArrowheadWidth: Office.MsoArrowheadWidth;
-        public readonly Creator: number;
-        public DashStyle: Office.MsoLineDashStyle;
-        public EndArrowheadLength: Office.MsoArrowheadLength;
-        public EndArrowheadStyle: Office.MsoArrowheadStyle;
-        public EndArrowheadWidth: Office.MsoArrowheadWidth;
-        public ForeColor: ColorFormat;
-        public InsetPen: Office.MsoTriState;
-        public readonly Parent: any;
-        public Pattern: Office.MsoPatternType;
-        public Style: Office.MsoLineStyle;
-        public Transparency: number;
-        public Visible: Office.MsoTriState;
-        public Weight: number;
+        readonly Application: any;
+        BackColor: ColorFormat;
+        BeginArrowheadLength: Office.MsoArrowheadLength;
+        BeginArrowheadStyle: Office.MsoArrowheadStyle;
+        BeginArrowheadWidth: Office.MsoArrowheadWidth;
+        readonly Creator: number;
+        DashStyle: Office.MsoLineDashStyle;
+        EndArrowheadLength: Office.MsoArrowheadLength;
+        EndArrowheadStyle: Office.MsoArrowheadStyle;
+        EndArrowheadWidth: Office.MsoArrowheadWidth;
+        ForeColor: ColorFormat;
+        InsetPen: Office.MsoTriState;
+        readonly Parent: any;
+        Pattern: Office.MsoPatternType;
+        Style: Office.MsoLineStyle;
+        Transparency: number;
+        Visible: Office.MsoTriState;
+        Weight: number;
     }
 
     class LinkFormat {
         private 'PowerPoint.LinkFormat_typekey': LinkFormat;
         private constructor();
-        public readonly Application: Application;
-        public AutoUpdate: PpUpdateOption;
-        public BreakLink(): void;
-        public readonly Parent: any;
-        public SourceFullName: string;
-        public Update(): void;
+        readonly Application: Application;
+        AutoUpdate: PpUpdateOption;
+        BreakLink(): void;
+        readonly Parent: any;
+        SourceFullName: string;
+        Update(): void;
     }
 
     class Master {
         private 'PowerPoint.Master_typekey': Master;
         private constructor();
-        public readonly Application: Application;
-        public ApplyTheme(themeName: string): void;
-        public readonly Background: ShapeRange;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public ColorScheme: ColorScheme;
-        public readonly CustomerData: CustomerData;
-        public readonly CustomLayouts: CustomLayouts;
-        public Delete(): void;
-        public readonly Design: Design;
-        public readonly HeadersFooters: HeadersFooters;
-        public readonly Height: number;
-        public readonly Hyperlinks: Hyperlinks;
-        public Name: string;
-        public readonly Parent: any;
-        public readonly Scripts: Office.Scripts;
-        public readonly Shapes: Shapes;
-        public readonly SlideShowTransition: SlideShowTransition;
-        public readonly TextStyles: TextStyles;
-        public readonly Theme: Office.OfficeTheme;
-        public readonly TimeLine: TimeLine;
-        public readonly Width: number;
+        readonly Application: Application;
+        ApplyTheme(themeName: string): void;
+        readonly Background: ShapeRange;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        ColorScheme: ColorScheme;
+        readonly CustomerData: CustomerData;
+        readonly CustomLayouts: CustomLayouts;
+        Delete(): void;
+        readonly Design: Design;
+        readonly HeadersFooters: HeadersFooters;
+        readonly Height: number;
+        readonly Hyperlinks: Hyperlinks;
+        Name: string;
+        readonly Parent: any;
+        readonly Scripts: Office.Scripts;
+        readonly Shapes: Shapes;
+        readonly SlideShowTransition: SlideShowTransition;
+        readonly TextStyles: TextStyles;
+        readonly Theme: Office.OfficeTheme;
+        readonly TimeLine: TimeLine;
+        readonly Width: number;
     }
 
     class MediaBookmark {
         private 'PowerPoint.MediaBookmark_typekey': MediaBookmark;
         private constructor();
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Name: string;
-        public readonly Position: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Name: string;
+        readonly Position: number;
     }
 
     class MediaBookmarks {
         private 'PowerPoint.MediaBookmarks_typekey': MediaBookmarks;
         private constructor();
-        public Add(Position: number, Name: string): MediaBookmark;
-        public readonly Count: number;
-        public Item(Index: number): MediaBookmark;
+        Add(Position: number, Name: string): MediaBookmark;
+        readonly Count: number;
+        Item(Index: number): MediaBookmark;
     }
 
     class MediaFormat {
         private 'PowerPoint.MediaFormat_typekey': MediaFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly AudioCompressionType: string;
-        public readonly AudioSamplingRate: number;
-        public EndPoint: number;
-        public FadeInDuration: number;
-        public FadeOutDuration: number;
-        public readonly IsEmbedded: boolean;
-        public readonly IsLinked: boolean;
-        public readonly Length: number;
-        public readonly MediaBookmarks: MediaBookmarks;
-        public Muted: boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly AudioCompressionType: string;
+        readonly AudioSamplingRate: number;
+        EndPoint: number;
+        FadeInDuration: number;
+        FadeOutDuration: number;
+        readonly IsEmbedded: boolean;
+        readonly IsLinked: boolean;
+        readonly Length: number;
+        readonly MediaBookmarks: MediaBookmarks;
+        Muted: boolean;
+        readonly Parent: any;
 
         /**
          * @param boolean [Trim=false]
@@ -3325,287 +3325,287 @@ declare namespace PowerPoint {
          * @param number [AudioSamplingRate=48000]
          * @param number [VideoBitRate=7000000]
          */
-        public Resample(Trim?: boolean, SampleHeight?: number, SampleWidth?: number, VideoFrameRate?: number, AudioSamplingRate?: number, VideoBitRate?: number): void;
+        Resample(Trim?: boolean, SampleHeight?: number, SampleWidth?: number, VideoFrameRate?: number, AudioSamplingRate?: number, VideoBitRate?: number): void;
 
         /** @param PowerPoint.PpResampleMediaProfile [profile=2] */
-        public ResampleFromProfile(profile?: PpResampleMediaProfile): void;
-        public readonly ResamplingStatus: PpMediaTaskStatus;
-        public readonly SampleHeight: number;
-        public readonly SampleWidth: number;
-        public SetDisplayPicture(Position: number): void;
-        public SetDisplayPictureFromFile(FilePath: string): void;
-        public StartPoint: number;
-        public readonly VideoCompressionType: string;
-        public readonly VideoFrameRate: number;
-        public Volume: number;
+        ResampleFromProfile(profile?: PpResampleMediaProfile): void;
+        readonly ResamplingStatus: PpMediaTaskStatus;
+        readonly SampleHeight: number;
+        readonly SampleWidth: number;
+        SetDisplayPicture(Position: number): void;
+        SetDisplayPictureFromFile(FilePath: string): void;
+        StartPoint: number;
+        readonly VideoCompressionType: string;
+        readonly VideoFrameRate: number;
+        Volume: number;
     }
 
     class MotionEffect {
         private 'PowerPoint.MotionEffect_typekey': MotionEffect;
         private constructor();
-        public readonly Application: Application;
-        public ByX: number;
-        public ByY: number;
-        public FromX: number;
-        public FromY: number;
-        public readonly Parent: any;
-        public Path: string;
-        public ToX: number;
-        public ToY: number;
+        readonly Application: Application;
+        ByX: number;
+        ByY: number;
+        FromX: number;
+        FromY: number;
+        readonly Parent: any;
+        Path: string;
+        ToX: number;
+        ToY: number;
     }
 
     class MouseTracker {
         private 'PowerPoint.MouseTracker_typekey': MouseTracker;
         private constructor();
-        public EndTrack(X: number, Y: number): void;
-        public OnTrack(X: number, Y: number): void;
+        EndTrack(X: number, Y: number): void;
+        OnTrack(X: number, Y: number): void;
     }
 
     class NamedSlideShow {
         private 'PowerPoint.NamedSlideShow_typekey': NamedSlideShow;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Delete(): void;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly SlideIDs: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Delete(): void;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly SlideIDs: any;
     }
 
     class NamedSlideShows {
         private 'PowerPoint.NamedSlideShows_typekey': NamedSlideShows;
         private constructor();
-        public Add(Name: string, safeArrayOfSlideIDs: any): NamedSlideShow;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: any): NamedSlideShow;
-        public readonly Parent: any;
+        Add(Name: string, safeArrayOfSlideIDs: any): NamedSlideShow;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: any): NamedSlideShow;
+        readonly Parent: any;
     }
 
     class ObjectVerbs {
         private 'PowerPoint.ObjectVerbs_typekey': ObjectVerbs;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): string;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): string;
+        readonly Parent: any;
     }
 
     class OLEControl {
         private 'PowerPoint.OLEControl_typekey': OLEControl;
         private constructor();
-        public AltHTML: string;
-        public Height: number;
-        public Left: number;
-        public Name: string;
-        public Top: number;
-        public Visible: boolean;
-        public Width: number;
-        public readonly ZOrderPosition: number;
+        AltHTML: string;
+        Height: number;
+        Left: number;
+        Name: string;
+        Top: number;
+        Visible: boolean;
+        Width: number;
+        readonly ZOrderPosition: number;
     }
 
     class OLEFormat {
         private 'PowerPoint.OLEFormat_typekey': OLEFormat;
         private constructor();
-        public Activate(): void;
-        public readonly Application: Application;
+        Activate(): void;
+        readonly Application: Application;
 
         /** @param number [Index=0] */
-        public DoVerb(Index?: number): void;
-        public FollowColors: PpFollowColors;
-        public readonly Object: any;
-        public readonly ObjectVerbs: ObjectVerbs;
-        public readonly Parent: any;
-        public readonly ProgID: string;
+        DoVerb(Index?: number): void;
+        FollowColors: PpFollowColors;
+        readonly Object: any;
+        readonly ObjectVerbs: ObjectVerbs;
+        readonly Parent: any;
+        readonly ProgID: string;
     }
 
     class Options {
         private 'PowerPoint.Options_typekey': Options;
         private constructor();
-        public DisplayPasteOptions: Office.MsoTriState;
-        public DoNotPromptForConvert: Office.MsoTriState;
-        public ShowCoauthoringMergeChanges: boolean;
+        DisplayPasteOptions: Office.MsoTriState;
+        DoNotPromptForConvert: Office.MsoTriState;
+        ShowCoauthoringMergeChanges: boolean;
     }
 
     class PageSetup {
         private 'PowerPoint.PageSetup_typekey': PageSetup;
         private constructor();
-        public readonly Application: Application;
-        public FirstSlideNumber: number;
-        public NotesOrientation: Office.MsoOrientation;
-        public readonly Parent: any;
-        public SlideHeight: number;
-        public SlideOrientation: Office.MsoOrientation;
-        public SlideSize: PpSlideSizeType;
-        public SlideWidth: number;
+        readonly Application: Application;
+        FirstSlideNumber: number;
+        NotesOrientation: Office.MsoOrientation;
+        readonly Parent: any;
+        SlideHeight: number;
+        SlideOrientation: Office.MsoOrientation;
+        SlideSize: PpSlideSizeType;
+        SlideWidth: number;
     }
 
     class Pane {
         private 'PowerPoint.Pane_typekey': Pane;
         private constructor();
-        public Activate(): void;
-        public readonly Active: Office.MsoTriState;
-        public readonly Application: Application;
-        public readonly Parent: any;
-        public readonly ViewType: PpViewType;
+        Activate(): void;
+        readonly Active: Office.MsoTriState;
+        readonly Application: Application;
+        readonly Parent: any;
+        readonly ViewType: PpViewType;
     }
 
     class Panes {
         private 'PowerPoint.Panes_typekey': Panes;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): Pane;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): Pane;
+        readonly Parent: any;
     }
 
     class ParagraphFormat {
         private 'PowerPoint.ParagraphFormat_typekey': ParagraphFormat;
         private constructor();
-        public Alignment: PpParagraphAlignment;
-        public readonly Application: Application;
-        public BaseLineAlignment: PpBaselineAlignment;
-        public readonly Bullet: BulletFormat;
-        public FarEastLineBreakControl: Office.MsoTriState;
-        public HangingPunctuation: Office.MsoTriState;
-        public LineRuleAfter: Office.MsoTriState;
-        public LineRuleBefore: Office.MsoTriState;
-        public LineRuleWithin: Office.MsoTriState;
-        public readonly Parent: any;
-        public SpaceAfter: number;
-        public SpaceBefore: number;
-        public SpaceWithin: number;
-        public TextDirection: PpDirection;
-        public WordWrap: Office.MsoTriState;
+        Alignment: PpParagraphAlignment;
+        readonly Application: Application;
+        BaseLineAlignment: PpBaselineAlignment;
+        readonly Bullet: BulletFormat;
+        FarEastLineBreakControl: Office.MsoTriState;
+        HangingPunctuation: Office.MsoTriState;
+        LineRuleAfter: Office.MsoTriState;
+        LineRuleBefore: Office.MsoTriState;
+        LineRuleWithin: Office.MsoTriState;
+        readonly Parent: any;
+        SpaceAfter: number;
+        SpaceBefore: number;
+        SpaceWithin: number;
+        TextDirection: PpDirection;
+        WordWrap: Office.MsoTriState;
     }
 
     class PictureFormat {
         private 'PowerPoint.PictureFormat_typekey': PictureFormat;
         private constructor();
-        public readonly Application: any;
-        public Brightness: number;
-        public ColorType: Office.MsoPictureColorType;
-        public Contrast: number;
-        public readonly Creator: number;
-        public readonly Crop: Office.Crop;
-        public CropBottom: number;
-        public CropLeft: number;
-        public CropRight: number;
-        public CropTop: number;
-        public IncrementBrightness(Increment: number): void;
-        public IncrementContrast(Increment: number): void;
-        public readonly Parent: any;
-        public TransparencyColor: Office.MsoRGBType;
-        public TransparentBackground: Office.MsoTriState;
+        readonly Application: any;
+        Brightness: number;
+        ColorType: Office.MsoPictureColorType;
+        Contrast: number;
+        readonly Creator: number;
+        readonly Crop: Office.Crop;
+        CropBottom: number;
+        CropLeft: number;
+        CropRight: number;
+        CropTop: number;
+        IncrementBrightness(Increment: number): void;
+        IncrementContrast(Increment: number): void;
+        readonly Parent: any;
+        TransparencyColor: Office.MsoRGBType;
+        TransparentBackground: Office.MsoTriState;
     }
 
     class PlaceholderFormat {
         private 'PowerPoint.PlaceholderFormat_typekey': PlaceholderFormat;
         private constructor();
-        public readonly Application: Application;
-        public readonly ContainedType: Office.MsoShapeType;
-        public Name: string;
-        public readonly Parent: any;
-        public readonly Type: PpPlaceholderType;
+        readonly Application: Application;
+        readonly ContainedType: Office.MsoShapeType;
+        Name: string;
+        readonly Parent: any;
+        readonly Type: PpPlaceholderType;
     }
 
     class Placeholders {
         private 'PowerPoint.Placeholders_typekey': Placeholders;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public FindByName(Index: any): Shape;
-        public Item(Index: number): Shape;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        FindByName(Index: any): Shape;
+        Item(Index: number): Shape;
+        readonly Parent: any;
     }
 
     class Player {
         private 'PowerPoint.Player_typekey': Player;
         private constructor();
-        public readonly Application: Application;
-        public CurrentPosition: number;
-        public GoToNextBookmark(): void;
-        public GoToPreviousBookmark(): void;
-        public readonly Parent: any;
-        public Pause(): void;
-        public Play(): void;
-        public readonly State: PpPlayerState;
-        public Stop(): void;
+        readonly Application: Application;
+        CurrentPosition: number;
+        GoToNextBookmark(): void;
+        GoToPreviousBookmark(): void;
+        readonly Parent: any;
+        Pause(): void;
+        Play(): void;
+        readonly State: PpPlayerState;
+        Stop(): void;
     }
 
     class PlaySettings {
         private 'PowerPoint.PlaySettings_typekey': PlaySettings;
         private constructor();
-        public ActionVerb: string;
-        public readonly Application: Application;
-        public HideWhileNotPlaying: Office.MsoTriState;
-        public LoopUntilStopped: Office.MsoTriState;
-        public readonly Parent: any;
-        public PauseAnimation: Office.MsoTriState;
-        public PlayOnEntry: Office.MsoTriState;
-        public RewindMovie: Office.MsoTriState;
-        public StopAfterSlides: number;
+        ActionVerb: string;
+        readonly Application: Application;
+        HideWhileNotPlaying: Office.MsoTriState;
+        LoopUntilStopped: Office.MsoTriState;
+        readonly Parent: any;
+        PauseAnimation: Office.MsoTriState;
+        PlayOnEntry: Office.MsoTriState;
+        RewindMovie: Office.MsoTriState;
+        StopAfterSlides: number;
     }
 
     class PlotArea {
         private 'PowerPoint.PlotArea_typekey': PlotArea;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public Height: number;
-        public InsideHeight: number;
-        public InsideLeft: number;
-        public InsideTop: number;
-        public InsideWidth: number;
-        public readonly Interior: Interior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public Select(): any;
-        public Top: number;
-        public Width: number;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        Height: number;
+        InsideHeight: number;
+        InsideLeft: number;
+        InsideTop: number;
+        InsideWidth: number;
+        readonly Interior: Interior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        Select(): any;
+        Top: number;
+        Width: number;
     }
 
     class PowerRex {
         private 'PowerPoint.PowerRex_typekey': PowerRex;
         private constructor();
-        public OnAsfEncoderEvent(erorCode: any, bstrErrorDesc: any): void;
+        OnAsfEncoderEvent(erorCode: any, bstrErrorDesc: any): void;
     }
 
     class Presentation {
         private 'PowerPoint.Presentation_typekey': Presentation;
         private constructor();
-        public AcceptAll(): void;
+        AcceptAll(): void;
 
         /** @param string [FileName=''] */
-        public AddBaseline(FileName?: string): void;
-        public AddTitleMaster(): Master;
-        public AddToFavorites(): void;
-        public readonly Application: Application;
-        public ApplyTemplate(FileName: string): void;
-        public ApplyTheme(themeName: string): void;
-        public readonly Broadcast: Broadcast;
-        public readonly BuiltInDocumentProperties: any;
-        public CanCheckIn(): boolean;
+        AddBaseline(FileName?: string): void;
+        AddTitleMaster(): Master;
+        AddToFavorites(): void;
+        readonly Application: Application;
+        ApplyTemplate(FileName: string): void;
+        ApplyTheme(themeName: string): void;
+        readonly Broadcast: Broadcast;
+        readonly BuiltInDocumentProperties: any;
+        CanCheckIn(): boolean;
 
         /** @param boolean [SaveChanges=true] */
-        public CheckIn(SaveChanges?: boolean, Comments?: any, MakePublic?: any): void;
+        CheckIn(SaveChanges?: boolean, Comments?: any, MakePublic?: any): void;
 
         /** @param boolean [SaveChanges=true] */
-        public CheckInWithVersion(SaveChanges?: boolean, Comments?: any, MakePublic?: any, VersionType?: any): void;
-        public Close(): void;
-        public readonly Coauthoring: Coauthoring;
-        public readonly ColorSchemes: ColorSchemes;
-        public readonly CommandBars: Office.CommandBars;
-        public readonly Container: any;
-        public readonly ContentTypeProperties: Office.MetaProperties;
-        public Convert(): void;
-        public Convert2(FileName: string): void;
+        CheckInWithVersion(SaveChanges?: boolean, Comments?: any, MakePublic?: any, VersionType?: any): void;
+        Close(): void;
+        readonly Coauthoring: Coauthoring;
+        readonly ColorSchemes: ColorSchemes;
+        readonly CommandBars: Office.CommandBars;
+        readonly Container: any;
+        readonly ContentTypeProperties: Office.MetaProperties;
+        Convert(): void;
+        Convert2(FileName: string): void;
 
         /**
          * @param boolean [UseTimingsAndNarrations=true]
@@ -3614,29 +3614,29 @@ declare namespace PowerPoint {
          * @param number [FramesPerSecond=30]
          * @param number [Quality=85]
          */
-        public CreateVideo(FileName: string, UseTimingsAndNarrations?: boolean, DefaultSlideDuration?: number, VertResolution?: number, FramesPerSecond?: number, Quality?: number): void;
-        public readonly CreateVideoStatus: PpMediaTaskStatus;
-        public readonly CustomDocumentProperties: any;
-        public readonly CustomerData: CustomerData;
-        public readonly CustomXMLParts: Office.CustomXMLParts;
-        public DefaultLanguageID: Office.MsoLanguageID;
-        public readonly DefaultShape: Shape;
-        public DeleteSection(Index: number): void;
-        public readonly Designs: Designs;
-        public DisableSections(): void;
-        public DisplayComments: Office.MsoTriState;
-        public readonly DocumentInspectors: Office.DocumentInspectors;
-        public readonly DocumentLibraryVersions: Office.DocumentLibraryVersions;
-        public EncryptionProvider: string;
-        public EndReview(): void;
-        public EnsureAllMediaUpgraded(): void;
-        public EnvelopeVisible: Office.MsoTriState;
+        CreateVideo(FileName: string, UseTimingsAndNarrations?: boolean, DefaultSlideDuration?: number, VertResolution?: number, FramesPerSecond?: number, Quality?: number): void;
+        readonly CreateVideoStatus: PpMediaTaskStatus;
+        readonly CustomDocumentProperties: any;
+        readonly CustomerData: CustomerData;
+        readonly CustomXMLParts: Office.CustomXMLParts;
+        DefaultLanguageID: Office.MsoLanguageID;
+        readonly DefaultShape: Shape;
+        DeleteSection(Index: number): void;
+        readonly Designs: Designs;
+        DisableSections(): void;
+        DisplayComments: Office.MsoTriState;
+        readonly DocumentInspectors: Office.DocumentInspectors;
+        readonly DocumentLibraryVersions: Office.DocumentLibraryVersions;
+        EncryptionProvider: string;
+        EndReview(): void;
+        EnsureAllMediaUpgraded(): void;
+        EnvelopeVisible: Office.MsoTriState;
 
         /**
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          */
-        public Export(Path: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
+        Export(Path: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
 
         /**
          * @param PowerPoint.PpFixedFormatIntent [Intent=1]
@@ -3653,14 +3653,14 @@ declare namespace PowerPoint {
          * @param boolean [BitmapMissingFonts=true]
          * @param boolean [UseISO19005_1=false]
          */
-        public ExportAsFixedFormat(
+        ExportAsFixedFormat(
             Path: string, FixedFormatType: PpFixedFormatType, Intent?: PpFixedFormatIntent, FrameSlides?: Office.MsoTriState, HandoutOrder?: PpPrintHandoutOrder,
             OutputType?: PpPrintOutputType, PrintHiddenSlides?: Office.MsoTriState, PrintRange?: PrintRange, RangeType?: PpPrintRangeType, SlideShowName?: string,
             IncludeDocProperties?: boolean, KeepIRMSettings?: boolean, DocStructureTags?: boolean, BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, ExternalExporter?: any): void;
-        public readonly ExtraColors: ExtraColors;
-        public FarEastLineBreakLanguage: Office.MsoFarEastLineBreakLanguageID;
-        public FarEastLineBreakLevel: PpFarEastLineBreakLevel;
-        public Final: boolean;
+        readonly ExtraColors: ExtraColors;
+        FarEastLineBreakLanguage: Office.MsoFarEastLineBreakLanguageID;
+        FarEastLineBreakLevel: PpFarEastLineBreakLevel;
+        Final: boolean;
 
         /**
          * @param string [SubAddress='']
@@ -3670,42 +3670,42 @@ declare namespace PowerPoint {
          * @param Office.MsoExtraInfoMethod [Method=0]
          * @param string [HeaderInfo='']
          */
-        public FollowHyperlink(Address: string, SubAddress?: string, NewWindow?: boolean, AddHistory?: boolean, ExtraInfo?: string, Method?: Office.MsoExtraInfoMethod, HeaderInfo?: string): void;
-        public readonly Fonts: Fonts;
-        public readonly FullName: string;
-        public GetWorkflowTasks(): Office.WorkflowTasks;
-        public GetWorkflowTemplates(): Office.WorkflowTemplates;
-        public GridDistance: number;
-        public readonly HandoutMaster: Master;
-        public readonly HasHandoutMaster: boolean;
-        public readonly HasNotesMaster: boolean;
-        public readonly HasRevisionInfo: PpRevisionInfo;
-        public readonly HasSections: boolean;
-        public readonly HasTitleMaster: Office.MsoTriState;
-        public readonly HasVBProject: boolean;
-        public readonly HTMLProject: Office.HTMLProject;
-        public readonly InMergeMode: boolean;
-        public LayoutDirection: PpDirection;
-        public LockServerFile(): void;
-        public MakeIntoTemplate(IsDesignTemplate: Office.MsoTriState): void;
-        public Merge(Path: string): void;
-        public MergeWithBaseline(withPresentation: string, baselinePresentation: string): void;
-        public readonly Name: string;
-        public NewSectionAfter(Index: number, AfterSlide: boolean, sectionTitle: string, newSectionIndex: number): void;
-        public NewWindow(): DocumentWindow;
-        public NoLineBreakAfter: string;
-        public NoLineBreakBefore: string;
-        public readonly NotesMaster: Master;
-        public readonly PageSetup: PageSetup;
-        public readonly Parent: any;
-        public Password: string;
-        public readonly PasswordEncryptionAlgorithm: string;
-        public readonly PasswordEncryptionFileProperties: boolean;
-        public readonly PasswordEncryptionKeyLength: number;
-        public readonly PasswordEncryptionProvider: string;
-        public readonly Path: string;
-        public readonly Permission: Office.Permission;
-        public readonly PrintOptions: PrintOptions;
+        FollowHyperlink(Address: string, SubAddress?: string, NewWindow?: boolean, AddHistory?: boolean, ExtraInfo?: string, Method?: Office.MsoExtraInfoMethod, HeaderInfo?: string): void;
+        readonly Fonts: Fonts;
+        readonly FullName: string;
+        GetWorkflowTasks(): Office.WorkflowTasks;
+        GetWorkflowTemplates(): Office.WorkflowTemplates;
+        GridDistance: number;
+        readonly HandoutMaster: Master;
+        readonly HasHandoutMaster: boolean;
+        readonly HasNotesMaster: boolean;
+        readonly HasRevisionInfo: PpRevisionInfo;
+        readonly HasSections: boolean;
+        readonly HasTitleMaster: Office.MsoTriState;
+        readonly HasVBProject: boolean;
+        readonly HTMLProject: Office.HTMLProject;
+        readonly InMergeMode: boolean;
+        LayoutDirection: PpDirection;
+        LockServerFile(): void;
+        MakeIntoTemplate(IsDesignTemplate: Office.MsoTriState): void;
+        Merge(Path: string): void;
+        MergeWithBaseline(withPresentation: string, baselinePresentation: string): void;
+        readonly Name: string;
+        NewSectionAfter(Index: number, AfterSlide: boolean, sectionTitle: string, newSectionIndex: number): void;
+        NewWindow(): DocumentWindow;
+        NoLineBreakAfter: string;
+        NoLineBreakBefore: string;
+        readonly NotesMaster: Master;
+        readonly PageSetup: PageSetup;
+        readonly Parent: any;
+        Password: string;
+        readonly PasswordEncryptionAlgorithm: string;
+        readonly PasswordEncryptionFileProperties: boolean;
+        readonly PasswordEncryptionKeyLength: number;
+        readonly PasswordEncryptionProvider: string;
+        readonly Path: string;
+        readonly Permission: Office.Permission;
+        readonly PrintOptions: PrintOptions;
 
         /**
          * @param number [From=-1]
@@ -3714,78 +3714,78 @@ declare namespace PowerPoint {
          * @param number [Copies=0]
          * @param Office.MsoTriState [Collate=-99]
          */
-        public PrintOut(From?: number, To?: number, PrintToFile?: string, Copies?: number, Collate?: Office.MsoTriState): void;
-        public readonly PublishObjects: PublishObjects;
+        PrintOut(From?: number, To?: number, PrintToFile?: string, Copies?: number, Collate?: Office.MsoTriState): void;
+        readonly PublishObjects: PublishObjects;
 
         /**
          * @param boolean [Overwrite=false]
          * @param boolean [UseSlideOrder=false]
          */
-        public PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
-        public readonly ReadOnly: Office.MsoTriState;
-        public RejectAll(): void;
-        public ReloadAs(cp: Office.MsoEncoding): void;
-        public RemoveBaseline(): void;
-        public RemoveDocumentInformation(Type: PpRemoveDocInfoType): void;
-        public RemovePersonalInformation: Office.MsoTriState;
+        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
+        readonly ReadOnly: Office.MsoTriState;
+        RejectAll(): void;
+        ReloadAs(cp: Office.MsoEncoding): void;
+        RemoveBaseline(): void;
+        RemoveDocumentInformation(Type: PpRemoveDocInfoType): void;
+        RemovePersonalInformation: Office.MsoTriState;
 
         /** @param boolean [ShowMessage=true] */
-        public ReplyWithChanges(ShowMessage?: boolean): void;
-        public readonly Research: Research;
-        public Save(): void;
+        ReplyWithChanges(ShowMessage?: boolean): void;
+        readonly Research: Research;
+        Save(): void;
 
         /**
          * @param PowerPoint.PpSaveAsFileType [FileFormat=11]
          * @param Office.MsoTriState [EmbedTrueTypeFonts=-2]
          */
-        public SaveAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState): void;
+        SaveAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState): void;
 
         /**
          * @param PowerPoint.PpSaveAsFileType [FileFormat=11]
          * @param Office.MsoTriState [EmbedTrueTypeFonts=-2]
          */
-        public SaveCopyAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState): void;
-        public Saved: Office.MsoTriState;
-        public sblt(s: string): void;
-        public readonly SectionCount: number;
-        public readonly SectionProperties: SectionProperties;
-        public sectionTitle(Index: number): string;
+        SaveCopyAs(FileName: string, FileFormat?: PpSaveAsFileType, EmbedTrueTypeFonts?: Office.MsoTriState): void;
+        Saved: Office.MsoTriState;
+        sblt(s: string): void;
+        readonly SectionCount: number;
+        readonly SectionProperties: SectionProperties;
+        sectionTitle(Index: number): string;
 
         /**
          * @param string [Recipients='']
          * @param string [Subject='']
          * @param boolean [ShowMessage=false]
          */
-        public SendFaxOverInternet(Recipients?: string, Subject?: string, ShowMessage?: boolean): void;
+        SendFaxOverInternet(Recipients?: string, Subject?: string, ShowMessage?: boolean): void;
 
         /**
          * @param string [Recipients='']
          * @param string [Subject='']
          * @param boolean [ShowMessage=true]
          */
-        public SendForReview(Recipients?: string, Subject?: string, ShowMessage?: boolean, IncludeAttachment?: any): void;
-        public readonly ServerPolicy: Office.ServerPolicy;
-        public SetPasswordEncryptionOptions(
+        SendForReview(Recipients?: string, Subject?: string, ShowMessage?: boolean, IncludeAttachment?: any): void;
+        readonly ServerPolicy: Office.ServerPolicy;
+        SetPasswordEncryptionOptions(
             PasswordEncryptionProvider: string, PasswordEncryptionAlgorithm: string, PasswordEncryptionKeyLength: number, PasswordEncryptionFileProperties: boolean): void;
-        public SetUndoText(Text: string): void;
-        public readonly SharedWorkspace: Office.SharedWorkspace;
-        public readonly Signatures: Office.SignatureSet;
-        public readonly SlideMaster: Master;
-        public readonly Slides: Slides;
-        public readonly SlideShowSettings: SlideShowSettings;
-        public readonly SlideShowWindow: SlideShowWindow;
-        public SnapToGrid: Office.MsoTriState;
-        public readonly Sync: Office.Sync;
-        public readonly Tags: Tags;
-        public readonly TemplateName: string;
-        public readonly TitleMaster: Master;
-        public UpdateLinks(): void;
-        public readonly VBASigned: Office.MsoTriState;
-        public readonly VBProject: VBIDE.VBProject;
-        public readonly WebOptions: WebOptions;
-        public WebPagePreview(): void;
-        public readonly Windows: DocumentWindows;
-        public WritePassword: string;
+        SetUndoText(Text: string): void;
+        readonly SharedWorkspace: Office.SharedWorkspace;
+        readonly Signatures: Office.SignatureSet;
+        readonly SlideMaster: Master;
+        readonly Slides: Slides;
+        readonly SlideShowSettings: SlideShowSettings;
+        readonly SlideShowWindow: SlideShowWindow;
+        SnapToGrid: Office.MsoTriState;
+        readonly Sync: Office.Sync;
+        readonly Tags: Tags;
+        readonly TemplateName: string;
+        readonly TitleMaster: Master;
+        UpdateLinks(): void;
+        readonly VBASigned: Office.MsoTriState;
+        readonly VBProject: VBIDE.VBProject;
+        readonly WebOptions: WebOptions;
+        WebPagePreview(): void;
+        readonly Windows: DocumentWindows;
+        WritePassword: string;
     }
 
     class Presentations {
@@ -3793,19 +3793,19 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param Office.MsoTriState [WithWindow=-1] */
-        public Add(WithWindow?: Office.MsoTriState): Presentation;
-        public readonly Application: Application;
-        public CanCheckOut(FileName: string): boolean;
-        public CheckOut(FileName: string): void;
-        public readonly Count: number;
-        public Item(Index: any): Presentation;
+        Add(WithWindow?: Office.MsoTriState): Presentation;
+        readonly Application: Application;
+        CanCheckOut(FileName: string): boolean;
+        CheckOut(FileName: string): void;
+        readonly Count: number;
+        Item(Index: any): Presentation;
 
         /**
          * @param Office.MsoTriState [ReadOnly=0]
          * @param Office.MsoTriState [Untitled=0]
          * @param Office.MsoTriState [WithWindow=-1]
          */
-        public Open(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState): Presentation;
+        Open(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState): Presentation;
 
         /**
          * @param Office.MsoTriState [ReadOnly=0]
@@ -3813,203 +3813,203 @@ declare namespace PowerPoint {
          * @param Office.MsoTriState [WithWindow=-1]
          * @param Office.MsoTriState [OpenAndRepair=0]
          */
-        public Open2007(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState, OpenAndRepair?: Office.MsoTriState): Presentation;
+        Open2007(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState, OpenAndRepair?: Office.MsoTriState): Presentation;
 
         /**
          * @param Office.MsoTriState [ReadOnly=0]
          * @param Office.MsoTriState [Untitled=0]
          * @param Office.MsoTriState [WithWindow=-1]
          */
-        public OpenOld(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState): Presentation;
-        public readonly Parent: any;
+        OpenOld(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState): Presentation;
+        readonly Parent: any;
     }
 
     class PrintOptions {
         private 'PowerPoint.PrintOptions_typekey': PrintOptions;
         private constructor();
-        public ActivePrinter: string;
-        public readonly Application: Application;
-        public Collate: Office.MsoTriState;
-        public FitToPage: Office.MsoTriState;
-        public FrameSlides: Office.MsoTriState;
-        public HandoutOrder: PpPrintHandoutOrder;
-        public HighQuality: Office.MsoTriState;
-        public NumberOfCopies: number;
-        public OutputType: PpPrintOutputType;
-        public readonly Parent: any;
-        public PrintColorType: PpPrintColorType;
-        public PrintComments: Office.MsoTriState;
-        public PrintFontsAsGraphics: Office.MsoTriState;
-        public PrintHiddenSlides: Office.MsoTriState;
-        public PrintInBackground: Office.MsoTriState;
-        public readonly Ranges: PrintRanges;
-        public RangeType: PpPrintRangeType;
-        public sectionIndex: number;
-        public SlideShowName: string;
+        ActivePrinter: string;
+        readonly Application: Application;
+        Collate: Office.MsoTriState;
+        FitToPage: Office.MsoTriState;
+        FrameSlides: Office.MsoTriState;
+        HandoutOrder: PpPrintHandoutOrder;
+        HighQuality: Office.MsoTriState;
+        NumberOfCopies: number;
+        OutputType: PpPrintOutputType;
+        readonly Parent: any;
+        PrintColorType: PpPrintColorType;
+        PrintComments: Office.MsoTriState;
+        PrintFontsAsGraphics: Office.MsoTriState;
+        PrintHiddenSlides: Office.MsoTriState;
+        PrintInBackground: Office.MsoTriState;
+        readonly Ranges: PrintRanges;
+        RangeType: PpPrintRangeType;
+        sectionIndex: number;
+        SlideShowName: string;
     }
 
     class PrintRange {
         private 'PowerPoint.PrintRange_typekey': PrintRange;
         private constructor();
-        public readonly Application: Application;
-        public Delete(): void;
-        public readonly End: number;
-        public readonly Parent: any;
-        public readonly Start: number;
+        readonly Application: Application;
+        Delete(): void;
+        readonly End: number;
+        readonly Parent: any;
+        readonly Start: number;
     }
 
     class PrintRanges {
         private 'PowerPoint.PrintRanges_typekey': PrintRanges;
         private constructor();
-        public Add(Start: number, End: number): PrintRange;
-        public readonly Application: Application;
-        public ClearAll(): void;
-        public readonly Count: number;
-        public Item(Index: number): PrintRange;
-        public readonly Parent: any;
+        Add(Start: number, End: number): PrintRange;
+        readonly Application: Application;
+        ClearAll(): void;
+        readonly Count: number;
+        Item(Index: number): PrintRange;
+        readonly Parent: any;
     }
 
     class PropertyEffect {
         private 'PowerPoint.PropertyEffect_typekey': PropertyEffect;
         private constructor();
-        public readonly Application: Application;
-        public From: any;
-        public readonly Parent: any;
-        public readonly Points: AnimationPoints;
-        public Property: MsoAnimProperty;
-        public To: any;
+        readonly Application: Application;
+        From: any;
+        readonly Parent: any;
+        readonly Points: AnimationPoints;
+        Property: MsoAnimProperty;
+        To: any;
     }
 
     class ProtectedViewWindow {
         private 'PowerPoint.ProtectedViewWindow_typekey': ProtectedViewWindow;
         private constructor();
-        public Activate(): void;
-        public readonly Active: Office.MsoTriState;
-        public readonly Application: Application;
-        public readonly Caption: string;
-        public Close(): void;
+        Activate(): void;
+        readonly Active: Office.MsoTriState;
+        readonly Application: Application;
+        readonly Caption: string;
+        Close(): void;
 
         /** @param string [ModifyPassword=''] */
-        public Edit(ModifyPassword?: string): Presentation;
-        public Height: number;
-        public Left: number;
-        public readonly Parent: any;
-        public readonly Presentation: Presentation;
-        public readonly SourceName: string;
-        public readonly SourcePath: string;
-        public Top: number;
-        public Width: number;
-        public WindowState: PpWindowState;
+        Edit(ModifyPassword?: string): Presentation;
+        Height: number;
+        Left: number;
+        readonly Parent: any;
+        readonly Presentation: Presentation;
+        readonly SourceName: string;
+        readonly SourcePath: string;
+        Top: number;
+        Width: number;
+        WindowState: PpWindowState;
     }
 
     class ProtectedViewWindows {
         private 'PowerPoint.ProtectedViewWindows_typekey': ProtectedViewWindows;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): ProtectedViewWindow;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): ProtectedViewWindow;
 
         /**
          * @param string [ReadPassword='']
          * @param Office.MsoTriState [OpenAndRepair=0]
          */
-        public Open(FileName: string, ReadPassword?: string, OpenAndRepair?: Office.MsoTriState): ProtectedViewWindow;
-        public readonly Parent: any;
+        Open(FileName: string, ReadPassword?: string, OpenAndRepair?: Office.MsoTriState): ProtectedViewWindow;
+        readonly Parent: any;
     }
 
     class PublishObject {
         private 'PowerPoint.PublishObject_typekey': PublishObject;
         private constructor();
-        public readonly Application: Application;
-        public FileName: string;
-        public HTMLVersion: PpHTMLVersion;
-        public readonly Parent: any;
-        public Publish(): void;
-        public RangeEnd: number;
-        public RangeStart: number;
-        public SlideShowName: string;
-        public SourceType: PpPublishSourceType;
-        public SpeakerNotes: Office.MsoTriState;
+        readonly Application: Application;
+        FileName: string;
+        HTMLVersion: PpHTMLVersion;
+        readonly Parent: any;
+        Publish(): void;
+        RangeEnd: number;
+        RangeStart: number;
+        SlideShowName: string;
+        SourceType: PpPublishSourceType;
+        SpeakerNotes: Office.MsoTriState;
     }
 
     class PublishObjects {
         private 'PowerPoint.PublishObjects_typekey': PublishObjects;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): PublishObject;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): PublishObject;
+        readonly Parent: any;
     }
 
     class ResampleMediaTask {
         private 'PowerPoint.ResampleMediaTask_typekey': ResampleMediaTask;
         private constructor();
-        public readonly AudioCompressionType: string;
-        public readonly AudioSamplingRate: number;
-        public readonly ContainerType: string;
-        public readonly IsEmbedded: boolean;
-        public readonly IsLinked: boolean;
-        public readonly profile: PpResampleMediaProfile;
-        public readonly SampleHeight: number;
-        public readonly SampleWidth: number;
-        public readonly Shape: Shape;
-        public readonly VideoCompressionType: string;
-        public readonly VideoFrameRate: number;
+        readonly AudioCompressionType: string;
+        readonly AudioSamplingRate: number;
+        readonly ContainerType: string;
+        readonly IsEmbedded: boolean;
+        readonly IsLinked: boolean;
+        readonly profile: PpResampleMediaProfile;
+        readonly SampleHeight: number;
+        readonly SampleWidth: number;
+        readonly Shape: Shape;
+        readonly VideoCompressionType: string;
+        readonly VideoFrameRate: number;
     }
 
     class ResampleMediaTasks {
         private 'PowerPoint.ResampleMediaTasks_typekey': ResampleMediaTasks;
         private constructor();
-        public Cancel(): void;
-        public readonly Count: number;
-        public Item(Index: number): ResampleMediaTask;
-        public Pause(): void;
-        public readonly PercentComplete: number;
-        public Resume(): void;
+        Cancel(): void;
+        readonly Count: number;
+        Item(Index: number): ResampleMediaTask;
+        Pause(): void;
+        readonly PercentComplete: number;
+        Resume(): void;
     }
 
     class Research {
         private 'PowerPoint.Research_typekey': Research;
         private constructor();
-        public readonly Application: Application;
-        public IsResearchService(ServiceID: string): boolean;
-        public readonly Parent: any;
+        readonly Application: Application;
+        IsResearchService(ServiceID: string): boolean;
+        readonly Parent: any;
 
         /**
          * @param boolean [UseSelection=false]
          * @param boolean [LaunchQuery=true]
          */
-        public Query(ServiceID: string, QueryString: any, QueryLanguage: any, UseSelection?: boolean, LaunchQuery?: boolean): void;
-        public SetLanguagePair(Language1: any, Language2: any): void;
+        Query(ServiceID: string, QueryString: any, QueryLanguage: any, UseSelection?: boolean, LaunchQuery?: boolean): void;
+        SetLanguagePair(Language1: any, Language2: any): void;
     }
 
     class RGBColor {
         private 'PowerPoint.RGBColor_typekey': RGBColor;
         private constructor();
-        public readonly Application: Application;
-        public readonly Parent: any;
-        public RGB: Office.MsoRGBType;
+        readonly Application: Application;
+        readonly Parent: any;
+        RGB: Office.MsoRGBType;
     }
 
     class RotationEffect {
         private 'PowerPoint.RotationEffect_typekey': RotationEffect;
         private constructor();
-        public readonly Application: Application;
-        public By: number;
-        public From: number;
-        public readonly Parent: any;
-        public To: number;
+        readonly Application: Application;
+        By: number;
+        From: number;
+        readonly Parent: any;
+        To: number;
     }
 
     class Row {
         private 'PowerPoint.Row_typekey': Row;
         private constructor();
-        public readonly Application: Application;
-        public readonly Cells: CellRange;
-        public Delete(): void;
-        public Height: number;
-        public readonly Parent: any;
-        public Select(): void;
+        readonly Application: Application;
+        readonly Cells: CellRange;
+        Delete(): void;
+        Height: number;
+        readonly Parent: any;
+        Select(): void;
     }
 
     class Rows {
@@ -4017,86 +4017,86 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [BeforeRow=-1] */
-        public Add(BeforeRow?: number): Row;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): Row;
-        public readonly Parent: any;
+        Add(BeforeRow?: number): Row;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): Row;
+        readonly Parent: any;
     }
 
     class Ruler {
         private 'PowerPoint.Ruler_typekey': Ruler;
         private constructor();
-        public readonly Application: Application;
-        public readonly Levels: RulerLevels;
-        public readonly Parent: any;
-        public readonly TabStops: TabStops;
+        readonly Application: Application;
+        readonly Levels: RulerLevels;
+        readonly Parent: any;
+        readonly TabStops: TabStops;
     }
 
     class RulerLevel {
         private 'PowerPoint.RulerLevel_typekey': RulerLevel;
         private constructor();
-        public readonly Application: Application;
-        public FirstMargin: number;
-        public LeftMargin: number;
-        public readonly Parent: any;
+        readonly Application: Application;
+        FirstMargin: number;
+        LeftMargin: number;
+        readonly Parent: any;
     }
 
     class RulerLevels {
         private 'PowerPoint.RulerLevels_typekey': RulerLevels;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): RulerLevel;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): RulerLevel;
+        readonly Parent: any;
     }
 
     class ScaleEffect {
         private 'PowerPoint.ScaleEffect_typekey': ScaleEffect;
         private constructor();
-        public readonly Application: Application;
-        public ByX: number;
-        public ByY: number;
-        public FromX: number;
-        public FromY: number;
-        public readonly Parent: any;
-        public ToX: number;
-        public ToY: number;
+        readonly Application: Application;
+        ByX: number;
+        ByY: number;
+        FromX: number;
+        FromY: number;
+        readonly Parent: any;
+        ToX: number;
+        ToY: number;
     }
 
     class SectionProperties {
         private 'PowerPoint.SectionProperties_typekey': SectionProperties;
         private constructor();
-        public AddBeforeSlide(SlideIndex: number, sectionName: string): number;
-        public AddSection(sectionIndex: number, sectionName?: any): number;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Delete(sectionIndex: number, deleteSlides: boolean): void;
-        public FirstSlide(sectionIndex: number): number;
-        public Move(sectionIndex: number, toPos: number): void;
-        public Name(sectionIndex: number): string;
-        public readonly Parent: any;
-        public Rename(sectionIndex: number, sectionName: string): void;
-        public SectionID(sectionIndex: number): string;
-        public SlidesCount(sectionIndex: number): number;
+        AddBeforeSlide(SlideIndex: number, sectionName: string): number;
+        AddSection(sectionIndex: number, sectionName?: any): number;
+        readonly Application: Application;
+        readonly Count: number;
+        Delete(sectionIndex: number, deleteSlides: boolean): void;
+        FirstSlide(sectionIndex: number): number;
+        Move(sectionIndex: number, toPos: number): void;
+        Name(sectionIndex: number): string;
+        readonly Parent: any;
+        Rename(sectionIndex: number, sectionName: string): void;
+        SectionID(sectionIndex: number): string;
+        SlidesCount(sectionIndex: number): number;
     }
 
     class Selection {
         private 'PowerPoint.Selection_typekey': Selection;
         private constructor();
-        public readonly Application: Application;
-        public readonly ChildShapeRange: ShapeRange;
-        public Copy(): void;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly HasChildShapeRange: boolean;
-        public readonly Parent: any;
-        public readonly ShapeRange: ShapeRange;
-        public readonly SlideRange: SlideRange;
-        public readonly TextRange: TextRange;
-        public readonly TextRange2: Office.TextRange2;
-        public readonly Type: PpSelectionType;
-        public Unselect(): void;
+        readonly Application: Application;
+        readonly ChildShapeRange: ShapeRange;
+        Copy(): void;
+        Cut(): void;
+        Delete(): void;
+        readonly HasChildShapeRange: boolean;
+        readonly Parent: any;
+        readonly ShapeRange: ShapeRange;
+        readonly SlideRange: SlideRange;
+        readonly TextRange: TextRange;
+        readonly TextRange2: Office.TextRange2;
+        readonly Type: PpSelectionType;
+        Unselect(): void;
     }
 
     class Sequence {
@@ -4108,32 +4108,32 @@ declare namespace PowerPoint {
          * @param PowerPoint.MsoAnimTriggerType [trigger=1]
          * @param number [Index=-1]
          */
-        public AddEffect(Shape: Shape, effectId: MsoAnimEffect, Level?: MsoAnimateByLevel, trigger?: MsoAnimTriggerType, Index?: number): Effect;
+        AddEffect(Shape: Shape, effectId: MsoAnimEffect, Level?: MsoAnimateByLevel, trigger?: MsoAnimTriggerType, Index?: number): Effect;
 
         /**
          * @param string [bookmark='']
          * @param PowerPoint.MsoAnimateByLevel [Level=0]
          */
-        public AddTriggerEffect(pShape: Shape, effectId: MsoAnimEffect, trigger: MsoAnimTriggerType, pTriggerShape: Shape, bookmark?: string, Level?: MsoAnimateByLevel): Effect;
-        public readonly Application: Application;
+        AddTriggerEffect(pShape: Shape, effectId: MsoAnimEffect, trigger: MsoAnimTriggerType, pTriggerShape: Shape, bookmark?: string, Level?: MsoAnimateByLevel): Effect;
+        readonly Application: Application;
 
         /** @param number [Index=-1] */
-        public Clone(Effect: Effect, Index?: number): Effect;
+        Clone(Effect: Effect, Index?: number): Effect;
 
         /**
          * @param Office.MsoRGBType [DimColor=0]
          * @param PowerPoint.PpColorSchemeIndex [DimSchemeColor=0]
          */
-        public ConvertToAfterEffect(Effect: Effect, After: MsoAnimAfterEffect, DimColor?: Office.MsoRGBType, DimSchemeColor?: PpColorSchemeIndex): Effect;
-        public ConvertToAnimateBackground(Effect: Effect, AnimateBackground: Office.MsoTriState): Effect;
-        public ConvertToAnimateInReverse(Effect: Effect, animateInReverse: Office.MsoTriState): Effect;
-        public ConvertToBuildLevel(Effect: Effect, Level: MsoAnimateByLevel): Effect;
-        public ConvertToTextUnitEffect(Effect: Effect, unitEffect: MsoAnimTextUnitEffect): Effect;
-        public readonly Count: number;
-        public FindFirstAnimationFor(Shape: Shape): Effect;
-        public FindFirstAnimationForClick(click: number): Effect;
-        public Item(Index: number): Effect;
-        public readonly Parent: any;
+        ConvertToAfterEffect(Effect: Effect, After: MsoAnimAfterEffect, DimColor?: Office.MsoRGBType, DimSchemeColor?: PpColorSchemeIndex): Effect;
+        ConvertToAnimateBackground(Effect: Effect, AnimateBackground: Office.MsoTriState): Effect;
+        ConvertToAnimateInReverse(Effect: Effect, animateInReverse: Office.MsoTriState): Effect;
+        ConvertToBuildLevel(Effect: Effect, Level: MsoAnimateByLevel): Effect;
+        ConvertToTextUnitEffect(Effect: Effect, unitEffect: MsoAnimTextUnitEffect): Effect;
+        readonly Count: number;
+        FindFirstAnimationFor(Shape: Shape): Effect;
+        FindFirstAnimationForClick(click: number): Effect;
+        Item(Index: number): Effect;
+        readonly Parent: any;
     }
 
     class Sequences {
@@ -4141,184 +4141,184 @@ declare namespace PowerPoint {
         private constructor();
 
         /** @param number [Index=-1] */
-        public Add(Index?: number): Sequence;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): Sequence;
-        public readonly Parent: any;
+        Add(Index?: number): Sequence;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): Sequence;
+        readonly Parent: any;
     }
 
     class SeriesLines {
         private 'PowerPoint.SeriesLines_typekey': SeriesLines;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Format: ChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Format: ChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class SetEffect {
         private 'PowerPoint.SetEffect_typekey': SetEffect;
         private constructor();
-        public readonly Application: Application;
-        public readonly Parent: any;
-        public Property: MsoAnimProperty;
-        public To: any;
+        readonly Application: Application;
+        readonly Parent: any;
+        Property: MsoAnimProperty;
+        To: any;
     }
 
     class ShadowFormat {
         private 'PowerPoint.ShadowFormat_typekey': ShadowFormat;
         private constructor();
-        public readonly Application: any;
-        public Blur: number;
-        public readonly Creator: number;
-        public ForeColor: ColorFormat;
-        public IncrementOffsetX(Increment: number): void;
-        public IncrementOffsetY(Increment: number): void;
-        public Obscured: Office.MsoTriState;
-        public OffsetX: number;
-        public OffsetY: number;
-        public readonly Parent: any;
-        public RotateWithShape: Office.MsoTriState;
-        public Size: number;
-        public Style: Office.MsoShadowStyle;
-        public Transparency: number;
-        public Type: Office.MsoShadowType;
-        public Visible: Office.MsoTriState;
+        readonly Application: any;
+        Blur: number;
+        readonly Creator: number;
+        ForeColor: ColorFormat;
+        IncrementOffsetX(Increment: number): void;
+        IncrementOffsetY(Increment: number): void;
+        Obscured: Office.MsoTriState;
+        OffsetX: number;
+        OffsetY: number;
+        readonly Parent: any;
+        RotateWithShape: Office.MsoTriState;
+        Size: number;
+        Style: Office.MsoShadowStyle;
+        Transparency: number;
+        Type: Office.MsoShadowType;
+        Visible: Office.MsoTriState;
     }
 
     class Shape {
         private 'PowerPoint.Shape_typekey': Shape;
         private constructor();
-        public readonly ActionSettings: ActionSettings;
-        public readonly Adjustments: Adjustments;
-        public AlternativeText: string;
-        public readonly AnimationSettings: AnimationSettings;
-        public readonly Application: any;
-        public Apply(): void;
-        public ApplyAnimation(): void;
-        public AutoShapeType: Office.MsoAutoShapeType;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public BlackWhiteMode: Office.MsoBlackWhiteMode;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: CanvasShapes;
-        public readonly Chart: Chart;
-        public readonly Child: Office.MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: Office.MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public ConvertTextToSmartArt(Layout: Office.SmartArtLayout): void;
-        public Copy(): void;
-        public readonly Creator: number;
-        public readonly CustomerData: CustomerData;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly Diagram: Diagram;
-        public readonly DiagramNode: DiagramNode;
-        public Duplicate(): ShapeRange;
+        readonly ActionSettings: ActionSettings;
+        readonly Adjustments: Adjustments;
+        AlternativeText: string;
+        readonly AnimationSettings: AnimationSettings;
+        readonly Application: any;
+        Apply(): void;
+        ApplyAnimation(): void;
+        AutoShapeType: Office.MsoAutoShapeType;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        BlackWhiteMode: Office.MsoBlackWhiteMode;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: CanvasShapes;
+        readonly Chart: Chart;
+        readonly Child: Office.MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: Office.MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        ConvertTextToSmartArt(Layout: Office.SmartArtLayout): void;
+        Copy(): void;
+        readonly Creator: number;
+        readonly CustomerData: CustomerData;
+        Cut(): void;
+        Delete(): void;
+        readonly Diagram: Diagram;
+        readonly DiagramNode: DiagramNode;
+        Duplicate(): ShapeRange;
 
         /**
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          * @param PowerPoint.PpExportMode [ExportMode=1]
          */
-        public Export(PathName: string, Filter: PpShapeFormat, ScaleWidth?: number, ScaleHeight?: number, ExportMode?: PpExportMode): void;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: Office.MsoFlipCmd): void;
-        public readonly Glow: Office.GlowFormat;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: Office.MsoTriState;
-        public readonly HasDiagram: Office.MsoTriState;
-        public readonly HasDiagramNode: Office.MsoTriState;
-        public readonly HasSmartArt: Office.MsoTriState;
-        public readonly HasTable: Office.MsoTriState;
-        public readonly HasTextFrame: Office.MsoTriState;
-        public Height: number;
-        public readonly HorizontalFlip: Office.MsoTriState;
-        public readonly Id: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public Left: number;
-        public readonly Line: LineFormat;
-        public readonly LinkFormat: LinkFormat;
-        public LockAspectRatio: Office.MsoTriState;
-        public readonly MediaFormat: MediaFormat;
-        public readonly MediaType: PpMediaType;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly OLEFormat: OLEFormat;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public PickupAnimation(): void;
-        public readonly PictureFormat: PictureFormat;
-        public readonly PlaceholderFormat: PlaceholderFormat;
-        public readonly Reflection: Office.ReflectionFormat;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public readonly RTF: string;
+        Export(PathName: string, Filter: PpShapeFormat, ScaleWidth?: number, ScaleHeight?: number, ExportMode?: PpExportMode): void;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
+        readonly Glow: Office.GlowFormat;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: Office.MsoTriState;
+        readonly HasDiagram: Office.MsoTriState;
+        readonly HasDiagramNode: Office.MsoTriState;
+        readonly HasSmartArt: Office.MsoTriState;
+        readonly HasTable: Office.MsoTriState;
+        readonly HasTextFrame: Office.MsoTriState;
+        Height: number;
+        readonly HorizontalFlip: Office.MsoTriState;
+        readonly Id: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Left: number;
+        readonly Line: LineFormat;
+        readonly LinkFormat: LinkFormat;
+        LockAspectRatio: Office.MsoTriState;
+        readonly MediaFormat: MediaFormat;
+        readonly MediaType: PpMediaType;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly OLEFormat: OLEFormat;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        PickupAnimation(): void;
+        readonly PictureFormat: PictureFormat;
+        readonly PlaceholderFormat: PlaceholderFormat;
+        readonly Reflection: Office.ReflectionFormat;
+        RerouteConnections(): void;
+        Rotation: number;
+        readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
-        public readonly Script: Office.Script;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
+        readonly Script: Office.Script;
 
         /** @param Office.MsoTriState [Replace=-1] */
-        public Select(Replace?: Office.MsoTriState): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: Office.MsoShapeStyleIndex;
-        public readonly SmartArt: Office.SmartArt;
-        public readonly SoftEdge: Office.SoftEdgeFormat;
-        public readonly SoundFormat: SoundFormat;
-        public readonly Table: Table;
-        public readonly Tags: Tags;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public readonly Type: Office.MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public UpgradeMedia(): void;
-        public readonly VerticalFlip: Office.MsoTriState;
-        public readonly Vertices: any;
-        public Visible: Office.MsoTriState;
-        public Width: number;
-        public ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        Select(Replace?: Office.MsoTriState): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: Office.MsoShapeStyleIndex;
+        readonly SmartArt: Office.SmartArt;
+        readonly SoftEdge: Office.SoftEdgeFormat;
+        readonly SoundFormat: SoundFormat;
+        readonly Table: Table;
+        readonly Tags: Tags;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        readonly Type: Office.MsoShapeType;
+        Ungroup(): ShapeRange;
+        UpgradeMedia(): void;
+        readonly VerticalFlip: Office.MsoTriState;
+        readonly Vertices: any;
+        Visible: Office.MsoTriState;
+        Width: number;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class ShapeNode {
         private 'PowerPoint.ShapeNode_typekey': ShapeNode;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly EditingType: Office.MsoEditingType;
-        public readonly Parent: any;
-        public readonly Points: any;
-        public readonly SegmentType: Office.MsoSegmentType;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly EditingType: Office.MsoEditingType;
+        readonly Parent: any;
+        readonly Points: any;
+        readonly SegmentType: Office.MsoSegmentType;
     }
 
     class ShapeNodes {
         private 'PowerPoint.ShapeNodes_typekey': ShapeNodes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(Index: number): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(Index: number): void;
 
         /**
          * @param number [X2=0]
@@ -4326,135 +4326,135 @@ declare namespace PowerPoint {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        public Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
-        public Item(Index: any): ShapeNode;
-        public readonly Parent: any;
-        public SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
-        public SetPosition(Index: number, X1: number, Y1: number): void;
-        public SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType): void;
+        Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Item(Index: any): ShapeNode;
+        readonly Parent: any;
+        SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
+        SetPosition(Index: number, X1: number, Y1: number): void;
+        SetSegmentType(Index: number, SegmentType: Office.MsoSegmentType): void;
     }
 
     class ShapeRange {
         private 'PowerPoint.ShapeRange_typekey': ShapeRange;
         private constructor();
-        public readonly ActionSettings: ActionSettings;
-        public readonly Adjustments: Adjustments;
-        public Align(AlignCmd: Office.MsoAlignCmd, RelativeTo: Office.MsoTriState): void;
-        public AlternativeText: string;
-        public readonly AnimationSettings: AnimationSettings;
-        public readonly Application: any;
-        public Apply(): void;
-        public ApplyAnimation(): void;
-        public AutoShapeType: Office.MsoAutoShapeType;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public BlackWhiteMode: Office.MsoBlackWhiteMode;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: CanvasShapes;
-        public readonly Chart: Chart;
-        public readonly Child: Office.MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: Office.MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public ConvertTextToSmartArt(Layout: Office.SmartArtLayout): void;
-        public Copy(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly CustomerData: CustomerData;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly Diagram: Diagram;
-        public readonly DiagramNode: DiagramNode;
-        public Distribute(DistributeCmd: Office.MsoDistributeCmd, RelativeTo: Office.MsoTriState): void;
-        public Duplicate(): ShapeRange;
+        readonly ActionSettings: ActionSettings;
+        readonly Adjustments: Adjustments;
+        Align(AlignCmd: Office.MsoAlignCmd, RelativeTo: Office.MsoTriState): void;
+        AlternativeText: string;
+        readonly AnimationSettings: AnimationSettings;
+        readonly Application: any;
+        Apply(): void;
+        ApplyAnimation(): void;
+        AutoShapeType: Office.MsoAutoShapeType;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        BlackWhiteMode: Office.MsoBlackWhiteMode;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: CanvasShapes;
+        readonly Chart: Chart;
+        readonly Child: Office.MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: Office.MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        ConvertTextToSmartArt(Layout: Office.SmartArtLayout): void;
+        Copy(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly CustomerData: CustomerData;
+        Cut(): void;
+        Delete(): void;
+        readonly Diagram: Diagram;
+        readonly DiagramNode: DiagramNode;
+        Distribute(DistributeCmd: Office.MsoDistributeCmd, RelativeTo: Office.MsoTriState): void;
+        Duplicate(): ShapeRange;
 
         /**
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          * @param PowerPoint.PpExportMode [ExportMode=1]
          */
-        public Export(PathName: string, Filter: PpShapeFormat, ScaleWidth?: number, ScaleHeight?: number, ExportMode?: PpExportMode): void;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: Office.MsoFlipCmd): void;
-        public readonly Glow: Office.GlowFormat;
-        public Group(): Shape;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: Office.MsoTriState;
-        public readonly HasDiagram: Office.MsoTriState;
-        public readonly HasDiagramNode: Office.MsoTriState;
-        public readonly HasSmartArt: Office.MsoTriState;
-        public readonly HasTable: Office.MsoTriState;
-        public readonly HasTextFrame: Office.MsoTriState;
-        public Height: number;
-        public readonly HorizontalFlip: Office.MsoTriState;
-        public readonly Id: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public Item(Index: any): Shape;
-        public Left: number;
-        public readonly Line: LineFormat;
-        public readonly LinkFormat: LinkFormat;
-        public LockAspectRatio: Office.MsoTriState;
-        public readonly MediaFormat: MediaFormat;
-        public readonly MediaType: PpMediaType;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly OLEFormat: OLEFormat;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public PickupAnimation(): void;
-        public readonly PictureFormat: PictureFormat;
-        public readonly PlaceholderFormat: PlaceholderFormat;
-        public readonly Reflection: Office.ReflectionFormat;
-        public Regroup(): Shape;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public readonly RTF: string;
+        Export(PathName: string, Filter: PpShapeFormat, ScaleWidth?: number, ScaleHeight?: number, ExportMode?: PpExportMode): void;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: Office.MsoFlipCmd): void;
+        readonly Glow: Office.GlowFormat;
+        Group(): Shape;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: Office.MsoTriState;
+        readonly HasDiagram: Office.MsoTriState;
+        readonly HasDiagramNode: Office.MsoTriState;
+        readonly HasSmartArt: Office.MsoTriState;
+        readonly HasTable: Office.MsoTriState;
+        readonly HasTextFrame: Office.MsoTriState;
+        Height: number;
+        readonly HorizontalFlip: Office.MsoTriState;
+        readonly Id: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Item(Index: any): Shape;
+        Left: number;
+        readonly Line: LineFormat;
+        readonly LinkFormat: LinkFormat;
+        LockAspectRatio: Office.MsoTriState;
+        readonly MediaFormat: MediaFormat;
+        readonly MediaType: PpMediaType;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly OLEFormat: OLEFormat;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        PickupAnimation(): void;
+        readonly PictureFormat: PictureFormat;
+        readonly PlaceholderFormat: PlaceholderFormat;
+        readonly Reflection: Office.ReflectionFormat;
+        Regroup(): Shape;
+        RerouteConnections(): void;
+        Rotation: number;
+        readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
-        public readonly Script: Office.Script;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: Office.MsoTriState, fScale?: Office.MsoScaleFrom): void;
+        readonly Script: Office.Script;
 
         /** @param Office.MsoTriState [Replace=-1] */
-        public Select(Replace?: Office.MsoTriState): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: Office.MsoShapeStyleIndex;
-        public readonly SmartArt: Office.SmartArt;
-        public readonly SoftEdge: Office.SoftEdgeFormat;
-        public readonly SoundFormat: SoundFormat;
-        public readonly Table: Table;
-        public readonly Tags: Tags;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public readonly Type: Office.MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public UpgradeMedia(): void;
-        public readonly VerticalFlip: Office.MsoTriState;
-        public readonly Vertices: any;
-        public Visible: Office.MsoTriState;
-        public Width: number;
-        public ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        Select(Replace?: Office.MsoTriState): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: Office.MsoShapeStyleIndex;
+        readonly SmartArt: Office.SmartArt;
+        readonly SoftEdge: Office.SoftEdgeFormat;
+        readonly SoundFormat: SoundFormat;
+        readonly Table: Table;
+        readonly Tags: Tags;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        readonly Type: Office.MsoShapeType;
+        Ungroup(): ShapeRange;
+        UpgradeMedia(): void;
+        readonly VerticalFlip: Office.MsoTriState;
+        readonly Vertices: any;
+        Visible: Office.MsoTriState;
+        Width: number;
+        ZOrder(ZOrderCmd: Office.MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class Shapes {
         private 'PowerPoint.Shapes_typekey': Shapes;
         private constructor();
-        public AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
+        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
          * @param Office.XlChartType [Type=-1]
@@ -4463,7 +4463,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddChart(Type?: Office.XlChartType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddChart(Type?: Office.XlChartType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param number [Left=1.25]
@@ -4471,12 +4471,12 @@ declare namespace PowerPoint {
          * @param number [Width=145.25]
          * @param number [Height=145.25]
          */
-        public AddComment(Left?: number, Top?: number, Width?: number, Height?: number): Shape;
-        public AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddCurve(SafeArrayOfPoints: any): Shape;
-        public AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddComment(Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
+        AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
          * @param number [Left=0]
@@ -4484,7 +4484,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddMediaObject(FileName: string, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddMediaObject(FileName: string, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param Office.MsoTriState [LinkToFile=0]
@@ -4494,7 +4494,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddMediaObject2(FileName: string, LinkToFile?: Office.MsoTriState, SaveWithDocument?: Office.MsoTriState, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddMediaObject2(FileName: string, LinkToFile?: Office.MsoTriState, SaveWithDocument?: Office.MsoTriState, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param number [Left=0]
@@ -4502,7 +4502,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddMediaObjectFromEmbedTag(EmbedTag: string, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddMediaObjectFromEmbedTag(EmbedTag: string, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param number [Left=0]
@@ -4517,7 +4517,7 @@ declare namespace PowerPoint {
          * @param string [IconLabel='']
          * @param Office.MsoTriState [Link=0]
          */
-        public AddOLEObject(
+        AddOLEObject(
             Left?: number, Top?: number, Width?: number, Height?: number, ClassName?: string, FileName?: string, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string,
             IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): Shape;
 
@@ -4525,7 +4525,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddPicture(FileName: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPicture(FileName: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param number [Left=-1]
@@ -4533,9 +4533,9 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddPlaceholder(Type: PpPlaceholderType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
-        public AddPolyline(SafeArrayOfPoints: any): Shape;
-        public AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddPlaceholder(Type: PpPlaceholderType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
          * @param number [Left=-1]
@@ -4543,7 +4543,7 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddSmartArt(Layout: Office.SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddSmartArt(Layout: Office.SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
 
         /**
          * @param number [Left=-1]
@@ -4551,20 +4551,20 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddTable(NumRows: number, NumColumns: number, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
-        public AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextEffect(
+        AddTable(NumRows: number, NumColumns: number, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextEffect(
             PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
             Left: number, Top: number): Shape;
-        public AddTitle(): Shape;
-        public readonly Application: any;
-        public BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly HasTitle: Office.MsoTriState;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Paste(): ShapeRange;
+        AddTitle(): Shape;
+        readonly Application: any;
+        BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly HasTitle: Office.MsoTriState;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Paste(): ShapeRange;
 
         /**
          * @param PowerPoint.PpPasteDataType [DataType=0]
@@ -4574,490 +4574,490 @@ declare namespace PowerPoint {
          * @param string [IconLabel='']
          * @param Office.MsoTriState [Link=0]
          */
-        public PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): ShapeRange;
-        public readonly Placeholders: Placeholders;
-        public Range(Index?: any): ShapeRange;
-        public SelectAll(): void;
-        public readonly Title: Shape;
+        PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): ShapeRange;
+        readonly Placeholders: Placeholders;
+        Range(Index?: any): ShapeRange;
+        SelectAll(): void;
+        readonly Title: Shape;
     }
 
     class Slide {
         private 'PowerPoint.Slide_typekey': Slide;
         private constructor();
-        public readonly Application: Application;
-        public ApplyTemplate(FileName: string): void;
-        public ApplyTheme(themeName: string): void;
-        public ApplyThemeColorScheme(themeColorSchemeName: string): void;
-        public readonly Background: ShapeRange;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public ColorScheme: ColorScheme;
-        public readonly Comments: Comments;
-        public Copy(): void;
-        public readonly CustomerData: CustomerData;
-        public CustomLayout: CustomLayout;
-        public Cut(): void;
-        public Delete(): void;
-        public Design: Design;
-        public DisplayMasterShapes: Office.MsoTriState;
-        public Duplicate(): SlideRange;
+        readonly Application: Application;
+        ApplyTemplate(FileName: string): void;
+        ApplyTheme(themeName: string): void;
+        ApplyThemeColorScheme(themeColorSchemeName: string): void;
+        readonly Background: ShapeRange;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        ColorScheme: ColorScheme;
+        readonly Comments: Comments;
+        Copy(): void;
+        readonly CustomerData: CustomerData;
+        CustomLayout: CustomLayout;
+        Cut(): void;
+        Delete(): void;
+        Design: Design;
+        DisplayMasterShapes: Office.MsoTriState;
+        Duplicate(): SlideRange;
 
         /**
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          */
-        public Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
-        public FollowMasterBackground: Office.MsoTriState;
-        public readonly HasNotesPage: Office.MsoTriState;
-        public readonly HeadersFooters: HeadersFooters;
-        public readonly Hyperlinks: Hyperlinks;
-        public Layout: PpSlideLayout;
-        public readonly Master: Master;
-        public MoveTo(toPos: number): void;
-        public MoveToSectionStart(toSection: number): void;
-        public Name: string;
-        public readonly NotesPage: SlideRange;
-        public readonly Parent: any;
-        public readonly PrintSteps: number;
+        Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
+        FollowMasterBackground: Office.MsoTriState;
+        readonly HasNotesPage: Office.MsoTriState;
+        readonly HeadersFooters: HeadersFooters;
+        readonly Hyperlinks: Hyperlinks;
+        Layout: PpSlideLayout;
+        readonly Master: Master;
+        MoveTo(toPos: number): void;
+        MoveToSectionStart(toSection: number): void;
+        Name: string;
+        readonly NotesPage: SlideRange;
+        readonly Parent: any;
+        readonly PrintSteps: number;
 
         /**
          * @param boolean [Overwrite=false]
          * @param boolean [UseSlideOrder=false]
          */
-        public PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
-        public readonly Scripts: Office.Scripts;
-        public readonly sectionIndex: number;
-        public readonly SectionNumber: number;
-        public Select(): void;
-        public readonly Shapes: Shapes;
-        public readonly SlideID: number;
-        public readonly SlideIndex: number;
-        public readonly SlideNumber: number;
-        public readonly SlideShowTransition: SlideShowTransition;
-        public readonly Tags: Tags;
-        public readonly ThemeColorScheme: Office.ThemeColorScheme;
-        public readonly TimeLine: TimeLine;
+        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
+        readonly Scripts: Office.Scripts;
+        readonly sectionIndex: number;
+        readonly SectionNumber: number;
+        Select(): void;
+        readonly Shapes: Shapes;
+        readonly SlideID: number;
+        readonly SlideIndex: number;
+        readonly SlideNumber: number;
+        readonly SlideShowTransition: SlideShowTransition;
+        readonly Tags: Tags;
+        readonly ThemeColorScheme: Office.ThemeColorScheme;
+        readonly TimeLine: TimeLine;
     }
 
     class SlideRange {
         private 'PowerPoint.SlideRange_typekey': SlideRange;
         private constructor();
-        public readonly Application: Application;
-        public ApplyTemplate(FileName: string): void;
-        public ApplyTheme(themeName: string): void;
-        public ApplyThemeColorScheme(themeColorSchemeName: string): void;
-        public readonly Background: ShapeRange;
-        public BackgroundStyle: Office.MsoBackgroundStyleIndex;
-        public ColorScheme: ColorScheme;
-        public readonly Comments: Comments;
-        public Copy(): void;
-        public readonly Count: number;
-        public readonly CustomerData: CustomerData;
-        public CustomLayout: CustomLayout;
-        public Cut(): void;
-        public Delete(): void;
-        public Design: Design;
-        public DisplayMasterShapes: Office.MsoTriState;
-        public Duplicate(): SlideRange;
+        readonly Application: Application;
+        ApplyTemplate(FileName: string): void;
+        ApplyTheme(themeName: string): void;
+        ApplyThemeColorScheme(themeColorSchemeName: string): void;
+        readonly Background: ShapeRange;
+        BackgroundStyle: Office.MsoBackgroundStyleIndex;
+        ColorScheme: ColorScheme;
+        readonly Comments: Comments;
+        Copy(): void;
+        readonly Count: number;
+        readonly CustomerData: CustomerData;
+        CustomLayout: CustomLayout;
+        Cut(): void;
+        Delete(): void;
+        Design: Design;
+        DisplayMasterShapes: Office.MsoTriState;
+        Duplicate(): SlideRange;
 
         /**
          * @param number [ScaleWidth=0]
          * @param number [ScaleHeight=0]
          */
-        public Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
-        public FollowMasterBackground: Office.MsoTriState;
-        public readonly HasNotesPage: Office.MsoTriState;
-        public readonly HeadersFooters: HeadersFooters;
-        public readonly Hyperlinks: Hyperlinks;
-        public Item(Index: any): Slide;
-        public Layout: PpSlideLayout;
-        public readonly Master: Master;
-        public MoveTo(toPos: number): void;
-        public MoveToSectionStart(toSection: number): void;
-        public Name: string;
-        public readonly NotesPage: SlideRange;
-        public readonly Parent: any;
-        public readonly PrintSteps: number;
+        Export(FileName: string, FilterName: string, ScaleWidth?: number, ScaleHeight?: number): void;
+        FollowMasterBackground: Office.MsoTriState;
+        readonly HasNotesPage: Office.MsoTriState;
+        readonly HeadersFooters: HeadersFooters;
+        readonly Hyperlinks: Hyperlinks;
+        Item(Index: any): Slide;
+        Layout: PpSlideLayout;
+        readonly Master: Master;
+        MoveTo(toPos: number): void;
+        MoveToSectionStart(toSection: number): void;
+        Name: string;
+        readonly NotesPage: SlideRange;
+        readonly Parent: any;
+        readonly PrintSteps: number;
 
         /**
          * @param boolean [Overwrite=false]
          * @param boolean [UseSlideOrder=false]
          */
-        public PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
-        public readonly Scripts: Office.Scripts;
-        public readonly sectionIndex: number;
-        public readonly SectionNumber: number;
-        public Select(): void;
-        public readonly Shapes: Shapes;
-        public readonly SlideID: number;
-        public readonly SlideIndex: number;
-        public readonly SlideNumber: number;
-        public readonly SlideShowTransition: SlideShowTransition;
-        public readonly Tags: Tags;
-        public readonly ThemeColorScheme: Office.ThemeColorScheme;
-        public readonly TimeLine: TimeLine;
+        PublishSlides(SlideLibraryUrl: string, Overwrite?: boolean, UseSlideOrder?: boolean): void;
+        readonly Scripts: Office.Scripts;
+        readonly sectionIndex: number;
+        readonly SectionNumber: number;
+        Select(): void;
+        readonly Shapes: Shapes;
+        readonly SlideID: number;
+        readonly SlideIndex: number;
+        readonly SlideNumber: number;
+        readonly SlideShowTransition: SlideShowTransition;
+        readonly Tags: Tags;
+        readonly ThemeColorScheme: Office.ThemeColorScheme;
+        readonly TimeLine: TimeLine;
     }
 
     class Slides {
         private 'PowerPoint.Slides_typekey': Slides;
         private constructor();
-        public Add(Index: number, Layout: PpSlideLayout): Slide;
-        public AddSlide(Index: number, pCustomLayout: CustomLayout): Slide;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public FindBySlideID(SlideID: number): Slide;
+        Add(Index: number, Layout: PpSlideLayout): Slide;
+        AddSlide(Index: number, pCustomLayout: CustomLayout): Slide;
+        readonly Application: Application;
+        readonly Count: number;
+        FindBySlideID(SlideID: number): Slide;
 
         /**
          * @param number [SlideStart=1]
          * @param number [SlideEnd=-1]
          */
-        public InsertFromFile(FileName: string, Index: number, SlideStart?: number, SlideEnd?: number): number;
-        public Item(Index: any): Slide;
-        public readonly Parent: any;
+        InsertFromFile(FileName: string, Index: number, SlideStart?: number, SlideEnd?: number): number;
+        Item(Index: any): Slide;
+        readonly Parent: any;
 
         /** @param number [Index=-1] */
-        public Paste(Index?: number): SlideRange;
-        public Range(Index?: any): SlideRange;
+        Paste(Index?: number): SlideRange;
+        Range(Index?: any): SlideRange;
     }
 
     class SlideShowSettings {
         private 'PowerPoint.SlideShowSettings_typekey': SlideShowSettings;
         private constructor();
-        public AdvanceMode: PpSlideShowAdvanceMode;
-        public readonly Application: Application;
-        public EndingSlide: number;
-        public LoopUntilStopped: Office.MsoTriState;
-        public readonly NamedSlideShows: NamedSlideShows;
-        public readonly Parent: any;
-        public readonly PointerColor: ColorFormat;
-        public RangeType: PpSlideShowRangeType;
-        public Run(): SlideShowWindow;
-        public ShowMediaControls: Office.MsoTriState;
-        public ShowPresenterView: Office.MsoTriState;
-        public ShowScrollbar: Office.MsoTriState;
-        public ShowType: PpSlideShowType;
-        public ShowWithAnimation: Office.MsoTriState;
-        public ShowWithNarration: Office.MsoTriState;
-        public SlideShowName: string;
-        public StartingSlide: number;
+        AdvanceMode: PpSlideShowAdvanceMode;
+        readonly Application: Application;
+        EndingSlide: number;
+        LoopUntilStopped: Office.MsoTriState;
+        readonly NamedSlideShows: NamedSlideShows;
+        readonly Parent: any;
+        readonly PointerColor: ColorFormat;
+        RangeType: PpSlideShowRangeType;
+        Run(): SlideShowWindow;
+        ShowMediaControls: Office.MsoTriState;
+        ShowPresenterView: Office.MsoTriState;
+        ShowScrollbar: Office.MsoTriState;
+        ShowType: PpSlideShowType;
+        ShowWithAnimation: Office.MsoTriState;
+        ShowWithNarration: Office.MsoTriState;
+        SlideShowName: string;
+        StartingSlide: number;
     }
 
     class SlideShowTransition {
         private 'PowerPoint.SlideShowTransition_typekey': SlideShowTransition;
         private constructor();
-        public AdvanceOnClick: Office.MsoTriState;
-        public AdvanceOnTime: Office.MsoTriState;
-        public AdvanceTime: number;
-        public readonly Application: Application;
-        public Duration: number;
-        public EntryEffect: PpEntryEffect;
-        public Hidden: Office.MsoTriState;
-        public LoopSoundUntilNext: Office.MsoTriState;
-        public readonly Parent: any;
-        public readonly SoundEffect: SoundEffect;
-        public Speed: PpTransitionSpeed;
+        AdvanceOnClick: Office.MsoTriState;
+        AdvanceOnTime: Office.MsoTriState;
+        AdvanceTime: number;
+        readonly Application: Application;
+        Duration: number;
+        EntryEffect: PpEntryEffect;
+        Hidden: Office.MsoTriState;
+        LoopSoundUntilNext: Office.MsoTriState;
+        readonly Parent: any;
+        readonly SoundEffect: SoundEffect;
+        Speed: PpTransitionSpeed;
     }
 
     class SlideShowView {
         private 'PowerPoint.SlideShowView_typekey': SlideShowView;
         private constructor();
-        public AcceleratorsEnabled: Office.MsoTriState;
-        public readonly AdvanceMode: PpSlideShowAdvanceMode;
-        public readonly Application: Application;
-        public readonly CurrentShowPosition: number;
-        public DrawLine(BeginX: number, BeginY: number, EndX: number, EndY: number): void;
-        public EndNamedShow(): void;
-        public EraseDrawing(): void;
-        public Exit(): void;
-        public First(): void;
-        public FirstAnimationIsAutomatic(): boolean;
-        public GetClickCount(): number;
-        public GetClickIndex(): number;
-        public GotoClick(Index: number): void;
-        public GotoNamedShow(SlideShowName: string): void;
+        AcceleratorsEnabled: Office.MsoTriState;
+        readonly AdvanceMode: PpSlideShowAdvanceMode;
+        readonly Application: Application;
+        readonly CurrentShowPosition: number;
+        DrawLine(BeginX: number, BeginY: number, EndX: number, EndY: number): void;
+        EndNamedShow(): void;
+        EraseDrawing(): void;
+        Exit(): void;
+        First(): void;
+        FirstAnimationIsAutomatic(): boolean;
+        GetClickCount(): number;
+        GetClickIndex(): number;
+        GotoClick(Index: number): void;
+        GotoNamedShow(SlideShowName: string): void;
 
         /** @param Office.MsoTriState [ResetSlide=-1] */
-        public GotoSlide(Index: number, ResetSlide?: Office.MsoTriState): void;
-        public InstallTracker(pTracker: MouseTracker, Presenter: Office.MsoTriState): void;
-        public readonly IsNamedShow: Office.MsoTriState;
-        public Last(): void;
-        public readonly LastSlideViewed: Slide;
-        public readonly MediaControlsHeight: number;
-        public readonly MediaControlsLeft: number;
-        public readonly MediaControlsTop: number;
-        public readonly MediaControlsVisible: Office.MsoTriState;
-        public readonly MediaControlsWidth: number;
-        public Next(): void;
-        public readonly Parent: any;
-        public Player(ShapeId: any): Player;
-        public readonly PointerColor: ColorFormat;
-        public PointerType: PpSlideShowPointerType;
-        public readonly PresentationElapsedTime: number;
-        public Previous(): void;
-        public ResetSlideTime(): void;
-        public readonly Slide: Slide;
-        public SlideElapsedTime: number;
-        public readonly SlideShowName: string;
-        public State: PpSlideShowState;
-        public readonly Zoom: number;
+        GotoSlide(Index: number, ResetSlide?: Office.MsoTriState): void;
+        InstallTracker(pTracker: MouseTracker, Presenter: Office.MsoTriState): void;
+        readonly IsNamedShow: Office.MsoTriState;
+        Last(): void;
+        readonly LastSlideViewed: Slide;
+        readonly MediaControlsHeight: number;
+        readonly MediaControlsLeft: number;
+        readonly MediaControlsTop: number;
+        readonly MediaControlsVisible: Office.MsoTriState;
+        readonly MediaControlsWidth: number;
+        Next(): void;
+        readonly Parent: any;
+        Player(ShapeId: any): Player;
+        readonly PointerColor: ColorFormat;
+        PointerType: PpSlideShowPointerType;
+        readonly PresentationElapsedTime: number;
+        Previous(): void;
+        ResetSlideTime(): void;
+        readonly Slide: Slide;
+        SlideElapsedTime: number;
+        readonly SlideShowName: string;
+        State: PpSlideShowState;
+        readonly Zoom: number;
     }
 
     class SlideShowWindow {
         private 'PowerPoint.SlideShowWindow_typekey': SlideShowWindow;
         private constructor();
-        public Activate(): void;
-        public readonly Active: Office.MsoTriState;
-        public readonly Application: Application;
-        public Height: number;
-        public readonly IsFullScreen: Office.MsoTriState;
-        public Left: number;
-        public readonly Parent: any;
-        public readonly Presentation: Presentation;
-        public Top: number;
-        public readonly View: SlideShowView;
-        public Width: number;
+        Activate(): void;
+        readonly Active: Office.MsoTriState;
+        readonly Application: Application;
+        Height: number;
+        readonly IsFullScreen: Office.MsoTriState;
+        Left: number;
+        readonly Parent: any;
+        readonly Presentation: Presentation;
+        Top: number;
+        readonly View: SlideShowView;
+        Width: number;
     }
 
     class SlideShowWindows {
         private 'PowerPoint.SlideShowWindows_typekey': SlideShowWindows;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Index: number): SlideShowWindow;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Index: number): SlideShowWindow;
+        readonly Parent: any;
     }
 
     class SoundEffect {
         private 'PowerPoint.SoundEffect_typekey': SoundEffect;
         private constructor();
-        public readonly Application: Application;
-        public ImportFromFile(FileName: string): void;
-        public Name: string;
-        public readonly Parent: any;
-        public Play(): void;
-        public Type: PpSoundEffectType;
+        readonly Application: Application;
+        ImportFromFile(FileName: string): void;
+        Name: string;
+        readonly Parent: any;
+        Play(): void;
+        Type: PpSoundEffectType;
     }
 
     class SoundFormat {
         private 'PowerPoint.SoundFormat_typekey': SoundFormat;
         private constructor();
-        public Export(FileName: string): PpSoundFormatType;
-        public Import(FileName: string): void;
-        public Play(): void;
-        public readonly SourceFullName: string;
-        public readonly Type: PpSoundFormatType;
+        Export(FileName: string): PpSoundFormatType;
+        Import(FileName: string): void;
+        Play(): void;
+        readonly SourceFullName: string;
+        readonly Type: PpSoundFormatType;
     }
 
     class Table {
         private 'PowerPoint.Table_typekey': Table;
         private constructor();
-        public AlternativeText: string;
-        public readonly Application: Application;
+        AlternativeText: string;
+        readonly Application: Application;
 
         /**
          * @param string [StyleID='']
          * @param boolean [SaveFormatting=false]
          */
-        public ApplyStyle(StyleID?: string, SaveFormatting?: boolean): void;
-        public readonly Background: TableBackground;
-        public Cell(Row: number, Column: number): Cell;
-        public readonly Columns: Columns;
-        public FirstCol: boolean;
-        public FirstRow: boolean;
-        public HorizBanding: boolean;
-        public LastCol: boolean;
-        public LastRow: boolean;
-        public MergeBorders(): void;
-        public readonly Parent: any;
-        public readonly Rows: Rows;
-        public ScaleProportionally(scale: number): void;
-        public readonly Style: TableStyle;
-        public TableDirection: PpDirection;
-        public Title: string;
-        public VertBanding: boolean;
+        ApplyStyle(StyleID?: string, SaveFormatting?: boolean): void;
+        readonly Background: TableBackground;
+        Cell(Row: number, Column: number): Cell;
+        readonly Columns: Columns;
+        FirstCol: boolean;
+        FirstRow: boolean;
+        HorizBanding: boolean;
+        LastCol: boolean;
+        LastRow: boolean;
+        MergeBorders(): void;
+        readonly Parent: any;
+        readonly Rows: Rows;
+        ScaleProportionally(scale: number): void;
+        readonly Style: TableStyle;
+        TableDirection: PpDirection;
+        Title: string;
+        VertBanding: boolean;
     }
 
     class TableBackground {
         private 'PowerPoint.TableBackground_typekey': TableBackground;
         private constructor();
-        public readonly Fill: FillFormat;
-        public readonly Picture: PictureFormat;
-        public readonly Reflection: Office.ReflectionFormat;
-        public readonly Shadow: ShadowFormat;
+        readonly Fill: FillFormat;
+        readonly Picture: PictureFormat;
+        readonly Reflection: Office.ReflectionFormat;
+        readonly Shadow: ShadowFormat;
     }
 
     class TableStyle {
         private 'PowerPoint.TableStyle_typekey': TableStyle;
         private constructor();
-        public readonly Id: string;
-        public readonly Name: string;
+        readonly Id: string;
+        readonly Name: string;
     }
 
     class TabStop {
         private 'PowerPoint.TabStop_typekey': TabStop;
         private constructor();
-        public readonly Application: Application;
-        public Clear(): void;
-        public readonly Parent: any;
-        public Position: number;
-        public Type: PpTabStopType;
+        readonly Application: Application;
+        Clear(): void;
+        readonly Parent: any;
+        Position: number;
+        Type: PpTabStopType;
     }
 
     class TabStops {
         private 'PowerPoint.TabStops_typekey': TabStops;
         private constructor();
-        public Add(Type: PpTabStopType, Position: number): TabStop;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public DefaultSpacing: number;
-        public Item(Index: number): TabStop;
-        public readonly Parent: any;
+        Add(Type: PpTabStopType, Position: number): TabStop;
+        readonly Application: Application;
+        readonly Count: number;
+        DefaultSpacing: number;
+        Item(Index: number): TabStop;
+        readonly Parent: any;
     }
 
     class Tags {
         private 'PowerPoint.Tags_typekey': Tags;
         private constructor();
-        public Add(Name: string, Value: string): void;
-        public AddBinary(Name: string, FilePath: string): void;
-        public readonly Application: Application;
-        public BinaryValue(Name: string): number;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Name: string): string;
-        public Name(Index: number): string;
-        public readonly Parent: any;
-        public Value(Index: number): string;
+        Add(Name: string, Value: string): void;
+        AddBinary(Name: string, FilePath: string): void;
+        readonly Application: Application;
+        BinaryValue(Name: string): number;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Name: string): string;
+        Name(Index: number): string;
+        readonly Parent: any;
+        Value(Index: number): string;
     }
 
     class TextEffectFormat {
         private 'PowerPoint.TextEffectFormat_typekey': TextEffectFormat;
         private constructor();
-        public Alignment: Office.MsoTextEffectAlignment;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public FontBold: Office.MsoTriState;
-        public FontItalic: Office.MsoTriState;
-        public FontName: string;
-        public FontSize: number;
-        public KernedPairs: Office.MsoTriState;
-        public NormalizedHeight: Office.MsoTriState;
-        public readonly Parent: any;
-        public PresetShape: Office.MsoPresetTextEffectShape;
-        public PresetTextEffect: Office.MsoPresetTextEffect;
-        public RotatedChars: Office.MsoTriState;
-        public Text: string;
-        public ToggleVerticalText(): void;
-        public Tracking: number;
+        Alignment: Office.MsoTextEffectAlignment;
+        readonly Application: any;
+        readonly Creator: number;
+        FontBold: Office.MsoTriState;
+        FontItalic: Office.MsoTriState;
+        FontName: string;
+        FontSize: number;
+        KernedPairs: Office.MsoTriState;
+        NormalizedHeight: Office.MsoTriState;
+        readonly Parent: any;
+        PresetShape: Office.MsoPresetTextEffectShape;
+        PresetTextEffect: Office.MsoPresetTextEffect;
+        RotatedChars: Office.MsoTriState;
+        Text: string;
+        ToggleVerticalText(): void;
+        Tracking: number;
     }
 
     class TextFrame {
         private 'PowerPoint.TextFrame_typekey': TextFrame;
         private constructor();
-        public readonly Application: any;
-        public AutoSize: PpAutoSize;
-        public readonly Creator: number;
-        public DeleteText(): void;
-        public readonly HasText: Office.MsoTriState;
-        public HorizontalAnchor: Office.MsoHorizontalAnchor;
-        public MarginBottom: number;
-        public MarginLeft: number;
-        public MarginRight: number;
-        public MarginTop: number;
-        public Orientation: Office.MsoTextOrientation;
-        public readonly Parent: any;
-        public readonly Ruler: Ruler;
-        public readonly TextRange: TextRange;
-        public VerticalAnchor: Office.MsoVerticalAnchor;
-        public WordWrap: Office.MsoTriState;
+        readonly Application: any;
+        AutoSize: PpAutoSize;
+        readonly Creator: number;
+        DeleteText(): void;
+        readonly HasText: Office.MsoTriState;
+        HorizontalAnchor: Office.MsoHorizontalAnchor;
+        MarginBottom: number;
+        MarginLeft: number;
+        MarginRight: number;
+        MarginTop: number;
+        Orientation: Office.MsoTextOrientation;
+        readonly Parent: any;
+        readonly Ruler: Ruler;
+        readonly TextRange: TextRange;
+        VerticalAnchor: Office.MsoVerticalAnchor;
+        WordWrap: Office.MsoTriState;
     }
 
     class TextFrame2 {
         private 'PowerPoint.TextFrame2_typekey': TextFrame2;
         private constructor();
-        public readonly Application: any;
-        public AutoSize: Office.MsoAutoSize;
-        public readonly Column: Office.TextColumn2;
-        public readonly Creator: number;
-        public DeleteText(): void;
-        public readonly HasText: Office.MsoTriState;
-        public HorizontalAnchor: Office.MsoHorizontalAnchor;
-        public MarginBottom: number;
-        public MarginLeft: number;
-        public MarginRight: number;
-        public MarginTop: number;
-        public NoTextRotation: Office.MsoTriState;
-        public Orientation: Office.MsoTextOrientation;
-        public readonly Parent: any;
-        public PathFormat: Office.MsoPathFormat;
-        public readonly Ruler: Office.Ruler2;
-        public readonly TextRange: Office.TextRange2;
-        public readonly ThreeD: ThreeDFormat;
-        public VerticalAnchor: Office.MsoVerticalAnchor;
-        public WarpFormat: Office.MsoWarpFormat;
-        public WordArtFormat: Office.MsoPresetTextEffect;
-        public WordWrap: Office.MsoTriState;
+        readonly Application: any;
+        AutoSize: Office.MsoAutoSize;
+        readonly Column: Office.TextColumn2;
+        readonly Creator: number;
+        DeleteText(): void;
+        readonly HasText: Office.MsoTriState;
+        HorizontalAnchor: Office.MsoHorizontalAnchor;
+        MarginBottom: number;
+        MarginLeft: number;
+        MarginRight: number;
+        MarginTop: number;
+        NoTextRotation: Office.MsoTriState;
+        Orientation: Office.MsoTextOrientation;
+        readonly Parent: any;
+        PathFormat: Office.MsoPathFormat;
+        readonly Ruler: Office.Ruler2;
+        readonly TextRange: Office.TextRange2;
+        readonly ThreeD: ThreeDFormat;
+        VerticalAnchor: Office.MsoVerticalAnchor;
+        WarpFormat: Office.MsoWarpFormat;
+        WordArtFormat: Office.MsoPresetTextEffect;
+        WordWrap: Office.MsoTriState;
     }
 
     class TextRange {
         private 'PowerPoint.TextRange_typekey': TextRange;
         private constructor();
-        public readonly ActionSettings: ActionSettings;
-        public AddPeriods(): void;
-        public readonly Application: Application;
-        public readonly BoundHeight: number;
-        public readonly BoundLeft: number;
-        public readonly BoundTop: number;
-        public readonly BoundWidth: number;
-        public ChangeCase(Type: PpChangeCase): void;
+        readonly ActionSettings: ActionSettings;
+        AddPeriods(): void;
+        readonly Application: Application;
+        readonly BoundHeight: number;
+        readonly BoundLeft: number;
+        readonly BoundTop: number;
+        readonly BoundWidth: number;
+        ChangeCase(Type: PpChangeCase): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Characters(Start?: number, Length?: number): TextRange;
-        public Copy(): void;
-        public readonly Count: number;
-        public Cut(): void;
-        public Delete(): void;
+        Characters(Start?: number, Length?: number): TextRange;
+        Copy(): void;
+        readonly Count: number;
+        Cut(): void;
+        Delete(): void;
 
         /**
          * @param number [After=0]
          * @param Office.MsoTriState [MatchCase=0]
          * @param Office.MsoTriState [WholeWords=0]
          */
-        public Find(FindWhat: string, After?: number, MatchCase?: Office.MsoTriState, WholeWords?: Office.MsoTriState): TextRange;
-        public readonly Font: Font;
-        public IndentLevel: number;
+        Find(FindWhat: string, After?: number, MatchCase?: Office.MsoTriState, WholeWords?: Office.MsoTriState): TextRange;
+        readonly Font: Font;
+        IndentLevel: number;
 
         /** @param string [NewText=''] */
-        public InsertAfter(NewText?: string): TextRange;
+        InsertAfter(NewText?: string): TextRange;
 
         /** @param string [NewText=''] */
-        public InsertBefore(NewText?: string): TextRange;
+        InsertBefore(NewText?: string): TextRange;
 
         /** @param Office.MsoTriState [InsertAsField=0] */
-        public InsertDateTime(DateTimeFormat: PpDateTimeFormat, InsertAsField?: Office.MsoTriState): TextRange;
-        public InsertSlideNumber(): TextRange;
+        InsertDateTime(DateTimeFormat: PpDateTimeFormat, InsertAsField?: Office.MsoTriState): TextRange;
+        InsertSlideNumber(): TextRange;
 
         /** @param Office.MsoTriState [Unicode=0] */
-        public InsertSymbol(FontName: string, CharNumber: number, Unicode?: Office.MsoTriState): TextRange;
-        public LanguageID: Office.MsoLanguageID;
-        public readonly Length: number;
+        InsertSymbol(FontName: string, CharNumber: number, Unicode?: Office.MsoTriState): TextRange;
+        LanguageID: Office.MsoLanguageID;
+        readonly Length: number;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Lines(Start?: number, Length?: number): TextRange;
-        public LtrRun(): void;
-        public readonly ParagraphFormat: ParagraphFormat;
+        Lines(Start?: number, Length?: number): TextRange;
+        LtrRun(): void;
+        readonly ParagraphFormat: ParagraphFormat;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Paragraphs(Start?: number, Length?: number): TextRange;
-        public readonly Parent: any;
-        public Paste(): TextRange;
+        Paragraphs(Start?: number, Length?: number): TextRange;
+        readonly Parent: any;
+        Paste(): TextRange;
 
         /**
          * @param PowerPoint.PpPasteDataType [DataType=0]
@@ -5067,206 +5067,206 @@ declare namespace PowerPoint {
          * @param string [IconLabel='']
          * @param Office.MsoTriState [Link=0]
          */
-        public PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): TextRange;
-        public RemovePeriods(): void;
+        PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): TextRange;
+        RemovePeriods(): void;
 
         /**
          * @param number [After=0]
          * @param Office.MsoTriState [MatchCase=0]
          * @param Office.MsoTriState [WholeWords=0]
          */
-        public Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: Office.MsoTriState, WholeWords?: Office.MsoTriState): TextRange;
-        public RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
-        public RtlRun(): void;
+        Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: Office.MsoTriState, WholeWords?: Office.MsoTriState): TextRange;
+        RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
+        RtlRun(): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Runs(Start?: number, Length?: number): TextRange;
-        public Select(): void;
+        Runs(Start?: number, Length?: number): TextRange;
+        Select(): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Sentences(Start?: number, Length?: number): TextRange;
-        public readonly Start: number;
-        public Text: string;
-        public TrimText(): TextRange;
+        Sentences(Start?: number, Length?: number): TextRange;
+        readonly Start: number;
+        Text: string;
+        TrimText(): TextRange;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Words(Start?: number, Length?: number): TextRange;
+        Words(Start?: number, Length?: number): TextRange;
     }
 
     class TextStyle {
         private 'PowerPoint.TextStyle_typekey': TextStyle;
         private constructor();
-        public readonly Application: Application;
-        public readonly Levels: TextStyleLevels;
-        public readonly Parent: any;
-        public readonly Ruler: Ruler;
-        public readonly TextFrame: TextFrame;
+        readonly Application: Application;
+        readonly Levels: TextStyleLevels;
+        readonly Parent: any;
+        readonly Ruler: Ruler;
+        readonly TextFrame: TextFrame;
     }
 
     class TextStyleLevel {
         private 'PowerPoint.TextStyleLevel_typekey': TextStyleLevel;
         private constructor();
-        public readonly Application: Application;
-        public readonly Font: Font;
-        public readonly ParagraphFormat: ParagraphFormat;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Font: Font;
+        readonly ParagraphFormat: ParagraphFormat;
+        readonly Parent: any;
     }
 
     class TextStyleLevels {
         private 'PowerPoint.TextStyleLevels_typekey': TextStyleLevels;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Level: number): TextStyleLevel;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Level: number): TextStyleLevel;
+        readonly Parent: any;
     }
 
     class TextStyles {
         private 'PowerPoint.TextStyles_typekey': TextStyles;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(Type: PpTextStyleType): TextStyle;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(Type: PpTextStyleType): TextStyle;
+        readonly Parent: any;
     }
 
     class ThreeDFormat {
         private 'PowerPoint.ThreeDFormat_typekey': ThreeDFormat;
         private constructor();
-        public readonly Application: any;
-        public BevelBottomDepth: number;
-        public BevelBottomInset: number;
-        public BevelBottomType: Office.MsoBevelType;
-        public BevelTopDepth: number;
-        public BevelTopInset: number;
-        public BevelTopType: Office.MsoBevelType;
-        public readonly ContourColor: ColorFormat;
-        public ContourWidth: number;
-        public readonly Creator: number;
-        public Depth: number;
-        public readonly ExtrusionColor: ColorFormat;
-        public ExtrusionColorType: Office.MsoExtrusionColorType;
-        public FieldOfView: number;
-        public IncrementRotationHorizontal(Increment: number): void;
-        public IncrementRotationVertical(Increment: number): void;
-        public IncrementRotationX(Increment: number): void;
-        public IncrementRotationY(Increment: number): void;
-        public IncrementRotationZ(Increment: number): void;
-        public LightAngle: number;
-        public readonly Parent: any;
-        public Perspective: Office.MsoTriState;
-        public readonly PresetCamera: Office.MsoPresetCamera;
-        public readonly PresetExtrusionDirection: Office.MsoPresetExtrusionDirection;
-        public PresetLighting: Office.MsoLightRigType;
-        public PresetLightingDirection: Office.MsoPresetLightingDirection;
-        public PresetLightingSoftness: Office.MsoPresetLightingSoftness;
-        public PresetMaterial: Office.MsoPresetMaterial;
-        public readonly PresetThreeDFormat: Office.MsoPresetThreeDFormat;
-        public ProjectText: Office.MsoTriState;
-        public ResetRotation(): void;
-        public RotationX: number;
-        public RotationY: number;
-        public RotationZ: number;
-        public SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection): void;
-        public SetPresetCamera(PresetCamera: Office.MsoPresetCamera): void;
-        public SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat): void;
-        public Visible: Office.MsoTriState;
-        public Z: number;
+        readonly Application: any;
+        BevelBottomDepth: number;
+        BevelBottomInset: number;
+        BevelBottomType: Office.MsoBevelType;
+        BevelTopDepth: number;
+        BevelTopInset: number;
+        BevelTopType: Office.MsoBevelType;
+        readonly ContourColor: ColorFormat;
+        ContourWidth: number;
+        readonly Creator: number;
+        Depth: number;
+        readonly ExtrusionColor: ColorFormat;
+        ExtrusionColorType: Office.MsoExtrusionColorType;
+        FieldOfView: number;
+        IncrementRotationHorizontal(Increment: number): void;
+        IncrementRotationVertical(Increment: number): void;
+        IncrementRotationX(Increment: number): void;
+        IncrementRotationY(Increment: number): void;
+        IncrementRotationZ(Increment: number): void;
+        LightAngle: number;
+        readonly Parent: any;
+        Perspective: Office.MsoTriState;
+        readonly PresetCamera: Office.MsoPresetCamera;
+        readonly PresetExtrusionDirection: Office.MsoPresetExtrusionDirection;
+        PresetLighting: Office.MsoLightRigType;
+        PresetLightingDirection: Office.MsoPresetLightingDirection;
+        PresetLightingSoftness: Office.MsoPresetLightingSoftness;
+        PresetMaterial: Office.MsoPresetMaterial;
+        readonly PresetThreeDFormat: Office.MsoPresetThreeDFormat;
+        ProjectText: Office.MsoTriState;
+        ResetRotation(): void;
+        RotationX: number;
+        RotationY: number;
+        RotationZ: number;
+        SetExtrusionDirection(PresetExtrusionDirection: Office.MsoPresetExtrusionDirection): void;
+        SetPresetCamera(PresetCamera: Office.MsoPresetCamera): void;
+        SetThreeDFormat(PresetThreeDFormat: Office.MsoPresetThreeDFormat): void;
+        Visible: Office.MsoTriState;
+        Z: number;
     }
 
     class TickLabels {
         private 'PowerPoint.TickLabels_typekey': TickLabels;
         private constructor();
-        public Alignment: number;
-        public readonly Application: Application;
-        public AutoScaleFont: any;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Depth: number;
-        public readonly Font: ChartFont;
-        public readonly Format: ChartFormat;
-        public MultiLevel: boolean;
-        public readonly Name: string;
-        public NumberFormat: string;
-        public NumberFormatLinked: boolean;
-        public NumberFormatLocal: any;
-        public Offset: number;
-        public Orientation: XlTickLabelOrientation;
-        public readonly Parent: any;
-        public ReadingOrder: number;
-        public Select(): any;
+        Alignment: number;
+        readonly Application: Application;
+        AutoScaleFont: any;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Depth: number;
+        readonly Font: ChartFont;
+        readonly Format: ChartFormat;
+        MultiLevel: boolean;
+        readonly Name: string;
+        NumberFormat: string;
+        NumberFormatLinked: boolean;
+        NumberFormatLocal: any;
+        Offset: number;
+        Orientation: XlTickLabelOrientation;
+        readonly Parent: any;
+        ReadingOrder: number;
+        Select(): any;
     }
 
     class TimeLine {
         private 'PowerPoint.TimeLine_typekey': TimeLine;
         private constructor();
-        public readonly Application: Application;
-        public readonly InteractiveSequences: Sequences;
-        public readonly MainSequence: Sequence;
-        public readonly Parent: any;
+        readonly Application: Application;
+        readonly InteractiveSequences: Sequences;
+        readonly MainSequence: Sequence;
+        readonly Parent: any;
     }
 
     class Timing {
         private 'PowerPoint.Timing_typekey': Timing;
         private constructor();
-        public Accelerate: number;
-        public readonly Application: Application;
-        public AutoReverse: Office.MsoTriState;
-        public BounceEnd: Office.MsoTriState;
-        public BounceEndIntensity: number;
-        public Decelerate: number;
-        public Duration: number;
-        public readonly Parent: any;
-        public RepeatCount: number;
-        public RepeatDuration: number;
-        public Restart: MsoAnimEffectRestart;
-        public RewindAtEnd: Office.MsoTriState;
-        public SmoothEnd: Office.MsoTriState;
-        public SmoothStart: Office.MsoTriState;
-        public Speed: number;
-        public TriggerBookmark: string;
-        public TriggerDelayTime: number;
-        public TriggerShape: Shape;
-        public TriggerType: MsoAnimTriggerType;
+        Accelerate: number;
+        readonly Application: Application;
+        AutoReverse: Office.MsoTriState;
+        BounceEnd: Office.MsoTriState;
+        BounceEndIntensity: number;
+        Decelerate: number;
+        Duration: number;
+        readonly Parent: any;
+        RepeatCount: number;
+        RepeatDuration: number;
+        Restart: MsoAnimEffectRestart;
+        RewindAtEnd: Office.MsoTriState;
+        SmoothEnd: Office.MsoTriState;
+        SmoothStart: Office.MsoTriState;
+        Speed: number;
+        TriggerBookmark: string;
+        TriggerDelayTime: number;
+        TriggerShape: Shape;
+        TriggerType: MsoAnimTriggerType;
     }
 
     class UpBars {
         private 'PowerPoint.UpBars_typekey': UpBars;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class View {
         private 'PowerPoint.View_typekey': View;
         private constructor();
-        public readonly Application: Application;
-        public DisplaySlideMiniature: Office.MsoTriState;
-        public GotoSlide(Index: number): void;
-        public readonly MediaControlsHeight: number;
-        public readonly MediaControlsLeft: number;
-        public readonly MediaControlsTop: number;
-        public readonly MediaControlsVisible: Office.MsoTriState;
-        public readonly MediaControlsWidth: number;
-        public readonly Parent: any;
-        public Paste(): void;
+        readonly Application: Application;
+        DisplaySlideMiniature: Office.MsoTriState;
+        GotoSlide(Index: number): void;
+        readonly MediaControlsHeight: number;
+        readonly MediaControlsLeft: number;
+        readonly MediaControlsTop: number;
+        readonly MediaControlsVisible: Office.MsoTriState;
+        readonly MediaControlsWidth: number;
+        readonly Parent: any;
+        Paste(): void;
 
         /**
          * @param PowerPoint.PpPasteDataType [DataType=0]
@@ -5276,9 +5276,9 @@ declare namespace PowerPoint {
          * @param string [IconLabel='']
          * @param Office.MsoTriState [Link=0]
          */
-        public PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): void;
-        public Player(ShapeId: any): Player;
-        public readonly PrintOptions: PrintOptions;
+        PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): void;
+        Player(ShapeId: any): Player;
+        readonly PrintOptions: PrintOptions;
 
         /**
          * @param number [From=-1]
@@ -5287,49 +5287,49 @@ declare namespace PowerPoint {
          * @param number [Copies=0]
          * @param Office.MsoTriState [Collate=-99]
          */
-        public PrintOut(From?: number, To?: number, PrintToFile?: string, Copies?: number, Collate?: Office.MsoTriState): void;
-        public Slide: any;
-        public readonly Type: PpViewType;
-        public Zoom: number;
-        public ZoomToFit: Office.MsoTriState;
+        PrintOut(From?: number, To?: number, PrintToFile?: string, Copies?: number, Collate?: Office.MsoTriState): void;
+        Slide: any;
+        readonly Type: PpViewType;
+        Zoom: number;
+        ZoomToFit: Office.MsoTriState;
     }
 
     class Walls {
         private 'PowerPoint.Walls_typekey': Walls;
         private constructor();
-        public readonly Application: Application;
-        public readonly Border: ChartBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: ChartFormat;
-        public readonly Interior: Interior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public PictureUnit: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: Application;
+        readonly Border: ChartBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: ChartFormat;
+        readonly Interior: Interior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        PictureUnit: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class WebOptions {
         private 'PowerPoint.WebOptions_typekey': WebOptions;
         private constructor();
-        public AllowPNG: Office.MsoTriState;
-        public Encoding: Office.MsoEncoding;
-        public readonly FolderSuffix: string;
-        public FrameColors: PpFrameColors;
-        public HTMLVersion: PpHTMLVersion;
-        public IncludeNavigation: Office.MsoTriState;
-        public OrganizeInFolder: Office.MsoTriState;
-        public RelyOnVML: Office.MsoTriState;
-        public ResizeGraphics: Office.MsoTriState;
-        public ScreenSize: Office.MsoScreenSize;
-        public ShowSlideAnimation: Office.MsoTriState;
-        public TargetBrowser: Office.MsoTargetBrowser;
-        public UseDefaultFolderSuffix(): void;
-        public UseLongFileNames: Office.MsoTriState;
+        AllowPNG: Office.MsoTriState;
+        Encoding: Office.MsoEncoding;
+        readonly FolderSuffix: string;
+        FrameColors: PpFrameColors;
+        HTMLVersion: PpHTMLVersion;
+        IncludeNavigation: Office.MsoTriState;
+        OrganizeInFolder: Office.MsoTriState;
+        RelyOnVML: Office.MsoTriState;
+        ResizeGraphics: Office.MsoTriState;
+        ScreenSize: Office.MsoScreenSize;
+        ShowSlideAnimation: Office.MsoTriState;
+        TargetBrowser: Office.MsoTargetBrowser;
+        UseDefaultFolderSuffix(): void;
+        UseLongFileNames: Office.MsoTriState;
     }
 }
 

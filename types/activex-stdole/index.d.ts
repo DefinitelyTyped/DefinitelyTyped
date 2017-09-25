@@ -54,25 +54,25 @@ declare namespace stdole {
     class StdFont {
         private 'stdole.StdFont_typekey': StdFont;
         private constructor();
-        public readonly Bold: boolean;
-        public readonly Charset: number;
-        public readonly Italic: boolean;
-        public readonly Name: string;
-        public readonly Size: number;
-        public readonly Strikethrough: boolean;
-        public readonly Underline: boolean;
-        public readonly Weight: number;
+        readonly Bold: boolean;
+        readonly Charset: number;
+        readonly Italic: boolean;
+        readonly Name: string;
+        readonly Size: number;
+        readonly Strikethrough: boolean;
+        readonly Underline: boolean;
+        readonly Weight: number;
     }
 
     class StdPicture {
         private 'stdole.StdPicture_typekey': StdPicture;
         private constructor();
-        public readonly Handle: number;
-        public readonly Height: number;
-        public readonly hPal: number;
-        public Render(hdc: number, x: number, y: number, cx: number, cy: number, xSrc: number, ySrc: number, cxSrc: number, cySrc: number, prcWBounds: undefined): void;
-        public readonly Type: number;
-        public readonly Width: number;
+        readonly Handle: number;
+        readonly Height: number;
+        readonly hPal: number;
+        Render(hdc: number, x: number, y: number, cx: number, cy: number, xSrc: number, ySrc: number, cxSrc: number, cySrc: number, prcWBounds: undefined): void;
+        readonly Type: number;
+        readonly Width: number;
     }
 }
 

@@ -289,72 +289,72 @@ declare namespace InfoPath {
     class _XDocument {
         private 'InfoPath._XDocument_typekey': _XDocument;
         private constructor();
-        public readonly DataObjects: DataObjectsCollection;
-        public readonly DOM: MSXML2.IXMLDOMDocument;
-        public readonly Errors: ADODB.Errors;
-        public readonly Extension: any;
-        public GetDataVariable(lVariableNumber: number): string;
-        public GetDOM(bstrName: string): MSXML2.IXMLDOMDocument;
-        public ImportFile(bstrFileURI: string): void;
-        public readonly IsDirty: boolean;
-        public readonly IsDOMReadOnly: boolean;
-        public readonly IsNew: boolean;
-        public readonly IsReadOnly: boolean;
-        public readonly IsSigned: boolean;
-        public Language: string;
-        public PrintOut(): void;
-        public Query(): void;
-        public readonly QueryAdapter: any;
-        public Save(): void;
-        public SaveAs(bstrFileUrl: string): void;
-        public SetDataVariable(lVariableNumber: number, bstrVariableValue: string): void;
-        public readonly Solution: SolutionObject;
-        public Submit(): void;
-        public readonly UI: UI;
-        public readonly URI: string;
-        public readonly View: ViewObject;
-        public readonly ViewInfos: ViewInfosCollection;
+        readonly DataObjects: DataObjectsCollection;
+        readonly DOM: MSXML2.IXMLDOMDocument;
+        readonly Errors: ADODB.Errors;
+        readonly Extension: any;
+        GetDataVariable(lVariableNumber: number): string;
+        GetDOM(bstrName: string): MSXML2.IXMLDOMDocument;
+        ImportFile(bstrFileURI: string): void;
+        readonly IsDirty: boolean;
+        readonly IsDOMReadOnly: boolean;
+        readonly IsNew: boolean;
+        readonly IsReadOnly: boolean;
+        readonly IsSigned: boolean;
+        Language: string;
+        PrintOut(): void;
+        Query(): void;
+        readonly QueryAdapter: any;
+        Save(): void;
+        SaveAs(bstrFileUrl: string): void;
+        SetDataVariable(lVariableNumber: number, bstrVariableValue: string): void;
+        readonly Solution: SolutionObject;
+        Submit(): void;
+        readonly UI: UI;
+        readonly URI: string;
+        readonly View: ViewObject;
+        readonly ViewInfos: ViewInfosCollection;
     }
 
     class ADOAdapterObject {
         private 'InfoPath.ADOAdapterObject_typekey': ADOAdapterObject;
         private constructor();
-        public BuildSQLFromXMLNodes(pXmlNode: MSXML2.IXMLDOMNode): string;
-        public Command: string;
-        public Connection: string;
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
-        public Timeout: number;
+        BuildSQLFromXMLNodes(pXmlNode: MSXML2.IXMLDOMNode): string;
+        Command: string;
+        Connection: string;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
+        Timeout: number;
     }
 
     class Application {
         private 'InfoPath.Application_typekey': Application;
         private constructor();
-        public readonly ActiveWindow: Window;
-        public CacheSolution(bstrSolutionURI: string): void;
-        public FormatString(varInput: any, bstrCategory: string, bstrOptions: string): string;
-        public IsDestinationReachable(bstrDestination: string): boolean;
-        public readonly LanguageSettings: any;
-        public readonly MachineOnlineState: XdMachineOnlineState;
-        public readonly Name: string;
-        public NewADODBConnection(): ADODB.Connection;
-        public NewADODBRecordset(): ADODB.Recordset;
+        readonly ActiveWindow: Window;
+        CacheSolution(bstrSolutionURI: string): void;
+        FormatString(varInput: any, bstrCategory: string, bstrOptions: string): string;
+        IsDestinationReachable(bstrDestination: string): boolean;
+        readonly LanguageSettings: any;
+        readonly MachineOnlineState: XdMachineOnlineState;
+        readonly Name: string;
+        NewADODBConnection(): ADODB.Connection;
+        NewADODBRecordset(): ADODB.Recordset;
 
         /** @param boolean [bForce=false] */
-        public Quit(bForce?: boolean): void;
+        Quit(bForce?: boolean): void;
 
         /** @param string [bstrBehavior='overwrite'] */
-        public RegisterSolution(bstrSolutionURL: string, bstrBehavior?: string): void;
-        public UnregisterSolution(bstrSolutionURI: string): void;
-        public readonly UsableHeight: number;
-        public readonly UsableWidth: number;
-        public readonly User: UserObject;
-        public readonly Version: string;
-        public readonly Windows: WindowsCollection;
-        public readonly XDocuments: XDocuments;
+        RegisterSolution(bstrSolutionURL: string, bstrBehavior?: string): void;
+        UnregisterSolution(bstrSolutionURI: string): void;
+        readonly UsableHeight: number;
+        readonly UsableWidth: number;
+        readonly User: UserObject;
+        readonly Version: string;
+        readonly Windows: WindowsCollection;
+        readonly XDocuments: XDocuments;
     }
 
     class ApplicationEvents {
@@ -365,16 +365,16 @@ declare namespace InfoPath {
     class BDCAdapterObject {
         private 'InfoPath.BDCAdapterObject_typekey': BDCAdapterObject;
         private constructor();
-        public readonly EntityName: string;
-        public readonly EntityNamespace: string;
-        public readonly LOBSystemInstance: string;
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public readonly SpecificFinder: string;
-        public Submit(): void;
-        public readonly SubmitAdapterName: string;
-        public readonly SubmitAllowed: boolean;
+        readonly EntityName: string;
+        readonly EntityNamespace: string;
+        readonly LOBSystemInstance: string;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        readonly SpecificFinder: string;
+        Submit(): void;
+        readonly SubmitAdapterName: string;
+        readonly SubmitAllowed: boolean;
     }
 
     class Button {
@@ -385,17 +385,17 @@ declare namespace InfoPath {
     class CertificateObject {
         private 'InfoPath.CertificateObject_typekey': CertificateObject;
         private constructor();
-        public readonly ExpirationDate: string;
-        public readonly IssuedBy: string;
-        public readonly IssuedTo: string;
-        public readonly Status: XdCertificateStatus;
+        readonly ExpirationDate: string;
+        readonly IssuedBy: string;
+        readonly IssuedTo: string;
+        readonly Status: XdCertificateStatus;
     }
 
     class DataAdaptersCollection {
         private 'InfoPath.DataAdaptersCollection_typekey': DataAdaptersCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): any;
+        readonly Count: number;
+        Item(varIndex: any): any;
     }
 
     class DataDOM {
@@ -406,121 +406,121 @@ declare namespace InfoPath {
     class DataDOMEventObject {
         private 'InfoPath.DataDOMEventObject_typekey': DataDOMEventObject;
         private constructor();
-        public readonly IsUndoRedo: boolean;
-        public readonly MatchExpression: string;
-        public readonly NewValue: any;
-        public readonly OldValue: any;
-        public readonly Operation: string;
-        public readonly Parent: MSXML2.IXMLDOMNode;
+        readonly IsUndoRedo: boolean;
+        readonly MatchExpression: string;
+        readonly NewValue: any;
+        readonly OldValue: any;
+        readonly Operation: string;
+        readonly Parent: MSXML2.IXMLDOMNode;
 
         /**
          * @param string [bstrDetailedErrorMessage='']
          * @param number [lErrorCode=0]
          * @param string [bstrType='modeless']
          */
-        public ReportError(varNode: any, bstrShortErrorMessage: string, fSiteIndependent: boolean, bstrDetailedErrorMessage?: string, lErrorCode?: number, bstrType?: string): ErrorObject;
-        public ReturnMessage: string;
-        public ReturnStatus: boolean;
-        public readonly Site: MSXML2.IXMLDOMNode;
-        public readonly Source: MSXML2.IXMLDOMNode;
-        public readonly XDocument: _XDocument;
+        ReportError(varNode: any, bstrShortErrorMessage: string, fSiteIndependent: boolean, bstrDetailedErrorMessage?: string, lErrorCode?: number, bstrType?: string): ErrorObject;
+        ReturnMessage: string;
+        ReturnStatus: boolean;
+        readonly Site: MSXML2.IXMLDOMNode;
+        readonly Source: MSXML2.IXMLDOMNode;
+        readonly XDocument: _XDocument;
     }
 
     class DataObjectsCollection {
         private 'InfoPath.DataObjectsCollection_typekey': DataObjectsCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): DataSourceObject;
+        readonly Count: number;
+        Item(varIndex: any): DataSourceObject;
     }
 
     class DataSourceObject {
         private 'InfoPath.DataSourceObject_typekey': DataSourceObject;
         private constructor();
-        public readonly DOM: MSXML2.IXMLDOMDocument;
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAdapter: any;
+        readonly DOM: MSXML2.IXMLDOMDocument;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAdapter: any;
     }
 
     class DateObject {
         private 'InfoPath.DateObject_typekey': DateObject;
         private constructor();
-        public AddDays(pvarDate: any, pvarDays: any): any;
-        public AddSeconds(pvarTime: any, pvarSeconds: any): any;
-        public Now(): any;
-        public Today(): any;
+        AddDays(pvarDate: any, pvarDays: any): any;
+        AddSeconds(pvarTime: any, pvarSeconds: any): any;
+        Now(): any;
+        Today(): any;
     }
 
     class DAVAdapterObject {
         private 'InfoPath.DAVAdapterObject_typekey': DAVAdapterObject;
         private constructor();
-        public FileName: string;
-        public FolderURL: string;
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
-        public SubmitData(pData: MSXML2.IXMLDOMNode): void;
+        FileName: string;
+        FolderURL: string;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
+        SubmitData(pData: MSXML2.IXMLDOMNode): void;
     }
 
     class DocActionEventObject {
         private 'InfoPath.DocActionEventObject_typekey': DocActionEventObject;
         private constructor();
-        public ReturnStatus: boolean;
-        public readonly Source: MSXML2.IXMLDOMNode;
-        public readonly XDocument: _XDocument;
+        ReturnStatus: boolean;
+        readonly Source: MSXML2.IXMLDOMNode;
+        readonly XDocument: _XDocument;
     }
 
     class DocContextChangeEventObject {
         private 'InfoPath.DocContextChangeEventObject_typekey': DocContextChangeEventObject;
         private constructor();
-        public readonly Context: MSXML2.IXMLDOMNode;
-        public readonly IsUndoRedo: boolean;
-        public readonly Type: string;
-        public readonly XDocument: _XDocument;
+        readonly Context: MSXML2.IXMLDOMNode;
+        readonly IsUndoRedo: boolean;
+        readonly Type: string;
+        readonly XDocument: _XDocument;
     }
 
     class DocEventObject {
         private 'InfoPath.DocEventObject_typekey': DocEventObject;
         private constructor();
-        public readonly XDocument: _XDocument;
+        readonly XDocument: _XDocument;
     }
 
     class DocReturnEventObject {
         private 'InfoPath.DocReturnEventObject_typekey': DocReturnEventObject;
         private constructor();
-        public ReturnStatus: boolean;
-        public readonly XDocument: _XDocument;
+        ReturnStatus: boolean;
+        readonly XDocument: _XDocument;
     }
 
     class EmailAdapterObject {
         private 'InfoPath.EmailAdapterObject_typekey': EmailAdapterObject;
         private constructor();
-        public AttachmentFileName: string;
-        public AttachmentType: XdAttachmentType;
-        public BCC: string;
-        public CC: string;
-        public Intro: string;
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public Subject: string;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
-        public SubmitData(pData: MSXML2.IXMLDOMNode): void;
-        public To: string;
+        AttachmentFileName: string;
+        AttachmentType: XdAttachmentType;
+        BCC: string;
+        CC: string;
+        Intro: string;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        Subject: string;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
+        SubmitData(pData: MSXML2.IXMLDOMNode): void;
+        To: string;
     }
 
     class ErrorObject {
         private 'InfoPath.ErrorObject_typekey': ErrorObject;
         private constructor();
-        public readonly ConditionName: any;
-        public DetailedErrorMessage: string;
-        public ErrorCode: number;
-        public readonly Node: MSXML2.IXMLDOMNode;
-        public ShortErrorMessage: string;
-        public readonly Type: string;
+        readonly ConditionName: any;
+        DetailedErrorMessage: string;
+        ErrorCode: number;
+        readonly Node: MSXML2.IXMLDOMNode;
+        ShortErrorMessage: string;
+        readonly Type: string;
     }
 
     class ErrorsCollection {
@@ -532,535 +532,535 @@ declare namespace InfoPath {
          * @param number [lErrorCode=0]
          * @param string [bstrType='modeless']
          */
-        public Add(varNode: any, bstrConditionName: string, bstrShortErrorMessage: string, bstrDetailedErrorMessage?: string, lErrorCode?: number, bstrType?: string): ADODB.Error;
-        public readonly Count: number;
-        public Delete(varNode: any, bstrConditionName: string): void;
-        public DeleteAll(): void;
-        public Item(index: number): ADODB.Error;
+        Add(varNode: any, bstrConditionName: string, bstrShortErrorMessage: string, bstrDetailedErrorMessage?: string, lErrorCode?: number, bstrType?: string): ADODB.Error;
+        readonly Count: number;
+        Delete(varNode: any, bstrConditionName: string): void;
+        DeleteAll(): void;
+        Item(index: number): ADODB.Error;
     }
 
     class ExternalApplication {
         private 'InfoPath.ExternalApplication_typekey': ExternalApplication;
         private constructor();
-        public CacheSolution(bstrSolutionURI: string): void;
-        public Close(bstrDocumentURI: string): void;
+        CacheSolution(bstrSolutionURI: string): void;
+        Close(bstrDocumentURI: string): void;
 
         /** @param number [dwBehavior=1] */
-        public New(bstrDocumentURI: string, dwBehavior?: number): void;
-        public NewFromSolution(bstrSolutionURI: string): void;
-        public NewFromSolutionWithInputParameters(bstrSolutionURI: string, bstrInputParameters: string): void;
+        New(bstrDocumentURI: string, dwBehavior?: number): void;
+        NewFromSolution(bstrSolutionURI: string): void;
+        NewFromSolutionWithInputParameters(bstrSolutionURI: string, bstrInputParameters: string): void;
 
         /** @param number [dwBehavior=1] */
-        public Open(bstrDocumentURI: string, dwBehavior?: number): void;
-        public Quit(): void;
+        Open(bstrDocumentURI: string, dwBehavior?: number): void;
+        Quit(): void;
 
         /** @param string [bstrBehavior='overwrite'] */
-        public RegisterSolution(bstrSolutionURL: string, bstrBehavior?: string): void;
-        public UnregisterSolution(bstrSolutionURI: string): void;
+        RegisterSolution(bstrSolutionURL: string, bstrBehavior?: string): void;
+        UnregisterSolution(bstrSolutionURI: string): void;
     }
 
     class HTMLTaskPaneObject {
         private 'InfoPath.HTMLTaskPaneObject_typekey': HTMLTaskPaneObject;
         private constructor();
-        public readonly HTMLDocument: MSHTML.IHTMLDocument2;
-        public readonly HTMLWindow: MSHTML.IHTMLWindow2;
-        public Navigate(bstrURL: string): void;
-        public readonly Type: XdTaskPaneType;
-        public Visible: boolean;
+        readonly HTMLDocument: MSHTML.IHTMLDocument2;
+        readonly HTMLWindow: MSHTML.IHTMLWindow2;
+        Navigate(bstrURL: string): void;
+        readonly Type: XdTaskPaneType;
+        Visible: boolean;
     }
 
     class HWSAdapterObject {
         private 'InfoPath.HWSAdapterObject_typekey': HWSAdapterObject;
         private constructor();
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
     }
 
     class IInitEventHandler {
         private 'InfoPath.IInitEventHandler_typekey': IInitEventHandler;
         private constructor();
-        public InitEventHandler(punkSender: any, pDocument: _XDocument, pROMode: XdReadOnlyViewMode): void;
+        InitEventHandler(punkSender: any, pDocument: _XDocument, pROMode: XdReadOnlyViewMode): void;
     }
 
     class InfoPathEditorObject {
         private 'InfoPath.InfoPathEditorObject_typekey': InfoPathEditorObject;
         private constructor();
-        public CloseDocument(): void;
-        public DataConnectionBaseUrl: string;
-        public FlushDocument(): void;
-        public Host: any;
-        public HostName: string;
-        public Load(bstrURL: string): void;
-        public LoadFromStream(punkStream: any): void;
-        public NewFromSolution(bstrSolutionURI: string): void;
-        public NewFromSolutionWithData(bstrURLXSN: string, punkStream: any, dwBehavior: number): void;
-        public SetInitEventHandler(handler: IInitEventHandler): void;
-        public SetNotifyHostEventHandler(pHandler: INotifyHostEventHandler): void;
-        public SetSubmitToHostEventHandler(pHandler: ISubmitToHostEventHandler): void;
-        public readonly XDocument: _XDocument;
+        CloseDocument(): void;
+        DataConnectionBaseUrl: string;
+        FlushDocument(): void;
+        Host: any;
+        HostName: string;
+        Load(bstrURL: string): void;
+        LoadFromStream(punkStream: any): void;
+        NewFromSolution(bstrSolutionURI: string): void;
+        NewFromSolutionWithData(bstrURLXSN: string, punkStream: any, dwBehavior: number): void;
+        SetInitEventHandler(handler: IInitEventHandler): void;
+        SetNotifyHostEventHandler(pHandler: INotifyHostEventHandler): void;
+        SetSubmitToHostEventHandler(pHandler: ISubmitToHostEventHandler): void;
+        readonly XDocument: _XDocument;
     }
 
     class INotifyHostEventHandler {
         private 'InfoPath.INotifyHostEventHandler_typekey': INotifyHostEventHandler;
         private constructor();
-        public NotifyHostEventHandler(punkSender: any, bstrNotification: string): void;
+        NotifyHostEventHandler(punkSender: any, bstrNotification: string): void;
     }
 
     class InputParameterCollection {
         private 'InfoPath.InputParameterCollection_typekey': InputParameterCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): InputParameterObject;
+        readonly Count: number;
+        Item(varIndex: any): InputParameterObject;
     }
 
     class InputParameterObject {
         private 'InfoPath.InputParameterObject_typekey': InputParameterObject;
         private constructor();
-        public readonly Name: string;
-        public readonly Value: string;
+        readonly Name: string;
+        readonly Value: string;
     }
 
     class ISubmitToHostEventHandler {
         private 'InfoPath.ISubmitToHostEventHandler_typekey': ISubmitToHostEventHandler;
         private constructor();
-        public SubmitToHostEventHandler(punkSender: any, bstrAdapterName: string, pbstrErrorMessage: string): number;
+        SubmitToHostEventHandler(punkSender: any, bstrAdapterName: string, pbstrErrorMessage: string): number;
     }
 
     class MailEnvelopeObject {
         private 'InfoPath.MailEnvelopeObject_typekey': MailEnvelopeObject;
         private constructor();
-        public BCC: string;
-        public CC: string;
-        public Subject: string;
-        public To: string;
-        public Visible: boolean;
+        BCC: string;
+        CC: string;
+        Subject: string;
+        To: string;
+        Visible: boolean;
     }
 
     class MathObject {
         private 'InfoPath.MathObject_typekey': MathObject;
         private constructor();
-        public Avg(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
-        public Eval(pxmllistContext: MSXML2.IXMLDOMNodeList, bstrExpression: string): any;
-        public Max(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
-        public Min(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
-        public Nz(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
+        Avg(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
+        Eval(pxmllistContext: MSXML2.IXMLDOMNodeList, bstrExpression: string): any;
+        Max(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
+        Min(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
+        Nz(pxmllistInput: MSXML2.IXMLDOMNodeList): any;
     }
 
     class MergeEventObject {
         private 'InfoPath.MergeEventObject_typekey': MergeEventObject;
         private constructor();
-        public readonly Count: number;
-        public readonly DOM: MSXML2.IXMLDOMDocument;
-        public readonly index: number;
-        public ReturnStatus: boolean;
-        public RollBack: boolean;
-        public readonly XDocument: _XDocument;
+        readonly Count: number;
+        readonly DOM: MSXML2.IXMLDOMDocument;
+        readonly index: number;
+        ReturnStatus: boolean;
+        RollBack: boolean;
+        readonly XDocument: _XDocument;
     }
 
     class PermissionObject {
         private 'InfoPath.PermissionObject_typekey': PermissionObject;
         private constructor();
-        public Add(bstrUserId: string, varPermission?: any, varExpirationDate?: any): UserPermissionObject;
-        public ApplyPolicy(bstrFileName: string): void;
-        public readonly Count: number;
-        public DocumentAuthor: string;
-        public Enabled: boolean;
-        public Item(varIndex: any): UserPermissionObject;
-        public readonly PermissionFromPolicy: boolean;
-        public readonly PolicyDescription: string;
-        public readonly PolicyName: string;
-        public RemoveAll(): void;
-        public RequestPermissionURL: string;
-        public StoreLicenses: boolean;
+        Add(bstrUserId: string, varPermission?: any, varExpirationDate?: any): UserPermissionObject;
+        ApplyPolicy(bstrFileName: string): void;
+        readonly Count: number;
+        DocumentAuthor: string;
+        Enabled: boolean;
+        Item(varIndex: any): UserPermissionObject;
+        readonly PermissionFromPolicy: boolean;
+        readonly PolicyDescription: string;
+        readonly PolicyName: string;
+        RemoveAll(): void;
+        RequestPermissionURL: string;
+        StoreLicenses: boolean;
     }
 
     class SaveEventObject {
         private 'InfoPath.SaveEventObject_typekey': SaveEventObject;
         private constructor();
-        public readonly FileName: string;
-        public IsCancelled: boolean;
-        public readonly IsSaveAs: boolean;
-        public PerformSaveOperation(): boolean;
-        public ReturnStatus: boolean;
-        public readonly XDocument: _XDocument;
+        readonly FileName: string;
+        IsCancelled: boolean;
+        readonly IsSaveAs: boolean;
+        PerformSaveOperation(): boolean;
+        ReturnStatus: boolean;
+        readonly XDocument: _XDocument;
     }
 
     class ServerInfoObject {
         private 'InfoPath.ServerInfoObject_typekey': ServerInfoObject;
         private constructor();
-        public readonly SharePointListUrl: string;
-        public readonly SharePointServerRootUrl: string;
-        public readonly SharePointSiteCollectionUrl: string;
-        public readonly SharePointSiteUrl: string;
+        readonly SharePointListUrl: string;
+        readonly SharePointServerRootUrl: string;
+        readonly SharePointSiteCollectionUrl: string;
+        readonly SharePointSiteUrl: string;
     }
 
     class SharepointListAdapterObject {
         private 'InfoPath.SharepointListAdapterObject_typekey': SharepointListAdapterObject;
         private constructor();
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public readonly SiteUrl: string;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        readonly SiteUrl: string;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
     }
 
     class SharePointListAdapterRWObject {
         private 'InfoPath.SharePointListAdapterRWObject_typekey': SharePointListAdapterRWObject;
         private constructor();
-        public ContentTypeId: string;
-        public ListId: string;
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public SiteUrl: string;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
+        ContentTypeId: string;
+        ListId: string;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        SiteUrl: string;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
     }
 
     class SignatureLineObject {
         private 'InfoPath.SignatureLineObject_typekey': SignatureLineObject;
         private constructor();
-        public readonly Id: string;
-        public Sign(bstrImageURL: string, bstrSuggestedSigner: string, bstrSuggestedSignerTitle: string, bstrSuggestedSignerEmailAddress: string): boolean;
-        public readonly Signature: SignatureObject;
-        public readonly SignatureAppearanceType: XdSignatureAppearanceType;
-        public SuggestedSigner: string;
-        public SuggestedSignerEmailAddress: string;
-        public SuggestedSignerTitle: string;
+        readonly Id: string;
+        Sign(bstrImageURL: string, bstrSuggestedSigner: string, bstrSuggestedSignerTitle: string, bstrSuggestedSignerEmailAddress: string): boolean;
+        readonly Signature: SignatureObject;
+        readonly SignatureAppearanceType: XdSignatureAppearanceType;
+        SuggestedSigner: string;
+        SuggestedSignerEmailAddress: string;
+        SuggestedSignerTitle: string;
     }
 
     class SignatureLinesCollection {
         private 'InfoPath.SignatureLinesCollection_typekey': SignatureLinesCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): SignatureLineObject;
+        readonly Count: number;
+        Item(varIndex: any): SignatureLineObject;
     }
 
     class SignatureObject {
         private 'InfoPath.SignatureObject_typekey': SignatureObject;
         private constructor();
-        public readonly Certificate: CertificateObject;
-        public readonly Comment: string;
-        public Sign(): void;
-        public readonly SignatureBlockXmlNode: MSXML2.IXMLDOMNode;
-        public readonly Status: XdSignatureStatus;
+        readonly Certificate: CertificateObject;
+        readonly Comment: string;
+        Sign(): void;
+        readonly SignatureBlockXmlNode: MSXML2.IXMLDOMNode;
+        readonly Status: XdSignatureStatus;
     }
 
     class SignaturesCollection {
         private 'InfoPath.SignaturesCollection_typekey': SignaturesCollection;
         private constructor();
-        public readonly Count: number;
-        public Create(): SignatureObject;
-        public Item(varIndex: any): SignatureObject;
+        readonly Count: number;
+        Create(): SignatureObject;
+        Item(varIndex: any): SignatureObject;
     }
 
     class SignedDataBlockObject {
         private 'InfoPath.SignedDataBlockObject_typekey': SignedDataBlockObject;
         private constructor();
-        public readonly Caption: string;
-        public readonly Name: string;
-        public Sign(): void;
-        public readonly SignatureContainer: MSXML2.IXMLDOMNode;
-        public readonly SignatureRelation: XdSignatureRelation;
-        public readonly Signatures: SignaturesCollection;
-        public readonly XPath: string;
-        public readonly XPathNamespaceDeclarations: string;
+        readonly Caption: string;
+        readonly Name: string;
+        Sign(): void;
+        readonly SignatureContainer: MSXML2.IXMLDOMNode;
+        readonly SignatureRelation: XdSignatureRelation;
+        readonly Signatures: SignaturesCollection;
+        readonly XPath: string;
+        readonly XPathNamespaceDeclarations: string;
     }
 
     class SignedDataBlocksCollection {
         private 'InfoPath.SignedDataBlocksCollection_typekey': SignedDataBlocksCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): SignedDataBlockObject;
+        readonly Count: number;
+        Item(varIndex: any): SignedDataBlockObject;
     }
 
     class SignEventObject {
         private 'InfoPath.SignEventObject_typekey': SignEventObject;
         private constructor();
-        public ReturnStatus: boolean;
-        public readonly SignedDataBlock: SignedDataBlockObject;
-        public readonly XDocument: _XDocument;
+        ReturnStatus: boolean;
+        readonly SignedDataBlock: SignedDataBlockObject;
+        readonly XDocument: _XDocument;
     }
 
     class SolutionObject {
         private 'InfoPath.SolutionObject_typekey': SolutionObject;
         private constructor();
-        public readonly DOM: MSXML2.IXMLDOMDocument;
-        public readonly PackageURL: string;
-        public readonly URI: string;
-        public readonly Version: string;
+        readonly DOM: MSXML2.IXMLDOMDocument;
+        readonly PackageURL: string;
+        readonly URI: string;
+        readonly Version: string;
     }
 
     class SubmitToHostAdapterObject {
         private 'InfoPath.SubmitToHostAdapterObject_typekey': SubmitToHostAdapterObject;
         private constructor();
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
     }
 
     class TaskPaneObject {
         private 'InfoPath.TaskPaneObject_typekey': TaskPaneObject;
         private constructor();
-        public readonly Type: XdTaskPaneType;
-        public Visible: boolean;
+        readonly Type: XdTaskPaneType;
+        Visible: boolean;
     }
 
     class TaskPanesCollection {
         private 'InfoPath.TaskPanesCollection_typekey': TaskPanesCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): TaskPaneObject;
+        readonly Count: number;
+        Item(varIndex: any): TaskPaneObject;
     }
 
     class UI {
         private 'InfoPath.UI_typekey': UI;
         private constructor();
-        public Alert(bstrAlertString: string): void;
-        public ShowMailItem(bstrTo: string, bstrCC: string, bstrBCC: string, bstrSubject: string, bstrBody: string): void;
-        public ShowModalDialog(bstrName: string, varArguments?: any, varHeight?: any, varWidth?: any, varTop?: any, varLeft?: any): any;
-        public ShowSignatureDialog(): void;
+        Alert(bstrAlertString: string): void;
+        ShowMailItem(bstrTo: string, bstrCC: string, bstrBCC: string, bstrSubject: string, bstrBody: string): void;
+        ShowModalDialog(bstrName: string, varArguments?: any, varHeight?: any, varWidth?: any, varTop?: any, varLeft?: any): any;
+        ShowSignatureDialog(): void;
     }
 
     class UIObject {
         private 'InfoPath.UIObject_typekey': UIObject;
         private constructor();
-        public Alert(bstrAlertString: string): void;
-        public Confirm(bstrPrompt: string, lButtons: XdConfirmButtons): XdConfirmChoice;
-        public SetSaveAsDialogFileName(bstrFileName: string): void;
-        public SetSaveAsDialogLocation(bstrLocation: string): void;
-        public ShowMailItem(bstrTo: string, bstrCC: string, bstrBCC: string, bstrSubject: string, bstrBody: string): void;
-        public ShowModalDialog(bstrName: string, varArguments?: any, varHeight?: any, varWidth?: any, varTop?: any, varLeft?: any): any;
-        public ShowSignatureDialog(): void;
+        Alert(bstrAlertString: string): void;
+        Confirm(bstrPrompt: string, lButtons: XdConfirmButtons): XdConfirmChoice;
+        SetSaveAsDialogFileName(bstrFileName: string): void;
+        SetSaveAsDialogLocation(bstrLocation: string): void;
+        ShowMailItem(bstrTo: string, bstrCC: string, bstrBCC: string, bstrSubject: string, bstrBody: string): void;
+        ShowModalDialog(bstrName: string, varArguments?: any, varHeight?: any, varWidth?: any, varTop?: any, varLeft?: any): any;
+        ShowSignatureDialog(): void;
     }
 
     class UserObject {
         private 'InfoPath.UserObject_typekey': UserObject;
         private constructor();
-        public IsCurrentUser(bstrUsername: string): boolean;
-        public IsUserMemberOf(bstrGroupname: string): boolean;
+        IsCurrentUser(bstrUsername: string): boolean;
+        IsUserMemberOf(bstrGroupname: string): boolean;
     }
 
     class UserPermissionObject {
         private 'InfoPath.UserPermissionObject_typekey': UserPermissionObject;
         private constructor();
-        public ExpirationDate: any;
-        public readonly Parent: any;
-        public Permission: number;
-        public Remove(): void;
-        public readonly UserId: string;
+        ExpirationDate: any;
+        readonly Parent: any;
+        Permission: number;
+        Remove(): void;
+        readonly UserId: string;
     }
 
     class UtilObject {
         private 'InfoPath.UtilObject_typekey': UtilObject;
         private constructor();
-        public readonly Date: VarDate;
-        public Match(bstrValue: string, bstrPattern: string): boolean;
-        public readonly Math: MathObject;
+        readonly Date: VarDate;
+        Match(bstrValue: string, bstrPattern: string): boolean;
+        readonly Math: MathObject;
     }
 
     class VersionUpgradeEventObject {
         private 'InfoPath.VersionUpgradeEventObject_typekey': VersionUpgradeEventObject;
         private constructor();
-        public readonly DocumentVersion: string;
-        public ReturnStatus: boolean;
-        public readonly SolutionVersion: string;
-        public readonly XDocument: _XDocument;
+        readonly DocumentVersion: string;
+        ReturnStatus: boolean;
+        readonly SolutionVersion: string;
+        readonly XDocument: _XDocument;
     }
 
     class ViewInfoObject {
         private 'InfoPath.ViewInfoObject_typekey': ViewInfoObject;
         private constructor();
-        public IsDefault: boolean;
-        public readonly Name: string;
+        IsDefault: boolean;
+        readonly Name: string;
     }
 
     class ViewInfosCollection {
         private 'InfoPath.ViewInfosCollection_typekey': ViewInfosCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): ViewInfoObject;
+        readonly Count: number;
+        Item(varIndex: any): ViewInfoObject;
     }
 
     class ViewObject {
         private 'InfoPath.ViewObject_typekey': ViewObject;
         private constructor();
-        public DisableAutoUpdate(): void;
-        public EnableAutoUpdate(): void;
-        public ExecuteAction(bstrAction: string, varXmlToEdit?: any): void;
-        public Export(bstrURL: string, bstrFormat: string): void;
-        public ForceUpdate(): void;
-        public GetContextNodes(varNode?: any, varViewContext?: any): XMLNodesCollection;
-        public GetSelectedNodes(): XMLNodesCollection;
-        public readonly Name: string;
-        public SelectNodes(pxnStartNode: MSXML2.IXMLDOMNode, varEndNode?: any, varViewContext?: any): void;
-        public SelectText(pxnField: MSXML2.IXMLDOMNode, varViewContext?: any): void;
-        public SwitchView(bstrName: string): void;
-        public readonly Window: Window;
+        DisableAutoUpdate(): void;
+        EnableAutoUpdate(): void;
+        ExecuteAction(bstrAction: string, varXmlToEdit?: any): void;
+        Export(bstrURL: string, bstrFormat: string): void;
+        ForceUpdate(): void;
+        GetContextNodes(varNode?: any, varViewContext?: any): XMLNodesCollection;
+        GetSelectedNodes(): XMLNodesCollection;
+        readonly Name: string;
+        SelectNodes(pxnStartNode: MSXML2.IXMLDOMNode, varEndNode?: any, varViewContext?: any): void;
+        SelectText(pxnField: MSXML2.IXMLDOMNode, varViewContext?: any): void;
+        SwitchView(bstrName: string): void;
+        readonly Window: Window;
     }
 
     class WebServiceAdapterObject {
         private 'InfoPath.WebServiceAdapterObject_typekey': WebServiceAdapterObject;
         private constructor();
-        public readonly ErrorsLocation: MSXML2.IXMLDOMNode;
-        public GenerateDataSetDiffGram(pNode: MSXML2.IXMLDOMNode): MSXML2.IXMLDOMNode;
-        public Input: string;
-        public readonly Name: string;
-        public Operation: string;
-        public readonly OutputLocation: MSXML2.IXMLDOMNode;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
-        public Timeout: number;
-        public readonly WSDLURL: string;
+        readonly ErrorsLocation: MSXML2.IXMLDOMNode;
+        GenerateDataSetDiffGram(pNode: MSXML2.IXMLDOMNode): MSXML2.IXMLDOMNode;
+        Input: string;
+        readonly Name: string;
+        Operation: string;
+        readonly OutputLocation: MSXML2.IXMLDOMNode;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
+        Timeout: number;
+        readonly WSDLURL: string;
     }
 
     class Window {
         private 'InfoPath.Window_typekey': Window;
         private constructor();
-        public Activate(): void;
-        public readonly Active: boolean;
+        Activate(): void;
+        readonly Active: boolean;
 
         /** @param boolean [fForce=false] */
-        public Close(fForce?: boolean): void;
-        public readonly CommandBars: any;
-        public readonly MailEnvelope: MailEnvelopeObject;
-        public readonly TaskPanes: TaskPanesCollection;
-        public readonly Type: XdWindowType;
-        public readonly XDocument: _XDocument;
+        Close(fForce?: boolean): void;
+        readonly CommandBars: any;
+        readonly MailEnvelope: MailEnvelopeObject;
+        readonly TaskPanes: TaskPanesCollection;
+        readonly Type: XdWindowType;
+        readonly XDocument: _XDocument;
     }
 
     class WindowObject {
         private 'InfoPath.WindowObject_typekey': WindowObject;
         private constructor();
-        public Activate(): void;
-        public readonly Active: boolean;
-        public Caption: string;
+        Activate(): void;
+        readonly Active: boolean;
+        Caption: string;
 
         /** @param boolean [fForce=false] */
-        public Close(fForce?: boolean): void;
-        public readonly CommandBars: any;
-        public Height: number;
-        public Left: number;
-        public readonly MailEnvelope: MailEnvelopeObject;
-        public readonly TaskPanes: TaskPanesCollection;
-        public Top: number;
-        public readonly Type: XdWindowType;
-        public Width: number;
-        public WindowState: XdWindowState;
-        public readonly XDocument: _XDocument;
+        Close(fForce?: boolean): void;
+        readonly CommandBars: any;
+        Height: number;
+        Left: number;
+        readonly MailEnvelope: MailEnvelopeObject;
+        readonly TaskPanes: TaskPanesCollection;
+        Top: number;
+        readonly Type: XdWindowType;
+        Width: number;
+        WindowState: XdWindowState;
+        readonly XDocument: _XDocument;
     }
 
     class WindowsCollection {
         private 'InfoPath.WindowsCollection_typekey': WindowsCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): Window;
+        readonly Count: number;
+        Item(varIndex: any): Window;
     }
 
     class XDNetworkState {
         private 'InfoPath.XDNetworkState_typekey': XDNetworkState;
         private constructor();
-        public IsDestinationReachable(bstrDestination: string): boolean;
-        public readonly MachineOnlineState: XdMachineOnlineState;
+        IsDestinationReachable(bstrDestination: string): boolean;
+        readonly MachineOnlineState: XdMachineOnlineState;
     }
 
     class XDocument {
         private 'InfoPath.XDocument_typekey': XDocument;
         private constructor();
-        public CreateDOM(): MSXML2.IXMLDOMDocument;
-        public readonly DataAdapters: DataAdaptersCollection;
-        public readonly DataObjects: DataObjectsCollection;
-        public readonly DOM: MSXML2.IXMLDOMDocument;
-        public readonly Errors: ADODB.Errors;
-        public readonly Extension: any;
-        public GetDataVariable(lVariableNumber: number): string;
-        public GetDOM(bstrName: string): MSXML2.IXMLDOMDocument;
-        public GetNamedNodeProperty(varMainDOMNode: any, bstrPropertyName: string, bstrDefaultValue: string): string;
-        public ImportDOM(pxDoc: MSXML2.IXMLDOMDocument): void;
-        public ImportFile(bstrFileURI: string): void;
-        public readonly IsDirty: boolean;
-        public readonly IsDOMReadOnly: boolean;
-        public readonly IsNew: boolean;
-        public readonly IsReadOnly: boolean;
-        public readonly IsRecovered: boolean;
-        public readonly IsSigned: boolean;
-        public Language: string;
-        public PrintOut(): void;
-        public Query(): void;
-        public readonly QueryAdapter: any;
-        public Role: string;
-        public Save(): void;
-        public SaveAs(bstrFileUrl: string): void;
-        public SetDataVariable(lVariableNumber: number, bstrVariableValue: string): void;
-        public SetDirty(vfIsDirty: boolean): void;
-        public SetNamedNodeProperty(pxmlMainDOMNode: MSXML2.IXMLDOMNode, bstrPropertyName: string, bstrValue: string): void;
-        public readonly SignedDataBlocks: SignedDataBlocksCollection;
-        public readonly Solution: SolutionObject;
-        public Submit(): void;
-        public readonly UI: UI;
-        public readonly URI: string;
-        public readonly Util: UtilObject;
-        public readonly View: ViewObject;
-        public readonly ViewInfos: ViewInfosCollection;
+        CreateDOM(): MSXML2.IXMLDOMDocument;
+        readonly DataAdapters: DataAdaptersCollection;
+        readonly DataObjects: DataObjectsCollection;
+        readonly DOM: MSXML2.IXMLDOMDocument;
+        readonly Errors: ADODB.Errors;
+        readonly Extension: any;
+        GetDataVariable(lVariableNumber: number): string;
+        GetDOM(bstrName: string): MSXML2.IXMLDOMDocument;
+        GetNamedNodeProperty(varMainDOMNode: any, bstrPropertyName: string, bstrDefaultValue: string): string;
+        ImportDOM(pxDoc: MSXML2.IXMLDOMDocument): void;
+        ImportFile(bstrFileURI: string): void;
+        readonly IsDirty: boolean;
+        readonly IsDOMReadOnly: boolean;
+        readonly IsNew: boolean;
+        readonly IsReadOnly: boolean;
+        readonly IsRecovered: boolean;
+        readonly IsSigned: boolean;
+        Language: string;
+        PrintOut(): void;
+        Query(): void;
+        readonly QueryAdapter: any;
+        Role: string;
+        Save(): void;
+        SaveAs(bstrFileUrl: string): void;
+        SetDataVariable(lVariableNumber: number, bstrVariableValue: string): void;
+        SetDirty(vfIsDirty: boolean): void;
+        SetNamedNodeProperty(pxmlMainDOMNode: MSXML2.IXMLDOMNode, bstrPropertyName: string, bstrValue: string): void;
+        readonly SignedDataBlocks: SignedDataBlocksCollection;
+        readonly Solution: SolutionObject;
+        Submit(): void;
+        readonly UI: UI;
+        readonly URI: string;
+        readonly Util: UtilObject;
+        readonly View: ViewObject;
+        readonly ViewInfos: ViewInfosCollection;
     }
 
     class XDocuments {
         private 'InfoPath.XDocuments_typekey': XDocuments;
         private constructor();
-        public Close(varIndex: any): void;
-        public readonly Count: number;
-        public Item(varIndex: any): _XDocument;
+        Close(varIndex: any): void;
+        readonly Count: number;
+        Item(varIndex: any): _XDocument;
 
         /** @param number [dwBehavior=1] */
-        public New(varURI: any, dwBehavior?: number): _XDocument;
-        public NewFromSolution(varURI: any): _XDocument;
+        New(varURI: any, dwBehavior?: number): _XDocument;
+        NewFromSolution(varURI: any): _XDocument;
 
         /** @param number [dwBehavior=1] */
-        public Open(varURI: any, dwBehavior?: number): _XDocument;
+        Open(varURI: any, dwBehavior?: number): _XDocument;
     }
 
     class XDocumentsCollection {
         private 'InfoPath.XDocumentsCollection_typekey': XDocumentsCollection;
         private constructor();
-        public Close(varIndex: any): void;
-        public readonly Count: number;
-        public Item(varIndex: any): _XDocument;
+        Close(varIndex: any): void;
+        readonly Count: number;
+        Item(varIndex: any): _XDocument;
 
         /** @param number [dwBehavior=1] */
-        public New(varURI: any, dwBehavior?: number): _XDocument;
-        public NewFromSolution(varURI: any): _XDocument;
+        New(varURI: any, dwBehavior?: number): _XDocument;
+        NewFromSolution(varURI: any): _XDocument;
 
         /** @param number [dwBehavior=1] */
-        public NewFromSolutionWithData(varXMLData: any, varSolutionURI: any, dwBehavior?: number): XDocument;
+        NewFromSolutionWithData(varXMLData: any, varSolutionURI: any, dwBehavior?: number): XDocument;
 
         /** @param number [dwBehavior=1] */
-        public Open(varURI: any, dwBehavior?: number): _XDocument;
+        Open(varURI: any, dwBehavior?: number): _XDocument;
     }
 
     class XMLFileAdapterObject {
         private 'InfoPath.XMLFileAdapterObject_typekey': XMLFileAdapterObject;
         private constructor();
-        public FileURL: string;
-        public readonly Name: string;
-        public Query(): void;
-        public readonly QueryAllowed: boolean;
-        public Submit(): void;
-        public readonly SubmitAllowed: boolean;
+        FileURL: string;
+        readonly Name: string;
+        Query(): void;
+        readonly QueryAllowed: boolean;
+        Submit(): void;
+        readonly SubmitAllowed: boolean;
     }
 
     class XMLNodesCollection {
         private 'InfoPath.XMLNodesCollection_typekey': XMLNodesCollection;
         private constructor();
-        public readonly Count: number;
-        public Item(varIndex: any): MSXML2.IXMLDOMNode;
+        readonly Count: number;
+        Item(varIndex: any): MSXML2.IXMLDOMNode;
     }
 
     namespace EventHelperTypes {

@@ -89,85 +89,85 @@ declare namespace VBIDE {
     class AddIn {
         private 'VBIDE.AddIn_typekey': AddIn;
         private constructor();
-        public readonly Collection: Addins;
-        public Connect: boolean;
-        public Description: string;
-        public readonly Guid: string;
-        public Object: any;
-        public readonly ProgId: string;
-        public readonly VBE: VBE;
+        readonly Collection: Addins;
+        Connect: boolean;
+        Description: string;
+        readonly Guid: string;
+        Object: any;
+        readonly ProgId: string;
+        readonly VBE: VBE;
     }
 
     class Addins {
         private 'VBIDE.Addins_typekey': Addins;
         private constructor();
-        public readonly Count: number;
-        public Item(index: any): AddIn;
-        public readonly Parent: any;
-        public Update(): void;
-        public readonly VBE: VBE;
+        readonly Count: number;
+        Item(index: any): AddIn;
+        readonly Parent: any;
+        Update(): void;
+        readonly VBE: VBE;
     }
 
     class Application {
         private 'VBIDE.Application_typekey': Application;
         private constructor();
-        public readonly Version: string;
+        readonly Version: string;
     }
 
     class CodeModule {
         private 'VBIDE.CodeModule_typekey': CodeModule;
         private constructor();
-        public AddFromFile(FileName: string): void;
-        public AddFromString(String: string): void;
-        public readonly CodePane: CodePane;
-        public readonly CountOfDeclarationLines: number;
-        public readonly CountOfLines: number;
-        public CreateEventProc(EventName: string, ObjectName: string): number;
+        AddFromFile(FileName: string): void;
+        AddFromString(String: string): void;
+        readonly CodePane: CodePane;
+        readonly CountOfDeclarationLines: number;
+        readonly CountOfLines: number;
+        CreateEventProc(EventName: string, ObjectName: string): number;
 
         /** @param number [Count=1] */
-        public DeleteLines(StartLine: number, Count?: number): void;
+        DeleteLines(StartLine: number, Count?: number): void;
 
         /**
          * @param boolean [WholeWord=false]
          * @param boolean [MatchCase=false]
          * @param boolean [PatternSearch=false]
          */
-        public Find(Target: string, StartLine: number, StartColumn: number, EndLine: number, EndColumn: number, WholeWord?: boolean, MatchCase?: boolean, PatternSearch?: boolean): boolean;
-        public InsertLines(Line: number, String: string): void;
-        public Lines(StartLine: number, Count: number): string;
-        public Name: string;
-        public readonly Parent: VBComponent;
-        public ProcBodyLine(ProcName: string, ProcKind: vbext_ProcKind): number;
-        public ProcCountLines(ProcName: string, ProcKind: vbext_ProcKind): number;
-        public ProcOfLine(Line: number, ProcKind: vbext_ProcKind): string;
-        public ProcStartLine(ProcName: string, ProcKind: vbext_ProcKind): number;
-        public ReplaceLine(Line: number, String: string): void;
-        public readonly VBE: VBE;
+        Find(Target: string, StartLine: number, StartColumn: number, EndLine: number, EndColumn: number, WholeWord?: boolean, MatchCase?: boolean, PatternSearch?: boolean): boolean;
+        InsertLines(Line: number, String: string): void;
+        Lines(StartLine: number, Count: number): string;
+        Name: string;
+        readonly Parent: VBComponent;
+        ProcBodyLine(ProcName: string, ProcKind: vbext_ProcKind): number;
+        ProcCountLines(ProcName: string, ProcKind: vbext_ProcKind): number;
+        ProcOfLine(Line: number, ProcKind: vbext_ProcKind): string;
+        ProcStartLine(ProcName: string, ProcKind: vbext_ProcKind): number;
+        ReplaceLine(Line: number, String: string): void;
+        readonly VBE: VBE;
     }
 
     class CodePane {
         private 'VBIDE.CodePane_typekey': CodePane;
         private constructor();
-        public readonly CodeModule: CodeModule;
-        public readonly CodePaneView: vbext_CodePaneview;
-        public readonly Collection: CodePanes;
-        public readonly CountOfVisibleLines: number;
-        public GetSelection(StartLine: number, StartColumn: number, EndLine: number, EndColumn: number): void;
-        public SetSelection(StartLine: number, StartColumn: number, EndLine: number, EndColumn: number): void;
-        public Show(): void;
-        public TopLine: number;
-        public readonly VBE: VBE;
-        public readonly Window: Window;
+        readonly CodeModule: CodeModule;
+        readonly CodePaneView: vbext_CodePaneview;
+        readonly Collection: CodePanes;
+        readonly CountOfVisibleLines: number;
+        GetSelection(StartLine: number, StartColumn: number, EndLine: number, EndColumn: number): void;
+        SetSelection(StartLine: number, StartColumn: number, EndLine: number, EndColumn: number): void;
+        Show(): void;
+        TopLine: number;
+        readonly VBE: VBE;
+        readonly Window: Window;
     }
 
     class CodePanes {
         private 'VBIDE.CodePanes_typekey': CodePanes;
         private constructor();
-        public readonly Count: number;
-        public Current: CodePane;
-        public Item(index: any): CodePane;
-        public readonly Parent: VBE;
-        public readonly VBE: VBE;
+        readonly Count: number;
+        Current: CodePane;
+        Item(index: any): CodePane;
+        readonly Parent: VBE;
+        readonly VBE: VBE;
     }
 
     class CommandBarEvents {
@@ -178,100 +178,100 @@ declare namespace VBIDE {
     class Component {
         private 'VBIDE.Component_typekey': Component;
         private constructor();
-        public readonly Application: Application;
-        public IsDirty: boolean;
-        public Name: string;
-        public readonly Parent: Components;
+        readonly Application: Application;
+        IsDirty: boolean;
+        Name: string;
+        readonly Parent: Components;
     }
 
     class Components {
         private 'VBIDE.Components_typekey': Components;
         private constructor();
-        public Add(ComponentType: vbext_ComponentType): Component;
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Import(FileName: string): Component;
-        public Item(index: any): Component;
-        public readonly Parent: VBProject;
-        public Remove(Component: Component): void;
-        public readonly VBE: VBE;
+        Add(ComponentType: vbext_ComponentType): Component;
+        readonly Application: Application;
+        readonly Count: number;
+        Import(FileName: string): Component;
+        Item(index: any): Component;
+        readonly Parent: VBProject;
+        Remove(Component: Component): void;
+        readonly VBE: VBE;
     }
 
     class Events {
         private 'VBIDE.Events_typekey': Events;
         private constructor();
-        public CommandBarEvents(CommandBarControl: any): CommandBarEvents;
-        public ReferencesEvents(VBProject: VBProject): ReferencesEvents;
+        CommandBarEvents(CommandBarControl: any): CommandBarEvents;
+        ReferencesEvents(VBProject: VBProject): ReferencesEvents;
     }
 
     class LinkedWindows {
         private 'VBIDE.LinkedWindows_typekey': LinkedWindows;
         private constructor();
-        public Add(Window: Window): void;
-        public readonly Count: number;
-        public Item(index: any): Window;
-        public readonly Parent: Window;
-        public Remove(Window: Window): void;
-        public readonly VBE: VBE;
+        Add(Window: Window): void;
+        readonly Count: number;
+        Item(index: any): Window;
+        readonly Parent: Window;
+        Remove(Window: Window): void;
+        readonly VBE: VBE;
     }
 
     class ProjectTemplate {
         private 'VBIDE.ProjectTemplate_typekey': ProjectTemplate;
         private constructor();
-        public readonly Application: Application;
-        public readonly Parent: Application;
+        readonly Application: Application;
+        readonly Parent: Application;
     }
 
     class Properties {
         private 'VBIDE.Properties_typekey': Properties;
         private constructor();
-        public readonly Application: Application;
-        public readonly Count: number;
-        public Item(index: any): Property;
-        public readonly Parent: any;
-        public readonly VBE: VBE;
+        readonly Application: Application;
+        readonly Count: number;
+        Item(index: any): Property;
+        readonly Parent: any;
+        readonly VBE: VBE;
     }
 
     class Property {
         private 'VBIDE.Property_typekey': Property;
         private constructor();
-        public readonly Application: Application;
-        public readonly Collection: Properties;
-        public IndexedValue(Index1: any, Index2?: any, Index3?: any, Index4?: any): any;
-        public readonly Name: string;
-        public readonly NumIndices: number;
-        public Object: any;
-        public readonly Parent: Properties;
-        public Value: any;
-        public readonly VBE: VBE;
+        readonly Application: Application;
+        readonly Collection: Properties;
+        IndexedValue(Index1: any, Index2?: any, Index3?: any, Index4?: any): any;
+        readonly Name: string;
+        readonly NumIndices: number;
+        Object: any;
+        readonly Parent: Properties;
+        Value: any;
+        readonly VBE: VBE;
     }
 
     class Reference {
         private 'VBIDE.Reference_typekey': Reference;
         private constructor();
-        public readonly BuiltIn: boolean;
-        public readonly Collection: References;
-        public readonly Description: string;
-        public readonly FullPath: string;
-        public readonly Guid: string;
-        public readonly IsBroken: boolean;
-        public readonly Major: number;
-        public readonly Minor: number;
-        public readonly Name: string;
-        public readonly Type: vbext_RefKind;
-        public readonly VBE: VBE;
+        readonly BuiltIn: boolean;
+        readonly Collection: References;
+        readonly Description: string;
+        readonly FullPath: string;
+        readonly Guid: string;
+        readonly IsBroken: boolean;
+        readonly Major: number;
+        readonly Minor: number;
+        readonly Name: string;
+        readonly Type: vbext_RefKind;
+        readonly VBE: VBE;
     }
 
     class References {
         private 'VBIDE.References_typekey': References;
         private constructor();
-        public AddFromFile(FileName: string): Reference;
-        public AddFromGuid(Guid: string, Major: number, Minor: number): Reference;
-        public readonly Count: number;
-        public Item(index: any): Reference;
-        public readonly Parent: VBProject;
-        public Remove(Reference: Reference): void;
-        public readonly VBE: VBE;
+        AddFromFile(FileName: string): Reference;
+        AddFromGuid(Guid: string, Major: number, Minor: number): Reference;
+        readonly Count: number;
+        Item(index: any): Reference;
+        readonly Parent: VBProject;
+        Remove(Reference: Reference): void;
+        readonly VBE: VBE;
     }
 
     class ReferencesEvents {
@@ -282,117 +282,117 @@ declare namespace VBIDE {
     class VBComponent {
         private 'VBIDE.VBComponent_typekey': VBComponent;
         private constructor();
-        public Activate(): void;
-        public readonly CodeModule: CodeModule;
-        public readonly Collection: VBComponents;
-        public readonly Designer: any;
-        public readonly DesignerID: string;
-        public DesignerWindow(): Window;
-        public Export(FileName: string): void;
-        public readonly HasOpenDesigner: boolean;
-        public Name: string;
-        public readonly Properties: Properties;
-        public readonly Saved: boolean;
-        public readonly Type: vbext_ComponentType;
-        public readonly VBE: VBE;
+        Activate(): void;
+        readonly CodeModule: CodeModule;
+        readonly Collection: VBComponents;
+        readonly Designer: any;
+        readonly DesignerID: string;
+        DesignerWindow(): Window;
+        Export(FileName: string): void;
+        readonly HasOpenDesigner: boolean;
+        Name: string;
+        readonly Properties: Properties;
+        readonly Saved: boolean;
+        readonly Type: vbext_ComponentType;
+        readonly VBE: VBE;
     }
 
     class VBComponents {
         private 'VBIDE.VBComponents_typekey': VBComponents;
         private constructor();
-        public Add(ComponentType: vbext_ComponentType): VBComponent;
-        public AddCustom(ProgId: string): VBComponent;
+        Add(ComponentType: vbext_ComponentType): VBComponent;
+        AddCustom(ProgId: string): VBComponent;
 
         /** @param number [index=0] */
-        public AddMTDesigner(index?: number): VBComponent;
-        public readonly Count: number;
-        public Import(FileName: string): VBComponent;
-        public Item(index: any): VBComponent;
-        public readonly Parent: VBProject;
-        public Remove(VBComponent: VBComponent): void;
-        public readonly VBE: VBE;
+        AddMTDesigner(index?: number): VBComponent;
+        readonly Count: number;
+        Import(FileName: string): VBComponent;
+        Item(index: any): VBComponent;
+        readonly Parent: VBProject;
+        Remove(VBComponent: VBComponent): void;
+        readonly VBE: VBE;
     }
 
     class VBE {
         private 'VBIDE.VBE_typekey': VBE;
         private constructor();
-        public ActiveCodePane: CodePane;
-        public ActiveVBProject: VBProject;
-        public readonly ActiveWindow: Window;
-        public readonly Addins: Addins;
-        public readonly CodePanes: CodePanes;
-        public readonly CommandBars: Office.CommandBars;
-        public readonly Events: Events;
-        public readonly MainWindow: Window;
-        public readonly SelectedVBComponent: VBComponent;
-        public readonly VBProjects: VBProjects;
-        public readonly Version: string;
-        public readonly Windows: Windows;
+        ActiveCodePane: CodePane;
+        ActiveVBProject: VBProject;
+        readonly ActiveWindow: Window;
+        readonly Addins: Addins;
+        readonly CodePanes: CodePanes;
+        readonly CommandBars: Office.CommandBars;
+        readonly Events: Events;
+        readonly MainWindow: Window;
+        readonly SelectedVBComponent: VBComponent;
+        readonly VBProjects: VBProjects;
+        readonly Version: string;
+        readonly Windows: Windows;
     }
 
     class VBProject {
         private 'VBIDE.VBProject_typekey': VBProject;
         private constructor();
-        public readonly Application: Application;
-        public BuildFileName: string;
-        public readonly Collection: VBProjects;
-        public Description: string;
-        public readonly FileName: string;
-        public HelpContextID: number;
-        public HelpFile: string;
-        public MakeCompiledFile(): void;
-        public readonly Mode: vbext_VBAMode;
-        public Name: string;
-        public readonly Parent: Application;
-        public readonly Protection: vbext_ProjectProtection;
-        public readonly References: References;
-        public SaveAs(FileName: string): void;
-        public readonly Saved: boolean;
-        public readonly Type: vbext_ProjectType;
-        public readonly VBComponents: VBComponents;
-        public readonly VBE: VBE;
+        readonly Application: Application;
+        BuildFileName: string;
+        readonly Collection: VBProjects;
+        Description: string;
+        readonly FileName: string;
+        HelpContextID: number;
+        HelpFile: string;
+        MakeCompiledFile(): void;
+        readonly Mode: vbext_VBAMode;
+        Name: string;
+        readonly Parent: Application;
+        readonly Protection: vbext_ProjectProtection;
+        readonly References: References;
+        SaveAs(FileName: string): void;
+        readonly Saved: boolean;
+        readonly Type: vbext_ProjectType;
+        readonly VBComponents: VBComponents;
+        readonly VBE: VBE;
     }
 
     class VBProjects {
         private 'VBIDE.VBProjects_typekey': VBProjects;
         private constructor();
-        public Add(Type: vbext_ProjectType): VBProject;
-        public readonly Count: number;
-        public Item(index: any): VBProject;
-        public Open(bstrPath: string): VBProject;
-        public readonly Parent: VBE;
-        public Remove(lpc: VBProject): void;
-        public readonly VBE: VBE;
+        Add(Type: vbext_ProjectType): VBProject;
+        readonly Count: number;
+        Item(index: any): VBProject;
+        Open(bstrPath: string): VBProject;
+        readonly Parent: VBE;
+        Remove(lpc: VBProject): void;
+        readonly VBE: VBE;
     }
 
     class Window {
         private 'VBIDE.Window_typekey': Window;
         private constructor();
-        public readonly Caption: string;
-        public Close(): void;
-        public readonly Collection: Windows;
-        public Height: number;
-        public readonly HWnd: number;
-        public Left: number;
-        public readonly LinkedWindowFrame: Window;
-        public readonly LinkedWindows: LinkedWindows;
-        public SetFocus(): void;
-        public Top: number;
-        public readonly Type: vbext_WindowType;
-        public readonly VBE: VBE;
-        public Visible: boolean;
-        public Width: number;
-        public WindowState: vbext_WindowState;
+        readonly Caption: string;
+        Close(): void;
+        readonly Collection: Windows;
+        Height: number;
+        readonly HWnd: number;
+        Left: number;
+        readonly LinkedWindowFrame: Window;
+        readonly LinkedWindows: LinkedWindows;
+        SetFocus(): void;
+        Top: number;
+        readonly Type: vbext_WindowType;
+        readonly VBE: VBE;
+        Visible: boolean;
+        Width: number;
+        WindowState: vbext_WindowState;
     }
 
     class Windows {
         private 'VBIDE.Windows_typekey': Windows;
         private constructor();
-        public readonly Count: number;
-        public CreateToolWindow(AddInInst: AddIn, ProgId: string, Caption: string, GuidPosition: string, DocObj: any): Window;
-        public Item(index: any): Window;
-        public readonly Parent: Application;
-        public readonly VBE: VBE;
+        readonly Count: number;
+        CreateToolWindow(AddInInst: AddIn, ProgId: string, Caption: string, GuidPosition: string, DocObj: any): Window;
+        Item(index: any): Window;
+        readonly Parent: Application;
+        readonly VBE: VBE;
     }
 }
 

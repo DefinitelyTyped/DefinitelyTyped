@@ -3282,641 +3282,641 @@ declare namespace Office {
     class Adjustments {
         private 'Office.Adjustments_typekey': Adjustments;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): number;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): number;
+        readonly Parent: any;
     }
 
     class AnswerWizard {
         private 'Office.AnswerWizard_typekey': AnswerWizard;
         private constructor();
-        public readonly Application: any;
-        public ClearFileList(): void;
-        public readonly Creator: number;
-        public readonly Files: AnswerWizardFiles;
-        public readonly Parent: any;
-        public ResetFileList(): void;
+        readonly Application: any;
+        ClearFileList(): void;
+        readonly Creator: number;
+        readonly Files: AnswerWizardFiles;
+        readonly Parent: any;
+        ResetFileList(): void;
     }
 
     class AnswerWizardFiles {
         private 'Office.AnswerWizardFiles_typekey': AnswerWizardFiles;
         private constructor();
-        public Add(FileName: string): void;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(FileName: string): void;
-        public Item(Index: number): string;
-        public readonly Parent: any;
+        Add(FileName: string): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(FileName: string): void;
+        Item(Index: number): string;
+        readonly Parent: any;
     }
 
     class Assistant {
         private 'Office.Assistant_typekey': Assistant;
         private constructor();
-        public ActivateWizard(WizardID: number, act: MsoWizardActType, Animation?: any): void;
-        public Animation: MsoAnimationType;
-        public readonly Application: any;
-        public AssistWithAlerts: boolean;
-        public AssistWithHelp: boolean;
-        public AssistWithWizards: boolean;
-        public readonly BalloonError: MsoBalloonErrorType;
-        public readonly Creator: number;
-        public DoAlert(bstrAlertTitle: string, bstrAlertText: string, alb: MsoAlertButtonType, alc: MsoAlertIconType, ald: MsoAlertDefaultType, alq: MsoAlertCancelType, varfSysAlert: boolean): number;
-        public EndWizard(WizardID: number, varfSuccess: boolean, Animation?: any): void;
-        public FeatureTips: boolean;
-        public FileName: string;
-        public GuessHelp: boolean;
-        public Help(): void;
-        public HighPriorityTips: boolean;
-        public readonly Item: string;
-        public KeyboardShortcutTips: boolean;
-        public Left: number;
-        public MouseTips: boolean;
-        public Move(xLeft: number, yTop: number): void;
-        public MoveWhenInTheWay: boolean;
-        public readonly Name: string;
-        public readonly NewBalloon: Balloon;
-        public On: boolean;
-        public readonly Parent: any;
-        public Reduced: boolean;
-        public ResetTips(): void;
-        public SearchWhenProgramming: boolean;
-        public Sounds: boolean;
-        public StartWizard(On: boolean, Callback: string, PrivateX: number, Animation?: any, CustomTeaser?: any, Top?: any, Left?: any, Bottom?: any, Right?: any): number;
-        public TipOfDay: boolean;
-        public Top: number;
-        public Visible: boolean;
+        ActivateWizard(WizardID: number, act: MsoWizardActType, Animation?: any): void;
+        Animation: MsoAnimationType;
+        readonly Application: any;
+        AssistWithAlerts: boolean;
+        AssistWithHelp: boolean;
+        AssistWithWizards: boolean;
+        readonly BalloonError: MsoBalloonErrorType;
+        readonly Creator: number;
+        DoAlert(bstrAlertTitle: string, bstrAlertText: string, alb: MsoAlertButtonType, alc: MsoAlertIconType, ald: MsoAlertDefaultType, alq: MsoAlertCancelType, varfSysAlert: boolean): number;
+        EndWizard(WizardID: number, varfSuccess: boolean, Animation?: any): void;
+        FeatureTips: boolean;
+        FileName: string;
+        GuessHelp: boolean;
+        Help(): void;
+        HighPriorityTips: boolean;
+        readonly Item: string;
+        KeyboardShortcutTips: boolean;
+        Left: number;
+        MouseTips: boolean;
+        Move(xLeft: number, yTop: number): void;
+        MoveWhenInTheWay: boolean;
+        readonly Name: string;
+        readonly NewBalloon: Balloon;
+        On: boolean;
+        readonly Parent: any;
+        Reduced: boolean;
+        ResetTips(): void;
+        SearchWhenProgramming: boolean;
+        Sounds: boolean;
+        StartWizard(On: boolean, Callback: string, PrivateX: number, Animation?: any, CustomTeaser?: any, Top?: any, Left?: any, Bottom?: any, Right?: any): number;
+        TipOfDay: boolean;
+        Top: number;
+        Visible: boolean;
     }
 
     class Balloon {
         private 'Office.Balloon_typekey': Balloon;
         private constructor();
-        public Animation: MsoAnimationType;
-        public readonly Application: any;
-        public BalloonType: MsoBalloonType;
-        public Button: MsoButtonSetType;
-        public Callback: string;
-        public readonly Checkboxes: any;
-        public Close(): void;
-        public readonly Creator: number;
-        public Heading: string;
-        public Icon: MsoIconType;
-        public readonly Labels: any;
-        public Mode: MsoModeType;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Private: number;
-        public SetAvoidRectangle(Left: number, Top: number, Right: number, Bottom: number): void;
-        public Show(): MsoBalloonButtonType;
-        public Text: string;
+        Animation: MsoAnimationType;
+        readonly Application: any;
+        BalloonType: MsoBalloonType;
+        Button: MsoButtonSetType;
+        Callback: string;
+        readonly Checkboxes: any;
+        Close(): void;
+        readonly Creator: number;
+        Heading: string;
+        Icon: MsoIconType;
+        readonly Labels: any;
+        Mode: MsoModeType;
+        readonly Name: string;
+        readonly Parent: any;
+        Private: number;
+        SetAvoidRectangle(Left: number, Top: number, Right: number, Bottom: number): void;
+        Show(): MsoBalloonButtonType;
+        Text: string;
     }
 
     class BulletFormat2 {
         private 'Office.BulletFormat2_typekey': BulletFormat2;
         private constructor();
-        public readonly Application: any;
-        public Character: number;
-        public readonly Creator: number;
-        public readonly Font: Font2;
-        public readonly Number: number;
-        public readonly Parent: any;
-        public Picture(FileName: string): void;
-        public RelativeSize: number;
-        public StartValue: number;
-        public Style: MsoNumberedBulletStyle;
-        public Type: MsoBulletType;
-        public UseTextColor: MsoTriState;
-        public UseTextFont: MsoTriState;
-        public Visible: MsoTriState;
+        readonly Application: any;
+        Character: number;
+        readonly Creator: number;
+        readonly Font: Font2;
+        readonly Number: number;
+        readonly Parent: any;
+        Picture(FileName: string): void;
+        RelativeSize: number;
+        StartValue: number;
+        Style: MsoNumberedBulletStyle;
+        Type: MsoBulletType;
+        UseTextColor: MsoTriState;
+        UseTextFont: MsoTriState;
+        Visible: MsoTriState;
     }
 
     class CalloutFormat {
         private 'Office.CalloutFormat_typekey': CalloutFormat;
         private constructor();
-        public Accent: MsoTriState;
-        public Angle: MsoCalloutAngleType;
-        public readonly Application: any;
-        public AutoAttach: MsoTriState;
-        public readonly AutoLength: MsoTriState;
-        public AutomaticLength(): void;
-        public Border: MsoTriState;
-        public readonly Creator: number;
-        public CustomDrop(Drop: number): void;
-        public CustomLength(Length: number): void;
-        public readonly Drop: number;
-        public readonly DropType: MsoCalloutDropType;
-        public Gap: number;
-        public readonly Length: number;
-        public readonly Parent: any;
-        public PresetDrop(DropType: MsoCalloutDropType): void;
-        public Type: MsoCalloutType;
+        Accent: MsoTriState;
+        Angle: MsoCalloutAngleType;
+        readonly Application: any;
+        AutoAttach: MsoTriState;
+        readonly AutoLength: MsoTriState;
+        AutomaticLength(): void;
+        Border: MsoTriState;
+        readonly Creator: number;
+        CustomDrop(Drop: number): void;
+        CustomLength(Length: number): void;
+        readonly Drop: number;
+        readonly DropType: MsoCalloutDropType;
+        Gap: number;
+        readonly Length: number;
+        readonly Parent: any;
+        PresetDrop(DropType: MsoCalloutDropType): void;
+        Type: MsoCalloutType;
     }
 
     class CanvasShapes {
         private 'Office.CanvasShapes_typekey': CanvasShapes;
         private constructor();
-        public AddCallout(Type: MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddConnector(Type: MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddCurve(SafeArrayOfPoints: any): Shape;
-        public AddLabel(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCallout(Type: MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddConnector(Type: MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
+        AddLabel(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
-        public AddPolyline(SafeArrayOfPoints: any): Shape;
-        public AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
-        public readonly Application: any;
-        public readonly Background: Shape;
-        public BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
-        public SelectAll(): void;
+        AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
+        readonly Application: any;
+        readonly Background: Shape;
+        BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
+        SelectAll(): void;
     }
 
     class ChartColorFormat {
         private 'Office.ChartColorFormat_typekey': ChartColorFormat;
         private constructor();
-        public readonly _Default: number;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public RGB: number;
-        public SchemeColor: number;
-        public readonly Type: number;
+        readonly _Default: number;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Parent: any;
+        RGB: number;
+        SchemeColor: number;
+        readonly Type: number;
     }
 
     class ChartFillFormat {
         private 'Office.ChartFillFormat_typekey': ChartFillFormat;
         private constructor();
-        public readonly Application: any;
-        public readonly BackColor: ChartColorFormat;
-        public readonly Creator: number;
-        public readonly ForeColor: ChartColorFormat;
-        public readonly GradientColorType: number;
-        public readonly GradientDegree: number;
-        public readonly GradientStyle: number;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: number, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: number;
-        public Patterned(Pattern: number): void;
-        public PresetGradient(Style: number, Variant: number, PresetGradientType: number): void;
-        public readonly PresetGradientType: number;
-        public readonly PresetTexture: number;
-        public PresetTextured(PresetTexture: number): void;
-        public Solid(): void;
-        public readonly TextureName: string;
-        public readonly TextureType: number;
-        public TwoColorGradient(Style: number, Variant: number): void;
-        public readonly Type: number;
-        public UserPicture(PictureFile: any, PictureFormat: any, PictureStackUnit: any, PicturePlacement: any): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: number;
+        readonly Application: any;
+        readonly BackColor: ChartColorFormat;
+        readonly Creator: number;
+        readonly ForeColor: ChartColorFormat;
+        readonly GradientColorType: number;
+        readonly GradientDegree: number;
+        readonly GradientStyle: number;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: number, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: number;
+        Patterned(Pattern: number): void;
+        PresetGradient(Style: number, Variant: number, PresetGradientType: number): void;
+        readonly PresetGradientType: number;
+        readonly PresetTexture: number;
+        PresetTextured(PresetTexture: number): void;
+        Solid(): void;
+        readonly TextureName: string;
+        readonly TextureType: number;
+        TwoColorGradient(Style: number, Variant: number): void;
+        readonly Type: number;
+        UserPicture(PictureFile: any, PictureFormat: any, PictureStackUnit: any, PicturePlacement: any): void;
+        UserTextured(TextureFile: string): void;
+        Visible: number;
     }
 
     class ChartFont {
         private 'Office.ChartFont_typekey': ChartFont;
         private constructor();
-        public readonly Application: any;
-        public Background: any;
-        public Bold: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public FontStyle: any;
-        public Italic: any;
-        public Name: any;
-        public OutlineFont: any;
-        public readonly Parent: any;
-        public Shadow: any;
-        public Size: any;
-        public StrikeThrough: any;
-        public Subscript: any;
-        public Superscript: any;
-        public Underline: any;
+        readonly Application: any;
+        Background: any;
+        Bold: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        FontStyle: any;
+        Italic: any;
+        Name: any;
+        OutlineFont: any;
+        readonly Parent: any;
+        Shadow: any;
+        Size: any;
+        StrikeThrough: any;
+        Subscript: any;
+        Superscript: any;
+        Underline: any;
     }
 
     class ColorFormat {
         private 'Office.ColorFormat_typekey': ColorFormat;
         private constructor();
-        public readonly Application: any;
-        public Brightness: number;
-        public readonly Creator: number;
-        public ObjectThemeColor: MsoThemeColorIndex;
-        public readonly Parent: any;
-        public RGB: number;
-        public SchemeColor: number;
-        public TintAndShade: number;
-        public readonly Type: MsoColorType;
+        readonly Application: any;
+        Brightness: number;
+        readonly Creator: number;
+        ObjectThemeColor: MsoThemeColorIndex;
+        readonly Parent: any;
+        RGB: number;
+        SchemeColor: number;
+        TintAndShade: number;
+        readonly Type: MsoColorType;
     }
 
     class COMAddIn {
         private 'Office.COMAddIn_typekey': COMAddIn;
         private constructor();
-        public readonly Application: any;
-        public Connect: boolean;
-        public readonly Creator: number;
-        public Description: string;
-        public readonly Guid: string;
-        public Object: any;
-        public readonly Parent: any;
-        public readonly ProgId: string;
+        readonly Application: any;
+        Connect: boolean;
+        readonly Creator: number;
+        Description: string;
+        readonly Guid: string;
+        Object: any;
+        readonly Parent: any;
+        readonly ProgId: string;
     }
 
     class COMAddIns {
         private 'Office.COMAddIns_typekey': COMAddIns;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): COMAddIn;
-        public readonly Parent: any;
-        public SetAppModal(varfModal: boolean): void;
-        public Update(): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): COMAddIn;
+        readonly Parent: any;
+        SetAppModal(varfModal: boolean): void;
+        Update(): void;
     }
 
     class CommandBar {
         private 'Office.CommandBar_typekey': CommandBar;
         private constructor();
-        public accChild(varChild: any): any;
-        public readonly accChildCount: number;
-        public accDefaultAction(varChild?: any): string;
-        public accDescription(varChild?: any): string;
-        public accDoDefaultAction(varChild?: any): void;
-        public readonly accFocus: any;
-        public accHelp(varChild?: any): string;
-        public accHelpTopic(pszHelpFile: string, varChild?: any): number;
-        public accHitTest(xLeft: number, yTop: number): any;
-        public accKeyboardShortcut(varChild?: any): string;
-        public accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
-        public accName(varChild?: any): string;
-        public accNavigate(navDir: number, varStart?: any): any;
-        public readonly accParent: any;
-        public accRole(varChild?: any): any;
-        public accSelect(flagsSelect: number, varChild?: any): void;
-        public readonly accSelection: any;
-        public accState(varChild?: any): any;
-        public accValue(varChild?: any): string;
-        public AdaptiveMenu: boolean;
-        public readonly Application: any;
-        public readonly BuiltIn: boolean;
-        public Context: string;
-        public readonly Controls: CommandBarControls;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Enabled: boolean;
-        public FindControl(Type?: any, Id?: any, Tag?: any, Visible?: any, Recursive?: any): CommandBarControl;
-        public Height: number;
-        public readonly Id: number;
-        public readonly Index: number;
-        public readonly InstanceId: number;
-        public readonly InstanceIdPtr: any;
-        public Left: number;
-        public Name: string;
-        public NameLocal: string;
-        public readonly Parent: any;
-        public Position: MsoBarPosition;
-        public Protection: MsoBarProtection;
-        public Reset(): void;
-        public RowIndex: number;
-        public ShowPopup(x?: any, y?: any): void;
-        public Top: number;
-        public readonly Type: MsoBarType;
-        public Visible: boolean;
-        public Width: number;
+        accChild(varChild: any): any;
+        readonly accChildCount: number;
+        accDefaultAction(varChild?: any): string;
+        accDescription(varChild?: any): string;
+        accDoDefaultAction(varChild?: any): void;
+        readonly accFocus: any;
+        accHelp(varChild?: any): string;
+        accHelpTopic(pszHelpFile: string, varChild?: any): number;
+        accHitTest(xLeft: number, yTop: number): any;
+        accKeyboardShortcut(varChild?: any): string;
+        accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
+        accName(varChild?: any): string;
+        accNavigate(navDir: number, varStart?: any): any;
+        readonly accParent: any;
+        accRole(varChild?: any): any;
+        accSelect(flagsSelect: number, varChild?: any): void;
+        readonly accSelection: any;
+        accState(varChild?: any): any;
+        accValue(varChild?: any): string;
+        AdaptiveMenu: boolean;
+        readonly Application: any;
+        readonly BuiltIn: boolean;
+        Context: string;
+        readonly Controls: CommandBarControls;
+        readonly Creator: number;
+        Delete(): void;
+        Enabled: boolean;
+        FindControl(Type?: any, Id?: any, Tag?: any, Visible?: any, Recursive?: any): CommandBarControl;
+        Height: number;
+        readonly Id: number;
+        readonly Index: number;
+        readonly InstanceId: number;
+        readonly InstanceIdPtr: any;
+        Left: number;
+        Name: string;
+        NameLocal: string;
+        readonly Parent: any;
+        Position: MsoBarPosition;
+        Protection: MsoBarProtection;
+        Reset(): void;
+        RowIndex: number;
+        ShowPopup(x?: any, y?: any): void;
+        Top: number;
+        readonly Type: MsoBarType;
+        Visible: boolean;
+        Width: number;
     }
 
     class CommandBarButton {
         private 'Office.CommandBarButton_typekey': CommandBarButton;
         private constructor();
-        public accChild(varChild: any): any;
-        public readonly accChildCount: number;
-        public accDefaultAction(varChild?: any): string;
-        public accDescription(varChild?: any): string;
-        public accDoDefaultAction(varChild?: any): void;
-        public readonly accFocus: any;
-        public accHelp(varChild?: any): string;
-        public accHelpTopic(pszHelpFile: string, varChild?: any): number;
-        public accHitTest(xLeft: number, yTop: number): any;
-        public accKeyboardShortcut(varChild?: any): string;
-        public accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
-        public accName(varChild?: any): string;
-        public accNavigate(navDir: number, varStart?: any): any;
-        public readonly accParent: any;
-        public accRole(varChild?: any): any;
-        public accSelect(flagsSelect: number, varChild?: any): void;
-        public readonly accSelection: any;
-        public accState(varChild?: any): any;
-        public accValue(varChild?: any): string;
-        public readonly Application: any;
-        public BeginGroup: boolean;
-        public readonly BuiltIn: boolean;
-        public BuiltInFace: boolean;
-        public Caption: string;
-        public readonly Control: any;
-        public Copy(Bar?: any, Before?: any): CommandBarControl;
-        public CopyFace(): void;
-        public readonly Creator: number;
-        public Delete(Temporary?: any): void;
-        public DescriptionText: string;
-        public Enabled: boolean;
-        public Execute(): void;
-        public FaceId: number;
-        public Height: number;
-        public HelpContextId: number;
-        public HelpFile: string;
-        public HyperlinkType: MsoCommandBarButtonHyperlinkType;
-        public readonly Id: number;
-        public readonly Index: number;
-        public readonly InstanceId: number;
-        public readonly InstanceIdPtr: any;
-        public readonly IsPriorityDropped: boolean;
-        public readonly Left: number;
-        public Mask: stdole.IPictureDisp;
-        public Move(Bar?: any, Before?: any): CommandBarControl;
-        public OLEUsage: MsoControlOLEUsage;
-        public OnAction: string;
-        public Parameter: string;
-        public readonly Parent: CommandBar;
-        public PasteFace(): void;
-        public Picture: stdole.IPictureDisp;
-        public Priority: number;
-        public Reserved1(): void;
-        public Reserved2(): void;
-        public Reserved3(): void;
-        public Reserved4(): void;
-        public Reserved5(): void;
-        public Reserved6(): void;
-        public Reserved7(): void;
-        public Reset(): void;
-        public SetFocus(): void;
-        public ShortcutText: string;
-        public State: MsoButtonState;
-        public Style: MsoButtonStyle;
-        public Tag: string;
-        public TooltipText: string;
-        public readonly Top: number;
-        public readonly Type: MsoControlType;
-        public Visible: boolean;
-        public Width: number;
+        accChild(varChild: any): any;
+        readonly accChildCount: number;
+        accDefaultAction(varChild?: any): string;
+        accDescription(varChild?: any): string;
+        accDoDefaultAction(varChild?: any): void;
+        readonly accFocus: any;
+        accHelp(varChild?: any): string;
+        accHelpTopic(pszHelpFile: string, varChild?: any): number;
+        accHitTest(xLeft: number, yTop: number): any;
+        accKeyboardShortcut(varChild?: any): string;
+        accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
+        accName(varChild?: any): string;
+        accNavigate(navDir: number, varStart?: any): any;
+        readonly accParent: any;
+        accRole(varChild?: any): any;
+        accSelect(flagsSelect: number, varChild?: any): void;
+        readonly accSelection: any;
+        accState(varChild?: any): any;
+        accValue(varChild?: any): string;
+        readonly Application: any;
+        BeginGroup: boolean;
+        readonly BuiltIn: boolean;
+        BuiltInFace: boolean;
+        Caption: string;
+        readonly Control: any;
+        Copy(Bar?: any, Before?: any): CommandBarControl;
+        CopyFace(): void;
+        readonly Creator: number;
+        Delete(Temporary?: any): void;
+        DescriptionText: string;
+        Enabled: boolean;
+        Execute(): void;
+        FaceId: number;
+        Height: number;
+        HelpContextId: number;
+        HelpFile: string;
+        HyperlinkType: MsoCommandBarButtonHyperlinkType;
+        readonly Id: number;
+        readonly Index: number;
+        readonly InstanceId: number;
+        readonly InstanceIdPtr: any;
+        readonly IsPriorityDropped: boolean;
+        readonly Left: number;
+        Mask: stdole.IPictureDisp;
+        Move(Bar?: any, Before?: any): CommandBarControl;
+        OLEUsage: MsoControlOLEUsage;
+        OnAction: string;
+        Parameter: string;
+        readonly Parent: CommandBar;
+        PasteFace(): void;
+        Picture: stdole.IPictureDisp;
+        Priority: number;
+        Reserved1(): void;
+        Reserved2(): void;
+        Reserved3(): void;
+        Reserved4(): void;
+        Reserved5(): void;
+        Reserved6(): void;
+        Reserved7(): void;
+        Reset(): void;
+        SetFocus(): void;
+        ShortcutText: string;
+        State: MsoButtonState;
+        Style: MsoButtonStyle;
+        Tag: string;
+        TooltipText: string;
+        readonly Top: number;
+        readonly Type: MsoControlType;
+        Visible: boolean;
+        Width: number;
     }
 
     class CommandBarComboBox {
         private 'Office.CommandBarComboBox_typekey': CommandBarComboBox;
         private constructor();
-        public accChild(varChild: any): any;
-        public readonly accChildCount: number;
-        public accDefaultAction(varChild?: any): string;
-        public accDescription(varChild?: any): string;
-        public accDoDefaultAction(varChild?: any): void;
-        public readonly accFocus: any;
-        public accHelp(varChild?: any): string;
-        public accHelpTopic(pszHelpFile: string, varChild?: any): number;
-        public accHitTest(xLeft: number, yTop: number): any;
-        public accKeyboardShortcut(varChild?: any): string;
-        public accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
-        public accName(varChild?: any): string;
-        public accNavigate(navDir: number, varStart?: any): any;
-        public readonly accParent: any;
-        public accRole(varChild?: any): any;
-        public accSelect(flagsSelect: number, varChild?: any): void;
-        public readonly accSelection: any;
-        public accState(varChild?: any): any;
-        public accValue(varChild?: any): string;
-        public AddItem(Text: string, Index?: any): void;
-        public readonly Application: any;
-        public BeginGroup: boolean;
-        public readonly BuiltIn: boolean;
-        public Caption: string;
-        public Clear(): void;
-        public readonly Control: any;
-        public Copy(Bar?: any, Before?: any): CommandBarControl;
-        public readonly Creator: number;
-        public Delete(Temporary?: any): void;
-        public DescriptionText: string;
-        public DropDownLines: number;
-        public DropDownWidth: number;
-        public Enabled: boolean;
-        public Execute(): void;
-        public Height: number;
-        public HelpContextId: number;
-        public HelpFile: string;
-        public readonly Id: number;
-        public readonly Index: number;
-        public readonly InstanceId: number;
-        public readonly InstanceIdPtr: any;
-        public readonly IsPriorityDropped: boolean;
-        public readonly Left: number;
-        public List(Index: number): string;
-        public readonly ListCount: number;
-        public ListHeaderCount: number;
-        public ListIndex: number;
-        public Move(Bar?: any, Before?: any): CommandBarControl;
-        public OLEUsage: MsoControlOLEUsage;
-        public OnAction: string;
-        public Parameter: string;
-        public readonly Parent: CommandBar;
-        public Priority: number;
-        public RemoveItem(Index: number): void;
-        public Reserved1(): void;
-        public Reserved2(): void;
-        public Reserved3(): void;
-        public Reserved4(): void;
-        public Reserved5(): void;
-        public Reserved6(): void;
-        public Reserved7(): void;
-        public Reset(): void;
-        public SetFocus(): void;
-        public Style: MsoComboStyle;
-        public Tag: string;
-        public Text: string;
-        public TooltipText: string;
-        public readonly Top: number;
-        public readonly Type: MsoControlType;
-        public Visible: boolean;
-        public Width: number;
+        accChild(varChild: any): any;
+        readonly accChildCount: number;
+        accDefaultAction(varChild?: any): string;
+        accDescription(varChild?: any): string;
+        accDoDefaultAction(varChild?: any): void;
+        readonly accFocus: any;
+        accHelp(varChild?: any): string;
+        accHelpTopic(pszHelpFile: string, varChild?: any): number;
+        accHitTest(xLeft: number, yTop: number): any;
+        accKeyboardShortcut(varChild?: any): string;
+        accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
+        accName(varChild?: any): string;
+        accNavigate(navDir: number, varStart?: any): any;
+        readonly accParent: any;
+        accRole(varChild?: any): any;
+        accSelect(flagsSelect: number, varChild?: any): void;
+        readonly accSelection: any;
+        accState(varChild?: any): any;
+        accValue(varChild?: any): string;
+        AddItem(Text: string, Index?: any): void;
+        readonly Application: any;
+        BeginGroup: boolean;
+        readonly BuiltIn: boolean;
+        Caption: string;
+        Clear(): void;
+        readonly Control: any;
+        Copy(Bar?: any, Before?: any): CommandBarControl;
+        readonly Creator: number;
+        Delete(Temporary?: any): void;
+        DescriptionText: string;
+        DropDownLines: number;
+        DropDownWidth: number;
+        Enabled: boolean;
+        Execute(): void;
+        Height: number;
+        HelpContextId: number;
+        HelpFile: string;
+        readonly Id: number;
+        readonly Index: number;
+        readonly InstanceId: number;
+        readonly InstanceIdPtr: any;
+        readonly IsPriorityDropped: boolean;
+        readonly Left: number;
+        List(Index: number): string;
+        readonly ListCount: number;
+        ListHeaderCount: number;
+        ListIndex: number;
+        Move(Bar?: any, Before?: any): CommandBarControl;
+        OLEUsage: MsoControlOLEUsage;
+        OnAction: string;
+        Parameter: string;
+        readonly Parent: CommandBar;
+        Priority: number;
+        RemoveItem(Index: number): void;
+        Reserved1(): void;
+        Reserved2(): void;
+        Reserved3(): void;
+        Reserved4(): void;
+        Reserved5(): void;
+        Reserved6(): void;
+        Reserved7(): void;
+        Reset(): void;
+        SetFocus(): void;
+        Style: MsoComboStyle;
+        Tag: string;
+        Text: string;
+        TooltipText: string;
+        readonly Top: number;
+        readonly Type: MsoControlType;
+        Visible: boolean;
+        Width: number;
     }
 
     class CommandBarControl {
         private 'Office.CommandBarControl_typekey': CommandBarControl;
         private constructor();
-        public accChild(varChild: any): any;
-        public readonly accChildCount: number;
-        public accDefaultAction(varChild?: any): string;
-        public accDescription(varChild?: any): string;
-        public accDoDefaultAction(varChild?: any): void;
-        public readonly accFocus: any;
-        public accHelp(varChild?: any): string;
-        public accHelpTopic(pszHelpFile: string, varChild?: any): number;
-        public accHitTest(xLeft: number, yTop: number): any;
-        public accKeyboardShortcut(varChild?: any): string;
-        public accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
-        public accName(varChild?: any): string;
-        public accNavigate(navDir: number, varStart?: any): any;
-        public readonly accParent: any;
-        public accRole(varChild?: any): any;
-        public accSelect(flagsSelect: number, varChild?: any): void;
-        public readonly accSelection: any;
-        public accState(varChild?: any): any;
-        public accValue(varChild?: any): string;
-        public readonly Application: any;
-        public BeginGroup: boolean;
-        public readonly BuiltIn: boolean;
-        public Caption: string;
-        public readonly Control: any;
-        public Copy(Bar?: any, Before?: any): CommandBarControl;
-        public readonly Creator: number;
-        public Delete(Temporary?: any): void;
-        public DescriptionText: string;
-        public Enabled: boolean;
-        public Execute(): void;
-        public Height: number;
-        public HelpContextId: number;
-        public HelpFile: string;
-        public readonly Id: number;
-        public readonly Index: number;
-        public readonly InstanceId: number;
-        public readonly IsPriorityDropped: boolean;
-        public readonly Left: number;
-        public Move(Bar?: any, Before?: any): CommandBarControl;
-        public OLEUsage: MsoControlOLEUsage;
-        public OnAction: string;
-        public Parameter: string;
-        public readonly Parent: CommandBar;
-        public Priority: number;
-        public Reserved1(): void;
-        public Reserved2(): void;
-        public Reserved3(): void;
-        public Reserved4(): void;
-        public Reserved5(): void;
-        public Reserved6(): void;
-        public Reserved7(): void;
-        public Reset(): void;
-        public SetFocus(): void;
-        public Tag: string;
-        public TooltipText: string;
-        public readonly Top: number;
-        public readonly Type: MsoControlType;
-        public Visible: boolean;
-        public Width: number;
+        accChild(varChild: any): any;
+        readonly accChildCount: number;
+        accDefaultAction(varChild?: any): string;
+        accDescription(varChild?: any): string;
+        accDoDefaultAction(varChild?: any): void;
+        readonly accFocus: any;
+        accHelp(varChild?: any): string;
+        accHelpTopic(pszHelpFile: string, varChild?: any): number;
+        accHitTest(xLeft: number, yTop: number): any;
+        accKeyboardShortcut(varChild?: any): string;
+        accLocation(pxLeft: number, pyTop: number, pcxWidth: number, pcyHeight: number, varChild?: any): void;
+        accName(varChild?: any): string;
+        accNavigate(navDir: number, varStart?: any): any;
+        readonly accParent: any;
+        accRole(varChild?: any): any;
+        accSelect(flagsSelect: number, varChild?: any): void;
+        readonly accSelection: any;
+        accState(varChild?: any): any;
+        accValue(varChild?: any): string;
+        readonly Application: any;
+        BeginGroup: boolean;
+        readonly BuiltIn: boolean;
+        Caption: string;
+        readonly Control: any;
+        Copy(Bar?: any, Before?: any): CommandBarControl;
+        readonly Creator: number;
+        Delete(Temporary?: any): void;
+        DescriptionText: string;
+        Enabled: boolean;
+        Execute(): void;
+        Height: number;
+        HelpContextId: number;
+        HelpFile: string;
+        readonly Id: number;
+        readonly Index: number;
+        readonly InstanceId: number;
+        readonly IsPriorityDropped: boolean;
+        readonly Left: number;
+        Move(Bar?: any, Before?: any): CommandBarControl;
+        OLEUsage: MsoControlOLEUsage;
+        OnAction: string;
+        Parameter: string;
+        readonly Parent: CommandBar;
+        Priority: number;
+        Reserved1(): void;
+        Reserved2(): void;
+        Reserved3(): void;
+        Reserved4(): void;
+        Reserved5(): void;
+        Reserved6(): void;
+        Reserved7(): void;
+        Reset(): void;
+        SetFocus(): void;
+        Tag: string;
+        TooltipText: string;
+        readonly Top: number;
+        readonly Type: MsoControlType;
+        Visible: boolean;
+        Width: number;
     }
 
     class CommandBarControls {
         private 'Office.CommandBarControls_typekey': CommandBarControls;
         private constructor();
-        public Add(Type?: any, Id?: any, Parameter?: any, Before?: any, Temporary?: any): CommandBarControl;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CommandBarControl;
-        public readonly Parent: CommandBar;
+        Add(Type?: any, Id?: any, Parameter?: any, Before?: any, Temporary?: any): CommandBarControl;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CommandBarControl;
+        readonly Parent: CommandBar;
     }
 
     class CommandBars {
         private 'Office.CommandBars_typekey': CommandBars;
         private constructor();
-        public readonly ActionControl: CommandBarControl;
-        public readonly ActiveMenuBar: CommandBar;
-        public AdaptiveMenus: boolean;
-        public Add(Name?: any, Position?: any, MenuBar?: any, Temporary?: any): CommandBar;
-        public AddEx(TbidOrName?: any, Position?: any, MenuBar?: any, Temporary?: any, TbtrProtection?: any): CommandBar;
-        public readonly Application: any;
-        public CommitRenderingTransaction(hwnd: number): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public DisableAskAQuestionDropdown: boolean;
-        public DisableCustomize: boolean;
-        public DisplayFonts: boolean;
-        public DisplayKeysInTooltips: boolean;
-        public DisplayTooltips: boolean;
-        public ExecuteMso(idMso: string): void;
-        public FindControl(Type?: any, Id?: any, Tag?: any, Visible?: any): CommandBarControl;
-        public FindControls(Type?: any, Id?: any, Tag?: any, Visible?: any): CommandBarControls;
-        public GetEnabledMso(idMso: string): boolean;
-        public GetImageMso(idMso: string, Width: number, Height: number): stdole.IPictureDisp;
-        public GetLabelMso(idMso: string): string;
-        public GetPressedMso(idMso: string): boolean;
-        public GetScreentipMso(idMso: string): string;
-        public GetSupertipMso(idMso: string): string;
-        public GetVisibleMso(idMso: string): boolean;
-        public IdsString(ids: number, pbstrName: string): number;
-        public Item(Index: any): CommandBar;
-        public LargeButtons: boolean;
-        public MenuAnimationStyle: MsoMenuAnimation;
-        public readonly Parent: any;
-        public ReleaseFocus(): void;
-        public TmcGetName(tmc: number, pbstrName: string): number;
+        readonly ActionControl: CommandBarControl;
+        readonly ActiveMenuBar: CommandBar;
+        AdaptiveMenus: boolean;
+        Add(Name?: any, Position?: any, MenuBar?: any, Temporary?: any): CommandBar;
+        AddEx(TbidOrName?: any, Position?: any, MenuBar?: any, Temporary?: any, TbtrProtection?: any): CommandBar;
+        readonly Application: any;
+        CommitRenderingTransaction(hwnd: number): void;
+        readonly Count: number;
+        readonly Creator: number;
+        DisableAskAQuestionDropdown: boolean;
+        DisableCustomize: boolean;
+        DisplayFonts: boolean;
+        DisplayKeysInTooltips: boolean;
+        DisplayTooltips: boolean;
+        ExecuteMso(idMso: string): void;
+        FindControl(Type?: any, Id?: any, Tag?: any, Visible?: any): CommandBarControl;
+        FindControls(Type?: any, Id?: any, Tag?: any, Visible?: any): CommandBarControls;
+        GetEnabledMso(idMso: string): boolean;
+        GetImageMso(idMso: string, Width: number, Height: number): stdole.IPictureDisp;
+        GetLabelMso(idMso: string): string;
+        GetPressedMso(idMso: string): boolean;
+        GetScreentipMso(idMso: string): string;
+        GetSupertipMso(idMso: string): string;
+        GetVisibleMso(idMso: string): boolean;
+        IdsString(ids: number, pbstrName: string): number;
+        Item(Index: any): CommandBar;
+        LargeButtons: boolean;
+        MenuAnimationStyle: MsoMenuAnimation;
+        readonly Parent: any;
+        ReleaseFocus(): void;
+        TmcGetName(tmc: number, pbstrName: string): number;
     }
 
     class ConnectorFormat {
         private 'Office.ConnectorFormat_typekey': ConnectorFormat;
         private constructor();
-        public readonly Application: any;
-        public BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly BeginConnected: MsoTriState;
-        public readonly BeginConnectedShape: Shape;
-        public readonly BeginConnectionSite: number;
-        public BeginDisconnect(): void;
-        public readonly Creator: number;
-        public EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
-        public readonly EndConnected: MsoTriState;
-        public readonly EndConnectedShape: Shape;
-        public readonly EndConnectionSite: number;
-        public EndDisconnect(): void;
-        public readonly Parent: any;
-        public Type: MsoConnectorType;
+        readonly Application: any;
+        BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly BeginConnected: MsoTriState;
+        readonly BeginConnectedShape: Shape;
+        readonly BeginConnectionSite: number;
+        BeginDisconnect(): void;
+        readonly Creator: number;
+        EndConnect(ConnectedShape: Shape, ConnectionSite: number): void;
+        readonly EndConnected: MsoTriState;
+        readonly EndConnectedShape: Shape;
+        readonly EndConnectionSite: number;
+        EndDisconnect(): void;
+        readonly Parent: any;
+        Type: MsoConnectorType;
     }
 
     class ContactCard {
         private 'Office.ContactCard_typekey': ContactCard;
         private constructor();
-        public readonly Application: any;
-        public Close(): void;
-        public readonly Creator: number;
+        readonly Application: any;
+        Close(): void;
+        readonly Creator: number;
 
         /** @param boolean [ShowWithDelay=false] */
-        public Show(
+        Show(
             CardStyle: MsoContactCardStyle, RectangleLeft: number, RectangleRight: number, RectangleTop: number, RectangleBottom: number, HorizontalPosition: number, ShowWithDelay?: boolean): void;
     }
 
     class Crop {
         private 'Office.Crop_typekey': Crop;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public PictureHeight: number;
-        public PictureOffsetX: number;
-        public PictureOffsetY: number;
-        public PictureWidth: number;
-        public ShapeHeight: number;
-        public ShapeLeft: number;
-        public ShapeTop: number;
-        public ShapeWidth: number;
+        readonly Application: any;
+        readonly Creator: number;
+        PictureHeight: number;
+        PictureOffsetX: number;
+        PictureOffsetY: number;
+        PictureWidth: number;
+        ShapeHeight: number;
+        ShapeLeft: number;
+        ShapeTop: number;
+        ShapeWidth: number;
     }
 
     class CustomTaskPane {
         private 'Office.CustomTaskPane_typekey': CustomTaskPane;
         private constructor();
-        public readonly Application: any;
-        public readonly ContentControl: any;
-        public Delete(): void;
-        public DockPosition: MsoCTPDockPosition;
-        public DockPositionRestrict: MsoCTPDockPositionRestrict;
-        public Height: number;
-        public readonly Title: string;
-        public Visible: boolean;
-        public Width: number;
-        public readonly Window: any;
+        readonly Application: any;
+        readonly ContentControl: any;
+        Delete(): void;
+        DockPosition: MsoCTPDockPosition;
+        DockPositionRestrict: MsoCTPDockPositionRestrict;
+        Height: number;
+        readonly Title: string;
+        Visible: boolean;
+        Width: number;
+        readonly Window: any;
     }
 
     class CustomXMLNode {
@@ -3929,16 +3929,16 @@ declare namespace Office {
          * @param Office.MsoCustomXMLNodeType [NodeType=1]
          * @param string [NodeValue='']
          */
-        public AppendChildNode(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
-        public AppendChildSubtree(XML: string): void;
-        public readonly Application: any;
-        public readonly Attributes: CustomXMLNodes;
-        public readonly BaseName: string;
-        public readonly ChildNodes: CustomXMLNodes;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly FirstChild: CustomXMLNode;
-        public HasChildNodes(): boolean;
+        AppendChildNode(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        AppendChildSubtree(XML: string): void;
+        readonly Application: any;
+        readonly Attributes: CustomXMLNodes;
+        readonly BaseName: string;
+        readonly ChildNodes: CustomXMLNodes;
+        readonly Creator: number;
+        Delete(): void;
+        readonly FirstChild: CustomXMLNode;
+        HasChildNodes(): boolean;
 
         /**
          * @param string [Name='']
@@ -3947,21 +3947,21 @@ declare namespace Office {
          * @param string [NodeValue='']
          * @param Office.CustomXMLNode [NextSibling=0]
          */
-        public InsertNodeBefore(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string, NextSibling?: CustomXMLNode): void;
+        InsertNodeBefore(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string, NextSibling?: CustomXMLNode): void;
 
         /** @param Office.CustomXMLNode [NextSibling=0] */
-        public InsertSubtreeBefore(XML: string, NextSibling?: CustomXMLNode): void;
-        public readonly LastChild: CustomXMLNode;
-        public readonly NamespaceURI: string;
-        public readonly NextSibling: CustomXMLNode;
-        public readonly NodeType: MsoCustomXMLNodeType;
-        public NodeValue: string;
-        public readonly OwnerDocument: any;
-        public readonly OwnerPart: CustomXMLPart;
-        public readonly Parent: any;
-        public readonly ParentNode: CustomXMLNode;
-        public readonly PreviousSibling: CustomXMLNode;
-        public RemoveChild(Child: CustomXMLNode): void;
+        InsertSubtreeBefore(XML: string, NextSibling?: CustomXMLNode): void;
+        readonly LastChild: CustomXMLNode;
+        readonly NamespaceURI: string;
+        readonly NextSibling: CustomXMLNode;
+        readonly NodeType: MsoCustomXMLNodeType;
+        NodeValue: string;
+        readonly OwnerDocument: any;
+        readonly OwnerPart: CustomXMLPart;
+        readonly Parent: any;
+        readonly ParentNode: CustomXMLNode;
+        readonly PreviousSibling: CustomXMLNode;
+        RemoveChild(Child: CustomXMLNode): void;
 
         /**
          * @param string [Name='']
@@ -3969,23 +3969,23 @@ declare namespace Office {
          * @param Office.MsoCustomXMLNodeType [NodeType=1]
          * @param string [NodeValue='']
          */
-        public ReplaceChildNode(OldNode: CustomXMLNode, Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
-        public ReplaceChildSubtree(XML: string, OldNode: CustomXMLNode): void;
-        public SelectNodes(XPath: string): CustomXMLNodes;
-        public SelectSingleNode(XPath: string): CustomXMLNode;
-        public Text: string;
-        public readonly XML: string;
-        public readonly XPath: string;
+        ReplaceChildNode(OldNode: CustomXMLNode, Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        ReplaceChildSubtree(XML: string, OldNode: CustomXMLNode): void;
+        SelectNodes(XPath: string): CustomXMLNodes;
+        SelectSingleNode(XPath: string): CustomXMLNode;
+        Text: string;
+        readonly XML: string;
+        readonly XPath: string;
     }
 
     class CustomXMLNodes {
         private 'Office.CustomXMLNodes_typekey': CustomXMLNodes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): CustomXMLNode;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): CustomXMLNode;
+        readonly Parent: any;
     }
 
     class CustomXMLPart {
@@ -3999,23 +3999,23 @@ declare namespace Office {
          * @param Office.MsoCustomXMLNodeType [NodeType=1]
          * @param string [NodeValue='']
          */
-        public AddNode(Parent: CustomXMLNode, Name?: string, NamespaceURI?: string, NextSibling?: CustomXMLNode, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
-        public readonly Application: any;
-        public readonly BuiltIn: boolean;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly DocumentElement: CustomXMLNode;
-        public readonly Errors: CustomXMLValidationErrors;
-        public readonly Id: string;
-        public Load(FilePath: string): boolean;
-        public LoadXML(XML: string): boolean;
-        public readonly NamespaceManager: CustomXMLPrefixMappings;
-        public readonly NamespaceURI: string;
-        public readonly Parent: any;
-        public SchemaCollection: CustomXMLSchemaCollection;
-        public SelectNodes(XPath: string): CustomXMLNodes;
-        public SelectSingleNode(XPath: string): CustomXMLNode;
-        public readonly XML: string;
+        AddNode(Parent: CustomXMLNode, Name?: string, NamespaceURI?: string, NextSibling?: CustomXMLNode, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        readonly Application: any;
+        readonly BuiltIn: boolean;
+        readonly Creator: number;
+        Delete(): void;
+        readonly DocumentElement: CustomXMLNode;
+        readonly Errors: CustomXMLValidationErrors;
+        readonly Id: string;
+        Load(FilePath: string): boolean;
+        LoadXML(XML: string): boolean;
+        readonly NamespaceManager: CustomXMLPrefixMappings;
+        readonly NamespaceURI: string;
+        readonly Parent: any;
+        SchemaCollection: CustomXMLSchemaCollection;
+        SelectNodes(XPath: string): CustomXMLNodes;
+        SelectSingleNode(XPath: string): CustomXMLNode;
+        readonly XML: string;
     }
 
     class CustomXMLParts {
@@ -4023,49 +4023,49 @@ declare namespace Office {
         private constructor();
 
         /** @param string [XML=''] */
-        public Add(XML?: string, SchemaCollection?: any): CustomXMLPart;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CustomXMLPart;
-        public readonly Parent: any;
-        public SelectByID(Id: string): CustomXMLPart;
-        public SelectByNamespace(NamespaceURI: string): CustomXMLParts;
+        Add(XML?: string, SchemaCollection?: any): CustomXMLPart;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CustomXMLPart;
+        readonly Parent: any;
+        SelectByID(Id: string): CustomXMLPart;
+        SelectByNamespace(NamespaceURI: string): CustomXMLParts;
     }
 
     class CustomXMLPrefixMapping {
         private 'Office.CustomXMLPrefixMapping_typekey': CustomXMLPrefixMapping;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly NamespaceURI: string;
-        public readonly Parent: any;
-        public readonly Prefix: string;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly NamespaceURI: string;
+        readonly Parent: any;
+        readonly Prefix: string;
     }
 
     class CustomXMLPrefixMappings {
         private 'Office.CustomXMLPrefixMappings_typekey': CustomXMLPrefixMappings;
         private constructor();
-        public AddNamespace(Prefix: string, NamespaceURI: string): void;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CustomXMLPrefixMapping;
-        public LookupNamespace(Prefix: string): string;
-        public LookupPrefix(NamespaceURI: string): string;
-        public readonly Parent: any;
+        AddNamespace(Prefix: string, NamespaceURI: string): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CustomXMLPrefixMapping;
+        LookupNamespace(Prefix: string): string;
+        LookupPrefix(NamespaceURI: string): string;
+        readonly Parent: any;
     }
 
     class CustomXMLSchema {
         private 'Office.CustomXMLSchema_typekey': CustomXMLSchema;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Location: string;
-        public readonly NamespaceURI: string;
-        public readonly Parent: any;
-        public Reload(): void;
+        readonly Application: any;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Location: string;
+        readonly NamespaceURI: string;
+        readonly Parent: any;
+        Reload(): void;
     }
 
     class CustomXMLSchemaCollection {
@@ -4078,29 +4078,29 @@ declare namespace Office {
          * @param string [FileName='']
          * @param boolean [InstallForAllUsers=false]
          */
-        public Add(NamespaceURI?: string, Alias?: string, FileName?: string, InstallForAllUsers?: boolean): CustomXMLSchema;
-        public AddCollection(SchemaCollection: CustomXMLSchemaCollection): void;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): CustomXMLSchema;
-        public NamespaceURI(Index: number): string;
-        public readonly Parent: any;
-        public Validate(): boolean;
+        Add(NamespaceURI?: string, Alias?: string, FileName?: string, InstallForAllUsers?: boolean): CustomXMLSchema;
+        AddCollection(SchemaCollection: CustomXMLSchemaCollection): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): CustomXMLSchema;
+        NamespaceURI(Index: number): string;
+        readonly Parent: any;
+        Validate(): boolean;
     }
 
     class CustomXMLValidationError {
         private 'Office.CustomXMLValidationError_typekey': CustomXMLValidationError;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly ErrorCode: number;
-        public readonly Name: string;
-        public readonly Node: CustomXMLNode;
-        public readonly Parent: any;
-        public readonly Text: string;
-        public readonly Type: MsoCustomXMLValidationErrorType;
+        readonly Application: any;
+        readonly Creator: number;
+        Delete(): void;
+        readonly ErrorCode: number;
+        readonly Name: string;
+        readonly Node: CustomXMLNode;
+        readonly Parent: any;
+        readonly Text: string;
+        readonly Type: MsoCustomXMLValidationErrorType;
     }
 
     class CustomXMLValidationErrors {
@@ -4111,12 +4111,12 @@ declare namespace Office {
          * @param string [ErrorText='']
          * @param boolean [ClearedOnUpdate=true]
          */
-        public Add(Node: CustomXMLNode, ErrorName: string, ErrorText?: string, ClearedOnUpdate?: boolean): void;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): CustomXMLValidationError;
-        public readonly Parent: any;
+        Add(Node: CustomXMLNode, ErrorName: string, ErrorText?: string, ClearedOnUpdate?: boolean): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): CustomXMLValidationError;
+        readonly Parent: any;
     }
 
     class DiagramNode {
@@ -4127,28 +4127,28 @@ declare namespace Office {
          * @param Office.MsoRelativeNodePosition [Pos=2]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        public AddNode(Pos?: MsoRelativeNodePosition, NodeType?: MsoDiagramNodeType): DiagramNode;
-        public readonly Application: any;
-        public readonly Children: DiagramNodeChildren;
+        AddNode(Pos?: MsoRelativeNodePosition, NodeType?: MsoDiagramNodeType): DiagramNode;
+        readonly Application: any;
+        readonly Children: DiagramNodeChildren;
 
         /** @param Office.MsoRelativeNodePosition [Pos=2] */
-        public CloneNode(CopyChildren: boolean, TargetNode: DiagramNode, Pos?: MsoRelativeNodePosition): DiagramNode;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Diagram: IMsoDiagram;
-        public Layout: MsoOrgChartLayoutType;
-        public MoveNode(TargetNode: DiagramNode, Pos: MsoRelativeNodePosition): void;
-        public NextNode(): DiagramNode;
-        public readonly Parent: any;
-        public PrevNode(): DiagramNode;
-        public ReplaceNode(TargetNode: DiagramNode): void;
-        public readonly Root: DiagramNode;
-        public readonly Shape: Shape;
+        CloneNode(CopyChildren: boolean, TargetNode: DiagramNode, Pos?: MsoRelativeNodePosition): DiagramNode;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Diagram: IMsoDiagram;
+        Layout: MsoOrgChartLayoutType;
+        MoveNode(TargetNode: DiagramNode, Pos: MsoRelativeNodePosition): void;
+        NextNode(): DiagramNode;
+        readonly Parent: any;
+        PrevNode(): DiagramNode;
+        ReplaceNode(TargetNode: DiagramNode): void;
+        readonly Root: DiagramNode;
+        readonly Shape: Shape;
 
         /** @param boolean [SwapChildren=true] */
-        public SwapNode(TargetNode: DiagramNode, SwapChildren?: boolean): void;
-        public readonly TextShape: Shape;
-        public TransferChildren(ReceivingNode: DiagramNode): void;
+        SwapNode(TargetNode: DiagramNode, SwapChildren?: boolean): void;
+        readonly TextShape: Shape;
+        TransferChildren(ReceivingNode: DiagramNode): void;
     }
 
     class DiagramNodeChildren {
@@ -4159,301 +4159,301 @@ declare namespace Office {
          * @param any [Index=-1]
          * @param Office.MsoDiagramNodeType [NodeType=1]
          */
-        public AddNode(Index?: any, NodeType?: MsoDiagramNodeType): DiagramNode;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly FirstChild: DiagramNode;
-        public Item(Index: any): DiagramNode;
-        public readonly LastChild: DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        AddNode(Index?: any, NodeType?: MsoDiagramNodeType): DiagramNode;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly FirstChild: DiagramNode;
+        Item(Index: any): DiagramNode;
+        readonly LastChild: DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class DiagramNodes {
         private 'Office.DiagramNodes_typekey': DiagramNodes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): DiagramNode;
-        public readonly Parent: any;
-        public SelectAll(): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): DiagramNode;
+        readonly Parent: any;
+        SelectAll(): void;
     }
 
     class DocumentInspector {
         private 'Office.DocumentInspector_typekey': DocumentInspector;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public Fix(Status: MsoDocInspectorStatus, Results: string): void;
-        public Inspect(Status: MsoDocInspectorStatus, Results: string): void;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Description: string;
+        Fix(Status: MsoDocInspectorStatus, Results: string): void;
+        Inspect(Status: MsoDocInspectorStatus, Results: string): void;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class DocumentInspectors {
         private 'Office.DocumentInspectors_typekey': DocumentInspectors;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): DocumentInspector;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): DocumentInspector;
+        readonly Parent: any;
     }
 
     class DocumentProperties<TApplication = any> {
         private 'Office.DocumentProperties_typekey': DocumentProperties<TApplication>;
         private constructor();
-        public Add(Name: string, LinkToContent: boolean, Type?: MsoDocProperties, Value?: any, LinkSource?: string): DocumentProperty;
-        public Application: TApplication;
-        public Count: number;
-        public Creator: number;
-        public Item(index: string | number): DocumentProperty<TApplication>;
-        public Parent: any;
+        Add(Name: string, LinkToContent: boolean, Type?: MsoDocProperties, Value?: any, LinkSource?: string): DocumentProperty;
+        Application: TApplication;
+        Count: number;
+        Creator: number;
+        Item(index: string | number): DocumentProperty<TApplication>;
+        Parent: any;
     }
 
     class DocumentProperty<TApplication = any> {
         private 'Office.DocumentProperty_typekey': DocumentProperty<TApplication>;
         private constructor();
-        public Application: TApplication;
-        public Creator: number;
-        public Delete(): void;
-        public LinkSource: string;
-        public LinkToContent: boolean;
-        public Name: string;
-        public Parent: any;
-        public Type: MsoDocProperties;
-        public Value: any;
+        Application: TApplication;
+        Creator: number;
+        Delete(): void;
+        LinkSource: string;
+        LinkToContent: boolean;
+        Name: string;
+        Parent: any;
+        Type: MsoDocProperties;
+        Value: any;
     }
 
     class DocumentLibraryVersion {
         private 'Office.DocumentLibraryVersion_typekey': DocumentLibraryVersion;
         private constructor();
-        public readonly Application: any;
-        public readonly Comments: string;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Index: number;
-        public readonly Modified: any;
-        public readonly ModifiedBy: string;
-        public Open(): any;
-        public readonly Parent: any;
-        public Restore(): any;
+        readonly Application: any;
+        readonly Comments: string;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Index: number;
+        readonly Modified: any;
+        readonly ModifiedBy: string;
+        Open(): any;
+        readonly Parent: any;
+        Restore(): any;
     }
 
     class DocumentLibraryVersions {
         private 'Office.DocumentLibraryVersions_typekey': DocumentLibraryVersions;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly IsVersioningEnabled: boolean;
-        public Item(lIndex: number): DocumentLibraryVersion;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly IsVersioningEnabled: boolean;
+        Item(lIndex: number): DocumentLibraryVersion;
+        readonly Parent: any;
     }
 
     class EffectParameter {
         private 'Office.EffectParameter_typekey': EffectParameter;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public Value: any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Name: string;
+        Value: any;
     }
 
     class EffectParameters {
         private 'Office.EffectParameters_typekey': EffectParameters;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): EffectParameter;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): EffectParameter;
     }
 
     class FileDialog {
         private 'Office.FileDialog_typekey': FileDialog;
         private constructor();
-        public AllowMultiSelect: boolean;
-        public readonly Application: any;
-        public ButtonName: string;
-        public readonly Creator: number;
-        public readonly DialogType: MsoFileDialogType;
-        public Execute(): void;
-        public FilterIndex: number;
-        public readonly Filters: FileDialogFilters;
-        public InitialFileName: string;
-        public InitialView: MsoFileDialogView;
-        public readonly Item: string;
-        public readonly Parent: any;
-        public readonly SelectedItems: FileDialogSelectedItems;
-        public Show(): number;
-        public Title: string;
+        AllowMultiSelect: boolean;
+        readonly Application: any;
+        ButtonName: string;
+        readonly Creator: number;
+        readonly DialogType: MsoFileDialogType;
+        Execute(): void;
+        FilterIndex: number;
+        readonly Filters: FileDialogFilters;
+        InitialFileName: string;
+        InitialView: MsoFileDialogView;
+        readonly Item: string;
+        readonly Parent: any;
+        readonly SelectedItems: FileDialogSelectedItems;
+        Show(): number;
+        Title: string;
     }
 
     class FileDialogFilter {
         private 'Office.FileDialogFilter_typekey': FileDialogFilter;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public readonly Extensions: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Description: string;
+        readonly Extensions: string;
+        readonly Parent: any;
     }
 
     class FileDialogFilters {
         private 'Office.FileDialogFilters_typekey': FileDialogFilters;
         private constructor();
-        public Add(Description: string, Extensions: string, Position?: any): FileDialogFilter;
-        public readonly Application: any;
-        public Clear(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(filter?: any): void;
-        public Item(Index: number): FileDialogFilter;
-        public readonly Parent: any;
+        Add(Description: string, Extensions: string, Position?: any): FileDialogFilter;
+        readonly Application: any;
+        Clear(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(filter?: any): void;
+        Item(Index: number): FileDialogFilter;
+        readonly Parent: any;
     }
 
     class FileDialogSelectedItems {
         private 'Office.FileDialogSelectedItems_typekey': FileDialogSelectedItems;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): string;
+        readonly Parent: any;
     }
 
     class FileSearch {
         private 'Office.FileSearch_typekey': FileSearch;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
+        readonly Application: any;
+        readonly Creator: number;
 
         /**
          * @param Office.MsoSortBy [SortBy=1]
          * @param Office.MsoSortOrder [SortOrder=1]
          * @param boolean [AlwaysAccurate=true]
          */
-        public Execute(SortBy?: MsoSortBy, SortOrder?: MsoSortOrder, AlwaysAccurate?: boolean): number;
-        public FileName: string;
-        public FileType: MsoFileType;
-        public readonly FileTypes: FileTypes;
-        public readonly FoundFiles: FoundFiles;
-        public LastModified: MsoLastModified;
-        public LookIn: string;
-        public MatchAllWordForms: boolean;
-        public MatchTextExactly: boolean;
-        public NewSearch(): void;
-        public readonly PropertyTests: PropertyTests;
-        public RefreshScopes(): void;
-        public readonly SearchFolders: SearchFolders;
-        public readonly SearchScopes: SearchScopes;
-        public SearchSubFolders: boolean;
-        public TextOrProperty: string;
+        Execute(SortBy?: MsoSortBy, SortOrder?: MsoSortOrder, AlwaysAccurate?: boolean): number;
+        FileName: string;
+        FileType: MsoFileType;
+        readonly FileTypes: FileTypes;
+        readonly FoundFiles: FoundFiles;
+        LastModified: MsoLastModified;
+        LookIn: string;
+        MatchAllWordForms: boolean;
+        MatchTextExactly: boolean;
+        NewSearch(): void;
+        readonly PropertyTests: PropertyTests;
+        RefreshScopes(): void;
+        readonly SearchFolders: SearchFolders;
+        readonly SearchScopes: SearchScopes;
+        SearchSubFolders: boolean;
+        TextOrProperty: string;
     }
 
     class FileTypes {
         private 'Office.FileTypes_typekey': FileTypes;
         private constructor();
-        public Add(FileType: MsoFileType): void;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): MsoFileType;
-        public Remove(Index: number): void;
+        Add(FileType: MsoFileType): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): MsoFileType;
+        Remove(Index: number): void;
     }
 
     class FillFormat {
         private 'Office.FillFormat_typekey': FillFormat;
         private constructor();
-        public readonly Application: any;
-        public BackColor: ColorFormat;
-        public Background(): void;
-        public readonly Creator: number;
-        public ForeColor: ColorFormat;
-        public GradientAngle: number;
-        public readonly GradientColorType: MsoGradientColorType;
-        public readonly GradientDegree: number;
-        public readonly GradientStops: GradientStops;
-        public readonly GradientStyle: MsoGradientStyle;
-        public readonly GradientVariant: number;
-        public OneColorGradient(Style: MsoGradientStyle, Variant: number, Degree: number): void;
-        public readonly Parent: any;
-        public readonly Pattern: MsoPatternType;
-        public Patterned(Pattern: MsoPatternType): void;
-        public readonly PictureEffects: PictureEffects;
-        public PresetGradient(Style: MsoGradientStyle, Variant: number, PresetGradientType: MsoPresetGradientType): void;
-        public readonly PresetGradientType: MsoPresetGradientType;
-        public readonly PresetTexture: MsoPresetTexture;
-        public PresetTextured(PresetTexture: MsoPresetTexture): void;
-        public RotateWithObject: MsoTriState;
-        public Solid(): void;
-        public TextureAlignment: MsoTextureAlignment;
-        public TextureHorizontalScale: number;
-        public readonly TextureName: string;
-        public TextureOffsetX: number;
-        public TextureOffsetY: number;
-        public TextureTile: MsoTriState;
-        public readonly TextureType: MsoTextureType;
-        public TextureVerticalScale: number;
-        public Transparency: number;
-        public TwoColorGradient(Style: MsoGradientStyle, Variant: number): void;
-        public readonly Type: MsoFillType;
-        public UserPicture(PictureFile: string): void;
-        public UserTextured(TextureFile: string): void;
-        public Visible: MsoTriState;
+        readonly Application: any;
+        BackColor: ColorFormat;
+        Background(): void;
+        readonly Creator: number;
+        ForeColor: ColorFormat;
+        GradientAngle: number;
+        readonly GradientColorType: MsoGradientColorType;
+        readonly GradientDegree: number;
+        readonly GradientStops: GradientStops;
+        readonly GradientStyle: MsoGradientStyle;
+        readonly GradientVariant: number;
+        OneColorGradient(Style: MsoGradientStyle, Variant: number, Degree: number): void;
+        readonly Parent: any;
+        readonly Pattern: MsoPatternType;
+        Patterned(Pattern: MsoPatternType): void;
+        readonly PictureEffects: PictureEffects;
+        PresetGradient(Style: MsoGradientStyle, Variant: number, PresetGradientType: MsoPresetGradientType): void;
+        readonly PresetGradientType: MsoPresetGradientType;
+        readonly PresetTexture: MsoPresetTexture;
+        PresetTextured(PresetTexture: MsoPresetTexture): void;
+        RotateWithObject: MsoTriState;
+        Solid(): void;
+        TextureAlignment: MsoTextureAlignment;
+        TextureHorizontalScale: number;
+        readonly TextureName: string;
+        TextureOffsetX: number;
+        TextureOffsetY: number;
+        TextureTile: MsoTriState;
+        readonly TextureType: MsoTextureType;
+        TextureVerticalScale: number;
+        Transparency: number;
+        TwoColorGradient(Style: MsoGradientStyle, Variant: number): void;
+        readonly Type: MsoFillType;
+        UserPicture(PictureFile: string): void;
+        UserTextured(TextureFile: string): void;
+        Visible: MsoTriState;
     }
 
     class Font2 {
         private 'Office.Font2_typekey': Font2;
         private constructor();
-        public Allcaps: MsoTriState;
-        public readonly Application: any;
-        public AutorotateNumbers: MsoTriState;
-        public BaselineOffset: number;
-        public Bold: MsoTriState;
-        public Caps: MsoTextCaps;
-        public readonly Creator: number;
-        public DoubleStrikeThrough: MsoTriState;
-        public readonly Embeddable: MsoTriState;
-        public readonly Embedded: MsoTriState;
-        public Equalize: MsoTriState;
-        public readonly Fill: FillFormat;
-        public readonly Glow: GlowFormat;
-        public readonly Highlight: ColorFormat;
-        public Italic: MsoTriState;
-        public Kerning: number;
-        public readonly Line: LineFormat;
-        public Name: string;
-        public NameAscii: string;
-        public NameComplexScript: string;
-        public NameFarEast: string;
-        public NameOther: string;
-        public readonly Parent: any;
-        public readonly Reflection: ReflectionFormat;
-        public readonly Shadow: ShadowFormat;
-        public Size: number;
-        public Smallcaps: MsoTriState;
-        public SoftEdgeFormat: MsoSoftEdgeType;
-        public Spacing: number;
-        public Strike: MsoTextStrike;
-        public StrikeThrough: MsoTriState;
-        public Subscript: MsoTriState;
-        public Superscript: MsoTriState;
-        public readonly UnderlineColor: ColorFormat;
-        public UnderlineStyle: MsoTextUnderlineType;
-        public WordArtformat: MsoPresetTextEffect;
+        Allcaps: MsoTriState;
+        readonly Application: any;
+        AutorotateNumbers: MsoTriState;
+        BaselineOffset: number;
+        Bold: MsoTriState;
+        Caps: MsoTextCaps;
+        readonly Creator: number;
+        DoubleStrikeThrough: MsoTriState;
+        readonly Embeddable: MsoTriState;
+        readonly Embedded: MsoTriState;
+        Equalize: MsoTriState;
+        readonly Fill: FillFormat;
+        readonly Glow: GlowFormat;
+        readonly Highlight: ColorFormat;
+        Italic: MsoTriState;
+        Kerning: number;
+        readonly Line: LineFormat;
+        Name: string;
+        NameAscii: string;
+        NameComplexScript: string;
+        NameFarEast: string;
+        NameOther: string;
+        readonly Parent: any;
+        readonly Reflection: ReflectionFormat;
+        readonly Shadow: ShadowFormat;
+        Size: number;
+        Smallcaps: MsoTriState;
+        SoftEdgeFormat: MsoSoftEdgeType;
+        Spacing: number;
+        Strike: MsoTextStrike;
+        StrikeThrough: MsoTriState;
+        Subscript: MsoTriState;
+        Superscript: MsoTriState;
+        readonly UnderlineColor: ColorFormat;
+        UnderlineStyle: MsoTextUnderlineType;
+        WordArtformat: MsoPresetTextEffect;
     }
 
     class FoundFiles {
         private 'Office.FoundFiles_typekey': FoundFiles;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): string;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): string;
     }
 
     class FreeformBuilder {
@@ -4466,112 +4466,112 @@ declare namespace Office {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        public AddNodes(SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
-        public readonly Application: any;
-        public ConvertToShape(): Shape;
-        public readonly Creator: number;
-        public readonly Parent: any;
+        AddNodes(SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        readonly Application: any;
+        ConvertToShape(): Shape;
+        readonly Creator: number;
+        readonly Parent: any;
     }
 
     class GlowFormat {
         private 'Office.GlowFormat_typekey': GlowFormat;
         private constructor();
-        public readonly Application: any;
-        public readonly Color: ColorFormat;
-        public readonly Creator: number;
-        public Radius: number;
-        public Transparency: number;
+        readonly Application: any;
+        readonly Color: ColorFormat;
+        readonly Creator: number;
+        Radius: number;
+        Transparency: number;
     }
 
     class GradientStop {
         private 'Office.GradientStop_typekey': GradientStop;
         private constructor();
-        public readonly Application: any;
-        public readonly Color: ColorFormat;
-        public readonly Creator: number;
-        public Position: number;
-        public Transparency: number;
+        readonly Application: any;
+        readonly Color: ColorFormat;
+        readonly Creator: number;
+        Position: number;
+        Transparency: number;
     }
 
     class GradientStops {
         private 'Office.GradientStops_typekey': GradientStops;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
 
         /** @param number [Index=-1] */
-        public Delete(Index?: number): void;
+        Delete(Index?: number): void;
 
         /**
          * @param number [Transparency=0]
          * @param number [Index=-1]
          */
-        public Insert(RGB: number, Position: number, Transparency?: number, Index?: number): void;
+        Insert(RGB: number, Position: number, Transparency?: number, Index?: number): void;
 
         /**
          * @param number [Transparency=0]
          * @param number [Index=-1]
          * @param number [Brightness=0]
          */
-        public Insert2(RGB: number, Position: number, Transparency?: number, Index?: number, Brightness?: number): void;
-        public Item(Index: number): GradientStop;
+        Insert2(RGB: number, Position: number, Transparency?: number, Index?: number, Brightness?: number): void;
+        Item(Index: number): GradientStop;
     }
 
     class GroupShapes {
         private 'Office.GroupShapes_typekey': GroupShapes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
     }
 
     class HTMLProject {
         private 'Office.HTMLProject_typekey': HTMLProject;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly HTMLProjectItems: HTMLProjectItems;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly HTMLProjectItems: HTMLProjectItems;
 
         /** @param Office.MsoHTMLProjectOpen [OpenKind=0] */
-        public Open(OpenKind?: MsoHTMLProjectOpen): void;
-        public readonly Parent: any;
+        Open(OpenKind?: MsoHTMLProjectOpen): void;
+        readonly Parent: any;
 
         /** @param boolean [Refresh=true] */
-        public RefreshDocument(Refresh?: boolean): void;
+        RefreshDocument(Refresh?: boolean): void;
 
         /** @param boolean [Refresh=true] */
-        public RefreshProject(Refresh?: boolean): void;
-        public readonly State: MsoHTMLProjectState;
+        RefreshProject(Refresh?: boolean): void;
+        readonly State: MsoHTMLProjectState;
     }
 
     class HTMLProjectItem {
         private 'Office.HTMLProjectItem_typekey': HTMLProjectItem;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly IsOpen: boolean;
-        public LoadFromFile(FileName: string): void;
-        public readonly Name: string;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly IsOpen: boolean;
+        LoadFromFile(FileName: string): void;
+        readonly Name: string;
 
         /** @param Office.MsoHTMLProjectOpen [OpenKind=0] */
-        public Open(OpenKind?: MsoHTMLProjectOpen): void;
-        public readonly Parent: any;
-        public SaveCopyAs(FileName: string): void;
-        public Text: string;
+        Open(OpenKind?: MsoHTMLProjectOpen): void;
+        readonly Parent: any;
+        SaveCopyAs(FileName: string): void;
+        Text: string;
     }
 
     class HTMLProjectItems {
         private 'Office.HTMLProjectItems_typekey': HTMLProjectItems;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): HTMLProjectItem;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): HTMLProjectItem;
+        readonly Parent: any;
     }
 
     class IAssistance {
@@ -4579,89 +4579,89 @@ declare namespace Office {
         private constructor();
 
         /** ClearDefaultContext Method */
-        public ClearDefaultContext(HelpId: string): void;
+        ClearDefaultContext(HelpId: string): void;
 
         /**
          * SearchHelp Method
          * @param string [Scope='']
          */
-        public SearchHelp(Query: string, Scope?: string): void;
+        SearchHelp(Query: string, Scope?: string): void;
 
         /** SetDefaultContext Method */
-        public SetDefaultContext(HelpId: string): void;
+        SetDefaultContext(HelpId: string): void;
 
         /**
          * ShowHelp Method
          * @param string [HelpId='']
          * @param string [Scope='']
          */
-        public ShowHelp(HelpId?: string, Scope?: string): void;
+        ShowHelp(HelpId?: string, Scope?: string): void;
     }
 
     class IFind {
         private 'Office.IFind_typekey': IFind;
         private constructor();
-        public Author: string;
-        public DateCreatedFrom: any;
-        public DateCreatedTo: any;
-        public DateSavedFrom: any;
-        public DateSavedTo: any;
-        public Delete(bstrQueryName: string): void;
-        public Execute(): void;
-        public FileType: number;
-        public Keywords: string;
-        public ListBy: MsoFileFindListBy;
-        public Load(bstrQueryName: string): void;
-        public MatchCase: boolean;
-        public Name: string;
-        public Options: MsoFileFindOptions;
-        public PatternMatch: boolean;
-        public readonly Results: IFoundFiles;
-        public Save(bstrQueryName: string): void;
-        public SavedBy: string;
-        public SearchPath: string;
-        public SelectedFile: number;
-        public Show(): number;
-        public SortBy: MsoFileFindSortBy;
-        public SubDir: boolean;
-        public Subject: string;
-        public Text: string;
-        public Title: string;
-        public View: MsoFileFindView;
+        Author: string;
+        DateCreatedFrom: any;
+        DateCreatedTo: any;
+        DateSavedFrom: any;
+        DateSavedTo: any;
+        Delete(bstrQueryName: string): void;
+        Execute(): void;
+        FileType: number;
+        Keywords: string;
+        ListBy: MsoFileFindListBy;
+        Load(bstrQueryName: string): void;
+        MatchCase: boolean;
+        Name: string;
+        Options: MsoFileFindOptions;
+        PatternMatch: boolean;
+        readonly Results: IFoundFiles;
+        Save(bstrQueryName: string): void;
+        SavedBy: string;
+        SearchPath: string;
+        SelectedFile: number;
+        Show(): number;
+        SortBy: MsoFileFindSortBy;
+        SubDir: boolean;
+        Subject: string;
+        Text: string;
+        Title: string;
+        View: MsoFileFindView;
     }
 
     class IFoundFiles {
         private 'Office.IFoundFiles_typekey': IFoundFiles;
         private constructor();
-        public readonly Count: number;
-        public Item(Index: number): string;
+        readonly Count: number;
+        Item(Index: number): string;
     }
 
     class IMsoBorder {
         private 'Office.IMsoBorder_typekey': IMsoBorder;
         private constructor();
-        public readonly Application: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public LineStyle: any;
-        public readonly Parent: any;
-        public Weight: any;
+        readonly Application: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        LineStyle: any;
+        readonly Parent: any;
+        Weight: any;
     }
 
     class IMsoCharacters {
         private 'Office.IMsoCharacters_typekey': IMsoCharacters;
         private constructor();
-        public readonly Application: any;
-        public Caption: string;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Font: ChartFont;
-        public Insert(bstr: string): any;
-        public readonly Parent: any;
-        public PhoneticCharacters: string;
-        public Text: string;
+        readonly Application: any;
+        Caption: string;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Font: ChartFont;
+        Insert(bstr: string): any;
+        readonly Parent: any;
+        PhoneticCharacters: string;
+        Text: string;
     }
 
     class IMsoChart {
@@ -4669,662 +4669,662 @@ declare namespace Office {
         private constructor();
 
         /** @param Office.XlDataLabelsType [Type=2] */
-        public _ApplyDataLabels(Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
-        public readonly Application: any;
-        public ApplyChartTemplate(bstrFileName: string): void;
-        public ApplyCustomType(ChartType: XlChartType, TypeName?: any): void;
+        _ApplyDataLabels(Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any): void;
+        readonly Application: any;
+        ApplyChartTemplate(bstrFileName: string): void;
+        ApplyCustomType(ChartType: XlChartType, TypeName?: any): void;
 
         /** @param Office.XlDataLabelsType [Type=2] */
-        public ApplyDataLabels(
+        ApplyDataLabels(
             Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any,
             ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
-        public ApplyLayout(Layout: number, varChartType?: any): void;
-        public readonly Area3DGroup: IMsoChartGroup;
-        public AreaGroups(Index?: any): any;
-        public AutoFormat(rGallery: number, varFormat?: any): void;
-        public AutoScaling: boolean;
+        ApplyLayout(Layout: number, varChartType?: any): void;
+        readonly Area3DGroup: IMsoChartGroup;
+        AreaGroups(Index?: any): any;
+        AutoFormat(rGallery: number, varFormat?: any): void;
+        AutoScaling: boolean;
 
         /** @param Office.XlAxisGroup [AxisGroup=1] */
-        public Axes(Type: any, AxisGroup?: XlAxisGroup): any;
-        public readonly BackWall: IMsoWalls;
-        public readonly Bar3DGroup: IMsoChartGroup;
-        public BarGroups(Index?: any): any;
-        public BarShape: XlBarShape;
-        public readonly ChartArea: IMsoChartArea;
-        public readonly ChartData: IMsoChartData;
-        public ChartGroups(pvarIndex?: any, varIgallery?: any): any;
-        public ChartStyle: any;
-        public readonly ChartTitle: IMsoChartTitle;
-        public ChartType: XlChartType;
-        public ChartWizard(
+        Axes(Type: any, AxisGroup?: XlAxisGroup): any;
+        readonly BackWall: IMsoWalls;
+        readonly Bar3DGroup: IMsoChartGroup;
+        BarGroups(Index?: any): any;
+        BarShape: XlBarShape;
+        readonly ChartArea: IMsoChartArea;
+        readonly ChartData: IMsoChartData;
+        ChartGroups(pvarIndex?: any, varIgallery?: any): any;
+        ChartStyle: any;
+        readonly ChartTitle: IMsoChartTitle;
+        ChartType: XlChartType;
+        ChartWizard(
             varSource?: any, varGallery?: any, varFormat?: any, varPlotBy?: any, varCategoryLabels?: any, varSeriesLabels?: any, varHasLegend?: any, varTitle?: any,
             varCategoryTitle?: any, varValueTitle?: any, varExtraTitle?: any): void;
-        public ClearToMatchStyle(): void;
-        public readonly Column3DGroup: IMsoChartGroup;
-        public ColumnGroups(Index?: any): any;
-        public Copy(): any;
+        ClearToMatchStyle(): void;
+        readonly Column3DGroup: IMsoChartGroup;
+        ColumnGroups(Index?: any): any;
+        Copy(): any;
 
         /**
          * @param number [Appearance=1]
          * @param number [Format=-4147]
          * @param number [Size=2]
          */
-        public CopyPicture(Appearance?: number, Format?: number, Size?: number): void;
-        public readonly Corners: IMsoCorners;
-        public readonly Creator: number;
-        public readonly DataTable: IMsoDataTable;
-        public Delete(): any;
-        public DepthPercent: number;
-        public DisplayBlanksAs: XlDisplayBlanksAs;
-        public DoughnutGroups(Index?: any): any;
-        public Elevation: number;
-        public Export(bstr: string, varFilterName?: any, varInteractive?: any): boolean;
-        public readonly Floor: IMsoFloor;
-        public readonly Format: IMsoChartFormat;
-        public GapDepth: number;
-        public GetChartElement(x: number, y: number, ElementID: number, Arg1: number, Arg2: number): void;
-        public HasAxis(axisType?: any, AxisGroup?: any): any;
-        public HasDataTable: boolean;
-        public HasLegend: boolean;
-        public HasPivotFields: boolean;
-        public HasTitle: boolean;
-        public HeightPercent: number;
-        public readonly Legend: IMsoLegend;
-        public readonly Line3DGroup: IMsoChartGroup;
-        public LineGroups(Index?: any): any;
-        public readonly Parent: any;
-        public Perspective: number;
-        public readonly Pie3DGroup: IMsoChartGroup;
-        public PieGroups(Index?: any): any;
-        public readonly PivotLayout: any;
-        public readonly PlotArea: IMsoPlotArea;
-        public PlotBy: XlRowCol;
-        public PlotVisibleOnly: boolean;
-        public RadarGroups(Index?: any): any;
-        public Refresh(): void;
-        public RefreshPivotTable(): void;
-        public RightAngleAxes: any;
-        public Rotation: any;
-        public SaveChartTemplate(bstrFileName: string): void;
-        public Select(Replace?: any): any;
-        public SeriesCollection(Index?: any): any;
-        public SetDefaultChart(varName: any): void;
-        public SetElement(RHS: MsoChartElementType): void;
-        public SetSourceData(Source: string, PlotBy?: any): void;
-        public readonly Shapes: Shapes;
-        public ShowAllFieldButtons: boolean;
-        public ShowAxisFieldButtons: boolean;
-        public ShowDataLabelsOverMaximum: boolean;
-        public ShowLegendFieldButtons: boolean;
-        public ShowReportFilterFieldButtons: boolean;
-        public ShowValueFieldButtons: boolean;
-        public readonly SideWall: IMsoWalls;
-        public SubType: number;
-        public readonly SurfaceGroup: IMsoChartGroup;
-        public Type: number;
+        CopyPicture(Appearance?: number, Format?: number, Size?: number): void;
+        readonly Corners: IMsoCorners;
+        readonly Creator: number;
+        readonly DataTable: IMsoDataTable;
+        Delete(): any;
+        DepthPercent: number;
+        DisplayBlanksAs: XlDisplayBlanksAs;
+        DoughnutGroups(Index?: any): any;
+        Elevation: number;
+        Export(bstr: string, varFilterName?: any, varInteractive?: any): boolean;
+        readonly Floor: IMsoFloor;
+        readonly Format: IMsoChartFormat;
+        GapDepth: number;
+        GetChartElement(x: number, y: number, ElementID: number, Arg1: number, Arg2: number): void;
+        HasAxis(axisType?: any, AxisGroup?: any): any;
+        HasDataTable: boolean;
+        HasLegend: boolean;
+        HasPivotFields: boolean;
+        HasTitle: boolean;
+        HeightPercent: number;
+        readonly Legend: IMsoLegend;
+        readonly Line3DGroup: IMsoChartGroup;
+        LineGroups(Index?: any): any;
+        readonly Parent: any;
+        Perspective: number;
+        readonly Pie3DGroup: IMsoChartGroup;
+        PieGroups(Index?: any): any;
+        readonly PivotLayout: any;
+        readonly PlotArea: IMsoPlotArea;
+        PlotBy: XlRowCol;
+        PlotVisibleOnly: boolean;
+        RadarGroups(Index?: any): any;
+        Refresh(): void;
+        RefreshPivotTable(): void;
+        RightAngleAxes: any;
+        Rotation: any;
+        SaveChartTemplate(bstrFileName: string): void;
+        Select(Replace?: any): any;
+        SeriesCollection(Index?: any): any;
+        SetDefaultChart(varName: any): void;
+        SetElement(RHS: MsoChartElementType): void;
+        SetSourceData(Source: string, PlotBy?: any): void;
+        readonly Shapes: Shapes;
+        ShowAllFieldButtons: boolean;
+        ShowAxisFieldButtons: boolean;
+        ShowDataLabelsOverMaximum: boolean;
+        ShowLegendFieldButtons: boolean;
+        ShowReportFilterFieldButtons: boolean;
+        ShowValueFieldButtons: boolean;
+        readonly SideWall: IMsoWalls;
+        SubType: number;
+        readonly SurfaceGroup: IMsoChartGroup;
+        Type: number;
 
         /** @param boolean [fBackWall=true] */
-        public Walls(fBackWall?: boolean): IMsoWalls;
-        public XYGroups(Index?: any): any;
+        Walls(fBackWall?: boolean): IMsoWalls;
+        XYGroups(Index?: any): any;
     }
 
     class IMsoChartArea {
         private 'Office.IMsoChartArea_typekey': IMsoChartArea;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: IMsoBorder;
-        public Clear(): any;
-        public ClearContents(): any;
-        public ClearFormats(): any;
-        public Copy(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: IMsoChartFormat;
-        public Height: number;
-        public readonly Interior: IMsoInterior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public RoundedCorners: boolean;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: IMsoBorder;
+        Clear(): any;
+        ClearContents(): any;
+        ClearFormats(): any;
+        Copy(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: IMsoChartFormat;
+        Height: number;
+        readonly Interior: IMsoInterior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        RoundedCorners: boolean;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class IMsoChartData {
         private 'Office.IMsoChartData_typekey': IMsoChartData;
         private constructor();
-        public Activate(): void;
-        public BreakLink(): void;
-        public readonly IsLinked: boolean;
-        public readonly Workbook: any;
+        Activate(): void;
+        BreakLink(): void;
+        readonly IsLinked: boolean;
+        readonly Workbook: any;
     }
 
     class IMsoChartFormat {
         private 'Office.IMsoChartFormat_typekey': IMsoChartFormat;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Fill: FillFormat;
-        public readonly Glow: GlowFormat;
-        public readonly Line: LineFormat;
-        public readonly Parent: any;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Shadow: ShadowFormat;
-        public readonly SoftEdge: SoftEdgeFormat;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Fill: FillFormat;
+        readonly Glow: GlowFormat;
+        readonly Line: LineFormat;
+        readonly Parent: any;
+        readonly PictureFormat: PictureFormat;
+        readonly Shadow: ShadowFormat;
+        readonly SoftEdge: SoftEdgeFormat;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
     }
 
     class IMsoChartGroup {
         private 'Office.IMsoChartGroup_typekey': IMsoChartGroup;
         private constructor();
-        public readonly Application: any;
-        public AxisGroup: number;
-        public BubbleScale: number;
-        public readonly Creator: number;
-        public DoughnutHoleSize: number;
-        public readonly DownBars: IMsoDownBars;
-        public readonly DropLines: IMsoDropLines;
-        public FirstSliceAngle: number;
-        public GapWidth: number;
-        public Has3DShading: boolean;
-        public HasDropLines: boolean;
-        public HasHiLoLines: boolean;
-        public HasRadarAxisLabels: boolean;
-        public HasSeriesLines: boolean;
-        public HasUpDownBars: boolean;
-        public readonly HiLoLines: IMsoHiLoLines;
-        public readonly Index: number;
-        public Overlap: number;
-        public readonly Parent: any;
-        public readonly RadarAxisLabels: any;
-        public SecondPlotSize: number;
-        public SeriesCollection(Index?: any): any;
-        public readonly SeriesLines: IMsoSeriesLines;
-        public ShowNegativeBubbles: boolean;
-        public SizeRepresents: XlSizeRepresents;
-        public SplitType: XlChartSplitType;
-        public SplitValue: any;
-        public SubType: number;
-        public Type: number;
-        public readonly UpBars: IMsoUpBars;
-        public VaryByCategories: boolean;
+        readonly Application: any;
+        AxisGroup: number;
+        BubbleScale: number;
+        readonly Creator: number;
+        DoughnutHoleSize: number;
+        readonly DownBars: IMsoDownBars;
+        readonly DropLines: IMsoDropLines;
+        FirstSliceAngle: number;
+        GapWidth: number;
+        Has3DShading: boolean;
+        HasDropLines: boolean;
+        HasHiLoLines: boolean;
+        HasRadarAxisLabels: boolean;
+        HasSeriesLines: boolean;
+        HasUpDownBars: boolean;
+        readonly HiLoLines: IMsoHiLoLines;
+        readonly Index: number;
+        Overlap: number;
+        readonly Parent: any;
+        readonly RadarAxisLabels: any;
+        SecondPlotSize: number;
+        SeriesCollection(Index?: any): any;
+        readonly SeriesLines: IMsoSeriesLines;
+        ShowNegativeBubbles: boolean;
+        SizeRepresents: XlSizeRepresents;
+        SplitType: XlChartSplitType;
+        SplitValue: any;
+        SubType: number;
+        Type: number;
+        readonly UpBars: IMsoUpBars;
+        VaryByCategories: boolean;
     }
 
     class IMsoChartTitle {
         private 'Office.IMsoChartTitle_typekey': IMsoChartTitle;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: IMsoBorder;
-        public Caption: string;
-        public Characters(Start?: any, Length?: any): IMsoCharacters;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: IMsoChartFormat;
-        public Formula: string;
-        public FormulaLocal: string;
-        public FormulaR1C1: string;
-        public FormulaR1C1Local: string;
-        public readonly Height: number;
-        public HorizontalAlignment: any;
-        public IncludeInLayout: boolean;
-        public readonly Interior: IMsoInterior;
-        public Left: number;
-        public readonly Name: string;
-        public Orientation: any;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public ReadingOrder: number;
-        public Select(): any;
-        public Shadow: boolean;
-        public Text: string;
-        public Top: number;
-        public VerticalAlignment: any;
-        public readonly Width: number;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: IMsoBorder;
+        Caption: string;
+        Characters(Start?: any, Length?: any): IMsoCharacters;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: IMsoChartFormat;
+        Formula: string;
+        FormulaLocal: string;
+        FormulaR1C1: string;
+        FormulaR1C1Local: string;
+        readonly Height: number;
+        HorizontalAlignment: any;
+        IncludeInLayout: boolean;
+        readonly Interior: IMsoInterior;
+        Left: number;
+        readonly Name: string;
+        Orientation: any;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        ReadingOrder: number;
+        Select(): any;
+        Shadow: boolean;
+        Text: string;
+        Top: number;
+        VerticalAlignment: any;
+        readonly Width: number;
     }
 
     class IMsoCorners {
         private 'Office.IMsoCorners_typekey': IMsoCorners;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class IMsoDataTable {
         private 'Office.IMsoDataTable_typekey': IMsoDataTable;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: IMsoBorder;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Font: ChartFont;
-        public readonly Format: IMsoChartFormat;
-        public HasBorderHorizontal: boolean;
-        public HasBorderOutline: boolean;
-        public HasBorderVertical: boolean;
-        public readonly Parent: any;
-        public Select(): void;
-        public ShowLegendKey: boolean;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: IMsoBorder;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Font: ChartFont;
+        readonly Format: IMsoChartFormat;
+        HasBorderHorizontal: boolean;
+        HasBorderOutline: boolean;
+        HasBorderVertical: boolean;
+        readonly Parent: any;
+        Select(): void;
+        ShowLegendKey: boolean;
     }
 
     class IMsoDiagram {
         private 'Office.IMsoDiagram_typekey': IMsoDiagram;
         private constructor();
-        public readonly Application: any;
-        public AutoFormat: MsoTriState;
-        public AutoLayout: MsoTriState;
-        public Convert(Type: MsoDiagramType): void;
-        public readonly Creator: number;
-        public FitText(): void;
-        public readonly Nodes: DiagramNodes;
-        public readonly Parent: any;
-        public Reverse: MsoTriState;
-        public readonly Type: MsoDiagramType;
+        readonly Application: any;
+        AutoFormat: MsoTriState;
+        AutoLayout: MsoTriState;
+        Convert(Type: MsoDiagramType): void;
+        readonly Creator: number;
+        FitText(): void;
+        readonly Nodes: DiagramNodes;
+        readonly Parent: any;
+        Reverse: MsoTriState;
+        readonly Type: MsoDiagramType;
     }
 
     class IMsoDownBars {
         private 'Office.IMsoDownBars_typekey': IMsoDownBars;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: IMsoChartFormat;
-        public readonly Interior: IMsoInterior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: IMsoChartFormat;
+        readonly Interior: IMsoInterior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class IMsoDropLines {
         private 'Office.IMsoDropLines_typekey': IMsoDropLines;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Format: IMsoChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): void;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Format: IMsoChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): void;
     }
 
     class IMsoFloor {
         private 'Office.IMsoFloor_typekey': IMsoFloor;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: IMsoChartFormat;
-        public readonly Interior: IMsoInterior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: IMsoChartFormat;
+        readonly Interior: IMsoInterior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class IMsoHiLoLines {
         private 'Office.IMsoHiLoLines_typekey': IMsoHiLoLines;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Format: IMsoChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): void;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Format: IMsoChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): void;
     }
 
     class IMsoInterior {
         private 'Office.IMsoInterior_typekey': IMsoInterior;
         private constructor();
-        public readonly Application: any;
-        public Color: any;
-        public ColorIndex: any;
-        public readonly Creator: number;
-        public InvertIfNegative: any;
-        public readonly Parent: any;
-        public Pattern: any;
-        public PatternColor: any;
-        public PatternColorIndex: any;
+        readonly Application: any;
+        Color: any;
+        ColorIndex: any;
+        readonly Creator: number;
+        InvertIfNegative: any;
+        readonly Parent: any;
+        Pattern: any;
+        PatternColor: any;
+        PatternColorIndex: any;
     }
 
     class IMsoLegend {
         private 'Office.IMsoLegend_typekey': IMsoLegend;
         private constructor();
-        public readonly Application: any;
-        public AutoScaleFont: any;
-        public readonly Border: IMsoBorder;
-        public Clear(): any;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Font: ChartFont;
-        public readonly Format: IMsoChartFormat;
-        public Height: number;
-        public IncludeInLayout: boolean;
-        public readonly Interior: IMsoInterior;
-        public Left: number;
-        public LegendEntries(Index?: any): any;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlLegendPosition;
-        public Select(): any;
-        public Shadow: boolean;
-        public Top: number;
-        public Width: number;
+        readonly Application: any;
+        AutoScaleFont: any;
+        readonly Border: IMsoBorder;
+        Clear(): any;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Font: ChartFont;
+        readonly Format: IMsoChartFormat;
+        Height: number;
+        IncludeInLayout: boolean;
+        readonly Interior: IMsoInterior;
+        Left: number;
+        LegendEntries(Index?: any): any;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlLegendPosition;
+        Select(): any;
+        Shadow: boolean;
+        Top: number;
+        Width: number;
     }
 
     class IMsoPlotArea {
         private 'Office.IMsoPlotArea_typekey': IMsoPlotArea;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: IMsoChartFormat;
-        public Height: number;
-        public InsideHeight: number;
-        public InsideLeft: number;
-        public InsideTop: number;
-        public InsideWidth: number;
-        public readonly Interior: IMsoInterior;
-        public Left: number;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Position: XlChartElementPosition;
-        public Select(): any;
-        public Top: number;
-        public Width: number;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: IMsoChartFormat;
+        Height: number;
+        InsideHeight: number;
+        InsideLeft: number;
+        InsideTop: number;
+        InsideWidth: number;
+        readonly Interior: IMsoInterior;
+        Left: number;
+        readonly Name: string;
+        readonly Parent: any;
+        Position: XlChartElementPosition;
+        Select(): any;
+        Top: number;
+        Width: number;
     }
 
     class IMsoSeriesLines {
         private 'Office.IMsoSeriesLines_typekey': IMsoSeriesLines;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Format: IMsoChartFormat;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Format: IMsoChartFormat;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class IMsoUpBars {
         private 'Office.IMsoUpBars_typekey': IMsoUpBars;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public readonly Creator: number;
-        public Delete(): any;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: IMsoChartFormat;
-        public readonly Interior: IMsoInterior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Select(): any;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        readonly Creator: number;
+        Delete(): any;
+        readonly Fill: ChartFillFormat;
+        readonly Format: IMsoChartFormat;
+        readonly Interior: IMsoInterior;
+        readonly Name: string;
+        readonly Parent: any;
+        Select(): any;
     }
 
     class IMsoWalls {
         private 'Office.IMsoWalls_typekey': IMsoWalls;
         private constructor();
-        public readonly Application: any;
-        public readonly Border: IMsoBorder;
-        public ClearFormats(): any;
-        public readonly Creator: number;
-        public readonly Fill: ChartFillFormat;
-        public readonly Format: IMsoChartFormat;
-        public readonly Interior: IMsoInterior;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public Paste(): void;
-        public PictureType: any;
-        public PictureUnit: any;
-        public Select(): any;
-        public Thickness: number;
+        readonly Application: any;
+        readonly Border: IMsoBorder;
+        ClearFormats(): any;
+        readonly Creator: number;
+        readonly Fill: ChartFillFormat;
+        readonly Format: IMsoChartFormat;
+        readonly Interior: IMsoInterior;
+        readonly Name: string;
+        readonly Parent: any;
+        Paste(): void;
+        PictureType: any;
+        PictureUnit: any;
+        Select(): any;
+        Thickness: number;
     }
 
     class LanguageSettings {
         private 'Office.LanguageSettings_typekey': LanguageSettings;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public LanguageID(Id: MsoAppLanguageID): number;
-        public LanguagePreferredForEditing(lid: MsoLanguageID): boolean;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        LanguageID(Id: MsoAppLanguageID): number;
+        LanguagePreferredForEditing(lid: MsoLanguageID): boolean;
+        readonly Parent: any;
     }
 
     class LineFormat {
         private 'Office.LineFormat_typekey': LineFormat;
         private constructor();
-        public readonly Application: any;
-        public BackColor: ColorFormat;
-        public BeginArrowheadLength: MsoArrowheadLength;
-        public BeginArrowheadStyle: MsoArrowheadStyle;
-        public BeginArrowheadWidth: MsoArrowheadWidth;
-        public readonly Creator: number;
-        public DashStyle: MsoLineDashStyle;
-        public EndArrowheadLength: MsoArrowheadLength;
-        public EndArrowheadStyle: MsoArrowheadStyle;
-        public EndArrowheadWidth: MsoArrowheadWidth;
-        public ForeColor: ColorFormat;
-        public InsetPen: MsoTriState;
-        public readonly Parent: any;
-        public Pattern: MsoPatternType;
-        public Style: MsoLineStyle;
-        public Transparency: number;
-        public Visible: MsoTriState;
-        public Weight: number;
+        readonly Application: any;
+        BackColor: ColorFormat;
+        BeginArrowheadLength: MsoArrowheadLength;
+        BeginArrowheadStyle: MsoArrowheadStyle;
+        BeginArrowheadWidth: MsoArrowheadWidth;
+        readonly Creator: number;
+        DashStyle: MsoLineDashStyle;
+        EndArrowheadLength: MsoArrowheadLength;
+        EndArrowheadStyle: MsoArrowheadStyle;
+        EndArrowheadWidth: MsoArrowheadWidth;
+        ForeColor: ColorFormat;
+        InsetPen: MsoTriState;
+        readonly Parent: any;
+        Pattern: MsoPatternType;
+        Style: MsoLineStyle;
+        Transparency: number;
+        Visible: MsoTriState;
+        Weight: number;
     }
 
     class MetaProperties {
         private 'Office.MetaProperties_typekey': MetaProperties;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public GetItemByInternalName(InternalName: string): MetaProperty;
-        public Item(Index: any): MetaProperty;
-        public readonly Parent: any;
-        public readonly SchemaXml: string;
-        public Validate(): string;
-        public readonly ValidationError: string;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        GetItemByInternalName(InternalName: string): MetaProperty;
+        Item(Index: any): MetaProperty;
+        readonly Parent: any;
+        readonly SchemaXml: string;
+        Validate(): string;
+        readonly ValidationError: string;
     }
 
     class MetaProperty {
         private 'Office.MetaProperty_typekey': MetaProperty;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Id: string;
-        public readonly IsReadOnly: boolean;
-        public readonly IsRequired: boolean;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Type: MsoMetaPropertyType;
-        public Validate(): string;
-        public readonly ValidationError: string;
-        public Value: any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Id: string;
+        readonly IsReadOnly: boolean;
+        readonly IsRequired: boolean;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Type: MsoMetaPropertyType;
+        Validate(): string;
+        readonly ValidationError: string;
+        Value: any;
     }
 
     class MsoDebugOptions {
         private 'Office.MsoDebugOptions_typekey': MsoDebugOptions;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public FeatureReports: number;
-        public OutputToDebugger: boolean;
-        public OutputToFile: boolean;
-        public OutputToMessageBox: boolean;
-        public readonly UnitTestManager: any;
+        readonly Application: any;
+        readonly Creator: number;
+        FeatureReports: number;
+        OutputToDebugger: boolean;
+        OutputToFile: boolean;
+        OutputToMessageBox: boolean;
+        readonly UnitTestManager: any;
     }
 
     class MsoEnvelope {
         private 'Office.MsoEnvelope_typekey': MsoEnvelope;
         private constructor();
-        public readonly CommandBars: any;
-        public Introduction: string;
-        public readonly Item: any;
-        public readonly Parent: any;
+        readonly CommandBars: any;
+        Introduction: string;
+        readonly Item: any;
+        readonly Parent: any;
     }
 
     class NewFile {
         private 'Office.NewFile_typekey': NewFile;
         private constructor();
-        public Add(FileName: string, Section?: any, DisplayName?: any, Action?: any): boolean;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Remove(FileName: string, Section?: any, DisplayName?: any, Action?: any): boolean;
+        Add(FileName: string, Section?: any, DisplayName?: any, Action?: any): boolean;
+        readonly Application: any;
+        readonly Creator: number;
+        Remove(FileName: string, Section?: any, DisplayName?: any, Action?: any): boolean;
     }
 
     class OfficeTheme {
         private 'Office.OfficeTheme_typekey': OfficeTheme;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public readonly ThemeColorScheme: ThemeColorScheme;
-        public readonly ThemeEffectScheme: ThemeEffectScheme;
-        public readonly ThemeFontScheme: ThemeFontScheme;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Parent: any;
+        readonly ThemeColorScheme: ThemeColorScheme;
+        readonly ThemeEffectScheme: ThemeEffectScheme;
+        readonly ThemeFontScheme: ThemeFontScheme;
     }
 
     class ParagraphFormat2 {
         private 'Office.ParagraphFormat2_typekey': ParagraphFormat2;
         private constructor();
-        public Alignment: MsoParagraphAlignment;
-        public readonly Application: any;
-        public BaselineAlignment: MsoBaselineAlignment;
-        public readonly Bullet: BulletFormat2;
-        public readonly Creator: number;
-        public FarEastLineBreakLevel: MsoTriState;
-        public FirstLineIndent: number;
-        public HangingPunctuation: MsoTriState;
-        public IndentLevel: number;
-        public LeftIndent: number;
-        public LineRuleAfter: MsoTriState;
-        public LineRuleBefore: MsoTriState;
-        public LineRuleWithin: MsoTriState;
-        public readonly Parent: any;
-        public RightIndent: number;
-        public SpaceAfter: number;
-        public SpaceBefore: number;
-        public SpaceWithin: number;
-        public readonly TabStops: TabStops2;
-        public TextDirection: MsoTextDirection;
-        public WordWrap: MsoTriState;
+        Alignment: MsoParagraphAlignment;
+        readonly Application: any;
+        BaselineAlignment: MsoBaselineAlignment;
+        readonly Bullet: BulletFormat2;
+        readonly Creator: number;
+        FarEastLineBreakLevel: MsoTriState;
+        FirstLineIndent: number;
+        HangingPunctuation: MsoTriState;
+        IndentLevel: number;
+        LeftIndent: number;
+        LineRuleAfter: MsoTriState;
+        LineRuleBefore: MsoTriState;
+        LineRuleWithin: MsoTriState;
+        readonly Parent: any;
+        RightIndent: number;
+        SpaceAfter: number;
+        SpaceBefore: number;
+        SpaceWithin: number;
+        readonly TabStops: TabStops2;
+        TextDirection: MsoTextDirection;
+        WordWrap: MsoTriState;
     }
 
     class Permission {
         private 'Office.Permission_typekey': Permission;
         private constructor();
-        public Add(UserId: string, Permission?: any, ExpirationDate?: any): UserPermission;
-        public readonly Application: any;
-        public ApplyPolicy(FileName: string): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public DocumentAuthor: string;
-        public Enabled: boolean;
-        public EnableTrustedBrowser: boolean;
-        public Item(Index: any): UserPermission;
-        public readonly Parent: any;
-        public readonly PermissionFromPolicy: boolean;
-        public readonly PolicyDescription: string;
-        public readonly PolicyName: string;
-        public RemoveAll(): void;
-        public RequestPermissionURL: string;
-        public StoreLicenses: boolean;
+        Add(UserId: string, Permission?: any, ExpirationDate?: any): UserPermission;
+        readonly Application: any;
+        ApplyPolicy(FileName: string): void;
+        readonly Count: number;
+        readonly Creator: number;
+        DocumentAuthor: string;
+        Enabled: boolean;
+        EnableTrustedBrowser: boolean;
+        Item(Index: any): UserPermission;
+        readonly Parent: any;
+        readonly PermissionFromPolicy: boolean;
+        readonly PolicyDescription: string;
+        readonly PolicyName: string;
+        RemoveAll(): void;
+        RequestPermissionURL: string;
+        StoreLicenses: boolean;
     }
 
     class PickerDialog {
         private 'Office.PickerDialog_typekey': PickerDialog;
         private constructor();
-        public readonly Application: any;
-        public CreatePickerResults(): PickerResults;
-        public readonly Creator: number;
-        public DataHandlerId: string;
-        public readonly Properties: PickerProperties;
-        public Resolve(TokenText: string, duplicateDlgMode: number): PickerResults;
+        readonly Application: any;
+        CreatePickerResults(): PickerResults;
+        readonly Creator: number;
+        DataHandlerId: string;
+        readonly Properties: PickerProperties;
+        Resolve(TokenText: string, duplicateDlgMode: number): PickerResults;
 
         /**
          * @param boolean [IsMultiSelect=true]
          * @param Office.PickerResults [ExistingResults=0]
          */
-        public Show(IsMultiSelect?: boolean, ExistingResults?: PickerResults): PickerResults;
-        public Title: string;
+        Show(IsMultiSelect?: boolean, ExistingResults?: PickerResults): PickerResults;
+        Title: string;
     }
 
     class PickerField {
         private 'Office.PickerField_typekey': PickerField;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly IsHidden: boolean;
-        public readonly Name: string;
-        public readonly Type: MsoPickerField;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly IsHidden: boolean;
+        readonly Name: string;
+        readonly Type: MsoPickerField;
     }
 
     class PickerFields {
         private 'Office.PickerFields_typekey': PickerFields;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): PickerField;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): PickerField;
     }
 
     class PickerProperties {
         private 'Office.PickerProperties_typekey': PickerProperties;
         private constructor();
-        public Add(Id: string, Value: string, Type: MsoPickerField): PickerProperty;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): PickerProperty;
-        public Remove(Id: string): void;
+        Add(Id: string, Value: string, Type: MsoPickerField): PickerProperty;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): PickerProperty;
+        Remove(Id: string): void;
     }
 
     class PickerProperty {
         private 'Office.PickerProperty_typekey': PickerProperty;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Id: string;
-        public readonly Type: MsoPickerField;
-        public readonly Value: any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Id: string;
+        readonly Type: MsoPickerField;
+        readonly Value: any;
     }
 
     class PickerResult {
         private 'Office.PickerResult_typekey': PickerResult;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public DisplayName: string;
-        public readonly DuplicateResults: any;
-        public Fields: PickerFields;
-        public readonly Id: string;
-        public ItemData: any;
-        public SIPId: string;
-        public SubItems: any;
-        public Type: string;
+        readonly Application: any;
+        readonly Creator: number;
+        DisplayName: string;
+        readonly DuplicateResults: any;
+        Fields: PickerFields;
+        readonly Id: string;
+        ItemData: any;
+        SIPId: string;
+        SubItems: any;
+        Type: string;
     }
 
     class PickerResults {
@@ -5332,82 +5332,82 @@ declare namespace Office {
         private constructor();
 
         /** @param string [SIPId=''] */
-        public Add(Id: string, DisplayName: string, Type: string, SIPId?: string, ItemData?: any, SubItems?: any): PickerResult;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): PickerResult;
+        Add(Id: string, DisplayName: string, Type: string, SIPId?: string, ItemData?: any, SubItems?: any): PickerResult;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): PickerResult;
     }
 
     class PictureEffect {
         private 'Office.PictureEffect_typekey': PictureEffect;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly EffectParameters: EffectParameters;
-        public Position: number;
-        public readonly Type: MsoPictureEffectType;
-        public Visible: MsoTriState;
+        readonly Application: any;
+        readonly Creator: number;
+        Delete(): void;
+        readonly EffectParameters: EffectParameters;
+        Position: number;
+        readonly Type: MsoPictureEffectType;
+        Visible: MsoTriState;
     }
 
     class PictureEffects {
         private 'Office.PictureEffects_typekey': PictureEffects;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
 
         /** @param number [Index=-1] */
-        public Delete(Index?: number): void;
+        Delete(Index?: number): void;
 
         /** @param number [Position=-1] */
-        public Insert(EffectType: MsoPictureEffectType, Position?: number): PictureEffect;
-        public Item(Index: number): PictureEffect;
+        Insert(EffectType: MsoPictureEffectType, Position?: number): PictureEffect;
+        Item(Index: number): PictureEffect;
     }
 
     class PictureFormat {
         private 'Office.PictureFormat_typekey': PictureFormat;
         private constructor();
-        public readonly Application: any;
-        public Brightness: number;
-        public ColorType: MsoPictureColorType;
-        public Contrast: number;
-        public readonly Creator: number;
-        public readonly Crop: Crop;
-        public CropBottom: number;
-        public CropLeft: number;
-        public CropRight: number;
-        public CropTop: number;
-        public IncrementBrightness(Increment: number): void;
-        public IncrementContrast(Increment: number): void;
-        public readonly Parent: any;
-        public TransparencyColor: number;
-        public TransparentBackground: MsoTriState;
+        readonly Application: any;
+        Brightness: number;
+        ColorType: MsoPictureColorType;
+        Contrast: number;
+        readonly Creator: number;
+        readonly Crop: Crop;
+        CropBottom: number;
+        CropLeft: number;
+        CropRight: number;
+        CropTop: number;
+        IncrementBrightness(Increment: number): void;
+        IncrementContrast(Increment: number): void;
+        readonly Parent: any;
+        TransparencyColor: number;
+        TransparentBackground: MsoTriState;
     }
 
     class PolicyItem {
         private 'Office.PolicyItem_typekey': PolicyItem;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Data: string;
-        public readonly Description: string;
-        public readonly Id: string;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Data: string;
+        readonly Description: string;
+        readonly Id: string;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class PropertyTest {
         private 'Office.PropertyTest_typekey': PropertyTest;
         private constructor();
-        public readonly Application: any;
-        public readonly Condition: MsoCondition;
-        public readonly Connector: MsoConnector;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public readonly SecondValue: any;
-        public readonly Value: any;
+        readonly Application: any;
+        readonly Condition: MsoCondition;
+        readonly Connector: MsoConnector;
+        readonly Creator: number;
+        readonly Name: string;
+        readonly SecondValue: any;
+        readonly Value: any;
     }
 
     class PropertyTests {
@@ -5415,89 +5415,89 @@ declare namespace Office {
         private constructor();
 
         /** @param Office.MsoConnector [Connector=1] */
-        public Add(Name: string, Condition: MsoCondition, Value: any, SecondValue: any, Connector?: MsoConnector): void;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): PropertyTest;
-        public Remove(Index: number): void;
+        Add(Name: string, Condition: MsoCondition, Value: any, SecondValue: any, Connector?: MsoConnector): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): PropertyTest;
+        Remove(Index: number): void;
     }
 
     class ReflectionFormat {
         private 'Office.ReflectionFormat_typekey': ReflectionFormat;
         private constructor();
-        public readonly Application: any;
-        public Blur: number;
-        public readonly Creator: number;
-        public Offset: number;
-        public Size: number;
-        public Transparency: number;
-        public Type: MsoReflectionType;
+        readonly Application: any;
+        Blur: number;
+        readonly Creator: number;
+        Offset: number;
+        Size: number;
+        Transparency: number;
+        Type: MsoReflectionType;
     }
 
     class Ruler2 {
         private 'Office.Ruler2_typekey': Ruler2;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Levels: RulerLevels2;
-        public readonly Parent: any;
-        public readonly TabStops: TabStops2;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Levels: RulerLevels2;
+        readonly Parent: any;
+        readonly TabStops: TabStops2;
     }
 
     class RulerLevel2 {
         private 'Office.RulerLevel2_typekey': RulerLevel2;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public FirstMargin: number;
-        public LeftMargin: number;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        FirstMargin: number;
+        LeftMargin: number;
+        readonly Parent: any;
     }
 
     class RulerLevels2 {
         private 'Office.RulerLevels2_typekey': RulerLevels2;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): RulerLevel2;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): RulerLevel2;
+        readonly Parent: any;
     }
 
     class ScopeFolder {
         private 'Office.ScopeFolder_typekey': ScopeFolder;
         private constructor();
-        public AddToSearchFolders(): void;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Name: string;
-        public readonly Path: string;
-        public readonly ScopeFolders: ScopeFolders;
+        AddToSearchFolders(): void;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Name: string;
+        readonly Path: string;
+        readonly ScopeFolders: ScopeFolders;
     }
 
     class ScopeFolders {
         private 'Office.ScopeFolders_typekey': ScopeFolders;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): ScopeFolder;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): ScopeFolder;
     }
 
     class Script {
         private 'Office.Script_typekey': Script;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Extended: string;
-        public Id: string;
-        public Language: MsoScriptLanguage;
-        public readonly Location: MsoScriptLocation;
-        public readonly Parent: any;
-        public ScriptText: string;
-        public readonly Shape: any;
+        readonly Application: any;
+        readonly Creator: number;
+        Delete(): void;
+        Extended: string;
+        Id: string;
+        Language: MsoScriptLanguage;
+        readonly Location: MsoScriptLocation;
+        readonly Parent: any;
+        ScriptText: string;
+        readonly Shape: any;
     }
 
     class Scripts {
@@ -5511,183 +5511,183 @@ declare namespace Office {
          * @param string [Extended='']
          * @param string [ScriptText='']
          */
-        public Add(Anchor?: any, Location?: MsoScriptLocation, Language?: MsoScriptLanguage, Id?: string, Extended?: string, ScriptText?: string): Script;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Item(Index: any): Script;
-        public readonly Parent: any;
+        Add(Anchor?: any, Location?: MsoScriptLocation, Language?: MsoScriptLanguage, Id?: string, Extended?: string, ScriptText?: string): Script;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(): void;
+        Item(Index: any): Script;
+        readonly Parent: any;
     }
 
     class SearchFolders {
         private 'Office.SearchFolders_typekey': SearchFolders;
         private constructor();
-        public Add(ScopeFolder: ScopeFolder): void;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): ScopeFolder;
-        public Remove(Index: number): void;
+        Add(ScopeFolder: ScopeFolder): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): ScopeFolder;
+        Remove(Index: number): void;
     }
 
     class SearchScope {
         private 'Office.SearchScope_typekey': SearchScope;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly ScopeFolder: ScopeFolder;
-        public readonly Type: MsoSearchIn;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly ScopeFolder: ScopeFolder;
+        readonly Type: MsoSearchIn;
     }
 
     class SearchScopes {
         private 'Office.SearchScopes_typekey': SearchScopes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): SearchScope;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): SearchScope;
     }
 
     class ServerPolicy {
         private 'Office.ServerPolicy_typekey': ServerPolicy;
         private constructor();
-        public readonly Application: any;
-        public readonly BlockPreview: boolean;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public readonly Id: string;
-        public Item(Index: any): PolicyItem;
-        public readonly Name: string;
-        public readonly Parent: any;
-        public readonly Statement: string;
+        readonly Application: any;
+        readonly BlockPreview: boolean;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly Description: string;
+        readonly Id: string;
+        Item(Index: any): PolicyItem;
+        readonly Name: string;
+        readonly Parent: any;
+        readonly Statement: string;
     }
 
     class ShadowFormat {
         private 'Office.ShadowFormat_typekey': ShadowFormat;
         private constructor();
-        public readonly Application: any;
-        public Blur: number;
-        public readonly Creator: number;
-        public ForeColor: ColorFormat;
-        public IncrementOffsetX(Increment: number): void;
-        public IncrementOffsetY(Increment: number): void;
-        public Obscured: MsoTriState;
-        public OffsetX: number;
-        public OffsetY: number;
-        public readonly Parent: any;
-        public RotateWithShape: MsoTriState;
-        public Size: number;
-        public Style: MsoShadowStyle;
-        public Transparency: number;
-        public Type: MsoShadowType;
-        public Visible: MsoTriState;
+        readonly Application: any;
+        Blur: number;
+        readonly Creator: number;
+        ForeColor: ColorFormat;
+        IncrementOffsetX(Increment: number): void;
+        IncrementOffsetY(Increment: number): void;
+        Obscured: MsoTriState;
+        OffsetX: number;
+        OffsetY: number;
+        readonly Parent: any;
+        RotateWithShape: MsoTriState;
+        Size: number;
+        Style: MsoShadowStyle;
+        Transparency: number;
+        Type: MsoShadowType;
+        Visible: MsoTriState;
     }
 
     class Shape {
         private 'Office.Shape_typekey': Shape;
         private constructor();
-        public readonly Adjustments: Adjustments;
-        public AlternativeText: string;
-        public readonly Application: any;
-        public Apply(): void;
-        public AutoShapeType: MsoAutoShapeType;
-        public BackgroundStyle: MsoBackgroundStyleIndex;
-        public BlackWhiteMode: MsoBlackWhiteMode;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: CanvasShapes;
-        public readonly Chart: IMsoChart;
-        public readonly Child: MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public ConvertTextToSmartArt(Layout: SmartArtLayout): void;
-        public Copy(): void;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly Diagram: IMsoDiagram;
-        public readonly DiagramNode: DiagramNode;
-        public Duplicate(): Shape;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: MsoFlipCmd): void;
-        public readonly Glow: GlowFormat;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: MsoTriState;
-        public readonly HasDiagram: MsoTriState;
-        public readonly HasDiagramNode: MsoTriState;
-        public readonly HasSmartArt: MsoTriState;
-        public Height: number;
-        public readonly HorizontalFlip: MsoTriState;
-        public readonly Id: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public Left: number;
-        public readonly Line: LineFormat;
-        public LockAspectRatio: MsoTriState;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Reflection: ReflectionFormat;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public readonly RTF: string;
+        readonly Adjustments: Adjustments;
+        AlternativeText: string;
+        readonly Application: any;
+        Apply(): void;
+        AutoShapeType: MsoAutoShapeType;
+        BackgroundStyle: MsoBackgroundStyleIndex;
+        BlackWhiteMode: MsoBlackWhiteMode;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: CanvasShapes;
+        readonly Chart: IMsoChart;
+        readonly Child: MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        ConvertTextToSmartArt(Layout: SmartArtLayout): void;
+        Copy(): void;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
+        readonly Diagram: IMsoDiagram;
+        readonly DiagramNode: DiagramNode;
+        Duplicate(): Shape;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: MsoFlipCmd): void;
+        readonly Glow: GlowFormat;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: MsoTriState;
+        readonly HasDiagram: MsoTriState;
+        readonly HasDiagramNode: MsoTriState;
+        readonly HasSmartArt: MsoTriState;
+        Height: number;
+        readonly HorizontalFlip: MsoTriState;
+        readonly Id: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Left: number;
+        readonly Line: LineFormat;
+        LockAspectRatio: MsoTriState;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        readonly PictureFormat: PictureFormat;
+        readonly Reflection: ReflectionFormat;
+        RerouteConnections(): void;
+        Rotation: number;
+        readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
-        public readonly Script: Script;
-        public Select(Replace?: any): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: MsoShapeStyleIndex;
-        public readonly SmartArt: SmartArt;
-        public readonly SoftEdge: SoftEdgeFormat;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public readonly Type: MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public readonly VerticalFlip: MsoTriState;
-        public readonly Vertices: any;
-        public Visible: MsoTriState;
-        public Width: number;
-        public ZOrder(ZOrderCmd: MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
+        readonly Script: Script;
+        Select(Replace?: any): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: MsoShapeStyleIndex;
+        readonly SmartArt: SmartArt;
+        readonly SoftEdge: SoftEdgeFormat;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        readonly Type: MsoShapeType;
+        Ungroup(): ShapeRange;
+        readonly VerticalFlip: MsoTriState;
+        readonly Vertices: any;
+        Visible: MsoTriState;
+        Width: number;
+        ZOrder(ZOrderCmd: MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class ShapeNode {
         private 'Office.ShapeNode_typekey': ShapeNode;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly EditingType: MsoEditingType;
-        public readonly Parent: any;
-        public readonly Points: any;
-        public readonly SegmentType: MsoSegmentType;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly EditingType: MsoEditingType;
+        readonly Parent: any;
+        readonly Points: any;
+        readonly SegmentType: MsoSegmentType;
     }
 
     class ShapeNodes {
         private 'Office.ShapeNodes_typekey': ShapeNodes;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Delete(Index: number): void;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Delete(Index: number): void;
 
         /**
          * @param number [X2=0]
@@ -5695,107 +5695,107 @@ declare namespace Office {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        public Insert(Index: number, SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
-        public Item(Index: any): ShapeNode;
-        public readonly Parent: any;
-        public SetEditingType(Index: number, EditingType: MsoEditingType): void;
-        public SetPosition(Index: number, X1: number, Y1: number): void;
-        public SetSegmentType(Index: number, SegmentType: MsoSegmentType): void;
+        Insert(Index: number, SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Item(Index: any): ShapeNode;
+        readonly Parent: any;
+        SetEditingType(Index: number, EditingType: MsoEditingType): void;
+        SetPosition(Index: number, X1: number, Y1: number): void;
+        SetSegmentType(Index: number, SegmentType: MsoSegmentType): void;
     }
 
     class ShapeRange {
         private 'Office.ShapeRange_typekey': ShapeRange;
         private constructor();
-        public readonly Adjustments: Adjustments;
-        public Align(AlignCmd: MsoAlignCmd, RelativeTo: MsoTriState): void;
-        public AlternativeText: string;
-        public readonly Application: any;
-        public Apply(): void;
-        public AutoShapeType: MsoAutoShapeType;
-        public BackgroundStyle: MsoBackgroundStyleIndex;
-        public BlackWhiteMode: MsoBlackWhiteMode;
-        public readonly Callout: CalloutFormat;
-        public CanvasCropBottom(Increment: number): void;
-        public CanvasCropLeft(Increment: number): void;
-        public CanvasCropRight(Increment: number): void;
-        public CanvasCropTop(Increment: number): void;
-        public readonly CanvasItems: CanvasShapes;
-        public readonly Chart: IMsoChart;
-        public readonly Child: MsoTriState;
-        public readonly ConnectionSiteCount: number;
-        public readonly Connector: MsoTriState;
-        public readonly ConnectorFormat: ConnectorFormat;
-        public Copy(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
-        public readonly Diagram: IMsoDiagram;
-        public readonly DiagramNode: DiagramNode;
-        public Distribute(DistributeCmd: MsoDistributeCmd, RelativeTo: MsoTriState): void;
-        public Duplicate(): ShapeRange;
-        public readonly Fill: FillFormat;
-        public Flip(FlipCmd: MsoFlipCmd): void;
-        public readonly Glow: GlowFormat;
-        public Group(): Shape;
-        public readonly GroupItems: GroupShapes;
-        public readonly HasChart: MsoTriState;
-        public readonly HasDiagram: MsoTriState;
-        public readonly HasDiagramNode: MsoTriState;
-        public Height: number;
-        public readonly HorizontalFlip: MsoTriState;
-        public readonly Id: number;
-        public IncrementLeft(Increment: number): void;
-        public IncrementRotation(Increment: number): void;
-        public IncrementTop(Increment: number): void;
-        public Item(Index: any): Shape;
-        public Left: number;
-        public readonly Line: LineFormat;
-        public LockAspectRatio: MsoTriState;
-        public Name: string;
-        public readonly Nodes: ShapeNodes;
-        public readonly Parent: any;
-        public readonly ParentGroup: Shape;
-        public PickUp(): void;
-        public readonly PictureFormat: PictureFormat;
-        public readonly Reflection: ReflectionFormat;
-        public Regroup(): Shape;
-        public RerouteConnections(): void;
-        public Rotation: number;
-        public readonly RTF: string;
+        readonly Adjustments: Adjustments;
+        Align(AlignCmd: MsoAlignCmd, RelativeTo: MsoTriState): void;
+        AlternativeText: string;
+        readonly Application: any;
+        Apply(): void;
+        AutoShapeType: MsoAutoShapeType;
+        BackgroundStyle: MsoBackgroundStyleIndex;
+        BlackWhiteMode: MsoBlackWhiteMode;
+        readonly Callout: CalloutFormat;
+        CanvasCropBottom(Increment: number): void;
+        CanvasCropLeft(Increment: number): void;
+        CanvasCropRight(Increment: number): void;
+        CanvasCropTop(Increment: number): void;
+        readonly CanvasItems: CanvasShapes;
+        readonly Chart: IMsoChart;
+        readonly Child: MsoTriState;
+        readonly ConnectionSiteCount: number;
+        readonly Connector: MsoTriState;
+        readonly ConnectorFormat: ConnectorFormat;
+        Copy(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
+        readonly Diagram: IMsoDiagram;
+        readonly DiagramNode: DiagramNode;
+        Distribute(DistributeCmd: MsoDistributeCmd, RelativeTo: MsoTriState): void;
+        Duplicate(): ShapeRange;
+        readonly Fill: FillFormat;
+        Flip(FlipCmd: MsoFlipCmd): void;
+        readonly Glow: GlowFormat;
+        Group(): Shape;
+        readonly GroupItems: GroupShapes;
+        readonly HasChart: MsoTriState;
+        readonly HasDiagram: MsoTriState;
+        readonly HasDiagramNode: MsoTriState;
+        Height: number;
+        readonly HorizontalFlip: MsoTriState;
+        readonly Id: number;
+        IncrementLeft(Increment: number): void;
+        IncrementRotation(Increment: number): void;
+        IncrementTop(Increment: number): void;
+        Item(Index: any): Shape;
+        Left: number;
+        readonly Line: LineFormat;
+        LockAspectRatio: MsoTriState;
+        Name: string;
+        readonly Nodes: ShapeNodes;
+        readonly Parent: any;
+        readonly ParentGroup: Shape;
+        PickUp(): void;
+        readonly PictureFormat: PictureFormat;
+        readonly Reflection: ReflectionFormat;
+        Regroup(): Shape;
+        RerouteConnections(): void;
+        Rotation: number;
+        readonly RTF: string;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleHeight(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
+        ScaleHeight(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
 
         /** @param Office.MsoScaleFrom [fScale=0] */
-        public ScaleWidth(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
-        public readonly Script: Script;
-        public Select(Replace?: any): void;
-        public SetShapesDefaultProperties(): void;
-        public readonly Shadow: ShadowFormat;
-        public ShapeStyle: MsoShapeStyleIndex;
-        public readonly SoftEdge: SoftEdgeFormat;
-        public readonly TextEffect: TextEffectFormat;
-        public readonly TextFrame: TextFrame;
-        public readonly TextFrame2: TextFrame2;
-        public readonly ThreeD: ThreeDFormat;
-        public Title: string;
-        public Top: number;
-        public readonly Type: MsoShapeType;
-        public Ungroup(): ShapeRange;
-        public readonly VerticalFlip: MsoTriState;
-        public readonly Vertices: any;
-        public Visible: MsoTriState;
-        public Width: number;
-        public ZOrder(ZOrderCmd: MsoZOrderCmd): void;
-        public readonly ZOrderPosition: number;
+        ScaleWidth(Factor: number, RelativeToOriginalSize: MsoTriState, fScale?: MsoScaleFrom): void;
+        readonly Script: Script;
+        Select(Replace?: any): void;
+        SetShapesDefaultProperties(): void;
+        readonly Shadow: ShadowFormat;
+        ShapeStyle: MsoShapeStyleIndex;
+        readonly SoftEdge: SoftEdgeFormat;
+        readonly TextEffect: TextEffectFormat;
+        readonly TextFrame: TextFrame;
+        readonly TextFrame2: TextFrame2;
+        readonly ThreeD: ThreeDFormat;
+        Title: string;
+        Top: number;
+        readonly Type: MsoShapeType;
+        Ungroup(): ShapeRange;
+        readonly VerticalFlip: MsoTriState;
+        readonly Vertices: any;
+        Visible: MsoTriState;
+        Width: number;
+        ZOrder(ZOrderCmd: MsoZOrderCmd): void;
+        readonly ZOrderPosition: number;
     }
 
     class Shapes {
         private 'Office.Shapes_typekey': Shapes;
         private constructor();
-        public AddCallout(Type: MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
+        AddCallout(Type: MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
          * @param Office.XlChartType [Type=-1]
@@ -5804,20 +5804,20 @@ declare namespace Office {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddChart(Type?: XlChartType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
-        public AddConnector(Type: MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddCurve(SafeArrayOfPoints: any): Shape;
-        public AddDiagram(Type: MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLabel(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddChart(Type?: XlChartType, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddConnector(Type: MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
+        AddCurve(SafeArrayOfPoints: any): Shape;
+        AddDiagram(Type: MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLabel(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
-        public AddPolyline(SafeArrayOfPoints: any): Shape;
-        public AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPolyline(SafeArrayOfPoints: any): Shape;
+        AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
 
         /**
          * @param number [Left=-1]
@@ -5825,319 +5825,319 @@ declare namespace Office {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        public AddSmartArt(Layout: SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
-        public AddTable(NumRows: number, NumColumns: number, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        public AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
-        public readonly Application: any;
-        public readonly Background: Shape;
-        public BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public readonly Default: Shape;
-        public Item(Index: any): Shape;
-        public readonly Parent: any;
-        public Range(Index: any): ShapeRange;
-        public SelectAll(): void;
+        AddSmartArt(Layout: SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddTable(NumRows: number, NumColumns: number, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
+        readonly Application: any;
+        readonly Background: Shape;
+        BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
+        readonly Count: number;
+        readonly Creator: number;
+        readonly Default: Shape;
+        Item(Index: any): Shape;
+        readonly Parent: any;
+        Range(Index: any): ShapeRange;
+        SelectAll(): void;
     }
 
     class SharedWorkspace {
         private 'Office.SharedWorkspace_typekey': SharedWorkspace;
         private constructor();
-        public readonly Application: any;
-        public readonly Connected: boolean;
-        public CreateNew(URL?: any, Name?: any): void;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Disconnect(): void;
-        public readonly Files: SharedWorkspaceFiles;
-        public readonly Folders: SharedWorkspaceFolders;
-        public readonly LastRefreshed: any;
-        public readonly Links: SharedWorkspaceLinks;
-        public readonly Members: SharedWorkspaceMembers;
-        public Name: string;
-        public readonly Parent: any;
-        public Refresh(): void;
-        public RemoveDocument(): void;
-        public SourceURL: string;
-        public readonly Tasks: SharedWorkspaceTasks;
-        public readonly URL: string;
+        readonly Application: any;
+        readonly Connected: boolean;
+        CreateNew(URL?: any, Name?: any): void;
+        readonly Creator: number;
+        Delete(): void;
+        Disconnect(): void;
+        readonly Files: SharedWorkspaceFiles;
+        readonly Folders: SharedWorkspaceFolders;
+        readonly LastRefreshed: any;
+        readonly Links: SharedWorkspaceLinks;
+        readonly Members: SharedWorkspaceMembers;
+        Name: string;
+        readonly Parent: any;
+        Refresh(): void;
+        RemoveDocument(): void;
+        SourceURL: string;
+        readonly Tasks: SharedWorkspaceTasks;
+        readonly URL: string;
     }
 
     class SharedWorkspaceFile {
         private 'Office.SharedWorkspaceFile_typekey': SharedWorkspaceFile;
         private constructor();
-        public readonly Application: any;
-        public readonly CreatedBy: string;
-        public readonly CreatedDate: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly ModifiedBy: string;
-        public readonly ModifiedDate: any;
-        public readonly Parent: any;
-        public readonly URL: string;
+        readonly Application: any;
+        readonly CreatedBy: string;
+        readonly CreatedDate: any;
+        readonly Creator: number;
+        Delete(): void;
+        readonly ModifiedBy: string;
+        readonly ModifiedDate: any;
+        readonly Parent: any;
+        readonly URL: string;
     }
 
     class SharedWorkspaceFiles {
         private 'Office.SharedWorkspaceFiles_typekey': SharedWorkspaceFiles;
         private constructor();
-        public Add(FileName: string, ParentFolder?: any, OverwriteIfFileAlreadyExists?: any, KeepInSync?: any): SharedWorkspaceFile;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): SharedWorkspaceFile;
-        public readonly ItemCountExceeded: boolean;
-        public readonly Parent: any;
+        Add(FileName: string, ParentFolder?: any, OverwriteIfFileAlreadyExists?: any, KeepInSync?: any): SharedWorkspaceFile;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): SharedWorkspaceFile;
+        readonly ItemCountExceeded: boolean;
+        readonly Parent: any;
     }
 
     class SharedWorkspaceFolder {
         private 'Office.SharedWorkspaceFolder_typekey': SharedWorkspaceFolder;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Delete(DeleteEventIfFolderContainsFiles?: any): void;
-        public readonly FolderName: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        Delete(DeleteEventIfFolderContainsFiles?: any): void;
+        readonly FolderName: string;
+        readonly Parent: any;
     }
 
     class SharedWorkspaceFolders {
         private 'Office.SharedWorkspaceFolders_typekey': SharedWorkspaceFolders;
         private constructor();
-        public Add(FolderName: string, ParentFolder?: any): SharedWorkspaceFolder;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): SharedWorkspaceFolder;
-        public readonly ItemCountExceeded: boolean;
-        public readonly Parent: any;
+        Add(FolderName: string, ParentFolder?: any): SharedWorkspaceFolder;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): SharedWorkspaceFolder;
+        readonly ItemCountExceeded: boolean;
+        readonly Parent: any;
     }
 
     class SharedWorkspaceLink {
         private 'Office.SharedWorkspaceLink_typekey': SharedWorkspaceLink;
         private constructor();
-        public readonly Application: any;
-        public readonly CreatedBy: string;
-        public readonly CreatedDate: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Description: string;
-        public readonly ModifiedBy: string;
-        public readonly ModifiedDate: any;
-        public Notes: string;
-        public readonly Parent: any;
-        public Save(): void;
-        public URL: string;
+        readonly Application: any;
+        readonly CreatedBy: string;
+        readonly CreatedDate: any;
+        readonly Creator: number;
+        Delete(): void;
+        Description: string;
+        readonly ModifiedBy: string;
+        readonly ModifiedDate: any;
+        Notes: string;
+        readonly Parent: any;
+        Save(): void;
+        URL: string;
     }
 
     class SharedWorkspaceLinks {
         private 'Office.SharedWorkspaceLinks_typekey': SharedWorkspaceLinks;
         private constructor();
-        public Add(URL: string, Description?: any, Notes?: any): SharedWorkspaceLink;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): SharedWorkspaceLink;
-        public readonly ItemCountExceeded: boolean;
-        public readonly Parent: any;
+        Add(URL: string, Description?: any, Notes?: any): SharedWorkspaceLink;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): SharedWorkspaceLink;
+        readonly ItemCountExceeded: boolean;
+        readonly Parent: any;
     }
 
     class SharedWorkspaceMember {
         private 'Office.SharedWorkspaceMember_typekey': SharedWorkspaceMember;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly DomainName: string;
-        public readonly Email: string;
-        public readonly Id: string;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        Delete(): void;
+        readonly DomainName: string;
+        readonly Email: string;
+        readonly Id: string;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class SharedWorkspaceMembers {
         private 'Office.SharedWorkspaceMembers_typekey': SharedWorkspaceMembers;
         private constructor();
-        public Add(Email: string, DomainName: string, DisplayName: string, Role?: any): SharedWorkspaceMember;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): SharedWorkspaceMember;
-        public readonly ItemCountExceeded: boolean;
-        public readonly Parent: any;
+        Add(Email: string, DomainName: string, DisplayName: string, Role?: any): SharedWorkspaceMember;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): SharedWorkspaceMember;
+        readonly ItemCountExceeded: boolean;
+        readonly Parent: any;
     }
 
     class SharedWorkspaceTask {
         private 'Office.SharedWorkspaceTask_typekey': SharedWorkspaceTask;
         private constructor();
-        public readonly Application: any;
-        public AssignedTo: string;
-        public readonly CreatedBy: string;
-        public readonly CreatedDate: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Description: string;
-        public DueDate: any;
-        public readonly ModifiedBy: string;
-        public readonly ModifiedDate: any;
-        public readonly Parent: any;
-        public Priority: MsoSharedWorkspaceTaskPriority;
-        public Save(): void;
-        public Status: MsoSharedWorkspaceTaskStatus;
-        public Title: string;
+        readonly Application: any;
+        AssignedTo: string;
+        readonly CreatedBy: string;
+        readonly CreatedDate: any;
+        readonly Creator: number;
+        Delete(): void;
+        Description: string;
+        DueDate: any;
+        readonly ModifiedBy: string;
+        readonly ModifiedDate: any;
+        readonly Parent: any;
+        Priority: MsoSharedWorkspaceTaskPriority;
+        Save(): void;
+        Status: MsoSharedWorkspaceTaskStatus;
+        Title: string;
     }
 
     class SharedWorkspaceTasks {
         private 'Office.SharedWorkspaceTasks_typekey': SharedWorkspaceTasks;
         private constructor();
-        public Add(Title: string, Status?: any, Priority?: any, Assignee?: any, Description?: any, DueDate?: any): SharedWorkspaceTask;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): SharedWorkspaceTask;
-        public readonly ItemCountExceeded: boolean;
-        public readonly Parent: any;
+        Add(Title: string, Status?: any, Priority?: any, Assignee?: any, Description?: any, DueDate?: any): SharedWorkspaceTask;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): SharedWorkspaceTask;
+        readonly ItemCountExceeded: boolean;
+        readonly Parent: any;
     }
 
     class Signature {
         private 'Office.Signature_typekey': Signature;
         private constructor();
-        public readonly Application: any;
-        public AttachCertificate: boolean;
-        public readonly CanSetup: boolean;
-        public readonly Creator: number;
-        public Delete(): void;
-        public readonly Details: SignatureInfo;
-        public readonly ExpireDate: any;
-        public readonly IsCertificateExpired: boolean;
-        public readonly IsCertificateRevoked: boolean;
-        public readonly IsSignatureLine: boolean;
-        public readonly IsSigned: boolean;
-        public readonly Issuer: string;
-        public readonly IsValid: boolean;
-        public readonly Parent: any;
-        public readonly Setup: SignatureSetup;
-        public ShowDetails(): void;
-        public Sign(varSigImg?: any, varDelSuggSigner?: any, varDelSuggSignerLine2?: any, varDelSuggSignerEmail?: any): void;
-        public readonly SignatureLineShape: any;
-        public readonly SignDate: any;
-        public readonly Signer: string;
-        public readonly SortHint: number;
+        readonly Application: any;
+        AttachCertificate: boolean;
+        readonly CanSetup: boolean;
+        readonly Creator: number;
+        Delete(): void;
+        readonly Details: SignatureInfo;
+        readonly ExpireDate: any;
+        readonly IsCertificateExpired: boolean;
+        readonly IsCertificateRevoked: boolean;
+        readonly IsSignatureLine: boolean;
+        readonly IsSigned: boolean;
+        readonly Issuer: string;
+        readonly IsValid: boolean;
+        readonly Parent: any;
+        readonly Setup: SignatureSetup;
+        ShowDetails(): void;
+        Sign(varSigImg?: any, varDelSuggSigner?: any, varDelSuggSignerLine2?: any, varDelSuggSignerEmail?: any): void;
+        readonly SignatureLineShape: any;
+        readonly SignDate: any;
+        readonly Signer: string;
+        readonly SortHint: number;
     }
 
     class SignatureInfo {
         private 'Office.SignatureInfo_typekey': SignatureInfo;
         private constructor();
-        public readonly Application: any;
-        public readonly CertificateVerificationResults: CertificateVerificationResults;
-        public readonly ContentVerificationResults: ContentVerificationResults;
-        public readonly Creator: number;
-        public GetCertificateDetail(certdet: CertificateDetail): any;
-        public GetSignatureDetail(sigdet: SignatureDetail): any;
-        public readonly IsCertificateExpired: boolean;
-        public readonly IsCertificateRevoked: boolean;
-        public readonly IsCertificateUntrusted: boolean;
-        public readonly IsValid: boolean;
-        public readonly ReadOnly: boolean;
-        public SelectCertificateDetailByThumbprint(bstrThumbprint: string): void;
-        public SelectSignatureCertificate(ParentWindow: any): void;
-        public ShowSignatureCertificate(ParentWindow: any): void;
-        public SignatureComment: string;
-        public SignatureImage: stdole.IPictureDisp;
-        public readonly SignatureProvider: string;
-        public SignatureText: string;
+        readonly Application: any;
+        readonly CertificateVerificationResults: CertificateVerificationResults;
+        readonly ContentVerificationResults: ContentVerificationResults;
+        readonly Creator: number;
+        GetCertificateDetail(certdet: CertificateDetail): any;
+        GetSignatureDetail(sigdet: SignatureDetail): any;
+        readonly IsCertificateExpired: boolean;
+        readonly IsCertificateRevoked: boolean;
+        readonly IsCertificateUntrusted: boolean;
+        readonly IsValid: boolean;
+        readonly ReadOnly: boolean;
+        SelectCertificateDetailByThumbprint(bstrThumbprint: string): void;
+        SelectSignatureCertificate(ParentWindow: any): void;
+        ShowSignatureCertificate(ParentWindow: any): void;
+        SignatureComment: string;
+        SignatureImage: stdole.IPictureDisp;
+        readonly SignatureProvider: string;
+        SignatureText: string;
     }
 
     class SignatureSet {
         private 'Office.SignatureSet_typekey': SignatureSet;
         private constructor();
-        public Add(): Signature;
-        public AddNonVisibleSignature(varSigProv?: any): Signature;
-        public AddSignatureLine(varSigProv?: any): Signature;
-        public readonly Application: any;
-        public readonly CanAddSignatureLine: boolean;
-        public Commit(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(iSig: number): Signature;
-        public readonly Parent: any;
-        public readonly ShowSignaturesPane: boolean;
-        public Subset: MsoSignatureSubset;
+        Add(): Signature;
+        AddNonVisibleSignature(varSigProv?: any): Signature;
+        AddSignatureLine(varSigProv?: any): Signature;
+        readonly Application: any;
+        readonly CanAddSignatureLine: boolean;
+        Commit(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(iSig: number): Signature;
+        readonly Parent: any;
+        readonly ShowSignaturesPane: boolean;
+        Subset: MsoSignatureSubset;
     }
 
     class SignatureSetup {
         private 'Office.SignatureSetup_typekey': SignatureSetup;
         private constructor();
-        public AdditionalXml: string;
-        public AllowComments: boolean;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Id: string;
-        public readonly ReadOnly: boolean;
-        public ShowSignDate: boolean;
-        public readonly SignatureProvider: string;
-        public SigningInstructions: string;
-        public SuggestedSigner: string;
-        public SuggestedSignerEmail: string;
-        public SuggestedSignerLine2: string;
+        AdditionalXml: string;
+        AllowComments: boolean;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Id: string;
+        readonly ReadOnly: boolean;
+        ShowSignDate: boolean;
+        readonly SignatureProvider: string;
+        SigningInstructions: string;
+        SuggestedSigner: string;
+        SuggestedSignerEmail: string;
+        SuggestedSignerLine2: string;
     }
 
     class SmartArt {
         private 'Office.SmartArt_typekey': SmartArt;
         private constructor();
-        public readonly AllNodes: SmartArtNodes;
-        public readonly Application: any;
-        public Color: SmartArtColor;
-        public readonly Creator: number;
-        public Layout: SmartArtLayout;
-        public readonly Nodes: SmartArtNodes;
-        public readonly Parent: any;
-        public QuickStyle: SmartArtQuickStyle;
-        public Reset(): void;
-        public Reverse: MsoTriState;
+        readonly AllNodes: SmartArtNodes;
+        readonly Application: any;
+        Color: SmartArtColor;
+        readonly Creator: number;
+        Layout: SmartArtLayout;
+        readonly Nodes: SmartArtNodes;
+        readonly Parent: any;
+        QuickStyle: SmartArtQuickStyle;
+        Reset(): void;
+        Reverse: MsoTriState;
     }
 
     class SmartArtColor {
         private 'Office.SmartArtColor_typekey': SmartArtColor;
         private constructor();
-        public readonly Application: any;
-        public readonly Category: string;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public readonly Id: string;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Category: string;
+        readonly Creator: number;
+        readonly Description: string;
+        readonly Id: string;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class SmartArtColors {
         private 'Office.SmartArtColors_typekey': SmartArtColors;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartArtColor;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartArtColor;
+        readonly Parent: any;
     }
 
     class SmartArtLayout {
         private 'Office.SmartArtLayout_typekey': SmartArtLayout;
         private constructor();
-        public readonly Application: any;
-        public readonly Category: string;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public readonly Id: string;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Category: string;
+        readonly Creator: number;
+        readonly Description: string;
+        readonly Id: string;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class SmartArtLayouts {
         private 'Office.SmartArtLayouts_typekey': SmartArtLayouts;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartArtLayout;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartArtLayout;
+        readonly Parent: any;
     }
 
     class SmartArtNode {
@@ -6148,476 +6148,476 @@ declare namespace Office {
          * @param Office.MsoSmartArtNodePosition [Position=1]
          * @param Office.MsoSmartArtNodeType [Type=1]
          */
-        public AddNode(Position?: MsoSmartArtNodePosition, Type?: MsoSmartArtNodeType): SmartArtNode;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Delete(): void;
-        public Demote(): void;
-        public readonly Hidden: MsoTriState;
-        public Larger(): void;
-        public readonly Level: number;
-        public readonly Nodes: SmartArtNodes;
-        public OrgChartLayout: MsoOrgChartLayoutType;
-        public readonly Parent: any;
-        public readonly ParentNode: SmartArtNode;
-        public Promote(): void;
-        public ReorderDown(): void;
-        public ReorderUp(): void;
-        public readonly Shapes: ShapeRange;
-        public Smaller(): void;
-        public readonly TextFrame2: TextFrame2;
-        public readonly Type: MsoSmartArtNodeType;
+        AddNode(Position?: MsoSmartArtNodePosition, Type?: MsoSmartArtNodeType): SmartArtNode;
+        readonly Application: any;
+        readonly Creator: number;
+        Delete(): void;
+        Demote(): void;
+        readonly Hidden: MsoTriState;
+        Larger(): void;
+        readonly Level: number;
+        readonly Nodes: SmartArtNodes;
+        OrgChartLayout: MsoOrgChartLayoutType;
+        readonly Parent: any;
+        readonly ParentNode: SmartArtNode;
+        Promote(): void;
+        ReorderDown(): void;
+        ReorderUp(): void;
+        readonly Shapes: ShapeRange;
+        Smaller(): void;
+        readonly TextFrame2: TextFrame2;
+        readonly Type: MsoSmartArtNodeType;
     }
 
     class SmartArtNodes {
         private 'Office.SmartArtNodes_typekey': SmartArtNodes;
         private constructor();
-        public Add(): SmartArtNode;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartArtNode;
-        public readonly Parent: any;
+        Add(): SmartArtNode;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartArtNode;
+        readonly Parent: any;
     }
 
     class SmartArtQuickStyle {
         private 'Office.SmartArtQuickStyle_typekey': SmartArtQuickStyle;
         private constructor();
-        public readonly Application: any;
-        public readonly Category: string;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public readonly Id: string;
-        public readonly Name: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Category: string;
+        readonly Creator: number;
+        readonly Description: string;
+        readonly Id: string;
+        readonly Name: string;
+        readonly Parent: any;
     }
 
     class SmartArtQuickStyles {
         private 'Office.SmartArtQuickStyles_typekey': SmartArtQuickStyles;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: any): SmartArtQuickStyle;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: any): SmartArtQuickStyle;
+        readonly Parent: any;
     }
 
     class SmartDocument {
         private 'Office.SmartDocument_typekey': SmartDocument;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
+        readonly Application: any;
+        readonly Creator: number;
 
         /** @param boolean [ConsiderAllSchemas=false] */
-        public PickSolution(ConsiderAllSchemas?: boolean): void;
-        public RefreshPane(): void;
-        public SolutionID: string;
-        public SolutionURL: string;
+        PickSolution(ConsiderAllSchemas?: boolean): void;
+        RefreshPane(): void;
+        SolutionID: string;
+        SolutionURL: string;
     }
 
     class SoftEdgeFormat {
         private 'Office.SoftEdgeFormat_typekey': SoftEdgeFormat;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Radius: number;
-        public Type: MsoSoftEdgeType;
+        readonly Application: any;
+        readonly Creator: number;
+        Radius: number;
+        Type: MsoSoftEdgeType;
     }
 
     class Sync {
         private 'Office.Sync_typekey': Sync;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly ErrorType: MsoSyncErrorType;
-        public GetUpdate(): void;
-        public readonly LastSyncTime: any;
-        public OpenVersion(SyncVersionType: MsoSyncVersionType): void;
-        public readonly Parent: any;
-        public PutUpdate(): void;
-        public ResolveConflict(SyncConflictResolution: MsoSyncConflictResolutionType): void;
-        public readonly Status: MsoSyncStatusType;
-        public Unsuspend(): void;
-        public readonly WorkspaceLastChangedBy: string;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly ErrorType: MsoSyncErrorType;
+        GetUpdate(): void;
+        readonly LastSyncTime: any;
+        OpenVersion(SyncVersionType: MsoSyncVersionType): void;
+        readonly Parent: any;
+        PutUpdate(): void;
+        ResolveConflict(SyncConflictResolution: MsoSyncConflictResolutionType): void;
+        readonly Status: MsoSyncStatusType;
+        Unsuspend(): void;
+        readonly WorkspaceLastChangedBy: string;
     }
 
     class TabStop2 {
         private 'Office.TabStop2_typekey': TabStop2;
         private constructor();
-        public readonly Application: any;
-        public Clear(): void;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public Position: number;
-        public Type: MsoTabStopType;
+        readonly Application: any;
+        Clear(): void;
+        readonly Creator: number;
+        readonly Parent: any;
+        Position: number;
+        Type: MsoTabStopType;
     }
 
     class TabStops2 {
         private 'Office.TabStops2_typekey': TabStops2;
         private constructor();
-        public Add(Type: MsoTabStopType, Position: number): TabStop2;
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public DefaultSpacing: number;
-        public Item(Index: any): TabStop2;
-        public readonly Parent: any;
+        Add(Type: MsoTabStopType, Position: number): TabStop2;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        DefaultSpacing: number;
+        Item(Index: any): TabStop2;
+        readonly Parent: any;
     }
 
     class TextColumn2 {
         private 'Office.TextColumn2_typekey': TextColumn2;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Number: number;
-        public Spacing: number;
-        public TextDirection: MsoTextDirection;
+        readonly Application: any;
+        readonly Creator: number;
+        Number: number;
+        Spacing: number;
+        TextDirection: MsoTextDirection;
     }
 
     class TextEffectFormat {
         private 'Office.TextEffectFormat_typekey': TextEffectFormat;
         private constructor();
-        public Alignment: MsoTextEffectAlignment;
-        public readonly Application: any;
-        public readonly Creator: number;
-        public FontBold: MsoTriState;
-        public FontItalic: MsoTriState;
-        public FontName: string;
-        public FontSize: number;
-        public KernedPairs: MsoTriState;
-        public NormalizedHeight: MsoTriState;
-        public readonly Parent: any;
-        public PresetShape: MsoPresetTextEffectShape;
-        public PresetTextEffect: MsoPresetTextEffect;
-        public RotatedChars: MsoTriState;
-        public Text: string;
-        public ToggleVerticalText(): void;
-        public Tracking: number;
+        Alignment: MsoTextEffectAlignment;
+        readonly Application: any;
+        readonly Creator: number;
+        FontBold: MsoTriState;
+        FontItalic: MsoTriState;
+        FontName: string;
+        FontSize: number;
+        KernedPairs: MsoTriState;
+        NormalizedHeight: MsoTriState;
+        readonly Parent: any;
+        PresetShape: MsoPresetTextEffectShape;
+        PresetTextEffect: MsoPresetTextEffect;
+        RotatedChars: MsoTriState;
+        Text: string;
+        ToggleVerticalText(): void;
+        Tracking: number;
     }
 
     class TextFrame {
         private 'Office.TextFrame_typekey': TextFrame;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public MarginBottom: number;
-        public MarginLeft: number;
-        public MarginRight: number;
-        public MarginTop: number;
-        public Orientation: MsoTextOrientation;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        MarginBottom: number;
+        MarginLeft: number;
+        MarginRight: number;
+        MarginTop: number;
+        Orientation: MsoTextOrientation;
+        readonly Parent: any;
     }
 
     class TextFrame2 {
         private 'Office.TextFrame2_typekey': TextFrame2;
         private constructor();
-        public readonly Application: any;
-        public AutoSize: MsoAutoSize;
-        public readonly Column: TextColumn2;
-        public readonly Creator: number;
-        public DeleteText(): void;
-        public readonly HasText: MsoTriState;
-        public HorizontalAnchor: MsoHorizontalAnchor;
-        public MarginBottom: number;
-        public MarginLeft: number;
-        public MarginRight: number;
-        public MarginTop: number;
-        public NoTextRotation: MsoTriState;
-        public Orientation: MsoTextOrientation;
-        public readonly Parent: any;
-        public PathFormat: MsoPathFormat;
-        public readonly Ruler: Ruler2;
-        public readonly TextRange: TextRange2;
-        public readonly ThreeD: ThreeDFormat;
-        public VerticalAnchor: MsoVerticalAnchor;
-        public WarpFormat: MsoWarpFormat;
-        public WordArtformat: MsoPresetTextEffect;
-        public WordWrap: MsoTriState;
+        readonly Application: any;
+        AutoSize: MsoAutoSize;
+        readonly Column: TextColumn2;
+        readonly Creator: number;
+        DeleteText(): void;
+        readonly HasText: MsoTriState;
+        HorizontalAnchor: MsoHorizontalAnchor;
+        MarginBottom: number;
+        MarginLeft: number;
+        MarginRight: number;
+        MarginTop: number;
+        NoTextRotation: MsoTriState;
+        Orientation: MsoTextOrientation;
+        readonly Parent: any;
+        PathFormat: MsoPathFormat;
+        readonly Ruler: Ruler2;
+        readonly TextRange: TextRange2;
+        readonly ThreeD: ThreeDFormat;
+        VerticalAnchor: MsoVerticalAnchor;
+        WarpFormat: MsoWarpFormat;
+        WordArtformat: MsoPresetTextEffect;
+        WordWrap: MsoTriState;
     }
 
     class TextRange2 {
         private 'Office.TextRange2_typekey': TextRange2;
         private constructor();
-        public AddPeriods(): void;
-        public readonly Application: any;
-        public readonly BoundHeight: number;
-        public readonly BoundLeft: number;
-        public readonly BoundTop: number;
-        public readonly BoundWidth: number;
-        public ChangeCase(Type: MsoTextChangeCase): void;
+        AddPeriods(): void;
+        readonly Application: any;
+        readonly BoundHeight: number;
+        readonly BoundLeft: number;
+        readonly BoundTop: number;
+        readonly BoundWidth: number;
+        ChangeCase(Type: MsoTextChangeCase): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Characters(Start?: number, Length?: number): TextRange2;
-        public Copy(): void;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Cut(): void;
-        public Delete(): void;
+        Characters(Start?: number, Length?: number): TextRange2;
+        Copy(): void;
+        readonly Count: number;
+        readonly Creator: number;
+        Cut(): void;
+        Delete(): void;
 
         /**
          * @param number [After=0]
          * @param Office.MsoTriState [MatchCase=0]
          * @param Office.MsoTriState [WholeWords=0]
          */
-        public Find(FindWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
-        public readonly Font: Font2;
+        Find(FindWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
+        readonly Font: Font2;
 
         /** @param string [NewText=''] */
-        public InsertAfter(NewText?: string): TextRange2;
+        InsertAfter(NewText?: string): TextRange2;
 
         /** @param string [NewText=''] */
-        public InsertBefore(NewText?: string): TextRange2;
+        InsertBefore(NewText?: string): TextRange2;
 
         /** @param Office.MsoTriState [Unicode=0] */
-        public InsertSymbol(FontName: string, CharNumber: number, Unicode?: MsoTriState): TextRange2;
-        public Item(Index: any): TextRange2;
-        public LanguageID: MsoLanguageID;
-        public readonly Length: number;
+        InsertSymbol(FontName: string, CharNumber: number, Unicode?: MsoTriState): TextRange2;
+        Item(Index: any): TextRange2;
+        LanguageID: MsoLanguageID;
+        readonly Length: number;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Lines(Start?: number, Length?: number): TextRange2;
-        public LtrRun(): void;
+        Lines(Start?: number, Length?: number): TextRange2;
+        LtrRun(): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public MathZones(Start?: number, Length?: number): TextRange2;
-        public readonly ParagraphFormat: ParagraphFormat2;
+        MathZones(Start?: number, Length?: number): TextRange2;
+        readonly ParagraphFormat: ParagraphFormat2;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Paragraphs(Start?: number, Length?: number): TextRange2;
-        public readonly Parent: any;
-        public Paste(): TextRange2;
-        public PasteSpecial(Format: MsoClipboardFormat): TextRange2;
-        public RemovePeriods(): void;
+        Paragraphs(Start?: number, Length?: number): TextRange2;
+        readonly Parent: any;
+        Paste(): TextRange2;
+        PasteSpecial(Format: MsoClipboardFormat): TextRange2;
+        RemovePeriods(): void;
 
         /**
          * @param number [After=0]
          * @param Office.MsoTriState [MatchCase=0]
          * @param Office.MsoTriState [WholeWords=0]
          */
-        public Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
-        public RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
-        public RtlRun(): void;
+        Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
+        RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
+        RtlRun(): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Runs(Start?: number, Length?: number): TextRange2;
-        public Select(): void;
+        Runs(Start?: number, Length?: number): TextRange2;
+        Select(): void;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Sentences(Start?: number, Length?: number): TextRange2;
-        public readonly Start: number;
-        public Text: string;
-        public TrimText(): TextRange2;
+        Sentences(Start?: number, Length?: number): TextRange2;
+        readonly Start: number;
+        Text: string;
+        TrimText(): TextRange2;
 
         /**
          * @param number [Start=-1]
          * @param number [Length=-1]
          */
-        public Words(Start?: number, Length?: number): TextRange2;
+        Words(Start?: number, Length?: number): TextRange2;
     }
 
     class ThemeColor {
         private 'Office.ThemeColor_typekey': ThemeColor;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Parent: any;
-        public RGB: number;
-        public readonly ThemeColorSchemeIndex: MsoThemeColorSchemeIndex;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Parent: any;
+        RGB: number;
+        readonly ThemeColorSchemeIndex: MsoThemeColorSchemeIndex;
     }
 
     class ThemeColorScheme {
         private 'Office.ThemeColorScheme_typekey': ThemeColorScheme;
         private constructor();
-        public readonly Application: any;
-        public Colors(Index: MsoThemeColorSchemeIndex): ThemeColor;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public GetCustomColor(Name: string): number;
-        public Load(FileName: string): void;
-        public readonly Parent: any;
-        public Save(FileName: string): void;
+        readonly Application: any;
+        Colors(Index: MsoThemeColorSchemeIndex): ThemeColor;
+        readonly Count: number;
+        readonly Creator: number;
+        GetCustomColor(Name: string): number;
+        Load(FileName: string): void;
+        readonly Parent: any;
+        Save(FileName: string): void;
     }
 
     class ThemeEffectScheme {
         private 'Office.ThemeEffectScheme_typekey': ThemeEffectScheme;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Load(FileName: string): void;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        Load(FileName: string): void;
+        readonly Parent: any;
     }
 
     class ThemeFont {
         private 'Office.ThemeFont_typekey': ThemeFont;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Name: string;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Creator: number;
+        Name: string;
+        readonly Parent: any;
     }
 
     class ThemeFonts {
         private 'Office.ThemeFonts_typekey': ThemeFonts;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: MsoFontLanguageIndex): ThemeFont;
-        public readonly Parent: any;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: MsoFontLanguageIndex): ThemeFont;
+        readonly Parent: any;
     }
 
     class ThemeFontScheme {
         private 'Office.ThemeFontScheme_typekey': ThemeFontScheme;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public Load(FileName: string): void;
-        public readonly MajorFont: ThemeFonts;
-        public readonly MinorFont: ThemeFonts;
-        public readonly Parent: any;
-        public Save(FileName: string): void;
+        readonly Application: any;
+        readonly Creator: number;
+        Load(FileName: string): void;
+        readonly MajorFont: ThemeFonts;
+        readonly MinorFont: ThemeFonts;
+        readonly Parent: any;
+        Save(FileName: string): void;
     }
 
     class ThreeDFormat {
         private 'Office.ThreeDFormat_typekey': ThreeDFormat;
         private constructor();
-        public readonly Application: any;
-        public BevelBottomDepth: number;
-        public BevelBottomInset: number;
-        public BevelBottomType: MsoBevelType;
-        public BevelTopDepth: number;
-        public BevelTopInset: number;
-        public BevelTopType: MsoBevelType;
-        public readonly ContourColor: ColorFormat;
-        public ContourWidth: number;
-        public readonly Creator: number;
-        public Depth: number;
-        public readonly ExtrusionColor: ColorFormat;
-        public ExtrusionColorType: MsoExtrusionColorType;
-        public FieldOfView: number;
-        public IncrementRotationHorizontal(Increment: number): void;
-        public IncrementRotationVertical(Increment: number): void;
-        public IncrementRotationX(Increment: number): void;
-        public IncrementRotationY(Increment: number): void;
-        public IncrementRotationZ(Increment: number): void;
-        public LightAngle: number;
-        public readonly Parent: any;
-        public Perspective: MsoTriState;
-        public readonly PresetCamera: MsoPresetCamera;
-        public readonly PresetExtrusionDirection: MsoPresetExtrusionDirection;
-        public PresetLighting: MsoLightRigType;
-        public PresetLightingDirection: MsoPresetLightingDirection;
-        public PresetLightingSoftness: MsoPresetLightingSoftness;
-        public PresetMaterial: MsoPresetMaterial;
-        public readonly PresetThreeDFormat: MsoPresetThreeDFormat;
-        public ProjectText: MsoTriState;
-        public ResetRotation(): void;
-        public RotationX: number;
-        public RotationY: number;
-        public RotationZ: number;
-        public SetExtrusionDirection(PresetExtrusionDirection: MsoPresetExtrusionDirection): void;
-        public SetPresetCamera(PresetCamera: MsoPresetCamera): void;
-        public SetThreeDFormat(PresetThreeDFormat: MsoPresetThreeDFormat): void;
-        public Visible: MsoTriState;
-        public Z: number;
+        readonly Application: any;
+        BevelBottomDepth: number;
+        BevelBottomInset: number;
+        BevelBottomType: MsoBevelType;
+        BevelTopDepth: number;
+        BevelTopInset: number;
+        BevelTopType: MsoBevelType;
+        readonly ContourColor: ColorFormat;
+        ContourWidth: number;
+        readonly Creator: number;
+        Depth: number;
+        readonly ExtrusionColor: ColorFormat;
+        ExtrusionColorType: MsoExtrusionColorType;
+        FieldOfView: number;
+        IncrementRotationHorizontal(Increment: number): void;
+        IncrementRotationVertical(Increment: number): void;
+        IncrementRotationX(Increment: number): void;
+        IncrementRotationY(Increment: number): void;
+        IncrementRotationZ(Increment: number): void;
+        LightAngle: number;
+        readonly Parent: any;
+        Perspective: MsoTriState;
+        readonly PresetCamera: MsoPresetCamera;
+        readonly PresetExtrusionDirection: MsoPresetExtrusionDirection;
+        PresetLighting: MsoLightRigType;
+        PresetLightingDirection: MsoPresetLightingDirection;
+        PresetLightingSoftness: MsoPresetLightingSoftness;
+        PresetMaterial: MsoPresetMaterial;
+        readonly PresetThreeDFormat: MsoPresetThreeDFormat;
+        ProjectText: MsoTriState;
+        ResetRotation(): void;
+        RotationX: number;
+        RotationY: number;
+        RotationZ: number;
+        SetExtrusionDirection(PresetExtrusionDirection: MsoPresetExtrusionDirection): void;
+        SetPresetCamera(PresetCamera: MsoPresetCamera): void;
+        SetThreeDFormat(PresetThreeDFormat: MsoPresetThreeDFormat): void;
+        Visible: MsoTriState;
+        Z: number;
     }
 
     class UserPermission {
         private 'Office.UserPermission_typekey': UserPermission;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public ExpirationDate: any;
-        public readonly Parent: any;
-        public Permission: number;
-        public Remove(): void;
-        public readonly UserId: string;
+        readonly Application: any;
+        readonly Creator: number;
+        ExpirationDate: any;
+        readonly Parent: any;
+        Permission: number;
+        Remove(): void;
+        readonly UserId: string;
     }
 
     class WebPageFont {
         private 'Office.WebPageFont_typekey': WebPageFont;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public FixedWidthFont: string;
-        public FixedWidthFontSize: number;
-        public ProportionalFont: string;
-        public ProportionalFontSize: number;
+        readonly Application: any;
+        readonly Creator: number;
+        FixedWidthFont: string;
+        FixedWidthFontSize: number;
+        ProportionalFont: string;
+        ProportionalFontSize: number;
     }
 
     class WebPageFonts {
         private 'Office.WebPageFonts_typekey': WebPageFonts;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: MsoCharacterSet): WebPageFont;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: MsoCharacterSet): WebPageFont;
     }
 
     class WorkflowTask {
         private 'Office.WorkflowTask_typekey': WorkflowTask;
         private constructor();
-        public readonly Application: any;
-        public readonly AssignedTo: string;
-        public readonly CreatedBy: string;
-        public readonly CreatedDate: VarDate;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public readonly DueDate: VarDate;
-        public readonly Id: string;
-        public readonly ListID: string;
-        public readonly Name: string;
-        public Show(): number;
-        public readonly WorkflowID: string;
+        readonly Application: any;
+        readonly AssignedTo: string;
+        readonly CreatedBy: string;
+        readonly CreatedDate: VarDate;
+        readonly Creator: number;
+        readonly Description: string;
+        readonly DueDate: VarDate;
+        readonly Id: string;
+        readonly ListID: string;
+        readonly Name: string;
+        Show(): number;
+        readonly WorkflowID: string;
     }
 
     class WorkflowTasks {
         private 'Office.WorkflowTasks_typekey': WorkflowTasks;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): WorkflowTask;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): WorkflowTask;
     }
 
     class WorkflowTemplate {
         private 'Office.WorkflowTemplate_typekey': WorkflowTemplate;
         private constructor();
-        public readonly Application: any;
-        public readonly Creator: number;
-        public readonly Description: string;
-        public readonly DocumentLibraryName: string;
-        public readonly DocumentLibraryURL: string;
-        public readonly Id: string;
-        public readonly Name: string;
-        public Show(): number;
+        readonly Application: any;
+        readonly Creator: number;
+        readonly Description: string;
+        readonly DocumentLibraryName: string;
+        readonly DocumentLibraryURL: string;
+        readonly Id: string;
+        readonly Name: string;
+        Show(): number;
     }
 
     class WorkflowTemplates {
         private 'Office.WorkflowTemplates_typekey': WorkflowTemplates;
         private constructor();
-        public readonly Application: any;
-        public readonly Count: number;
-        public readonly Creator: number;
-        public Item(Index: number): WorkflowTemplate;
+        readonly Application: any;
+        readonly Count: number;
+        readonly Creator: number;
+        Item(Index: number): WorkflowTemplate;
     }
 
     namespace EventHelperTypes {

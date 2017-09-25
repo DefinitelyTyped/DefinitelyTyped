@@ -310,561 +310,561 @@ declare namespace DAO {
     class Connection {
         private 'DAO.Connection_typekey': Connection;
         private constructor();
-        public Cancel(): void;
-        public Close(): void;
-        public readonly Connect: string;
-        public CreateQueryDef(Name?: any, SQLText?: any): QueryDef;
-        public readonly Database: Database;
-        public Execute(Query: string, Options?: any): void;
-        public readonly hDbc: number;
-        public readonly Name: string;
-        public OpenRecordset(Name: string, Type?: any, Options?: any, LockEdit?: any): Recordset;
-        public readonly QueryDefs: QueryDefs;
-        public QueryTimeout: number;
-        public readonly RecordsAffected: number;
-        public readonly Recordsets: Recordsets;
-        public readonly StillExecuting: boolean;
-        public readonly Transactions: boolean;
-        public readonly Updatable: boolean;
+        Cancel(): void;
+        Close(): void;
+        readonly Connect: string;
+        CreateQueryDef(Name?: any, SQLText?: any): QueryDef;
+        readonly Database: Database;
+        Execute(Query: string, Options?: any): void;
+        readonly hDbc: number;
+        readonly Name: string;
+        OpenRecordset(Name: string, Type?: any, Options?: any, LockEdit?: any): Recordset;
+        readonly QueryDefs: QueryDefs;
+        QueryTimeout: number;
+        readonly RecordsAffected: number;
+        readonly Recordsets: Recordsets;
+        readonly StillExecuting: boolean;
+        readonly Transactions: boolean;
+        readonly Updatable: boolean;
     }
 
     class Connections {
         private 'DAO.Connections_typekey': Connections;
         private constructor();
-        public readonly Count: number;
-        public Item(Item: any): Connection;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Item: any): Connection;
+        Refresh(): void;
     }
 
     class Container {
         private 'DAO.Container_typekey': Container;
         private constructor();
-        public readonly AllPermissions: number;
-        public readonly Documents: Documents;
-        public Inherit: boolean;
-        public readonly Name: string;
-        public Owner: string;
-        public Permissions: number;
-        public readonly Properties: Properties;
-        public UserName: string;
+        readonly AllPermissions: number;
+        readonly Documents: Documents;
+        Inherit: boolean;
+        readonly Name: string;
+        Owner: string;
+        Permissions: number;
+        readonly Properties: Properties;
+        UserName: string;
     }
 
     class Containers {
         private 'DAO.Containers_typekey': Containers;
         private constructor();
-        public readonly Count: number;
-        public Item(Item: any): Container;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Item: any): Container;
+        Refresh(): void;
     }
 
     class Database {
         private 'DAO.Database_typekey': Database;
         private constructor();
-        public Close(): void;
-        public readonly CollatingOrder: number;
-        public Connect: string;
-        public readonly Connection: Connection;
-        public readonly Containers: Containers;
-        public CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
-        public CreateQueryDef(Name?: any, SQLText?: any): QueryDef;
-        public CreateRelation(Name?: any, Table?: any, ForeignTable?: any, Attributes?: any): Relation;
-        public CreateTableDef(Name?: any, Attributes?: any, SourceTableName?: any, Connect?: any): TableDef;
-        public DesignMasterID: string;
-        public Execute(Query: string, Options?: any): void;
-        public MakeReplica(PathName: string, Description: string, Options?: any): void;
-        public readonly Name: string;
-        public NewPassword(bstrOld: string, bstrNew: string): void;
-        public OpenRecordset(Name: string, Type?: any, Options?: any, LockEdit?: any): Recordset;
-        public PopulatePartial(DbPathName: string): void;
-        public readonly Properties: Properties;
-        public readonly QueryDefs: QueryDefs;
-        public QueryTimeout: number;
-        public readonly RecordsAffected: number;
-        public readonly Recordsets: Recordsets;
-        public readonly Relations: Relations;
-        public readonly ReplicaID: string;
-        public Synchronize(DbPathName: string, ExchangeType?: any): void;
-        public readonly TableDefs: TableDefs;
-        public readonly Transactions: boolean;
-        public readonly Updatable: boolean;
-        public readonly Version: string;
+        Close(): void;
+        readonly CollatingOrder: number;
+        Connect: string;
+        readonly Connection: Connection;
+        readonly Containers: Containers;
+        CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
+        CreateQueryDef(Name?: any, SQLText?: any): QueryDef;
+        CreateRelation(Name?: any, Table?: any, ForeignTable?: any, Attributes?: any): Relation;
+        CreateTableDef(Name?: any, Attributes?: any, SourceTableName?: any, Connect?: any): TableDef;
+        DesignMasterID: string;
+        Execute(Query: string, Options?: any): void;
+        MakeReplica(PathName: string, Description: string, Options?: any): void;
+        readonly Name: string;
+        NewPassword(bstrOld: string, bstrNew: string): void;
+        OpenRecordset(Name: string, Type?: any, Options?: any, LockEdit?: any): Recordset;
+        PopulatePartial(DbPathName: string): void;
+        readonly Properties: Properties;
+        readonly QueryDefs: QueryDefs;
+        QueryTimeout: number;
+        readonly RecordsAffected: number;
+        readonly Recordsets: Recordsets;
+        readonly Relations: Relations;
+        readonly ReplicaID: string;
+        Synchronize(DbPathName: string, ExchangeType?: any): void;
+        readonly TableDefs: TableDefs;
+        readonly Transactions: boolean;
+        readonly Updatable: boolean;
+        readonly Version: string;
     }
 
     class Databases {
         private 'DAO.Databases_typekey': Databases;
         private constructor();
-        public readonly Count: number;
-        public Item(Item: any): Database;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Item: any): Database;
+        Refresh(): void;
     }
 
     class DBEngine {
         private 'DAO.DBEngine_typekey': DBEngine;
         private constructor();
-        public BeginTrans(): void;
+        BeginTrans(): void;
 
         /** @param number [Option=0] */
-        public CommitTrans(Option?: number): void;
-        public CompactDatabase(SrcName: string, DstName: string, DstLocale?: any, Options?: any, SrcLocale?: any): void;
-        public CreateDatabase(Name: string, Locale: string, Option?: any): Database;
-        public CreateWorkspace(Name: string, UserName: string, Password: string, UseType?: any): Workspace;
-        public readonly DefaultPassword: string;
-        public DefaultType: number;
-        public readonly DefaultUser: string;
-        public readonly Errors: Errors;
-        public Idle(Action?: any): void;
-        public IniPath: string;
-        public ISAMStats(StatNum: number, Reset?: any): number;
-        public LoginTimeout: number;
-        public OpenConnection(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Connection;
-        public OpenDatabase(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Database;
-        public readonly Properties: Properties;
-        public RegisterDatabase(Dsn: string, Driver: string, Silent: boolean, Attributes: string): void;
-        public RepairDatabase(Name: string): void;
-        public Rollback(): void;
-        public SetOption(Option: number, Value: any): void;
-        public SystemDB: string;
-        public readonly Version: string;
-        public readonly Workspaces: Workspaces;
+        CommitTrans(Option?: number): void;
+        CompactDatabase(SrcName: string, DstName: string, DstLocale?: any, Options?: any, SrcLocale?: any): void;
+        CreateDatabase(Name: string, Locale: string, Option?: any): Database;
+        CreateWorkspace(Name: string, UserName: string, Password: string, UseType?: any): Workspace;
+        readonly DefaultPassword: string;
+        DefaultType: number;
+        readonly DefaultUser: string;
+        readonly Errors: Errors;
+        Idle(Action?: any): void;
+        IniPath: string;
+        ISAMStats(StatNum: number, Reset?: any): number;
+        LoginTimeout: number;
+        OpenConnection(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Connection;
+        OpenDatabase(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Database;
+        readonly Properties: Properties;
+        RegisterDatabase(Dsn: string, Driver: string, Silent: boolean, Attributes: string): void;
+        RepairDatabase(Name: string): void;
+        Rollback(): void;
+        SetOption(Option: number, Value: any): void;
+        SystemDB: string;
+        readonly Version: string;
+        readonly Workspaces: Workspaces;
     }
 
     class Document {
         private 'DAO.Document_typekey': Document;
         private constructor();
-        public readonly AllPermissions: number;
-        public readonly Container: string;
-        public CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
-        public readonly DateCreated: any;
-        public readonly LastUpdated: any;
-        public readonly Name: string;
-        public Owner: string;
-        public Permissions: number;
-        public readonly Properties: Properties;
-        public UserName: string;
+        readonly AllPermissions: number;
+        readonly Container: string;
+        CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
+        readonly DateCreated: any;
+        readonly LastUpdated: any;
+        readonly Name: string;
+        Owner: string;
+        Permissions: number;
+        readonly Properties: Properties;
+        UserName: string;
     }
 
     class Documents {
         private 'DAO.Documents_typekey': Documents;
         private constructor();
-        public readonly Count: number;
-        public Item(Item: any): Document;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Item: any): Document;
+        Refresh(): void;
     }
 
     class Error {
         private 'DAO.Error_typekey': Error;
         private constructor();
-        public readonly Description: string;
-        public readonly HelpContext: number;
-        public readonly HelpFile: string;
-        public readonly Number: number;
-        public readonly Source: string;
+        readonly Description: string;
+        readonly HelpContext: number;
+        readonly HelpFile: string;
+        readonly Number: number;
+        readonly Source: string;
     }
 
     class Errors {
         private 'DAO.Errors_typekey': Errors;
         private constructor();
-        public readonly Count: number;
-        public Item(Item: any): Error;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Item: any): Error;
+        Refresh(): void;
     }
 
     class Field {
         private 'DAO.Field_typekey': Field;
         private constructor();
-        public AllowZeroLength: boolean;
-        public AppendChunk(Val: any): void;
-        public Attributes: number;
-        public readonly CollatingOrder: number;
-        public readonly CollectionIndex: number;
-        public CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
-        public readonly DataUpdatable: boolean;
-        public DefaultValue: any;
-        public readonly FieldSize: number;
-        public ForeignName: string;
-        public GetChunk(Offset: number, Bytes: number): any;
-        public Name: string;
-        public OrdinalPosition: number;
-        public readonly OriginalValue: any;
-        public readonly Properties: Properties;
-        public Required: boolean;
-        public Size: number;
-        public readonly SourceField: string;
-        public readonly SourceTable: string;
-        public Type: number;
-        public ValidateOnSet: boolean;
-        public ValidationRule: string;
-        public ValidationText: string;
-        public Value: any;
-        public readonly VisibleValue: any;
+        AllowZeroLength: boolean;
+        AppendChunk(Val: any): void;
+        Attributes: number;
+        readonly CollatingOrder: number;
+        readonly CollectionIndex: number;
+        CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
+        readonly DataUpdatable: boolean;
+        DefaultValue: any;
+        readonly FieldSize: number;
+        ForeignName: string;
+        GetChunk(Offset: number, Bytes: number): any;
+        Name: string;
+        OrdinalPosition: number;
+        readonly OriginalValue: any;
+        readonly Properties: Properties;
+        Required: boolean;
+        Size: number;
+        readonly SourceField: string;
+        readonly SourceTable: string;
+        Type: number;
+        ValidateOnSet: boolean;
+        ValidationRule: string;
+        ValidationText: string;
+        Value: any;
+        readonly VisibleValue: any;
     }
 
     class Fields {
         private 'DAO.Fields_typekey': Fields;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): Field;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): Field;
+        Refresh(): void;
     }
 
     class Group {
         private 'DAO.Group_typekey': Group;
         private constructor();
-        public CreateUser(Name?: any, PID?: any, Password?: any): User;
-        public Name: string;
-        public readonly PID: string;
-        public readonly Properties: Properties;
-        public readonly Users: Users;
+        CreateUser(Name?: any, PID?: any, Password?: any): User;
+        Name: string;
+        readonly PID: string;
+        readonly Properties: Properties;
+        readonly Users: Users;
     }
 
     class Groups {
         private 'DAO.Groups_typekey': Groups;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): Group;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): Group;
+        Refresh(): void;
     }
 
     class Index {
         private 'DAO.Index_typekey': Index;
         private constructor();
-        public Clustered: boolean;
-        public CreateField(Name?: any, Type?: any, Size?: any): Field;
-        public CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
-        public readonly DistinctCount: number;
-        public Fields: any;
-        public readonly Foreign: boolean;
-        public IgnoreNulls: boolean;
-        public Name: string;
-        public Primary: boolean;
-        public readonly Properties: Properties;
-        public Required: boolean;
-        public Unique: boolean;
+        Clustered: boolean;
+        CreateField(Name?: any, Type?: any, Size?: any): Field;
+        CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
+        readonly DistinctCount: number;
+        Fields: any;
+        readonly Foreign: boolean;
+        IgnoreNulls: boolean;
+        Name: string;
+        Primary: boolean;
+        readonly Properties: Properties;
+        Required: boolean;
+        Unique: boolean;
     }
 
     class Indexes {
         private 'DAO.Indexes_typekey': Indexes;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): Index;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): Index;
+        Refresh(): void;
     }
 
     class Parameter {
         private 'DAO.Parameter_typekey': Parameter;
         private constructor();
-        public Direction: number;
-        public readonly Name: string;
-        public readonly Properties: Properties;
-        public Type: number;
-        public Value: any;
+        Direction: number;
+        readonly Name: string;
+        readonly Properties: Properties;
+        Type: number;
+        Value: any;
     }
 
     class Parameters {
         private 'DAO.Parameters_typekey': Parameters;
         private constructor();
-        public readonly Count: number;
-        public Item(Item: any): Parameter;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Item: any): Parameter;
+        Refresh(): void;
     }
 
     /** DAO 3.0 DBEngine (private) */
     class PrivDBEngine {
         private 'DAO.PrivDBEngine_typekey': PrivDBEngine;
         private constructor();
-        public BeginTrans(): void;
+        BeginTrans(): void;
 
         /** @param number [Option=0] */
-        public CommitTrans(Option?: number): void;
-        public CompactDatabase(SrcName: string, DstName: string, DstLocale?: any, Options?: any, SrcLocale?: any): void;
-        public CreateDatabase(Name: string, Locale: string, Option?: any): Database;
-        public CreateWorkspace(Name: string, UserName: string, Password: string, UseType?: any): Workspace;
-        public readonly DefaultPassword: string;
-        public DefaultType: number;
-        public readonly DefaultUser: string;
-        public readonly Errors: Errors;
-        public Idle(Action?: any): void;
-        public IniPath: string;
-        public ISAMStats(StatNum: number, Reset?: any): number;
-        public LoginTimeout: number;
-        public OpenConnection(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Connection;
-        public OpenDatabase(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Database;
-        public readonly Properties: Properties;
-        public RegisterDatabase(Dsn: string, Driver: string, Silent: boolean, Attributes: string): void;
-        public RepairDatabase(Name: string): void;
-        public Rollback(): void;
-        public SetOption(Option: number, Value: any): void;
-        public SystemDB: string;
-        public readonly Version: string;
-        public readonly Workspaces: Workspaces;
+        CommitTrans(Option?: number): void;
+        CompactDatabase(SrcName: string, DstName: string, DstLocale?: any, Options?: any, SrcLocale?: any): void;
+        CreateDatabase(Name: string, Locale: string, Option?: any): Database;
+        CreateWorkspace(Name: string, UserName: string, Password: string, UseType?: any): Workspace;
+        readonly DefaultPassword: string;
+        DefaultType: number;
+        readonly DefaultUser: string;
+        readonly Errors: Errors;
+        Idle(Action?: any): void;
+        IniPath: string;
+        ISAMStats(StatNum: number, Reset?: any): number;
+        LoginTimeout: number;
+        OpenConnection(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Connection;
+        OpenDatabase(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Database;
+        readonly Properties: Properties;
+        RegisterDatabase(Dsn: string, Driver: string, Silent: boolean, Attributes: string): void;
+        RepairDatabase(Name: string): void;
+        Rollback(): void;
+        SetOption(Option: number, Value: any): void;
+        SystemDB: string;
+        readonly Version: string;
+        readonly Workspaces: Workspaces;
     }
 
     class Properties {
         private 'DAO.Properties_typekey': Properties;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): Property;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): Property;
+        Refresh(): void;
     }
 
     class Property {
         private 'DAO.Property_typekey': Property;
         private constructor();
-        public readonly Inherited: boolean;
-        public Name: string;
-        public readonly Properties: Properties;
-        public Type: number;
-        public Value: any;
+        readonly Inherited: boolean;
+        Name: string;
+        readonly Properties: Properties;
+        Type: number;
+        Value: any;
     }
 
     class QueryDef {
         private 'DAO.QueryDef_typekey': QueryDef;
         private constructor();
-        public CacheSize: number;
-        public Cancel(): void;
-        public Close(): void;
-        public Connect: string;
-        public CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
-        public readonly DateCreated: any;
-        public Execute(Options?: any): void;
-        public readonly Fields: Fields;
-        public readonly hStmt: number;
-        public readonly LastUpdated: any;
-        public MaxRecords: number;
-        public Name: string;
-        public ODBCTimeout: number;
-        public OpenRecordset(Type?: any, Options?: any, LockEdit?: any): Recordset;
-        public readonly Parameters: Parameters;
-        public Prepare: any;
-        public readonly Properties: Properties;
-        public readonly RecordsAffected: number;
-        public ReturnsRecords: boolean;
-        public SQL: string;
-        public readonly StillExecuting: boolean;
-        public readonly Type: number;
-        public readonly Updatable: boolean;
+        CacheSize: number;
+        Cancel(): void;
+        Close(): void;
+        Connect: string;
+        CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
+        readonly DateCreated: any;
+        Execute(Options?: any): void;
+        readonly Fields: Fields;
+        readonly hStmt: number;
+        readonly LastUpdated: any;
+        MaxRecords: number;
+        Name: string;
+        ODBCTimeout: number;
+        OpenRecordset(Type?: any, Options?: any, LockEdit?: any): Recordset;
+        readonly Parameters: Parameters;
+        Prepare: any;
+        readonly Properties: Properties;
+        readonly RecordsAffected: number;
+        ReturnsRecords: boolean;
+        SQL: string;
+        readonly StillExecuting: boolean;
+        readonly Type: number;
+        readonly Updatable: boolean;
     }
 
     class QueryDefs {
         private 'DAO.QueryDefs_typekey': QueryDefs;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): QueryDef;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): QueryDef;
+        Refresh(): void;
     }
 
     class Recordset {
         private 'DAO.Recordset_typekey': Recordset;
         private constructor();
-        public AbsolutePosition: number;
-        public AddNew(): void;
-        public readonly BatchCollisionCount: number;
-        public readonly BatchCollisions: any;
-        public BatchSize: number;
-        public readonly BOF: boolean;
-        public Bookmark: SafeArray<number>;
-        public readonly Bookmarkable: boolean;
-        public CacheSize: number;
-        public CacheStart: SafeArray<number>;
-        public Cancel(): void;
+        AbsolutePosition: number;
+        AddNew(): void;
+        readonly BatchCollisionCount: number;
+        readonly BatchCollisions: any;
+        BatchSize: number;
+        readonly BOF: boolean;
+        Bookmark: SafeArray<number>;
+        readonly Bookmarkable: boolean;
+        CacheSize: number;
+        CacheStart: SafeArray<number>;
+        Cancel(): void;
 
         /** @param number [UpdateType=1] */
-        public CancelUpdate(UpdateType?: number): void;
-        public Clone(): Recordset;
-        public Close(): void;
-        public Collect(Item: any): any;
-        public Connection: Connection;
-        public CopyQueryDef(): QueryDef;
-        public readonly DateCreated: any;
-        public Delete(): void;
-        public Edit(): void;
-        public readonly EditMode: number;
-        public readonly EOF: boolean;
-        public readonly Fields: Fields;
-        public FillCache(Rows?: any, StartBookmark?: any): void;
-        public Filter: string;
-        public FindFirst(Criteria: string): void;
-        public FindLast(Criteria: string): void;
-        public FindNext(Criteria: string): void;
-        public FindPrevious(Criteria: string): void;
-        public GetRows(NumRows?: any): any;
-        public readonly hStmt: number;
-        public Index: string;
-        public readonly LastModified: SafeArray<number>;
-        public readonly LastUpdated: any;
-        public LockEdits: boolean;
-        public Move(Rows: number, StartBookmark?: any): void;
-        public MoveFirst(): void;
+        CancelUpdate(UpdateType?: number): void;
+        Clone(): Recordset;
+        Close(): void;
+        Collect(Item: any): any;
+        Connection: Connection;
+        CopyQueryDef(): QueryDef;
+        readonly DateCreated: any;
+        Delete(): void;
+        Edit(): void;
+        readonly EditMode: number;
+        readonly EOF: boolean;
+        readonly Fields: Fields;
+        FillCache(Rows?: any, StartBookmark?: any): void;
+        Filter: string;
+        FindFirst(Criteria: string): void;
+        FindLast(Criteria: string): void;
+        FindNext(Criteria: string): void;
+        FindPrevious(Criteria: string): void;
+        GetRows(NumRows?: any): any;
+        readonly hStmt: number;
+        Index: string;
+        readonly LastModified: SafeArray<number>;
+        readonly LastUpdated: any;
+        LockEdits: boolean;
+        Move(Rows: number, StartBookmark?: any): void;
+        MoveFirst(): void;
 
         /** @param number [Options=0] */
-        public MoveLast(Options?: number): void;
-        public MoveNext(): void;
-        public MovePrevious(): void;
-        public readonly Name: string;
-        public NextRecordset(): boolean;
-        public readonly NoMatch: boolean;
-        public readonly ODBCFetchCount: number;
-        public readonly ODBCFetchDelay: number;
-        public OpenRecordset(Type?: any, Options?: any): Recordset;
-        public readonly Parent: Database;
-        public PercentPosition: number;
-        public readonly Properties: Properties;
-        public readonly RecordCount: number;
-        public readonly RecordStatus: number;
-        public Requery(NewQueryDef?: any): void;
-        public readonly Restartable: boolean;
-        public Seek(
+        MoveLast(Options?: number): void;
+        MoveNext(): void;
+        MovePrevious(): void;
+        readonly Name: string;
+        NextRecordset(): boolean;
+        readonly NoMatch: boolean;
+        readonly ODBCFetchCount: number;
+        readonly ODBCFetchDelay: number;
+        OpenRecordset(Type?: any, Options?: any): Recordset;
+        readonly Parent: Database;
+        PercentPosition: number;
+        readonly Properties: Properties;
+        readonly RecordCount: number;
+        readonly RecordStatus: number;
+        Requery(NewQueryDef?: any): void;
+        readonly Restartable: boolean;
+        Seek(
             Comparison: string, Key1: any, Key2?: any, Key3?: any, Key4?: any, Key5?: any, Key6?: any, Key7?: any, Key8?: any, Key9?: any, Key10?: any, Key11?: any, Key12?: any, Key13?: any): void;
-        public Sort: string;
-        public readonly StillExecuting: boolean;
-        public readonly Transactions: boolean;
-        public readonly Type: number;
-        public readonly Updatable: boolean;
+        Sort: string;
+        readonly StillExecuting: boolean;
+        readonly Transactions: boolean;
+        readonly Type: number;
+        readonly Updatable: boolean;
 
         /**
          * @param number [UpdateType=1]
          * @param boolean [Force=false]
          */
-        public Update(UpdateType?: number, Force?: boolean): void;
-        public UpdateOptions: number;
-        public readonly ValidationRule: string;
-        public readonly ValidationText: string;
+        Update(UpdateType?: number, Force?: boolean): void;
+        UpdateOptions: number;
+        readonly ValidationRule: string;
+        readonly ValidationText: string;
     }
 
     class Recordsets {
         private 'DAO.Recordsets_typekey': Recordsets;
         private constructor();
-        public readonly Count: number;
-        public Item(Item: any): Recordset;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Item: any): Recordset;
+        Refresh(): void;
     }
 
     class Relation {
         private 'DAO.Relation_typekey': Relation;
         private constructor();
-        public Attributes: number;
-        public CreateField(Name?: any, Type?: any, Size?: any): Field;
-        public readonly Fields: Fields;
-        public ForeignTable: string;
-        public Name: string;
-        public PartialReplica: boolean;
-        public readonly Properties: Properties;
-        public Table: string;
+        Attributes: number;
+        CreateField(Name?: any, Type?: any, Size?: any): Field;
+        readonly Fields: Fields;
+        ForeignTable: string;
+        Name: string;
+        PartialReplica: boolean;
+        readonly Properties: Properties;
+        Table: string;
     }
 
     class Relations {
         private 'DAO.Relations_typekey': Relations;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): Relation;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): Relation;
+        Refresh(): void;
     }
 
     class TableDef {
         private 'DAO.TableDef_typekey': TableDef;
         private constructor();
-        public Attributes: number;
-        public readonly ConflictTable: string;
-        public Connect: string;
-        public CreateField(Name?: any, Type?: any, Size?: any): Field;
-        public CreateIndex(Name?: any): Index;
-        public CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
-        public readonly DateCreated: any;
-        public readonly Fields: Fields;
-        public readonly Indexes: Indexes;
-        public readonly LastUpdated: any;
-        public Name: string;
-        public OpenRecordset(Type?: any, Options?: any): Recordset;
-        public readonly Properties: Properties;
-        public readonly RecordCount: number;
-        public RefreshLink(): void;
-        public ReplicaFilter: any;
-        public SourceTableName: string;
-        public readonly Updatable: boolean;
-        public ValidationRule: string;
-        public ValidationText: string;
+        Attributes: number;
+        readonly ConflictTable: string;
+        Connect: string;
+        CreateField(Name?: any, Type?: any, Size?: any): Field;
+        CreateIndex(Name?: any): Index;
+        CreateProperty(Name?: any, Type?: any, Value?: any, DDL?: any): Property;
+        readonly DateCreated: any;
+        readonly Fields: Fields;
+        readonly Indexes: Indexes;
+        readonly LastUpdated: any;
+        Name: string;
+        OpenRecordset(Type?: any, Options?: any): Recordset;
+        readonly Properties: Properties;
+        readonly RecordCount: number;
+        RefreshLink(): void;
+        ReplicaFilter: any;
+        SourceTableName: string;
+        readonly Updatable: boolean;
+        ValidationRule: string;
+        ValidationText: string;
     }
 
     class TableDefs {
         private 'DAO.TableDefs_typekey': TableDefs;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): TableDef;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): TableDef;
+        Refresh(): void;
     }
 
     class User {
         private 'DAO.User_typekey': User;
         private constructor();
-        public CreateGroup(Name?: any, PID?: any): Group;
-        public readonly Groups: Groups;
-        public Name: string;
-        public NewPassword(bstrOld: string, bstrNew: string): void;
-        public readonly Password: string;
-        public readonly PID: string;
-        public readonly Properties: Properties;
+        CreateGroup(Name?: any, PID?: any): Group;
+        readonly Groups: Groups;
+        Name: string;
+        NewPassword(bstrOld: string, bstrNew: string): void;
+        readonly Password: string;
+        readonly PID: string;
+        readonly Properties: Properties;
     }
 
     class Users {
         private 'DAO.Users_typekey': Users;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): User;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): User;
+        Refresh(): void;
     }
 
     class Workspace {
         private 'DAO.Workspace_typekey': Workspace;
         private constructor();
-        public BeginTrans(): void;
-        public Close(): void;
+        BeginTrans(): void;
+        Close(): void;
 
         /** @param number [Options=0] */
-        public CommitTrans(Options?: number): void;
-        public readonly Connections: Connections;
-        public CreateDatabase(Name: string, Connect: string, Option?: any): Database;
-        public CreateGroup(Name?: any, PID?: any): Group;
-        public CreateUser(Name?: any, PID?: any, Password?: any): User;
-        public readonly Databases: Databases;
-        public DefaultCursorDriver: number;
-        public readonly Groups: Groups;
-        public readonly hEnv: number;
-        public IsolateODBCTrans: number;
-        public LoginTimeout: number;
-        public Name: string;
-        public OpenConnection(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Connection;
-        public OpenDatabase(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Database;
-        public readonly Properties: Properties;
-        public Rollback(): void;
-        public readonly Type: number;
-        public readonly UserName: string;
-        public readonly Users: Users;
+        CommitTrans(Options?: number): void;
+        readonly Connections: Connections;
+        CreateDatabase(Name: string, Connect: string, Option?: any): Database;
+        CreateGroup(Name?: any, PID?: any): Group;
+        CreateUser(Name?: any, PID?: any, Password?: any): User;
+        readonly Databases: Databases;
+        DefaultCursorDriver: number;
+        readonly Groups: Groups;
+        readonly hEnv: number;
+        IsolateODBCTrans: number;
+        LoginTimeout: number;
+        Name: string;
+        OpenConnection(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Connection;
+        OpenDatabase(Name: string, Options?: any, ReadOnly?: any, Connect?: any): Database;
+        readonly Properties: Properties;
+        Rollback(): void;
+        readonly Type: number;
+        readonly UserName: string;
+        readonly Users: Users;
     }
 
     class Workspaces {
         private 'DAO.Workspaces_typekey': Workspaces;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Name: string): void;
-        public Item(Item: any): Workspace;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Name: string): void;
+        Item(Item: any): Workspace;
+        Refresh(): void;
     }
 }
 
