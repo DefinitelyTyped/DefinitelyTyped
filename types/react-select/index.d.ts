@@ -18,9 +18,9 @@ export = ReactSelectClass;
 
 declare namespace ReactSelectClass {
     // Other components
-    class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
-    class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
-    class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>> { }
+    class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>, {}> { }
+    class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>, {}> { }
+    class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>, {}> { }
 
     type HandlerRendererResult = JSX.Element | null | false;
 
@@ -352,7 +352,7 @@ declare namespace ReactSelectClass {
         /**
          * option component to render in dropdown
          */
-        optionComponent?: React.ComponentType;
+        optionComponent?: JSX.Element;
         /**
          * function which returns a custom way to render the options in the menu
          */
@@ -417,7 +417,7 @@ declare namespace ReactSelectClass {
         /**
          *  value component to render
          */
-        valueComponent?: React.ComponentType;
+        valueComponent?: JSX.Element;
 
         /**
          *  optional style to apply to the component wrapper
@@ -530,6 +530,6 @@ declare namespace ReactSelectClass {
     }
 }
 
-declare class ReactSelectClass<TValue = ReactSelectClass.OptionValues> extends React.Component<ReactSelectClass.ReactSelectProps<TValue>> {
+declare class ReactSelectClass<TValue = ReactSelectClass.OptionValues> extends React.Component<ReactSelectClass.ReactSelectProps<TValue>, void> {
     focus(): void;
 }
