@@ -63,6 +63,7 @@ export interface EditorProps {
   handleTripleClick?: ((view: EditorView, pos: number, event: MouseEvent) => boolean) | null;
   handlePaste?: ((view: EditorView, event: Event, slice: Slice) => boolean) | null;
   handleDrop?: ((view: EditorView, event: Event, slice: Slice, moved: boolean) => boolean) | null;
+  handleScrollToSelection?: ((view: EditorView) => boolean) | null;
   createSelectionBetween?: ((view: EditorView, anchor: ResolvedPos, head: ResolvedPos) => Selection | null | undefined) | null;
   domParser?: DOMParser | null;
   clipboardParser?: DOMParser | null;
