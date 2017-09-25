@@ -349,6 +349,11 @@ declare namespace microsoftTeams {
          * Indication whether the tab is in full screen mode.
          */
         isFullScreen?: boolean;
+
+        /**
+         * The type of the team.  A standard team is ""
+         */
+        teamType?: string;
     }
     interface DeepLinkParameters {
         /**
