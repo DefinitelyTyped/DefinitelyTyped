@@ -2178,21 +2178,21 @@ declare module "url" {
         unicode?: boolean;
     }
 
-    export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<string[]>);
+    export class URLSearchParams implements Iterable<[string, string]> {
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
-        entries(): Iterator<string[]>;
+        entries(): IterableIterator<[string, string]>;
         forEach(callback: (value: string, name: string) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
-        keys(): Iterator<string>;
+        keys(): IterableIterator<string>;
         set(name: string, value: string): void;
         sort(): void;
         toString(): string;
-        values(): Iterator<string>;
-        [Symbol.iterator](): Iterator<string[]>;
+        values(): IterableIterator<string>;
+        [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 
     export class URL {
