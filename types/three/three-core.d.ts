@@ -4820,8 +4820,7 @@ export class LineSegments extends Line {
 }
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry, material?: Material | Material []);
-    constructor(geometry?: BufferGeometry, material?: Material | Material []);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material []);
 
     geometry: Geometry|BufferGeometry;
     material: Material | Material[];
