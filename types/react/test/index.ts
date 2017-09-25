@@ -193,6 +193,12 @@ const customProps: React.HTMLProps<HTMLElement> = props;
 const customDomElement = "my-element";
 const nonLiteralElement = React.createElement(customDomElement, customProps);
 
+// https://github.com/Microsoft/TypeScript/issues/15019
+
+function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessComponent<{ name: string }> | string) {
+    React.createElement(child, { name: "bar" });
+}
+
 // React.cloneElement
 const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement(element, { foo: 43 });
 

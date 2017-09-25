@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip, ReferenceLine, ReferenceArea } from 'recharts';
 
 const Component = (props: {}) => {
     const data = [
@@ -21,6 +21,9 @@ const Component = (props: {}) => {
             <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
             <Line type="monotone" dataKey="uv" stroke="#8884d8" />
             <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+            <Tooltip />
+            <ReferenceLine />
+            <ReferenceArea />
         </LineChart>
     );
 };

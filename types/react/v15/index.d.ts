@@ -223,7 +223,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P>,
+        type: SFC<P> | ComponentClass<P> | string,
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -2744,6 +2744,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
+        playsinline?: boolean;
         preload?: string;
         src?: string;
     }
