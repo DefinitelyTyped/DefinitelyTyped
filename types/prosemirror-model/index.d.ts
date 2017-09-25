@@ -197,6 +197,9 @@ export class NodeType {
   createChecked(attrs?: AnyObject, content?: Fragment | Node | Node[], marks?: Mark[]): Node;
   createAndFill(attrs?: AnyObject, content?: Fragment | Node | Node[], marks?: Mark[]): Node | null | undefined;
   validContent(content: Fragment, attrs?: AnyObject): boolean;
+  allowsMarkType(markType: MarkType): boolean;
+  allowsMarks(marks: Mark[]): boolean;
+  allowedMarks(marks: Mark[]): Mark[];
 }
 export class MarkType {
   name: string;
