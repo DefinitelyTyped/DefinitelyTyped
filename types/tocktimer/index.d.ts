@@ -24,9 +24,9 @@ interface TockOptions {
      * Callback function executed when the timer is complete
      */
     complete?: () => void
-  }
+}
 
-  declare class Tock {
+declare class Tock {
     /**
      * Create a Tock instance
      * @param opts
@@ -81,10 +81,10 @@ interface TockOptions {
      * @param ms
      */
     timeToMS: (time: string) => number
-  }
+}
 
-  declare module Tock {}
+declare module Tock {}
 
-  declare module 'tocktimer' {
+declare module 'tocktimer' {
     export = Tock;
-  }
+}
