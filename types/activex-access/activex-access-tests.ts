@@ -5,6 +5,7 @@ app.UserControl = true;
 app.DoCmd.OpenForm('MyForm', Access.AcFormView.acNormal, '', 'LastName="Smith"');
 
 // change the contents of a textbox
+// tslint:disable-next-line:no-unnecessary-type-assertion
 let textbox = app.Forms.Item('MyForm').Controls.Item('MyTextBox') as Access.TextBox;
 textbox.Text = 'Not Smith';
 

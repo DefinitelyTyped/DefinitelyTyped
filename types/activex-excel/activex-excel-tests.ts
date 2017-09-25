@@ -2,12 +2,12 @@
 /// <reference types="activex-scripting" />
 
 // some helpers
-const toSafeArray = <T>(...items: T[]) => {
+const toSafeArray = <T>(...items: T[]): SafeArray<T> => {
     const dict = new ActiveXObject('Scripting.Dictionary');
     items.forEach((x, index) => dict.Add(index, x));
     return dict.Items() as SafeArray<T>;
 };
-const inCollection = <T = any>(collection: { Item(index: any): T }, index: string | number) => {
+const inCollection = <T = any>(collection: { Item(index: any): T }, index: string | number): T | undefined => {
     let item: T | undefined;
     try {
         item = collection.Item(index);
@@ -36,7 +36,7 @@ const newOrExistingWorksheet = () => {
 const replaceWorksheet = () => {
     const mySheetName = 'Sheet4';
     app.DisplayAlerts = false;
-    const mySheet = inCollection<Excel.Worksheet | Excel.Chart | Excel.DialogSheet>(app.Worksheets, mySheetName);
+    let mySheet = inCollection<Excel.Worksheet | Excel.Chart | Excel.DialogSheet>(app.Worksheets, mySheetName);
     if (mySheet) { mySheet.Delete(); }
     app.DisplayAlerts = true;
     mySheet = app.Worksheets.Add() as Excel.Worksheet;
@@ -235,7 +235,6 @@ const setColumnVisibility = (visible: boolean) => {
     const book = app.Workbooks.Item(1);
 
     ActiveXObject.on(book, 'SheetChange', ['Sh', 'Target'], function(this, prm) {
-        let ws: Excel.Worksheet;
         const EvalRange = this.ActiveSheet.Range("A1:B20");
 
         // If the cell where the value was entered is not in the defined range, if the value pasted is larger than a single cell, or if no value was entered in the cell, then exit the macro

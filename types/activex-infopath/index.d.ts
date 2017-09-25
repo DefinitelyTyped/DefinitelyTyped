@@ -2,6 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/jj602751.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="activex-adodb" />
 /// <reference types="activex-msxml2" />
@@ -1177,7 +1178,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: InfoPath.DataAdaptersCollection): Enumerator<any>;
+    new(col: InfoPath.DataAdaptersCollection): Enumerator;
     new(col: InfoPath.DataObjectsCollection): Enumerator<InfoPath.DataSourceObject>;
     new(col: InfoPath.ErrorsCollection): Enumerator<ADODB.Error>;
     new(col: InfoPath.InputParameterCollection): Enumerator<InfoPath.InputParameterObject>;

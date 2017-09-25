@@ -8896,7 +8896,7 @@ interface EnumeratorConstructor {
     new(
         col: Access.AllDataAccessPages | Access.AllDatabaseDiagrams | Access.AllForms | Access.AllFunctions | Access.AllMacros | Access.AllModules | Access.AllQueries |
         Access.AllReports | Access.AllStoredProcedures | Access.AllTables | Access.AllViews | Access.DependencyObjects): Enumerator<Access.AccessObject>;
-    new(col: Access.Children | Access.Controls | Access.Properties): Enumerator;
+    new(col: Access.Children | Access.Controls | Access.Properties): Enumerator<any>;
     new(col: Access.DataAccessPages): Enumerator<Access.DataAccessPage>;
     new(col: Access.Entities): Enumerator<Access.Entity>;
     new(col: Access.FormatConditions): Enumerator<Access.FormatCondition>;

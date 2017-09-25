@@ -3749,7 +3749,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: MSForms.Controls | MSForms.Pages | MSForms.Tabs): Enumerator;
+    new(col: MSForms.Controls | MSForms.Pages | MSForms.Tabs): Enumerator<any>;
 }
 
 interface SafeArray<T = any> {
