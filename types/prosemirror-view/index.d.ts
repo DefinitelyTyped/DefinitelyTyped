@@ -22,7 +22,7 @@ export interface DecorationAttrs {
   nodeName?: string | null;
 }
 export class DecorationSet {
-  find(start?: number, end?: number): Decoration[];
+  find(start?: number, end?: number, predicate?: ((spec: object) => boolean) | null): Decoration[];
   map(mapping: Mapping, doc: Node, options?: { onRemove?: ((decorationSpec: object) => void) | null }): DecorationSet;
   add(doc: Node, decorations: Decoration[]): DecorationSet;
   remove(decorations: Decoration[]): DecorationSet;
