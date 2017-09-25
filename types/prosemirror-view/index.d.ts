@@ -67,11 +67,13 @@ export interface EditorProps {
   createSelectionBetween?: ((view: EditorView, anchor: ResolvedPos, head: ResolvedPos) => Selection | null | undefined) | null;
   domParser?: DOMParser | null;
   clipboardParser?: DOMParser | null;
+  clipboardTextParser?: ((p: string, $context: ResolvedPos) => Slice) | null;
   transformPasted?: ((p: Slice) => Slice) | null;
   transformPastedHTML?: ((p: string) => string) | null;
   transformPastedText?: ((p: string) => string) | null;
   nodeViews?: { [name: string]: (node: Node, view: EditorView, getPos: () => number, decorations: Decoration[]) => NodeView } | null;
   clipboardSerializer?: DOMSerializer | null;
+  clipboardTextSerializer?: ((slice: Slice) => string) | null;
   decorations?: ((p: EditorState) => DecorationSet | null | undefined) | null;
   editable?: ((p: EditorState) => boolean) | null;
   attributes?: { [name: string]: string } | ((p: EditorState) => { [name: string]: string } | null | undefined) | null;
