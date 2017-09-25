@@ -61,11 +61,8 @@ export interface EditorProps {
   handleDoubleClick?: ((view: EditorView, pos: number, event: MouseEvent) => boolean) | null;
   handleTripleClickOn?: ((view: EditorView, pos: number, node: Node, nodePos: number, event: MouseEvent, direct: boolean) => boolean) | null;
   handleTripleClick?: ((view: EditorView, pos: number, event: MouseEvent) => boolean) | null;
-  handleContextMenu?: ((view: EditorView, pos: number, event: MouseEvent) => boolean) | null;
   handlePaste?: ((view: EditorView, event: Event, slice: Slice) => boolean) | null;
   handleDrop?: ((view: EditorView, event: Event, slice: Slice, moved: boolean) => boolean) | null;
-  onFocus?: ((view: EditorView, event: Event) => void) | null;
-  onBlur?: ((view: EditorView, event: Event) => void) | null;
   createSelectionBetween?: ((view: EditorView, anchor: ResolvedPos, head: ResolvedPos) => Selection | null | undefined) | null;
   domParser?: DOMParser | null;
   clipboardParser?: DOMParser | null;

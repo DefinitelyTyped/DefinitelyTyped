@@ -27,11 +27,8 @@ export interface PluginSpecProps {
   handleDoubleClick?: EditorProps["handleDoubleClick"];
   handleTripleClickOn?: EditorProps["handleTripleClickOn"];
   handleTripleClick?: EditorProps["handleTripleClick"];
-  handleContextMenu?: EditorProps["handleContextMenu"];
   handlePaste?: EditorProps["handlePaste"];
   handleDrop?: EditorProps["handleDrop"];
-  onFocus?: EditorProps["onFocus"];
-  onBlur?: EditorProps["onBlur"];
   createSelectionBetween?: EditorProps["createSelectionBetween"];
   domParser?: EditorProps["domParser"];
   clipboardParser?: EditorProps["clipboardParser"];
@@ -66,7 +63,7 @@ export class Plugin<T = any> {
   getState(state: EditorState): T | undefined;
 }
 
-export interface StateField <T> {
+export interface StateField<T> {
   init(config: AnyObject, instance: EditorState): T;
   apply(tr: Transaction, value: T, oldState: EditorState, newState: EditorState): T;
   toJSON?: ((value: T) => any) | null;
