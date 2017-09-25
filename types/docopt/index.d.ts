@@ -8,7 +8,7 @@
  */
 export function docopt(doc: string, options: DocoptOption): any;
 
-interface DocoptOption {
+export interface DocoptOption {
     /** is an optional argument vector. It defaults to the arguments passed to your program (process.argv[2..]). You can also supply it with an array of strings, as with process.argv. For example: ['--verbose', '-o', 'hai.txt'] */
     argv?: Array<string>,
     /** (default:true) specifies whether the parser should automatically print the help message (supplied as doc) in case -h or --help options are encountered. After showing the usage-message, the program will terminate. If you want to handle -h or --help options manually (the same as other options), set help=false. */
