@@ -835,7 +835,7 @@ export class BufferGeometry extends EventDispatcher {
     drawRange: { start: number, count: number };
 
     getIndex(): BufferAttribute;
-    setIndex( index: BufferAttribute ): void;
+    setIndex( index: BufferAttribute|number[] ): void;
 
     addAttribute(name: string, attribute: BufferAttribute|InterleavedBufferAttribute): BufferGeometry;
 
