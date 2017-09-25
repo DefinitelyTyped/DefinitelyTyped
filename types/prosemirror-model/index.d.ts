@@ -176,6 +176,7 @@ export class ResolvedPos {
   min(other: ResolvedPos): ResolvedPos;
 }
 export class NodeRange {
+  constructor($from: ResolvedPos, $to: ResolvedPos, depth: number);
   $from: ResolvedPos;
   $to: ResolvedPos;
   depth: number;
