@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-transform 0.21
+// Type definitions for prosemirror-transform 0.23
 // Project: https://github.com/ProseMirror/prosemirror-transform
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -45,7 +45,7 @@ export class Transform {
   constructor(doc: Node)
   addMark(from: number, to: number, mark: Mark): this;
   removeMark(from: number, to: number, mark?: Mark | MarkType): this;
-  clearIncompatible(pos: number, parentType: NodeType, match?: ContentMatch |  null): this;
+  clearIncompatible(pos: number, parentType: NodeType, match?: ContentMatch | null): this;
   replaceRange(from: number, to: number, slice: Slice): this;
   replaceRangeWith(from: number, to: number, node: Node): this;
   deleteRange(from: number, to: number): this;
