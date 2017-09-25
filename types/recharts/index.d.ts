@@ -2,7 +2,7 @@
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
-//                 Roy Xue <https://github.com/xljroy>
+//                 Roy Xue <https://github.com/royxue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
