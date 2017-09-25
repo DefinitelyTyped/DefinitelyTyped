@@ -30,7 +30,6 @@ export class Fragment {
   lastChild?: Node | null;
   childCount: number;
   child(index: number): Node;
-  offsetAt(index: number): number;
   maybeChild(index: number): Node | null | undefined;
   forEach(f: (node: Node, offset: number, index: number) => void): void;
   findDiffStart(other: Fragment): number | null | undefined;
