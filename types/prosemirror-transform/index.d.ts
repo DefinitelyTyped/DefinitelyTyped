@@ -1,11 +1,11 @@
-// Type definitions for prosemirror-transform 0.21
+// Type definitions for prosemirror-transform 0.23
 // Project: https://github.com/ProseMirror/prosemirror-transform
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Fragment, Mark, MarkType, Node, NodeRange, NodeType, Schema, Slice } from 'prosemirror-model';
+import { Fragment, Mark, MarkType, Node, NodeRange, NodeType, Schema, Slice, ContentMatch } from 'prosemirror-model';
 
 export interface Mappable {
   map(pos: number, assoc?: number): number;
@@ -21,6 +21,7 @@ export class StepMap {
   map(pos: number, assoc?: number): number;
   forEach(f: (oldStart: number, oldEnd: number, newStart: number, newEnd: number) => void): void;
   invert(): StepMap;
+  static offset(n: number): StepMap;
 }
 export class Mapping {
   constructor(maps?: StepMap[])
@@ -44,7 +45,7 @@ export class Transform {
   constructor(doc: Node)
   addMark(from: number, to: number, mark: Mark): this;
   removeMark(from: number, to: number, mark?: Mark | MarkType): this;
-  clearMarkup(from: number, to: number): this;
+  clearIncompatible(pos: number, parentType: NodeType, match?: ContentMatch | null): this;
   replaceRange(from: number, to: number, slice: Slice): this;
   replaceRangeWith(from: number, to: number, node: Node): this;
   deleteRange(from: number, to: number): this;
@@ -80,7 +81,6 @@ export class Step {
   invert(doc: Node): Step;
   map(mapping: Mappable): Step | null | undefined;
   merge(other: Step): Step | null | undefined;
-  offset(n: number): Step;
   toJSON(): object;
   static fromJSON(schema: Schema, json: object): Step;
   static jsonID(id: string, stepClass: { new(...args: any[]): Step }): void;
