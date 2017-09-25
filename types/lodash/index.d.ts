@@ -16222,7 +16222,7 @@ declare namespace _ {
         */
         mapValues<T, TResult>(obj: Dictionary<T> | null | undefined, callback: ObjectIterator<T, TResult>): Dictionary<TResult>;
         mapValues<T>(obj: Dictionary<T> | null | undefined, where: Dictionary<T>): Dictionary<boolean>;
-        mapValues<T, TMapped>(obj: T | null | undefined, pluck: string): TMapped;
+        mapValues<T, TMapped>(obj: T | null | undefined, pluck?: string): TMapped;
         mapValues<T>(obj: T | null | undefined, callback: ObjectIterator<any, any>): T;
     }
 
@@ -16239,7 +16239,7 @@ declare namespace _ {
          * TResult is the type of the property specified by pluck.
          * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(pluck: string): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
+        mapValues<TResult>(pluck?: string): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
@@ -16262,7 +16262,7 @@ declare namespace _ {
          * TResult is the type of the property specified by pluck.
          * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(pluck: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+        mapValues<TResult>(pluck?: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
