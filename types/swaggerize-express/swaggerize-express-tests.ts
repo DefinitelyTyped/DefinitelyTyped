@@ -2,9 +2,8 @@ import http = require('http');
 import express = require('express');
 import swaggerize = require('swaggerize-express');
 
-var app = express();
-app.use(swaggerize(<swaggerize.Options>{
-    api: {
+const api: Partial<swaggerize.Options> = {
+    api:  {
         swagger: "2.0",
         host: "localhost:8080",
         info: {
@@ -12,32 +11,39 @@ app.use(swaggerize(<swaggerize.Options>{
             version: "1"
         },
         paths: {
-
         }
     },
     docspath: '/api-docs',
+};
+
+var app = express();
+app.use(swaggerize(<swaggerize.Options>{
+    ...api,
     handlers: './handlers'
 }));
 
 app.use(swaggerize(<swaggerize.Options>{
-    api: {
-        swagger: "2.0",
-        host: "localhost:8080",
-        info: {
-            title: "swaggerize-express.d.ts test",
-            version: "1"
-        },
-        paths: {
-
-        }
-    },
-    docspath: '/api-docs',
+    ...api,
     handlers: {
         'api': {
             'v1': {
                 'version': {
                     '$get': (req: express.Request, res: express.Response) => res.send('v1')
                 }
+            }
+        }
+    }
+}));
+
+app.use(swaggerize(<swaggerize.Options>{
+    ...api,
+    handlers: {
+        'api': {
+            'authenticated-path': {
+                '$get': [
+                    (req: express.Request, res: express.Response, next: express.NextFunction) => next(),
+                    (req: express.Request, res: express.Response) => res.send('v1'),
+                ]
             }
         }
     }

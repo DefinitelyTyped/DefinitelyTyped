@@ -224,13 +224,13 @@ declare namespace swaggerize {
     }
 
     export interface RouteSegment {
-        [urlSegment: string]: RouteSegment | express.RequestHandler;
+        [urlSegment: string]: RouteSegment | express.RequestHandler | express.RequestHandler[];
     }
 
     export interface Options {
         api: Swagger.ApiDefinition
-        docspath: String
-        handlers: String | RouteSegment
+        docspath: string
+        handlers: string | RouteSegment
     }
 
     export interface IConfig {
