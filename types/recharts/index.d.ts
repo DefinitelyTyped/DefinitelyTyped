@@ -718,7 +718,7 @@ export interface Label {
 	position?: PositionType;
 	offset?: number;
 	content?: React.ReactElement<any> | RechartsFunction;
-	chilren: any;
+	children?: any;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }
