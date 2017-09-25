@@ -71,7 +71,6 @@ export class DOMParser {
     context?: ResolvedPos | null
   }): Node;
   parseSlice(dom: dom.Node, options?: AnyObject): Slice;
-  static schemaRules(schema: Schema): ParseRule[];
   static fromSchema(schema: Schema): DOMParser;
 }
 export class Mark {
