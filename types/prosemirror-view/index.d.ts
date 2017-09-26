@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-view 0.21
+// Type definitions for prosemirror-view 0.24
 // Project: https://github.com/ProseMirror/prosemirror-view
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -22,7 +22,7 @@ export interface DecorationAttrs {
   nodeName?: string | null;
 }
 export class DecorationSet {
-  find(start?: number, end?: number): Decoration[];
+  find(start?: number, end?: number, predicate?: ((spec: object) => boolean) | null): Decoration[];
   map(mapping: Mapping, doc: Node, options?: { onRemove?: ((decorationSpec: object) => void) | null }): DecorationSet;
   add(doc: Node, decorations: Decoration[]): DecorationSet;
   remove(decorations: Decoration[]): DecorationSet;
@@ -43,6 +43,7 @@ export class EditorView {
   root: Document | DocumentFragment;
   posAtCoords(coords: { left: number, top: number }): { pos: number, inside: number } | null | undefined;
   coordsAtPos(pos: number): { left: number, right: number, top: number, bottom: number };
+  domAtPos(pos: number): { node: dom.Node; offset: number };
   endOfTextblock(dir: 'up' | 'down' | 'left' | 'right' | 'forward' | 'backward', state?: EditorState): boolean;
   destroy(): void;
   dispatch(tr: Transaction): void;
@@ -60,19 +61,19 @@ export interface EditorProps {
   handleDoubleClick?: ((view: EditorView, pos: number, event: MouseEvent) => boolean) | null;
   handleTripleClickOn?: ((view: EditorView, pos: number, node: Node, nodePos: number, event: MouseEvent, direct: boolean) => boolean) | null;
   handleTripleClick?: ((view: EditorView, pos: number, event: MouseEvent) => boolean) | null;
-  handleContextMenu?: ((view: EditorView, pos: number, event: MouseEvent) => boolean) | null;
   handlePaste?: ((view: EditorView, event: Event, slice: Slice) => boolean) | null;
   handleDrop?: ((view: EditorView, event: Event, slice: Slice, moved: boolean) => boolean) | null;
-  onFocus?: ((view: EditorView, event: Event) => void) | null;
-  onBlur?: ((view: EditorView, event: Event) => void) | null;
+  handleScrollToSelection?: ((view: EditorView) => boolean) | null;
   createSelectionBetween?: ((view: EditorView, anchor: ResolvedPos, head: ResolvedPos) => Selection | null | undefined) | null;
   domParser?: DOMParser | null;
   clipboardParser?: DOMParser | null;
+  clipboardTextParser?: ((p: string, $context: ResolvedPos) => Slice) | null;
   transformPasted?: ((p: Slice) => Slice) | null;
   transformPastedHTML?: ((p: string) => string) | null;
   transformPastedText?: ((p: string) => string) | null;
   nodeViews?: { [name: string]: (node: Node, view: EditorView, getPos: () => number, decorations: Decoration[]) => NodeView } | null;
   clipboardSerializer?: DOMSerializer | null;
+  clipboardTextSerializer?: ((slice: Slice) => string) | null;
   decorations?: ((p: EditorState) => DecorationSet | null | undefined) | null;
   editable?: ((p: EditorState) => boolean) | null;
   attributes?: { [name: string]: string } | ((p: EditorState) => { [name: string]: string } | null | undefined) | null;

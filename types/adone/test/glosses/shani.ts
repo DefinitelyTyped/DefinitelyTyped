@@ -177,7 +177,7 @@ namespace shaniTests {
             const check = (hook: adone.shani.I.Hook) => {
                 hook.run().then((x) => x);
                 hook.cause();
-                hook.failed() === true;
+                { const a: boolean = hook.failed(); }
                 hook.timeout() + 2;
                 hook.timeout(10).timeout(10).timeout() + 2;
             };
@@ -193,9 +193,9 @@ namespace shaniTests {
             for (const hook of root.afterEachHooks()) {
                 check(hook);
             }
-            root.isInclusive() === true;
-            root.isExclusive() === false;
-            root.hasInclusive() === true;
+            { const a: boolean = root.isInclusive(); }
+            { const a: boolean = root.isExclusive(); }
+            { const a: boolean = root.hasInclusive(); }
             root.skip().only().skip();
             const a: number | null = root.timeout();
             root.timeout(100).timeout(100);
@@ -276,23 +276,23 @@ namespace shaniTests {
 
         namespace spyCallTests {
             const call = util.spy().firstCall;
-            call.calledBefore(call) === true;
-            call.calledAfter(call) === true;
-            call.calledWithNew(call) === true;
+            { const a: boolean = call.calledBefore(call); }
+            { const a: boolean = call.calledAfter(call); }
+            { const a: boolean = call.calledWithNew(call); }
             call.thisValue;
             call.args[0];
             call.exception;
             call.returnValue;
-            call.calledOn({}) === true;
-            call.calledWith(1, 2, 3) === true;
-            call.calledWithExactly(1, 2, 3) === true;
-            call.calledWithMatch(1, 2, 3) === true;
-            call.notCalledWith(1, 2, 3) === true;
-            call.notCalledWithMatch(1, 2, 3) === true;
-            call.returned(1) === true;
-            call.threw() === true;
-            call.threw("12") === true;
-            call.threw({}) === true;
+            { const a: boolean = call.calledOn({}); }
+            { const a: boolean = call.calledWith(1, 2, 3); }
+            { const a: boolean = call.calledWithExactly(1, 2, 3); }
+            { const a: boolean = call.calledWithMatch(1, 2, 3); }
+            { const a: boolean = call.notCalledWith(1, 2, 3); }
+            { const a: boolean = call.notCalledWithMatch(1, 2, 3); }
+            { const a: boolean = call.returned(1); }
+            { const a: boolean = call.threw(); }
+            { const a: boolean = call.threw("12"); }
+            { const a: boolean = call.threw({}); }
             call.callArg(1);
             call.callArgOn(1, {});
             call.callArgWith(1, 1, 2, 3);
@@ -307,11 +307,11 @@ namespace shaniTests {
             util.spy(() => { }).alwaysCalledOn({});
             const a: number = util.spy().callCount;
             const s = util.spy();
-            s.called === true;
-            s.notCalled === true;
-            s.calledOnce === true;
-            s.calledTwice === true;
-            s.calledThrice === true;
+            { const a: boolean = s.called; }
+            { const a: boolean = s.notCalled; }
+            { const a: boolean = s.calledOnce; }
+            { const a: boolean = s.calledTwice; }
+            { const a: boolean = s.calledThrice; }
             s.firstCall.args;
             s.secondCall.args;
             s.thirdCall.args;
@@ -325,24 +325,30 @@ namespace shaniTests {
             s.calledAfter(s);
             s.calledImmediatelyAfter(s);
             s.calledImmediatelyBefore(s);
-            s.calledWithNew() === true;
+            { const a: boolean = s.calledWithNew(); }
             s.withArgs(1, 2, 3).firstCall.args;
-            s.alwaysCalledOn({}) === true;
-            s.alwaysCalledWith(1, 2, 3) === true;
-            s.alwaysCalledWithExactly(1, 2, 3) === true;
-            s.alwaysCalledWithMatch(1, 2, 3) === true;
-            s.neverCalledWith(1, 2, 3) === true;
-            s.neverCalledWithMatch(1, 2, 3) === true;
-            s.alwaysThrew() === true;
-            s.alwaysThrew("a") === true;
-            s.alwaysThrew({}) === true;
-            s.alwaysReturned({}) === true;
+            { const a: boolean = s.alwaysCalledOn({}); }
+            { const a: boolean = s.alwaysCalledWith(1, 2, 3); }
+            { const a: boolean = s.alwaysCalledWithExactly(1, 2, 3); }
+            { const a: boolean = s.alwaysCalledWithMatch(1, 2, 3); }
+            { const a: boolean = s.neverCalledWith(1, 2, 3); }
+            { const a: boolean = s.neverCalledWithMatch(1, 2, 3); }
+            { const a: boolean = s.alwaysThrew(); }
+            { const a: boolean = s.alwaysThrew("a"); }
+            { const a: boolean = s.alwaysThrew({}); }
+            { const a: boolean = s.alwaysReturned({}); }
             s.invokeCallback(1, 2, 3);
             s.getCall(0).args;
             s.getCalls()[0].args;
             s.reset();
             s.printf("%s", "1").toLowerCase();
             s.restore();
+            s.waitFor(() => true).then((x: adone.shani.util.I.SpyCall) => {});
+            s.waitFor(() => true, () => 2).then((x: number) => {});
+            s.waitForCall().then((x: adone.shani.util.I.SpyCall) => {});
+            s.waitForNCalls(10).then((x: adone.shani.util.I.SpyCall[]) => {});
+            s.waitForArg(1, "hello").then((x: adone.shani.util.I.SpyCall) => {});
+            s.waitForArgs(1, 2, 3).then((x: adone.shani.util.I.SpyCall) => {});
         }
 
         namespace stubTests {

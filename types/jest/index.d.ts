@@ -361,8 +361,9 @@ declare namespace jest {
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
+         * The default for numDigits is 2.
          */
-        toBeCloseTo(expected: number, delta?: number): R;
+        toBeCloseTo(expected: number, numDigits?: number): R;
         /**
          * Ensure that a variable is not undefined.
          */
