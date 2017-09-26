@@ -8,7 +8,8 @@ interface PifyOptions {
     multiArgs?: boolean,
     include?: [string | RegExp],
     exclude?: [string | RegExp],
-    excludeMain?: boolean
+    excludeMain?: boolean,
+    errorFirst?: boolean
 }
 
 declare function pify(input: Function, promiseModule?: Function, options?: PifyOptions): (...args: any[]) => Promise<any>;
