@@ -990,6 +990,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   }): void;
 
   /**
+   * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
+   * If promise cancellation is enabled, passed in function will receive one more function argument `onCancel` that allows to register an optional cancellation callback.
+   */
+  static Promise: typeof Bluebird
+
+  /**
    * The version number of the library
    */
   static version: string;

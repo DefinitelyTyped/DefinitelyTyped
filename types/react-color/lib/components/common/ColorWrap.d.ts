@@ -1,5 +1,5 @@
 import { ComponentClass, StatelessComponent } from "react";
-import { HSLColor, RGBColor, ColorChangeHandler, Color, ColorResult } from "react-color";
+import { HSLColor, RGBColor, ColorChangeHandler, Color, ColorResult } from "../../..";
 
 export type ColorWrapChangeHandler = (color: Color | ColorResult) => void;
 

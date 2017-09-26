@@ -15,6 +15,7 @@ declare namespace core {
         body: any;
         raw: Buffer;
         bytes: number;
+        cookies?: Cookies;
     }
 
     type ReadableStream = NodeJS.ReadableStream;

@@ -40,7 +40,7 @@ declare namespace Postmark {
 	export interface BounceFilter extends BaseFilter {
 		type?: string;
 		inactive?: boolean;
-		emailFilter: string;
+		emailFilter?: string;
 		messageID?: string;
 	}
 
@@ -73,7 +73,7 @@ declare namespace Postmark {
 		Cc?: string;
 		Bcc?: string;
 		ReplyTo?: string;
-		TemplateId?: number;
+		TemplateId?: number|string;
 		TemplateModel?: any;
 		Tag?: string;
 		Subject?: string;
@@ -332,7 +332,7 @@ declare namespace Postmark {
 	}
 
 	export class Client {
-		constructor(serverKey: string, options: Partial<Options>);
+		constructor(serverKey: string, options?: Partial<Options>);
 		// sending email
 		send(message: PostmarkMessage): Promise<SendStatus>;
 		send(message: PostmarkMessage, callback: PostmarkCallback<SendStatus>): void;

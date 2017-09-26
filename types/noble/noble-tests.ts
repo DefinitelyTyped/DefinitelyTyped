@@ -27,6 +27,14 @@ noble.on("discover", (peripheral: noble.Peripheral): void => {
     peripheral.disconnect((): void => {});
 });
 
+noble.removeListener("stateChange", (state: string): void => {});
+noble.removeListener("scanStart", (): void => {});
+noble.removeListener("scanStop", (): void => {});
+noble.removeListener("discover", (peripheral: noble.Peripheral): void => {
+    peripheral.connect((error: string): void => {});
+    peripheral.disconnect((): void => {});
+});
+
 var peripheral: noble.Peripheral = new noble.Peripheral();
 peripheral.uuid = "12ad4e81";
 peripheral.advertisement = {

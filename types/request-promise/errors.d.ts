@@ -1,4 +1,4 @@
-import rp = require('request-promise');
+import rp = require('.');
 import http = require('http');
 
 export interface RequestError extends Error {
