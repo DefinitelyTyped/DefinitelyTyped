@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+import async = require("async");
+import { ErrorCallback, AsyncResultCallback, AsyncBooleanResultCallback, Dictionary } from "async";
 import fs = require("fs");
 import process = require("process");
 
