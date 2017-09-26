@@ -1209,7 +1209,7 @@ declare namespace WebdriverIO {
         init<P>(capabilities?: DesiredCapabilities): Client<P>;
 
         /** @deprecated in favour of Actions.keyDown */
-        keys(value: string | string[]): Client<RawResult<null>> & RawResult<null> & never;
+        keys(value: string | string[]): Client<RawResult<null>> & RawResult<null> & Client<void>;
 
         /** @deprecated in favour of Actions.keyDown */
         keys<P>(value: string | string[]): Client<P>;
