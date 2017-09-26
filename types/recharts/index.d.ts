@@ -2,7 +2,7 @@
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
-//                 Roy Xue <https://github.com/xljroy>
+//                 Roy Xue <https://github.com/royxue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -146,7 +146,7 @@ export interface CartesianAxisProps {
 	width?: number;
 	height?: number;
 	orientation?: 'top' | 'bottom' | 'left' | 'right';
-	viewBox?: any;
+	viewBox?: ViewBox;
 	axisLine?: boolean | any;
 	tickLine?: boolean | any;
 	minTickGap?: number;
@@ -537,9 +537,9 @@ export interface ReferenceAreaProps {
 	y1?: number | string;
 	y2?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
@@ -574,9 +574,9 @@ export interface ReferenceLineProps {
 	x?: number | string;
 	y?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
@@ -664,10 +664,18 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 export class Text extends React.Component<TextProps> { }
 
 export interface ViewBox {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+}
+export interface PolarViewBox {
+	cx?: number;
+	cy?: number;
+	innerRadius?: number;
+	outerRadius?: number;
+	startAngle?: number;
+	endAngle?: number;
 }
 export interface Coordinate {
 	x: number;
@@ -685,7 +693,7 @@ export interface TooltipProps {
 	wrapperStyle?: any;
 	labelStyle?: any;
 	cursor?: boolean | any | React.ReactElement<any> | React.StatelessComponent<any>;
-	viewBox: ViewBox;
+	viewBox?: ViewBox;
 	active?: boolean;
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
@@ -713,13 +721,13 @@ export interface TreemapProps {
 }
 
 export interface Label {
-	viewBox?: any;
+	viewBox?: ViewBox | PolarViewBox;
 	formatter?: RechartsFunction;
 	value: string | number;
 	position?: PositionType;
 	offset?: number;
 	content?: React.ReactElement<any> | RechartsFunction;
-	chilren: any;
+	children?: any;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }

@@ -328,7 +328,7 @@ R.times(i, 5);
 (() => {
     const pairs = [["a", 1], ["b", 2], ["c", 3]];
 
-    function flattenPairs(acc: [string, number], pair: [string, number]) {
+    function flattenPairs(pair: [string, number], acc: Array<string|number>): Array<string|number> {
         return acc.concat(pair);
     }
 
@@ -911,7 +911,7 @@ type Pair = KeyValuePair<string, number>;
 () => {
     const pairs: Pair[] = [["a", 1], ["b", 2], ["c", 3]];
 
-    function flattenPairs(acc: Pair[], pair: Pair): Pair[] {
+    function flattenPairs(pair: Pair, acc: Array<string|number>): Array<string|number> {
         return acc.concat(pair);
     }
 
