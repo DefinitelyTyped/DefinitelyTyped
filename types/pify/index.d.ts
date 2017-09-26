@@ -1,6 +1,6 @@
-// Type definitions for pify
+// Type definitions for pify 3.0.0
 // Project: https://github.com/sindresorhus/pify
-// Definitions by: Sam Verschueren <https://github.com/samverschueren>
+// Definitions by: Sam Verschueren <https://github.com/samverschueren>, [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PromiseModule {
