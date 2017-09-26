@@ -12,7 +12,7 @@ interface AsyncResultArrayCallback<T, E> { (err?: E, results?: (T | undefined)[]
 interface AsyncResultObjectCallback<T, E> { (err: E | undefined, results: Dictionary<T | undefined>): void; }
 
 interface AsyncFunction<T, E> { (callback: (err?: E, result?: T) => void): void; }
-interface AsyncIterator<T, E> { (item: T, callback: ErrorCallback<E>): void; }
+interface AsyncEachCallback<T, E> { (item: T, callback: ErrorCallback<E>): void; }
 interface AsyncForEachOfIterator<T, E> { (item: T, key: number|string, callback: ErrorCallback<E>): void; }
 interface AsyncResultIterator<T, R, E> { (item: T, callback: AsyncResultCallback<R, E>): void; }
 interface AsyncMemoIterator<T, R, E> { (memo: R | undefined, item: T, callback: AsyncResultCallback<R, E>): void; }
@@ -90,11 +90,11 @@ interface AsyncCargo {
 interface Async {
 
     // Collections
-    each<T, E>(arr: T[] | IterableIterator<T>, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
-    each<T, E>(arr: Dictionary<T>, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
+    each<T, E>(arr: T[] | IterableIterator<T>, iterator: AsyncEachCallback<T, E>, callback?: ErrorCallback<E>): void;
+    each<T, E>(arr: Dictionary<T>, iterator: AsyncEachCallback<T, E>, callback?: ErrorCallback<E>): void;
     eachSeries: typeof async.each;
-    eachLimit<T, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
-    eachLimit<T, E>(arr: Dictionary<T>, limit: number, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
+    eachLimit<T, E>(arr: T[] | IterableIterator<T>, limit: number, iterator: AsyncEachCallback<T, E>, callback?: ErrorCallback<E>): void;
+    eachLimit<T, E>(arr: Dictionary<T>, limit: number, iterator: AsyncEachCallback<T, E>, callback?: ErrorCallback<E>): void;
     forEach: typeof async.each;
     forEachSeries: typeof async.each;
     forEachLimit: typeof async.eachLimit;
