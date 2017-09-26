@@ -61,10 +61,10 @@ declare module "spdy" {
         }
         export function create(base: any,
                                options: https.ServerOptions,
-                               handler: (request: IncomingMessage, response: ServerResponse) => void): Server;
+                               handler: (request: IncomingMessage, response: ServerResponse | http.ServerResponse) => void): Server;
         export function create(options: https.ServerOptions,
-                               handler: (request: IncomingMessage, response: ServerResponse) => void): Server;
-        export function create(handler: (request: IncomingMessage, response: ServerResponse) => void): Server;
+                               handler: (request: IncomingMessage, response: http.ServerResponse) => void): Server;
+        export function create(handler: (request: IncomingMessage, response: ServerResponse | http.ServerResponse) => void): Server;
 
         export type Protocol =
             'h2'
@@ -116,8 +116,8 @@ declare module "spdy" {
     export function createAgent(options: AgentOptions): Agent | PlainAgent;
     export function createServer(base: any,
                                  options: ServerOptions,
-                                 handler: (request: IncomingMessage, response: ServerResponse) => void): Server;
+                                 handler: (request: IncomingMessage, response: http.ServerResponse) => void): Server;
     export function createServer(options: ServerOptions,
-                                 handler: (request: IncomingMessage, response: ServerResponse) => void): Server;
-    export function createServer(handler: (request: IncomingMessage, response: ServerResponse) => void): Server;
+                                 handler: (request: IncomingMessage, response: http.ServerResponse) => void): Server;
+    export function createServer(handler: (request: IncomingMessage, response: http.ServerResponse) => void): Server;
 }

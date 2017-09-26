@@ -677,4 +677,10 @@ describe('SPDY Server', () => {
       req.end();
     });
   });
+
+  it('should accept express app', () => {
+    const express = require('express');
+    const app = express();
+    spdy.createServer({}, app);
+  });
 });
