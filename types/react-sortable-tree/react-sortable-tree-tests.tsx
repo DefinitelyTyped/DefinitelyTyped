@@ -54,6 +54,7 @@ class Test extends React.Component {
                     scaffoldBlockPxWidth={44}
                     isVirtualized={true}
                     nodeContentRenderer={nodeRenderer}
+                    dndType="testNodeType"
                 />
                 <SortableTreeWithoutDndContext
                     treeData={[{title: "Title", subtitle: "Subtitle", children: []}]}
