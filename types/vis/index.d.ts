@@ -9,6 +9,14 @@
 //                 Adam Lewis <https://github.com/supercargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
+export type MomentConstructor1 =
+    (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean) => Moment;
+export type MomentConstructor2 =
+    (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean) => Moment;
+
+export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
+
 export type IdType = string | number;
 export type SubgroupType = IdType;
 export type DateType = Date | number | string;
@@ -162,7 +170,7 @@ export interface TimelineOptions {
   itemsAlwaysDraggable?: boolean;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   margin?: TimelineOptionsMarginType;
   max?: DateType;
   maxHeight?: HeightWidthType;
@@ -642,7 +650,7 @@ export interface Graph2dOptions {
   legend?: Graph2dLegendOption;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   max?: DateType;
   maxHeight?: HeightWidthType;
   maxMinorChars?: number;
