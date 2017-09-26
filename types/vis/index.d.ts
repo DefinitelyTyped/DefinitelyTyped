@@ -136,7 +136,7 @@ export type TimelineOptionsConfigureType = boolean | TimelineOptionsConfigureFun
 export type TimelineOptionsDataAttributesType = boolean | string | string[];
 export type TimelineOptionsEditableType = boolean | TimelineEditableOption;
 export type TimelineOptionsGroupEditableType = boolean | TimelineGroupEditableOption;
-export type TimelineOptionsGroupOrderType = string | TimelineOptionsComparisonFunction; 
+export type TimelineOptionsGroupOrderType = string | TimelineOptionsComparisonFunction;
 export type TimelineOptionsGroupOrderSwapFunction = (fromGroup: any, toGroup: any, groups: DataSet<DataGroup>) => void;
 export type TimelineOptionsMarginType = number | TimelineMarginOption;
 export type TimelineOptionsOrientationType = string | TimelineOrientationOption;
