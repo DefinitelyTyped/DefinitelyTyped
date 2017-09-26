@@ -448,16 +448,7 @@ declare namespace chrome.browserAction {
         tabId?: number;
     }
 
-    interface ColorArray extends Array<number> {
-        /** Red */
-        0: number;
-        /** Green */
-        1: number;
-        /** Blue */
-        2: number;
-        /** Alpha */
-        3: number;
-    }
+    type ColorArray = [number, number, number, number];
 
     interface TitleDetails {
         /** The string the browser action should display when moused over. */
