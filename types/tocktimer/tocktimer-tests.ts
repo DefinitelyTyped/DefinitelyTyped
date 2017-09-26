@@ -1,7 +1,11 @@
 import * as tock from 'tocktimer';
 
-// Create a tock instance
-const timer = tock({
+let timer: tock.Tock;
+
+let opts: tock.TockOptions;
+
+// Opts that conform to spec
+opts = {
     interval: 100,
     countdown: true,
     callback: () => {
@@ -10,7 +14,10 @@ const timer = tock({
     complete: () => {
         // Ding ding...time's up
     }
-});
+};
+
+// Create a tock instance
+timer = tock();
 
 timer.lap();
 timer.msToTime(Date.now());

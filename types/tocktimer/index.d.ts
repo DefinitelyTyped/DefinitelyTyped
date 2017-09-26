@@ -6,7 +6,7 @@
 declare function t(opts?: t.TockOptions): t.Tock;
 
 declare namespace t {
-    export interface TockOptions {
+    interface TockOptions {
         /**
          * Defaults to 10 milliseconds. How often, in milliseconds, that the clock will tick.
          */
@@ -28,7 +28,7 @@ declare namespace t {
         complete(): void;
     }
 
-    export class Tock {
+    class Tock {
         /**
          * Create a Tock instance
          * @param opts
