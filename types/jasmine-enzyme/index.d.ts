@@ -28,3 +28,11 @@ declare namespace jasmine {
 		toMatchSelector(selector: string): boolean;
 	}
 }
+
+declare module "jasmine-enzyme" {
+    function jasmineEnzyme(): void;
+
+	module jasmineEnzyme {
+	}
+    export default jasmineEnzyme;
+}
