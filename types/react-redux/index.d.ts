@@ -289,4 +289,11 @@ export interface ProviderProps {
  */
 export class Provider extends React.Component<ProviderProps, {}> { }
 
+/**
+ * Creates a new <Provider> which will set the Redux Store on the passed key of the context. You probably only need this
+ * if you are in the inadvisable position of having multiple stores. You will also need to pass the same storeKey to the
+ * options argument of connect.
+ *
+ * @param storeKey The key of the context on which to set the store.
+ */
 export declare function createProvider(storeKey: string): typeof Provider;
