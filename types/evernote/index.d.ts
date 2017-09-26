@@ -2,8 +2,9 @@
 // Project: https://www.npmjs.com/package/evernote
 // Definitions by: Zachary Collins <https://github.com/corps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import * as Thrift from 'thrift';
+import { Thrift } from 'thrift';
 
 declare namespace Evernote {
     interface Callback<T> {
