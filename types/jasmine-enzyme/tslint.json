@@ -1,8 +1,1 @@
-{ 
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // The below rules cause issues and I'm not sure how to fix them. Turning them off for now
-        "no-internal-module": false,
-        "no-single-declare-module": false
-    }
-}
+{ "extends": "dtslint/dt.json" }
