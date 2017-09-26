@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "target": "es2015",
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "recursive-readdir-tests.ts"
+        "cordova-plugin-file-opener2-tests.ts"
     ]
 }

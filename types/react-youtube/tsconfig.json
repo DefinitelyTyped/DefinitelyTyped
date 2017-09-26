@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
-        "target": "es2015",
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "recursive-readdir-tests.ts"
+        "react-youtube-tests.tsx"
     ]
 }

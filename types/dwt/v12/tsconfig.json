@@ -4,20 +4,22 @@
         "lib": [
             "es6"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictNullChecks": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "dwt": [ "dwt/v12" ]
+        },
         "types": [],
         "noEmit": true,
-        "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "lambda-phi-tests.ts"
+      "index.d.ts",
+        "dwt-tests.ts"
     ]
 }
