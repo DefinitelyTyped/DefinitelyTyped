@@ -83,7 +83,7 @@ Xrm.Page.ui.tabs.forEach((tab) => {
 
 /// Demonstrate OnSave event context.
 
-Xrm.Page.data.entity.addOnSave((context) => {
+Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
     const eventArgs = context.getEventArgs();
 
     if (eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose)

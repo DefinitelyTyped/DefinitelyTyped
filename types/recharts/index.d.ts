@@ -2,6 +2,7 @@
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
+//                 Roy Xue <https://github.com/royxue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,6 +15,8 @@ export type LegendType = 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diam
 export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 export type ScaleType = 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
+export type PositionType = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
+	'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' | 'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
 
 export interface Margin {
 	top: number;
@@ -143,7 +146,7 @@ export interface CartesianAxisProps {
 	width?: number;
 	height?: number;
 	orientation?: 'top' | 'bottom' | 'left' | 'right';
-	viewBox?: any;
+	viewBox?: ViewBox;
 	axisLine?: boolean | any;
 	tickLine?: boolean | any;
 	minTickGap?: number;
@@ -534,9 +537,9 @@ export interface ReferenceAreaProps {
 	y1?: number | string;
 	y2?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
@@ -571,9 +574,9 @@ export interface ReferenceLineProps {
 	x?: number | string;
 	y?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
@@ -661,10 +664,18 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 export class Text extends React.Component<TextProps> { }
 
 export interface ViewBox {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+}
+export interface PolarViewBox {
+	cx?: number;
+	cy?: number;
+	innerRadius?: number;
+	outerRadius?: number;
+	startAngle?: number;
+	endAngle?: number;
 }
 export interface Coordinate {
 	x: number;
@@ -682,7 +693,7 @@ export interface TooltipProps {
 	wrapperStyle?: any;
 	labelStyle?: any;
 	cursor?: boolean | any | React.ReactElement<any> | React.StatelessComponent<any>;
-	viewBox: ViewBox;
+	viewBox?: ViewBox;
 	active?: boolean;
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
@@ -699,13 +710,24 @@ export interface TooltipProps {
 export class Tooltip extends React.Component<TooltipProps> { }
 
 export interface TreemapProps {
-	width: number;
-	height: number;
+	data: any[];
+	width?: number;
+	height?: number;
 	dataKey?: string;
 	aspectRatio: number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
+}
+
+export interface Label {
+	viewBox?: ViewBox | PolarViewBox;
+	formatter?: RechartsFunction;
+	value: string | number;
+	position?: PositionType;
+	offset?: number;
+	content?: React.ReactElement<any> | RechartsFunction;
+	children?: any;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }
@@ -714,6 +736,7 @@ export interface XPadding {
 	left: number;
 	right: number;
 }
+
 export interface XAxisProps {
 	hide?: boolean;
 	dataKey?: string | number;
@@ -737,7 +760,7 @@ export interface XAxisProps {
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | Label;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;
@@ -780,7 +803,7 @@ export interface YAxisProps {
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | Label;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;

@@ -5,6 +5,7 @@
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Larry Bahr <https://github.com/larrybahr>
 //                 Daniel Luz <https://github.com/mernen>
+//                 Joseph Page <https://github.com/josefpaij>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -33,7 +34,7 @@ declare class Chart {
     static pluginService: PluginServiceStatic;
 
     static defaults: {
-        global: Chart.ChartOptions;
+        global: Chart.ChartOptions & Chart.ChartFontOptions;
     };
 }
 declare class PluginServiceStatic {
@@ -199,7 +200,7 @@ declare namespace Chart {
     interface ChartLegendLabelOptions {
         boxWidth?: number;
         fontSize?: number;
-        fontStyle?: number;
+        fontStyle?: string;
         fontColor?: ChartColor;
         fontFamily?: string;
         padding?: number;

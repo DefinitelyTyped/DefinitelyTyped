@@ -1,6 +1,13 @@
 import * as assert from "power-assert";
 import cucumber = require("cucumber");
 
+// You can optionally declare your own world properties
+declare module "cucumber" {
+    interface World {
+        visit(url: string, callback: CallbackStepDefinition): void;
+    }
+}
+
 function StepSample() {
     type Callback = cucumber.CallbackStepDefinition;
     type Table = cucumber.TableDefinition;

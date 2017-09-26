@@ -395,26 +395,34 @@ declare namespace Sinon {
         contains(expected: any[]): SinonMatcher;
     }
 
+    interface SimplifiedSet {
+        has(el: any): boolean;
+    }
+
+    interface SimplifiedMap extends SimplifiedSet {
+        get(key: any): any;
+    }
+
     interface SinonMapMatcher extends SinonMatcher {
         /**
          * Requires a Map to be deep equal another one.
          */
-        deepEquals(expected: Map<any, any>): SinonMatcher;
+        deepEquals(expected: SimplifiedMap): SinonMatcher;
         /**
          * Requires a Map to contain each one of the items the given map has.
          */
-        contains(expected: Map<any, any>): SinonMatcher;
+        contains(expected: SimplifiedMap): SinonMatcher;
     }
 
     interface SinonSetMatcher extends SinonMatcher {
         /**
          *  Requires a Set to be deep equal another one.
          */
-        deepEquals(expected: Set<any>): SinonMatcher;
+        deepEquals(expected: SimplifiedSet): SinonMatcher;
         /**
          * Requires a Set to contain each one of the items the given set has.
          */
-        contains(expected: Set<any>): SinonMatcher;
+        contains(expected: SimplifiedSet): SinonMatcher;
     }
 
     interface SinonMatch {

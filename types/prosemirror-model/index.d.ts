@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 0.21
+// Type definitions for prosemirror-model 0.24
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -13,17 +13,14 @@ export interface AnyObject {
 }
 
 export class ContentMatch {
-  matchNode(node: Node): ContentMatch | null | undefined;
   matchType(type: NodeType, attrs?: AnyObject, marks?: Mark[]): ContentMatch | null | undefined;
   matchFragment(fragment: Fragment, from?: number, to?: number): ContentMatch | boolean | null | undefined;
-  matchToEnd(fragment: Fragment, start?: number, end?: number): boolean;
-  validEnd(): boolean;
+  validEnd: boolean;
   fillBefore(after: Fragment, toEnd: boolean, startIndex?: number): Fragment | null | undefined;
-  allowsMark(markType: MarkType): boolean;
-  findWrapping(target: NodeType, targetAttrs?: AnyObject, targetMarks?: Mark[]): Array<{ type: NodeType, attrs: AnyObject }> | null | undefined;
-  findWrappingFor(node: Node): Array<{ type: NodeType, attrs: AnyObject }> | null | undefined;
+  findWrapping(target: NodeType): NodeType[] | null;
 }
 export class Fragment {
+  size: number;
   nodesBetween(from: number, to: number, f: (node: Node, start: number, parent: Node, index: number) => boolean | null | void): void;
   descendants(f: (node: Node, pos: number, parent: Node) => boolean | null | void): void;
   append(other: Fragment): Fragment;
@@ -34,7 +31,6 @@ export class Fragment {
   lastChild?: Node | null;
   childCount: number;
   child(index: number): Node;
-  offsetAt(index: number): number;
   maybeChild(index: number): Node | null | undefined;
   forEach(f: (node: Node, offset: number, index: number) => void): void;
   findDiffStart(other: Fragment): number | null | undefined;
@@ -58,7 +54,7 @@ export interface ParseRule {
   skip?: boolean | null;
   attrs?: AnyObject | null;
   getAttrs?: ((p: dom.Node | string) => boolean | AnyObject | null | void) | null;
-  contentElement?: string | null;
+  contentElement?: string | ((p: dom.Node) => dom.Node) | null;
   getContent?: ((p: dom.Node) => Fragment) | null;
   preserveWhitespace?: boolean | 'full' | null;
 }
@@ -72,11 +68,10 @@ export class DOMParser {
     from?: number | null,
     to?: number | null,
     topNode?: Node | null,
-    topStart?: number | null,
+    topMatch?: ContentMatch | null,
     context?: ResolvedPos | null
   }): Node;
   parseSlice(dom: dom.Node, options?: AnyObject): Slice;
-  static schemaRules(schema: Schema): ParseRule[];
   static fromSchema(schema: Schema): DOMParser;
 }
 export class Mark {
@@ -168,7 +163,8 @@ export class ResolvedPos {
   textOffset: number;
   nodeAfter?: Node | null;
   nodeBefore?: Node | null;
-  marks(after?: boolean): Mark[];
+  marks(): Mark[];
+  marksAcross(): Mark[] | null;
   sharedDepth(pos: number): number;
   blockRange(other?: ResolvedPos, pred?: (p: Node) => boolean): NodeRange | null | undefined;
   sameParent(other: ResolvedPos): boolean;
@@ -176,6 +172,7 @@ export class ResolvedPos {
   min(other: ResolvedPos): ResolvedPos;
 }
 export class NodeRange {
+  constructor($from: ResolvedPos, $to: ResolvedPos, depth: number);
   $from: ResolvedPos;
   $to: ResolvedPos;
   depth: number;
@@ -189,6 +186,7 @@ export class NodeType {
   name: string;
   schema: Schema;
   spec: NodeSpec;
+  contentMatch: ContentMatch;
   isBlock: boolean;
   isText: boolean;
   isInline: boolean;
@@ -200,6 +198,9 @@ export class NodeType {
   createChecked(attrs?: AnyObject, content?: Fragment | Node | Node[], marks?: Mark[]): Node;
   createAndFill(attrs?: AnyObject, content?: Fragment | Node | Node[], marks?: Mark[]): Node | null | undefined;
   validContent(content: Fragment, attrs?: AnyObject): boolean;
+  allowsMarkType(markType: MarkType): boolean;
+  allowsMarks(marks: Mark[]): boolean;
+  allowedMarks(marks: Mark[]): Mark[];
 }
 export class MarkType {
   name: string;
@@ -217,6 +218,7 @@ export interface SchemaSpec {
 }
 export interface NodeSpec {
   content?: string | null;
+  marks?: string | null;
   group?: string | null;
   inline?: boolean | null;
   atom?: boolean | null;
@@ -239,7 +241,6 @@ export interface MarkSpec {
 }
 export interface AttributeSpec {
   default?: any | null;
-  compute?: (() => any) | null;
 }
 export class Schema {
   constructor(spec: SchemaSpec)
@@ -278,6 +279,4 @@ export class DOMSerializer {
   serializeNode(node: Node, options?: AnyObject): Node;
   static renderSpec(doc: Document, structure: DOMOutputSpec): { dom: Node, contentDOM?: Node | null };
   static fromSchema(schema: Schema): DOMSerializer;
-  static nodesFromSchema(schema: Schema): { [name: string]: (node: Node) => DOMOutputSpec };
-  static marksFromSchema(schema: Schema): { [name: string]: (mark: Mark) => DOMOutputSpec };
 }

@@ -1,4 +1,4 @@
-import adone from "adone";
+import { adone } from "adone";
 
 namespace AdoneRootImportTests {
     adone.falsely() === false;
