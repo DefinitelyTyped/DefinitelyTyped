@@ -15,6 +15,7 @@ import {
     createSink, componentFromProp, nest, hoistStatics,
     // Observable utilities
     componentFromStream, mapPropsStream, createEventHandler,
+    createEventHandlerWithConfig,
     componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
 } from "recompose";
@@ -272,6 +273,10 @@ function testWithObservableConfig() {
 
   let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig)
   mapPropsStreamMost = mapPropsStream
+
+  let createEventHandlerMost = createEventHandlerWithConfig(mostConfig)
+  let { handler: handler, stream: stream } = createEventHandler()
+  createEventHandlerMost = createEventHandler
 }
 
 function testOnlyUpdateForKeys() {
