@@ -8,54 +8,54 @@ export = Postmark;
 
 declare function Postmark(apiKey: string, options: Partial<Postmark.Options>): Postmark.Client;
 declare namespace Postmark {
-	export const defaults: Options;
+	const defaults: Options;
 
-	export interface PostmarkError {
+	interface PostmarkError {
 		status: number;
 		message: string;
 		code: number;
 	}
 
-	export interface PostmarkMessageHeader {
+	interface PostmarkMessageHeader {
 		Name: string;
 		Value: string;
 	}
 
-	export interface PostmarkAttachment {
+	interface PostmarkAttachment {
 		Content: string;
 		Name: string;
 		ContentType: string;
 	}
 
-	export interface Filter {
+	interface Filter {
 		count?: number;
 		offset?: number;
 	}
 
-	export interface BaseFilter extends Filter {
+	interface BaseFilter extends Filter {
 		tag?: string;
 		todate?: string;
 		fromdate?: string;
 	}
-	export interface BounceFilter extends BaseFilter {
+	interface BounceFilter extends BaseFilter {
 		type?: string;
 		inactive?: boolean;
 		emailFilter?: string;
 		messageID?: string;
 	}
 
-	export interface OutboundMessageFilter extends BaseFilter {
+	interface OutboundMessageFilter extends BaseFilter {
 		recipient?: string;
 		fromemail?: string;
 		status?: string;
 	}
 
-	export interface InboundMessageFilter extends OutboundMessageFilter {
+	interface InboundMessageFilter extends OutboundMessageFilter {
 		mailboxhash?: string;
 		subject?: string;
 	}
 
-	export interface OpenMessageFilter extends BaseFilter {
+	interface OpenMessageFilter extends BaseFilter {
 		client_name?: string;
 		client_company?: string;
 		client_family?: string;
@@ -67,7 +67,7 @@ declare namespace Postmark {
 		city?: string;
 	}
 
-	export interface PostmarkMessageWithTemplate {
+	interface PostmarkMessageWithTemplate {
 		To: string;
 		From: string;
 		Cc?: string;
@@ -82,7 +82,7 @@ declare namespace Postmark {
 		Headers?: PostmarkMessageHeader[];
 	}
 
-	export interface PostmarkMessage {
+	interface PostmarkMessage {
 		To: string;
 		From: string;
 		Cc?: string;
@@ -98,7 +98,7 @@ declare namespace Postmark {
 		Attachments?: PostmarkAttachment[];
 	}
 
-	export interface SendStatus {
+	interface SendStatus {
 		To: string;
 		SubmittedAt: string;
 		MessageID: string;
@@ -106,12 +106,12 @@ declare namespace Postmark {
 		Message: string;
 	}
 
-	export interface ExpandedEmail {
+	interface ExpandedEmail {
 		Email: string;
 		Name: string;
 	}
 
-	export interface MessageEventDetails {
+	interface MessageEventDetails {
 		Summary?: string;
 		BounceID?: string;
 		Link?: string;
@@ -121,14 +121,14 @@ declare namespace Postmark {
 		DestinationIP?: string;
 	}
 
-	export interface MessageEvents {
+	interface MessageEvents {
 		Recipient: string;
 		Type: string;
 		ReceivedAt: string;
 		Details: MessageEventDetails;
 	}
 
-	export interface MessageBase {
+	interface MessageBase {
 		Tag: string;
 		MessageID: string;
 		From: string;
@@ -138,7 +138,7 @@ declare namespace Postmark {
 		Attachments: PostmarkAttachment[];
 	}
 
-	export interface OutboundMessageBase extends MessageBase {
+	interface OutboundMessageBase extends MessageBase {
 		To: ExpandedEmail[];
 		Recipients: string[];
 		ReceivedAt: string;
@@ -146,14 +146,14 @@ declare namespace Postmark {
 		TrackLinks: string;
 	}
 
-	export interface OutboundMessage extends OutboundMessageBase {
+	interface OutboundMessage extends OutboundMessageBase {
 		TextBody: string;
 		HtmlBody: string;
 		Body: string;
 		MessageEvents: MessageEvents[];
 	}
 
-	export interface InboundMessageBase extends MessageBase {
+	interface InboundMessageBase extends MessageBase {
 		FromName: string;
 		FromFull: ExpandedEmail;
 		To: string;
@@ -165,7 +165,7 @@ declare namespace Postmark {
 		MailboxHash: string;
 	}
 
-	export interface InboundMessage extends InboundMessageBase {
+	interface InboundMessage extends InboundMessageBase {
 		TextBody: string;
 		HtmlBody: string;
 		Headers: PostmarkMessageHeader[];
@@ -173,13 +173,13 @@ declare namespace Postmark {
 		MessageEvents: MessageEvents[];
 	}
 
-	export interface VendorTrackingInfo {
+	interface VendorTrackingInfo {
 		Name: string;
 		Company: string;
 		Family: string;
 	}
 
-	export interface GeoTrackingInfo {
+	interface GeoTrackingInfo {
 		CountryISOCode: string;
 		Country: string;
 		RegionISOCode: string;
@@ -190,33 +190,33 @@ declare namespace Postmark {
 		IP: string;
 	}
 
-	export interface MessageOpens {
+	interface MessageOpens {
 		FirstOpen: boolean;
-		Client: VendorTrackingInfo,
-		OS: VendorTrackingInfo,
+		Client: VendorTrackingInfo;
+		OS: VendorTrackingInfo;
 		Platform: string;
 		UserAgent: string;
 		ReadSeconds: number;
-		Geo: GeoTrackingInfo,
+		Geo: GeoTrackingInfo;
 		MessageID: string;
 		ReceivedAt: string;
 		Tag: string;
 		Recipient: string;
 	}
 
-	export interface MessageOpensResult extends PaginatedResult {
+	interface MessageOpensResult extends PaginatedResult {
 		Opens: MessageOpens[];
 	}
 
-	export interface OutboundMessagesResult extends PaginatedResult {
+	interface OutboundMessagesResult extends PaginatedResult {
 		Messages: OutboundMessageBase[];
 	}
 
-	export interface InboundMessagesResult extends PaginatedResult {
+	interface InboundMessagesResult extends PaginatedResult {
 		InboundMessages: InboundMessageBase[];
 	}
 
-	export interface TemplateValidator<T extends object> {
+	interface TemplateValidator<T extends object> {
 		Subject: string;
 		HtmlBody: string;
 		TextBody: string;
@@ -224,39 +224,39 @@ declare namespace Postmark {
 		InlineCssForHtmlTestRender?: boolean;
 	}
 
-	export interface TemplateBase {
+	interface TemplateBase {
 		Name: string;
 		TemplateId: number;
 		Active: boolean;
 	}
 
-	export interface Template extends TemplateBase {
+	interface Template extends TemplateBase {
 		Subject: string;
 		HtmlBody: string;
 		TextBody: string;
 		AssociatedServerId: number;
 	}
 
-	export interface PaginatedResult {
+	interface PaginatedResult {
 		TotalCount: number;
 	}
 
-	export interface TemplatesResult extends PaginatedResult {
+	interface TemplatesResult extends PaginatedResult {
 		Templates: TemplateBase[];
 	}
 
-	export interface BounceStats {
+	interface BounceStats {
 		Name: string;
 		Count: number;
 		Type: string | undefined;
 	}
 
-	export interface DeliveryStats {
+	interface DeliveryStats {
 		InactiveMails: number;
 		Bounces: BounceStats[];
 	}
 
-	export interface Bounce {
+	interface Bounce {
 		ID: number;
 		Type: string;
 		TypeCode: number;
@@ -276,51 +276,51 @@ declare namespace Postmark {
 		Content: string;
 	}
 
-	export interface BouncesResult extends PaginatedResult {
+	interface BouncesResult extends PaginatedResult {
 		Bounces: Bounce[];
 	}
 
-	export interface BounceDump {
+	interface BounceDump {
 		Body: string;
 	}
 
-	export interface GenericResult {
+	interface GenericResult {
 		Message: string;
 		ErrorCode?: number;
 	}
 
-	export interface ActivatedBounceResult extends GenericResult {
+	interface ActivatedBounceResult extends GenericResult {
 		Bounce: Bounce;
 	}
 
-	export interface ValidationError {
+	interface ValidationError {
 		Message: string;
 		Line: number;
 		CharacterPosition: number;
 	}
 
-	export interface ValidationSet {
+	interface ValidationSet {
 		ContentIsValid: boolean;
 		ValidationErrors: ValidationError[];
 		RenderedContent: string;
 	}
 
-	export interface TemplateValidationResult<T extends object = any> {
+	interface TemplateValidationResult<T extends object = any> {
 		AllContentIsValid: boolean;
 		HtmlBody: ValidationSet;
 		TextBody: ValidationSet;
 		Subject: ValidationSet;
-		SuggestedTemplateModel: T | any;
+		SuggestedTemplateModel: T;
 	}
 
-	export type PostmarkCallback<T extends object = any> = ((e: PostmarkError, ret: T) => void);
+	type PostmarkCallback<T extends object = any> = ((e: PostmarkError, ret: T) => void);
 
-	export interface SimpleOptions {
+	interface SimpleOptions {
 		ssl: boolean;
 		requestHost: string;
 	}
 
-	export interface Options extends SimpleOptions {
+	interface Options extends SimpleOptions {
 		requestFactory(
 			options: SimpleOptions
 		): (
@@ -331,7 +331,7 @@ declare namespace Postmark {
 			) => any;
 	}
 
-	export class Client {
+	class Client {
 		constructor(serverKey: string, options?: Partial<Options>);
 		// sending email
 		send(message: PostmarkMessage): Promise<SendStatus>;
@@ -401,7 +401,6 @@ declare namespace Postmark {
 		retryInboundHookForMessage(id: number): Promise<GenericResult>;
 		retryInboundHookForMessage(id: number, callback?: PostmarkCallback<GenericResult>): void;
 
-
 		// templates
 		getTemplate(id: number): Promise<Template>;
 		getTemplate(id: number, callback?: PostmarkCallback<Template>): void;
@@ -420,10 +419,9 @@ declare namespace Postmark {
 
 		validateTemplate<T extends object>(templateObject: TemplateValidator<T>): Promise<TemplateValidationResult<T>>;
 		validateTemplate<T extends object>(templateObject: TemplateValidator<T>, callback?: PostmarkCallback<TemplateValidationResult<T>>): void;
-
 	}
 
-	export interface SenderSignatureBase {
+	interface SenderSignatureBase {
 		Domain: string;
 		EmailAddress: string;
 		Name: string;
@@ -432,13 +430,13 @@ declare namespace Postmark {
 		ID: number;
 	}
 
-	export interface SPFRecord {
+	interface SPFRecord {
 		SPFHost: string;
 		SPFTextValue: string;
 		SPFVerified: boolean;
 	}
 
-	export interface DKIMKey {
+	interface DKIMKey {
 		WeakDKIM: boolean;
 		DKIMHost: string;
 		DKIMVerified: boolean;
@@ -451,34 +449,30 @@ declare namespace Postmark {
 		DKIMUpdateStatus: string;
 	}
 
-	export interface VerificationDetails extends SPFRecord, DKIMKey {
+	interface VerificationDetails extends SPFRecord, DKIMKey {
 		ReturnPathDomain: string;
 		ReturnPathDomainCNAMEValue: string;
 	}
 
-	export interface SenderSignature extends SenderSignatureBase, VerificationDetails {
+	interface SenderSignature extends SenderSignatureBase, VerificationDetails {
 		ReturnPathDomainVerified: boolean;
 	}
 
-	export interface UpdateSignature {
+	interface UpdateSignature {
 		Name: string;
 		ReplyToEmail?: string;
 		ReturnPathDomain?: string;
 	}
 
-	export interface CreateSignature extends UpdateSignature {
+	interface CreateSignature extends UpdateSignature {
 		FromEmail: string;
 	}
 
-	export interface SenderSignaturesResults extends PaginatedResult {
+	interface SenderSignaturesResults extends PaginatedResult {
 		SenderSignatures: SenderSignatureBase[];
 	}
 
-	export interface Server {
-		ID: number;
-		ApiTokens: string[];
-		ServerLink: string;
-		Name: string;
+	interface Sender {
 		Color: string;
 		SmtpApiActivated: boolean;
 		RawEmailEnabled: boolean;
@@ -496,32 +490,22 @@ declare namespace Postmark {
 		InboundSpamThreshold: number;
 	}
 
-	export interface CreateServer {
+	interface Server extends Sender {
+		ID: number;
+		ApiTokens: string[];
+		ServerLink: string;
 		Name: string;
-		Color?: string;
-		RawEmailEnabled?: boolean;
-		SmtpApiActivated?: boolean;
-		DeliveryHookUrl?: string;
-		InboundHookUrl?: string;
-		BounceHookUrl?: string;
-		IncludeBounceContentInHook?: boolean;
-		OpenHookUrl?: string;
-		PostFirstOpenOnly?: boolean;
-		TrackOpens?: boolean;
-		TrackLinks?: string;
-		InboundDomain?: string;
-		InboundSpamThreshold?: number;
 	}
 
-	export interface ServerFilter extends Filter {
+	interface ServerFilter extends Filter {
 		name?: string;
 	}
 
-	export interface ServersResult extends PaginatedResult {
+	interface ServersResult extends PaginatedResult {
 		Servers: Server[];
 	}
 
-	export interface DomainBase {
+	interface DomainBase {
 		ID: number;
 		Name: string;
 		SPFVerified: boolean;
@@ -530,24 +514,24 @@ declare namespace Postmark {
 		ReturnPathDomainVerified: boolean;
 	}
 
-	export interface Domain extends DomainBase, VerificationDetails {
+	interface Domain extends DomainBase, VerificationDetails {
 	}
 
-	export interface DomainsResult extends PaginatedResult {
+	interface DomainsResult extends PaginatedResult {
 		Domains: DomainBase[];
 	}
 
-	export interface CreateDomain {
+	interface CreateDomain {
 		Name: string;
 		ReturnPathDomain?: string;
 	}
 
-	export interface RotateDKIMResult extends DKIMKey {
+	interface RotateDKIMResult extends DKIMKey {
 		Name: string;
 		ID: string;
 	}
 
-	export class AdminClient {
+	class AdminClient {
 		constructor(apiKey: string, options: Partial<Options>);
 
 		// signatures
@@ -572,23 +556,21 @@ declare namespace Postmark {
 		requestNewDKIMForSenderSignature(id: number): Promise<GenericResult>;
 		requestNewDKIMForSenderSignature(id: number, callback?: PostmarkCallback<GenericResult>): void;
 
-
 		// servers
 		getServer(id: number): Promise<Server>;
 		getServer(id: number, callback?: PostmarkCallback<Server>): void;
 
-		createServer(options: CreateServer): Promise<Server>;
-		createServer(options: CreateServer, callback?: PostmarkCallback<Server>): void;
+		createServer(options: Partial<Server>): Promise<Server>;
+		createServer(options: Partial<Server>, callback?: PostmarkCallback<Server>): void;
 
-		editServer(id: number, options: Partial<CreateServer>): Promise<Server>;
-		editServer(id: number, options: Partial<CreateServer>, callback?: PostmarkCallback<Server>): void;
+		editServer(id: number, options: Partial<Server>): Promise<Server>;
+		editServer(id: number, options: Partial<Server>, callback?: PostmarkCallback<Server>): void;
 
 		deleteServer(id: number): Promise<GenericResult>;
 		deleteServer(id: number, callback?: PostmarkCallback<GenericResult>): void;
 
 		listServers(query: ServerFilter): Promise<ServersResult>;
 		listServers(query: ServerFilter, callback?: PostmarkCallback<ServersResult>): void;
-
 
 		// domains
 		listDomains(query: Filter): Promise<DomainsResult>;
@@ -605,7 +587,6 @@ declare namespace Postmark {
 
 		deleteDomain(id: number): Promise<GenericResult>;
 		deleteDomain(id: number, callback?: PostmarkCallback<GenericResult>): void;
-
 
 		verifyDomainSPF(id: number): Promise<SenderSignature>;
 		verifyDomainSPF(id: number, callback?: PostmarkCallback<SenderSignature>): void;
