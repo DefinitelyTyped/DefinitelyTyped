@@ -3,6 +3,7 @@
     "rules": {
         // TODO
         "no-boolean-literal-compare": false,
+        "no-declare-current-package": false,
         "no-unnecessary-generics": false
     }
 }
