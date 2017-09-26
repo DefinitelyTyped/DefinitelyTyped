@@ -35,7 +35,7 @@
     successCallback: done => { }
   });
 
-  microsoftTeams.getTabInstances( tabInfo => {
-    let tabInstances:microsoftTeams.TabInstance[] = tabInfo.teamTabs;
+  microsoftTeams.getTabInstances(tabInfo => {
+    const tabInstances: microsoftTeams.TabInstance[] = tabInfo.teamTabs;
   });
 })();
