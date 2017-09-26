@@ -9,22 +9,22 @@ function test_basic_connect() {
 function test_connect_config() {
     const port1 = new SerialPort('', {
             baudRate: 0,
-            parser: SerialPort.parsers.raw
+            parser: SerialPort.parsers.Raw
         }, (err: any) => {});
 
     const port2 = new SerialPort('', {
             baudRate: 0,
-            parser: SerialPort.parsers.readline('\n', 'ascii')
+            parser: SerialPort.parsers.Readline('\n', 'ascii')
         }, (err: any) => {});
 
     const port3 = new SerialPort('', {
             baudRate: 0,
-            parser: SerialPort.parsers.byteLength(7)
+            parser: SerialPort.parsers.ByteLength(7)
         }, (err: any) => {});
 
     const port4 = new SerialPort('', {
             baudRate: 0,
-            parser: SerialPort.parsers.byteDelimiter([3, 4, 5])
+            parser: SerialPort.parsers.ByteDelimiter([3, 4, 5])
         }, (err: any) => {});
 
     const port5 = new SerialPort('', {
