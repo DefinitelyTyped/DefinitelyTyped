@@ -139,6 +139,6 @@ export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
 
-import * as Pg from 'pg';
+import * as Pg from '.';
 
 export const native: typeof Pg | null;

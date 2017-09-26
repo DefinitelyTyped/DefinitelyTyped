@@ -1,4 +1,4 @@
-import * as Keycloak from 'keycloak-js';
+import * as Keycloak from '.';
 
 export as namespace KeycloakAuthorization;
 
