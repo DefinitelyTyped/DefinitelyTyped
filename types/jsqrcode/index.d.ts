@@ -1,4 +1,4 @@
-// Type definitions for Lazar Laszlo's jsqrcode
+// Type definitions for jsqrcode 0.0.0
 // Project: https://github.com/LazarSoft/jsqrcode
 // Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,7 +41,7 @@ declare class AlignmentPatternFinder {
 	constructor(
 		image: Uint8Array, startX: number, startY: number,
 		width: number, height: number,
-		moduleSize: number, resultPointCallback: () => void
+		moduleSize: number, resultPointCallback: ResultPointCallback
 	);
 
 	private centerFromEnd(stateCount: number, end: number): number;
@@ -479,6 +479,8 @@ declare module "qrcode" {
 		debug: boolean,
 		maxImgSize: number,
 		readonly sizeOfDataLengthInfo: [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]],
+
+		// tslint:disable-next-line:prefer-method-signature
 		callback: () => void,
 
 		orderBestPatterns(patterns: AlignmentPattern[]): void,
