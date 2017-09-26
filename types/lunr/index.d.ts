@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+export as namespace lunr;
+export = lunr;
+
 /**
  * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright
  * Copyright (C) 2014 Oliver Nightingale
@@ -999,7 +1002,3 @@ declare namespace lunr {
  * ```
  */
 declare function lunr(config: lunr.ConfigFunction): lunr.Index;
-
-declare module "lunr" {
-    export = lunr;
-}
