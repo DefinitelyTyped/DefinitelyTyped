@@ -5,6 +5,10 @@
 
 declare function URShift(number: number, bits: number): number;
 
+interface ResultPointCallback {
+	foundPossibleResultPoint(point: FinderPattern): void;
+}
+
 declare class AlignmentPattern {
 	private x: number;
 	private y: number;
@@ -16,7 +20,7 @@ declare class AlignmentPattern {
 	readonly EstimatedModuleSize: number;
 	readonly Count: number;
 
-	constructor(posX: number, posY: number, estimatedModuleSize);
+	constructor(posX: number, posY: number, estimatedModuleSize: number);
 
 	incrementCount(): void;
 
@@ -24,7 +28,7 @@ declare class AlignmentPattern {
 }
 
 declare class AlignmentPatternFinder {
-	possibleCenters: Array<AlignmentPattern>;
+	possibleCenters: AlignmentPattern[];
 	crossCheckStateCount: [number, number, number];
 	image: Uint8Array;
 	startX: number;
@@ -32,7 +36,7 @@ declare class AlignmentPatternFinder {
 	width: number;
 	height: number;
 	moduleSize: number;
-	resultPointCallback: { foundPossibleResultPoint: (point: FinderPattern) => void };
+	resultPointCallback: ResultPointCallback;
 
 	constructor(
 		image: Uint8Array, startX: number, startY: number,
@@ -41,12 +45,12 @@ declare class AlignmentPatternFinder {
 	);
 
 	private centerFromEnd(stateCount: number, end: number): number;
-	
+
 	private foundPatternCross(stateCount: number): boolean;
-	
+
 	private handlePossibleCenter(stateCount: number, i: number, j: number): AlignmentPattern;
 
-	public find(): AlignmentPattern;
+	find(): AlignmentPattern;
 }
 
 declare class BitMatrix {
@@ -58,7 +62,7 @@ declare class BitMatrix {
 	readonly Dimension: number;
 
 	rowSize: number;
-	bits: Array<any>;
+	bits: number[];
 
 	constructor(width: number, height?: number);
 
@@ -79,21 +83,21 @@ declare class BitMatrixParser {
 	copyBit(i: number, j: number, versionBits: number): number;
 	readFormatInformation(): FormatInformation;
 	readVersion(): Version;
-	readCodewords(): Array<number>;
+	readCodewords(): number[];
 }
 
 declare class DataBlock {
 	static getDataBlocks(
-		rawCodewords: Array<number>, version: Version, ecLevel: ErrorCorrectionLevel
-	): Array<DataBlock>;
+		rawCodewords: number[], version: Version, ecLevel: ErrorCorrectionLevel
+	): DataBlock[];
 
 	private numDataCodewords: number;
-	private codewords: Array<number>;
+	private codewords: number[];
 
 	readonly NumDataCodewords: number;
-	readonly Codewords: Array<number>;
+	readonly Codewords: number[];
 
-	constructor(numDataCodewords: number, codewords: Array<number>);
+	constructor(numDataCodewords: number, codewords: number[]);
 }
 
 declare class QRCodeDataBlockReader {
@@ -101,78 +105,77 @@ declare class QRCodeDataBlockReader {
 	bitPointer: number;
 	dataLength: number;
 	dataLengthMode: number;
-	blocks: Array<number>;
+	blocks: number[];
 	numErrorCorrectionCode: number;
 
-	readonly DataByte: Array<string | Array<number>>;
+	readonly DataByte: Array<string | number[]>;
 
-	constructor(blocks: Array<number>, version: number, numErrorCorrectionCode: number);
+	constructor(blocks: number[], version: number, numErrorCorrectionCode: number);
 
 	getNextBits(numBits: number): number;
 	NextMode(): number;
 	getDataLength(modeIndicator: number): number;
 	getRomanAndFigureString(dataLength: number): string;
 	getFigureString(dataLength: number): string;
-	get8bitByteArray(dataLength: number): Array<number>;
+	get8bitByteArray(dataLength: number): number[];
 	getKanjiString(dataLength: number): string;
 	parseECIValue(): number;
 }
 
-
 declare abstract class DataMask {
-	private static DATA_MASKS: Array<DataMask>;
+	private static DATA_MASKS: DataMask[];
 
 	static forReference(reference: number): DataMask;
 
-	abstract unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	abstract unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	abstract isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask000 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask001 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask010 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask011 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask100 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask101 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask110 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
 
 declare class DataMask111 extends DataMask {
-	unmaskBitMatrix(bits: Array<number>, dimension: number): void;
+	unmaskBitMatrix(bits: number[], dimension: number): void;
 
 	isMasked(i: number, j: number): boolean;
 }
@@ -180,7 +183,7 @@ declare class DataMask111 extends DataMask {
 declare const Decoder: {
 	rsDecoder: ReedSolomonDecoder,
 
-	correctErrors: (codewordBytes: Array<number>,  numDataCodewords: number) => void,
+	correctErrors(codewordBytes: number[], numDataCodewords: number): void;
 
 	decode(bits: BitMatrix): QRCodeDataBlockReader;
 };
@@ -217,8 +220,8 @@ declare class PerspectiveTransform {
 		a13: number, a23: number, a33: number
 	);
 
-	transformPoints1(points: Array<number>): void;
-	transformPoints2(xValues: Array<number>, yValues: Array<number>): void;
+	transformPoints1(points: number[]): void;
+	transformPoints2(xValues: number[], yValues: number[]): void;
 	buildAdjoint(): PerspectiveTransform;
 	times(other: PerspectiveTransform): PerspectiveTransform;
 }
@@ -237,9 +240,9 @@ declare class DetectorResult {
 
 declare class Detector {
 	image: Uint8Array;
-	resultPointCallback: { foundPossibleResultPoint: (point: FinderPattern) => void };
+	resultPointCallback: ResultPointCallback;
 
-	contructor(image: Uint8Array);
+	constructor(image: Uint8Array);
 
 	sizeOfBlackWhiteBlackRun(fromX: number, fromY: number, toX: number, toY: number): number;
 	sizeOfBlackWhiteBlackRunBothWays(fromX: number, fromY: number, toX: number, toY: number): number;
@@ -258,7 +261,7 @@ declare const L: ErrorCorrectionLevel;
 declare const M: ErrorCorrectionLevel;
 declare const Q: ErrorCorrectionLevel;
 declare const H: ErrorCorrectionLevel;
-declare const FOR_BITS: Array<ErrorCorrectionLevel>;
+declare const FOR_BITS: ErrorCorrectionLevel[];
 
 declare class ErrorCorrectionLevel {
 	private ordinal_Renamed_Field: number;
@@ -268,7 +271,7 @@ declare class ErrorCorrectionLevel {
 	readonly Bits: number;
 	readonly Name: string;
 
-	static forBits(bits: number): any;
+	static forBits(bits: number): ErrorCorrectionLevel;
 
 	constructor(ordinal: number, bits: number, name: string);
 }
@@ -295,18 +298,18 @@ declare class FinderPattern {
 }
 
 declare class FinderPatternInfo {
-	readonly BottomLeft: any;
-	readonly TopLeft: any;
-	readonly TopRight: any;
+	readonly BottomLeft: AlignmentPattern;
+	readonly TopLeft: AlignmentPattern;
+	readonly TopRight: AlignmentPattern;
 
-	contructor(patternCenters: Array<any>);
+	constructor(patternCenters: [AlignmentPattern, AlignmentPattern, AlignmentPattern]);
 }
 
 declare class FinderPatternFinder {
 	image: Uint8Array;
-	possibleCenters: Array<FinderPattern>;
+	possibleCenters: FinderPattern[];
 	hasSkipped: boolean;
-	resultPointCallback: { foundPossibleResultPoint: (point: FinderPattern) => void };
+	resultPointCallback: ResultPointCallback;
 
 	private crossCheckStateCount: [number, number, number, number, number];
 	readonly CrossCheckStateCount: [number, number, number, number, number];
@@ -323,19 +326,25 @@ declare class FinderPatternFinder {
 }
 
 declare const FORMAT_INFO_MASK_QR: 0x5412;
-declare const FORMAT_INFO_DECODE_LOOKUP: [[0x5412, 0x00], [0x5125, 0x01], [0x5E7C, 0x02], [0x5B4B, 0x03], [0x45F9, 0x04], [0x40CE, 0x05], [0x4F97, 0x06], [0x4AA0, 0x07], [0x77C4, 0x08], [0x72F3, 0x09], [0x7DAA, 0x0A], [0x789D, 0x0B], [0x662F, 0x0C], [0x6318, 0x0D], [0x6C41, 0x0E], [0x6976, 0x0F], [0x1689, 0x10], [0x13BE, 0x11], [0x1CE7, 0x12], [0x19D0, 0x13], [0x0762, 0x14], [0x0255, 0x15], [0x0D0C, 0x16], [0x083B, 0x17], [0x355F, 0x18], [0x3068, 0x19], [0x3F31, 0x1A], [0x3A06, 0x1B], [0x24B4, 0x1C], [0x2183, 0x1D], [0x2EDA, 0x1E], [0x2BED, 0x1F]];
-declare const BITS_SET_IN_HALF_BYTE: [ 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4 ];
+declare const FORMAT_INFO_DECODE_LOOKUP: [
+	[0x5412, 0x00], [0x5125, 0x01], [0x5E7C, 0x02], [0x5B4B, 0x03], [0x45F9, 0x04], [0x40CE, 0x05], [0x4F97, 0x06],
+	[0x4AA0, 0x07], [0x77C4, 0x08], [0x72F3, 0x09], [0x7DAA, 0x0A], [0x789D, 0x0B], [0x662F, 0x0C], [0x6318, 0x0D],
+	[0x6C41, 0x0E], [0x6976, 0x0F], [0x1689, 0x10], [0x13BE, 0x11], [0x1CE7, 0x12], [0x19D0, 0x13], [0x0762, 0x14],
+	[0x0255, 0x15], [0x0D0C, 0x16], [0x083B, 0x17], [0x355F, 0x18], [0x3068, 0x19], [0x3F31, 0x1A], [0x3A06, 0x1B],
+	[0x24B4, 0x1C], [0x2183, 0x1D], [0x2EDA, 0x1E], [0x2BED, 0x1F]
+];
+declare const BITS_SET_IN_HALF_BYTE: [0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4];
 
 declare class FormatInformation {
-	static numBitsDiffering(a: number, b: [ number, number ]): number;
+	static numBitsDiffering(a: number, b: [number, number]): number;
 	static decodeFormatInformation(maskedFormatInfo: number): FormatInformation;
 	private static doDecodeFormatInformation(maskedFormatInfo: number): FormatInformation;
 
 	private errorCorrectionLevel: ErrorCorrectionLevel;
-	private dataMask: any;
+	private dataMask: number;
 
 	readonly ErrorCorrectionLevel: ErrorCorrectionLevel;
-	readonly DataMask: any;
+	readonly DataMask: number;
 
 	GetHashCode(): number;
 	Equals(other: FormatInformation): boolean;
@@ -348,8 +357,8 @@ declare class GF256 {
 	private zero: GF256Poly;
 	private one: GF256Poly;
 
-	expTable: Array<number>;
-	logTable: Array<number>;
+	expTable: number[];
+	logTable: number[];
 	readonly Zero: GF256Poly;
 	readonly One: GF256Poly;
 
@@ -366,13 +375,13 @@ declare class GF256 {
 
 declare class GF256Poly {
 	field: GF256;
-	private coefficients: Array<number>;
+	private coefficients: number[];
 
 	readonly Zero: boolean;
 	readonly Degree: number;
-	readonly Coefficients: Array<number>;
+	readonly Coefficients: number[];
 
-	constructor(field: GF256, coefficients: Array<number>);
+	constructor(field: GF256, coefficients: number[]);
 
 	getCoefficient(degree: number): number;
 	evaluateAt(a: number): number;
@@ -380,11 +389,11 @@ declare class GF256Poly {
 	multiply1(other: GF256Poly): GF256Poly;
 	multiply2(scalar: number): GF256Poly;
 	multiplyByMonomial(degree: number, coefficient: number): GF256Poly;
-	divide(other: GF256Poly): [ GF256Poly, GF256Poly ];
+	divide(other: GF256Poly): [GF256Poly, GF256Poly];
 }
 
 declare const GridSampler: {
-	checkAndNudgePoints(image: Uint8Array, points: Array<number>): void;
+	checkAndNudgePoints(image: Uint8Array, points: number[]): void;
 	sampleGrid3(image: Uint8Array, dimension: number, transform: PerspectiveTransform): BitMatrix;
 	sampleGridx(
 		image: Uint8Array, dimension: number, p1ToX: number,
@@ -399,13 +408,13 @@ declare class ReedSolomonDecoder {
 	field: GF256;
 
 	constructor(field: GF256);
-	
-	decode(received: GF256, twoS: Array<number>): void;
-	runEuclideanAlgorithm(a: GF256Poly, b: GF256Poly, R: number): [ GF256Poly, GF256Poly ];
-	findErrorLocations(errorLocator: GF256Poly): Array<number>;
-	findErrorMagnitudes(errorEvaluator: GF256Poly, errorLocations: Array<number>, dataMatrix: boolean): Array<number>;
+
+	decode(received: GF256, twoS: number[]): void;
+	runEuclideanAlgorithm(a: GF256Poly, b: GF256Poly, R: number): [GF256Poly, GF256Poly];
+	findErrorLocations(errorLocator: GF256Poly): number[];
+	findErrorMagnitudes(errorEvaluator: GF256Poly, errorLocations: number[], dataMatrix: boolean): number[];
 }
-declare function buildVersions(): Array<Version>;
+declare function buildVersions(): Version[];
 
 declare class ECB {
 	private count: number;
@@ -419,35 +428,40 @@ declare class ECB {
 
 declare class ECBlocks {
 	private ecCodewordsPerBlock: number;
-	private ecBlocks: Array<Array<any>>;
+	private ecBlocks: [ECB] | [ECB, ECB];
 
 	readonly ECCodewordsPerBlock: number;
 	readonly TotalECCodewords: number;
 	readonly NumBlocks: number;
 
-	constructor(ecCodewordsPerBlock: number, ecBlocks1: Array<any>, ecBlocks2?: Array<any>);
+	constructor(ecCodewordsPerBlock: number, ecBlocks1: ECB, ecBlocks2?: ECB);
 
-	getECBlocks(): Array<Array<any>>;
+	getECBlocks(): [ECB] | [ECB, ECB];
 }
 
 declare class Version {
-	static readonly VERSION_DECODE_INFO: [ 0x07C94, 0x085BC, 0x09A99, 0x0A4D3, 0x0BBF6, 0x0C762, 0x0D847, 0x0E60D, 0x0F928, 0x10B78, 0x1145D, 0x12A17, 0x13532, 0x149A6, 0x15683, 0x168C9, 0x177EC, 0x18EC4, 0x191E1, 0x1AFAB, 0x1B08E, 0x1CC1A, 0x1D33F, 0x1ED75, 0x1F250, 0x209D5, 0x216F0, 0x228BA, 0x2379F, 0x24B0B, 0x2542E, 0x26A64, 0x27541, 0x28C69 ];
-	static readonly VERSIONS: Array<Version>;
+	static readonly VERSION_DECODE_INFO: [
+		0x07C94, 0x085BC, 0x09A99, 0x0A4D3, 0x0BBF6, 0x0C762, 0x0D847, 0x0E60D, 0x0F928,
+		0x10B78, 0x1145D, 0x12A17, 0x13532, 0x149A6, 0x15683, 0x168C9, 0x177EC, 0x18EC4,
+		0x191E1, 0x1AFAB, 0x1B08E, 0x1CC1A, 0x1D33F, 0x1ED75, 0x1F250, 0x209D5, 0x216F0,
+		0x228BA, 0x2379F, 0x24B0B, 0x2542E, 0x26A64, 0x27541, 0x28C69
+	];
+	static readonly VERSIONS: Version[];
 
 	static getVersionForNumber(versionNumber: number): Version;
 	static getProvisionalVersionForDimension(dimension: number): Version;
 	static decodeVersionInformation(versionBits: number): Version;
 
 	versionNumber: number;
-	alignmentPatternCenters: Array<number>;
-	ecBlocks: Array<ECBlocks>;
+	alignmentPatternCenters: number[];
+	ecBlocks: ECBlocks[];
 
 	readonly VersionNumber: number;
-	readonly AlignmentPatternCenters: Array<number>;
+	readonly AlignmentPatternCenters: number[];
 	readonly TotalCodewords: number;
 	readonly DimensionForVersion: number;
 
-	constructor(versionNumber: number, alignmentPatternCenters: Array<number>,
+	constructor(versionNumber: number, alignmentPatternCenters: number[],
 		ecBlocks1: ECBlocks, ecBlocks2: ECBlocks,
 		ecBlocks3: ECBlocks, ecBlocks4: ECBlocks);
 
@@ -457,31 +471,31 @@ declare class Version {
 }
 
 declare module "qrcode" {
-    const qrcode: {
-		imagedata: any,
+	const qrcode: {
+		imagedata: ImageData,
 		width: number,
 		height: number,
 		qrCodeSymbol: any,
 		debug: boolean,
 		maxImgSize: number,
 		readonly sizeOfDataLengthInfo: [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]],
-		callback: any,
-	
-		orderBestPatterns(patterns: Array<AlignmentPattern>): void,
-	
-		vidError(error: any): void,
+		callback: () => void,
+
+		orderBestPatterns(patterns: AlignmentPattern[]): void,
+
+		vidError(error?: any): void,
 		captureToCanvas(): void,
 		setWebcam(videoId: string): void,
 		decode(src?: string): void,
-		isUrl(s: string): boolean;
+		isUrl(s: string): boolean,
 		decode_url(s: string): string,
 		decode_utf8(s: string): string,
 		process(ctx: CanvasRenderingContext2D): string,
 		getPixel(x: number, y: number): number,
-		binarize(th: number): Array<boolean>,
-		getMiddleBrightnessPerArea(image: Array<number>): Array<Array<number>>,
-		grayScaleToBitmap(grayScale: Array<number>): Uint8Array,
+		binarize(th: number): boolean[],
+		getMiddleBrightnessPerArea(image: number[]): number[][],
+		grayScaleToBitmap(grayScale: number[]): Uint8Array,
 		grayscale(): Uint8Array
-	}
-    export = qrcode;
+	};
+	export = qrcode;
 }
