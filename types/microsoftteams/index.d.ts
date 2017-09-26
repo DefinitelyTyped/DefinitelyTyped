@@ -1,4 +1,4 @@
-// Type definitions for microsoftteams 1.0
+// Type definitions for microsoftteams 1.1
 // Project: https://github.com/OfficeDev/microsoft-teams-library-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>
 //                 Jay Ongg <https://github.com/jayongg>
