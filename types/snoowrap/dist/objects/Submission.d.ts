@@ -1,4 +1,4 @@
-import { Sort } from 'snoowrap';
+import { Sort } from '../..';
 import Comment from './Comment';
 import Listing, { ListingOptions } from './Listing';
 import RedditUser from './RedditUser';
