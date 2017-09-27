@@ -23,7 +23,7 @@ export class ElementClass extends Component<any, any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new (props?: Props, context?: any): Component<Props, any>;
+    new(props?: Props, context?: any): Component<Props, any>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
@@ -612,3 +612,10 @@ export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps)
  * @param [options]
  */
 export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
+
+/**
+ * Configure enzyme to use the correct adapter for the react verstion
+ * This is enabling the Enzyme configuration with adapters in TS
+ * @param options
+ */
+export function configure(options: { adapter: any }): void;
