@@ -476,6 +476,7 @@ interface MediaType {
 
 interface Send {
     (body?: any): Response;
+    (code: number, body: any): Response;
 }
 
 interface Response extends http.ServerResponse, Express.Response {
