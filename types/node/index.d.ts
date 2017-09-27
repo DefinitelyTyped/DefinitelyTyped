@@ -5035,6 +5035,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): Readable;
             push(chunk: any, encoding?: string): boolean;
+            _destroy(err: Error, callback: Function): void;
             destroy(error?: Error): void;
 
             /**
