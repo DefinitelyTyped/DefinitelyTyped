@@ -673,6 +673,7 @@ declare namespace __MaterialUI {
         size?: number;
         src?: string;
         style?: React.CSSProperties;
+        onClick?: React.MouseEventHandler<{}>;
     }
     export class Avatar extends React.Component<AvatarProps> {
     }
