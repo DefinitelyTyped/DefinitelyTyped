@@ -1,10 +1,10 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 
 interface Item {
-  id: string
-  content: string
+  id: string;
+  content: string;
 }
 
 const getItems = (count: number): Item[] => {
@@ -13,54 +13,54 @@ const getItems = (count: number): Item[] => {
     .map(k => ({
       id: `item-${k}`,
       content: `item ${k}`
-    }))
-}
+    }));
+};
 
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
-  const result = Array.from(list)
-  const [removed] = result.splice(startIndex, 1)
-  result.splice(endIndex, 0, removed)
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
 
-  return result
-}
+  return result;
+};
 
 const getItemStyle = (draggableStyle: any, isDragging: any) => ({
   userSelect: 'none',
   background: isDragging ? 'lightgreen' : 'grey',
   ...draggableStyle
-})
+});
 
 const getListStyle = (isDraggingOver: any) => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   width: 250
-})
+});
 
 interface AppState {
-  items: Item[]
+  items: Item[];
 }
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
-    super(props)
+    super(props);
 
     this.state = {
       items: getItems(10)
-    }
-    this.onDragEnd = this.onDragEnd.bind(this)
+    };
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
 
   onDragEnd(result: DropResult) {
     if (!result.destination) {
-      return
+      return;
     }
 
     const items = reorder(
       this.state.items,
       result.source.index,
       result.destination.index
-    )
+    );
 
-    this.setState({items})
+    this.setState({items});
   }
 
   render() {
@@ -96,8 +96,8 @@ class App extends React.Component<{}, AppState> {
           )}
         </Droppable>
       </DragDropContext>
-    )
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'));
