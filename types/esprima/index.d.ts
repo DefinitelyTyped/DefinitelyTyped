@@ -7,9 +7,13 @@ import * as ESTree from 'estree';
 
 export const version: string;
 
-export function parseScript(input: string, config?: ParseOptions, delegate?: (node: ESTree.Node, meta: any) => void): ESTree.Program;
-export function parseModule(input: string, config?: ParseOptions, delegate?: (node: ESTree.Node, meta: any) => void): ESTree.Program;
+export function parseScript(input: string, config?: ParseOptions, delegate?: (node: ESTree.Node, meta: any) => void): Program;
+export function parseModule(input: string, config?: ParseOptions, delegate?: (node: ESTree.Node, meta: any) => void): Program;
 export function tokenize(input: string, config?: TokenizeOptions): Token[];
+
+export interface Program extends ESTree.Program {
+    tokens?: Token[];
+}
 
 export interface Token {
     type: string;

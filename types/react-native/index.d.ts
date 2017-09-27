@@ -1,7 +1,6 @@
 // Type definitions for react-native 0.48
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
@@ -3257,6 +3256,8 @@ export interface ImageURISource {
     scale?: number,
 }
 
+export type ImageRequireSource = number;
+
 export interface ImagePropertiesIOS {
     /**
      * The text that's read by the screen reader when the user interacts with the image.
@@ -3406,7 +3407,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * their width and height. The native side will then choose the best `uri` to display
      * based on the measured size of the image container.
      */
-    source: ImageURISource | ImageURISource[]
+    source: ImageURISource | ImageURISource[] | ImageRequireSource
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -8082,6 +8083,12 @@ export namespace Animated {
         flattenOffset(): void;
 
         /**
+         * Sets the offset value to the base value, and resets the base value to zero.
+         * The final output of the value is unchanged.
+         */
+        extractOffset(): void;
+
+        /**
          * Adds an asynchronous listener to the value so you can observe updates from
          * animations.  This is useful because there is no way to
          * synchronously read the value because it might be driven natively.
@@ -8123,9 +8130,11 @@ export namespace Animated {
 
         setOffset(offset: { x: number; y: number }): void;
 
-        flattenOffset(): void
+        flattenOffset(): void;
 
-    stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
+        extractOffset(): void;
+
+        stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
 
         addListener(callback: ValueXYListenerCallback): string;
 
@@ -8138,7 +8147,7 @@ export namespace Animated {
          *  style={this.state.anim.getLayout()}
          *```
          */
-    getLayout(): { [key: string]: AnimatedValue };
+        getLayout(): { [key: string]: AnimatedValue };
 
         /**
          * Converts `{x, y}` into a useable translation transform, e.g.
@@ -8367,6 +8376,7 @@ export namespace Animated {
     export var View: any;
     export var Image: any;
     export var Text: any;
+    export var ScrollView: any;
 }
 
 // tslint:disable-next-line:interface-name
@@ -9248,6 +9258,8 @@ declare global {
         trace(message?: any, ...optionalParams: any[]): void
         debug(message?: any, ...optionalParams: any[]): void
         table(...data: any[]): void;
+        disableYellowBox: boolean;
+        ignoredYellowBox: string[];
     }
 
     var console: Console

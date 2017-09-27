@@ -29,6 +29,7 @@
         "meteor.d.ts",
         "mongo.d.ts",
         "reactive-var.d.ts",
+        "server-render.d.ts",
         "session.d.ts",
         "tiny-test.d.ts",
         "tools.d.ts",

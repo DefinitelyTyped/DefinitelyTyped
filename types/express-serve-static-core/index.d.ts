@@ -351,7 +351,7 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param type
         */
-    is(type: string): boolean;
+    is(type: string): string | false;
 
     /**
         * Return the protocol string "http" or "https"

@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.6
+// Type definitions for prettier 1.7
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,6 +62,11 @@ export interface Options {
      * Specify the input filepath. This will be used to do parser inference.
      */
     filepath?: string;
+    /**
+     * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
+     * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     */
+    requirePragma?: boolean;
 }
 
 export interface CursorOptions extends Options {

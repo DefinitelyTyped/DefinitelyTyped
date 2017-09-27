@@ -1,6 +1,8 @@
-// Type definitions for microsoftteams 1.0
+// Type definitions for microsoftteams 1.1
 // Project: https://github.com/OfficeDev/microsoft-teams-library-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>
+// Definitions by: Bhargav Krishna <https://github.com/WrathOfZombies>
+//                 Jay Ongg <https://github.com/jayongg>
+//                 Yuri Dogandjiev <https://github.com/ydogandjiev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/microsoftteams
 // TypeScript Version: 2.1
 // tslint:disable:prefer-method-signature
@@ -12,6 +14,29 @@ interface MessageEvent {
  * This is the root namespace for the JavaScript SDK.
  */
 declare namespace microsoftTeams {
+    interface TabInformation {
+        teamTabs: TabInstance[];
+    }
+    interface TabInstance {
+        tabName: string;
+        entityId?: string;
+        channelId?: string;
+        channelName?: string;
+        channelIsFavorite?: boolean;
+        teamId?: string;
+        teamName?: string;
+        teamIsFavorite?: boolean;
+        groupId?: string;
+        url?: string;
+        websiteUrl?: string;
+    }
+    const enum TeamType {
+        Standard = 0,
+        Edu = 1,
+        Class = 2,
+        Plc = 3,
+        Staff = 4,
+    }
     /**
      * Initializes the library. This must be called before any other SDK calls.
      * The caller should only call this once the frame is loaded successfully.
@@ -29,6 +54,12 @@ declare namespace microsoftTeams {
      */
     function registerOnThemeChangeHandler(handler: (theme: string) => void): void;
     /**
+     * Registers a handler for when the user toggle full screen view for tab.
+     * Only one handler may be registered at a time. Subsequent registrations will override the first.
+     * @param handler The handler to invoke when the user changes toggle full screen view for tab.
+     */
+    function registerFullScreenHandler(handler: (isFullScreen: boolean) => void): void;
+    /**
      * Navigates the frame to a new cross-domain URL. The domain of this URL must match at least one of the
      * valid domains specified in the tab manifest; otherwise, an exception will be thrown. This function only
      * needs to be used when navigating the frame to a URL in a different domain than the current one in
@@ -36,6 +67,10 @@ declare namespace microsoftTeams {
      * @param url The url to navigate the frame to.
      */
     function navigateCrossDomain(url: string): void;
+    /**
+     * Allows an app to retrieve all the tabs in favorite channels where it is enabled for this user
+     */
+    function getTabInstances(callback: (tabInfo: TabInformation) => void): void;
     /**
      * Shares a deep link a user can use to navigate back to a specific state in this page.
      */
@@ -320,6 +355,14 @@ declare namespace microsoftTeams {
          * The current UI theme the user is using.
          */
         theme?: string;
+        /**
+         * Indication whether the tab is in full screen mode.
+         */
+        isFullScreen?: boolean;
+        /**
+         * The type of the team.
+         */
+        teamType?: TeamType;
     }
     interface DeepLinkParameters {
         /**

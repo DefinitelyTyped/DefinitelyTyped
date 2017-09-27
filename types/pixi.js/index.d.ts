@@ -421,7 +421,7 @@ declare namespace PIXI {
         protected _cr?: number;
         protected _cy?: number;
         protected _sy?: number;
-        protected _nsx?: number;
+        protected _sx?: number;
         protected _cx?: number;
 
         updateSkew(): void;
@@ -941,7 +941,7 @@ declare namespace PIXI {
         CONTEXT_UID: number;
         state?: WebGLState;
         renderingToScreen: boolean;
-        boundTextures: Texture[];
+        boundTextures: BaseTexture[];
         filterManager: FilterManager;
         textureManager?: TextureManager;
         textureGC?: TextureGarbageCollector;
@@ -1159,6 +1159,9 @@ declare namespace PIXI {
 
         stencilMaskStack: Graphics[];
 
+        protected _useCurrent(): void;
+        protected _getBitwiseMask(): number;
+
         setMaskStack(stencilMasStack: Graphics[]): void;
         pushStencil(graphics: Graphics): void;
         popStencil(): void;
@@ -1183,7 +1186,7 @@ declare namespace PIXI {
         constructor(vertexSrc?: string, fragmentSrc?: string, uniforms?: UniformDataMap<U>);
 
         protected _blendMode: number;
-        vertextSrc?: string;
+        vertexSrc?: string;
         fragmentSrc: string;
         blendMode: number;
         protected uniformData: UniformDataMap<U>;
@@ -1378,6 +1381,8 @@ declare namespace PIXI {
         fontVariant: string;
         protected _fontWeight: string;
         fontWeight: string;
+        protected _leading: number;
+        leading: number;
         protected _letterSpacing: number;
         letterSpacing: number;
         protected _lineHeight: number;
@@ -1400,7 +1405,6 @@ declare namespace PIXI {
         wordWrap: boolean;
         protected _wordWrapWidth: number;
         wordWrapWidth: number;
-        leading: number;
         toFontString(): string;
     }
     class TextMetrics {
@@ -1859,6 +1863,7 @@ declare namespace PIXI {
             tilePosition: Point | ObservablePoint;
 
             multiplyUvs(uvs: Float32Array, out: Float32Array): Float32Array;
+            protected _textureDirtyFlag: boolean;
             protected _onTextureUpdate(): void;
             protected _renderWebGL(renderer: WebGLRenderer): void;
             protected _renderCanvas(renderer: CanvasRenderer): void;
