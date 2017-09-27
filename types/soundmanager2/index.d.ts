@@ -14,17 +14,17 @@ declare namespace soundmanager {
         autoPlay?: boolean;
         from?: number | null;
         loops?: number;
-        onid3?(): void | null;
-        onerror?(): void | null;
-        onload?(): void | null;
-        whileloading?(): void | null;
-        onplay?(): void | null;
-        onpause?(): void | null;
-        onresume?(): void | null;
-        whileplaying?(): void | null;
-        onposition?(): void | null;
-        onstop?(): void | null;
-        onfinish?(): void | null;
+        onid3?: (() => void) | null;
+        onerror?: (() => void) | null;
+        onload?: (() => void) | null;
+        whileloading?: (() => void) | null;
+        onplay?: (() => void) | null;
+        onpause?: (() => void) | null;
+        onresume?: (() => void) | null;
+        whileplaying?: (() => void) | null;
+        onposition?: (() => void) | null;
+        onstop?: (() => void) | null;
+        onfinish?: (() => void) | null;
         multiShot?: boolean;
         multiShotEvents?: boolean;
         position?: number | null;
@@ -38,20 +38,20 @@ declare namespace soundmanager {
     }
 
     interface Flash9Options {
-        onfailure(): void | null;
-        isMovieStar: true | null;
-        usePeakData: boolean;
-        useWaveformData: boolean;
-        useEQData: boolean;
-        onbufferchange(): void | null;
-        ondataerror(): void | null;
+        onfailure?: (() => void) | null;
+        isMovieStar?: true | null;
+        usePeakData?: boolean;
+        useWaveformData?: boolean;
+        useEQData?: boolean;
+        onbufferchange?: (() => void) | null;
+        ondataerror?: (() => void) | null;
     }
 
     interface MovieStarOptions {
-        bufferTime: number;
-        serverURL: string | null;
-        onconnect(): void | null;
-        duration: number | null;
+        bufferTime?: number;
+        serverURL?: string | null;
+        onconnect?: (() => void) | null;
+        duration?: number | null;
     }
 
     interface SoundManagerProps {
@@ -62,7 +62,7 @@ declare namespace soundmanager {
          * debugMode settings.
          * @type {string}
          */
-        url: string;
+        url?: string;
 
         allowScriptAccess?: ScriptAccess;
         altURL?: string;
@@ -107,17 +107,43 @@ declare namespace soundmanager {
         canPlayLink(domElement: HTMLElement): boolean;
         canPlayMIME(MIMEtype: string): boolean;
         canPlayURL(mediaURL: string): boolean;
-        // clearOnPosition(): void;
+        clearOnPosition(id: string, msecOffset: number, callback?: (() => void)): SMSound;
         /**
          * Creates a sound object, supporting an arbitrary number of optional arguments. Returns a SMSound object instance. At minimum, a url parameter is required.
          * @param  {SoundProperties} properties [description]
          * @return {SMSound}                    [description]
          */
         createSound(properties: SoundProperties): SMSound;
-
+        destroySound(id: string): void;
+        getMemoryUse(): number;
         getSoundById(id: string): SMSound;
-
+        load(id: string, options?: object): SMSound;
+        mute(id?: string): SMSound;
+        ok(): boolean;
+        onPosition(id: string, msecOffset: number, callback: (eventPosition: any) => void): SMSound;
+        pause(id: string): SMSound;
+        pauseAll(): void;
+        play(id?: string, options?: DefaultOptions | Flash9Options): SMSound;
+        reboot(): void;
+        reset(): void;
+        resume(id: string): SMSound;
+        resumeAll(): void;
         setup(options: SoundManagerProps): SoundManager;
+        setPan(id: string, volume: number): SMSound;
+        setPlaybackRate(id: string, playbackRate: number): void;
+        setPosition(id: string, msecOffset: number): SMSound;
+        setVolume(id: string, volume: number): SMSound;
+        /**
+         * Sets the volume of all sound objects. Accepted values: 0-100. Affects volume property.
+         * @param {number} volume [Volume of all sound objects. Accepted values: 0 - 100]
+         */
+        setVolume(volume: number): void;
+        stop(id: string): SMSound;
+        stopAll(): void;
+        toggleMute(id: string): SMSound;
+        togglePause(id: string): SMSound;
+        unload(id: string): SMSound;
+        unmute(id?: string): SMSound;
     }
 
     class SMSound {
@@ -145,20 +171,20 @@ declare namespace soundmanager {
         readyState: number;
 
         // Events
-        onbufferchange(): void;
-        onconnect(): void;
-        ondataerror(): void;
-        onerror(): void;
-        onfinish(): void;
-        onload(): void;
-        onpause(): void;
-        onplay(): void;
-        onresume(): void;
-        onsuspend(): void;
-        onstop(): void;
-        onid3(): void;
-        whileloading(): void;
-        whileplaying(): void;
+        onbufferchange?: (() => void);
+        onconnect?: (() => void);
+        ondataerror?: (() => void);
+        onerror?: (() => void);
+        onfinish?: (() => void);
+        onload?: (() => void);
+        onpause?: (() => void);
+        onplay?: (() => void);
+        onresume?: (() => void);
+        onsuspend?: (() => void);
+        onstop?: (() => void);
+        onid3?: (() => void);
+        whileloading?: (() => void);
+        whileplaying?: (() => void);
 
         // Methods
         destruct(): void;

@@ -1,5 +1,5 @@
 // Example extracted in http://www.schillmania.com/projects/soundmanager2/doc/getstarted/
-let mySoundObject = soundManager.createSound({
+const mySoundObject = soundManager.createSound  ({
     // optional id, for getSoundById() look-ups etc. If omitted, an id will be generated.
     id: 'mySound',
     url: '/audio/mysoundfile.mp3',
