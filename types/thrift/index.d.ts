@@ -171,6 +171,32 @@ export class XHRConnection extends NodeJS.EventEmitter {
     getSendBuffer(): string;
 }
 
+export interface WSOptions {
+    host: string;
+    port: number;
+    path: string;
+    headers: http.OutgoingHttpHeaders;
+}
+
+export class WSConnection extends NodeJS.EventEmitter {
+    seqId2Service: SeqId2Service;
+    options: ConnectOptions;
+    host: string;
+    port: number;
+    secure: boolean;
+    transport: TTransport;
+    protocol: TProtocol;
+    path: string;
+    send_pending: Buffer[];
+    wsOptions: WSOptions;
+    constructor(host: string, port: number, options?: ConnectOptions);
+    isOpen(): boolean;
+    open(): void;
+    close(): void;
+    uri(): string;
+    write(data: Buffer): void;
+}
+
 export class Multiplexer<TClient> {
     createClient(serviceName: string, client: TClientConstructor<TClient>, connection: Connection): TClient;
 }
@@ -216,6 +242,15 @@ export interface ConnectOptions {
     nodeOptions?: http.ClientRequestArgs;
 }
 
+export interface WSConnectOptions {
+    transport?: TTransportConstructor;
+    protocol?: TProtocolConstructor;
+    path?: string;
+    headers?: http.OutgoingHttpHeaders;
+    secure?: boolean;
+    wsOptions?: WSOptions;
+}
+
 export type TClientConstructor<TClient> =
     { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } |
     { Client: { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } };
@@ -237,8 +272,24 @@ export function createConnection(host: string | undefined, port: number, options
 export function createSSLConnection(host: string | undefined, port: number, options?: ConnectOptions): Connection;
 export function createHttpConnection(host: string | undefined, port: number, options?: ConnectOptions): HttpConnection;
 export function createXHRConnection(host: string | undefined, port: number, options?: ConnectOptions): XHRConnection;
+export function createWSConnectin(host: string | undefined, port: number, options?: WSConnectOptions): WSConnection;
 
 export function createXHRClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: XHRConnection
+): TClient;
+
+export function createHttpClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: HttpConnection
+): TClient;
+
+export function createWSClient<TClient>(
+    client: TClientConstructor<TClient>,
+    connection: WSConnection
+): TClient;
+
+export function createStdIOClient<TClient>(
     client: TClientConstructor<TClient>,
     connection: Connection
 ): TClient;
