@@ -25,7 +25,7 @@ moduleLog.disableAll();
 
 const logLevel = moduleLog.getLevel();
 
-const testLogger = moduleLog.getLogger('TestLogger');
+const testLogger: moduleLog.Logger = moduleLog.getLogger('TestLogger');
 
 testLogger.setLevel(logLevel);
 testLogger.warn('logging test');
