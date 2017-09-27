@@ -280,13 +280,13 @@ declare namespace Parse {
         constructor(parent?: S, key?: string);
 
         //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: T): void;
+        add(object: T | Array<T>): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
         query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: T): void;
+        remove(object: T | Array<T>): void;
     }
 
     /**

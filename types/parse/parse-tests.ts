@@ -227,7 +227,15 @@ function test_analytics() {
 }
 
 function test_relation() {
+    var game1 = new Game();
+    var game2 = new Game();
+
     new Parse.User().relation("games").query().find().then((g: Game[]) => { });
+    new Parse.User().relation("games").add(game1)
+    new Parse.User().relation("games").add([game1, game2])
+
+    new Parse.User().relation("games").remove(game1)
+    new Parse.User().relation("games").remove([game1, game2])
 }
 
 function test_user_acl_roles() {
