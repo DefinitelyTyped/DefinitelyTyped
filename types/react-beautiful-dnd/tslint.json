@@ -1,1 +1,7 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dtslint.json",
+    "rules": {
+        "semicolon": [true, "never"],
+        "prefer-method-signature": false
+    }
+}
