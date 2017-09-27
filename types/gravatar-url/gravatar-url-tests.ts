@@ -1,4 +1,4 @@
-import gravatarUrl = require('gravatar-url');
+import gravatarUrl from 'gravatar-url';
 
 gravatarUrl('sindresorhus@gmail.com'); // $ExpectType string
 gravatarUrl('sindresorhus@gmail.com', { default: 'monsterid' }); // $ExpectType string
