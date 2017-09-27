@@ -1,6 +1,8 @@
 // Type definitions for OpenLayers v4.3.0
 // Project: http://openlayers.org/
-// Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
+// Definitions by: Olivier Sechet <https://github.com/osechet>
+//                 Bin Wang <https://github.com/wb14123>
+//                 Junyoung Clare Jang <https://github.com/ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -1830,11 +1832,11 @@ declare module ol {
          * Get the feature's style.  This return for this method depends on what was
          * provided to the {@link ol.Feature#setStyle} method.
          * @return {ol.style.Style|Array.<ol.style.Style>|
-         *     ol.FeatureStyleFunction} The feature style.
+         *     ol.FeatureStyleFunction|ol.StyleFunction} The feature style.
          * @api stable
          * @observable
          */
-        getStyle(): (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction);
+        getStyle(): (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction);
 
         /**
          * Get the feature's style function.
@@ -1858,11 +1860,11 @@ declare module ol {
          * of styles, or a function that takes a resolution and returns an array of
          * styles. If it is `null` the feature has no style (a `null` style).
          * @param {ol.style.Style|Array.<ol.style.Style>|
-         *     ol.FeatureStyleFunction} style Style for this feature.
+         *     ol.FeatureStyleFunction|ol.StyleFunction} style Style for this feature.
          * @api stable
          * @observable
          */
-        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction)): void;
+        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction)): void;
 
         /**
          * Set the feature id.  The feature id is considered stable and may be used when
@@ -7597,7 +7599,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setPosition(position: (ol.Coordinate)): void;
+        setPosition(position: (ol.Coordinate | undefined)): void;
 
         /**
          * Set the positioning for this overlay.
@@ -10590,7 +10592,7 @@ declare module ol {
              * @api
              */
             clone(): ol.style.Style;
-            
+
             /**
              * Get the geometry to be rendered.
              * @return {string|ol.geom.Geometry|ol.StyleGeometryFunction}
@@ -12434,11 +12436,13 @@ declare module olx {
         /**
          * @typedef {{className: (string|undefined),
          *     condition: (ol.EventsConditionType|undefined),
+         *     minArea: (number|undefined),
          *     boxEndCondition: (ol.DragBoxEndConditionType|undefined)}}
          */
         interface DragBoxOptions {
             className?: string;
             condition?: ol.EventsConditionType;
+            minArea?: number;
             boxEndCondition?: ol.DragBoxEndConditionType;
         }
 
@@ -12747,7 +12751,8 @@ declare module olx {
          *     maxResolution: (number|undefined),
          *     opacity: (number|undefined),
          *     source: (ol.source.Vector|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface HeatmapOptions {
             gradient?: string[];
@@ -12761,6 +12766,7 @@ declare module olx {
             opacity?: number;
             source: ol.source.Vector;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12771,7 +12777,8 @@ declare module olx {
          *     visible: (boolean|undefined),
          *     extent: (ol.Extent|undefined),
          *     minResolution: (number|undefined),
-         *     maxResolution: (number|undefined)}}
+         *     maxResolution: (number|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface ImageOptions {
             opacity?: number;
@@ -12781,6 +12788,7 @@ declare module olx {
             extent?: ol.Extent;
             minResolution?: number;
             maxResolution?: number;
+            zIndex?: number;
         }
 
 
@@ -12793,7 +12801,8 @@ declare module olx {
          *     extent: (ol.Extent|undefined),
          *     minResolution: (number|undefined),
          *     maxResolution: (number|undefined),
-         *     useInterimTilesOnError: (boolean|undefined)}}
+         *     useInterimTilesOnError: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface TileOptions {
             opacity?: number;
@@ -12805,6 +12814,7 @@ declare module olx {
             minResolution?: number;
             maxResolution?: number;
             useInterimTilesOnError?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12819,7 +12829,8 @@ declare module olx {
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     updateWhileAnimating: (boolean|undefined),
          *     updateWhileInteracting: (boolean|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface VectorOptions {
             renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
@@ -12834,6 +12845,7 @@ declare module olx {
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12850,7 +12862,8 @@ declare module olx {
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     updateWhileAnimating: (boolean|undefined),
          *     updateWhileInteracting: (boolean|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface VectorTileOptions {
             renderBuffer?: number;
@@ -12866,6 +12879,7 @@ declare module olx {
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
             visible?: boolean;
+            zIndex?: number;
         }
 
 

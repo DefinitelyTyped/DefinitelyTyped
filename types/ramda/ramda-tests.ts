@@ -9,6 +9,7 @@ function shout(x: number): string {
 }
 
 class F {
+    [k: string]: string;
     x = "X";
     y = "Y";
 }
@@ -327,7 +328,7 @@ R.times(i, 5);
 (() => {
     const pairs = [["a", 1], ["b", 2], ["c", 3]];
 
-    function flattenPairs(acc: [string, number], pair: [string, number]) {
+    function flattenPairs(pair: [string, number], acc: Array<string|number>): Array<string|number> {
         return acc.concat(pair);
     }
 
@@ -369,6 +370,7 @@ R.times(i, 5);
     const filterIndexed = R.addIndex(R.filter);
 
     R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
+    R.filter(isEven, { a: 0, b: 1 }); // => { a: 0 }
 
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
@@ -381,6 +383,7 @@ R.times(i, 5);
     }
 
     R.reject(isOdd, [1, 2, 3, 4]); // => [2, 4]
+    R.reject(isOdd, { a: 0, b: 1 }); // => { a: 0 }
 });
 (() => {
     function isNotFour(x: number) {
@@ -510,9 +513,14 @@ R.times(i, 5);
     function isEven(n: number) {
         return n % 2 === 0;
     }
-    R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
-    const isEvenFn = R.filter(isEven);
-    isEvenFn([1, 2, 3, 4]);
+
+    const filterEven = R.filter(isEven);
+    filterEven({ a: 0, b: 1 }); // => { a: 0 }
+    filterEven([0, 1]); // => [0]
+
+    const rejectEven = R.reject(isEven);
+    rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    rejectEven([0, 1]); // => [1]
 };
 
 () => {
@@ -903,7 +911,7 @@ type Pair = KeyValuePair<string, number>;
 () => {
     const pairs: Pair[] = [["a", 1], ["b", 2], ["c", 3]];
 
-    function flattenPairs(acc: Pair[], pair: Pair): Pair[] {
+    function flattenPairs(pair: Pair, acc: Array<string|number>): Array<string|number> {
         return acc.concat(pair);
     }
 
