@@ -45,6 +45,28 @@ export function render<P>(
     callback?: () => any
 ): void;
 
+export function hydrate<P>(
+    element: SFCElement<P>,
+    container: Element | null,
+    callback?: () => any
+): void;
+export function hydrate<P, T extends Component<P, ComponentState>>(
+    element: CElement<P, T>,
+    container: Element | null,
+    callback?: (component: T) => any
+): T;
+export function hydrate<P>(
+    element: ReactElement<P>,
+    container: Element | null,
+    callback?: (component?: Component<P, ComponentState> | Element) => any
+): Component<P, ComponentState> | Element | void;
+export function hydrate<P>(
+    parentComponent: Component<any>,
+    element: SFCElement<P>,
+    container: Element,
+    callback?: () => any
+): void;
+
 export function unmountComponentAtNode(container: Element): boolean;
 
 export const version: string;
