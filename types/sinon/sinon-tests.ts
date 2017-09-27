@@ -90,6 +90,12 @@ function testNine() {
     sinon.assert.neverCalledWithMatch(callback, { x: 6 });
 }
 
+function testAssert() {
+    sinon.assert.match(1, 1 + 1);
+    sinon.assert.match("abc", "abc");
+    sinon.assert.match({ a: 1 }, { b: 2, c: "abc" });
+}
+
 function testSandbox() {
     let sandbox = sinon.sandbox.create();
     sandbox = sandbox.usingPromise(Promise);

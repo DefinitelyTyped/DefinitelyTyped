@@ -6,12 +6,15 @@
 import * as nodemailer from 'nodemailer';
 
 declare namespace mailgunTransport {
+    interface Options {
+        auth: AuthOptions;
+    }
     interface AuthOptions {
         api_key: string;
         domain?: string;
     }
 }
 
-declare function mailgunTransport(options: mailgunTransport.AuthOptions): nodemailer.Transport;
+declare function mailgunTransport(options: mailgunTransport.Options): nodemailer.Transport;
 
 export = mailgunTransport;

@@ -15,7 +15,7 @@ declare module 'mongoose-simple-random' {
 
 declare module "mongoose" {
     interface Model<T extends Document> extends NodeJS.EventEmitter, ModelProperties {
-        findRandom(conditions: Object, projection?: Object | null, options?: Object | null, callback?: (err: any, res: T[]) => void)
+        findRandom(conditions: Object, projection?: Object | null, options?: Object | null, callback?: (err: any, res?: T[]) => void)
             : void;
     }
 }

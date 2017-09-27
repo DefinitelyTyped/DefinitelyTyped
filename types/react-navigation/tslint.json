@@ -7,7 +7,6 @@
         "align": false,
         "array-type": false,
         "comment-format": false,
-        "interface-over-type-literal": false,
         "jsdoc-format": false,
         "no-misused-new": false,
         "no-consecutive-blank-lines": false,

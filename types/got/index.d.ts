@@ -13,10 +13,59 @@ import * as nodeStream from 'stream';
 
 export = got;
 
+declare class RequestError extends StdError {
+    name: 'RequestError';
+}
+
+declare class ReadError extends StdError {
+    name: 'ReadError';
+}
+
+declare class ParseError extends StdError {
+    name: 'ParseError';
+    statusCode: number;
+    statusMessage: string;
+}
+
+declare class HTTPError extends StdError {
+    name: 'HTTPError';
+    statusCode: number;
+    statusMessage: string;
+    headers: http.IncomingHttpHeaders;
+}
+
+declare class MaxRedirectsError extends StdError {
+    name: 'MaxRedirectsError';
+    statusCode: number;
+    statusMessage: string;
+    redirectUrls: string[];
+}
+
+declare class UnsupportedProtocolError extends StdError {
+    name: 'UnsupportedProtocolError';
+}
+
+declare class StdError extends Error {
+    code?: string;
+    host?: string;
+    hostname?: string;
+    method?: string;
+    path?: string;
+    protocol?: string;
+    url?: string;
+    response?: any;
+}
+
 declare const got: got.GotFn &
     Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> &
     {
         stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>
+        RequestError: typeof RequestError
+        ReadError: typeof ReadError
+        ParseError: typeof ParseError
+        HTTPError: typeof HTTPError
+        MaxRedirectsError: typeof MaxRedirectsError
+        UnsupportedProtocolError: typeof UnsupportedProtocolError
     };
 
 declare namespace got {
@@ -111,47 +160,4 @@ declare namespace got {
     }
 
     type GotError = RequestError | ReadError | ParseError | HTTPError | MaxRedirectsError | UnsupportedProtocolError;
-
-    interface RequestError extends StdError {
-        name: 'RequestError';
-    }
-
-    interface ReadError extends StdError {
-        name: 'ReadError';
-    }
-
-    interface ParseError extends StdError {
-        name: 'ParseError';
-        statusCode: number;
-        statusMessage: string;
-    }
-
-    interface HTTPError extends StdError {
-        name: 'HTTPError';
-        statusCode: number;
-        statusMessage: string;
-        headers: http.IncomingHttpHeaders;
-    }
-
-    interface MaxRedirectsError extends StdError {
-        name: 'MaxRedirectsError';
-        statusCode: number;
-        statusMessage: string;
-        redirectUrls: string[];
-    }
-
-    interface UnsupportedProtocolError extends StdError {
-        name: 'UnsupportedProtocolError';
-    }
-
-    interface StdError extends Error {
-        code?: string;
-        host?: string;
-        hostname?: string;
-        method?: string;
-        path?: string;
-        protocol?: string;
-        url?: string;
-        response?: any;
-    }
 }

@@ -1724,7 +1724,7 @@ declare namespace __MaterialUI {
             onCellHoverExit?(row: number, column: number): void;
             onRowHover?(row: number): void;
             onRowHoverExit?(row: number): void;
-            onRowSelection?(selectedRows: number[] | string): void;
+            onRowSelection?(selectedRows: number[] | 'all'): void;
             selectable?: boolean;
             style?: React.CSSProperties;
             wrapperStyle?: React.CSSProperties;

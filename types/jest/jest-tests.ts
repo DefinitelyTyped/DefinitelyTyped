@@ -17,6 +17,12 @@ describe('sum', () => {
     });
 });
 
+describe('restoreAllMocks', () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+});
+
 describe('fetchCurrentUser', () => {
     it('calls the callback when $.ajax requests are finished', () => {
         const fetchCurrentUser = require('../fetchCurrentUser');

@@ -1,4 +1,4 @@
-import { Sort, ModAction, SubmitSelfPostOptions, SubmitLinkOptions, BaseSearchOptions } from 'snoowrap';
+import { Sort, ModAction, SubmitSelfPostOptions, SubmitLinkOptions, BaseSearchOptions } from '../..';
 import Comment from './Comment';
 import Listing, { ListingOptions } from './Listing';
 import PrivateMessage from './PrivateMessage';

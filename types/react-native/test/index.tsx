@@ -39,7 +39,8 @@ import {
     ScrollViewProps,
     RefreshControl,
     TabBarIOS,
-    NativeModules
+    NativeModules,
+    MaskedView,
 } from 'react-native';
 
 declare module 'react-native' {
@@ -352,5 +353,19 @@ class AlertTest extends React.Component {
         return (
             <Button title='Press me' onPress={this.showAlert}/>
         );
+    }
+}
+
+class MaskedViewTest extends React.Component {
+    render() {
+        return (
+            <MaskedView
+                maskElement={
+                    <View />
+                }
+            >
+                <View />
+            </MaskedView>
+        )
     }
 }

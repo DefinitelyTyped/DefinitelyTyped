@@ -1,4 +1,4 @@
-import RSVP from 'rsvp';
+import RSVP = require('rsvp');
 
 let promise1: RSVP.Promise<number, Error> = RSVP.Promise.resolve(1);
 let promise1a: RSVP.Promise<number, Error> = RSVP.resolve(1);

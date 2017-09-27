@@ -78,6 +78,7 @@ const MKIconToggleTest = () =>
 
 //// PROGRESS
 const MKProgressTest = () => <MKProgress progress={0.2} />;
+const MKIndeterminateProgressTest = () => <MKProgress.Indeterminate />;
 
 //// SLIDER
 interface MKSliderTestState {

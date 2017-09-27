@@ -197,6 +197,7 @@ export class Icon extends React.Component<IconProps, any> {
 
 export namespace Icon {
   class ToolbarAndroid extends React.Component<ToolbarAndroidProps, any> {}
+  class TabBarItem extends React.Component<TabBarItemProperties, any> {}
   class TabBarItemIOS extends React.Component<TabBarItemIOSProps, any> {}
   class Button extends React.Component<IconButtonProps, any> {}
 }

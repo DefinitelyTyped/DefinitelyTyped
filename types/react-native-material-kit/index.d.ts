@@ -305,6 +305,11 @@ export interface MKProgressProperties extends ViewProperties {
     bufferAniDuration?: number;
 }
 
+export interface IndeterminateProgressProperties extends ViewProperties {
+    progressColor?: string;
+    progressAniDuration?: number;
+}
+
 export interface BaseSlider extends ViewProperties {
     min?: number;
     max?: number;
@@ -381,6 +386,10 @@ export class MKIconToggle extends
 export class MKRipple extends React.Component<MKRippleProperties, any> {}
 
 export class MKProgress extends React.Component<MKProgressProperties, any> {}
+
+export namespace MKProgress {
+    class Indeterminate extends React.Component<IndeterminateProgressProperties> {}
+}
 
 export class MKSlider extends React.Component<MKSliderProperties, any> {}
 

@@ -41,7 +41,9 @@ import * as Restify from "restify";
  * Config object for SwaggerNodeRunner
  */
 export interface Config {
-    /** Path to app */
+    /**
+     *  Path to app
+     */
     appRoot: string;
     /**
      * If `true` API is in mock mode
@@ -55,7 +57,9 @@ export interface Config {
      * default is `true`
      */
     validateResponse?: boolean;
-    /** Sets `NODE_CONFIG_DIR` env if not set yet */
+    /**
+     *  Sets `NODE_CONFIG_DIR` env if not set yet
+     */
     configDir?: string;
     /**
      * Swagger controller directories
@@ -82,19 +86,24 @@ export interface Config {
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
      */
     swaggerSecurityHandlers?: SwaggerSecurityHandlers;
-
     /**
      * Used for Bagpipes library
      *
      * @se @link{https://github.com/apigee-127/bagpipes|Github Source}
      */
     bagpipes?: any;
-    /** default is `null` */
+    /**
+     *  default is `null`
+     */
     defaultPipe?: string;
     /**
      * default is `swagger_controllers`
      */
     swaggerControllerPipe?: string;
+    /**
+     * Absolute path to swagger.yml file, if not set default value is used.
+     */
+    swaggerFile?: string;
 }
 
 /** Internally stored version of config */

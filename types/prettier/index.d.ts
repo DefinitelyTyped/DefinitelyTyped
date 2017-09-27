@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.6
+// Type definitions for prettier 1.7
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,6 +62,11 @@ export interface Options {
      * Specify the input filepath. This will be used to do parser inference.
      */
     filepath?: string;
+    /**
+     * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
+     * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     */
+    requirePragma?: boolean;
 }
 
 export interface CursorOptions extends Options {
@@ -115,6 +120,9 @@ export interface ResolveConfigOptions {
  * The promise will be rejected if there was an error parsing the configuration file.
  */
 export function resolveConfig(filePath?: string, options?: ResolveConfigOptions): Promise<null | Options>;
+export namespace resolveConfig {
+    function sync(filePath?: string, options?: ResolveConfigOptions): null | Options;
+}
 
 /**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.

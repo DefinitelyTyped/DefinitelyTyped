@@ -6,7 +6,16 @@
 //                 Severin <https://github.com/seveves>
 //                 kaktus40 <https://github.com/kaktus40>
 //                 Matthieu Maitre <https://github.com/mmaitre314>
+//                 Adam Lewis <https://github.com/supercargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
+export type MomentConstructor1 =
+    (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean) => Moment;
+export type MomentConstructor2 =
+    (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean) => Moment;
+
+export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 
 export type IdType = string | number;
 export type SubgroupType = IdType;
@@ -135,11 +144,12 @@ export type TimelineOptionsConfigureType = boolean | TimelineOptionsConfigureFun
 export type TimelineOptionsDataAttributesType = boolean | string | string[];
 export type TimelineOptionsEditableType = boolean | TimelineEditableOption;
 export type TimelineOptionsGroupEditableType = boolean | TimelineGroupEditableOption;
-export type TimelineOptionsGroupOrderType = string | (() => void); // TODO
+export type TimelineOptionsGroupOrderType = string | TimelineOptionsComparisonFunction;
 export type TimelineOptionsGroupOrderSwapFunction = (fromGroup: any, toGroup: any, groups: DataSet<DataGroup>) => void;
 export type TimelineOptionsMarginType = number | TimelineMarginOption;
 export type TimelineOptionsOrientationType = string | TimelineOrientationOption;
 export type TimelineOptionsSnapFunction = (date: Date, scale: string, step: number) => Date | number;
+export type TimelineOptionsComparisonFunction = (a: any, b: any) => number;
 
 export interface TimelineOptions {
   align?: string;
@@ -160,7 +170,7 @@ export interface TimelineOptions {
   itemsAlwaysDraggable?: boolean;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   margin?: TimelineOptionsMarginType;
   max?: DateType;
   maxHeight?: HeightWidthType;
@@ -178,7 +188,7 @@ export interface TimelineOptions {
   onMoving?(): void; // TODO
   onRemove?(): void; // TODO
   onRemoveGroup?(): void; // TODO
-  order?(): void; // TODO
+  order?: TimelineOptionsComparisonFunction;
   orientation?: TimelineOptionsOrientationType;
   rollingMode?: any;
   selectable?: boolean;
@@ -640,7 +650,7 @@ export interface Graph2dOptions {
   legend?: Graph2dLegendOption;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   max?: DateType;
   maxHeight?: HeightWidthType;
   maxMinorChars?: number;

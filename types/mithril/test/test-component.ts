@@ -50,7 +50,7 @@ const comp2: Component<Comp2Attrs, {}> = {
 m(comp2, {title: '', description: ''});
 
 // Correct use with lifecycle method
-m(comp2, {title: '', description: '', oncreate: (v) => v.attrs.title + '\n' + v.attrs.description});
+m(comp2, {title: '', description: '', oncreate: (v) => `${v.attrs.title}\n${v.attrs.description}`});
 
 // Properties missing
 // $ExpectError
