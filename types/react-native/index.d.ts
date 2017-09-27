@@ -8083,6 +8083,12 @@ export namespace Animated {
         flattenOffset(): void;
 
         /**
+         * Sets the offset value to the base value, and resets the base value to zero.
+         * The final output of the value is unchanged.
+         */
+        extractOffset(): void;
+
+        /**
          * Adds an asynchronous listener to the value so you can observe updates from
          * animations.  This is useful because there is no way to
          * synchronously read the value because it might be driven natively.
@@ -8124,9 +8130,11 @@ export namespace Animated {
 
         setOffset(offset: { x: number; y: number }): void;
 
-        flattenOffset(): void
+        flattenOffset(): void;
 
-    stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
+        extractOffset(): void;
+
+        stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
 
         addListener(callback: ValueXYListenerCallback): string;
 
@@ -8139,7 +8147,7 @@ export namespace Animated {
          *  style={this.state.anim.getLayout()}
          *```
          */
-    getLayout(): { [key: string]: AnimatedValue };
+        getLayout(): { [key: string]: AnimatedValue };
 
         /**
          * Converts `{x, y}` into a useable translation transform, e.g.
@@ -8368,6 +8376,7 @@ export namespace Animated {
     export var View: any;
     export var Image: any;
     export var Text: any;
+    export var ScrollView: any;
 }
 
 // tslint:disable-next-line:interface-name
