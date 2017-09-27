@@ -326,7 +326,11 @@ declare namespace jest {
         /**
          * Matches any string that contains the exact provided string
          */
-        stringMatching(str: string | RegExp): any;
+        stringContaining(str: string): any;
+        /**
+         * Matches any string that matches the provided regular expression
+         */
+        stringMatching(str: RegExp): any;
     }
 
     interface Matchers<R> {

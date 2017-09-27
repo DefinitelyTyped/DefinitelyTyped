@@ -199,10 +199,12 @@ describe('Assymetric matchers', () => {
     it('works', () => {
         expect({
             timestamp: 1480807810388,
-            text: 'Some text content, but we care only about *this part*'
+            regex: 'Some text content, but we care only about *this part*',
+            string: 'Some text content, but we care only about *this part*'
         }).toEqual({
             timestamp: expect.any(Number),
-            text: expect.stringMatching('*this part*')
+            regex: expect.stringMatching(/\*this part\*/),
+            string: expect.stringContaining('*this part*')
         });
 
         const callback = jest.fn();
