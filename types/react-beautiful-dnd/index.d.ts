@@ -1,8 +1,8 @@
-// export Type definitions for react-beautiful-dnd 2.3.1
+// Type definitions for react-beautiful-dnd 2.3
 // Project: https://github.com/atlassian/react-beautiful-dnd.git
 // Definitions by: varHarrie <https://github.com/varHarrie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from 'react'
 
