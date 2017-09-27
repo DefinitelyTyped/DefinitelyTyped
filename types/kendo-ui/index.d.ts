@@ -997,6 +997,7 @@ declare namespace kendo.data {
         max?: any;
         minLength?: any;
         maxLength?: any;
+        [rule: string]: any;
     }
 
     class ObservableArray extends Observable {
