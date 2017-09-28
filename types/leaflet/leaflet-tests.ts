@@ -1,4 +1,4 @@
-import L = require('leaflet');
+import * as L from 'leaflet';
 
 const latLngLiteral: L.LatLngLiteral = {lat: 12, lng: 13};
 const latLngTuple: L.LatLngTuple = [12, 13];
@@ -451,8 +451,8 @@ L.marker([1, 2], {
 }));
 
 const latLngs = [
-  { lat: 0, lng: 0 },
-  { lat: 1, lng: 1 }
+  {lat: 0, lng: 0},
+  {lat: 1, lng: 1}
 ];
 const polygon = new L.Polygon(latLngs);
 const polygonExclusion = new L.Polygon([latLngs, latLngs]);

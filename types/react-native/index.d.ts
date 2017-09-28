@@ -1,7 +1,6 @@
-// Type definitions for react-native 0.47
+// Type definitions for react-native 0.48
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
@@ -11,7 +10,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// USING: these definitions are meant to be used with the TSC compiler target set to ES6
+// USING: these definitions are meant to be used with the TSC compiler target set to at least ES2015.
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
 //
@@ -22,6 +21,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /// <reference types="react" />
+
+/// <reference path="globals.d.ts" />
 
 export type MeasureOnSuccessCallback = (
         x: number,
@@ -624,31 +625,33 @@ export interface ShadowPropTypesIOSStatic {
     shadowRadius: number
 }
 
-type GetCurrentPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
-}
-
-type WatchPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
+type GeoOptions = {
+    timeout?: number,
+    maximumAge?: number,
+    enableHighAccuracy?: boolean,
+    distanceFilter?: number,
+    useSignificantChanges?: boolean,
 }
 
 type GeolocationReturnType = {
     coords: {
         latitude: number
         longitude: number
-        altitude?: number
-        accuracy?: number
-        altitudeAccuracy?: number
-        heading?: number
-        speed?: number
+        altitude: number | null
+        accuracy: number
+        altitudeAccuracy: number | null
+        heading: number | null
+        speed: number | null
     }
     timestamp: number
+}
+
+type GeolocationError = {
+    code: number;
+    message: string;
+    PERMISSION_DENIED: number;
+    POSITION_UNAVAILABLE: number;
+    TIMEOUT: number;
 }
 
 interface PerpectiveTransform {
@@ -882,13 +885,13 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
      * This function is called on press.
      * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
      */
-    onPress?: () => void
+    onPress?: (event: GestureResponderEvent) => void
 
     /**
      * This function is called on long press.
      * e.g., `onLongPress={this.increaseSize}>``
      */
-    onLongPress?: () => void
+    onLongPress?: (event: GestureResponderEvent) => void
 
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
@@ -3253,6 +3256,8 @@ export interface ImageURISource {
     scale?: number,
 }
 
+export type ImageRequireSource = number;
+
 export interface ImagePropertiesIOS {
     /**
      * The text that's read by the screen reader when the user interacts with the image.
@@ -3402,7 +3407,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * their width and height. The native side will then choose the best `uri` to display
      * based on the measured size of the image container.
      */
-    source: ImageURISource | ImageURISource[]
+    source: ImageURISource | ImageURISource[] | ImageRequireSource
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -3917,7 +3922,7 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
 
     onEndReachedThreshold?: number | null
 
-    onLayout?: () => void
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make
@@ -4328,6 +4333,16 @@ export interface MapViewStatic extends NativeMethodsMixin, React.ComponentClass<
     }
 }
 
+interface MaskedViewProperties extends ViewProperties {
+    maskElement: React.ReactElement<any>,
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/maskedviewios.html
+ */
+export interface MaskedViewStatic extends NativeMethodsMixin, React.ComponentClass<MaskedViewProperties> {
+}
+
 export interface ModalProperties {
 
     // Only `animated` is documented. The JS code says `animated` is
@@ -4528,17 +4543,17 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
      */
     onLayout?: (event: LayoutChangeEvent) => void
 
-    onLongPress?: () => void;
+    onLongPress?: (event: GestureResponderEvent) => void;
 
     /**
      * Called when the touch is released,
      * but not if cancelled (e.g. by a scroll that steals the responder lock).
      */
-    onPress?: () => void;
+    onPress?: (event: GestureResponderEvent) => void;
 
-    onPressIn?: () => void;
+    onPressIn?: (event: GestureResponderEvent) => void;
 
-    onPressOut?: () => void;
+    onPressOut?: (event: GestureResponderEvent) => void;
 
     /**
      * //FIXME: not in doc but available in examples
@@ -6539,7 +6554,7 @@ export type ShareContent = {
 
 export type ShareOptions = {
     dialogTitle?: string
-    excludeActivityTypes?: Array<string>
+    excludedActivityTypes?: Array<string>
     tintColor?: string
 }
 
@@ -8068,6 +8083,12 @@ export namespace Animated {
         flattenOffset(): void;
 
         /**
+         * Sets the offset value to the base value, and resets the base value to zero.
+         * The final output of the value is unchanged.
+         */
+        extractOffset(): void;
+
+        /**
          * Adds an asynchronous listener to the value so you can observe updates from
          * animations.  This is useful because there is no way to
          * synchronously read the value because it might be driven natively.
@@ -8109,9 +8130,11 @@ export namespace Animated {
 
         setOffset(offset: { x: number; y: number }): void;
 
-        flattenOffset(): void
+        flattenOffset(): void;
 
-    stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
+        extractOffset(): void;
+
+        stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
 
         addListener(callback: ValueXYListenerCallback): string;
 
@@ -8124,7 +8147,7 @@ export namespace Animated {
          *  style={this.state.anim.getLayout()}
          *```
          */
-    getLayout(): { [key: string]: AnimatedValue };
+        getLayout(): { [key: string]: AnimatedValue };
 
         /**
          * Converts `{x, y}` into a useable translation transform, e.g.
@@ -8353,6 +8376,7 @@ export namespace Animated {
     export var View: any;
     export var Image: any;
     export var Text: any;
+    export var ScrollView: any;
 }
 
 // tslint:disable-next-line:interface-name
@@ -8363,23 +8387,25 @@ export interface I18nManagerStatic {
 }
 
 export interface GeolocationStatic {
-    /*
-        * Invokes the success callback once with the latest location info.  Supported
-        * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
-        * On Android, this can return almost immediately if the location is cached or
-        * request an update, which might take a while.
-        */
-    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
+    /**
+     * Invokes the success callback once with the latest location info.  Supported
+     * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
+     * On Android, this can return almost immediately if the location is cached or
+     * request an update, which might take a while.
+     */
+    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: GeolocationError) => void, geo_options?: GeoOptions): void
 
-    /*
-        * Invokes the success callback whenever the location changes.  Supported
-        * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
-        */
-    watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
+    /**
+     * Invokes the success callback whenever the location changes.  Supported
+     * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
+     */
+    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: GeolocationError) => void, options?: GeoOptions): number
 
     clearWatch(watchID: number): void
 
     stopObserving(): void
+
+    requestAuthorization(): void;
 }
 
 export interface OpenCameraDialogOptions {
@@ -8893,6 +8919,9 @@ export type ListView = ListViewStatic
 export var MapView: MapViewStatic
 export type MapView = MapViewStatic
 
+export var MaskedView: MaskedViewStatic
+export type MaskedView = MaskedViewStatic
+
 export var Modal: ModalStatic
 export type Modal = ModalStatic
 
@@ -9126,9 +9155,12 @@ export var NativeEventEmitter: NativeEventEmitter
 export var NativeAppEventEmitter: RCTNativeAppEventEmitter
 
 /**
- * Empty interface which can be augmented by other type definitions for the NativeModules var below.
+ * Interface for NativeModules which allows to augment NativeModules with type informations.
+ * See react-native-sensor-manager for example.
  */
-interface NativeModulesStatic {}
+interface NativeModulesStatic {
+    [name: string]: any;
+}
 
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
@@ -9213,6 +9245,35 @@ export var PointPropType: React.Requireable<any>
 
 declare global {
     function require(name: string): any;
+
+    /**
+     * Console polyfill
+     * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
+     */
+    interface Console {
+        error(message?: any, ...optionalParams: any[]): void
+        info(message?: any, ...optionalParams: any[]): void
+        log(message?: any, ...optionalParams: any[]): void
+        warn(message?: any, ...optionalParams: any[]): void
+        trace(message?: any, ...optionalParams: any[]): void
+        debug(message?: any, ...optionalParams: any[]): void
+        table(...data: any[]): void;
+        disableYellowBox: boolean;
+        ignoredYellowBox: string[];
+    }
+
+    var console: Console
+
+    /**
+     * Navigator object for accessing location API
+     * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
+     */
+    interface Navigator {
+        readonly product: string;
+        readonly geolocation: Geolocation;
+    }
+
+    var navigator: Navigator;
 
     /**
      * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests

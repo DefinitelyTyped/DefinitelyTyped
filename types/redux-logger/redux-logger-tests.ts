@@ -26,6 +26,10 @@ let loggerCollapsedPredicate = createLogger({
   collapsed: (getAction, action) => true
 });
 
+let loggerColorsOverallBoolean = createLogger({
+  colors: false
+});
+
 let loggerColorsBoolean = createLogger({
   colors: {
     title: false,

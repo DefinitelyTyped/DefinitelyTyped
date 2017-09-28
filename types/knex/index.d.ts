@@ -429,7 +429,6 @@ declare namespace Knex {
     }
 
     interface AlterTableBuilder extends TableBuilder {
-        alter(): ColumnBuilder;
     }
 
     interface MySqlAlterTableBuilder extends AlterTableBuilder {
@@ -447,6 +446,7 @@ declare namespace Knex {
         notNullable(): ColumnBuilder;
         nullable(): ColumnBuilder;
         comment(value: string): ColumnBuilder;
+        alter(): ColumnBuilder;
     }
 
     interface ForeignConstraintBuilder {

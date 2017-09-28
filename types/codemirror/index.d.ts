@@ -765,6 +765,12 @@ declare namespace CodeMirror {
         /** Determines whether the gutter scrolls along with the content horizontally (false)
         or whether it stays fixed during horizontal scrolling (true, the default). */
         fixedGutter?: boolean;
+        
+        /**
+         * Chooses a scrollbar implementation. The default is "native", showing native scrollbars. The core library also
+         * provides the "null" style, which completely hides the scrollbars. Addons can implement additional scrollbar models.
+         */
+        scrollbarStyle?: string;
 
         /** boolean|string. This disables editing of the editor content by the user. If the special value "nocursor" is given (instead of simply true), focusing of the editor is also disallowed. */
         readOnly?: any;

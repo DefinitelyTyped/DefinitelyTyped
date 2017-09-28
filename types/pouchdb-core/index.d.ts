@@ -165,7 +165,7 @@ declare namespace PouchDB {
              * Only present if `GetOptions.conflicts` is `true`
              */
             _conflicts?: RevisionId[];
-            _rev?: RevisionId;
+            _rev: RevisionId;
             /** Only present if `GetOptions.revs` is `true` */
             _revs_info?: RevisionInfo[];
             /** Only present if `GetOptions.revs_info` is `true` */

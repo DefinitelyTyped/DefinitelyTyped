@@ -1163,6 +1163,7 @@ declare namespace CKEDITOR {
             afterCommandExec?: (evt: CKEDITOR.eventInfo) => void;
             afterInsertHtml?: (evt: CKEDITOR.eventInfo) => void;
             afterPaste?: (evt: CKEDITOR.eventInfo) => void;
+            afterPasteFromWord?: (evt: CKEDITOR.eventInfo) => void;
             afterSetData?: (evt: CKEDITOR.eventInfo) => void;
             afterUndoImage?: (evt: CKEDITOR.eventInfo) => void;
             ariaEditorHelpLabel?: (evt: CKEDITOR.eventInfo) => void;
@@ -1170,9 +1171,11 @@ declare namespace CKEDITOR {
             autogrow?: (evt: CKEDITOR.eventInfo) => void;
 
             beforeCommandExec?: (evt: CKEDITOR.eventInfo) => void;
+            beforeDestroy?: (evt: CKEDITOR.eventInfo) => void;
             beforeGetData?: (evt: CKEDITOR.eventInfo) => void;
-            beforeModuleUnload?: (evt: CKEDITOR.eventInfo) => void;
+            beforeModeUnload?: (evt: CKEDITOR.eventInfo) => void;
             beforeSetMode?: (evt: CKEDITOR.eventInfo) => void;
+            beforeUndoImage?: (evt: CKEDITOR.eventInfo) => void;
             blur?: (evt: CKEDITOR.eventInfo) => void;
 
             change?: (evt: CKEDITOR.eventInfo) => void;
@@ -1189,7 +1192,7 @@ declare namespace CKEDITOR {
             dialogHide?: (evt: CKEDITOR.eventInfo) => void;
             dialogShow?: (evt: CKEDITOR.eventInfo) => void;
             dirChanged?: (evt: CKEDITOR.eventInfo) => void;
-            doubleckick?: (evt: CKEDITOR.eventInfo) => void;
+            doubleclick?: (evt: CKEDITOR.eventInfo) => void;
             dragend?: (evt: CKEDITOR.eventInfo) => void;
             dragstart?: (evt: CKEDITOR.eventInfo) => void;
             drop?: (evt: CKEDITOR.eventInfo) => void;
@@ -1207,7 +1210,7 @@ declare namespace CKEDITOR {
             insertElement?: (evt: CKEDITOR.eventInfo) => void;
             insertHtml?: (evt: CKEDITOR.eventInfo) => void;
             insertText?: (evt: CKEDITOR.eventInfo) => void;
-            insanceReady?: (evt: CKEDITOR.eventInfo) => void;
+            instanceReady?: (evt: CKEDITOR.eventInfo) => void;
 
             key?: (evt: CKEDITOR.eventInfo) => void;
 
@@ -1224,6 +1227,7 @@ declare namespace CKEDITOR {
             notificationUpdate?: (evt: CKEDITOR.eventInfo) => void;
 
             paste?: (evt: CKEDITOR.eventInfo) => void;
+            pasteFromWord?: (evt: CKEDITOR.eventInfo) => void;
             pluginsLoaded?: (evt: CKEDITOR.eventInfo) => void;
 
             readOnly?: (evt: CKEDITOR.eventInfo) => void;
@@ -1851,4 +1855,3 @@ declare namespace CKEDITOR {
         function detect(defaultLanguage: string, probeLanguage: string): string;
     }
 }
-

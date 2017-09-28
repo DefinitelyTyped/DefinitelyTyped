@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-declare class NavbarHeader extends React.Component<NavbarHeaderProps> { }
-declare namespace NavbarHeader { }
-export = NavbarHeader
-interface NavbarHeaderProps extends React.HTMLProps<NavbarHeader> { }
+declare namespace NavbarHeader {
+    export type NavbarHeaderProps = React.HTMLProps<NavbarHeader>;
+}
+declare class NavbarHeader extends React.Component<NavbarHeader.NavbarHeaderProps> { }
+export = NavbarHeader;

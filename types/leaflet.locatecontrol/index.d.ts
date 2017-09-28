@@ -3,9 +3,9 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace Control {
         interface LocateOptions {
             position?: string;
@@ -34,10 +34,11 @@ declare namespace L {
             locateOptions?: L.LocateOptions;
         }
     }
+
     namespace control {
         /**
          * Creates a Leaflet.Locate control
          */
-        function locate(options?: Control.LocateOptions): L.Control;
+        function locate(options?: Control.LocateOptions): Control;
     }
 }

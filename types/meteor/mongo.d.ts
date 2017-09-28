@@ -214,7 +214,10 @@ declare module "meteor/mongo" {
         interface ObjectIDStatic {
             new (hexString?: string): ObjectID;
         }
-        interface ObjectID { }
+        interface ObjectID {
+            toHexString(): string;
+            equals(otherID: ObjectID): boolean;
+         }
 
         function setConnectionOptions(options: any): void;
     }

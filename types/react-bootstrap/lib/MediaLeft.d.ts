@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-declare class MediaLeft extends React.Component<MediaLeftProps> { }
-declare namespace MediaLeft { }
-export = MediaLeft
-
-interface MediaLeftProps extends React.HTMLProps<MediaLeft> {
-  align?: string;
+declare namespace MediaLeft {
+    export interface MediaLeftProps extends React.HTMLProps<MediaLeft> {
+        align?: string;
+    }
 }
+declare class MediaLeft extends React.Component<MediaLeft.MediaLeftProps> { }
+export = MediaLeft;

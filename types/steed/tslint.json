@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "ban-types": false,
-        "no-unnecessary-qualifier": false
+        "no-unnecessary-qualifier": false,
+        "no-unnecessary-generics": false
     }
 }
