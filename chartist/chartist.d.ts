@@ -184,7 +184,7 @@ declare namespace Chartist {
     donut?: boolean;
     
     /**
-     * 
+     * If specified the donut segments will be drawn as shapes instead of strokes.
      */    
     donutSolid?: boolean;
 
