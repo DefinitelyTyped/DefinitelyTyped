@@ -696,5 +696,7 @@ declare namespace Chartist {
   }
 }
 
+declare var Chartist: Chartist.ChartistStatic;
+
 export = Chartist;
 export as namespace Chartist;
