@@ -7,6 +7,9 @@ interface ExtendedOptions extends program.CommandOptions {
 const commandInstance = new program.Command("-f");
 const optionsInstance = new program.Option("-f");
 
+const name = program.name();
+const nameSecondary = program.name("set name");
+
 program
     .version('0.0.1')
     .option('-p, --peppers', 'Add peppers')
