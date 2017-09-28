@@ -94,6 +94,8 @@ declare namespace setImmediate {
     export function __promisify__<T>(value: T): Promise<T>;
 }
 declare function clearImmediate(immediateId: any): void;
+declare function escape(str: string): string;
+declare function unescape(str: string): string;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 /* tslint:disable:callable-types */
