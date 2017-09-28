@@ -182,9 +182,14 @@ declare namespace Chartist {
      * If specified the donut CSS classes will be used and strokes will be drawn instead of pie slices.
      */
     donut?: boolean;
+    
+    /**
+     * 
+     */    
+    donutSolid?: boolean;
 
     /**
-     * Specify the donut stroke width, currently done in javascript for convenience.
+     * If specified the donut segments will be drawn as shapes instead of strokes.
      */
     donutWidth?: number;
 
@@ -212,6 +217,16 @@ declare namespace Chartist {
      * Label direction can be 'neutral', 'explode' or 'implode'.  Default is 'neutral'.  The labels anchor will be positioned based on those settings as well as the fact if the labels are on the right or left side of the center of the chart. Usually explode is useful when labels are positioned far away from the center.
      */
     labelDirection?: string;
+
+    /**
+     * If true the whole data is reversed including labels, the series order as well as the whole series data arrays.
+     */
+    reverseData?: boolean;
+    
+    /**
+    * If true empty values will be ignored to avoid drawing unncessary slices and labels
+    */
+    ignoreEmptyValues?: boolean;
   }
 
   interface IChartPadding {
