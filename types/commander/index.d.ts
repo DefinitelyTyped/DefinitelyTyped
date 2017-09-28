@@ -249,12 +249,19 @@ declare class Command extends NodeJS.EventEmitter {
     usage(): string;
 
     /**
-     * Get or set the name of the command.
+     * Set the name of the command.
      *
      * @param {string} str
-     * @return {string|Command}
+     * @return {Command}
      */
-    name(str?: string): string | Command;
+    name(str: string): Command;
+
+    /**
+     * Get the name of the command.
+     *
+     * @return {string}
+     */
+    name(): string;
 
     /**
      * Output help information for this command.
