@@ -309,37 +309,195 @@ export function createServer<TProcessor, THandler>(
 // tslint:disable-next-line no-unnecessary-generics
 export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
 
-export interface TBufferedTransportConstructor {
-    new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
+export class TBufferedTransport implements TTransport {
+    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    static receiver(callback: (trans: TBufferedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
+    commitPosition(): void;
+    rollbackPosition(): void;
+    isOpen(): boolean;
+    open(): boolean;
+    close(): boolean;
+    setCurrSeqId(seqId: number): void;
+    ensureAvailable(len: number): void;
+    read(len: number): Buffer;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readDouble(): number;
+    readString(): string;
+    write(buf: Buffer | string): void;
+    flush(): void;
 }
 
-export interface TFramedTransportConstructor {
-    new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
+export class TFramedTransport implements TTransport {
+    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    static receiver(callback: (trans: TFramedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
+    commitPosition(): void;
+    rollbackPosition(): void;
+    isOpen(): boolean;
+    open(): boolean;
+    close(): boolean;
+    setCurrSeqId(seqId: number): void;
+    ensureAvailable(len: number): void;
+    read(len: number): Buffer;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readDouble(): number;
+    readString(): string;
+    write(buf: Buffer | string): void;
+    flush(): void;
 }
 
 export type TTransportConstructor =
-    TBufferedTransportConstructor | TFramedTransportConstructor;
+    TBufferedTransport | TFramedTransport;
 
-export interface TBinaryProtocolConstructor {
-    new (trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
+export class TBinaryProtocol implements TProtocol {
+    constructor(trans: TTransport, strictRead?: boolean, strictWrite?: boolean);
+    flush(): void;
+    writeMessageBegin(name: string, type: Thrift.MessageType, seqid: number): void;
+    writeMessageEnd(): void;
+    writeStructBegin(name: string): void;
+    writeStructEnd(): void;
+    writeFieldBegin(name: string, type: Thrift.Type, id: number): void;
+    writeFieldEnd(): void;
+    writeFieldStop(): void;
+    writeMapBegin(ktype: Thrift.Type, vtype: Thrift.Type, size: number): void;
+    writeMapEnd(): void;
+    writeListBegin(etype: Thrift.Type, size: number): void;
+    writeListEnd(): void;
+    writeSetBegin(etype: Thrift.Type, size: number): void;
+    writeSetEnd(): void;
+    writeBool(bool: boolean): void;
+    writeByte(b: number): void;
+    writeI16(i16: number): void;
+    writeI32(i32: number): void;
+    writeI64(i64: number | Int64): void;
+    writeDouble(dbl: number): void;
+    writeString(arg: string | Buffer): void;
+    writeBinary(arg: string | Buffer): void;
+    readMessageBegin(): TMessage;
+    readMessageEnd(): void;
+    readStructBegin(): TStruct;
+    readStructEnd(): void;
+    readFieldBegin(): TField;
+    readFieldEnd(): void;
+    readMapBegin(): TMap;
+    readMapEnd(): void;
+    readListBegin(): TList;
+    readListEnd(): void;
+    readSetBegin(): TSet;
+    readSetEnd(): void;
+    readBool(): boolean;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readI64(): Int64;
+    readDouble(): number;
+    readBinary(): Buffer;
+    readString(): string;
+    getTransport(): TTransport;
+    skip(type: Thrift.Type): void;
 }
 
-export interface TJSONProtocolConstructor {
-    new (trans: TTransport): TProtocol;
+export class TJSONProtocol implements TProtocol {
+    constructor(trans: TTransport);
+    flush(): void;
+    writeMessageBegin(name: string, type: Thrift.MessageType, seqid: number): void;
+    writeMessageEnd(): void;
+    writeStructBegin(name: string): void;
+    writeStructEnd(): void;
+    writeFieldBegin(name: string, type: Thrift.Type, id: number): void;
+    writeFieldEnd(): void;
+    writeFieldStop(): void;
+    writeMapBegin(ktype: Thrift.Type, vtype: Thrift.Type, size: number): void;
+    writeMapEnd(): void;
+    writeListBegin(etype: Thrift.Type, size: number): void;
+    writeListEnd(): void;
+    writeSetBegin(etype: Thrift.Type, size: number): void;
+    writeSetEnd(): void;
+    writeBool(bool: boolean): void;
+    writeByte(b: number): void;
+    writeI16(i16: number): void;
+    writeI32(i32: number): void;
+    writeI64(i64: number | Int64): void;
+    writeDouble(dbl: number): void;
+    writeString(arg: string | Buffer): void;
+    writeBinary(arg: string | Buffer): void;
+    readMessageBegin(): TMessage;
+    readMessageEnd(): void;
+    readStructBegin(): TStruct;
+    readStructEnd(): void;
+    readFieldBegin(): TField;
+    readFieldEnd(): void;
+    readMapBegin(): TMap;
+    readMapEnd(): void;
+    readListBegin(): TList;
+    readListEnd(): void;
+    readSetBegin(): TSet;
+    readSetEnd(): void;
+    readBool(): boolean;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readI64(): Int64;
+    readDouble(): number;
+    readBinary(): Buffer;
+    readString(): string;
+    getTransport(): TTransport;
+    skip(type: Thrift.Type): void;
 }
 
-export interface TCompactProtocolConstructor {
-    new (trans: TTransport): TProtocol;
+export class TCompactProtocol implements TProtocol {
+    constructor(trans: TTransport);
+    flush(): void;
+    writeMessageBegin(name: string, type: Thrift.MessageType, seqid: number): void;
+    writeMessageEnd(): void;
+    writeStructBegin(name: string): void;
+    writeStructEnd(): void;
+    writeFieldBegin(name: string, type: Thrift.Type, id: number): void;
+    writeFieldEnd(): void;
+    writeFieldStop(): void;
+    writeMapBegin(ktype: Thrift.Type, vtype: Thrift.Type, size: number): void;
+    writeMapEnd(): void;
+    writeListBegin(etype: Thrift.Type, size: number): void;
+    writeListEnd(): void;
+    writeSetBegin(etype: Thrift.Type, size: number): void;
+    writeSetEnd(): void;
+    writeBool(bool: boolean): void;
+    writeByte(b: number): void;
+    writeI16(i16: number): void;
+    writeI32(i32: number): void;
+    writeI64(i64: number | Int64): void;
+    writeDouble(dbl: number): void;
+    writeString(arg: string | Buffer): void;
+    writeBinary(arg: string | Buffer): void;
+    readMessageBegin(): TMessage;
+    readMessageEnd(): void;
+    readStructBegin(): TStruct;
+    readStructEnd(): void;
+    readFieldBegin(): TField;
+    readFieldEnd(): void;
+    readMapBegin(): TMap;
+    readMapEnd(): void;
+    readListBegin(): TList;
+    readListEnd(): void;
+    readSetBegin(): TSet;
+    readSetEnd(): void;
+    readBool(): boolean;
+    readByte(): number;
+    readI16(): number;
+    readI32(): number;
+    readI64(): Int64;
+    readDouble(): number;
+    readBinary(): Buffer;
+    readString(): string;
+    getTransport(): TTransport;
+    skip(type: Thrift.Type): void;
 }
 
 export type TProtocolConstructor =
-    TBinaryProtocolConstructor | TJSONProtocolConstructor | TCompactProtocolConstructor;
-
-export const TBufferedTransport: TBufferedTransportConstructor;
-export const TFramedTransport: TFramedTransportConstructor;
-export const TBinaryProtocol: TBinaryProtocolConstructor;
-export const TJSONProtocol: TJSONProtocolConstructor;
-export const TCompactProtocol: TCompactProtocolConstructor;
+    TBinaryProtocol | TJSONProtocol | TCompactProtocol;
 
 // thrift.js
 export namespace Thrift {
