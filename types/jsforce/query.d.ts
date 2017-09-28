@@ -47,8 +47,8 @@ export class Query<T> implements Promise<T> {
     where(conditions: Object | string): Query<T>;
 
     // Implementing promise methods
-    then<T, never>(onfulfilled?: ((value: T) => T | PromiseLike<T>) | undefined | null, onrejected?: ((reason: any) => never | PromiseLike<never>) | undefined | null): Promise<T | never>;
-    catch<never>(onrejected?: ((reason: any) => T | PromiseLike<T>) | undefined | null): Promise<T>;
+    then<T, never>(onfulfilled?: any | undefined | null): Promise<T | never>;
+    catch<never>(onrejected?: any | undefined | null): Promise<T>;
     [Symbol.toStringTag]: "Promise";
 }
 
