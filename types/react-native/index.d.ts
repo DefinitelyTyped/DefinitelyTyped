@@ -533,9 +533,9 @@ export interface LayoutAnimationStatic {
         linear: LayoutAnimationConfig
         spring: LayoutAnimationConfig
     }
-    easeInEaseOut: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    linear: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    spring: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
+    easeInEaseOut: (onAnimationDidEnd?: () => void) => void
+    linear: (onAnimationDidEnd?: () => void) => void
+    spring: (onAnimationDidEnd?: () => void) => void
 }
 
 type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
