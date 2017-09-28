@@ -2,6 +2,7 @@
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
+//                 Margus Lamp <https://github.com/mlamp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -40,11 +41,11 @@ declare class WebSocket extends events.EventEmitter {
     constructor(address: string, options?: WebSocket.IClientOptions);
     constructor(address: string, protocols?: string | string[], options?: WebSocket.IClientOptions);
 
-    close(code?: number, data?: any): void;
+    close(code?: number, data?: string): void;
     pause(): void;
     resume(): void;
-    ping(data?: any, mask?: boolean, dontFail?: boolean): void;
-    pong(data?: any, mask?: boolean, dontFail?: boolean): void;
+    ping(data?: any, mask?: boolean, failSilently?: boolean): void;
+    pong(data?: any, mask?: boolean, failSilently?: boolean): void;
     send(data: any, cb?: (err: Error) => void): void;
     send(data: any, options: { mask?: boolean; binary?: boolean }, cb?: (err: Error) => void): void;
     stream(options: { mask?: boolean; binary?: boolean }, cb?: (err: Error, final: boolean) => void): void;
