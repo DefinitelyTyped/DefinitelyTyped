@@ -349,8 +349,9 @@ export class TFramedTransport implements TTransport {
     flush(): void;
 }
 
-export type TTransportConstructor =
-    TBufferedTransport | TFramedTransport;
+export interface TTransportConstructor {
+  new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
+}
 
 export class TBinaryProtocol implements TProtocol {
     constructor(trans: TTransport, strictRead?: boolean, strictWrite?: boolean);
@@ -496,8 +497,9 @@ export class TCompactProtocol implements TProtocol {
     skip(type: Thrift.Type): void;
 }
 
-export type TProtocolConstructor =
-    TBinaryProtocol | TJSONProtocol | TCompactProtocol;
+export interface TProtocolConstructor {
+    new (trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
+}
 
 // thrift.js
 export namespace Thrift {

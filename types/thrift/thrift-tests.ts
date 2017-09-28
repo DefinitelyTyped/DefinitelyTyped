@@ -42,7 +42,10 @@ const mockGeneratedService = {
 
 createServer<MockProcessor, MockServiceHandlers>(mockGeneratedService, mockServiceHandlers);
 
-const clientConnection = createConnection('0.0.0.0', 1234);
+const clientConnection = createConnection('0.0.0.0', 1234, {
+  transport: TBufferedTransport,
+  protocol: TBinaryProtocol
+});
 createClient<MockClient>(mockGeneratedService, clientConnection);
 
 const mockBuffer: Buffer = Buffer.alloc(8);
