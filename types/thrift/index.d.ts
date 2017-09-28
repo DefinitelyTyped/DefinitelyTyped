@@ -310,11 +310,11 @@ export function createServer<TProcessor, THandler>(
 export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
 
 export interface TBufferedTransportConstructor {
-    new (buffer: Buffer, callback: TTransportCallback): TTransport;
+    new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
 }
 
 export interface TFramedTransportConstructor {
-    new (buffer: Buffer, callback: TTransportCallback): TTransport;
+    new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
 }
 
 export type TTransportConstructor =
