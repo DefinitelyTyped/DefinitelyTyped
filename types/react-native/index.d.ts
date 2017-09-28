@@ -5322,8 +5322,8 @@ export interface SystraceStatic {
 export interface DataSourceAssetCallback {
     rowHasChanged?: (r1: any, r2: any) => boolean
     sectionHeaderHasChanged?: (h1: any, h2: any) => boolean
-    getRowData?: <T>(dataBlob: any, sectionID: number | string, rowID: number | string) => T
-    getSectionHeaderData?: <T>(dataBlob: any, sectionID: number | string) => T
+    getRowData?: (dataBlob: any, sectionID: number | string, rowID: number | string) => any
+    getSectionHeaderData?: (dataBlob: any, sectionID: number | string) => any
 }
 
 /**
@@ -5383,7 +5383,7 @@ export interface ListViewDataSource {
      * handle merging of old and new data separately and then pass that into
      * this function as the `dataBlob`.
      */
-    cloneWithRows<T>(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
+    cloneWithRows(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
 
     /**
      * This performs the same function as the `cloneWithRows` function but here
@@ -5631,7 +5631,7 @@ interface PlatformStatic {
 interface DeviceEventEmitterStatic extends EventEmitter {
     sharedSubscriber: EventSubscriptionVendor
     new(): DeviceEventEmitterStatic;
-    addListener<T>( type: string, listener: ( data: T ) => void, context?: any ): EmitterSubscription;
+    addListener( type: string, listener: ( data: any ) => void, context?: any ): EmitterSubscription;
 }
 
 // Used by Dimensions below
