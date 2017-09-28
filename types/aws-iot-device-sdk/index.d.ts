@@ -1,6 +1,7 @@
 // Type definitions for aws-iot-device-sdk 1.0.13
 // Project: https://github.com/aws/aws-iot-device-sdk-js
 // Definitions by: Markus Olsson <https://github.com/niik>
+//                 Margus Lamp <https://github.com/mlamp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -100,7 +101,7 @@ export interface DeviceOptions extends mqtt.ClientOptions {
    * additional options to the underlying WebSocket object;
    * these options are documented here.
    */
-  websocketOptions?: WebSocket.IClientOptions;
+  websocketOptions?: WebSocket.ClientOptions;
 
   /**
    * used to specify the Access Key ID when protocol is set to "wss".
