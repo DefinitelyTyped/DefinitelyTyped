@@ -1,4 +1,3 @@
-
 import * as loadJsonFile from 'load-json-file';
 
 function assert(actual: string, expected: string): void {

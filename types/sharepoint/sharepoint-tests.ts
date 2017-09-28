@@ -1,5 +1,5 @@
-///<reference types="knockout" />
-///<reference types="jquery" />
+/// <reference types="knockout" />
+/// <reference types="jquery" />
 
 import * as angular from 'angular';
 import * as ng from 'angular';
@@ -370,11 +370,16 @@ function deleteFolder(resultpanel: HTMLElement) {
     }
 }
 
+interface Announcements {
+    Title: string;
+    Body: string;
+}
+
 // List item tasks
 function readItems(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle<Announcements>("Announcements");
     const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Geq><FieldRef Name=\'ID\'/>' +
@@ -658,7 +663,11 @@ namespace CSR {
     }
 
     export function getFieldTemplate(field: SPClientTemplates.FieldSchema, mode: SPClientTemplates.ClientControlMode): SPClientTemplates.FieldCallback {
-        const ctx = { ListSchema: { Field: [field] }, FieldControlModes: {} };
+        const ctx = {
+            ListTemplateType: 1,
+            FieldControlModes: {},
+            ListSchema: { Field: [field] },
+        };
         ctx.FieldControlModes[field.Name] = mode;
         const templates = SPClientTemplates.TemplateManager.GetTemplates(ctx);
         return templates.Fields[field.Name];
@@ -2023,10 +2032,10 @@ namespace _ {
     // do is retrieve a reference to the term set with the same ID as the div, and
     // then add the term  that belong to that term set under the div that was clicked.
 
-    function showTerms(event: JQueryEventObject, groupID: SP.Guid, termSetID: SP.Guid) {
+    function showTerms(event: JQuery.Event, groupID: SP.Guid, termSetID: SP.Guid) {
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
-        event.cancelBubble = true;
+        event.originalEvent.cancelBubble = true;
 
         // Get a reference to the term set div that was click and
         // remove its children (apart from the TextNode that is currently
@@ -2332,7 +2341,7 @@ namespace App {
         activate(): void;
     }
 
-    class appcontroller implements Iappcontroller {
+    class appcontroller implements Iappcontroller, ng.IController {
         title: string = "appcontroller";
         lists: SP.List[];
 
@@ -2350,9 +2359,12 @@ namespace App {
                 .catch((e: string) => this.$n.show(e, true))
                 .finally(() => this.$n.remove(loading));
         }
+
+        $onInit() {
+        }
     }
 
-    angular.module("app").controller("appcontroller", appcontroller);
+    angular.module("app").controller("appcontroller", [appcontroller]);
 }
 
 namespace App {

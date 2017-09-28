@@ -1,5 +1,7 @@
 /// <reference types='tether' />
 
+import { CSSModule } from '../index';
+
 type Placement
   = 'top'
   | 'bottom'
@@ -25,6 +27,7 @@ export interface UncontrolledProps {
   tether?: Tether.ITetherOptions;
   tetherRef?: (tether: Tether) => void;
   className?: string;
+  cssModule?: CSSModule;
   autohide?: boolean;
   delay?: number | { show: number, hide: number };
 }

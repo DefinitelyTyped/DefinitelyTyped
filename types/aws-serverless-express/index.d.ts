@@ -1,6 +1,6 @@
 // Type definitions for aws-serverless-express 2.1
 // Project: https://github.com/awslabs/aws-serverless-express
-// Definitions by: Ben Speakman <https://github.com/threesquared>, Josh Caffey <https://github.com/jcaffey>
+// Definitions by: Ben Speakman <https://github.com/threesquared>, Josh Caffey <https://github.com/jcaffey>, Matthias Meyer <https://github.com/mattmeye>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -9,7 +9,8 @@ import * as lambda from 'aws-lambda';
 
 export function createServer(
     requestListener: (request: http.IncomingMessage, response: http.ServerResponse) => http.Server,
-    serverListenCallback?: () => any
+    serverListenCallback?: () => any,
+    binaryMimeTypes?: string[]
 ): http.Server;
 
 export function proxy(

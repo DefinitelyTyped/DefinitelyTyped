@@ -23,8 +23,7 @@ declare namespace paths {
     }
 
     interface Callback {
-        //TODO: Function is gulp.ITaskCallback, which is currently invisible
-        (path: string, callback: Function): any;
+        (path: string): any;
     }
 }
 

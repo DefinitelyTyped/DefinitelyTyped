@@ -1,7 +1,8 @@
 // Type definitions for text-buffer
 // Project: https://github.com/atom/text-buffer
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="atom" />
 /// <reference types="emissary" />

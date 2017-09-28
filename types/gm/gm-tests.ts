@@ -1,70 +1,68 @@
 import gm = require('gm');
 import stream = require('stream');
 
-var src: string;
-var matrix: string;
-var enable: boolean;
-var ltr: boolean;
-var password: string;
-var bits: number;
-var intensity: number;
-var r: number;
-var g: number;
-var b: number;
-var opacity: number;
-var x: number;
-var y: number;
-var radius: number;
-var sigma: number;
-var width: number;
-var height: number;
-var color: string;
-var channel: string;
-var type: string;
-var factor: number;
-var numColors: number;
-var operator: string;
-var multiplier: number;
-var kernel: string;
-var usePercent: boolean;
-var time: number;
-var server: string;
-var method: string;
-var percent: number;
-var encoding: string;
-var options: string;
-var file: string;
-var distance: number;
-var geometry: string;
-var direction: string;
-var name: string;
-var offset: number;
-var blackPoint: number;
-var gamma: number;
-var whitePoint: number;
-var limit: string;
-var format: string;
-var iterations: number;
-var count: number;
-var b: number;
-var s: number;
-var h: number;
-var dest: string;
-var images: string[];
-var angle: number;
-var NxN: string;
-var size: number;
-var command: string;
-var index: number;
-var threshold: number;
-var attribute: string;
-var attrValue: string;
-var format: string;
-var font: string;
-var quality: number;
-var align: string;
-var depth: number;
-var readStream: stream.PassThrough;
+declare const src: string;
+declare const matrix: string;
+declare const enable: boolean;
+declare const ltr: boolean;
+declare const password: string;
+declare const bits: number;
+declare const intensity: number;
+declare const r: number;
+declare const g: number;
+declare const b: number;
+declare const opacity: number;
+declare const x: number;
+declare const y: number;
+declare const radius: number;
+declare const sigma: number;
+declare const width: number;
+declare const height: number;
+declare const color: string;
+declare const channel: gm.ChannelType;
+declare const type: string;
+declare const factor: number;
+declare const numColors: number;
+declare const operator: string;
+declare const multiplier: number;
+declare const kernel: string;
+declare const usePercent: boolean;
+declare const time: number;
+declare const server: string;
+declare const method: string;
+declare const percent: number;
+declare const encoding: string;
+declare const options: gm.ResizeOption;
+declare const file: string;
+declare const distance: number;
+declare const geometry: string;
+declare const direction: string;
+declare const name: string;
+declare const offset: number;
+declare const blackPoint: number;
+declare const gamma: number;
+declare const whitePoint: number;
+declare const limit: string;
+declare const format: string;
+declare const iterations: number;
+declare const count: number;
+declare const s: number;
+declare const h: number;
+declare const dest: string;
+declare const images: string[];
+declare const angle: number;
+declare const NxN: string;
+declare const size: number;
+declare const command: string;
+declare const index: number;
+declare const threshold: number;
+declare const attribute: string;
+declare const attrValue: string;
+declare const font: string;
+declare const quality: number;
+declare const align: string;
+declare const depth: number;
+let readStream: stream.PassThrough;
 
 gm(src)
 	.adjoin()
@@ -288,19 +286,35 @@ gm(src)
 	.windowGroup()
 	.color((err, color) => {
 	})
+	.color({ bufferStream: true }, (err, color) => {
+	})
 	.depth((err, bitdepth) => {
+	})
+	.depth({ bufferStream: true }, (err, bitdepth) => {
 	})
 	.filesize((err, size) => {
 	})
+	.filesize({ bufferStream: true }, (err, size) => {
+	})
 	.format((err, format) => {
+	})
+	.format({ bufferStream: true }, (err, format) => {
 	})
 	.identify((err, info) => {
 	})
+	.identify({ bufferStream: true }, (err, info) => {
+	})
 	.res((err, resolution) => {
+	})
+	.res({ bufferStream: true }, (err, resolution) => {
 	})
 	.size((err, size) => {
 	})
+	.size({ bufferStream: true }, (err, size) => {
+	})
 	.orientation((err, orient) => {
+	})
+	.orientation({ bufferStream: true }, (err, orient) => {
 	})
 	.draw(options)
 	.drawArc(x, y, x, y, radius, radius)
@@ -342,7 +356,16 @@ gm(src).toBuffer((err, buffer) => {
 gm(src).toBuffer(format, (err, buffer) => {
 });
 
-var imageMagick = gm.subClass({ imageMagick: true });
-var readStream = imageMagick(src)
+const imageMagick = gm.subClass({ imageMagick: true });
+readStream = imageMagick(src)
 	.adjoin()
 	.stream();
+
+const passStream = imageMagick(readStream).stream();
+
+const buffers: Buffer[] = [];
+let buffer: Buffer;
+passStream.on('data', (chunk) => buffers.push(chunk as Buffer)).on('close', () => {
+	buffer = Buffer.concat(buffers);
+	const readstream = imageMagick(buffer).stream();
+});

@@ -1,6 +1,8 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
-// Definitions by: jacqt <https://github.com/jacqt>, basarat <https://github.com/basarat>
+// Definitions by: jacqt <https://github.com/jacqt>
+//                 basarat <https://github.com/basarat>
+//                 mbilsing <https://github.com/mbilsing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // See docs https://codemirror.net/doc/manual.html#addon_show-hint
@@ -16,7 +18,7 @@ declare module "codemirror" {
     and return a {list, from, to} object, where list is an array of strings or objects (the completions), and
     from and to give the start and end of the token that is being completed as {line, ch} objects. An optional
     selectedHint property (an integer) can be added to the completion object to control the initially selected hint. */
-    function showHint(cm: CodeMirror.Doc, hinter?: HintFunction, options?: ShowHintOptions): void;
+    function showHint(cm: CodeMirror.Editor, hinter?: HintFunction, options?: ShowHintOptions): void;
 
     interface Hints {
         from: Position;
@@ -32,7 +34,7 @@ declare module "codemirror" {
         displayText?: string;
         from?: Position;
         /** Called if a completion is picked. If provided *you* are responsible for applying the completion */
-        hint?: (cm: any, data: Hints, cur: Hint) => void;
+        hint?: (cm: CodeMirror.Editor, data: Hints, cur: Hint) => void;
         render?: (element: HTMLLIElement, data: Hints, cur: Hint) => void;
         to?: Position;
     }
@@ -41,18 +43,15 @@ declare module "codemirror" {
         /** An extension of the existing CodeMirror typings for the Editor.on("keyup", func) syntax */
         on(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
         off(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
-    }
-
-    interface Doc {
         showHint: (options: ShowHintOptions) => void;
     }
 
     interface HintFunction {
-        (doc: CodeMirror.Doc): Hints;
+        (cm: CodeMirror.Editor): Hints;
     }
 
     interface AsyncHintFunction {
-        (doc: CodeMirror.Doc, callback: (hints: Hints) => any): any;
+        (cm: CodeMirror.Editor, callback: (hints: Hints) => any): any;
         async?: boolean;
     }
 

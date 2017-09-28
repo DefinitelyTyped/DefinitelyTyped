@@ -230,6 +230,7 @@ declare module 'twit' {
       include_entities?: boolean,
 
       // Other params from various endpoints
+      track?: string | string[],
       media_id?: string,
       media_ids?: string[],
       alt_text?: {
@@ -240,6 +241,10 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
+      user_id?: number,
+      lat?: number,
+      long?: number,
+      follow?: boolean,
     }
     export interface PromiseResponse {
       data: Response,

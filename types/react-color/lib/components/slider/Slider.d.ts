@@ -1,6 +1,6 @@
 import { Component } from "react";
-import { ColorPickerProps } from "react-color";
+import { ColorPickerProps } from "../../..";
 
 export type SliderPickerProps = ColorPickerProps<SliderPicker>;
 
-export default class SliderPicker extends Component<SliderPickerProps, any> {}
+export default class SliderPicker extends Component<SliderPickerProps> {}

@@ -1602,6 +1602,18 @@ declare namespace jsts {
     }
 
     namespace io {
+        export class GeoJSONReader {
+            constructor();
+
+            /**
+             * Converts a GeoJSON to its <code>Geometry</code> representation.
+             *
+             * @param {Object} The GeoJSON representation of the Geometry.
+             * @return {jsts.geom.Geometry}
+             * geometry a <code>Geometry</code> to process.
+             */
+            read(geometry: Object): geom.Geometry;
+        }
         export class GeoJSONWriter {
             /**
              * Writes the GeoJSON representation of a {@link Geometry}. The

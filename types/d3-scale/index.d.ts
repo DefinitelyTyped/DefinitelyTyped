@@ -626,7 +626,7 @@ export interface ScaleIdentity {
      *
      * @param range Array of range values.
      */
-    range(range: Array<Range | { valueOf(): number }>): this;
+    range(range: Array<number | { valueOf(): number }>): this;
 
     /**
      * Returns approximately count representative values from the scale’s domain.
@@ -1297,7 +1297,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Array<number | { valueOf(): number } | null | undefined>): this;
+    domain(domain: Array<number | { valueOf(): number } | null | undefined >): this;
 
     /**
      * Returns the current range.

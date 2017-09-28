@@ -112,7 +112,7 @@ function bindEventListeners() {
     $('.cart').on('keyup', '.cart-item__quantity', debounce(fieldQuantityHandler, 250));
 
     /* cart tab click listener */
-    $('.btn--cart-tab').click(function() {
+    $('.btn--cart-tab').click(() => {
         setPreviousFocusItem(this);
         openCart();
     });
@@ -357,7 +357,7 @@ function renderCartItems() {
     var $cartLineItems = cart.lineItems.map(function (lineItem, index) {
         return renderCartItem(lineItem);
     });
-    $cartItemContainer.append($cartLineItems);
+    $cartItemContainer.append(...$cartLineItems);
 
     setTimeout(function () {
         $cartItemContainer.find('.js-hidden').removeClass('js-hidden');

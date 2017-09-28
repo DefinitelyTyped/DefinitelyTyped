@@ -18,3 +18,5 @@ const table = connection.table();
         }
     ]
 */
+
+table.map(({method, path, settings: {description}}) => { });

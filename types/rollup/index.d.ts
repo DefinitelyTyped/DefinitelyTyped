@@ -86,7 +86,7 @@ export interface Bundle {
 
 export interface Options {
 	/** The bundle's entry point (e.g. your `main.js` or `app.js` or `index.js`) */
-	entry: string
+	entry: string | string[]
 	/** A previous bundle. Use it to speed up subsequent bundles :) */
 	cache?: Bundle
 	/**

@@ -3,6 +3,7 @@
         "index.d.ts",
         "react-dom-tests.ts",
         "server/index.d.ts",
+        "node-stream/index.d.ts",
         "test-utils/index.d.ts"
     ],
     "compilerOptions": {
