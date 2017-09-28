@@ -189,9 +189,10 @@ declare namespace Chartist {
     donutSolid?: boolean;
 
     /**
-     * If specified the donut segments will be drawn as shapes instead of strokes.
+     * Specify the donut stroke width, currently done in javascript for convenience. May move to CSS styles in the future.
+     * This option can be set as number or string to specify a relative width (i.e. 100 or '30%').
      */
-    donutWidth?: number;
+    donutWidth?: number | string;
 
     /**
      * Specify if a label should be shown or not
