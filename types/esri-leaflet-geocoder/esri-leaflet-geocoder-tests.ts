@@ -1,4 +1,5 @@
-import * as L from 'esri-leaflet-geocoder';
+import * as L from 'leaflet';
+import 'esri-leaflet-geocoder';
 
 const map = L.map('map').setView([45.5165, -122.6764], 12);
 const tiles = L.esri.basemapLayer("Streets").addTo(map);

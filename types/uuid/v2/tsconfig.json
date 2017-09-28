@@ -7,9 +7,9 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../..",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../.."
+            "../../"
         ],
         "paths": {
             "uuid": ["uuid/v2"]

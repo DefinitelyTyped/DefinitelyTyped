@@ -1,3 +1,6 @@
+import * as L from 'leaflet';
+import 'leaflet-providers';
+
 const map = L.map('map');
 L.tileLayer.provider('Stamen.Watercolor').addTo(map);
 

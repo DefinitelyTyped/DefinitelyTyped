@@ -14,7 +14,7 @@ const fd = 0;
 const modeNum = 0;
 const modeStr = "";
 const object = {};
-const errorCallback = (err: Error) => { };
+const errorCallback = (err: Error | null) => { };
 const readOptions: fs.ReadOptions = {
 	reviver: {}
 };
@@ -43,12 +43,12 @@ fs.copy(src, dest, { overwrite: true }).then(() => {
 	// stub
 });
 fs.copy(src, dest, errorCallback);
-fs.copy(src, dest, { filter: src => false }, errorCallback);
+fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
 fs.copy(src, dest,
 	{
 		overwrite: true,
 		preserveTimestamps: true,
-		filter: (src: string) => false
+		filter: (src: string, dest: string) => false
 	},
 	errorCallback
 );
@@ -61,13 +61,13 @@ fs.copy(src, dest,
 	errorCallback
 );
 fs.copySync(src, dest);
-fs.copySync(src, dest, { filter: src => false });
+fs.copySync(src, dest, { filter: (src: string, dest: string) => false });
 fs.copySync(src, dest, { filter: /.*/ });
 fs.copySync(src, dest,
 	{
 		overwrite: true,
 		preserveTimestamps: true,
-		filter: (src: string) => false
+		filter: (src: string, dest: string) => false
 	}
 );
 fs.copySync(src, dest,

@@ -8,8 +8,18 @@ $(document).ready(function () {
                     extend: 'excel',
                     text: 'Excel',
                     className: 'class',
+                    filename: "exported_file.csv",
                     exportOptions: {
                         columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    className: 'class',
+                    filename: "exported_file.csv",
+                    exportOptions: {
+                        columns: [1, 6, 2, 3, 4]
                     }
                 },
                 {

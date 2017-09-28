@@ -7,7 +7,6 @@
         ],
         "experimentalDecorators": true,
         "noImplicitAny": true,
-        "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",

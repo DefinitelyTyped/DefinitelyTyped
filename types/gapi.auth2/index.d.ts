@@ -42,11 +42,7 @@ declare namespace gapi.auth2 {
     /**
      * Get permission from the user to access the specified scopes offline.
      */
-    grantOfflineAccess(options?: {
-      scope?: string;
-      prompt?: "select_account" | "consent";
-      app_package_name?: string;
-    }): any;
+    grantOfflineAccess(options?: OfflineAccessOptions): Promise<{code: string}>;
 
     /**
      * Attaches the sign-in flow to the specified container's click handler.
@@ -105,6 +101,17 @@ declare namespace gapi.auth2 {
      * Optional if fetch_basic_profile is not set to false.
      */
     scope?: string;
+  }
+
+  /**
+   * Definitions by: John <https://github.com/jhcao23>
+   * Interface that represents the different configuration parameters for the GoogleAuth.grantOfflineAccess(options) method.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2offlineaccessoptions
+   */
+  interface OfflineAccessOptions {
+    scope?: string;
+    prompt?: "select_account" | "consent";
+    app_package_name?: string;
   }
 
   /**

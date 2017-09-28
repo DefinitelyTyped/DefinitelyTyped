@@ -8,6 +8,7 @@
         "no-object-literal-type-assertion": false,
         "ban-types": false,
         "space-before-function-paren": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "no-unnecessary-generics": false
     }
 }

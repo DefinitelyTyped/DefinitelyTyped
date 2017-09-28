@@ -173,3 +173,6 @@ got('todomvc.com', {
         'user-agent': `my-module/ (https://github.com/username/my-module)`
     }
 });
+
+got('https://httpbin.org/404')
+    .catch(err => err instanceof got.HTTPError && err.statusCode === 404);

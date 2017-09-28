@@ -6042,7 +6042,7 @@ declare module _ {
         * @param compareFn Optional. Specifies a function that defines the sort order. If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.
         * @return The sorted array.
         **/
-        sort(compareFn: (a: T, b: T) => boolean): _Chain<T>;
+        sort(compareFn?: (a: T, b: T) => boolean): _Chain<T>;
 
         /**
         * Changes the content of an array by removing existing elements and/or adding new elements.

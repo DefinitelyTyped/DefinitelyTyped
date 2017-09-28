@@ -23,6 +23,22 @@ SystemJS.config({
 });
 
 SystemJS.config({
+    meta: {
+        '*': {
+            authorization: true
+        }
+    }
+});
+
+SystemJS.config({
+    meta: {
+        '*': {
+            authorization: 'Basic YWxhZGRpbjpvcGVuc2VzYW1l'
+        }
+    }
+});
+
+SystemJS.config({
   map: {
     'local/package': {
       x: 'vendor/x.js'

@@ -98,6 +98,14 @@ export interface Layout {
 	showlegend: boolean;
 	xaxis: Partial<Axis>;
 	yaxis: Partial<Axis>;
+	yaxis2: Partial<Axis>;
+	yaxis3: Partial<Axis>;
+	yaxis4: Partial<Axis>;
+	yaxis5: Partial<Axis>;
+	yaxis6: Partial<Axis>;
+	yaxis7: Partial<Axis>;
+	yaxis8: Partial<Axis>;
+	yaxis9: Partial<Axis>;
 	margin: Partial<Margin>;
 	height: number;
 	width: number;
@@ -138,6 +146,7 @@ export interface Axis {
 	showgrid: boolean;
 	fixedrange: boolean;
 	rangemode: "tozero" | 'normal' | 'nonnegative';
+	domain: number[];
 	type: AxisType;
 	tickformat: string;
 	hoverformat: string;
@@ -186,7 +195,7 @@ export type ModeBarButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoS
 	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
 	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
 	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews';
+	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
 
 // Data
 
@@ -203,6 +212,8 @@ export interface ScatterData {
 	x: Datum[] | Datum[][];
 	y: Datum[] | Datum[][];
 	z: Datum[] | Datum[][] | Datum[][][];
+	xaxis: string;
+	yaxis: string;
 	text: string | string[];
 	line: Partial<ScatterLine>;
 	'line.color': Color;

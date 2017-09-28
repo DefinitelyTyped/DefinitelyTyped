@@ -1,4 +1,5 @@
 import * as rpn from 'request-promise-native';
+import * as errors from 'request-promise-native/errors';
 import * as path from 'path';
 
 rpn('http://www.google.com')
