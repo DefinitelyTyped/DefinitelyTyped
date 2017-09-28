@@ -3466,7 +3466,8 @@ namespace module_tests {
     require.extensions[".ts"] = () => "";
 
     Module.runMain();
-    Module.wrap("some code");
+    const s: string = Module.wrap("some code");
 
-    const m1 = new Module("moduleId");
+    const m1: Module = new Module("moduleId");
+    const m2: Module = new Module.Module("moduleId");
 }
