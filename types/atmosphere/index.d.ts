@@ -1,6 +1,6 @@
 // Type definitions for Atmosphere v2.1.5
 // Project: https://github.com/Atmosphere/atmosphere-javascript
-// Definitions by: Kai Toedter <https://github.com/toedter>
+// Definitions by: Kai Toedter <https://github.com/toedter> Fedor Kirpichev <https://github.com/Mory1879>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Atmosphere {
@@ -102,6 +102,6 @@ declare namespace Atmosphere {
 }
 
 declare var atmosphere:Atmosphere.Atmosphere;
-declare module 'atmosphere' {
+declare module 'atmosphere.js' {
     export = atmosphere;
 }
