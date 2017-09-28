@@ -26,9 +26,9 @@ declare namespace CryptoJS {
 		finalize(): string;
 	}
 	interface LibWordArray {
-        sigBytes: number,
-        words: number[],
-    }
+		sigBytes: number,
+		words: number[],
+	}
 	export interface WordArray {
 		iv: string;
 		salt: string;

@@ -13,7 +13,7 @@ wordArray = CryptoJS.format.OpenSSL('some message', 'some key');
 
 var FR = new FileReader();
 FR.onloadend = () => {
-    var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString()
+	var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString()
 }
 
 // Ciphers
