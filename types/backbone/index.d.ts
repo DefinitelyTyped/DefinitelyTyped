@@ -219,7 +219,7 @@ declare namespace Backbone {
         /**
          * Specify a model attribute name (string) or function that will be used to sort the collection.
          */
-        comparator: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number);
+        comparator: string | { bivarianceHack(element: TModel): number | string }["bivarianceHack"] | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
         add(model: {}|TModel, options?: AddOptions): TModel;
         add(models: ({}|TModel)[], options?: AddOptions): TModel[];
