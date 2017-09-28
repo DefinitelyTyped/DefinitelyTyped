@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "codemirror-matchbrackets.d.ts",
+        "codemirror-runmode.d.ts",
+        "codemirror-showhint.d.ts",
+        "searchcursor.d.ts",
+        "test/index.ts",
+        "test/matchbrackets.ts",
+        "test/runmode.ts",
+        "test/searchcursor.ts",
+        "test/showhint.ts"
+    ]
+}
