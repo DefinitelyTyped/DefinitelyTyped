@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "dt-header": false,
+        "align": false,
+        "adjacent-overload-signatures": false,
+        "comment-format": false,
+        "unified-signatures": false,
+        "no-consecutive-blank-lines": false,
+        "no-empty-interface": false
+    }
+}

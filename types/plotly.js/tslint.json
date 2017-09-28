@@ -1,0 +1,8 @@
+{
+	"extends": "dtslint/dt.json",
+	"rules": {
+		// TODOs
+		"no-duplicate-imports": false,
+		"no-object-literal-type-assertion": false
+	}
+}

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+    "types": [],
+    "jsx": "react",
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+    "index.d.ts",
+    "rheostat-tests.tsx"
+  ]
+}

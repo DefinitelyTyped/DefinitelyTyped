@@ -1,0 +1,9 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // TODOs
+    "no-construct": false, // Required for R.is function testing
+    "no-any-union": false,
+    "no-unnecessary-generics": false
+  }
+}
