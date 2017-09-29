@@ -1,20 +1,68 @@
-// Type definitions for Flickity v1.1.1
+// Type definitions for Flickity 2.0
 // Project: http://flickity.metafizzy.co/
 // Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
-// Definitions: https://github.com/clmcgrath/
-// TypeScript Version: 2.3
 
+export as namespace Flickity;
+export = Flickity;
 
-interface JQuery {
-    /**
-    * initialize fickity plugin
-    */
-    flickity: FlickityJquery;
+declare global {
+    interface JQuery {
+        flickity(options?: FlickityOptions): JQuery;
+        flickity(command: string, ...params: any[]): JQuery;
+    }
 }
 
-interface FlickityJquery {
-    (options?: FlickityOptions): JQuery;
-    (command: string, ...params: any[]): JQuery;
+declare namespace Flickity {
+    export type FlickityEvents = 
+        /**
+         * Triggered when a slide is selected.
+         * This event was previously cellSelect in Flickity v1. cellSelect will continue to work in Flickity v2.
+         */
+        "select" | "cellSelect" |
+        /**
+         * Triggered when the slider is settled at its end position.
+         */
+        "settle" |
+        /**
+         * Triggered when the slider moves.
+         */
+        "scroll" |
+        /**
+         * Triggered when dragging starts and the slider starts moving.
+         */
+        "dragStart" |
+        /**
+         * Triggered when dragging moves and the slider moves.
+         */
+        "dragMove" |
+        /**
+         * Triggered when dragging ends.
+         */
+        "dragEnd" |
+        /**
+         * Triggered when the user's pointer (mouse, touch, pointer) presses down.
+         */
+        "pointerDown" |
+        /**
+         * Triggered when the user's pointer moves.
+         */
+        "pointerMove" |
+        /**
+         * Triggered when the user's pointer unpresses.
+         */
+        "pointerUp" |
+        /**
+         * Triggered when the user's pointer is pressed and unpressed and has not moved enough to start dragging.
+         */
+        "staticClick" |
+        /**
+         * Triggered after an image has been loaded with lazyLoad.
+         */
+        "lazyLoad" |
+        /**
+         * Triggered after a background image has been loaded with bgLazyLoad.
+         */
+        "bgLazyLoad";
 }
 
 declare class Flickity {
@@ -52,6 +100,17 @@ declare class Flickity {
     * The array of cells. Use cells.length for the total number of cells.
     */
     cells: Element[];
+
+    /**
+     * The array of slides. Useful for groupCells. A slide contains multiple cells. 
+     * If groupCells is disabled, then each slide is a cell, so they are one in the same.
+     */
+    slides: Element[];
+
+    /**
+     * An array of elements in the selected slide. Useful for groupCells.
+     */
+    selectedElements: Element[];
 
     // static methods
 
@@ -95,6 +154,16 @@ declare class Flickity {
     next(isWrapped?: boolean): void;
 
     /**
+    * Select a slide of a cell. Useful for groupCells.
+    * 
+    * @param {number | string} index Zero-based index OR selector string of the cell to select.
+    * @param {boolean} [isWrapped] Optional. If true, the last slide will be selected if at the first slide. 
+    * @param {boolean} [isInstant] If true, immediately view the selected slide without animation.
+    * @memberof Flickity
+    */
+    selectCell(index: number | string, isWrapped?: boolean, isInstant?: boolean): void;
+
+    /**
     * Resize the gallery and re-position cells.
     */
     resize(): void;
@@ -110,14 +179,14 @@ declare class Flickity {
     *
     * @param elements JQuery, Element[], Element, or NodeList
     */
-    prepend(elements: Element | NodeList): void;
+    prepend(elements: JQuery | Element[] | Element | NodeList): void;
 
     /**
     * Append elements and create cells to the end of the gallery.
     *
     * @param elements JQuery, Element[], Element, or NodeList
     */
-    append(elements: Element | NodeList): void;
+    append(elements: JQuery | Element[] | Element | NodeList): void;
 
     /**
     * Insert elements into the gallery and create cells.
@@ -125,14 +194,34 @@ declare class Flickity {
     * @param elements Element[], Element, or NodeList
     * @param index Integer: Zero-based index to insert elements.
     */
-    insert(elements: Element[] | Element | NodeList, index: number): void;
+    insert(elements: JQuery | Element[] | Element | NodeList, index: number): void;
 
     /**
     * Remove cells from gallery and remove elements from DOM.
     *
     * @param elements Element[], Element, or NodeList
     */
-    remove(elements: Element[] | Element | NodeList): void;
+    remove(elements: JQuery | Element[] | Element | NodeList): void;
+
+    /**
+     * Starts auto-play. Setting autoPlay will automatically start auto-play on initialization. You do not need to start auto-play with playPlayer.
+     */
+    playPlayer(): void;
+
+    /**
+     * Stops auto-play and cancels pause.
+     */
+    stopPlayer(): void;
+
+    /**
+     * Pauses auto-play.
+     */
+    pausePlayer(): void;
+
+    /**
+     * Resumes auto-play if paused.
+     */
+    unpausePlayer(): void;
 
     /**
     * Remove Flickity functionality completely. destroy will return the element back to its pre-initialized state.
@@ -159,82 +248,82 @@ declare class Flickity {
 
     /**
     * bind event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
+    on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
     /**
     * bind event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
+    on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, moveVector?: {x: number, y: number}) => any): void;
     /**
     * bind event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    on(eventname: string, callback: (eventt?: Event, cellElement?: Element) => any) : void;
+    on(eventname: Flickity.FlickityEvents, callback: (event?: Event, cellElement?: Element) => any) : void;
     /**
     * bind event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    on(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
+    on(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 
     /**
     * Remove event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
+    off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
     /**
     * Remove event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
+    off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
     * Remove event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    off(eventname: string, callback: (event?: Event, cellElement?: Element) => any): void;
+    off(eventname: Flickity.FlickityEvents, callback: (event?: Event, cellElement?: Element) => any): void;
 
     /**
     * Remove event listener
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
-    off(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
+    off(eventname: Flickity.FlickityEvents, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 
 
     /**
     * one time event handler
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, cellElement?: Element, cellIndex?: number) => any): void;
 
     /**
     * one time event handler
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch, moveVector?: Object) => any): void;
 
     /**
     * one time event handler
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
     once(eventname: string, callback: (event?: Event, cellElement?: Element) => any): void;
 
     /**
     * one time event handler
-    * @param eventName name of event  (@see FlickityEvents class for filckity supported events)
+    * @param eventName name of event  (@see Flickity.FlickityEvents class for filckity supported events)
     * @param callback callback funtion to execute when event fires
     */
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
@@ -251,8 +340,6 @@ interface FlickityOptions {
 
     /**
     * Zero-based index of the initial selected cell.
-    *
-    * default: 2
     */
     initialIndex?: number;
 
@@ -336,12 +423,32 @@ interface FlickityOptions {
     wrapAround?: boolean;
 
     /**
+    * Groups cells together in slides. Flicking, page dots, and previous/next buttons are mapped to group slides, not individual cells. 
+    * `is-selected` class is added to the multiple cells in the selected slide.
+    * If set to true, group cells that fit in carousel viewport.
+    * If set to a number, group cells by that number.
+    * If set to a percent string, group cells that fit in the percent of the width of the carousel viewport.
+    */
+    groupCells?: boolean | number | string;
+
+    /**
     * Loads cell images when a cell is selected.
-    * Set the image's URL to load with data-flickity-lazyload.
-    *
+    * Set the image's URL to load with the `data-flickity-lazyload` attribute.
+    * If set to `true`, lazyloads image in selected slide
+    * If set to a number n, load images in selected slide and next n slides and previous n slides.
+    * 
     * default: false
     */
     lazyLoad?: boolean | number;
+
+    /**
+     * Loads cell background image when a cell is selected. 
+     * Set the background image's URL to load with the `data-flickity-bg-lazyload` attribute.
+     * If set to `true`, lazyloads background image in selected slide
+     * If set to a number n, load background images in selected slide and next n slides and previous n slides.
+     * bgLazyLoad requires the flickity-bg-lazyload package. This package is not included and must be installed separately.
+     */
+    bgLazyLoad?: boolean | number;
 
     /**
     * Automatically advances to the next cell.
@@ -349,6 +456,11 @@ interface FlickityOptions {
     * default: false
     */
     autoPlay?: boolean | number;
+
+    /**
+     * Changes height of carousel to fit height of selected slide.
+     */
+     adaptiveHeight?: boolean;
 
     /**
     * You can enable and disable Flickity with CSS. watchCSS option watches the content of :after of the gallery element. Flickity is enabled if :after content is 'flickity'.
@@ -365,6 +477,14 @@ interface FlickityOptions {
     */
     asNavFor?: string;
 
+
+    /**
+     * The number of pixels a mouse or touch has to move before dragging begins. Increase dragThreshold to allow for more wiggle room for vertical page scrolling on touch devices.
+     * 
+     * default: 3
+     */
+    dragThreshold?: number;
+
     /**
     * selectedAttraction attracts the position of the slider to the selected cell. Higher attraction makes the slider move faster. Lower makes it move slower.
     *
@@ -373,7 +493,7 @@ interface FlickityOptions {
     selectedAttraction?: number;
 
     /**
-    * riction slows the movement of slider. Higher friction makes the slider feel stickier and less bouncy. Lower friction makes the slider feel looser and more wobbly.
+    * Friction slows the movement of slider. Higher friction makes the slider feel stickier and less bouncy. Lower friction makes the slider feel looser and more wobbly.
     *
     * default: 0.28
     */
@@ -382,7 +502,7 @@ interface FlickityOptions {
     /**
     * Slows movement of slider when freeScroll: true. Higher friction makes the slider feel stickier. Lower friction makes the slider feel looser.
     *
-    * default: 0.75
+    * default: 0.075
     */
     freeScrollFriction?: number;
 
@@ -404,6 +524,6 @@ interface FlickityOptions {
     * Draws the shape of the arrows in the previous & next buttons.
     * javascript dictionary of points or path to SVG file
     */
-    arrowShape?: any;
+    arrowShape?: string | {x0: number, x1: number, y1: number, x2: number, y2: number, x3: number};
 
 }

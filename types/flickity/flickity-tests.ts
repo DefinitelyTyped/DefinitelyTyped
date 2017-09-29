@@ -132,3 +132,17 @@ var selectedIndex: number = flikty2.selectedIndex;
 
 var selectedElement: Element = flikty2.selectedElement;
 var cells: Array<Element> = flikty2.cells;
+
+//arrow shape tests
+var flikty3: Flickity = new Flickity("#flickity-gallery", {
+    arrowShape: "M 0,50 L 60,00 L 50,30 L 80,30 L 80,70 L 50,70 L 60,100 Z"
+});
+
+var flikty4: Flickity = new Flickity(new HTMLElement(), {
+    arrowShape: {
+        x0: 10,
+        x1: 60, y1: 50,
+        x2: 70, y2: 40,
+        x3: 30
+    }
+});
