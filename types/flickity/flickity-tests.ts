@@ -1,13 +1,8 @@
-// Type definition tests for Flickity v1.1.1
-// Project: http://flickity.metafizzy.co/
-// Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
-// Definitions: https://github.com/clmcgrath/
-
 /// <reference types="jquery"/>
 
 // jQuery tests
 
-var $flickity = $("#flickity-selector").flickity({
+let $flickity = $("#flickity-selector").flickity({
         initialIndex: 0,
         accessibility: true,
         asNavFor: "#nav-bar",
@@ -37,9 +32,9 @@ $flickity.flickity("next")
     .flickity("select", 4);
 
 // Vanilla jQuery tests
-var flikty: Flickity = new Flickity("#flickity-gallery");
+let flikty: Flickity = new Flickity("#flickity-gallery");
 
-var flikty2: Flickity =
+let flikty2: Flickity =
     new Flickity("#flickity-gallery",
         {
             initialIndex: 0,
@@ -68,9 +63,9 @@ var flikty2: Flickity =
         });
 
 // ES6 element selector for tests
-var element = document.querySelector("#gallery");
-var nodeList = document.querySelectorAll("#gallery");
-var cellElements: Element[] = flikty2.getCellElements();
+let element = document.querySelector("#gallery");
+let nodeList = document.querySelectorAll("#gallery");
+let cellElements: Element[] = flikty2.getCellElements();
 
 flikty2.select(1, true);
 flikty2.select(1);
@@ -120,24 +115,24 @@ flikty2.listener("myCustomEvent", (evt: Event) => {
 
 // static get data methods
 
-var jQdata = jQuery.fn.data("flickity")();
+let jQdata = jQuery.fn.data("flickity")();
 jQdata = $.fn.data("flickity")();
 
-var jsData = Flickity.data("#gallery");
+let jsData = Flickity.data("#gallery");
 jsData = Flickity.data("#gallery");
 
 // property tests
-var selectedIndex: number = flikty2.selectedIndex;
+let selectedIndex: number = flikty2.selectedIndex;
 
-var selectedElement: Element = flikty2.selectedElement;
-var cells: Element[] = flikty2.cells;
+let selectedElement: Element = flikty2.selectedElement;
+let cells: Element[] = flikty2.cells;
 
 // arrow shape tests
-var flikty3: Flickity = new Flickity("#flickity-gallery", {
+let flikty3: Flickity = new Flickity("#flickity-gallery", {
     arrowShape: "M 0,50 L 60,00 L 50,30 L 80,30 L 80,70 L 50,70 L 60,100 Z"
 });
 
-var flikty4: Flickity = new Flickity(new HTMLElement(), {
+let flikty4: Flickity = new Flickity(new HTMLElement(), {
     arrowShape: {
         x0: 10,
         x1: 60, y1: 50,
