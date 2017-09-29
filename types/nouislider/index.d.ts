@@ -187,7 +187,7 @@ declare namespace noUiSlider {
          * will also accept arrays. Within an array, you can set one position to null
          * if you want to leave a handle unchanged.
          */
-        set(value: number | number[]): void;
+        set(value: number | (number | null)[]): void;
         /**
          * To return to the initial slider values, you can use the .reset() method. This will only reset the slider values.
          */
