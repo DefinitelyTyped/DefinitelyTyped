@@ -5614,7 +5614,7 @@ export interface PixelRatioStatic {
  */
 export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
 
-interface PlatformStatic {
+interface PlatformStatic extends PlatformIOSStatic {
     OS: PlatformOSType
     Version: number
 
@@ -5622,6 +5622,11 @@ interface PlatformStatic {
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
     select<T>( specifics: { ios?: T, android?: T} ): T;
+}
+
+interface PlatformIOSStatic {
+    isPad: boolean
+    isTVOS: boolean
 }
 
 /**
