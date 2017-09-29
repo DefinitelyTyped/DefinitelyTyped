@@ -34,7 +34,7 @@ function help() {
 
 function onedragon() {
     // examples/onedragon.js
-    var opt = require('node-getopt').create([
+    var opt = Getopt.create([
         ['s' , ''                    , 'short option.'],
         [''  , 'long'                , 'long option.'],
         ['S' , 'short-with-arg=ARG'  , 'option with argument'],
@@ -52,7 +52,7 @@ function onedragon() {
 
 function online(){
     // node-getopt oneline example.
-    var opt = require('..').create([
+    var opt = Getopt.create([
         ['s' , ''                    , 'short option.'],
         [''  , 'long'                , 'long option.'],
         ['S' , 'short-with-arg=ARG'  , 'option with argument'],

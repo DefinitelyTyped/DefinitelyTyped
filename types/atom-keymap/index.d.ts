@@ -1,6 +1,6 @@
 // Type definitions for atom-keymap v5.1.5
 // Project: https://github.com/atom/atom-keymap/
-// Definitions by: Vadim Macagon <https://github.com/enlight/>
+// Definitions by: Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="event-kit" />

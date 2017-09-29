@@ -121,3 +121,41 @@ let spatialLayerOptions: H.datalens.SpatialLayer.Options = {
 };
 
 let spatialLayer = new H.datalens.SpatialLayer(provider, spatialProvider, spatialLayerOptions);
+
+let layer = new H.datalens.ObjectLayer(
+  provider,
+  {
+    rowToMapObject: (cluster) => {
+      return new H.map.Marker(cluster.getPosition());
+    },
+    clustering: {
+      rowToDataPoint: (row) => {
+        return new H.clustering.DataPoint(row.lat, row.lng, 1);
+      },
+      options: () => {
+        return {
+          eps: 25 * devicePixelRatio, // px
+          minWeight: 20
+        };
+      }
+    },
+    rowToStyle: (cluster) => {
+      const size = 32;
+
+      const icon = H.datalens.ObjectLayer.createIcon([
+        'svg',
+        {
+          viewBox: [-size, -size, 2 * size, 2 * size]
+        },
+        ['circle', {
+          cx: 0,
+          cy: 0,
+          r: size,
+          fill: cluster.isCluster() ? 'orange' : 'transparent'
+        }]
+      ], { size, crossOrigin: false });
+
+      return { icon };
+    }
+  }
+);

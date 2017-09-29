@@ -25,7 +25,7 @@ let config: Hapi.RouteAdditionalConfigurationOptions = {
     },
 };
 
-interface CustomValidationOptions {
+interface CustomValidationOptions extends Joi.ValidationOptions {
     myOption: number;
 }
 

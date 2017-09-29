@@ -197,7 +197,7 @@ declare namespace send {
         /**
          * Pipe to `res`.
          */
-        pipe(res: stream.Writable): stream.Writable;
+        pipe<T extends NodeJS.WritableStream>(res: T): T;
 
         /**
          * Transfer `path`.

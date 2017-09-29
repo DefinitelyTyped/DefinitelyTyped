@@ -89,6 +89,7 @@ declare var awaitExpression: ESTree.AwaitExpression;
 declare var toplevelStatement: ESTree.Statement | ESTree.ModuleDeclaration;
 declare var expressionOrPattern: ESTree.Expression | ESTree.Pattern;
 declare var variableDeclaratorOrExpression: ESTree.VariableDeclaration | ESTree.Expression;
+declare var variableDeclaratorOrPattern: ESTree.VariableDeclaration | ESTree.Pattern;
 declare var literalOrIdentifier: ESTree.Literal | ESTree.Identifier;
 declare var blockStatementOrExpression: ESTree.BlockStatement | ESTree.Expression;
 declare var identifierOrExpression: ESTree.Identifier | ESTree.Expression;
@@ -156,7 +157,7 @@ var expressionMaybe: ESTree.Expression | null | undefined = forStatement.update;
 
 // ForInStatement
 var forInStatement: ESTree.ForInStatement;
-variableDeclaratorOrExpression = forInStatement.left;
+variableDeclaratorOrPattern = forInStatement.left;
 expression = forInStatement.right;
 
 // Expression
@@ -722,4 +723,34 @@ switch (moduleSpecifier.type) {
     break;
   default:
     never = moduleSpecifier;
+}
+
+switch (forInStatement.left.type) {
+  case 'Identifier':
+    identifier = forInStatement.left;
+    break;
+  case 'ObjectPattern':
+    objectPattern = forInStatement.left;
+    break;
+  case 'ArrayPattern':
+    arrayPattern = forInStatement.left;
+    break;
+  case 'MemberExpression':
+    memberExpression = forInStatement.left;
+    break;
+}
+
+switch (forOfStatement.left.type) {
+  case 'Identifier':
+    identifier = forOfStatement.left;
+    break;
+  case 'ObjectPattern':
+    objectPattern = forOfStatement.left;
+    break;
+  case 'ArrayPattern':
+    arrayPattern = forOfStatement.left;
+    break;
+  case 'MemberExpression':
+    memberExpression = forOfStatement.left;
+    break;
 }

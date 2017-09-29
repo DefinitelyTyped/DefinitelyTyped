@@ -35,6 +35,7 @@
         "test/request/generate-response.ts",
         "test/request/get-log.ts",
         "test/request/log.ts",
+        "test/request/query.ts",
         "test/request/set-method.ts",
         "test/request/set-url.ts",
         "test/request/tail.ts",

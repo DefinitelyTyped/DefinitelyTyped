@@ -16,8 +16,8 @@ import { Duplex } from "stream";
  */
 declare function sharp(input?: string | Buffer, options?: sharp.SharpOptions): sharp.SharpInstance;
 declare namespace sharp {
-    const gravity: sharp.GravityEnum;
-    const strategy: sharp.StrategyEnum;
+    const gravity: GravityEnum;
+    const strategy: StrategyEnum;
     /**
      * Gets, or when options are provided sets, the limits of libvips' operation cache.
      * Existing entries in the cache will be trimmed after any change in limits.
@@ -25,7 +25,7 @@ declare namespace sharp {
      * @param {boolean|sharp.CacheOptions} options Object with the cache options, or Boolean where true uses default cache settings and false removes all caching.
      * @returns {Object}
      */
-    function cache(options?: boolean | sharp.CacheOptions): CacheResult;
+    function cache(options?: boolean | CacheOptions): CacheResult;
     /**
      * Gets, or when a concurrency is provided sets, the number of threads libvips' should create to process each image.
      * @param {number} concurrency concurrency value
@@ -35,15 +35,15 @@ declare namespace sharp {
      * Provides access to internal task counters.
      * @returns {sharp.SharpCounters} Object containing task counters
      */
-    function counters(): sharp.SharpCounters;
+    function counters(): SharpCounters;
     /**
      * Get and set use of SIMD vector unit instructions.
      * @param {boolean} enable enable or disable use of SIMD vector unit instructions
      * @returns {boolean} true if usage of SIMD vector unit instructions is enabled
      */
     function simd(enable?: boolean): boolean;
-    const kernel: sharp.KernelEnum;
-    const interpolator: sharp.InterpolatorEnum;
+    const kernel: KernelEnum;
+    const interpolator: InterpolatorEnum;
     /**
      * Object containing nested boolean values representing the available input and output formats/methods.
      */
@@ -51,7 +51,32 @@ declare namespace sharp {
     /** An EventEmitter that emits a change event when a task is either queued, waiting for libuv to provide a worker thread, complete */
     const queue: NodeJS.EventEmitter;
     /** An Object containing the version numbers of libvips and its dependencies. */
-    const versions: string[];
+    const versions: {
+        vips: string;
+        cairo?: string;
+        croco?: string;
+        exif?: string;
+        expat?: string;
+        ffi?: string;
+        fontconfig?: string;
+        freetype?: string;
+        gdkpixbuf?: string;
+        gif?: string;
+        glib?: string;
+        gsf?: string;
+        harfbuzz?: string;
+        jpeg?: string;
+        lcms?: string;
+        orc?: string;
+        pango?: string;
+        pixman?: string;
+        png?: string;
+        svg?: string;
+        tiff?: string;
+        webp?: string;
+        xml?: string;
+        zlib?: string;
+    };
     const bool: BoolEnum;
 
     interface SharpInstance extends Duplex {

@@ -1,5 +1,5 @@
 import merge = require("webpack-merge");
-import {Configuration} from "webpack";
+import { Configuration } from "webpack";
 
 const a: Configuration = {
     entry: "test.js"

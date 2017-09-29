@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import {Stream} from 'stream';
+import { Stream } from 'stream';
 
 export function array(arr: any[], message ?: string): void;
 

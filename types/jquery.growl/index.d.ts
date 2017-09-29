@@ -2,6 +2,7 @@
 // Project: https://github.com/ksylvest/jquery-growl#readme
 // Definitions by: Amir.h Yeganemehr <https://github.com/yeganemehr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

@@ -1,9 +1,9 @@
 import twig = require('twig');
 
 const value: any = "";
-const str: string = "";
-const num: number = 0;
-const bool: boolean = false;
+const str = "";
+const num = 0;
+const bool = false;
 
 const params: twig.Parameters = {
 	id: value,

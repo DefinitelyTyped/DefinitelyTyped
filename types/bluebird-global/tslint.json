@@ -5,6 +5,7 @@
         "no-empty-interface": false,
         "array-type": false,
         "unified-signatures": false,
-        "ban-types": false
+        "ban-types": false,
+        "no-unnecessary-generics": false
     }
 }

@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 interface Props extends React.HTMLProps<HTMLUListElement> {
   inline?: boolean;
   disabled?: boolean;
@@ -7,6 +9,7 @@ interface Props extends React.HTMLProps<HTMLUListElement> {
   navbar?: boolean;
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
   vertical?: boolean;
 }
 

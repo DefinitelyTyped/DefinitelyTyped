@@ -39,7 +39,16 @@ function fix(config: any): any {
 	const out: any = {};
 	for (const key in config) {
 		let value = config[key];
-		out[key] = value;
+		out[key] = key === "rules" ? fixRules(value) : value;
 	}
 	return out;
 }
+
+function fixRules(rules: any): any {
+	const out: any = {};
+	for (const key in rules) {
+		out[key] = rules[key];
+	}
+	return out;
+}
+

@@ -2,6 +2,7 @@
 // Project: https://github.com/akiran/react-slick
 // Definitions by: Andrey Balokha <https://github.com/andrewBalekha>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 

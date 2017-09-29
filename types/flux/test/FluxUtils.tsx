@@ -38,11 +38,9 @@ interface State {
 }
 
 class CounterContainer extends React.Component<Props, State> {
-    static getStores() {
+    static getStores(): Container.StoresList {
         return [Store];
     }
-
-    static a: string = "asd";
 
     static calculateState(prevState: State, props: Props): State {
         return {

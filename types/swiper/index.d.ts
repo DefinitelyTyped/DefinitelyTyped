@@ -1,6 +1,6 @@
 // Type definitions for Swiper 3.4
 // Project: https://github.com/nolimits4web/Swiper
-// Definitions by: Sebastián Galiano <https://github.com/sgaliano/>, Luca Trazzi <https://github.com/lucax88x/>
+// Definitions by: Sebastián Galiano <https://github.com/sgaliano>, Luca Trazzi <https://github.com/lucax88x>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SwiperOptions {
@@ -193,6 +193,10 @@ interface SwiperOptions {
     onLazyImageLoad?(swiper: Swiper, slide: any, image: any): void;
     onLazyImageReady?(swiper: Swiper, slide: any, image: any): void;
     onPaginationRendered?(swiper: Swiper, paginationContainer: any): void;
+    onScroll?(swiper: Swiper, event: Event): void;
+    onBeforeResize?(swiper: Swiper): void;
+    onAfterResize?(swiper: Swiper): void;
+    onKeyPress?(swiper: Swiper, kc: any): void;
 
     // Namespace
     slideClass?: string;
@@ -237,6 +241,8 @@ declare class Swiper {
     height: number;
     params: any;
     positions: any;
+    wrapper: any;
+    virtualSize: number;
 
     // Feature detection
     support: {

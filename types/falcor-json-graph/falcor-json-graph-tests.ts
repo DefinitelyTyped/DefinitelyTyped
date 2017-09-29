@@ -1,6 +1,6 @@
 
 
-import {Key, KeySet, Path, PathSet, ref, atom, error, pathValue, pathInvalidation} from 'falcor-json-graph';
+import { Key, KeySet, Path, PathSet, ref, atom, error, pathValue, pathInvalidation } from 'falcor-json-graph';
 
 const stringKey: Key = "productsById";
 const numberKey: Key = 10;

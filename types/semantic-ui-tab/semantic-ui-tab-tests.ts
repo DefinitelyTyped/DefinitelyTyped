@@ -1,5 +1,5 @@
 function test_tab_static() {
-    $.fn.tab.settings.error.method = 'method';
+    $.fn.tab.settings.error!.method = 'method';
     $.fn.tab.settings.namespace = 'namespace';
     $.fn.tab.settings.name = 'name';
     $.fn.tab.settings.silent = false;
@@ -10,17 +10,18 @@ function test_tab_static() {
 
 function test_tab() {
     const selector = '.ui.tab';
-    $(selector).tab('change tab', 'path') === $();
-    $(selector).tab('set state', 'path') === $();
-    $(selector).tab('get path') === 'path';
-    $(selector).tab('is tab') === false;
-    $(selector).tab('cache read', 'path') === false;
-    $(selector).tab('cache add', 'path', 'html') === $();
-    $(selector).tab('cache remove', 'path') === $();
-    $(selector).tab('destroy') === $();
-    $(selector).tab('setting', 'debug', undefined) === false;
-    $(selector).tab('setting', 'debug') === false;
-    $(selector).tab('setting', 'debug', true) === $();
+    $(selector).tab('change tab', 'path'); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab('set state', 'path'); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab('get path'); // $ExpectType string
+    $(selector).tab('is tab'); // $ExpectType boolean
+    $(selector).tab('cache read', 'path'); // $ExpectType string | false
+    $(selector).tab('cache add', 'path', 'html'); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab('cache remove', 'path'); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).tab('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).tab('setting', 'debug'); // $ExpectType boolean
+    $(selector).tab('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).tab('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -28,7 +29,8 @@ function test_tab() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).tab({
         auto: false,
         deactivate: 'siblings',
@@ -56,56 +58,58 @@ function test_tab() {
             urlData: false,
             response: false,
             responseAsync(settings, callback) {
-                settings === ({} as SemanticUI.ApiSettings);
-                callback === ((response: any) => { });
+                settings; // $ExpectType Param
+                callback; // $ExpectType (response: any) => void
             },
             mockResponse: false,
             mockResponseAsync(settings, callback) {
-                settings === ({} as SemanticUI.ApiSettings);
-                callback === ((response: any) => { });
+                settings; // $ExpectType Param
+                callback; // $ExpectType (response: any) => void
             },
             method: 'post',
             dataType: 'xml',
             data: {},
             beforeSend(settings) {
-                settings === ({} as SemanticUI.ApiSettings);
+                settings; // $ExpectType Param
             },
             beforeXHR(xhrObject) {
-                xhrObject === ({} as JQueryXHR);
+                xhrObject; // $ExpectType jqXHR<any>
             },
             onRequest(promise, xhr) {
-                promise === ({} as JQueryDeferred<any>);
-                xhr === ({} as JQueryXHR);
+                promise; // $ExpectType Deferred<any, any, any>
+                xhr; // $ExpectType jqXHR<any>
             },
             onResponse(response) {
-                response === ({} as any);
+                response; // $ExpectType any
             },
             successTest(response) {
-                return response === ({} as any);
+                response; // $ExpectType any
+
+                return false;
             },
             onSuccess(response, element, xhr) {
-                response === ({} as any);
-                element === $();
-                xhr === ({} as JQueryXHR);
+                response; // $ExpectType any
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
             },
             onComplete(response, element, xhr) {
-                response === ({} as any);
-                element === $();
-                xhr === ({} as JQueryXHR);
+                response; // $ExpectType any
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
             },
             onFailure(response, element) {
-                response === ({} as any);
-                element === $();
+                response; // $ExpectType any
+                element; // $ExpectType JQuery<HTMLElement>
             },
             onError(errorMessage, element, xhr) {
-                errorMessage === '';
-                element === $();
-                xhr === ({} as JQueryXHR);
+                errorMessage; // $ExpectType string
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
             },
             onAbort(errorMessage, element, xhr) {
-                errorMessage === '';
-                element === $();
-                xhr === ({} as JQueryXHR);
+                errorMessage; // $ExpectType string
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
             },
             regExp: {
                 required: /{\$*[A-z0-9]+}/g,
@@ -146,28 +150,29 @@ function test_tab() {
         maxDepth: 10,
         loadOnce: false,
         onFirstLoad(tabPath, parameterArray, historyEvent) {
-            this === $();
-            tabPath === 'tabPath';
-            parameterArray === [];
-            historyEvent === {};
+            this; // $ExpectType JQuery<HTMLElement>
+            tabPath; // $ExpectType string
+            parameterArray; // $ExpectType any[]
+            historyEvent; // $ExpectType any
         },
         onLoad(tabPath, parameterArray, historyEvent) {
-            this === $();
-            tabPath === 'tabPath';
-            parameterArray === [];
-            historyEvent === {};
+            this; // $ExpectType JQuery<HTMLElement>
+            tabPath; // $ExpectType string
+            parameterArray; // $ExpectType any[]
+            historyEvent; // $ExpectType any
         },
         onRequest(tabPath) {
-            this === $();
-            tabPath === 'tabPath';
+            this; // $ExpectType JQuery<HTMLElement>
+            tabPath; // $ExpectType string
         },
         onVisible(tabPath) {
-            this === $();
-            tabPath === 'tabPath';
+            this; // $ExpectType JQuery<HTMLElement>
+            tabPath; // $ExpectType string
         },
         templates: {
             determineTitle(tabArray) {
-                tabArray === [];
+                tabArray; // $ExpectType any[]
+
                 return 'title';
             }
         },
@@ -193,12 +198,16 @@ function test_tab() {
             recursion: 'recursion',
             state: 'state'
         }
-    }) === $();
-    $(selector).tab() === $();
+    });
+    $(selector).tab(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).tab('foo'); // $ExpectError
+    $(selector).tab({ foo: 'bar' }); // $ExpectError
 }
 
 import tab = require('semantic-ui-tab');
 
 function test_module() {
+    tab; // $ExpectType Tab
     $.fn.tab = tab;
 }

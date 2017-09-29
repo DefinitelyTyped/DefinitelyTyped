@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Swipeable from 'react-swipeable';
 
-class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps, void> {
+class SampleComponent extends React.PureComponent<Swipeable.SwipeableProps> {
   private handleSwiped: Swipeable.OnSwipedCallback = () => {};
   private handleSwiping: Swipeable.OnSwipingCallback = () => {};
   private handleSwipingUp: Swipeable.OnSwipingDirectionCallback = () => {};

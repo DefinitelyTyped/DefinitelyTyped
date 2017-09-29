@@ -1,6 +1,7 @@
 // Type definitions for Glob 5.0.10
 // Project: https://github.com/isaacs/node-glob
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
+//                 voy <https://github.com/voy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -49,6 +50,7 @@ declare namespace G {
         realpath?: boolean;
         nonegate?: boolean;
         nocomment?: boolean;
+        absolute?: boolean;
 
         /** Deprecated. */
         globDebug?: boolean;

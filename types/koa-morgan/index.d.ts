@@ -4,19 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+import { IncomingMessage, ServerResponse } from 'http';
 import * as Koa from 'koa';
 import * as originalMorgan from 'morgan';
 
 declare namespace morgan {
     interface FormatFn {
-        (tokens: TokenIndexer, req: Koa.Request, res: Koa.Response): string;
+        (tokens: TokenIndexer, req: IncomingMessage, res: ServerResponse): string;
     }
 
     interface TokenCallbackFn {
-        (req: Koa.Request, res: Koa.Response, arg?: string | number | boolean): string;
+        (req: IncomingMessage, res: ServerResponse, arg?: string | number | boolean): string;
     }
 
-    interface TokenIndexer extends originalMorgan.TokenIndexer {}
+    type TokenIndexer = originalMorgan.TokenIndexer;
 
     /**
      * Public interface of morgan logger
@@ -121,7 +122,7 @@ declare namespace morgan {
      */
     function compile(format: string): FormatFn;
 
-    interface StreamOptions extends originalMorgan.StreamOptions {}
+    type StreamOptions = originalMorgan.StreamOptions;
 
     /***
      * Morgan accepts these properties in the options object.
@@ -141,7 +142,7 @@ declare namespace morgan {
         /***
          * Function to determine if logging is skipped, defaults to false. This function will be called as skip(req, res).
          */
-        skip?: (req: Koa.Request, res: Koa.Response) => boolean;
+        skip?: (req: IncomingMessage, res: ServerResponse) => boolean;
 
         /***
          * Output stream for writing log lines, defaults to process.stdout.
@@ -206,6 +207,6 @@ declare function morgan(format: 'tiny', options?: morgan.Options): Koa.Middlewar
  * @param format
  * @param options
  */
-declare function morgan(custom: (req: Koa.Request, res: Koa.Response) => string): Koa.Middleware;
+declare function morgan(custom: (req: IncomingMessage, res: ServerResponse) => string): Koa.Middleware;
 
 export = morgan;

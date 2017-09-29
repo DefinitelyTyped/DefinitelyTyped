@@ -1,6 +1,7 @@
+import { CSSModule } from '../index';
 import { ColumnProps } from './Col';
 
-interface Intermediate extends React.ChangeTargetHTMLProps<HTMLLabelElement> {
+interface Intermediate extends React.LabelHTMLAttributes<HTMLLabelElement> {
   size?: any;
 }
 
@@ -13,6 +14,7 @@ interface Props extends Intermediate {
   for?: string;
   tag?: string;
   className?: string;
+  cssModule?: CSSModule;
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;

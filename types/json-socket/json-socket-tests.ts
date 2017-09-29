@@ -1,6 +1,6 @@
 
 import JsonSocket = require("json-socket");
-import {Socket} from "net";
+import { Socket } from "net";
 
 JsonSocket.sendSingleMessage(42, "localhost", {foo: "bar"}, (err: Error) => {});
 JsonSocket.sendSingleMessageAndReceive(42, "localhost", {foo: "bar"}, (err: Error, message: any) => {});

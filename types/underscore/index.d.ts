@@ -1,6 +1,6 @@
 // Type definitions for Underscore 1.8
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Josh Baldwin <https://github.com/jbaldwin>, Christopher Currens <https://github.com/ccurrens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var _: _.UnderscoreStatic;
@@ -6042,7 +6042,7 @@ declare module _ {
         * @param compareFn Optional. Specifies a function that defines the sort order. If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.
         * @return The sorted array.
         **/
-        sort(compareFn: (a: T, b: T) => boolean): _Chain<T>;
+        sort(compareFn?: (a: T, b: T) => boolean): _Chain<T>;
 
         /**
         * Changes the content of an array by removing existing elements and/or adding new elements.

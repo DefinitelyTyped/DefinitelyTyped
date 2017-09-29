@@ -97,12 +97,22 @@ webAuth.renewAuth({
       // Renewed tokens or error
 });
 
+webAuth.renewAuth({}, (err, authResult) => {});
+
 webAuth.renewAuth({
 	nonce: '123',
     state: '456',
     postMessageDataType: 'auth0:silent-authentication'
 }, function (err, authResult) {
       // Renewed tokens or error
+});
+
+webAuth.renewAuth({
+  audience: 'urn:site:demo:blog',
+  redirectUri: 'http://page.com/callback',
+  usePostMessage: true
+}, (err, authResult) => {
+
 });
 
 webAuth.changePassword({connection: 'the_connection',
@@ -120,7 +130,10 @@ webAuth.signupAndAuthorize({
     connection: 'the_connection',
     email: 'me@example.com',
     password: '123456',
-    scope: 'openid'
+    scope: 'openid',
+    user_metadata: {
+        foo: 'bar'
+    }
 }, function (err, data) {
 
 });
@@ -175,7 +188,7 @@ authentication.buildAuthorizeUrl({
     connection_scope: 'scope1,scope2'
 });
 
-authentication.buildLogoutUrl('asdfasdfds');
+authentication.buildLogoutUrl({ clientID: 'asdfasdfds' });
 authentication.buildLogoutUrl();
 authentication.userInfo('abcd1234', (err, data) => {
   //user info retrieved

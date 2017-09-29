@@ -1,11 +1,11 @@
 import * as React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll = require('react-infinite-scroller');
 
-class Test1 extends React.Component<{}, {}> {
-    public render() {
+class Test1 extends React.Component {
+    render() {
         return (
             <InfiniteScroll
-                loadMore={() => {}}
+                loadMore={(page) => {}}
             >
                 <div>Test 1</div>
             </InfiniteScroll>
@@ -13,11 +13,11 @@ class Test1 extends React.Component<{}, {}> {
     }
 }
 
-class Test2 extends React.Component<{}, {}> {
-    public render() {
+class Test2 extends React.Component {
+    render() {
         return (
             <InfiniteScroll
-                loadMore={() => {}}
+                loadMore={(page) => {}}
                 element='section'
                 hasMore
                 initialLoad={false}

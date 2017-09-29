@@ -1,7 +1,7 @@
 import * as React from "react";
 import Slider from "react-motion-slider";
 
-class Test extends React.Component<{}, {}> {
+class Test extends React.Component {
     protected slider: Slider;
 
     public render() {

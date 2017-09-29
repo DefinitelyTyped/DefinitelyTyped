@@ -1,5 +1,3 @@
-
-
 $(".royalSlider").royalSlider();
 
 $(".royalSlider").royalSlider({
@@ -171,7 +169,7 @@ slider.ev.on('rsAfterSlideChange', function (event) {
 slider.ev.on('rsBeforeAnimStart', function (event) {
     // before animation between slides start
 });
-slider.ev.on('rsBeforeMove', function (event: JQueryEventObject, type?: string, userAction?: boolean) {
+slider.ev.on('rsBeforeMove', function (event, type?: string, userAction?: boolean) {
     // before any transition start (including after drag release)
     // "type" - can be "next", "prev", or ID of slide to move
     // userAction (Boolean) - defines if action is trighered by user (e.g. will be false if movement is trighered by autoPlay)
@@ -188,7 +186,7 @@ slider.ev.on('rsDragRelease', function () {
 slider.ev.on('rsBeforeDestroy', function () {
     // triggers before slider in destroyed
 });
-slider.ev.on('rsOnCreateVideoElement', function (e: JQueryEventObject, url?: string) {
+slider.ev.on('rsOnCreateVideoElement', function (e, url?: string) {
     // triggers before video element is created, after click on play button. 
     // Read more in Tips&Tricks section
 });
@@ -214,7 +212,7 @@ slider.slides[2].holder.on('rsAfterContentSet', function () {
     // fires when third slide content is loaded and added to DOM
 });
 // or globally
-slider.ev.on('rsAfterContentSet', function (e: JQueryEventObject, slideObject?: RoyalSlider.RoyalSlider) {
+slider.ev.on('rsAfterContentSet', function (e, slideObject?: RoyalSlider.RoyalSlider) {
     // fires when every time when slide content is loaded and added to DOM
 });
 
@@ -224,7 +222,7 @@ slider.ev.on('rsAfterContentSet', function (e: JQueryEventObject, slideObject?: 
 slider.ev.on('rsAfterInit', function () {
     // after slider is initialized, 
 });
-slider.ev.on('rsBeforeParseNode', function (e: JQueryEventObject, content?: any, obj?: any) {
+slider.ev.on('rsBeforeParseNode', function (e, content?: any, obj?: any) {
     // before slide node is parsed
     // content - HTML object of slide that is parsed
     // obj - RoyalSlider data object (stores image URLs)
