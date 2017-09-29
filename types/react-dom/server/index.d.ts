@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { ReactElement } from 'react';
 
 /**
@@ -17,7 +19,7 @@ export function renderToString(element: ReactElement<any>): string;
  * an HTML string. The HTML output by this stream is exactly equal to what
  * `ReactDOMServer.renderToString()` would return.
  */
-export function renderToNodeStream(element: ReactElement<any>): ReadableStream;
+export function renderToNodeStream(element: ReactElement<any>): NodeJS.ReadableStream;
 
 /**
  * Similar to `renderToString`, except this doesn't create extra DOM attributes
@@ -32,7 +34,7 @@ export function renderToStaticMarkup(element: ReactElement<any>): string;
  * such as `data-reactid`, that React uses internally. The HTML output by this stream
  * is exactly equal to what `ReactDOMServer.renderToStaticMarkup()` would return.
  */
-export function renderToStaticNodeStream(element: ReactElement<any>): ReadableStream;
+export function renderToStaticNodeStream(element: ReactElement<any>): NodeJS.ReadableStream;
 
 export const version: string;
 
