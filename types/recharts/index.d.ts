@@ -10,6 +10,11 @@ import * as React from 'react';
 
 export type Percentage = string;
 export type RechartsFunction = () => void;
+export type LabelFormatter = (label: string | number) => React.ReactNode;
+export type TooltipFormatter = (value: string | number | Array<string | number>, name: string,
+                                entry: TooltipPayload, index: number) => React.ReactNode;
+export type ItemSorter<T> = (a: T, b: T) => number;
+export type ContentRenderer<P> = (props: P) => React.ReactNode;
 
 export type LegendType = 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
 export type LayoutType = 'horizontal' | 'vertical';
@@ -153,7 +158,7 @@ export interface CartesianAxisProps {
 	tickSize?: number;
 	interval?: "preserveStart" | "preserveEnd" | "preserveStartEnd" | number;
 	tick?: boolean | any | React.ReactElement<any> | RechartsFunction;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<CartesianAxisProps>;
 	mirror?: boolean;
 }
 
@@ -261,7 +266,7 @@ export interface LegendProps {
 	chartWidth?: number;
 	chartHeight?: number;
 	margin?: Margin;
-	content?: React.ReactElement<any> | RechartsFunction;
+	content?: React.ReactElement<any> | ContentRenderer<LegendProps>;
 	wrapperStyle?: any;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -540,8 +545,9 @@ export interface ReferenceAreaProps {
 	viewBox?: ViewBox;
 	xAxis?: any;
 	yAxis?: any;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceAreaProps>;
 	isFront?: boolean;
+    className?: string;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
@@ -551,11 +557,13 @@ export interface ReferenceDotProps {
 	yAxisId?: string | number;
 	x: number | string;
 	y: number | string;
+	r: number;
 	alwaysShow?: boolean;
 	xAxis: any;
 	yAxis: any;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceDotProps>;
 	isFront?: boolean;
+    className?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -577,8 +585,9 @@ export interface ReferenceLineProps {
 	viewBox?: ViewBox;
 	xAxis?: any;
 	yAxis?: any;
-	label?: string | number | React.ReactElement<any> | RechartsFunction;
+	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceLineProps>;
 	isFront?: boolean;
+    className?: string;
 }
 
 export class ReferenceLine extends React.Component<ReferenceLineProps> { }
@@ -589,7 +598,10 @@ export interface ResponsiveContainerProps {
 	height?: Percentage | number;
 	minWidth?: number;
 	minHeight?: number;
+    maxHeight?: Percentage | number;
 	debounce?: number;
+	id?: string | number;
+	className?: string;
 }
 
 export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }
@@ -606,6 +618,7 @@ export interface ScatterProps extends Partial<CSSStyleDeclaration> {
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
+    className?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -659,6 +672,7 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 	angle?: number;
 	textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
 	verticalAnchor?: 'start' | 'middle' | 'end';
+	style?: React.CSSProperties;
 }
 
 export class Text extends React.Component<TextProps> { }
@@ -675,7 +689,7 @@ export interface Coordinate {
 }
 export interface TooltipPayload {
 	name: string;
-	value: number;
+	value: string | number | Array<string | number>;
 	unit: string;
 }
 export interface TooltipProps {
@@ -690,13 +704,14 @@ export interface TooltipProps {
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
 	label?: string | number;
-	content?: React.ReactElement<any> | React.StatelessComponent<any> | RechartsFunction;
-	formatter?: RechartsFunction;
-	labelFormatter?: RechartsFunction;
-	itemSorter?: RechartsFunction;
+	content?: React.ReactElement<any> | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
+	formatter?: TooltipFormatter;
+	labelFormatter?: LabelFormatter;
+	itemSorter?: ItemSorter<TooltipPayload>;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
+	filterNull?: boolean;
 }
 
 export class Tooltip extends React.Component<TooltipProps> { }
@@ -714,12 +729,11 @@ export interface TreemapProps {
 
 export interface Label {
 	viewBox?: ViewBox;
-	formatter?: RechartsFunction;
+	formatter?: LabelFormatter;
 	value: string | number;
 	position?: PositionType;
 	offset?: number;
-	content?: React.ReactElement<any> | RechartsFunction;
-	chilren: any;
+	content?: React.ReactElement<any> | ContentRenderer<Label>;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }
