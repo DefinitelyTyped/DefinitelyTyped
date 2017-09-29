@@ -14,7 +14,7 @@ describe('ReactDOM', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
     });
-    
+
     it('hydrate', () => {
         const rootElement = document.createElement('div');
         ReactDOM.hydrate(React.createElement('div'), rootElement);
