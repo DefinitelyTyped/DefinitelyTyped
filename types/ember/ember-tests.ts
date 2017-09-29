@@ -182,7 +182,27 @@ const mix2 = Ember.Mixin.create({
     bar: 2,
 });
 
-const component1 = Ember.Component.extend(mix1, mix2, {
+const mix3 = Ember.Mixin.create({
+    foo: 3,
+});
+
+const mix4 = Ember.Mixin.create({
+    bar: 4,
+});
+
+const mix5 = Ember.Mixin.create({
+    foo: 5,
+});
+
+const mix6 = Ember.Mixin.create({
+    bar: 6,
+});
+
+const mix7 = Ember.Mixin.create({
+    foo: 7,
+});
+
+const component1 = Ember.Component.extend(mix1, mix2, mix3, mix4, mix5, mix6, mix7, {
     lyft: Ember.inject.service(),
     cars: Ember.computed.readOnly('lyft.cars'),
 });

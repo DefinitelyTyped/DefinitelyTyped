@@ -2,7 +2,7 @@
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
-//                 Roy Xue <https://github.com/xljroy>
+//                 Roy Xue <https://github.com/royxue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -678,10 +678,18 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 export class Text extends React.Component<TextProps> { }
 
 export interface ViewBox {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+}
+export interface PolarViewBox {
+	cx?: number;
+	cy?: number;
+	innerRadius?: number;
+	outerRadius?: number;
+	startAngle?: number;
+	endAngle?: number;
 }
 export interface Coordinate {
 	x: number;
@@ -728,12 +736,13 @@ export interface TreemapProps {
 }
 
 export interface Label {
-	viewBox?: ViewBox;
+	viewBox?: ViewBox | PolarViewBox;
 	formatter?: LabelFormatter;
 	value: string | number;
 	position?: PositionType;
 	offset?: number;
 	content?: React.ReactElement<any> | ContentRenderer<Label>;
+	children?: any;
 }
 
 export class Treemap extends React.Component<TreemapProps> { }

@@ -1,10 +1,8 @@
-/// <reference types="react-dom"/>
-
 import * as React from 'react';
 import { render } from 'react-dom';
-import { BootstrapTable, TableHeaderColumn, ApplyFilterParameter } from 'react-bootstrap-table';
+import { BootstrapTable, TableHeaderColumn, ApplyFilterParameter, Filter } from 'react-bootstrap-table';
 
-var products = [{
+const products = [{
   id: 1,
   name: "Item name 1",
   price: 100
@@ -71,11 +69,12 @@ function getCustomFilter(filterHandler: (parameters?: ApplyFilterParameter) => v
 
 class CustomFilter extends React.Component {
   render() {
+    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } };
     return (
       <BootstrapTable data={products}>
         <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='isInStock' filter={{ type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } }}>Product Is In Stock</TableHeaderColumn>
+        <TableHeaderColumn dataField='isInStock' filter={filter}>Product Is In Stock</TableHeaderColumn>
       </BootstrapTable>
     );
   }
@@ -83,6 +82,7 @@ class CustomFilter extends React.Component {
 
 class RemoteProps extends React.Component {
   render() {
+    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } };
     return (
       <BootstrapTable
         data={products}
@@ -96,7 +96,7 @@ class RemoteProps extends React.Component {
       >
         <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='isInStock' filter={{ type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } }}>Product Is In Stock</TableHeaderColumn>
+        <TableHeaderColumn dataField='isInStock' filter={filter}>Product Is In Stock</TableHeaderColumn>
       </BootstrapTable>
     );
   }
@@ -104,6 +104,7 @@ class RemoteProps extends React.Component {
 
 class RemoteBool extends React.Component {
   render() {
+    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } };
     return (
       <BootstrapTable
         data={products}
@@ -111,11 +112,38 @@ class RemoteBool extends React.Component {
       >
         <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='isInStock' filter={{ type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } }}>Product Is In Stock</TableHeaderColumn>
+        <TableHeaderColumn dataField='isInStock' filter={filter}>Product Is In Stock</TableHeaderColumn>
       </BootstrapTable>
     );
   }
 }
+
+/**
+ * See http://allenfang.github.io/react-bootstrap-table/docs.html#tdAttr
+ */
+const tdAttrExample = <BootstrapTable data={ products } search>
+    <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
+    <TableHeaderColumn dataField='name' tdAttr={ { "data-attr": 'test' } }>Product Name</TableHeaderColumn>
+    <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+</BootstrapTable>;
+
+/**
+ * See http://allenfang.github.io/react-bootstrap-table/docs.html#tdStyle
+ */
+const tdStyleExample = <BootstrapTable data={ products } search>
+    <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
+    <TableHeaderColumn dataField='name' tdStyle={ { whiteSpace: 'normal' } }>Product Name</TableHeaderColumn>
+    <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+</BootstrapTable>;
+
+/**
+ * See http://allenfang.github.io/react-bootstrap-table/docs.html#thStyle
+ */
+const thStyleExample = <BootstrapTable data={ products } search>
+    <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
+    <TableHeaderColumn dataField='name' thStyle={ { fontWeight: 'lighter' } }>Product Name</TableHeaderColumn>
+    <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+</BootstrapTable>;
 
 // Adopted from https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/column-header-span/column-header-span-complex.js
 export default class ColumnHeaderSpanComplex extends React.Component {

@@ -200,7 +200,7 @@ declare namespace Chart {
     interface ChartLegendLabelOptions {
         boxWidth?: number;
         fontSize?: number;
-        fontStyle?: number;
+        fontStyle?: string;
         fontColor?: ChartColor;
         fontFamily?: string;
         padding?: number;

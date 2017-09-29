@@ -679,6 +679,24 @@ declare namespace NodeJS {
         ref(): void;
         unref(): void;
     }
+
+    class Module {
+        static runMain(): void;
+        static wrap(code: string): string;
+
+        static Module: typeof Module;
+
+        exports: any;
+        require: NodeRequireFunction;
+        id: string;
+        filename: string;
+        loaded: boolean;
+        parent: Module | null;
+        children: Module[];
+        paths: string[];
+
+        constructor(id: string, parent?: Module);
+    }
 }
 
 interface IterableIterator<T> { }
@@ -2178,21 +2196,21 @@ declare module "url" {
         unicode?: boolean;
     }
 
-    export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<string[]>);
+    export class URLSearchParams implements Iterable<[string, string]> {
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
-        entries(): Iterator<string[]>;
+        entries(): IterableIterator<[string, string]>;
         forEach(callback: (value: string, name: string) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
-        keys(): Iterator<string>;
+        keys(): IterableIterator<string>;
         set(name: string, value: string): void;
         sort(): void;
         toString(): string;
-        values(): Iterator<string>;
-        [Symbol.iterator](): Iterator<string[]>;
+        values(): IterableIterator<string>;
+        [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 
     export class URL {
@@ -5627,23 +5645,7 @@ declare module "constants" {
 }
 
 declare module "module" {
-    class Module implements NodeModule {
-        static runMain(): void;
-        static wrap(code: string): string;
-
-        exports: any;
-        require: NodeRequireFunction;
-        id: string;
-        filename: string;
-        loaded: boolean;
-        parent: NodeModule | null;
-        children: NodeModule[];
-        paths: string[];
-
-        constructor(id: string, parent?: Module);
-    }
-
-    export = Module;
+    export = NodeJS.Module;
 }
 
 declare module "process" {

@@ -77,6 +77,26 @@ configuration = {
 };
 
 //
+// https://webpack.js.org/configuration/entry-context/#dynamic-entry
+//
+
+configuration = {
+    entry: () => './demo'
+};
+
+configuration = {
+    entry: () => ['./demo', './demo2']
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve('./demo'))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+//
 // https://webpack.github.io/docs/code-splitting.html
 //
 
