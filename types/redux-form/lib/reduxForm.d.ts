@@ -145,5 +145,3 @@ export declare function reduxForm<FormData = {}, P = {}>(
 ): FormDecorator<FormData, P, ConfigProps<FormData, P>>;
 
 export default reduxForm;
-
-
