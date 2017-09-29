@@ -8,16 +8,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "text-buffer": [ "text-buffer/v0" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "status-bar-tests.ts"
+        "text-buffer-tests.ts"
     ]
 }
