@@ -2,6 +2,7 @@
 // Project: http://craig.is/killing/mice
 // Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface ExtendedKeyboardEvent extends KeyboardEvent {
     returnValue: boolean; // IE returnValue

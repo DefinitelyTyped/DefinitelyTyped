@@ -2,11 +2,11 @@
 // Project: https://www.npmjs.com/package/react-file-reader-input
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Ali Taheri <https://github.com/alitaheri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
-declare class FileInput extends React.Component<FileInput.Props, {}> {
+declare class FileInput extends React.Component<FileInput.Props> {
 }
 
 declare namespace FileInput {

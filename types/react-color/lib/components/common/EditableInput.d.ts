@@ -1,5 +1,5 @@
 import { Component, ClassAttributes, CSSProperties } from "react";
-import { Color, ColorChangeHandler } from "react-color";
+import { Color, ColorChangeHandler } from "../../..";
 
 export interface EditableInputStyles {
     input?: CSSProperties;
@@ -17,4 +17,4 @@ export interface EditableInputProps extends ClassAttributes<EditableInput> {
     dragMax?: string;
 }
 
-export default class EditableInput extends Component<EditableInputProps, any> {}
+export default class EditableInput extends Component<EditableInputProps> {}

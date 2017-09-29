@@ -112,8 +112,8 @@ export interface FormatSpecifier {
     comma: boolean;
     /**
      * Depending on the type, the precision either indicates the number of digits that follow the decimal point (types 'f' and '%'),
-     * or the number of significant digits (types ''​ (none), 'e', 'g', 'r', 's' and 'p'). If the precision is not specified,
-     * it defaults to 6 for all types except ''​ (none), which defaults to 12.
+     * or the number of significant digits (types '' (none), 'e', 'g', 'r', 's' and 'p'). If the precision is not specified,
+     * it defaults to 6 for all types except '' (none), which defaults to 12.
      * Precision is ignored for integer formats (types 'b', 'o', 'd', 'x', 'X' and 'c').
      *
      * See precisionFixed and precisionRound for help picking an appropriate precision
@@ -137,7 +137,7 @@ export interface FormatSpecifier {
      * 'c' - converts the integer to the corresponding unicode character before printing.
      * '' (none) - like g, but trim insignificant trailing zeros.
      *
-     * The type 'n' is also supported as shorthand for ',g'. For the 'g', 'n' and ​''(none) types,
+     * The type 'n' is also supported as shorthand for ',g'. For the 'g', 'n' and ''(none) types,
      * decimal notation is used if the resulting string would have precision or fewer digits; otherwise, exponent notation is used.
      */
     type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n';
@@ -170,7 +170,7 @@ export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): Form
  *
  * Uses the current default locale.
  *
- * The general form of a specifier is [​[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
  * @param specifier A Specifier string
@@ -185,7 +185,7 @@ export function format(specifier: string): (n: number) => string;
  *
  *  Uses the current default locale.
  *
- * The general form of a specifier is [​[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
  * @param specifier A Specifier string
@@ -197,7 +197,7 @@ export function formatPrefix(specifier: string, value: number): (n: number) => s
  * Parses the specified specifier, returning an object with exposed fields that correspond to the
  * format specification mini-language and a toString method that reconstructs the specifier.
  *
- * The general form of a specifier is [​[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
  * @param specifier A specifier string.

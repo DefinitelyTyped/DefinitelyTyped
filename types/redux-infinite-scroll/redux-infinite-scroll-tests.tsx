@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import InfiniteScoller from "redux-infinite-scroll";
 
-class App extends React.Component<any, any> {
+class App extends React.Component {
     state = {
         numOfItems: 40,
         loadingMore: false

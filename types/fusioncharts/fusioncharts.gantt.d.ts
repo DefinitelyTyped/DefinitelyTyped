@@ -1,4 +1,4 @@
-import { FusionChartStatic } from "fusioncharts";
+import { FusionChartStatic } from ".";
 
 declare function gantt(H: FusionChartStatic): FusionChartStatic;
 export = gantt;

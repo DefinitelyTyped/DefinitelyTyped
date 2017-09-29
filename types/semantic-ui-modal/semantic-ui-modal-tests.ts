@@ -1,5 +1,5 @@
 function test_modal_static() {
-    $.fn.modal.settings.error.method = 'method';
+    $.fn.modal.settings.error!.method = 'method';
     $.fn.modal.settings.namespace = 'namespace';
     $.fn.modal.settings.name = 'name';
     $.fn.modal.settings.silent = false;
@@ -10,23 +10,24 @@ function test_modal_static() {
 
 function test_modal() {
     const selector = '.ui.modal';
-    $(selector).modal('show') === $();
-    $(selector).modal('hide') === $();
-    $(selector).modal('toggle') === $();
-    $(selector).modal('refresh') === $();
-    $(selector).modal('show dimmer') === $();
-    $(selector).modal('hide dimmer') === $();
-    $(selector).modal('hide others') === $();
-    $(selector).modal('hide all') === $();
-    $(selector).modal('cache sizes') === $();
-    $(selector).modal('can fit') === true;
-    $(selector).modal('is active') === true;
-    $(selector).modal('set active') === $();
-    $(selector).modal('attach events', 'selector', 'blur') === $();
-    $(selector).modal('destroy') === $();
-    $(selector).modal('setting', 'debug', undefined) === false;
-    $(selector).modal('setting', 'debug') === false;
-    $(selector).modal('setting', 'debug', true) === $();
+    $(selector).modal('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('refresh'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('show dimmer'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('hide dimmer'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('hide others'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('hide all'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('cache sizes'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('can fit'); // $ExpectType boolean
+    $(selector).modal('is active'); // $ExpectType boolean
+    $(selector).modal('set active'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('attach events', 'selector', 'blur'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).modal('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).modal('setting', 'debug'); // $ExpectType boolean
+    $(selector).modal('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).modal('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -34,7 +35,8 @@ function test_modal() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).modal({
         detachable: true,
         autofocus: false,
@@ -57,13 +59,13 @@ function test_modal() {
             },
             transition: 'fade',
             onShow() {
-                this === $();
+                this; // $ExpectType JQuery<HTMLElement>
             },
             onHide() {
-                this === $();
+                this; // $ExpectType JQuery<HTMLElement>
             },
             onChange() {
-                this === $();
+                this; // $ExpectType JQuery<HTMLElement>
             },
             selector: {
                 dimmable: '.dimmable',
@@ -93,27 +95,30 @@ function test_modal() {
         duration: 400,
         queue: true,
         onShow() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onVisible() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onHide($element) {
-            this === $();
-            $element === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $element; // $ExpectType JQuery<HTMLElement>
+
             return false;
         },
         onHidden() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onApprove($element) {
-            this === $();
-            $element === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $element; // $ExpectType JQuery<HTMLElement>
+
             return false;
         },
         onDeny($element) {
-            this === $();
-            $element === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            $element; // $ExpectType JQuery<HTMLElement>
+
             return false;
         },
         selector: {
@@ -128,12 +133,16 @@ function test_modal() {
         error: {
             method: 'method'
         }
-    }) === $();
-    $(selector).modal() === $();
+    });
+    $(selector).modal(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).modal('foo'); // $ExpectError
+    $(selector).modal({ foo: 'bar' }); // $ExpectError
 }
 
 import modal = require('semantic-ui-modal');
 
 function test_module() {
+    modal; // $ExpectType Modal
     $.fn.modal = modal;
 }

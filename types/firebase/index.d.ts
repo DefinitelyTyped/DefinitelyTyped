@@ -1,6 +1,6 @@
 // Type definitions for Firebase API 2.4.1
 // Project: https://www.firebase.com/docs/javascript/firebase
-// Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>, Sebastien Dubois <https://github.com/dsebastien/>, Szymon Stasik <https://github.com/ciekawy/>
+// Definitions by: Vincent Botone <https://github.com/vbortone>, Shin1 Kashimura <https://github.com/in-async/>, Sebastien Dubois <https://github.com/dsebastien>, Szymon Stasik <https://github.com/ciekawy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FirebaseAuthResult {

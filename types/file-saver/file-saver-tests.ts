@@ -1,6 +1,6 @@
 
 
-import {saveAs as importedSaveAs} from "file-saver";
+import { saveAs as importedSaveAs } from "file-saver";
 function testImportedSaveAs() {
     var data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
     var filename: string = 'hello world.txt';

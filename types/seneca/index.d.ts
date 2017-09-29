@@ -1,6 +1,6 @@
 // Type definitions for seneca v2.1.0
 // Project: https://www.npmjs.com/package/seneca
-// Definitions by: Peter Snider <https://github.com/psnider/>
+// Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/seneca
 
 
@@ -108,7 +108,8 @@ declare module "seneca" {
             },
             // zig module settings for seneca.start() chaining.
             zig?: any;
-            log?: {
+            log?: LogSpec | {
+                level?: LogLevel;
                 short?: boolean;
             };
             errhandler?: GlobalErrorHandler;
@@ -118,6 +119,21 @@ declare module "seneca" {
             //role?: string;
             //cmd?: string;
         }
+
+        type LogSpec =
+            'quiet' |    // { level: 'none' }
+            'silent' |   // { level: 'none' }
+            'any' |      // { level: 'debug+' }
+            'all' |      // { level: 'debug+' }
+            'print' |    // { level: 'debug+' }
+            'standard' | // { level: 'info+' }
+            'test'       // { level: 'warn+' }
+
+        type LogLevel =
+            'none' |
+            'debug+' |
+            'info+' |
+            'warn+'        
 
         interface Optioner {
         set: (input: string | Options) => Options;

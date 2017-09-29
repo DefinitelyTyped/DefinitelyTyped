@@ -1,5 +1,5 @@
-import { jsdom, JSDOM } from 'jsdom';
-import { CookieJar, MemoryCookieStore } from 'tough-cookie';
+import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow } from 'jsdom';
+import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
 
 function test_basic_usage() {
@@ -37,7 +37,7 @@ function test_executing_scripts3() {
 }
 
 function test_virtualConsole() {
-    const virtualConsole = new jsdom.VirtualConsole();
+    const virtualConsole = new VirtualConsole();
     const dom = new JSDOM(``, { virtualConsole });
 
     virtualConsole.on('error', () => { });
@@ -54,9 +54,9 @@ function test_virtualConsole() {
 
 function test_cookieJar() {
     const store = {} as MemoryCookieStore;
-    const options = {} as CookieJar.Options;
+    const options = {} as ToughCookieJar.Options;
 
-    const cookieJar = new jsdom.CookieJar(store, options);
+    const cookieJar = new CookieJar(store, options);
     const dom = new JSDOM(``, { cookieJar });
 }
 
@@ -111,11 +111,11 @@ function test_runVMScript() {
     dom.runVMScript(s);
     dom.runVMScript(s);
 
-    dom.window.ran === 3;
+    (<any> dom.window).ran === 3;
 }
 
 function test_reconfigure() {
-    const myFakeTopForTesting = {} as Window;
+    const myFakeTopForTesting = {} as DOMWindow;
 
     const dom = new JSDOM();
 
@@ -129,7 +129,7 @@ function test_reconfigure() {
 }
 
 function test_fromURL() {
-    const options = {} as jsdom.FromUrlOptions;
+    const options = {} as FromUrlOptions;
 
     JSDOM.fromURL('https://example.com/', options).then(dom => {
         console.log(dom.serialize());
@@ -137,7 +137,7 @@ function test_fromURL() {
 }
 
 function test_fromFile() {
-    const options = {} as jsdom.Options;
+    const options = {} as FromFileOptions;
 
     JSDOM.fromFile('stuff.html', options).then(dom => {
         console.log(dom.serialize());

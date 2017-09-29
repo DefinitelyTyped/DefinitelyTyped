@@ -12,17 +12,17 @@ import * as tough from 'tough-cookie';
 import { Script } from 'vm';
 
 export class JSDOM {
-    static fromURL(url: string | Buffer | jsdom.BinaryData, options?: jsdom.FromUrlOptions | object): Promise<JSDOM>;
+    static fromURL(url: string, options?: FromUrlOptions): Promise<JSDOM>;
 
-    static fromFile(url: string | Buffer | jsdom.BinaryData, options?: jsdom.Options | object): Promise<JSDOM>;
+    static fromFile(url: string, options?: FromFileOptions): Promise<JSDOM>;
 
     static fragment(html: string): DocumentFragment;
 
-    constructor(html?: string | Buffer | jsdom.BinaryData, options?: jsdom.Options | object);
+    constructor(html?: string | Buffer | BinaryData, options?: ConstructorOptions);
 
-    readonly window: jsdom.Window;
-    readonly virtualConsole: jsdom.VirtualConsole;
-    readonly cookieJar: jsdom.CookieJar;
+    readonly window: DOMWindow;
+    readonly virtualConsole: VirtualConsole;
+    readonly cookieJar: CookieJar;
 
     /**
      * The serialize() method will return the HTML serialization of the document, including the doctype.
@@ -42,97 +42,87 @@ export class JSDOM {
      */
     runVMScript(script: Script): void;
 
-    reconfigure(settings: jsdom.ReconfigureSettings | object): void;
+    reconfigure(settings: ReconfigureSettings): void;
 }
 
-// Alias DOM Window so we can extend from it and still name the type Window
-// tslint:disable-next-line strict-export-declare-modifiers
-type DOMWindow = Window;
+export interface Options {
+    /**
+     * referrer just affects the value read from document.referrer.
+     * It defaults to no referrer (which reflects as the empty string).
+     */
+    referrer?: string;
+    /**
+     * userAgent affects the value read from navigator.userAgent, as well as the User-Agent header sent while fetching subresources.
+     * It defaults to `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`.
+     */
+    userAgent?: string;
+    /**
+     * includeNodeLocations preserves the location info produced by the HTML parser,
+     * allowing you to retrieve it with the nodeLocation() method (described below).
+     * It defaults to false to give the best performance,
+     * and cannot be used with an XML content type since our XML parser does not support location info.
+     */
+    includeNodeLocations?: boolean;
+    runScripts?: 'dangerously' | 'outside-only';
+    resources?: 'usable';
+    virtualConsole?: VirtualConsole;
+    cookieJar?: CookieJar;
+    beforeParse?(window: DOMWindow): void;
+}
 
-export namespace jsdom {
-    interface FromUrlOptions extends Pick<FromUrlOptions._Impl, keyof FromUrlOptions._Impl> { }
+export type FromUrlOptions = Options;
 
-    namespace FromUrlOptions {
-        interface _Impl {
-            /**
-             * referrer just affects the value read from document.referrer.
-             * It defaults to no referrer (which reflects as the empty string).
-             */
-            referrer: string;
-            /**
-             * userAgent affects the value read from navigator.userAgent, as well as the User-Agent header sent while fetching subresources.
-             * It defaults to `Mozilla/5.0 (${process.platform}) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/${jsdomVersion}`.
-             */
-            userAgent: string;
-            /**
-             * includeNodeLocations preserves the location info produced by the HTML parser,
-             * allowing you to retrieve it with the nodeLocation() method (described below).
-             * It defaults to false to give the best performance,
-             * and cannot be used with an XML content type since our XML parser does not support location info.
-             */
-            includeNodeLocations: boolean;
-            runScripts: 'dangerously' | 'outside-only';
-            resources: 'usable';
-            virtualConsole: VirtualConsole;
-            cookieJar: CookieJar;
-            beforeParse(window: jsdom.Window): void;
-        }
-    }
+export type FromFileOptions = Options & {
+    /**
+     * url sets the value returned by window.location, document.URL, and document.documentURI,
+     * and affects things like resolution of relative URLs within the document
+     * and the same-origin restrictions and referrer used while fetching subresources.
+     * It will default to a file URL corresponding to the given filename, instead of to "about:blank".
+     */
+    url?: string;
+    /**
+     * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
+     * Values that are not "text/html" or an XML mime type will throw. It will default to "application/xhtml+xml" if
+     * the given filename ends in .xhtml or .xml; otherwise it will continue to default to "text/html".
+     */
+    contentType?: string;
+};
 
-    interface Options extends Pick<Options._Impl, keyof Options._Impl> { }
+export type ConstructorOptions = Options & {
+    /**
+     * url sets the value returned by window.location, document.URL, and document.documentURI,
+     * and affects things like resolution of relative URLs within the document
+     * and the same-origin restrictions and referrer used while fetching subresources.
+     * It defaults to "about:blank".
+     */
+    url?: string;
+    /**
+     * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
+     * Values that are not "text/html" or an XML mime type will throw. It defaults to "text/html".
+     */
+    contentType?: string;
+};
 
-    namespace Options {
-        interface _Impl extends FromUrlOptions._Impl {
-            /**
-             * url sets the value returned by window.location, document.URL, and document.documentURI,
-             * and affects things like resolution of relative URLs within the document
-             * and the same-origin restrictions and referrer used while fetching subresources.
-             * It defaults to "about:blank".
-             */
-            url: string;
-            /**
-             * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
-             * Values that are not "text/html" or an XML mime type will throw. It defaults to "text/html".
-             */
-            contentType: string;
-        }
-    }
+export interface DOMWindow extends Window { eval(script: string): void; }
 
-    interface Window extends DOMWindow {
-        ran: number;
+export type BinaryData = ArrayBuffer | DataView | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
 
-        eval(script: string): void;
-    }
+export class VirtualConsole extends EventEmitter {
+    on<K extends keyof Console>(method: K, callback: Console[K]): this;
+    on(event: 'jsdomError', callback: (e: Error) => void): this;
 
-    type BinaryData = ArrayBuffer | DataView | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+    sendTo(console: Console, options?: VirtualConsoleSendToOptions): this;
+}
 
-    class VirtualConsole extends EventEmitter {
-        on<K extends keyof Console>(method: K, callback: Console[K]): this;
-        on(event: 'jsdomError', callback: (e: Error) => void): this;
+export interface VirtualConsoleSendToOptions {
+    omitJSDOMErrors: boolean;
+}
 
-        sendTo(console: Console, options?: VirtualConsole.SendToOptions | object): this;
-    }
+export class CookieJar extends tough.CookieJar { }
 
-    namespace VirtualConsole {
-        interface SendToOptions extends Pick<SendToOptions._Impl, keyof SendToOptions._Impl> { }
+export const toughCookie: typeof tough;
 
-        namespace SendToOptions {
-            interface _Impl {
-                omitJSDOMErrors: boolean;
-            }
-        }
-    }
-
-    class CookieJar extends tough.CookieJar { }
-
-    const toughCookie: typeof tough;
-
-    interface ReconfigureSettings extends Pick<ReconfigureSettings._Impl, keyof ReconfigureSettings._Impl> { }
-
-    namespace ReconfigureSettings {
-        interface _Impl {
-            windowTop: DOMWindow;
-            url: string;
-        }
-    }
+export interface ReconfigureSettings {
+    windowTop?: DOMWindow;
+    url?: string;
 }

@@ -37,5 +37,5 @@ app.controller('Ctrl', ($scope: ng.IScope, blockUI: angular.blockUI.BlockUIServi
     blockUI.reset();
     blockUI.message("Hello Types");
     blockUI.done();
-    let b: boolean = blockUI.isBlocking();
+    const b: boolean = blockUI.isBlocking();
 });

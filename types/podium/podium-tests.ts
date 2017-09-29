@@ -1,4 +1,4 @@
-/// <reference types="node" />
+declare var console: { log(...args: any[]): void };
 
 import Podium = require('podium');
 const podiumObject = new Podium(); // new emitter

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { default as Slider, Settings, CustomArrowProps } from "react-slick";
 
-class LeftNavArrow extends React.Component<CustomArrowProps, {}> {
+class LeftNavArrow extends React.Component<CustomArrowProps> {
   render() {
     return <button onClick={this.props.onClick}>Next</button>;
   }
@@ -11,7 +11,7 @@ function RightNavArrow(props: CustomArrowProps): JSX.Element {
   const { className, style, onClick } = props;
   return <div
     className={className}
-    style={Object.assign(style, { display: 'block', background: 'green' })}
+    style={{ ...style, display: 'block', background: 'green' }}
     onClick={onClick}
   ></div>;
 }
@@ -63,7 +63,7 @@ const defaultSettings: Settings = {
   prevArrow: <RightNavArrow />
 };
 
-class SliderTest extends React.Component<{}, {}> {
+class SliderTest extends React.Component {
   private slider: Slider;
   render() {
     return <div>

@@ -2,7 +2,7 @@
 // Project: https://github.com/reactjs/react-tabs/
 // Definitions by: Yuu Igarashi <https://github.com/yu-i9/>, Daniel Tschinder <https://github.com/danez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -34,7 +34,7 @@ declare namespace ReactTabs {
         className?: string | Array<string> | { [name: string]: boolean; };
         disabled?: boolean;
         disabledClassName?: string;
-        selectedClassName?: boolean;
+        selectedClassName?: string;
     }
 
     interface Tab extends React.ComponentClass<TabProps> {}

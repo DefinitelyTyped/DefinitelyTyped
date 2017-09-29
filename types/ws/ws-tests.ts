@@ -34,9 +34,8 @@ import * as https from 'https';
 {
     var wss = new WebSocket.Server({port: 8082});
 
-    const broadcast = function(data: any) {
-        for(var i in wss.clients)
-            wss.clients[i].send(data);
+    const broadcast = (data: any) => {
+        wss.clients.forEach((ws) => ws.send(data));
     };
 }
 

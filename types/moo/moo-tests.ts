@@ -17,7 +17,7 @@ lexer = moo.states({
         space:    {match: /\s+/, lineBreaks: true},
     },
     lit: {
-        interp:   {match: '${', push: 'main'},
+        interp:   {match: '${', push: 'main'}, // tslint:disable-line no-invalid-template-strings
         escape:   /\\./,
         strend:   {match: '`', pop: 1},
         const:    {match: /(?:[^$`]|\$(?!\{))+/, lineBreaks: true},
@@ -25,7 +25,7 @@ lexer = moo.states({
 });
 
 lexer.reset('some line\n');
-let info = lexer.save();
+const info = lexer.save();
 lexer.next();
 lexer.next();
 lexer.reset('a different line\n', info);

@@ -1017,6 +1017,24 @@ function sameDeepMembers() {
     assert.sameDeepMembers([{ id: 5 }, { id: 4 }], [{ id: 4 }, { id: 5 }]);
 }
 
+function orderedMembers() {
+    expect([1, 2]).to.have.ordered.members([1, 2]).but.not.have.ordered.members([2, 1]);
+    expect([1, 2, 3]).to.include.ordered.members([1, 2]).but.not.include.ordered.members([2, 3]);
+    expect([1, 2, 3]).to.have.ordered.members([1, 2, 3]);
+    expect([1, 2, 3]).to.have.members([2, 1, 3]).but.not.ordered.members([2, 1, 3]);
+    expect([{a: 1}, {b: 2}, {c: 3}]).to.include.deep.ordered.members([{a: 1}, {b: 2}]).but.not.include.deep.ordered.members([{b: 2}, {c: 3}]);
+
+    assert.sameOrderedMembers([ 1, 2, 3 ], [ 1, 2, 3 ], 'same ordered members');
+    assert.notSameOrderedMembers([ 1, 2, 3 ], [ 2, 1, 3 ], 'not same ordered members');
+    assert.sameDeepOrderedMembers([ { a: 1 }, { b: 2 }, { c: 3 } ], [ { a: 1 }, { b: 2 }, { c: 3 } ], 'same deep ordered members');
+    assert.notSameDeepOrderedMembers([ { a: 1 }, { b: 2 }, { c: 3 } ], [ { b: 2 }, { a: 1 }, { c: 3 } ], 'not same deep ordered members');
+
+    assert.includeOrderedMembers([ 1, 2, 3 ], [ 1, 2 ], 'include ordered members');
+    assert.notIncludeOrderedMembers([ 1, 2, 3 ], [ 2, 1 ], 'not include ordered members');
+    assert.includeDeepOrderedMembers([ { a: 1 }, { b: 2 }, { c: 3 } ], [ { a: 1 }, { b: 2 } ], 'include deep ordered members');
+    assert.notIncludeDeepOrderedMembers([ { a: 1 }, { b: 2 }, { c: 3 } ], [ { b: 2 }, { c: 3 } ], 'not include deep ordered members');
+}
+
 function members() {
     expect([5, 4]).members([4, 5]);
     expect([5, 4]).members([5, 4]);
@@ -1343,7 +1361,7 @@ suite('assert', () => {
         assert.lengthOf([1, 2, 3], 3);
         assert.lengthOf('foobar', 6);
         assert.lengthOf('foobar', 5);
-        assert.lengthOf(1, 5);
+        assert.lengthOf({ length: 1 }, 5);
     });
 
     test('match', () => {

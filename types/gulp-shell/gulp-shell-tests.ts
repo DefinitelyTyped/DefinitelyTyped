@@ -35,5 +35,5 @@ gulp.task('lint', shell.task('eslint ' + paths.js.join(' ')));
 gulp.task('default', gulp.parallel('coverage', 'lint'));
 
 gulp.task('watch', function () {
-    gulp.watch(paths.js, ['default'])
+    gulp.watch(paths.js)
 });

@@ -4,7 +4,7 @@
 //                 HuHuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import {

@@ -19,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "lib/RootCloseWrapper.d.ts",
-        "react-overlays-tests.tsx"
+        "test/react-overlays-tests.tsx",
+        "test/react-overlays-tests-individual.tsx"
     ]
 }

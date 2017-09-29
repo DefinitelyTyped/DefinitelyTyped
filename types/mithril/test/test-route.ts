@@ -1,4 +1,4 @@
-import {Component, Comp, RouteResolver} from 'mithril';
+import { Component, Comp, RouteResolver } from 'mithril';
 import * as h from 'mithril/hyperscript';
 import * as route from 'mithril/route';
 
@@ -8,11 +8,11 @@ const component1 = {
 	}
 };
 
-const component2 = {
+const component2: Component<{title: string}, {}> = {
 	view({attrs: {title}}) {
 		return h('h1', title);
 	}
-} as Component<{title: string}, {}>;
+};
 
 interface Attrs {
 	id: string;

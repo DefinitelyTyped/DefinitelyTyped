@@ -96,3 +96,15 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     if (hex.length !== 40) throw Error('forge.md.MessageDigest.update / digest fail');
 }
+
+
+{
+    let md: forge.md.MessageDigest;
+    let hex: string;
+
+    md = forge.md.md5.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    if (hex.length !== 32) throw Error('forge.md.MessageDigest.update / digest fail');
+}
