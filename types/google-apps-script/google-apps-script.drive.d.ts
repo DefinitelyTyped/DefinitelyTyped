@@ -74,13 +74,13 @@ declare namespace GoogleAppsScript {
     export interface File {
       addCommenter(emailAddress: string): File;
       addCommenter(user: Base.User): File;
-      addCommenters(emailAddresses: String[]): File;
+      addCommenters(emailAddresses: string[]): File;
       addEditor(emailAddress: string): File;
       addEditor(user: Base.User): File;
-      addEditors(emailAddresses: String[]): File;
+      addEditors(emailAddresses: string[]): File;
       addViewer(emailAddress: string): File;
       addViewer(user: Base.User): File;
-      addViewers(emailAddresses: String[]): File;
+      addViewers(emailAddresses: string[]): File;
       getAccess(email: string): Permission;
       getAccess(user: Base.User): Permission;
       getAs(contentType: string): Base.Blob;
@@ -157,12 +157,12 @@ declare namespace GoogleAppsScript {
     export interface Folder {
       addEditor(emailAddress: string): Folder;
       addEditor(user: Base.User): Folder;
-      addEditors(emailAddresses: String[]): Folder;
+      addEditors(emailAddresses: string[]): Folder;
       addFile(child: File): Folder;
       addFolder(child: Folder): Folder;
       addViewer(emailAddress: string): Folder;
       addViewer(user: Base.User): Folder;
-      addViewers(emailAddresses: String[]): Folder;
+      addViewers(emailAddresses: string[]): Folder;
       createFile(blob: Base.BlobSource): File;
       createFile(name: string, content: string): File;
       createFile(name: string, content: string, mimeType: string): File;
