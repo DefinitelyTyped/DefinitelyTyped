@@ -563,7 +563,6 @@ export interface ReferenceDotProps {
 	yAxis: any;
 	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceDotProps>;
 	isFront?: boolean;
-    className?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -587,7 +586,6 @@ export interface ReferenceLineProps {
 	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceLineProps>;
 	isFront?: boolean;
-    className?: string;
 }
 
 export class ReferenceLine extends React.Component<ReferenceLineProps> { }
@@ -600,8 +598,6 @@ export interface ResponsiveContainerProps {
 	minHeight?: number;
     maxHeight?: Percentage | number;
 	debounce?: number;
-	id?: string | number;
-	className?: string;
 }
 
 export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }
@@ -618,7 +614,6 @@ export interface ScatterProps extends Partial<CSSStyleDeclaration> {
 	isAnimationActive?: boolean;
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
-    className?: string;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -672,7 +667,6 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 	angle?: number;
 	textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
 	verticalAnchor?: 'start' | 'middle' | 'end';
-	style?: React.CSSProperties;
 }
 
 export class Text extends React.Component<TextProps> { }
