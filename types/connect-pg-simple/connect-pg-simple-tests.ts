@@ -36,3 +36,9 @@ const store3 = new pgSession({
 });
 
 const store4 = new pgSession();
+
+store4.close();
+
+store4.pruneSessions();
+
+store4.pruneSessions(err => console.log(err));
