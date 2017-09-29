@@ -1,5 +1,5 @@
 // Type definitions for react-table 6.5
-// Project: https://github.com/react-tools/react-table#readme
+// Project: https://github.com/react-tools/react-table
 // Definitions by: Roy Xue <https://github.com/royxue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
