@@ -3,12 +3,11 @@
 // Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
 // Definitions: https://github.com/clmcgrath/
 
-///<reference types="jquery"/>
+/// <reference types="jquery"/>
 
-//jQuery tests
+// jQuery tests
 
-var $flickity: JQuery = $("#flickity-selector").flickity(
-    {
+var $flickity = $("#flickity-selector").flickity({
         initialIndex: 0,
         accessibility: true,
         asNavFor: "#nav-bar",
@@ -35,9 +34,9 @@ var $flickity: JQuery = $("#flickity-selector").flickity(
     });
 
 $flickity.flickity("next")
-    .flickity('select', 4);
+    .flickity("select", 4);
 
-//Vanilla jQuery tests
+// Vanilla jQuery tests
 var flikty: Flickity = new Flickity("#flickity-gallery");
 
 var flikty2: Flickity =
@@ -68,10 +67,10 @@ var flikty2: Flickity =
             rightToLeft: false
         });
 
-//ES6 element selector for tests
+// ES6 element selector for tests
 var element = document.querySelector("#gallery");
 var nodeList = document.querySelectorAll("#gallery");
-var cellElements: Array<Element> = flikty2.getCellElements();
+var cellElements: Element[] = flikty2.getCellElements();
 
 flikty2.select(1, true);
 flikty2.select(1);
@@ -102,38 +101,38 @@ flikty2.destroy();
 
 flikty2.reloadCells();
 
-//event handlers
+// event handlers
 flikty2.on("cellSelect", (evt, ele) => {
-    //do something
+    // do something
 });
 
 flikty2.off("cellSelect", (evt, ele, pntr, vctr) => {
-    //do something
+    // do something
 });
 
 flikty2.once("cellSelect", (evt, ele, pntr) => {
-    //do something
+    // do something
 });
 
 flikty2.listener("myCustomEvent", (evt: Event) => {
-    //do something
+    // do something
 });
 
-//static get data methods
+// static get data methods
 
-var jQdata = jQuery.fn.data('flickity')();
-jQdata = $.fn.data('flickity')();
+var jQdata = jQuery.fn.data("flickity")();
+jQdata = $.fn.data("flickity")();
 
 var jsData = Flickity.data("#gallery");
 jsData = Flickity.data("#gallery");
 
-//property tests
+// property tests
 var selectedIndex: number = flikty2.selectedIndex;
 
 var selectedElement: Element = flikty2.selectedElement;
-var cells: Array<Element> = flikty2.cells;
+var cells: Element[] = flikty2.cells;
 
-//arrow shape tests
+// arrow shape tests
 var flikty3: Flickity = new Flickity("#flickity-gallery", {
     arrowShape: "M 0,50 L 60,00 L 50,30 L 80,30 L 80,70 L 50,70 L 60,100 Z"
 });
