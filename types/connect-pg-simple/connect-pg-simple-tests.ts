@@ -34,3 +34,5 @@ const store3 = new pgSession({
         idleTimeoutMillis: 30000
     }
 });
+
+const store4 = new pgSession();

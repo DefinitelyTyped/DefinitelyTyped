@@ -12,7 +12,7 @@ declare function connectPgSimple(session: (options?: SessionOptions) => RequestH
 
 declare namespace connectPgSimple {
   interface PGStore {
-      new (options: PGStoreOptions): Store;
+      new (options?: PGStoreOptions): Store;
   }
   interface PGStoreOptions {
       pool?: Pool;
