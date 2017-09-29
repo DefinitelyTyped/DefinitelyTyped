@@ -547,7 +547,6 @@ export interface ReferenceAreaProps {
 	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | ContentRenderer<ReferenceAreaProps>;
 	isFront?: boolean;
-    className?: string;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
