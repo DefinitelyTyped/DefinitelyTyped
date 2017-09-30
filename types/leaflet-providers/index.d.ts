@@ -3,9 +3,9 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
   namespace TileLayer {
     class Provider extends TileLayer {
       constructor(provider: string, options?: TileLayerOptions)
@@ -21,7 +21,7 @@ declare namespace L {
       interface ProviderConfig {
         url: string;
         options?: TileLayerOptions;
-        variants?: { [variantName: string]: string | ProviderConfig };
+        variants?: {[variantName: string]: string | ProviderConfig};
       }
     }
   }

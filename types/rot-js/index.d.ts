@@ -1,6 +1,6 @@
 // Type definitions for rot-js 0.6
 // Project: https://github.com/ondras/rot.js
-// Definitions by: Roger Ostrander <https://github.com/atiaxi/>
+// Definitions by: Roger Ostrander <https://github.com/atiaxi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Extensions (thanks, https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html )
@@ -520,8 +520,8 @@ export namespace Map {
         connect(callback: DigCallback, value?: number, connectionCallback?: DoorCallback): void;
     }
     class Dungeon extends Map {
-        getRooms(): Map.Feature.Room[];
-        getCorridors(): Map.Feature.Corridor[];
+        getRooms(): Feature.Room[];
+        getCorridors(): Feature.Corridor[];
     }
 
     class Digger extends Dungeon {

@@ -3,7 +3,7 @@
 // Definitions by: Jason Zhao <https://github.com/jlz27>, Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-//readme written by David Valentine <https://github.com/dvalenti314/>
+//readme written by David Valentine <https://github.com/dvalenti314>
 
 
 /// <reference types="angular" />

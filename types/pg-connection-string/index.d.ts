@@ -6,8 +6,8 @@
 
 export function parse(connectionString: string): {
     host: string;
-    database: string;
-    port: string;
+    database: string | null;
+    port: string | null;
     application_name?: string;
     client_encoding?: string;
     fallback_application_name?: string;

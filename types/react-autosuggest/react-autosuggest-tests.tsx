@@ -252,8 +252,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     }
 
     protected onSuggestionSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<Language>): void {
-        const language = data.suggestion as Language;
-
+        const language: Language = data.suggestion;
         alert(`Selected language is ${language.name} (${language.year}).`);
     }
 

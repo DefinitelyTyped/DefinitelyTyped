@@ -1,9 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Tooltip from 'rc-tooltip';
+import Tooltip, {RCTooltip} from 'rc-tooltip';
 
 ReactDOM.render(
     <Tooltip placement="left" trigger={['click']} overlay={<span>tooltip</span>}>
+        <a href='#'>hover</a>
+    </Tooltip>,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <Tooltip overlay="tooltip">
         <a href='#'>hover</a>
     </Tooltip>,
     document.querySelector('.app')
@@ -43,3 +50,9 @@ ReactDOM.render(
     </Tooltip>,
     document.querySelector('.another-app')
 );
+
+const props: RCTooltip.Props = {
+    placement: "bottomRight",
+    trigger: ['click', 'focus'],
+    overlay: () => <span>tooltip</span>,
+};

@@ -25,7 +25,7 @@ function loggingMiddleware() {
 }
 
 const mockStoreCreator: MockStoreCreator<number> = configureStore<number>([loggingMiddleware]);
-const initialState = 0
+const initialState = 0;
 
 const store: MockStore<number> = mockStoreCreator(initialState);
 
@@ -35,12 +35,11 @@ store.subscribe(() => {
 
 store.dispatch({ type: 'INCREMENT' });
 
-
 // Additional mock store API tests
-var actions: Array<any> = store.getActions();
+const actions: any[] = store.getActions();
 
 store.clearActions();
 
 // actions access without the need to cast
-var actions2 = store.getActions();
+const actions2 = store.getActions();
 actions2[10].payload.id;

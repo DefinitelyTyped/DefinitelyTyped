@@ -1,7 +1,8 @@
 // Type definitions for engine.io 3.1
 // Project: https://github.com/socketio/engine.io
-// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda/>
+// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -46,7 +47,7 @@ declare namespace engine {
 		/**
 		 * to allow connections to (['polling', 'websocket'])
 		 */
-		transports?: engine.Transport[];
+		transports?: Transport[];
 		/**
 		 * whether to allow transport upgrades (true)
 		 */
@@ -127,7 +128,7 @@ declare namespace engine {
 		/**
 		 * Initializes the server
 		 */
-		constructor(opts?: engine.ServerOptions);
+		constructor(opts?: ServerOptions);
 		/**
 		 * Fired when a new connection is established.
 		 */
@@ -219,8 +220,8 @@ declare namespace engine {
 		 */
 		on(ev: "packet" | "packetCreate", fn: (packet: Packet) => void): this;
 	}
-	function attach(http: net.Server, opyts?: engine.ServerAttachOptions): engine.Server;
-	function listen(port: number, opts?: engine.ServerOptions, fn?: () => void): engine.Server;
+	function attach(http: net.Server, opts?: ServerAttachOptions): Server;
+	function listen(port: number, opts?: ServerOptions, fn?: () => void): Server;
 	const protocol: number;
 }
 

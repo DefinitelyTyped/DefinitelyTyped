@@ -4,12 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
-import { Transaction } from 'prosemirror-state';
-import { Plugin } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
-import { EditorProps } from 'prosemirror-view';
+import { EditorState, Plugin, Transaction } from 'prosemirror-state';
+import { EditorProps, EditorView } from 'prosemirror-view';
 
 export interface MenuElement {
   render(pm: any): Node;

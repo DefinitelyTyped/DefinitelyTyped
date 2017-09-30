@@ -25,34 +25,34 @@ const PersonTableTd = Reactable.Td as PersonTableTd;
 type PersonTableTfoot = new () => Reactable.Tfoot;
 const PersonTableTfoot = Reactable.Tfoot as PersonTableTfoot;
 
-let data = [
+const data = [
     {
         name: "Christoph Spielmann",
         age: 36
     }
 ];
 
-export class TestComponent extends React.Component<{}, {}> {
+export class TestComponent extends React.Component {
     render(): JSX.Element {
         return <PersonTable data={data} />;
     }
 }
 
-export class FullblownReactableTestComponent extends React.Component<{}, {}> {
+export class FullblownReactableTestComponent extends React.Component {
     render(): JSX.Element {
-        let displayedColumns = ["name"];
+        const displayedColumns = ["name"];
         // custom table Th-elements
-        let columns: JSX.Element[] = [];
-        for (let colName of displayedColumns) {
+        const columns: JSX.Element[] = [];
+        for (const colName of displayedColumns) {
             columns.push(
                 <PersonTableTh column={colName} key={colName}>
                     <strong className="name-header">{colName}</strong>
                 </PersonTableTh>
             );
         }
-        let rows: JSX.Element[] = [];
-        for (let d of data) {
-            let tds: JSX.Element[] = [];
+        const rows: JSX.Element[] = [];
+        for (const d of data) {
+            const tds: JSX.Element[] = [];
             displayedColumns.forEach(col => tds.push(
                 <PersonTableTd column={col}>
                     <p>d[col]</p>

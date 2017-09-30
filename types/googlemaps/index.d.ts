@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.26
+// Type definitions for Google Maps JavaScript API 3.29
 // Project: https://developers.google.com/maps/
 // Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -361,6 +361,8 @@ declare namespace google.maps {
         TOP_RIGHT
     }
 
+    type DrawingMode = 'Point' | 'LineString' | 'Polygon';
+
     /***** Data *****/
     export class Data extends MVCObject {
         constructor(options?: Data.DataOptions);
@@ -369,8 +371,8 @@ declare namespace google.maps {
         contains(feature: Data.Feature): boolean;
         forEach(callback: (feature: Data.Feature) => void): void;
         getControlPosition(): ControlPosition;
-        getControls(): string[];
-        getDrawingMode(): string;
+        getControls(): DrawingMode[];
+        getDrawingMode(): DrawingMode | null;
         getFeatureById(id: number|string): Data.Feature;
         getMap(): Map;
         getStyle(): Data.StylingFunction|Data.StyleOptions;
@@ -379,8 +381,8 @@ declare namespace google.maps {
         remove(feature: Data.Feature): void;
         revertStyle(feature?: Data.Feature): void;
         setControlPosition(controlPosition: ControlPosition): void;
-        setControls(controls: string[]): void;
-        setDrawingMode(drawingMode: string): void;
+        setControls(controls: DrawingMode[] | null): void;
+        setDrawingMode(drawingMode: DrawingMode | null): void;
         setMap(map: Map | null): void;
         setStyle(style: Data.StylingFunction|Data.StyleOptions): void;
         toGeoJson(callback: (feature: Object) => void): void;
@@ -439,6 +441,7 @@ declare namespace google.maps {
 
         export class Geometry {
             getType(): string;
+            forEachLatLng(callback: (latLng: LatLng) => void): void;
         }
 
         export class Point extends Data.Geometry {
@@ -1314,8 +1317,8 @@ declare namespace google.maps {
     export interface TransitOptions {
         arrivalTime?: Date;
         departureTime?: Date;
-        modes: TransitMode[];
-        routingPreference: TransitRoutePreference;
+        modes?: TransitMode[];
+        routingPreference?: TransitRoutePreference;
     }
 
     export enum TransitMode {
@@ -1336,7 +1339,7 @@ declare namespace google.maps {
 
     export interface DrivingOptions {
         departureTime: Date;
-        trafficModel: TrafficModel
+        trafficModel?: TrafficModel
     }
 
     export enum TrafficModel
@@ -2473,19 +2476,22 @@ declare namespace google.maps {
         }
 
         export interface OpeningHours {
-            open_now: boolean,
-            periods: OpeningPeriod[],
-            weekday_text: string[]
+            open_now: boolean;
+            periods: OpeningPeriod[];
+            weekday_text: string[];
         }
 
         export interface OpeningPeriod {
-            open: OpeningHoursTime,
-            close?: OpeningHoursTime
+            open: OpeningHoursTime;
+            close?: OpeningHoursTime;
         }
 
         export interface OpeningHoursTime {
-            day: number,
-            time: string
+            day: number;
+            hours: number;
+            minutes: number;
+            nextDate: number;
+            time: string;
         }
 
         export interface PredictionTerm {
@@ -2515,7 +2521,7 @@ declare namespace google.maps {
         }
 
         export interface ComponentRestrictions {
-            country: string;
+            country: string|string[];
         }
 
         export interface PlaceAspectRating {
@@ -2546,12 +2552,13 @@ declare namespace google.maps {
 
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
-            aspects: PlaceAspectRating[];  /* Deprecated. Will be removed May 2, 2017 */
+            adr_address: string;
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
             html_attributions: string[];
             icon: string;
+            id: string;
             international_phone_number: string;
             name: string;
             opening_hours: OpeningHours;
@@ -2563,6 +2570,7 @@ declare namespace google.maps {
             reviews: PlaceReview[];
             types: string[];
             url: string;
+            utc_offset: number;
             vicinity: string;
             website: string;
         }

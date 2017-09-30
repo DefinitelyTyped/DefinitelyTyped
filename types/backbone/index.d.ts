@@ -1,6 +1,6 @@
 // Type definitions for Backbone 1.3.3
 // Project: http://backbonejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Natan Vivo <https://github.com/nvivo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -111,7 +111,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         attributes: any;
         changed: any[];
@@ -205,7 +205,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         model: new (...args:any[]) => TModel;
         models: TModel[];
@@ -322,7 +322,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         /**
         * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
@@ -388,7 +388,7 @@ declare namespace Backbone {
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
-        private static extend(properties: any, classProperties?: any): any;
+        public static extend(properties: any, classProperties?: any): any;
 
         constructor(options?: ViewOptions<TModel>);
         initialize(options?: ViewOptions<TModel>): void;

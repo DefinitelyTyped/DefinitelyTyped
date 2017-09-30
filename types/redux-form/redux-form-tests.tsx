@@ -31,6 +31,13 @@ interface TestFormData {
     foo: string;
 }
 
+/* Some tests only make sense with multiple values */
+interface MultivalueFormData {
+    foo: string
+    bar?: string
+    fizz: string
+}
+
 interface TestFormComponentProps {
     foo: string;
 }
@@ -89,7 +96,20 @@ const MyField: StatelessComponent<MyFieldProps> = ({
     children,
     input,
     meta
-}) => null;
+}) => {
+    input.onBlur("value");
+    input.onBlur({} as React.SyntheticEvent<HTMLDivElement>);
+
+    input.onChange("value");
+    input.onChange({} as React.SyntheticEvent<HTMLDivElement>);
+
+    input.onDragStart({} as React.DragEvent<HTMLDivElement>);
+
+    input.onDrop({} as React.DragEvent<HTMLDivElement>);
+
+    input.onFocus({} as React.FocusEvent<HTMLDivElement>);
+    return null;
+};
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
 
 const MyFieldImm: StatelessComponent<MyFieldProps> = ({
@@ -144,6 +164,38 @@ const TestForms: StatelessComponent = () => {
         </div>
     )
 }
+
+// Specifying form data type is not required here, but is recommended to avoid confusion
+const testFormWithValidationDecorator = reduxForm<MultivalueFormData>({
+    form: "testWithValidation",
+    validate: (values, props) => {
+        return {
+            foo: "Bad foo"
+        }
+    }
+})
+
+// Specifying form data type is not required here, but is recommended to avoid confusion
+const testFormWithInitialValuesDecorator = reduxForm<MultivalueFormData>({
+    form: "testWithValidation",
+    initialValues: {
+        foo: "A Foo is here"
+    }
+})
+
+// Specifying form data type *is* required here, because type inference will guess the type of 
+// the form data type parameter to be {foo: string}. The result of validate does not contain "foo"
+const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueFormData>({
+    form: "testWithValidation",
+    initialValues: {
+        foo: "A Foo is here"
+    },
+    validate: (values, props) => {
+        return {
+            bar: "Bad foo"
+        }
+    }
+})
 
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm({

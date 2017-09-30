@@ -1,7 +1,6 @@
-import { abs } from 'numjs';
 import * as nj from 'numjs';
 
-const a = abs(2);
+const a = nj.abs(2);
 
 const arr = nj.arange(6);
 arr.reshape(1, 2, 3);
@@ -21,3 +20,5 @@ arr.transpose(1, 0, 2);
 const b = nj.array([2, 3, 4]);
 
 const c = nj.uint8([1, 2, 3]);
+
+const d = nj.array<number[]>([[2], [3, 4]]);

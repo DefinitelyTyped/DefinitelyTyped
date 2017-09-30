@@ -1,6 +1,6 @@
 // Type definitions for chai-string 1.1.4
 // Project: https://github.com/onechiporenko/chai-string
-// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
+// Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="chai" />

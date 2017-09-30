@@ -70,6 +70,7 @@ declare namespace Flatpickr {
         weekNumbers?: boolean;
         wrap?: boolean;
         locale?: string | Locale;
+        plugins?: any[];
     }
 
     interface Locale {

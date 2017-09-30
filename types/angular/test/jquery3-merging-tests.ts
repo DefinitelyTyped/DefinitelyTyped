@@ -2,6 +2,10 @@ import $ = require('jquery');
 import * as angular from 'angular';
 
 function JQuery() {
+    function indexSignature() {
+        $('p')[0]; // $ExpectType HTMLElement
+    }
+
     function addClass() {
         // $ExpectType JQuery<HTMLElement>
         $('p').addClass('className');

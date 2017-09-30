@@ -1,6 +1,8 @@
-// Type definitions for should.js v8.3.0
+// Type definitions for should.js v11.2.0
 // Project: https://github.com/shouldjs/should.js
-// Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
+// Definitions by: Alex Varju <https://github.com/varju>
+//                 Maxime LUCE <https://github.com/SomaticIT/>
+//                 Lukas Spieß <https://github.com/lumaxis/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Object {
@@ -88,10 +90,12 @@ interface ShouldAssertion {
   keys(...allKeys: string[]): ShouldAssertion;
   keys(allKeys: string[]): ShouldAssertion;
   enumerable(property: string, value?: any): ShouldAssertion;
+  size(size: number): ShouldAssertion;
+  value(key: string | number, value: any): ShouldAssertion;
   enumerables(...properties: string[]): ShouldAssertion;
   startWith(expected: string, message?: any): ShouldAssertion;
   endWith(expected: string, message?: any): ShouldAssertion;
-  throw(message?: any): ShouldAssertion;
+  throw(message?: any, properties?: {}): ShouldAssertion;
 
   //promises
   eventually: ShouldAssertion;
@@ -99,7 +103,7 @@ interface ShouldAssertion {
   fulfilled(): Promise<any>;
   fulfilledWith(value: any): Promise<any>
   rejected(): Promise<any>;
-  rejectedWith(message: (string | Function | RegExp), properties?: Object): Promise<any>;
+  rejectedWith(message: (string | Function | RegExp), properties?: {}): Promise<any>;
   rejectedWith(errType: Object): Promise<any>;
 
   //http
@@ -137,7 +141,7 @@ interface ShouldAssertion {
   deepEqual(expected: any, description?: string): ShouldAssertion;
   exactly(expected: any, description?: string): ShouldAssertion;
   instanceOf(constructor: Function, description?: string): ShouldAssertion;
-  throwError(message?: any): ShouldAssertion;
+  throwError(message?: any, properties?: {}): ShouldAssertion;
   lengthOf(n: number, description?: string): ShouldAssertion;
   key(key: string): ShouldAssertion;
   hasOwnProperty(name: string, description?: string): ShouldAssertion;

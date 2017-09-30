@@ -1,4 +1,4 @@
-// Type definitions for Recompose 0.23
+// Type definitions for Recompose 0.24
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
@@ -132,6 +132,16 @@ declare module 'recompose' {
         TOutter
     >;
 
+    // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
+    type StateHandler<TState> = (...payload: any[]) => TState | undefined;
+    type StateUpdaters<TOutter, TState> = {
+      [updaterName: string]: (state: TState, props: TOutter) => StateHandler<TState>;
+    };
+    export function withStateHandlers<TState, TUpdaters, TOutter>(
+      createProps: TState | mapper<TOutter, TState>,
+      stateUpdaters: StateUpdaters<TOutter, TState>,
+    ): InferableComponentEnhancerWithProps<TUpdaters & TState, TOutter>;
+
     // withReducer: https://github.com/acdlite/recompose/blob/master/docs/API.md#withReducer
     type reducer<TState, TAction> = (s: TState, a: TAction) => TState;
     type reducerProps<
@@ -187,6 +197,10 @@ declare module 'recompose' {
     export function onlyUpdateForKeys(
         propKeys: Array<string>
     ) : InferableComponentEnhancer<{}>;
+    export function onlyUpdateForKeys<T>(
+        propKeys: Array<keyof T>
+    ) : InferableComponentEnhancer<{}>;
+
 
     // onlyUpdateForPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyUpdateForPropTypes
     export const onlyUpdateForPropTypes: InferableComponentEnhancer<{}>;
@@ -349,6 +363,10 @@ declare module 'recompose' {
         stream: TSubs;
     };
     export function createEventHandler<T, TSubs extends Subscribable<T>>(): EventHandlerOf<T, TSubs>;
+
+    // createEventHandlerWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandlerWithConfig
+    export function createEventHandlerWithConfig(config: ObservableConfig): 
+        <T, TSubs extends Subscribable<T>>() => EventHandlerOf<T, TSubs>;
 
     // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
     type ObservableConfig = {

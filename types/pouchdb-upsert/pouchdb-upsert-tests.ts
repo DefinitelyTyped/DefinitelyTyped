@@ -5,7 +5,7 @@ interface UpsertDocModel {
    _id: 'test-doc1';
    name: 'test';
 }
-let docToUpsert: PouchDB.Core.Document<UpsertDocModel>;
+declare const docToUpsert: PouchDB.Core.Document<UpsertDocModel>;
 const db = new PouchDB<UpsertDocModel>();
 
 function testUpsert_WithPromise_AndReturnDoc() {
@@ -40,7 +40,7 @@ function testUpsert_WithCallback_AndReturnBoolean() {
 }
 
 function testPutIfNotExists_WithPromise() {
-  db.putIfNotExists(docToUpsert).then( (res: PouchDB.Core.Response) => {});
+  db.putIfNotExists(docToUpsert).then((res: PouchDB.Core.Response) => {});
 }
 
 function testPutIfNotExists_WithCallback() {

@@ -85,7 +85,7 @@ declare function stringify(opts?: stringify.StringifyOpts): stringify.Stringifie
 /**
  * Callback version: string in --> callback with string out
  */
-declare function stringify(input: any[][], opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
-declare function stringify(input: any[][], callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, callback: (error: Error | undefined, output: string) => void): void;
 
 export = stringify;

@@ -6,7 +6,7 @@ import {
     withState, withReducer, branch, renderComponent,
     renderNothing, shouldUpdate, pure, onlyUpdateForKeys,
     onlyUpdateForPropTypes, withContext, getContext,
-    lifecycle, toClass,
+    lifecycle, toClass, withStateHandlers,
     // Static property helpers
     setStatic, setPropTypes, setDisplayName,
     // Utilities
@@ -15,6 +15,7 @@ import {
     createSink, componentFromProp, nest, hoistStatics,
     // Observable utilities
     componentFromStream, mapPropsStream, createEventHandler,
+    createEventHandlerWithConfig,
     componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
 } from "recompose";
@@ -183,6 +184,29 @@ function testWithState() {
     );
 }
 
+function testWithStateHandlers() {
+    interface State { counter: number; }
+    interface Updaters { add: (n: number) => State; }
+    type InnerProps = State & Updaters;
+    interface OutterProps { initialCounter: number, power: number }
+    const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
+        <div>
+            <div>{`Counter: ${props.counter}`}</div>
+            <div onClick={() => props.add(2)}></div>
+        </div>;
+
+    const enhancer = withStateHandlers<State, Updaters, OutterProps>(
+        (props: OutterProps) => ({ counter: props.initialCounter }),
+        {
+            add: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }),
+        },
+    );
+    const Enhanced = enhancer(InnerComponent);
+    const rendered = (
+        <Enhanced initialCounter={4} power={2} />
+    );
+}
+
 function testWithReducer() {
     interface State { count: number }
     interface Action { type: string }
@@ -249,4 +273,19 @@ function testWithObservableConfig() {
 
   let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig)
   mapPropsStreamMost = mapPropsStream
+
+  let createEventHandlerMost = createEventHandlerWithConfig(mostConfig)
+  let { handler: handler, stream: stream } = createEventHandler()
+  createEventHandlerMost = createEventHandler
+}
+
+function testOnlyUpdateForKeys() {
+    interface Props {
+        foo: number;
+        bar: string;
+    }
+    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
+    onlyUpdateForKeys<Props>(['foo'])(component)
+    // This should be a compile error
+    // onlyUpdateForKeys<Props>(['fo'])(component)
 }

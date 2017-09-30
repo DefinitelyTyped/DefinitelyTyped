@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactDOMServer from 'react-dom/server';
+import * as ReactDOMNodeStream from 'react-dom/node-stream';
 import * as ReactTestUtils from 'react-dom/test-utils';
 
 declare function describe(desc: string, f: () => void): void;
@@ -10,18 +11,18 @@ class TestComponent extends React.Component { }
 
 describe('ReactDOM', () => {
     it('render', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
     });
 
     it('unmounts', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.unmountComponentAtNode(rootElement);
     });
 
     it('find dom node', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
     });
@@ -34,6 +35,16 @@ describe('ReactDOMServer', () => {
 
     it('renderToStaticMarkup', () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement('div'));
+    });
+});
+
+describe('ReactDOMNodeStream', () => {
+    it('renderToStream', () => {
+        const content: any = ReactDOMNodeStream.renderToStream(React.createElement('div'));
+    });
+
+    it('renderToStaticStream', () => {
+        const content: any = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
     });
 });
 
@@ -78,13 +89,13 @@ describe('React dom test utils', () => {
 
     it('isCompositeComponent', () => {
         const element = React.createElement(TestComponent);
-        const instance = ReactTestUtils.renderIntoDocument(element) as TestComponent;
+        const instance: TestComponent = ReactTestUtils.renderIntoDocument(element);
         const isCompositeComponent: boolean = ReactTestUtils.isCompositeComponent(instance);
     });
 
     it('isCompositeComponentWithType', () => {
         const element = React.createElement(TestComponent);
-        const instance = ReactTestUtils.renderIntoDocument(element) as TestComponent;
+        const instance: TestComponent = ReactTestUtils.renderIntoDocument(element);
         const isCompositeComponent: boolean = ReactTestUtils.isCompositeComponentWithType(instance, TestComponent);
     });
 

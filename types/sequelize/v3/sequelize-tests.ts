@@ -896,6 +896,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
 User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
+User.findAll( { subQuery: false, include : [User], order : [['id', 'ASC NULLS LAST']] } );
 
 User.findById( 'a string' );
 
@@ -1168,6 +1169,15 @@ new Sequelize( 'sequelize', null, null, {
             username : 'omg',
             password : 'lol'
         }
+    }
+} );
+new Sequelize( {
+    database: 'db',
+    username: 'user',
+    password: 'pass',
+    retry: {
+        match: ['failed'],
+        max: 3
     }
 } );
 

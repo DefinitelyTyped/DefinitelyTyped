@@ -205,3 +205,20 @@ featureCollection = {
         }
     }
 };
+
+// Allow access to custom properties
+const pt: GeoJSON.Feature<GeoJSON.Point> = {
+    type: 'Feature',
+    properties: {
+        foo: 'bar',
+        hello: 'world',
+        1: 2
+    },
+    geometry: {
+        type: 'Point',
+        coordinates: [0, 0]
+    }
+};
+pt.properties.foo;
+pt.properties.hello;
+pt.properties[1];

@@ -49,6 +49,7 @@ export interface AMQPQueue extends events.EventEmitter {
 export interface AMQPExchange extends events.EventEmitter {
   on(event: 'open' | 'ack' | 'error' | 'exchangeBindOk' | 'exchangeUnbindOk', callback: Callback<void>): this;
 
+  publish(routingKey: string, message: Buffer | {}, callback: (err?: boolean, msg?: string) => void): void;
   publish(routingKey: string, message: Buffer | {}, options: ExchangePublishOptions, callback?: (err?: boolean, msg?: string) => void): void;
 
   /**

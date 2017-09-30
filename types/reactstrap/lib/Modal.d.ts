@@ -2,6 +2,7 @@ import { CSSModule } from '../index';
 
 interface Props {
   isOpen?: boolean;
+  autoFocus?: boolean;
   size?: string;
   toggle?: () => void;
   keyboard?: boolean;
@@ -15,6 +16,7 @@ interface Props {
   backdropClassName?: string;
   contentClassName?: string;
   zIndex?: number | string;
+  fade?: boolean;
 }
 
 declare var Modal: React.StatelessComponent<Props>;

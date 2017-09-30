@@ -1,7 +1,7 @@
 // Type definitions for uuid 3.4
 // Project: https://github.com/kelektiv/node-uuid
-// Definitions by: Oliver Hoffmann <https://github.com/iamolivinius/>
-//                 Felipe Ochoa <https://github.com/felipeochoa/>
+// Definitions by: Oliver Hoffmann <https://github.com/iamolivinius>
+//                 Felipe Ochoa <https://github.com/felipeochoa>
 //                 Chris Barth <https://github.com/cjbarth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2

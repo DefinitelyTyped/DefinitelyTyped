@@ -27,7 +27,7 @@ const revalidate = (url: string, callback: (error: any, value?: string, options?
     });
 };
 
-let request: (url: string, cb: (error: any, response: any, html: string) => any) => any;
+declare const request: (url: string, cb: (error: any, response: any, html: string) => any) => any;
 cache.wrap('http://www.google.com', revalidate, (error, html) => {
     // Do something with cached response
 });

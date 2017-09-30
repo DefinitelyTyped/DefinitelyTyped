@@ -112,7 +112,7 @@ places.request(
     },
     (response) => {
         console.log(response);
-        let items = response.results.items;
+        const items = response.results.items;
         places.follow(
             items[0].href,
             (resp) => {

@@ -1,6 +1,6 @@
 // Type definitions for Atom
 // Project: https://atom.io/
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>, smhxx <https://github.com/smhxx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,7 +15,7 @@
 // if js file include to another npm package (e.g. "space-pen", "mixto" and "emissary").
 // you should create a separate file.
 
-// API documentation : https://atom.io/docs/api/v0.106.0/api/docs/README.md.html
+// API documentation : https://atom.io/docs/api/v1.20.1
 
 interface Window {
 	atom: AtomCore.IAtom;
@@ -1170,9 +1170,52 @@ declare namespace AtomCore {
 		get:Function;
 	}
 
+	interface IColorlike {
+		red: number;
+		green: number;
+		blue: number;
+		alpha: number;
+	}
+
+	class Color {
+		public static parse(value:string): Color
+		public static parse(value:IColorlike): Color
+		public toHexString(): string
+		public toRGBAString(): string
+	}
+
+	interface IConfigGetOptions {
+		sources?:Array<string>;
+		excludeSources?:Array<string>;
+		scope?:ScopeDescriptor;
+	}
+
+	interface IConfigSetOptions {
+		scopeSelector?:string;
+		source?:string;
+	}
+
+	interface IConfigObserveOptions {
+		scope?:ScopeDescriptor;
+	}
+
+	interface IConfigChangeEvent<T extends ConfigSetting> {
+		newValue:T;
+		oldValue:T;
+	}
+
+	type ConfigSetting = string | number | boolean | Color | IConfigArray | IConfigObject
+
+	interface IConfigArray extends Array<ConfigSetting> { }
+
+	interface IConfigObject { [key: string]: ConfigSetting }
+
 	interface IConfig {
-		get(keyPath:string):any;
-		// TBD
+		get(keyPath:string, options?:IConfigGetOptions):ConfigSetting;
+		set(keyPath:string, value:ConfigSetting, options?:IConfigSetOptions):boolean;
+		unset(keyPath:string, options?:IConfigSetOptions):void;
+		observe(keyPath:string, options?:IConfigObserveOptions, callback?:(value:ConfigSetting) => void):Disposable;
+		onDidChange(keyPath?:string, options?:IConfigObserveOptions, callback?:(event:IConfigChangeEvent<ConfigSetting>) => void):Disposable;
 	}
 
 	interface IKeymapManager {
@@ -1294,7 +1337,17 @@ declare namespace AtomCore {
 
 	class Disposable {
 		constructor(disposalAction:any)
+		static isDisposable(object: any): boolean
 		dispose():void
+	}
+
+	class CompositeDisposable {
+		constructor(... disposables: Array<Disposable>)
+		clear():void
+		dispose():void
+		add(... disposables: Array<Disposable>): void
+		remove(disposable: Disposable): void
+		delete(disposable: Disposable): void
 	}
 
 	// https://atom.io/docs/api/v0.106.0/api/classes/Atom.html
@@ -1914,7 +1967,8 @@ declare module "atom" {
 		cancel():any;
 	}
 
-
+	class Disposable extends AtomCore.Disposable { }
+	class CompositeDisposable extends AtomCore.CompositeDisposable { }
 
 	var WorkspaceView:AtomCore.IWorkspaceViewStatic;
 

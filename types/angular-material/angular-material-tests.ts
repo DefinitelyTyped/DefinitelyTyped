@@ -49,7 +49,7 @@ myApp.config((
             return c * t * t + b;
         },
         easeFnIndeterminate(t, b, c, d) {
-            return c * Math.pow(2, 10 * (t / d - 1)) + b;
+            return c * Math.pow(2, (t / d - 1) * 10) + b;
         }
     });
 });

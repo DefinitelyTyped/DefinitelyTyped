@@ -8,8 +8,10 @@
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
+//                 Simon Højberg <https://github.com/hojberg>
+//                 Charles-Philippe Clermont <https://github.com/charlespwd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 declare let R: R.Static;
 
@@ -60,6 +62,11 @@ declare namespace R {
     interface Lens {
         <T, U>(obj: T): U;
         set<T, U>(str: string, obj: T): U;
+    }
+
+    interface Filter<T> {
+      (list: T[]): T[];
+      (obj: Dictionary<T>): Dictionary<T>;
     }
 
     type Evolver<T> =
@@ -188,8 +195,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: boolean | any): boolean;
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: boolean | any) => boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: any): boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -421,8 +428,8 @@ declare namespace R {
          * the list. Note that all keys are coerced to strings because of how
          * JavaScript objects work.
          */
-        countBy(fn: (a: any) => string | number, list: any[]): any;
-        countBy(fn: (a: any) => string | number): (list: any[]) => any;
+        countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
+        countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
 
         /**
          * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
@@ -582,8 +589,9 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        filter<T>(fn: (value: T) => boolean): Filter<T>;
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
+        filter<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -754,6 +762,7 @@ declare namespace R {
          * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
          */
         intersection<T>(list1: T[], list2: T[]): T[];
+        intersection<T>(list1: T[]): (list2: T[]) => T[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of those
@@ -785,7 +794,7 @@ declare namespace R {
         /**
          * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
          */
-        invertObj(obj: any | { [index: number]: string }): { [index: string]: string };
+        invertObj(obj: { [index: string]: string } | { [index: number]: string }): { [index: string]: string };
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -1029,9 +1038,9 @@ declare namespace R {
          * otherwise the provided function is applied to associated values using the resulting value as the new value
          * associated with the key. If a key only exists in one object, the value will be associated with the key of the resulting object.
          */
-        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4, a: T1, b: T2): T1 & T2;
-        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1, b: T2): T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1040,9 +1049,9 @@ declare namespace R {
          * the new value associated with the key. If a key only exists in one object, the value will be associated with
          * the key of the resulting object.
          */
-        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4, a: T1, b: T2): T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
@@ -1218,9 +1227,9 @@ declare namespace R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: T, p: Path, obj: any): T | any;
-        pathOr<T>(d: T, p: Path): (obj: any) => T | any;
-        pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>;
+        pathOr<T>(defaultValue: T, path: Path, obj: any): any;
+        pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
+        pathOr<T>(defaultValue: T): CurriedFunction2<Path, any, any>;
 
         /**
          * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
@@ -1324,7 +1333,7 @@ declare namespace R {
             fn3: (x: T3) => T4,
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
-            fn6: (x: T5) => T6,
+            fn6: (x: T6) => T7,
             fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
@@ -1333,8 +1342,73 @@ declare namespace R {
             fn3: (x: T3) => T4,
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
-            fn6: (x: T5) => T6,
+            fn6: (x: T6) => T7,
             fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
+
+        pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9): (x0: V0) => T9;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9): (x0: V0, x1: V1) => T9;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9): (x0: V0, x1: V1, x2: V2) => T9;
+
+        pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9,
+            fn9: (x: T9) => T10): (x0: V0) => T10;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9,
+            fn9: (x: T9) => T10): (x0: V0, x1: V1) => T10;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9,
+            fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -1451,16 +1525,17 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: T[]): TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
+        reject<T>(fn: (value: T) => boolean): Filter<T>;
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
-        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
@@ -1521,7 +1596,7 @@ declare namespace R {
         /**
          * Sorts the list according to a key generated by the supplied function.
          */
-        sortBy<T>(fn: (a: any) => Ord, list: T[]): T[];
+        sortBy<T>(fn: (a: T) => Ord, list: T[]): T[];
         sortBy(fn: (a: any) => Ord): <T>(list: T[]) => T[];
 
         /**
@@ -1670,7 +1745,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S } | any): Array<[F, S]>;
+        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1678,7 +1753,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S } | any): Array<[F, S]>;
+        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
 
         /**
          * Returns the string representation of the given value. eval'ing the output should
@@ -1711,6 +1786,15 @@ declare namespace R {
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
          */
         transpose<T>(list: T[][]): T[][];
+
+        /**
+         * Maps an Applicative-returning function over a Traversable, then uses
+         * sequence to transform the resulting Traversable of Applicative into
+         * an Applicative of Traversable.
+         */
+        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U, list: T[]): A;
+        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U): (list: T[]) => A;
+        traverse<T, U, A>(of: (a: U[]) => A): (fn: (t: T) => U, list: T[]) => A;
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -1758,8 +1842,8 @@ declare namespace R {
          * to stop iteration or an array of length 2 containing the value to add to the resulting
          * list and the seed to be used in the next call to the iterator function.
          */
-        unfold<T, TResult>(fn: (seed: T) => TResult[] | boolean, seed: T): TResult[];
-        unfold<T, TResult>(fn: (seed: T) => TResult[] | boolean): (seed: T) => TResult[];
+        unfold<T, TResult>(fn: (seed: T) => [TResult, T] | false, seed: T): TResult[];
+        unfold<T, TResult>(fn: (seed: T) => [TResult, T] | false): (seed: T) => TResult[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the
@@ -1841,7 +1925,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed across
          * different JS platforms.
          */
-        values<T>(obj: { [index: string]: T } | any): T[];
+        values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
 
         /**
          * Returns a list of all the properties, including prototype properties, of the supplied

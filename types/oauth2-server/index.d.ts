@@ -4,8 +4,7 @@
 //                  Charles Irick <https://github.com/cirick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestHandler } from "express";
-import { Request } from "express";
+import { Request, RequestHandler } from "express";
 
 /**
  * Represents an OAuth2 server instance.
