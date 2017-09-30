@@ -38,29 +38,29 @@ export interface Dialog {
   defaultValue(): string;
   dismiss(): Promise<void>;
   message(): string;
-  type: 'alert' | 'beforeunload' | 'confirm' | 'prompt';
+  type: "alert" | "beforeunload" | "confirm" | "prompt";
 }
 
 export type PageEvents =
-  | 'console'
-  | 'dialog'
-  | 'error'
-  | 'frameattached'
-  | 'framedetached'
-  | 'framenavigated'
-  | 'load'
-  | 'pageerror'
-  | 'request'
-  | 'requestfailed'
-  | 'requestfinished'
-  | 'response';
+  | "console"
+  | "dialog"
+  | "error"
+  | "frameattached"
+  | "framedetached"
+  | "framenavigated"
+  | "load"
+  | "pageerror"
+  | "request"
+  | "requestfailed"
+  | "requestfinished"
+  | "response";
 
 export interface AuthOptions {
   username: string;
   password: string;
 }
 
-export type MouseButtons = 'left' | 'right' | 'middle';
+export type MouseButtons = "left" | "right" | "middle";
 
 export interface ClickOptions {
   /** defaults to left */
@@ -82,7 +82,7 @@ export interface Cookie {
   expires: number;
   httpOnly: boolean;
   secure: boolean;
-  sameSite: 'Strict' | 'Lax';
+  sameSite: "Strict" | "Lax";
 }
 
 export interface Viewport {
@@ -103,22 +103,22 @@ export type EvaluateFn<T> = (elem?: ElementHandle) => Promise<T>;
 
 export interface NavigationOptions {
   timeout?: number;
-  waitUntil?: 'load' | 'networkidle' | 'networkIdleTimeout';
+  waitUntil?: "load" | "networkidle" | "networkIdleTimeout";
   networkIdleInflight?: number;
   networkIdleTimeout?: number;
 }
 
 export type PDFFormat =
-  | 'Letter'
-  | 'Legal'
-  | 'Tabload'
-  | 'Ledger'
-  | 'A0'
-  | 'A1'
-  | 'A2'
-  | 'A3'
-  | 'A4'
-  | 'A5';
+  | "Letter"
+  | "Legal"
+  | "Tabload"
+  | "Ledger"
+  | "A0"
+  | "A1"
+  | "A2"
+  | "A3"
+  | "A4"
+  | "A5";
 
 export interface PDFOptions {
   /** If no path is provided, the PDF won't be saved to the disk. */
@@ -145,7 +145,7 @@ export interface PDFOptions {
 
 export interface ScreenshotOptions {
   path?: string;
-  type?: 'jpeg' | 'png';
+  type?: "jpeg" | "png";
   /** The quality of the image, between 0-100. Not applicable to png images. */
   quality?: number;
   fullPage?: boolean;
@@ -159,7 +159,7 @@ export interface ScreenshotOptions {
 }
 
 export interface PageFnOptions {
-  polling?: 'raf' | 'mutation' | number;
+  polling?: "raf" | "mutation" | number;
   timeout?: number;
 }
 
@@ -173,27 +173,27 @@ export interface ElementHandle {
 
 export type Headers = Record<string, string>;
 export type HttpMethod =
-  | 'GET'
-  | 'POST'
-  | 'PATCH'
-  | 'PUT'
-  | 'DELETE'
-  | 'OPTIONS';
+  | "GET"
+  | "POST"
+  | "PATCH"
+  | "PUT"
+  | "DELETE"
+  | "OPTIONS";
 
 export type ResourceType =
-  | 'Document'
-  | 'Stylesheet'
-  | 'Image'
-  | 'Media'
-  | 'Font'
-  | 'Script'
-  | 'TextTrack'
-  | 'XHR'
-  | 'Fetch'
-  | 'EventSource'
-  | 'WebSocket'
-  | 'Manifest'
-  | 'Other';
+  | "Document"
+  | "Stylesheet"
+  | "Image"
+  | "Media"
+  | "Font"
+  | "Script"
+  | "TextTrack"
+  | "XHR"
+  | "Fetch"
+  | "EventSource"
+  | "WebSocket"
+  | "Manifest"
+  | "Other";
 
 export interface Overrides {
   url?: string;
@@ -284,7 +284,7 @@ export interface EventObj {
 }
 
 export interface Page extends FrameBase {
-  on(event: 'console', handler: (...args: any[]) => void): void;
+  on(event: "console", handler: (...args: any[]) => void): void;
   on<K extends keyof EventObj>(
     event: K,
     handler: (e: EventObj[K], ...args: any[]) => void
@@ -311,7 +311,7 @@ export interface Page extends FrameBase {
   ): Promise<void>;
 
   // Argument `fn` can be an arbitrary function
-  exposeFunction(name: string, fn: Function): Promise<void>;
+  exposeFunction(name: string, fn: any): Promise<void>;
 
   focus(selector: string): Promise<void>;
   frames(): Frame[];
