@@ -43,7 +43,7 @@ export function unstable_renderSubtreeIntoContainer<P>(
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
-interface Renderer {
+export interface Renderer {
     <P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
         container: Element | null,
