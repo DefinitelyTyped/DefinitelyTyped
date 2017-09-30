@@ -3566,8 +3566,8 @@ declare module "fs" {
      * @param dest Destination filename of the copy operation
      * @param flags Optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
      */
-    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number) : void;                                
-                                
+    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
+
     /**
      * Asynchronous open(2) - open and possibly create a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
