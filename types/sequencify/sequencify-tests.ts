@@ -4,7 +4,7 @@
 
 import * as sequencify from 'sequencify';
 
-let items: sequencify.TaskMap = {
+const items: sequencify.TaskMap = {
     a: {
         name: 'a',
         dep: []
@@ -24,9 +24,9 @@ let items: sequencify.TaskMap = {
     },
 };
 
-let names = ['d', 'b', 'c', 'a']; // The names of the items you want arranged, need not be all
+const names = ['d', 'b', 'c', 'a']; // The names of the items you want arranged, need not be all
 
-let results: string[] = [];
+const results: string[] = [];
 
 sequencify(items, names, results);
 
