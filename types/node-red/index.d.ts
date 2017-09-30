@@ -27,8 +27,11 @@ export interface Red {
  *
  * See the Nodes interfaces registerType() method for information about
  * declaring node constructors in typescript.
+ * 
+ * The id, type and name properties are available after the
+ * call to RED.nodes.createNode().
  */
-export interface Node extends EventEmitter {
+export interface Node extends EventEmitter, NodeProperties {
     updateWires(wires: any): void;
     context(): any;
     close(removed: any): void;
@@ -92,7 +95,7 @@ export interface Node extends EventEmitter {
      * @param status - the status to set or an empty object to clear the
      *  node status.
      */
-    status(status: NodeStatus | {}): void;
+    status(status: NodeStatus | ClearNodeStatus): void;
 }
 
 /**
@@ -107,6 +110,12 @@ export interface NodeProperties {
     id: NodeId;
     /** The type name for this node. */
     type: NodeType;
+    /**
+     * The UI visible name for this node. Many nodes
+     * allow the user to pick the name and provide
+     * a fallback name, if they leave it blank.
+     */
+    name: string;
 }
 
 /** Unique node identifier. */
@@ -116,7 +125,7 @@ export type NodeType = string;
 
 /** Node status icon color choices. */
 export type StatusFill = "red" | "green" | "yellow" | "blue" | "grey";
-/** Node status icon fill choices. */
+/** Node status icon shape choices. */
 export type StatusShape = "ring" | "dot";
 
 /**
@@ -125,13 +134,17 @@ export type StatusShape = "ring" | "dot";
 export interface NodeStatus {
     /** Selects the icon color. */
     fill: StatusFill;
-    /**
-     *  Selects whether the icon appears as a ring or
-     *  is filled out (dot).
-     */
+    /** Selects either ring or dot shape. */
     shape: StatusShape;
     /** Status label. */
     text: string;
+}
+
+/** Fancy definition that matches an empty object. */
+export interface ClearNodeStatus {
+    fill?: undefined;
+    shape?: undefined;
+    text?: undefined;
 }
 
 export interface Nodes {
@@ -153,8 +166,9 @@ export interface Nodes {
      * node, this call is used to get access to the running
      * instance.
      * @param id - the id of the node.
+     * @return - the node matching the given id.
      */
-    getNode(id: NodeId): any;
+    getNode(id: NodeId): Node;
     eachNode(callback: (node: Node) => any): void;
     /**
      * Adds a set of credentials for the given node id.
