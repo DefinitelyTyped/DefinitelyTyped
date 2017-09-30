@@ -2,8 +2,7 @@
     "compilerOptions": {
         "lib": [
             "es5",
-            "dom",
-            "webworker"
+            "dom"
         ],
         "module": "commonjs",
         "noImplicitAny": true,
