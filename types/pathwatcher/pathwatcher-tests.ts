@@ -12,7 +12,9 @@ let dir: PathWatcher.Directory;
 file = new File("Test.file");
 new File("Test.file", false);
 
-file.create().then(() => {});
+async function fileCreation() {
+	bool = await file.create();
+}
 
 // Event Subscription
 sub = file.onDidChange(() => {});
@@ -24,9 +26,17 @@ sub = file.onWillThrowWatchError(() => {});
 bool = file.isFile();
 bool = file.isDirectory();
 bool = file.isSymbolicLink();
-file.exists().then((result: boolean) => {});
+
+async function fileExists() {
+	bool = await file.exists();
+}
+
 bool = file.existsSync();
-file.getDigest().then((digest: string) => {});
+
+async function getFileDigest() {
+	str = await file.getDigest();
+}
+
 str = file.getDigestSync();
 file.setEncoding("utf8");
 str = file.getEncoding();
@@ -34,17 +44,27 @@ str = file.getEncoding();
 // Managing Paths
 str = file.getPath();
 str = file.getRealPathSync();
-file.getRealPath().then((path: string) => {});
+
+async function getFileRealPath() {
+	str = await file.getRealPath();
+}
+
 str = file.getBaseName();
 
 // Traversing
 dir = file.getParent();
 
 // Reading and Writing
-file.read().then((contents: string) => {});
-file.read(true).then((contents: string) => {});
+async function readFile() {
+	str = await file.read();
+}
+
 file.createReadStream();
-file.write("Test").then(() => {});
+
+async function writeFile() {
+	await file.write("Test");
+}
+
 file.createWriteStream();
 file.writeSync("Test");
 
@@ -53,8 +73,10 @@ file.writeSync("Test");
 dir = new Directory("Test.file");
 new Directory("Test.file", true);
 
-dir.create().then((success: boolean) => {});
-dir.create(0o0777).then((success: boolean) => {});
+async function createDirectory() {
+	bool = await dir.create();
+	bool = await dir.create(0o0777);
+}
 
 // Event Subscription
 sub = dir.onDidChange(() => {});
@@ -63,7 +85,11 @@ sub = dir.onDidChange(() => {});
 bool = dir.isFile();
 bool = dir.isDirectory();
 bool = dir.isSymbolicLink();
-dir.exists().then((exists: boolean) => {});
+
+async function directoryExists() {
+	bool = await dir.exists();
+}
+
 bool = dir.existsSync();
 bool = dir.isRoot();
 

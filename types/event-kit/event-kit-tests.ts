@@ -74,9 +74,9 @@ emitter.clear();
 emitter.dispose();
 
 // Event Subscription
-subscription = emitter.on("test-event", value => value);
-emitter.once("test-event", value => value);
-subscription = emitter.preempt("test-event", value => value);
+subscription = emitter.on("test-event", value => {});
+emitter.once("test-event", value => {});
+subscription = emitter.preempt("test-event", value => {});
 
 // Event Emission
 emitter.emit("test-event");

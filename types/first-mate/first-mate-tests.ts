@@ -31,7 +31,7 @@ result.tokens.forEach((token) => {
 new ScopeSelector("source.file");
 let prefix = selector.getPrefix("test");
 if (prefix) {
-	prefix.charAt;
+	str = prefix.charAt(0);
 }
 prefix = selector.getPrefix(["test", "test"]);
 

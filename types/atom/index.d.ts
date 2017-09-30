@@ -303,7 +303,7 @@ declare namespace AtomCore {
 		}
 
 		/** The static side to the TextEditor class. */
-		interface TextEditor {}
+		type TextEditor = object;
 		/* tslint:enable:no-unnecessary-qualifier */
 	}
 
@@ -367,6 +367,10 @@ declare namespace AtomCore {
 			cr?: string|false;
 			eol?: string|false;
 			space?: string|false;
+		}
+
+		interface CancellablePromise<T> extends Promise<T> {
+			cancel(): void;
 		}
 	}
 
@@ -590,7 +594,7 @@ declare namespace AtomCore {
 	/** Like BufferedProcess, but accepts a Node script as the command to run.
 	 *  This is necessary on Windows since it doesn't support shebang #! lines.
 	 */
-	interface BufferedNodeProcess extends BufferedProcess {}
+	type BufferedNodeProcess = BufferedProcess;
 
 	/** Represents the clipboard used for copying and pasting in Atom. */
 	interface Clipboard {
@@ -1038,7 +1042,7 @@ declare namespace AtomCore {
 		add(...deserializers: Deserializer[]): EventKit.Disposable;
 
 		/** Deserialize the state and params. */
-		deserialize(state: object): any;
+		deserialize(state: object): object|undefined;
 	}
 
 	/** A container at the edges of the editor window capable of holding items. */
@@ -4003,12 +4007,12 @@ declare namespace AtomCore {
 
 		// Searching and Replacing
 		/** Performs a search across all files in the workspace. */
-		scan(regex: RegExp, iterator: Function): Promise<{ cancel(): void }>;
+		scan(regex: RegExp, iterator: Function): Structures.CancellablePromise<string|null>;
 		/** Performs a search across all files in the workspace. */
 		scan(regex: RegExp, options: {
 			paths?: ReadonlyArray<string>,
 			onPathsSearched?(pathsSearched: number): void
-		}, iterator: Function): Promise<{ cancel(): void }>;
+		}, iterator: Function): Structures.CancellablePromise<string|null>;
 
 		/** Performs a replace across all the specified files in the project. */
 		replace(regex: RegExp, replacementText: string, filePaths: ReadonlyArray<string>,
@@ -4199,6 +4203,7 @@ declare namespace Atom {
 		type DecorationProps = AtomCore.Structures.DecorationProps;
 		type DecorationLayerProps = AtomCore.Structures.DecorationLayerProps;
 		type Invisibles = AtomCore.Structures.Invisibles;
+		type CancellablePromise<T> = AtomCore.Structures.CancellablePromise<T>;
 	}
 
 	// Atom Keymap ==============================================================

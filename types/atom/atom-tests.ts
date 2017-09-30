@@ -113,8 +113,12 @@ atom.setFullScreen(true);
 atom.toggleFullScreen();
 atom.beep();
 atom.confirm({ buttons: ["Test"], detailedMessage: "Test", message: "Test" });
-atom.openDevTools();
-atom.toggleDevTools();
+
+async function toggleDevTools() {
+	await atom.openDevTools();
+	await atom.toggleDevTools();
+}
+
 atom.executeJavaScriptInDevTools("Test");
 
 // Usage Testing ==============================================================
@@ -259,8 +263,11 @@ num = atom.confirm({ message: "Test", detailedMessage: "Test", buttons: {
 }});
 
 // Managing the Dev Tools
-atom.openDevTools();
-atom.toggleDevTools();
+async function manageDevTools() {
+	await atom.openDevTools();
+	await atom.toggleDevTools();
+}
+
 atom.executeJavaScriptInDevTools("Test");
 
 //// BufferedNodeProcess ======================================================
@@ -293,7 +300,7 @@ new BufferedProcess({
 
 sub = process.onWillThrowError((error) => {
 	error.error;
-	error.handle;
+	error.handle();
 });
 
 process.kill();
@@ -521,9 +528,20 @@ class StorableClass {
 	constructor() {}
 	deserialize() {}
 }
+
+function isStorableClass(o: object): o is StorableClass {
+	if (typeof o === "object" && (<StorableClass> o).name &&
+		(<StorableClass> o).name === "test") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 let serializable = new StorableClass();
 atom.deserializers.add(serializable);
-serializable = atom.deserializers.deserialize({});
+const blob = atom.deserializers.deserialize({ name: "test" });
+if (blob && isStorableClass(blob)) serializable = blob;
 
 //// Directory -- See 'pathwatcher' testing.
 //// DisplayMarker -- See 'text-buffer' testing.
@@ -542,12 +560,12 @@ sub = dock.observePaneItems(() => {});
 sub = dock.onDidChangeActivePaneItem(() => {});
 sub = dock.onDidStopChangingActivePaneItem(() => {});
 sub = dock.observeActivePaneItem(() => {});
-sub = dock.onDidAddPane(event => event.pane.addItems);
+sub = dock.onDidAddPane(event => event.pane.activate());
 sub = dock.onWillDestroyPane(event => event.pane);
 sub = dock.onDidDestroyPane(event => event.pane);
-sub = dock.observePanes(pane => pane.addItem);
-sub = dock.onDidChangeActivePane(pane => pane.activateItem);
-sub = dock.observeActivePane(pane => pane.getActiveItem);
+sub = dock.observePanes(pane => pane.activate());
+sub = dock.onDidChangeActivePane(pane => pane.activate());
+sub = dock.observeActivePane(pane => pane.activate());
 sub = dock.onDidAddPaneItem(event => event.index && event.item && event.pane);
 sub = dock.onWillDestroyPaneItem(event => event.index && event.item && event.pane);
 sub = dock.onDidDestroyPaneItem(event => event.index && event.item && event.pane);
@@ -830,13 +848,13 @@ strs = atom.packages.getAvailablePackageMetadata();
 
 //// Pane =====================================================================
 // Event Subscription
-sub = pane.onDidChangeFlexScale(scale => scale.toFixed());
-sub = pane.observeFlexScale(scale => scale.toFixed());
+sub = pane.onDidChangeFlexScale(scale => num = scale);
+sub = pane.observeFlexScale(scale => num = scale);
 sub = pane.onDidActivate(() => {});
 sub = pane.onWillDestroy(() => {});
 sub = pane.onDidDestroy(() => {});
-sub = pane.onDidChangeActive(active => active.valueOf);
-sub = pane.observeActive(active => active.valueOf);
+sub = pane.onDidChangeActive(active => bool = active);
+sub = pane.observeActive(active => bool = active);
 sub = pane.onDidAddItem(event => event.index && event.item);
 sub = pane.onDidRemoveItem(event => event.index && event.item);
 sub = pane.onWillRemoveItem(event => event.index && event.item);
@@ -935,8 +953,8 @@ pane = pane.splitDown({ copyActiveItem: true, items: elements });
 panel.destroy();
 
 // Event Subscription
-sub = panel.onDidChangeVisible(visibile => visibile.valueOf);
-sub = panel.onDidDestroy(panel => panel.isVisible);
+sub = panel.onDidChangeVisible(visible => bool = visible);
+sub = panel.onDidDestroy(panel => bool = panel.isVisible());
 
 // Panel Details
 obj = panel.getItem();
@@ -955,12 +973,10 @@ sub = project.observeBuffers(buffer => buffer.file);
 // Accessing the git repository
 repositories = project.getRepositories();
 
-const promisedRepo = project.repositoryForDirectory(dir);
-promisedRepo.then((repo) => {
-	if (repo) {
-		repository = repo;
-	}
-});
+async function getDirectoryRepo() {
+	const potentialRepo = await project.repositoryForDirectory(dir);
+	if (potentialRepo) repository = potentialRepo;
+}
 
 // Managing Paths
 strs = project.getPaths();
@@ -1146,8 +1162,8 @@ task.cancel();
 //// TextBuffer -- See 'text-buffer' testing.
 //// TextEditor ===============================================================
 // Event Subscription
-sub = editor.onDidChangeTitle(title => title.charAt);
-sub = editor.onDidChangePath(path => path.match);
+sub = editor.onDidChangeTitle(title => str = title.charAt(0));
+sub = editor.onDidChangePath(path => str = path.charAt(0));
 
 sub = editor.onDidChange(changes => {
 	for (const change of changes) {
@@ -1168,8 +1184,8 @@ sub = editor.onDidChangeCursorPosition(event => event.newBufferPosition);
 sub = editor.onDidChangeSelectionRange(event => event.selection);
 sub = editor.onDidSave(event => event.path);
 sub = editor.onDidDestroy(() => {});
-sub = editor.observeGutters(gutter => gutter.show);
-sub = editor.onDidAddGutter(gutter => gutter.hide);
+sub = editor.observeGutters(gutter => gutter.show());
+sub = editor.onDidAddGutter(gutter => gutter.hide());
 sub = editor.onDidRemoveGutter(name => name.length);
 sub = editor.onDidChangeSoftWrapped(softWrapped => {});
 sub = editor.onDidChangeEncoding(encoding => {});
@@ -1181,14 +1197,15 @@ sub = editor.onWillInsertText(event => event.cancel && event.text);
 sub = editor.onDidInsertText(event => event.text);
 sub = editor.observeCursors(cursor => cursor.moveToBottom());
 sub = editor.onDidAddCursor(cursor => cursor.getMarker());
-sub = editor.onDidRemoveCursor(cursor => cursor.compare);
-sub = editor.observeSelections(selection => selection.cutToEndOfBufferLine);
-sub = editor.onDidAddSelection(selection => selection.selectWord);
-sub = editor.onDidRemoveSelection(selection => selection.toggleLineComments);
-sub = editor.observeDecorations(decoration => decoration.getMarker);
+sub = editor.onDidRemoveCursor(cursor => cursor.compare(cursor));
+sub = editor.observeSelections(selection => selection.cutToEndOfBufferLine());
+sub = editor.onDidAddSelection(selection => selection.selectWord());
+sub = editor.onDidRemoveSelection(selection => selection.toggleLineComments());
+sub = editor.observeDecorations(decoration => decoration.getId());
 sub = editor.onDidAddDecoration(decoration => decoration.id);
-sub = editor.onDidRemoveDecoration(decoration => decoration.getId);
-sub = editor.onDidChangePlaceholderText(placeholderText => placeholderText.toLowerCase);
+sub = editor.onDidRemoveDecoration(decoration => decoration.getId());
+sub = editor.onDidChangePlaceholderText(placeholderText =>
+	placeholderText.toLowerCase());
 buffer = editor.getBuffer();
 
 // File Details
@@ -1247,7 +1264,7 @@ editor.insertText("Text", { autoDecreaseIndent: false, autoIndent: false,
 editor.insertNewline();
 editor.delete();
 editor.backspace();
-editor.mutateSelectedText((selection, index) => { selection.delete; });
+editor.mutateSelectedText((selection, index) => { selection.clear(); });
 editor.transpose();
 editor.upperCase();
 editor.lowerCase();
@@ -1824,9 +1841,7 @@ sub = atom.tooltips.add(element, { item: element});
 sub = atom.tooltips.add(element, { class: "test-class" });
 sub = atom.tooltips.add(element, { placement: "top" });
 
-sub = atom.tooltips.add(element, { placement: () => {
-	return "left";
-}});
+sub = atom.tooltips.add(element, { placement: () => "left" });
 
 sub = atom.tooltips.add(element, { trigger: "click" });
 sub = atom.tooltips.add(element, { delay: { hide: 42, show: 42 }});
@@ -1845,7 +1860,7 @@ element = atom.views.getView(element);
 
 //// Workspace ================================================================
 // Event Subscription
-sub = atom.workspace.observeTextEditors(editor => editor.addGutter);
+sub = atom.workspace.observeTextEditors(editor => editor.id);
 sub = atom.workspace.observePaneItems((item) => {});
 sub = atom.workspace.onDidChangeActivePaneItem((item) => {});
 sub = atom.workspace.onDidStopChangingActivePaneItem((item) => {});
@@ -1860,7 +1875,7 @@ sub = atom.workspace.observeActivePaneItem((item) => {});
 
 sub = atom.workspace.observeActiveTextEditor(editor => {
 	if (editor) {
-		editor.decorateMarker;
+		editor.id;
 	}
 });
 
@@ -1869,9 +1884,9 @@ sub = atom.workspace.onDidOpen(event => event.index && event.item && event.pane 
 sub = atom.workspace.onDidAddPane(event => event.pane);
 sub = atom.workspace.onWillDestroyPane(event => event.pane);
 sub = atom.workspace.onDidDestroyPane(event => event.pane);
-sub = atom.workspace.observePanes(pane => pane.addItem);
-sub = atom.workspace.onDidChangeActivePane(pane => pane.destroyItems);
-sub = atom.workspace.observeActivePane(pane => pane.getItems);
+sub = atom.workspace.observePanes(pane => pane.activate());
+sub = atom.workspace.onDidChangeActivePane(pane => pane.activate());
+sub = atom.workspace.observeActivePane(pane => pane.activate());
 sub = atom.workspace.onDidAddPaneItem(event => event.index && event.item && event.pane);
 sub = atom.workspace.onWillDestroyPaneItem(event => event.index && event.item && event.pane);
 sub = atom.workspace.onDidDestroyPaneItem(event => event.index && event.item && event.pane);
@@ -1879,38 +1894,48 @@ sub = atom.workspace.onDidAddTextEditor(event => event.index && event.pane &&
 	event.textEditor);
 
 // Opening
-atom.workspace.open();
-atom.workspace.open("https://test");
-atom.workspace.open("https://test", { activateItem: true });
-atom.workspace.open("https://test", { activatePane: true });
-atom.workspace.open("https://test", { initialColumn: 42 });
-atom.workspace.open("https://test", { initialLine: 42 });
-atom.workspace.open("https://test", { location: "right" });
-atom.workspace.open("https://test", { split: "up" });
-atom.workspace.open("https://test", { pending: true });
-atom.workspace.open("https://test", { searchAllPanes: true });
-atom.workspace.open("https://test", {
-	activateItem: true,
-	activatePane: true,
-	initialColumn: 42,
-	initialLine: 42,
-	location: "left",
-	split: "left",
-	pending: true,
-	searchAllPanes: true,
-});
+async function workspaceOpen() {
+	obj = await atom.workspace.open();
+	obj = await atom.workspace.open("https://test");
+	obj = await atom.workspace.open("https://test", { activateItem: true });
+	obj = await atom.workspace.open("https://test", { activatePane: true });
+	obj = await atom.workspace.open("https://test", { initialColumn: 42 });
+	obj = await atom.workspace.open("https://test", { initialLine: 42 });
+	obj = await atom.workspace.open("https://test", { location: "right" });
+	obj = await atom.workspace.open("https://test", { split: "up" });
+	obj = await atom.workspace.open("https://test", { pending: true });
+	obj = await atom.workspace.open("https://test", { searchAllPanes: true });
+	obj = await atom.workspace.open("https://test", {
+		activateItem: true,
+		activatePane: true,
+		initialColumn: 42,
+		initialLine: 42,
+		location: "left",
+		split: "left",
+		pending: true,
+		searchAllPanes: true,
+	});
+}
 
 bool = atom.workspace.hide("https://test");
 bool = atom.workspace.hide(element);
 
-atom.workspace.toggle("https://test");
-atom.workspace.toggle(element);
+async function workspaceToggle() {
+	await atom.workspace.toggle("https://test");
+	await atom.workspace.toggle(element);
+}
 
 obj = atom.workspace.createItemForURI("https://test");
 
 bool = atom.workspace.isTextEditor(obj);
-atom.workspace.reopenItem();
-atom.workspace.addOpener(opener);
+
+async function workspaceReopen() {
+	const result = await atom.workspace.reopenItem();
+	if (result) obj = result;
+}
+
+atom.workspace.addOpener(() => element);
+
 atom.workspace.buildTextEditor(obj);
 
 // Pane Items
@@ -1997,16 +2022,23 @@ if (potentialPanel) {
 	panel = potentialPanel;
 }
 
-// Searching and Replacing
-atom.workspace.scan(/r/, () => {});
-atom.workspace.scan(/r/, { onPathsSearched: (pathsSearched) => {}, paths: ["a"]},
-	() => {});
+const scanResults = atom.workspace.scan(/r/, () => {});
+scanResults.cancel();
 
-atom.workspace.replace(/r/, "Test", ["a"], () => {});
+// Searching and Replacing
+async function workspaceScan() {
+	await scanResults;
+	await atom.workspace.scan(/r/, { onPathsSearched: (pathsSearched) => {},
+		paths: ["a"]}, () => {});
+}
+
+async function workspaceReplace() {
+	await atom.workspace.replace(/r/, "Test", ["a"], (options) => {});
+}
 
 //// WorkspaceCenter ==========================================================
 // Event Subscription
-sub = workspaceCenter.observeTextEditors(editor => editor.clipBufferPosition);
+sub = workspaceCenter.observeTextEditors(editor => editor.id);
 sub = workspaceCenter.observePaneItems(item => {});
 sub = workspaceCenter.onDidChangeActivePaneItem(item => {});
 sub = workspaceCenter.onDidStopChangingActivePaneItem(item => {});

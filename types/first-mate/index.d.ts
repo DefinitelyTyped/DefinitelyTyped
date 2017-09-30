@@ -84,7 +84,13 @@ declare namespace FirstMate {
 			ruleStack: GrammarRule[];
 		}
 
-		interface GrammarRule {}
+		interface GrammarRule {
+			// https://github.com/atom/first-mate/blob/v7.0.7/src/rule.coffee
+			// This is private. Don't go down the rabbit hole.
+			rule: object;
+			scopeName: string;
+			contentScopeName: string;
+		}
 	}
 
 	/** Grammar that tokenizes lines of text. */
@@ -107,18 +113,13 @@ declare namespace FirstMate {
 
 		/** Tokenizes the line of text.
 		 *  @param line A string of text to tokenize.
-		 *  @return An object representing the result of the tokenize.
-		 */
-		tokenizeLine(line: string): Structures.TokenizeLineResult;
-		/** Tokenizes the line of text.
-		 *  @param line A string of text to tokenize.
 		 *  @param ruleStack An optional array of rules previously returned from this
 		 *  method. This should be null when tokenizing the first line in the file.
 		 *  @param firstLine A optional boolean denoting whether this is the first line
 		 *  in the file which defaults to `false`.
 		 *  @return An object representing the result of the tokenize.
 		 */
-		tokenizeLine(line: string, ruleStack: null, firstLine?: boolean):
+		tokenizeLine(line: string, ruleStack?: null, firstLine?: boolean):
 			Structures.TokenizeLineResult;
 		/** Tokenizes the line of text.
 		 *  @param line A string of text to tokenize.

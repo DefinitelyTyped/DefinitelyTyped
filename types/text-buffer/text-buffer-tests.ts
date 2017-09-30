@@ -161,17 +161,21 @@ new TextBuffer({ text: "Test" });
 new TextBuffer({ shouldDestroyOnFileDelete });
 new TextBuffer({ text: "Test", shouldDestroyOnFileDelete });
 
-let tbPromise: Promise<TextBuffer.TextBuffer> = TextBuffer.load("Test.file");
-TextBuffer.load("Test.file", { encoding: "utf8" });
-TextBuffer.load("Test.file", { shouldDestroyOnFileDelete });
-TextBuffer.load("Test.file", { encoding: "utf8", shouldDestroyOnFileDelete });
+async function bufferLoadFile() {
+	buffer = await TextBuffer.load("Test.file");
+	buffer = await TextBuffer.load("Test.file", { encoding: "utf8" });
+	buffer = await TextBuffer.load("Test.file", { shouldDestroyOnFileDelete });
+	buffer = await TextBuffer.load("Test.file", { encoding: "utf8", shouldDestroyOnFileDelete });
+}
 
 buffer = TextBuffer.loadSync("Test.file");
 TextBuffer.loadSync("Test.file", { encoding: "utf8" });
 TextBuffer.loadSync("Test.file", { shouldDestroyOnFileDelete });
 TextBuffer.loadSync("Test.file", { encoding: "uft8", shouldDestroyOnFileDelete });
 
-tbPromise = TextBuffer.deserialize({});
+async function deserializeBuffer() {
+	buffer = await TextBuffer.deserialize({});
+}
 
 // Event Subscription
 sub = buffer.onWillChange(() => void {});
@@ -210,7 +214,7 @@ bool = buffer.isInConflict();
 
 const path = buffer.getPath();
 if (path) {
-	path.substr;
+	str = path.substr(0, 42);
 }
 
 buffer.setPath("Test.file");
@@ -345,9 +349,7 @@ num = buffer.getMarkerCount();
 bool = buffer.undo();
 bool = buffer.redo();
 
-num = buffer.transact<number>(500, (): number => {
-	return 42;
-});
+num = buffer.transact<number>(500, (): number => 42);
 
 buffer.clearUndoStack();
 num = buffer.createCheckpoint();
@@ -432,8 +434,11 @@ point = buffer.clipPosition(point);
 point = buffer.clipPosition([0, 0]);
 
 // Buffer Operations
-buffer.save().then(() => {});
-buffer.saveAs("Test.file").then(() => {});
+async function saveBuffer() {
+	await buffer.save();
+	await buffer.saveAs("Test.file");
+}
+
 buffer.reload();
 
 // Marker =====================================================================

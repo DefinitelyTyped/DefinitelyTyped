@@ -106,9 +106,7 @@ declare namespace EventKit {
 
 		// Event Emission
 		/** Invoke handlers registered via ::on for the given event name. */
-		emit(eventName: string): void;
-		/** Invoke handlers registered via ::on for the given event name. */
-		emit(eventName: string, value: any): void;
+		emit(eventName: string, value?: any): void;
 	}
 }
 
