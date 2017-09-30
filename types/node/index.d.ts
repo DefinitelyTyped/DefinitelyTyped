@@ -3561,6 +3561,14 @@ declare module "fs" {
     export function closeSync(fd: number): void;
 
     /**
+     * Synchronously copies src to dest. By default, dest is overwritten if it already exists. Node.js makes no guarantees about the atomicity of the copy operation. If an error occurs after the destination file has been opened for writing, Node.js will attempt to remove the destination.
+     * @param src Source filename to copy
+     * @param dest Destination filename of the copy operation
+     * @param flags Optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     */
+    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number) : void;                                
+                                
+    /**
      * Asynchronous open(2) - open and possibly create a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
