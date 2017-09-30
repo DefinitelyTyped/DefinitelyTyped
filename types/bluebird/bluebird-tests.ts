@@ -839,9 +839,11 @@ obj = Promise.promisifyAll(obj, {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO enable generator
+const generator = function* (a: number, b: string) {return "string"}
+const coroutine = Promise.coroutine<number, string, string>(generator);
+coroutine(5, "foo").then((x: string) => {});
 /*
- func = Promise.coroutine(f);
+ //TODO enable generator
 
  barProm = Promise.spawn<number>(f);
  */

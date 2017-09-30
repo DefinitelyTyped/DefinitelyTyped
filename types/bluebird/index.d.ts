@@ -776,9 +776,16 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
    */
-  // TODO fix coroutine GeneratorFunction
-  static coroutine(generatorFunction: (...args: any[]) => IterableIterator<any>): (...args: any[]) => Bluebird<any>;
-
+  // TODO: improve this to infer the return type of the generator, I believe this is blocked by https://github.com/Microsoft/TypeScript/issues/2983
+  static coroutine<T>(generatorFunction: () => IterableIterator<any>): () => Bluebird<T>;
+	static coroutine<A1, T>(generatorFunction: (a1: A1) => IterableIterator<any>): (a1: A1) => Bluebird<T>;
+	static coroutine<A1, A2, T>(generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>): (a1: A1, a2: A2) => Bluebird<T>;
+	static coroutine<A1, A2, A3, T>(generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<any>): (a1: A1, a2: A2, a3: A3) => Bluebird<T>;
+	static coroutine<A1, A2, A3, A4, T>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<any>): (a1: A1, a2: A2, a3: A3, a4: A4) => Bluebird<T>;
+	static coroutine<A1, A2, A3, A4, A5, T>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<any>): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => Bluebird<T>;
+	static coroutine<A1, A2, A3, A4, A5, A6, T>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
+	static coroutine<A1, A2, A3, A4, A5, A6, A7, T>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
+	static coroutine<A1, A2, A3, A4, A5, A6, A7, A8, T>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
   /**
    * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
    *
