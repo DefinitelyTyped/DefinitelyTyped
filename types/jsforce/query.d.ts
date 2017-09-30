@@ -1,5 +1,4 @@
 // http://jsforce.github.io/jsforce/doc/Query.html
-// Query should extend stream.Readable.
 import { Readable } from 'stream';
 
 import { SalesforceId } from './salesforce-id';
@@ -18,7 +17,7 @@ export interface QueryResult<T> {
     records: T[];
 }
 
-export class Query<T> implements Promise<T> {
+export class Query<T> extends Readable implements Promise<T> {
     end(): Query<T>;
     filter(filter: Object): Query<T>;
     include(include: string): Query<T>;
@@ -37,6 +36,7 @@ export class Query<T> implements Promise<T> {
     delete(callback?: (err: Error, ret: RecordResult) => void): any;
     destroy(type?: string, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult[]>;
     destroy(callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult[]>;
+    destroy(error?: Error): void;
     explain(callback?: (err: Error, info: ExplainInfo) => void): Promise<ExplainInfo>;
     map(callback: (currentValue: Object) => void): Promise<any>;
     scanAll(value: boolean): Query<T>;

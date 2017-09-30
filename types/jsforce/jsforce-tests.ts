@@ -71,21 +71,18 @@ salesforceConnection.sobject<any>('Coverage__c')
     .end()
     .where({ Is_Active__c: true }).execute();
 
-// The following test should pass because Query implements stream.Readable
-// http://jsforce.github.io/jsforce/doc/Query.html
-// However, there is a conflict between Readable's destroy() method, and Query's destroy() method.
-// let records: any[] = [];
-// salesforceConnection.query('SELECT Id FROM Account')
-//     .on('record', (record) => {
-//         records.push(record);
-//     })
-//     .on('end', (query: any) => {
-//         console.log(records);
-//     })
-//     .on('error', (error) => {
-//         console.log('Error returned from query:', error);
-//     })
-//     .run({ autoFetch: true, maxFetch: 25 });
+const records: any[] = [];
+salesforceConnection.query('SELECT Id FROM Account')
+    .on('record', (record) => {
+        records.push(record);
+    })
+    .on('end', (query: any) => {
+        console.log(records);
+    })
+    .on('error', (error) => {
+        console.log('Error returned from query:', error);
+    })
+    .run({ autoFetch: true, maxFetch: 25 });
 
 salesforceConnection.sobject<any>('Coverage__c')
     .select(['Id', 'Name']).del(() => { });
