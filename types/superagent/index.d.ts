@@ -1,8 +1,8 @@
 // Type definitions for SuperAgent 3.5
 // Project: https://github.com/visionmedia/superagent
-// Definitions by: Nico Zelaya <https://github.com/NicoZelaya/>
-//                 Michael Ledin <https://github.com/mxl/>
-//                 Pap Lőrinc <https://github.com/paplorinc/>
+// Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
+//                 Michael Ledin <https://github.com/mxl>
+//                 Pap Lőrinc <https://github.com/paplorinc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -67,13 +67,20 @@ declare namespace request {
         unsubscribe(url: string, callback?: CallbackHandler): Req;
     }
 
+    interface ResponseError extends Error {
+        status: number;
+        text: string;
+        method: string;
+        path: string;
+    }
+
     interface Response extends NodeJS.ReadableStream {
         accepted: boolean;
         badRequest: boolean;
         body: any;
         charset: string;
         clientError: boolean;
-        error: Error;
+        error: ResponseError;
         files: any;
         forbidden: boolean;
         get(header: string): string;

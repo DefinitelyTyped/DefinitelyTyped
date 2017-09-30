@@ -2,8 +2,9 @@
 // Project: https://github.com/rtfeldman/seamless-immutable
 // Definitions by: alex3165 <https://github.com/alex3165>
 //                 Stepan Burguchev <https://github.com/xsburg>
+//                 Geir Sagberg <https://github.com/geirsagberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 export = SeamlessImmutable;
 
@@ -37,6 +38,20 @@ declare namespace SeamlessImmutable {
         setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
             propertyPath: [ K, L, M, N, O ], value: T[K][L][M][N][O]): ImmutableObject<T>;
         setIn<TValue>(propertyPath: string[], value: TValue): ImmutableObject<T>;
+
+        getIn<K extends keyof T>(propertyPath: [ K ]): Immutable<T[K]>;
+        getIn<K extends keyof T>(propertyPath: [ K ], defaultValue: T[K]): Immutable<T[K]>;
+        getIn<K extends keyof T, L extends keyof T[K]>(propertyPath: [ K, L ]): Immutable<T[K][L]>;
+        getIn<K extends keyof T, L extends keyof T[K]>(propertyPath: [ K, L ], defaultValue: T[K][L]): Immutable<T[K][L]>;
+        getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L]>(propertyPath: [ K, L, M ]): Immutable<T[K][L][M]>;
+        getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>(propertyPath: [ K, L, M, N ]): Immutable<T[K][L][M][N]>;
+        getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>(propertyPath: [ K, L, M, N ], defaultValue: T[K][L][M][N]): Immutable<T[K][L][M][N]>;
+        getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
+            propertyPath: [ K, L, M, N, O ]): Immutable<T[K][L][M][N][O]>;
+        getIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>(
+            propertyPath: [ K, L, M, N, O ], defaultValue: T[K][L][M][N][O]): Immutable<T[K][L][M][N][O]>;
+        getIn(propertyPath: string[]): Immutable<any>;
+        getIn<TValue>(propertyPath: string[], defaultValue: TValue): Immutable<TValue>;
 
         asMutable(opts?: AsMutableOptions): T;
 

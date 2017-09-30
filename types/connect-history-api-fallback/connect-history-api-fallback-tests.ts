@@ -57,7 +57,7 @@ historyApiFallback({
         {
             from: /^\/libs\/(.*)$/,
             to(context) {
-                return '/' + context.match[2] + '/' + context.match[3];
+                return `/${context.match[2]}/${context.match[3]}`;
             }
         }
     ]

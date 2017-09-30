@@ -28,7 +28,7 @@ declare namespace convict {
     }
 
     interface Schema {
-        [name: string]: convict.Schema | {
+        [name: string]: Schema | {
             default: any;
             doc?: string;
             /**

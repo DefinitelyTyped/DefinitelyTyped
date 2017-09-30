@@ -7,7 +7,7 @@ Q(8).then(x => console.log(x.toExponential()));
 Q().then(() => console.log("nothing"));
 
 const delay = (delay: number) => {
-	let d = Q.defer<void>();
+	const d = Q.defer<void>();
 	setTimeout(d.resolve, delay);
 	return d.promise;
 };
@@ -51,7 +51,7 @@ Q.all([
 	eventually(10),
 	eventually(20)
 ]).then((results) => {
-	let [x, y] = results;
+	const [x, y] = results;
 	console.log(x, y);
 });
 
@@ -73,9 +73,9 @@ Q.allResolved([])
 	.then((promises: Array<Q.Promise<any>>) => {
 		promises.forEach((promise) => {
 			if (promise.isFulfilled()) {
-				let value = promise.valueOf();
+				const value = promise.valueOf();
 			} else {
-				let exception = promise.valueOf().exception;
+				const exception = promise.valueOf().exception;
 			}
 		});
 	});
@@ -162,7 +162,7 @@ class Repo {
 	find(options: any): Q.Promise<any[]> {
 		let result = this.items;
 
-		for (let key in options) {
+		for (const key in options) {
 			result = result.filter(i => i[key] === options[key]);
 		}
 
@@ -183,8 +183,7 @@ namespace TestCanRethrowRejectedPromises {
 	}
 
 	function nestedBar(): Q.Promise<Foo> {
-		let deferred = Q.defer<Foo>();
-
+		const deferred = Q.defer<Foo>();
 		return deferred.promise;
 	}
 
@@ -213,14 +212,14 @@ namespace TestCanRethrowRejectedPromises {
 
 // test Q.Promise.all
 const y1 = Q().then(() => {
-	let s = Q("hello");
-	let n = Q(1);
+	const s = Q("hello");
+	const n = Q(1);
 	return <[typeof s, typeof n]> [s, n];
 });
 
 const y2 = Q().then(() => {
-	let s = "hello";
-	let n = Q(1);
+	const s = "hello";
+	const n = Q(1);
 	return <[typeof s, typeof n]> [s, n];
 });
 

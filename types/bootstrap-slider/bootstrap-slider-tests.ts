@@ -12,7 +12,7 @@ $(() => {
     $('#ex2').slider({});
 
     const RGBChange = () => {
-        $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')');
+        $('#RGB').css('background', `rgb(${r.getValue()},${g.getValue()},${b.getValue()})`);
     };
 
     const r = $('#R').slider()

@@ -25,6 +25,8 @@ declare module "react-scrollbar" {
       smoothScrolling?: boolean
       minScrollSize?: number,
       swapWheelAxes?: boolean
+      stopScrollPropagation?: boolean,
+      focusableTabIndex?: number
   }
 
   class ScrollArea extends React.Component<ScrollAreaProps> {}

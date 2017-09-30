@@ -65,3 +65,6 @@ const myMatcher: fetchMock.MockMatcherFunction = (
   url: string,
   opts: fetchMock.MockRequest
 ) => true;
+
+fetchMock.flush().then(resolved => resolved.forEach(console.log));
+fetchMock.flush().catch(r => r);

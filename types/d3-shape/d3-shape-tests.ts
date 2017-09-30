@@ -447,8 +447,8 @@ let lineRadial: d3Shape.LineRadial<LineRadialDatum> = d3Shape.lineRadial<LineRad
 
 // DEPRECATED Naming conventions test (cross-testing with new naming conventions)
 
-let defaultRadialLine: d3Shape.RadialLine<[number, number]> = defaultLineRadial;
-let radialLine: d3Shape.RadialLine<LineRadialDatum> = lineRadial;
+const defaultRadialLine: d3Shape.RadialLine<[number, number]> = defaultLineRadial;
+const radialLine: d3Shape.RadialLine<LineRadialDatum> = lineRadial;
 
 defaultLineRadial = d3Shape.radialLine();
 lineRadial = d3Shape.radialLine<LineRadialDatum>();
@@ -685,8 +685,8 @@ let areaRadial: d3Shape.AreaRadial<AreaRadialDatum> = d3Shape.areaRadial<AreaRad
 
 // DEPRECATED Naming conventions test (cross-testing with new naming conventions)
 
-let defaultRadialArea: d3Shape.RadialArea<[number, number]> = defaultAreaRadial;
-let radialArea: d3Shape.RadialArea<AreaRadialDatum> = areaRadial;
+const defaultRadialArea: d3Shape.RadialArea<[number, number]> = defaultAreaRadial;
+const radialArea: d3Shape.RadialArea<AreaRadialDatum> = areaRadial;
 
 defaultAreaRadial = d3Shape.radialArea();
 areaRadial = d3Shape.radialArea<AreaRadialDatum>();
@@ -1322,7 +1322,7 @@ customSymbol = d3Shape.symbolWye;
 // Test pointRadial
 // -----------------------------------------------------------------------------------
 
-let coordinatates: [number, number] = d3Shape.pointRadial(0, 12);
+const coordinatates: [number, number] = d3Shape.pointRadial(0, 12);
 
 // -----------------------------------------------------------------------------------
 // Test Stacks

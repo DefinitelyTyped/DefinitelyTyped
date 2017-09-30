@@ -3,7 +3,7 @@ import { CSSModule } from '../index';
 interface Props {
   tag?: React.ReactType;
   right?: boolean;
-  className?: boolean;
+  className?: string;
   cssModule?: CSSModule;
 }
 

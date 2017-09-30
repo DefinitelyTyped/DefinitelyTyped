@@ -1,6 +1,6 @@
 // Type definitions for log4js
 // Project: https://github.com/nomiddlename/log4js-node
-// Definitions by: Kentaro Okuno <http://github.com/armorik83>
+// Definitions by: Kentaro Okuno <https://github.com/armorik83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');

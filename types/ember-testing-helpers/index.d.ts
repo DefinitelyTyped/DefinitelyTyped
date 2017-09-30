@@ -10,7 +10,7 @@
 
 /// <reference types="jquery" />
 
-import RSVP from 'rsvp';
+import RSVP = require('rsvp');
 
 type KeyEventType = 'keydown' | 'keyup' | 'keypress';
 type WaitResult<T> = RSVP.Promise<T, never>;

@@ -1,6 +1,6 @@
 // Type definitions for passport-saml 0.15
 // Project: https://github.com/bergie/passport-saml
-// Definitions by: Chris Barth <https://github.com/cjbarth/>
+// Definitions by: Chris Barth <https://github.com/cjbarth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import passport = require('passport');
@@ -33,12 +33,13 @@ export class Strategy implements passport.Strategy {
 export interface SamlConfig {
     // Core
     callbackUrl?: string;
-    path: string;
+    path?: string;
     protocol?: string;
     host?: string;
     entryPoint: string;
     issuer: string;
     privateCert?: string;
+    cert?: {};
     decryptionPvk?: string;
     signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512';
 

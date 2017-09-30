@@ -41,7 +41,7 @@ export interface Props {
     width?: number | string;
 }
 
-export class ReactBurgerMenu extends React.Component<Props, {}> { }
+export class ReactBurgerMenu extends React.Component<Props> { }
 
 export class slide extends ReactBurgerMenu { }
 export class stack extends ReactBurgerMenu { }

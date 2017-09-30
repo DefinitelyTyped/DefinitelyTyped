@@ -1,5 +1,4 @@
 
-
 var app = angular.module('testModule', ['angular-loading-bar']);
 
 class TestController {
@@ -19,5 +18,8 @@ barConfig.push({
     includeSpinner: true,
     includeBar: true,
     spinnerTemplate: 'template',
-    latencyThreshold: 100
+    latencyThreshold: 100,
+    startSize: 0.02,
+    loadingBarTemplate: '',
+    autoIncrement: true
 });

@@ -1,5 +1,5 @@
 // Type definitions for mkdirp 0.5.1
-// Project: http://github.com/substack/node-mkdirp
+// Project: https://github.com/substack/node-mkdirp
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

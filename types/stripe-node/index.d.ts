@@ -1,6 +1,6 @@
 // Type definitions for stripe-node 4.6.0
 // Project: https://github.com/stripe/stripe-node/
-// Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal/>
+// Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

@@ -18,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "plotly.js-tests.ts"
+        "lib/core.d.ts",
+        "test/index-tests.ts",
+        "test/core-tests.ts"
     ]
 }

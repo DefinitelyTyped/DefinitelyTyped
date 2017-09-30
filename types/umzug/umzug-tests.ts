@@ -50,6 +50,8 @@ umzug.down({ migrations: ['20141101203500-task', '20141101203501-task-2'] });
 umzug.down('20141101203500-task'); // Runs just the passed migration
 umzug.down(['20141101203500-task', '20141101203501-task-2']);
 
+umzug.down({to: 0}); // Reverts every migration. 
+
 var AnotherUmzug = new Umzug({
   // The storage.
   // Possible values: 'json', 'sequelize', an object

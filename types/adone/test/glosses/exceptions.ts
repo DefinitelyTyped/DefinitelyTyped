@@ -1,0 +1,36 @@
+namespace ExcetpionsTests {
+    { const a: Error = new adone.x.Exception(); }
+    { const a: Error = new adone.x.Exception("message"); }
+    { const a: Error = new adone.x.Exception(new Error()); }
+    { const a: Error = new adone.x.Exception(new Error(), true); }
+    { const a: adone.x.Exception = new adone.x.Runtime(); }
+    { const a: adone.x.Exception = new adone.x.IncompleteBufferError(); }
+    { const a: adone.x.Exception = new adone.x.NotImplemented(); }
+    { const a: adone.x.Exception = new adone.x.IllegalState(); }
+    { const a: adone.x.Exception = new adone.x.NotValid(); }
+    { const a: adone.x.Exception = new adone.x.Unknown(); }
+    { const a: adone.x.Exception = new adone.x.NotExists(); }
+    { const a: adone.x.Exception = new adone.x.Exists(); }
+    { const a: adone.x.Exception = new adone.x.Empty(); }
+    { const a: adone.x.Exception = new adone.x.InvalidAccess(); }
+    { const a: adone.x.Exception = new adone.x.NotSupported(); }
+    { const a: adone.x.Exception = new adone.x.InvalidArgument(); }
+    { const a: adone.x.Exception = new adone.x.InvalidNumberOfArguments(); }
+    { const a: adone.x.Exception = new adone.x.NotFound(); }
+    { const a: adone.x.Exception = new adone.x.Timeout(); }
+    { const a: adone.x.Exception = new adone.x.Incorrect(); }
+    { const a: adone.x.Exception = new adone.x.NotAllowed(); }
+    { const a: adone.x.Exception = new adone.x.LimitExceeded(); }
+    { const a: adone.x.Exception = new adone.x.Encoding(); }
+    { const a: adone.x.Exception = new adone.x.Network(); }
+    { const a: adone.x.Exception = new adone.x.Bind(); }
+    { const a: adone.x.Exception = new adone.x.Connect(); }
+    { const a: adone.x.Exception = new adone.x.Database(); }
+    { const a: adone.x.Exception = new adone.x.DatabaseInitialization(); }
+    { const a: adone.x.Exception = new adone.x.DatabaseOpen(); }
+    { const a: adone.x.Exception = new adone.x.DatabaseRead(); }
+    { const a: adone.x.Exception = new adone.x.DatabaseWrite(); }
+    { const a: adone.x.Exception = new adone.x.NetronIllegalState(); }
+    { const a: adone.x.Exception = new adone.x.NetronPeerDisconnected(); }
+    { const a: adone.x.Exception = new adone.x.NetronTimeout(); }
+}

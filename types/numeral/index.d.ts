@@ -1,6 +1,6 @@
 // Type definitions for Numeral.js
 // Project: https://github.com/adamwdraper/Numeral-js
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
+// Definitions by: Vincent Bortone <https://github.com/vbortone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

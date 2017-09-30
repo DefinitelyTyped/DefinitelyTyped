@@ -1,6 +1,6 @@
 // Type definitions for chunked-dc 0.1
 // Project: https://github.com/saltyrtc/chunked-dc-js
-// Definitions by: Danilo Bargen <https://github.com/dbrgn/>
+// Definitions by: Danilo Bargen <https://github.com/dbrgn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Interfaces

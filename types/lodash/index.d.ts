@@ -5,9 +5,10 @@
 //                 Stepan Mikhaylyuk <https://github.com/stepancar>,
 //                 Eric L Anderson <https://github.com/ericanderson>,
 //                 AJ Richardson <https://github.com/aj-r>,
-//                 Junyoung Clare Jang <https://github.com/ailrun>
+//                 Junyoung Clare Jang <https://github.com/ailrun>,
+//                 e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -368,6 +369,11 @@ declare namespace _ {
          * @return Returns the cache object.
          */
         set(key: string, value: any): _.Dictionary<any>;
+
+        /**
+         * Removes all key-value entries from the map.
+         */
+        clear(): void;
     }
     interface MapCacheConstructor {
         new (): MapCache;
@@ -1953,6 +1959,7 @@ declare namespace _ {
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
+
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
 
     //_.flatten
@@ -2083,7 +2090,7 @@ declare namespace _ {
         * @return Returns the new flattened array.
         */
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
-     }
+    }
 
     //_.fromPairs
     interface LoDashStatic {
@@ -2423,6 +2430,40 @@ declare namespace _ {
             array: List<any>,
             ...values: any[]
         ): any[];
+    }
+
+    type Comparator<T> = (arrVal: T, othVal: T) => boolean;
+
+    //_.pullAllWith
+    interface LoDashStatic {
+        /**
+         * This method is like `_.pullAll` except that it accepts `comparator` which
+         * is invoked to compare elements of `array` to `values`. The comparator is
+         * invoked with two arguments: (arrVal, othVal).
+         *
+         * **Note:** Unlike `_.differenceWith`, this method mutates `array`.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.6.0
+         * @category Array
+         * @param {Array} array The array to modify.
+         * @param {Array} values The values to remove.
+         * @param {Function} [comparator] The comparator invoked per element.
+         * @returns {Array} Returns `array`.
+         * @example
+         *
+         * var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
+         *
+         * _.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
+         * console.log(array);
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
+         */
+        pullAllWith<T>(
+            array: List<T>,
+            values: List<T>,
+            comparator?: Comparator<T>
+        ): List<T>;
     }
 
     //_.reverse DUMMY
@@ -6363,101 +6404,7 @@ declare namespace _ {
 
     //_.each
     interface LoDashStatic {
-        /**
-         * @see _.forEach
-         */
-        each<T>(
-            collection: T[],
-            iteratee?: ListIterator<T, any>
-        ): T[];
-
-        /**
-         * @see _.forEach
-         */
-        each(
-            collection: string,
-            iteratee?: ListIterator<string, any>
-        ): string;
-
-        /**
-         * @see _.forEach
-         */
-        each<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>
-        ): List<T>;
-
-        /**
-         * @see _.forEach
-         */
-        each<T>(
-            collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T>;
-
-        /**
-         * @see _.forEach
-         */
-        each<T extends {}>(
-            collection: T,
-            iteratee?: ObjectIterator<any, any>
-        ): T;
-
-        /**
-         * @see _.forEach
-         */
-        each<T extends {}, TValue>(
-            collection: T,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T;
-
-        /**
-         * @see _.forEach
-         */
-        each<T>(
-            collection: T[] | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): T[] | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        each(
-            collection: string | null | undefined,
-            iteratee?: ListIterator<string, any>
-        ): string | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        each<T>(
-            collection: List<T> | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): List<T> | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        each<T>(
-            collection: Dictionary<T> | null | undefined,
-            iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T> | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        each<T extends {}>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<any, any>
-        ): T | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        each<T extends {}, TValue>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T | null | undefined;
+        each: typeof _.forEach;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -6465,7 +6412,7 @@ declare namespace _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -6492,7 +6439,7 @@ declare namespace _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -6516,101 +6463,7 @@ declare namespace _ {
 
     //_.eachRight
     interface LoDashStatic {
-        /**
-         * @see _.forEachRight
-         */
-        eachRight(
-            collection: string,
-            iteratee?: ListIterator<string, any>
-        ): string;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T>(
-            collection: T[],
-            iteratee?: ListIterator<T, any>
-        ): T[];
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>
-        ): List<T>;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T>(
-            collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T>;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T extends {}>(
-            collection: T,
-            iteratee?: ObjectIterator<any, any>
-        ): T;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T extends {}, TValue>(
-            collection: T,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight(
-            collection: string | null | undefined,
-            iteratee?: ListIterator<string, any>
-        ): string | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T>(
-            collection: T[] | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): T[] | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T>(
-            collection: List<T> | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): List<T> | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T>(
-            collection: Dictionary<T> | null | undefined,
-            iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T> | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T extends {}>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<any, any>
-        ): T | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        eachRight<T extends {}, TValue>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T | null | undefined;
+        eachRight: typeof _.forEachRight;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -6618,7 +6471,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -6645,7 +6498,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -6703,15 +6556,7 @@ declare namespace _ {
          */
         every<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T> | null | undefined,
-            predicate?: string|any[]
-        ): boolean;
-
-        /**
-         * @see _.every
-         */
-        every<T>(
-            collection: List<T>|Dictionary<T>|NumericDictionary<T> | null | undefined,
-            predicate?: PartialObject<T>
+            predicate?: string|any[]|PartialObject<T>
         ): boolean;
     }
 
@@ -6827,10 +6672,26 @@ declare namespace _ {
          * @param thisArg The this binding of predicate.
          * @return Returns the new filtered array.
          */
+        filter<T, S extends T>(
+            collection: List<T> | null | undefined,
+            predicate: ListIteratorTypeGuard<T, S>
+        ): S[];
+
+        /**
+         * @see _.filter
+         */
         filter<T>(
             collection: List<T> | null | undefined,
             predicate?: ListIterator<T, boolean>
         ): T[];
+
+        /**
+         * @see _.filter
+         */
+        filter<T, S extends T>(
+            collection: Dictionary<T> | null | undefined,
+            predicate: DictionaryIteratorTypeGuard<T, S>
+        ): S[];
 
         /**
          * @see _.filter
@@ -6853,15 +6714,7 @@ declare namespace _ {
          */
         filter<T>(
             collection: List<T>|Dictionary<T> | null | undefined,
-            predicate: string|RegExp
-        ): T[];
-
-        /**
-         * @see _.filter
-         */
-        filter<T>(
-            collection: List<T>|Dictionary<T> | null | undefined,
-            predicate: PartialObject<T>
+            predicate: string | [string, any] | RegExp | PartialObject<T>
         ): T[];
     }
 
@@ -6878,42 +6731,32 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter(
-            predicate: ListIterator<T, boolean>
-        ): LoDashImplicitArrayWrapper<T>;
+        filter<S extends T>(
+            predicate: ListIteratorTypeGuard<T, S>
+        ): LoDashImplicitArrayWrapper<S>;
 
         /**
          * @see _.filter
          */
         filter(
-            predicate: string|RegExp
+            predicate: ListIterator<T, boolean> | string | [string, any] | RegExp | PartialObject<T>
         ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.filter
-         */
-        filter(predicate: PartialObject<T>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.filter
          */
-        filter<T>(
-            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>
-        ): LoDashImplicitArrayWrapper<T>;
+        filter<T, S extends T>(
+            predicate: ListIteratorTypeGuard<T, S>
+        ): LoDashImplicitArrayWrapper<S>;
 
         /**
          * @see _.filter
          */
         filter<T>(
-            predicate: string|RegExp
+            predicate: ListIterator<T, boolean> | DictionaryIterator<T, boolean> | string | [string, any] | RegExp | PartialObject<T>
         ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T>(predicate: PartialObject<T>): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -6929,42 +6772,32 @@ declare namespace _ {
         /**
          * @see _.filter
          */
-        filter(
-            predicate: ListIterator<T, boolean>
-        ): LoDashExplicitArrayWrapper<T>;
+        filter<S extends T>(
+            predicate: ListIteratorTypeGuard<T, S>
+        ): LoDashExplicitArrayWrapper<S>;
 
         /**
          * @see _.filter
          */
         filter(
-            predicate: string|RegExp
+            predicate: ListIterator<T, boolean> | string | [string, any] | RegExp | PartialObject<T>
         ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.filter
-         */
-        filter(predicate: PartialObject<T>): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.filter
          */
-        filter<T>(
-            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>
-        ): LoDashExplicitArrayWrapper<T>;
+        filter<T, S extends T>(
+            predicate: ListIteratorTypeGuard<T, S>
+        ): LoDashExplicitArrayWrapper<S>;
 
         /**
          * @see _.filter
          */
         filter<T>(
-            predicate: string|RegExp
+            predicate: ListIterator<T, boolean> | DictionaryIterator<T, boolean> | string | [string, any] | RegExp | PartialObject<T>
         ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.filter
-         */
-        filter<T>(predicate: PartialObject<T>): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.find
@@ -6987,11 +6820,29 @@ declare namespace _ {
          * @param fromIndex The index to search from.
          * @return Returns the matched element, else undefined.
          */
+        find<T, S extends T>(
+            collection: List<T> | null | undefined,
+            predicate: ListIteratorTypeGuard<T, S>,
+            fromIndex?: number
+        ): S|undefined;
+
+        /**
+         * @see _.find
+         */
         find<T>(
             collection: List<T> | null | undefined,
             predicate?: ListIterator<T, boolean>,
             fromIndex?: number
         ): T|undefined;
+
+        /**
+         * @see _.find
+         */
+        find<T, S extends T>(
+            collection: Dictionary<T> | null | undefined,
+            predicate: DictionaryIteratorTypeGuard<T, S>,
+            fromIndex?: number
+        ): S|undefined;
 
         /**
          * @see _.find
@@ -7007,16 +6858,7 @@ declare namespace _ {
          */
         find<T>(
             collection: List<T>|Dictionary<T> | null | undefined,
-            predicate?: string,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-         * @see _.find
-         */
-        find<T>(
-            collection: List<T>|Dictionary<T> | null | undefined,
-            predicate?: PartialObject<T>,
+            predicate?: string | PartialObject<T> | [string, any],
             fromIndex?: number
         ): T|undefined;
     }
@@ -7025,24 +6867,16 @@ declare namespace _ {
         /**
          * @see _.find
          */
-        find(
-            predicate?: ListIterator<T, boolean>,
+        find<S extends T>(
+            predicate: ListIteratorTypeGuard<T, S>,
             fromIndex?: number
-        ): T|undefined;
+        ): S|undefined;
 
         /**
          * @see _.find
          */
         find(
-            predicate?: string,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-         * @see _.find
-         */
-        find(
-            predicate?: PartialObject<T>,
+            predicate?: ListIterator<T, boolean> | string | PartialObject<T> | [string, any],
             fromIndex?: number
         ): T|undefined;
     }
@@ -7052,23 +6886,7 @@ declare namespace _ {
          * @see _.find
          */
         find<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            fromIndex?: number
-        ): TResult|undefined;
-
-        /**
-         * @see _.find
-         */
-        find<TResult>(
-            predicate?: string,
-            fromIndex?: number
-        ): TResult|undefined;
-
-        /**
-         * @see _.find
-         */
-        find<TResult>(
-            predicate?: PartialObject<TResult>,
+            predicate?: ListIterator<TResult, boolean> | DictionaryIterator<TResult, boolean> | string | PartialObject<TResult> | [string, any],
             fromIndex?: number
         ): TResult|undefined;
     }
@@ -7078,23 +6896,7 @@ declare namespace _ {
          * @see _.find
          */
         find(
-            predicate?: ListIterator<T, boolean>,
-            fromIndex?: number
-        ): any;
-
-        /**
-         * @see _.find
-         */
-        find(
-            predicate?: string,
-            fromIndex?: number
-        ): any;
-
-        /**
-         * @see _.find
-         */
-        find(
-            predicate?: PartialObject<T>,
+            predicate?: ListIterator<T, boolean> | string | PartialObject<T> | [string, any],
             fromIndex?: number
         ): any;
     }
@@ -7105,120 +6907,79 @@ declare namespace _ {
         * This method is like _.find except that it iterates over elements of a collection from
         * right to left.
         * @param collection Searches for a value in this list.
-        * @param callback The function called per iteration.
+        * @param predicate The function called per iteration.
         * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
-        findLast<T>(
-            collection: T[] | null | undefined,
-            callback: ListIterator<T, boolean>,
+        findLast<T, S extends T>(
+            collection: List<T> | null | undefined,
+            predicate: ListIteratorTypeGuard<T, S>,
             fromIndex?: number
-        ): T|undefined;
+        ): S|undefined;
 
         /**
-        * @see _.find
-        **/
+         * @see _.findLast
+         */
         findLast<T>(
             collection: List<T> | null | undefined,
-            callback: ListIterator<T, boolean>,
+            predicate?: ListIterator<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
         /**
-        * @see _.find
-        **/
+         * @see _.findLast
+         */
+        findLast<T, S extends T>(
+            collection: Dictionary<T> | null | undefined,
+            predicate: DictionaryIteratorTypeGuard<T, S>,
+            fromIndex?: number
+        ): S|undefined;
+
+        /**
+         * @see _.findLast
+         */
         findLast<T>(
             collection: Dictionary<T> | null | undefined,
-            callback: DictionaryIterator<T, boolean>,
+            predicate?: DictionaryIterator<T, boolean>,
             fromIndex?: number
         ): T|undefined;
 
         /**
-        * @see _.find
-        * @param _.pluck style callback
-        **/
-        findLast<W, T>(
-            collection: T[] | null | undefined,
-            whereValue: W,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-        * @see _.find
-        * @param _.pluck style callback
-        **/
-        findLast<W, T>(
-            collection: List<T> | null | undefined,
-            whereValue: W,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-        * @see _.find
-        * @param _.pluck style callback
-        **/
-        findLast<W, T>(
-            collection: Dictionary<T> | null | undefined,
-            whereValue: W,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
-        **/
+         * @see _.findLast
+         */
         findLast<T>(
-            collection: T[] | null | undefined,
-            pluckValue: string,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
-        **/
-        findLast<T>(
-            collection: List<T> | null | undefined,
-            pluckValue: string,
-            fromIndex?: number
-        ): T|undefined;
-
-        /**
-        * @see _.find
-        * @param _.where style callback
-        **/
-        findLast<T>(
-            collection: Dictionary<T> | null | undefined,
-            pluckValue: string,
+            collection: List<T>|Dictionary<T> | null | undefined,
+            predicate?: string | PartialObject<T> | [string, any],
             fromIndex?: number
         ): T|undefined;
     }
 
     interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
         /**
-        * @see _.findLast
-        */
-        findLast(
-            callback: ListIterator<T, boolean>,
+         * @see _.findLast
+         */
+        findLast<S extends T>(
+            predicate: ListIteratorTypeGuard<T, S>,
             fromIndex?: number
-        ): T|undefined;
-        /**
-        * @see _.findLast
-        * @param _.where style callback
-        */
-        findLast<W>(
-            whereValue: W,
-            fromIndex?: number
-        ): T|undefined;
+        ): S|undefined;
 
         /**
-        * @see _.findLast
-        * @param _.where style callback
-        */
+         * @see _.findLast
+         */
         findLast(
-            pluckValue: string,
+            predicate?: ListIterator<T, boolean> | string | PartialObject<T> | [string, any],
             fromIndex?: number
         ): T|undefined;
+    }
+
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.findLast
+         */
+        findLast<TResult>(
+            predicate?: ListIterator<TResult, boolean> | DictionaryIterator<TResult, boolean> | string | PartialObject<TResult> | [string, any],
+            fromIndex?: number
+        ): TResult|undefined;
     }
 
     interface LoDashExplicitWrapperBase<T, TWrapper> {
@@ -7226,23 +6987,7 @@ declare namespace _ {
          * @see _.findLast
          */
         findLast(
-            predicate?: ListIterator<T, boolean>,
-            fromIndex?: number
-        ): any;
-
-        /**
-         * @see _.findLast
-         */
-        findLast(
-            predicate?: string,
-            fromIndex?: number
-        ): any;
-
-        /**
-         * @see _.findLast
-         */
-        findLast(
-            predicate?: PartialObject<T>,
+            predicate?: ListIterator<T, boolean> | string | PartialObject<T> | [string, any],
             fromIndex?: number
         ): any;
     }
@@ -7258,17 +7003,16 @@ declare namespace _ {
          * @param iteratee The function invoked per iteration.
          * @return Returns the new flattened array.
          */
-        flatMap<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee?: ListIterator<T, Many<TResult>>
-        ): TResult[];
+        flatMap<T>(
+            collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined
+        ): T[];
 
         /**
          * @see _.flatMap
          */
-        flatMap<TResult>(
-            collection: List<any> | null | undefined,
-            iteratee?: ListIterator<any, Many<TResult>>
+        flatMap<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, Many<TResult>> | string
         ): TResult[];
 
         /**
@@ -7276,15 +7020,7 @@ declare namespace _ {
          */
         flatMap<T, TResult>(
             collection: Dictionary<T> | null | undefined,
-            iteratee?: DictionaryIterator<T, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: Dictionary<any> | null | undefined,
-            iteratee?: DictionaryIterator<any, Many<TResult>>
+            iteratee: DictionaryIterator<T, Many<TResult>> | string
         ): TResult[];
 
         /**
@@ -7292,71 +7028,24 @@ declare namespace _ {
          */
         flatMap<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee?: NumericDictionaryIterator<T, Many<TResult>>
+            iteratee: NumericDictionaryIterator<T, Many<TResult>> | string
         ): TResult[];
 
         /**
          * @see _.flatMap
          */
         flatMap<TResult>(
-            collection: NumericDictionary<any> | null | undefined,
-            iteratee?: NumericDictionaryIterator<any, Many<TResult>>
+            collection: object | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>> | string
         ): TResult[];
 
         /**
          * @see _.flatMap
          */
-        flatMap<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TWhere extends Object, TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: TWhere
+        flatMap(
+            collection: object | null | undefined,
+            iteratee: object
         ): boolean[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee: Object|string
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: [string, any]
-        ): boolean[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: string | null | undefined
-        ): string[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: Object|string
-        ): TResult[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7364,7 +7053,7 @@ declare namespace _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>
+            iteratee: StringIterator<Many<TResult>>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7384,15 +7073,8 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
@@ -7419,15 +7101,8 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
@@ -7441,7 +7116,7 @@ declare namespace _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>
+            iteratee: StringIterator<Many<TResult>>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7461,15 +7136,8 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
@@ -7496,21 +7164,419 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
          * @see _.flatMap
          */
         flatMap<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    //_.flatMapDeep
+    interface LoDashStatic {
+        /**
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.7.0
+         * @category Collection
+         * @param {Array|Object} collection The collection to iterate over.
+         * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+         * @returns {Array} Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDeep([1, 2], duplicate);
+         * // => [1, 1, 2, 2]
+         */
+        flatMapDeep<T>(
+            collection: List<ListOfRecursiveArraysOrValues<T>> | Dictionary<ListOfRecursiveArraysOrValues<T>> | NumericDictionary<ListOfRecursiveArraysOrValues<T>> | null | undefined
+        ): T[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            collection: Dictionary<T> | null | undefined,
+            iteratee: DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            collection: NumericDictionary<T> | null | undefined,
+            iteratee: NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            collection: object | null | undefined,
+            iteratee?: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>> | string
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            collection: object | null | undefined,
+            iteratee: object
+        ): boolean[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: object
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: object
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: object
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: object
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    //_.flatMapDepth
+    interface LoDashStatic {
+        /**
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results up to `depth` times.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.7.0
+         * @category Collection
+         * @param {Array|Object} collection The collection to iterate over.
+         * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+         * @param {number} [depth=1] The maximum recursion depth.
+         * @returns {Array} Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDepth([1, 2], duplicate, 2);
+         * // => [[1, 1], [2, 2]]
+         */
+        flatMapDepth<T>(
+            collection: List<ListOfRecursiveArraysOrValues<T>> | Dictionary<ListOfRecursiveArraysOrValues<T>> | NumericDictionary<ListOfRecursiveArraysOrValues<T>> | null | undefined,
+            depth?: number
+        ): T[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            collection: Dictionary<T> | null | undefined,
+            iteratee: DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            collection: NumericDictionary<T> | null | undefined,
+            iteratee: NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            collection: object | null | undefined,
+            iteratee?: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>> | string,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            collection: object | null | undefined,
+            iteratee: object,
+            depth?: number
+        ): boolean[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: object,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: object,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>,
+            depth?: number
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string,
+            depth?: number
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: object,
+            depth?: number
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>,
+            depth?: number
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string,
+            depth?: number
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: object,
+            depth?: number
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashExplicitArrayWrapper<TResult>;
     }
 
     //_.forEach
@@ -7529,98 +7595,34 @@ declare namespace _ {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        forEach<T>(
-            collection: T[],
+        forEach<TString extends string | null | undefined>(
+            collection: TString,
+            iteratee?: StringIterator<any>
+        ): TString;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T, TList extends List<T> | null | undefined>(
+            collection: TList & (List<T> | null | undefined),
             iteratee?: ListIterator<T, any>
-        ): T[];
+        ): TList;
 
         /**
          * @see _.forEach
          */
-        forEach(
-            collection: string,
-            iteratee?: ListIterator<string, any>
-        ): string;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>
-        ): List<T>;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T>(
-            collection: Dictionary<T>,
+        forEach<T, TDictionary extends Dictionary<T> | null | undefined>(
+            collection: TDictionary & (Dictionary<T> | null | undefined),
             iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T>;
+        ): TDictionary;
 
         /**
          * @see _.forEach
          */
-        forEach<T extends {}>(
+        forEach<T extends {} | null | undefined>(
             collection: T,
             iteratee?: ObjectIterator<any, any>
         ): T;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T extends {}, TValue>(
-            collection: T,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T>(
-            collection: T[] | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): T[] | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        forEach(
-            collection: string | null | undefined,
-            iteratee?: ListIterator<string, any>
-        ): string | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T>(
-            collection: List<T> | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): List<T> | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T>(
-            collection: Dictionary<T> | null | undefined,
-            iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T> | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T extends {}>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<any, any>
-        ): T | null | undefined;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T extends {}, TValue>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T | null | undefined;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7628,7 +7630,7 @@ declare namespace _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -7655,7 +7657,7 @@ declare namespace _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -7688,98 +7690,34 @@ declare namespace _ {
          * @param iteratee The function called per iteration.
          * @param thisArg The this binding of callback.
          */
-        forEachRight<T>(
-            collection: T[],
+        forEachRight<TString extends string | null | undefined>(
+            collection: TString,
+            iteratee?: StringIterator<any>
+        ): TString;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T, TList extends List<T> | null | undefined>(
+            collection: TList & (List<T> | null | undefined),
             iteratee?: ListIterator<T, any>
-        ): T[];
+        ): TList;
 
         /**
          * @see _.forEachRight
          */
-        forEachRight(
-            collection: string,
-            iteratee?: ListIterator<string, any>
-        ): string;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T>(
-            collection: List<T>,
-            iteratee?: ListIterator<T, any>
-        ): List<T>;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T>(
-            collection: Dictionary<T>,
+        forEachRight<T, TDictionary extends Dictionary<T> | null | undefined>(
+            collection: TDictionary & (Dictionary<T> | null | undefined),
             iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T>;
+        ): TDictionary;
 
         /**
          * @see _.forEachRight
          */
-        forEachRight<T extends {}>(
+        forEachRight<T extends {} | null | undefined>(
             collection: T,
             iteratee?: ObjectIterator<any, any>
         ): T;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T extends {}, TValue>(
-            collection: T,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T>(
-            collection: T[] | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): T[] | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight(
-            collection: string | null | undefined,
-            iteratee?: ListIterator<string, any>
-        ): string | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T>(
-            collection: List<T> | null | undefined,
-            iteratee?: ListIterator<T, any>
-        ): List<T> | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T>(
-            collection: Dictionary<T> | null | undefined,
-            iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T> | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T extends {}>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<any, any>
-        ): T | null | undefined;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T extends {}, TValue>(
-            collection: T | null | undefined,
-            iteratee?: ObjectIterator<TValue, any>
-        ): T | null | undefined;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7787,7 +7725,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -7814,7 +7752,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -11854,6 +11792,42 @@ declare namespace _ {
         conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
     }
 
+    type CondPair<T, R> = [(val: T) => boolean, (val: T) => R]
+
+    //_.cond
+    interface LoDashStatic {
+        /**
+         * Creates a function that iterates over `pairs` and invokes the corresponding
+         * function of the first predicate to return truthy. The predicate-function
+         * pairs are invoked with the `this` binding and arguments of the created
+         * function.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.0.0
+         * @category Util
+         * @param {Array} pairs The predicate-function pairs.
+         * @returns {Function} Returns the new composite function.
+         * @example
+         *
+         * var func = _.cond([
+         *   [_.matches({ 'a': 1 }),           _.constant('matches A')],
+         *   [_.conforms({ 'b': _.isNumber }), _.constant('matches B')],
+         *   [_.stubTrue,                      _.constant('no match')]
+         * ]);
+         *
+         * func({ 'a': 1, 'b': 2 });
+         * // => 'matches A'
+         *
+         * func({ 'a': 0, 'b': 1 });
+         * // => 'matches B'
+         *
+         * func({ 'a': '1', 'b': '2' });
+         * // => 'no match'
+         */
+        cond<T, R>(pairs: CondPair<T, R>[]): (Target: T) => R;
+    }
+
     //_.eq
     interface LoDashStatic {
         /**
@@ -13834,7 +13808,12 @@ declare namespace _ {
        */
       meanBy<T>(
         collection: List<T> | null | undefined,
-        iteratee?: DictionaryIterator<T, any>
+        iteratee?: ListIterator<T, any> | string
+      ): number;
+
+      meanBy<T>(
+        collection: Dictionary<T> | null | undefined,
+        iteratee?: DictionaryIterator<T, any> | string
       ): number;
     }
 
@@ -15359,6 +15338,54 @@ declare namespace _ {
         defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
+    //_.entries
+    interface LoDashStatic {
+        /**
+         * @see _.toPairs
+         */
+        entries<T extends {}>(object?: T): [string, any][];
+
+        entries<T extends {}, TResult>(object?: T): [string, TResult][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        entries<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        entries<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
+    }
+
+    //_.entriesIn
+    interface LoDashStatic {
+        /**
+         * @see _.toPairsIn
+         */
+        entriesIn<T extends {}>(object?: T): [string, any][];
+
+        entriesIn<T extends {}, TResult>(object?: T): [string, TResult][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        entriesIn<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        entriesIn<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
+    }
+
     // _.extend
     interface LoDashStatic {
         /**
@@ -16720,7 +16747,7 @@ declare namespace _ {
         */
         mapValues<T, TResult>(obj: Dictionary<T> | null | undefined, callback: ObjectIterator<T, TResult>): Dictionary<TResult>;
         mapValues<T>(obj: Dictionary<T> | null | undefined, where: Dictionary<T>): Dictionary<boolean>;
-        mapValues<T, TMapped>(obj: T | null | undefined, pluck: string): TMapped;
+        mapValues<T, TMapped>(obj: T | null | undefined, pluck?: string): TMapped;
         mapValues<T>(obj: T | null | undefined, callback: ObjectIterator<any, any>): T;
     }
 
@@ -16737,7 +16764,7 @@ declare namespace _ {
          * TResult is the type of the property specified by pluck.
          * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(pluck: string): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
+        mapValues<TResult>(pluck?: string): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
@@ -16760,7 +16787,7 @@ declare namespace _ {
          * TResult is the type of the property specified by pluck.
          * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(pluck: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+        mapValues<TResult>(pluck?: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
@@ -17726,6 +17753,72 @@ declare namespace _ {
         update<U extends Function, TResult>(
             path: Many<StringRepresentable>,
             updater: U
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.updateWith
+    interface LoDashStatic {
+        /**
+         * This method is like `_.update` except that it accepts `customizer` which is
+         * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
+         * path creation is handled by the method instead. The `customizer` is invoked
+         * with three arguments: (nsValue, key, nsObject).
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.6.0
+         * @category Object
+         * @param {Object} object The object to modify.
+         * @param {Array|string} path The path of the property to set.
+         * @param {Function} updater The function to produce the updated value.
+         * @param {Function} [customizer] The function to customize assigned values.
+         * @returns {Object} Returns `object`.
+         * @example
+         *
+         * var object = {};
+         *
+         * _.updateWith(object, '[0][1]', _.constant('a'), Object);
+         * // => { '0': { '1': 'a' } }
+         */
+        updateWith<TResult>(
+            object: Object,
+            path: Many<StringRepresentable>,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<Object>
+        ): TResult;
+
+        /**
+         * @see _.updateWith
+         */
+        updateWith<O extends {}, TResult>(
+            object: O,
+            path: Many<StringRepresentable>,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<O>
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.updateWith
+         */
+        updateWith<TResult>(
+            path: Many<StringRepresentable>,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.updateWith
+         */
+        updateWith<TResult>(
+            path: Many<StringRepresentable>,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<T>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
@@ -18990,9 +19083,9 @@ declare namespace _ {
          * _.filter(users, 'age > 36');
          * // => [{ 'user': 'fred', 'age': 40 }]
          */
-        iteratee<TResult>(
-            func: Function
-        ): (...args: any[]) => TResult;
+        iteratee<TFunction extends Function>(
+            func: TFunction
+        ): TFunction;
 
         /**
          * @see _.iteratee
@@ -19958,7 +20051,11 @@ declare namespace _ {
 
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
 
+    type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
+
     type DictionaryIterator<T, TResult> = (value: T, key: string, collection: Dictionary<T>) => TResult;
+
+    type DictionaryIteratorTypeGuard<T, S extends T> = (value: T, key: string, collection: Dictionary<T>) => value is S;
 
     type NumericDictionaryIterator<T, TResult> = (value: T, key: number, collection: Dictionary<T>) => TResult;
 

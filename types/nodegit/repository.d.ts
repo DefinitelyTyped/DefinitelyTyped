@@ -48,12 +48,12 @@ export class Repository {
      *
      * @static
      * @param {string} path
-     * @param {boolean} [isBare]
+     * @param {number} isBare
      * @returns {Promise<Repository>}
      *
      * @memberof Repository
      */
-    static init(path: string, isBare?: boolean): Promise<Repository>;
+    static init(path: string, isBare: number): Promise<Repository>;
     /**
      *
      *

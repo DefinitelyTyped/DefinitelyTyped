@@ -116,4 +116,12 @@ interface ExtendedUser extends User {
 
     // without
     const simpleUser1: Immutable.ImmutableObject<User> = immutableUserEx.without('address');
+
+    // getIn: propertyPath is strongly typed up to 5 parameters
+    const firstNameWithoutDefault = immutableUser.getIn(['firstName']); // infers Immutable<string>
+    const firstNameWithDefault = immutableUser.getIn(['firstName'], ''); // infers Immutable<string>
+    const firstNameWithDynamicPathWithoutDefault = immutableUser.getIn(['first' + 'name']);
+    const firstNameWithDynamicPathWithDefault = immutableUser.getIn(['first' + 'name'], '');
+    const line1WithoutDefault = immutableUserEx.getIn(['address', 'line1']);
+    const line1WithDefault = immutableUserEx.getIn(['address', 'line1'], '');
 }

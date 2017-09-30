@@ -190,6 +190,12 @@ declare namespace React {
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
+    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
+    function createElement(
+            type: "input",
+            props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
+            ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P,
@@ -217,7 +223,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P>,
+        type: SFC<P> | ComponentClass<P> | string,
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -2738,6 +2744,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
+        playsinline?: boolean;
         preload?: string;
         src?: string;
     }

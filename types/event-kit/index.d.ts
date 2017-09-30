@@ -1,6 +1,6 @@
 // Type definitions for event-kit v1.2.0
 // Project: https://github.com/atom/event-kit
-// Definitions by: Vadim Macagon <https://github.com/enlight/>
+// Definitions by: Vadim Macagon <https://github.com/enlight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = AtomEventKit;

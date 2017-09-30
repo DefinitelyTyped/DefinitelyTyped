@@ -1,4 +1,4 @@
-import RSVP from 'rsvp';
+import RSVP = require('rsvp');
 
 function testAndThen() {
     const result: RSVP.Promise<string, never> = andThen(() => 'some string');

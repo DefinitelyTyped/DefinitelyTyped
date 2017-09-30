@@ -1,4 +1,3 @@
-import * as ng from "angular";
 import * as angular from "angular";
 
 import gridster from "angular-gridster";

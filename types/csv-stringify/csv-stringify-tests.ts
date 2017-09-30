@@ -12,6 +12,12 @@ stringify([["1", "2", "3"], ["4", "5", "6"]], {
   // nothing
 });
 
+stringify([{a: "1", b: "2", c: "3"}, {c: "4", b: "5", a: "6"}], {
+        delimiter: ","
+}, (error: Error, output: string): void => {
+  // nothing
+});
+
 stringify([["1", true, new Date()], ["4", false, new Date()]], {
 	delimiter: ",",
   formatters: {
