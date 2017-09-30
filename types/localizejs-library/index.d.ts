@@ -1,5 +1,5 @@
-// Type definitions for LocalizeJS 1.0
-// Project: https://localizejs.com
+// Type definitions for LocalizeJS Library 1.0
+// Project: https://help.localizejs.com/docs/library-api
 // Definitions by: Samer Albahra <https://github.com/salbahra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

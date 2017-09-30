@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "localizejs-tests.ts"
+        "localizejs-library-tests.ts"
     ]
 }
