@@ -27,7 +27,7 @@ export interface Red {
  *
  * See the Nodes interfaces registerType() method for information about
  * declaring node constructors in typescript.
- * 
+ *
  * The id, type and name properties are available after the
  * call to RED.nodes.createNode().
  */
