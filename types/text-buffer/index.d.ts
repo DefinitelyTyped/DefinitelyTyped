@@ -314,36 +314,20 @@ declare namespace TextBuffer {
 			new (row?: number, column?: number): TextBuffer.Point;
 
 			/** Returns the given Point that is earlier in the buffer. */
-			min(point1: TextBuffer.PointLike, point2: TextBuffer.PointLike): TextBuffer.Point;
-			/** Returns the given Point that is earlier in the buffer. */
-			min(point1: [number, number], point2: [number, number]): TextBuffer.Point;
-			/** Returns the given Point that is earlier in the buffer. */
-			min(point1: TextBuffer.PointLike, point2: [number, number]): TextBuffer.Point;
-			/** Returns the given Point that is earlier in the buffer. */
-			min(point1: [number, number], point2: TextBuffer.PointLike): TextBuffer.Point;
+			min(point1: TextBuffer.PointLike|[number, number], point2: TextBuffer.PointLike|
+				[number, number]): TextBuffer.Point;
 		}
 
 		/** The static side to the Range class. */
 		interface Range {
 			/** Convert any range-compatible object to a Range. */
-			fromObject(object: TextBuffer.RangeLike, copy?: boolean): TextBuffer.Range;
-			/** Convert any range-compatible object to a Range. */
-			fromObject(object: [TextBuffer.PointLike, TextBuffer.PointLike]): TextBuffer.Range;
-			/** Convert any range-compatible object to a Range. */
-			fromObject(object: [TextBuffer.PointLike, [number, number]]): TextBuffer.Range;
-			/** Convert any range-compatible object to a Range. */
-			fromObject(object: [[number, number], TextBuffer.PointLike]): TextBuffer.Range;
-			/** Convert any range-compatible object to a Range. */
-			fromObject(object: [[number, number], [number, number]]): TextBuffer.Range;
+			fromObject(object: TextBuffer.RangeLike|[TextBuffer.PointLike, TextBuffer.PointLike]|
+				[TextBuffer.PointLike, [number, number]]|[[number, number], TextBuffer.PointLike]|
+				[[number, number], [number, number]], copy?: boolean): TextBuffer.Range;
 
 			/** Construct a Range object. */
-			new (pointA?: TextBuffer.PointLike, pointB?: TextBuffer.PointLike): TextBuffer.Range;
-			/** Construct a Range object. */
-			new (pointA: [number, number], pointB?: [number, number]): TextBuffer.Range;
-			/** Construct a Range object. */
-			new (pointA: TextBuffer.PointLike, pointB: [number, number]): TextBuffer.Range;
-			/** Construct a Range object. */
-			new (pointA: [number, number], pointB: TextBuffer.PointLike): TextBuffer.Range;
+			new (pointA?: TextBuffer.PointLike|[number, number], pointB?: TextBuffer.PointLike|
+				[number, number]): TextBuffer.Range;
 
 			/** Call this with the result of Range::serialize to construct a new Range. */
 			deserialize(array: object): TextBuffer.Range;
@@ -428,50 +412,28 @@ declare namespace TextBuffer {
 		 *  Returns 0 if this point is equivalent to the argument.
 		 *  Returns 1 if this point follows the argument.
 		 */
-		compare(other: PointLike): number;
-		/** Compare another Point to this Point instance.
-		 *  Returns -1 if this point precedes the argument.
-		 *  Returns 0 if this point is equivalent to the argument.
-		 *  Returns 1 if this point follows the argument.
-		 */
-		compare(other: [number, number]): number;
+		compare(other: PointLike|[number, number]): number;
 
 		/** Returns a boolean indicating whether this point has the same row and
 		 *  column as the given Point.
 		 */
-		isEqual(other: PointLike): boolean;
-		/** Returns a boolean indicating whether this point has the same row and
-		 *  column as the given Point.
-		 */
-		isEqual(other: [number, number]): boolean;
+		isEqual(other: PointLike|[number, number]): boolean;
 
 		/** Returns a Boolean indicating whether this point precedes the given Point. */
-		isLessThan(other: PointLike): boolean;
-		/** Returns a Boolean indicating whether this point precedes the given Point. */
-		isLessThan(other: [number, number]): boolean;
+		isLessThan(other: PointLike|[number, number]): boolean;
 
 		/** Returns a Boolean indicating whether this point precedes or is equal to
 		 *  the given Point.
 		 */
-		isLessThanOrEqual(other: PointLike): boolean;
-		/** Returns a Boolean indicating whether this point precedes or is equal to
-		 *  the given Point.
-		 */
-		isLessThanOrEqual(other: [number, number]): boolean;
+		isLessThanOrEqual(other: PointLike|[number, number]): boolean;
 
 		/** Returns a Boolean indicating whether this point follows the given Point. */
-		isGreaterThan(other: PointLike): boolean;
-		/** Returns a Boolean indicating whether this point follows the given Point. */
-		isGreaterThan(other: [number, number]): boolean;
+		isGreaterThan(other: PointLike|[number, number]): boolean;
 
 		/** Returns a Boolean indicating whether this point follows or is equal to
 		 *  the given Point.
 		 */
-		isGreaterThanOrEqual(other: PointLike): boolean;
-		/** Returns a Boolean indicating whether this point follows or is equal to
-		 *  the given Point.
-		 */
-		isGreaterThanOrEqual(other: [number, number]): boolean;
+		isGreaterThanOrEqual(other: PointLike|[number, number]): boolean;
 
 		// Operations
 		/** Makes this point immutable and returns itself. */
@@ -480,20 +442,12 @@ declare namespace TextBuffer {
 		/** Build and return a new point by adding the rows and columns of the
 		 *  given point.
 		 */
-		translate(other: PointLike): Point;
-		/** Build and return a new point by adding the rows and columns of the
-		 *  given point.
-		 */
-		translate(other: [number, number]): Point;
+		translate(other: PointLike|[number, number]): Point;
 
 		/** Build and return a new Point by traversing the rows and columns
 		 *  specified by the given point.
 		 */
-		traverse(other: PointLike): Point;
-		/** Build and return a new Point by traversing the rows and columns
-		 *  specified by the given point.
-		 */
-		traverse(other: [number, number]): Point;
+		traverse(other: PointLike|[number, number]): Point;
 
 		/** Returns an array of this point's row and column. */
 		toArray(): [number, number];
@@ -555,35 +509,20 @@ declare namespace TextBuffer {
 		 */
 		freeze(): Readonly<Range>;
 
-		// This function doesn't actually take a range-compatible parameter.
+		// NOTE: this function doesn't actually take a range-compatible parameter.
 		/** Returns a new range that contains this range and the given range. */
 		union(other: RangeLike): Range;
 
 		/** Build and return a new range by translating this range's start and end
 		 *  points by the given delta(s).
 		 */
-		translate(startDelta: PointLike, endDelta?: PointLike): Range;
-		/** Build and return a new range by translating this range's start and end
-		 *  points by the given delta(s).
-		 */
-		translate(startDelta: [number, number], endDelta?: [number, number]): Range;
-		/** Build and return a new range by translating this range's start and end
-		 *  points by the given delta(s).
-		 */
-		translate(startDelta: PointLike, endDelta?: [number, number]): Range;
-		/** Build and return a new range by translating this range's start and end
-		 *  points by the given delta(s).
-		 */
-		translate(startDelta: [number, number], endDelta?: PointLike): Range;
+		translate(startDelta: PointLike|[number, number], endDelta?: PointLike|
+			[number, number]): Range;
 
 		/** Build and return a new range by traversing this range's start and end
 		 *  points by the given delta.
 		 */
-		traverse(delta: PointLike): Range;
-		/** Build and return a new range by traversing this range's start and end
-		 *  points by the given delta.
-		 */
-		traverse(delta: [number, number]): Range;
+		traverse(delta: PointLike|[number, number]): Range;
 
 		// Comparison
 		/** Compare two Ranges.
@@ -591,81 +530,32 @@ declare namespace TextBuffer {
 		 *  Returns 0 if this range is equivalent to the argument.
 		 *  Returns 1 if this range starts after the argument or is contained by it.
 		 */
-		compare(otherRange: RangeLike): number;
-		/** Compare two Ranges.
-		 *  Returns -1 if this range starts before the argument or contains it.
-		 *  Returns 0 if this range is equivalent to the argument.
-		 *  Returns 1 if this range starts after the argument or is contained by it.
-		 */
-		compare(otherRange: [PointLike, PointLike]): number;
-		/** Compare two Ranges.
-		 *  Returns -1 if this range starts before the argument or contains it.
-		 *  Returns 0 if this range is equivalent to the argument.
-		 *  Returns 1 if this range starts after the argument or is contained by it.
-		 */
-		compare(otherRange: [[number, number], [number, number]]): number;
-		/** Compare two Ranges.
-		 *  Returns -1 if this range starts before the argument or contains it.
-		 *  Returns 0 if this range is equivalent to the argument.
-		 *  Returns 1 if this range starts after the argument or is contained by it.
-		 */
-		compare(otherRange: [PointLike, [number, number]]): number;
-		/** Compare two Ranges.
-		 *  Returns -1 if this range starts before the argument or contains it.
-		 *  Returns 0 if this range is equivalent to the argument.
-		 *  Returns 1 if this range starts after the argument or is contained by it.
-		 */
-		compare(otherRange: [[number, number], PointLike]): number;
+		compare(otherRange: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]]): number;
 
 		/** Returns a Boolean indicating whether this range has the same start and
 		 *  end points as the given Range.
 		 */
-		isEqual(otherRange: RangeLike): boolean;
-		/** Returns a Boolean indicating whether this range has the same start and
-		 *  end points as the given Range.
-		 */
-		isEqual(otherRange: [PointLike, PointLike]): boolean;
-		/** Returns a Boolean indicating whether this range has the same start and
-		 *  end points as the given Range.
-		 */
-		isEqual(otherRange: [[number, number], [number, number]]): boolean;
-		/** Returns a Boolean indicating whether this range has the same start and
-		 *  end points as the given Range.
-		 */
-		isEqual(otherRange: [PointLike, [number, number]]): boolean;
-		/** Returns a Boolean indicating whether this range has the same start and
-		 *  end points as the given Range.
-		 */
-		isEqual(otherRange: [[number, number], PointLike]): boolean;
+		isEqual(otherRange: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]]): boolean;
 
-		// NOTE(glen): this function doesn't actually take a range-compatible parameter.
+		// NOTE: this function doesn't actually take a range-compatible parameter.
 		/** Returns a Boolean indicating whether this range starts and ends on the
 		 *  same row as the argument.
 		 */
 		coversSameRows(otherRange: RangeLike): boolean;
 
-		// NOTE(glen): this function doesn't actually take a range-compatible parameter.
+		// NOTE: this function doesn't actually take a range-compatible parameter.
 		/** Determines whether this range intersects with the argument. */
 		intersectsWith(otherRange: RangeLike, exclusive?: boolean): boolean;
 
 		/** Returns a boolean indicating whether this range contains the given range. */
-		containsRange(otherRange: RangeLike, exclusive?: boolean): boolean;
-		/** Returns a boolean indicating whether this range contains the given range. */
-		containsRange(otherRange: [PointLike, PointLike], exclusive?: boolean): boolean;
-		/** Returns a boolean indicating whether this range contains the given range. */
-		containsRange(otherRange: [[number, number], [number, number]],
-			exclusive?: boolean): boolean;
-		/** Returns a boolean indicating whether this range contains the given range. */
-		containsRange(otherRange: [PointLike, [number, number]], exclusive?: boolean):
-			boolean;
-		/** Returns a boolean indicating whether this range contains the given range. */
-		containsRange(otherRange: [[number, number], PointLike], exclusive?: boolean):
-			boolean;
+		containsRange(otherRange: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]], exclusive?:
+			boolean): boolean;
 
 		/** Returns a boolean indicating whether this range contains the given point. */
-		containsPoint(point: PointLike, exclusive?: boolean): boolean;
-		/** Returns a boolean indicating whether this range contains the given point. */
-		containsPoint(point: [number, number], exclusive?: boolean): boolean;
+		containsPoint(point: PointLike|[number, number], exclusive?: boolean): boolean;
 
 		/** Returns a boolean indicating whether this range intersects the given
 		 *  row number.
@@ -755,56 +645,19 @@ declare namespace TextBuffer {
 		/** Sets the range of the marker.
 		 *  Returns a boolean indicating whether or not the marker was updated.
 		 */
-		setRange(range: RangeLike, params?: {
-			reversed?: boolean,
-			exclusive?: boolean
-		}): boolean;
-		/** Sets the range of the marker.
-		 *  Returns a boolean indicating whether or not the marker was updated.
-		 */
-		setRange(range: [PointLike, PointLike], params?: {
-			reversed?: boolean,
-			exclusive?: boolean
-		}): boolean;
-		/** Sets the range of the marker.
-		 *  Returns a boolean indicating whether or not the marker was updated.
-		 */
-		setRange(range: [[number, number], [number, number]], params?: {
-			reversed?: boolean,
-			exclusive?: boolean
-		}): boolean;
-		/** Sets the range of the marker.
-		 *  Returns a boolean indicating whether or not the marker was updated.
-		 */
-		setRange(range: [PointLike, [number, number]], params?: {
-			reversed?: boolean,
-			exclusive?: boolean
-		}): boolean;
-		/** Sets the range of the marker.
-		 *  Returns a boolean indicating whether or not the marker was updated.
-		 */
-		setRange(range: [[number, number], PointLike], params?: {
-			reversed?: boolean,
-			exclusive?: boolean
-		}): boolean;
+		setRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]], params?: {
+			reversed?: boolean, exclusive?: boolean }): boolean;
 
 		/** Sets the head position of the marker.
 		 *  Returns a boolean indicating whether or not the marker was updated.
 		 */
-		setHeadPosition(position: PointLike): boolean;
-		/** Sets the head position of the marker.
-		 *  Returns a boolean indicating whether or not the marker was updated.
-		 */
-		setHeadPosition(position: [number, number]): boolean;
+		setHeadPosition(position: PointLike|[number, number]): boolean;
 
 		/** Sets the tail position of the marker.
 		 *  Returns a boolean indicating whether or not the marker was updated.
 		 */
-		setTailPosition(position: PointLike): boolean;
-		/** Sets the tail position of the marker.
-		 *  Returns a boolean indicating whether or not the marker was updated.
-		 */
-		setTailPosition(position: [number, number]): boolean;
+		setTailPosition(position: PointLike|[number, number]): boolean;
 
 		/** Removes the marker's tail.
 		 *  Returns a boolean indicating whether or not the marker was updated.
@@ -860,43 +713,13 @@ declare namespace TextBuffer {
 
 		// Marker Creation
 		/** Create a marker with the given range. */
-		markRange(range: RangeLike, options?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range. */
-		markRange(range: [PointLike, PointLike], options?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range. */
-		markRange(range: [[number, number], [number, number]], options?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range. */
-		markRange(range: [PointLike, [number, number]], options?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range. */
-		markRange(range: [[number, number], PointLike], options?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
+		markRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]], options?:
+			{ reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+			exclusive?: boolean }): Marker;
 
 		/** Create a marker at with its head at the given position with no tail. */
-		markPosition(position: PointLike, options?: {
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker at with its head at the given position with no tail. */
-		markPosition(position: [number, number], options?: {
+		markPosition(position: PointLike|[number, number], options?: {
 			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
 			exclusive?: boolean
 		}): Marker;
@@ -1077,15 +900,8 @@ declare namespace TextBuffer {
 		getText(): string;
 
 		/** Get the text in a range. */
-		getTextInRange(range: RangeLike): string;
-		/** Get the text in a range. */
-		getTextInRange(range: [PointLike, PointLike]): string;
-		/** Get the text in a range. */
-		getTextInRange(range: [[number, number], [number, number]]): string;
-		/** Get the text in a range. */
-		getTextInRange(range: [PointLike, [number, number]]): string;
-		/** Get the text in a range. */
-		getTextInRange(range: [[number, number], PointLike]): string;
+		getTextInRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]]): string;
 
 		/** Get the text of all lines in the buffer, without their line endings. */
 		getLines(): string[];
@@ -1127,38 +943,12 @@ declare namespace TextBuffer {
 		setTextViaDiff(text: string): void;
 
 		/** Set the text in the given range. */
-		setTextInRange(range: RangeLike, text: string, options?: {
-			normalizeLineEndings?: boolean,
-			undo?: "skip"
-		}): Range;
-		/** Set the text in the given range. */
-		setTextInRange(range: [PointLike, PointLike], text: string, options?: {
-			normalizeLineEndings?: boolean,
-			undo?: "skip"
-		}): Range;
-		/** Set the text in the given range. */
-		setTextInRange(range: [[number, number], [number, number]], text: string, options?: {
-			normalizeLineEndings?: boolean,
-			undo?: "skip"
-		}): Range;
-		/** Set the text in the given range. */
-		setTextInRange(range: [PointLike, [number, number]], text: string, options?: {
-			normalizeLineEndings?: boolean,
-			undo?: "skip"
-		}): Range;
-		/** Set the text in the given range. */
-		setTextInRange(range: [[number, number], PointLike], text: string, options?: {
-			normalizeLineEndings?: boolean,
-			undo?: "skip"
-		}): Range;
+		setTextInRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]], text: string,
+			options?: { normalizeLineEndings?: boolean, undo?: "skip" }): Range;
 
 		/** Insert text at the given position. */
-		insert(position: PointLike, text: string, options?: {
-			normalizeLineEndings?: boolean,
-			undo?: "skip"
-		}): Range;
-		/** Insert text at the given position. */
-		insert(position: [number, number], text: string, options?: {
+		insert(position: PointLike|[number, number], text: string, options?: {
 			normalizeLineEndings?: boolean,
 			undo?: "skip"
 		}): Range;
@@ -1170,15 +960,8 @@ declare namespace TextBuffer {
 		}): Range;
 
 		/** Delete the text in the given range. */
-		delete(range: RangeLike): Range;
-		/** Delete the text in the given range. */
-		delete(range: [PointLike, PointLike]): Range;
-		/** Delete the text in the given range. */
-		delete(range: [[number, number], [number, number]]): Range;
-		/** Delete the text in the given range. */
-		delete(range: [PointLike, [number, number]]): Range;
-		/** Delete the text in the given range. */
-		delete(range: [[number, number], PointLike]): Range;
+		delete(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]]): Range;
 
 		/** Delete the line associated with a specified row. */
 		deleteRow(row: number): Range;
@@ -1202,43 +985,13 @@ declare namespace TextBuffer {
 		getDefaultMarkerLayer(): MarkerLayer;
 
 		/** Create a marker with the given range in the default marker layer. */
-		markRange(range: RangeLike, properties?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range in the default marker layer. */
-		markRange(range: [PointLike, PointLike], properties?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range in the default marker layer. */
-		markRange(range: [[number, number], [number, number]], properties?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range in the default marker layer. */
-		markRange(range: [PointLike, [number, number]], properties?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker with the given range in the default marker layer. */
-		markRange(range: [[number, number], PointLike], properties?: {
-			reversed?: boolean,
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
+		markRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]], properties?:
+			{ reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+			exclusive?: boolean }): Marker;
 
 		/** Create a marker at the given position with no tail in the default marker layer. */
-		markPosition(position: PointLike, options?: {
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean
-		}): Marker;
-		/** Create a marker at the given position with no tail in the default marker layer. */
-		markPosition(position: [number, number], options?: {
+		markPosition(position: PointLike|[number, number], options?: {
 			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
 			exclusive?: boolean
 		}): Marker;
@@ -1342,140 +1095,34 @@ declare namespace TextBuffer {
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
-		scanInRange(regex: RegExp, range: RangeLike, iterator: (match: RegExpMatchArray,
-			matchText: string, range: Range, stop: () => void, replace: (replacement: string) =>
-			void, leadingContextLines: string[], trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: [PointLike, PointLike], iterator:
-			(match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: [[number, number], [number, number]],
-			iterator: (match: RegExpMatchArray, matchText: string, range: Range,
-			stop: () => void, replace: (replacement: string) => void, leadingContextLines:
-			string[], trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: [PointLike, [number, number]], iterator:
-			(match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: [[number, number], PointLike], iterator:
-			(match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: RangeLike, options: Options.ScanContext,
-			iterator: (match: RegExpMatchArray, matchText: string, range: Range,
-			stop: () => void, replace: (replacement: string) => void, leadingContextLines:
-			string[], trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: [PointLike, PointLike], options: Options.ScanContext,
+		scanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
+			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
 			iterator: (match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
 			replace: (replacement: string) => void, leadingContextLines: string[],
 			trailingContextLines: string[]) => void): void;
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
-		scanInRange(regex: RegExp, range: [[number, number], [number, number]],
+		scanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
+			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
 			options: Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string,
 			range: Range, stop: () => void, replace: (replacement: string) => void,
 			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: [PointLike, [number, number]], options: Options.ScanContext,
-			iterator: (match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range , calling the given
-		 *  iterator function on each match.
-		 */
-		scanInRange(regex: RegExp, range: [[number, number], PointLike], options: Options.ScanContext,
-			iterator: (match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
 
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
-		backwardsScanInRange(regex: RegExp, range: RangeLike, iterator: (match: RegExpMatchArray,
-			matchText: string, range: Range, stop: () => void, replace: (replacement: string) => void,
-			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: [PointLike, PointLike], iterator:
-			(match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: [[number, number], [number, number]],
+		backwardsScanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
+			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
 			iterator: (match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
 			replace: (replacement: string) => void, leadingContextLines: string[],
 			trailingContextLines: string[]) => void): void;
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
-		backwardsScanInRange(regex: RegExp, range: [PointLike, [number, number]], iterator:
-			(match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: [[number, number], PointLike], iterator:
-			(match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: RangeLike, options: Options.ScanContext,
-			iterator: (match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: [PointLike, PointLike], options:
-			Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string,
-			range: Range, stop: () => void, replace: (replacement: string) => void,
-			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: [[number, number], [number, number]], options:
-			Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string, range: Range,
-			stop: () => void, replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: [PointLike, [number, number]], options:
-			Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string,
-			range: Range, stop: () => void, replace: (replacement: string) => void,
-			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
-		/** Scan regular expression matches in a given range in reverse order,
-		 *  calling the given iterator function on each match.
-		 */
-		backwardsScanInRange(regex: RegExp, range: [[number, number], PointLike], options:
-			Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string,
+		backwardsScanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
+			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
+			options: Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string,
 			range: Range, stop: () => void, replace: (replacement: string) => void,
 			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
 
@@ -1507,11 +1154,7 @@ declare namespace TextBuffer {
 		/** Convert a position in the buffer in row/column coordinates to an absolute
 		 *  character offset, inclusive of line ending characters.
 		 */
-		characterIndexForPosition(position: Point): number;
-		/** Convert a position in the buffer in row/column coordinates to an absolute
-		 *  character offset, inclusive of line ending characters.
-		 */
-		characterIndexForPosition(position: [number, number]): number;
+		characterIndexForPosition(position: Point|[number, number]): number;
 
 		/** Convert an absolute character offset, inclusive of newlines, to a position
 		 *  in the buffer in row/column coordinates.
@@ -1519,20 +1162,11 @@ declare namespace TextBuffer {
 		positionForCharacterIndex(offset: number): Point;
 
 		/** Clip the given range so it starts and ends at valid positions. */
-		clipRange(range: RangeLike): Range;
-		/** Clip the given range so it starts and ends at valid positions. */
-		clipRange(range: [PointLike, PointLike]): Range;
-		/** Clip the given range so it starts and ends at valid positions. */
-		clipRange(range: [[number, number], [number, number]]): Range;
-		/** Clip the given range so it starts and ends at valid positions. */
-		clipRange(range: [PointLike, [number, number]]): Range;
-		/** Clip the given range so it starts and ends at valid positions. */
-		clipRange(range: [[number, number], PointLike]): Range;
+		clipRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]]): Range;
 
 		/** Clip the given point so it is at a valid position in the buffer. */
-		clipPosition(position: PointLike): Point;
-		/** Clip the given point so it is at a valid position in the buffer. */
-		clipPosition(position: [number, number]): Point;
+		clipPosition(position: PointLike|[number, number]): Point;
 
 		// Buffer Operations
 		/** Save the buffer. */
@@ -1619,34 +1253,13 @@ declare namespace TextBuffer {
 		getScreenRange(): Range;
 
 		/** Modifies the buffer range of this marker. */
-		setBufferRange(bufferRange: RangeLike, properties?: { reversed: boolean }): void;
-		/** Modifies the buffer range of this marker. */
-		setBufferRange(bufferRange: [PointLike, PointLike],
-			properties?: { reversed: boolean }): void;
-		/** Modifies the buffer range of this marker. */
-		setBufferRange(bufferRange: [PointLike, [number, number]],
-			properties?: { reversed: boolean }): void;
-		/** Modifies the buffer range of this marker. */
-		setBufferRange(bufferRange: [[number, number], PointLike],
-			properties?: { reversed: boolean }): void;
-		/** Modifies the buffer range of this marker. */
-		setBufferRange(bufferRange: [[number, number], [number, number]],
+		setBufferRange(bufferRange: RangeLike|[PointLike, PointLike]|[PointLike,
+			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
 			properties?: { reversed: boolean }): void;
 
 		/** Modifies the screen range of this marker. */
-		setScreenRange(screenRange: RangeLike, options?:
-			{ reversed?: boolean, clipDirection?: "backward"|"forward"|"closest" }): void;
-		/** Modifies the screen range of this marker. */
-		setScreenRange(screenRange: [PointLike, PointLike],
-			options?: { reversed?: boolean, clipDirection?: "backward"|"forward"|"closest" }): void;
-		/** Modifies the screen range of this marker. */
-		setScreenRange(screenRange: [PointLike, [number, number]],
-			options?: { reversed?: boolean, clipDirection?: "backward"|"forward"|"closest" }): void;
-		/** Modifies the screen range of this marker. */
-		setScreenRange(screenRange: [[number, number], PointLike],
-			options?: { reversed?: boolean, clipDirection?: "backward"|"forward"|"closest" }): void;
-		/** Modifies the screen range of this marker. */
-		setScreenRange(screenRange: [[number, number], [number, number]],
+		setScreenRange(screenRange: RangeLike|[PointLike, PointLike]|[PointLike,
+			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
 			options?: { reversed?: boolean, clipDirection?: "backward"|"forward"|"closest" }): void;
 
 		/** Retrieves the screen position of the marker's start. This will always be
@@ -1665,38 +1278,28 @@ declare namespace TextBuffer {
 		getHeadBufferPosition(): Point;
 
 		/** Sets the buffer position of the marker's head. */
-		setHeadBufferPosition(bufferPosition: PointLike): void;
-		/** Sets the buffer position of the marker's head. */
-		setHeadBufferPosition(bufferPosition: [number, number]): void;
+		setHeadBufferPosition(bufferPosition: PointLike|[number, number]): void;
 
 		/** Retrieves the screen position of the marker's head. */
 		getHeadScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
 			Point;
 
 		/** Sets the screen position of the marker's head. */
-		setHeadScreenPosition(screenPosition: PointLike, options?:
-			{ clipDirection: "backward"|"forward"|"closest" }): void;
-		/** Sets the screen position of the marker's head. */
-		setHeadScreenPosition(screenPosition: [number, number], options?:
+		setHeadScreenPosition(screenPosition: PointLike|[number, number], options?:
 			{ clipDirection: "backward"|"forward"|"closest" }): void;
 
 		/** Retrieves the buffer position of the marker's tail. */
 		getTailBufferPosition(): Point;
 
 		/** Sets the buffer position of the marker's tail. */
-		setTailBufferPosition(bufferPosition: PointLike): void;
-		/** Sets the buffer position of the marker's tail. */
-		setTailBufferPosition(bufferPosition: [number, number]): void;
+		setTailBufferPosition(bufferPosition: PointLike|[number, number]): void;
 
 		/** Retrieves the screen position of the marker's tail. */
 		getTailScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
 			Point;
 
 		/** Sets the screen position of the marker's tail. */
-		setTailScreenPosition(screenPosition: PointLike, options?:
-			{ clipDirection: "backward"|"forward"|"closest" }): void;
-		/** Sets the screen position of the marker's tail. */
-		setTailScreenPosition(screenPosition: [number, number], options?:
+		setTailScreenPosition(screenPosition: PointLike|[number, number], options?:
 			{ clipDirection: "backward"|"forward"|"closest" }): void;
 
 		/** Retrieves the buffer position of the marker's start. This will always be less
@@ -1758,66 +1361,26 @@ declare namespace TextBuffer {
 
 		// Marker creation
 		/** Create a marker with the given screen range. */
-		markScreenRange(range: RangeLike, options?: { reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean,
-			clipDirection?: "backward"|"forward"|"closest"
-		}): DisplayMarker;
-		/** Create a marker with the given screen range. */
-		markScreenRange(range: [PointLike, PointLike], options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean, clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
-		/** Create a marker with the given screen range. */
-		markScreenRange(range: [PointLike, [number, number]], options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean, clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
-		/** Create a marker with the given screen range. */
-		markScreenRange(range: [[number, number], PointLike], options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean, clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
-		/** Create a marker with the given screen range. */
-		markScreenRange(range: [[number, number], [number, number]], options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
+		markScreenRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]], options?:
+			{ reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
 			exclusive?: boolean, clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
 
 		/** Create a marker on this layer with its head at the given screen position
 		 *  and no tail.
 		 */
-		markScreenPosition(screenPosition: PointLike, options?: {
-			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean,
-			clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
-		/** Create a marker on this layer with its head at the given screen position
-		 *  and no tail.
-		 */
-		markScreenPosition(screenPosition: [number, number], options?: {
+		markScreenPosition(screenPosition: PointLike|[number, number], options?: {
 			invalidate?: "never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean,
 			clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
 
 		/** Create a marker with the given buffer range. */
-		markBufferRange(range: RangeLike, options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean }): DisplayMarker;
-		/** Create a marker with the given buffer range. */
-		markBufferRange(range: [PointLike, PointLike], options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean }): DisplayMarker;
-		/** Create a marker with the given buffer range. */
-		markBufferRange(range: [PointLike, [number, number]], options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean }): DisplayMarker;
-		/** Create a marker with the given buffer range. */
-		markBufferRange(range: [[number, number], PointLike], options?: {
-			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
-			exclusive?: boolean }): DisplayMarker;
-		/** Create a marker with the given buffer range. */
-		markBufferRange(range: [[number, number], [number, number]], options?: {
+		markBufferRange(range: RangeLike|[PointLike, PointLike]|[PointLike, [number, number]]|
+			[[number, number], PointLike]|[[number, number], [number, number]], options?: {
 			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
 			exclusive?: boolean }): DisplayMarker;
 
 		/** Create a marker on this layer with its head at the given buffer position and no tail. */
-		markBufferPosition(bufferPosition: PointLike, options?: { invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean }): DisplayMarker;
-		/** Create a marker on this layer with its head at the given buffer position and no tail. */
-		markBufferPosition(bufferPosition: [number, number], options?: { invalidate?:
+		markBufferPosition(bufferPosition: PointLike|[number, number], options?: { invalidate?:
 			"never"|"surround"|"overlap"|"inside"|"touch", exclusive?: boolean }): DisplayMarker;
 
 		// Querying

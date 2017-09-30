@@ -632,12 +632,7 @@ declare namespace AtomCore {
 		/** Add a listener for changes to a given key path. This is different than ::onDidChange in
 		 *  that it will immediately call your callback with the current value of the config entry.
 		 */
-		observe(keyPath: string, options: { scope: ScopeDescriptor },
-			callback: (value: any) => void): EventKit.Disposable;
-		/** Add a listener for changes to a given key path. This is different than ::onDidChange in
-		 *  that it will immediately call your callback with the current value of the config entry.
-		 */
-		observe(keyPath: string, options: { scope: string[] },
+		observe(keyPath: string, options: { scope: string[]|ScopeDescriptor },
 			callback: (value: any) => void): EventKit.Disposable;
 
 		/** Add a listener for changes to a given key path. If keyPath is not specified, your
@@ -653,25 +648,16 @@ declare namespace AtomCore {
 		/** Add a listener for changes to a given key path. If keyPath is not specified, your
 		 *  callback will be called on changes to any key.
 		 */
-		onDidChange(keyPath: string, options: { scope: ScopeDescriptor },
-			callback: (values: { newValue: any, oldValue: any }) => void): EventKit.Disposable;
-		/** Add a listener for changes to a given key path. If keyPath is not specified, your
-		 *  callback will be called on changes to any key.
-		 */
-		onDidChange(keypath: string, options: { scope: string[] },
+		onDidChange(keyPath: string, options: { scope: string[]|ScopeDescriptor },
 			callback: (values: { newValue: any, oldValue: any }) => void): EventKit.Disposable;
 
 		// Managing Settings
 		/** Retrieves the setting for the given key. */
-		get(keyPath: string): any;
-		/** Retrieves the setting for the given key. */
-		get(keyPath: string, options: {
+		get(keyPath: string, options?: {
 			sources?: string[],
 			excludeSources?: string[],
 			scope?: ScopeDescriptor
-		}): any;
-		/** Retrieves the setting for the given key. */
-		get(keyPath: string, options: {
+		} | {
 			sources?: string[],
 			excludeSources?: string[],
 			scope?: string[],
@@ -680,19 +666,13 @@ declare namespace AtomCore {
 		/** Sets the value for a configuration setting.
 		 *  This value is stored in Atom's internal configuration file.
 		 */
-		set(keyPath: string, value: any): void;
-		/** Sets the value for a configuration setting.
-		 *  This value is stored in Atom's internal configuration file.
-		 */
-		set(keyPath: string, value: any, options: {
+		set(keyPath: string, value: any, options?: {
 			scopeSelector?: string,
 			source?: string
 		}): void;
 
 		/** Restore the setting at keyPath to its default value. */
-		unset(keyPath: string): void;
-		/** Restore the setting at keyPath to its default value. */
-		unset(keyPath: string, options: {
+		unset(keyPath: string, options?: {
 			scopeSelector?: string,
 			source?: string
 		}): void;
@@ -782,20 +762,15 @@ declare namespace AtomCore {
 
 		// Managing Cursor Position
 		/** Moves a cursor to a given screen position. */
-		setScreenPosition(screenPosition: TextBuffer.PointLike, options?:
-			{ autoscroll?: boolean }): void;
-		setScreenPosition(screenPosition: [number, number], options?:
-			{ autoscroll?: boolean }): void;
+		setScreenPosition(screenPosition: TextBuffer.PointLike|[number, number],
+			options?: { autoscroll?: boolean }): void;
 
 		/** Returns the screen position of the cursor as a Point. */
 		getScreenPosition(): TextBuffer.Point;
 
 		/** Moves a cursor to a given buffer position. */
-		setBufferPosition(bufferPosition: TextBuffer.PointLike, options?:
-			{ autoscroll?: boolean }): void;
-		/** Moves a cursor to a given buffer position. */
-		setBufferPosition(bufferPosition: [number, number], options?:
-			{ autoscroll?: boolean }): void;
+		setBufferPosition(bufferPosition: TextBuffer.PointLike|[number, number],
+			options?: { autoscroll?: boolean }): void;
 
 		/** Returns the current buffer position as an Array. */
 		getBufferPosition(): TextBuffer.Point;
@@ -857,24 +832,16 @@ declare namespace AtomCore {
 
 		// Moving the Cursor
 		/** Moves the cursor up one screen row. */
-		moveUp(rowCount?: number): void;
-		/** Moves the cursor up one screen row. */
-		moveUp(rowCount: number, options?: { moveToEndOfSelection?: boolean }): void;
+		moveUp(rowCount?: number, options?: { moveToEndOfSelection?: boolean }): void;
 
 		/** Moves the cursor down one screen row. */
-		moveDown(rowCount?: number): void;
-		/** Moves the cursor down one screen row. */
-		moveDown(rowCount: number, options?: { moveToEndOfSelection?: boolean }): void;
+		moveDown(rowCount?: number, options?: { moveToEndOfSelection?: boolean }): void;
 
 		/** Moves the cursor left one screen column. */
-		moveLeft(columnCount?: number): void;
-		/** Moves the cursor left one screen column. */
-		moveLeft(columnCount: number, options?: { moveToEndOfSelection?: boolean }): void;
+		moveLeft(columnCount?: number, options?: { moveToEndOfSelection?: boolean }): void;
 
 		/** Moves the cursor right one screen column. */
-		moveRight(columnCount?: number): void;
-		/** Moves the cursor right one screen column. */
-		moveRight(columnCount: number, options?: { moveToEndOfSelection?: boolean }): void;
+		moveRight(columnCount?: number, options?: { moveToEndOfSelection?: boolean }): void;
 
 		/** Moves the cursor to the top of the buffer. */
 		moveToTop(): void;
@@ -1882,39 +1849,19 @@ declare namespace AtomCore {
 		getScreenRange(): TextBuffer.Range;
 
 		/** Modifies the screen range for the selection. */
-		setScreenRange(screenRange: TextBuffer.RangeLike, options?: { preserveFolds?: boolean,
-			autoscroll?: boolean }): void;
-		/** Modifies the screen range for the selection. */
-		setScreenRange(screenRange: [TextBuffer.PointLike, TextBuffer.PointLike],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
-		/** Modifies the screen range for the selection. */
-		setScreenRange(screenRange: [TextBuffer.PointLike, [number, number]],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
-		/** Modifies the screen range for the selection. */
-		setScreenRange(screenRange: [[number, number], TextBuffer.PointLike],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
-		/** Modifies the screen range for the selection. */
-		setScreenRange(screenRange: [[number, number], [number, number]],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
+		setScreenRange(screenRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], options?:
+			{ preserveFolds?: boolean, autoscroll?: boolean }): void;
 
 		/** Returns the buffer Range for the selection. */
 		getBufferRange(): TextBuffer.Range;
 
 		/** Modifies the buffer Range for the selection. */
-		setBufferRange(bufferRange: TextBuffer.RangeLike, options?: { preserveFolds?: boolean,
-			autoscroll?: boolean }): void;
-		/** Modifies the buffer Range for the selection. */
-		setBufferRange(bufferRange: [TextBuffer.PointLike, TextBuffer.PointLike],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
-		/** Modifies the buffer Range for the selection. */
-		setBufferRange(bufferRange: [TextBuffer.PointLike, [number, number]],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
-		/** Modifies the buffer Range for the selection. */
-		setBufferRange(bufferRange: [[number, number], TextBuffer.PointLike],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
-		/** Modifies the buffer Range for the selection. */
-		setBufferRange(bufferRange: [[number, number], [number, number]],
-			options?: { preserveFolds?: boolean, autoscroll?: boolean }): void;
+		setBufferRange(bufferRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], options?:
+			{ preserveFolds?: boolean, autoscroll?: boolean }): void;
 
 		/** Returns the starting and ending buffer rows the selection is highlighting. */
 		getBufferRowRange(): [number, number];
@@ -1934,8 +1881,8 @@ declare namespace AtomCore {
 		/** Returns the text in the selection. */
 		getText(): string;
 
-		// NOTE(glen): calls into Range.intersectsWith(), which is one of the few functions
-		//             that doesn't take a range-compatible range, despite what the API says.
+		// NOTE: this calls into Range.intersectsWith(), which is one of the few functions
+		//   that doesn't take a range-compatible range, despite what the API says.
 		/** Identifies if a selection intersects with a given buffer range. */
 		intersectsBufferRange(bufferRange: TextBuffer.RangeLike): boolean;
 
@@ -1947,14 +1894,10 @@ declare namespace AtomCore {
 		clear(options?: { autoscroll?: boolean }): void;
 
 		/** Selects the text from the current cursor position to a given screen position. */
-		selectToScreenPosition(position: TextBuffer.PointLike): void;
-		/** Selects the text from the current cursor position to a given screen position. */
-		selectToScreenPosition(position: [number, number]): void;
+		selectToScreenPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 		/** Selects the text from the current cursor position to a given buffer position. */
-		selectToBufferPosition(position: TextBuffer.PointLike): void;
-		/** Selects the text from the current cursor position to a given buffer position. */
-		selectToBufferPosition(position: [number, number]): void;
+		selectToBufferPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 		/** Selects the text one position right of the cursor. */
 		selectRight(columnCount?: number): void;
@@ -2141,14 +2084,10 @@ declare namespace AtomCore {
 		cutToEndOfBufferLine(): void;
 
 		/** Copies the selection to the clipboard and then deletes it. */
-		cut(maintainClipboard?: boolean): void;
-		/** Copies the selection to the clipboard and then deletes it. */
-		cut(maintainClipboard: boolean, fullLine?: boolean): void;
+		cut(maintainClipboard?: boolean, fullLine?: boolean): void;
 
 		/** Copies the current selection to the clipboard. */
-		copy(maintainClipboard?: boolean): void;
-		/** Copies the current selection to the clipboard. */
-		copy(maintainClipboard: boolean, fullLine?: boolean): void;
+		copy(maintainClipboard?: boolean, fullLine?: boolean): void;
 
 		/** Creates a fold containing the current selection. */
 		fold(): void;
@@ -2408,15 +2347,9 @@ declare namespace AtomCore {
 		getText(): string;
 
 		/** Get the text in the given range in buffer coordinates. */
-		getTextInBufferRange(range: TextBuffer.RangeLike): string;
-		/** Get the text in the given range in buffer coordinates. */
-		getTextInBufferRange(range: [TextBuffer.PointLike, TextBuffer.PointLike]): string;
-		/** Get the text in the given range in buffer coordinates. */
-		getTextInBufferRange(range: [[number, number], [number, number]]): string;
-		/** Get the text in the given range in buffer coordinates. */
-		getTextInBufferRange(range: [TextBuffer.PointLike, [number, number]]): string;
-		/** Get the text in the given range in buffer coordinates. */
-		getTextInBufferRange(range: [[number, number], TextBuffer.PointLike]): string;
+		getTextInBufferRange(range: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]]): string;
 
 		/** Returns a number representing the number of lines in the buffer. */
 		getLineCount(): number;
@@ -2454,20 +2387,10 @@ declare namespace AtomCore {
 		setText(text: string): void;
 
 		/** Set the text in the given Range in buffer coordinates. */
-		setTextInBufferRange(range: TextBuffer.RangeLike, text: string, options?: {
-			normalizeLineEndings?: boolean, undo?: "skip" }): void;
-		/** Set the text in the given Range in buffer coordinates. */
-		setTextInBufferRange(range: [TextBuffer.PointLike, TextBuffer.PointLike],
-			text: string, options?: { normalizeLineEndings?: boolean, undo?: "skip" }): void;
-		/** Set the text in the given Range in buffer coordinates. */
-		setTextInBufferRange(range: [[number, number], [number, number]],
-			text: string, options?: { normalizeLineEndings?: boolean, undo?: "skip" }): void;
-		/** Set the text in the given Range in buffer coordinates. */
-		setTextInBufferRange(range: [TextBuffer.PointLike, [number, number]],
-			text: string, options?: { normalizeLineEndings?: boolean, undo?: "skip" }): void;
-		/** Set the text in the given Range in buffer coordinates. */
-		setTextInBufferRange(range: [[number, number], TextBuffer.PointLike],
-			text: string, options?: { normalizeLineEndings?: boolean, undo?: "skip" }): void;
+		setTextInBufferRange(range: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], text: string,
+			options?: { normalizeLineEndings?: boolean, undo?: "skip" }): void;
 
 		/* For each selection, replace the selected text with the given text. */
 		insertText(text: string, options?: { select?: boolean, autoIndent?: boolean,
@@ -2610,107 +2533,45 @@ declare namespace AtomCore {
 
 		// TextEditor Coordinates
 		/** Convert a position in buffer-coordinates to screen-coordinates. */
-		screenPositionForBufferPosition(bufferPosition: TextBuffer.PointLike, options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
-		/** Convert a position in buffer-coordinates to screen-coordinates. */
-		screenPositionForBufferPosition(bufferPosition: [number, number], options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
+		screenPositionForBufferPosition(bufferPosition: TextBuffer.PointLike|[number, number],
+			options?: { clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
 
 		/** Convert a position in screen-coordinates to buffer-coordinates. */
-		bufferPositionForScreenPosition(bufferPosition: TextBuffer.PointLike, options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
-		/** Convert a position in screen-coordinates to buffer-coordinates. */
-		bufferPositionForScreenPosition(bufferPosition: [number, number], options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
+		bufferPositionForScreenPosition(bufferPosition: TextBuffer.PointLike|[number, number],
+			options?: { clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
 
 		/** Convert a range in buffer-coordinates to screen-coordinates. */
-		screenRangeForBufferRange(bufferRange: TextBuffer.RangeLike): TextBuffer.Range;
-		/** Convert a range in buffer-coordinates to screen-coordinates. */
-		screenRangeForBufferRange(bufferRange: [TextBuffer.PointLike, TextBuffer.PointLike]):
-			TextBuffer.Range;
-		/** Convert a range in buffer-coordinates to screen-coordinates. */
-		screenRangeForBufferRange(bufferRange: [TextBuffer.PointLike, [number, number]]):
-			TextBuffer.Range;
-		/** Convert a range in buffer-coordinates to screen-coordinates. */
-		screenRangeForBufferRange(bufferRange: [[number, number], TextBuffer.PointLike]):
-			TextBuffer.Range;
-		/** Convert a range in buffer-coordinates to screen-coordinates. */
-		screenRangeForBufferRange(bufferRange: [[number, number], [number, number]]):
-			TextBuffer.Range;
+		screenRangeForBufferRange(bufferRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]]): TextBuffer.Range;
 
 		/** Convert a range in screen-coordinates to buffer-coordinates. */
-		bufferRangeForScreenRange(screenRange: TextBuffer.RangeLike): TextBuffer.Range;
-		/** Convert a range in screen-coordinates to buffer-coordinates. */
-		bufferRangeForScreenRange(screenRange: [TextBuffer.PointLike, TextBuffer.PointLike]):
-			TextBuffer.Range;
-		/** Convert a range in screen-coordinates to buffer-coordinates. */
-		bufferRangeForScreenRange(screenRange: [TextBuffer.PointLike, [number, number]]):
-			TextBuffer.Range;
-		/** Convert a range in screen-coordinates to buffer-coordinates. */
-		bufferRangeForScreenRange(screenRange: [[number, number], TextBuffer.PointLike]):
-			TextBuffer.Range;
-		/** Convert a range in screen-coordinates to buffer-coordinates. */
-		bufferRangeForScreenRange(screenRange: [[number, number], [number, number]]):
-			TextBuffer.Range;
+		bufferRangeForScreenRange(screenRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]]): TextBuffer.Range;
 
 		/** Clip the given Point to a valid position in the buffer. */
-		clipBufferPosition(bufferPosition: TextBuffer.PointLike): TextBuffer.Point;
-		/** Clip the given Point to a valid position in the buffer. */
-		clipBufferPosition(bufferPosition: [number, number]): TextBuffer.Point;
+		clipBufferPosition(bufferPosition: TextBuffer.PointLike|[number, number]):
+			TextBuffer.Point;
 
 		/** Clip the start and end of the given range to valid positions in the buffer.
 		 *  See ::clipBufferPosition for more information.
 		 */
-		clipBufferRange(range: TextBuffer.RangeLike): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions in the buffer.
-		 *  See ::clipBufferPosition for more information.
-		 */
-		clipBufferRange(range: [TextBuffer.PointLike, TextBuffer.PointLike]): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions in the buffer.
-		 *  See ::clipBufferPosition for more information.
-		 */
-		clipBufferRange(range: [TextBuffer.PointLike, [number, number]]): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions in the buffer.
-		 *  See ::clipBufferPosition for more information.
-		 */
-		clipBufferRange(range: [[number, number], TextBuffer.PointLike]): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions in the buffer.
-		 *  See ::clipBufferPosition for more information.
-		 */
-		clipBufferRange(range: [[number, number], [number, number]]): TextBuffer.Range;
+		clipBufferRange(range: TextBuffer.RangeLike|[TextBuffer.PointLike, TextBuffer.PointLike]|
+			[TextBuffer.PointLike, [number, number]]|[[number, number], TextBuffer.PointLike]|
+			[[number, number], [number, number]]): TextBuffer.Range;
 
 		/** Clip the given Point to a valid position on screen. */
-		clipScreenPosition(screenPosition: TextBuffer.PointLike, options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
-		/** Clip the given Point to a valid position on screen. */
-		clipScreenPosition(screenPosition: [number, number], options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
+		clipScreenPosition(screenPosition: TextBuffer.PointLike|[number, number],
+			options?: { clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Point;
 
 		/** Clip the start and end of the given range to valid positions on screen.
 		 *  See ::clipScreenPosition for more information.
 		 */
-		clipScreenRange(range: TextBuffer.RangeLike, options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions on screen.
-		 *  See ::clipScreenPosition for more information.
-		 */
-		clipScreenRange(range: [TextBuffer.PointLike, TextBuffer.PointLike], options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions on screen.
-		 *  See ::clipScreenPosition for more information.
-		 */
-		clipScreenRange(range: [TextBuffer.PointLike, [number, number]], options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions on screen.
-		 *  See ::clipScreenPosition for more information.
-		 */
-		clipScreenRange(range: [[number, number], TextBuffer.PointLike], options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Range;
-		/** Clip the start and end of the given range to valid positions on screen.
-		 *  See ::clipScreenPosition for more information.
-		 */
-		clipScreenRange(range: [[number, number], [number, number]], options?:
-			{ clipDirection?: "backward"|"forward"|"closest"}): TextBuffer.Range;
+		clipScreenRange(range: TextBuffer.RangeLike|[TextBuffer.PointLike, TextBuffer.PointLike]|
+			[TextBuffer.PointLike, [number, number]]|[[number, number], TextBuffer.PointLike]|
+			[[number, number], [number, number]], options?: { clipDirection?:
+			"backward"|"forward"|"closest"}): TextBuffer.Range;
 
 		// Decorations
 		/** Add a decoration that tracks a DisplayMarker. When the marker moves, is
@@ -2748,105 +2609,35 @@ declare namespace AtomCore {
 		 *  a particular word, the marker will remain over that word even if the word's location
 		 *  in the buffer changes.
 		 */
-		markBufferRange(range: TextBuffer.RangeLike, properties?: { maintainHistory?: boolean,
+		markBufferRange(range: TextBuffer.RangeLike|[TextBuffer.PointLike, TextBuffer.PointLike]|
+			[TextBuffer.PointLike, [number, number]]|[[number, number], TextBuffer.PointLike]|
+			[[number, number], [number, number]], properties?: { maintainHistory?: boolean,
 			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" }):
 			TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in buffer coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location
-		 *  in the buffer changes.
-		 */
-		markBufferRange(range: [TextBuffer.PointLike, TextBuffer.PointLike], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in buffer coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location
-		 *  in the buffer changes.
-		 */
-		markBufferRange(range: [TextBuffer.PointLike, [number, number]], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in buffer coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location
-		 *  in the buffer changes.
-		 */
-		markBufferRange(range: [[number, number], TextBuffer.PointLike], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in buffer coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location
-		 *  in the buffer changes.
-		 */
-		markBufferRange(range: [[number, number], [number, number]], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
 
 		/** Create a marker on the default marker layer with the given range in screen coordinates.
 		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
 		 *  a particular word, the marker will remain over that word even if the word's location in
 		 *  the buffer changes.
 		 */
-		markScreenRange(range: TextBuffer.RangeLike, properties?: { maintainHistory?: boolean,
+		markScreenRange(range: TextBuffer.RangeLike|[TextBuffer.PointLike, TextBuffer.PointLike]|
+			[TextBuffer.PointLike, [number, number]]|[[number, number], TextBuffer.PointLike]|
+			[[number, number], [number, number]], properties?: { maintainHistory?: boolean,
 			reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" }):
 			TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in screen coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location in
-		 *  the buffer changes.
-		 */
-		markScreenRange(range: [TextBuffer.PointLike, TextBuffer.PointLike], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in screen coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location in
-		 *  the buffer changes.
-		 */
-		markScreenRange(range: [TextBuffer.PointLike, [number, number]], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in screen coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location in
-		 *  the buffer changes.
-		 */
-		markScreenRange(range: [[number, number], TextBuffer.PointLike], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given range in screen coordinates.
-		 *  This marker will maintain its logical location as the buffer is changed, so if you mark
-		 *  a particular word, the marker will remain over that word even if the word's location in
-		 *  the buffer changes.
-		 */
-		markScreenRange(range: [[number, number], [number, number]], properties?: {
-			maintainHistory?: boolean, reversed?: boolean, invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
 
 		/** Create a marker on the default marker layer with the given buffer position and no tail.
 		 *  To group multiple markers together in their own private layer, see ::addMarkerLayer.
 		 */
-		markBufferPosition(bufferPosition: TextBuffer.PointLike, options?: { invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given buffer position and no tail.
-		 *  To group multiple markers together in their own private layer, see ::addMarkerLayer.
-		 */
-		markBufferPosition(bufferPosition: [number, number], options?: { invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch" }): TextBuffer.DisplayMarker;
+		markBufferPosition(bufferPosition: TextBuffer.PointLike|[number, number], options?:
+			{ invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" }):
+			TextBuffer.DisplayMarker;
 
 		/** Create a marker on the default marker layer with the given screen position and no tail.
 		 *  To group multiple markers together in their own private layer, see ::addMarkerLayer.
 		 */
-		markScreenPosition(screenPosition: TextBuffer.PointLike, options?: { invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch", clipDirection?:
-			"backward"|"forward"|"closest" }): TextBuffer.DisplayMarker;
-		/** Create a marker on the default marker layer with the given screen position and no tail.
-		 *  To group multiple markers together in their own private layer, see ::addMarkerLayer.
-		 */
-		markScreenPosition(screenPosition: [number, number], options?: { invalidate?:
-			"never"|"surround"|"overlap"|"inside"|"touch", clipDirection?:
+		markScreenPosition(screenPosition: TextBuffer.PointLike|[number, number], options?:
+			{ invalidate?: "never"|"surround"|"overlap"|"inside"|"touch", clipDirection?:
 			"backward"|"forward"|"closest" }): TextBuffer.DisplayMarker;
 
 		/** Find all DisplayMarkers on the default marker layer that match the given properties.
@@ -2889,18 +2680,12 @@ declare namespace AtomCore {
 		/** Move the cursor to the given position in buffer coordinates.
 		 *  If there are multiple cursors, they will be consolidated to a single cursor.
 		 */
-		setCursorBufferPosition(position: TextBuffer.PointLike, options?:
-			{ autoscroll?: boolean }): void;
-		/** Move the cursor to the given position in buffer coordinates.
-		 *  If there are multiple cursors, they will be consolidated to a single cursor.
-		 */
-		setCursorBufferPosition(position: [number, number], options?:
+		setCursorBufferPosition(position: TextBuffer.PointLike|[number, number], options?:
 			{ autoscroll?: boolean }): void;
 
 		/** Get a Cursor at given screen coordinates Point. */
-		getCursorAtScreenPosition(position: TextBuffer.PointLike): Cursor|undefined;
-		/** Get a Cursor at given screen coordinates Point. */
-		getCursorAtScreenPosition(position: [number, number]): Cursor|undefined;
+		getCursorAtScreenPosition(position: TextBuffer.PointLike|[number, number]):
+			Cursor|undefined;
 
 		/** Get the position of the most recently added cursor in screen coordinates. */
 		getCursorScreenPosition(): TextBuffer.Point;
@@ -2911,23 +2696,14 @@ declare namespace AtomCore {
 		/** Move the cursor to the given position in screen coordinates.
 		 *  If there are multiple cursors, they will be consolidated to a single cursor.
 		 */
-		setCursorScreenPosition(position: TextBuffer.PointLike,
-			options?: { autoscroll?: boolean }): void;
-		/** Move the cursor to the given position in screen coordinates.
-		 *  If there are multiple cursors, they will be consolidated to a single cursor.
-		 */
-		setCursorScreenPosition(position: [number, number],
+		setCursorScreenPosition(position: TextBuffer.PointLike|[number, number],
 			options?: { autoscroll?: boolean }): void;
 
 		/** Add a cursor at the given position in buffer coordinates. */
-		addCursorAtBufferPosition(bufferPosition: TextBuffer.PointLike): Cursor;
-		/** Add a cursor at the given position in buffer coordinates. */
-		addCursorAtBufferPosition(bufferPosition: [number, number]): Cursor;
+		addCursorAtBufferPosition(bufferPosition: TextBuffer.PointLike|[number, number]): Cursor;
 
 		/** Add a cursor at the position in screen coordinates. */
-		addCursorAtScreenPosition(screenPosition: TextBuffer.PointLike): Cursor;
-		/** Add a cursor at the position in screen coordinates. */
-		addCursorAtScreenPosition(screenPosition: [number, number]): Cursor;
+		addCursorAtScreenPosition(screenPosition: TextBuffer.PointLike|[number, number]): Cursor;
 
 		/** Returns a boolean indicating whether or not there are multiple cursors. */
 		hasMultipleCursors(): boolean;
@@ -3026,56 +2802,18 @@ declare namespace AtomCore {
 		/** Set the selected range in buffer coordinates. If there are multiple selections,
 		 *  they are reduced to a single selection with the given range.
 		 */
-		setSelectedBufferRange(bufferRange: TextBuffer.RangeLike, options?:
+		setSelectedBufferRange(bufferRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], options?:
 			{ reversed?: boolean, preserveFolds?: boolean}): void;
-		/** Set the selected range in buffer coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedBufferRange(bufferRange: [TextBuffer.PointLike, TextBuffer.PointLike],
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
-		/** Set the selected range in buffer coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedBufferRange(bufferRange: [TextBuffer.PointLike, [number, number]],
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
-		/** Set the selected range in buffer coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedBufferRange(bufferRange: [[number, number], TextBuffer.PointLike],
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
-		/** Set the selected range in buffer coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedBufferRange(bufferRange: [[number, number], [number, number]],
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
 
 		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedBufferRanges(bufferRanges: ReadonlyArray<TextBuffer.RangeLike>, options?:
-			{ reversed?: boolean, preserveFolds?: boolean}): void;
-		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[TextBuffer.PointLike,
-			TextBuffer.PointLike]>, options?: { reversed?: boolean, preserveFolds?: boolean}):
-			void;
-		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[TextBuffer.PointLike,
-			[number, number]]>, options?: { reversed?: boolean, preserveFolds?: boolean}): void;
-		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[[number, number],
-			TextBuffer.PointLike]>, options?: { reversed?: boolean, preserveFolds?: boolean}):
-			void;
-		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[[number, number], [number,
-			number]]>, options?: { reversed?: boolean, preserveFolds?: boolean}): void;
+		setSelectedBufferRanges(bufferRanges: ReadonlyArray<TextBuffer.RangeLike|
+			[TextBuffer.PointLike, TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|
+			[[number, number], TextBuffer.PointLike]|[[number, number], [number, number]]>,
+			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
 
 		/** Get the Range of the most recently added selection in screen coordinates. */
 		getSelectedScreenRange(): TextBuffer.Range;
@@ -3088,104 +2826,40 @@ declare namespace AtomCore {
 		/** Set the selected range in screen coordinates. If there are multiple selections,
 		 *  they are reduced to a single selection with the given range.
 		 */
-		setSelectedScreenRange(screenRange: TextBuffer.RangeLike, options?:
+		setSelectedScreenRange(screenRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], options?:
 			{ reversed?: boolean }): void;
-		/** Set the selected range in screen coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedScreenRange(screenRange: [TextBuffer.PointLike, TextBuffer.PointLike],
-			options?: { reversed?: boolean }): void;
-		/** Set the selected range in screen coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedScreenRange(screenRange: [TextBuffer.PointLike, [number, number]],
-			options?: { reversed?: boolean }): void;
-		/** Set the selected range in screen coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedScreenRange(screenRange: [[number, number], TextBuffer.PointLike],
-			options?: { reversed?: boolean }): void;
-		/** Set the selected range in screen coordinates. If there are multiple selections,
-		 *  they are reduced to a single selection with the given range.
-		 */
-		setSelectedScreenRange(screenRange: [[number, number], [number, number]],
-			options?: { reversed?: boolean }): void;
 
 		/** Set the selected ranges in screen coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedScreenRanges(screenRanges: ReadonlyArray<TextBuffer.RangeLike>, options?:
-			{ reversed?: boolean }): void;
-		/** Set the selected ranges in screen coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedScreenRanges(screenRanges: ReadonlyArray<[TextBuffer.PointLike,
-			TextBuffer.PointLike]>, options?: { reversed?: boolean }): void;
-		/** Set the selected ranges in screen coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedScreenRanges(screenRanges: ReadonlyArray<[TextBuffer.PointLike,
-			[number, number]]>, options?: { reversed?: boolean }): void;
-		/** Set the selected ranges in screen coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedScreenRanges(screenRanges: ReadonlyArray<[[number, number],
-			TextBuffer.PointLike]>, options?: { reversed?: boolean }): void;
-		/** Set the selected ranges in screen coordinates. If there are multiple selections,
-		 *  they are replaced by new selections with the given ranges.
-		 */
-		setSelectedScreenRanges(screenRanges: ReadonlyArray<[[number, number], [number, number]]>,
-			options?: { reversed?: boolean }): void;
+		setSelectedScreenRanges(screenRanges: ReadonlyArray<TextBuffer.RangeLike|
+			[TextBuffer.PointLike, TextBuffer.PointLike]|[TextBuffer.PointLike, [number,
+			number]]|[[number, number], TextBuffer.PointLike]|[[number, number], [number,
+			number]]>, options?: { reversed?: boolean }): void;
 
 		/** Add a selection for the given range in buffer coordinates. */
-		addSelectionForBufferRange(bufferRange: TextBuffer.RangeLike, options?:
+		addSelectionForBufferRange(bufferRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], options?:
 			{ reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in buffer coordinates. */
-		addSelectionForBufferRange(bufferRange: [TextBuffer.PointLike, TextBuffer.PointLike],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in buffer coordinates. */
-		addSelectionForBufferRange(bufferRange: [TextBuffer.PointLike, [number, number]],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in buffer coordinates. */
-		addSelectionForBufferRange(bufferRange: [[number, number], TextBuffer.PointLike],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in buffer coordinates. */
-		addSelectionForBufferRange(bufferRange: [[number, number], [number, number]],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
 
 		/** Add a selection for the given range in screen coordinates. */
-		addSelectionForScreenRange(screenRange: TextBuffer.RangeLike, options?:
+		addSelectionForScreenRange(screenRange: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], options?:
 			{ reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in screen coordinates. */
-		addSelectionForScreenRange(screenRange: [TextBuffer.PointLike, TextBuffer.PointLike],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in screen coordinates. */
-		addSelectionForScreenRange(screenRange: [TextBuffer.PointLike, [number, number]],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in screen coordinates. */
-		addSelectionForScreenRange(screenRange: [[number, number], TextBuffer.PointLike],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
-		/** Add a selection for the given range in screen coordinates. */
-		addSelectionForScreenRange(screenRange: [[number, number], [number, number]],
-			options?: { reversed?: boolean, preserveFolds?: boolean }): Selection;
 
 		/** Select from the current cursor position to the given position in buffer coordinates.
 		 *  This method may merge selections that end up intesecting.
 		 */
-		selectToBufferPosition(position: TextBuffer.PointLike): void;
-		/** Select from the current cursor position to the given position in buffer coordinates.
-		 *  This method may merge selections that end up intesecting.
-		 */
-		selectToBufferPosition(position: [number, number]): void;
+		selectToBufferPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 		/** Select from the current cursor position to the given position in screen coordinates.
 		 *  This method may merge selections that end up intesecting.
 		 */
-		selectToScreenPosition(position: TextBuffer.PointLike): void;
-		/** Select from the current cursor position to the given position in screen coordinates.
-		 *  This method may merge selections that end up intesecting.
-		 */
-		selectToScreenPosition(position: [number, number]): void;
+		selectToScreenPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 		/** Move the cursor of each selection one character upward while preserving the
 		 *  selection's tail position.
@@ -3321,8 +2995,8 @@ declare namespace AtomCore {
 		 */
 		getSelectionsOrderedByBufferPosition(): Selection[];
 
-		// NOTE(glen): Calls into Selection::intersectsBufferRange, which then calls into
-		// Range::intersectsWith. Range::intersectsWith is one of the few functions
+		// NOTE: this calls into Selection::intersectsBufferRange, which itself calls
+		// into Range::intersectsWith. Range::intersectsWith is one of the few functions
 		// which does NOT take a range-compatible array.
 		/** Determine if a given range in buffer coordinates intersects a selection. */
 		selectionIntersectsBufferRange(bufferRange: TextBuffer.RangeLike): boolean;
@@ -3348,64 +3022,20 @@ declare namespace AtomCore {
 		/** Scan regular expression matches in a given range, calling the given iterator.
 		 *  function on each match.
 		 */
-		scanInBufferRange(regex: RegExp, range: TextBuffer.RangeLike, iterator: (match:
+		scanInBufferRange(regex: RegExp, range: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], iterator: (match:
 			RegExpMatchArray, matchText: string, range: TextBuffer.Range, stop: () => void,
 			replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range, calling the given iterator.
-		 *  function on each match.
-		 */
-		scanInBufferRange(regex: RegExp, range: [TextBuffer.PointLike, TextBuffer.PointLike],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range, calling the given iterator.
-		 *  function on each match.
-		 */
-		scanInBufferRange(regex: RegExp, range: [[number, number], [number, number]],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range, calling the given iterator.
-		 *  function on each match.
-		 */
-		scanInBufferRange(regex: RegExp, range: [TextBuffer.PointLike, [number, number]],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range, calling the given iterator.
-		 *  function on each match.
-		 */
-		scanInBufferRange(regex: RegExp, range: [[number, number], TextBuffer.PointLike],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
 
 		/** Scan regular expression matches in a given range in reverse order, calling the
 		 *  given iterator function on each match.
 		 */
-		backwardsScanInBufferRange(regex: RegExp, range: TextBuffer.RangeLike, iterator:
-			(match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range in reverse order, calling the
-		 *  given iterator function on each match.
-		 */
-		backwardsScanInBufferRange(regex: RegExp, range: [TextBuffer.PointLike, TextBuffer.PointLike],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range in reverse order, calling the
-		 *  given iterator function on each match.
-		 */
-		backwardsScanInBufferRange(regex: RegExp, range: [[number, number], [number, number]],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range in reverse order, calling the
-		 *  given iterator function on each match.
-		 */
-		backwardsScanInBufferRange(regex: RegExp, range: [TextBuffer.PointLike, [number, number]],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
-		/** Scan regular expression matches in a given range in reverse order, calling the
-		 *  given iterator function on each match.
-		 */
-		backwardsScanInBufferRange(regex: RegExp, range: [[number, number], TextBuffer.PointLike],
-			iterator: (match: RegExpMatchArray, matchText: string, range: TextBuffer.Range,
-			stop: () => void, replace: (replacement: string) => void) => void): void;
+		backwardsScanInBufferRange(regex: RegExp, range: TextBuffer.RangeLike|[TextBuffer.PointLike,
+			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
+			TextBuffer.PointLike]|[[number, number], [number, number]], iterator: (match:
+			RegExpMatchArray, matchText: string, range: TextBuffer.Range, stop: () => void,
+			replace: (replacement: string) => void) => void): void;
 
 		// Tab Behavior
 		/** Returns a boolean indicating whether softTabs are enabled for this editor. */
@@ -3496,9 +3126,8 @@ declare namespace AtomCore {
 		getRootScopeDescriptor(): ScopeDescriptor;
 
 		/** Get the syntactic scopeDescriptor for the given position in buffer coordinates. */
-		scopeDescriptorForBufferPosition(bufferPosition: TextBuffer.PointLike): ScopeDescriptor;
-		/** Get the syntactic scopeDescriptor for the given position in buffer coordinates. */
-		scopeDescriptorForBufferPosition(bufferPosition: [number, number]): ScopeDescriptor;
+		scopeDescriptorForBufferPosition(bufferPosition: TextBuffer.PointLike|[number, number]):
+			ScopeDescriptor;
 
 		/** Get the range in buffer coordinates of all tokens surrounding the cursor
 		 *  that match the given scope selector.
@@ -3600,18 +3229,12 @@ declare namespace AtomCore {
 		scrollToCursorPosition(options?: { center?: boolean }): void;
 
 		/** Scrolls the editor to the given buffer position. */
-		scrollToBufferPosition(bufferPosition: TextBuffer.PointLike, options?:
-			{ center?: boolean }): void;
-		/** Scrolls the editor to the given buffer position. */
-		scrollToBufferPosition(bufferPosition: [number, number], options?:
-			{ center?: boolean }): void;
+		scrollToBufferPosition(bufferPosition: TextBuffer.PointLike|[number, number],
+			options?: { center?: boolean }): void;
 
 		/** Scrolls the editor to the given screen position. */
-		scrollToScreenPosition(screenPosition: TextBuffer.PointLike, options?:
-			{ center?: boolean }): void;
-		/** Scrolls the editor to the given screen position. */
-		scrollToScreenPosition(screenPosition: [number, number], options?:
-			{ center?: boolean }): void;
+		scrollToScreenPosition(screenPosition: TextBuffer.PointLike|[number, number],
+			options?: { center?: boolean }): void;
 
 		// TextEditor Rendering
 		/** Retrieves the rendered line height in pixels. */
@@ -3725,10 +3348,7 @@ declare namespace AtomCore {
 			delay?: { show: number, hide: number },
 			keyBindingCommand?: string,
 			keyBindingTarget?: HTMLElement
-		}): EventKit.Disposable;
-
-		/** Add a tooltip to the given element. */
-		add(target: JQuery|HTMLElement, options: {
+		} | {
 			title?: string|(() => string),
 			html?: boolean,
 			item?: HTMLElement|{ element: HTMLElement },

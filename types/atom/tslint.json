@@ -30,7 +30,6 @@
         // TODO
         "ban-types": false,
         "no-any": false, // soon to be default.
-        "unified-signatures": false,
         // Soon to be defaults.
         "arrow-return-shorthand": [true, "multiline"],
         "no-floating-promises": true,

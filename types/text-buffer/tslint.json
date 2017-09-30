@@ -26,8 +26,6 @@
             "check-rest-spread",
             "check-preblock"
         ],
-        // TODO
-        "unified-signatures": false,
         // Soon to be defaults.
         "arrow-return-shorthand": [true, "multiline"],
         "no-any": true,
