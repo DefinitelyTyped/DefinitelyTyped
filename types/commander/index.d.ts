@@ -266,9 +266,9 @@ declare class Command extends NodeJS.EventEmitter {
     /**
      * Output help information for this command.
      *
-     * @param {() => void} [cb] Callback method
+     * @param {(str: string) => string} [cb]
      */
-    outputHelp(cb?: () => void): void;
+    outputHelp(cb?: (str: string) => string): void;
 
     /** Output help information and exit. */
     help(): void;
