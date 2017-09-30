@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+        "lib": [
+            "es5"
+        ],
         "module": "commonjs",
         "noImplicitAny": true,
         "noImplicitThis": true,
