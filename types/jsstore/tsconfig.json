@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
-        "noImplicitAny": false,
-        "noEmitOnError": true,
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
