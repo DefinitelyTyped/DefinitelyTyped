@@ -611,8 +611,7 @@ declare module KeyStore {
         TableName: string;
         Set: {
             Key: string;
-            Value;
-            any;
+            Value: any;
         };
     }
     interface IWebWorkerRequest {

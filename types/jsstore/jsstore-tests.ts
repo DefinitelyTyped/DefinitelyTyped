@@ -1,7 +1,7 @@
 var Connection: JsStore.Instance;
 function initConnection() {
     var Database_Name: any = "Demo";
-    JsStore.isDbExist(Database_Name, function (isExist) {
+    JsStore.isDbExist(Database_Name, function (isExist: boolean) {
         if (isExist) {
             Connection = new JsStore.Instance();
         }
@@ -22,7 +22,7 @@ function initConnection() {
             };
             Connection = new JsStore.Instance().createDb(DataBase);
         }
-    }, function (err) {
+    }, function (err: JsStore.IError) {
         alert(err);
     })
 }
@@ -31,7 +31,7 @@ function selectData() {
     var Query = <JsStore.ISelect>{
         From: "TableName"
     }
-    Connection.select(Query, function (results) {
+    Connection.select(Query, function (results: Array<any>) {
         console.log(results);
     });
 }
