@@ -10,7 +10,7 @@
 
 import * as React from "react";
 
-export = ReactModal
+export = ReactModal;
 export as namespace ReactModal;
 
 declare namespace ReactModal {
