@@ -88,7 +88,11 @@ atom.inSpecMode();
 atom.getVersion();
 atom.isReleasedVersion();
 atom.getWindowLoadTime();
-atom.getLoadSettings();
+
+const loadSettings = atom.getLoadSettings();
+const testValue = loadSettings.env["test"];
+if (testValue) str = testValue;
+
 atom.open({ devMode: false, newWindow: true, pathsToOpen: ["Test.file"],
 	safeMode: false });
 atom.close();
@@ -278,7 +282,10 @@ const nodeProcess = new BufferedNodeProcess({
 new BufferedNodeProcess({
 	command: "File.path",
 	args: [],
-	options: [],
+	options: {
+		cwd: "/var/test",
+		detached: true,
+	},
 	exit: (): void => {},
 	stderr: (): void => {},
 	stdout: (): void => {},
@@ -292,7 +299,7 @@ const process = new BufferedProcess({
 new BufferedProcess({
 	command: "File.path",
 	args: [],
-	options: [],
+	options: {},
 	exit: (): void => {},
 	stderr: (): void => {},
 	stdout: (): void => {},

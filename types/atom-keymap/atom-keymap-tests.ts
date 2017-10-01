@@ -1,4 +1,5 @@
 import KeymapManager = require("atom-keymap");
+import * as ImportTest from "atom-keymap";
 
 declare const element: HTMLElement;
 declare let sub: EventKit.Disposable;

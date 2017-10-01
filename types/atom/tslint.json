@@ -8,8 +8,7 @@
         "jsdoc-format": true,
         "linebreak-style": [true, "LF"],
         "max-line-length": [true, 100],
-        "no-declare-current-package": false,
-        "no-single-declare-module": false,
+        "no-any": false,
         "quotemark": [true, "double", "avoid-escape"],
         "trailing-comma": [true, {
             "multiline": { "objects": "always", "arrays": "always", "functions": "never" },
@@ -27,8 +26,6 @@
             "check-rest-spread",
             "check-preblock"
         ],
-        // TODO
-        "no-any": false, // soon to be default.
         // Soon to be defaults.
         "arrow-return-shorthand": [true, "multiline"],
         "no-floating-promises": true,

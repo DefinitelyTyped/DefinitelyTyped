@@ -1,4 +1,5 @@
 import TextBuffer = require("text-buffer");
+import * as ImportTest from "text-buffer";
 
 declare let obj: object;
 declare let bool: boolean;
