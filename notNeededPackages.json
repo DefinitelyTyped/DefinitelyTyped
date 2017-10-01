@@ -319,6 +319,12 @@
             "asOfVersion": "0.7.1"
         },
         {
+            "libraryName": "lambda-phi",
+            "typingsPackageName": "lambda-phi",
+            "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
+            "asOfVersion": "1.0.1"
+        },
+        {
             "libraryName": "Linq.JS",
             "typingsPackageName": "linq",
             "sourceRepoURL": "https://linqjs.codeplex.com/",
@@ -731,6 +737,12 @@
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "xlsx",
+            "typingsPackageName": "xlsx",
+            "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
+            "asOfVersion": "0.0.36"
         },
         {
             "libraryName": "xml-js",

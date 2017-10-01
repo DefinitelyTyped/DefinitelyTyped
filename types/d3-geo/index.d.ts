@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-geo module 1.6
+// Type definitions for D3JS d3-geo module 1.7
 // Project: https://github.com/d3/d3-geo/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.6.1
+// Last module patch version validated against: 1.7.1
 
 import * as GeoJSON from 'geojson';
 
@@ -1313,6 +1313,16 @@ export function geoTransverseMercator(): GeoProjection;
  * The raw transverse spherical Mercator projection.
  */
 export function geoTransverseMercatorRaw(): GeoRawProjection;
+
+/**
+ * The Natural Earth projection is a pseudocylindrical projection designed by Tom Patterson. It is neither conformal nor equal-area, but appealing to the eye for small-scale maps of the whole world.
+ */
+export function geoNaturalEarth1(): GeoProjection;
+
+/**
+ * The raw pseudo-cylindircal Natural Earth projection.
+ */
+export function geoNaturalEarth1Raw(): GeoRawProjection;
 
 // ----------------------------------------------------------------------
 // Projection Transforms

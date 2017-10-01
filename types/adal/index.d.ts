@@ -8,7 +8,8 @@ declare var AuthenticationContext: adal.AuthenticationContextStatic;
 declare var Logging: adal.Logging;
 
 declare module 'adal' {
-    export = { AuthenticationContext, Logging };
+    export const AuthenticationContext: adal.AuthenticationContextStatic;
+    export const Logging: adal.Logging;
 }
 
 declare namespace adal {
@@ -47,15 +48,15 @@ declare namespace adal {
         stateResponse: string;
         requestType: string;
     }
-    
+
     interface Logging {
         log: (message: string) => void;
         level: LoggingLevel;
     }
-    
+
     enum LoggingLevel {
         ERROR = 0,
-        WARNING = 1, 
+        WARNING = 1,
         INFO = 2,
         VERBOSE = 3
     }
@@ -67,7 +68,7 @@ declare namespace adal {
     interface AuthenticationContext {
 
         instance: string;
-        config: Config; 
+        config: Config;
 
         /**
          * Gets initial Idtoken for the app backend
@@ -162,7 +163,7 @@ declare namespace adal {
         getResourceForEndpoint(endpoint: string): string;
 
         /**
-         * Handles redirection after login operation. 
+         * Handles redirection after login operation.
          * Gets access token from url and saves token to the (local/session) storage
          * or saves error in case unsuccessful login.
          */

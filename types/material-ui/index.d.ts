@@ -673,6 +673,7 @@ declare namespace __MaterialUI {
         size?: number;
         src?: string;
         style?: React.CSSProperties;
+        onClick?: React.MouseEventHandler<{}>;
     }
     export class Avatar extends React.Component<AvatarProps> {
     }
@@ -951,7 +952,8 @@ declare namespace __MaterialUI {
         onRequestDelete?: React.TouchEventHandler<Chip>;
         onTouchTap?: React.TouchEventHandler<Chip>;
         style?: React.CSSProperties;
-    }
+        onClick?: React.MouseEventHandler<{}>;
+}
     export class Chip extends React.Component<ChipProps> {
     }
 
@@ -1724,7 +1726,7 @@ declare namespace __MaterialUI {
             onCellHoverExit?(row: number, column: number): void;
             onRowHover?(row: number): void;
             onRowHoverExit?(row: number): void;
-            onRowSelection?(selectedRows: number[] | string): void;
+            onRowSelection?(selectedRows: number[] | 'all'): void;
             selectable?: boolean;
             style?: React.CSSProperties;
             wrapperStyle?: React.CSSProperties;

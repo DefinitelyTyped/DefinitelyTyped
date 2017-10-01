@@ -1,6 +1,9 @@
 // Type definitions for popper.js 1.10
 // Project: https://github.com/FezVrasta/popper.js/
-// Definitions by: rhysd <https://rhysd.github.io>, joscha <https://github.com/joscha>, seckardt <https://github.com/seckardt>, marcfallows <https://github.com/marcfallows>
+// Definitions by: rhysd <https://github.com/rhysd>
+//                 joscha <https://github.com/joscha>
+//                 seckardt <https://github.com/seckardt>
+//                 marcfallows <https://github.com/marcfallows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Popper {
@@ -100,6 +103,8 @@ declare class Popper {
   disableEventListeners(): void;
 }
 
+// Popper.js is globally available directly, but in a module it's only available as a default export.
+// tslint:disable-next-line no-single-declare-module no-declare-current-package
 declare module 'popper.js' {
   export default Popper;
 }

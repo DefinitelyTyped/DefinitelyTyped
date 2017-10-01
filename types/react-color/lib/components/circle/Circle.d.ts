@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ColorPickerProps, Color } from "react-color";
+import { ColorPickerProps, Color } from "../../..";
 
 export interface CirclePickerProps extends ColorPickerProps<CirclePicker> {
     colors?: string[];
