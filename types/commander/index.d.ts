@@ -266,7 +266,7 @@ declare class Command extends NodeJS.EventEmitter {
     /**
      * Output help information for this command.
      *
-     * @param {(str: string) => string} [cb]
+     * @param {(str: string) => string} [cb] 
      */
     outputHelp(cb?: (str: string) => string): void;
 
