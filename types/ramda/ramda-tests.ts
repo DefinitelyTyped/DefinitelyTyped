@@ -1544,8 +1544,7 @@ class Rectangle {
 };
 
 () => {
-    R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-    R.props(["c", "a", "b"], {b: 2, a: 1}); // => [undefined, 1, 2]
+    const ret: Array<string | number> = R.props(["x", "y"], {x: 1, y: '2'}); // => [1, '2']
 
     const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
     fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'

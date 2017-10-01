@@ -1474,8 +1474,8 @@ declare namespace R {
          * The only difference from `prop` is the parameter order.
          * Note: TS1.9 # replace any by dictionary
          */
-        props<T>(ps: string[], obj: any): T[];
-        props(ps: string[]): <T>(obj: any) => T[];
+        props<P extends string, T extends Record<P, any>>(p: P[], obj: T): Array<T[P]>;
+        props<P extends string>(p: P[]): <T extends Record<P, any>>(obj: T) => Array<T[P]>;
 
         /**
          * Returns true if the specified object property satisfies the given predicate; false otherwise.
