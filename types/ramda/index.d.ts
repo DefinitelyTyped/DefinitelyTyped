@@ -1991,7 +1991,7 @@ declare namespace R {
         /**
          * Creates a new object out of a list of keys and a list of values.
          */
-        // TODO: Dictionary<T> as a return value is to specific, any seems to loose
+        // TODO: Dictionary<T> as a return value is too specific, any seems to loose
         zipObj<T>(keys: string[], values: T[]): { [index: string]: T };
         zipObj(keys: string[]): <T>(values: T[]) => { [index: string]: T };
 
