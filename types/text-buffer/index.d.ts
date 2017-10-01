@@ -379,6 +379,22 @@ declare namespace TextBuffer {
 			oldText: string;
 			start: Point;
 		}
+
+		interface BufferScanResult {
+			buffer: TextBuffer;
+			lineText: string;
+			match: RegExpExecArray;
+			matchText: string;
+			range: Range;
+			replace(replacementText: string): void;
+			stop(): void;
+			stopped: boolean;
+		}
+
+		interface ContextualBufferScanResult extends BufferScanResult {
+			leadingContextLines: string[];
+			trailingContextLines: string[];
+		}
 	}
 
 	/** The interface that should be implemented for all "point-compatible" objects. */
@@ -1068,63 +1084,51 @@ declare namespace TextBuffer {
 		/** Scan regular expression matches in the entire buffer, calling the given
 		 *  iterator function on each match.
 		 */
-		scan(regex: RegExp, iterator: (match: RegExpMatchArray, matchText: string,
-			range: Range, stop: () => void, replace: (replacement: string) => void,
-			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
+		scan(regex: RegExp, iterator: (params: Structures.BufferScanResult) => void): void;
 		/** Scan regular expression matches in the entire buffer, calling the given
 		 *  iterator function on each match.
 		 */
-		scan(regex: RegExp, options: Options.ScanContext, iterator: (match: RegExpMatchArray,
-			matchText: string, range: Range, stop: () => void, replace: (replacement: string) =>
-			void, leadingContextLines: string[], trailingContextLines: string[]) => void): void;
+		scan(regex: RegExp, options: Options.ScanContext, iterator: (params:
+			Structures.ContextualBufferScanResult) => void): void;
 
 		/** Scan regular expression matches in the entire buffer in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
-		backwardsScan(regex: RegExp, iterator: (match: RegExpMatchArray, matchText: string,
-			range: Range, stop: () => void, replace: (replacement: string) => void,
-			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
+		backwardsScan(regex: RegExp, iterator: (params: Structures.BufferScanResult) => void):
+			void;
 		/** Scan regular expression matches in the entire buffer in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
-		backwardsScan(regex: RegExp, options: Options.ScanContext, iterator:
-			(match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
+		backwardsScan(regex: RegExp, options: Options.ScanContext, iterator: (params:
+			Structures.ContextualBufferScanResult) => void): void;
 
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
 		scanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
 			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
-			iterator: (match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
+			iterator: (params: Structures.BufferScanResult) => void): void;
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
 		scanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
 			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
-			options: Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string,
-			range: Range, stop: () => void, replace: (replacement: string) => void,
-			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
+			options: Options.ScanContext, iterator: (params:
+			Structures.ContextualBufferScanResult) => void): void;
 
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
 		backwardsScanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
 			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
-			iterator: (match: RegExpMatchArray, matchText: string, range: Range, stop: () => void,
-			replace: (replacement: string) => void, leadingContextLines: string[],
-			trailingContextLines: string[]) => void): void;
+			iterator: (params: Structures.BufferScanResult) => void): void;
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
 		backwardsScanInRange(regex: RegExp, range: RangeLike|[PointLike, PointLike]|[PointLike,
 			[number, number]]|[[number, number], PointLike]|[[number, number], [number, number]],
-			options: Options.ScanContext, iterator: (match: RegExpMatchArray, matchText: string,
-			range: Range, stop: () => void, replace: (replacement: string) => void,
-			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
+			options: Options.ScanContext, iterator: (params:
+			Structures.ContextualBufferScanResult) => void): void;
 
 		/** Replace all regular expression matches in the entire buffer. */
 		replace(regex: RegExp, replacementText: string): number;

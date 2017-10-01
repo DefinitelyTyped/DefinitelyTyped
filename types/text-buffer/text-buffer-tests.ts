@@ -359,34 +359,52 @@ buffer.getChangesSinceCheckpoint(42);
 
 // Search And Replace
 buffer.scan(/r^Test/, (): void => {});
-buffer.scan(/r^Test/, { leadingContextLineCount: 42 }, (): void => {});
-buffer.scan(/r^Test/, { trailingContextLineCount: 42 }, (): void => {});
-buffer.scan(/r^Test/, { leadingContextLineCount: 42, trailingContextLineCount: 42 },
-	(): void => {});
-buffer.scan(/r^Test/, (match, matchText, range, stop, replace, leadingContextLines,
-	trailingContextLines): void => {});
-buffer.scan(/r^Test/, { leadingContextLineCount: 42 }, (match, matchText, range,
-	stop, replace, leadingContextLines, trailingContextLines): void => {});
+buffer.scan(/r^Test/, (params) => {
+	num = params.match.index;
+	str = params.matchText;
+	range = params.range;
+	params.replace("Test");
+	params.stop();
+});
+buffer.scan(/r^Test/, {
+	leadingContextLineCount: 5,
+	trailingContextLineCount: 5,
+}, (params) => {
+	strs = params.leadingContextLines;
+	strs = params.trailingContextLines;
+});
 
 buffer.backwardsScan(/r^Test/, (): void => {});
-buffer.backwardsScan(/r^Test/, { leadingContextLineCount: 42 }, (): void => {});
-buffer.backwardsScan(/r^Test/, { trailingContextLineCount: 42 }, (): void => {});
-buffer.backwardsScan(/r^Test/, { leadingContextLineCount: 42, trailingContextLineCount: 42 },
-	(): void => {});
-buffer.backwardsScan(/r^Test/, (match, matchText, range, stop, replace, leadingContextLines,
-	trailingContextLines): void => {});
-buffer.backwardsScan(/r^Test/, { leadingContextLineCount: 42 }, (match, matchText, range,
-	stop, replace, leadingContextLines, trailingContextLines): void => {});
+buffer.backwardsScan(/r^Test/, (params) => {
+	num = params.match.index;
+	str = params.matchText;
+	range = params.range;
+	params.replace("Test");
+	params.stop();
+});
+buffer.backwardsScan(/r^Test/, {
+	leadingContextLineCount: 5,
+	trailingContextLineCount: 5,
+}, (params) => {
+	strs = params.leadingContextLines;
+	strs = params.trailingContextLines;
+});
 
 buffer.scanInRange(/r^Test/, range, (): void => {});
-buffer.scanInRange(/r^Test/, range, { leadingContextLineCount: 42 }, (): void => {});
-buffer.scanInRange(/r^Test/, range, { trailingContextLineCount: 42 }, (): void => {});
-buffer.scanInRange(/r^Test/, range, { leadingContextLineCount: 42, trailingContextLineCount: 42 },
-	(): void => {});
-buffer.scanInRange(/r^Test/, range, (match, matchText, range, stop, replace, leadingContextLines,
-	trailingContextLines): void => {});
-buffer.scanInRange(/r^Test/, range, { leadingContextLineCount: 42 }, (match, matchText, range,
-	stop, replace, leadingContextLines, trailingContextLines): void => {});
+buffer.scanInRange(/r^Test/, range, (params) => {
+	num = params.match.index;
+	str = params.matchText;
+	range = params.range;
+	params.replace("Test");
+	params.stop();
+});
+buffer.scanInRange(/r^Test/, range, {
+	leadingContextLineCount: 5,
+	trailingContextLineCount: 5,
+}, (params) => {
+	strs = params.leadingContextLines;
+	strs = params.trailingContextLines;
+});
 buffer.scanInRange(/r^Test/, [point, point], (): void => {});
 buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
 buffer.scanInRange(/r^Test/, [point, [0, 0]], (): void => {});
@@ -395,15 +413,20 @@ buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 },
 	(): void => {});
 
 buffer.backwardsScanInRange(/r^Test/, range, (): void => {});
-buffer.backwardsScanInRange(/r^Test/, range, { leadingContextLineCount: 42 }, (): void => {});
-buffer.backwardsScanInRange(/r^Test/, range, { trailingContextLineCount: 42 }, (): void => {});
-buffer.backwardsScanInRange(/r^Test/, range, { leadingContextLineCount: 42,
-	trailingContextLineCount: 42 }, (): void => {});
-buffer.backwardsScanInRange(/r^Test/, range, (match, matchText, range, stop, replace,
-	leadingContextLines, trailingContextLines): void => {});
-buffer.backwardsScanInRange(/r^Test/, range, { leadingContextLineCount: 42 }, (match,
-	matchText, range, stop, replace, leadingContextLines, trailingContextLines):
-	void => {});
+buffer.backwardsScanInRange(/r^Test/, range, (params) => {
+	num = params.match.index;
+	str = params.matchText;
+	range = params.range;
+	params.replace("Test");
+	params.stop();
+});
+buffer.backwardsScanInRange(/r^Test/, range, {
+	leadingContextLineCount: 5,
+	trailingContextLineCount: 5,
+}, (params) => {
+	strs = params.leadingContextLines;
+	strs = params.trailingContextLines;
+});
 buffer.backwardsScanInRange(/r^Test/, [point, point], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [point, [0, 0]], (): void => {});

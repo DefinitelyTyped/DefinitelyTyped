@@ -206,7 +206,7 @@ declare namespace AtomCore {
 		interface Notification {
 			buttons?: Array<{
 				className?: string;
-				onDidClick?: Function;
+				onDidClick?(event: MouseEvent): void;
 				text?: string;
 			}>;
 			description?: string;
@@ -250,12 +250,26 @@ declare namespace AtomCore {
 			 *  If a function is given, it will be called with its this reference set to
 			 *  the element that the tooltip is attached to.
 			 */
-			title?: string|HTMLElement|Function;
+			title?: string|HTMLElement|(() => string);
 
 			/** How tooltip is triggered - click | hover | focus | manual.
 			 *  You may pass multiple triggers; separate them with a space.
 			 */
 			trigger?: string;
+		}
+
+		interface WorkspaceScan {
+			/** An array of glob patterns to search within. */
+			paths?: ReadonlyArray<string>;
+
+			/** A function to be periodically called with the number of paths searched. */
+			onPathsSearched?(pathsSearched: number): void;
+
+			/** The number of lines before the matched line to include in the results object. */
+			leadingContextLineCount?: number;
+
+			/** The number of lines after the matched line to include in the results object. */
+			trailingContextLineCount?: number;
 		}
 	}
 
@@ -286,8 +300,8 @@ declare namespace AtomCore {
 		interface Notification {
 			new (type: "warning"|"info"|"success", message: string, options?:
 				AtomCore.Options.Notification): AtomCore.Notification;
-			new (type: "fatal"|"error", message: string, options?: AtomCore.Options.ErrorNotification):
-				AtomCore.Notification;
+			new (type: "fatal"|"error", message: string, options?:
+				AtomCore.Options.ErrorNotification): AtomCore.Notification;
 		}
 
 		/** The static side to the Task class. */
@@ -371,6 +385,18 @@ declare namespace AtomCore {
 
 		interface CancellablePromise<T> extends Promise<T> {
 			cancel(): void;
+		}
+
+		interface ScandalResult {
+			filePath: string;
+			matches: Array<{
+				matchText: string;
+				lineText: string;
+				lineTextOffset: number;
+				range: [[number, number], [number, number]];
+				leadingContextLines: string[];
+				trailingContextLines: string[];
+			}>;
 		}
 	}
 
@@ -553,7 +579,9 @@ declare namespace AtomCore {
 		confirm(options: {
 			message: string,
 			detailedMessage?: string,
-			buttons?: { [key: string]: () => void },
+			buttons?: {
+				[key: string]: () => void
+			},
 		}): number;
 
 		// Managing the Dev Tools
@@ -653,43 +681,23 @@ declare namespace AtomCore {
 
 		// Managing Settings
 		/** Retrieves the setting for the given key. */
-		get(keyPath: string, options?: {
-			sources?: string[],
-			excludeSources?: string[],
-			scope?: ScopeDescriptor
-		} | {
-			sources?: string[],
-			excludeSources?: string[],
-			scope?: string[],
-		}): any;
+		get(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
+			scope?: string[]|ScopeDescriptor }): any;
 
 		/** Sets the value for a configuration setting.
 		 *  This value is stored in Atom's internal configuration file.
 		 */
-		set(keyPath: string, value: any, options?: {
-			scopeSelector?: string,
-			source?: string
-		}): void;
+		set(keyPath: string, value: any, options?: { scopeSelector?: string, source?:
+			string }): void;
 
 		/** Restore the setting at keyPath to its default value. */
-		unset(keyPath: string, options?: {
-			scopeSelector?: string,
-			source?: string
-		}): void;
+		unset(keyPath: string, options?: { scopeSelector?: string, source?: string }): void;
 
 		/** Get all of the values for the given key-path, along with their associated
 		 *  scope selector.
 		 */
-		getAll(keyPath: string): Array<{ scopeDescriptor: ScopeDescriptor,
-			value: any}>;
-		/** Get all of the values for the given key-path, along with their associated
-		 *  scope selector.
-		 */
-		getAll(keyPath: string, options: {
-			sources?: string[],
-			excludeSources?: string[],
-			scope?: ScopeDescriptor
-		}): Array<{ scopeDescriptor: ScopeDescriptor, value: any}>;
+		getAll(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
+			scope?: ScopeDescriptor }): Array<{ scopeDescriptor: ScopeDescriptor, value: any}>;
 
 		/** Get an Array of all of the source Strings with which settings have been added
 		 *  via ::set.
@@ -908,12 +916,17 @@ declare namespace AtomCore {
 			TextBuffer.Point;
 
 		/** Retrieves the buffer position of where the current word starts. */
-		getBeginningOfCurrentWordBufferPosition(options?: { wordRegex?: RegExp,
-			includeNonWordCharacters?: boolean, allowPrevious?: boolean }): TextBuffer.Point;
+		getBeginningOfCurrentWordBufferPosition(options?: {
+			wordRegex?: RegExp,
+			includeNonWordCharacters?: boolean,
+			allowPrevious?: boolean
+		}): TextBuffer.Point;
 
 		/** Retrieves the buffer position of where the current word ends. */
-		getEndOfCurrentWordBufferPosition(options?: { wordRegex?: RegExp,
-			includeNonWordCharacters?: boolean }): TextBuffer.Point;
+		getEndOfCurrentWordBufferPosition(options?: {
+			wordRegex?: RegExp,
+			includeNonWordCharacters?: boolean
+		}): TextBuffer.Point;
 
 		/** Retrieves the buffer position of where the next word starts. */
 		getBeginningOfNextWordBufferPosition(options?: { wordRegex?: RegExp }): TextBuffer.Point;
@@ -1000,7 +1013,7 @@ declare namespace AtomCore {
 
 	interface Deserializer {
 		name: string;
-		deserialize: Function;
+		deserialize(state: object): object;
 	}
 
 	/** Manages the deserializers used for serialized state. */
@@ -1160,19 +1173,18 @@ declare namespace AtomCore {
 
 		/** Returns the number of commits behind the current branch is from the its
 		 *  upstream remote branch. The default reference is the HEAD.
+		 *  @param reference The branch reference name.
+		 *  @param path The path in the repository to get this ifnromation for, only
+		 *  needed if the repository contains submodules.
+		 *  @return Returns the number of commits behind the current branch is from its
+		 *  upstream remote branch.
 		 */
-		getAheadBehindCount(path?: string): { ahead: number, behind: number };
-		/** Returns the number of commits behind the current branch is from the its
-		 *  upstream remote branch. The default reference is the HEAD.
-		 */
-		getAheadBehindCount(reference: string, path?: string):
-			{ ahead: number, behind: number};
+		getAheadBehindCount(reference: string, path?: string): { ahead: number, behind: number };
 
 		/** Get the cached ahead/behind commit counts for the current branch's
 		 *  upstream branch.
 		 */
-		getCachedUpstreamAheadBehindCount(path?: string):
-			{ ahead: number, behind: number };
+		getCachedUpstreamAheadBehindCount(path?: string): { ahead: number, behind: number };
 
 		/** Returns the git configuration value specified by the key. */
 		getConfigValue(key: string, path?: string): string;
@@ -1346,12 +1358,10 @@ declare namespace AtomCore {
 
 		// Event Subscription
 		/** Invoke the given callback when the notification is dismissed. */
-		onDidDismiss(callback: (notification: Notification) => void):
-			EventKit.Disposable;
+		onDidDismiss(callback: (notification: Notification) => void): EventKit.Disposable;
 
 		/** Invoke the given callback when the notification is displayed. */
-		onDidDisplay(callback: (notification: Notification) => void):
-			EventKit.Disposable;
+		onDidDisplay(callback: (notification: Notification) => void): EventKit.Disposable;
 
 		// Methods
 		/** Returns the Notification's type. */
@@ -1378,71 +1388,19 @@ declare namespace AtomCore {
 
 		// Adding Notifications
 		/** Add a success notification. */
-		addSuccess(message: string, options?: {
-			buttons?: Array<{
-				className?: string,
-				onDidClick?: Function,
-				text?: string,
-			}>,
-			description?: string,
-			detail?: string,
-			dismissable?: boolean,
-			icon?: string,
-		}): Notification;
+		addSuccess(message: string, options?: Options.Notification): Notification;
 
 		/** Add an informational notification. */
-		addInfo(message: string, options?: {
-			buttons?: Array<{
-				className?: string,
-				onDidClick?: Function,
-				text?: string,
-			}>,
-			description?: string,
-			detail?: string,
-			dismissable?: boolean,
-			icon?: string,
-		}): Notification;
+		addInfo(message: string, options?: Options.Notification): Notification;
 
 		/** Add a warning notification. */
-		addWarning(message: string, options?: {
-			buttons?: Array<{
-				className?: string,
-				onDidClick?: Function,
-				text?: string,
-			}>,
-			description?: string,
-			detail?: string,
-			dismissable?: boolean,
-			icon?: string,
-		}): Notification;
+		addWarning(message: string, options?: Options.Notification): Notification;
 
 		/** Add an error notification. */
-		addError(message: string, options?: {
-			buttons?: Array<{
-				className?: string,
-				onDidClick?: Function,
-				text?: string,
-			}>,
-			description?: string,
-			detail?: string,
-			dismissable?: boolean,
-			icon?: string,
-			stack?: string,
-		}): Notification;
+		addError(message: string, options?: Options.ErrorNotification): Notification;
 
 		/** Add a fatal error notification. */
-		addFatalError(message: string, options?: {
-			buttons?: Array<{
-				className?: string,
-				onDidClick?: Function,
-				text?: string,
-			}>,
-			description?: string,
-			detail?: string,
-			dismissable?: boolean,
-			icon?: string,
-			stack?: string,
-		}): Notification;
+		addFatalError(message: string, options?: Options.ErrorNotification): Notification;
 
 		// Getting Notifications
 		/** Get all the notifications. */
@@ -1726,16 +1684,28 @@ declare namespace AtomCore {
 
 		// Splitting
 		/** Create a new pane to the left of this pane. */
-		splitLeft(params?: { items?: object[], copyActiveItem?: boolean }): Pane;
+		splitLeft(params?: {
+			items?: object[],
+			copyActiveItem?: boolean,
+		}): Pane;
 
 		/** Create a new pane to the right of this pane. */
-		splitRight(params?: { items?: object[], copyActiveItem?: boolean }): Pane;
+		splitRight(params?: {
+			items?: object[],
+			copyActiveItem?: boolean,
+		}): Pane;
 
 		/** Creates a new pane above the receiver. */
-		splitUp(params?: { items?: object[], copyActiveItem?: boolean }): Pane;
+		splitUp(params?: {
+			items?: object[],
+			copyActiveItem?: boolean,
+		}): Pane;
 
 		/** Creates a new pane below the receiver. */
-		splitDown(params?: { items?: object[], copyActiveItem?: boolean }): Pane;
+		splitDown(params?: {
+			items?: object[],
+			copyActiveItem?: boolean,
+		}): Pane;
 	}
 
 	/** A container representing a panel on the edges of the editor window. You
@@ -2147,7 +2117,7 @@ declare namespace AtomCore {
 
 	/** Run a node script in a separate process. */
 	interface Task {
-		// NOTE(glen): this is actually the best we can do here with the REST parameter
+		// NOTE: this is actually the best we can do here with the REST parameter
 		// for this appearing in the beginning of the parameter list, which isn't
 		// aligned with the ES6 spec.
 		/** Starts the task.
@@ -2258,7 +2228,7 @@ declare namespace AtomCore {
 		onDidConflict(callback: () => void): EventKit.Disposable;
 
 		/** Calls your callback before text has been inserted. */
-		onWillInsertText(callback: (event: { text: string, cancel: Function }) => void):
+		onWillInsertText(callback: (event: { text: string, cancel(): void }) => void):
 			EventKit.Disposable;
 
 		/** Calls your callback after text has been inserted. */
@@ -2411,7 +2381,7 @@ declare namespace AtomCore {
 		backspace(): void;
 
 		/** Mutate the text of all the selections in a single transaction.
-		 *  All the changes made inside the given Function can be reverted with a single
+		 *  All the changes made inside the given function can be reverted with a single
 		 *  call to ::undo.
 		 */
 		mutateSelectedText(fn: (selection: Selection, index: number) => void): void;
@@ -2650,8 +2620,10 @@ declare namespace AtomCore {
 		findMarkers(properties: TextBuffer.Options.FindDisplayMarker): TextBuffer.DisplayMarker[];
 
 		/** Create a marker layer to group related markers. */
-		addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean }):
-			TextBuffer.DisplayMarkerLayer;
+		addMarkerLayer(options?: {
+			maintainHistory?: boolean,
+			persistent?: boolean,
+		}): TextBuffer.DisplayMarkerLayer;
 
 		/** Get a DisplayMarkerLayer by id. */
 		getMarkerLayer(id: number): TextBuffer.DisplayMarkerLayer|undefined;
@@ -2776,8 +2748,11 @@ declare namespace AtomCore {
 		getLastCursor(): Cursor;
 
 		/** Returns the word surrounding the most recently added cursor. */
-		getWordUnderCursor(options?: { wordRegex?: RegExp,
-			includeNonWordCharacters?: boolean, allowPrevious?: boolean }): string;
+		getWordUnderCursor(options?: {
+			wordRegex?: RegExp,
+			includeNonWordCharacters?: boolean,
+			allowPrevious?: boolean,
+		}): string;
 
 		/** Get an Array of all Cursors. */
 		getCursors(): Cursor[];
@@ -3007,35 +2982,31 @@ declare namespace AtomCore {
 		 *
 		 *  ::scan functions as the replace method as well via the replace.
 		 */
-		scan(regex: RegExp, options: TextBuffer.Options.ScanContext, iterator: (match:
-			RegExpMatchArray, matchText: string, range: TextBuffer.Range, stop: () => void,
-			replace: (replacement: string) => void) => void): void;
+		scan(regex: RegExp, options: TextBuffer.Options.ScanContext, iterator: (params:
+			TextBuffer.Structures.ContextualBufferScanResult) => void): void;
 		/** Scan regular expression matches in the entire buffer, calling the given
 		 *  iterator function on each match.
 		 *
 		 *  ::scan functions as the replace method as well via the replace.
 		 */
-		scan(regex: RegExp, iterator: (match: RegExpMatchArray, matchText: string,
-			range: TextBuffer.Range, stop: () => void, replace: (replacement: string) => void) =>
-			void): void;
+		scan(regex: RegExp, iterator: (params: TextBuffer.Structures.BufferScanResult) => void):
+			void;
 
 		/** Scan regular expression matches in a given range, calling the given iterator.
 		 *  function on each match.
 		 */
 		scanInBufferRange(regex: RegExp, range: TextBuffer.RangeLike|[TextBuffer.PointLike,
 			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
-			TextBuffer.PointLike]|[[number, number], [number, number]], iterator: (match:
-			RegExpMatchArray, matchText: string, range: TextBuffer.Range, stop: () => void,
-			replace: (replacement: string) => void) => void): void;
+			TextBuffer.PointLike]|[[number, number], [number, number]], iterator: (params:
+			TextBuffer.Structures.BufferScanResult) => void): void;
 
 		/** Scan regular expression matches in a given range in reverse order, calling the
 		 *  given iterator function on each match.
 		 */
 		backwardsScanInBufferRange(regex: RegExp, range: TextBuffer.RangeLike|[TextBuffer.PointLike,
 			TextBuffer.PointLike]|[TextBuffer.PointLike, [number, number]]|[[number, number],
-			TextBuffer.PointLike]|[[number, number], [number, number]], iterator: (match:
-			RegExpMatchArray, matchText: string, range: TextBuffer.Range, stop: () => void,
-			replace: (replacement: string) => void) => void): void;
+			TextBuffer.PointLike]|[[number, number], [number, number]], iterator: (params:
+			TextBuffer.Structures.BufferScanResult) => void): void;
 
 		// Tab Behavior
 		/** Returns a boolean indicating whether softTabs are enabled for this editor. */
@@ -3216,7 +3187,11 @@ declare namespace AtomCore {
 
 		// Gutters
 		/** Add a custom Gutter. */
-		addGutter(options: { name: string, priority?: number, visible?: boolean }): Gutter;
+		addGutter(options: {
+			name: string,
+			priority?: number,
+			visible?: boolean,
+		}): Gutter;
 
 		/** Get this editor's gutters. */
 		getGutters(): Gutter[];
@@ -3575,50 +3550,71 @@ declare namespace AtomCore {
 		getBottomPanels(): Panel[];
 
 		/** Adds a panel item to the bottom of the editor window. */
-		addBottomPanel(options: { item: object, visible?: boolean, priority?: number }):
-			Panel;
+		addBottomPanel(options: {
+			item: object,
+			visible?: boolean,
+			priority?: number,
+		}): Panel;
 
 		/** Get an Array of all the panel items to the left of the editor window. */
 		getLeftPanels(): Panel[];
 
 		/** Adds a panel item to the left of the editor window. */
-		addLeftPanel(options: { item: object, visible?: boolean, priority?: number }):
-			Panel;
+		addLeftPanel(options: {
+			item: object,
+			visible?: boolean,
+			priority?: number,
+		}): Panel;
 
 		/** Get an Array of all the panel items to the right of the editor window. */
 		getRightPanels(): Panel[];
 
 		/** Adds a panel item to the right of the editor window. */
-		addRightPanel(options: { item: object, visible?: boolean, priority?: number }):
-			Panel;
+		addRightPanel(options: {
+			item: object,
+			visible?: boolean,
+			priority?: number,
+		}): Panel;
 
 		/** Get an Array of all the panel items at the top of the editor window. */
 		getTopPanels(): Panel[];
 
 		/** Adds a panel item to the top of the editor window above the tabs. */
-		addTopPanel(options: { item: object, visible?: boolean, priority?: number }):
-			Panel;
+		addTopPanel(options: {
+			item: object,
+			visible?: boolean,
+			priority?: number
+		}): Panel;
 
 		/** Get an Array of all the panel items in the header. */
 		getHeaderPanels(): Panel[];
 
 		/** Adds a panel item to the header. */
-		addHeaderPanel(options: { item: object, visible?: boolean, priority?: number }):
-			Panel;
+		addHeaderPanel(options: {
+			item: object,
+			visible?: boolean,
+			priority?: number,
+		}): Panel;
 
 		/** Get an Array of all the panel items in the footer. */
 		getFooterPanels(): Panel[];
 
 		/** Adds a panel item to the footer. */
-		addFooterPanel(options: { item: object, visible?: boolean, priority?: number }):
-			Panel;
+		addFooterPanel(options: {
+			item: object,
+			visible?: boolean,
+			priority?: number,
+		}): Panel;
 
 		/** Get an Array of all the modal panel items. */
 		getModalPanels(): Panel[];
 
 		/** Adds a panel item as a modal dialog. */
-		addModalPanel(options: { item: object, visible?: boolean, priority?: number }):
-			Panel;
+		addModalPanel(options: {
+			item: object,
+			visible?: boolean,
+			priority?: number,
+		}): Panel;
 
 		/** Returns the Panel associated with the given item or null when the item
 		 *  has no panel.
@@ -3627,16 +3623,15 @@ declare namespace AtomCore {
 
 		// Searching and Replacing
 		/** Performs a search across all files in the workspace. */
-		scan(regex: RegExp, iterator: Function): Structures.CancellablePromise<string|null>;
+		scan(regex: RegExp, iterator: (result: Structures.ScandalResult) => void):
+			Structures.CancellablePromise<string|null>;
 		/** Performs a search across all files in the workspace. */
-		scan(regex: RegExp, options: {
-			paths?: ReadonlyArray<string>,
-			onPathsSearched?(pathsSearched: number): void
-		}, iterator: Function): Structures.CancellablePromise<string|null>;
+		scan(regex: RegExp, options: Options.WorkspaceScan, iterator:
+			(result: Structures.ScandalResult) => void): Structures.CancellablePromise<string|null>;
 
 		/** Performs a replace across all the specified files in the project. */
 		replace(regex: RegExp, replacementText: string, filePaths: ReadonlyArray<string>,
-			iterator: (options: { filePath: string|undefined, replacements: number }) => void):
+			iterator: (result: { filePath: string|undefined, replacements: number }) => void):
 			Promise<undefined>;
 	}
 
@@ -3806,6 +3801,7 @@ declare namespace Atom {
 		type Notification = AtomCore.Options.Notification;
 		type ErrorNotification = AtomCore.Options.ErrorNotification;
 		type Tooltip = AtomCore.Options.Tooltip;
+		type WorkspaceScan = AtomCore.Options.WorkspaceScan;
 	}
 
 	/** Data structures that are used within classes. */
@@ -3817,6 +3813,8 @@ declare namespace Atom {
 
 		// Text Buffer ============================================================
 		type TextChange = TextBuffer.Structures.TextChange;
+		type BufferScanResult = TextBuffer.Structures.BufferScanResult;
+		type ContextualBufferScanResult = TextBuffer.Structures.ContextualBufferScanResult;
 
 		// Core ===================================================================
 		type SharedDecorationProps = AtomCore.Structures.SharedDecorationProps;
@@ -3824,6 +3822,7 @@ declare namespace Atom {
 		type DecorationLayerProps = AtomCore.Structures.DecorationLayerProps;
 		type Invisibles = AtomCore.Structures.Invisibles;
 		type CancellablePromise<T> = AtomCore.Structures.CancellablePromise<T>;
+		type ScandalResult = AtomCore.Structures.ScandalResult;
 	}
 
 	// Atom Keymap ==============================================================

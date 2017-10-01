@@ -183,7 +183,7 @@ sub = atom.styles.onDidAddStyleElement((styleElement) => {});
 // .deserializers
 const serializer = {
 	name: "Test",
-	deserialize: (): void => {},
+	deserialize: () => ({}),
 };
 atom.deserializers.add(serializer);
 
@@ -526,7 +526,7 @@ class StorableClass {
 	name: string;
 
 	constructor() {}
-	deserialize() {}
+	deserialize() { return {}; }
 }
 
 function isStorableClass(o: object): o is StorableClass {
@@ -1657,10 +1657,12 @@ selections = editor.getSelectionsOrderedByBufferPosition();
 bool = editor.selectionIntersectsBufferRange(range); // not range-compatible
 
 // Searching and Replacing
-editor.scan(/r/, (match, matchText, range, stop, replace) => {
-	range.start;
-	stop();
-	replace("Test");
+editor.scan(/r/, params => {
+	num = params.match.index;
+	str = params.matchText;
+	range = params.range;
+	params.replace("Test");
+	params.stop();
 });
 
 editor.scan(/r/, {}, () => {});
@@ -1674,10 +1676,12 @@ editor.scanInBufferRange(/r/, [pos, pos], () => {});
 editor.scanInBufferRange(/r/, [pos, [0, 0]], () => {});
 editor.scanInBufferRange(/r/, [[0, 0], pos], () => {});
 editor.scanInBufferRange(/r/, [[0, 0], [0, 0]], () => {});
-editor.scanInBufferRange(/r/, range, (match, matchText, range, stop, replace) => {
-	range.start;
-	stop();
-	replace;
+editor.scanInBufferRange(/r/, range, params => {
+	num = params.match.index;
+	str = params.matchText;
+	range = params.range;
+	params.replace("Test");
+	params.stop();
 });
 
 editor.backwardsScanInBufferRange(/r/, range, () => {});
@@ -1685,10 +1689,12 @@ editor.backwardsScanInBufferRange(/r/, [pos, pos], () => {});
 editor.backwardsScanInBufferRange(/r/, [pos, [0, 0]], () => {});
 editor.backwardsScanInBufferRange(/r/, [[0, 0], pos], () => {});
 editor.backwardsScanInBufferRange(/r/, [[0, 0], [0, 0]], () => {});
-editor.backwardsScanInBufferRange(/r/, range, (match, matchText, range, stop, replace) => {
-	range.start;
-	stop();
-	replace;
+editor.backwardsScanInBufferRange(/r/, range, params => {
+	num = params.match.index;
+	str = params.matchText;
+	range = params.range;
+	params.replace("Test");
+	params.stop();
 });
 
 // Tab Behavior
@@ -2028,8 +2034,21 @@ scanResults.cancel();
 // Searching and Replacing
 async function workspaceScan() {
 	await scanResults;
-	await atom.workspace.scan(/r/, { onPathsSearched: (pathsSearched) => {},
-		paths: ["a"]}, () => {});
+
+	const scanOptions = {
+		onPathsSearched: (pathsSearched: number) => {},
+		leadingContextLineCount: 5,
+		trailingContextLineCount: 5,
+		paths: ["a"],
+	};
+	await atom.workspace.scan(/r/, scanOptions, (results) => {
+		str = results.filePath;
+		for (const match of results.matches) {
+			range = Range.fromObject(match.range);
+			strs = match.leadingContextLines;
+			strs = match.trailingContextLines;
+		}
+	});
 }
 
 async function workspaceReplace() {

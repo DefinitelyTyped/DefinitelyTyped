@@ -28,7 +28,6 @@
             "check-preblock"
         ],
         // TODO
-        "ban-types": false,
         "no-any": false, // soon to be default.
         // Soon to be defaults.
         "arrow-return-shorthand": [true, "multiline"],
