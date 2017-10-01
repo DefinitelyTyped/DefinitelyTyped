@@ -200,6 +200,17 @@ class F2 {
     const fr: number = f(3, 4); // -(3^4) + 1
 };
 
+/* pipeP */
+() => {
+    const numberToSrtP = (x: number) => Promise.resolve('asdf');
+
+    const someObj: object = { x: 'any' };
+    const strToObjP = (x: string) => Promise.resolve(someObj);
+
+    // $ExpectType (x0: number) => Promise<object>
+    R.pipeP(numberToSrtP, strToObjP);
+};
+
 () => {
     R.invoker("charAt", String.prototype);
     R.invoker("charAt", String.prototype, 1);
