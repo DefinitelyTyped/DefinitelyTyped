@@ -94,7 +94,7 @@ declare namespace connectMongo {
     export interface NativeMongoOptions extends DefaultOptions {
         db: mongodb.Db;
     }
-    
+
     export interface NativeMongoPromiseOptions extends DefaultOptions {
         dbPromise: Promise<mongodb.Db>;
     }
