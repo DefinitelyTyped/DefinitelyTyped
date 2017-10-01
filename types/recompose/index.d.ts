@@ -364,6 +364,10 @@ declare module 'recompose' {
     };
     export function createEventHandler<T, TSubs extends Subscribable<T>>(): EventHandlerOf<T, TSubs>;
 
+    // createEventHandlerWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandlerWithConfig
+    export function createEventHandlerWithConfig(config: ObservableConfig): 
+        <T, TSubs extends Subscribable<T>>() => EventHandlerOf<T, TSubs>;
+
     // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
     type ObservableConfig = {
         fromESObservable?: <T>(observable: Subscribable<T>) => any;

@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.5.2
+// Type definitions for Jasmine 2.6.0
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -427,6 +427,7 @@ declare namespace jasmine {
         toBeTruthy(expectationFailOutput?: any): boolean;
         toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
+        toHaveBeenCalledBefore(expected: Spy): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;

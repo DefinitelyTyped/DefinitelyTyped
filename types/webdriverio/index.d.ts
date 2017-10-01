@@ -406,7 +406,7 @@ declare namespace WebdriverIO {
         desiredCapabilities?: DesiredCapabilities;
         exclude?: string[];
         framework?: string;
-        hostname?: string;
+        host?: string;
         isWDIO?: boolean;
         protocol?: string;
         port?: number;

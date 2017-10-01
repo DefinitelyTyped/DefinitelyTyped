@@ -13,8 +13,8 @@ var num: number;
 var str: string;
 var err: Error;
 var x: any;
-var f: Function;
-var func: Function;
+var f: (...args: any[]) => any;
+var asyncfunc: (...args: any[]) => Promise<any>;
 var arr: any[];
 var exp: RegExp;
 var anyArr: any[];
@@ -688,6 +688,15 @@ fooArrProm = fooArrProm.each<Foo, Bar>((item: Foo, index: number, arrayLength: n
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooProm = new Promise.Promise<Foo>((resolve, reject) => {
+	resolve(foo);
+});
+fooProm = Promise.Promise.try<Foo>(() => {
+	return foo;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function getMaybePromise(): Foo|Promise<Foo> {
     return foo;
 }
@@ -746,7 +755,7 @@ fooProm = Promise.attempt(() => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-func = Promise.method(function () {
+asyncfunc = Promise.method(function () {
 
 });
 
@@ -784,8 +793,8 @@ voidProm = Promise.delay(num);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-func = Promise.promisify(f);
-func = Promise.promisify(f, obj);
+asyncfunc = Promise.promisify(f);
+asyncfunc = Promise.promisify(f, obj);
 
 obj = Promise.promisifyAll(obj);
 anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback));
