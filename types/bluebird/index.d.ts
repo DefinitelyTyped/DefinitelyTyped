@@ -776,7 +776,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
    */
-  // TODO: improve this to infer the return type of the generator, I believe this is blocked by https://github.com/Microsoft/TypeScript/issues/2983
+  // TODO: After https://github.com/Microsoft/TypeScript/issues/2983 is implemented, we can use
+  // the return type propagation of generators to automatically infer the return type T.
   static coroutine<T>(generatorFunction: () => IterableIterator<any>, options?: Bluebird.CoroutineOptions): () => Bluebird<T>;
 	static coroutine<A1, T>(generatorFunction: (a1: A1) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1) => Bluebird<T>;
 	static coroutine<A1, A2, T>(generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2) => Bluebird<T>;
