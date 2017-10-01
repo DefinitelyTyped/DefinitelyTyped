@@ -840,7 +840,7 @@ obj = Promise.promisifyAll(obj, {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 const generator = function* (a: number, b: string) {return "string"}
-const coroutine = Promise.coroutine<number, string, string>(generator);
+const coroutine = Promise.coroutine<string, number, string>(generator);
 coroutine(5, "foo").then((x: string) => {});
 
 const coroutineCustomYield = Promise.coroutine(generator, { yieldHandler: (value) => "whatever" })
