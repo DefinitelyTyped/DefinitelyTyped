@@ -845,8 +845,6 @@ coroutine(5, "foo").then((x: string) => {});
 
 const coroutineCustomYield = Promise.coroutine(generator, { yieldHandler: (value) => "whatever" })
 /*
- //TODO enable generator
-
  barProm = Promise.spawn<number>(f);
  */
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
