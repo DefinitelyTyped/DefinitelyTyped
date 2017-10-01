@@ -1,4 +1,4 @@
-var Connection: JsStore.Instance;
+let Connection: JsStore.Instance;
 function initConnection() {
     var Database_Name: any = "Demo";
     JsStore.isDbExist(Database_Name, function (isExist: boolean) {
@@ -6,7 +6,7 @@ function initConnection() {
             Connection = new JsStore.Instance();
         }
         else {
-            var Table: Model.ITable = <Model.ITable>{
+            let Table: Model.ITable = <Model.ITable>{
                 Name: "TableName",
                 Columns: [
                     {
@@ -16,7 +16,7 @@ function initConnection() {
                     }
                 ]
             };
-            var DataBase = <Model.IDataBase>{
+            let DataBase = <Model.IDataBase>{
                 Name: Database_Name,
                 Tables: [Table]
             };
@@ -24,14 +24,15 @@ function initConnection() {
         }
     }, function (err: JsStore.IError) {
         alert(err);
-    })
+    });
 }
 
 function selectData() {
-    var Query = <JsStore.ISelect>{
+    let Query = <JsStore.ISelect>{
         From: "TableName"
-    }
-    Connection.select(Query, function (results: Array<any>) {
+    };
+
+    Connection.select(Query, (results: Array<any>) => {
         console.log(results);
     });
 }
