@@ -30,13 +30,24 @@ Factory.define('coach')
 Factory.build('coach', {}, {buildPlayer: true});
 
 interface Person {
-  name: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  age: number;
+  secretNumber: number;
+  secretCode: { name: string; value: number };
   id: number;
 }
 
-const personFactory = Factory.define<Person>('Person').attr('name', 'John').sequence('id');
+const personFactory = Factory.define<Person>('Person').attr('firstName', 'John').sequence('id');
+personFactory.attr('fullName', ['firstName'], firstName => firstName);
+personFactory.attr('fullName', ['firstName', 'lastName'], (firstName, lastName) => lastName);
+personFactory.attr('secretNumber', ['firstName', 'lastName', 'age'], (firstName, lastName, age) => age + 1);
+personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age'], (firstName, lastName, age1, age2) => ({ name: `${firstName} + ${lastName}`, value: age1 + age2 }));
+personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstName'], (firstName, lastName, age1, age2, firstNameAgain) => ({ name: firstNameAgain, value: age1 + age2 }));
+
 const personObj = Factory.build<Person>('Person');
-if (personObj.name !== 'John') { throw new Error('incorrect Person build'); }
+if (personObj.firstName !== 'John') { throw new Error('incorrect Person build'); }
 
 import rosie = require('rosie');
 

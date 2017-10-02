@@ -88,7 +88,13 @@ declare namespace rosie {
       * @param any
       * @return {Factory}
       */
-    attr<K extends keyof T>(name: K, dependenciesOrValue?: [keyof T] | T[K] | ((opts?: any) => T[K]), value?: T[K] | ((opts?: any) => T[K]) ): IFactory<T>;
+    attr<K extends keyof T>(name: K, defaultValue: T[K]): IFactory<T>;
+    attr<K extends keyof T>(name: K, generatorFunction: () => T[K]): IFactory<T>
+    attr<K extends keyof T, D1 extends keyof T, D2 extends keyof T, D3 extends keyof T, D4 extends keyof T, D5 extends keyof T>(name: K, dependencies: [D1, D2, D3, D4, D5], generatorFunction: (value1: T[D1], value2: T[D2], value3: T[D3], value4: T[D4], value5: T[D5]) => T[K]): IFactory<T>;
+    attr<K extends keyof T, D1 extends keyof T, D2 extends keyof T, D3 extends keyof T, D4 extends keyof T>(name: K, dependencies: [D1, D2, D3, D4], generatorFunction: (value1: T[D1], value2: T[D2], value3: T[D3], value4: T[D4]) => T[K]): IFactory<T>;
+    attr<K extends keyof T, D1 extends keyof T, D2 extends keyof T, D3 extends keyof T>(name: K, dependencies: [D1, D2, D3], generatorFunction: (value1: T[D1], value2: T[D2], value3: T[D3]) => T[K]): IFactory<T>;
+    attr<K extends keyof T, D1 extends keyof T, D2 extends keyof T>(name: K, dependencies: [D1, D2], generatorFunction: (value1: T[D1], value2: T[D2]) => T[K]): IFactory<T>;
+    attr<K extends keyof T, D extends keyof T>(name: K, dependencies: D[], generatorFunction: (value: T[D]) => T[K]): IFactory<T>;
 
       /**
       * Convenience function for defining a set of attributes on this object as
@@ -105,7 +111,7 @@ declare namespace rosie {
       * @param {object} attributes
       * @return {Factory}
       */
-    attrs(attributes: { [k in keyof T]: T[k] | ((opts?: any) => T[k]) }): IFactory<T>;
+    attrs(attributes: { [K in keyof T]: T[K] | ((opts?: any) => T[K]) }): IFactory<T>;
 
     /**
      * Define an option for this factory. Options are values that may inform
