@@ -108,7 +108,7 @@ export interface TableProps extends
     onChange: ReactTableFunction;
 
     /**
-     * Default: ''
+     * Default: string
      * Adding a -striped className to ReactTable will slightly color odd numbered rows for legibility
      * Adding a -highlight className to ReactTable will highlight any row as you hover over it
      */
@@ -292,9 +292,9 @@ export namespace Column {
 
         /**
          * Set the classname of the `td` element of the column
-         * @default ''
+         * @default string
          */
-        className: '';
+        className: string;
 
         /**
          * Set the style of the `td` element of the column
@@ -321,9 +321,9 @@ export namespace Column {
 
         /**
          * Set the classname of the `th` element of the column
-         * @default ''
+         * @default string
          */
-        headerClassName: '';
+        headerClassName: string;
 
         /**
          * Default: {}
@@ -350,10 +350,10 @@ export namespace Column {
         footer: TableCellRenderer;
 
         /**
-         * Default: ''
+         * Default: string
          * Set the classname of the `td` element of the column's footer
          */
-        footerClassName: '';
+        footerClassName: string;
 
         /**
          * Default: {}
