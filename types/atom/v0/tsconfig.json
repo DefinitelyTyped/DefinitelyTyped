@@ -8,16 +8,22 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "atom": [ "atom/v0" ],
+            "pathwatcher": [ "pathwatcher/v0" ],
+            "q": [ "q/v0" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "status-bar-tests.ts"
+        "api-docs.d.ts",
+        "atom-tests.ts"
     ]
 }

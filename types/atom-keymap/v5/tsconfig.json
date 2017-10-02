@@ -8,16 +8,20 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "atom-keymap": [ "atom-keymap/v5" ],
+            "event-kit": [ "event-kit/v1" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "status-bar-tests.ts"
+        "atom-keymap-tests.ts"
     ]
 }
