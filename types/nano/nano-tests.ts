@@ -6,6 +6,7 @@ import * as nano from "nano";
  */
 const config: nano.Configuration = {
   url: "http://localhost:5984/foo",
+  cookie: "someAuthSession",
   requestDefaults: { proxy: "http://someproxy" }
 };
 
