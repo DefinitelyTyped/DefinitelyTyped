@@ -206,6 +206,14 @@ function ShallowWrapperTest() {
         reactElements = shallowWrapper.getNodes();
     }
 
+    function test_getElement() {
+        reactElement = shallowWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = shallowWrapper.getElements();
+    }
+
     function test_getDOMNode() {
         domElement = shallowWrapper.getDOMNode();
     }
@@ -543,6 +551,14 @@ function ReactWrapperTest() {
 
     function test_getNodes() {
         reactElements = reactWrapper.getNodes();
+    }
+
+    function test_getElement() {
+        reactElement = reactWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = reactWrapper.getElements();
     }
 
     function test_getDOMNode() {
