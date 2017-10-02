@@ -7,6 +7,7 @@
 //                 Alex Jover Morales <https://github.com/alexjoverm>
 //                 Allan Lukwago <https://github.com/epicallan>
 //                 Ika <https://github.com/ikatyang>
+//                 Waseem Dahman <https://github.com/wsmd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -327,6 +328,10 @@ declare namespace jest {
          * Matches any string that contains the exact provided string
          */
         stringMatching(str: string | RegExp): any;
+        /**
+         * Matches any received string that contains the exact expected string
+         */
+        stringContaining(str: string): any;
     }
 
     interface Matchers<R> {

@@ -776,9 +776,17 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
    */
-  // TODO fix coroutine GeneratorFunction
-  static coroutine(generatorFunction: (...args: any[]) => IterableIterator<any>): (...args: any[]) => Bluebird<any>;
-
+  // TODO: After https://github.com/Microsoft/TypeScript/issues/2983 is implemented, we can use
+  // the return type propagation of generators to automatically infer the return type T.
+  static coroutine<T>(generatorFunction: () => IterableIterator<any>, options?: Bluebird.CoroutineOptions): () => Bluebird<T>;
+  static coroutine<T, A1>(generatorFunction: (a1: A1) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1) => Bluebird<T>;
+  static coroutine<T, A1, A2>(generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3>(generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6, A7>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6, A7, A8>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
   /**
    * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
    *
@@ -1020,6 +1028,9 @@ declare namespace Bluebird {
     filter?: (name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean) => boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
     promisifier?: (originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>) => () => PromiseLike<any>;
+  }
+  export interface CoroutineOptions {
+    yieldHandler: (value: any) => any;
   }
 
   /**

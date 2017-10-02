@@ -72,3 +72,10 @@ const config: WebpackDevServer.Configuration = {
 // API example
 server = new WebpackDevServer(compiler, config);
 server.listen(8080, "localhost", () => {});
+
+// HTTPS example
+server = new WebpackDevServer(compiler, {
+    publicPath: "/assets/",
+    https: true
+});
+server.listen(8080, "localhost", () => {});
