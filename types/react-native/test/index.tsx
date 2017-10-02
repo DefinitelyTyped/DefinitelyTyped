@@ -297,7 +297,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 
                     return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]}/>
                 }}
-                renderRow={({ type, data }, _, row: number) => {
+                renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>
                 }
             } />
