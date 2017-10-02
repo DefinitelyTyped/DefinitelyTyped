@@ -3,9 +3,13 @@
 // Definitions by: Pavlo Chernenko <https://github.com/ChernenkoPaul/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="url-search-params" />
+
+import URLSearchParams = require("url-search-params");
+
 declare module "url-parse" {
     export default class URL {
-        constructor(url: string, baseURL?: object | string, parser?: boolean | Function);
+        constructor(url: string, baseURL?: Object | string, parser?: boolean | Function);
         hash: string;
         host: string;
         hostname: string;
