@@ -4,7 +4,7 @@
 //            customize-the-intercom-messenger/the-intercom-javascript-api
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 //                 Samer Albahra <https://github.com/salbahra>
-// Definitions: https://github.com/typed-contrib/knockout
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Intercom_ {
   interface IntercomSettings {
