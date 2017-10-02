@@ -58,6 +58,11 @@ interface SocketIOClientStatic {
 	 * Manager constructor - exposed for the standalone build
 	 */
 	Manager: SocketIOClient.ManagerStatic;
+
+    /**
+     * Managers cache
+     */
+    managers: { [key: string]: SocketIOClient.Manager }
 }
 
 declare namespace SocketIOClient {
