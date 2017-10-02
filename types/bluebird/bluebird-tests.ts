@@ -839,10 +839,12 @@ obj = Promise.promisifyAll(obj, {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO enable generator
-/*
- func = Promise.coroutine(f);
+const generator = function* (a: number, b: string) {return "string"}
+const coroutine = Promise.coroutine<string, number, string>(generator);
+coroutine(5, "foo").then((x: string) => {});
 
+const coroutineCustomYield = Promise.coroutine(generator, { yieldHandler: (value) => "whatever" })
+/*
  barProm = Promise.spawn<number>(f);
  */
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
