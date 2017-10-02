@@ -196,6 +196,7 @@ declare namespace Chartist {
     /**
      * Specify the donut stroke width, currently done in javascript for convenience. May move to CSS styles in the future.
      * This option can be set as number or string to specify a relative width (i.e. 100 or '30%').
+     */
     donutWidth?: number | string;
 
     /**
