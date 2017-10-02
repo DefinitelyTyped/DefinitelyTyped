@@ -1128,7 +1128,7 @@ declare namespace PIXI {
         calculateScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
         calculateNormalizedScreenSpaceMatrix(outputMatrix: Matrix): Matrix;
         calculateSpriteMatrix(outputMatrix: Matrix, sprite: Sprite): Matrix;
-        destroy(): void;
+        destroy(contextLost?: boolean): void;
         emptyPool(): void;
         getPotRenderTarget(gl: WebGLRenderingContext, minWidth: number, minHeight: number, resolution: number): RenderTarget;
         freePotRenderTarget(renderTarget: RenderTarget): void;
@@ -1863,7 +1863,6 @@ declare namespace PIXI {
             tilePosition: Point | ObservablePoint;
 
             multiplyUvs(uvs: Float32Array, out: Float32Array): Float32Array;
-            protected _textureDirtyFlag: boolean;
             protected _onTextureUpdate(): void;
             protected _renderWebGL(renderer: WebGLRenderer): void;
             protected _renderCanvas(renderer: CanvasRenderer): void;
@@ -2505,10 +2504,10 @@ declare namespace PIXI {
             position?: boolean;
             rotation?: boolean;
             uvs?: boolean;
-            alpha?: boolean;
+            tint?: boolean;
         }
         class ParticleContainer extends Container {
-            constructor(size?: number, properties?: ParticleContainerProperties, batchSize?: number);
+            constructor(size?: number, properties?: ParticleContainerProperties, batchSize?: number, autoSize?: boolean);
             protected _tint: number;
             protected tintRgb: number | any[];
             tint: number;
@@ -2519,6 +2518,7 @@ declare namespace PIXI {
             protected _bufferToUpdate: number;
             interactiveChildren: boolean;
             blendMode: number;
+            autoSize: boolean;
             roundPixels: boolean;
             baseTexture: BaseTexture;
 
@@ -2531,17 +2531,17 @@ declare namespace PIXI {
             constructor(gl: WebGLRenderingContext, properties: any, dynamicPropertyFlags: any[], size: number);
 
             gl: WebGLRenderingContext;
-            vertSize: number;
-            vertByteSize: number;
             size: number;
             dynamicProperties: any[];
             staticProperties: any[];
             staticStride: number;
             staticBuffer: any;
             staticData: any;
+            staticDataUint32: any;
             dynamicStride: number;
             dynamicBuffer: any;
             dynamicData: any;
+            dynamicDataUint32: any;
 
             destroy(): void;
         }
@@ -2549,6 +2549,7 @@ declare namespace PIXI {
             attribute: number;
             size: number;
             uploadFunction(children: PIXI.DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+            unsignedByte: any;
             offset: number;
         }
         class ParticleRenderer extends ObjectRenderer {
@@ -2561,11 +2562,12 @@ declare namespace PIXI {
 
             start(): void;
             generateBuffers(container: ParticleContainer): ParticleBuffer[];
+            protected _generateOneMoreBuffer(container: ParticleContainer): ParticleBuffer;
             uploadVertices(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             uploadPosition(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             uploadRotation(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             uploadUvs(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
-            uploadAlpha(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
+            uploadTint(children: DisplayObject[], startIndex: number, amount: number, array: number[], stride: number, offset: number): void;
             destroy(): void;
 
             indices: Uint16Array;
