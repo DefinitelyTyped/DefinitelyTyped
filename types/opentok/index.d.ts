@@ -44,7 +44,7 @@ declare module 'opentok' {
 
     export interface CustomArchiveLayoutOptions {
       type: 'custom';
-      stylesheet: 'string';
+      stylesheet: string;
     }
 
     export type MediaMode = 'relayed' | 'routed';

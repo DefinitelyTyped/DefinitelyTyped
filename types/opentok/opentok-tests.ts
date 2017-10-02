@@ -29,10 +29,7 @@ const archiveOptions: OpenTok.ArchiveOptions = {
 };
 
 const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
-  name: 'name',
-  hasAudio: true,
-  hasVideo: true,
-  outputMode: 'individual',
+  outputMode: 'composed',
   layout: {
     type: 'custom',
     stylesheet: 'derp',
@@ -40,10 +37,7 @@ const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
 };
 
 const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
-  name: 'name',
-  hasAudio: true,
-  hasVideo: true,
-  outputMode: 'individual',
+  outputMode: 'composed',
   layout: {
     type: 'pip',
   }
