@@ -18,8 +18,7 @@ import {
     createRefetchContainer,
     requestSubscription,
     QueryRenderer,
-    RelayPaginationProp,
-    RelayRefetchProp
+    ModernTypes,
 } from "react-relay";
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +83,7 @@ const MyFragmentContainer = createFragmentContainer(
 // ~~~~~~~~~~~~~~~~~~~~~
 interface StoryInterface { id: string; }
 interface FeedStoriesProps {
-    relay: RelayRefetchProp;
+    relay: ModernTypes.RelayRefetchProp;
     feed: {
         stories: { edges: Array<{ node: StoryInterface }> }
     };
@@ -147,7 +146,7 @@ const FeedRefetchContainer = createRefetchContainer(
 // ~~~~~~~~~~~~~~~~~~~~~
 interface FeedProps {
     user: { feed: { edges: Array<{ node: StoryInterface}>}};
-    relay: RelayPaginationProp;
+    relay: ModernTypes.RelayPaginationProp;
 }
 class Feed extends React.Component<FeedProps> {
     render() {
@@ -345,9 +344,18 @@ requestSubscription(
 );
 
 ////////////////////////////
+//  RELAY COMPAT TESTS
+///////////////////////////
+import {
+    QueryRenderer as CompatQueryRenderer,
+    createFragmentContainer as createFragmentContainerCompat
+} from "react-relay/compat";
+
+// TODO? This is all more or less identical to modern...
+
+////////////////////////////
 //  RELAY-CLASSIC TESTS
 ///////////////////////////
-
 import * as Relay from "react-relay/classic";
 
 interface Props {
