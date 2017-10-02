@@ -1,6 +1,8 @@
 // Type definitions for Microsoft SharePoint: 2016.0
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
-// Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>, Vincent Biret <https://github.com/baywet>
+// Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>
+//                 Andrey Markeev <http://markeev.com>
+//                 Vincent Biret <https://github.com/baywet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
