@@ -5612,7 +5612,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web'
 
 interface PlatformStatic {
     OS: PlatformOSType
