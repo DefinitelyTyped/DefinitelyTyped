@@ -2255,7 +2255,13 @@ interface NightwatchAPI {
     launch_url: string;
 }
 
-interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomPageObjects { }
+/* tslint:disable-next-line:no-empty-interface */
+interface NightwatchCustomCommands {}
+
+/* tslint:disable-next-line:no-empty-interface */
+interface NightwatchCustomAssertions {}
+
+interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
 
 /**
  * Performs an assertion
