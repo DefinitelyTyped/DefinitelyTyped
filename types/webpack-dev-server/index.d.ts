@@ -8,12 +8,13 @@ import * as webpack from 'webpack';
 import * as core from 'express-serve-static-core';
 import * as serveStatic from 'serve-static';
 import * as http from 'http';
+import * as spdy from 'spdy';
 
 declare namespace WebpackDevServer {
     interface Configuration {
         contentBase?: string;
         hot?: boolean;
-        https?: boolean;
+        https?: boolean | spdy.ServerOptions;
         historyApiFallback?: boolean;
         compress?: boolean;
         proxy?: any;
