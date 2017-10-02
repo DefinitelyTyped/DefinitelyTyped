@@ -1,4 +1,4 @@
-// Type definitions for stripe-node 4.6.0
+// Type definitions for stripe-node 5.0.0
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -178,7 +178,7 @@ declare namespace StripeNode {
              * account holder to setup a username and password, and handle all account
              * management directly with them.
              */
-            managed?: boolean;
+            type: "custom" | "standard";
         }
 
         interface IAccountShared {
@@ -923,7 +923,7 @@ declare namespace StripeNode {
              *
              * Connect only.
              */
-            destination?: string;
+            destination?: {};
 
             /**
              * A set of key/value pairs that you can attach to a charge object. It can be
@@ -1700,7 +1700,7 @@ declare namespace StripeNode {
              */
             type: string;
         }
-     }
+    }
 
     namespace fileUploads {
         interface IFileUpdate extends IResourceObject {
@@ -1756,7 +1756,7 @@ declare namespace StripeNode {
         }
 
         type IPurpose = "business_logo" | "dispute_evidence" | "identity_document" | "incorporation_article" | "incorporation_document";
-     }
+    }
 
     namespace invoices {
         /**
@@ -2938,7 +2938,7 @@ declare namespace StripeNode {
         interface IRecipient extends IResourceObject {
 
         }
-     }
+    }
 
     namespace skus {
         interface ISku extends IResourceObject {
