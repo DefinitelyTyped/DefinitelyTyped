@@ -5621,7 +5621,7 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>( specifics: { ios?: T, android?: T} ): T;
+    select<T>( specifics: { [platform in PlatformOSType]?: T; } ): T;
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
