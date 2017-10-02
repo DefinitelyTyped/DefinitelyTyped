@@ -283,7 +283,6 @@ declare namespace Chartist {
     labelInterpolationFnc?: Function;
     scaleMinSpace?: number;
     onlyInteger?: boolean;
-    scale?: string;
   }
 
   interface IBarChartClasses {
