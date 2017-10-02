@@ -74,7 +74,7 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T | null) => any);
+    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
     // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
@@ -557,7 +557,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = (event: E) => void;
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T> = EventHandler<SyntheticEvent<T>>;
 
@@ -3371,7 +3371,7 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
-    type Validator<T> = (object: T, key: string, componentName: string, ...rest: any[]) => Error | null;
+    type Validator<T> = { bivarianceHack(object: T, key: string, componentName: string, ...rest: any[]): Error | null }["bivarianceHack"];
 
     interface Requireable<T> extends Validator<T> {
         isRequired: Validator<T>;
