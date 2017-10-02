@@ -46,7 +46,7 @@ declare class SimpleQueue {
     next(): void;
 } // Class SimpleQueue
 
-export default (options?: Options) => new Database(options);
+export default function(options?: Options): Database;
 
 export class Database implements Options {
     odbc: ODBC;
