@@ -5624,6 +5624,11 @@ interface PlatformStatic {
     select<T>( specifics: { ios?: T, android?: T} ): T;
 }
 
+interface PlatformIOSStatic extends PlatformStatic {
+    isPad: boolean
+    isTVOS: boolean
+}
+
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
  * adding all event listeners directly to RCTDeviceEventEmitter.
@@ -9171,6 +9176,7 @@ interface NativeModulesStatic {
  */
 export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
+export var PlatformIOS: PlatformIOSStatic
 export var PixelRatio: PixelRatioStatic
 
 export interface ComponentInterface<P> {
