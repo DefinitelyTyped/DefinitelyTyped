@@ -19,5 +19,5 @@ export interface HashInterface {
 export const h32: HashInterface;
 export const h64: HashInterface;
 
-export const defaultExport: { h32: typeof h32, h64: typeof h64 };
+declare const defaultExport: { h32: typeof h32, h64: typeof h64 };
 export default defaultExport;
