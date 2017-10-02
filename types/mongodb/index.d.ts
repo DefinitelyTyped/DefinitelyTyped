@@ -506,9 +506,9 @@ export interface Collection<TSchema = Default> {
     /** @deprecated */
     find<T = TSchema>(query: Object, fields?: Object, skip?: number, limit?: number, timeout?: number): Cursor<T>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
-    findOne<T = TSchema>(filter: Object, callback: MongoCallback<T>): void;
-    findOne<T = TSchema>(filter: Object, options?: FindOneOptions): Promise<T>;
-    findOne<T = TSchema>(filter: Object, options: FindOneOptions, callback: MongoCallback<T>): void;
+    findOne<T = TSchema>(filter: Object, callback: MongoCallback<T | null>): void;
+    findOne<T = TSchema>(filter: Object, options?: FindOneOptions): Promise<T | null>;
+    findOne<T = TSchema>(filter: Object, options: FindOneOptions, callback: MongoCallback<T | null>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
