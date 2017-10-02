@@ -101,7 +101,7 @@ export class BackButton extends Component<{
 }, any> {}
 
 export class Navigator extends Component<{
-    renderPage(route: any): JSX.Element,
+    renderPage(route: any, navigator: Navigator): JSX.Element,
     initialRouteStack?: string[],
     initialRoute?: any,
     onPrePush?(): void,

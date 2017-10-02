@@ -401,10 +401,67 @@ voidValue = view.setMaxZoom(numberValue);
 voidValue = view.setMinZoom(numberValue);
 
 //
+// ol.layer.Base
+//
+let baseLayer: ol.layer.Base = new ol.layer.Base({
+    zIndex: 1
+});
+
+//
+// ol.layer.Group
+//
+let groupLayer: ol.layer.Group = new ol.layer.Group({
+    zIndex: 2
+});
+
+//
+// ol.layer.Heatmap
+//
+let heatmapLayer: ol.layer.Heatmap = new ol.layer.Heatmap({
+    source: new ol.source.Vector(),
+    weight: '',
+    zIndex: 1
+});
+
+//
+// ol.layer.Image
+//
+let imageLayer: ol.layer.Image = new ol.layer.Image({
+    source: new ol.source.Image({
+        projection: ''
+    }),
+    zIndex: 1
+});
+
+//
+// ol.layer.Layer
+//
+let layerLayer: ol.layer.Layer = new ol.layer.Layer({
+    zIndex: 2
+});
+
+//
 // ol.layer.Tile
 //
 let tileLayer: ol.layer.Tile = new ol.layer.Tile({
-    source: new ol.source.OSM()
+    source: new ol.source.OSM(),
+    zIndex: 0
+});
+
+//
+// ol.layer.Vector
+//
+let vectorLayer: ol.layer.Vector = new ol.layer.Vector({
+    source: new ol.source.Vector(),
+    zIndex: -1
+});
+
+//
+// ol.layer.VectorTile
+//
+let vectorTileLayer: ol.layer.VectorTile = new ol.layer.VectorTile({
+    renderOrder: () => 1,
+    zIndex: 2
 });
 
 //
@@ -695,6 +752,7 @@ draw = new ol.interaction.Draw({
 
 let dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,
+    minArea: 10,
     condition: ol.events.condition.always,
     boxEndCondition: function (mapBrowserEvent: ol.MapBrowserEvent, startPixel: ol.Pixel, endPixel: ol.Pixel) {
         let width: number = endPixel[0] - startPixel[0];

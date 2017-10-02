@@ -1708,6 +1708,25 @@ namespace child_process_tests {
         childProcess.spawnSync("echo test");
     }
 
+	{
+		childProcess.execFile("npm", () => {});
+		childProcess.execFile("npm", ["-v"], () => {});
+		childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+		childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+		childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+		childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+	}
+
+    async function testPromisify() {
+        const execFile = util.promisify(childProcess.execFile);
+		let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
+		r = await execFile("npm", ["-v"]);
+		r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
+		r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+		r = await execFile("npm", { encoding: 'utf-8' });
+		r = await execFile("npm", { encoding: 'buffer' });
+    }
+
     {
         let _cp: childProcess.ChildProcess;
         let _socket: net.Socket;
@@ -3447,7 +3466,8 @@ namespace module_tests {
     require.extensions[".ts"] = () => "";
 
     Module.runMain();
-    Module.wrap("some code");
+    const s: string = Module.wrap("some code");
 
-    const m1 = new Module("moduleId");
+    const m1: Module = new Module("moduleId");
+    const m2: Module = new Module.Module("moduleId");
 }

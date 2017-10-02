@@ -395,7 +395,7 @@ declare namespace mapboxgl {
 		timeout?: number;
 		maximumAge?: number;
 	}
-	
+
 	export class FitBoundsOptions {
 		maxZoom?: number;
 	}
@@ -723,7 +723,7 @@ declare namespace mapboxgl {
 		angleWidth(p: Point): number;
 
 		angleWithSep(x: number, y: number): number;
-	
+
 		static convert(a: PointLike): Point;
 	}
 
@@ -920,7 +920,7 @@ declare namespace mapboxgl {
 	}
 
 	export interface StyleFunction {
-		stops: any[][];
+		stops?: any[][];
 		property?: string;
 		base?: number;
 		type?: "identity" | "exponential" | "interval" | "categorical";

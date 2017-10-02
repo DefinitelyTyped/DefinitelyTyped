@@ -1,9 +1,10 @@
-// Type definitions for react-datepicker 0.52
+// Type definitions for react-datepicker 0.55
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
 //                 Greg Smith <https://github.com/smrq>,
 //                 Platon Pronko <https://github.com/Rogach>
+//                 Roy Xue <https://github.com/royxue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -74,6 +75,13 @@ export interface ReactDatePickerProps {
 	weekLabel?: string;
 	withPortal?: boolean;
 	yearDropdownItemNumber?: number;
+	shouldCloseOnSelect?: boolean;
+	showTimeSelect?: boolean;
+	timeFormat?: string;
+	timeIntervals?: number;
+	minTime?: moment.Moment;
+	maxTime?: moment.Moment;
+	excludeTimes?: any[];
 }
 declare const ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps>;
 export default ReactDatePicker;

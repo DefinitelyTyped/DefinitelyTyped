@@ -4,6 +4,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as adone from "./adone";
+/// <reference path="./adone.d.ts" />
+/// <reference path="./glosses/application.d.ts" />
+/// <reference path="./glosses/archives.d.ts" />
+/// <reference path="./glosses/assertion.d.ts" />
+/// <reference path="./glosses/collections.d.ts" />
+/// <reference path="./glosses/compressors.d.ts" />
+/// <reference path="./glosses/data.d.ts" />
+/// <reference path="./glosses/datetime.d.ts" />
+/// <reference path="./glosses/events.d.ts" />
+/// <reference path="./glosses/exceptions.d.ts" />
+/// <reference path="./glosses/fast.d.ts" />
+/// <reference path="./glosses/fs.d.ts" />
+/// <reference path="./glosses/is.d.ts" />
+/// <reference path="./glosses/math/index.d.ts" />
+/// <reference path="./glosses/promise.d.ts" />
+/// <reference path="./glosses/shani.d.ts" />
+/// <reference path="./glosses/shani-global.d.ts" />
+/// <reference path="./glosses/std.d.ts" />
+/// <reference path="./glosses/streams.d.ts" />
+/// <reference path="./glosses/utils.d.ts" />
 
-export default adone;
+declare const _adone: typeof adone;
+
+export { _adone as adone };
