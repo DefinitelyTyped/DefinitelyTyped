@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as temp from "temp";
+import * as temp from ".";
 import * as fs from "fs";
 
 export interface OpenFile {
