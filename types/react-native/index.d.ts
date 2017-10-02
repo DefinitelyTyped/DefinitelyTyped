@@ -5614,7 +5614,7 @@ export interface PixelRatioStatic {
  */
 export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
 
-interface PlatformStatic extends PlatformIOSStatic {
+interface PlatformStatic {
     OS: PlatformOSType
     Version: number
 
@@ -5624,7 +5624,7 @@ interface PlatformStatic extends PlatformIOSStatic {
     select<T>( specifics: { ios?: T, android?: T} ): T;
 }
 
-interface PlatformIOSStatic {
+interface PlatformIOSStatic extends PlatformStatic {
     isPad: boolean
     isTVOS: boolean
 }
@@ -9176,6 +9176,7 @@ interface NativeModulesStatic {
  */
 export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
+export var PlatformIOS: PlatformIOSStatic
 export var PixelRatio: PixelRatioStatic
 
 export interface ComponentInterface<P> {
