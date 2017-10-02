@@ -1037,6 +1037,8 @@ declare namespace webpack {
                 comments?: boolean | RegExp | CommentFilter;
                 exclude?: Condition | Condition[];
                 include?: Condition | Condition[];
+                /** Parallelization can speedup your build significantly and is therefore highly recommended. */
+                parallel?: boolean | { cache: boolean, workers: boolean | number };
                 sourceMap?: boolean;
                 test?: Condition | Condition[];
             }
