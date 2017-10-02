@@ -95,6 +95,7 @@ declare namespace rosie {
     attr<K extends keyof T, D1 extends keyof T, D2 extends keyof T, D3 extends keyof T>(name: K, dependencies: [D1, D2, D3], generatorFunction: (value1: T[D1], value2: T[D2], value3: T[D3]) => T[K]): IFactory<T>;
     attr<K extends keyof T, D1 extends keyof T, D2 extends keyof T>(name: K, dependencies: [D1, D2], generatorFunction: (value1: T[D1], value2: T[D2]) => T[K]): IFactory<T>;
     attr<K extends keyof T, D extends keyof T>(name: K, dependencies: D[], generatorFunction: (value: T[D]) => T[K]): IFactory<T>;
+    attr<K extends keyof T, D extends keyof T>(name: K, dependencies: D[], generatorFunction: any): IFactory<T>;
 
       /**
       * Convenience function for defining a set of attributes on this object as
