@@ -28,6 +28,27 @@ const archiveOptions: OpenTok.ArchiveOptions = {
   outputMode: 'individual',
 };
 
+const archiveCustomLayoutOptions: OpenTok.ArchiveOptions = {
+  name: 'name',
+  hasAudio: true,
+  hasVideo: true,
+  outputMode: 'individual',
+  layout: {
+    type: 'custom',
+    stylesheet: 'derp',
+  }
+};
+
+const archivePredefinedLayoutOptions: OpenTok.ArchiveOptions = {
+  name: 'name',
+  hasAudio: true,
+  hasVideo: true,
+  outputMode: 'individual',
+  layout: {
+    type: 'pip',
+  }
+};
+
 client.startArchive('SESSION_ID', archiveOptions, (err: Error, archive: OpenTok.Archive) => {
   if (err) return console.log(err);
   console.log(archive.id);
