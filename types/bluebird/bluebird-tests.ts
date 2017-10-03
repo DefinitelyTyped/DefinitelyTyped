@@ -753,7 +753,7 @@ fooProm = Promise.attempt(() => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-asyncfunc = Promise.method(function () {});
+asyncfunc = Promise.method(() => {});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -820,7 +820,7 @@ function DOMPromisifier(originalMethod: Function) {
         // Needed so that the original method can be called with the correct receiver
         let self = this;
         // which returns a promise
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             args.push(resolve, reject);
             originalMethod.apply(self, args);
         });
