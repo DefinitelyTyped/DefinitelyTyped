@@ -187,7 +187,7 @@ export class WebAuth {
      *
      * @param {AuthorizeOptions} options: https://auth0.com/docs/api/authentication#!#get--authorize_db
      */
-    authorize(options: AuthorizeOptions): void;
+    authorize(options?: AuthorizeOptions): void;
 
     /**
      * Parse the url hash and extract the returned tokens depending on the transaction.
