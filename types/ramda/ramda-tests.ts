@@ -185,6 +185,28 @@ class F2 {
     const g_res: boolean = g([1, 2, 10, 13]);
 };
 
+/* composeP */
+() => {
+    const numberToSrtP = (x: number) => Promise.resolve('asdf');
+
+    const someObj: object = { x: 'any' };
+    const strToObjP = (x: string) => Promise.resolve(someObj);
+
+    // $ExpectType (x0: number) => Promise<object>
+    R.composeP(strToObjP, numberToSrtP);
+};
+
+/* composeK */
+() => {
+    const numberToSrtK = (x: number) => ['asdf'];
+
+    const someObj: object = { x: 'any' };
+    const strToObjK = (x: string) => [someObj];
+
+    // $ExpectType (x0: number) => object[]
+    R.composeK(strToObjK, numberToSrtK);
+};
+
 /* pipe */
 () => {
     const func: (x: number) => string = R.pipe(double, double, shout);
@@ -209,6 +231,17 @@ class F2 {
 
     // $ExpectType (x0: number) => Promise<object>
     R.pipeP(numberToSrtP, strToObjP);
+};
+
+/* pipeK */
+() => {
+    const numberToSrtK = (x: number) => ['asdf'];
+
+    const someObj: object = { x: 'any' };
+    const strToObjK = (x: string) => [someObj];
+
+    // $ExpectType (x0: number) => object[]
+    R.pipeK(numberToSrtK, strToObjK);
 };
 
 () => {

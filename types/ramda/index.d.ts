@@ -9,11 +9,16 @@
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
+//                 Sergey Homa <https://github.com/bjornmelgaard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-///<reference path="generated/pipePFn.d.ts"/>
 ///<reference path="generated/pipeFn.d.ts"/>
+///<reference path="generated/pipePFn.d.ts"/>
+///<reference path="generated/pipeKFn.d.ts"/>
+///<reference path="generated/composeFn.d.ts"/>
+///<reference path="generated/composePFn.d.ts"/>
+///<reference path="generated/composeKFn.d.ts"/>
 
 declare let R: R.Static;
 
@@ -329,49 +334,19 @@ declare namespace R {
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
          * functions must be unary.
          */
-        compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
-        compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
-        compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
-
-        compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
-        compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
-        compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
-
-        compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
-        compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
-        compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
-
-        compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
-        compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
-        compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
-
-        compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
-        compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
-        compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
-
-        compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
-        compose<V0, V1, T1, T2, T3, T4, T5, T6>(
-            fn5: (x: T5) => T6,
-            fn4: (x: T4) => T5,
-            fn3: (x: T3) => T4,
-            fn2: (x: T2) => T3,
-            fn1: (x: T1) => T2,
-            fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
-        compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
-            fn5: (x: T5) => T6,
-            fn4: (x: T4) => T5,
-            fn3: (x: T3) => T4,
-            fn2: (x: T2) => T3,
-            fn1: (x: T1) => T2,
-            fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
+        compose: ComposeFn;
 
         /**
-         * TODO composeK
+         * Returns the right-to-left Kleisli composition of the provided functions,
+         * each of which must return a value of a type supported by chain.
          */
+        composeK: ComposeKFn;
 
         /**
-         * TODO composeP
+         * Performs right-to-left composition of one or more Promise-returning functions.
+         * The rightmost function may have any arity; the remaining functions must be unary.
          */
+        composeP: ComposePFn;
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
@@ -1264,9 +1239,10 @@ declare namespace R {
         pipe: PipeFn;
 
         /**
-         * TODO pipeK
+         * Returns the left-to-right Kleisli composition of the provided functions,
+         * each of which must return a value of a type supported by chain.
          */
-
+        pipeK: PipeKFn;
         /**
          * Performs left-to-right composition of one or more Promise-returning
          * functions. The leftmost function may have any arity; the remaining functions
