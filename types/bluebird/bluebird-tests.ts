@@ -339,7 +339,7 @@ fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 class CustomError extends Error {
-	public customField: number;
+	customField: number;
 }
 fooProm = fooProm.catch(CustomError, reason => {
 	let a: number = reason.customField;
