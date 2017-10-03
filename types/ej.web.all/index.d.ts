@@ -37,7 +37,7 @@ declare namespace ej {
     function createObject(nameSpace: string, value: any, initIn: any): JQuery;
     function createObject(element: any, eventEmitter: any, model: any): any;
     function setCulture(culture: string): void;
-    function getObject<T>(element: string, model: any): T;
+    function getObject(element: string, model: any): any;
     function getObject(nameSpace: string, fromdata?: any): any;
     function defineClass(className: string, constructor: any, proto: any, replace: boolean): any;
     function destroyWidgets(element: any): void;
@@ -7732,7 +7732,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set showHeader as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
