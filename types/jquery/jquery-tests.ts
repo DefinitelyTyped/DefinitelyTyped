@@ -94,7 +94,7 @@ function JQueryStatic() {
         }
 
         function step() {
-            // $ExpectType PlainObject<AnimationHook<HTMLElement>>
+            // $ExpectType PlainObject<AnimationHook<Node>>
             $.fx.step;
         }
     }
@@ -3375,10 +3375,10 @@ function JQuery() {
                 }
             ]);
 
-            // $ExpectType Queue<HTMLElement>
+            // $ExpectType Queue<Node>
             $('p').queue('myQueue');
 
-            // $ExpectType Queue<HTMLElement>
+            // $ExpectType Queue<Node>
             $('p').queue();
         }
 
