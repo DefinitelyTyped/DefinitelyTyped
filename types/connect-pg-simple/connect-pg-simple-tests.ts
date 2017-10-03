@@ -1,4 +1,4 @@
-import * as connectPgSimple from "connect-pg-simple";
+import connectPgSimple = require("connect-pg-simple");
 import * as session from "express-session";
 import * as pg from "pg";
 import * as express from "express";
