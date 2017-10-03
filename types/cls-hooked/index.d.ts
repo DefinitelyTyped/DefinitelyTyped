@@ -7,7 +7,7 @@
 
 import { EventEmitter } from 'events';
 
-export interface NameSpace {
+export interface Namespace {
     active: any;
 
     set<T>(key: string, value: T): T;
@@ -19,7 +19,7 @@ export interface NameSpace {
     createContext(): any;
 }
 
-export function createNamespace(name: string): NameSpace;
-export function getNamespace(name: string): NameSpace;
+export function createNamespace(name: string): Namespace;
+export function getNamespace(name: string): Namespace;
 export function destroyNamespace(name: string): void;
 export function reset(): void;
