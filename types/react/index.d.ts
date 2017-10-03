@@ -285,7 +285,7 @@ declare namespace React {
         // tslint:enable:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | JSX.Element[] | null | false;
+        render(): JSX.Element | JSX.Element[] | number | string | null | false;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -3454,7 +3454,7 @@ declare global {
         // tslint:disable:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): Element | Element[] | null | false;
+            render(): Element | Element[] | string | number | null | false;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
