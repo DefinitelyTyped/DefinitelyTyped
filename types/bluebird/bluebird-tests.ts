@@ -155,8 +155,8 @@ let version: string = Promise.version;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-let nodeCallbackFunc = (callback: (err: any, result: string) => void) => {}
-let nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {}
+let nodeCallbackFunc = (callback: (err: any, result: string) => void) => {};
+let nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {};
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -342,19 +342,19 @@ class CustomError extends Error {
 	public customField: number;
 }
 fooProm = fooProm.catch(CustomError, reason => {
-	let a: number = reason.customField
-})
+	let a: number = reason.customField;
+});
 
 {
 	class CustomErrorWithConstructor extends Error {
 		constructor(public arg1: boolean, public arg2: number) {
 			super();
-		};
+		}
 	}
 	fooProm = fooProm.catch(CustomErrorWithConstructor, reason => {
 		let a: boolean = reason.arg1;
 		let b: number = reason.arg2;
-	})
+	});
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -582,15 +582,15 @@ barProm = fooProm.race<Bar>();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 let propsValue: { num: number, str: string };
-Promise.resolve({ num: 1, str: Promise.resolve('a') }).props().then(val => { propsValue = val });
-Promise.props({ num: 1, str: Promise.resolve('a') }).then(val => { propsValue = val });
-Promise.props(Promise.props({ num: 1, str: Promise.resolve('a') })).then(val => { propsValue = val });
+Promise.resolve({ num: 1, str: Promise.resolve('a') }).props().then(val => { propsValue = val; });
+Promise.props({ num: 1, str: Promise.resolve('a') }).then(val => { propsValue = val; });
+Promise.props(Promise.props({ num: 1, str: Promise.resolve('a') })).then(val => { propsValue = val; });
 
 let propsMapValue: Map<number, string>;
-Promise.resolve(new Map<number, string>()).props().then(val => { propsMapValue = val });
-Promise.resolve(new Map<number, PromiseLike<string>>()).props().then(val => { propsMapValue = val });
-Promise.props(new Map<number, string>()).then(val => { propsMapValue = val });
-Promise.props(new Map<number, PromiseLike<string>>()).then(val => { propsMapValue = val });
+Promise.resolve(new Map<number, string>()).props().then(val => { propsMapValue = val; });
+Promise.resolve(new Map<number, PromiseLike<string>>()).props().then(val => { propsMapValue = val; });
+Promise.props(new Map<number, string>()).then(val => { propsMapValue = val; });
+Promise.props(new Map<number, PromiseLike<string>>()).then(val => { propsMapValue = val; });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -834,11 +834,11 @@ obj = Promise.promisifyAll(obj, {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-const generator = function*(a: number, b: string) {return "string"}
+const generator = function*(a: number, b: string) { return "string"; };
 const coroutine = Promise.coroutine<string, number, string>(generator);
 coroutine(5, "foo").then((x: string) => {});
 
-const coroutineCustomYield = Promise.coroutine(generator, { yieldHandler: (value) => "whatever" })
+const coroutineCustomYield = Promise.coroutine(generator, { yieldHandler: (value) => "whatever" });
 /*
  barProm = Promise.spawn<number>(f);
  */
