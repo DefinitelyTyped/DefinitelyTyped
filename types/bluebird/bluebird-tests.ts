@@ -647,7 +647,6 @@ barArrProm = fooArrProm.mapSeries<Foo, Bar>((item: Foo) => {
 	return bar;
 });
 
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barProm = fooArrProm.reduce<Foo, Bar>((memo: Bar, item: Foo, index: number, arrayLength: number) => {
@@ -1084,7 +1083,6 @@ barArrProm = Promise.mapSeries(fooArrThen, (item: Foo, index: number, arrayLengt
 	return barThen;
 });
 
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // fooThenArr
@@ -1102,7 +1100,6 @@ barArrProm = Promise.mapSeries(fooThenArr, (item: Foo, index: number, arrayLengt
 	return barThen;
 });
 
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // fooArr
@@ -1119,7 +1116,6 @@ barArrProm = Promise.mapSeries(fooArr, (item: Foo, index: number, arrayLength: n
 barArrProm = Promise.mapSeries(fooArr, (item: Foo, index: number, arrayLength: number) => {
 	return barThen;
 });
-
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

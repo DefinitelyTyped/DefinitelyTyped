@@ -1083,7 +1083,6 @@ declare namespace Bluebird {
     reverse(): AggregateError;
   }
 
-
   /**
    * returned by `Bluebird.disposer()`.
    */
