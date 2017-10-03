@@ -4794,6 +4794,14 @@ declare namespace _ {
          * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }, { 'x': 2 }]
          */
+        uniqBy<TString extends string | null | undefined>(
+            array: TString,
+            iteratee: StringIterator<any>
+        ): TString[];
+
+        /**
+         * @see _.uniqBy
+         */
         uniqBy<T>(
             array: List<T> | null | undefined,
             iteratee: ListIterator<T, any>
@@ -4830,6 +4838,24 @@ declare namespace _ {
             array: List<T> | null | undefined,
             iteratee: TWhere
         ): T[];
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy(
+            iteratee: StringIterator<any>
+        ): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitStringWrapper {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy(
+            iteratee: StringIterator<any>
+        ): LoDashExplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -5074,6 +5100,14 @@ declare namespace _ {
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
          * // => [1.1, 2.2]
          */
+        sortedUniqBy<TString extends string | null | undefined>(
+            array: TString,
+            iteratee: StringIterator<any>
+        ): TString[];
+
+        /**
+         * @see _.sortedUniqBy
+         */
         sortedUniqBy<T>(
             array: List<T> | null | undefined,
             iteratee: ListIterator<T, any>
@@ -5110,6 +5144,24 @@ declare namespace _ {
             array: List<T> | null | undefined,
             iteratee: TWhere
         ): T[];
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy(
+            iteratee: StringIterator<any>
+        ): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitStringWrapper {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy(
+            iteratee: StringIterator<any>
+        ): LoDashExplicitArrayWrapper<string>;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -5821,6 +5873,13 @@ declare namespace _ {
         chain<T extends {}>(value: T): LoDashExplicitObjectWrapper<T>;
         chain<T extends {}>(value: T | null | undefined): LoDashExplicitObjectWrapper<T | null | undefined>;
         chain(value: any): LoDashExplicitWrapper<any>;
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.chain
+         */
+        chain(): LoDashExplicitStringWrapper;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7796,6 +7855,14 @@ declare namespace _ {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
+        groupBy<TString extends string | null | undefined, TKey>(
+            collection: TString,
+            iteratee?: StringIterator<TKey>
+        ): Dictionary<TString[]>;
+
+        /**
+         * @see _.groupBy
+         */
         groupBy<T, TKey>(
             collection: List<T> | null | undefined,
             iteratee?: ListIterator<T, TKey>
@@ -8163,6 +8230,24 @@ declare namespace _ {
             collection: List<T>|NumericDictionary<T>|Dictionary<T> | null | undefined,
             iteratee?: Object
         ): Dictionary<T>;
+    }
+
+    interface LoDashImplicitStringWrapper {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(
+            iteratee?: StringIterator<any> | undefined
+        ): LoDashImplicitObjectWrapper<Dictionary<string>>
+    }
+
+    interface LoDashExplicitStringWrapper {
+        /**
+         * @see _.keyBy
+         */
+        keyBy(
+            iteratee?: StringIterator<any> | undefined
+        ): LoDashExplicitObjectWrapper<Dictionary<string>>
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -8849,53 +8934,53 @@ declare namespace _ {
             accumulator: TResult): TResult;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: List<T> | null | undefined,
             callback: MemoIterator<T, TResult>,
             accumulator: TResult): TResult;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: Dictionary<T> | null | undefined,
             callback: MemoIterator<T, TResult>,
             accumulator: TResult): TResult;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
             callback: MemoIterator<T, TResult>,
             accumulator: TResult): TResult;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: T[] | null | undefined,
             callback: MemoIterator<T, TResult>): TResult | undefined;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: List<T> | null | undefined,
             callback: MemoIterator<T, TResult>): TResult | undefined;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: Dictionary<T> | null | undefined,
             callback: MemoIterator<T, TResult>): TResult | undefined;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
             callback: MemoIterator<T, TResult>): TResult | undefined;
@@ -12606,7 +12691,7 @@ declare namespace _ {
     }
 
     //_.isMatchWith
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey?: number|string) => boolean;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: number|string) => boolean;
 
     interface LoDashStatic {
         /**
@@ -14155,7 +14240,7 @@ declare namespace _ {
          * @see _.sumBy
          */
         sumBy(
-            iteratee: ListIterator<{}, number>
+            iteratee: ListIterator<TObject, number>
         ): number;
 
         /**
@@ -14198,7 +14283,7 @@ declare namespace _ {
          * @see _.sumBy
          */
         sumBy(
-            iteratee: ListIterator<{}, number>
+            iteratee: ListIterator<TObject, number>
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -16955,7 +17040,7 @@ declare namespace _ {
     }
 
     //_.mergeWith
-    type MergeWithCustomizer = (value: any, srcValue: any, key?: string, object?: Object, source?: Object) => any;
+    type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"]
 
     interface LoDashStatic {
         /**
@@ -17438,31 +17523,31 @@ declare namespace _ {
          * @parem customizer The function to customize assigned values.
          * @return Returns object.
          */
+        setWith<O, V, TResult>(
+            object: O,
+            path: Many<StringRepresentable>,
+            value: V,
+            customizer?: SetWithCustomizer<O>
+        ): TResult;
+
+        /**
+         * @see _.setWith
+         */
         setWith<TResult>(
-            object: Object,
+            object: any,
             path: Many<StringRepresentable>,
             value: any,
-            customizer?: SetWithCustomizer<Object>
+            customizer?: SetWithCustomizer<any>
         ): TResult;
 
         /**
          * @see _.setWith
          */
         setWith<V, TResult>(
-            object: Object,
+            object: any,
             path: Many<StringRepresentable>,
             value: V,
-            customizer?: SetWithCustomizer<Object>
-        ): TResult;
-
-        /**
-         * @see _.setWith
-         */
-        setWith<O, V, TResult>(
-            object: O,
-            path: Many<StringRepresentable>,
-            value: V,
-            customizer?: SetWithCustomizer<O>
+            customizer?: SetWithCustomizer<any>
         ): TResult;
     }
 
@@ -17782,21 +17867,21 @@ declare namespace _ {
          * _.updateWith(object, '[0][1]', _.constant('a'), Object);
          * // => { '0': { '1': 'a' } }
          */
-        updateWith<TResult>(
-            object: Object,
-            path: Many<StringRepresentable>,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<Object>
-        ): TResult;
-
-        /**
-         * @see _.updateWith
-         */
         updateWith<O extends {}, TResult>(
             object: O,
             path: Many<StringRepresentable>,
             updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<O>
+        ): TResult;
+
+        /**
+         * @see _.updateWith
+         */
+        updateWith<TResult>(
+            object: any,
+            path: Many<StringRepresentable>,
+            updater: (oldValue: any) => any,
+            customizer?: SetWithCustomizer<any>
         ): TResult;
     }
 

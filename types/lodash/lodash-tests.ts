@@ -2256,7 +2256,7 @@ namespace TestUniqBy {
         let result: string[];
 
         result = _.uniqBy<string>('abc', stringIterator);
-        result = _.uniqBy<string, string>('abc', stringIterator);
+        result = _.uniqBy('abc', stringIterator);
     }
 
     {
@@ -2278,7 +2278,7 @@ namespace TestUniqBy {
     {
         let result: _.LoDashImplicitArrayWrapper<string>;
 
-        result = _('abc').uniqBy<string>(stringIterator);
+        result = _('abc').uniqBy(stringIterator);
     }
 
     {
@@ -2298,7 +2298,7 @@ namespace TestUniqBy {
     {
         let result: _.LoDashExplicitArrayWrapper<string>;
 
-        result = _('abc').chain().uniqBy<string>(stringIterator);
+        result = _('abc').chain().uniqBy(stringIterator);
     }
 
     {
@@ -2371,7 +2371,7 @@ namespace TestSortedUniqBy {
         let result: string[];
 
         result = _.sortedUniqBy<string>('abc', stringIterator);
-        result = _.sortedUniqBy<string, string>('abc', stringIterator);
+        result = _.sortedUniqBy('abc', stringIterator);
     }
 
     {
@@ -2393,7 +2393,7 @@ namespace TestSortedUniqBy {
     {
         let result: _.LoDashImplicitArrayWrapper<string>;
 
-        result = _('abc').sortedUniqBy<string>(stringIterator);
+        result = _('abc').sortedUniqBy(stringIterator);
     }
 
     {
@@ -2413,7 +2413,7 @@ namespace TestSortedUniqBy {
     {
         let result: _.LoDashExplicitArrayWrapper<string>;
 
-        result = _('abc').chain().sortedUniqBy<string>(stringIterator);
+        result = _('abc').chain().sortedUniqBy(stringIterator);
     }
 
     {
@@ -3345,7 +3345,7 @@ namespace TestCountBy {
     let dictionary: _.Dictionary<TResult> | null | undefined = obj;
     let numericDictionary: _.NumericDictionary<TResult> | null | undefined = obj;
 
-    let stringIterator: (value: string, index: number, collection: string) => any = (value: string, index: number, collection: string) => 1;
+    let stringIterator: (value: string, index: number, collection: ArrayLike<string>) => any = (value: string, index: number, collection: ArrayLike<string>) => 1;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
     let numericDictionaryIterator: (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => any = (value: TResult, key: number, collection: _.NumericDictionary<TResult>) => 1;
@@ -4557,7 +4557,7 @@ namespace TestForEach {
 
     {
         let result: TResult[];
-        result = _.forEach(array, (value, index, collection: TResult[]) => {
+        result = _.forEach(array, (value, index, collection: ArrayLike<TResult>) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
         });
@@ -4572,7 +4572,7 @@ namespace TestForEach {
     {
         let result: TResult[] | null | undefined;
 
-        result = _.forEach(array, (value, index, collection: TResult[]) => {
+        result = _.forEach(array, (value, index, collection: ArrayLike<TResult>) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
         });
@@ -4990,7 +4990,7 @@ namespace TestGroupBy {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string[]>>;
 
         result = _('').groupBy();
-        result = _('').groupBy<number>(stringIterator);
+        result = _('').groupBy<number>((char: string, index: number, string: ArrayLike<string>) => 0);
     }
 
     {
@@ -5025,7 +5025,7 @@ namespace TestGroupBy {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string[]>>;
 
         result = _('').chain().groupBy();
-        result = _('').chain().groupBy<number>(stringIterator);
+        result = _('').chain().groupBy<number>((char: string, index: number, string: ArrayLike<string>) => 0);
     }
 
     {
@@ -5547,7 +5547,7 @@ namespace TestReduce {
     result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, (r: ABC, num: number, key: string) => {
         r[key] = num * 3;
         return r;
-    }, {});
+    }, {} as ABC);
 
     result = <number>_([1, 2, 3]).reduce<number>((sum: number, num: number) => sum + num);
     result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>((r: ABC, num: number, key: string) => {
@@ -6487,6 +6487,7 @@ namespace TestDebounce {
     interface ResultFunc {
         (n: number, s: string): boolean;
         cancel(): void;
+        flush(): void;
     }
 
     let func: SampleFunc = (a, b) => true;
@@ -6959,6 +6960,7 @@ namespace TestThrottle {
     interface ResultFunc {
         (n: number, s: string): boolean;
         cancel(): void;
+        flush(): void;
     }
 
     let func: SampleFunc = (a, b) => true;
@@ -8980,7 +8982,7 @@ namespace TestSumBy {
         result = _(array).sumBy(listIterator);
         result = _(objectArray).sumBy('age');
 
-        result = _(list).sumBy(listIterator);
+        result = _(list).sumBy((value: _.List<number> | null | undefined, index: number, collection: _.List<_.List<number> | null | undefined>) => 0);
         result = _(objectList).sumBy('age');
     }
 
@@ -8990,7 +8992,7 @@ namespace TestSumBy {
         result = _(array).chain().sumBy(listIterator);
         result = _(objectArray).chain().sumBy('age');
 
-        result = _(list).chain().sumBy(listIterator);
+        result = _(list).chain().sumBy((value: _.List<number> | null | undefined, index: number, collection: _.List<_.List<number> | null | undefined>) => 0);
         result = _(objectList).chain().sumBy('age');
     }
 }
@@ -9146,25 +9148,25 @@ namespace TestAssign {
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).assign(s1);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).assign(s1, s2);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).assign(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).assign(s1, s2, s3, s4);
     }
@@ -9182,25 +9184,25 @@ namespace TestAssign {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).chain().assign(s1);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).chain().assign(s1, s2);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).chain().assign(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).chain().assign(s1, s2, s3, s4);
     }
@@ -9268,22 +9270,22 @@ namespace TestAssignWith {
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string }>;
         result = _(obj).assignWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number }>;
         result = _(obj).assignWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
         result = _(obj).assignWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
         result = _(obj).assignWith(s1, s2, s3, s4, customizer);
     }
 
@@ -9299,22 +9301,22 @@ namespace TestAssignWith {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string }>;
         result = _(obj).chain().assignWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number }>;
         result = _(obj).chain().assignWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
         result = _(obj).chain().assignWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
         result = _(obj).chain().assignWith(s1, s2, s3, s4, customizer);
     }
 
@@ -9385,25 +9387,25 @@ namespace TestAssignIn {
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).assignIn(s1);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).assignIn(s1, s2);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).assignIn(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).assignIn(s1, s2, s3, s4);
     }
@@ -9421,25 +9423,25 @@ namespace TestAssignIn {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).chain().assignIn(s1);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).chain().assignIn(s1, s2);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).chain().assignIn(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).chain().assignIn(s1, s2, s3, s4);
     }
@@ -9507,22 +9509,22 @@ namespace TestAssignInWith {
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string }>;
         result = _(obj).assignInWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number }>;
         result = _(obj).assignInWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
         result = _(obj).assignInWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
         result = _(obj).assignInWith(s1, s2, s3, s4, customizer);
     }
 
@@ -9538,22 +9540,22 @@ namespace TestAssignInWith {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string }>;
         result = _(obj).chain().assignInWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number }>;
         result = _(obj).chain().assignInWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
         result = _(obj).chain().assignInWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
         result = _(obj).chain().assignInWith(s1, s2, s3, s4, customizer);
     }
 
@@ -9652,25 +9654,25 @@ namespace TestDefaults {
     }
 
     {
-    let result: _.LoDashImplicitObjectWrapper<{ a: string }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string & number }>;
 
     result = _(obj).defaults(s1);
     }
 
     {
-    let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string & number, b: number }>;
 
     result = _(obj).defaults(s1, s2);
     }
 
     {
-    let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string & number, b: number, c: number }>;
 
     result = _(obj).defaults(s1, s2, s3);
     }
 
     {
-    let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string & number, b: number, c: number, d: number }>;
 
     result = _(obj).defaults(s1, s2, s3, s4);
     }
@@ -9688,25 +9690,25 @@ namespace TestDefaults {
     }
 
     {
-    let result: _.LoDashExplicitObjectWrapper<{ a: string }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string & number }>;
 
     result = _(obj).chain().defaults(s1);
     }
 
     {
-    let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string & number, b: number }>;
 
     result = _(obj).chain().defaults(s1, s2);
     }
 
     {
-    let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string & number, b: number, c: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3);
     }
 
     {
-    let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string & number, b: number, c: number, d: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3, s4);
     }
@@ -9873,25 +9875,25 @@ namespace TestExtend {
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).extend(s1);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).extend(s1, s2);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).extend(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).extend(s1, s2, s3, s4);
     }
@@ -9909,25 +9911,25 @@ namespace TestExtend {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).chain().extend(s1);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).chain().extend(s1, s2);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).chain().extend(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).chain().extend(s1, s2, s3, s4);
     }
@@ -10000,25 +10002,25 @@ namespace TestExtendWith {
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).extendWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).extendWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).extendWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).extendWith(s1, s2, s3, s4, customizer);
     }
@@ -10036,25 +10038,25 @@ namespace TestExtendWith {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string }>;
 
         result = _(obj).chain().extendWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number }>;
 
         result = _(obj).chain().extendWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number }>;
 
         result = _(obj).chain().extendWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number & string, b: number, c: number, d: number }>;
 
         result = _(obj).chain().extendWith(s1, s2, s3, s4, customizer);
     }
@@ -10986,7 +10988,7 @@ namespace TestMergeWith {
     type ExpectedResult = { a: number, b: string };
     let result: ExpectedResult;
 
-    let customizer: (value: any, srcValue: any, key?: string, object?: InitialValue, source?: MergingValue) => any = (value: any, srcValue: any, key?: string, object?: InitialValue, source?: MergingValue) => 1;
+    let customizer: (value: any, srcValue: any, key: string, object: InitialValue, source: MergingValue) => any = (value: any, srcValue: any, key: string, object: InitialValue, source: MergingValue) => 1;
 
     // Test for basic merging
     result = _.mergeWith(initialValue, mergingValue, customizer);
@@ -11003,7 +11005,7 @@ namespace TestMergeWith {
     result = _(initialValue).mergeWith({}, {}, mergingValue, customizer).value();
     result = _(initialValue).mergeWith({}, {}, {}, mergingValue, customizer).value();
 
-    // Once we get to the varargs version, you have to specify the result explicitl
+    // Once we get to the varargs version, you have to specify the result explicitly
     result = _(initialValue).mergeWith<ExpectedResult>({}, {}, {}, {}, mergingValue, customizer).value();
 }
 

@@ -381,6 +381,7 @@ interface DispatchProps {
 declare var actionCreators: () => {
     action: Function;
 }
+declare var dispatchActionCreators: () => DispatchProps;
 declare var addTodo: () => { type: string; };
 declare var todoActionCreators: { [type: string]: (...args: any[]) => any; };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
@@ -521,7 +522,7 @@ function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProp
     });
 }
 
-connect(mapStateToProps2, actionCreators, mergeProps)(MyRootComponent);
+connect(mapStateToProps2, dispatchActionCreators, mergeProps)(MyRootComponent);
 
 
 //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14622#issuecomment-279820358
