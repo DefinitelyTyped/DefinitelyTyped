@@ -318,7 +318,7 @@ declare namespace Chart {
         lineWidth?: number;
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
-        drawticks?: boolean;
+        drawTicks?: boolean;
         tickMarkLength?: number;
         zeroLineWidth?: number;
         zeroLineColor?: ChartColor;
