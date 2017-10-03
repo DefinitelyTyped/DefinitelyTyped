@@ -200,9 +200,7 @@ fooResolver.resolve(foo);
 
 fooResolver.reject(err);
 
-fooResolver.callback = (err: any, value: Foo) => {
-
-};
+fooResolver.callback = (err: any, value: Foo) => {};
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -755,9 +753,7 @@ fooProm = Promise.attempt(() => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-asyncfunc = Promise.method(function () {
-
-});
+asyncfunc = Promise.method(function () {});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -852,9 +848,7 @@ const coroutineCustomYield = Promise.coroutine(generator, { yieldHandler: (value
 BlueBird = Promise.getNewLibraryCopy();
 BlueBird = Promise.noConflict();
 
-Promise.onPossiblyUnhandledRejection((reason: any) => {
-
-});
+Promise.onPossiblyUnhandledRejection((reason: any) => {});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
