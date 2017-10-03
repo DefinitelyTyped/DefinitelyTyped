@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.0.1
+// Type definitions for Mongoose 5.0.12
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -2608,10 +2608,18 @@ declare module "mongoose" {
      * because it only sends one operation to the server, rather than one for each
      * document.
      * This function does not trigger save middleware.
+     * @param docs Documents to insert.
+     * @param options Optional settings.
+     * @param options.ordered  if true, will fail fast on the first error encountered. 
+     *        If false, will insert all the documents it can and report errors later.
+     * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation. 
+     *        If `false`, will return the [raw result from the MongoDB driver](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#~insertWriteOpCallback)
+     *        with a `mongoose` property that contains `validationErrors` if this is an unordered `insertMany`.
      */
     insertMany(docs: any[], callback?: (error: any, docs: T[]) => void): Promise<T[]>;
+    insertMany(docs: any[], options?: { ordered?: boolean, rawResult?: boolean }, callback?: (error: any, docs: T[]) => void): Promise<T[]>;
     insertMany(doc: any, callback?: (error: any, doc: T) => void): Promise<T>;
-    insertMany(...docsWithCallback: any[]): Promise<T>;
+    insertMany(doc: any, options?: { rdered?: boolean, rawResult?: boolean }, callback?: (error: any, doc: T) => void): Promise<T>;
 
     /**
      * Executes a mapReduce command.
