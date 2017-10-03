@@ -47,6 +47,8 @@ React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
 });
 */
 
+/// <reference path="global.d.ts" />
+
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;

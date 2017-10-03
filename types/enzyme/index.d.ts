@@ -149,6 +149,16 @@ export interface CommonWrapper<P = {}, S = {}> {
     getNodes(): Array<ReactElement<any>>;
 
     /**
+     * Returns the wrapper's underlying node.
+     */
+    getElement(): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying node.
+     */
+    getElements(): Array<ReactElement<any>>;
+
+    /**
      * Returns the outer most DOMComponent of the current wrapper.
      */
     getDOMNode(): Element;
