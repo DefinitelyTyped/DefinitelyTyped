@@ -5,7 +5,6 @@
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "max-line-length": false,
         "member-access": false,
         "no-consecutive-blank-lines": false,
