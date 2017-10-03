@@ -1,4 +1,4 @@
-// Type definitions for sequencify 0.0
+// Type definitions for sequencify 0.1
 // Project: https://github.com/robrich/sequencify
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
