@@ -597,7 +597,7 @@ declare namespace dygraphs {
          * Set it to "always" to always display a legend of some sort. When set to "follow", legend
          * follows highlighted points.
          */
-        legend?: 'always' | 'follow' | 'onmouseover';
+        legend?: 'always' | 'follow' | 'onmouseover' | 'never';
 
         /**
          * for details see https://github.com/danvk/dygraphs/pull/683
