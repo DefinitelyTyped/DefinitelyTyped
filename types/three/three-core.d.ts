@@ -6588,8 +6588,8 @@ export class ExtrudeGeometry extends Geometry {
     constructor(shapes?: Shape[], options?: any);
 
     static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
+        generateTopUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number): Vector2[];
+        generateSideWallUV(geometry: Geometry, vertex: number[], indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
     };
 
     addShapeList(shapes: Shape[], options?: any): void;
