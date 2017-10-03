@@ -9,7 +9,7 @@
 /** Bootbox options shared by all modal types */
 interface BootboxBaseOptions<T = any> {
 	title?: string | Element;
-        callback?: (result: T) => any;
+	callback?: (result: T) => any;
 	onEscape?: (() => any) | boolean;
 	show?: boolean;
 	backdrop?: boolean;

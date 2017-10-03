@@ -91,7 +91,7 @@ var myAppender: log4js.AppenderModule = {
   },
 
   configure: function (config: log4js.CustomAppenderConfig, options?: { [key: string]: any }): log4js.Appender {
-    var mycfg = config.mycfg;
+    var mycfg = (config as MyAppenderConfig).mycfg;
     return this.appender(mycfg);
   }
 }
