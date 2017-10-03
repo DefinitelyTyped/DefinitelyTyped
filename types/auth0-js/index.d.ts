@@ -6,7 +6,6 @@
 
 export as namespace auth0;
 
-
 export class Authentication {
     constructor(options: AuthOptions);
 
@@ -229,7 +228,8 @@ export class WebAuth {
     /**
      * Executes a silent authentication transaction under the hood in order to fetch a new tokens for the current session.
      * This method requires that all Auth is performed with {@link authorize}
-     * Watch out! If you're not using the hosted login page to do social logins, you have to use your own [social connection keys](https://manage.auth0.com/#/connections/social). If you use Auth0's dev keys, you'll always get `login_required` as an error when calling this method.
+     * Watch out! If you're not using the hosted login page to do social logins, you have to use your own [social connection keys](https://manage.auth0.com/#/connections/social).
+     * If you use Auth0's dev keys, you'll always get `login_required` as an error when calling this method.
      *
      * @param {RenewAuthOptions} options: any valid oauth2 parameter to be sent to the `/authorize` endpoint
      * @param {Function} callback
@@ -262,11 +262,15 @@ export class WebAuth {
     signupAndAuthorize(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
 
     /**
-     * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow. You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
-     * This only works when 3rd party cookies are enabled in the browser. After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
+     * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow.
+     * You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
+     *
+     * This only works when 3rd party cookies are enabled in the browser.
+     * After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
      *
      * @param {CrossOriginLoginOptions} options options used in the {@link authorize} call after the login_ticket is acquired
-     * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs. For other types of errors, there will be a redirect to the `redirectUri`.
+     * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs.
+     * For other types of errors, there will be a redirect to the `redirectUri`.
      */
     login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
@@ -365,7 +369,8 @@ export class Popup {
      * @param {String} options.hash the url hash. If not provided it will extract from window.location.hash
      * @param {String} [options.state] value originally sent in `state` parameter to {@link authorize} to mitigate XSRF
      * @param {String} [options.nonce] value originally sent in `nonce` parameter to {@link authorize} to prevent replay attacks
-     * @param {String} [options._idTokenVerification] makes parseHash perform or skip `id_token` verification. We **strongly** recommend validating the `id_token` yourself if you disable the verification.
+     * @param {String} [options._idTokenVerification] makes parseHash perform or skip `id_token` verification.
+     * We **strongly** recommend validating the `id_token` yourself if you disable the verification.
      * @see   {@link parseHash}
      */
     callback(options: any): void;
@@ -378,8 +383,10 @@ export class Popup {
      * @param {String} [options.domain] your Auth0 domain
      * @param {String} [options.clientID] your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
      * @param {String} options.redirectUri url that the Auth0 will redirect after Auth with the Authorization Response
-     * @param {String} options.responseType type of the response used by OAuth 2.0 flow. It can be any space separated list of the values `code`, `token`, `id_token`. {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
-     * @param {String} [options.responseMode] how the Auth response is encoded and redirected back to the client. Supported values are `query`, `fragment` and `form_post`. {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
+     * @param {String} options.responseType type of the response used by OAuth 2.0 flow.
+     * It can be any space separated list of the values `code`, `token`, `id_token`. {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     * @param {String} [options.responseMode] how the Auth response is encoded and redirected back to the client.
+     * Supported values are `query`, `fragment` and `form_post`. {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
      * @param {String} [options.state] value used to mitigate XSRF attacks. {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
      * @param {String} [options.nonce] value used to mitigate replay attacks when using Implicit Grant. {@link https://auth0.com/docs/api-auth/tutorials/nonce}
      * @param {String} [options.scope] scopes to be requested during Auth. e.g. `openid email`
@@ -440,11 +447,14 @@ export class CrossOriginAuthentication {
     constructor(webAuth: any, options: any);
 
     /**
-     * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow. You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
-     * This only works when 3rd party cookies are enabled in the browser. After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
+     * Logs in the user with username and password using the cross origin authentication (/co/authenticate) flow.
+     * You can use either `username` or `email` to identify the user, but `username` will take precedence over `email`.
+     * This only works when 3rd party cookies are enabled in the browser.
+     * After the /co/authenticate call, you'll have to use the {@link parseHash} function at the `redirectUri` specified in the constructor.
      *
      * @param {CrossOriginLoginOptions} options options used in the {@link authorize} call after the login_ticket is acquired
-     * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs. For other types of errors, there will be a redirect to the `redirectUri`.
+     * @param {crossOriginLoginCallback} cb Callback function called only when an authentication error, like invalid username or password, occurs.
+     * For other types of errors, there will be a redirect to the `redirectUri`.
      */
     login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
@@ -455,14 +465,14 @@ export class CrossOriginAuthentication {
     callback(): void;
 }
 
-type Auth0Callback<T> = (error: null | Auth0Error, result: T) => void;
+export type Auth0Callback<T> = (error: null | Auth0Error, result: T) => void;
 
-interface TokenProvider {
+export interface TokenProvider {
     enableCache?: boolean;
-    cacheTTLInSeconds?: number; 
+    cacheTTLInSeconds?: number;
 }
 
-interface ManagementOptions {
+export interface ManagementOptions {
     domain: string;
     token?: string;
     clientId?: string;
@@ -473,7 +483,7 @@ interface ManagementOptions {
     telemetry?: boolean;
 }
 
-interface AuthOptions {
+export interface AuthOptions {
     domain: string;
     clientID: string;
     responseType?: string;
@@ -488,14 +498,14 @@ interface AuthOptions {
     _telemetryInfo?: any;
 }
 
-interface PasswordlessAuthOptions {
+export interface PasswordlessAuthOptions {
     connection: string;
     verificationCode: string;
     phoneNumber: string;
     email: string;
 }
 
-interface Auth0Error {
+export interface Auth0Error {
     error?: any;
     errorDescription?: string;
     code?: string;
@@ -507,7 +517,7 @@ interface Auth0Error {
     statusText?: string;
 }
 
-interface Auth0DecodedHash {
+export interface Auth0DecodedHash {
     accessToken?: string;
     idToken?: string;
     idTokenPayload?: any;
@@ -518,7 +528,7 @@ interface Auth0DecodedHash {
 }
 
 /** Represents the response from an API Token Delegation request. */
-interface Auth0DelegationToken {
+export interface Auth0DelegationToken {
     /** The length of time in seconds the token is valid for. */
     expiresIn: number;
     /** The JWT for delegated access.  */
@@ -527,13 +537,13 @@ interface Auth0DelegationToken {
     tokenType: string;
 }
 
-interface ChangePasswordOptions {
+export interface ChangePasswordOptions {
     connection: string;
     email: string;
     password?: string;
 }
 
-interface PasswordlessStartOptions {
+export interface PasswordlessStartOptions {
     connection: string;
     send: string;
     phoneNumber?: string;
@@ -541,7 +551,7 @@ interface PasswordlessStartOptions {
     authParams?: any;
 }
 
-interface PasswordlessVerifyOptions {
+export interface PasswordlessVerifyOptions {
     connection: string;
     verificationCode: string;
     phoneNumber?: string;
@@ -549,7 +559,7 @@ interface PasswordlessVerifyOptions {
     send?: string;
 }
 
-interface Auth0UserProfile {
+export interface Auth0UserProfile {
     name: string;
     nickname: string;
     picture: string;
@@ -570,60 +580,60 @@ interface Auth0UserProfile {
     app_metadata?: any;
 }
 
-interface MicrosoftUserProfile extends Auth0UserProfile {
-    emails?: string[]; //optional depending on whether email addresses permission is granted
+export interface MicrosoftUserProfile extends Auth0UserProfile {
+    emails?: string[]; // optional depending on whether email addresses permission is granted
 }
 
-interface Office365UserProfile extends Auth0UserProfile {
+export interface Office365UserProfile extends Auth0UserProfile {
     tenantid: string;
     upn: string;
 }
 
-interface AdfsUserProfile extends Auth0UserProfile {
+export interface AdfsUserProfile extends Auth0UserProfile {
     issuer?: string;
 }
 
-interface Auth0Identity {
+export interface Auth0Identity {
     connection: string;
     isSocial: boolean;
     provider: string;
     user_id: string;
 }
 
-interface LoginOptions {
+export interface LoginOptions {
     username: string;
     password: string;
     scope?: string;
 }
 
-interface DefaultLoginOptions extends LoginOptions {
+export interface DefaultLoginOptions extends LoginOptions {
     audience?: string;
     realm: string;
 }
 
-interface DefaultDirectoryLoginOptions extends LoginOptions {
+export interface DefaultDirectoryLoginOptions extends LoginOptions {
     audience?: string;
 }
 
-interface ResourceOwnerLoginOptions extends LoginOptions {
+export interface ResourceOwnerLoginOptions extends LoginOptions {
     connection: string;
     device?: string;
 }
 
-interface CrossOriginLoginOptions {
+export interface CrossOriginLoginOptions {
     username?: string;
     email?: string;
     password: string;
     realm?: string;
 }
 
-interface LogoutOptions {
+export interface LogoutOptions {
     clientID?: string;
     returnTo?: string;
     federated?: boolean;
 }
 
-interface DelegationOptions {
+export interface DelegationOptions {
     client_id?: string;
     grant_type: string;
     id_token?: string;
@@ -633,7 +643,7 @@ interface DelegationOptions {
     api_type?: string;
 }
 
-interface DbSignUpOptions {
+export interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
@@ -641,14 +651,14 @@ interface DbSignUpOptions {
     user_metadata?: any;
 }
 
-interface ParseHashOptions {
+export interface ParseHashOptions {
     hash?: string;
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
 }
 
-interface RenewAuthOptions {
+export interface RenewAuthOptions {
     domain?: string;
     clientID?: string;
     redirectUri?: string;
@@ -662,10 +672,10 @@ interface RenewAuthOptions {
     postMessageDataType?: string;
 }
 
-interface AuthorizeOptions {
+export interface AuthorizeOptions {
     domain?: string;
     clientID?: string;
-    connection?:string;
+    connection?: string;
     redirectUri?: string;
     responseType?: string;
     responseMode?: string;
