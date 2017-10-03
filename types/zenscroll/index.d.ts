@@ -10,7 +10,7 @@ interface setupOption {
 
 interface zenscroll {
     setup(defaultDuration?: number, edgeOffset?: number): setupOption;
-    to(elem: HTMLElement, duration?: number, onDone?:  () => void): void;
+    to(elem: HTMLElement, duration?: number, onDone?: () => void): void;
     toY(targetY: number, duration?: number, onDone?: () => void): void;
     intoView(elem: HTMLElement, duration?: number, onDone?: () => void): void;
     center(elem: HTMLElement, duration?: number, offset?: number, onDone?: () => void): void;
@@ -18,6 +18,7 @@ interface zenscroll {
     moving(): boolean;
     getY(): number;
     getTopOf(elem: HTMLElement): number;
+    createScroller(scrollContainer: HTMLElement, defaultDuration?: number, edgeOffset?: number): zenscroll;
 }
 
 declare var zenScroll: zenscroll;
