@@ -365,7 +365,7 @@ interface NativeSyntheticEvent<T> {
     preventDefault(): void
     stopPropagation(): void
     target: NodeHandle
-    timeStamp: Date
+    timeStamp: number
     type: string
 }
 
