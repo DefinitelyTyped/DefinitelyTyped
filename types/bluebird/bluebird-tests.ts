@@ -7,26 +7,26 @@
 
 import Promise = require("bluebird");
 
-var obj: Object;
-var bool: boolean;
-var num: number;
-var str: string;
-var err: Error;
-var x: any;
-var f: (...args: any[]) => any;
-var asyncfunc: (...args: any[]) => Promise<any>;
-var arr: any[];
-var exp: RegExp;
-var anyArr: any[];
-var strArr: string[];
-var numArr: number[];
-var voidVar: void;
+let obj: Object;
+let bool: boolean;
+let num: number;
+let str: string;
+let err: Error;
+let x: any;
+let f: (...args: any[]) => any;
+let asyncfunc: (...args: any[]) => Promise<any>;
+let arr: any[];
+let exp: RegExp;
+let anyArr: any[];
+let strArr: string[];
+let numArr: number[];
+let voidVar: void;
 
 // - - - - - - - - - - - - - - - - -
 
-var value: any;
-var reason: any;
-var insanity: any;
+let value: any;
+let reason: any;
+let insanity: any;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -62,101 +62,101 @@ interface StrBarArrMap {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var foo: Foo;
-var bar: Bar;
-var baz: Baz;
+let foo: Foo;
+let bar: Bar;
+let baz: Baz;
 
-var fooArr: Foo[];
-var barArr: Bar[];
+let fooArr: Foo[];
+let barArr: Bar[];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var numProm: Promise<number>;
-var strProm: Promise<string>;
-var anyProm: Promise<any>;
-var boolProm: Promise<boolean>;
-var objProm: Promise<Object>;
-var voidProm: Promise<void>;
+let numProm: Promise<number>;
+let strProm: Promise<string>;
+let anyProm: Promise<any>;
+let boolProm: Promise<boolean>;
+let objProm: Promise<Object>;
+let voidProm: Promise<void>;
 
-var fooProm: Promise<Foo>;
-var barProm: Promise<Bar>;
-var barOrVoidProm: Promise<Bar | void>;
-var fooOrBarProm: Promise<Foo|Bar>;
-var bazProm: Promise<Baz>;
+let fooProm: Promise<Foo>;
+let barProm: Promise<Bar>;
+let barOrVoidProm: Promise<Bar | void>;
+let fooOrBarProm: Promise<Foo|Bar>;
+let bazProm: Promise<Baz>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numThen: PromiseLike<number>;
-var strThen: PromiseLike<string>;
-var anyThen: PromiseLike<any>;
-var boolThen: PromiseLike<boolean>;
-var objThen: PromiseLike<Object>;
-var voidThen: PromiseLike<void>;
+let numThen: PromiseLike<number>;
+let strThen: PromiseLike<string>;
+let anyThen: PromiseLike<any>;
+let boolThen: PromiseLike<boolean>;
+let objThen: PromiseLike<Object>;
+let voidThen: PromiseLike<void>;
 
-var fooThen: PromiseLike<Foo>;
-var barThen: PromiseLike<Bar>;
+let fooThen: PromiseLike<Foo>;
+let barThen: PromiseLike<Bar>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var numArrProm: Promise<number[]>;
-var strArrProm: Promise<string[]>;
-var anyArrProm: Promise<any[]>;
+let numArrProm: Promise<number[]>;
+let strArrProm: Promise<string[]>;
+let anyArrProm: Promise<any[]>;
 
-var fooArrProm: Promise<Foo[]>;
-var barArrProm: Promise<Bar[]>;
+let fooArrProm: Promise<Foo[]>;
+let barArrProm: Promise<Bar[]>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numArrThen: PromiseLike<number[]>;
-var strArrThen: PromiseLike<string[]>;
-var anyArrThen: PromiseLike<any[]>;
+let numArrThen: PromiseLike<number[]>;
+let strArrThen: PromiseLike<string[]>;
+let anyArrThen: PromiseLike<any[]>;
 
-var fooArrThen: PromiseLike<Foo[]>;
-var barArrThen: PromiseLike<Bar[]>;
+let fooArrThen: PromiseLike<Foo[]>;
+let barArrThen: PromiseLike<Bar[]>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var numPromArr: Promise<number>[];
-var strPromArr: Promise<string>[];
-var anyPromArr: Promise<any>[];
+let numPromArr: Promise<number>[];
+let strPromArr: Promise<string>[];
+let anyPromArr: Promise<any>[];
 
-var fooPromArr: Promise<Foo>[];
-var barPromArr: Promise<Bar>[];
+let fooPromArr: Promise<Foo>[];
+let barPromArr: Promise<Bar>[];
 
 // - - - - - - - - - - - - - - - - -
 
-var numThenArr: PromiseLike<number>[];
-var strThenArr: PromiseLike<string>[];
-var anyThenArr: PromiseLike<any>[];
+let numThenArr: PromiseLike<number>[];
+let strThenArr: PromiseLike<string>[];
+let anyThenArr: PromiseLike<any>[];
 
-var fooThenArr: PromiseLike<Foo>[];
-var barThenArr: PromiseLike<Bar>[];
+let fooThenArr: PromiseLike<Foo>[];
+let barThenArr: PromiseLike<Bar>[];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // booya!
-var fooThenArrThen: PromiseLike<PromiseLike<Foo>[]>;
-var barThenArrThen: PromiseLike<PromiseLike<Bar>[]>;
+let fooThenArrThen: PromiseLike<PromiseLike<Foo>[]>;
+let barThenArrThen: PromiseLike<PromiseLike<Bar>[]>;
 
-var fooResolver: Promise.Resolver<Foo>;
-var barResolver: Promise.Resolver<Bar>;
+let fooResolver: Promise.Resolver<Foo>;
+let barResolver: Promise.Resolver<Bar>;
 
-var fooInspection: Promise.Inspection<Foo>;
-var fooInspectionPromise: Promise<Promise.Inspection<Foo>>;
+let fooInspection: Promise.Inspection<Foo>;
+let fooInspectionPromise: Promise<Promise.Inspection<Foo>>;
 
-var fooInspectionArrProm: Promise<Promise.Inspection<Foo>[]>;
-var barInspectionArrProm: Promise<Promise.Inspection<Bar>[]>;
+let fooInspectionArrProm: Promise<Promise.Inspection<Foo>[]>;
+let barInspectionArrProm: Promise<Promise.Inspection<Bar>[]>;
 
-var BlueBird: typeof Promise;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-var version: string = Promise.version;
+let BlueBird: typeof Promise;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var nodeCallbackFunc = (callback: (err: any, result: string) => void) => {}
-var nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {}
+let version: string = Promise.version;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+let nodeCallbackFunc = (callback: (err: any, result: string) => void) => {}
+let nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -239,7 +239,7 @@ barProm = fooProm.then((value: Foo) => {
 });
 barProm = barProm.then((value: Bar) => {
 	if (value) return value;
-	var b:Bar;
+	let b:Bar;
 	return Promise.resolve(b);
 });
 
@@ -583,12 +583,12 @@ barProm = fooProm.race<Bar>();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var propsValue: { num: number, str: string };
+let propsValue: { num: number, str: string };
 Promise.resolve({ num: 1, str: Promise.resolve('a') }).props().then(val => { propsValue = val });
 Promise.props({ num: 1, str: Promise.resolve('a') }).then(val => { propsValue = val });
 Promise.props(Promise.props({ num: 1, str: Promise.resolve('a') })).then(val => { propsValue = val });
 
-var propsMapValue: Map<number, string>;
+let propsMapValue: Map<number, string>;
 Promise.resolve(new Map<number, string>()).props().then(val => { propsMapValue = val });
 Promise.resolve(new Map<number, PromiseLike<string>>()).props().then(val => { propsMapValue = val });
 Promise.props(new Map<number, string>()).then(val => { propsMapValue = val });
@@ -809,7 +809,7 @@ anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback), 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-declare var util: any;
+declare let util: any;
 
 function defaultFilter(name: string, func: Function) {
     return util.isIdentifier(name) &&
@@ -820,9 +820,9 @@ function defaultFilter(name: string, func: Function) {
 function DOMPromisifier(originalMethod: Function) {
     // return a function
     return function promisified() {
-        var args = [].slice.call(arguments);
+        let args = [].slice.call(arguments);
         // Needed so that the original method can be called with the correct receiver
-        var self = this;
+        let self = this;
         // which returns a promise
         return new Promise(function(resolve, reject) {
             args.push(resolve, reject);
