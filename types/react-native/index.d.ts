@@ -365,7 +365,7 @@ interface NativeSyntheticEvent<T> {
     preventDefault(): void
     stopPropagation(): void
     target: NodeHandle
-    timeStamp: Date
+    timeStamp: number
     type: string
 }
 
@@ -5612,7 +5612,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web'
 
 interface PlatformStatic {
     OS: PlatformOSType
@@ -5621,7 +5621,12 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>( specifics: { ios?: T, android?: T} ): T;
+    select<T>( specifics: { [platform in PlatformOSType]?: T; } ): T;
+}
+
+interface PlatformIOSStatic extends PlatformStatic {
+    isPad: boolean
+    isTVOS: boolean
 }
 
 /**
@@ -9171,6 +9176,7 @@ interface NativeModulesStatic {
  */
 export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
+export var PlatformIOS: PlatformIOSStatic
 export var PixelRatio: PixelRatioStatic
 
 export interface ComponentInterface<P> {
