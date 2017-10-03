@@ -1,4 +1,4 @@
-import * as duplexify from "duplexify";
+import duplexify = require("duplexify");
 import { Readable, Writable, Duplex } from "stream";
 
 declare var readable: Readable;
