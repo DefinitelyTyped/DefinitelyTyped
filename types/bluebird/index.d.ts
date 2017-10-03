@@ -1025,12 +1025,12 @@ declare namespace Bluebird {
   }
   export interface PromisifyAllOptions extends PromisifyOptions {
     suffix?: string;
-    filter?: (name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean) => boolean;
+    filter?(name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean): boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
-    promisifier?: (originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>) => () => PromiseLike<any>;
+    promisifier?(originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>): () => PromiseLike<any>;
   }
   export interface CoroutineOptions {
-    yieldHandler: (value: any) => any;
+    yieldHandler(value: any): any;
   }
 
   /**
@@ -1118,7 +1118,7 @@ declare namespace Bluebird {
      * If the the callback is called with multiple success values, the resolver fullfills its promise with an array of the values.
      */
     // TODO specify resolver callback
-    callback: (err: any, value: R, ...values: R[]) => void;
+    callback(err: any, value: R, ...values: R[]): void;
   }
 
   export interface Inspection<R> {
