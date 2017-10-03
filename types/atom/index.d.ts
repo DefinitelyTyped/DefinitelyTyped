@@ -570,7 +570,7 @@ declare global {
 			pickFolder(callback: (paths: string[]|null) => void): void;
 
 			/** Get the current window. */
-			getCurrentWindow(): Electron.BrowserWindow;
+			getCurrentWindow(): AtomElectron.BrowserWindow;
 
 			/** Move current window to the center of the screen. */
 			center(): void;
