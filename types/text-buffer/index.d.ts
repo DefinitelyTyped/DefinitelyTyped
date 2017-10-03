@@ -844,8 +844,11 @@ declare global {
 			onDidChangeEncoding(callback: (encoding: string) => void):
 				EventKit.Disposable;
 
-			/** Invoke the given callback before the buffer is saved to disk. */
-			onWillSave(callback: () => void): EventKit.Disposable;
+			/** Invoke the given callback before the buffer is saved to disk. If the
+			 *  given callback returns a promise, then the buffer will not be saved until
+			 *  the promise resolves.
+			 */
+			onWillSave(callback: () => Promise<void>|void): EventKit.Disposable;
 
 			/** Invoke the given callback after the buffer is saved to disk. */
 			onDidSave(callback: (event: Events.FileSaved) => void):

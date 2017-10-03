@@ -57,7 +57,15 @@ declare let paneContainer: Atom.Dock|Atom.WorkspaceCenter;
 // Exports Testing ============================================================
 import { BufferedNodeProcess, BufferedProcess, GitRepository, Notification,
 	TextBuffer, TextEditor, Point, Range, File, Directory, Emitter, Disposable,
-	CompositeDisposable, Task } from "atom";
+	CompositeDisposable, Task, watchPath } from "atom";
+
+const pathWatcher = watchPath("/var/test", {}, (events) => {
+	for (const event of events) {
+		str = event.path;
+		str = event.action;
+		if (event.oldPath) str = event.oldPath;
+	}
+});
 
 // global "atom"
 atom.commands;
@@ -86,6 +94,7 @@ atom.inDevMode();
 atom.inSafeMode();
 atom.inSpecMode();
 atom.getVersion();
+str = atom.getReleaseChannel();
 atom.isReleasedVersion();
 atom.getWindowLoadTime();
 
@@ -329,6 +338,11 @@ atom.commands.add("test", "test:function", (event) => {});
 atom.commands.add("test", {
 	"test-function": (event) => {},
 	"test-function2": (event) => {},
+});
+atom.commands.add("test", "test:function", {
+	didDispatch: (event) => event.stopImmediatePropagation(),
+	description: "A Command Test",
+	displayName: "Command: Test",
 });
 
 const commands = atom.commands.findCommands({ target: element });
@@ -906,8 +920,10 @@ pane.moveItem(element, 42);
 pane.moveItemToPane(element, pane, 42);
 pane.destroyActiveItem();
 
-pane.destroyItem(element);
-pane.destroyItem(element, true);
+async function destroyAndWait() {
+	bool = await pane.destroyItem(element);
+	bool = await pane.destroyItem(element, true);
+}
 
 pane.destroyItems();
 pane.destroyInactiveItems();
@@ -970,10 +986,25 @@ bool = panel.isVisible();
 panel.hide();
 panel.show();
 
+//// PathWatcher ==============================================================
+pathWatcher.dispose();
+sub = pathWatcher.onDidError((error) => str = error.name);
+
+async function waitForPathWatcher() {
+	await pathWatcher.getStartPromise();
+}
+
 //// Point -- See 'text-buffer' testing.
 //// Project ==================================================================
 // Event Subscription
 sub = project.onDidChangePaths(paths => paths.length);
+
+sub = project.onDidChangeFiles(events => {
+	for (const event of events) {
+		str = event.action;
+	}
+});
+
 sub = project.onDidAddBuffer(buffer => buffer.id);
 sub = project.observeBuffers(buffer => buffer.file);
 
@@ -989,6 +1020,11 @@ async function getDirectoryRepo() {
 strs = project.getPaths();
 project.setPaths(["a", "b"]);
 project.addPath("Test");
+
+async function initWatcher() {
+	await project.getWatcherPromise("/var/test");
+}
+
 project.removePath("Test");
 dirs = project.getDirectories();
 
