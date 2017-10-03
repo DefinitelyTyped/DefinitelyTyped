@@ -132,7 +132,7 @@ export class HDNode {
 
     toBase58(): string;
 
-    verify(hash: Buffer, signature: ECSignature): Buffer;
+    verify(hash: Buffer, signature: ECSignature): boolean;
 
     static HIGHEST_BIT: number;
 
@@ -204,15 +204,16 @@ export class Transaction {
 }
 
 export class TransactionBuilder {
-    constructor(network?: Network, maximumFeeRate?: number);
-
+    tx: Transaction;
     inputs: Array<{ pubKeys: Buffer[],
-                    signatures: ECSignature[],
-                    prevOutScript: Buffer,
-                    prevOutType: string,
-                    signType: string,
-                    signScript: Buffer,
-                    witness: boolean} >;
+                   signatures: Buffer[],
+                   prevOutScript: Buffer,
+                   prevOutType: string,
+                   signType: string,
+                   signScript: Buffer,
+                   witness: boolean} >;
+
+    constructor(network?: Network, maximumFeeRate?: number);
 
     addInput(txhash: Buffer | string | Transaction, vout: number, sequence?: number, prevOutScript?: Buffer): number;
 
