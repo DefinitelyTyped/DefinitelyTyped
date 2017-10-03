@@ -216,7 +216,7 @@ declare var Localize: {
     /**
      * Remove an event handler.
      * @param eventName Required. Name of event to unbind to. Can optionally be namespaced: "setLanguage.ns"
-     * @param fn Optional. The () => void to unbind from the event.
+     * @param fn Optional. The function to unbind from the event.
      */
     off(eventName: "initialize" | "setLanguage" | "pluralize" | "translate" | "untranslatePage" | "updatedDictionary", fn?: (event: any) => void): void
 
