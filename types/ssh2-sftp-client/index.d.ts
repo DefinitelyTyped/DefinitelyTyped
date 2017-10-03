@@ -5,6 +5,18 @@
 
 import * as ssh2 from 'ssh2';
 
+export = sftp;
+
+declare class sftp {
+  connect(options: ssh2.ConnectConfig): Promise<void>;
+  list(remoteFilePath: string): Promise<sftp.FileInfo[]>;
+  get(remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<NodeJS.ReadableStream>;
+  put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
+  mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
+  delete(remoteFilePath: string): Promise<void>;
+  rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
+  end(): Promise<void>;
+}
 declare namespace sftp {
   interface FileInfo {
     type: string;
@@ -20,17 +32,4 @@ declare namespace sftp {
     owner: number;
     group: number;
   }
-
-  class Client {
-    connect(options: ssh2.ConnectConfig): Promise<void>;
-    list(remoteFilePath: string): Promise<FileInfo[]>;
-    get(remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<NodeJS.ReadableStream>;
-    put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
-    mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
-    delete(remoteFilePath: string): Promise<void>;
-    rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
-    end(): Promise<void>;
-  }
 }
-
-export default sftp.Client;
