@@ -6413,7 +6413,7 @@ export interface NativeScrollEvent {
     contentOffset: NativeScrollPoint;
     contentSize: NativeScrollSize;
     layoutMeasurement: NativeScrollSize;
-    velocity: NativeScrollVelocity;
+    velocity?: NativeScrollVelocity;
     zoomScale: number;
 }
 
