@@ -5,12 +5,18 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-/// <reference types="electron" />
 /// <reference types="jquery" />
 /// <reference types="atom-keymap" />
 /// <reference types="event-kit" />
 /// <reference types="first-mate" />
 /// <reference types="text-buffer" />
+
+// Atom is built on (and thus bundles) Electron. We replicate that here.
+// This file can be obtained from the Electron releases page:
+//   https://github.com/electron/electron/releases/
+// See Atom's package.json file in order to determine the correct version to
+// bundle.
+/// <reference path="./electron.d.ts" />
 
 declare global {
 	/** The core classes for the Atom Text Editor. */

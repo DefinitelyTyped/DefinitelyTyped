@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "electron.d.ts",
         "atom-tests.ts",
         "services/index.d.ts"
     ]
