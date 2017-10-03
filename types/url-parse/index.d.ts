@@ -8,24 +8,45 @@
 import URLSearchParams = require("url-search-params");
 
 declare module "url-parse" {
-    export default class URL {
-        constructor(url: string, baseURL?: Object | string, parser?: boolean | Function);
-        hash: string;
-        host: string;
-        hostname: string;
-        href: string;
-        readonly origin: string;
-        password: string;
-        pathname: string;
-        port: string;
+    export type UrlQueryParamsParser = (url: string) => string;
+
+    export interface Protocol {
+        slashes: boolean;
         protocol: string;
+        rest: string;
+    }
+    
+    export class URL {
+        constructor(url: string, baseURL?: object | string, parser?: boolean | UrlQueryParamsParser);
+        readonly auth: string;
+        readonly hash: string;
+        readonly host: string;
+        readonly hostname: string;
+        readonly href: string;
+        readonly origin: string;
+        readonly password: string;
+        readonly pathname: string;
+        readonly port: string;
+        readonly protocol: string;
         query: { [key: string]: string | undefined };
-        search: string;
-        set(key: string, value: string): void;
-        username: string;
+        readonly search: string;
+        set(property: string, value: string | object | number | undefined): URL;
+        readonly slashes: boolean;
+        readonly username: string;
         readonly searchParams: URLSearchParams;
         toString(): string;
     }
-
-    export function parse(url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): URL;
+    
+    type ParseFunctionType = (url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean) => URL;
+    
+    interface ExtendedParseFunctionType extends ParseFunctionType {
+        extractProtocol: (url: string) => Protocol;
+        location: (url: string) => string;
+        qs: any;
+    }
+    
+    var parse: ExtendedParseFunctionType;
+    
 }
+
+export default parse;
