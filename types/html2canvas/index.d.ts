@@ -8,6 +8,9 @@
 
 declare namespace Html2Canvas {
     interface Html2CanvasOptions {
+        /** The rendered canvas is provided in the callback event onrendered */
+        onrendered?: (canvas: HTMLCanvasElement) => void;
+
         /** Whether to allow cross-origin images to taint the canvas */
         allowTaint?: boolean;
 
