@@ -206,19 +206,6 @@ declare namespace Office {
     export interface Auth {
         /**
         * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
-        * @param options Optional. Accepts an AuthOptions object to define sign-on behaviors.
-        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
-        */
-        getAccessTokenAsync(): void;
-        /**
-        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
-        * @param options Optional. Accepts an AuthOptions object to define sign-on behaviors.
-        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
-        */
-        getAccessTokenAsync(options: AuthOptions): void;
-        /**
-        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
-        * @param options Optional. Accepts an AuthOptions object to define sign-on behaviors.
         * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
         */
         getAccessTokenAsync(callback: (result: AsyncResult) => void): void;
@@ -1745,17 +1732,6 @@ declare namespace Office {
         /**
          * Returns the current body in a specified format
          * @param coercionType The format of the returned body
-         */
-        getAsync(coercionType: CoercionType): void;
-        /**
-         * Returns the current body in a specified format
-         * @param coercionType The format of the returned body
-         * @param options Any optional parameters or state data passed to the method
-         */
-        getAsync(coercionType: CoercionType, options: AsyncContextOptions): void;
-        /**
-         * Returns the current body in a specified format
-         * @param coercionType The format of the returned body
          * @param callback optional method to call when the getAsync method returns
          */
         getAsync(coercionType: CoercionType, callback: (result: AsyncResult) => void): void;
@@ -2002,20 +1978,6 @@ declare namespace Office {
          * If there is no selection but the cursor is in the body or the subject, the method returns null for the selected data. If a field other
          * than the body or subject is selected, the method returns the InvalidSelection error
          */
-        getSelectedDataAsync(coercionType: CoercionType): void;
-        /**
-         * Asynchronously returns selected data from the subject or body of a message.
-         *
-         * If there is no selection but the cursor is in the body or the subject, the method returns null for the selected data. If a field other
-         * than the body or subject is selected, the method returns the InvalidSelection error
-         */
-        getSelectedDataAsync(coercionType: CoercionType, options: AsyncContextOptions): void;
-        /**
-         * Asynchronously returns selected data from the subject or body of a message.
-         *
-         * If there is no selection but the cursor is in the body or the subject, the method returns null for the selected data. If a field other
-         * than the body or subject is selected, the method returns the InvalidSelection error
-         */
         getSelectedDataAsync(coercionType: CoercionType, callback: (result: AsyncResult) => void): void;
         /**
          * Asynchronously returns selected data from the subject or body of a message.
@@ -2028,30 +1990,26 @@ declare namespace Office {
         /**
          * Removes an attachment from a message
          * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
          */
         removeAttachmentAsync(attachmentIndex: string): void;
         /**
-                 * Removes an attachment from a message
-                 * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-                 * @param options Any optional parameters or state data passed to the method
-                 * @param callback The optional callback method
-                 */
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param options Any optional parameters or state data passed to the method
+         */
         removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions): void;
         /**
-                 * Removes an attachment from a message
-                 * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-                 * @param options Any optional parameters or state data passed to the method
-                 * @param callback The optional callback method
-                 */
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param callback The optional callback method
+         */
         removeAttachmentAsync(attachmentIndex: string, callback: (result: AsyncResult) => void): void;
         /**
-                 * Removes an attachment from a message
-                 * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
-                 * @param options Any optional parameters or state data passed to the method
-                 * @param callback The optional callback method
-                 */
+         * Removes an attachment from a message
+         * @param attachmentIndex The index of the attachment to remove. The maximum length of the string is 100 characters
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional callback method
+         */
         removeAttachmentAsync(attachmentIndex: string, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
 
         /**
@@ -2157,19 +2115,6 @@ declare namespace Office {
     export interface Location {
         /**
          * Begins an asynchronous request for the location of an appointment
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(): void;
-        /**
-         * Begins an asynchronous request for the location of an appointment
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options: AsyncContextOptions): void;
-        /**
-         * Begins an asynchronous request for the location of an appointment
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         getAsync(callback: (result: AsyncResult) => void): void;
@@ -2183,21 +2128,17 @@ declare namespace Office {
         /**
          * Begins an asynchronous request to set the location of an appointment
          * @param data The location of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the location is set
          */
         setAsync(location: string): void;
         /**
          * Begins an asynchronous request to set the location of an appointment
          * @param data The location of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the location is set
          */
         setAsync(location: string, options: AsyncContextOptions): void;
         /**
          * Begins an asynchronous request to set the location of an appointment
          * @param data The location of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the location is set
          */
         setAsync(location: string, callback: (result: AsyncResult) => void): void;
@@ -2321,8 +2262,6 @@ declare namespace Office {
          * Adds a notification to an item
          * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
          * @param JSONmessage A JSON object that contains the notification message to be added to this item
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
          */
         addAsync(key: string, JSONmessage: NotificationMessageDetails): void;
         /**
@@ -2330,14 +2269,12 @@ declare namespace Office {
          * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
          * @param JSONmessage A JSON object that contains the notification message to be added to this item
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
          */
         addAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
         /**
          * Adds a notification to an item
          * @param key A developer-specified key used to refrence this notification message. Developers can use it to modify this message later.
          * @param JSONmessage A JSON object that contains the notification message to be added to this item
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
         addAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
@@ -2352,19 +2289,6 @@ declare namespace Office {
 
         /**
          * Returns all keys and messages for an item.
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
-         */
-        getAllAsync(): void;
-        /**
-         * Returns all keys and messages for an item.
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
-         */
-        getAllAsync(options: AsyncContextOptions): void;
-        /**
-         * Returns all keys and messages for an item.
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
         getAllAsync(callback: (result: AsyncResult) => void): void;
@@ -2378,21 +2302,17 @@ declare namespace Office {
         /**
          * Removes a notification message for an item.
          * @param key The key for the notification message to remove
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
          */
         removeAsync(key: string): void;
         /**
          * Removes a notification message for an item.
          * @param key The key for the notification message to remove
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
          */
         removeAsync(key: string, options: AsyncContextOptions): void;
         /**
          * Removes a notification message for an item.
          * @param key The key for the notification message to remove
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
         removeAsync(key: string, callback: (result: AsyncResult) => void): void;
@@ -2408,8 +2328,6 @@ declare namespace Office {
          * Replaces a notification message that has a given key with another message
          * @param key The key for the notification message to replace.
          * @param JSONmessage A JSON object that contains the new notification message to replace the existing message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
          */
         replaceAsync(key: string, JSONmessage: NotificationMessageDetails): void;
         /**
@@ -2417,14 +2335,12 @@ declare namespace Office {
          * @param key The key for the notification message to replace.
          * @param JSONmessage A JSON object that contains the new notification message to replace the existing message
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional callback method
          */
         replaceAsync(key: string, JSONmessage: NotificationMessageDetails, options: AsyncContextOptions): void;
         /**
          * Replaces a notification message that has a given key with another message
          * @param key The key for the notification message to replace.
          * @param JSONmessage A JSON object that contains the new notification message to replace the existing message
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional callback method
          */
         replaceAsync(key: string, JSONmessage: NotificationMessageDetails, callback: (result: AsyncResult) => void): void;
@@ -2447,21 +2363,17 @@ declare namespace Office {
         /**
          * Begins an asynchronous request to add a recipient list to an appointment or message
          * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>): void;
         /**
          * Begins an asynchronous request to add a recipient list to an appointment or message
          * @param recipients The recipients to add to the recipients list
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options: AsyncContextOptions): void;
         /**
          * Begins an asynchronous request to add a recipient list to an appointment or message
          * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, callback: (result: AsyncResult) => void): void;
@@ -2472,22 +2384,8 @@ declare namespace Office {
          * @param callback The optional method to call when the string is inserted
          */
         addAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options: AsyncContextOptions, callback: (result: AsyncResult) => void): void;
-
         /**
          * Begins an asynchronous request to get the recipient list for an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(): void;
-        /**
-         * Begins an asynchronous request to get the recipient list for an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options: AsyncContextOptions): void;
-        /**
-         * Begins an asynchronous request to get the recipient list for an appointment or message
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         getAsync(callback: (result: AsyncResult) => void): void;
@@ -2501,21 +2399,17 @@ declare namespace Office {
         /**
          * Begins an asynchronous request to set the recipient list for an appointment or message
          * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>): void;
         /**
          * Begins an asynchronous request to set the recipient list for an appointment or message
          * @param recipients The recipients to add to the recipients list
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, options: AsyncContextOptions): void;
         /**
          * Begins an asynchronous request to set the recipient list for an appointment or message
          * @param recipients The recipients to add to the recipients list
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         setAsync(recipients: Array<string | EmailUser | EmailAddressDetails>, callback: (result: AsyncResult) => void): void;
@@ -2565,19 +2459,6 @@ declare namespace Office {
     export interface Subject {
         /**
          * Begins an asynchronous request to get the subject of an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(): void;
-        /**
-         * Begins an asynchronous request to get the subject of an appointment or message
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options: AsyncContextOptions): void;
-        /**
-         * Begins an asynchronous request to get the subject of an appointment or message
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         getAsync(callback: (result: AsyncResult) => void): void;
@@ -2591,21 +2472,17 @@ declare namespace Office {
         /**
          * Begins an asynchronous call to set the subject of an appointment or message
          * @param data The subject of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         setAsync(data: string): void;
         /**
          * Begins an asynchronous call to set the subject of an appointment or message
          * @param data The subject of the appointment. The string is limited to 255 characters
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         setAsync(data: string, options: AsyncContextOptions): void;
         /**
          * Begins an asynchronous call to set the subject of an appointment or message
          * @param data The subject of the appointment. The string is limited to 255 characters
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         setAsync(data: string, callback: (result: AsyncResult) => void): void;
@@ -2625,19 +2502,6 @@ declare namespace Office {
     export interface Time {
         /**
          * Begins an asynchronous request to get the start or end time
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(): void;
-        /**
-         * Begins an asynchronous request to get the start or end time
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
-         */
-        getAsync(options: AsyncContextOptions): void;
-        /**
-         * Begins an asynchronous request to get the start or end time
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         getAsync(callback: (result: AsyncResult) => void): void;
@@ -2651,21 +2515,17 @@ declare namespace Office {
         /**
          * Begins an asynchronous request to set the start or end time
          * @param dateTime A date-time object in Coordinated Universal Time (UTC)
-         * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         setAsync(dateTime: Date): void;
         /**
          * Begins an asynchronous request to set the start or end time
          * @param dateTime A date-time object in Coordinated Universal Time (UTC)
          * @param options Any optional parameters or state data passed to the method
-         * @param callback The optional method to call when the string is inserted
          */
         setAsync(dateTime: Date, options: AsyncContextOptions): void;
         /**
          * Begins an asynchronous request to set the start or end time
          * @param dateTime A date-time object in Coordinated Universal Time (UTC)
-         * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the string is inserted
          */
         setAsync(dateTime: Date, callback: (result: AsyncResult) => void): void;
