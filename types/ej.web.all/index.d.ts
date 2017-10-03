@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.3
+﻿// Type definitions for ej.web.all 15.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7732,7 +7732,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set showHeader as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set "showHeader" as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
