@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "max-line-length": false,
         "no-unnecessary-callback-wrapper": false,
         "no-unnecessary-generics": false,

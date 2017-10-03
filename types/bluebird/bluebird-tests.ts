@@ -280,7 +280,7 @@ fooProm = fooProm.caught((error: any) => {
 });
 
 fooProm = fooProm.catch((reason: any) => {
-	//handle multiple valid return types simultaneously
+	// handle multiple valid return types simultaneously
 	if (foo === null) {
 		return;
 	} else if (!reason) {
@@ -525,7 +525,7 @@ bool = fooProm.isResolved();
 anyProm = fooProm.call(str);
 anyProm = fooProm.call(str, 1, 2, 3);
 
-//TODO enable get() test when implemented
+// TODO enable get() test when implemented
 // barProm = fooProm.get(str);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -571,7 +571,7 @@ barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO fix collection inference
+// TODO fix collection inference
 
 barArrProm = fooProm.all<Bar>();
 fooInspectionPromise = fooProm.reflect();
@@ -618,7 +618,7 @@ Promise.all([fooProm, barProm, fooProm]).then(result => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO fix collection inference
+// TODO fix collection inference
 
 barArrProm = fooArrProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
 	return bar;
@@ -780,7 +780,7 @@ Promise.longStackTraces();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO enable delay
+// TODO enable delay
 
 fooProm = Promise.delay(num, fooThen);
 fooProm = Promise.delay(num, foo);
@@ -851,7 +851,7 @@ Promise.onPossiblyUnhandledRejection((reason: any) => {});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO expand tests to overloads
+// TODO expand tests to overloads
 fooArrProm = Promise.all(fooThenArrThen);
 fooArrProm = Promise.all(fooArrProm);
 fooArrProm = Promise.all(fooThenArr);
@@ -864,7 +864,7 @@ objProm = Promise.props(obj);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO expand tests to overloads
+// TODO expand tests to overloads
 fooProm = Promise.any(fooThenArrThen);
 fooProm = Promise.any(fooArrProm);
 fooProm = Promise.any(fooThenArr);
@@ -872,7 +872,7 @@ fooProm = Promise.any(fooArr);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO expand tests to overloads
+// TODO expand tests to overloads
 fooProm = Promise.race(fooThenArrThen);
 fooProm = Promise.race(fooArrProm);
 fooProm = Promise.race(fooThenArr);
@@ -880,7 +880,7 @@ fooProm = Promise.race(fooArr);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-//TODO expand tests to overloads
+// TODO expand tests to overloads
 fooArrProm = Promise.some(fooThenArrThen, num);
 fooArrProm = Promise.some(fooThenArr, num);
 fooArrProm = Promise.some(fooArr, num);
