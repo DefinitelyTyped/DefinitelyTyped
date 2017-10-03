@@ -145,6 +145,10 @@ export class DBConnection {
 }
 
 export class Management {
+    /**
+     * Initialize your client class, by using a Non Interactive Client to fetch an access_token via the Client Credentials Grant.
+     * @param {ManagementOptions} options
+     */
     constructor(options: ManagementOptions);
 
     /**
@@ -453,11 +457,20 @@ export class CrossOriginAuthentication {
 
 type Auth0Callback<T> = (error: null | Auth0Error, result: T) => void;
 
+interface TokenProvider {
+    enableCache?: boolean;
+    cacheTTLInSeconds?: number; 
+}
+
 interface ManagementOptions {
     domain: string;
-    token: string;
-    _sendTelemetry?: boolean;
-    _telemetryInfo?: any;
+    token?: string;
+    clientId?: string;
+    clientSecret?: string;
+    audience?: string;
+    scope?: string;
+    tokenProvider?: TokenProvider;
+    telemetry?: boolean;
 }
 
 interface AuthOptions {
