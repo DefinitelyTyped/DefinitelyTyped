@@ -68,6 +68,8 @@ const thingShadows = new awsIot.thingShadow({
    (err: Error, failedTopics: mqtt.Granted[]) => { }
  );
 
+ thingShadows.subscribe("topic", {}, (error: any, granted: mqtt.Granted) => {});
+
  thingShadows.on("connect", function() {
      console.log("connected to AWS IoT");
   });
