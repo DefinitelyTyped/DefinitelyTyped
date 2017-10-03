@@ -43,21 +43,21 @@ interface Baz {
 // - - - - - - - - - - - - - - - - -
 
 interface StrFooMap {
-	[key:string]:Foo;
+	[key: string]: Foo;
 }
 
 interface StrBarMap {
-	[key:string]:Bar;
+	[key: string]: Bar;
 }
 
 // - - - - - - - - - - - - - - - - -
 
 interface StrFooArrMap {
-	[key:string]:Foo[];
+	[key: string]: Foo[];
 }
 
 interface StrBarArrMap {
-	[key:string]:Bar[];
+	[key: string]: Bar[];
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -237,7 +237,7 @@ barProm = fooProm.then((value: Foo) => {
 });
 barProm = barProm.then((value: Bar) => {
 	if (value) return value;
-	let b:Bar;
+	let b: Bar;
 	return Promise.resolve(b);
 });
 
