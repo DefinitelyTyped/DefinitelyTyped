@@ -595,7 +595,7 @@ declare namespace dygraphs {
         /**
          * When to display the legend. By default, it only appears when a user mouses over the chart.
          * Set it to "always" to always display a legend of some sort. When set to "follow", legend
-         * follows highlighted points.
+         * follows highlighted points. If set to 'never' then it will not appear at all.
          */
         legend?: 'always' | 'follow' | 'onmouseover' | 'never';
 
