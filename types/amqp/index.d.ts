@@ -90,7 +90,7 @@ export interface ConnectionOptions {
   url?: string;
   port?: number;
   login?: string;
-  passowrd?: string;
+  password?: string;
   connectionTimeout?: number;
   authMechanism?: string;
   vhost?: string;

@@ -3202,21 +3202,21 @@ declare namespace sequelize {
     }
 
     /**
-         * Shortcut for types used in FindOptions.attributes
-         */
+     * Shortcut for types used in FindOptions.attributes
+     */
     type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
-* Options that are passed to any model creating a SELECT query
-*
-* A hash of options to describe the scope of the search
-*/
+     * Options that are passed to any model creating a SELECT query
+     *
+     * A hash of options to describe the scope of the search
+     */
     interface FindOptions<T> extends LoggingOptions, SearchPathOptions {
 
         /**
          * A hash of attributes to describe your search. See above for examples.
          */
-        where?: WhereOptions<T> | fn | Array<col | and | or | string>;
+        where?: WhereOptions<T> | where | fn | Array<col | and | or | string>;
 
         /**
          * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
@@ -3263,7 +3263,7 @@ declare namespace sequelize {
          * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
          * locks with joins. See [transaction.LOCK for an example](transaction#lock)
          */
-        lock?: string | { level: string, of: Model<any, any> };
+        lock?: TransactionLockLevel | { level: TransactionLockLevel, of: Model<any, any> };
 
         /**
          * Return raw result. See sequelize.query for more information.
@@ -5209,7 +5209,7 @@ declare namespace sequelize {
          * The maximum time, in milliseconds, that a connection can be idle before being released.
          */
         idle?: number;
-                     
+
         /**
          * The maximum time, in milliseconds, that pool will try to get connection before throwing error
          */
@@ -5220,7 +5220,7 @@ declare namespace sequelize {
          * object, and that its state is not disconnected.
          */
         validate?: (client?: any) => boolean;
-                     
+
         /*
          * The time interval, in milliseconds, for evicting stale connections
          */
@@ -5431,7 +5431,7 @@ declare namespace sequelize {
          *
          * Defaults to 'REPEATABLE_READ'
          */
-        isolationLevel?: string;
+        isolationLevel?: TransactionIsolationLevel;
 
         /**
          * Set the default transaction type. See `Sequelize.Transaction.TYPES` for possible
@@ -5439,7 +5439,7 @@ declare namespace sequelize {
          *
          * Defaults to 'DEFERRED'
          */
-        transactionType?: string;
+        transactionType?: TransactionType;
 
         /**
          * Print query execution time in milliseconds when logging SQL.
@@ -6153,17 +6153,28 @@ declare namespace sequelize {
 
     }
 
+    type TransactionIsolationLevelReadUncommitted = 'READ UNCOMMITTED';
+    type TransactionIsolationLevelReadCommitted = 'READ COMMITTED';
+    type TransactionIsolationLevelRepeatableRead = 'REPEATABLE READ';
+    type TransactionIsolationLevelSerializable = 'SERIALIZABLE';
+    type TransactionIsolationLevel = TransactionIsolationLevelReadUncommitted | TransactionIsolationLevelReadCommitted | TransactionIsolationLevelRepeatableRead | TransactionIsolationLevelSerializable;
+
     /**
      * Isolations levels can be set per-transaction by passing `options.isolationLevel` to `sequelize.transaction`.
      * Default to `REPEATABLE_READ` but you can override the default isolation level by passing
      * `options.isolationLevel` in `new Sequelize`.
      */
     interface TransactionIsolationLevels {
-        READ_UNCOMMITTED: string; // 'READ UNCOMMITTED'
-        READ_COMMITTED: string; // 'READ COMMITTED'
-        REPEATABLE_READ: string; // 'REPEATABLE READ'
-        SERIALIZABLE: string; // 'SERIALIZABLE'
+        READ_UNCOMMITTED: TransactionIsolationLevelReadUncommitted; // 'READ UNCOMMITTED'
+        READ_COMMITTED: TransactionIsolationLevelReadCommitted; // 'READ COMMITTED'
+        REPEATABLE_READ: TransactionIsolationLevelRepeatableRead; // 'REPEATABLE READ'
+        SERIALIZABLE: TransactionIsolationLevelSerializable; // 'SERIALIZABLE'
     }
+
+    type TransactionTypeDeferred = 'DEFERRED';
+    type TransactionTypeImmediate = 'IMMEDIATE';
+    type TransactionTypeExclusive = 'EXCLUSIVE';
+    type TransactionType = TransactionTypeDeferred | TransactionTypeImmediate | TransactionTypeExclusive;
 
     /**
      * Transaction type can be set per-transaction by passing `options.type` to `sequelize.transaction`.
@@ -6171,19 +6182,25 @@ declare namespace sequelize {
      * `options.transactionType` in `new Sequelize`.
      */
     interface TransactionTypes {
-        DEFERRED: string; // 'DEFERRED'
-        IMMEDIATE: string; // 'IMMEDIATE'
-        EXCLUSIVE: string; // 'EXCLUSIVE'
+        DEFERRED: TransactionTypeDeferred; // 'DEFERRED'
+        IMMEDIATE: TransactionTypeImmediate; // 'IMMEDIATE'
+        EXCLUSIVE: TransactionTypeExclusive; // 'EXCLUSIVE'
     }
+
+    type TransactionLockLevelUpdate = 'UPDATE';
+    type TransactionLockLevelShare = 'SHARE';
+    type TransactionLockLevelKeyShare = 'KEY SHARE';
+    type TransactionLockLevelNoKeyUpdate = 'NO KEY UPDATE';
+    type TransactionLockLevel = TransactionLockLevelUpdate | TransactionLockLevelShare | TransactionLockLevelKeyShare | TransactionLockLevelNoKeyUpdate;
 
     /**
      * Possible options for row locking. Used in conjuction with `find` calls:
      */
     interface TransactionLock {
-        UPDATE: string; // 'UPDATE'
-        SHARE: string; // 'SHARE'
-        KEY_SHARE: string; // 'KEY SHARE'
-        NO_KEY_UPDATE: string; // 'NO KEY UPDATE'
+        UPDATE: TransactionLockLevelUpdate; // 'UPDATE'
+        SHARE: TransactionLockLevelShare; // 'SHARE'
+        KEY_SHARE: TransactionLockLevelKeyShare; // 'KEY SHARE'
+        NO_KEY_UPDATE: TransactionLockLevelNoKeyUpdate; // 'NO KEY UPDATE'
     }
 
     /**
@@ -6198,12 +6215,12 @@ declare namespace sequelize {
         /**
          *  See `Sequelize.Transaction.ISOLATION_LEVELS` for possible options
          */
-        isolationLevel?: string;
+        isolationLevel?: TransactionIsolationLevel;
 
         /**
          *  See `Sequelize.Transaction.TYPES` for possible options
          */
-        type?: string;
+        type?: TransactionType;
 
         /**
          * A function that gets executed while running the query to log the sql.

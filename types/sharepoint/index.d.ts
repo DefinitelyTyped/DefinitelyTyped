@@ -1,6 +1,6 @@
 // Type definitions for Microsoft SharePoint: 2013.1
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
-// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>, Vincent Biret <https://github.com/baywet>
+// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>, Vincent Biret <https://github.com/baywet>, Tero Arvola <https://github.com/teroarvola>
 // Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -6380,10 +6380,10 @@ declare namespace SP {
             set_attachment(value: SocialAttachment): SocialAttachment;
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            get_contentItems(): SocialDataItem;
+            get_contentItems(): SocialDataItem[];
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            set_contentItems(value: SocialDataItem): SocialDataItem;
+            set_contentItems(value: SocialDataItem[]): SocialDataItem[];
             /** Contains the text body of the post. */
             get_contentText(): string;
             /** Contains the text body of the post.

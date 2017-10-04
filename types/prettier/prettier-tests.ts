@@ -24,4 +24,9 @@ prettier.resolveConfig('path/to/somewhere').then(options => {
     }
 });
 
+const options = prettier.resolveConfig.sync('path/to/somewhere');
+if (options !== null) {
+    const formatted = prettier.format('hello world', options);
+}
+
 prettier.clearConfigCache();

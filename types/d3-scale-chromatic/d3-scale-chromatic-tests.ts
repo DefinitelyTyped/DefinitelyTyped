@@ -33,6 +33,16 @@ const RdYlBu: string = d3ScaleChromatic.interpolateRdYlBu(0); // rgb(103, 0, 31)
 const RdYlGn: string = d3ScaleChromatic.interpolateRdYlGn(0); // rgb(103, 0, 31)
 const Spectral: string = d3ScaleChromatic.interpolateSpectral(0); // rgb(158, 1, 66)
 
+const schemeBrBG: string = d3ScaleChromatic.schemeBrBG[3][0]; // #d8b365
+const schemePRGn: string = d3ScaleChromatic.schemePRGn[3][0]; // #af8dc3
+const schemePiYG: string = d3ScaleChromatic.schemePiYG[3][0]; // #e9a3c9
+const schemePuOr: string = d3ScaleChromatic.schemePuOr[3][0]; // #998ec3
+const schemeRdBu: string = d3ScaleChromatic.schemeRdBu[3][0]; // #ef8a62
+const schemeRdGy: string = d3ScaleChromatic.schemeRdGy[3][0]; // #ef8a62
+const schemeRdYlBu: string = d3ScaleChromatic.schemeRdYlBu[3][0]; // #fc8d59
+const schemeRdYlGn: string = d3ScaleChromatic.schemeRdYlGn[3][0]; // #fc8d59
+const schemeSpectral: string = d3ScaleChromatic.schemeSpectral[3][0]; // #fc8d59
+
 // -----------------------------------------------------------------------
 // Sequential
 // -----------------------------------------------------------------------
@@ -42,6 +52,13 @@ const Grey: string = d3ScaleChromatic.interpolateGreys(1); // rgb(0, 0, 0)
 const Orange: string = d3ScaleChromatic.interpolateOranges(1); // rgb(127, 39, 4)
 const Purple: string = d3ScaleChromatic.interpolatePurples(1); // rgb(63, 0, 125)
 const Red: string = d3ScaleChromatic.interpolateReds(1); // rgb(103, 0, 13)
+
+const schemeBlues: string = d3ScaleChromatic.schemeBlues[3][0]; // #deebf7
+const schemeGreens: string = d3ScaleChromatic.schemeGreens[3][0]; // #e5f5e0
+const schemeGreys: string = d3ScaleChromatic.schemeGreys[3][0]; // #f0f0f0
+const schemeOranges: string = d3ScaleChromatic.schemeOranges[3][0]; // #fee6ce
+const schemePurples: string = d3ScaleChromatic.schemePurples[3][0]; // #efedf5
+const schemeReds: string = d3ScaleChromatic.schemeReds[3][0]; // #fee0d2
 
 // -----------------------------------------------------------------------
 // Sequential(Multi-Hue)
@@ -58,3 +75,16 @@ const YlGnBu: string = d3ScaleChromatic.interpolateYlGnBu(1); // rgb(8, 29, 88)
 const YlGn: string = d3ScaleChromatic.interpolateYlGn(1); // rgb(0, 69, 41)
 const YlOrBr: string = d3ScaleChromatic.interpolateYlOrBr(1); // rgb(102, 37, 6)
 const YlOrRd: string = d3ScaleChromatic.interpolateYlOrRd(1); // rgb(128, 0, 38)
+
+const schemeBuGn: string = d3ScaleChromatic.schemeBuGn[3][0]; // #e5f5f9
+const schemeBuPu: string = d3ScaleChromatic.schemeBuPu[3][0]; // #e0ecf4
+const schemeGnBu: string = d3ScaleChromatic.schemeGnBu[3][0]; // #e0f3db
+const schemeOrRd: string = d3ScaleChromatic.schemeOrRd[3][0]; // #fee8c8
+const schemePuBuGn: string = d3ScaleChromatic.schemePuBuGn[3][0]; // #ece2f0
+const schemePuBu: string = d3ScaleChromatic.schemePuBu[3][0]; // #ece7f2
+const schemePuRd: string = d3ScaleChromatic.schemePuRd[3][0]; // #e7e1ef
+const schemeRdPu: string = d3ScaleChromatic.schemeRdPu[3][0]; // #fde0dd
+const schemeYlGnBu: string = d3ScaleChromatic.schemeYlGnBu[3][0]; // #edf8b1
+const schemeYlGn: string = d3ScaleChromatic.schemeYlGn[3][0]; // #f7fcb9
+const schemeYlOrBr: string = d3ScaleChromatic.schemeYlOrBr[3][0]; // #fff7bc
+const schemeYlOrRd: string = d3ScaleChromatic.schemeYlOrRd[3][0]; // #ffeda0
