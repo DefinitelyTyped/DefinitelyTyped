@@ -1,10 +1,18 @@
-import UrlParse = require("url-parse");
+import parse = require("url-parse");
 
-const parse = UrlParse.default;
+const url1 = new URL("foo/bar", "https://github.com/");
+const url2 = parse("https://github.com/foo/bar?baz=true");
+const url3 = parse("https://github.com/foo/bar", true, true);
+const url4 = parse("foo/bar", "https://github.com/");
+const url5 = parse("foo/bar", "https://github.com/", () => "queryParserOverride");
 
-const url = new URL('https://github.com/foo/bar');
-const url2 = parse('https://github.com/foo/bar', true);
+url2.hash;
+url2.hostname;
+url2.query.baz;
 
-parse.extractProtocol("");
-parse.location("");
+url3.slashes;
+url3.set("protocol", "http://");
+
+parse.extractProtocol("https://github.com/foo/bar");
+parse.location("https://github.com/foo/bar");
 parse.qs;

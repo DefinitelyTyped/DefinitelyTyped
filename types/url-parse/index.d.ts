@@ -29,7 +29,8 @@ declare class URL {
     toString(): string;
 }
 
-type ParseFunctionType = (url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean) => URL;
+type ParseFunctionNodeType = (url: string, parseQueryString?: boolean, slashesDenoteHost?: boolean) => URL;
+type ParseFunctionType = (url: string, baseURL?: object | string, parser?: boolean | UrlQueryParamsParser) => URL;
 
 interface Protocol {
     slashes: boolean;
@@ -41,7 +42,7 @@ type ExtractProtocolFunctionType = (url: string) => Protocol;
 
 type LocationFunctionType = (url: string) => string;
 
-interface ExtendedParseFunctionType extends ParseFunctionType {
+interface ExtendedParseFunctionType extends ParseFunctionNodeType, ParseFunctionType {
     extractProtocol: ExtractProtocolFunctionType;
     location: LocationFunctionType;
     qs: any;
@@ -49,4 +50,4 @@ interface ExtendedParseFunctionType extends ParseFunctionType {
 
 declare const parse: ExtendedParseFunctionType;
 
-export default parse;
+export = parse;
