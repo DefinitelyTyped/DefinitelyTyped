@@ -18,5 +18,5 @@ let selector = new ScopeSelector("a | b");
 Many of the types used by First Mate can be referenced from the FirstMate namespace.
 
 ```ts
-function example(tokens: FirstMate.Tokens[]) {}
+function example(grammar: FirstMate.Grammar) {}
 ```
