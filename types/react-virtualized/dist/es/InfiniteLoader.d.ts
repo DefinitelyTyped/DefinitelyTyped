@@ -54,7 +54,6 @@ export type InfiniteLoaderProps = {
     [key: string]: any;
 };
 
-
 /**
  * Higher-order component that manages lazy-loading for "infinite" data.
  * This component decorates a virtual component and just-in-time prefetches rows as a user scrolls.

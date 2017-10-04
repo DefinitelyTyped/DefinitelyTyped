@@ -97,7 +97,8 @@ export type ColumnProps = {
     /** Flex basis (width) for this column; This value can grow or shrink based on :flexGrow and :flexShrink properties. */
     width: number;
 }
-export class Column extends Component<ColumnProps, S> {
+
+export class Column extends Component<ColumnProps, any> {
     static propTypes: {
         'aria-label': Requireable<string>,
         cellDataGetter: Requireable<TableCellDataGetter>,
