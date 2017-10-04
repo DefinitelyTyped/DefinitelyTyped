@@ -189,17 +189,17 @@ class Circulator {
         this.r = radius;
         this.p = precision;
         this.circleGenerator = d3Geo.geoCircle<Circulator, [number, number] | undefined>()
-            .radius(function(datum) {
+            .radius(function (datum) {
                 const t: Circulator = this;
                 const d: [number, number] | undefined = datum;
                 return this.r;
             })
-            .precision(function(datum) {
+            .precision(function (datum) {
                 const t: Circulator = this;
                 const d: [number, number] | undefined = datum;
                 return this.p;
             })
-            .center(function(datum) {
+            .center(function (datum) {
                 const t: Circulator = this;
                 const d: [number, number] | undefined = datum;
                 return d ? d : [0, 0];
@@ -371,6 +371,13 @@ const inverted2: [number, number] = constructedProjection.invert([54, 2]);
 // TODO ?????
 // let stream: d3Geo.Stream = constructedProjection.stream([54, 2]);
 
+const preClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.preclip();
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipAntimeridian);
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipCircle(45));
+
+const postClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.postclip();
+constructedProjection = constructedProjection.postclip(d3Geo.geoClipRectangle(0, 0, 1, 1));
+
 const clipAngle: number = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
 constructedProjection = constructedProjection.clipAngle(45);
@@ -490,7 +497,7 @@ canvasContext = geoPathCanvas.context<CanvasRenderingContext2D>();
 geoPathCanvas = geoPathCanvas.pointRadius(5);
 const geoPathCanvasPointRadiusAccessor: ((this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number) | number = geoPathCanvas.pointRadius();
 
-geoPathSVG = geoPathSVG.pointRadius(function(datum) {
+geoPathSVG = geoPathSVG.pointRadius(function (datum) {
     const that: SVGPathElement = this;
     const d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1> = datum;
     return datum.properties.name === 'Alabama' ? 10 : 15;
@@ -686,3 +693,13 @@ d3Geo.geoStream(sampleExtendedFeature1, stream);
 d3Geo.geoStream(sampleExtendedFeature2, stream);
 d3Geo.geoStream(sampleFeatureCollection, stream);
 d3Geo.geoStream(sampleExtendedFeatureCollection, stream);
+
+// ----------------------------------------------------------------------
+// Clipping Function
+// ----------------------------------------------------------------------
+
+let clippingFunction: (stream: d3Geo.GeoStream) => d3Geo.GeoStream;
+
+clippingFunction = d3Geo.geoClipAntimeridian;
+clippingFunction = d3Geo.geoClipCircle(45);
+clippingFunction = d3Geo.geoClipRectangle(0, 0, 1, 1);
