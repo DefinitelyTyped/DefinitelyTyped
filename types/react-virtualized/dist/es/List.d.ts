@@ -5,8 +5,6 @@ import { CellMeasurerCache } from './CellMeasurer'
 
 export type ListRowProps = GridCellProps & { index: number, style: React.CSSProperties };
 
-export type ComponentState = {} | void;
-
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
 export type ListProps = GridCoreProps & {
     deferredMeasurementCache?: CellMeasurerCache;
@@ -74,7 +72,7 @@ export type ListProps = GridCoreProps & {
  *
  * This component renders a virtualized list of elements with either fixed or dynamic heights.
  */
-export class List extends PureComponent<ListProps, ComponentState> {
+export class List extends PureComponent<ListProps, any> {
     static propTypes: {
         'aria-label': Requireable<string>,
         autoHeight: Requireable<boolean>,
