@@ -178,9 +178,7 @@ export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps {
 	fill?: string;
-	fillOpacity?: number;
 	stroke?: string;
-	strokeOpacity?: number;
 }
 
 export class Cell extends React.Component<CellProps> { }
@@ -537,7 +535,7 @@ export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 
 export class Rectangle extends React.Component<RectangleProps> { }
 
-export interface ReferenceAreaProps extends CellProps {
+export interface ReferenceAreaProps extends Partial<CSSStyleDeclaration> {
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	x1?: number | string;
