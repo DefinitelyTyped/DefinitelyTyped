@@ -9,7 +9,6 @@ import URLSearchParams = require("url-search-params");
 type UrlQueryParamsParser = (url: string) => string;
 
 declare class URL {
-    constructor(url: string, baseURL?: object | string, parser?: boolean | UrlQueryParamsParser);
     readonly auth: string;
     readonly hash: string;
     readonly host: string;
