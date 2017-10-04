@@ -5315,44 +5315,44 @@ declare namespace sequelize {
         raw: symbol;  //deprecated remove by v5.0
     }
 
-    interface OperatorsAliases {
+    type OperatorsAliases = Partial<{
         [key: string]: symbol;
-        $eq?: symbol;
-        $ne?: symbol;
-        $gte?: symbol;
-        $gt?: symbol;
-        $lte?: symbol;
-        $lt?: symbol;
-        $not?: symbol;
-        $in?: symbol;
-        $notIn?: symbol;
-        $is?: symbol;
-        $like?: symbol;
-        $notLike?: symbol;
-        $iLike?: symbol;
-        $notILike?: symbol;
-        $regexp?: symbol;
-        $notRegexp?: symbol;
-        $iRegexp?: symbol;
-        $notIRegexp?: symbol;
-        $between?: symbol;
-        $notBetween?: symbol;
-        $overlap?: symbol;
-        $contains?: symbol;
-        $contained?: symbol;
-        $adjacent?: symbol;
-        $strictLeft?: symbol;
-        $strictRight?: symbol;
-        $noExtendRight?: symbol;
-        $noExtendLeft?: symbol;
-        $and?: symbol;
-        $or?: symbol;
-        $any?: symbol;
-        $all?: symbol;
-        $values?: symbol;
-        $col?: symbol;
-        $raw?: symbol;  //deprecated remove by v5.0
-    }
+        $eq: symbol;
+        $ne: symbol;
+        $gte: symbol;
+        $gt: symbol;
+        $lte: symbol;
+        $lt: symbol;
+        $not: symbol;
+        $in: symbol;
+        $notIn: symbol;
+        $is: symbol;
+        $like: symbol;
+        $notLike: symbol;
+        $iLike: symbol;
+        $notILike: symbol;
+        $regexp: symbol;
+        $notRegexp: symbol;
+        $iRegexp: symbol;
+        $notIRegexp: symbol;
+        $between: symbol;
+        $notBetween: symbol;
+        $overlap: symbol;
+        $contains: symbol;
+        $contained: symbol;
+        $adjacent: symbol;
+        $strictLeft: symbol;
+        $strictRight: symbol;
+        $noExtendRight: symbol;
+        $noExtendLeft: symbol;
+        $and: symbol;
+        $or: symbol;
+        $any: symbol;
+        $all: symbol;
+        $values: symbol;
+        $col: symbol;
+        $raw: symbol;  //deprecated remove by v5.0
+    }>
 
     /**
      * Options for the constructor of Sequelize main class
