@@ -4,7 +4,7 @@
 //                 Fedor Kirpichev <https://github.com/Mory1879>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// This is deprecated due to module name change. Please use 'atmosphere.js' for future development..
+// Use this typings in future instead of deprecated 'atmosphere'.
 
 declare namespace Atmosphere {
     interface Atmosphere {
@@ -105,6 +105,6 @@ declare namespace Atmosphere {
 }
 
 declare var atmosphere:Atmosphere.Atmosphere;
-declare module 'atmosphere' {
+declare module 'atmosphere.js' {
     export = atmosphere;
 }
