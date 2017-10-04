@@ -24,7 +24,7 @@ export type ScaleType = 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' 
 export type PositionType = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
 	'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' | 'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
 
-type PartialAndNumber<T> = {
+export type PartialAndNumber<T> = {
    [P in keyof T]?: number | T[P];
 };
 
