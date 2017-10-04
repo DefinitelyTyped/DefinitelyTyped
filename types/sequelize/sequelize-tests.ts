@@ -1479,6 +1479,13 @@ Chair.findAll({
     },
 });
 
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { [Sequelize.Op.in]: [3, 4] },
+    },
+});
+
 // If you want to use a property that isn't explicitly on the model's Attributes
 // use the find-function's generic type parameter.
 Chair.findAll<{ customProperty: number }>({
