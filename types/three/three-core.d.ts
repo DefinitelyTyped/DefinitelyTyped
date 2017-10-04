@@ -3625,8 +3625,8 @@ export class Matrix3 implements Matrix {
     transposeIntoArray(r: number[]): number[];
     fromArray(array: number[], offset?: number): Matrix3;
     toArray(): number[];
-	
-	/**
+
+    /**
      * Multiplies this matrix by m.
      */
     multiply(m: Matrix3): Matrix3;
