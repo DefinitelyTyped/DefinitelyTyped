@@ -24,10 +24,11 @@ export interface Warning {
 export interface BundleOptions {
 	/** The format of the generated bundle. */
 	format?: Format
-	/** What export mode to use. Defaults to auto, which guesses your intentions based on what the `import` module exports. */
+	/** What export mode to use. Defaults to auto, which guesses your intentions based on what the `input` module exports. */
 	exports?: 'auto' | 'default' | 'named' | 'none'
 	/** An ID to use for AMD/UMD bundles. */
 	moduleId?: string
+	amd?:{ id?:string, define?:string }
 	/** The name to use for the module for UMD/IIFE bundles (required for bundles with exports). */
 	name?: string
 	/** Mapping of IDs → global variable names. Used for UMD/IIFE bundles. */
