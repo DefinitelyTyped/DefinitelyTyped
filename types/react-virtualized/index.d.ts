@@ -3,6 +3,7 @@
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 //                 John Gunther <https://github.com/guntherjh>
 //                 Konstantin Nesterov <https://github.com/wasd171>
+//                 Deni Putra <https://github.com/pesakitan22>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
