@@ -1592,13 +1592,13 @@ export function geoIdentity(): GeoIdentityTranform;
 // ----------------------------------------------------------------------
 
 /**
- * Returns a clipping function which accepts a stream as input and transforms it to a stream where geometries (lines or polygons) that cross the antimeridian line are cut in two, one on each side.
+ * A clipping function transforming a stream such that geometries (lines or polygons) that cross the antimeridian line are cut in two, one on each side.
  * Typically used for pre-clipping.
  */
 export const geoClipAntimeridian: ((stream: GeoStream) => GeoStream);
 
 /**
- * Returns a clipping function which accepts a stream as input and transforms it to a stream where geometries are bounded by a small circle of radius angle around the projection’s center.
+ * Generates a clipping function transforming a stream such that geometries are bounded by a small circle of radius angle around the projection’s center.
  * Typically used for pre-clipping.
  *
  * @param angle
@@ -1606,7 +1606,7 @@ export const geoClipAntimeridian: ((stream: GeoStream) => GeoStream);
 export function geoClipCircle(angle: number): (stream: GeoStream) => GeoStream;
 
 /**
- * Returns a clipping function which accepts a stream as input and transforms it to a stream where geometries are bounded by a rectangle of coordinates [[x0, y0], [x1, y1]].
+ * Generates a clipping function transforming a stream such that geometries are bounded by a rectangle of coordinates [[x0, y0], [x1, y1]].
  * Typically used for post-clipping.
  *
  * @param x0 x0 coordinate.
