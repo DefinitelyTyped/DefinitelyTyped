@@ -1,8 +1,10 @@
 import * as FeedMe from "feedme";
+import FeedMeCommonJS = require("feedme");
 import * as http from "http";
 
 http.get('https://nodejs.org/en/feed/blog.xml', (res) => {
   const feedme = new FeedMe(true);
+  const feedme2 = new FeedMeCommonJS(true);
   const feedmeWithoutBuffer = new FeedMe();
 
   res.pipe(feedme);
