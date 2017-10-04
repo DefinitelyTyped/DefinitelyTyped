@@ -7,6 +7,8 @@
 /// <reference types="node" />
 /// <reference types="event-kit" />
 
+import { ReadStream, WriteStream } from "fs";
+
 declare global {
 	namespace PathWatcher {
 		/** Objects that appear as parameters to callbacks. */
@@ -128,13 +130,13 @@ declare global {
 			read(flushCache?: boolean): Promise<string>;
 
 			/** Returns a stream to read the content of the file. */
-			createReadStream(): NodeJS.ReadableStream;
+			createReadStream(): ReadStream;
 
 			/** Overwrites the file with the given text. */
 			write(text: string): Promise<undefined>;
 
 			/** Returns a stream to write content to the file. */
-			createWriteStream(): NodeJS.WritableStream;
+			createWriteStream(): WriteStream;
 
 			/** Overwrites the file with the given text. */
 			writeSync(text: string): undefined;
