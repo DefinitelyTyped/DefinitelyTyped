@@ -256,7 +256,7 @@ declare namespace OAuth2Server {
          * @param accessToken
          * @param callback
          */
-        getAccessToken(accessToken: string, callback?: Callback<Token>): Promise<Token>;
+        getAccessToken(accessToken: string, callback?: Callback<Token>): Promise<Token | Falsey>;
 
         /**
          * Invoked during request authentication to check if the provided access token was authorized the requested scopes.
