@@ -24,6 +24,10 @@ export type ScaleType = 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' 
 export type PositionType = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
 	'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' | 'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
 
+export type PartialAndNumber<T> = {
+   [P in keyof T]?: number | T[P];
+};
+
 export interface Margin {
 	top: number;
 	right: number;
@@ -535,7 +539,7 @@ export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 
 export class Rectangle extends React.Component<RectangleProps> { }
 
-export interface ReferenceAreaProps {
+export interface ReferenceAreaProps extends PartialAndNumber<CSSStyleDeclaration> {
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	x1?: number | string;
