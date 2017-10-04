@@ -100,10 +100,7 @@ declare namespace connectMongo {
     }
 
     export interface MongoStoreFactory {
-        new (options: MongoUrlOptions): MongoStore;
-        new (options: MogooseConnectionOptions): MongoStore;
-        new (options: NativeMongoOptions): MongoStore;
-        new (options: NativeMongoPromiseOptions): MongoStore;
+        new(options: MongoUrlOptions | MogooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
     }
 
     export class MongoStore extends session.Store {
