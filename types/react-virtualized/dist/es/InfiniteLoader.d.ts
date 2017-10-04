@@ -6,6 +6,8 @@ export type InfiniteLoaderChildProps = {
     registerChild: (registeredChild: any) => void
 }
 
+export type ComponentState = {} | void;
+
 export type InfiniteLoaderProps = {
     /**
      * Function responsible for rendering a virtualized component.
@@ -54,12 +56,13 @@ export type InfiniteLoaderProps = {
     [key: string]: any;
 };
 
+
 /**
  * Higher-order component that manages lazy-loading for "infinite" data.
  * This component decorates a virtual component and just-in-time prefetches rows as a user scrolls.
  * It is intended as a convenience component; fork it if you'd like finer-grained control over data-loading.
  */
-export class InfiniteLoader extends PureComponent<InfiniteLoaderProps, S> {
+export class InfiniteLoader extends PureComponent<InfiniteLoaderProps, ComponentState> {
     static propTypes: {
         children: Validator<(props: InfiniteLoaderChildProps) => React.ReactNode>,
         isRowLoaded: Validator<(params: Index) => boolean>,

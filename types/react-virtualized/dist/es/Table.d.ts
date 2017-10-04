@@ -312,13 +312,15 @@ export const SortDirection: SortDirectionStatic
 
 export type SortDirectionType = 'ASC' | 'DESC'
 
+export type ComponentState = {} | void;
+
 export const SortIndicator: React.StatelessComponent<{ sortDirection: SortDirectionType }>
 
 /**
  * Table component with fixed headers and virtualized rows for improved performance with large data sets.
  * This component expects explicit width, height, and padding parameters.
  */
-export class Table extends PureComponent<TableProps, S> {
+export class Table extends PureComponent<TableProps, ComponentState> {
     static propTypes: {
         'aria-label': Requireable<string>,
         autoHeight: Requireable<boolean>,

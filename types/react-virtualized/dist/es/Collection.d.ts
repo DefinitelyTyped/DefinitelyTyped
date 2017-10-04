@@ -11,6 +11,7 @@ import {
 
 export type CollectionCellSizeAndPosition = { height: number, width: number, x: number, y: number };
 export type CollectionCellSizeAndPositionGetter = (params: Index) => CollectionCellSizeAndPosition;
+export type ComponentState = {} | void;
 
 export type CollectionCellGroupRendererParams = {
     cellSizeAndPositionGetter: CollectionCellSizeAndPositionGetter,
@@ -120,7 +121,7 @@ export type CollectionProps = {
  * Renders scattered or non-linear data.
  * Unlike Grid, which renders checkerboard data, Collection can render arbitrarily positioned- even overlapping- data.
  */
-export class Collection extends PureComponent<CollectionProps, S> {
+export class Collection extends PureComponent<CollectionProps, ComponentState> {
     static propTypes: {
         'aria-label': Requireable<string>,
         cellCount: Validator<number>,
