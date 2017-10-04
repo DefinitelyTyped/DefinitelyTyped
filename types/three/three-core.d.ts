@@ -3627,6 +3627,18 @@ export class Matrix3 implements Matrix {
     toArray(): number[];
 
     /**
+     * Multiplies this matrix by m.
+     */
+    multiply(m: Matrix3): Matrix3;
+
+    premultiply(m: Matrix3): Matrix3;
+
+    /**
+     * Sets this matrix to a x b.
+     */
+    multiplyMatrices(a: Matrix3, b: Matrix3): Matrix3;
+
+    /**
      * @deprecated
      */
     multiplyVector3(vector: Vector3): any;
