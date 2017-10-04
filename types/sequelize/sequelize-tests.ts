@@ -1207,6 +1207,16 @@ new Sequelize( {
     typeValidation: true
 } );
 
+new Sequelize({
+    operatorsAliases: false,
+});
+
+new Sequelize({
+    operatorsAliases: {
+        $and: Sequelize.Op.and,
+    },
+});
+
 s.model( 'Project' );
 s.models['Project'];
 s.define( 'Project', {

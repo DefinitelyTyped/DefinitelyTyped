@@ -5273,6 +5273,87 @@ declare namespace sequelize {
     }
 
     /**
+     * Operator symbols to be used when querying data
+     */
+    interface Operator {
+        eq: Symbol;
+        ne: Symbol;
+        gte: Symbol;
+        gt: Symbol;
+        lte: Symbol;
+        lt: Symbol;
+        not: Symbol;
+        is: Symbol;
+        in: Symbol;
+        notIn: Symbol;
+        like: Symbol;
+        notLike: Symbol;
+        iLike: Symbol;
+        notILike: Symbol;
+        regexp: Symbol;
+        notRegexp: Symbol;
+        iRegexp: Symbol;
+        notIRegexp: Symbol;
+        between: Symbol;
+        notBetween: Symbol;
+        overlap: Symbol;
+        contains: Symbol;
+        contained: Symbol;
+        adjacent: Symbol;
+        strictLeft: Symbol;
+        strictRight: Symbol;
+        noExtendRight: Symbol;
+        noExtendLeft: Symbol;
+        and: Symbol;
+        or: Symbol;
+        any: Symbol;
+        all: Symbol;
+        values: Symbol;
+        col: Symbol;
+        placeholder: Symbol;
+        join: Symbol;
+        raw: Symbol;  //deprecated remove by v5.0
+    }
+
+    interface OperatorAliases {
+        $eq?: Symbol,
+        $ne?: Symbol;
+        $gte?: Symbol;
+        $gt?: Symbol;
+        $lte?: Symbol;
+        $lt?: Symbol;
+        $not?: Symbol;
+        $in?: Symbol;
+        $notIn?: Symbol;
+        $is?: Symbol;
+        $like?: Symbol;
+        $notLike?: Symbol;
+        $iLike?: Symbol;
+        $notILike?: Symbol;
+        $regexp?: Symbol;
+        $notRegexp?: Symbol;
+        $iRegexp?: Symbol;
+        $notIRegexp?: Symbol;
+        $between?: Symbol;
+        $notBetween?: Symbol;
+        $overlap?: Symbol;
+        $contains?: Symbol;
+        $contained?: Symbol;
+        $adjacent?: Symbol;
+        $strictLeft?: Symbol;
+        $strictRight?: Symbol;
+        $noExtendRight?: Symbol;
+        $noExtendLeft?: Symbol;
+        $and?: Symbol;
+        $or?: Symbol;
+        $any?: Symbol;
+        $all?: Symbol;
+        $values?: Symbol;
+        $col?: Symbol;
+        $raw?: Symbol;  //deprecated remove by v5.0
+    }
+
+    /**
      * Options for the constructor of Sequelize main class
      */
     interface Options {
@@ -5447,6 +5528,12 @@ declare namespace sequelize {
          * Defaults to false
          */
         benchmark?: boolean;
+
+        /**
+         * String based operator alias, default value is true which will enable all operators alias.
+         * Pass object to limit set of aliased operators or false to disable completely.
+         */
+        operatorsAliases?: boolean | OperatorAliases;
     }
 
     /**
@@ -5499,6 +5586,8 @@ declare namespace sequelize {
          * A reference to the sequelize instance class.
          */
         Instance: Instance<any>;
+
+        Op: Operator;
 
         /**
          * Creates a object representing a database function. This can be used in search queries, both in where and
