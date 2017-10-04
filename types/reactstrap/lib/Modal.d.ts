@@ -1,6 +1,7 @@
 import { CSSModule } from '../index';
 
 interface Props {
+  autoFocus?: boolean;
   isOpen?: boolean;
   autoFocus?: boolean;
   size?: string;
