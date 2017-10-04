@@ -1,11 +1,10 @@
-// Type definitions for Atom 1.20
+// Type definitions for Atom 1.21
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-/// <reference types="electron" />
 /// <reference types="jquery" />
 /// <reference types="atom-keymap" />
 /// <reference types="event-kit" />
@@ -113,6 +112,19 @@ declare global {
 				/** Object the new parameters the decoration now has */
 				newProperties: Structures.DecorationProps;
 			}
+
+			type FilesystemChange = Array<{
+				/** A string describing the filesystem action that occurred. */
+				action: "created"|"modified"|"deleted"|"renamed";
+
+				/** The absolute path to the filesystem entry that was acted upon. */
+				path: string;
+
+				/** For rename events, a string containing the filesystem entry's former
+				 *  absolute path.
+				 */
+				oldPath?: string;
+			}>;
 		}
 
 		/** Objects that appear as parameters to functions. */
@@ -527,6 +539,11 @@ declare global {
 			/** Get the version of the Atom application. */
 			getVersion(): string;
 
+			/** Gets the release channel of the Atom application.
+			 *  Returns the release channel, which can be 'dev', 'beta', or 'stable'.
+			 */
+			getReleaseChannel(): "dev"|"beta"|"stable";
+
 			/** Returns a boolean that is true if the current version is an official release. */
 			isReleasedVersion(): boolean;
 
@@ -564,7 +581,7 @@ declare global {
 			pickFolder(callback: (paths: string[]|null) => void): void;
 
 			/** Get the current window. */
-			getCurrentWindow(): Electron.BrowserWindow;
+			getCurrentWindow(): object; // Electron's BrowserWindow class.
 
 			/** Move current window to the center of the screen. */
 			center(): void;
@@ -767,16 +784,24 @@ declare global {
 		 *  using CSS selectors.
 		 */
 		interface CommandRegistry {
-			// Register a single command.
-			add(target: string|Node, commandName: string, callback: (event:
-				AtomKeymap.CommandEvent) => void): EventKit.Disposable;
+			/** Register a single command. */
+			add(target: string|Node, commandName: string, listener: {
+				didDispatch(event: AtomKeymap.CommandEvent): void,
+				displayName?: string,
+				description?: string,
+			} | ((event: AtomKeymap.CommandEvent) => void)): EventKit.Disposable;
 
-			// Register multiple commands.
+			/** Register multiple commands. */
 			add(target: string|Node, commands: { [key: string]: (event:
 				AtomKeymap.CommandEvent) => void }): EventKit.CompositeDisposable;
 
 			/** Find all registered commands matching a query. */
-			findCommands(params: { target: Node }): Array<{ name: string, displayName: string }>;
+			findCommands(params: { target: Node }): Array<{
+				name: string,
+				displayName: string,
+				description?: string,
+				tags?: string[],
+			}>;
 
 			/** Simulate the dispatch of a command on a DOM node. */
 			dispatch(target: Node, commandName: string): void;
@@ -1073,7 +1098,7 @@ declare global {
 			/** Hide the dock and activate the WorkspaceCenter if the dock was was previously focused. */
 			hide(): void;
 
-			/** Toggle the dock's visiblity without changing the Workspace's active pane container. */
+			/** Toggle the dock's visibility without changing the Workspace's active pane container. */
 			toggle(): void;
 
 			/** Check if the dock is visible. */
@@ -1672,7 +1697,7 @@ declare global {
 			destroyActiveItem(): void;
 
 			/** Destroy the given item. */
-			destroyItem(item: object, force?: boolean): void;
+			destroyItem(item: object, force?: boolean): Promise<boolean>;
 
 			/** Destroy all items. */
 			destroyItems(): void;
@@ -1779,6 +1804,23 @@ declare global {
 			show(): void;
 		}
 
+		/** Manage a subscription to filesystem events that occur beneath a root directory. */
+		interface PathWatcher extends EventKit.DisposableLike {
+			/** Return a Promise that will resolve when the underlying native watcher is
+			 *  ready to begin sending events.
+			 */
+			getStartPromise(): Promise<undefined>;
+
+			/** Invokes a function when any errors related to this watcher are reported. */
+			onDidError(callback: (error: Error) => void): EventKit.Disposable;
+
+			/** Unsubscribe all subscribers from filesystem events. Native resources will be
+			 *  release asynchronously, but this watcher will stop broadcasting events
+			 *  immediately.
+			 */
+			dispose(): void;
+		}
+
 		/** Represents a project that's opened in Atom. */
 		interface Project {
 			// Event Subscription
@@ -1792,6 +1834,9 @@ declare global {
 			 *  the project.
 			 */
 			observeBuffers(callback: (buffer: TextBuffer.TextBuffer) => void): EventKit.Disposable;
+
+			/** Invoke a callback when a filesystem change occurs within any open project path. */
+			onDidChangeFiles(callback: (events: Events.FilesystemChange) => void): EventKit.Disposable;
 
 			// Accessing the Git Repository
 			/** Get an Array of GitRepositorys associated with the project's directories. */
@@ -1809,6 +1854,11 @@ declare global {
 
 			/** Add a path to the project's list of root paths. */
 			addPath(projectPath: string): void;
+
+			/** Access a promise that resolves when the filesystem watcher associated with a
+			 *  project root directory is ready to begin receiving events.
+			 */
+			getWatcherPromise(projectPath: string): Promise<PathWatcher>;
 
 			/** Remove a path from the project's list of root paths. */
 			removePath(projectPath: string): void;
@@ -2863,36 +2913,36 @@ declare global {
 				{ reversed?: boolean, preserveFolds?: boolean }): Selection;
 
 			/** Select from the current cursor position to the given position in buffer coordinates.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectToBufferPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 			/** Select from the current cursor position to the given position in screen coordinates.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectToScreenPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 			/** Move the cursor of each selection one character upward while preserving the
 			 *  selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectUp(rowCount?: number): void;
 
 			/** Move the cursor of each selection one character downward while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectDown(rowCount?: number): void;
 
 			/** Move the cursor of each selection one character leftward while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectLeft(columnCount?: number): void;
 
 			/** Move the cursor of each selection one character rightward while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectRight(columnCount?: number): void;
 
@@ -2913,7 +2963,7 @@ declare global {
 
 			/** Move the cursor of each selection to the beginning of its line while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectToBeginningOfLine(): void;
 
@@ -3650,6 +3700,7 @@ declare global {
 				item: object,
 				visible?: boolean,
 				priority?: number,
+				autoFocus?: boolean,
 			}): Panel;
 
 			/** Returns the Panel associated with the given item or null when the item
@@ -3811,6 +3862,7 @@ declare global {
 			type PaneItemMoved = AtomCore.Events.PaneItemMoved;
 			type CursorPositionChanged = AtomCore.Events.CursorPositionChanged;
 			type DecorationPropsChanged = AtomCore.Events.DecorationPropsChanged;
+			type FilesystemChange = AtomCore.Events.FilesystemChange;
 		}
 
 		/** Objects that appear as parameters to functions. */
@@ -3909,8 +3961,6 @@ declare global {
 
 		/** Represents an individual file that can be watched, read from, and written to. */
 		type File = PathWatcher.File;
-
-		type PathWatcher = PathWatcher.PathWatcher;
 
 		// Text Buffer ==============================================================
 		/** The interface that should be implemented for all "point-compatible" objects. */
@@ -4055,6 +4105,9 @@ declare global {
 		 */
 		type Panel = AtomCore.Panel;
 
+		/** Manage a subscription to filesystem events that occur beneath a root directory. */
+		type PathWatcher = AtomCore.PathWatcher;
+
 		/** Represents a project that's opened in Atom. */
 		type Project = AtomCore.Project;
 
@@ -4145,3 +4198,10 @@ export const TextBuffer: TextBuffer.Statics.TextBuffer;
  *  including cursor and selection positions, folds, and soft wraps.
  */
 export const TextEditor: AtomCore.Statics.TextEditor;
+
+/** Invoke a callback with each filesystem event that occurs beneath a specified path.
+ *  If you only need to watch events within the project's root paths, use
+ *  Project::onDidChangeFiles instead.
+ */
+export function watchPath(rootPath: string, options: {}, eventCallback: (events:
+	AtomCore.Events.FilesystemChange) => void): AtomCore.PathWatcher;
