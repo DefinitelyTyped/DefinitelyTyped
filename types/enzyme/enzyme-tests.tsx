@@ -109,6 +109,10 @@ function ShallowWrapperTest() {
         const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' } });
     }
 
+    function test_hostNodes() {
+	    shallowWrapper.hostNodes();
+    }
+
     function test_equals() {
         boolVal = shallowWrapper.equals(<div className="foo bar" />);
     }
@@ -423,6 +427,10 @@ function ReactWrapperTest() {
 
     function test_detach() {
         reactWrapper.detach();
+    }
+
+    function test_hostNodes() {
+        reactWrapper.hostNodes();
     }
 
     function test_find() {
