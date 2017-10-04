@@ -58,7 +58,7 @@ declare module __ReactDnd {
         window?: Window,
     }
 
-    export class DragDropContextProvider extends React.Component<DragDropContextProviderProps, {}> {
+    export class DragDropContextProvider extends React.Component<DragDropContextProviderProps, S> {
     }
 
     export function DragLayer<P>(
@@ -89,8 +89,8 @@ declare module __ReactDnd {
     // ----------------------------------------------------------------------
 
     interface DragSourceSpec<P> {
-        beginDrag(props: P, monitor?: DragSourceMonitor, component?: React.Component<P, {}>): Object;
-        endDrag?(props: P, monitor?: DragSourceMonitor, component?: React.Component<P, {}>): void;
+        beginDrag(props: P, monitor?: DragSourceMonitor, component?: React.Component<P, S>): Object;
+        endDrag?(props: P, monitor?: DragSourceMonitor, component?: React.Component<P, S>): void;
         canDrag?(props: P, monitor?: DragSourceMonitor): boolean;
         isDragging?(props: P, monitor?: DragSourceMonitor): boolean;
     }
@@ -135,8 +135,8 @@ declare module __ReactDnd {
     // ----------------------------------------------------------------------
 
     interface DropTargetSpec<P> {
-        drop?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P, {}>): Object|void;
-        hover?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P, {}>): void;
+        drop?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P, S>): Object|void;
+        hover?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P, S>): void;
         canDrop?(props: P, monitor?: DropTargetMonitor): boolean;
     }
 

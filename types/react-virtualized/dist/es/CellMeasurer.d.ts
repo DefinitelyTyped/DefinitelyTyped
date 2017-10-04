@@ -67,7 +67,7 @@ export type CellMeasurerProps = {
  * Measurements are stored in a per-cell cache.
  * Cached-content is not be re-measured.
  */
-export class CellMeasurer extends PureComponent<CellMeasurerProps, {}> {
+export class CellMeasurer extends PureComponent<CellMeasurerProps, S> {
     constructor(props: CellMeasurerProps, context: any);
 
     componentDidMount(): void;

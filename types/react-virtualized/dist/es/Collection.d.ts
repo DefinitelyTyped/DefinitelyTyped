@@ -120,7 +120,7 @@ export type CollectionProps = {
  * Renders scattered or non-linear data.
  * Unlike Grid, which renders checkerboard data, Collection can render arbitrarily positioned- even overlapping- data.
  */
-export class Collection extends PureComponent<CollectionProps, {}> {
+export class Collection extends PureComponent<CollectionProps, S> {
     static propTypes: {
         'aria-label': Requireable<string>,
         cellCount: Validator<number>,
