@@ -189,17 +189,17 @@ class Circulator {
         this.r = radius;
         this.p = precision;
         this.circleGenerator = d3Geo.geoCircle<Circulator, [number, number] | undefined>()
-            .radius(function (datum) {
+            .radius(function(datum) {
                 const t: Circulator = this;
                 const d: [number, number] | undefined = datum;
                 return this.r;
             })
-            .precision(function (datum) {
+            .precision(function(datum) {
                 const t: Circulator = this;
                 const d: [number, number] | undefined = datum;
                 return this.p;
             })
-            .center(function (datum) {
+            .center(function(datum) {
                 const t: Circulator = this;
                 const d: [number, number] | undefined = datum;
                 return d ? d : [0, 0];
@@ -497,7 +497,7 @@ canvasContext = geoPathCanvas.context<CanvasRenderingContext2D>();
 geoPathCanvas = geoPathCanvas.pointRadius(5);
 const geoPathCanvasPointRadiusAccessor: ((this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number) | number = geoPathCanvas.pointRadius();
 
-geoPathSVG = geoPathSVG.pointRadius(function (datum) {
+geoPathSVG = geoPathSVG.pointRadius(function(datum) {
     const that: SVGPathElement = this;
     const d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1> = datum;
     return datum.properties.name === 'Alabama' ? 10 : 15;
