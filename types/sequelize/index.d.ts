@@ -5275,7 +5275,7 @@ declare namespace sequelize {
     /**
      * Operator symbols to be used when querying data
      */
-    interface Operator {
+    interface Operators {
         eq: symbol;
         ne: symbol;
         gte: symbol;
@@ -5315,8 +5315,9 @@ declare namespace sequelize {
         raw: symbol;  //deprecated remove by v5.0
     }
 
-    interface OperatorAliases {
-        $eq?: symbol,
+    interface OperatorsAliases {
+        [key: string]: symbol;
+        $eq?: symbol;
         $ne?: symbol;
         $gte?: symbol;
         $gt?: symbol;
@@ -5533,7 +5534,7 @@ declare namespace sequelize {
          * String based operator alias, default value is true which will enable all operators alias.
          * Pass object to limit set of aliased operators or false to disable completely.
          */
-        operatorsAliases?: boolean | OperatorAliases;
+        operatorsAliases?: boolean | OperatorsAliases;
     }
 
     /**
@@ -5587,7 +5588,7 @@ declare namespace sequelize {
          */
         Instance: Instance<any>;
 
-        Op: Operator;
+        Op: Operators;
 
         /**
          * Creates a object representing a database function. This can be used in search queries, both in where and

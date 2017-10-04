@@ -1214,6 +1214,7 @@ new Sequelize({
 new Sequelize({
     operatorsAliases: {
         $and: Sequelize.Op.and,
+        customAlias: Sequelize.Op.or,
     },
 });
 
