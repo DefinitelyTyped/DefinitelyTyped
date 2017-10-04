@@ -1,4 +1,4 @@
-// Type definitions for react-virtualized 9.7
+// Type definitions for react-virtualized 9.8
 // Project: https://github.com/bvaughn/react-virtualized
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
 //                 John Gunther <https://github.com/guntherjh>

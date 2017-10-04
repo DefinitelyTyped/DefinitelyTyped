@@ -1,4 +1,4 @@
-// Type definitions for React DnD v2.0.2
+// Type definitions for React DnD v2.0.3
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Asana <https://asana.com>
 //                 Deni Putra <https://github.com/pesakitan22>
