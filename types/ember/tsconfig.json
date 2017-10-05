@@ -10,6 +10,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "typeRoots": ["../"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

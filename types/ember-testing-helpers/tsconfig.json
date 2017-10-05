@@ -9,9 +9,7 @@
         "noImplicitThis": false,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
