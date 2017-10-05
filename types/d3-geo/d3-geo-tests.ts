@@ -326,6 +326,7 @@ const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
 const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
 const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
 const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
+const naturalEart1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
 
 // Use Raw Projection =====================================================
 
@@ -351,6 +352,7 @@ const mercator: d3Geo.GeoProjection = d3Geo.geoMercator();
 const orthographic: d3Geo.GeoProjection = d3Geo.geoOrthographic();
 const stereographic: d3Geo.GeoProjection = d3Geo.geoStereographic();
 const transverseMercator: d3Geo.GeoProjection = d3Geo.geoTransverseMercator();
+const natualEarth1: d3Geo.GeoProjection = d3Geo.geoNaturalEarth1();
 
 // ----------------------------------------------------------------------
 // Create New Projections
@@ -368,6 +370,13 @@ const inverted2: [number, number] = constructedProjection.invert([54, 2]);
 
 // TODO ?????
 // let stream: d3Geo.Stream = constructedProjection.stream([54, 2]);
+
+const preClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.preclip();
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipAntimeridian);
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipCircle(45));
+
+const postClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.postclip();
+constructedProjection = constructedProjection.postclip(d3Geo.geoClipRectangle(0, 0, 1, 1));
 
 const clipAngle: number = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
@@ -684,3 +693,13 @@ d3Geo.geoStream(sampleExtendedFeature1, stream);
 d3Geo.geoStream(sampleExtendedFeature2, stream);
 d3Geo.geoStream(sampleFeatureCollection, stream);
 d3Geo.geoStream(sampleExtendedFeatureCollection, stream);
+
+// ----------------------------------------------------------------------
+// Clipping Function
+// ----------------------------------------------------------------------
+
+let clippingFunction: (stream: d3Geo.GeoStream) => d3Geo.GeoStream;
+
+clippingFunction = d3Geo.geoClipAntimeridian;
+clippingFunction = d3Geo.geoClipCircle(45);
+clippingFunction = d3Geo.geoClipRectangle(0, 0, 1, 1);

@@ -31,6 +31,7 @@ declare namespace Dropzone {
 		url?: string;
 		method?: string;
 		withCredentials?: boolean;
+		timeout?: number;
 		parallelUploads?: number;
 		uploadMultiple?: boolean;
 		maxFilesize?: number;

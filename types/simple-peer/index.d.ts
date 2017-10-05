@@ -23,6 +23,7 @@ declare namespace SimplePeer {
         stream?: boolean; // if video/voice is desired, pass stream returned from getUserMedia
         trickle?: boolean; // set to false to disable trickle ICE and get a single 'signal' event (slower)
         wrtc?: {}; // RTCPeerConnection/RTCSessionDescription/RTCIceCandidate
+        objectMode?: boolean; // set to true to create the stream in Object Mode. In this mode, incoming string data is not automatically converted to Buffer objects.
     }
 
     // https://github.com/feross/simple-peer/tree/v6.1.5#peer--new-simplepeeropts

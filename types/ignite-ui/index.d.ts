@@ -577,7 +577,7 @@ class DataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -614,36 +614,36 @@ class DataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -665,16 +665,16 @@ class DataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -682,7 +682,7 @@ class DataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -690,82 +690,82 @@ class DataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -787,8 +787,8 @@ class DataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -809,16 +809,16 @@ class DataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -828,8 +828,8 @@ class DataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -846,8 +846,8 @@ class DataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -859,8 +859,8 @@ class DataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -874,26 +874,14 @@ class DataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 * ds = new $.%%WidgetName%%({
-	 * type: "json",
-	 * dataSource: adventureWorks,
-	 * schema: jsonSchema
-	 * });
-	 * ds.dataBind();
-	 * ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 * // Filter by text
-	 * ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -907,7 +895,7 @@ class DataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -917,14 +905,14 @@ class DataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -941,14 +929,14 @@ class DataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -965,7 +953,7 @@ class DataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -979,28 +967,28 @@ class DataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -1022,22 +1010,22 @@ class DataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -1131,21 +1119,21 @@ class DataSchema {
 	/**
 	 * Performs a transformation on the schema so that the resulting data matches the schema
 	 *
-	 * @param data    the data to transform
+	 * @param data the data to transform
 	 */
 	transform(data: Object): Object;
 
 	/**
 	 * Specifies if the object is null, undefined, or an empty string
 	 *
-	 * @param o    the object to check for being empty
+	 * @param o the object to check for being empty
 	 */
 	isEmpty(o: Object): Object;
 
 	/**
 	 * Specifies if the object has custom properties or not
 	 *
-	 * @param obj    the object to check for presence or lack of custom properties
+	 * @param obj the object to check for presence or lack of custom properties
 	 */
 	isObjEmpty(obj: Object): Object;
 
@@ -1167,7 +1155,7 @@ class RemoteDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -1204,36 +1192,36 @@ class RemoteDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -1255,16 +1243,16 @@ class RemoteDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -1272,7 +1260,7 @@ class RemoteDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -1280,82 +1268,82 @@ class RemoteDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -1377,8 +1365,8 @@ class RemoteDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -1399,16 +1387,16 @@ class RemoteDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -1418,8 +1406,8 @@ class RemoteDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -1436,8 +1424,8 @@ class RemoteDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -1449,8 +1437,8 @@ class RemoteDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -1464,28 +1452,14 @@ class RemoteDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 * ds = new $.%%WidgetName%%({
-	 * type: "json",
-	 * dataSource: adventureWorks,
-	 * schema: jsonSchema
-	 * });
-	 * ds.dataBind();
-	 *
-	 * ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 * // Filter by text
-	 * ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -1499,7 +1473,7 @@ class RemoteDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -1509,14 +1483,14 @@ class RemoteDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -1533,14 +1507,14 @@ class RemoteDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -1557,7 +1531,7 @@ class RemoteDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -1571,28 +1545,28 @@ class RemoteDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -1614,22 +1588,22 @@ class RemoteDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -1657,7 +1631,7 @@ class JSONDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -1694,36 +1668,36 @@ class JSONDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -1745,16 +1719,16 @@ class JSONDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -1762,7 +1736,7 @@ class JSONDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -1770,82 +1744,82 @@ class JSONDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -1867,8 +1841,8 @@ class JSONDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -1889,16 +1863,16 @@ class JSONDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -1908,8 +1882,8 @@ class JSONDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -1926,8 +1900,8 @@ class JSONDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -1939,8 +1913,8 @@ class JSONDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -1954,28 +1928,14 @@ class JSONDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 * ds = new $.%%WidgetName%%({
-	 * type: "json",
-	 * dataSource: adventureWorks,
-	 * schema: jsonSchema
-	 * });
-	 * ds.dataBind();
-	 *
-	 * ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 * // Filter by text
-	 * ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -1989,7 +1949,7 @@ class JSONDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -1999,14 +1959,14 @@ class JSONDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -2023,14 +1983,14 @@ class JSONDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -2047,7 +2007,7 @@ class JSONDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -2061,28 +2021,28 @@ class JSONDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -2104,22 +2064,22 @@ class JSONDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -2258,7 +2218,7 @@ class RESTDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -2295,36 +2255,36 @@ class RESTDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -2346,16 +2306,16 @@ class RESTDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -2363,7 +2323,7 @@ class RESTDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -2371,82 +2331,82 @@ class RESTDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -2482,16 +2442,16 @@ class RESTDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -2501,8 +2461,8 @@ class RESTDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -2519,8 +2479,8 @@ class RESTDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -2532,8 +2492,8 @@ class RESTDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -2547,28 +2507,14 @@ class RESTDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 *  ds = new $.%%WidgetName%%({
-	 *   type: "json",
-	 *   dataSource: adventureWorks,
-	 *   schema: jsonSchema
-	 *  });
-	 *  ds.dataBind();
-	 *
-	 *  ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 *  // Filter by text
-	 *  ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -2582,7 +2528,7 @@ class RESTDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -2592,14 +2538,14 @@ class RESTDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -2616,14 +2562,14 @@ class RESTDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -2640,7 +2586,7 @@ class RESTDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -2654,28 +2600,28 @@ class RESTDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -2697,22 +2643,22 @@ class RESTDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -2751,7 +2697,7 @@ class JSONPDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -2788,36 +2734,36 @@ class JSONPDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -2839,16 +2785,16 @@ class JSONPDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -2856,7 +2802,7 @@ class JSONPDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -2864,82 +2810,82 @@ class JSONPDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -2961,8 +2907,8 @@ class JSONPDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -2983,16 +2929,16 @@ class JSONPDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -3002,8 +2948,8 @@ class JSONPDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -3020,8 +2966,8 @@ class JSONPDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -3033,8 +2979,8 @@ class JSONPDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -3048,28 +2994,14 @@ class JSONPDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 *  ds = new $.%%WidgetName%%({
-	 *   type: "json",
-	 *   dataSource: adventureWorks,
-	 *   schema: jsonSchema
-	 *  });
-	 *  ds.dataBind();
-	 *
-	 *  ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 *  // Filter by text
-	 *  ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -3083,7 +3015,7 @@ class JSONPDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -3093,14 +3025,14 @@ class JSONPDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -3117,14 +3049,14 @@ class JSONPDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -3141,7 +3073,7 @@ class JSONPDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -3155,28 +3087,28 @@ class JSONPDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -3198,22 +3130,22 @@ class JSONPDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -3229,7 +3161,7 @@ class XmlDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -3266,36 +3198,36 @@ class XmlDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -3317,16 +3249,16 @@ class XmlDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -3334,7 +3266,7 @@ class XmlDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -3342,82 +3274,82 @@ class XmlDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -3439,8 +3371,8 @@ class XmlDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -3461,16 +3393,16 @@ class XmlDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -3480,8 +3412,8 @@ class XmlDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -3498,8 +3430,8 @@ class XmlDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -3511,8 +3443,8 @@ class XmlDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -3526,28 +3458,14 @@ class XmlDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 *  ds = new $.%%WidgetName%%({
-	 *   type: "json",
-	 *   dataSource: adventureWorks,
-	 *   schema: jsonSchema
-	 *  });
-	 *  ds.dataBind();
-	 *
-	 *  ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 *  // Filter by text
-	 *  ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -3561,7 +3479,7 @@ class XmlDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -3571,14 +3489,14 @@ class XmlDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -3595,14 +3513,14 @@ class XmlDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -3619,7 +3537,7 @@ class XmlDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -3633,28 +3551,28 @@ class XmlDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -3676,22 +3594,22 @@ class XmlDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -3719,7 +3637,7 @@ class FunctionDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -3756,36 +3674,36 @@ class FunctionDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -3807,16 +3725,16 @@ class FunctionDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -3824,7 +3742,7 @@ class FunctionDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -3832,82 +3750,82 @@ class FunctionDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -3929,8 +3847,8 @@ class FunctionDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -3951,16 +3869,16 @@ class FunctionDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -3970,8 +3888,8 @@ class FunctionDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -3988,8 +3906,8 @@ class FunctionDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -4001,8 +3919,8 @@ class FunctionDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -4016,28 +3934,14 @@ class FunctionDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 *  ds = new $.%%WidgetName%%({
-	 *   type: "json",
-	 *   dataSource: adventureWorks,
-	 *   schema: jsonSchema
-	 *  });
-	 *  ds.dataBind();
-	 *
-	 *  ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 *  // Filter by text
-	 *  ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -4051,7 +3955,7 @@ class FunctionDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -4061,14 +3965,14 @@ class FunctionDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -4085,14 +3989,14 @@ class FunctionDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -4109,7 +4013,7 @@ class FunctionDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -4123,28 +4027,28 @@ class FunctionDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -4166,22 +4070,22 @@ class FunctionDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -4209,7 +4113,7 @@ class HtmlTableDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -4246,36 +4150,36 @@ class HtmlTableDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -4297,16 +4201,16 @@ class HtmlTableDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -4314,7 +4218,7 @@ class HtmlTableDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -4322,82 +4226,82 @@ class HtmlTableDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -4419,8 +4323,8 @@ class HtmlTableDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -4441,16 +4345,16 @@ class HtmlTableDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -4460,8 +4364,8 @@ class HtmlTableDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -4478,8 +4382,8 @@ class HtmlTableDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -4491,8 +4395,8 @@ class HtmlTableDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -4506,28 +4410,14 @@ class HtmlTableDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 *  ds = new $.%%WidgetName%%({
-	 *   type: "json",
-	 *   dataSource: adventureWorks,
-	 *   schema: jsonSchema
-	 *  });
-	 *  ds.dataBind();
-	 *
-	 *  ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 *  // Filter by text
-	 *  ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -4541,7 +4431,7 @@ class HtmlTableDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -4551,14 +4441,14 @@ class HtmlTableDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -4575,14 +4465,14 @@ class HtmlTableDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -4599,7 +4489,7 @@ class HtmlTableDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -4613,28 +4503,28 @@ class HtmlTableDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -4656,22 +4546,22 @@ class HtmlTableDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -4687,7 +4577,7 @@ class ArrayDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -4724,36 +4614,36 @@ class ArrayDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -4775,16 +4665,16 @@ class ArrayDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -4792,7 +4682,7 @@ class ArrayDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -4800,82 +4690,82 @@ class ArrayDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -4897,8 +4787,8 @@ class ArrayDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -4919,16 +4809,16 @@ class ArrayDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -4938,8 +4828,8 @@ class ArrayDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -4956,8 +4846,8 @@ class ArrayDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -4969,8 +4859,8 @@ class ArrayDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -4984,28 +4874,14 @@ class ArrayDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 *  ds = new $.%%WidgetName%%({
-	 *   type: "json",
-	 *   dataSource: adventureWorks,
-	 *   schema: jsonSchema
-	 *  });
-	 *  ds.dataBind();
-	 *
-	 *  ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 *  // Filter by text
-	 *  ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -5019,7 +4895,7 @@ class ArrayDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -5029,14 +4905,14 @@ class ArrayDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -5053,14 +4929,14 @@ class ArrayDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -5077,7 +4953,7 @@ class ArrayDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -5091,28 +4967,28 @@ class ArrayDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -5134,22 +5010,22 @@ class ArrayDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -5178,44 +5054,45 @@ interface MashupDataSourceMashupSettings {
 declare namespace Infragistics {
 class MashupDataSource {
 	constructor(mashupSettings: MashupDataSourceMashupSettings);
+
 	constructor(settings: DataSourceSettings);
 
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    Not used in $.ig.DataSource
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId Not used in $.ig.DataSource
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
@@ -5227,7 +5104,7 @@ class MashupDataSource {
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -5264,36 +5141,36 @@ class MashupDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -5315,16 +5192,16 @@ class MashupDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    Not used in $.ig.DataSource
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath Not used in $.ig.DataSource
 	 */
 	findRecordByKey(key: string, ds?: string, objPath?: string): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -5332,7 +5209,7 @@ class MashupDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -5340,43 +5217,43 @@ class MashupDataSource {
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -5398,16 +5275,16 @@ class MashupDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -5417,8 +5294,8 @@ class MashupDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -5435,8 +5312,8 @@ class MashupDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -5448,8 +5325,8 @@ class MashupDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -5463,28 +5340,14 @@ class MashupDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 * To [filter by text](ig.datasource#methods:filterByText) "fieldExpressions" should have only one object with the following schema:
+	 * {filterAllFields: <type="bool" should be set to true>, expr: <type="string" the text to search for>, fields: <type="array" an array of [fields](ig.dataschema#options:schema.fields) to search in>}
 	 *
-	 * @param fieldExpressions    {filterAllFields: <should be set to true>, expr: <the text to search for>, fields: <an array of [fields](ig.dataschema#options:schema.fields) to search in>}
-	 *
-	 * ```
-	 *  ds = new $.%%WidgetName%%({
-	 *   type: "json",
-	 *   dataSource: adventureWorks,
-	 *   schema: jsonSchema
-	 *  });
-	 *  ds.dataBind();
-	 *
-	 *  ds.filter([{fieldName : "Color", expr: "Red", cond: "Equals"}], "AND", true);
-	 *
-	 *  // Filter by text
-	 *  ds.filter([{filterAllFields: true, expr: "abc", fields: [name: "Description", type: "string"]}]);
-	 * ```
-	 *
-	 * @param boolLogic    a list of field expression definitions
-	 * @param keepFilterState    boolean logic. Accepted values are AND and OR.
-	 * @param fieldExpressionsOnStrings    a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressionsOnStrings a list of field expression definitions (or a string with the conditions separated by AND/OR operator, example: "ID = 1 OR ID = 2"), which when applied will threat the related field as if it's string and can only apply conditions valid for string types.
 	 */
-	filter(fieldExpressions: any[], boolLogic: Object, keepFilterState: Object, fieldExpressionsOnStrings: Object): void;
+	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
 
 	/**
 	 * This clears local filtering applied to the data view by resetting it to the original data and applying any paging
@@ -5498,7 +5361,7 @@ class MashupDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -5508,14 +5371,14 @@ class MashupDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
@@ -5532,14 +5395,14 @@ class MashupDataSource {
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -5556,7 +5419,7 @@ class MashupDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -5570,28 +5433,28 @@ class MashupDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -5613,22 +5476,22 @@ class MashupDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -5921,16 +5784,16 @@ class TreeHierarchicalDataSource {
 	 * 5. next, if OpType is Local, apply paging, sorting, and/or filtering to the data, and store the result in this._dataView
 	 * 6. fire the databound event
 	 *
-	 * @param callback    callback function
-	 * @param callee    callee object on which the callback will be executed. If none is specified, will assume global execution context
+	 * @param callback callback function
+	 * @param callee callee object on which the callback will be executed. If none is specified, will assume global execution context
 	 */
 	dataBind(callback?: string, callee?: Object): void;
 
 	/**
 	 * Gets the passed record's parent records
 	 *
-	 * @param dataRow    the child record.
-	 * @param ds    the data source in which to search for the related parent records.
+	 * @param dataRow the child record.
+	 * @param ds the data source in which to search for the related parent records.
 	 */
 	getParentRowsForRow(dataRow: Object, ds?: Object): Object;
 
@@ -5942,31 +5805,31 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Gets/Sets whether the data source has been transformed from flat to hierarchical
 	 *
-	 * @param isTransformed    Determines if the data source is marked as transformed or not.
+	 * @param isTransformed Determines if the data source is marked as transformed or not.
 	 */
 	isTransformedToHierarchicalData(isTransformed?: boolean): void;
 
 	/**
 	 * Transforms flat data to hierararchical data and returns the result
 	 *
-	 * @param data    The flat data that will be transformed to hierarchical
+	 * @param data The flat data that will be transformed to hierarchical
 	 */
 	transformToHierarchicalData(data: Object): Object;
 
 	/**
 	 * This processes the passed data for the specified level and applies the schema transformation to it.
 	 *
-	 * @param data    The data to be processed and transformed
-	 * @param level    The level to which the data belongs to. If this is not set it defaults to 0.
-	 * @param suppressTransformation    Determines whether the data should go through schema transformation. If true schema transofrmatin will not be applied.
+	 * @param data The data to be processed and transformed
+	 * @param level The level to which the data belongs to. If this is not set it defaults to 0.
+	 * @param suppressTransformation Determines whether the data should go through schema transformation. If true schema transofrmatin will not be applied.
 	 */
 	processDataPerLevel(data: Object, level?: number, suppressTransformation?: boolean): Object;
 
 	/**
 	 * Returnschild data transformed to flat data
 	 *
-	 * @param record    The data record whose data is transformed and returned as flat
-	 * @param level    The level. If not set defaults to 0.
+	 * @param record The data record whose data is transformed and returned as flat
+	 * @param level The level. If not set defaults to 0.
 	 */
 	getFlatDataForRecord(record: Object, level?: number): Object;
 
@@ -5974,8 +5837,8 @@ class TreeHierarchicalDataSource {
 	 * Generates flat data.
 	 * Returns an object that contains the generated flat data, the flat visible data, records count and visible records count.
 	 *
-	 * @param data    The data record whose data is transformed.
-	 * @param level    The level from which to start recursively generating the flat data. If not set defaults to 0.
+	 * @param data The data record whose data is transformed.
+	 * @param level The level from which to start recursively generating the flat data. If not set defaults to 0.
 	 */
 	generateFlatData(data: Object, level?: number): Object;
 
@@ -6007,33 +5870,33 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Sets the expanded/collapsed state of a row by its index
 	 *
-	 * @param index    The index of the row.
-	 * @param expanded    If true then the row will be expanded. Otherwise it will be collapsed.
-	 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
+	 * @param index The index of the row.
+	 * @param expanded If true then the row will be expanded. Otherwise it will be collapsed.
+	 * @param callbackArgs Specifies a custom function to be called when the state of the row is changed.
 	 */
 	setExpandedStateByRowIndex(index: number, expanded: boolean, callbackArgs: Function): void;
 
 	/**
 	 * Sets the expanded state of a row by its primary key
 	 *
-	 * @param rowId    The id of the row.
-	 * @param expanded    If true the row will be expanded. Otherwise it will be collapsed.
-	 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
+	 * @param rowId The id of the row.
+	 * @param expanded If true the row will be expanded. Otherwise it will be collapsed.
+	 * @param callbackArgs Specifies a custom function to be called when the state of the row is changed.
 	 */
 	setExpandedStateByPrimaryKey(rowId: string, expanded: boolean, callbackArgs: Function): void;
 
 	/**
 	 * Gets whether the row with the specified id is expanded.Returns true if the row is expanded or false if it's not.
 	 *
-	 * @param rowId    //The id of the row.
+	 * @param rowId //The id of the row.
 	 */
 	getExpandStateById(rowId: string): boolean;
 
 	/**
 	 * Toggles the row's state by the row's id.
 	 *
-	 * @param rowId    The id of the row.
-	 * @param callbackArgs    Specifies a custom function to be called when the state of the row is changed.
+	 * @param rowId The id of the row.
+	 * @param callbackArgs Specifies a custom function to be called when the state of the row is changed.
 	 */
 	toggleRow(rowId: string, callbackArgs: Function): void;
 
@@ -6045,8 +5908,8 @@ class TreeHierarchicalDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sort(fields: Object, direction: string): void;
 
@@ -6056,24 +5919,24 @@ class TreeHierarchicalDataSource {
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param data    the data array that will be sorted.
-	 * @param level    the level to which the data belongs to
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param data the data array that will be sorted.
+	 * @param level the level to which the data belongs to
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sortDataRecursive(data: Object, level: number, fields: Object, direction: string): void;
 
 	/**
 	 * Sorts the passed data and returns the sorted result.
 	 *
-	 * @param data    the data to be sorted
+	 * @param data the data to be sorted
 	 *
 	 * fields => an array of fields object definitions:
 	 * example: [{fieldName : "firstName"}, {fieldName : "lastName"}]
 	 * example 2: [{fieldIndex : 1} , {fieldIndex : 2}]
 	 *
-	 * @param fields    an array of fields object definitions
-	 * @param direction    asc / desc direction
+	 * @param fields an array of fields object definitions
+	 * @param direction asc / desc direction
 	 */
 	sortData(data: Object, fields: Object, direction: string): void;
 
@@ -6102,9 +5965,9 @@ class TreeHierarchicalDataSource {
 	 * cond is the filtering condition such as startsWith, endsWith, contains, equals, doesNotEqual, doesNotContain
 	 * if expr is detected to be a regular expression, the "cond" part is skipped
 	 *
-	 * @param fieldExpressions    a list of field expression definitions
-	 * @param boolLogic    boolean logic. Accepted values are AND and OR.
-	 * @param keepFilterState    if keepFilterState is set to true, it will not discard previous filtering expressions
+	 * @param fieldExpressions a list of field expression definitions
+	 * @param boolLogic boolean logic. Accepted values are AND and OR.
+	 * @param keepFilterState if keepFilterState is set to true, it will not discard previous filtering expressions
 	 * @param fieldExpressionsOnStrings
 	 */
 	filter(fieldExpressions: Object, boolLogic: Object, keepFilterState: boolean, fieldExpressionsOnStrings: Object): void;
@@ -6132,7 +5995,7 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Clears __matchFiltering property from the data record objects in the filtered data source. The __matchFiltering property determines whether a record matches the specified filtering condition.
 	 *
-	 * @param data    the array of data objects to be cleared. If not set the current filtered data array is used.
+	 * @param data the array of data objects to be cleared. If not set the current filtered data array is used.
 	 */
 	clearMatchFiltering(data?: Object): void;
 
@@ -6146,16 +6009,16 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings)
 	 *
-	 * @param key    Primary key of the record
-	 * @param ds    the data source in which to search for the record. When not set it will use the current data source.
-	 * @param objPath    path to the object. Example: {path: '5/1'}
+	 * @param key Primary key of the record
+	 * @param ds the data source in which to search for the record. When not set it will use the current data source.
+	 * @param objPath path to the object. Example: {path: '5/1'}
 	 */
 	findRecordByKey(key: Object, ds?: string, objPath?: Object): Object;
 
 	/**
 	 * Removes a specific record denoted by the primaryKey of the passed key parameter from the data source
 	 *
-	 * @param key    primary key of the record
+	 * @param key primary key of the record
 	 * @param origDs
 	 */
 	removeRecordByKey(key: Object, origDs: Object): void;
@@ -6163,34 +6026,34 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Deletes a row from the data source.
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	deleteRow(rowId: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Gets the chilren records by the parent record's key in the passed data source
 	 *
-	 * @param key     primary key of the record
-	 * @param ds     the data source
+	 * @param key primary key of the record
+	 * @param ds the data source
 	 */
 	getChildrenByKey(key: Object, ds: Object): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param rowIndex    row index at which to be insert the new row
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
-	 * @param parentRowId    the value of the primary key of the parent row(if any)
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param rowIndex row index at which to be insert the new row
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param parentRowId the value of the primary key of the parent row(if any)
 	 */
 	insertRow(rowId: Object, rowObject: Object, rowIndex: number, autoCommit: boolean, parentRowId: Object): Object;
 
 	/**
 	 * Sets a list of fields to the data source. If no parameter is specified, just returns the already existing list of fields
 	 *
-	 * @param fields    a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
+	 * @param fields a field has the following format: {key: 'fieldKey', dataType: 'string/number/date' }
 	 */
 	fields(fields?: Object): Object;
 
@@ -6227,36 +6090,36 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Gets/sets the schema definition.
 	 *
-	 * @param s    a schema object
-	 * @param t    type of the data source. See settings.type
+	 * @param s a schema object
+	 * @param t type of the data source. See settings.type
 	 */
 	schema(s?: Object, t?: string): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param p    object holding all paging settings. See settings.paging
+	 * @param p object holding all paging settings. See settings.paging
 	 */
 	pagingSettings(p?: Object): Object;
 
 	/**
 	 * Gets/sets a list of filtering settings
 	 *
-	 * @param f    object holding all filtering settings. See settings.filtering
+	 * @param f object holding all filtering settings. See settings.filtering
 	 */
 	filterSettings(f?: Object): void;
 
 	/**
 	 * Gets/sets a list of paging settings
 	 *
-	 * @param s    object holding all sorting settings. See settings.sorting
+	 * @param s object holding all sorting settings. See settings.sorting
 	 */
 	sortSettings(s?: Object): Object;
 
 	/**
 	 * Gets/sets a list of summaries settings.
 	 *
-	 * @param s    object holding all summaries settings. See settings.summaries
+	 * @param s object holding all summaries settings. See settings.summaries
 	 */
 	summariesSettings(s?: Object): void;
 
@@ -6278,7 +6141,7 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Removes a record from the data source at specific index.
 	 *
-	 * @param index    index of record
+	 * @param index index of record
 	 * @param origDs
 	 */
 	removeRecordByIndex(index: number, origDs: Object): void;
@@ -6286,63 +6149,63 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Sets a cell value for the cell denoted by rowId and colId. Creates a transaction for the update operation and returns it
 	 *
-	 * @param rowId    the rowId - row key (string) or index (number)
-	 * @param colId    the column id - column key (string) or index (number)
-	 * @param val    The new value
-	 * @param autoCommit    if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the rowId - row key (string) or index (number)
+	 * @param colId the column id - column key (string) or index (number)
+	 * @param val The new value
+	 * @param autoCommit if autoCommit is true, it updates the datasource automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	setCellValue(rowId: Object, colId: Object, val: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Updates a record in the datasource. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the record object containing the key/value pairs we want to update. It doesn't have to include key/value pairs for all fields defined in the schema or in the data source (if no schema is defined)
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	updateRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new row to the data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param rowId    the record key - primaryKey (string) or index (number)
-	 * @param rowObject    the new record data.
-	 * @param autoCommit    if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
+	 * @param rowId the record key - primaryKey (string) or index (number)
+	 * @param rowObject the new record data.
+	 * @param autoCommit if autoCommit is true, the datasource will be updated automatically and the transaction is still stored in the accumulated transaction log
 	 */
 	addRow(rowId: Object, rowObject: Object, autoCommit: boolean): Object;
 
 	/**
 	 * Adds a new node to the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	addNode(data: Object): void;
 
 	/**
 	 * Removes a node from the tree data source. Creates a transaction that can be committed / rolled back
 	 *
-	 * @param data    the transaction data
+	 * @param data the transaction data
 	 */
 	removeNode(data: Object): void;
 
 	/**
 	 * Returns a standalone object (copy) that represents the commited transactions, but detached from the data source
 	 *
-	 * @param t    a transaction object
+	 * @param t a transaction object
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Update the data source with every transaction from the log
 	 *
-	 * @param id    Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
+	 * @param id Id of the transaction to commit. If no id is specified, will commit all transactions to the data source.
 	 */
 	commit(id?: number): void;
 
 	/**
 	 * Clears the transaction log without updating anything in the data source
 	 *
-	 * @param id    Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
+	 * @param id Record Id to find transactions for. If no id is specified, will rollback all transactions to the data source.
 	 */
 	rollback(id?: Object): void;
 
@@ -6364,16 +6227,16 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
 	/**
 	 * Gets a cell value from the record by the specified fieldName. If there's a mapper defined for the field, the resolved by the mapper value will be returned.
 	 *
-	 * @param fieldName    the fieldName - name of the field
-	 * @param record    the record from which to get it
+	 * @param fieldName the fieldName - name of the field
+	 * @param record the record from which to get it
 	 */
 	getCellValue(fieldName: string, record: Object): Object;
 
@@ -6383,8 +6246,8 @@ class TreeHierarchicalDataSource {
 	 * If key or dsObj are not set then returns summaries data.
 	 * Takes summary data from passed argument dsObj(using argument key)
 	 *
-	 * @param key    response key to take summary data(for example "Metadata.Summaries")
-	 * @param dsObj    data source object - usually contains information about data records and metadata(holds info about summaries)
+	 * @param key response key to take summary data(for example "Metadata.Summaries")
+	 * @param dsObj data source object - usually contains information about data records and metadata(holds info about summaries)
 	 */
 	summariesResponse(key?: string, dsObj?: Object): Object;
 
@@ -6401,8 +6264,8 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Filters the data source locally by text. If "fields" parameter is set search is performed only in the listed fields otherwise all fields are searched.
 	 *
-	 * @param expression    a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
-	 * @param fields    an array of fields that will be searched.
+	 * @param expression a text to search for. Multiple search texts should be separated by space. When multiple search texts are provided all of them should be presented in the search fields (bool logic "and" is applied).
+	 * @param fields an array of fields that will be searched.
 	 */
 	filterByText(expression: string, fields?: any[]): void;
 
@@ -6413,7 +6276,7 @@ class TreeHierarchicalDataSource {
 	 * the actual total number of records may not
 	 * match the number of records that exists on the client
 	 *
-	 * @param count    the total number of records
+	 * @param count the total number of records
 	 * @param key
 	 * @param dsObj
 	 * @param context
@@ -6423,28 +6286,28 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Gets / sets if the response from the server contains a property which specifies the total number of records in the server-side backend
 	 *
-	 * @param hasCount    specifies if the data source contains a property that denotes the total number of records in the server-side backend
+	 * @param hasCount specifies if the data source contains a property that denotes the total number of records in the server-side backend
 	 */
 	hasTotalRecordsCount(hasCount: boolean): void;
 
 	/**
 	 * Returns metadata object for the specified key
 	 *
-	 * @param key    Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	metadata(key: string): Object;
 
 	/**
 	 * Gets /sets the current page index. If an index is passed as a parameter, the data source is re-bound.
 	 *
-	 * @param index    the page index. If none is specified, returns the current page index.
+	 * @param index the page index. If none is specified, returns the current page index.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets /sets the page index that should be persisted. For now ONLY when filtering is applied and call explicitly DataBind.
 	 *
-	 * @param value    the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
+	 * @param value the page index that should be persisted. If none is specified, returns the current page index that should be persisted.
 	 */
 	persistedPageIndex(value?: number): number;
 
@@ -6461,7 +6324,7 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Gets /sets the page size and rebinds the data source if a parameter is specified. If no parameter is passed, returns the current page size
 	 *
-	 * @param s    the page size.
+	 * @param s the page size.
 	 */
 	pageSize(s?: number): number;
 
@@ -6475,28 +6338,28 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Returns a list of records for the specified page. Implies that paging is enabled.
 	 *
-	 * @param p    the page index for which records will be returned
+	 * @param p the page index for which records will be returned
 	 */
 	recordsForPage(p: number): void;
 
 	/**
 	 * Converts a HTML TABLE dom element to a JavaScript array of objects that contain the records data
 	 *
-	 * @param tableDOM    TABLE dom element to transform
+	 * @param tableDOM TABLE dom element to transform
 	 */
 	tableToObject(tableDOM: Element): Object;
 
 	/**
 	 * Parses the string and returns an evaluated JSON object
 	 *
-	 * @param s    the JSON as string.
+	 * @param s the JSON as string.
 	 */
 	stringToJSONObject(s: string): void;
 
 	/**
 	 * Parses a string and returns a XML Document
 	 *
-	 * @param s    the XML represented as a string
+	 * @param s the XML represented as a string
 	 */
 	stringToXmlObject(s: string): void;
 
@@ -6518,22 +6381,22 @@ class TreeHierarchicalDataSource {
 	/**
 	 * Toggle grouped record with the specified id and updates collections visible groupby data and data view
 	 *
-	 * @param id    data-id attribute of the respective group row in the DOM
-	 * @param collapsed    if true the record should be collapsed, otherwise expanded
+	 * @param id data-id attribute of the respective group row in the DOM
+	 * @param collapsed if true the record should be collapsed, otherwise expanded
 	 */
 	toggleGroupByRecord(id: string, collapsed: boolean): void;
 
 	/**
 	 * Check whether the specified gorupby record is collapsed
 	 *
-	 * @param gbRec    id of the grouped record OR grouped record
+	 * @param gbRec id of the grouped record OR grouped record
 	 */
 	isGroupByRecordCollapsed(gbRec: Object): boolean;
 
 	/**
 	 * Check whether grouping is applied for the specified sorting expressions.
 	 *
-	 * @param exprs    array of sorting expressions. If not set check expressions defined in sorting settings
+	 * @param exprs array of sorting expressions. If not set check expressions defined in sorting settings
 	 */
 	isGroupByApplied(exprs?: any[]): boolean;
 }
@@ -6566,6 +6429,7 @@ interface SimpleTextMarkerTemplateSettings {
 declare namespace Infragistics {
 class SimpleTextMarkerTemplate {
 	constructor(requireThis: boolean);
+
 	constructor(settings: SimpleTextMarkerTemplateSettings);
 	getText(item: Object, textDelegate: Object): void;
 	measure(measureInfo: Object): void;
@@ -6847,14 +6711,15 @@ interface GridExcelExporterSettings {
 declare namespace Infragistics {
 class GridExcelExporter {
 	constructor(callbacks: GridExcelExporterCallbacks);
+
 	constructor(settings: GridExcelExporterSettings);
 
 	/**
 	 * Exports the provided igGrid to Excel document.
 	 *
-	 * @param grid     Grid to be exported.
-	 * @param userSettings     Settings for exporting the grid.
-	 * @param userCallbacks     Callbacks for the events.
+	 * @param grid Grid to be exported.
+	 * @param userSettings Settings for exporting the grid.
+	 * @param userCallbacks Callbacks for the events.
 	 */
 	exportGrid(grid: Object, userSettings: Object, userCallbacks: Object): void;
 }
@@ -8806,9 +8671,9 @@ class igTemplating {
 	/**
 	 * Populates the given template with the provided data. If data is a function that requires arguments, the arguments need to be provided as an array following the data. tmpl(template, data[, args])
 	 *
-	 * @param template     Specifies the template string
-	 * @param data     Specifies the data to be templated in the template. If function is provided, then it has to be object or array returning function, possible receiving arguments array which can be specified as the third parameter
-	 * @param args     If function is provided as the second parameter, then this parameter is the arguments for the function.
+	 * @param template Specifies the template string
+	 * @param data Specifies the data to be templated in the template. If function is provided, then it has to be object or array returning function, possible receiving arguments array which can be specified as the third parameter
+	 * @param args If function is provided as the second parameter, then this parameter is the arguments for the function.
 	 */
 	tmpl(template: string, data: Object, args?: any[]): string;
 	clearTmplCache(): void;
@@ -8816,7 +8681,7 @@ class igTemplating {
 	/**
 	 * Encoding < > ' and "
 	 *
-	 * @param value     The string to be encoded.
+	 * @param value The string to be encoded.
 	 */
 	encode(value: string): string;
 }
@@ -8954,46 +8819,46 @@ interface IgQRCodeBarcode {
 	 *
 	 * Valid values:
 	 * "undefined" If set, the QR code barcode sets internally the smallest version that will accommodate the data.
-	 * "version1" Version1 defines size of 21x21 namespaces for the symbol.
-	 * "version2" Version2 defines size of 25x25 namespaces for the symbol.
-	 * "version3" Version3 defines size of 29x29 namespaces for the symbol.
-	 * "version4" Version4 defines size of 33x33 namespaces for the symbol.
-	 * "version5" Version5 defines size of 37x37 namespaces for the symbol.
-	 * "version6" Version6 defines size of 41x41 namespaces for the symbol.
-	 * "version7" Version7 defines size of 45x45 namespaces for the symbol.
-	 * "version8" Version8 defines size of 49x49 namespaces for the symbol.
-	 * "version9" Version9 defines size of 53x53 namespaces for the symbol.
-	 * "version10" Version10 defines size of 57x57 namespaces for the symbol.
-	 * "version11" Version11 defines size of 61x61 namespaces for the symbol.
-	 * "version12" Version12 defines size of 65x65 namespaces for the symbol.
-	 * "version13" Version13 defines size of 69x69 namespaces for the symbol.
-	 * "version14" Version14 defines size of 73x73 namespaces for the symbol.
-	 * "version15" Version15 defines size of 77x77 namespaces for the symbol.
-	 * "version16" Version16 defines size of 81x81 namespaces for the symbol.
-	 * "version17" Version17 defines size of 85x85 namespaces for the symbol.
-	 * "version18" Version18 defines size of 89x89 namespaces for the symbol.
-	 * "version19" Version19 defines size of 93x93 namespaces for the symbol.
-	 * "version20" Version20 defines size of 97x97 namespaces for the symbol.
-	 * "version21" Version21 defines size of 101x101 namespaces for the symbol.
-	 * "version22" Version22 defines size of 105x105 namespaces for the symbol.
-	 * "version23" Version23 defines size of 109x109 namespaces for the symbol.
-	 * "version24" Version24 defines size of 113x113 namespaces for the symbol.
-	 * "version25" Version25 defines size of 117x117 namespaces for the symbol.
-	 * "version26" Version26 defines size of 121x121 namespaces for the symbol.
-	 * "version27" Version27 defines size of 125x125 namespaces for the symbol.
-	 * "version28" Version28 defines size of 129x129 namespaces for the symbol.
-	 * "version29" Version29 defines size of 133x133 namespaces for the symbol.
-	 * "version30" Version30 defines size of 137x137 namespaces for the symbol.
-	 * "version31" Version31 defines size of 141x141 namespaces for the symbol.
-	 * "version32" Version32 defines size of 145x145 namespaces for the symbol.
-	 * "version33" Version33 defines size of 149x149 namespaces for the symbol.
-	 * "version34" Version34 defines size of 153x153 namespaces for the symbol.
-	 * "version35" Version35 defines size of 157x157 namespaces for the symbol.
-	 * "version36" Version36 defines size of 161x161 namespaces for the symbol.
-	 * "version37" Version37 defines size of 165x165 namespaces for the symbol.
-	 * "version38" Version38 defines size of 169x169 namespaces for the symbol.
-	 * "version39" Version39 defines size of 173x173 namespaces for the symbol.
-	 * "version40" Version40 defines size of 177x177 namespaces for the symbol.
+	 * "version1" Version1 defines size of 21x21 modules for the symbol.
+	 * "version2" Version2 defines size of 25x25 modules for the symbol.
+	 * "version3" Version3 defines size of 29x29 modules for the symbol.
+	 * "version4" Version4 defines size of 33x33 modules for the symbol.
+	 * "version5" Version5 defines size of 37x37 modules for the symbol.
+	 * "version6" Version6 defines size of 41x41 modules for the symbol.
+	 * "version7" Version7 defines size of 45x45 modules for the symbol.
+	 * "version8" Version8 defines size of 49x49 modules for the symbol.
+	 * "version9" Version9 defines size of 53x53 modules for the symbol.
+	 * "version10" Version10 defines size of 57x57 modules for the symbol.
+	 * "version11" Version11 defines size of 61x61 modules for the symbol.
+	 * "version12" Version12 defines size of 65x65 modules for the symbol.
+	 * "version13" Version13 defines size of 69x69 modules for the symbol.
+	 * "version14" Version14 defines size of 73x73 modules for the symbol.
+	 * "version15" Version15 defines size of 77x77 modules for the symbol.
+	 * "version16" Version16 defines size of 81x81 modules for the symbol.
+	 * "version17" Version17 defines size of 85x85 modules for the symbol.
+	 * "version18" Version18 defines size of 89x89 modules for the symbol.
+	 * "version19" Version19 defines size of 93x93 modules for the symbol.
+	 * "version20" Version20 defines size of 97x97 modules for the symbol.
+	 * "version21" Version21 defines size of 101x101 modules for the symbol.
+	 * "version22" Version22 defines size of 105x105 modules for the symbol.
+	 * "version23" Version23 defines size of 109x109 modules for the symbol.
+	 * "version24" Version24 defines size of 113x113 modules for the symbol.
+	 * "version25" Version25 defines size of 117x117 modules for the symbol.
+	 * "version26" Version26 defines size of 121x121 modules for the symbol.
+	 * "version27" Version27 defines size of 125x125 modules for the symbol.
+	 * "version28" Version28 defines size of 129x129 modules for the symbol.
+	 * "version29" Version29 defines size of 133x133 modules for the symbol.
+	 * "version30" Version30 defines size of 137x137 modules for the symbol.
+	 * "version31" Version31 defines size of 141x141 modules for the symbol.
+	 * "version32" Version32 defines size of 145x145 modules for the symbol.
+	 * "version33" Version33 defines size of 149x149 modules for the symbol.
+	 * "version34" Version34 defines size of 153x153 modules for the symbol.
+	 * "version35" Version35 defines size of 157x157 modules for the symbol.
+	 * "version36" Version36 defines size of 161x161 modules for the symbol.
+	 * "version37" Version37 defines size of 165x165 modules for the symbol.
+	 * "version38" Version38 defines size of 169x169 modules for the symbol.
+	 * "version39" Version39 defines size of 173x173 modules for the symbol.
+	 * "version40" Version40 defines size of 177x177 modules for the symbol.
 	 */
 	sizeVersion?: string;
 
@@ -9095,6 +8960,7 @@ interface JQuery {
 	/**
 	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -9102,11 +8968,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -9114,6 +8982,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -9215,6 +9084,7 @@ interface JQuery {
 	/**
 	 * Gets  the stretch.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "stretch"): string;
 
 	/**
@@ -9222,11 +9092,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "stretch", optionValue: string): void;
 
 	/**
 	 * Gets  a value which specifies how the grid fills within the barcode control dimensions.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "barsFillMode"): string;
 
 	/**
@@ -9234,6 +9106,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "barsFillMode", optionValue: string): void;
 
 	/**
@@ -9263,6 +9136,7 @@ interface JQuery {
 	/**
 	 * Gets  the error correction level of the QR Code symbol.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorCorrectionLevel"): string;
 
 	/**
@@ -9270,11 +9144,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorCorrectionLevel", optionValue: string): void;
 
 	/**
 	 * Gets  the size version of the QR Code symbol.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "sizeVersion"): string;
 
 	/**
@@ -9282,11 +9158,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "sizeVersion", optionValue: string): void;
 
 	/**
 	 * Gets  the encoding mode for compaction of the QR Code symbol data. The default value is undefined if the Shift_JIS encoding is loaded. Otherwise the default value is byte.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "encodingMode"): string;
 
 	/**
@@ -9294,6 +9172,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "encodingMode", optionValue: string): void;
 
 	/**
@@ -9313,6 +9192,7 @@ interface JQuery {
 	/**
 	 * Gets  a value indicating whether to show the ECI header.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciHeaderDisplayMode"): string;
 
 	/**
@@ -9320,11 +9200,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciHeaderDisplayMode", optionValue: string): void;
 
 	/**
 	 * Gets  the FNC1 mode indicator which identifies symbols encoding messages formatted according to specific predefined industry or application specificatoins.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "fnc1Mode"): string;
 
 	/**
@@ -9332,6 +9214,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "fnc1Mode", optionValue: string): void;
 
 	/**
@@ -9582,14 +9465,14 @@ interface IgBaseChartMethods {
 	/**
 	 * Find index of item within actual data used by chart.
 	 *
-	 * @param item     The reference to item.
+	 * @param item The reference to item.
 	 */
 	findIndexOfItem(item: Object): number;
 
 	/**
 	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
 	 *
-	 * @param index     Index of data item.
+	 * @param index Index of data item.
 	 */
 	getDataItem(index: Object): Object;
 
@@ -9601,68 +9484,68 @@ interface IgBaseChartMethods {
 	/**
 	 * Adds a new item to the data source and notifies the chart.
 	 *
-	 * @param item     The item that we want to add to the data source.
+	 * @param item The item that we want to add to the data source.
 	 */
 	addItem(item: Object): Object;
 
 	/**
 	 * Inserts a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that we want to insert in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
 	 */
 	insertItem(item: Object, index: number): Object;
 
 	/**
 	 * Deletes an item from the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
+	 * @param index The index in the data source from where the item will be been removed.
 	 */
 	removeItem(index: number): Object;
 
 	/**
 	 * Updates an item in the data source and notifies the chart.
 	 *
-	 * @param index     The index of the item in the data source that we want to change.
-	 * @param item     The new item object that will be set in the data source.
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
 	 */
 	setItem(index: number, item: Object): Object;
 
 	/**
 	 * Notifies the chart that an item has been set in an associated data source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source that has been changed.
-	 * @param newItem     the new item that has been set in the collection.
-	 * @param oldItem     the old item that has been overwritten in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source that has been changed.
+	 * @param newItem the new item that has been set in the collection.
+	 * @param oldItem the old item that has been overwritten in the collection.
 	 */
 	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
+	 * @param dataSource The data source in which the change happened.
 	 */
 	notifyClearItems(dataSource: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source where the new item has been inserted.
-	 * @param newItem     the new item that has been set in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source where the new item has been inserted.
+	 * @param newItem the new item that has been set in the collection.
 	 */
 	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source from where the old item has been removed.
-	 * @param oldItem     the old item that has been removed from the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source from where the old item has been removed.
+	 * @param oldItem the old item that has been removed from the collection.
 	 */
 	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
 
@@ -10427,21 +10310,21 @@ interface IgBulletGraphMethods {
 	/**
 	 * Adds a new range to the bullet graph.
 	 *
-	 * @param value     The range object to be added.
+	 * @param value The range object to be added.
 	 */
 	addRange(value: Object): void;
 
 	/**
 	 * Removes a range from the bullet graph.
 	 *
-	 * @param value     A JS object with properties set as follows: name: nameOfTheRangeToRemove, remove: true
+	 * @param value A JS object with properties set as follows: name: nameOfTheRangeToRemove, remove: true
 	 */
 	removeRange(value: Object): void;
 
 	/**
 	 * Updates the specified range of the bullet graph.
 	 *
-	 * @param value     The range object to be updated.
+	 * @param value The range object to be updated.
 	 */
 	updateRange(value: Object): void;
 
@@ -10482,6 +10365,7 @@ interface JQuery {
 	/**
 	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igBulletGraph(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -10489,11 +10373,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igBulletGraph(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igBulletGraph(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -10501,6 +10387,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igBulletGraph(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -10554,6 +10441,7 @@ interface JQuery {
 	/**
 	 * Gets  the orientation of the scale.
 	 */
+
 	igBulletGraph(optionLiteral: 'option', optionName: "orientation"): string;
 
 	/**
@@ -10561,6 +10449,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igBulletGraph(optionLiteral: 'option', optionName: "orientation", optionValue: string): void;
 
 	/**
@@ -11312,8 +11201,7 @@ interface PropertyChangedEvent {
 	(event: Event, ui: PropertyChangedEventUIParam): void;
 }
 
-interface PropertyChangedEventUIParam {
-}
+interface PropertyChangedEventUIParam {}
 
 interface IgCategoryChart {
 	/**
@@ -12208,14 +12096,14 @@ interface IgCategoryChartMethods {
 	/**
 	 * Find index of item within actual data used by chart.
 	 *
-	 * @param item     The reference to item.
+	 * @param item The reference to item.
 	 */
 	findIndexOfItem(item: Object): number;
 
 	/**
 	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
 	 *
-	 * @param index     Index of data item.
+	 * @param index Index of data item.
 	 */
 	getDataItem(index: Object): Object;
 
@@ -12227,68 +12115,68 @@ interface IgCategoryChartMethods {
 	/**
 	 * Adds a new item to the data source and notifies the chart.
 	 *
-	 * @param item     The item that we want to add to the data source.
+	 * @param item The item that we want to add to the data source.
 	 */
 	addItem(item: Object): Object;
 
 	/**
 	 * Inserts a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that we want to insert in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
 	 */
 	insertItem(item: Object, index: number): Object;
 
 	/**
 	 * Deletes an item from the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
+	 * @param index The index in the data source from where the item will be been removed.
 	 */
 	removeItem(index: number): Object;
 
 	/**
 	 * Updates an item in the data source and notifies the chart.
 	 *
-	 * @param index     The index of the item in the data source that we want to change.
-	 * @param item     The new item object that will be set in the data source.
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
 	 */
 	setItem(index: number, item: Object): Object;
 
 	/**
 	 * Notifies the chart that an item has been set in an associated data source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source that has been changed.
-	 * @param newItem     the new item that has been set in the collection.
-	 * @param oldItem     the old item that has been overwritten in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source that has been changed.
+	 * @param newItem the new item that has been set in the collection.
+	 * @param oldItem the old item that has been overwritten in the collection.
 	 */
 	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
+	 * @param dataSource The data source in which the change happened.
 	 */
 	notifyClearItems(dataSource: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source where the new item has been inserted.
-	 * @param newItem     the new item that has been set in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source where the new item has been inserted.
+	 * @param newItem the new item that has been set in the collection.
 	 */
 	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source from where the old item has been removed.
-	 * @param oldItem     the old item that has been removed from the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source from where the old item has been removed.
+	 * @param oldItem the old item that has been removed from the collection.
 	 */
 	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
 
@@ -12861,13 +12749,7 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisTitleTextColor", optionValue: string): void;
-
-	/**
-	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "createWrappedTooltip"): any;
-
-	/**
-	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "createWrappedTooltip", optionValue: any): void;
 
 	/**
@@ -12881,13 +12763,7 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "tooltipTemplate", optionValue: string): void;
-
-	/**
-	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "tooltipTemplates"): any;
-
-	/**
-	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "tooltipTemplates", optionValue: any): void;
 
 	/**
@@ -12937,13 +12813,7 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisTitleTextStyle", optionValue: string): void;
-
-	/**
-	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "widget"): any;
-
-	/**
-	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "widget", optionValue: any): void;
 
 	/**
@@ -13035,6 +12905,7 @@ interface JQuery {
 	/**
 	 * Gets  the type of chart series to generate from the data.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "chartType"): string;
 
 	/**
@@ -13042,6 +12913,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "chartType", optionValue: string): void;
 
 	/**
@@ -13153,6 +13025,7 @@ interface JQuery {
 	/**
 	 * Gets  horizontal alignment which determines the title position, relative to the left and right edges of the chart.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "titleAlignment"): string;
 
 	/**
@@ -13160,11 +13033,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "titleAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  horizontal alignment which determines the subtitle position, relative to the left and right edges of the chart.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "subtitleAlignment"): string;
 
 	/**
@@ -13172,12 +13047,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "subtitleAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the behavior that determines how unknown values will be plotted on the chart.Null and Double.NaN are two examples of unknown values.
 	 *
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "unknownValuePlotting"): string;
 
 	/**
@@ -13186,11 +13063,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "unknownValuePlotting", optionValue: string): void;
 
 	/**
 	 * Gets  the behavior for markers in each series which are placed too close together for the current view, resulting in a collision.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "markerCollisionAvoidance"): string;
 
 	/**
@@ -13198,6 +13077,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "markerCollisionAvoidance", optionValue: string): void;
 
 	/**
@@ -13215,6 +13095,7 @@ interface JQuery {
 	/**
 	 * Gets  the method that determines how to animate series plots when the chart is loading into view
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "transitionInMode"): string;
 
 	/**
@@ -13222,11 +13103,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "transitionInMode", optionValue: string): void;
 
 	/**
 	 * Gets  the arrival speed used for animating series plots when the chart is loading into view
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "transitionInSpeedType"): string;
 
 	/**
@@ -13234,6 +13117,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "transitionInSpeedType", optionValue: string): void;
 
 	/**
@@ -13711,6 +13595,7 @@ interface JQuery {
 	/**
 	 * Gets  the formula used for calculating trend lines in this chart.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "trendLineType"): string;
 
 	/**
@@ -13718,6 +13603,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "trendLineType", optionValue: string): void;
 
 	/**
@@ -13827,6 +13713,7 @@ interface JQuery {
 	/**
 	 * Gets  the horizontal alignment of the X-axis title.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisTitleAlignment"): string;
 
 	/**
@@ -13834,11 +13721,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisTitleAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the vertical alignment of the Y-axis title.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisTitleAlignment"): string;
 
 	/**
@@ -13846,11 +13735,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisTitleAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the horizontal alignment of X-axis labels.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisLabelHorizontalAlignment"): string;
 
 	/**
@@ -13858,11 +13749,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisLabelHorizontalAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the horizontal alignment of Y-axis labels.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisLabelHorizontalAlignment"): string;
 
 	/**
@@ -13870,11 +13763,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisLabelHorizontalAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the vertical alignment of X-axis labels.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisLabelVerticalAlignment"): string;
 
 	/**
@@ -13882,11 +13777,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisLabelVerticalAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the vertical alignment of Y-axis labels.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisLabelVerticalAlignment"): string;
 
 	/**
@@ -13894,11 +13791,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisLabelVerticalAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the visibility of X-axis labels.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisLabelVisibility"): string;
 
 	/**
@@ -13906,11 +13805,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "xAxisLabelVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the visibility of Y-axis labels.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisLabelVisibility"): string;
 
 	/**
@@ -13918,6 +13819,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCategoryChart(optionLiteral: 'option', optionName: "yAxisLabelVisibility", optionValue: string): void;
 
 	/**
@@ -15518,8 +15420,7 @@ interface BrowserNotSupportedEvent {
 	(event: Event, ui: BrowserNotSupportedEventUIParam): void;
 }
 
-interface BrowserNotSupportedEventUIParam {
-}
+interface BrowserNotSupportedEventUIParam {}
 
 interface SeriesCursorMouseMoveEvent {
 	(event: Event, ui: SeriesCursorMouseMoveEventUIParam): void;
@@ -16887,8 +16788,8 @@ interface IgDataChartMethods {
 	/**
 	 * Exports the chart to a PNG image.
 	 *
-	 * @param width     The width of the image.
-	 * @param height     The height of the image.
+	 * @param width The width of the image.
+	 * @param height The height of the image.
 	 */
 	exportImage(width?: Object, height?: Object): Object;
 
@@ -16910,112 +16811,112 @@ interface IgDataChartMethods {
 	/**
 	 * Adds a new item to the data source and notifies the chart.
 	 *
-	 * @param item     The item that we want to add to the data source.
-	 * @param targetName     The name of the series or axis bound to the data source. This is required only when the data is bound to series or axis. If the data is bound to dataSource of igDataChart, the second parameter should not be set.
+	 * @param item The item that we want to add to the data source.
+	 * @param targetName The name of the series or axis bound to the data source. This is required only when the data is bound to series or axis. If the data is bound to dataSource of igDataChart, the second parameter should not be set.
 	 */
 	addItem(item: Object, targetName: string): void;
 
 	/**
 	 * Inserts a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that we want to insert in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
-	 * @param targetName     The name of the series or axis bound to the data source.
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
+	 * @param targetName The name of the series or axis bound to the data source.
 	 */
 	insertItem(item: Object, index: number, targetName: string): void;
 
 	/**
 	 * Deletes an item from the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
-	 * @param targetName     The name of the series or axis bound to the data source. This is required only when the data is bound to series or axis. If the data is bound to dataSource of igDataChart, the second parameter should not be set.
+	 * @param index The index in the data source from where the item will be been removed.
+	 * @param targetName The name of the series or axis bound to the data source. This is required only when the data is bound to series or axis. If the data is bound to dataSource of igDataChart, the second parameter should not be set.
 	 */
 	removeItem(index: number, targetName: string): void;
 
 	/**
 	 * Updates an item in the data source and notifies the chart.
 	 *
-	 * @param index     The index of the item in the data source that we want to change.
-	 * @param item     The new item object that will be set in the data source.
-	 * @param targetName     The name of the series or axis bound to the data source.
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
+	 * @param targetName The name of the series or axis bound to the data source.
 	 */
 	setItem(index: number, item: Object, targetName: string): void;
 
 	/**
 	 * Notifies the chart that an item has been set in an associated data source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source that has been changed.
-	 * @param newItem     the new item that has been set in the collection.
-	 * @param oldItem     the old item that has been overwritten in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source that has been changed.
+	 * @param newItem the new item that has been set in the collection.
+	 * @param oldItem the old item that has been overwritten in the collection.
 	 */
 	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
+	 * @param dataSource The data source in which the change happened.
 	 */
 	notifyClearItems(dataSource: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source where the new item has been inserted.
-	 * @param newItem     the new item that has been set in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source where the new item has been inserted.
+	 * @param newItem the new item that has been set in the collection.
 	 */
 	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source from where the old item has been removed.
-	 * @param oldItem     the old item that has been removed from the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source from where the old item has been removed.
+	 * @param oldItem the old item that has been removed from the collection.
 	 */
 	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that it should scroll the requested data item into view.
 	 *
-	 * @param targetName     The name of the axis or series notify.
-	 * @param item     The data item to bring into view, if possible.
+	 * @param targetName The name of the axis or series notify.
+	 * @param item The data item to bring into view, if possible.
 	 */
 	scrollIntoView(targetName: string, item: Object): Object;
 
 	/**
 	 * Notifies the target axis that it should scale the requested value into chart space from axis space.
-	 * 	For example you can use this method if you want to find where value 50 of the x axis stands scaled to chart's width.
+	 * For example you can use this method if you want to find where value 50 of the x axis stands scaled to chart's width.
 	 *
-	 * @param targetName     The name of the axis to notify.
-	 * @param unscaledValue     The value in axis space to translate into chart space.
+	 * @param targetName The name of the axis to notify.
+	 * @param unscaledValue The value in axis space to translate into chart space.
 	 */
 	scaleValue(targetName: string, unscaledValue: number): number;
 
 	/**
 	 * Notifies the target axis that it should unscale the requested value into axis space from chart space.
-	 * 	For example you can use this method if you want to find what is the value of x axis unscaled from 0 width of the chart.
+	 * For example you can use this method if you want to find what is the value of x axis unscaled from 0 width of the chart.
 	 *
-	 * @param targetName     The name of the axis to notify.
-	 * @param scaledValue     The value in chart space to translate into axis space.
+	 * @param targetName The name of the axis to notify.
+	 * @param scaledValue The value in chart space to translate into axis space.
 	 */
 	unscaleValue(targetName: string, scaledValue: number): number;
 
 	/**
 	 * For the target axis, if using enhanced interval management and precise interval fitting, this will reset the cached maximum label width, and recalculate using the current labels.
 	 *
-	 * @param targetName     The name of the axis to notify.
+	 * @param targetName The name of the axis to notify.
 	 */
 	resetCachedEnhancedInterval(targetName: string): Object;
 
 	/**
 	 * Notifies the target series that something that affects its visual properties has changed and the visual output needs a repaint.
 	 *
-	 * @param targetName     The name of the series to notify.
+	 * @param targetName The name of the series to notify.
 	 */
 	notifyVisualPropertiesChanged(targetName: string): Object;
 
@@ -17032,21 +16933,21 @@ interface IgDataChartMethods {
 	/**
 	 * Gets the actual minimum value of the target numeric or date time axis
 	 *
-	 * @param targetName    The name of the axis from which to get the minimum value.
+	 * @param targetName The name of the axis from which to get the minimum value.
 	 */
 	getActualMinimumValue(targetName: string): void;
 
 	/**
 	 * Gets the actual maximum value of the target numeric or date time axis
 	 *
-	 * @param targetName    The name of the axis from which to get the maximum value.
+	 * @param targetName The name of the axis from which to get the maximum value.
 	 */
 	getActualMaximumValue(targetName: string): void;
 
 	/**
 	 * Gets the actual interval of the target numeric or date time axis
 	 *
-	 * @param targetName    The name of the axis from which to get the interval.
+	 * @param targetName The name of the axis from which to get the interval.
 	 */
 	getActualInterval(targetName: string): void;
 
@@ -17058,236 +16959,236 @@ interface IgDataChartMethods {
 	/**
 	 * Indicates that a series should render, even though no option has been modified that would normally cause it to refresh.
 	 *
-	 * @param targetName     The name of the series to render.
-	 * @param animate     Whether the change should be animated, if possible.
+	 * @param targetName The name of the series to render.
+	 * @param animate Whether the change should be animated, if possible.
 	 */
 	renderSeries(targetName: string, animate: boolean): void;
 
 	/**
 	 * Gets the item item index associated with the specified world position.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
 	 */
 	getItemIndex(targetName: string, worldPoint: Object): number;
 
 	/**
 	 * Gets the item that is the best match for the specified world coordinates.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
 	 */
 	getItem(targetName: string, worldPoint: Object): Object;
 
 	/**
 	 * For a category plotted series, gets the current width of the items within the categories. This only returns a value if the items have some form of width (e.g. columns, bars, etc.) otherwise 0 is returned.
 	 *
-	 * @param targetName    The name of the series to target.
+	 * @param targetName The name of the series to target.
 	 */
 	getItemSpan(targetName: string): number;
 
 	/**
 	 * If possible, will return the best available main value of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesValue(targetName: string, worldPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): number;
 
 	/**
 	 * If possible, will return the best available value bounding box within the series that has the best value match for the world position provided.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
 	 */
 	getSeriesValueBoundingBox(targetName: string, worldPoint: Object): Object;
 
 	/**
 	 * If possible, will return the best available value fine grained bounding boxes within the series that have the best value match for the world position provided.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
 	 */
 	getSeriesValueFineGrainedBoundingBoxes(targetName: string, worldPoint: Object): Object;
 
 	/**
 	 * If possible, will return the best available main value position of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesValuePosition(targetName: string, worldPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): Object;
 
 	/**
 	 * If possible, will return the best available main value position of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} that represents a position within the pixel space of the series.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} that represents a position within the pixel space of the series.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesValuePositionFromSeriesPixel(targetName: string, seriesPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): Object;
 
 	/**
 	 * If possible, will return the best available main value of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesValueFromSeriesPixel(targetName: string, seriesPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): number;
 
 	/**
 	 * If possible, will return the best available value bounding box within the series that has the best value match for the given series pixel coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
 	 */
 	getSeriesValueBoundingBoxFromSeriesPixel(targetName: string, seriesPoint: Object): Object;
 
 	/**
 	 * If possible, will return the best available value fine grained bounding boxes within the series that have the best value match for series pixel position provided.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
 	 */
 	getSeriesValueFineGrainedBoundingBoxesFromSeriesPixel(targetName: string, worldPoint: Object): Object;
 
 	/**
 	 * If possible, will return the best available high value of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesHighValue(targetName: string, worldPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): number;
 
 	/**
 	 * If possible, will return the best available high value position of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesHighValuePosition(targetName: string, worldPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): Object;
 
 	/**
 	 * If possible, will return the best available high value position of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} that represents a position within the pixel space of the series.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} that represents a position within the pixel space of the series.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesHighValuePositionFromSeriesPixel(targetName: string, seriesPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): Object;
 
 	/**
 	 * If possible, will return the best available high value of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesHighValueFromSeriesPixel(targetName: string, seriesPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): number;
 
 	/**
 	 * If possible, will return the best available low value of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesLowValue(targetName: string, worldPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): number;
 
 	/**
 	 * If possible, will return the best available low value position of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesLowValuePosition(targetName: string, worldPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): Object;
 
 	/**
 	 * If possible, will return the best available low value position of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} that represents a position within the pixel space of the series.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} that represents a position within the pixel space of the series.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesLowValuePositionFromSeriesPixel(targetName: string, seriesPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): Object;
 
 	/**
 	 * If possible, will return the best available low value of the series for a given world coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
-	 * @param useInterpolation    If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
-	 * @param skipUnknowns    If true, unknown values should be skipped.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
+	 * @param useInterpolation If true, interpolation should be used to get in-between values, rather than only the actual values in the data set.
+	 * @param skipUnknowns If true, unknown values should be skipped.
 	 */
 	getSeriesLowValueFromSeriesPixel(targetName: string, seriesPoint: Object, useInterpolation: boolean, skipUnknowns: boolean): number;
 
 	/**
 	 * Gets the item item index associated with the specified series pixel coordinate.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The world position (in the form {x: [number from 0 to 1], y: [number from 0 to 1]} ) that represents a position in the space of the axes.
 	 */
 	getItemIndexFromSeriesPixel(targetName: string, seriesPoint: Object): number;
 
 	/**
 	 * Gets the item that is the best match for the specified world coordinates.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The series pixel position (in the form {x: [number], y: [number]} ) that represents a position in the pixel space of the series.
 	 */
 	getItemFromSeriesPixel(targetName: string, seriesPoint: Object): Object;
 
 	/**
 	 * Gets the category offset for a series, if applicable.
 	 *
-	 * @param targetName    The name of the series to target.
+	 * @param targetName The name of the series to target.
 	 */
 	getSeriesOffsetValue(targetName: string): number;
 
 	/**
 	 * Gets the category width for a series, if applicable.
 	 *
-	 * @param targetName    The name of the series to target.
+	 * @param targetName The name of the series to target.
 	 */
 	getSeriesCategoryWidth(targetName: string): number;
 
 	/**
 	 * Replays the transition in animation for a series, if applicable.
 	 *
-	 * @param targetName    The name of the series to target.
+	 * @param targetName The name of the series to target.
 	 */
 	replayTransitionIn(targetName: string): Object;
 
 	/**
 	 * Simulates a hover interaction over a given point in the viewport of a series.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param seriesPoint    The point at which to hover. Should have an x property with type number and a y property with type number.
+	 * @param targetName The name of the series to target.
+	 * @param seriesPoint The point at which to hover. Should have an x property with type number and a y property with type number.
 	 */
 	simulateHover(targetName: string, seriesPoint: Object): Object;
 
 	/**
 	 * Moves the cursor point of the target annotation layer to the desired world coordinates.
 	 *
-	 * @param targetName    The name of the series to target.
-	 * @param worldPoint    The point to which to move the cursor. Should have an x property with type number and a y property with type number.
+	 * @param targetName The name of the series to target.
+	 * @param worldPoint The point to which to move the cursor. Should have an x property with type number and a y property with type number.
 	 */
 	moveCursorPoint(targetName: string, worldPoint: Object): Object;
 
@@ -17830,38 +17731,38 @@ interface IgPieChartMethods {
 	/**
 	 * Adds a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that will be added to the data source.
+	 * @param item the new item that will be added to the data source.
 	 */
 	addItem(item: Object): void;
 
 	/**
 	 * Inserts a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that will be inserted in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
+	 * @param item the new item that will be inserted in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
 	 */
 	insertItem(item: Object, index: number): void;
 
 	/**
 	 * Deletes an item from the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
+	 * @param index The index in the data source from where the item will be been removed.
 	 */
 	removeItem(index: number): void;
 
 	/**
 	 * Updates an item in the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source that we want to change.
-	 * @param item     the new item that we want to set in the data source.
+	 * @param index The index in the data source that we want to change.
+	 * @param item the new item that we want to set in the data source.
 	 */
 	setItem(index: number, item: Object): void;
 
 	/**
 	 * Exports the chart to a PNG image.
 	 *
-	 * @param width     The width of the image.
-	 * @param height     The height of the image.
+	 * @param width The width of the image.
+	 * @param height The height of the image.
 	 */
 	exportImage(width?: Object, height?: Object): Object;
 
@@ -18094,6 +17995,7 @@ interface JQuery {
 	 * The response to user panning and zooming: whether to update the view immediately while the user action is happening, or to defer the update to after the user action is complete.  The user action will be an action such as a mouse drag which causes panning and/or zooming to occur.
 	 *
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "windowResponse"): string;
 
 	/**
@@ -18102,6 +18004,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "windowResponse", optionValue: string): void;
 
 	/**
@@ -18123,6 +18026,7 @@ interface JQuery {
 	/**
 	 * The visibility of the OverviewPlusDetailPane.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "overviewPlusDetailPaneVisibility"): string;
 
 	/**
@@ -18130,11 +18034,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "overviewPlusDetailPaneVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the current Chart's crosshair visibility override.  Note: setting this property does not affect the mobile browser version of the chart.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "crosshairVisibility"): string;
 
 	/**
@@ -18142,6 +18048,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "crosshairVisibility", optionValue: string): void;
 
 	/**
@@ -18159,6 +18066,7 @@ interface JQuery {
 	/**
 	 * Gets  the DefaultInteraction property. The default interaction state defines the chart's response to mouse events.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "defaultInteraction"): string;
 
 	/**
@@ -18166,11 +18074,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "defaultInteraction", optionValue: string): void;
 
 	/**
 	 * Gets  the current Chart's DragModifier property.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "dragModifier"): string;
 
 	/**
@@ -18178,11 +18088,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "dragModifier", optionValue: string): void;
 
 	/**
 	 * Gets  the current Chart's PanModifier property.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "panModifier"): string;
 
 	/**
@@ -18190,6 +18102,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "panModifier", optionValue: string): void;
 
 	/**
@@ -18533,6 +18446,7 @@ interface JQuery {
 	/**
 	 * Gets  the GridMode property.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "gridMode"): string;
 
 	/**
@@ -18540,6 +18454,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "gridMode", optionValue: string): void;
 
 	/**
@@ -18609,6 +18524,7 @@ interface JQuery {
 	/**
 	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -18616,11 +18532,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -18628,6 +18546,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -18885,6 +18804,7 @@ interface JQuery {
 	/**
 	 * The horizontal alignment to use for the title.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "titleHorizontalAlignment"): string;
 
 	/**
@@ -18892,11 +18812,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "titleHorizontalAlignment", optionValue: string): void;
 
 	/**
 	 * The horizontal alignment to use for the subtitle.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "subtitleHorizontalAlignment"): string;
 
 	/**
@@ -18904,6 +18826,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "subtitleHorizontalAlignment", optionValue: string): void;
 
 	/**
@@ -18969,6 +18892,7 @@ interface JQuery {
 	/**
 	 * Gets  which type of hit testing the series should use.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "contentHitTestMode"): string;
 
 	/**
@@ -18976,6 +18900,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDataChart(optionLiteral: 'option', optionName: "contentHitTestMode", optionValue: string): void;
 
 	/**
@@ -19583,6 +19508,7 @@ interface JQuery {
 	/**
 	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -19590,11 +19516,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -19602,6 +19530,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -19716,6 +19645,7 @@ interface JQuery {
 	 * Gets  the position of chart labels.
 	 *
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "labelsPosition"): string;
 
 	/**
@@ -19724,6 +19654,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "labelsPosition", optionValue: string): void;
 
 	/**
@@ -19758,6 +19689,7 @@ interface JQuery {
 	 * Gets  the type of selection the pie chart allows.
 	 *
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "selectionMode"): string;
 
 	/**
@@ -19766,6 +19698,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "selectionMode", optionValue: string): void;
 
 	/**
@@ -19800,6 +19733,7 @@ interface JQuery {
 	 * Gets  whether the leader lines are visible.
 	 *
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "leaderLineVisibility"): string;
 
 	/**
@@ -19808,12 +19742,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "leaderLineVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  what type of leader lines will be used for the outside end labels.
 	 *
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "leaderLineType"): string;
 
 	/**
@@ -19822,6 +19758,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "leaderLineType", optionValue: string): void;
 
 	/**
@@ -19887,6 +19824,7 @@ interface JQuery {
 	/**
 	 * Gets  whether to use numeric or percent-based threshold value.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "othersCategoryType"): string;
 
 	/**
@@ -19894,6 +19832,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "othersCategoryType", optionValue: string): void;
 
 	/**
@@ -20050,6 +19989,7 @@ interface JQuery {
 	 * Gets  the rotational direction of the chart.
 	 *
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "sweepDirection"): string;
 
 	/**
@@ -20058,6 +19998,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPieChart(optionLiteral: 'option', optionName: "sweepDirection", optionValue: string): void;
 
 	/**
@@ -20633,6 +20574,7 @@ interface JQuery {
 	/**
 	 * Type of the legend.
 	 */
+
 	igChartLegend(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -20640,11 +20582,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igChartLegend(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
 	 * The width of the legend. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igChartLegend(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -20652,11 +20596,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igChartLegend(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the legend. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igChartLegend(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -20664,6 +20610,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igChartLegend(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -20845,7 +20792,7 @@ interface IgColorPickerMethods {
 	/**
 	 * Gets the color for an element from the color picker in RGB format.
 	 *
-	 * @param $element     A jQuery element in the color picker from which the color will be retrieved.
+	 * @param $element A jQuery element in the color picker from which the color will be retrieved.
 	 */
 	colorFromElement($element: Object): string;
 
@@ -20858,7 +20805,7 @@ interface IgColorPickerMethods {
 	/**
 	 * Select a color.
 	 *
-	 * @param color     The #RGB value of the color to be selected.
+	 * @param color The #RGB value of the color to be selected.
 	 */
 	selectColor(color: string): Object;
 }
@@ -21706,7 +21653,6 @@ interface IgCombo {
 	 * Gets/Sets type of filtering.Note: option is set to "remote", then the "css.waitFiltering" is applied to combo and its drop-down list.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "remote" filtering is performed by server
 	 * "local" filtering is performed by $.ig.DataSource
@@ -21722,7 +21668,6 @@ interface IgCombo {
 
 	/**
 	 * Gets/Sets condition used for filtering.Note: When [autoComplete](ui.igcombo#options:autoComplete) is enabled, the filtering condition is always "startsWith".
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -22096,8 +22041,8 @@ interface IgComboMethods {
 	/**
 	 * Forces an update of the igCombo value according to the current text in the igCombo input.
 	 *
-	 * 	The refresh is primarily intended to be used with [allowCustomValue](ui.igcombo#options:allowCustomValue) set to true.
-	 * 	The refresh will take the current text and, if no selection is applied, will set it as igCombo value provided that [allowCustomValue](ui.igcombo#options:allowCustomValue) true.
+	 * The refresh is primarily intended to be used with [allowCustomValue](ui.igcombo#options:allowCustomValue) set to true.
+	 * The refresh will take the current text and, if no selection is applied, will set it as igCombo value provided that [allowCustomValue](ui.igcombo#options:allowCustomValue) true.
 	 */
 	refreshValue(): Object;
 
@@ -22160,6 +22105,14 @@ interface IgComboMethods {
 	filter(texts?: Object, event?: Object): Object;
 
 	/**
+	 * Creates expressions for filtering.
+	 *
+	 * @param expressions Filter by array of objects, such as each object represents filtering expression.
+	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [filtering](ui.igcombo#events:filtering) and [filtered](ui.igcombo#events:filtered) events.
+	 */
+	filterByExpressions(expressions: any[], event?: Object): Object;
+
+	/**
 	 * Clears filtering.
 	 *
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [filtering](ui.igcombo#events:filtering) and [filtered](ui.igcombo#events:filtered) events.
@@ -22186,7 +22139,7 @@ interface IgComboMethods {
 	/**
 	 * Clears the input text, resets highlighting, filtering and selection.
 	 *
-	 * @param options     Object with set of options controlling the behavior of this api method.
+	 * @param options Object with set of options controlling the behavior of this api method.
 	 * focusCombo (boolean): Set to true to focus combo after clearing the input.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
@@ -22218,14 +22171,14 @@ interface IgComboMethods {
 	 *
 	 * @param value Value or array of values matching the valueKey property of item/items to be selected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 * focusCombo (boolean): Set to true to focus combo after the selection.
-	 * additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
-	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
+	 *                     additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
+	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	value(value?: Object, options?: Object, event?: Object): Object;
@@ -22235,14 +22188,14 @@ interface IgComboMethods {
 	 *
 	 * @param $items jQuery object with item or items to be selected.
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 * focusCombo (boolean): Set to true to focus combo after the selection.
-	 * additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
-	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
+	 *                     additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
+	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	select($items: Object, options?: Object, event?: Object): Object;
@@ -22252,14 +22205,14 @@ interface IgComboMethods {
 	 *
 	 * @param index Index or array of indexes of items to be selected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 * focusCombo (boolean): Set to true to focus combo after the selection.
-	 * additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
-	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
+	 *                     additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
+	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	index(index?: Object, options?: Object, event?: Object): Object;
@@ -22268,13 +22221,13 @@ interface IgComboMethods {
 	 * Selects all items from the drop-down list.
 	 *
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 * focusCombo (boolean): Set to true to focus combo after the selection.
-	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
+	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	selectAll(options?: Object, event?: Object): Object;
@@ -22284,8 +22237,8 @@ interface IgComboMethods {
 	 *
 	 * @param value Value or array of values matching the [valueKey](ui.igcombo#options:valueKey) property of item/items to be deselected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * focusCombo (boolean): Set to true to focus combo after the deselection.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselectByValue(value: Object, options?: Object, event?: Object): Object;
@@ -22295,8 +22248,8 @@ interface IgComboMethods {
 	 *
 	 * @param $items jQuery object with item or items to be deselected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * focusCombo (boolean): Set to true to focus combo after the deselection.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselect($items: Object, options?: Object, event?: Object): Object;
@@ -22306,8 +22259,8 @@ interface IgComboMethods {
 	 *
 	 * @param index Index or array of indexes of items to be selected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * focusCombo (boolean): Set to true to focus combo after the deselection.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselectByIndex(index: Object, options?: Object, event?: Object): Object;
@@ -22316,8 +22269,8 @@ interface IgComboMethods {
 	 * Deselects all selected items from the drop down list.
 	 *
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 * focusCombo (boolean): Set to true to focus combo after the deselection.
-	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
+	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselectAll(options?: Object, event?: Object): Object;
@@ -22419,6 +22372,7 @@ interface JQuery {
 	igCombo(methodName: "filteredItems"): any[];
 	igCombo(methodName: "selectedItems"): any[];
 	igCombo(methodName: "filter", texts?: Object, event?: Object): Object;
+	igCombo(methodName: "filterByExpressions", expressions: any[], event?: Object): Object;
 	igCombo(methodName: "clearFiltering", event?: Object): Object;
 	igCombo(methodName: "openDropDown", callback?: Function, focusCombo?: boolean, event?: Object): Object;
 	igCombo(methodName: "closeDropDown", callback?: Function, event?: Object): Object;
@@ -22453,6 +22407,7 @@ interface JQuery {
 	 * Gets/Sets the width of combo. The numeric and string values (valid html units for size) are supported. It includes %, px, em and other units.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -22461,12 +22416,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets height of combo. The numeric and string values (valid html units for size) are supported. It includes %, px, em and other units.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -22475,12 +22432,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the width of drop-down list in pixels.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "dropDownWidth"): string|number;
 
 	/**
@@ -22489,6 +22448,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "dropDownWidth", optionValue: string|number): void;
 
 	/**
@@ -22523,14 +22483,14 @@ interface JQuery {
 
 	/**
 	 * Sets URL which is used for sending JSON on request for remote filtering (MVC for example). That option is required when [load on demand](ui.igcombo#options:loadOnDemandSettings) is
-	 * [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
+	 *                 [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "dataSourceUrl"): string;
 
 	/**
 	 * Sets URL which is used for sending JSON on request for remote filtering (MVC for example). That option is required when [load on demand](ui.igcombo#options:loadOnDemandSettings) is
-	 * [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
+	 *                 [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22569,6 +22529,7 @@ interface JQuery {
 	 * Response type when a URL is set as the data source. See http://api.jquery.com/jQuery.ajax/ => dataType.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "responseDataType"): string;
 
 	/**
@@ -22577,6 +22538,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "responseDataType", optionValue: string): void;
 
 	/**
@@ -22637,14 +22599,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets a template used to render an item in list. The igCombo utilizes igTemplating for generating node content templates.
-	 * More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
+	 *     More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "itemTemplate"): string;
 
 	/**
 	 * /Sets a template used to render an item in list. The igCombo utilizes igTemplating for generating node content templates.
-	 * More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
+	 *     More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22754,17 +22716,17 @@ interface JQuery {
 	/**
 	 * Gets/Sets type of filtering.Note: option is set to "remote", then the "css.waitFiltering" is applied to combo and its drop-down list.
 	 *
-	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "filteringType"): string;
 
 	/**
 	 * /Sets type of filtering.Note: option is set to "remote", then the "css.waitFiltering" is applied to combo and its drop-down list.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "filteringType", optionValue: string): void;
 
 	/**
@@ -22784,23 +22746,24 @@ interface JQuery {
 	/**
 	 * Gets/Sets condition used for filtering.Note: When [autoComplete](ui.igcombo#options:autoComplete) is enabled, the filtering condition is always "startsWith".
 	 *
-	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "filteringCondition"): string;
 
 	/**
 	 * /Sets condition used for filtering.Note: When [autoComplete](ui.igcombo#options:autoComplete) is enabled, the filtering condition is always "startsWith".
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "filteringCondition", optionValue: string): void;
 
 	/**
 	 * Gets/Sets filtering logic.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "filteringLogic"): string;
 
 	/**
@@ -22809,6 +22772,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "filteringLogic", optionValue: string): void;
 
 	/**
@@ -22881,6 +22845,7 @@ interface JQuery {
 	 * Sets gets functionality mode.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -22889,6 +22854,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -22955,6 +22921,7 @@ interface JQuery {
 	 * Gets/Sets condition used for highlighting of matching parts in items of drop-down list.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "highlightMatchesMode"): string;
 
 	/**
@@ -22963,6 +22930,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "highlightMatchesMode", optionValue: string): void;
 
 	/**
@@ -23233,6 +23201,7 @@ interface JQuery {
 	 * Gets/Sets drop-down list orientation when open button is clicked.
 	 *
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "dropDownOrientation"): string;
 
 	/**
@@ -23241,6 +23210,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCombo(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
 	/**
@@ -23606,11 +23576,11 @@ interface AnimationEndedEventUIParam {
 	action?: any;
 }
 
-interface FocusEvent {
-	(event: Event, ui: FocusEventUIParam): void;
+interface IgFocusEvent {
+	(event: Event, ui: IgFocusEventUIParam): void;
 }
 
-interface FocusEventUIParam {
+interface IgFocusEventUIParam {
 	/**
 	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23642,7 +23612,6 @@ interface IgDialog {
 
 	/**
 	 * Gets/Sets the state of the dialog.Note: when the dialog is modal, then pinned and minimized states are not supported, because that will trigger misbehavior.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -23749,14 +23718,12 @@ interface IgDialog {
 	 * Gets/Sets the initial height of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
 	 *
-	 *
 	 */
 	height?: number|string;
 
 	/**
 	 * Gets/Sets the initial width of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
-	 *
 	 *
 	 */
 	width?: number|string;
@@ -23899,7 +23866,6 @@ interface IgDialog {
 	 * If this option is set to "auto" and showMaximizeButton is enabled or if this option is set to true, then the dialog will be maximized when it was in normal state,
 	 * and dialog-state will be set to normal if it was maximized.
 	 *
-	 *
 	 */
 	enableDblclick?: any;
 
@@ -23962,7 +23928,7 @@ interface IgDialog {
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised when the dialog or its content loses focus.
@@ -23986,9 +23952,9 @@ interface IgDialogMethods {
 
 	/**
 	 * Gets/Sets the state of the editor.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 *
-	 * @param state     New state.
+	 * @param state New state.
 	 */
 	state(state?: string): string;
 
@@ -23999,53 +23965,53 @@ interface IgDialogMethods {
 
 	/**
 	 * Closes the dialog if it is opened.
-	 * 	Notes:
-	 * 	1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
-	 * 	2. That method does not change minimized or maximized state of the dialog.
-	 * 	It means that method "open" will open the dialog and keep previous minimized or maximized state.
+	 * Notes:
+	 * 1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * 2. That method does not change minimized or maximized state of the dialog.
+	 * It means that method "open" will open the dialog and keep previous minimized or maximized state.
 	 *
-	 * @param e     Browser event: internal use only.
+	 * @param e Browser event: internal use only.
 	 */
 	close(e?: Object): Object;
 
 	/**
 	 * Opens the dialog if it is closed. Notes:
-	 * 	1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
-	 * 	2. That method does not change minimized or maximized state of the dialog. It means that if the dialog was in minimized or maximized stated when closed by "close" method, then the dialog will open in minimized or maximized state respectively.
+	 * 1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * 2. That method does not change minimized or maximized state of the dialog. It means that if the dialog was in minimized or maximized stated when closed by "close" method, then the dialog will open in minimized or maximized state respectively.
 	 */
 	open(): Object;
 
 	/**
 	 * Minimizes the dialog if it is not minimized.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	minimize(): Object;
 
 	/**
 	 * Maximizes the dialog if it is not maximized.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	maximize(): Object;
 
 	/**
 	 * Sets the normal state for the dialog if it was maximized or minimized.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	restore(): Object;
 
 	/**
 	 * Pins the dialog if it is not pinned.
-	 * 	When the dialog is pinned, then the html element of the dialog is moved to the original container where the target element was located and position:absolute is removed.
-	 * 	The pinned dialog does not support modal state, maximized state and it can not be moved.
-	 * 	Notes:
-	 * 	1. If the parent element of the original target-element is invisible, then the pinned dialog becomes invisible as well.
-	 * 	2. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * When the dialog is pinned, then the html element of the dialog is moved to the original container where the target element was located and position:absolute is removed.
+	 * The pinned dialog does not support modal state, maximized state and it can not be moved.
+	 * Notes:
+	 * 1. If the parent element of the original target-element is invisible, then the pinned dialog becomes invisible as well.
+	 * 2. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	pin(): Object;
 
 	/**
 	 * Unpins the dialog if it is pinned.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	unpin(): Object;
 
@@ -24062,14 +24028,14 @@ interface IgDialogMethods {
 	/**
 	 * Moves a not modal dialog to the top.
 	 *
-	 * @param e     Original event of browser.
+	 * @param e Original event of browser.
 	 */
 	moveToTop(e?: Object): Object;
 
 	/**
 	 * Retrieves the igDialog content container or sets its content to be the new content provided.
 	 *
-	 * @param newContent     The new html content provided as a string. If the parameter is provided then the method acts as a setter.
+	 * @param newContent The new html content provided as a string. If the parameter is provided then the method acts as a setter.
 	 */
 	content(newContent?: string): Object;
 }
@@ -24120,17 +24086,17 @@ interface JQuery {
 	/**
 	 * Gets/Sets the state of the dialog.Note: when the dialog is modal, then pinned and minimized states are not supported, because that will trigger misbehavior.
 	 *
-	 *
 	 */
+
 	igDialog(optionLiteral: 'option', optionName: "state"): string;
 
 	/**
 	 * /Sets the state of the dialog.Note: when the dialog is modal, then pinned and minimized states are not supported, because that will trigger misbehavior.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDialog(optionLiteral: 'option', optionName: "state", optionValue: string): void;
 
 	/**
@@ -24349,8 +24315,8 @@ interface JQuery {
 	 * Gets/Sets the initial height of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
 	 *
-	 *
 	 */
+
 	igDialog(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
@@ -24358,17 +24324,17 @@ interface JQuery {
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDialog(optionLiteral: 'option', optionName: "height", optionValue: number|string): void;
 
 	/**
 	 * Gets/Sets the initial width of the dialog in pixels for normal state.Besides numeric values, following units are supported: "px", "em" and "%".
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
 	 *
-	 *
 	 */
+
 	igDialog(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
@@ -24376,9 +24342,9 @@ interface JQuery {
 	 * In case of "%", the size of browser window is used and it has effect only on open action.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDialog(optionLiteral: 'option', optionName: "width", optionValue: number|string): void;
 
 	/**
@@ -24694,7 +24660,6 @@ interface JQuery {
 	 * If this option is set to "auto" and showMaximizeButton is enabled or if this option is set to true, then the dialog will be maximized when it was in normal state,
 	 * and dialog-state will be set to normal if it was maximized.
 	 *
-	 *
 	 */
 	igDialog(optionLiteral: 'option', optionName: "enableDblclick"): any;
 
@@ -24702,7 +24667,6 @@ interface JQuery {
 	 * /Sets the processing of the double-click on the dialog-header.If this option is not false and dialog was minimized, then its state will be set to normal.
 	 * If this option is set to "auto" and showMaximizeButton is enabled or if this option is set to true, then the dialog will be maximized when it was in normal state,
 	 * and dialog-state will be set to normal if it was maximized.
-	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -24826,7 +24790,7 @@ interface JQuery {
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
 	 */
-	igDialog(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igDialog(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when the dialog or its content gets focus.
@@ -24837,7 +24801,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igDialog(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igDialog(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised when the dialog or its content loses focus.
@@ -25026,8 +24990,7 @@ interface HoleDimensionsChangedEvent {
 	(event: Event, ui: HoleDimensionsChangedEventUIParam): void;
 }
 
-interface HoleDimensionsChangedEventUIParam {
-}
+interface HoleDimensionsChangedEventUIParam {}
 
 interface IgDoughnutChart {
 	/**
@@ -25221,21 +25184,21 @@ interface IgDoughnutChartMethods {
 	/**
 	 * Adds a new series to the doughnut chart.
 	 *
-	 * @param seriesObj     The series object to be added.
+	 * @param seriesObj The series object to be added.
 	 */
 	addSeries(seriesObj: Object): void;
 
 	/**
 	 * Removes the specified series from the doughnut chart.
 	 *
-	 * @param seriesObj     The series object identifying the series to be removed.
+	 * @param seriesObj The series object identifying the series to be removed.
 	 */
 	removeSeries(seriesObj: Object): void;
 
 	/**
 	 * Updates the series with the specified name with the specified new property values.
 	 *
-	 * @param value     The series object identifying the series to be updated.
+	 * @param value The series object identifying the series to be updated.
 	 */
 	updateSeries(value: Object): void;
 
@@ -25267,89 +25230,89 @@ interface IgDoughnutChartMethods {
 	/**
 	 * Returns data source of the series.
 	 *
-	 * @param series     Optional. The series name. If not provided an array of series data sources is returned.
+	 * @param series Optional. The series name. If not provided an array of series data sources is returned.
 	 */
 	getData(series: string): Object;
 
 	/**
 	 * Find index of item within actual data used by chart.
 	 *
-	 * @param item     The reference to item.
+	 * @param item The reference to item.
 	 */
 	findIndexOfItem(item: Object): number;
 
 	/**
 	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
 	 *
-	 * @param index     Index of data item.
+	 * @param index Index of data item.
 	 */
 	getDataItem(index: Object): Object;
 
 	/**
 	 * Adds a new item to the data source and notifies the chart.
 	 *
-	 * @param item     The item that we want to add to the data source.
+	 * @param item The item that we want to add to the data source.
 	 */
 	addItem(item: Object): Object;
 
 	/**
 	 * Inserts a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that we want to insert in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
 	 */
 	insertItem(item: Object, index: number): Object;
 
 	/**
 	 * Deletes an item from the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
+	 * @param index The index in the data source from where the item will be been removed.
 	 */
 	removeItem(index: number): Object;
 
 	/**
 	 * Updates an item in the data source and notifies the chart.
 	 *
-	 * @param index     The index of the item in the data source that we want to change.
-	 * @param item     The new item object that will be set in the data source.
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
 	 */
 	setItem(index: number, item: Object): Object;
 
 	/**
 	 * Notifies the chart that an item has been set in an associated data source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source that has been changed.
-	 * @param newItem     the new item that has been set in the collection.
-	 * @param oldItem     the old item that has been overwritten in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source that has been changed.
+	 * @param newItem the new item that has been set in the collection.
+	 * @param oldItem the old item that has been overwritten in the collection.
 	 */
 	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
+	 * @param dataSource The data source in which the change happened.
 	 */
 	notifyClearItems(dataSource: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source where the new item has been inserted.
-	 * @param newItem     the new item that has been set in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source where the new item has been inserted.
+	 * @param newItem the new item that has been set in the collection.
 	 */
 	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source from where the old item has been removed.
-	 * @param oldItem     the old item that has been removed from the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source from where the old item has been removed.
+	 * @param oldItem the old item that has been removed from the collection.
 	 */
 	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
 
@@ -25393,6 +25356,7 @@ interface JQuery {
 	/**
 	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igDoughnutChart(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -25400,11 +25364,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDoughnutChart(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igDoughnutChart(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -25412,6 +25378,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDoughnutChart(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -26017,12 +25984,12 @@ interface ValueChangedEventUIParam {
 	owner?: any;
 
 	/**
-	 * Used to obtain the new value.
+	 * Used to obtain the value entered from the user after internal formatting.
 	 */
 	newValue?: any;
 
 	/**
-	 * Used to obtain the original value.
+	 * Used to obtain the value entered from the user before internal formatting.
 	 */
 	originalValue?: any;
 
@@ -26179,7 +26146,7 @@ interface IgBaseEditor {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -26226,8 +26193,8 @@ interface IgBaseEditor {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	valueChanged?: ValueChangedEvent;
@@ -26241,7 +26208,7 @@ interface IgBaseEditorMethods {
 	/**
 	 * Gets/Sets name attribute applied to the editor element.
 	 *
-	 * @param newValue     The new input name.
+	 * @param newValue The new input name.
 	 */
 	inputName(newValue?: string): string;
 	value(newValue: Object): void;
@@ -26264,7 +26231,7 @@ interface IgBaseEditorMethods {
 	/**
 	 * Sets focus to the editor after the specified delay.
 	 *
-	 * @param delay     The delay before focusing the editor.
+	 * @param delay The delay before focusing the editor.
 	 */
 	setFocus(delay?: number): void;
 
@@ -26464,7 +26431,6 @@ interface IgTextEditor {
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "dropdown" A button to open/close the list is located on the right side of the editor.
 	 * "clear" A button to clear the value is located on the right side of the editor.
@@ -26648,6 +26614,14 @@ interface IgTextEditor {
 	 *
 	 */
 	suppressNotifications?: boolean;
+
+	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
 
 	/**
 	 * Gets/Sets the width of the control.
@@ -26861,7 +26835,7 @@ interface IgTextEditor {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -26908,8 +26882,8 @@ interface IgTextEditor {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	valueChanged?: ValueChangedEvent;
@@ -26958,15 +26932,15 @@ interface IgTextEditorMethods {
 	/**
 	 * Finds index of list item by text that matches with the search parameters.
 	 *
-	 * @param text     The text to search for in the drop down list.
-	 * @param matchType     The rule that is applied for searching the text.
+	 * @param text The text to search for in the drop down list.
+	 * @param matchType The rule that is applied for searching the text.
 	 */
 	findListItemIndex(text: string, matchType?: Object): number;
 
 	/**
 	 * Gets the index of the selected list item. Sets selected item by index.
 	 *
-	 * @param index     The index of the item that needs to be selected.
+	 * @param index The index of the item that needs to be selected.
 	 */
 	selectedListIndex(index?: number): number;
 
@@ -26992,17 +26966,17 @@ interface IgTextEditorMethods {
 
 	/**
 	 * Inserts the text at the location of the caret or over the current selection. If the editor is focused the method will insert the text over the current selection. If the editor is not focused the method will set the text as value of the editor.
-	 * 	Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
+	 * Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
 	 *
-	 * @param string     The string to be inserted.
+	 * @param string The string to be inserted.
 	 */
 	insert(string: string): void;
 
 	/**
 	 * Selects the text between start and end indices in the editor. If the parameters are equal, then the method sets location of caret. The method has effect only when the editor has focus.
 	 *
-	 * @param start     Start of the selection.
-	 * @param end     End of the selection.
+	 * @param start Start of the selection.
+	 * @param end End of the selection.
 	 */
 	select(start: number, end: number): void;
 
@@ -27029,7 +27003,7 @@ interface IgTextEditorMethods {
 	/**
 	 * Gets/Sets name attribute applied to the editor element.
 	 *
-	 * @param newValue     The new input name.
+	 * @param newValue The new input name.
 	 */
 	inputName(newValue?: string): string;
 	value(newValue: Object): void;
@@ -27052,7 +27026,7 @@ interface IgTextEditorMethods {
 	/**
 	 * Sets focus to the editor after the specified delay.
 	 *
-	 * @param delay     The delay before focusing the editor.
+	 * @param delay The delay before focusing the editor.
 	 */
 	setFocus(delay?: number): void;
 
@@ -27199,7 +27173,6 @@ interface IgNumericEditor {
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "double" the Number object is used with the limits of a double and if the value is not set, then the null or Number.NaN is used depending on the option [allowNullValue](ui.igNumericEditor#options:allowNullValue). Note: that is used as default.
 	 * "float" the Number object is used with the limits of a float and if the value is not set, then the null or Number.NaN is used depending on the option [allowNullValue](ui.igNumericEditor#options:allowNullValue).
@@ -27243,7 +27216,6 @@ interface IgNumericEditor {
 	 * Gets/Sets support for scientific format.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -27307,7 +27279,6 @@ interface IgNumericEditor {
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -27413,6 +27384,14 @@ interface IgNumericEditor {
 	 *
 	 */
 	suppressNotifications?: boolean;
+
+	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
 
 	/**
 	 * Gets/Sets the width of the control.
@@ -27545,14 +27524,14 @@ interface IgNumericEditorMethods {
 	/**
 	 * Gets/Sets editor value.
 	 *
-	 * @param newValue     New editor value.
+	 * @param newValue New editor value.
 	 */
 	value(newValue?: number): number;
 
 	/**
 	 * Finds index of list item by text that matches with the search parameters.
 	 *
-	 * @param number     The text to search for.
+	 * @param number The text to search for.
 	 */
 	findListItemIndex(number: number): number;
 	getSelectedText(): void;
@@ -27562,14 +27541,14 @@ interface IgNumericEditorMethods {
 	/**
 	 * Increments value in editor according to the parameter or selects the previous item from the drop-down list if [isLimitedToListValues](ui.%%WidgetNameLowered%%#options:isLimitedToListValues) is enabled.
 	 *
-	 * @param delta     Increments value.
+	 * @param delta Increments value.
 	 */
 	spinUp(delta?: number): void;
 
 	/**
 	 * Decrements value in editor according to the parameter selects the next item from the drop-down list if [isLimitedToListValues](ui.%%WidgetNameLowered%%#options:isLimitedToListValues) is enabled.
 	 *
-	 * @param delta     Decrement value.
+	 * @param delta Decrement value.
 	 */
 	spinDown(delta?: number): void;
 
@@ -27626,7 +27605,7 @@ interface IgNumericEditorMethods {
 	/**
 	 * Gets the index of the selected list item. Sets selected item by index.
 	 *
-	 * @param index     The index of the item that needs to be selected.
+	 * @param index The index of the item that needs to be selected.
 	 */
 	selectedListIndex(index?: number): number;
 
@@ -27637,17 +27616,17 @@ interface IgNumericEditorMethods {
 
 	/**
 	 * Inserts the text at the location of the caret or over the current selection. If the editor is focused the method will insert the text over the current selection. If the editor is not focused the method will set the text as value of the editor.
-	 * 	Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
+	 * Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
 	 *
-	 * @param string     The string to be inserted.
+	 * @param string The string to be inserted.
 	 */
 	insert(string: string): void;
 
 	/**
 	 * Selects the text between start and end indices in the editor. If the parameters are equal, then the method sets location of caret. The method has effect only when the editor has focus.
 	 *
-	 * @param start     Start of the selection.
-	 * @param end     End of the selection.
+	 * @param start Start of the selection.
+	 * @param end End of the selection.
 	 */
 	select(start: number, end: number): void;
 
@@ -27788,7 +27767,6 @@ interface IgCurrencyEditor {
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "double" the Number object is used with the limits of a double and if the value is not set, then the null or Number.NaN is used depending on the option [allowNullValue](ui.igNumericEditor#options:allowNullValue). Note: that is used as default.
 	 * "float" the Number object is used with the limits of a float and if the value is not set, then the null or Number.NaN is used depending on the option [allowNullValue](ui.igNumericEditor#options:allowNullValue).
@@ -27832,7 +27810,6 @@ interface IgCurrencyEditor {
 	 * Gets/Sets support for scientific format.
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -27896,7 +27873,6 @@ interface IgCurrencyEditor {
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -28004,6 +27980,14 @@ interface IgCurrencyEditor {
 	suppressNotifications?: boolean;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 *
@@ -28068,21 +28052,21 @@ interface IgCurrencyEditorMethods {
 	/**
 	 * Gets/sets a string that is used as the currency symbol shown with the number in the input. The value provided as a param is propagated to the currencySymbol option and thus has the same priority as the option.
 	 *
-	 * @param symbol     New currency symbol.
+	 * @param symbol New currency symbol.
 	 */
 	currencySymbol(symbol?: Object): string;
 
 	/**
 	 * Gets/Sets editor value.
 	 *
-	 * @param newValue     New editor value.
+	 * @param newValue New editor value.
 	 */
 	value(newValue?: number): number;
 
 	/**
 	 * Finds index of list item by text that matches with the search parameters.
 	 *
-	 * @param number     The text to search for.
+	 * @param number The text to search for.
 	 */
 	findListItemIndex(number: number): number;
 	getSelectedText(): void;
@@ -28092,14 +28076,14 @@ interface IgCurrencyEditorMethods {
 	/**
 	 * Increments value in editor according to the parameter or selects the previous item from the drop-down list if [isLimitedToListValues](ui.%%WidgetNameLowered%%#options:isLimitedToListValues) is enabled.
 	 *
-	 * @param delta     Increments value.
+	 * @param delta Increments value.
 	 */
 	spinUp(delta?: number): void;
 
 	/**
 	 * Decrements value in editor according to the parameter selects the next item from the drop-down list if [isLimitedToListValues](ui.%%WidgetNameLowered%%#options:isLimitedToListValues) is enabled.
 	 *
-	 * @param delta     Decrement value.
+	 * @param delta Decrement value.
 	 */
 	spinDown(delta?: number): void;
 
@@ -28152,7 +28136,6 @@ interface IgPercentEditor {
 	 * Defines the range that editor's value can accept.This is achieved by setting the [minValue](ui.igPercentEditor#options:minValue) and [maxValue](ui.igPercentEditor#options:maxValue) editor's options, accordingly to the lowest and highest accepted values for the defined numeric mode.
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igPercentEditor#options:minDecimals) and [maxDecimals](ui.igPercentEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -28302,7 +28285,6 @@ interface IgPercentEditor {
 	 * Notes: The "+" character is not supported in edit mode.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "null" scientific format is disabled.
 	 * "E" scientific format is enabled and the "E" character is used.
@@ -28364,7 +28346,6 @@ interface IgPercentEditor {
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -28472,6 +28453,14 @@ interface IgPercentEditor {
 	suppressNotifications?: boolean;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 *
@@ -28535,30 +28524,30 @@ interface IgPercentEditor {
 interface IgPercentEditorMethods {
 	/**
 	 * Paste text at location of the caret or over the current selection. Best used during editing, as the method will instead set the text as value (modified by the [displayFactor](ui.igpercenteditor#options:displayFactor)) if the editor is not focused.
-	 * 	Note: the method raises the [textChanged](ui.igpercenteditor#events:textChanged) event.
+	 * Note: the method raises the [textChanged](ui.igpercenteditor#events:textChanged) event.
 	 *
-	 * @param string     The string to be inserted.
+	 * @param string The string to be inserted.
 	 */
 	insert(string: string): void;
 
 	/**
 	 * Gets/Sets a string that is used as the percent symbol shown with the number in the input. The value provided as a param is propagated to the [percentSymbol](ui.igpercenteditor#options:percentSymbol) option and thus has the same priority as the option.
 	 *
-	 * @param symbol     New percent symbol.
+	 * @param symbol New percent symbol.
 	 */
 	percentSymbol(symbol?: Object): string;
 
 	/**
 	 * Gets/Sets editor value.
 	 *
-	 * @param newValue     New editor value.
+	 * @param newValue New editor value.
 	 */
 	value(newValue?: number): number;
 
 	/**
 	 * Finds index of list item by text that matches with the search parameters.
 	 *
-	 * @param number     The text to search for.
+	 * @param number The text to search for.
 	 */
 	findListItemIndex(number: number): number;
 	getSelectedText(): void;
@@ -28568,14 +28557,14 @@ interface IgPercentEditorMethods {
 	/**
 	 * Increments value in editor according to the parameter or selects the previous item from the drop-down list if [isLimitedToListValues](ui.%%WidgetNameLowered%%#options:isLimitedToListValues) is enabled.
 	 *
-	 * @param delta     Increments value.
+	 * @param delta Increments value.
 	 */
 	spinUp(delta?: number): void;
 
 	/**
 	 * Decrements value in editor according to the parameter selects the next item from the drop-down list if [isLimitedToListValues](ui.%%WidgetNameLowered%%#options:isLimitedToListValues) is enabled.
 	 *
-	 * @param delta     Decrement value.
+	 * @param delta Decrement value.
 	 */
 	spinDown(delta?: number): void;
 
@@ -28755,6 +28744,7 @@ interface IgMaskEditor {
 	 *
 	 */
 	value?: any;
+	suppressKeyboard?: boolean;
 
 	/**
 	 * Gets/Sets the horizontal alignment of the text in the editor.
@@ -28911,7 +28901,7 @@ interface IgMaskEditorMethods {
 	/**
 	 * Gets/Sets mask editor value.
 	 *
-	 * @param newValue     New mask editor value.
+	 * @param newValue New mask editor value.
 	 */
 	value(newValue?: string): string;
 	dropDownContainer(): void;
@@ -28959,17 +28949,17 @@ interface IgMaskEditorMethods {
 
 	/**
 	 * Inserts the text at the location of the caret or over the current selection. If the editor is focused the method will insert the text over the current selection. If the editor is not focused the method will set the text as value of the editor.
-	 * 	Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
+	 * Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
 	 *
-	 * @param string     The string to be inserted.
+	 * @param string The string to be inserted.
 	 */
 	insert(string: string): void;
 
 	/**
 	 * Selects the text between start and end indices in the editor. If the parameters are equal, then the method sets location of caret. The method has effect only when the editor has focus.
 	 *
-	 * @param start     Start of the selection.
-	 * @param end     End of the selection.
+	 * @param start Start of the selection.
+	 * @param end End of the selection.
 	 */
 	select(start: number, end: number): void;
 }
@@ -28983,21 +28973,21 @@ interface IgDateEditor {
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	value?: Object;
+	value?: Date;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	minValue?: Object;
+	minValue?: Date;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	maxValue?: Object;
+	maxValue?: Date;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -29212,6 +29202,7 @@ interface IgDateEditor {
 	 * This option is inherited from a parent widget and it's not applicable for igDateEditor
 	 */
 	toLower?: boolean;
+	suppressKeyboard?: boolean;
 
 	/**
 	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
@@ -29414,17 +29405,17 @@ interface IgDateEditorMethods {
 	/**
 	 * Gets/Sets editor value.
 	 *
-	 * 	Note! This option doesn't use the dateInputFormat to extract the date
+	 * Note! This option doesn't use the dateInputFormat to extract the date
 	 *
-	 * @param newValue     New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
+	 * @param newValue New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
 	 */
-	value(newValue?: Object): Object;
+	value(newValue?: Date): Date;
 
 	/**
 	 * Gets selected date as a date object. This method can be used when dataMode is set as either displayModeText or editModeText.
 	 * In such cases the value() method will not return date object and getSelectedDate() can be used to replace that functionality.
 	 */
-	getSelectedDate(): Object;
+	getSelectedDate(): Date;
 
 	/**
 	 * Sets selected date. This method can be used when dataMode is set as either displayModeText or editModeText.
@@ -29432,19 +29423,19 @@ interface IgDateEditorMethods {
 	 *
 	 * @param date
 	 */
-	selectDate(date: Object): void;
+	selectDate(date: Date): void;
 
 	/**
 	 * Increases the date or time period, depending on the current cursor position.
 	 *
-	 * @param delta     The increase delta.
+	 * @param delta The increase delta.
 	 */
 	spinUp(delta?: number): void;
 
 	/**
 	 * Decreases the date or time period, depending on the current cursor position.
 	 *
-	 * @param delta     The decrease delta.
+	 * @param delta The decrease delta.
 	 */
 	spinDown(delta?: number): void;
 
@@ -29558,25 +29549,32 @@ interface IgDatePicker {
 	listWidth?: number;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 *
+	 */
+	suppressKeyboard?: boolean;
+
+	/**
 	 * Gets/Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	value?: Object;
+	value?: Date;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	minValue?: Object;
+	minValue?: Date;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	maxValue?: Object;
+	maxValue?: Date;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -30003,17 +30001,17 @@ interface IgDatePickerMethods {
 	/**
 	 * Gets/Sets editor value.
 	 *
-	 * 	Note! This option doesn't use the dateInputFormat to extract the date
+	 * Note! This option doesn't use the dateInputFormat to extract the date
 	 *
-	 * @param newValue     New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
+	 * @param newValue New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
 	 */
-	value(newValue?: Object): Object;
+	value(newValue?: Date): Date;
 
 	/**
 	 * Gets selected date as a date object. This method can be used when dataMode is set as either displayModeText or editModeText.
 	 * In such cases the value() method will not return date object and getSelectedDate() can be used to replace that functionality.
 	 */
-	getSelectedDate(): Object;
+	getSelectedDate(): Date;
 
 	/**
 	 * Sets selected date. This method can be used when dataMode is set as either displayModeText or editModeText.
@@ -30021,19 +30019,19 @@ interface IgDatePickerMethods {
 	 *
 	 * @param date
 	 */
-	selectDate(date: Object): void;
+	selectDate(date: Date): void;
 
 	/**
 	 * Increases the date or time period, depending on the current cursor position.
 	 *
-	 * @param delta     The increase delta.
+	 * @param delta The increase delta.
 	 */
 	spinUp(delta?: number): void;
 
 	/**
 	 * Decreases the date or time period, depending on the current cursor position.
 	 *
-	 * @param delta     The decrease delta.
+	 * @param delta The decrease delta.
 	 */
 	spinDown(delta?: number): void;
 
@@ -30065,7 +30063,6 @@ interface IgCheckboxEditor {
 
 	/**
 	 * Gets/Sets size of the checkbox based on preset styles.For different sizes, define 'width' and 'height' options instead.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -30243,7 +30240,7 @@ interface IgCheckboxEditor {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -30287,10 +30284,10 @@ interface IgCheckboxEditorMethods {
 
 	/**
 	 * Gets/Sets Current checked state/Value of the igCheckboxEditor that will be submitted by the HTML form.
-	 * 	1. If the [value](ui.igcheckboxeditor#options:value) option IS NOT defined, then 'value' method will match the checked state of the editor.
-	 * 	This option is used when the checkbox is intended to operate as a Boolean editor. In that case the return type is bool.
-	 * 	2. If the [value](ui.igcheckboxeditor#options:value) option IS defined, then 'value' method will return the value that will be submitted when the editor is checked and the form is submitted.
-	 * 	To get checked state regardless of the 'value' option, use $(".selector").igCheckboxEditor("option", "checked");
+	 * 1. If the [value](ui.igcheckboxeditor#options:value) option IS NOT defined, then 'value' method will match the checked state of the editor.
+	 * This option is used when the checkbox is intended to operate as a Boolean editor. In that case the return type is bool.
+	 * 2. If the [value](ui.igcheckboxeditor#options:value) option IS defined, then 'value' method will return the value that will be submitted when the editor is checked and the form is submitted.
+	 * To get checked state regardless of the 'value' option, use $(".selector").igCheckboxEditor("option", "checked");
 	 *
 	 * @param newValue
 	 */
@@ -30304,7 +30301,7 @@ interface IgCheckboxEditorMethods {
 	/**
 	 * Gets/Sets name attribute applied to the editor element.
 	 *
-	 * @param newValue     The new input name.
+	 * @param newValue The new input name.
 	 */
 	inputName(newValue?: string): string;
 
@@ -30326,7 +30323,7 @@ interface IgCheckboxEditorMethods {
 	/**
 	 * Sets focus to the editor after the specified delay.
 	 *
-	 * @param delay     The delay before focusing the editor.
+	 * @param delay The delay before focusing the editor.
 	 */
 	setFocus(delay?: number): void;
 
@@ -30377,6 +30374,7 @@ interface JQuery {
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igBaseEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -30385,12 +30383,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igBaseEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igBaseEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -30399,6 +30399,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igBaseEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -30449,6 +30450,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igBaseEditor(optionLiteral: 'option', optionName: "nullValue"): string|number;
 
 	/**
@@ -30457,6 +30459,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igBaseEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number): void;
 
 	/**
@@ -30682,7 +30685,7 @@ interface JQuery {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	igBaseEditor(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igBaseEditor(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when input field of editor gets focus.
@@ -30693,7 +30696,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igBaseEditor(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igBaseEditor(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -30789,8 +30792,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	igBaseEditor(optionLiteral: 'option', optionName: "valueChanged"): ValueChangedEvent;
@@ -30799,8 +30802,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 *
 	 * @optionValue Define event handler function.
@@ -30848,17 +30851,17 @@ interface JQuery {
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
-	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
@@ -31003,6 +31006,7 @@ interface JQuery {
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "textAlign"): string;
 
 	/**
@@ -31011,6 +31015,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "textAlign", optionValue: string): void;
 
 	/**
@@ -31031,6 +31036,7 @@ interface JQuery {
 	 * Gets/Sets the action when the editor gets focused. The default value is selectAll.
 	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "selectionOnFocus"): string;
 
 	/**
@@ -31039,12 +31045,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "selectionOnFocus", optionValue: string): void;
 
 	/**
 	 * Gets the text mode of the editor such as: single-line text editor, password editor or multiline editor. That option has effect only on initialization. If based element (selector) is TEXTAREA, then it is used as input-field.
 	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "textMode"): string;
 
 	/**
@@ -31053,6 +31061,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "textMode", optionValue: string): void;
 
 	/**
@@ -31115,6 +31124,7 @@ interface JQuery {
 	 * Gets/Sets the drop-down list opening orientation when the list gets open. If the option is set to auto the editor has priority to open the drop-down list bottom. If the space is not enough it tries to open the list top. If the space is not enough in both directions then the list gets opened at the bottom of the editor.
 	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "dropDownOrientation"): string;
 
 	/**
@@ -31123,6 +31133,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
 	/**
@@ -31220,9 +31231,28 @@ interface JQuery {
 	igTextEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -31231,12 +31261,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -31245,6 +31277,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -31295,6 +31328,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "nullValue"): string|number;
 
 	/**
@@ -31303,6 +31337,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTextEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number): void;
 
 	/**
@@ -31674,7 +31709,7 @@ interface JQuery {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	igTextEditor(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igTextEditor(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when input field of editor gets focus.
@@ -31685,7 +31720,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igTextEditor(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igTextEditor(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -31781,8 +31816,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	igTextEditor(optionLiteral: 'option', optionName: "valueChanged"): ValueChangedEvent;
@@ -31791,8 +31826,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 *
 	 * @optionValue Define event handler function.
@@ -32035,6 +32070,7 @@ interface JQuery {
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "textAlign"): string;
 
 	/**
@@ -32043,6 +32079,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "textAlign", optionValue: string): void;
 
 	/**
@@ -32050,8 +32087,8 @@ interface JQuery {
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
-	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "dataMode"): string;
 
 	/**
@@ -32060,9 +32097,9 @@ interface JQuery {
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "dataMode", optionValue: string): void;
 
 	/**
@@ -32128,8 +32165,8 @@ interface JQuery {
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
 	 *
-	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "scientificFormat"): string;
 
 	/**
@@ -32138,9 +32175,9 @@ interface JQuery {
 	 * Notes: The "+" character is not supported in edit mode.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "scientificFormat", optionValue: string): void;
 
 	/**
@@ -32260,17 +32297,17 @@ interface JQuery {
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
-	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
@@ -32373,6 +32410,7 @@ interface JQuery {
 	 * Gets/Sets the action when the editor gets focused. The default value is selectAll.
 	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "selectionOnFocus"): string;
 
 	/**
@@ -32381,6 +32419,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "selectionOnFocus", optionValue: string): void;
 
 	/**
@@ -32415,6 +32454,7 @@ interface JQuery {
 	 * Gets/Sets the drop-down list opening orientation when the list gets open. If the option is set to auto the editor has priority to open the drop-down list bottom. If the space is not enough it tries to open the list top. If the space is not enough in both directions then the list gets opened at the bottom of the editor.
 	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "dropDownOrientation"): string;
 
 	/**
@@ -32423,6 +32463,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
 	/**
@@ -32472,9 +32513,28 @@ interface JQuery {
 	igNumericEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -32483,12 +32543,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -32497,6 +32559,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -32517,6 +32580,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "nullValue"): string|number;
 
 	/**
@@ -32525,6 +32589,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNumericEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number): void;
 
 	/**
@@ -32989,6 +33054,7 @@ interface JQuery {
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textAlign"): string;
 
 	/**
@@ -32997,6 +33063,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "textAlign", optionValue: string): void;
 
 	/**
@@ -33004,8 +33071,8 @@ interface JQuery {
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
-	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "dataMode"): string;
 
 	/**
@@ -33014,9 +33081,9 @@ interface JQuery {
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igNumericEditor#options:minDecimals) and [maxDecimals](ui.igNumericEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "dataMode", optionValue: string): void;
 
 	/**
@@ -33082,8 +33149,8 @@ interface JQuery {
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
 	 *
-	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "scientificFormat"): string;
 
 	/**
@@ -33092,9 +33159,9 @@ interface JQuery {
 	 * Notes: The "+" character is not supported in edit mode.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "scientificFormat", optionValue: string): void;
 
 	/**
@@ -33214,17 +33281,17 @@ interface JQuery {
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
-	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
@@ -33327,6 +33394,7 @@ interface JQuery {
 	 * Gets/Sets the action when the editor gets focused. The default value is selectAll.
 	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "selectionOnFocus"): string;
 
 	/**
@@ -33335,6 +33403,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "selectionOnFocus", optionValue: string): void;
 
 	/**
@@ -33369,6 +33438,7 @@ interface JQuery {
 	 * Gets/Sets the drop-down list opening orientation when the list gets open. If the option is set to auto the editor has priority to open the drop-down list bottom. If the space is not enough it tries to open the list top. If the space is not enough in both directions then the list gets opened at the bottom of the editor.
 	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "dropDownOrientation"): string;
 
 	/**
@@ -33377,6 +33447,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
 	/**
@@ -33426,9 +33497,28 @@ interface JQuery {
 	igCurrencyEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -33437,12 +33527,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -33451,6 +33543,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -33471,6 +33564,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "nullValue"): string|number;
 
 	/**
@@ -33479,6 +33573,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCurrencyEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number): void;
 
 	/**
@@ -33621,8 +33716,8 @@ interface JQuery {
 	 * The range for the specific type follows the numeric type standards, e.g. in .NET Framework  [floating-point](https://msdn.microsoft.com/en-us/library/9ahet949.aspx) types and [integral types](https://msdn.microsoft.com/en-us/library/exx3b86w.aspx).
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igPercentEditor#options:minDecimals) and [maxDecimals](ui.igPercentEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
-	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "dataMode"): string;
 
 	/**
@@ -33631,9 +33726,9 @@ interface JQuery {
 	 * In addition, the maximum value that can be set to [minDecimals](ui.igPercentEditor#options:minDecimals) and [maxDecimals](ui.igPercentEditor#options:maxDecimals) options can be 15, when editor is in 'double' mode and 7, when in 'float' mode.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "dataMode", optionValue: string): void;
 
 	/**
@@ -33856,6 +33951,7 @@ interface JQuery {
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "textAlign"): string;
 
 	/**
@@ -33864,6 +33960,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "textAlign", optionValue: string): void;
 
 	/**
@@ -33915,8 +34012,8 @@ interface JQuery {
 	 * If that option is set, then numeric value appears as a string with possible E-power flag. In edit mode the "E" or "e" character can be entered as well.
 	 * Notes: The "+" character is not supported in edit mode.
 	 *
-	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "scientificFormat"): string;
 
 	/**
@@ -33925,9 +34022,9 @@ interface JQuery {
 	 * Notes: The "+" character is not supported in edit mode.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "scientificFormat", optionValue: string): void;
 
 	/**
@@ -34047,17 +34144,17 @@ interface JQuery {
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
-	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
 	 * Visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
@@ -34160,6 +34257,7 @@ interface JQuery {
 	 * Gets/Sets the action when the editor gets focused. The default value is selectAll.
 	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "selectionOnFocus"): string;
 
 	/**
@@ -34168,6 +34266,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "selectionOnFocus", optionValue: string): void;
 
 	/**
@@ -34202,6 +34301,7 @@ interface JQuery {
 	 * Gets/Sets the drop-down list opening orientation when the list gets open. If the option is set to auto the editor has priority to open the drop-down list bottom. If the space is not enough it tries to open the list top. If the space is not enough in both directions then the list gets opened at the bottom of the editor.
 	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "dropDownOrientation"): string;
 
 	/**
@@ -34210,6 +34310,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "dropDownOrientation", optionValue: string): void;
 
 	/**
@@ -34259,9 +34360,28 @@ interface JQuery {
 	igPercentEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -34270,12 +34390,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -34284,6 +34406,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -34304,6 +34427,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "nullValue"): string|number;
 
 	/**
@@ -34312,6 +34436,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPercentEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number): void;
 
 	/**
@@ -34420,6 +34545,7 @@ interface JQuery {
 	 * Gets visibility of the clear button. That option can be set only on initialization.
 	 *
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
@@ -34428,6 +34554,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
@@ -34480,6 +34607,7 @@ interface JQuery {
 	 * It affects the value of the control (value method/option and submitted in forms). It defines what the value should contain from text, unfilled prompts and literals. The default is allText and when used value method/option returns the text entered, all prompts (positions) and literals.
 	 *
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "dataMode"): string;
 
 	/**
@@ -34488,6 +34616,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "dataMode", optionValue: string): void;
 
 	/**
@@ -34733,11 +34862,14 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "value", optionValue: any): void;
+	igMaskEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+	igMaskEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
 
 	/**
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "textAlign"): string;
 
 	/**
@@ -34746,6 +34878,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "textAlign", optionValue: string): void;
 
 	/**
@@ -34766,6 +34899,7 @@ interface JQuery {
 	 * Gets/Sets the action when the editor gets focused. The default value is selectAll.
 	 *
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "selectionOnFocus"): string;
 
 	/**
@@ -34774,6 +34908,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "selectionOnFocus", optionValue: string): void;
 
 	/**
@@ -34868,6 +35003,7 @@ interface JQuery {
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -34876,12 +35012,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -34890,6 +35028,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -34926,6 +35065,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "nullValue"): string|number;
 
 	/**
@@ -34934,6 +35074,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMaskEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number): void;
 
 	/**
@@ -34995,53 +35136,17 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListOpening"): DropDownListOpeningEvent;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListOpening", optionValue: DropDownListOpeningEvent): void;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListOpened"): DropDownListOpenedEvent;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListOpened", optionValue: DropDownListOpenedEvent): void;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListClosing"): DropDownListClosingEvent;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListClosing", optionValue: DropDownListClosingEvent): void;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListClosed"): DropDownListClosedEvent;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListClosed", optionValue: DropDownListClosedEvent): void;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownItemSelecting"): DropDownItemSelectingEvent;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownItemSelecting", optionValue: DropDownItemSelectingEvent): void;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownItemSelected"): DropDownItemSelectedEvent;
-
-	/**
-	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownItemSelected", optionValue: DropDownItemSelectedEvent): void;
 
 	/**
@@ -35072,9 +35177,9 @@ interface JQuery {
 	igMaskEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
-	igDateEditor(methodName: "value", newValue?: Object): Object;
-	igDateEditor(methodName: "getSelectedDate"): Object;
-	igDateEditor(methodName: "selectDate", date: Object): void;
+	igDateEditor(methodName: "value", newValue?: Date): Date;
+	igDateEditor(methodName: "getSelectedDate"): Date;
+	igDateEditor(methodName: "selectDate", date: Date): void;
 	igDateEditor(methodName: "spinUp", delta?: number): void;
 	igDateEditor(methodName: "spinDown", delta?: number): void;
 	igDateEditor(methodName: "spinUpButton"): string;
@@ -35094,7 +35199,7 @@ interface JQuery {
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "value"): Object;
+	igDateEditor(optionLiteral: 'option', optionName: "value"): Date;
 
 	/**
 	 * /Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
@@ -35103,14 +35208,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "value", optionValue: Object): void;
+	igDateEditor(optionLiteral: 'option', optionName: "value", optionValue: Date): void;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "minValue"): Object;
+	igDateEditor(optionLiteral: 'option', optionName: "minValue"): Date;
 
 	/**
 	 * The minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -35119,14 +35224,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "minValue", optionValue: Object): void;
+	igDateEditor(optionLiteral: 'option', optionName: "minValue", optionValue: Date): void;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "maxValue"): Object;
+	igDateEditor(optionLiteral: 'option', optionName: "maxValue"): Date;
 
 	/**
 	 * The maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -35135,7 +35240,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "maxValue", optionValue: Object): void;
+	igDateEditor(optionLiteral: 'option', optionName: "maxValue", optionValue: Date): void;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -35294,6 +35399,7 @@ interface JQuery {
 	 * "2016-11-11T10:00:00+05:00"
 	 *
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "dataMode"): string;
 
 	/**
@@ -35305,6 +35411,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "dataMode", optionValue: string): void;
 
 	/**
@@ -35329,6 +35436,7 @@ interface JQuery {
 	 * Gets visibility of the spin and clear buttons. That option can be set only on initialization. Combinations like 'spin,clear' are supported too.
 	 *
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
@@ -35337,6 +35445,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
@@ -35429,6 +35538,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "nullValue"): string|number|Date;
 
 	/**
@@ -35437,6 +35547,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number|Date): void;
 
 	/**
@@ -35594,6 +35705,8 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igDateEditor(optionLiteral: 'option', optionName: "toLower", optionValue: boolean): void;
+	igDateEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+	igDateEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
 
 	/**
 	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
@@ -35715,6 +35828,7 @@ interface JQuery {
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "textAlign"): string;
 
 	/**
@@ -35723,6 +35837,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "textAlign", optionValue: string): void;
 
 	/**
@@ -35743,6 +35858,7 @@ interface JQuery {
 	 * Gets/Sets the action when the editor gets focused. The default value is selectAll.
 	 *
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "selectionOnFocus"): string;
 
 	/**
@@ -35751,6 +35867,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "selectionOnFocus", optionValue: string): void;
 
 	/**
@@ -35813,6 +35930,7 @@ interface JQuery {
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -35821,12 +35939,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -35835,6 +35955,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDateEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -36015,9 +36136,9 @@ interface JQuery {
 	igDatePicker(methodName: "dropDownButton"): string;
 	igDatePicker(methodName: "dropDownVisible"): boolean;
 	igDatePicker(methodName: "destroy"): void;
-	igDatePicker(methodName: "value", newValue?: Object): Object;
-	igDatePicker(methodName: "getSelectedDate"): Object;
-	igDatePicker(methodName: "selectDate", date: Object): void;
+	igDatePicker(methodName: "value", newValue?: Date): Date;
+	igDatePicker(methodName: "getSelectedDate"): Date;
+	igDatePicker(methodName: "selectDate", date: Date): void;
 	igDatePicker(methodName: "spinUp", delta?: number): void;
 	igDatePicker(methodName: "spinDown", delta?: number): void;
 	igDatePicker(methodName: "spinUpButton"): string;
@@ -36042,6 +36163,7 @@ interface JQuery {
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.
 	 *
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "buttonType"): string;
 
 	/**
@@ -36050,6 +36172,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
@@ -36143,11 +36266,27 @@ interface JQuery {
 	igDatePicker(optionLiteral: 'option', optionName: "listWidth", optionValue: number): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 *
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "value"): Object;
+	igDatePicker(optionLiteral: 'option', optionName: "value"): Date;
 
 	/**
 	 * /Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
@@ -36156,14 +36295,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "value", optionValue: Object): void;
+	igDatePicker(optionLiteral: 'option', optionName: "value", optionValue: Date): void;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "minValue"): Object;
+	igDatePicker(optionLiteral: 'option', optionName: "minValue"): Date;
 
 	/**
 	 * The minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -36172,14 +36311,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "minValue", optionValue: Object): void;
+	igDatePicker(optionLiteral: 'option', optionName: "minValue", optionValue: Date): void;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "maxValue"): Object;
+	igDatePicker(optionLiteral: 'option', optionName: "maxValue"): Date;
 
 	/**
 	 * The maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -36188,7 +36327,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "maxValue", optionValue: Object): void;
+	igDatePicker(optionLiteral: 'option', optionName: "maxValue", optionValue: Date): void;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -36347,6 +36486,7 @@ interface JQuery {
 	 * "2016-11-11T10:00:00+05:00"
 	 *
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "dataMode"): string;
 
 	/**
@@ -36358,6 +36498,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "dataMode", optionValue: string): void;
 
 	/**
@@ -36468,6 +36609,7 @@ interface JQuery {
 	 * Gets/Sets the representation of null value. In case of default the value for the input is set to null, which makes the input to hold an empty string
 	 *
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "nullValue"): string|number|Date;
 
 	/**
@@ -36476,6 +36618,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "nullValue", optionValue: string|number|Date): void;
 
 	/**
@@ -36668,6 +36811,7 @@ interface JQuery {
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "textAlign"): string;
 
 	/**
@@ -36676,6 +36820,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "textAlign", optionValue: string): void;
 
 	/**
@@ -36696,6 +36841,7 @@ interface JQuery {
 	 * Gets/Sets the action when the editor gets focused. The default value is selectAll.
 	 *
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "selectionOnFocus"): string;
 
 	/**
@@ -36704,6 +36850,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "selectionOnFocus", optionValue: string): void;
 
 	/**
@@ -36766,6 +36913,7 @@ interface JQuery {
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -36774,12 +36922,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -36788,6 +36938,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igDatePicker(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -37035,17 +37186,17 @@ interface JQuery {
 	/**
 	 * Gets/Sets size of the checkbox based on preset styles.For different sizes, define 'width' and 'height' options instead.
 	 *
-	 *
 	 */
+
 	igCheckboxEditor(optionLiteral: 'option', optionName: "size"): string;
 
 	/**
 	 * /Sets size of the checkbox based on preset styles.For different sizes, define 'width' and 'height' options instead.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCheckboxEditor(optionLiteral: 'option', optionName: "size", optionValue: string): void;
 
 	/**
@@ -37091,27 +37242,16 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCheckboxEditor(optionLiteral: 'option', optionName: "readOnly", optionValue: boolean): void;
-
-	/**
-	 */
 	igCheckboxEditor(optionLiteral: 'option', optionName: "allowNullValue"): boolean;
-
-	/**
-	 */
 	igCheckboxEditor(optionLiteral: 'option', optionName: "allowNullValue", optionValue: boolean): void;
-
-	/**
-	 */
 	igCheckboxEditor(optionLiteral: 'option', optionName: "nullValue"): any;
-
-	/**
-	 */
 	igCheckboxEditor(optionLiteral: 'option', optionName: "nullValue", optionValue: any): void;
 
 	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igCheckboxEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -37120,12 +37260,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCheckboxEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igCheckboxEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -37134,6 +37276,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igCheckboxEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -37413,7 +37556,7 @@ interface JQuery {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	igCheckboxEditor(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igCheckboxEditor(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when input field of editor gets focus.
@@ -37424,7 +37567,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igCheckboxEditor(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igCheckboxEditor(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -37823,30 +37966,30 @@ interface IgFunnelChartMethods {
 	/**
 	 * Gets array of selected slice items.
 	 *
-	 * @param selection     Array or selected slice items.
-	 * @return array|object     If parameter is undefined, then array of selected items is returned. Otherwise, it returns reference to igFunnelChart.
+	 * @param selection Array or selected slice items.
+	 * @return array|object If parameter is undefined, then array of selected items is returned. Otherwise, it returns reference to igFunnelChart.
 	 */
 	selectedSliceItems(selection?: any[]): any[];
 
 	/**
 	 * Gets sets array of indexes of selected slices.
 	 *
-	 * @param selection     Array or selected slice indexes.
-	 * @return array|object     If parameter is undefined, then array of selected indexes is returned. Otherwise, it returns reference to igFunnelChart.
+	 * @param selection Array or selected slice indexes.
+	 * @return array|object If parameter is undefined, then array of selected indexes is returned. Otherwise, it returns reference to igFunnelChart.
 	 */
 	selectedSliceIndexes(selection?: any[]): any[];
 
 	/**
 	 * Checks if slice is selected.
 	 *
-	 * @param slice     Index of slice or reference to slice-data-item.
+	 * @param slice Index of slice or reference to slice-data-item.
 	 */
 	isSelected(slice: Object): boolean;
 
 	/**
 	 * Toggles selected state of slice.
 	 *
-	 * @param slice     Index of slice or reference to slice-data-item.
+	 * @param slice Index of slice or reference to slice-data-item.
 	 */
 	toggleSelection(slice: Object): Object;
 	exportVisualData(): void;
@@ -37859,14 +38002,14 @@ interface IgFunnelChartMethods {
 	/**
 	 * Find index of item within actual data used by chart.
 	 *
-	 * @param item     The reference to item.
+	 * @param item The reference to item.
 	 */
 	findIndexOfItem(item: Object): number;
 
 	/**
 	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
 	 *
-	 * @param index     Index of data item.
+	 * @param index Index of data item.
 	 */
 	getDataItem(index: Object): Object;
 
@@ -37878,68 +38021,68 @@ interface IgFunnelChartMethods {
 	/**
 	 * Adds a new item to the data source and notifies the chart.
 	 *
-	 * @param item     The item that we want to add to the data source.
+	 * @param item The item that we want to add to the data source.
 	 */
 	addItem(item: Object): Object;
 
 	/**
 	 * Inserts a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that we want to insert in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
 	 */
 	insertItem(item: Object, index: number): Object;
 
 	/**
 	 * Deletes an item from the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
+	 * @param index The index in the data source from where the item will be been removed.
 	 */
 	removeItem(index: number): Object;
 
 	/**
 	 * Updates an item in the data source and notifies the chart.
 	 *
-	 * @param index     The index of the item in the data source that we want to change.
-	 * @param item     The new item object that will be set in the data source.
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
 	 */
 	setItem(index: number, item: Object): Object;
 
 	/**
 	 * Notifies the chart that an item has been set in an associated data source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source that has been changed.
-	 * @param newItem     the new item that has been set in the collection.
-	 * @param oldItem     the old item that has been overwritten in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source that has been changed.
+	 * @param newItem the new item that has been set in the collection.
+	 * @param oldItem the old item that has been overwritten in the collection.
 	 */
 	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
+	 * @param dataSource The data source in which the change happened.
 	 */
 	notifyClearItems(dataSource: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source where the new item has been inserted.
-	 * @param newItem     the new item that has been set in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source where the new item has been inserted.
+	 * @param newItem the new item that has been set in the collection.
 	 */
 	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source from where the old item has been removed.
-	 * @param oldItem     the old item that has been removed from the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source from where the old item has been removed.
+	 * @param oldItem the old item that has been removed from the collection.
 	 */
 	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
 
@@ -38115,6 +38258,7 @@ interface JQuery {
 	/**
 	 * Gets  whether the inner labels are visible.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "innerLabelVisibility"): string;
 
 	/**
@@ -38122,11 +38266,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "innerLabelVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  whether the outer labels are visible.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelVisibility"): string;
 
 	/**
@@ -38134,11 +38280,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  which side of the chart the outer labels should appear.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelAlignment"): string;
 
 	/**
@@ -38146,11 +38294,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelAlignment", optionValue: string): void;
 
 	/**
 	 * Gets  the how the heights of the funnel slices should be configured.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "funnelSliceDisplay"): string;
 
 	/**
@@ -38158,6 +38308,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igFunnelChart(optionLiteral: 'option', optionName: "funnelSliceDisplay", optionValue: string): void;
 
 	/**
@@ -38387,21 +38538,9 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
-
-	/**
-	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelTextColor"): any;
-
-	/**
-	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelTextColor", optionValue: any): void;
-
-	/**
-	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "textColor"): any;
-
-	/**
-	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "textColor", optionValue: any): void;
 
 	/**
@@ -38640,6 +38779,20 @@ interface RowsRequestingEvent {
 }
 
 interface RowsRequestingEventUIParam {
+	/**
+	 * Gets a reference to igGridAppendRowsOnDemand.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the next chunk index.
+	 */
+	chunkIndex?: number;
+
+	/**
+	 * Gets the chunk size.
+	 */
+	chunkSize?: number;
 }
 
 interface RowsRequestedEvent {
@@ -38647,6 +38800,25 @@ interface RowsRequestedEvent {
 }
 
 interface RowsRequestedEventUIParam {
+	/**
+	 * Gets a reference to igGridAppendRowsOnDemand.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the next chunk index.
+	 */
+	chunkIndex?: number;
+
+	/**
+	 * Gets the chunk size.
+	 */
+	chunkSize?: number;
+
+	/**
+	 * Gets the requested rows.
+	 */
+	rows?: any[];
 }
 
 interface IgGridAppendRowsOnDemand {
@@ -38751,6 +38923,7 @@ interface JQuery {
 	 * Defines local or remote type of appending rows on demand in igGrid
 	 *
 	 */
+
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -38759,6 +38932,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -38849,6 +39023,7 @@ interface JQuery {
 	 * Denotes the append rows on demand request method
 	 *
 	 */
+
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "loadTrigger"): string;
 
 	/**
@@ -38857,6 +39032,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "loadTrigger", optionValue: string): void;
 
 	/**
@@ -38909,6 +39085,35 @@ interface CellsMergingEvent {
 }
 
 interface CellsMergingEventUIParam {
+	/**
+	 * Gets a reference to the row the merged group starts in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the merged group starts in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the merged group starts in.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets reference to igGridCellMerging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the igGrid the igGridCellMerging are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the cells value which is repeated and caused the merged group to be created.
+	 */
+	value?: any;
 }
 
 interface CellsMergedEvent {
@@ -38916,6 +39121,40 @@ interface CellsMergedEvent {
 }
 
 interface CellsMergedEventUIParam {
+	/**
+	 * Gets a reference to the row the merged group starts in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the merged group starts in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the merged group starts in.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets reference to igGridCellMerging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the igGrid the igGridCellMerging are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the cells value which is repeated and caused the merged group to be created.
+	 */
+	value?: any;
+
+	/**
+	 * Gets the total count of cells that were merged.
+	 */
+	count?: number;
 }
 
 interface IgGridCellMerging {
@@ -38959,6 +39198,7 @@ interface JQuery {
 	 * Controls the initial state
 	 *
 	 */
+
 	igGridCellMerging(optionLiteral: 'option', optionName: "initialState"): string;
 
 	/**
@@ -38967,6 +39207,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridCellMerging(optionLiteral: 'option', optionName: "initialState", optionValue: string): void;
 
 	/**
@@ -38992,13 +39233,7 @@ interface JQuery {
 	 * @optionValue Define event handler function.
 	 */
 	igGridCellMerging(optionLiteral: 'option', optionName: "cellsMerging", optionValue: CellsMergingEvent): void;
-
-	/**
-	 */
 	igGridCellMerging(optionLiteral: 'option', optionName: "cellsMerged"): CellsMergedEvent;
-
-	/**
-	 */
 	igGridCellMerging(optionLiteral: 'option', optionName: "cellsMerged", optionValue: CellsMergedEvent): void;
 	igGridCellMerging(options: IgGridCellMerging): JQuery;
 	igGridCellMerging(optionLiteral: 'option', optionName: string): any;
@@ -39042,6 +39277,20 @@ interface ColumnFixingEvent {
 }
 
 interface ColumnFixingEventUIParam {
+	/**
+	 * Gets the columnKey or the columnIndex.
+	 */
+	columnIdentifier?: any;
+
+	/**
+	 * Gets whether the header cell has children(use this argument ONLY when multi-column-headers are enabled).
+	 */
+	isGroupHeader?: boolean;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface ColumnFixedEvent {
@@ -39049,6 +39298,20 @@ interface ColumnFixedEvent {
 }
 
 interface ColumnFixedEventUIParam {
+	/**
+	 * Gets the columnKey or the columnIndex.
+	 */
+	columnIdentifier?: any;
+
+	/**
+	 * Gets whether header cell has children(use this argument ONLY when multi-column-headers are enabled).
+	 */
+	isGroupHeader?: boolean;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface ColumnUnfixingEvent {
@@ -39056,6 +39319,20 @@ interface ColumnUnfixingEvent {
 }
 
 interface ColumnUnfixingEventUIParam {
+	/**
+	 * Gets the columnKey or the columnIndex.
+	 */
+	columnIdentifier?: any;
+
+	/**
+	 * Gets whether header cell has children(use this argument ONLY when multi-column-headers are enabled).
+	 */
+	isGroupHeader?: boolean;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface ColumnUnfixedEvent {
@@ -39063,6 +39340,20 @@ interface ColumnUnfixedEvent {
 }
 
 interface ColumnUnfixedEventUIParam {
+	/**
+	 * Gets the columnKey or the columnIndex.
+	 */
+	columnIdentifier?: any;
+
+	/**
+	 * Gets whether header cell has children(use this argument ONLY when multi-column-headers are enabled).
+	 */
+	isGroupHeader?: boolean;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface ColumnFixingRefusedEvent {
@@ -39070,6 +39361,25 @@ interface ColumnFixingRefusedEvent {
 }
 
 interface ColumnFixingRefusedEventUIParam {
+	/**
+	 * Gets the columnKey or the columnIndex.
+	 */
+	columnIdentifier?: any;
+
+	/**
+	 * Gets whether header cell has children(use this argument ONLY when multi-column-headers are enabled).
+	 */
+	isGroupHeader?: boolean;
+
+	/**
+	 * Gets the error message describing the reason fixing has failed.
+	 */
+	errorMessage?: string;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface ColumnUnfixingRefusedEvent {
@@ -39077,6 +39387,25 @@ interface ColumnUnfixingRefusedEvent {
 }
 
 interface ColumnUnfixingRefusedEventUIParam {
+	/**
+	 * Gets the columnKey or the columnIndex.
+	 */
+	columnIdentifier?: any;
+
+	/**
+	 * Gets whether header cell has children(use this argument ONLY when multi-column-headers are enabled).
+	 */
+	isGroupHeader?: boolean;
+
+	/**
+	 * Gets the error message describing the reason fixing has failed.
+	 */
+	errorMessage?: string;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface IgGridColumnFixing {
@@ -39198,9 +39527,9 @@ interface IgGridColumnFixingMethods {
 	/**
 	 * Unfixes a column by specified column identifier - column key or column index.
 	 *
-	 * @param colIdentifier    An identifier of the column to be unfixed - column index or column key.
-	 * @param target    Key of the column where the unfixed column should move to.
-	 * @param after    Specifies where the unfixed column should be rendered after or before the target column. This parameter is disregarded if there is no target column specified.
+	 * @param colIdentifier An identifier of the column to be unfixed - column index or column key.
+	 * @param target Key of the column where the unfixed column should move to.
+	 * @param after Specifies where the unfixed column should be rendered after or before the target column. This parameter is disregarded if there is no target column specified.
 	 */
 	unfixColumn(colIdentifier: Object, target?: string, after?: boolean): Object;
 
@@ -39212,38 +39541,38 @@ interface IgGridColumnFixingMethods {
 	/**
 	 * If the 'check' argument is set to true, checks whether the heights of fixed and unfixed tables are equal, if not sync them. Similar check is made for heights of table rows. If the clearRowsHeights argument is set to true, clears rows heights before syncing them.
 	 *
-	 * @param check    If set to true, checks whether the heights of fixed and unfixed tables are equal, if not sync them. If this argument is set to false sync is performed regardless of the current heights.
-	 * @param clearRowsHeights    Clears row heigths for all visible rows.
+	 * @param check If set to true, checks whether the heights of fixed and unfixed tables are equal, if not sync them. If this argument is set to false sync is performed regardless of the current heights.
+	 * @param clearRowsHeights Clears row heigths for all visible rows.
 	 */
 	syncHeights(check?: boolean, clearRowsHeights?: boolean): void;
 
 	/**
 	 * Returns whether the column with the specified key is a column group header, when the [multi-column headers](http://www.igniteui.com/help/iggrid-multicolumnheaders-landingpage) feature is used.
 	 *
-	 * @param colKey    The key of the column to perform the check for.
+	 * @param colKey The key of the column to perform the check for.
 	 */
 	isGroupHeader(colKey: string): boolean;
 
 	/**
 	 * Checks whether column fixing is allowed for the specified columns. It should not be allowed if there is only one visible column in the unfixed area.
 	 *
-	 * @param columns    Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
+	 * @param columns Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
 	 */
 	checkFixingAllowed(columns: any[]): boolean;
 
 	/**
 	 * Checks whether unfixing is allowed for the specified columns. It should not be allowed if there is only one visible column in the fixed area.
 	 *
-	 * @param columns    Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
+	 * @param columns Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
 	 */
 	checkUnfixingAllowed(columns: any[]): boolean;
 
 	/**
 	 * Fixes a column by specified column identifier - column index or column key.
 	 *
-	 * @param colIdentifier    An identifier of the column to be fixed - column index or column key.
-	 * @param target    Key of the column where the fixed column should move to.
-	 * @param after    Specifies where the fixed column should be moved after or before the target column. This parameter is disregarded if there is no target column specified.
+	 * @param colIdentifier An identifier of the column to be fixed - column index or column key.
+	 * @param target Key of the column where the fixed column should move to.
+	 * @param after Specifies where the fixed column should be moved after or before the target column. This parameter is disregarded if there is no target column specified.
 	 */
 	fixColumn(colIdentifier: Object, target?: string, after?: boolean): Object;
 
@@ -39275,17 +39604,17 @@ interface IgGridColumnFixingMethods {
 	/**
 	 * Syncs rows heights between two collections of rows.
 	 *
-	 * @param $trs    An array of rows of the first(fixed/unfixed) container.
-	 * @param $anotherRows    An array of rows of the second(fixed/unfixed) container.
+	 * @param $trs An array of rows of the first(fixed/unfixed) container.
+	 * @param $anotherRows An array of rows of the second(fixed/unfixed) container.
 	 */
 	syncRowsHeights($trs: any[], $anotherRows: any[]): void;
 
 	/**
 	 * Calculates widths of the fixed columns.
 	 *
-	 * @param fCols    Array of grid columns. If not set then the total width of the fixed columns are returned.
-	 * @param excludeNonDataColumns    If set to true do not calculate the width of non-data fixed columns (like the row selector row numbering column).
-	 * @param includeHidden    If set to true calculates width of the hidden fixed columns (their initial width before hiding).
+	 * @param fCols Array of grid columns. If not set then the total width of the fixed columns are returned.
+	 * @param excludeNonDataColumns If set to true do not calculate the width of non-data fixed columns (like the row selector row numbering column).
+	 * @param includeHidden If set to true calculates width of the hidden fixed columns (their initial width before hiding).
 	 */
 	getWidthOfFixedColumns(fCols?: any[], excludeNonDataColumns?: boolean, includeHidden?: boolean): number;
 
@@ -39389,6 +39718,7 @@ interface JQuery {
 	 * Configures which side the fixed columns of the grid will be rendered on. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#direction) out of more information.
 	 *
 	 */
+
 	igGridColumnFixing(optionLiteral: 'option', optionName: "fixingDirection"): string;
 
 	/**
@@ -39397,6 +39727,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridColumnFixing(optionLiteral: 'option', optionName: "fixingDirection", optionValue: string): void;
 
 	/**
@@ -39445,6 +39776,7 @@ interface JQuery {
 	 * Minimal visible area in pixels for the unfixed columns. If the end user tries to fix a column(or columns), which causes the width of the fixed columns to grow such that the width of visible area of unfixed columns is less than this option then fixing will be canceled. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#non-fixable-min-width) out for more information.
 	 *
 	 */
+
 	igGridColumnFixing(optionLiteral: 'option', optionName: "minimalVisibleAreaWidth"): string|number;
 
 	/**
@@ -39453,6 +39785,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridColumnFixing(optionLiteral: 'option', optionName: "minimalVisibleAreaWidth", optionValue: string|number): void;
 
 	/**
@@ -39588,6 +39921,30 @@ interface ColumnDragStartEvent {
 }
 
 interface ColumnDragStartEventUIParam {
+	/**
+	 * Gets the column key of the column being dragged.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column being dragged.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: string;
+
+	/**
+	 * Gets a reference to the orginal th being dragged.
+	 */
+	header?: string;
+
+	/**
+	 * Gets a reference to cloned DOM element that's actually being dragged.
+	 */
+	helper?: string;
 }
 
 interface ColumnDragEndEvent {
@@ -39595,6 +39952,30 @@ interface ColumnDragEndEvent {
 }
 
 interface ColumnDragEndEventUIParam {
+	/**
+	 * Gets the column key of the column that was being dragged.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column that was being dragged.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: string;
+
+	/**
+	 * Gets a reference to the orginal th that was being dragged.
+	 */
+	header?: string;
+
+	/**
+	 * Gets a reference to cloned DOM element that was actually being dragged.
+	 */
+	helper?: string;
 }
 
 interface ColumnDragCanceledEvent {
@@ -39602,6 +39983,30 @@ interface ColumnDragCanceledEvent {
 }
 
 interface ColumnDragCanceledEventUIParam {
+	/**
+	 * Gets the column key of the column that was being dragged.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column that was being dragged.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: string;
+
+	/**
+	 * Gets a reference to the orginal th being dragged.
+	 */
+	header?: string;
+
+	/**
+	 * Gets a reference to cloned DOM element that was actually being dragged.
+	 */
+	helper?: string;
 }
 
 interface ColumnMovingEvent {
@@ -39609,6 +40014,25 @@ interface ColumnMovingEvent {
 }
 
 interface ColumnMovingEventUIParam {
+	/**
+	 * Gets the column key of the column that was being moved.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column that was being moved.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the new column index of the column that was being moved.
+	 */
+	targetIndex?: number;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: string;
 }
 
 interface ColumnMovedEvent {
@@ -39616,6 +40040,25 @@ interface ColumnMovedEvent {
 }
 
 interface ColumnMovedEventUIParam {
+	/**
+	 * Gets the column key of the column that was moved.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the previous column index of the column that was moved.
+	 */
+	oldIndex?: number;
+
+	/**
+	 * Gets the new column index of the column that was being moved.
+	 */
+	newIndex?: number;
+
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogOpeningEvent {
@@ -39623,6 +40066,10 @@ interface MovingDialogOpeningEvent {
 }
 
 interface MovingDialogOpeningEventUIParam {
+	/**
+	 * Gets a reference to the widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogOpenedEvent {
@@ -39630,6 +40077,10 @@ interface MovingDialogOpenedEvent {
 }
 
 interface MovingDialogOpenedEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogDraggedEvent {
@@ -39637,6 +40088,10 @@ interface MovingDialogDraggedEvent {
 }
 
 interface MovingDialogDraggedEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogClosingEvent {
@@ -39644,6 +40099,10 @@ interface MovingDialogClosingEvent {
 }
 
 interface MovingDialogClosingEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogClosedEvent {
@@ -39651,6 +40110,10 @@ interface MovingDialogClosedEvent {
 }
 
 interface MovingDialogClosedEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogContentsRenderingEvent {
@@ -39658,6 +40121,10 @@ interface MovingDialogContentsRenderingEvent {
 }
 
 interface MovingDialogContentsRenderingEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogContentsRenderedEvent {
@@ -39665,6 +40132,10 @@ interface MovingDialogContentsRenderedEvent {
 }
 
 interface MovingDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogMoveUpButtonPressedEvent {
@@ -39672,6 +40143,10 @@ interface MovingDialogMoveUpButtonPressedEvent {
 }
 
 interface MovingDialogMoveUpButtonPressedEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogMoveDownButtonPressedEvent {
@@ -39679,6 +40154,10 @@ interface MovingDialogMoveDownButtonPressedEvent {
 }
 
 interface MovingDialogMoveDownButtonPressedEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogDragColumnMovingEvent {
@@ -39686,6 +40165,10 @@ interface MovingDialogDragColumnMovingEvent {
 }
 
 interface MovingDialogDragColumnMovingEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface MovingDialogDragColumnMovedEvent {
@@ -39693,6 +40176,10 @@ interface MovingDialogDragColumnMovedEvent {
 }
 
 interface MovingDialogDragColumnMovedEventUIParam {
+	/**
+	 * Gets a reference to the ColumnMoving widget.
+	 */
+	owner?: any;
 }
 
 interface IgGridColumnMoving {
@@ -39971,11 +40458,11 @@ interface IgGridColumnMovingMethods {
 	 * Moves a visible column at a specified place, in front or behind a target column or at a target index
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
-	 * @param target    An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
-	 * @param after    Specifies whether the column moved should be moved after or before the target column.
-	 * @param inDom    Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
-	 * @param callback    Specifies a custom function to be called when the column is moved.
+	 * @param column An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
+	 * @param target An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
+	 * @param after Specifies whether the column moved should be moved after or before the target column.
+	 * @param inDom Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
+	 * @param callback Specifies a custom function to be called when the column is moved.
 	 */
 	moveColumn(column: Object, target: Object, after?: boolean, inDom?: boolean, callback?: Function): void;
 }
@@ -40005,6 +40492,7 @@ interface JQuery {
 	 * Specify the drag-and-drop mode for the feature
 	 *
 	 */
+
 	igGridColumnMoving(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -40013,12 +40501,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridColumnMoving(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
 	 * Specify the way columns will be rearranged
 	 *
 	 */
+
 	igGridColumnMoving(optionLiteral: 'option', optionName: "moveType"): string;
 
 	/**
@@ -40027,6 +40517,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridColumnMoving(optionLiteral: 'option', optionName: "moveType", optionValue: string): void;
 
 	/**
@@ -40606,6 +41097,25 @@ interface ShowingEvent {
 }
 
 interface ShowingEventUIParam {
+	/**
+	 * Gets the element the popover will show for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets or set the content to be shown as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element showing.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets a reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface ShownEvent {
@@ -40613,6 +41123,25 @@ interface ShownEvent {
 }
 
 interface ShownEventUIParam {
+	/**
+	 * Gets the element the popover showed for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the content that was shown as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element showing.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets a reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface HidingEvent {
@@ -40620,6 +41149,25 @@ interface HidingEvent {
 }
 
 interface HidingEventUIParam {
+	/**
+	 * Gets the element the popover will hide for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the current content displayed in the popover as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element hiding.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface HiddenEvent {
@@ -40627,6 +41175,25 @@ interface HiddenEvent {
 }
 
 interface HiddenEventUIParam {
+	/**
+	 * Gets the element the popover is hidden for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the content displayed in the popover as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element hidden.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface IgGridFeatureChooserPopover {
@@ -40638,8 +41205,9 @@ interface IgGridFeatureChooserPopover {
 	/**
 	 * controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * Valid values:
-	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.igpopover#options:directionPriority) property
+	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.%%WidgetNameLowered%%#options:directionPriority) property
 	 * "left" shows popover on the left side of the target element
 	 * "right" shows popover on the right side of the target element
 	 * "top" shows popover on the top of the target element
@@ -40649,12 +41217,14 @@ interface IgGridFeatureChooserPopover {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	directionPriority?: any[];
 
 	/**
 	 * controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * Valid values:
 	 * "auto" lets the control choose a position depending on available space with the following priority balanced > end > start
@@ -40666,36 +41236,43 @@ interface IgGridFeatureChooserPopover {
 
 	/**
 	 * defines width for the popover. leave null for auto.
+	 *
 	 */
 	width?: number|string;
 
 	/**
 	 * defines height for the popover. leave null for auto
+	 *
 	 */
 	height?: number|string;
 
 	/**
 	 * defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	minWidth?: number|string;
 
 	/**
 	 * defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxWidth?: number|string;
 
 	/**
 	 * defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxHeight?: number|string;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 */
 	animationDuration?: number;
 
 	/**
 	 * sets the content for the popover container. If left null the content will be get from the target.
+	 *
 	 *
 	 * Valid values:
 	 * "string" String content of the popover container
@@ -40705,16 +41282,19 @@ interface IgGridFeatureChooserPopover {
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	selectors?: string;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 */
 	headerTemplate?: IgPopoverHeaderTemplate;
 
 	/**
 	 * sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 *
 	 * Valid values:
 	 * "mouseenter" the popover is shown on mouse enter in the target element
@@ -40776,8 +41356,8 @@ interface IgGridFeatureChooserPopoverMethods {
 	/**
 	 * Shows the popover for the specified target
 	 *
-	 * @param trg     The element to show popover for.
-	 * @param content     The string to set for the popover to show.
+	 * @param trg The element to show popover for.
+	 * @param content The string to set for the popover to show.
 	 */
 	show(trg?: Element, content?: string): void;
 
@@ -40794,7 +41374,7 @@ interface IgGridFeatureChooserPopoverMethods {
 	/**
 	 * Sets the content for the popover container
 	 *
-	 * @param newCnt     The popover content to set.
+	 * @param newCnt The popover content to set.
 	 */
 	setContent(newCnt: string): void;
 
@@ -40811,7 +41391,7 @@ interface IgGridFeatureChooserPopoverMethods {
 	/**
 	 * Sets the popover to specific coordinates.
 	 *
-	 * @param pos     The popover coordinates in pixels.
+	 * @param pos The popover coordinates in pixels.
 	 */
 	setCoordinates(pos: Object): void;
 }
@@ -40823,50 +41403,43 @@ interface FeatureChooserRenderingEvent {
 	(event: Event, ui: FeatureChooserRenderingEventUIParam): void;
 }
 
-interface FeatureChooserRenderingEventUIParam {
-}
+interface FeatureChooserRenderingEventUIParam {}
 
 interface FeatureChooserRenderedEvent {
 	(event: Event, ui: FeatureChooserRenderedEventUIParam): void;
 }
 
-interface FeatureChooserRenderedEventUIParam {
-}
+interface FeatureChooserRenderedEventUIParam {}
 
 interface FeatureChooserDropDownOpeningEvent {
 	(event: Event, ui: FeatureChooserDropDownOpeningEventUIParam): void;
 }
 
-interface FeatureChooserDropDownOpeningEventUIParam {
-}
+interface FeatureChooserDropDownOpeningEventUIParam {}
 
 interface FeatureChooserDropDownOpenedEvent {
 	(event: Event, ui: FeatureChooserDropDownOpenedEventUIParam): void;
 }
 
-interface FeatureChooserDropDownOpenedEventUIParam {
-}
+interface FeatureChooserDropDownOpenedEventUIParam {}
 
 interface MenuTogglingEvent {
 	(event: Event, ui: MenuTogglingEventUIParam): void;
 }
 
-interface MenuTogglingEventUIParam {
-}
+interface MenuTogglingEventUIParam {}
 
 interface FeatureTogglingEvent {
 	(event: Event, ui: FeatureTogglingEventUIParam): void;
 }
 
-interface FeatureTogglingEventUIParam {
-}
+interface FeatureTogglingEventUIParam {}
 
 interface FeatureToggledEvent {
 	(event: Event, ui: FeatureToggledEventUIParam): void;
 }
 
-interface FeatureToggledEventUIParam {
-}
+interface FeatureToggledEventUIParam {}
 
 interface IgGridFeatureChooser {
 	dropDownWidth?: any;
@@ -40890,28 +41463,28 @@ interface IgGridFeatureChooserMethods {
 	/**
 	 * Show feature chooser dialog by the specified column key
 	 *
-	 * @param columnKey    Key of the column that should be shown.
+	 * @param columnKey Key of the column that should be shown.
 	 */
 	showDropDown(columnKey: string): void;
 
 	/**
 	 * Hide feature chooser dialog by column key
 	 *
-	 * @param columnKey    Key of the column that should be hidden.
+	 * @param columnKey Key of the column that should be hidden.
 	 */
 	hideDropDown(columnKey: string): void;
 
 	/**
 	 * Get jQuery representation of the div holding dropdown for the specified columnKey
 	 *
-	 * @param columnKey    Key of the column
+	 * @param columnKey Key of the column
 	 */
 	getDropDownByColumnKey(columnKey: string): void;
 
 	/**
 	 * Show/hide feature chooser dialog by column key
 	 *
-	 * @param columnKey    Key of the column that should be shown/hidden.
+	 * @param columnKey Key of the column that should be shown/hidden.
 	 */
 	toggleDropDown(columnKey: string): void;
 	destroy(e: Object, args: Object): void;
@@ -40933,60 +41506,42 @@ interface JQuery {
 	igGridFeatureChooserPopover(methodName: "target"): Object;
 	igGridFeatureChooserPopover(methodName: "getCoordinates"): Object;
 	igGridFeatureChooserPopover(methodName: "setCoordinates", pos: Object): void;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "gridId"): string;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "gridId", optionValue: string): void;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "targetButton"): any;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "targetButton", optionValue: any): void;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "closeOnBlur"): boolean;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "closeOnBlur", optionValue: boolean): void;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "containment"): any;
-
-	/**
-	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "containment", optionValue: any): void;
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "direction"): string;
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "direction", optionValue: string): void;
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "directionPriority"): any[];
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -40994,83 +41549,109 @@ interface JQuery {
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "position"): string;
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "position", optionValue: string): void;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "width", optionValue: number|string): void;
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
 	 * Defines height for the popover. leave null for auto
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "height", optionValue: number|string): void;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "minWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "minWidth", optionValue: number|string): void;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "maxWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "maxWidth", optionValue: number|string): void;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "maxHeight"): number|string;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "maxHeight", optionValue: number|string): void;
 
 	/**
 	 * The time popover fades in and out when showing/hiding
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "animationDuration"): number;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41078,23 +41659,29 @@ interface JQuery {
 
 	/**
 	 * The content for the popover container. If left null the content will be get from the target.
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "contentTemplate"): string|Function;
 
 	/**
 	 * Sets the content for the popover container. If left null the content will be get from the target.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "contentTemplate", optionValue: string|Function): void;
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "selectors"): string;
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41102,11 +41689,13 @@ interface JQuery {
 
 	/**
 	 * The content for the popover header
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "headerTemplate"): IgPopoverHeaderTemplate;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41114,20 +41703,25 @@ interface JQuery {
 
 	/**
 	 * The event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "showOn"): string;
 
 	/**
 	 * Sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "showOn", optionValue: string): void;
 
 	/**
 	 * Controls where the popover DOM should be attached to.
 	 *
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "appendTo"): string|Object;
 
 	/**
@@ -41136,6 +41730,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "appendTo", optionValue: string|Object): void;
 
 	/**
@@ -41198,77 +41793,23 @@ interface JQuery {
 	igGridFeatureChooser(methodName: "getDropDownByColumnKey", columnKey: string): void;
 	igGridFeatureChooser(methodName: "toggleDropDown", columnKey: string): void;
 	igGridFeatureChooser(methodName: "destroy", e: Object, args: Object): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "dropDownWidth"): any;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "dropDownWidth", optionValue: any): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "animationDuration"): number;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "animationDuration", optionValue: number): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserRendering"): FeatureChooserRenderingEvent;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserRendering", optionValue: FeatureChooserRenderingEvent): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserRendered"): FeatureChooserRenderedEvent;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserRendered", optionValue: FeatureChooserRenderedEvent): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserDropDownOpening"): FeatureChooserDropDownOpeningEvent;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserDropDownOpening", optionValue: FeatureChooserDropDownOpeningEvent): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserDropDownOpened"): FeatureChooserDropDownOpenedEvent;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureChooserDropDownOpened", optionValue: FeatureChooserDropDownOpenedEvent): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "menuToggling"): MenuTogglingEvent;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "menuToggling", optionValue: MenuTogglingEvent): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureToggling"): FeatureTogglingEvent;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureToggling", optionValue: FeatureTogglingEvent): void;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureToggled"): FeatureToggledEvent;
-
-	/**
-	 */
 	igGridFeatureChooser(optionLiteral: 'option', optionName: "featureToggled", optionValue: FeatureToggledEvent): void;
 	igGridFeatureChooser(options: IgGridFeatureChooser): JQuery;
 	igGridFeatureChooser(optionLiteral: 'option', optionName: string): any;
@@ -41456,6 +41997,25 @@ interface DataFilteringEvent {
 }
 
 interface DataFilteringEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column index. Applicable only when filtering mode is "simple".
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the column key. Applicable only when filtering mode is "simple".
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the filtering expressions. Filtering expressions could be changed in this event handler and after that data binding is applied. In this way the user could control filtering more easily before applying data-binding.
+	 */
+	newExpressions?: any[];
 }
 
 interface DataFilteredEvent {
@@ -41463,6 +42023,25 @@ interface DataFilteredEvent {
 }
 
 interface DataFilteredEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column index. Applicable only when filtering mode is "simple".
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the column key. Applicable only when filtering mode is "simple".
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the filtered expressions.
+	 */
+	expressions?: any[];
 }
 
 interface FilterDialogOpeningEvent {
@@ -41470,6 +42049,15 @@ interface FilterDialogOpeningEvent {
 }
 
 interface FilterDialogOpeningEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialog?: string;
 }
 
 interface FilterDialogOpenedEvent {
@@ -41477,6 +42065,15 @@ interface FilterDialogOpenedEvent {
 }
 
 interface FilterDialogOpenedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialog?: string;
 }
 
 interface FilterDialogMovingEvent {
@@ -41484,6 +42081,25 @@ interface FilterDialogMovingEvent {
 }
 
 interface FilterDialogMovingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to filtering dialog DOM element.
+	 */
+	dialog?: string;
+
+	/**
+	 * Gets the original position of the groupby dialog div as { top, left } object, relative to the page.
+	 */
+	originalPosition?: any;
+
+	/**
+	 * Gets the current position of the groupby dialog div as { top, left } object, relative to the page.
+	 */
+	position?: any;
 }
 
 interface FilterDialogFilterAddingEvent {
@@ -41491,6 +42107,15 @@ interface FilterDialogFilterAddingEvent {
 }
 
 interface FilterDialogFilterAddingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to filters table body DOM element.
+	 */
+	filtersTableBody?: string;
 }
 
 interface FilterDialogFilterAddedEvent {
@@ -41498,6 +42123,15 @@ interface FilterDialogFilterAddedEvent {
 }
 
 interface FilterDialogFilterAddedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filters table row DOM element.
+	 */
+	filter?: string;
 }
 
 interface FilterDialogClosingEvent {
@@ -41505,6 +42139,10 @@ interface FilterDialogClosingEvent {
 }
 
 interface FilterDialogClosingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
 }
 
 interface FilterDialogClosedEvent {
@@ -41512,6 +42150,10 @@ interface FilterDialogClosedEvent {
 }
 
 interface FilterDialogClosedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
 }
 
 interface FilterDialogContentsRenderingEvent {
@@ -41519,6 +42161,15 @@ interface FilterDialogContentsRenderingEvent {
 }
 
 interface FilterDialogContentsRenderingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface FilterDialogContentsRenderedEvent {
@@ -41526,6 +42177,15 @@ interface FilterDialogContentsRenderedEvent {
 }
 
 interface FilterDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface FilterDialogFilteringEvent {
@@ -41533,6 +42193,15 @@ interface FilterDialogFilteringEvent {
 }
 
 interface FilterDialogFilteringEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to filtering dialog DOM element.
+	 */
+	dialog?: string;
 }
 
 interface IgGridFiltering {
@@ -41960,15 +42629,15 @@ interface IgGridFilteringMethods {
 	/**
 	 * Toggle filter row when mode is simple or [advancedModeEditorsVisible](ui.iggridfiltering#options:advancedModeEditorsVisible) is true. Otherwise show/hide advanced dialog.
 	 *
-	 * @param event     Column key
+	 * @param event Column key
 	 */
 	toggleFilterRowByFeatureChooser(event: string): void;
 
 	/**
 	 * Applies filtering programmatically and updates the UI by default.
 	 *
-	 * @param expressions     An array of filtering expressions, each one having the format {fieldName: , expr: , cond: , logic: } where  fieldName is the key of the column, expr is the actual expression string with which we would like to filter, logic is 'AND' or 'OR', and cond is one of the following strings: "equals", "doesNotEqual", "contains", "doesNotContain", "greaterThan", "lessThan", "greaterThanOrEqualTo", "lessThanOrEqualTo", "true", "false", "null", "notNull", "empty", "notEmpty", "startsWith", "endsWith", "today", "yesterday", "on", "notOn", "thisMonth", "lastMonth", "nextMonth", "before", "after", "thisYear", "lastYear", "nextYear". The difference between the empty and null filtering conditions is that empty includes null, NaN, and undefined, as well as the empty string.
-	 * @param updateUI     specifies whether the filter row should be also updated once the grid is filtered
+	 * @param expressions An array of filtering expressions, each one having the format {fieldName: , expr: , cond: , logic: } where  fieldName is the key of the column, expr is the actual expression string with which we would like to filter, logic is 'AND' or 'OR', and cond is one of the following strings: "equals", "doesNotEqual", "contains", "doesNotContain", "greaterThan", "lessThan", "greaterThanOrEqualTo", "lessThanOrEqualTo", "true", "false", "null", "notNull", "empty", "notEmpty", "startsWith", "endsWith", "today", "yesterday", "on", "notOn", "thisMonth", "lastMonth", "nextMonth", "before", "after", "thisYear", "lastYear", "nextYear". The difference between the empty and null filtering conditions is that empty includes null, NaN, and undefined, as well as the empty string.
+	 * @param updateUI specifies whether the filter row should be also updated once the grid is filtered
 	 * @param addedFromAdvanced
 	 */
 	filter(expressions: any[], updateUI?: boolean, addedFromAdvanced?: boolean): void;
@@ -41976,7 +42645,7 @@ interface IgGridFilteringMethods {
 	/**
 	 * Check whether filterCondition requires or not filtering expression - e.g. if filterCondition is "lastMonth", "thisMonth", "null", "notNull", "true", "false", etc. then filtering expression is NOT required
 	 *
-	 * @param filterCondition    filtering condition - e.g. "true", "false",  "yesterday", "empty", "null", etc.
+	 * @param filterCondition filtering condition - e.g. "true", "false",  "yesterday", "empty", "null", etc.
 	 */
 	requiresFilteringExpression(filterCondition: string): boolean;
 }
@@ -42055,6 +42724,7 @@ interface JQuery {
 	 * Type of animations for the column filter dropdowns.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDropDownAnimations"): string;
 
 	/**
@@ -42063,6 +42733,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDropDownAnimations", optionValue: string): void;
 
 	/**
@@ -42083,6 +42754,7 @@ interface JQuery {
 	 * Width of the column filter dropdowns.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDropDownWidth"): string|number;
 
 	/**
@@ -42091,6 +42763,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDropDownWidth", optionValue: string|number): void;
 
 	/**
@@ -42129,6 +42802,7 @@ interface JQuery {
 	 * Enable/disable filter icons visibility.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDropDownItemIcons"): boolean;
 
 	/**
@@ -42137,6 +42811,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDropDownItemIcons", optionValue: boolean): void;
 
 	/**
@@ -42157,6 +42832,7 @@ interface JQuery {
 	 * Type of filtering. Delegates all filtering functionality to the [$.ig.DataSource](ig.datasource).
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -42165,6 +42841,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -42185,6 +42862,7 @@ interface JQuery {
 	 * Default is 'simple' for non-virtualized grids, and 'advanced' when [virtualization](ui.iggrid#options:virtualization) is enabled.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -42193,6 +42871,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -42213,6 +42892,7 @@ interface JQuery {
 	 * Location of the advanced filtering button when [advancedModeEditorsVisible](ui.iggridfiltering#options:advancedModeEditorsVisible) is false (i.e. when the button is rendered in the header).
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "advancedModeHeaderButtonLocation"): string;
 
 	/**
@@ -42221,12 +42901,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "advancedModeHeaderButtonLocation", optionValue: string): void;
 
 	/**
 	 * Default filter dialog width (used for Advanced filtering [mode](ui.iggridfiltering#options:mode)).
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogWidth"): string|number;
 
 	/**
@@ -42235,12 +42917,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogWidth", optionValue: string|number): void;
 
 	/**
 	 * Default filter dialog height (used for Advanced filtering [mode](ui.iggridfiltering#options:mode)).
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogHeight"): string|number;
 
 	/**
@@ -42249,12 +42933,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogHeight", optionValue: string|number): void;
 
 	/**
 	 * Width of the filtering condition dropdowns in the advanced filter dialog.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterDropDownDefaultWidth"): string|number;
 
 	/**
@@ -42263,12 +42949,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterDropDownDefaultWidth", optionValue: string|number): void;
 
 	/**
 	 * Width of the filtering expression input boxes in the advanced filter dialog.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogExprInputDefaultWidth"): string|number;
 
 	/**
@@ -42277,12 +42965,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogExprInputDefaultWidth", optionValue: string|number): void;
 
 	/**
 	 * Width of the column chooser dropdowns in the advanced filter dialog.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogColumnDropDownDefaultWidth"): string|number;
 
 	/**
@@ -42291,6 +42981,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogColumnDropDownDefaultWidth", optionValue: string|number): void;
 
 	/**
@@ -42311,6 +43002,7 @@ interface JQuery {
 	 * The filtering button for filter dropdowns can be rendered either on the left of the filter editor, or on the right.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterButtonLocation"): string;
 
 	/**
@@ -42319,6 +43011,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterButtonLocation", optionValue: string): void;
 
 	/**
@@ -42431,6 +43124,7 @@ interface JQuery {
 	 * Add button width - in the advanced filter dialog.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddButtonWidth"): string|number;
 
 	/**
@@ -42439,12 +43133,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddButtonWidth", optionValue: string|number): void;
 
 	/**
 	 * Width of the Ok and Cancel buttons in the advanced filtering dialogs.
 	 *
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogOkCancelButtonWidth"): string|number;
 
 	/**
@@ -42453,6 +43149,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogOkCancelButtonWidth", optionValue: string|number): void;
 
 	/**
@@ -42886,7 +43583,6 @@ interface IgGridColumn {
 	 * Width of the column in pixels or percentage. Can also be set as '*', in which case the width auto-size based on the content of the column cells (including the header text).If width is not defined and [defaultColumnWidth](ui.iggrid#options:defaultColumnWidth) is set, it is assumed for all columns.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "string" The column width can be set in pixels (px), percentage (%) or as '*' in order to auto-size based on the cells and header content.
 	 * "number" The column width can be set as a number
@@ -43194,6 +43890,35 @@ interface CellClickEvent {
 }
 
 interface CellClickEventUIParam {
+	/**
+	 * Gets a reference to cell DOM element.
+	 */
+	cellElement?: Element;
+
+	/**
+	 * Gets the row index.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the row key.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets the column index of the DOM element.
+	 */
+	colIndex?: number;
+
+	/**
+	 * Gets the column key.
+	 */
+	colKey?: string;
+
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface CellRightClickEvent {
@@ -43201,6 +43926,40 @@ interface CellRightClickEvent {
 }
 
 interface CellRightClickEventUIParam {
+	/**
+	 * Gets a reference to cell DOM element.
+	 */
+	cellElement?: Element;
+
+	/**
+	 * Gets the row index.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the row key.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets the column index of the DOM element.
+	 */
+	colIndex?: number;
+
+	/**
+	 * Gets the column key.
+	 */
+	colKey?: string;
+
+	/**
+	 * Gets a reference to the row DOM element.
+	 */
+	row?: Element;
+
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface DataRenderingEvent {
@@ -43208,6 +43967,10 @@ interface DataRenderingEvent {
 }
 
 interface DataRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface DataRenderedEvent {
@@ -43215,6 +43978,10 @@ interface DataRenderedEvent {
 }
 
 interface DataRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface HeaderRenderingEvent {
@@ -43222,6 +43989,10 @@ interface HeaderRenderingEvent {
 }
 
 interface HeaderRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface HeaderRenderedEvent {
@@ -43229,6 +44000,15 @@ interface HeaderRenderedEvent {
 }
 
 interface HeaderRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to headers table DOM element.
+	 */
+	table?: Element;
 }
 
 interface CaptionRenderingEvent {
@@ -43236,6 +44016,10 @@ interface CaptionRenderingEvent {
 }
 
 interface CaptionRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface CaptionRenderedEvent {
@@ -43243,6 +44027,15 @@ interface CaptionRenderedEvent {
 }
 
 interface CaptionRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the caption container.
+	 */
+	captionContainer?: Element;
 }
 
 interface FooterRenderingEvent {
@@ -43250,6 +44043,10 @@ interface FooterRenderingEvent {
 }
 
 interface FooterRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface FooterRenderedEvent {
@@ -43257,6 +44054,15 @@ interface FooterRenderedEvent {
 }
 
 interface FooterRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to footers table DOM element.
+	 */
+	table?: Element;
 }
 
 interface HeaderCellRenderedEvent {
@@ -43264,6 +44070,20 @@ interface HeaderCellRenderedEvent {
 }
 
 interface HeaderCellRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to header cell DOM element.
+	 */
+	th?: Element;
 }
 
 interface RowsRenderingEvent {
@@ -43271,6 +44091,15 @@ interface RowsRenderingEvent {
 }
 
 interface RowsRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the grid's table body.
+	 */
+	tbody?: Element;
 }
 
 interface RowsRenderedEvent {
@@ -43278,6 +44107,15 @@ interface RowsRenderedEvent {
 }
 
 interface RowsRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the grid's table body.
+	 */
+	tbody?: Element;
 }
 
 interface SchemaGeneratedEvent {
@@ -43285,6 +44123,20 @@ interface SchemaGeneratedEvent {
 }
 
 interface SchemaGeneratedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to data source schema.
+	 */
+	schema?: any;
+
+	/**
+	 * Gets reference to data source.
+	 */
+	dataSource?: any;
 }
 
 interface ColumnsCollectionModifiedEvent {
@@ -43292,6 +44144,10 @@ interface ColumnsCollectionModifiedEvent {
 }
 
 interface ColumnsCollectionModifiedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface RequestErrorEvent {
@@ -43299,6 +44155,20 @@ interface RequestErrorEvent {
 }
 
 interface RequestErrorEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the processed error message sent by the server
+	 */
+	message?: string;
+
+	/**
+	 * Gets a reference to the whole response object
+	 */
+	response?: any;
 }
 
 interface CreatedEvent {
@@ -43306,6 +44176,10 @@ interface CreatedEvent {
 }
 
 interface CreatedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface DestroyedEvent {
@@ -43313,6 +44187,10 @@ interface DestroyedEvent {
 }
 
 interface DestroyedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface IgGrid {
@@ -43810,7 +44688,7 @@ interface IgGridMethods {
 	/**
 	 * Returns whether the column with identifier colKey is fixed
 	 *
-	 * @param colKey     An identifier of the column which should be checked. It can be a key or visible index.
+	 * @param colKey An identifier of the column which should be checked. It can be a key or visible index.
 	 */
 	isFixedColumn(colKey: Object): boolean;
 
@@ -43822,19 +44700,19 @@ interface IgGridMethods {
 	/**
 	 * Returns whether the header identified by colKey is multicolumn header(has children)
 	 *
-	 * @param colKey     value of the column key
+	 * @param colKey value of the column key
 	 */
 	isGroupHeader(colKey: string): Object;
 
 	/**
 	 * Returns an object that contains information on the passed Dom element
 	 *
-	 * 	rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
-	 * 	rowIndex - the index (in the DOM) of the row associated with the element.
-	 * 	recordIndex - index of the data record associated with this element in the current dataView.
-	 * 	columnObject  - the column object associated with this element ( if the element is tr this will be null)
+	 * rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
+	 * rowIndex - the index (in the DOM) of the row associated with the element.
+	 * recordIndex - index of the data record associated with this element in the current dataView.
+	 * columnObject  - the column object associated with this element ( if the element is tr this will be null)
 	 *
-	 * @param elem    The Dom element or jQuery object which can be a TD or TR element from the grid.
+	 * @param elem The Dom element or jQuery object which can be a TD or TR element from the grid.
 	 */
 	getElementInfo(elem: Element): Object;
 
@@ -43896,17 +44774,17 @@ interface IgGridMethods {
 	/**
 	 * Returns the cell TD element at the specified location
 	 *
-	 * @param x     The column index.
-	 * @param y     The row index.
-	 * @param isFixed     Optional parameter - if true get cell TD at the specified location from the fixed table
+	 * @param x The column index.
+	 * @param y The row index.
+	 * @param isFixed Optional parameter - if true get cell TD at the specified location from the fixed table
 	 */
 	cellAt(x: number, y: number, isFixed: boolean): Element;
 
 	/**
 	 * Returns the cell TD element by row id and column key
 	 *
-	 * @param rowId     The id of the row.
-	 * @param columnKey     The column key.
+	 * @param rowId The id of the row.
+	 * @param columnKey The column key.
 	 */
 	cellById(rowId: Object, columnKey: string): Element;
 
@@ -43938,22 +44816,22 @@ interface IgGridMethods {
 	/**
 	 * Returns the row (TR element) at the specified index. jQuery selectors aren't used for performance reasons
 	 *
-	 * @param i     The row index.
+	 * @param i The row index.
 	 */
 	rowAt(i: number): Element;
 
 	/**
 	 * Returns the row TR element by row id
 	 *
-	 * @param rowId     The id of the row.
-	 * @param isFixed     Specify search in the fixed container.
+	 * @param rowId The id of the row.
+	 * @param isFixed Specify search in the fixed container.
 	 */
 	rowById(rowId: Object, isFixed?: boolean): Element;
 
 	/**
 	 * Returns the fixed row (TR element) at the specified index. jQuery selectors aren't used for performance reasons(in ColumnFixing scenario - only when there is at least one fixed column)
 	 *
-	 * @param i     The row index.
+	 * @param i The row index.
 	 */
 	fixedRowAt(i: number): Element;
 
@@ -43980,38 +44858,38 @@ interface IgGridMethods {
 	/**
 	 * Returns a column object by the specified column key
 	 *
-	 * @param key     The column key.
+	 * @param key The column key.
 	 */
 	columnByKey(key: string): Object;
 
 	/**
 	 * Returns a column object by the specified header text. If there are multiple matches, returns the first one.
 	 *
-	 * @param text     The column header text.
+	 * @param text The column header text.
 	 */
 	columnByText(text: string): Object;
 
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -44027,106 +44905,106 @@ interface IgGridMethods {
 
 	/**
 	 * Retrieves a cell value using the row index and the column key. If a primaryKey is defined, rowId is assumed to be the row Key (not index).
-	 * 	If primary key is not defined, then rowId is converted to a number and is used as a row index.
+	 * If primary key is not defined, then rowId is converted to a number and is used as a row index.
 	 *
-	 * @param rowId     Row index or row key (primary key).
-	 * @param colKey     The column key.
+	 * @param rowId Row index or row key (primary key).
+	 * @param colKey The column key.
 	 */
 	getCellValue(rowId: Object, colKey: string): Object;
 
 	/**
 	 * Returns the cell text. If colKey is a number, the index of the column is used (instead of a column name)- does not apply when using a Multi-Row Layout grid.
-	 * 	This is the actual text (or HTML string) for the contents of the cell.
+	 * This is the actual text (or HTML string) for the contents of the cell.
 	 *
-	 * @param rowId     Row index or row data key (primary key)
-	 * @param colKey     Column key.
+	 * @param rowId Row index or row data key (primary key)
+	 * @param colKey Column key.
 	 */
 	getCellText(rowId: Object, colKey: string): string;
 
 	/**
 	 * Sets a new template for a column after initialization and renders the grid if not explicitly disabled. This method will replace any existing explicitly set row template and will build one anew from the column ones.
 	 *
-	 * @param col     An identifier of the column to set template for (index or key)
-	 * @param tmpl     The column template to set
-	 * @param render     Should the grid rerender after template is set
+	 * @param col An identifier of the column to set template for (index or key)
+	 * @param tmpl The column template to set
+	 * @param render Should the grid rerender after template is set
 	 */
 	setColumnTemplate(col: Object, tmpl: string, render?: boolean): void;
 
 	/**
 	 * Commits all pending transactions to the client data source. Note that there won't be anything to commit on the UI, since it is updated instantly. In order to rollback the actual UI, a call to dataBind() is required.
 	 *
-	 * @param rowId     If specified, will commit only that transaction corresponding to the specified record key.
+	 * @param rowId If specified, will commit only that transaction corresponding to the specified record key.
 	 */
 	commit(rowId?: Object): void;
 
 	/**
 	 * Clears the transaction log (delegates to igDataSource). Note that this does not update the UI. In case the UI must be updated, set the second parameter "updateUI" to true, which will trigger a call to dataBind() to re-render the contents.
 	 *
-	 * @param rowId     If specified, will only rollback the transactions with that row id.
-	 * @param updateUI     Whether to update the UI or not.
+	 * @param rowId If specified, will only rollback the transactions with that row id.
+	 * @param updateUI Whether to update the UI or not.
 	 */
 	rollback(rowId?: Object, updateUI?: boolean): any[];
 
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings).
-	 * 	That is a wrapper for this.dataSource.findRecordByKey(key).
+	 * That is a wrapper for this.dataSource.findRecordByKey(key).
 	 *
-	 * @param key     Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	findRecordByKey(key: Object): Object;
 
 	/**
 	 * Returns a standalone object (copy) that represents the committed transactions, but detached from the data source.
-	 * 	That is a wrapper for this.dataSource.getDetachedRecord(t).
+	 * That is a wrapper for this.dataSource.getDetachedRecord(t).
 	 *
-	 * @param t     A transaction object.
+	 * @param t A transaction object.
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source.
-	 * 	That is a wrapper for this.dataSource.pendingTransactions().
+	 * That is a wrapper for this.dataSource.pendingTransactions().
 	 */
 	pendingTransactions(): any[];
 
 	/**
 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 * 	That is a wrapper for this.dataSource.allTransactions().
+	 * That is a wrapper for this.dataSource.allTransactions().
 	 */
 	allTransactions(): any[];
 
 	/**
 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently.
-	 * 	That is a wrapper for this.dataSource.transactionsAsString().
+	 * That is a wrapper for this.dataSource.transactionsAsString().
 	 */
 	transactionsAsString(): string;
 
 	/**
 	 * Invokes an AJAX request to the updateUrl option (if specified) and passes the serialized transaction log (a serialized JSON string) as part of the POST request.
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
 	/**
 	 * Adds a new row (TR) to the grid, by taking a data row object. Assumes the record will have the primary key.
 	 *
-	 * @param rec     Identifier/key of row. If missing, then number of rows in grid is used.
+	 * @param rec Identifier/key of row. If missing, then number of rows in grid is used.
 	 */
 	renderNewRow(rec?: string): void;
 
 	/**
 	 * If the data source points to a local JSON array of data, and it is necessary to reset it at runtime, it must be done through this API member instead of the options (options.dataSource)
 	 *
-	 * @param dataSource     New data source object.
+	 * @param dataSource New data source object.
 	 */
 	dataSourceObject(dataSource: Object): void;
 
 	/**
 	 * Returns the total number of records in the underlying backend. If paging or filtering is enabled, this may differ from the number of records in the client-side data source.
-	 * 	In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
-	 * 	This functionality is completely delegated to the data source control.
+	 * In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
+	 * This functionality is completely delegated to the data source control.
 	 */
 	totalRecordsCount(): number;
 
@@ -44141,62 +45019,62 @@ interface IgGridMethods {
 	 * Moves a visible column at a specified place, in front or behind a target column or at a target index
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
-	 * @param target    An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
-	 * @param after    Specifies whether the column moved should be moved after or before the target column. This parameter is disregarded if there is no target column specified but a target index is used.
-	 * @param inDom    Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
-	 * @param callback    Specifies a custom function to be called when the column is moved.
+	 * @param column An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
+	 * @param target An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
+	 * @param after Specifies whether the column moved should be moved after or before the target column. This parameter is disregarded if there is no target column specified but a target index is used.
+	 * @param inDom Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
+	 * @param callback Specifies a custom function to be called when the column is moved.
 	 */
 	moveColumn(column: Object, target: Object, after?: boolean, inDom?: boolean, callback?: Function): void;
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column     An identifier for the column. If a number is provided it will be used as a column index. If a string is provided it will be used as a column key.
-	 * @param callback     Specifies a custom function to be called when the column is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index. If a string is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when the column is shown(optional)
 	 */
 	showColumn(column: Object, callback: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column     An identifier for the column. If a number is provided it will be used as a column index else if a string is provided it will be used as a column key.
-	 * @param callback     Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a string is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
 	 */
 	hideColumn(column: Object, callback: Function): void;
 
 	/**
 	 * Gets unbound values for the specified column key. If key is not specified returns all unboundvalues
 	 *
-	 * @param key    column key
+	 * @param key column key
 	 */
 	getUnboundValues(key: string): Object;
 
 	/**
 	 * Sets unbound values for the unbound column with the specified key. If removeOldValues is true then values(if any) for the unbound columns are re-set with the new values
 	 *
-	 * @param key     key of the unbound column
-	 * @param values     array of values to be set on unbound values
-	 * @param removeOldValues     if true removes current unbound values(if any) for the specified column and apply the new ones specified in parameter values. Otherwise merge current values with the specified in parameter values
+	 * @param key key of the unbound column
+	 * @param values array of values to be set on unbound values
+	 * @param removeOldValues if true removes current unbound values(if any) for the specified column and apply the new ones specified in parameter values. Otherwise merge current values with the specified in parameter values
 	 */
 	setUnboundValues(key: string, values: any[], removeOldValues: Object): void;
 
 	/**
 	 * Sets unbound value for the unbound cell by the specified column key and row primary key.
 	 *
-	 * @param col     key of the unbound column
-	 * @param rowId     primary key value of the row
-	 * @param val     value to be set on unbound cell
-	 * @param notToRender     if false will re-render the row
+	 * @param col key of the unbound column
+	 * @param rowId primary key value of the row
+	 * @param val value to be set on unbound cell
+	 * @param notToRender if false will re-render the row
 	 */
 	setUnboundValueByPK(col: string, rowId: string, val: Object, notToRender: Object): void;
 
 	/**
 	 * Returns an unbound column with the specified key. If not found returns null
 	 *
-	 * @param key    a column key
+	 * @param key a column key
 	 */
 	getUnboundColumnByKey(key: string): Object;
 
@@ -44213,16 +45091,16 @@ interface IgGridMethods {
 	/**
 	 * Calculates the width of the column so its content to be auto-fitted to the width of the data in it(the content should NOT be shrinked/cutted)
 	 *
-	 * @param columnIndex    Visible column index
+	 * @param columnIndex Visible column index
 	 */
 	calculateAutoFitColumnWidth(columnIndex: number): number;
 
 	/**
 	 * Get visible index by specified column key. If column is not found or is hidden then returns -1.
-	 * 	Note: Method does not count column groups (Multi-Column Headers).
+	 * Note: Method does not count column groups (Multi-Column Headers).
 	 *
-	 * @param columnKey     columnKey
-	 * @param includeDataSkip     Optional parameter - if set to true include non data columns(like expander column, row selectors column, etc.) in calculations
+	 * @param columnKey columnKey
+	 * @param includeDataSkip Optional parameter - if set to true include non data columns(like expander column, row selectors column, etc.) in calculations
 	 */
 	getVisibleIndexByKey(columnKey: string, includeDataSkip: boolean): number;
 
@@ -44236,22 +45114,22 @@ interface IgGridMethods {
 	/**
 	 * Scroll to the specified row or specified position(in pixels)
 	 *
-	 * @param scrollerPosition     An identifier of the vertical scroll position. When it is string then it is interpreted as pixels otherwise it is the row number
+	 * @param scrollerPosition An identifier of the vertical scroll position. When it is string then it is interpreted as pixels otherwise it is the row number
 	 */
 	virtualScrollTo(scrollerPosition: Object): void;
 
 	/**
 	 * Returns column object and visible index for the table cell(TD) which is passed as argument
 	 *
-	 * @param $td     cell(TD) - either DOM TD element or jQuery object
+	 * @param $td cell(TD) - either DOM TD element or jQuery object
 	 */
 	getColumnByTD($td: Object): Object;
 
 	/**
 	 * Destroy is part of the jQuery UI widget API and does the following:
-	 * 	1. Remove custom CSS classes that were added.
-	 * 	2. Unwrap any wrapping elements such as scrolling divs and other containers.
-	 * 	3. Unbind all events that were bound.
+	 * 1. Remove custom CSS classes that were added.
+	 * 2. Unwrap any wrapping elements such as scrolling divs and other containers.
+	 * 3. Unbind all events that were bound.
 	 *
 	 * @param notToCallDestroy
 	 */
@@ -44338,6 +45216,7 @@ interface JQuery {
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -44346,12 +45225,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row - (if any), etc. [Here you can find more info about setting igGrid height](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -44360,6 +45241,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -44380,6 +45262,7 @@ interface JQuery {
 	 * Used for [row virtualization](ui.iggrid#options:rowVirtualization) in [fixed mode](ui.iggrid#options:virtualizationMode). This is the average value in pixels (default) that will be used to calculate how many rows to render as the end user scrolls. Also all rows' height will be automatically set to this value.
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "avgRowHeight"): string|number;
 
 	/**
@@ -44388,12 +45271,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "avgRowHeight", optionValue: string|number): void;
 
 	/**
 	 * Used for [column virtualization](ui.iggrid#options:columnVirtualization) in [fixed mode](ui.iggrid#options:virtualizationMode). This is the average value in pixels for a column width.
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "avgColumnWidth"): string|number;
 
 	/**
@@ -44402,12 +45287,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "avgColumnWidth", optionValue: string|number): void;
 
 	/**
 	 * Default column width that will be set for all columns, that don't have [column width](ui.iggrid#options:columns.width) defined.
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "defaultColumnWidth"): string|number;
 
 	/**
@@ -44416,6 +45303,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "defaultColumnWidth", optionValue: string|number): void;
 
 	/**
@@ -44454,6 +45342,7 @@ interface JQuery {
 	 * Determines row virtualization mode.
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "virtualizationMode"): string;
 
 	/**
@@ -44462,6 +45351,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "virtualizationMode", optionValue: string): void;
 
 	/**
@@ -44524,6 +45414,7 @@ interface JQuery {
 	 * The templating engine that will be used to render the grid [column templates](ui.iggrid#options:columns.template). [Here you can find](http://www.infragistics.com/community/blogs/marina_stoyanova/archive/2014/05/30/using-different-template-engines-with-ignite-ui-controls.aspx) how to use templating engines other than igTemplating and jsRender.
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "templatingEngine"): string;
 
 	/**
@@ -44532,6 +45423,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "templatingEngine", optionValue: string): void;
 
 	/**
@@ -44552,6 +45444,7 @@ interface JQuery {
 	 * Can be any valid data source accepted by [$.ig.DataSource](ig.datasource), or an instance of an $.ig.DataSource itself
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "dataSource"): Array<any>|Object|string;
 
 	/**
@@ -44560,6 +45453,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "dataSource", optionValue: Array<any>|Object|string): void;
 
 	/**
@@ -44826,6 +45720,7 @@ interface JQuery {
 	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "autoFormat"): string|boolean;
 
 	/**
@@ -44834,6 +45729,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "autoFormat", optionValue: string|boolean): void;
 
 	/**
@@ -44982,6 +45878,7 @@ interface JQuery {
 	 * Configures how the feature chooser icon should display on header cells - e.g. to display as gear icon or not.
 	 *
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "featureChooserIconDisplay"): string;
 
 	/**
@@ -44990,6 +45887,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGrid(optionLiteral: 'option', optionName: "featureChooserIconDisplay", optionValue: string): void;
 
 	/**
@@ -45389,7 +46287,6 @@ interface IgGridGroupByColumnSettingsSummaries {
 	 * allGroupData - array of data records for the group(for the whole data source - not only for the data view)
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "string" the name of the function as a string located in the global window object.
 	 * "function" which will be used for calculating the summary value.
@@ -45477,6 +46374,40 @@ interface GroupedColumnsChangingEvent {
 }
 
 interface GroupedColumnsChangingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets the object of the new grouped columns that should be applied.(it is set ONLY if called from modal dialog)
+	 */
+	newGroupedColumns?: any;
+
+	/**
+	 * Gets a reference to the current column's key that's being grouped(not set if called from modal dialog).
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current layout object, if any(not set if called from modal dialog).
+	 */
+	layout?: any;
+
+	/**
+	 * Gets a reference to the current child grid element, in case it's an hierarchical grid(not set if called from modal dialog).
+	 */
+	grid?: any;
+
+	/**
+	 * Gets which user interaction triggers the event - possible options are dragAndDrop|modalDialog|sortStateChanged|removeButton|regroup.
+	 */
+	triggeredBy?: string;
 }
 
 interface GroupedColumnsChangedEvent {
@@ -45484,6 +46415,35 @@ interface GroupedColumnsChangedEvent {
 }
 
 interface GroupedColumnsChangedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets a reference to the current column's key that's being grouped(not set if called from modal dialog).
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current layout object, if any(not set if called from modal dialog).
+	 */
+	layout?: any;
+
+	/**
+	 * Gets a reference to the current child grid element, in case it's an hierarchical grid(not set if called from modal dialog).
+	 */
+	grid?: any;
+
+	/**
+	 * Gets which user interaction triggers the event - possible options are dragAndDrop|modalDialog|sortStateChanged|removeButton|regroup.
+	 */
+	triggeredBy?: string;
 }
 
 interface ModalDialogMovingEvent {
@@ -45491,6 +46451,25 @@ interface ModalDialogMovingEvent {
 }
 
 interface ModalDialogMovingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the original position of the GroupBy Dialog div as { top, left } object, relative to the page.
+	 */
+	originalPosition?: any;
+
+	/**
+	 * Gets the current position of the GroupBy Dialog div as { top, left } object, relative to the page.
+	 */
+	position?: any;
 }
 
 interface ModalDialogClosingEvent {
@@ -45498,6 +46477,15 @@ interface ModalDialogClosingEvent {
 }
 
 interface ModalDialogClosingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogClosedEvent {
@@ -45505,6 +46493,15 @@ interface ModalDialogClosedEvent {
 }
 
 interface ModalDialogClosedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogOpeningEvent {
@@ -45512,6 +46509,15 @@ interface ModalDialogOpeningEvent {
 }
 
 interface ModalDialogOpeningEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogOpenedEvent {
@@ -45519,6 +46525,15 @@ interface ModalDialogOpenedEvent {
 }
 
 interface ModalDialogOpenedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogContentsRenderingEvent {
@@ -45526,6 +46541,15 @@ interface ModalDialogContentsRenderingEvent {
 }
 
 interface ModalDialogContentsRenderingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogContentsRenderedEvent {
@@ -45533,6 +46557,15 @@ interface ModalDialogContentsRenderedEvent {
 }
 
 interface ModalDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogButtonApplyClickEvent {
@@ -45540,6 +46573,30 @@ interface ModalDialogButtonApplyClickEvent {
 }
 
 interface ModalDialogButtonApplyClickEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the array of grouped columns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets the array of column layouts.
+	 */
+	groupedColumnLayouts?: any[];
+
+	/**
+	 * Gets the array of sorted columns.
+	 */
+	sortingExpr?: any[];
 }
 
 interface ModalDialogButtonResetClickEvent {
@@ -45547,6 +46604,15 @@ interface ModalDialogButtonResetClickEvent {
 }
 
 interface ModalDialogButtonResetClickEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogGroupingColumnEvent {
@@ -45554,6 +46620,20 @@ interface ModalDialogGroupingColumnEvent {
 }
 
 interface ModalDialogGroupingColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * The key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current layout object, if any.
+	 */
+	layout?: any;
 }
 
 interface ModalDialogGroupColumnEvent {
@@ -45561,6 +46641,25 @@ interface ModalDialogGroupColumnEvent {
 }
 
 interface ModalDialogGroupColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * The key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets a reference to the current layout object, if any.
+	 */
+	layout?: any;
 }
 
 interface ModalDialogUngroupingColumnEvent {
@@ -45568,6 +46667,20 @@ interface ModalDialogUngroupingColumnEvent {
 }
 
 interface ModalDialogUngroupingColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * The key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Get a reference to the current layout object, if any.
+	 */
+	layout?: string;
 }
 
 interface ModalDialogUngroupColumnEvent {
@@ -45575,6 +46688,25 @@ interface ModalDialogUngroupColumnEvent {
 }
 
 interface ModalDialogUngroupColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets the key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Get a reference to the current layout object, if any.
+	 */
+	layout?: any;
 }
 
 interface ModalDialogSortGroupedColumnEvent {
@@ -45582,6 +46714,25 @@ interface ModalDialogSortGroupedColumnEvent {
 }
 
 interface ModalDialogSortGroupedColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Get a reference to the current layout object, if any.
+	 */
+	layout?: any;
+
+	/**
+	 * Gets whether column should be sorted ascending or descending.
+	 */
+	isAsc?: boolean;
 }
 
 interface IgGridGroupBy {
@@ -45887,7 +47038,6 @@ interface IgGridGroupBy {
 	 * Specifies default summaries that will appear when grouping by a column on the bottom of each group as a row.This option has a lower priority than the groupSummaries defined under columnSettings for each column.
 	 * All default summaries are defined under $.ig.util.defaultSummaryMethods
 	 *
-	 *
 	 */
 	groupSummaries?: any;
 
@@ -46016,17 +47166,17 @@ interface IgGridGroupByMethods {
 	/**
 	 * Check whether column with specified key and layout is grouped
 	 *
-	 * @param key    key of the column
-	 * @param layout    layout name
+	 * @param key key of the column
+	 * @param layout layout name
 	 */
 	checkColumnIsGrouped(key: string, layout: string): void;
 
 	/**
 	 * Get grouped data by value for the specific column. NOTE: Before calling this function the data(that is passed as an argument) should be sorted by colKey.
 	 *
-	 * @param data    data (sorted by colKey) that is used to get the records from.
-	 * @param colKey    key of the column for which grouping will be applied.
-	 * @param idval    value of the column by which grouping will be applied.
+	 * @param data data (sorted by colKey) that is used to get the records from.
+	 * @param colKey key of the column for which grouping will be applied.
+	 * @param idval value of the column by which grouping will be applied.
 	 */
 	getGroupedData(data: any[], colKey: string, idval?: string): any[];
 
@@ -46038,31 +47188,31 @@ interface IgGridGroupByMethods {
 	/**
 	 * Groups by a column
 	 *
-	 * @param key    Column Key - group by the column with the specified key
-	 * @param layout    layout is an optional parameter. if set it means the grouped column is not in the root level but is a child layout column
-	 * @param sortingDirection    if not set it is taken from option defaultSortingDirection
+	 * @param key Column Key - group by the column with the specified key
+	 * @param layout layout is an optional parameter. if set it means the grouped column is not in the root level but is a child layout column
+	 * @param sortingDirection if not set it is taken from option defaultSortingDirection
 	 */
 	groupByColumn(key: string, layout?: string, sortingDirection?: Object): void;
 
 	/**
 	 * Removes the specified column from the group by columns list, executes the group by operation and updates the view.
 	 *
-	 * @param key    Column Key - ungroup by the column with the specified key
-	 * @param layout    Layout is an optional parameter. If set it means the grouped column is not in the root level but is a child layout column.
+	 * @param key Column Key - ungroup by the column with the specified key
+	 * @param layout Layout is an optional parameter. If set it means the grouped column is not in the root level but is a child layout column.
 	 */
 	ungroupByColumn(key: string, layout?: string): void;
 
 	/**
 	 * Expand group row with specified id
 	 *
-	 * @param rowId    data-id attribute of the group row in the DOM
+	 * @param rowId data-id attribute of the group row in the DOM
 	 */
 	expand(rowId: string): void;
 
 	/**
 	 * Expand group row with specified id
 	 *
-	 * @param rowId    data-id attribute of the group row in the DOM
+	 * @param rowId data-id attribute of the group row in the DOM
 	 */
 	collapse(rowId: string): void;
 
@@ -46100,6 +47250,7 @@ interface JQuery {
 	 * Sets the place in the grid where the GroupBy area will be
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "groupByAreaVisibility"): string;
 
 	/**
@@ -46108,6 +47259,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "groupByAreaVisibility", optionValue: string): void;
 
 	/**
@@ -46128,6 +47280,7 @@ interface JQuery {
 	 * Gets when paging is applied and there is at least one grouped column which records should be included in page processing.
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "pagingMode"): string;
 
 	/**
@@ -46136,6 +47289,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "pagingMode", optionValue: string): void;
 
 	/**
@@ -46226,6 +47380,7 @@ interface JQuery {
 	 * Default sort order - ascending or descending
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "defaultSortingDirection"): string;
 
 	/**
@@ -46234,6 +47389,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "defaultSortingDirection", optionValue: string): void;
 
 	/**
@@ -46282,6 +47438,7 @@ interface JQuery {
 	 * Gets whether the GroupBy operation takes place locally on client-side or remotely on server-side.
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -46290,6 +47447,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -46604,6 +47762,7 @@ interface JQuery {
 	 * Gets width of the GroupBy Dialog
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogWidth"): string|number;
 
 	/**
@@ -46612,12 +47771,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogWidth", optionValue: string|number): void;
 
 	/**
 	 * Gets height of the GroupBy Dialog
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogHeight"): string|number;
 
 	/**
@@ -46626,6 +47787,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogHeight", optionValue: string|number): void;
 
 	/**
@@ -46688,6 +47850,7 @@ interface JQuery {
 	 * Controls containment behavior for the GroupBy Dialog.
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "groupByDialogContainment"): string;
 
 	/**
@@ -46696,6 +47859,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "groupByDialogContainment", optionValue: string): void;
 
 	/**
@@ -46728,14 +47892,12 @@ interface JQuery {
 	 * Gets default summaries that will appear when grouping by a column on the bottom of each group as a row.This option has a lower priority than the groupSummaries defined under columnSettings for each column.
 	 * All default summaries are defined under $.ig.util.defaultSummaryMethods
 	 *
-	 *
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "groupSummaries"): any;
 
 	/**
 	 * Sets default summaries that will appear when grouping by a column on the bottom of each group as a row.This option has a lower priority than the groupSummaries defined under columnSettings for each column.
 	 * All default summaries are defined under $.ig.util.defaultSummaryMethods
-	 *
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -46746,6 +47908,7 @@ interface JQuery {
 	 * Gets the groupSummaries postion inside each group.
 	 *
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "groupSummariesPosition"): string;
 
 	/**
@@ -46754,6 +47917,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridGroupBy(optionLiteral: 'option', optionName: "groupSummariesPosition", optionValue: string): void;
 
 	/**
@@ -46989,6 +48153,20 @@ interface ColumnHidingEvent {
 }
 
 interface ColumnHidingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnHidingRefusedEvent {
@@ -46996,6 +48174,15 @@ interface ColumnHidingRefusedEvent {
 }
 
 interface ColumnHidingRefusedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Array of column keys. Has a value only if the column's key is a string.
+	 */
+	columnKeys?: any[];
 }
 
 interface ColumnShowingRefusedEvent {
@@ -47003,6 +48190,15 @@ interface ColumnShowingRefusedEvent {
 }
 
 interface ColumnShowingRefusedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Array of column keys. Has a value only if the column's key is a string.
+	 */
+	columnKeys?: any[];
 }
 
 interface MultiColumnHidingEvent {
@@ -47010,6 +48206,15 @@ interface MultiColumnHidingEvent {
 }
 
 interface MultiColumnHidingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the array of the hidden column keys. Only when you click on Reset button in column chooser there is an array of column keys.
+	 */
+	columnKeys?: any[];
 }
 
 interface ColumnHiddenEvent {
@@ -47017,6 +48222,20 @@ interface ColumnHiddenEvent {
 }
 
 interface ColumnHiddenEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnShowingEvent {
@@ -47024,6 +48243,20 @@ interface ColumnShowingEvent {
 }
 
 interface ColumnShowingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnShownEvent {
@@ -47031,6 +48264,20 @@ interface ColumnShownEvent {
 }
 
 interface ColumnShownEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnChooserOpeningEvent {
@@ -47038,6 +48285,15 @@ interface ColumnChooserOpeningEvent {
 }
 
 interface ColumnChooserOpeningEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserOpenedEvent {
@@ -47045,6 +48301,15 @@ interface ColumnChooserOpenedEvent {
 }
 
 interface ColumnChooserOpenedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserMovingEvent {
@@ -47052,6 +48317,25 @@ interface ColumnChooserMovingEvent {
 }
 
 interface ColumnChooserMovingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
+
+	/**
+	 * Gets the original position of the column chooser div as { top, left } object, relative to the page.
+	 */
+	originalPosition?: any;
+
+	/**
+	 * Gets the current position of the column chooser div as { top, left } object, relative to the page.
+	 */
+	position?: any;
 }
 
 interface ColumnChooserClosingEvent {
@@ -47059,6 +48343,15 @@ interface ColumnChooserClosingEvent {
 }
 
 interface ColumnChooserClosingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserClosedEvent {
@@ -47066,6 +48359,15 @@ interface ColumnChooserClosedEvent {
 }
 
 interface ColumnChooserClosedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserContentsRenderingEvent {
@@ -47073,6 +48375,15 @@ interface ColumnChooserContentsRenderingEvent {
 }
 
 interface ColumnChooserContentsRenderingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserContentsRenderedEvent {
@@ -47080,6 +48391,15 @@ interface ColumnChooserContentsRenderedEvent {
 }
 
 interface ColumnChooserContentsRenderedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserButtonApplyClickEvent {
@@ -47087,6 +48407,25 @@ interface ColumnChooserButtonApplyClickEvent {
 }
 
 interface ColumnChooserButtonApplyClickEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
+
+	/**
+	 * Gets the array of columns identifiers which should be shown.
+	 */
+	columnsToShow?: any[];
+
+	/**
+	 * Gets the array of columns identifiers which should be hidden.
+	 */
+	columnsToHide?: any[];
 }
 
 interface ColumnChooserButtonResetClickEvent {
@@ -47094,6 +48433,15 @@ interface ColumnChooserButtonResetClickEvent {
 }
 
 interface ColumnChooserButtonResetClickEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface IgGridHiding {
@@ -47318,9 +48666,9 @@ interface IgGridHidingMethods {
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader    If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
-	 * @param callback    Specifies a custom function to be called when the column(s) is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
+	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
 	 */
 	showColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
 
@@ -47328,9 +48676,9 @@ interface IgGridHidingMethods {
 	 * Hides a visible column. If the column is hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader    If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
-	 * @param callback    Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
+	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
 	 */
 	hideColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
 
@@ -47338,8 +48686,8 @@ interface IgGridHidingMethods {
 	 * Hides visible columns specified by the array. If the column is hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param columns    An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback    Specifies a custom function to be called when all columns are hidden(optional)
+	 * @param columns An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when all columns are hidden(optional)
 	 */
 	hideMultiColumns(columns: any[], callback?: Function): void;
 
@@ -47347,8 +48695,8 @@ interface IgGridHidingMethods {
 	 * Show visible columns specified by the array. If the column is shown the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param columns    An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback    Specifies a custom function to be called when all columns are shown(optional)
+	 * @param columns An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when all columns are shown(optional)
 	 */
 	showMultiColumns(columns: any[], callback?: Function): void;
 
@@ -47954,7 +49302,6 @@ interface IgHierarchicalGridColumn {
 	 * Width of the column in pixels or percentage. Can also be set as '*', in which case the width auto-size based on the content of the column cells (including the header text).If width is not defined and [defaultColumnWidth](ui.ighierarchicalgrid#options:defaultColumnWidth) is set, it is assumed for all columns.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "string" The column width can be set in pixels (px), percentage (%) or as '*' in order to auto-size based on the cells and header content.
 	 * "number" The column width can be set as a number
@@ -48262,6 +49609,15 @@ interface RowExpandingEvent {
 }
 
 interface RowExpandingEventUIParam {
+	/**
+	 * Gets access the hierarchical grid object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets access the row element for the row that's about to be expanded.
+	 */
+	parentrow?: string;
 }
 
 interface RowExpandedEvent {
@@ -48269,6 +49625,15 @@ interface RowExpandedEvent {
 }
 
 interface RowExpandedEventUIParam {
+	/**
+	 * Gets access the hierarchical grid object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets access the row element for the row that was expanded.
+	 */
+	parentrow?: string;
 }
 
 interface RowCollapsingEvent {
@@ -48276,6 +49641,15 @@ interface RowCollapsingEvent {
 }
 
 interface RowCollapsingEventUIParam {
+	/**
+	 * Gets access the hierarchical grid object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets access the row element for the row that's about to be collapsed.
+	 */
+	parentrow?: string;
 }
 
 interface RowCollapsedEvent {
@@ -48283,6 +49657,15 @@ interface RowCollapsedEvent {
 }
 
 interface RowCollapsedEventUIParam {
+	/**
+	 * Gets access the hierarchical grid object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets access the row element for the row that was collapsed.
+	 */
+	parentrow?: string;
 }
 
 interface ChildrenPopulatingEvent {
@@ -48290,6 +49673,20 @@ interface ChildrenPopulatingEvent {
 }
 
 interface ChildrenPopulatingEventUIParam {
+	/**
+	 * Gets access the hierarchical grid object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets access the row element for the row that's about to be populated.
+	 */
+	parentrow?: string;
+
+	/**
+	 * Gets the data ID of the row.
+	 */
+	id?: any;
 }
 
 interface ChildrenPopulatedEvent {
@@ -48297,6 +49694,20 @@ interface ChildrenPopulatedEvent {
 }
 
 interface ChildrenPopulatedEventUIParam {
+	/**
+	 * Gets access the hierarchical grid object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets access the row element for the row that was populated.
+	 */
+	parentrow?: string;
+
+	/**
+	 * Gets the data ID of the row.
+	 */
+	id?: any;
 }
 
 interface ChildGridRenderedEvent {
@@ -48304,21 +49715,33 @@ interface ChildGridRenderedEvent {
 }
 
 interface ChildGridRenderedEventUIParam {
+	/**
+	 * Gets access the hierarchical grid object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets access the row element for the row that's about to be populated.
+	 */
+	parentrow?: string;
+
+	/**
+	 * Gets reference to the child grid.
+	 */
+	childgrid?: any;
 }
 
 interface ChildGridCreatingEvent {
 	(event: Event, ui: ChildGridCreatingEventUIParam): void;
 }
 
-interface ChildGridCreatingEventUIParam {
-}
+interface ChildGridCreatingEventUIParam {}
 
 interface ChildGridCreatedEvent {
 	(event: Event, ui: ChildGridCreatedEventUIParam): void;
 }
 
-interface ChildGridCreatedEventUIParam {
-}
+interface ChildGridCreatedEventUIParam {}
 
 interface IgHierarchicalGrid {
 	/**
@@ -48944,49 +50367,49 @@ interface IgHierarchicalGridMethods {
 
 	/**
 	 * Expands or collapses (toggles) a parent row
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param element     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
-	 * @param callback     Specifies a custom function to be called when parent row is toggled(optional). Takes 2 arguments - first is hierarchical grid object, second is the row element that was toggled
+	 * @param element accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
+	 * @param callback Specifies a custom function to be called when parent row is toggled(optional). Takes 2 arguments - first is hierarchical grid object, second is the row element that was toggled
 	 */
 	toggle(element: Element, callback?: Function): void;
 
 	/**
 	 * Expands (toggles) a parent row
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param id     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
-	 * @param callback     Specifies a custom function to be called when parent row is expanded(optional). Takes 2 arguments first is hierarchical grid object, second is the row element that was expanded
+	 * @param id accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
+	 * @param callback Specifies a custom function to be called when parent row is expanded(optional). Takes 2 arguments first is hierarchical grid object, second is the row element that was expanded
 	 */
 	expand(id: Element, callback?: Function): void;
 
 	/**
 	 * Checks if a parent row is expanded or not
 	 *
-	 * @param element     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
+	 * @param element accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
 	 */
 	expanded(element: Element): boolean;
 
 	/**
 	 * Collapses a parent row
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param id     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
-	 * @param callback     Specifies a custom function to be called when parent row is expanded(optional). Takes 2 arguments - first is hierarchical grid object, second is the row element that was collapsed
+	 * @param id accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
+	 * @param callback Specifies a custom function to be called when parent row is expanded(optional). Takes 2 arguments - first is hierarchical grid object, second is the row element that was collapsed
 	 */
 	collapse(id: Element, callback?: Function): void;
 
 	/**
 	 * Checks if a parent row is currently collapsed
 	 *
-	 * @param element     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
+	 * @param element accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
 	 */
 	collapsed(element: Element): boolean;
 
 	/**
 	 * Checks if a parent row is populated with data
 	 *
-	 * @param element     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
+	 * @param element accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
 	 */
 	populated(element: Element): boolean;
 
@@ -48998,15 +50421,15 @@ interface IgHierarchicalGridMethods {
 	/**
 	 * Clears the transaction log (delegates to igDataSource). Note that this does not update the UI. In case the UI must be updated, set the second parameter "updateUI" to true, which will trigger a call to dataBind() to re-render the contents.
 	 *
-	 * @param rebind     Whether to perform a rebind.
+	 * @param rebind Whether to perform a rebind.
 	 */
 	rollback(rebind?: boolean): void;
 
 	/**
 	 * Posts to the settings.updateUrl using $.ajax, by serializing the changes as url params
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
@@ -49240,6 +50663,7 @@ interface JQuery {
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -49248,12 +50672,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row - (if any), etc. [Here you can find more info about setting igGrid height](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -49262,6 +50688,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -49282,6 +50709,7 @@ interface JQuery {
 	 * Used for [row virtualization](ui.ighierarchicalgrid#options:rowVirtualization) in [fixed mode](ui.ighierarchicalgrid#options:virtualizationMode). This is the average value in pixels (default) that will be used to calculate how many rows to render as the end user scrolls. Also all rows' height will be automatically set to this value.
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "avgRowHeight"): string|number;
 
 	/**
@@ -49290,12 +50718,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "avgRowHeight", optionValue: string|number): void;
 
 	/**
 	 * Used for [column virtualization](ui.ighierarchicalgrid#options:columnVirtualization) in [fixed mode](ui.ighierarchicalgrid#options:virtualizationMode). This is the average value in pixels for a column width.
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "avgColumnWidth"): string|number;
 
 	/**
@@ -49304,12 +50734,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "avgColumnWidth", optionValue: string|number): void;
 
 	/**
 	 * Default column width that will be set for all columns, that don't have [column width](ui.ighierarchicalgrid#options:columns.width) defined.
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "defaultColumnWidth"): string|number;
 
 	/**
@@ -49318,6 +50750,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "defaultColumnWidth", optionValue: string|number): void;
 
 	/**
@@ -49356,6 +50789,7 @@ interface JQuery {
 	 * Determines row virtualization mode.
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "virtualizationMode"): string;
 
 	/**
@@ -49364,6 +50798,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "virtualizationMode", optionValue: string): void;
 
 	/**
@@ -49426,6 +50861,7 @@ interface JQuery {
 	 * The templating engine that will be used to render the grid [column templates](ui.ighierarchicalgrid#options:columns.template). [Here you can find](http://www.infragistics.com/community/blogs/marina_stoyanova/archive/2014/05/30/using-different-template-engines-with-ignite-ui-controls.aspx) how to use templating engines other than igTemplating and jsRender.
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "templatingEngine"): string;
 
 	/**
@@ -49434,6 +50870,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "templatingEngine", optionValue: string): void;
 
 	/**
@@ -49728,6 +51165,7 @@ interface JQuery {
 	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "autoFormat"): string|boolean;
 
 	/**
@@ -49736,6 +51174,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "autoFormat", optionValue: string|boolean): void;
 
 	/**
@@ -49884,6 +51323,7 @@ interface JQuery {
 	 * Configures how the feature chooser icon should display on header cells - e.g. to display as gear icon or not.
 	 *
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "featureChooserIconDisplay"): string;
 
 	/**
@@ -49892,6 +51332,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "featureChooserIconDisplay", optionValue: string): void;
 
 	/**
@@ -50326,6 +51767,20 @@ interface GroupCollapsingEvent {
 }
 
 interface GroupCollapsingEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column object for the current group that is collapsing.
+	 */
+	column?: any;
+
+	/**
+	 * Get a reference to the jQuery object for the column being collapsing (th).
+	 */
+	element?: string;
 }
 
 interface GroupCollapsedEvent {
@@ -50333,6 +51788,20 @@ interface GroupCollapsedEvent {
 }
 
 interface GroupCollapsedEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column object for the current group that is collapsed.
+	 */
+	column?: any;
+
+	/**
+	 * Get a reference to the jQuery object for the column being collapsed (th).
+	 */
+	element?: string;
 }
 
 interface GroupExpandingEvent {
@@ -50340,6 +51809,20 @@ interface GroupExpandingEvent {
 }
 
 interface GroupExpandingEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column object for the current group that is expanding.
+	 */
+	column?: any;
+
+	/**
+	 * Gets a reference to the jQuery object for the column being expanded (th).
+	 */
+	element?: string;
 }
 
 interface GroupExpandedEvent {
@@ -50347,6 +51830,15 @@ interface GroupExpandedEvent {
 }
 
 interface GroupExpandedEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the jQuery object for the column being expanded (th).
+	 */
+	element?: string;
 }
 
 interface IgGridMultiColumnHeaders {
@@ -50385,7 +51877,7 @@ interface IgGridMultiColumnHeadersMethods {
 	 * Expands a collapsed group. If the group is expanded, the method does nothing.
 	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param groupKey    Group key.
+	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is expanded.
 	 */
 	expandGroup(groupKey: string, callback?: Function): void;
@@ -50499,6 +51991,20 @@ interface PageIndexChangingEvent {
 }
 
 interface PageIndexChangingEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets current page index.
+	 */
+	currentPageIndex?: number;
+
+	/**
+	 * Gets new page index.
+	 */
+	newPageIndex?: number;
 }
 
 interface PageIndexChangedEvent {
@@ -50506,6 +52012,15 @@ interface PageIndexChangedEvent {
 }
 
 interface PageIndexChangedEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the current page index.
+	 */
+	pageIndex?: number;
 }
 
 interface PageSizeChangingEvent {
@@ -50514,9 +52029,14 @@ interface PageSizeChangingEvent {
 
 interface PageSizeChangingEventUIParam {
 	/**
-	 * Used to get new page size.
+	 * Gets reference to GridPaging.
 	 */
-	newPageSize?: any;
+	owner?: any;
+
+	/**
+	 * Gets the current page size.
+	 */
+	currentPageSize?: number;
 }
 
 interface PageSizeChangedEvent {
@@ -50524,6 +52044,15 @@ interface PageSizeChangedEvent {
 }
 
 interface PageSizeChangedEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the current page size.
+	 */
+	currentPageSize?: number;
 }
 
 interface PagerRenderingEvent {
@@ -50531,6 +52060,15 @@ interface PagerRenderingEvent {
 }
 
 interface PagerRenderingEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to grid's data source.
+	 */
+	dataSource?: any;
 }
 
 interface PagerRenderedEvent {
@@ -50538,6 +52076,15 @@ interface PagerRenderedEvent {
 }
 
 interface PagerRenderedEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to grid's data source.
+	 */
+	dataSource?: any;
 }
 
 interface IgGridPaging {
@@ -50802,14 +52349,14 @@ interface IgGridPagingMethods {
 	/**
 	 * Gets/Sets the current page index, delegates data binding and paging to [$.ig.DataSource](ig.datasource).
 	 *
-	 * @param index     The page index to go to.
+	 * @param index The page index to go to.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets/Sets the page size. If no parameter is specified, just returns the current page size.
 	 *
-	 * @param size     The new page size.
+	 * @param size The new page size.
 	 */
 	pageSize(size?: number): number;
 
@@ -50901,6 +52448,7 @@ interface JQuery {
 	 * Type of paging. Delegates all paging functionality to the [$.ig.DataSource](ig.datasource).
 	 *
 	 */
+
 	igGridPaging(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -50909,6 +52457,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridPaging(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -50957,6 +52506,7 @@ interface JQuery {
 	 * Page size dropdown location, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true. Can be rendered above the grid header or inside the pager, next to the page links.
 	 *
 	 */
+
 	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLocation"): string;
 
 	/**
@@ -50965,6 +52515,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLocation", optionValue: string): void;
 
 	/**
@@ -51444,6 +52995,25 @@ interface ColumnResizingEvent {
 }
 
 interface ColumnResizingEventUIParam {
+	/**
+	 * Gets a reference to the GridResizing widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the resized column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the resized column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the desired width(before min/max coercion) for the resized column.
+	 */
+	desiredWidth?: number;
 }
 
 interface ColumnResizingRefusedEvent {
@@ -51451,6 +53021,25 @@ interface ColumnResizingRefusedEvent {
 }
 
 interface ColumnResizingRefusedEventUIParam {
+	/**
+	 * Gets a reference to the GridResizing widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the resized column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the resized column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the desired width(before min/max coercion) for the resized column.
+	 */
+	desiredWidth?: number;
 }
 
 interface ColumnResizedEvent {
@@ -51458,6 +53047,30 @@ interface ColumnResizedEvent {
 }
 
 interface ColumnResizedEventUIParam {
+	/**
+	 * Gets a reference to the GridResizing widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the resized column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the resized column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the original column width.
+	 */
+	originalWidth?: number;
+
+	/**
+	 * Gets the final column width after resizing.
+	 */
+	newWidth?: number;
 }
 
 interface IgGridResizing {
@@ -51519,8 +53132,8 @@ interface IgGridResizingMethods {
 	/**
 	 * Resizes a column to a specified width in pixels, percents or auto if no width is specified.
 	 *
-	 * @param column    An identifier for the column. If a number is provided it will be used as a columnIndex else if a strings is provided it will be used as a columnKey.
-	 * @param width    Width of the column in pixels or percents. If no width or "*" is specified the column will be auto-sized to the width of the data in it (including header and footer cells).
+	 * @param column An identifier for the column. If a number is provided it will be used as a columnIndex else if a strings is provided it will be used as a columnKey.
+	 * @param width Width of the column in pixels or percents. If no width or "*" is specified the column will be auto-sized to the width of the data in it (including header and footer cells).
 	 */
 	resize(column: Object, width?: Object): void;
 }
@@ -51714,6 +53327,20 @@ interface ResponsiveColumnHidingEvent {
 }
 
 interface ResponsiveColumnHidingEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveColumnHiddenEvent {
@@ -51721,6 +53348,20 @@ interface ResponsiveColumnHiddenEvent {
 }
 
 interface ResponsiveColumnHiddenEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveColumnShowingEvent {
@@ -51728,6 +53369,20 @@ interface ResponsiveColumnShowingEvent {
 }
 
 interface ResponsiveColumnShowingEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveColumnShownEvent {
@@ -51735,6 +53390,20 @@ interface ResponsiveColumnShownEvent {
 }
 
 interface ResponsiveColumnShownEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveModeChangedEvent {
@@ -51742,6 +53411,20 @@ interface ResponsiveModeChangedEvent {
 }
 
 interface ResponsiveModeChangedEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the previously assumed mode.
+	 */
+	previousMode?: string;
+
+	/**
+	 * Gets the newly assumed mode.
+	 */
+	mode?: string;
 }
 
 interface IgGridResponsive {
@@ -52029,6 +53712,7 @@ interface JQuery {
 	 * The window's width under which the grid will render its contents vertically.
 	 *
 	 */
+
 	igGridResponsive(optionLiteral: 'option', optionName: "windowWidthToRenderVertically"): string|number;
 
 	/**
@@ -52037,12 +53721,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridResponsive(optionLiteral: 'option', optionName: "windowWidthToRenderVertically", optionValue: string|number): void;
 
 	/**
 	 * The width of the properties column when vertical rendering is enabled
 	 *
 	 */
+
 	igGridResponsive(optionLiteral: 'option', optionName: "propertiesColumnWidth"): string|number;
 
 	/**
@@ -52051,12 +53737,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridResponsive(optionLiteral: 'option', optionName: "propertiesColumnWidth", optionValue: string|number): void;
 
 	/**
 	 * The width of the values column when vertical rendering is enabled
 	 *
 	 */
+
 	igGridResponsive(optionLiteral: 'option', optionName: "valuesColumnWidth"): string|number;
 
 	/**
@@ -52065,6 +53753,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridResponsive(optionLiteral: 'option', optionName: "valuesColumnWidth", optionValue: string|number): void;
 
 	/**
@@ -52179,6 +53868,40 @@ interface RowSelectorClickedEvent {
 }
 
 interface RowSelectorClickedEventUIParam {
+	/**
+	 * Gets reference to the row the clicked row selector resides in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets reference to the fixed row the clicked row selector resides in(if there are fixed columns).
+	 */
+	fixedRow?: string;
+
+	/**
+	 * Gets the index of the row the clicked row selector resides in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the clicked row selector resides in.
+	 */
+	rowKey?: string;
+
+	/**
+	 * Gets a reference to the row selector cell.
+	 */
+	rowSelector?: string;
+
+	/**
+	 * Gets reference to RowSelectors.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the grid the RowSelectors are initialized for.
+	 */
+	grid?: any;
 }
 
 interface CheckBoxStateChangingEvent {
@@ -52186,6 +53909,50 @@ interface CheckBoxStateChangingEvent {
 }
 
 interface CheckBoxStateChangingEventUIParam {
+	/**
+	 * Gets a reference to the row the clicked row selector resides in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the clicked row selector resides in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the clicked row selector resides in.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets a reference to the row selector cell.
+	 */
+	rowSelector?: string;
+
+	/**
+	 * Gets a reference to the igGridRowSelectors.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the grid the RowSelectors are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the current state of the checkbox ("on","off").
+	 */
+	currentState?: string;
+
+	/**
+	 * Gets the new state of the checkbox ("on","off").
+	 */
+	newState?: string;
+
+	/**
+	 * Checks if the header check box is the one being clicked. In this case no row related args are passed.
+	 */
+	isHeader?: boolean;
 }
 
 interface CheckBoxStateChangedEvent {
@@ -52193,6 +53960,45 @@ interface CheckBoxStateChangedEvent {
 }
 
 interface CheckBoxStateChangedEventUIParam {
+	/**
+	 * Gets a reference to the row the clicked row selector resides in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the clicked row selector resides in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the clicked row selector resides in.
+	 */
+	rowKey?: string;
+
+	/**
+	 * Gets reference to the row selector cell.
+	 */
+	rowSelector?: string;
+
+	/**
+	 * Gets reference to the igGridRowSelectors.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the grid the RowSelectors are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the state of the checkbox ("on","off").
+	 */
+	state?: string;
+
+	/**
+	 * Checks if the header check box is the one being clicked. In this case no row related args are passed.
+	 */
+	isHeader?: boolean;
 }
 
 interface IgGridRowSelectors {
@@ -52346,6 +54152,7 @@ interface JQuery {
 	 * Defines width of the row selector`s column in pixels or percentage.
 	 *
 	 */
+
 	igGridRowSelectors(optionLiteral: 'option', optionName: "rowSelectorColumnWidth"): string|number;
 
 	/**
@@ -52354,6 +54161,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridRowSelectors(optionLiteral: 'option', optionName: "rowSelectorColumnWidth", optionValue: string|number): void;
 
 	/**
@@ -52504,6 +54312,30 @@ interface RowSelectionChangingEvent {
 }
 
 interface RowSelectionChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the row object.
+	 */
+	row?: any;
+
+	/**
+	 * Gets reference to rows object array.
+	 */
+	selectedRows?: any[];
+
+	/**
+	 * Gets the start index for a range row selection.
+	 */
+	startIndex?: number;
+
+	/**
+	 * Gets the end index for a range row selection.
+	 */
+	endIndex?: number;
 }
 
 interface RowSelectionChangedEvent {
@@ -52511,6 +54343,20 @@ interface RowSelectionChangedEvent {
 }
 
 interface RowSelectionChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the row object.
+	 */
+	row?: any;
+
+	/**
+	 * Gets reference to rows object array.
+	 */
+	selectedRows?: any[];
 }
 
 interface CellSelectionChangingEvent {
@@ -52518,6 +54364,40 @@ interface CellSelectionChangingEvent {
 }
 
 interface CellSelectionChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
+
+	/**
+	 * Gets reference to selected cells object array.
+	 */
+	selectedCells?: any[];
+
+	/**
+	 * Gets the column index for the first cell in a range selection.
+	 */
+	firstColumnIndex?: number;
+
+	/**
+	 * Gets the row index for the first cell in a range selection.
+	 */
+	firstRowIndex?: number;
+
+	/**
+	 * Gets the column index for the last cell in a range selection.
+	 */
+	lastColumnIndex?: number;
+
+	/**
+	 * Gets the row index for the last cell in a range selection.
+	 */
+	lastRowIndex?: number;
 }
 
 interface CellSelectionChangedEvent {
@@ -52525,6 +54405,20 @@ interface CellSelectionChangedEvent {
 }
 
 interface CellSelectionChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
+
+	/**
+	 * Gets reference to selected cells object array.
+	 */
+	selectedCells?: any[];
 }
 
 interface ActiveCellChangingEvent {
@@ -52532,6 +54426,15 @@ interface ActiveCellChangingEvent {
 }
 
 interface ActiveCellChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
 }
 
 interface ActiveCellChangedEvent {
@@ -52539,6 +54442,15 @@ interface ActiveCellChangedEvent {
 }
 
 interface ActiveCellChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
 }
 
 interface ActiveRowChangingEvent {
@@ -52546,6 +54458,15 @@ interface ActiveRowChangingEvent {
 }
 
 interface ActiveRowChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the row object.
+	 */
+	row?: any;
 }
 
 interface ActiveRowChangedEvent {
@@ -52553,6 +54474,15 @@ interface ActiveRowChangedEvent {
 }
 
 interface ActiveRowChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the row object.
+	 */
+	row?: any;
 }
 
 interface IgGridSelection {
@@ -52683,90 +54613,90 @@ interface IgGridSelectionMethods {
 	/**
 	 * Selects a cell by row/col
 	 *
-	 * @param row     Row index
-	 * @param col     Column index
-	 * @param isFixed     If the cell is part of the fixed or unfixed area of the grid.
+	 * @param row Row index
+	 * @param col Column index
+	 * @param isFixed If the cell is part of the fixed or unfixed area of the grid.
 	 */
 	selectCell(row: number, col: number, isFixed?: boolean): void;
 
 	/**
 	 * Selects a cell by row id/column key
 	 *
-	 * @param id     Row Id
-	 * @param colKey     Column key
+	 * @param id Row Id
+	 * @param colKey Column key
 	 */
 	selectCellById(id: Object, colKey: string): void;
 
 	/**
 	 * Deselects a cell by row/col
 	 *
-	 * @param row     Row index
-	 * @param col     Column index
-	 * @param isFixed     If the cell is part of the fixed or unfixed area of the grid.
+	 * @param row Row index
+	 * @param col Column index
+	 * @param isFixed If the cell is part of the fixed or unfixed area of the grid.
 	 */
 	deselectCell(row: number, col: number, isFixed?: boolean): void;
 
 	/**
 	 * Deselects a cell by row id/column key
 	 *
-	 * @param id     Row Id
-	 * @param colKey     Column key
+	 * @param id Row Id
+	 * @param colKey Column key
 	 */
 	deselectCellById(id: Object, colKey: string): void;
 
 	/**
 	 * Selects a row by index
 	 *
-	 * @param index     Row index
+	 * @param index Row index
 	 */
 	selectRow(index: number): void;
 
 	/**
 	 * Selects a row by row id
 	 *
-	 * @param id     Row Id
+	 * @param id Row Id
 	 */
 	selectRowById(id: Object): void;
 
 	/**
 	 * Deselects a row by index
 	 *
-	 * @param index     Row index
+	 * @param index Row index
 	 */
 	deselectRow(index: number): void;
 
 	/**
 	 * Deselects a row by row id
 	 *
-	 * @param id     Row Id
+	 * @param id Row Id
 	 */
 	deselectRowById(id: Object): void;
 
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -52945,6 +54875,7 @@ interface JQuery {
 	 * Defines type of the selection.
 	 *
 	 */
+
 	igGridSelection(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -52953,6 +54884,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSelection(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -53230,6 +55162,25 @@ interface ColumnSortingEvent {
 }
 
 interface ColumnSortingEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the sorting direction.
+	 */
+	direction?: string;
+
+	/**
+	 * Gets sorting expressions.
+	 */
+	newExpressions?: any[];
 }
 
 interface ColumnSortedEvent {
@@ -53237,6 +55188,25 @@ interface ColumnSortedEvent {
 }
 
 interface ColumnSortedEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the sorting direction.
+	 */
+	direction?: string;
+
+	/**
+	 * Gets the sorted expressions.
+	 */
+	expressions?: any;
 }
 
 interface ModalDialogSortingChangedEvent {
@@ -53244,6 +55214,25 @@ interface ModalDialogSortingChangedEvent {
 }
 
 interface ModalDialogSortingChangedEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets whether column should be ascending or not. If true it should be ascending
+	 */
+	isAsc?: boolean;
 }
 
 interface ModalDialogButtonUnsortClickEvent {
@@ -53251,6 +55240,20 @@ interface ModalDialogButtonUnsortClickEvent {
 }
 
 interface ModalDialogButtonUnsortClickEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
 }
 
 interface ModalDialogSortClickEvent {
@@ -53258,6 +55261,20 @@ interface ModalDialogSortClickEvent {
 }
 
 interface ModalDialogSortClickEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
 }
 
 interface IgGridSorting {
@@ -53548,8 +55565,8 @@ interface IgGridSortingMethods {
 	/**
 	 * Sorts the data in a grid column  and updates the UI.
 	 *
-	 * @param index     Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column which we want to sort. If the mode is multiple, previous sorting states are not cleared.
-	 * @param direction     Specifies sorting direction (ascending or descending)
+	 * @param index Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column which we want to sort. If the mode is multiple, previous sorting states are not cleared.
+	 * @param direction Specifies sorting direction (ascending or descending)
 	 * @param header
 	 */
 	sortColumn(index: Object, direction: Object, header: Object): void;
@@ -53567,8 +55584,8 @@ interface IgGridSortingMethods {
 	/**
 	 * Removes sorting for the grid column with the specified columnKey/columnIndex and updates the UI.
 	 *
-	 * @param index     Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column for which we want to remove sorting. If the mode is multiple, previous sorting states are not cleared.
-	 * @param header     - if specified client events should be fired
+	 * @param index Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column for which we want to remove sorting. If the mode is multiple, previous sorting states are not cleared.
+	 * @param header - if specified client events should be fired
 	 */
 	unsortColumn(index: Object, header: Object): void;
 
@@ -53618,6 +55635,7 @@ interface JQuery {
 	 * Defines local or remote sorting operations.
 	 *
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -53626,6 +55644,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -53702,6 +55721,7 @@ interface JQuery {
 	 * Defines single column sorting or multiple column sorting.
 	 *
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -53710,6 +55730,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -53730,6 +55751,7 @@ interface JQuery {
 	 * Gets which direction to use on the first click / keydown, if the column is sorted for the first time.
 	 *
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "firstSortDirection"): string;
 
 	/**
@@ -53738,6 +55760,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "firstSortDirection", optionValue: string): void;
 
 	/**
@@ -53840,6 +55863,7 @@ interface JQuery {
 	 * Gets width of multiple sorting dialog.
 	 *
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogWidth"): string|number;
 
 	/**
@@ -53848,12 +55872,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogWidth", optionValue: string|number): void;
 
 	/**
 	 * Gets height of multiple sorting dialog.
 	 *
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogHeight"): string|number;
 
 	/**
@@ -53862,6 +55888,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogHeight", optionValue: string|number): void;
 
 	/**
@@ -54315,6 +56342,10 @@ interface SummariesCalculatingEvent {
 }
 
 interface SummariesCalculatingEventUIParam {
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesCalculatedEvent {
@@ -54322,6 +56353,15 @@ interface SummariesCalculatedEvent {
 }
 
 interface SummariesCalculatedEventUIParam {
+	/**
+	 * Gets the data for calculated summaries.
+	 */
+	data?: any[];
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesMethodSelectionChangedEvent {
@@ -54329,6 +56369,25 @@ interface SummariesMethodSelectionChangedEvent {
 }
 
 interface SummariesMethodSelectionChangedEventUIParam {
+	/**
+	 * Gets the column key of the column where it is changed selection of summary method.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets whether method is selected or not.
+	 */
+	isSelected?: boolean;
+
+	/**
+	 * Gets the summary method name.
+	 */
+	methodName?: string;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesTogglingEvent {
@@ -54336,6 +56395,15 @@ interface SummariesTogglingEvent {
 }
 
 interface SummariesTogglingEventUIParam {
+	/**
+	 * Gets whether summaries are shown or not.
+	 */
+	isToShow?: boolean;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesToggledEvent {
@@ -54343,6 +56411,15 @@ interface SummariesToggledEvent {
 }
 
 interface SummariesToggledEventUIParam {
+	/**
+	 * Gets whether summaries are shown or not.
+	 */
+	isToShow?: boolean;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface DropDownOKClickedEvent {
@@ -54350,6 +56427,20 @@ interface DropDownOKClickedEvent {
 }
 
 interface DropDownOKClickedEventUIParam {
+	/**
+	 * Gets the column key for which OK button is clicked.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets data for summary methods. Format of event data is {type: "min", active: false};
+	 */
+	eventData?: any;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface DropDownCancelClickedEvent {
@@ -54357,6 +56448,15 @@ interface DropDownCancelClickedEvent {
 }
 
 interface DropDownCancelClickedEventUIParam {
+	/**
+	 * Gets the column key for which Cancel button is clicked.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface IgGridSummaries {
@@ -54592,47 +56692,47 @@ interface IgGridSummariesMethods {
 	/**
 	 * Toggle drop down
 	 *
-	 * @param columnKey    toggle drop down for the column with the specified key
-	 * @param event    event object. Its data should contain current columnKey, isAnimating, buttonId
+	 * @param columnKey toggle drop down for the column with the specified key
+	 * @param event event object. Its data should contain current columnKey, isAnimating, buttonId
 	 */
 	toggleDropDown(columnKey: string, event: Object): void;
 
 	/**
 	 * Show/Hide dialog
 	 *
-	 * @param $dialog     jQuery object representation of dropdown div element
+	 * @param $dialog jQuery object representation of dropdown div element
 	 */
 	showHideDialog($dialog: Object): void;
 
 	/**
 	 * Toggle summaries rows
 	 *
-	 * @param isToShow    Specifies whether to show or not summaries
-	 * @param isInternalCall    Optional parameter.Specifies whether this function is called internally by the widget.
+	 * @param isToShow Specifies whether to show or not summaries
+	 * @param isInternalCall Optional parameter.Specifies whether this function is called internally by the widget.
 	 */
 	toggleSummariesRows(isToShow: boolean, isInternalCall: boolean): void;
 
 	/**
 	 * Toggles the checkstate of a checkbox if checkboxMode is not set to off, otherwise does nothing.
 	 *
-	 * @param $checkbox     Specifies the jQuery object of the checkbox.
+	 * @param $checkbox Specifies the jQuery object of the checkbox.
 	 */
 	toggleCheckstate($checkbox: Object): void;
 
 	/**
 	 * Select/Unselect specified checkbox
 	 *
-	 * @param $checkbox     Specifies the jQuery object for checkbox
-	 * @param isToSelect     Specify whether to select or not checkbox
+	 * @param $checkbox Specifies the jQuery object for checkbox
+	 * @param isToSelect Specify whether to select or not checkbox
 	 */
 	selectCheckBox($checkbox: Object, isToSelect: boolean): void;
 
 	/**
 	 * Summary calculate the whole data for the specified column key, columnMethods and dataType (used when datasource is remote and dataType is date)
 	 *
-	 * @param ck    ColumnKey
-	 * @param columnMethods    Array of column methods objects
-	 * @param data    Object which represents result
+	 * @param ck ColumnKey
+	 * @param columnMethods Array of column methods objects
+	 * @param data Object which represents result
 	 * represents dataType for the current column
 	 * @param dataType
 	 */
@@ -54672,6 +56772,7 @@ interface JQuery {
 	 * Type of summaries calculating.
 	 *
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -54680,6 +56781,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -54714,6 +56816,7 @@ interface JQuery {
 	 * Gets when calculations are made.
 	 *
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "calculateRenderMode"): string;
 
 	/**
@@ -54722,6 +56825,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "calculateRenderMode", optionValue: string): void;
 
 	/**
@@ -54874,6 +56978,7 @@ interface JQuery {
 	 * Determines when the summary values are calculated when type is local
 	 *
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "summaryExecution"): string;
 
 	/**
@@ -54882,6 +56987,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "summaryExecution", optionValue: string): void;
 
 	/**
@@ -54944,6 +57050,7 @@ interface JQuery {
 	 * A reference or name of a javascript function - renders summary cell in grid footer.(if not set it is used default render function) It takes 3 parameters - methodName(summary method), columnKey, data(summary data which should be rendered)
 	 *
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "renderSummaryCellFunc"): string|Object;
 
 	/**
@@ -54952,6 +57059,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridSummaries(optionLiteral: 'option', optionName: "renderSummaryCellFunc", optionValue: string|Object): void;
 
 	/**
@@ -55269,6 +57377,7 @@ interface JQuery {
 	 * Determines the tooltip visibility option
 	 *
 	 */
+
 	igGridTooltips(optionLiteral: 'option', optionName: "visibility"): string;
 
 	/**
@@ -55277,12 +57386,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridTooltips(optionLiteral: 'option', optionName: "visibility", optionValue: string): void;
 
 	/**
 	 * Controls the tooltip's style
 	 *
 	 */
+
 	igGridTooltips(optionLiteral: 'option', optionName: "style"): string;
 
 	/**
@@ -55291,6 +57402,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridTooltips(optionLiteral: 'option', optionName: "style", optionValue: string): void;
 
 	/**
@@ -55616,13 +57728,11 @@ interface IgGridUpdatingRowEditDialogOptions {
 	/**
 	 * Specifies a template to be rendered against the currently edited record (or up-to-date key-value pairs in the case of not yet created records). It may contain an element decorated with the 'data-render-tmpl' attribute to specify where the control should render the editors template specified in the [editorsTemplate](ui.iggridupdating#options:rowEditDialogOptions.editorsTemplate) option. For custom dialogs, the elements can be decorated with 'data-editor-for-<columnKey>' attributes where columnKey is the key of the column that editor or input will be used to edit. If both dialogTemplate and [dialogTemplateSelector](ui.iggridupdating#options:rowEditDialogOptions.dialogTemplateSelector) are specified, dialogTemplateSelector will be used.The default template is '<table><colgroup><col></col><col></col></colgroup><tbody data-render-tmpl></tbody></table>'.
 	 *
-	 *
 	 */
 	dialogTemplate?: string;
 
 	/**
 	 * Specifies a selector to a template rendered against the currently edited record (or up-to-date key-value pairs in the case of not yet created records). It may contain an element decorated with the 'data-render-tmpl' attribute to specify where the control should render the editors template specified in the [editorsTemplate](ui.iggridupdating#options:rowEditDialogOptions.editorsTemplate) option. For custom dialogs, the elements can be decorated with 'data-editor-for-<columnKey>' attributes where columnKey is the key of the column that editor or input will be used to edit. If both [dialogTemplate](ui.iggridupdating#options:rowEditDialogOptions.dialogTemplate) and dialogTemplateSelector are specified, dialogTemplateSelector will be used.The default template is '<table><colgroup><col></col><col></col></colgroup><tbody data-render-tmpl></tbody></table>'.
-	 *
 	 *
 	 */
 	dialogTemplateSelector?: string;
@@ -55652,6 +57762,15 @@ interface EditRowStartingEvent {
 }
 
 interface EditRowStartingEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditRowStartedEvent {
@@ -55659,6 +57778,15 @@ interface EditRowStartedEvent {
 }
 
 interface EditRowStartedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditRowEndingEvent {
@@ -55666,6 +57794,25 @@ interface EditRowEndingEvent {
 }
 
 interface EditRowEndingEventUIParam {
+	/**
+	 * Check if any of the values is changed which will cause update in the data source. Can be manually set to false to prevent this update.
+	 */
+	update?: boolean;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
+
+	/**
+	 * Gets or set the new value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the old value for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface EditRowEndedEvent {
@@ -55673,6 +57820,30 @@ interface EditRowEndedEvent {
 }
 
 interface EditRowEndedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Check if any of the values is changed which will cause update in the data source.
+	 */
+	update?: boolean;
+
+	/**
+	 * Check if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
+
+	/**
+	 * Gets the new value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the old value for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface EditCellStartingEvent {
@@ -55680,6 +57851,35 @@ interface EditCellStartingEvent {
 }
 
 interface EditCellStartingEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets or set the value of the editor.
+	 */
+	value?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditCellStartedEvent {
@@ -55687,6 +57887,35 @@ interface EditCellStartedEvent {
 }
 
 interface EditCellStartedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets or set the value of the editor.
+	 */
+	value?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditCellEndingEvent {
@@ -55694,6 +57923,45 @@ interface EditCellEndingEvent {
 }
 
 interface EditCellEndingEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets or set the value of the editor.
+	 */
+	value?: any;
+
+	/**
+	 * Gets the old value.
+	 */
+	oldValue?: any;
+
+	/**
+	 * Check if the value is changed which will cause update in the data source. Can be manually set to false to prevent this update.
+	 */
+	update?: boolean;
+
+	/**
+	 * Check if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditCellEndedEvent {
@@ -55701,6 +57969,45 @@ interface EditCellEndedEvent {
 }
 
 interface EditCellEndedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets the new value.
+	 */
+	value?: any;
+
+	/**
+	 * Gets the old value.
+	 */
+	oldValue?: any;
+
+	/**
+	 * Check if the value is changed which will cause update in the data source. Can be manually set to false to prevent this update.
+	 */
+	update?: boolean;
+
+	/**
+	 * Check if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface RowAddingEvent {
@@ -55708,6 +58015,15 @@ interface RowAddingEvent {
 }
 
 interface RowAddingEventUIParam {
+	/**
+	 * Gets the value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the default value (before editing) for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface RowAddedEvent {
@@ -55715,6 +58031,15 @@ interface RowAddedEvent {
 }
 
 interface RowAddedEventUIParam {
+	/**
+	 * Gets the value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the default value (before editing) for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface RowDeletingEvent {
@@ -55722,6 +58047,15 @@ interface RowDeletingEvent {
 }
 
 interface RowDeletingEventUIParam {
+	/**
+	 * Gets a jQuery object containing the TR element of the row to delete.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
 }
 
 interface RowDeletedEvent {
@@ -55729,20 +58063,32 @@ interface RowDeletedEvent {
 }
 
 interface RowDeletedEventUIParam {
+	/**
+	 * Gets a jQuery object containing the TR element of the deleted row.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
 }
 
 interface DataDirtyEvent {
 	(event: Event, ui: DataDirtyEventUIParam): void;
 }
 
-interface DataDirtyEventUIParam {
-}
+interface DataDirtyEventUIParam {}
 
 interface GeneratePrimaryKeyValueEvent {
 	(event: Event, ui: GeneratePrimaryKeyValueEventUIParam): void;
 }
 
 interface GeneratePrimaryKeyValueEventUIParam {
+	/**
+	 * Gets the auto-generated primary key (the number of records in the data source + 1) or set a custom unique primary key for the new row.
+	 */
+	value?: any;
 }
 
 interface RowEditDialogBeforeOpenEvent {
@@ -55750,6 +58096,10 @@ interface RowEditDialogBeforeOpenEvent {
 }
 
 interface RowEditDialogBeforeOpenEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogAfterOpenEvent {
@@ -55757,6 +58107,10 @@ interface RowEditDialogAfterOpenEvent {
 }
 
 interface RowEditDialogAfterOpenEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogBeforeCloseEvent {
@@ -55764,6 +58118,10 @@ interface RowEditDialogBeforeCloseEvent {
 }
 
 interface RowEditDialogBeforeCloseEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogAfterCloseEvent {
@@ -55771,6 +58129,10 @@ interface RowEditDialogAfterCloseEvent {
 }
 
 interface RowEditDialogAfterCloseEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogContentsRenderedEvent {
@@ -55778,6 +58140,10 @@ interface RowEditDialogContentsRenderedEvent {
 }
 
 interface RowEditDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface IgGridUpdating {
@@ -56048,9 +58414,9 @@ interface IgGridUpdatingMethods {
 	 * Sets a cell value for the specified cell. It also creates a transaction and updates the UI.
 	 * If the specified cell is currently in edit mode, the function will set the desired value in the cell's editor instead.
 	 *
-	 * @param rowId    The primary key of the row the cell is a child of.
-	 * @param colKey    The column key of the cell.
-	 * @param value    The new value for the cell.
+	 * @param rowId The primary key of the row the cell is a child of.
+	 * @param colKey The column key of the cell.
+	 * @param value The new value for the cell.
 	 */
 	setCellValue(rowId: Object, colKey: string, value: Object): void;
 
@@ -56058,46 +58424,46 @@ interface IgGridUpdatingMethods {
 	 * Sets values for specified cells in a row. It also creates a transaction and updates the UI.
 	 * If the specified row is currently in edit mode, the function will set the desired values in the row's editors instead.
 	 *
-	 * @param rowId    The primary key of the row to update.
-	 * @param values    Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
+	 * @param rowId The primary key of the row to update.
+	 * @param values Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
 	 */
 	updateRow(rowId: Object, values: Object): void;
 
 	/**
 	 * Adds a new row to the grid. It also creates a transaction and updates the UI.
 	 *
-	 * @param values    Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
+	 * @param values Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
 	 */
 	addRow(values: Object): void;
 
 	/**
 	 * Deletes a row from the grid. It also creates a transaction and updates the UI.
 	 *
-	 * @param rowId    The primary key of the row to delete.
+	 * @param rowId The primary key of the row to delete.
 	 */
 	deleteRow(rowId: Object): void;
 
 	/**
 	 * Starts editing for the row or cell specified (depending on the [editMode](ui.iggridupdating#options:editMode)).
 	 *
-	 * @param rowId    The row id.
-	 * @param column    The column key or index.
-	 * @param raiseEvents    Specifies whether or not updating events should be raised for this operation.
+	 * @param rowId The row id.
+	 * @param column The column key or index.
+	 * @param raiseEvents Specifies whether or not updating events should be raised for this operation.
 	 */
 	startEdit(rowId: Object, column: Object, raiseEvents?: boolean): boolean;
 
 	/**
 	 * Starts editing for adding a new row.
 	 *
-	 * @param raiseEvents    Specifies whether or not updating events should be raised for this operation.
+	 * @param raiseEvents Specifies whether or not updating events should be raised for this operation.
 	 */
 	startAddRowEdit(raiseEvents?: boolean): boolean;
 
 	/**
 	 * Ends the currently active edit mode.
 	 *
-	 * @param update    Specifies if the edit process should accept the current changes. Default is 'false'.
-	 * @param raiseEvents    Specifies whether or not updating events should be raised for this operation.
+	 * @param update Specifies if the edit process should accept the current changes. Default is 'false'.
+	 * @param raiseEvents Specifies whether or not updating events should be raised for this operation.
 	 */
 	endEdit(update?: boolean, raiseEvents?: boolean): boolean;
 
@@ -56114,15 +58480,15 @@ interface IgGridUpdatingMethods {
 	/**
 	 * Gets the editor for a column by the column key. That method can be used only after the editor has been created.
 	 *
-	 * @param key    The key of the column.
+	 * @param key The key of the column.
 	 */
 	editorForKey(key: string): Object;
 
 	/**
 	 * Gets the editor for a column by the cell it resides in. If allowed the function can create the editor if it has not been created yet.
 	 *
-	 * @param cell    Reference to the jQuery-wrapped TD object of the grid that the editor belongs to.
-	 * @param create    Requests to create the editor if it has not been created yet.
+	 * @param cell Reference to the jQuery-wrapped TD object of the grid that the editor belongs to.
+	 * @param create Requests to create the editor if it has not been created yet.
 	 */
 	editorForCell(cell: string, create?: boolean): Object;
 
@@ -56134,7 +58500,7 @@ interface IgGridUpdatingMethods {
 	/**
 	 * Shows the delete button for specific row.
 	 *
-	 * @param row    A jQuery object of the targeted row.
+	 * @param row A jQuery object of the targeted row.
 	 */
 	showDeleteButtonFor(row: Object): void;
 
@@ -56181,6 +58547,7 @@ interface JQuery {
 	 * Gets the edit mode.
 	 *
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "editMode"): string;
 
 	/**
@@ -56189,6 +58556,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "editMode", optionValue: string): void;
 
 	/**
@@ -56377,6 +58745,7 @@ interface JQuery {
 	 * Gets how end-users are able to start edit mode. Possible values: "click", "dblclick", "F2", "enter" and their combinations separated by coma or in array. The keyboard triggers have effect only if the grid cells can receive focus (the grid's [tabIndex](ui.iggrid#options:tabIndex) property should not have a negative value) or Selection is enabled. If "dblclick" is included, then "click" has no effect.
 	 *
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "startEditTriggers"): string|Array<any>;
 
 	/**
@@ -56385,6 +58754,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "startEditTriggers", optionValue: string|Array<any>): void;
 
 	/**
@@ -56419,6 +58789,7 @@ interface JQuery {
 	 * Sets a custom function to be called when the AJAX request to the URL specified by the [updateUrl](ui.iggrid#options:updateUrl) property succeeds. The function will be called with arguments representing the data returned by the server.
 	 *
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "saveChangesSuccessHandler"): Function|string;
 
 	/**
@@ -56427,12 +58798,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "saveChangesSuccessHandler", optionValue: Function|string): void;
 
 	/**
 	 * Sets a custom function to be called when the AJAX request to the URL specified by the [updateUrl](ui.iggrid#options:updateUrl) property fails. The function will be called with arguments representing the data returned by the server.
 	 *
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "saveChangesErrorHandler"): Function|string;
 
 	/**
@@ -56441,12 +58814,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "saveChangesErrorHandler", optionValue: Function|string): void;
 
 	/**
 	 * On touch-enabled devices specifies the swipe distance for the delete button to appear.
 	 *
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "swipeDistance"): string|number;
 
 	/**
@@ -56455,6 +58830,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igGridUpdating(optionLiteral: 'option', optionName: "swipeDistance", optionValue: string|number): void;
 
 	/**
@@ -56762,85 +59138,73 @@ interface ActionExecutingEvent {
 	(event: Event, ui: ActionExecutingEventUIParam): void;
 }
 
-interface ActionExecutingEventUIParam {
-}
+interface ActionExecutingEventUIParam {}
 
 interface ActionExecutedEvent {
 	(event: Event, ui: ActionExecutedEventUIParam): void;
 }
 
-interface ActionExecutedEventUIParam {
-}
+interface ActionExecutedEventUIParam {}
 
 interface ToolbarCollapsingEvent {
 	(event: Event, ui: ToolbarCollapsingEventUIParam): void;
 }
 
-interface ToolbarCollapsingEventUIParam {
-}
+interface ToolbarCollapsingEventUIParam {}
 
 interface ToolbarCollapsedEvent {
 	(event: Event, ui: ToolbarCollapsedEventUIParam): void;
 }
 
-interface ToolbarCollapsedEventUIParam {
-}
+interface ToolbarCollapsedEventUIParam {}
 
 interface ToolbarExpandingEvent {
 	(event: Event, ui: ToolbarExpandingEventUIParam): void;
 }
 
-interface ToolbarExpandingEventUIParam {
-}
+interface ToolbarExpandingEventUIParam {}
 
 interface ToolbarExpandedEvent {
 	(event: Event, ui: ToolbarExpandedEventUIParam): void;
 }
 
-interface ToolbarExpandedEventUIParam {
-}
+interface ToolbarExpandedEventUIParam {}
 
 interface CutEvent {
 	(event: Event, ui: CutEventUIParam): void;
 }
 
-interface CutEventUIParam {
-}
+interface CutEventUIParam {}
 
 interface CopyEvent {
 	(event: Event, ui: CopyEventUIParam): void;
 }
 
-interface CopyEventUIParam {
-}
+interface CopyEventUIParam {}
 
 interface PasteEvent {
 	(event: Event, ui: PasteEventUIParam): void;
 }
 
-interface PasteEventUIParam {
-}
+interface PasteEventUIParam {}
 
 interface UndoEvent {
 	(event: Event, ui: UndoEventUIParam): void;
 }
 
-interface UndoEventUIParam {
-}
+interface UndoEventUIParam {}
 
 interface RedoEvent {
 	(event: Event, ui: RedoEventUIParam): void;
 }
 
-interface RedoEventUIParam {
-}
+interface RedoEventUIParam {}
 
 interface WorkspaceResizedEvent {
 	(event: Event, ui: WorkspaceResizedEventUIParam): void;
 }
 
-interface WorkspaceResizedEventUIParam {
-}
+interface WorkspaceResizedEventUIParam {}
 
 interface IgHtmlEditor {
 	/**
@@ -57071,29 +59435,25 @@ interface ApplyEvent {
 	(event: Event, ui: ApplyEventUIParam): void;
 }
 
-interface ApplyEventUIParam {
-}
+interface ApplyEventUIParam {}
 
 interface CancelEvent {
 	(event: Event, ui: CancelEventUIParam): void;
 }
 
-interface CancelEventUIParam {
-}
+interface CancelEventUIParam {}
 
 interface ShowEvent {
 	(event: Event, ui: ShowEventUIParam): void;
 }
 
-interface ShowEventUIParam {
-}
+interface ShowEventUIParam {}
 
 interface HideEvent {
 	(event: Event, ui: HideEventUIParam): void;
 }
 
-interface HideEventUIParam {
-}
+interface HideEventUIParam {}
 
 interface IgHtmlEditorPopover {
 	item?: any;
@@ -57281,6 +59641,7 @@ interface JQuery {
 	 * The width of the html editor. It can be set as a number in pixels, string (px) or percentage (%).
 	 *
 	 */
+
 	igHtmlEditor(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -57289,12 +59650,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHtmlEditor(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the html editor. It can be set as a number in pixels, string (px) or percentage (%).
 	 *
 	 */
+
 	igHtmlEditor(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -57303,6 +59666,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igHtmlEditor(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -57535,12 +59899,7 @@ interface JQuery {
 	igHtmlEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
-	/**
-	 */
 	igPathFinder(optionLiteral: 'option', optionName: "items"): any;
-
-	/**
-	 */
 	igPathFinder(optionLiteral: 'option', optionName: "items", optionValue: any): void;
 	igPathFinder(options: IgPathFinder): JQuery;
 	igPathFinder(optionLiteral: 'option', optionName: string): any;
@@ -57551,61 +59910,19 @@ interface JQuery {
 interface JQuery {
 	igHtmlEditorPopover(methodName: "show", item: Object): void;
 	igHtmlEditorPopover(methodName: "hide"): void;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "item"): any;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "item", optionValue: any): void;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "target"): any;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "target", optionValue: any): void;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "isHidden"): boolean;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "isHidden", optionValue: boolean): void;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "apply"): ApplyEvent;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "apply", optionValue: ApplyEvent): void;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "cancel"): CancelEvent;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "cancel", optionValue: CancelEvent): void;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "show"): ShowEvent;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "show", optionValue: ShowEvent): void;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "hide"): HideEvent;
-
-	/**
-	 */
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: "hide", optionValue: HideEvent): void;
 	igHtmlEditorPopover(options: IgHtmlEditorPopover): JQuery;
 	igHtmlEditorPopover(optionLiteral: 'option', optionName: string): any;
@@ -57616,61 +59933,19 @@ interface JQuery {
 interface JQuery {
 	igLinkPropertiesDialog(methodName: "show", item: Object): void;
 	igLinkPropertiesDialog(methodName: "hide"): void;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "item"): any;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "item", optionValue: any): void;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "target"): any;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "target", optionValue: any): void;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "isHidden"): boolean;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "isHidden", optionValue: boolean): void;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "apply"): ApplyEvent;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "apply", optionValue: ApplyEvent): void;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "cancel"): CancelEvent;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "cancel", optionValue: CancelEvent): void;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "show"): ShowEvent;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "show", optionValue: ShowEvent): void;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "hide"): HideEvent;
-
-	/**
-	 */
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: "hide", optionValue: HideEvent): void;
 	igLinkPropertiesDialog(options: IgLinkPropertiesDialog): JQuery;
 	igLinkPropertiesDialog(optionLiteral: 'option', optionName: string): any;
@@ -57681,61 +59956,19 @@ interface JQuery {
 interface JQuery {
 	igTablePropertiesDialog(methodName: "show", item: Object): void;
 	igTablePropertiesDialog(methodName: "hide"): void;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "item"): any;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "item", optionValue: any): void;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "target"): any;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "target", optionValue: any): void;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "isHidden"): boolean;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "isHidden", optionValue: boolean): void;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "apply"): ApplyEvent;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "apply", optionValue: ApplyEvent): void;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "cancel"): CancelEvent;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "cancel", optionValue: CancelEvent): void;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "show"): ShowEvent;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "show", optionValue: ShowEvent): void;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "hide"): HideEvent;
-
-	/**
-	 */
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: "hide", optionValue: HideEvent): void;
 	igTablePropertiesDialog(options: IgTablePropertiesDialog): JQuery;
 	igTablePropertiesDialog(optionLiteral: 'option', optionName: string): any;
@@ -57746,61 +59979,19 @@ interface JQuery {
 interface JQuery {
 	igImagePropertiesDialog(methodName: "show", item: Object): void;
 	igImagePropertiesDialog(methodName: "hide"): void;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "item"): any;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "item", optionValue: any): void;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "target"): any;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "target", optionValue: any): void;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "isHidden"): boolean;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "isHidden", optionValue: boolean): void;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "apply"): ApplyEvent;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "apply", optionValue: ApplyEvent): void;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "cancel"): CancelEvent;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "cancel", optionValue: CancelEvent): void;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "show"): ShowEvent;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "show", optionValue: ShowEvent): void;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "hide"): HideEvent;
-
-	/**
-	 */
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: "hide", optionValue: HideEvent): void;
 	igImagePropertiesDialog(options: IgImagePropertiesDialog): JQuery;
 	igImagePropertiesDialog(optionLiteral: 'option', optionName: string): any;
@@ -57896,7 +60087,7 @@ interface IgLayoutManagerGridLayout {
 
 	/**
 	 * Specified whether the items should rearrange to fit in the container when it is resized.
-	 * Have effect only when fixed columnWidth option is set.
+	 *                         Have effect only when fixed columnWidth option is set.
 	 *
 	 */
 	rearrangeItems?: boolean;
@@ -57928,7 +60119,7 @@ interface IgLayoutManagerItem {
 
 	/**
 	 * Gets/Sets individual item height, either in px or percentage
-	 * string The default height can be set in pixels (px), %, em and other units.
+	 *                         string The default height can be set in pixels (px), %, em and other units.
 	 *
 	 */
 	height?: string;
@@ -57947,7 +60138,7 @@ interface IgLayoutManagerItem {
 
 	/**
 	 * Gets/Sets individual item width, either in px or percentage
-	 * string The default width can be set in pixels (px), %, em and other units.
+	 *                         string The default width can be set in pixels (px), %, em and other units.
 	 *
 	 */
 	width?: number;
@@ -58059,23 +60250,23 @@ interface IgLayoutManager {
 
 	/**
 	 * An array of item descriptions
-	 * this assumes the container is empty, and every item
-	 * is described by rowspan, colspan, etc. - otherwise values of
-	 * 1 are assumed
-	 * items can have various properties some of which may not be applicable
-	 * depending on the layoutMode.
-	 * for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
+	 *                     this assumes the container is empty, and every item
+	 *                     is described by rowspan, colspan, etc. - otherwise values of
+	 *                     1 are assumed
+	 *                     items can have various properties some of which may not be applicable
+	 *                     depending on the layoutMode.
+	 *                     for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
 	 *
 	 */
 	items?: IgLayoutManagerItem[];
 
 	/**
 	 * Defines the layout type
-	 * grid Column type can be set with grid layout
-	 * border Column type can be set with border layout
-	 * flow Column type can be set with flow layout
-	 * column Column type can be set with column layout
-	 * vertical Column type can be set with vertical layout
+	 *                 grid Column type can be set with grid layout
+	 *                 border Column type can be set with border layout
+	 *                 flow Column type can be set with flow layout
+	 *                 column Column type can be set with column layout
+	 *                 vertical Column type can be set with vertical layout
 	 *
 	 *
 	 * Valid values:
@@ -58095,40 +60286,40 @@ interface IgLayoutManager {
 
 	/**
 	 * Event fired after items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	internalResized?: InternalResizedEvent;
 
 	/**
 	 * Event fired before items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	internalResizing?: InternalResizingEvent;
 
 	/**
 	 * Event fired after an item has been rendered in the container.
-	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igLayoutManager.
-	 * Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
-	 * Use ui.index to get a reference of the item's index, if the layout is flow or vertical
-	 * Use ui.item to get a reference to the rendered item
+	 *                     Function takes arguments evt and ui.
+	 *                     Use ui.owner to get reference to the igLayoutManager.
+	 *                     Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
+	 *                     Use ui.index to get a reference of the item's index, if the layout is flow or vertical
+	 *                     Use ui.item to get a reference to the rendered item
 	 */
 	itemRendered?: ItemRenderedEvent;
 
 	/**
 	 * Event fired before an item is rendered in the container.
-	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igLayoutManager.
-	 * Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
-	 * Use ui.index to get a reference of the item's index, if the layout is flow or vertical
-	 * Use ui.item to get a reference to the rendered item
+	 *                     Function takes arguments evt and ui.
+	 *                     Use ui.owner to get reference to the igLayoutManager.
+	 *                     Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
+	 *                     Use ui.index to get a reference of the item's index, if the layout is flow or vertical
+	 *                     Use ui.item to get a reference to the rendered item
 	 */
 	itemRendering?: ItemRenderingEvent;
 
 	/**
 	 * Event fired after all items are rendered.
-	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igLayoutManager.
+	 *                     Function takes arguments evt and ui.
+	 *                     Use ui.owner to get reference to the igLayoutManager.
 	 */
 	rendered?: RenderedEvent;
 
@@ -58140,7 +60331,7 @@ interface IgLayoutManager {
 interface IgLayoutManagerMethods {
 	/**
 	 * Triggers recalculation of the layout dimensions. Layouts may not need to be reflowed manually, if their sizes are in percentages (i.e. they are responsive by default)
-	 * this can be particularly useful with a grid layout, when the container has percentage sizes, but items are calculated in pixels and positioned absolutely in the container.
+	 *                     this can be particularly useful with a grid layout, when the container has percentage sizes, but items are calculated in pixels and positioned absolutely in the container.
 	 *
 	 * @param forceReflow Indicates whether the reflow should be forced. Useful in cases where the items size and position was changed manually.
 	 * @param animationDuration The animation duration to be used for this reflow only. Supported only for Grid Layout mode.
@@ -58150,9 +60341,9 @@ interface IgLayoutManagerMethods {
 
 	/**
 	 * Destroy is part of the jQuery UI widget API and does the following:
-	 * 1. Remove custom CSS classes that were added.
-	 * 2. Remove any elements that were added at widget's initialization and after that, which didn't below to the original markup
-	 * 3. Unbind all events that were bound.
+	 *                     1. Remove custom CSS classes that were added.
+	 *                     2. Remove any elements that were added at widget's initialization and after that, which didn't below to the original markup
+	 *                     3. Unbind all events that were bound.
 	 */
 	destroy(): void;
 }
@@ -58196,6 +60387,7 @@ interface JQuery {
 	 * Gets/Sets height of the layout container.
 	 *
 	 */
+
 	igLayoutManager(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -58204,6 +60396,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igLayoutManager(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -58222,24 +60415,24 @@ interface JQuery {
 
 	/**
 	 * An array of item descriptions
-	 * this assumes the container is empty, and every item
-	 * is described by rowspan, colspan, etc. - otherwise values of
-	 * 1 are assumed
-	 * items can have various properties some of which may not be applicable
-	 * depending on the layoutMode.
-	 * for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
+	 *                     this assumes the container is empty, and every item
+	 *                     is described by rowspan, colspan, etc. - otherwise values of
+	 *                     1 are assumed
+	 *                     items can have various properties some of which may not be applicable
+	 *                     depending on the layoutMode.
+	 *                     for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
 	 *
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "items"): IgLayoutManagerItem[];
 
 	/**
 	 * An array of item descriptions
-	 * this assumes the container is empty, and every item
-	 * is described by rowspan, colspan, etc. - otherwise values of
-	 * 1 are assumed
-	 * items can have various properties some of which may not be applicable
-	 * depending on the layoutMode.
-	 * for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
+	 *                     this assumes the container is empty, and every item
+	 *                     is described by rowspan, colspan, etc. - otherwise values of
+	 *                     1 are assumed
+	 *                     items can have various properties some of which may not be applicable
+	 *                     depending on the layoutMode.
+	 *                     for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -58248,22 +60441,22 @@ interface JQuery {
 
 	/**
 	 * Defines the layout type
-	 * grid Column type can be set with grid layout
-	 * border Column type can be set with border layout
-	 * flow Column type can be set with flow layout
-	 * column Column type can be set with column layout
-	 * vertical Column type can be set with vertical layout
+	 *                 grid Column type can be set with grid layout
+	 *                 border Column type can be set with border layout
+	 *                 flow Column type can be set with flow layout
+	 *                 column Column type can be set with column layout
+	 *                 vertical Column type can be set with vertical layout
 	 *
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "layoutMode"): any;
 
 	/**
 	 * Defines the layout type
-	 * grid Column type can be set with grid layout
-	 * border Column type can be set with border layout
-	 * flow Column type can be set with flow layout
-	 * column Column type can be set with column layout
-	 * vertical Column type can be set with vertical layout
+	 *                 grid Column type can be set with grid layout
+	 *                 border Column type can be set with border layout
+	 *                 flow Column type can be set with flow layout
+	 *                 column Column type can be set with column layout
+	 *                 vertical Column type can be set with vertical layout
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -58274,6 +60467,7 @@ interface JQuery {
 	 * Gets/Sets width of the layout container.
 	 *
 	 */
+
 	igLayoutManager(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -58282,17 +60476,18 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igLayoutManager(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Event fired after items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "internalResized"): InternalResizedEvent;
 
 	/**
 	 * Event fired after items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -58300,7 +60495,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "internalResizing"): InternalResizingEvent;
 
@@ -58828,21 +61023,21 @@ interface IgLinearGaugeMethods {
 	/**
 	 * Adds a new range to the linear gauge.
 	 *
-	 * @param value     The range object to be added.
+	 * @param value The range object to be added.
 	 */
 	addRange(value: Object): void;
 
 	/**
 	 * Removes a range from the linear gauge.
 	 *
-	 * @param value     A JS object with properties set as follows: name: nameOfTheRangeToRemove, remove: true
+	 * @param value A JS object with properties set as follows: name: nameOfTheRangeToRemove, remove: true
 	 */
 	removeRange(value: Object): void;
 
 	/**
 	 * Updates the specified range of the linear gauge.
 	 *
-	 * @param value     The range object to be updated.
+	 * @param value The range object to be updated.
 	 */
 	updateRange(value: Object): void;
 
@@ -58901,6 +61096,7 @@ interface JQuery {
 	/**
 	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -58908,11 +61104,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -58920,6 +61118,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -58961,6 +61160,7 @@ interface JQuery {
 	/**
 	 * Gets  the orientation of the scale.
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "orientation"): string;
 
 	/**
@@ -58968,6 +61168,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "orientation", optionValue: string): void;
 
 	/**
@@ -59037,6 +61238,7 @@ interface JQuery {
 	/**
 	 * Gets  the shape to use when rendering the needle from a number of options.
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "needleShape"): string;
 
 	/**
@@ -59044,6 +61246,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igLinearGauge(optionLiteral: 'option', optionName: "needleShape", optionValue: string): void;
 
 	/**
@@ -60815,34 +63018,34 @@ interface IgMapMethods {
 	/**
 	 * Adds a new item to the data source and notifies the map.
 	 *
-	 * @param item     The item that we want to add to the data source.
-	 * @param targetName     The name of the series bound to the data source.
+	 * @param item The item that we want to add to the data source.
+	 * @param targetName The name of the series bound to the data source.
 	 */
 	addItem(item: Object, targetName: string): void;
 
 	/**
 	 * Inserts a new item to the data source and notifies the map.
 	 *
-	 * @param item     the new item that we want to insert in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
-	 * @param targetName     The name of the series bound to the data source.
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
+	 * @param targetName The name of the series bound to the data source.
 	 */
 	insertItem(item: Object, index: number, targetName: string): void;
 
 	/**
 	 * Deletes an item from the data source and notifies the map.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
-	 * @param targetName     The name of the series bound to the data source.
+	 * @param index The index in the data source from where the item will be been removed.
+	 * @param targetName The name of the series bound to the data source.
 	 */
 	removeItem(index: number, targetName: string): void;
 
 	/**
 	 * Updates an item in the data source and notifies the map.
 	 *
-	 * @param index     The index of the item in the data source that we want to change.
-	 * @param item     The new item object that will be set in the data source.
-	 * @param targetName     The name of the series bound to the data source.
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
+	 * @param targetName The name of the series bound to the data source.
 	 */
 	setItem(index: number, item: Object, targetName: string): void;
 
@@ -60894,7 +63097,7 @@ interface IgMapMethods {
 
 	/**
 	 * Either xAxis or yAxis (longitude or latitude) that it should scale the requested value into map space from axis space.
-	 * 	For example you can use this method if you want to find where longitude 50 stands scaled to map's width.
+	 * For example you can use this method if you want to find where longitude 50 stands scaled to map's width.
 	 *
 	 * @param targetName Either xAxis or yAxis to notify.
 	 * @param unscaledValue The value in axis space to translate into map space.
@@ -60903,7 +63106,7 @@ interface IgMapMethods {
 
 	/**
 	 * Either xAxis or yAxis (longitude or latitude) that it should unscale the requested value into axis space from map space.
-	 * 	For example you can use this method if you want to find what is the longitude unscaled from 0 width of the map.
+	 * For example you can use this method if you want to find what is the longitude unscaled from 0 width of the map.
 	 *
 	 * @param targetName Either xAxis or yAxis to notify.
 	 * @param scaledValue The value in map space to translate into axis space.
@@ -60983,8 +63186,8 @@ interface IgMapMethods {
 	/**
 	 * Indicates that a series should render, even though no option has been modified that would normally cause it to refresh.
 	 *
-	 * @param targetName     The name of the series to render.
-	 * @param animate     Whether the change should be animated, if possible.
+	 * @param targetName The name of the series to render.
+	 * @param animate Whether the change should be animated, if possible.
 	 */
 	renderSeries(targetName: string, animate: boolean): void;
 }
@@ -61163,6 +63366,7 @@ interface JQuery {
 	/**
 	 * The width of the map. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -61170,11 +63374,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the map. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -61182,6 +63388,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -61259,6 +63466,7 @@ interface JQuery {
 	/**
 	 * Gets  the current Map's crosshair visibility override.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "crosshairVisibility"): string;
 
 	/**
@@ -61266,6 +63474,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "crosshairVisibility", optionValue: string): void;
 
 	/**
@@ -61299,6 +63508,7 @@ interface JQuery {
 	/**
 	 * Gets  the DefaultInteraction property. The default interaction state defines the map's response to mouse events.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "defaultInteraction"): string;
 
 	/**
@@ -61306,11 +63516,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "defaultInteraction", optionValue: string): void;
 
 	/**
 	 * Gets  the current Map's DragModifier property.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "dragModifier"): string;
 
 	/**
@@ -61318,11 +63530,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "dragModifier", optionValue: string): void;
 
 	/**
 	 * Gets  the current Map's PanModifier property.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "panModifier"): string;
 
 	/**
@@ -61330,6 +63544,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "panModifier", optionValue: string): void;
 
 	/**
@@ -61394,6 +63609,7 @@ interface JQuery {
 	 * The response to user panning and zooming: whether to update the view immediately while the user action is happening, or to defer the update to after the user action is complete.  The user action will be an action such as a mouse drag which causes panning and/or zooming to occur.
 	 *
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "windowResponse"): string;
 
 	/**
@@ -61402,6 +63618,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igMap(optionLiteral: 'option', optionName: "windowResponse", optionValue: string): void;
 
 	/**
@@ -62173,7 +64390,6 @@ interface IgNotifier {
 	 * Controls the positioning mode of messages. Setting a mode will override the default behavior which is auto.Note: Inline element uses a block container as is always placed after the target.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "auto" Uses popover for info and warning messages and inline for errors and success.
 	 * "popover" Displays messages in a configurable popover.
@@ -62253,8 +64469,9 @@ interface IgNotifier {
 	/**
 	 * controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * Valid values:
-	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.igpopover#options:directionPriority) property
+	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.%%WidgetNameLowered%%#options:directionPriority) property
 	 * "left" shows popover on the left side of the target element
 	 * "right" shows popover on the right side of the target element
 	 * "top" shows popover on the top of the target element
@@ -62264,12 +64481,14 @@ interface IgNotifier {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	directionPriority?: any[];
 
 	/**
 	 * controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * Valid values:
 	 * "auto" lets the control choose a position depending on available space with the following priority balanced > end > start
@@ -62281,31 +64500,37 @@ interface IgNotifier {
 
 	/**
 	 * defines width for the popover. leave null for auto.
+	 *
 	 */
 	width?: number|string;
 
 	/**
 	 * defines height for the popover. leave null for auto
+	 *
 	 */
 	height?: number|string;
 
 	/**
 	 * defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	minWidth?: number|string;
 
 	/**
 	 * defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxWidth?: number|string;
 
 	/**
 	 * defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxHeight?: number|string;
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	containment?: any;
 
@@ -62338,8 +64563,8 @@ interface IgNotifierMethods {
 	/**
 	 * Triggers a notification with a certain state and optional message. The [notifyLevel](ui.ignotifier#options:notifyLevel) option determines if the notification will be displayed.
 	 *
-	 * @param state    The state to show notification for.
-	 * @param message    Optional message to show, overrides defaults.
+	 * @param state The state to show notification for.
+	 * @param message Optional message to show, overrides defaults.
 	 */
 	notify(state: Object, message?: string): void;
 
@@ -62366,8 +64591,8 @@ interface IgNotifierMethods {
 	/**
 	 * Shows the popover for the specified target
 	 *
-	 * @param trg     The element to show popover for.
-	 * @param content     The string to set for the popover to show.
+	 * @param trg The element to show popover for.
+	 * @param content The string to set for the popover to show.
 	 */
 	show(trg?: Element, content?: string): void;
 
@@ -62384,7 +64609,7 @@ interface IgNotifierMethods {
 	/**
 	 * Sets the content for the popover container
 	 *
-	 * @param newCnt     The popover content to set.
+	 * @param newCnt The popover content to set.
 	 */
 	setContent(newCnt: string): void;
 
@@ -62401,7 +64626,7 @@ interface IgNotifierMethods {
 	/**
 	 * Sets the popover to specific coordinates.
 	 *
-	 * @param pos     The popover coordinates in pixels.
+	 * @param pos The popover coordinates in pixels.
 	 */
 	setCoordinates(pos: Object): void;
 }
@@ -62427,6 +64652,7 @@ interface JQuery {
 	 * Gets/Sets the current state of the igNotifier messages. State controls what CSS classes are applied to the messages and target and has interactions with other options as well.
 	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "state"): string;
 
 	/**
@@ -62435,12 +64661,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "state", optionValue: string): void;
 
 	/**
 	 * Controls the level of notifications shown by automatic and manual messages using the [notify](ui.ignotifier#methods:notify) method. Use [show](ui.ignotifier#methods:show) to ignore the level.
 	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "notifyLevel"): string;
 
 	/**
@@ -62449,12 +64677,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "notifyLevel", optionValue: string): void;
 
 	/**
 	 * Controls where the popover DOM should be attached to (only applies to popovers).
 	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "appendTo"): string|Object;
 
 	/**
@@ -62463,22 +64693,23 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "appendTo", optionValue: string|Object): void;
 
 	/**
 	 * Controls the positioning mode of messages. Setting a mode will override the default behavior which is auto.Note: Inline element uses a block container as is always placed after the target.
 	 *
-	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
 	 * Controls the positioning mode of messages. Setting a mode will override the default behavior which is auto.Note: Inline element uses a block container as is always placed after the target.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -62527,6 +64758,7 @@ interface JQuery {
 	 * Gets/Sets the content for the popover container. Templated with parameters by default: {0} - icon container class, {1} - the icon class and {2} - message text.
 	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "contentTemplate"): string|Function;
 
 	/**
@@ -62535,6 +64767,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "contentTemplate", optionValue: string|Function): void;
 
 	/**
@@ -62555,6 +64788,7 @@ interface JQuery {
 	 * Sets the event on which the notification will be shown. Predefined values are "mouseenter", "click" and "focus"
 	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "showOn"): string;
 
 	/**
@@ -62563,6 +64797,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "showOn", optionValue: string): void;
 
 	/**
@@ -62621,25 +64856,31 @@ interface JQuery {
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "direction"): string;
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "direction", optionValue: string): void;
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "directionPriority"): any[];
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62647,83 +64888,109 @@ interface JQuery {
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "position"): string;
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "position", optionValue: string): void;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "width", optionValue: number|string): void;
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
 	 * Defines height for the popover. leave null for auto
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "height", optionValue: number|string): void;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "minWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "minWidth", optionValue: number|string): void;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "maxWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "maxWidth", optionValue: number|string): void;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "maxHeight"): number|string;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igNotifier(optionLiteral: 'option', optionName: "maxHeight", optionValue: number|string): void;
 
 	/**
 	 * The containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "containment"): any;
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -63760,17 +66027,14 @@ interface JQuery {
 	igPivotDataSelector(methodName: "update"): void;
 	igPivotDataSelector(methodName: "destroy"): void;
 
-	/**
-	 */
 	igPivotDataSelector(optionLiteral: 'option', optionName: "width"): string|number;
 
-	/**
-	 */
 	igPivotDataSelector(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row -  (if any), etc.
 	 */
+
 	igPivotDataSelector(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -63778,6 +66042,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPivotDataSelector(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -65412,17 +67677,14 @@ interface JQuery {
 	igPivotGrid(methodName: "appliedLevelSortDirections"): any[];
 	igPivotGrid(methodName: "destroy"): void;
 
-	/**
-	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "width"): string|number;
 
-	/**
-	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * This is the total height of the grid.
 	 */
+
 	igPivotGrid(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -65430,6 +67692,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPivotGrid(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -65667,6 +67930,7 @@ interface JQuery {
 	/**
 	 * Gets the default sort behavior for the levels if no sort behavior is specified in an item from the levelSortDirections option.
 	 */
+
 	igPivotGrid(optionLiteral: 'option', optionName: "defaultLevelSortBehavior"): string;
 
 	/**
@@ -65674,6 +67938,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPivotGrid(optionLiteral: 'option', optionName: "defaultLevelSortBehavior", optionValue: string): void;
 
 	/**
@@ -67108,9 +69373,9 @@ interface IgPivotViewMethods {
 
 	/**
 	 * Destroy is part of the jQuery UI widget API and does the following:
-	 * 	1. Remove custom CSS classes that were added.
-	 * 	2. Unwrap any wrapping elements such as scrolling divs and other containers.
-	 * 	3. Unbind all events that were bound.
+	 * 1. Remove custom CSS classes that were added.
+	 * 2. Unwrap any wrapping elements such as scrolling divs and other containers.
+	 * 3. Unbind all events that were bound.
 	 */
 	destroy(): void;
 }
@@ -67124,20 +69389,12 @@ interface JQuery {
 	igPivotView(methodName: "splitter"): Object;
 	igPivotView(methodName: "destroy"): void;
 
-	/**
-	 */
 	igPivotView(optionLiteral: 'option', optionName: "width"): string|number;
 
-	/**
-	 */
 	igPivotView(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
-	/**
-	 */
 	igPivotView(optionLiteral: 'option', optionName: "height"): string|number;
 
-	/**
-	 */
 	igPivotView(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -67222,14 +69479,16 @@ interface JQuery {
 interface IgPopover {
 	/**
 	 * Controls whether the popover will close on blur or not
+	 *
 	 */
 	closeOnBlur?: boolean;
 
 	/**
 	 * controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * Valid values:
-	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.igpopover#options:directionPriority) property
+	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.%%WidgetNameLowered%%#options:directionPriority) property
 	 * "left" shows popover on the left side of the target element
 	 * "right" shows popover on the right side of the target element
 	 * "top" shows popover on the top of the target element
@@ -67239,12 +69498,14 @@ interface IgPopover {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	directionPriority?: any[];
 
 	/**
 	 * controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * Valid values:
 	 * "auto" lets the control choose a position depending on available space with the following priority balanced > end > start
@@ -67256,36 +69517,43 @@ interface IgPopover {
 
 	/**
 	 * defines width for the popover. leave null for auto.
+	 *
 	 */
 	width?: number|string;
 
 	/**
 	 * defines height for the popover. leave null for auto
+	 *
 	 */
 	height?: number|string;
 
 	/**
 	 * defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	minWidth?: number|string;
 
 	/**
 	 * defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxWidth?: number|string;
 
 	/**
 	 * defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxHeight?: number|string;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 */
 	animationDuration?: number;
 
 	/**
 	 * sets the content for the popover container. If left null the content will be get from the target.
+	 *
 	 *
 	 * Valid values:
 	 * "string" String content of the popover container
@@ -67295,16 +69563,19 @@ interface IgPopover {
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	selectors?: string;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 */
 	headerTemplate?: IgPopoverHeaderTemplate;
 
 	/**
 	 * sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 *
 	 * Valid values:
 	 * "mouseenter" the popover is shown on mouse enter in the target element
@@ -67315,6 +69586,7 @@ interface IgPopover {
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	containment?: any;
 
@@ -67372,8 +69644,8 @@ interface IgPopoverMethods {
 	/**
 	 * Shows the popover for the specified target
 	 *
-	 * @param trg     The element to show popover for.
-	 * @param content     The string to set for the popover to show.
+	 * @param trg The element to show popover for.
+	 * @param content The string to set for the popover to show.
 	 */
 	show(trg?: Element, content?: string): void;
 
@@ -67390,7 +69662,7 @@ interface IgPopoverMethods {
 	/**
 	 * Sets the content for the popover container
 	 *
-	 * @param newCnt     The popover content to set.
+	 * @param newCnt The popover content to set.
 	 */
 	setContent(newCnt: string): void;
 
@@ -67407,7 +69679,7 @@ interface IgPopoverMethods {
 	/**
 	 * Sets the popover to specific coordinates.
 	 *
-	 * @param pos     The popover coordinates in pixels.
+	 * @param pos The popover coordinates in pixels.
 	 */
 	setCoordinates(pos: Object): void;
 }
@@ -67429,11 +69701,13 @@ interface JQuery {
 
 	/**
 	 * Controls whether the popover will close on blur or not
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "closeOnBlur"): boolean;
 
 	/**
 	 * Controls whether the popover will close on blur or not
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67441,25 +69715,31 @@ interface JQuery {
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "direction"): string;
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "direction", optionValue: string): void;
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "directionPriority"): any[];
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67467,83 +69747,109 @@ interface JQuery {
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "position"): string;
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "position", optionValue: string): void;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "width", optionValue: number|string): void;
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
 	 * Defines height for the popover. leave null for auto
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "height", optionValue: number|string): void;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "minWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "minWidth", optionValue: number|string): void;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "maxWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "maxWidth", optionValue: number|string): void;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "maxHeight"): number|string;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "maxHeight", optionValue: number|string): void;
 
 	/**
 	 * The time popover fades in and out when showing/hiding
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "animationDuration"): number;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67551,23 +69857,29 @@ interface JQuery {
 
 	/**
 	 * The content for the popover container. If left null the content will be get from the target.
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "contentTemplate"): string|Function;
 
 	/**
 	 * Sets the content for the popover container. If left null the content will be get from the target.
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "contentTemplate", optionValue: string|Function): void;
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "selectors"): string;
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67575,11 +69887,13 @@ interface JQuery {
 
 	/**
 	 * The content for the popover header
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "headerTemplate"): IgPopoverHeaderTemplate;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67587,23 +69901,29 @@ interface JQuery {
 
 	/**
 	 * The event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "showOn"): string;
 
 	/**
 	 * Sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
 	 *
+	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "showOn", optionValue: string): void;
 
 	/**
 	 * The containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "containment"): any;
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67613,6 +69933,7 @@ interface JQuery {
 	 * Controls where the popover DOM should be attached to.
 	 *
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "appendTo"): string|Object;
 
 	/**
@@ -67621,6 +69942,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igPopover(optionLiteral: 'option', optionName: "appendTo", optionValue: string|Object): void;
 
 	/**
@@ -68285,6 +70607,7 @@ interface JQuery {
 	/**
 	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -68292,11 +70615,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -68304,6 +70629,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -68445,6 +70771,7 @@ interface JQuery {
 	/**
 	 * Gets  the direction in which the scale sweeps around the center from the start angle to end angle.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "scaleSweepDirection"): string;
 
 	/**
@@ -68452,6 +70779,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "scaleSweepDirection", optionValue: string): void;
 
 	/**
@@ -68533,6 +70861,7 @@ interface JQuery {
 	/**
 	 * Gets  the shape to use when rendering the needle from a number of options.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "needleShape"): string;
 
 	/**
@@ -68540,6 +70869,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "needleShape", optionValue: string): void;
 
 	/**
@@ -68655,6 +70985,7 @@ interface JQuery {
 	/**
 	 * Gets  the shape to use for the needle cap.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "needlePivotShape"): string;
 
 	/**
@@ -68662,6 +70993,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "needlePivotShape", optionValue: string): void;
 
 	/**
@@ -68981,6 +71313,7 @@ interface JQuery {
 	/**
 	 * Gets  the oversweep shape to use for the excess fill area for the scale.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "scaleOversweepShape"): string;
 
 	/**
@@ -68988,6 +71321,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "scaleOversweepShape", optionValue: string): void;
 
 	/**
@@ -69017,6 +71351,7 @@ interface JQuery {
 	/**
 	 * Gets  the type of shape to use for the backing of the gauge.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "backingShape"): string;
 
 	/**
@@ -69024,6 +71359,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "backingShape", optionValue: string): void;
 
 	/**
@@ -69045,6 +71381,7 @@ interface JQuery {
 	/**
 	 * Gets  the strategy to use for omitting labels if the first and last label have the same value.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "duplicateLabelOmissionStrategy"): string;
 
 	/**
@@ -69052,6 +71389,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRadialGauge(optionLiteral: 'option', optionName: "duplicateLabelOmissionStrategy", optionValue: string): void;
 
 	/**
@@ -70044,13 +72382,7 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igRadialMenu(optionLiteral: 'option', optionName: "wedgePaddingInDegrees", optionValue: number): void;
-
-	/**
-	 */
 	igRadialMenu(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
-
-	/**
-	 */
 	igRadialMenu(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 
 	/**
@@ -70275,7 +72607,7 @@ interface IgRatingMethods {
 	/**
 	 * Gets reference to [igValidator](ui.igvalidator) used by igRating.
 	 *
-	 * @param destroy     Request to destroy validator.
+	 * @param destroy Request to destroy validator.
 	 */
 	validator(destroy?: boolean): Object;
 
@@ -70287,16 +72619,16 @@ interface IgRatingMethods {
 	/**
 	 * Gets/Sets (selected) value.
 	 *
-	 * @param val     New value which is rendered with selected css.
-	 * @return number|object     If parameter is not 'number', then exact value rendered with selected css is returned. Otherwise, reference to igRating is returned.
+	 * @param val New value which is rendered with selected css.
+	 * @return number|object If parameter is not 'number', then exact value rendered with selected css is returned. Otherwise, reference to igRating is returned.
 	 */
 	value(val: number): number|Object;
 
 	/**
 	 * Gets/Sets hover value.
 	 *
-	 * @param val     New value which will be rendered with hover css when rating gets mouse.
-	 * @return number|object     If parameter is not "number", then last value which was rendered with hover css is returned. Otherwise, reference to igRating is returned.
+	 * @param val New value which will be rendered with hover css when rating gets mouse.
+	 * @return number|object If parameter is not "number", then last value which was rendered with hover css is returned. Otherwise, reference to igRating is returned.
 	 */
 	valueHover(val?: number): number|Object;
 
@@ -70348,6 +72680,7 @@ interface JQuery {
 	 * Gets/Sets value (selected votes or percent). If the value is of type string, it should be suitable for parsing to number. According to [valueAsPercent](ui.igrating#options:valueAsPercent) options the value is used as number of selected votes or as a percent of the votes.
 	 *
 	 */
+
 	igRating(optionLiteral: 'option', optionName: "value"): number|string;
 
 	/**
@@ -70356,12 +72689,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRating(optionLiteral: 'option', optionName: "value", optionValue: number|string): void;
 
 	/**
 	 * Gets/Sets value-hover (hovered votes or percent of hovered votes). The default is same as value. If the value is of type string, it should be suitable for parsing to number. According to [valueAsPercent](ui.igrating#options:valueAsPercent) options the valueHover is used as number of hovered votes or as a percent of the hovered votes.
 	 *
 	 */
+
 	igRating(optionLiteral: 'option', optionName: "valueHover"): number|string;
 
 	/**
@@ -70370,6 +72705,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRating(optionLiteral: 'option', optionName: "valueHover", optionValue: number|string): void;
 
 	/**
@@ -70472,6 +72808,7 @@ interface JQuery {
 	 * Gets/Sets precision. Precision of value and valueHover.
 	 *
 	 */
+
 	igRating(optionLiteral: 'option', optionName: "precision"): string;
 
 	/**
@@ -70480,6 +72817,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igRating(optionLiteral: 'option', optionName: "precision", optionValue: string): void;
 
 	/**
@@ -70736,6 +73074,25 @@ interface AgendaRangeChangingEvent {
 }
 
 interface AgendaRangeChangingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the days to be shown in AgendaView mode.
+	 */
+	dateRangeInterval?: number;
+
+	/**
+	 * Gets a reference to the current AgendaView start date.
+	 */
+	currentAgendaRangeStartDate?: any;
+
+	/**
+	 * Gets a reference to the newly AgendaView start date.
+	 */
+	newAgendaRangeStartDate?: any;
 }
 
 interface AgendaRangeChangedEvent {
@@ -70743,6 +73100,20 @@ interface AgendaRangeChangedEvent {
 }
 
 interface AgendaRangeChangedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the days to be shown in AgendaView mode.
+	 */
+	dateRangeInterval?: number;
+
+	/**
+	 * Gets a reference to the newly AgendaView start date.
+	 */
+	newAgendaRangeStartDate?: any;
 }
 
 interface DaySelectedEvent {
@@ -70750,6 +73121,15 @@ interface DaySelectedEvent {
 }
 
 interface DaySelectedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to currently selected date.
+	 */
+	date?: any;
 }
 
 interface MonthChangingEvent {
@@ -70757,6 +73137,20 @@ interface MonthChangingEvent {
 }
 
 interface MonthChangingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to newly selected date.
+	 */
+	newSelectedDate?: any;
+
+	/**
+	 * Gets a reference to the currently selected date.
+	 */
+	currentSelectedDate?: any;
 }
 
 interface MonthChangedEvent {
@@ -70764,6 +73158,15 @@ interface MonthChangedEvent {
 }
 
 interface MonthChangedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to newly selected date.
+	 */
+	newSelectedDate?: any;
 }
 
 interface ViewChangingEvent {
@@ -70771,6 +73174,20 @@ interface ViewChangingEvent {
 }
 
 interface ViewChangingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the currently selected view.
+	 */
+	currentSelectedView?: string;
+
+	/**
+	 * Gets a reference to the newly selected view.
+	 */
+	newSelectedView?: string;
 }
 
 interface ViewChangedEvent {
@@ -70778,6 +73195,15 @@ interface ViewChangedEvent {
 }
 
 interface ViewChangedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the newly selected view.
+	 */
+	newSelectedView?: string;
 }
 
 interface AppointmentDialogOpeningEvent {
@@ -70785,6 +73211,20 @@ interface AppointmentDialogOpeningEvent {
 }
 
 interface AppointmentDialogOpeningEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentDialogOpenedEvent {
@@ -70792,6 +73232,20 @@ interface AppointmentDialogOpenedEvent {
 }
 
 interface AppointmentDialogOpenedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentDialogClosingEvent {
@@ -70799,6 +73253,20 @@ interface AppointmentDialogClosingEvent {
 }
 
 interface AppointmentDialogClosingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentDialogClosedEvent {
@@ -70806,6 +73274,20 @@ interface AppointmentDialogClosedEvent {
 }
 
 interface AppointmentDialogClosedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentCreatingEvent {
@@ -70813,6 +73295,15 @@ interface AppointmentCreatingEvent {
 }
 
 interface AppointmentCreatingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment which is going to be created.
+	 */
+	appointment?: any;
 }
 
 interface AppointmentCreatedEvent {
@@ -70820,6 +73311,15 @@ interface AppointmentCreatedEvent {
 }
 
 interface AppointmentCreatedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the created appointment.
+	 */
+	appointment?: any;
 }
 
 interface AppointmentDeletingEvent {
@@ -70827,6 +73327,15 @@ interface AppointmentDeletingEvent {
 }
 
 interface AppointmentDeletingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment which is going to be deleted.
+	 */
+	appointment?: any;
 }
 
 interface AppointmentDeletedEvent {
@@ -70834,6 +73343,15 @@ interface AppointmentDeletedEvent {
 }
 
 interface AppointmentDeletedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the id of the deleted appointment.
+	 */
+	appointmentId?: any;
 }
 
 interface AppointmentEditingEvent {
@@ -70841,6 +73359,20 @@ interface AppointmentEditingEvent {
 }
 
 interface AppointmentEditingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the original appointment.
+	 */
+	appointment?: any;
+
+	/**
+	 * Gets a reference to the appointment with the edited values.
+	 */
+	newAppointment?: any;
 }
 
 interface AppointmentEditedEvent {
@@ -70848,6 +73380,15 @@ interface AppointmentEditedEvent {
 }
 
 interface AppointmentEditedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the edited appointment.
+	 */
+	appointment?: any;
 }
 
 interface IgScheduler {
@@ -71027,15 +73568,15 @@ interface IgSchedulerMethods {
 	/**
 	 * Deletes appointment from the appointment collection
 	 *
-	 * @param appointment    appointment
+	 * @param appointment appointment
 	 */
 	deleteAppointment(appointment: Object): Object;
 
 	/**
 	 * Deletes appointment from the appointment collection
 	 *
-	 * @param appointment    appointment
-	 * @param updateAppoinment    updateAppoinment
+	 * @param appointment appointment
+	 * @param updateAppoinment updateAppoinment
 	 */
 	editAppointment(appointment: Object, updateAppoinment: Object): Object;
 
@@ -71103,6 +73644,7 @@ interface JQuery {
 	 * Gets/Sets current view mode in the Scheduler. If this options is not defined, then the first defined view in the views property is taken.
 	 *
 	 */
+
 	igScheduler(optionLiteral: 'option', optionName: "viewMode"): string;
 
 	/**
@@ -71111,6 +73653,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igScheduler(optionLiteral: 'option', optionName: "viewMode", optionValue: string): void;
 
 	/**
@@ -71131,6 +73674,7 @@ interface JQuery {
 	 * Gets/Sets the width of the control.
 	 *
 	 */
+
 	igScheduler(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -71139,12 +73683,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igScheduler(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control.
 	 *
 	 */
+
 	igScheduler(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -71153,6 +73699,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igScheduler(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -71435,6 +73982,35 @@ interface ScrollingEvent {
 }
 
 interface ScrollingEventUIParam {
+	/**
+	 * Gets a reference to the igScroll.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets if the content is scrolled by the arrows. 0 - none used, -1 - Arrow Up/Left, 1 - Arrow Down/Right.
+	 */
+	smallIncrement?: number;
+
+	/**
+	 * Gets if the content is scrolled by the scrollbar track areas. 0 - none used, -1 - Scrolled Up/Left, 1 - Scrolled Down/Right.
+	 */
+	bigIncrement?: number;
+
+	/**
+	 * Gets which axis is being used to scroll - horizontal(true) or vertical(false).
+	 */
+	horizontal?: boolean;
+
+	/**
+	 * Gets how much the content will be scrolled horizontally.
+	 */
+	stepX?: number;
+
+	/**
+	 * Gets how much the content will be scrolled vertically.
+	 */
+	stepY?: number;
 }
 
 interface ScrolledEvent {
@@ -71442,6 +74018,25 @@ interface ScrolledEvent {
 }
 
 interface ScrolledEventUIParam {
+	/**
+	 * Gets a reference to the igScroll.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets if the content is scrolled by the arrows. 0 - none used, -1 - Arrow Up/Left, 1 - Arrow Down/Right.
+	 */
+	smallIncrement?: number;
+
+	/**
+	 * Gets if the content is scrolled by the scrollbar track areas. 0 - none used, -1 - Scrolled Up/Left, 1 - Scrolled Down/Right.
+	 */
+	bigIncrement?: number;
+
+	/**
+	 * Gets which axis is being used to scroll - horizontal(true) or vertical(false).
+	 */
+	horizontal?: boolean;
 }
 
 interface ThumbDragStartEvent {
@@ -71449,6 +74044,15 @@ interface ThumbDragStartEvent {
 }
 
 interface ThumbDragStartEventUIParam {
+	/**
+	 * Gets a reference to the igScroll.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets which axis is being used to scroll - horizontal(true) or vertical(false).
+	 */
+	horizontal?: boolean;
 }
 
 interface ThumbDragMoveEvent {
@@ -71456,6 +74060,25 @@ interface ThumbDragMoveEvent {
 }
 
 interface ThumbDragMoveEventUIParam {
+	/**
+	 * Gets a reference to the igScroll.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets which scrollbar thumb is being used - horizontal(true) or vertical(false).
+	 */
+	horizontal?: boolean;
+
+	/**
+	 * Gets how much the content will be scrolled horizontally.
+	 */
+	stepX?: number;
+
+	/**
+	 * Gets how much the content will be scrolled vertically.
+	 */
+	stepY?: number;
 }
 
 interface ThumbDragEndEvent {
@@ -71463,6 +74086,15 @@ interface ThumbDragEndEvent {
 }
 
 interface ThumbDragEndEventUIParam {
+	/**
+	 * Gets a reference to the igScroll.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets which scrollbar thumb is being used - horizontal(true) or vertical(false).
+	 */
+	horizontal?: boolean;
 }
 
 interface ResizingEvent {
@@ -71733,6 +74365,7 @@ interface JQuery {
 	 * Sets or gets what type of scrollbars should be using the igScroll (on all environments).
 	 *
 	 */
+
 	igScroll(optionLiteral: 'option', optionName: "scrollbarType"): string;
 
 	/**
@@ -71741,6 +74374,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igScroll(optionLiteral: 'option', optionName: "scrollbarType", optionValue: string): void;
 
 	/**
@@ -72246,43 +74880,37 @@ interface StartEvent {
 	(event: Event, ui: StartEventUIParam): void;
 }
 
-interface StartEventUIParam {
-}
+interface StartEventUIParam {}
 
 interface SlideEvent {
 	(event: Event, ui: SlideEventUIParam): void;
 }
 
-interface SlideEventUIParam {
-}
+interface SlideEventUIParam {}
 
 interface StopEvent {
 	(event: Event, ui: StopEventUIParam): void;
 }
 
-interface StopEventUIParam {
-}
+interface StopEventUIParam {}
 
 interface ChangeEvent {
 	(event: Event, ui: ChangeEventUIParam): void;
 }
 
-interface ChangeEventUIParam {
-}
+interface ChangeEventUIParam {}
 
 interface BookmarkHitEvent {
 	(event: Event, ui: BookmarkHitEventUIParam): void;
 }
 
-interface BookmarkHitEventUIParam {
-}
+interface BookmarkHitEventUIParam {}
 
 interface BookmarkClickEvent {
 	(event: Event, ui: BookmarkClickEventUIParam): void;
 }
 
-interface BookmarkClickEventUIParam {
-}
+interface BookmarkClickEventUIParam {}
 
 interface IgSlider {
 	/**
@@ -72473,8 +75101,7 @@ interface CaptureEvent {
 	(event: Event, ui: CaptureEventUIParam): void;
 }
 
-interface CaptureEventUIParam {
-}
+interface CaptureEventUIParam {}
 
 interface MouseWrapper {
 	cancel?: string;
@@ -72527,17 +75154,17 @@ interface IgResponsiveContainerMethods {
 	/**
 	 * Removes a callback from the callbacks collection.
 	 *
-	 * @param callbackId    The callback id to remove.
+	 * @param callbackId The callback id to remove.
 	 */
 	removeCallback(callbackId: number): void;
 
 	/**
 	 * Adds a callback to the callback collection.
 	 *
-	 * @param callback    The function to call when requirements are met.
-	 * @param owner    The owner object of the function.
-	 * @param reactionStep    The sensitivity of the size change recognition.
-	 * @param reactionDirection    The dimensions the changes of which to be traced.
+	 * @param callback The function to call when requirements are met.
+	 * @param owner The owner object of the function.
+	 * @param reactionStep The sensitivity of the size change recognition.
+	 * @param reactionDirection The dimensions the changes of which to be traced.
 	 */
 	addCallback(callback: Function, owner: Object, reactionStep: number, reactionDirection: Object): void;
 }
@@ -72552,21 +75179,9 @@ interface JQuery {
 	igLoading(methodName: "hide"): void;
 	igLoading(methodName: "refreshPos"): void;
 	igLoading(methodName: "destroy"): void;
-
-	/**
-	 */
 	igLoading(optionLiteral: 'option', optionName: "cssClass"): any;
-
-	/**
-	 */
 	igLoading(optionLiteral: 'option', optionName: "cssClass", optionValue: any): void;
-
-	/**
-	 */
 	igLoading(optionLiteral: 'option', optionName: "includeVerticalOffset"): boolean;
-
-	/**
-	 */
 	igLoading(optionLiteral: 'option', optionName: "includeVerticalOffset", optionValue: boolean): void;
 	igLoading(options: IgLoading): JQuery;
 	igLoading(optionLiteral: 'option', optionName: string): any;
@@ -72769,77 +75384,23 @@ interface JQuery {
 	igProgressBar(methodName: "widget"): void;
 	igProgressBar(methodName: "destroy"): void;
 	igProgressBar(methodName: "value", newValue: Object): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "animate"): boolean;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "animate", optionValue: boolean): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "animateTimeout"): number;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "animateTimeout", optionValue: number): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "max"): number;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "max", optionValue: number): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "min"): number;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "min", optionValue: number): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "orientation"): string;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "orientation", optionValue: string): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "value"): number;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "value", optionValue: number): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "width"): string;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "width", optionValue: string): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "height"): string;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "height", optionValue: string): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "range"): boolean;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "range", optionValue: boolean): void;
 
 	/**
@@ -72853,21 +75414,9 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igProgressBar(optionLiteral: 'option', optionName: "queue", optionValue: boolean): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "endValue"): number;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "endValue", optionValue: number): void;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "change"): ChangeEvent;
-
-	/**
-	 */
 	igProgressBar(optionLiteral: 'option', optionName: "change", optionValue: ChangeEvent): void;
 	igProgressBar(options: IgProgressBar): JQuery;
 	igProgressBar(optionLiteral: 'option', optionName: string): any;
@@ -72879,77 +75428,23 @@ interface JQuery {
 	igButton(methodName: "setTitle", title: Object): void;
 	igButton(methodName: "widget"): void;
 	igButton(methodName: "destroy"): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "width"): any;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "width", optionValue: any): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "height"): any;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "height", optionValue: any): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "link"): IgButtonLink;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "link", optionValue: IgButtonLink): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "labelText"): string;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "labelText", optionValue: string): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "centerLabel"): boolean;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "centerLabel", optionValue: boolean): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "css"): any;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "css", optionValue: any): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "onlyIcons"): boolean;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "onlyIcons", optionValue: boolean): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "icons"): IgButtonIcons;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "icons", optionValue: IgButtonIcons): void;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "title"): boolean;
-
-	/**
-	 */
 	igButton(optionLiteral: 'option', optionName: "title", optionValue: boolean): void;
 	igButton(options: IgButton): JQuery;
 	igButton(optionLiteral: 'option', optionName: string): any;
@@ -72959,21 +75454,9 @@ interface JQuery {
 }
 interface JQuery {
 	igTooltip(methodName: "destroy"): void;
-
-	/**
-	 */
 	igTooltip(optionLiteral: 'option', optionName: "text"): string;
-
-	/**
-	 */
 	igTooltip(optionLiteral: 'option', optionName: "text", optionValue: string): void;
-
-	/**
-	 */
 	igTooltip(optionLiteral: 'option', optionName: "arrowLocation"): string;
-
-	/**
-	 */
 	igTooltip(optionLiteral: 'option', optionName: "arrowLocation", optionValue: string): void;
 	igTooltip(options: IgTooltip): JQuery;
 	igTooltip(optionLiteral: 'option', optionName: string): any;
@@ -72983,61 +75466,19 @@ interface JQuery {
 }
 interface JQuery {
 	mouseWrapper(methodName: "destroy"): void;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "cancel"): string;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "cancel", optionValue: string): void;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "distance"): number;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "distance", optionValue: number): void;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "delay"): number;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "delay", optionValue: number): void;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "start"): StartEvent;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "start", optionValue: StartEvent): void;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "drag"): DragEvent;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "drag", optionValue: DragEvent): void;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "stop"): StopEvent;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "stop", optionValue: StopEvent): void;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "capture"): CaptureEvent;
-
-	/**
-	 */
 	mouseWrapper(optionLiteral: 'option', optionName: "capture", optionValue: CaptureEvent): void;
 	mouseWrapper(options: MouseWrapper): JQuery;
 	mouseWrapper(optionLiteral: 'option', optionName: string): any;
@@ -73445,14 +75886,14 @@ interface IgSparklineMethods {
 	/**
 	 * Find index of item within actual data used by chart.
 	 *
-	 * @param item     The reference to item.
+	 * @param item The reference to item.
 	 */
 	findIndexOfItem(item: Object): number;
 
 	/**
 	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
 	 *
-	 * @param index     Index of data item.
+	 * @param index Index of data item.
 	 */
 	getDataItem(index: Object): Object;
 
@@ -73464,68 +75905,68 @@ interface IgSparklineMethods {
 	/**
 	 * Adds a new item to the data source and notifies the chart.
 	 *
-	 * @param item     The item that we want to add to the data source.
+	 * @param item The item that we want to add to the data source.
 	 */
 	addItem(item: Object): Object;
 
 	/**
 	 * Inserts a new item to the data source and notifies the chart.
 	 *
-	 * @param item     the new item that we want to insert in the data source.
-	 * @param index     The index in the data source where the new item will be inserted.
+	 * @param item the new item that we want to insert in the data source.
+	 * @param index The index in the data source where the new item will be inserted.
 	 */
 	insertItem(item: Object, index: number): Object;
 
 	/**
 	 * Deletes an item from the data source and notifies the chart.
 	 *
-	 * @param index     The index in the data source from where the item will be been removed.
+	 * @param index The index in the data source from where the item will be been removed.
 	 */
 	removeItem(index: number): Object;
 
 	/**
 	 * Updates an item in the data source and notifies the chart.
 	 *
-	 * @param index     The index of the item in the data source that we want to change.
-	 * @param item     The new item object that will be set in the data source.
+	 * @param index The index of the item in the data source that we want to change.
+	 * @param item The new item object that will be set in the data source.
 	 */
 	setItem(index: number, item: Object): Object;
 
 	/**
 	 * Notifies the chart that an item has been set in an associated data source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source that has been changed.
-	 * @param newItem     the new item that has been set in the collection.
-	 * @param oldItem     the old item that has been overwritten in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source that has been changed.
+	 * @param newItem the new item that has been set in the collection.
+	 * @param oldItem the old item that has been overwritten in the collection.
 	 */
 	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
+	 * @param dataSource The data source in which the change happened.
 	 */
 	notifyClearItems(dataSource: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source where the new item has been inserted.
-	 * @param newItem     the new item that has been set in the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source where the new item has been inserted.
+	 * @param newItem the new item that has been set in the collection.
 	 */
 	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
-	 * @param dataSource     The data source in which the change happened.
-	 * @param index     The index in the items source from where the old item has been removed.
-	 * @param oldItem     the old item that has been removed from the collection.
+	 * @param dataSource The data source in which the change happened.
+	 * @param index The index in the items source from where the old item has been removed.
+	 * @param oldItem the old item that has been removed from the collection.
 	 */
 	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
 
@@ -73568,6 +76009,7 @@ interface JQuery {
 	/**
 	 * The width of the sparkline. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -73575,11 +76017,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the sparkline. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -73587,6 +76031,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -73736,6 +76181,7 @@ interface JQuery {
 	/**
 	 * Gets  the display state of the horizontal axis.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "horizontalAxisVisibility"): string;
 
 	/**
@@ -73743,11 +76189,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "horizontalAxisVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the display state of the vertical axis.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "verticalAxisVisibility"): string;
 
 	/**
@@ -73755,11 +76203,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "verticalAxisVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the marker visibility of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "markerVisibility"): string;
 
 	/**
@@ -73767,11 +76217,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "markerVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the negative marker visibility of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "negativeMarkerVisibility"): string;
 
 	/**
@@ -73779,11 +76231,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "negativeMarkerVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the first marker visibility of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "firstMarkerVisibility"): string;
 
 	/**
@@ -73791,11 +76245,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "firstMarkerVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the last marker visibility of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "lastMarkerVisibility"): string;
 
 	/**
@@ -73803,11 +76259,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "lastMarkerVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the low marker visibility of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "lowMarkerVisibility"): string;
 
 	/**
@@ -73815,11 +76273,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "lowMarkerVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the high marker visibility of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "highMarkerVisibility"): string;
 
 	/**
@@ -73827,11 +76287,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "highMarkerVisibility", optionValue: string): void;
 
 	/**
 	 * Gets  the normal range visibility of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "normalRangeVisibility"): string;
 
 	/**
@@ -73839,6 +76301,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "normalRangeVisibility", optionValue: string): void;
 
 	/**
@@ -73964,6 +76427,7 @@ interface JQuery {
 	/**
 	 * Gets  the type of trendline used by the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "trendLineType"): string;
 
 	/**
@@ -73971,6 +76435,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "trendLineType", optionValue: string): void;
 
 	/**
@@ -74024,6 +76489,7 @@ interface JQuery {
 	/**
 	 * Gets  the display type of the sparkline.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "displayType"): string;
 
 	/**
@@ -74031,11 +76497,13 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "displayType", optionValue: string): void;
 
 	/**
 	 * Gets  the way null values are interpreted.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "unknownValuePlotting"): string;
 
 	/**
@@ -74043,6 +76511,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSparkline(optionLiteral: 'option', optionName: "unknownValuePlotting", optionValue: string): void;
 
 	/**
@@ -74824,6 +77293,7 @@ interface JQuery {
 	 * Gets/Sets the width of the container.
 	 *
 	 */
+
 	igSplitter(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -74832,12 +77302,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSplitter(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the container.
 	 *
 	 */
+
 	igSplitter(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -74846,12 +77318,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSplitter(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
 	 * Gets the orientation of the splitter.
 	 *
 	 */
+
 	igSplitter(optionLiteral: 'option', optionName: "orientation"): string;
 
 	/**
@@ -74860,6 +77334,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSplitter(optionLiteral: 'option', optionName: "orientation", optionValue: string): void;
 
 	/**
@@ -75044,6 +77519,30 @@ interface ActivePaneChangedEvent {
 }
 
 interface ActivePaneChangedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the previous active [pane](ig.spreadsheet.SpreadsheetPane).
+	 */
+	oldActivePane?: any;
+
+	/**
+	 * Gets the current active [pane](ig.spreadsheet.SpreadsheetPane).
+	 */
+	newActivePane?: any;
+
+	/**
+	 * Gets the active cell of the new active pane or null if there is no active pane.
+	 */
+	activeCell?: string;
+
+	/**
+	 * Gets the current visible range of the new active pane or null if there is no active pane.
+	 */
+	visibleRange?: string;
 }
 
 interface ActiveWorksheetChangedEvent {
@@ -75051,6 +77550,30 @@ interface ActiveWorksheetChangedEvent {
 }
 
 interface ActiveWorksheetChangedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the previous active [worksheet](ig.excel.Worksheet).
+	 */
+	oldActiveWorksheet?: any;
+
+	/**
+	 * Gets the name of the previous active worksheet or null if oldActiveWorksheet is null.
+	 */
+	oldActiveWorksheetName?: string;
+
+	/**
+	 * Gets the current active [worksheet](ig.excel.Worksheet).
+	 */
+	newActiveWorksheet?: any;
+
+	/**
+	 * Gets the name of the new active worksheet or null if newActiveWorksheet is null.
+	 */
+	newActiveWorksheetName?: string;
 }
 
 interface EditRangePasswordNeededEvent {
@@ -75058,6 +77581,20 @@ interface EditRangePasswordNeededEvent {
 }
 
 interface EditRangePasswordNeededEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get an array of [protected range](ig.excel.WorksheetProtectedRange) objects that should be unlocked.
+	 */
+	ranges?: any[];
+
+	/**
+	 * Get a parameterless function that may be invoked to unlock the associated ranges.
+	 */
+	unprotect?: any;
 }
 
 interface HyperlinkExecutingEvent {
@@ -75065,6 +77602,15 @@ interface HyperlinkExecutingEvent {
 }
 
 interface HyperlinkExecutingEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get the [hyperlink](ig.excel.WorksheetHyperlink) to be executed.
+	 */
+	hyperlink?: any;
 }
 
 interface UserPromptDisplayingEvent {
@@ -75072,6 +77618,35 @@ interface UserPromptDisplayingEvent {
 }
 
 interface UserPromptDisplayingEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get a boolean indicating if the operation that triggered the prompt can be cancelled.
+	 */
+	canCancel?: boolean;
+
+	/**
+	 * Get a boolean indicating if a message will be displayed to the end user.
+	 */
+	displayMessage?: boolean;
+
+	/**
+	 * Gets the exception for the error, if there was one.
+	 */
+	exception?: any;
+
+	/**
+	 * Get or set the message that will be displayed.
+	 */
+	message?: string;
+
+	/**
+	 * Get the [action](ig.spreadsheet.SpreadsheetUserPromptTrigger) that caused the prompt to be displayed.
+	 */
+	trigger?: string;
 }
 
 interface WorkbookDirtiedEvent {
@@ -75079,6 +77654,10 @@ interface WorkbookDirtiedEvent {
 }
 
 interface WorkbookDirtiedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
 }
 
 interface IgSpreadsheet {
@@ -75151,7 +77730,6 @@ interface IgSpreadsheet {
 	/**
 	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -75304,10 +77882,10 @@ interface IgSpreadsheetMethods {
 
 	/**
 	 * Returns an object used to get the formatting of the activeCell and where modifications are applied to the entire active selection.
-	 * Any changes made to this object will affect all the objects in the selection. So for example, the
-	 * Font.Name may return "Arial" because the active cell has that as its resolved font name even though the other
-	 * cells are using a different font but if you set the Font.Name of this object to "Arial" then all the objects
-	 * affected by the selection will have their Font.Name updated to that value.
+	 *         Any changes made to this object will affect all the objects in the selection. So for example, the
+	 *         Font.Name may return "Arial" because the active cell has that as its resolved font name even though the other
+	 *         cells are using a different font but if you set the Font.Name of this object to "Arial" then all the objects
+	 *         affected by the selection will have their Font.Name updated to that value.
 	 */
 	getActiveSelectionCellRangeFormat(): Object;
 
@@ -75364,6 +77942,7 @@ interface JQuery {
 	 * The width of the spreadsheet. It can be set as a number in pixels, string (px) or percentage (%).
 	 *
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -75372,12 +77951,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * The height of the spreadsheet. It can be set as a number in pixels, string (px) or percentage (%).
 	 *
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -75386,6 +77967,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -75498,8 +78080,8 @@ interface JQuery {
 	 * Returns  an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
 	 *
-	 *
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection"): string;
 
 	/**
@@ -75507,9 +78089,9 @@ interface JQuery {
 	 * navigated when Shift + Enter are pressed.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection", optionValue: string): void;
 
 	/**
@@ -75594,6 +78176,7 @@ interface JQuery {
 	 * Returns  a value indicating how the selection is updated when interacting with the cells via the mouse or keyboard.
 	 *
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "selectionMode"): string;
 
 	/**
@@ -75602,6 +78185,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igSpreadsheet(optionLiteral: 'option', optionName: "selectionMode", optionValue: string): void;
 
 	/**
@@ -76368,6 +78952,7 @@ interface JQuery {
 	/**
 	 * *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -76375,12 +78960,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the container.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -76389,12 +78976,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the width of each column in the container.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "columnWidth"): string|number;
 
 	/**
@@ -76403,12 +78992,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "columnWidth", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of each column in the container.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "columnHeight"): string|number;
 
 	/**
@@ -76417,12 +79008,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "columnHeight", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the columns count in the container.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "cols"): number;
 
 	/**
@@ -76431,12 +79024,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "cols", optionValue: number): void;
 
 	/**
 	 * Gets/Sets the rows count in the container.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rows"): number;
 
 	/**
@@ -76445,6 +79040,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rows", optionValue: number): void;
 
 	/**
@@ -76497,6 +79093,7 @@ interface JQuery {
 	 * Gets/Sets the tiles configurations. Every tile is described by rowSpan, colSpan, rowIndex and colIndex.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "items"): Object;
 
 	/**
@@ -76505,6 +79102,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "items", optionValue: Object): void;
 
 	/**
@@ -76525,6 +79123,7 @@ interface JQuery {
 	 * Gets/Sets the content of the tiles in minimized state.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "minimizedState"): string;
 
 	/**
@@ -76533,12 +79132,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "minimizedState", optionValue: string): void;
 
 	/**
 	 * Gets/Sets the content of the tiles in maximized state.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "maximizedState"): string;
 
 	/**
@@ -76547,12 +79148,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "maximizedState", optionValue: string): void;
 
 	/**
 	 * Gets/Sets the index of which items configuration will be used for positioning and sizing of the maximized tile.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "maximizedTileIndex"): number;
 
 	/**
@@ -76561,12 +79164,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "maximizedTileIndex", optionValue: number): void;
 
 	/**
 	 * Gets/Sets how many columns to be displayed in the right panel when the tiles are minimized.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rightPanelCols"): number;
 
 	/**
@@ -76575,12 +79180,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rightPanelCols", optionValue: number): void;
 
 	/**
 	 * Gets/Sets the width of the minimized tiles in the right panel.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rightPanelTilesWidth"): number;
 
 	/**
@@ -76589,12 +79196,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rightPanelTilesWidth", optionValue: number): void;
 
 	/**
 	 * Gets/Sets the height of the minimized tiles in the right panel.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rightPanelTilesHeight"): number;
 
 	/**
@@ -76603,6 +79212,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "rightPanelTilesHeight", optionValue: number): void;
 
 	/**
@@ -76679,6 +79289,7 @@ interface JQuery {
 	 * Property in the response which specifies where the data records array will be held (if the response is wrapped). See [$.ig.DataSource responseDataKey](ig.datasource#options:settings.responseDataKey).
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "responseDataKey"): string;
 
 	/**
@@ -76687,12 +79298,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "responseDataKey", optionValue: string): void;
 
 	/**
 	 * Explicitly set data source type (such as "json"). Please refer to the documentation of [$.ig.DataSource type](ig.datasource#options:settings.type) and its type property.
 	 *
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "responseDataType"): string;
 
 	/**
@@ -76701,6 +79314,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTileManager(optionLiteral: 'option', optionName: "responseDataType", optionValue: string): void;
 
 	/**
@@ -76962,64 +79576,55 @@ interface ToolbarButtonClickEvent {
 	(event: Event, ui: ToolbarButtonClickEventUIParam): void;
 }
 
-interface ToolbarButtonClickEventUIParam {
-}
+interface ToolbarButtonClickEventUIParam {}
 
 interface ToolbarComboOpeningEvent {
 	(event: Event, ui: ToolbarComboOpeningEventUIParam): void;
 }
 
-interface ToolbarComboOpeningEventUIParam {
-}
+interface ToolbarComboOpeningEventUIParam {}
 
 interface ToolbarComboSelectedEvent {
 	(event: Event, ui: ToolbarComboSelectedEventUIParam): void;
 }
 
-interface ToolbarComboSelectedEventUIParam {
-}
+interface ToolbarComboSelectedEventUIParam {}
 
 interface ToolbarCustomItemClickEvent {
 	(event: Event, ui: ToolbarCustomItemClickEventUIParam): void;
 }
 
-interface ToolbarCustomItemClickEventUIParam {
-}
+interface ToolbarCustomItemClickEventUIParam {}
 
 interface ItemRemovedEvent {
 	(event: Event, ui: ItemRemovedEventUIParam): void;
 }
 
-interface ItemRemovedEventUIParam {
-}
+interface ItemRemovedEventUIParam {}
 
 interface ItemAddedEvent {
 	(event: Event, ui: ItemAddedEventUIParam): void;
 }
 
-interface ItemAddedEventUIParam {
-}
+interface ItemAddedEventUIParam {}
 
 interface ItemDisableEvent {
 	(event: Event, ui: ItemDisableEventUIParam): void;
 }
 
-interface ItemDisableEventUIParam {
-}
+interface ItemDisableEventUIParam {}
 
 interface ItemEnabledEvent {
 	(event: Event, ui: ItemEnabledEventUIParam): void;
 }
 
-interface ItemEnabledEventUIParam {
-}
+interface ItemEnabledEventUIParam {}
 
 interface WindowResizedEvent {
 	(event: Event, ui: WindowResizedEventUIParam): void;
 }
 
-interface WindowResizedEventUIParam {
-}
+interface WindowResizedEventUIParam {}
 
 interface IgToolbar {
 	/**
@@ -77928,7 +80533,6 @@ interface IgTreeDragAndDropSettings {
 	 * Gets the containment for the drag helper. The area inside of which thehelper is contained would be scrollable while dragging.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "boolean" If set to false, then the draggable elements will be contained in their window.
 	 * "selector" The draggable element will be contained to the bounding box of the first element found by the selector. If no element is found, no containment will be set.
@@ -78003,6 +80607,30 @@ interface NodeCheckstateChangingEvent {
 }
 
 interface NodeCheckstateChangingEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object the checkbox of which is being interacted with.
+	 */
+	node?: any;
+
+	/**
+	 * Gets the current state of the checkbox.
+	 */
+	currentState?: string;
+
+	/**
+	 * Gets the new state that is going to be applied to the checkbox.
+	 */
+	newState?: string;
+
+	/**
+	 * Gets the collection of all checked nodes before the new state is applied.
+	 */
+	currentCheckedNodes?: any[];
 }
 
 interface NodeCheckstateChangedEvent {
@@ -78010,6 +80638,30 @@ interface NodeCheckstateChangedEvent {
 }
 
 interface NodeCheckstateChangedEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object the checkbox of which is being interacted with.
+	 */
+	node?: any;
+
+	/**
+	 * Gets the new state that is already applied to the checkbox.
+	 */
+	newState?: string;
+
+	/**
+	 * Gets the collection of all checked nodes.
+	 */
+	newCheckedNodes?: any[];
+
+	/**
+	 * Gets the collection of all partially checked nodes.
+	 */
+	newPartiallyCheckedNodes?: any[];
 }
 
 interface NodePopulatingEvent {
@@ -78017,6 +80669,25 @@ interface NodePopulatingEvent {
 }
 
 interface NodePopulatingEventUIParam {
+	/**
+	 * Gets the data-path attribute of the node being populated.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node whose children are being populated.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the bindings object for the level at which the populating node is located.
+	 */
+	binding?: any;
 }
 
 interface NodePopulatedEvent {
@@ -78024,6 +80695,25 @@ interface NodePopulatedEvent {
 }
 
 interface NodePopulatedEventUIParam {
+	/**
+	 * Gets the data-path atrribute of the populated node.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node whose children are populated.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the bindings object for the level at which the populated node is located.
+	 */
+	binding?: any;
 }
 
 interface NodeCollapsingEvent {
@@ -78031,6 +80721,15 @@ interface NodeCollapsingEvent {
 }
 
 interface NodeCollapsingEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object about to collapse.
+	 */
+	node?: any;
 }
 
 interface NodeCollapsedEvent {
@@ -78038,6 +80737,15 @@ interface NodeCollapsedEvent {
 }
 
 interface NodeCollapsedEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the collapsed node object.
+	 */
+	node?: any;
 }
 
 interface NodeExpandingEvent {
@@ -78045,6 +80753,15 @@ interface NodeExpandingEvent {
 }
 
 interface NodeExpandingEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object about to expand.
+	 */
+	node?: any;
 }
 
 interface NodeExpandedEvent {
@@ -78052,6 +80769,15 @@ interface NodeExpandedEvent {
 }
 
 interface NodeExpandedEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the expanded node object.
+	 */
+	node?: any;
 }
 
 interface NodeClickEvent {
@@ -78059,6 +80785,15 @@ interface NodeClickEvent {
 }
 
 interface NodeClickEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object being clicked.
+	 */
+	node?: any;
 }
 
 interface NodeDoubleClickEvent {
@@ -78066,6 +80801,25 @@ interface NodeDoubleClickEvent {
 }
 
 interface NodeDoubleClickEventUIParam {
+	/**
+	 * Gets the data-path attribute of the double clicked node.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the double clicked node.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the bindings object for the level at which the double clicked node is located.
+	 */
+	binding?: any;
 }
 
 interface NodeDroppingEvent {
@@ -78073,6 +80827,45 @@ interface NodeDroppingEvent {
 }
 
 interface NodeDroppingEventUIParam {
+	/**
+	 * Gets the target node data-path attribute.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node.
+	 */
+	element?: string;
+
+	/**
+	 * Gets a reference to the target node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the binding object for the level at which the target node is located.
+	 */
+	binding?: any;
+
+	/**
+	 * Gets a reference to the helper.
+	 */
+	helper?: string;
+
+	/**
+	 * Gets a reference to the offset.
+	 */
+	offset?: any;
+
+	/**
+	 * Gets a reference to the current position of the draggable element.
+	 */
+	position?: any;
+
+	/**
+	 * Gets a reference to the draggable element (the node).
+	 */
+	draggable?: string;
 }
 
 interface NodeDroppedEvent {
@@ -78080,6 +80873,45 @@ interface NodeDroppedEvent {
 }
 
 interface NodeDroppedEventUIParam {
+	/**
+	 * Gets the target node data-path attribute.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node.
+	 */
+	element?: string;
+
+	/**
+	 * Gets a reference to the target node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the binding object for the level at which the target node is located.
+	 */
+	binding?: any;
+
+	/**
+	 * Gets a reference to the helper.
+	 */
+	helper?: string;
+
+	/**
+	 * Gets a reference to the offset.
+	 */
+	offset?: any;
+
+	/**
+	 * Gets a reference to the current position of the draggable element.
+	 */
+	position?: any;
+
+	/**
+	 * Gets a reference to the draggable element (the node).
+	 */
+	draggable?: string;
 }
 
 interface IgTree {
@@ -78420,59 +81252,59 @@ interface IgTreeMethods {
 	/**
 	 * Toggles the checkstate of a node if checkboxMode is not set to off, otherwise does nothing.
 	 *
-	 * @param node     Specifies the node element the checkbox of which would be toggled.
-	 * @param event     Indicates the browser event which triggered this action, if this is not an API call.
+	 * @param node Specifies the node element the checkbox of which would be toggled.
+	 * @param event Indicates the browser event which triggered this action, if this is not an API call.
 	 */
 	toggleCheckstate(node: Object, event?: Object): void;
 
 	/**
 	 * Toggles the collapse/expand state for the specified node.
 	 *
-	 * @param node     Specifies the node element the checkbox of which would be toggled.
-	 * @param event     Indicates the browser event which triggered this action, if this is not an API call.
+	 * @param node Specifies the node element the checkbox of which would be toggled.
+	 * @param event Indicates the browser event which triggered this action, if this is not an API call.
 	 */
 	toggle(node: Object, event?: Object): void;
 
 	/**
 	 * Expands the tree down to the specified node and selects the node if specified.
 	 *
-	 * @param node     Specifies the node element down to which the tree would be expanded.
-	 * @param toSelect     Specifies the whether to select the node after expanding to it.
+	 * @param node Specifies the node element down to which the tree would be expanded.
+	 * @param toSelect Specifies the whether to select the node after expanding to it.
 	 */
 	expandToNode(node: Object, toSelect?: boolean): void;
 
 	/**
 	 * Expands the specified node.
 	 *
-	 * @param node     Specifies the node element to expand.
+	 * @param node Specifies the node element to expand.
 	 */
 	expand(node: Object): void;
 
 	/**
 	 * Collapses the specified node.
 	 *
-	 * @param node     Specifies the node element to collapse.
+	 * @param node Specifies the node element to collapse.
 	 */
 	collapse(node: Object): void;
 
 	/**
 	 * Retrieves the parent node element of the specified node element.
 	 *
-	 * @param node     Specifies the jQuery selected node element to collapse.
+	 * @param node Specifies the jQuery selected node element to collapse.
 	 */
 	parentNode(node: Object): Object;
 
 	/**
 	 * Retrieves the jQuery element of the node with the specified path.
 	 *
-	 * @param nodePath     Specifies the path to the required node.
+	 * @param nodePath Specifies the path to the required node.
 	 */
 	nodeByPath(nodePath: string): Object;
 
 	/**
 	 * Retrieves the jQuery element of the node with the specified value.
 	 *
-	 * @param value     Specifies the value of the required node.
+	 * @param value Specifies the value of the required node.
 	 */
 	nodesByValue(value: string): Object;
 
@@ -78494,15 +81326,15 @@ interface IgTreeMethods {
 	/**
 	 * Selects a node.
 	 *
-	 * @param node     Specifies the node element to be selected.
-	 * @param event     Indicates the browser event which triggered this action, if this is not an API call.
+	 * @param node Specifies the node element to be selected.
+	 * @param event Indicates the browser event which triggered this action, if this is not an API call.
 	 */
 	select(node: Object, event?: Object): void;
 
 	/**
 	 * Deselects the specified node.
 	 *
-	 * @param node     Specifies the node element to be deselected.
+	 * @param node Specifies the node element to be deselected.
 	 */
 	deselect(node: Object): void;
 
@@ -78519,104 +81351,104 @@ interface IgTreeMethods {
 	/**
 	 * Retrieves all node objects with the specified text (case sensitive).
 	 *
-	 * @param text     The text to search for.
-	 * @param parent     The node element to start the search from. If not specified then search would start from the root of the tree.
+	 * @param text The text to search for.
+	 * @param parent The node element to start the search from. If not specified then search would start from the root of the tree.
 	 */
 	findNodesByText(text: string, parent?: Object): any[];
 
 	/**
 	 * Retrieves all node objects for the immediate children of the specified parent with the specified text (case sensitive).
 	 *
-	 * @param text     The text to search for.
-	 * @param parent     The node element the children of which would be searched.
+	 * @param text The text to search for.
+	 * @param parent The node element the children of which would be searched.
 	 */
 	findImmediateNodesByText(text: string, parent?: Object): any[];
 
 	/**
 	 * Retrieves the n-th jQuery node element child of the specified parent.
 	 *
-	 * @param index     Specifies the index the node at which to be retrieved.
-	 * @param parent     The parent node element to start the search from.
+	 * @param index Specifies the index the node at which to be retrieved.
+	 * @param parent The parent node element to start the search from.
 	 */
 	nodeByIndex(index: number, parent?: Object): Object;
 
 	/**
 	 * Retrieves a node object for the specified node element.
 	 *
-	 * @param element     Specifies the node element.
+	 * @param element Specifies the node element.
 	 */
 	nodeFromElement(element: Object): Object;
 
 	/**
 	 * Retrieves a node object collection of the immediate children of the provided node element.
 	 *
-	 * @param parent     Specifies the node element.
+	 * @param parent Specifies the node element.
 	 */
 	children(parent: Object): any[];
 
 	/**
 	 * Retrieves a node object collection of the immediate children of the node with the provided path.
 	 *
-	 * @param path     Specifies the path of the node the children of which are to be retrieved.
+	 * @param path Specifies the path of the node the children of which are to be retrieved.
 	 */
 	childrenByPath(path: string): any[];
 
 	/**
 	 * Returns true if the provided node element is selected and false otherwise.
 	 *
-	 * @param node     Specifies the node element.
+	 * @param node Specifies the node element.
 	 */
 	isSelected(node: Object): boolean;
 
 	/**
 	 * Returns true if the provided node element is expanded and false otherwise.
 	 *
-	 * @param node     Specifies the node element.
+	 * @param node Specifies the node element.
 	 */
 	isExpanded(node: Object): boolean;
 
 	/**
 	 * Returns true if the provided node element has its checkbox checkstate checked and false otherwise.
 	 *
-	 * @param node     Specifies the node element.
+	 * @param node Specifies the node element.
 	 */
 	isChecked(node: Object): boolean;
 
 	/**
 	 * Returns the specified node checkstate.
 	 *
-	 * @param node     Specifies the node element.
+	 * @param node Specifies the node element.
 	 */
 	checkState(node: Object): string;
 
 	/**
 	 * Adds a new array of nodes to the tree. New nodes are appended to the root or to a specified parent node, at a specified index.
 	 *
-	 * @param node     Specifies the data used to create the new nodeс.
-	 * @param parent     Specifies the element of the parent node the nodes are to be appended to.
-	 * @param nodeIndex     Specifies the index at which the nodes to be inserted.
+	 * @param node Specifies the data used to create the new nodeс.
+	 * @param parent Specifies the element of the parent node the nodes are to be appended to.
+	 * @param nodeIndex Specifies the index at which the nodes to be inserted.
 	 */
 	addNode(node: Object, parent?: Object, nodeIndex?: number): void;
 
 	/**
 	 * Removes the node with with the specified path and all of its children.
 	 *
-	 * @param path     Specifies the path of the node to be removed.
+	 * @param path Specifies the path of the node to be removed.
 	 */
 	removeAt(path: string): void;
 
 	/**
 	 * Removing all the nodes with the specified value.
 	 *
-	 * @param value     Specifies the value of the nodes to be removed.
+	 * @param value Specifies the value of the nodes to be removed.
 	 */
 	removeNodesByValue(value: string): void;
 
 	/**
 	 * Performs a UI update on the provided node element with the provided data.
 	 *
-	 * @param element     Specifies the node to be updated.
-	 * @param data     Specifies the new data item the node would update according to.
+	 * @param element Specifies the node to be updated.
+	 * @param data Specifies the new data item the node would update according to.
 	 */
 	applyChangesToNode(element: Object, data: Object): void;
 
@@ -78628,7 +81460,7 @@ interface IgTreeMethods {
 	/**
 	 * Returns the data for the node with specified path.
 	 *
-	 * @param path     Specifies the node path for which the data is returned.
+	 * @param path Specifies the node path for which the data is returned.
 	 */
 	nodeDataFor(path: string): Object;
 
@@ -78680,6 +81512,7 @@ interface JQuery {
 	 * Gets/Sets the width of the control container.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -78688,12 +81521,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets how the height of of the control container.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -78702,12 +81537,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
 	 * Gets the behavior and type of the checkboxes rendered for the tree nodes. Can be set only at initialization.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "checkboxMode"): string;
 
 	/**
@@ -78716,6 +81553,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "checkboxMode", optionValue: string): void;
 
 	/**
@@ -78750,6 +81588,7 @@ interface JQuery {
 	 * Gets/Sets the image url applied to all parent nodes.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "parentNodeImageUrl"): string;
 
 	/**
@@ -78758,12 +81597,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "parentNodeImageUrl", optionValue: string): void;
 
 	/**
 	 * Gets/Sets the CSS class applied to all parent nodes.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "parentNodeImageClass"): string;
 
 	/**
@@ -78772,12 +81613,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "parentNodeImageClass", optionValue: string): void;
 
 	/**
 	 * Gets/Sets the tooltip applied to all parent node images.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "parentNodeImageTooltip"): string;
 
 	/**
@@ -78786,12 +81629,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "parentNodeImageTooltip", optionValue: string): void;
 
 	/**
 	 * Gets/Sets the image url applied to all leaf nodes.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "leafNodeImageUrl"): string;
 
 	/**
@@ -78800,12 +81645,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "leafNodeImageUrl", optionValue: string): void;
 
 	/**
 	 * Gets/Sets the CSS class applied to all leaf nodes.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "leafNodeImageClass"): string;
 
 	/**
@@ -78814,12 +81661,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "leafNodeImageClass", optionValue: string): void;
 
 	/**
 	 * Gets/Sets the tooltip applied to all leaf node images.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "leafNodeImageTooltip"): string;
 
 	/**
@@ -78828,6 +81677,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "leafNodeImageTooltip", optionValue: string): void;
 
 	/**
@@ -78878,6 +81728,7 @@ interface JQuery {
 	 * Gets/Sets a remote URL accepted by [$.ig.DataSource](ig.datasource) in order to request data from it.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "dataSourceUrl"): string;
 
 	/**
@@ -78886,12 +81737,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "dataSourceUrl", optionValue: string): void;
 
 	/**
 	 * Gets the type of the data source. Delegates the value to [$.ig.DataSource.settings.type](ig.datasource#options:settings.type). Explicitly set data source type (such as "json"). Please refer to the documentation of $.ig.DataSource.settings.type.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "dataSourceType"): string;
 
 	/**
@@ -78900,12 +81753,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "dataSourceType", optionValue: string): void;
 
 	/**
 	 * Gets the JSON key at which a remote data source will write the data. Delegates the value to [$.ig.DataSource.settings.responseDataKey](ig.datasource#options:settings.responseDataKey). Please refer to the documentation of $.ig.DataSource.settings.responseDataKey.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "responseDataKey"): string;
 
 	/**
@@ -78914,12 +81769,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "responseDataKey", optionValue: string): void;
 
 	/**
 	 * Gets the data type of the remote data source response. Delegates the value to [$.ig.DataSource.settings.responseDataType](ig.datasource#options:settings.responseDataType). Please refer to the documentation of $.ig.DataSource.settings.responseDataType.
 	 *
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "responseDataType"): string;
 
 	/**
@@ -78928,6 +81785,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTree(optionLiteral: 'option', optionName: "responseDataType", optionValue: string): void;
 
 	/**
@@ -79434,9 +82292,9 @@ interface IgTreeGridColumnFixingMethods {
 	/**
 	 * Unfixes a column by specified column identifier - column key or column index.
 	 *
-	 * @param colIdentifier    An identifier of the column to be unfixed - column index or column key.
-	 * @param target    Key of the column where the unfixed column should move to.
-	 * @param after    Specifies where the unfixed column should be rendered after or before the target column. This parameter is disregarded if there is no target column specified.
+	 * @param colIdentifier An identifier of the column to be unfixed - column index or column key.
+	 * @param target Key of the column where the unfixed column should move to.
+	 * @param after Specifies where the unfixed column should be rendered after or before the target column. This parameter is disregarded if there is no target column specified.
 	 */
 	unfixColumn(colIdentifier: Object, target?: string, after?: boolean): Object;
 
@@ -79448,38 +82306,38 @@ interface IgTreeGridColumnFixingMethods {
 	/**
 	 * If the 'check' argument is set to true, checks whether the heights of fixed and unfixed tables are equal, if not sync them. Similar check is made for heights of table rows. If the clearRowsHeights argument is set to true, clears rows heights before syncing them.
 	 *
-	 * @param check    If set to true, checks whether the heights of fixed and unfixed tables are equal, if not sync them. If this argument is set to false sync is performed regardless of the current heights.
-	 * @param clearRowsHeights    Clears row heigths for all visible rows.
+	 * @param check If set to true, checks whether the heights of fixed and unfixed tables are equal, if not sync them. If this argument is set to false sync is performed regardless of the current heights.
+	 * @param clearRowsHeights Clears row heigths for all visible rows.
 	 */
 	syncHeights(check?: boolean, clearRowsHeights?: boolean): void;
 
 	/**
 	 * Returns whether the column with the specified key is a column group header, when the [multi-column headers](http://www.igniteui.com/help/iggrid-multicolumnheaders-landingpage) feature is used.
 	 *
-	 * @param colKey    The key of the column to perform the check for.
+	 * @param colKey The key of the column to perform the check for.
 	 */
 	isGroupHeader(colKey: string): boolean;
 
 	/**
 	 * Checks whether column fixing is allowed for the specified columns. It should not be allowed if there is only one visible column in the unfixed area.
 	 *
-	 * @param columns    Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
+	 * @param columns Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
 	 */
 	checkFixingAllowed(columns: any[]): boolean;
 
 	/**
 	 * Checks whether unfixing is allowed for the specified columns. It should not be allowed if there is only one visible column in the fixed area.
 	 *
-	 * @param columns    Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
+	 * @param columns Array of columns and/or column identifiers - could be column indexes, column keys, column object or mixed.
 	 */
 	checkUnfixingAllowed(columns: any[]): boolean;
 
 	/**
 	 * Fixes a column by specified column identifier - column index or column key.
 	 *
-	 * @param colIdentifier    An identifier of the column to be fixed - column index or column key.
-	 * @param target    Key of the column where the fixed column should move to.
-	 * @param after    Specifies where the fixed column should be moved after or before the target column. This parameter is disregarded if there is no target column specified.
+	 * @param colIdentifier An identifier of the column to be fixed - column index or column key.
+	 * @param target Key of the column where the fixed column should move to.
+	 * @param after Specifies where the fixed column should be moved after or before the target column. This parameter is disregarded if there is no target column specified.
 	 */
 	fixColumn(colIdentifier: Object, target?: string, after?: boolean): Object;
 
@@ -79511,17 +82369,17 @@ interface IgTreeGridColumnFixingMethods {
 	/**
 	 * Syncs rows heights between two collections of rows.
 	 *
-	 * @param $trs    An array of rows of the first(fixed/unfixed) container.
-	 * @param $anotherRows    An array of rows of the second(fixed/unfixed) container.
+	 * @param $trs An array of rows of the first(fixed/unfixed) container.
+	 * @param $anotherRows An array of rows of the second(fixed/unfixed) container.
 	 */
 	syncRowsHeights($trs: any[], $anotherRows: any[]): void;
 
 	/**
 	 * Calculates widths of the fixed columns.
 	 *
-	 * @param fCols    Array of grid columns. If not set then the total width of the fixed columns are returned.
-	 * @param excludeNonDataColumns    If set to true do not calculate the width of non-data fixed columns (like the row selector row numbering column).
-	 * @param includeHidden    If set to true calculates width of the hidden fixed columns (their initial width before hiding).
+	 * @param fCols Array of grid columns. If not set then the total width of the fixed columns are returned.
+	 * @param excludeNonDataColumns If set to true do not calculate the width of non-data fixed columns (like the row selector row numbering column).
+	 * @param includeHidden If set to true calculates width of the hidden fixed columns (their initial width before hiding).
 	 */
 	getWidthOfFixedColumns(fCols?: any[], excludeNonDataColumns?: boolean, includeHidden?: boolean): number;
 }
@@ -79620,6 +82478,7 @@ interface JQuery {
 	 * Configures which side the fixed columns of the grid will be rendered on. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#direction) out of more information.
 	 *
 	 */
+
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "fixingDirection"): string;
 
 	/**
@@ -79628,6 +82487,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "fixingDirection", optionValue: string): void;
 
 	/**
@@ -79676,6 +82536,7 @@ interface JQuery {
 	 * Minimal visible area in pixels for the unfixed columns. If the end user tries to fix a column(or columns), which causes the width of the fixed columns to grow such that the width of visible area of unfixed columns is less than this option then fixing will be canceled. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#non-fixable-min-width) out for more information.
 	 *
 	 */
+
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "minimalVisibleAreaWidth"): string|number;
 
 	/**
@@ -79684,6 +82545,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "minimalVisibleAreaWidth", optionValue: string|number): void;
 
 	/**
@@ -80062,11 +82924,11 @@ interface IgTreeGridColumnMovingMethods {
 	 * Moves a visible column at a specified place, in front or behind a target column or at a target index
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
-	 * @param target    An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
-	 * @param after    Specifies whether the column moved should be moved after or before the target column.
-	 * @param inDom    Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
-	 * @param callback    Specifies a custom function to be called when the column is moved.
+	 * @param column An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
+	 * @param target An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
+	 * @param after Specifies whether the column moved should be moved after or before the target column.
+	 * @param inDom Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
+	 * @param callback Specifies a custom function to be called when the column is moved.
 	 */
 	moveColumn(column: Object, target: Object, after?: boolean, inDom?: boolean, callback?: Function): void;
 }
@@ -80096,6 +82958,7 @@ interface JQuery {
 	 * Specify the drag-and-drop mode for the feature
 	 *
 	 */
+
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -80104,12 +82967,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
 	 * Specify the way columns will be rearranged
 	 *
 	 */
+
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "moveType"): string;
 
 	/**
@@ -80118,6 +82983,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "moveType", optionValue: string): void;
 
 	/**
@@ -81139,15 +84005,15 @@ interface IgTreeGridFilteringMethods {
 	/**
 	 * Toggle filter row when mode is simple or [advancedModeEditorsVisible](ui.iggridfiltering#options:advancedModeEditorsVisible) is true. Otherwise show/hide advanced dialog.
 	 *
-	 * @param event     Column key
+	 * @param event Column key
 	 */
 	toggleFilterRowByFeatureChooser(event: string): void;
 
 	/**
 	 * Applies filtering programmatically and updates the UI by default.
 	 *
-	 * @param expressions     An array of filtering expressions, each one having the format {fieldName: , expr: , cond: , logic: } where  fieldName is the key of the column, expr is the actual expression string with which we would like to filter, logic is 'AND' or 'OR', and cond is one of the following strings: "equals", "doesNotEqual", "contains", "doesNotContain", "greaterThan", "lessThan", "greaterThanOrEqualTo", "lessThanOrEqualTo", "true", "false", "null", "notNull", "empty", "notEmpty", "startsWith", "endsWith", "today", "yesterday", "on", "notOn", "thisMonth", "lastMonth", "nextMonth", "before", "after", "thisYear", "lastYear", "nextYear". The difference between the empty and null filtering conditions is that empty includes null, NaN, and undefined, as well as the empty string.
-	 * @param updateUI     specifies whether the filter row should be also updated once the grid is filtered
+	 * @param expressions An array of filtering expressions, each one having the format {fieldName: , expr: , cond: , logic: } where  fieldName is the key of the column, expr is the actual expression string with which we would like to filter, logic is 'AND' or 'OR', and cond is one of the following strings: "equals", "doesNotEqual", "contains", "doesNotContain", "greaterThan", "lessThan", "greaterThanOrEqualTo", "lessThanOrEqualTo", "true", "false", "null", "notNull", "empty", "notEmpty", "startsWith", "endsWith", "today", "yesterday", "on", "notOn", "thisMonth", "lastMonth", "nextMonth", "before", "after", "thisYear", "lastYear", "nextYear". The difference between the empty and null filtering conditions is that empty includes null, NaN, and undefined, as well as the empty string.
+	 * @param updateUI specifies whether the filter row should be also updated once the grid is filtered
 	 * @param addedFromAdvanced
 	 */
 	filter(expressions: any[], updateUI?: boolean, addedFromAdvanced?: boolean): void;
@@ -81155,7 +84021,7 @@ interface IgTreeGridFilteringMethods {
 	/**
 	 * Check whether filterCondition requires or not filtering expression - e.g. if filterCondition is "lastMonth", "thisMonth", "null", "notNull", "true", "false", etc. then filtering expression is NOT required
 	 *
-	 * @param filterCondition    filtering condition - e.g. "true", "false",  "yesterday", "empty", "null", etc.
+	 * @param filterCondition filtering condition - e.g. "true", "false",  "yesterday", "empty", "null", etc.
 	 */
 	requiresFilteringExpression(filterCondition: string): boolean;
 }
@@ -81332,6 +84198,7 @@ interface JQuery {
 	 * Type of animations for the column filter dropdowns.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDropDownAnimations"): string;
 
 	/**
@@ -81340,6 +84207,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDropDownAnimations", optionValue: string): void;
 
 	/**
@@ -81360,6 +84228,7 @@ interface JQuery {
 	 * Width of the column filter dropdowns.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDropDownWidth"): string|number;
 
 	/**
@@ -81368,6 +84237,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDropDownWidth", optionValue: string|number): void;
 
 	/**
@@ -81406,6 +84276,7 @@ interface JQuery {
 	 * Enable/disable filter icons visibility.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDropDownItemIcons"): boolean;
 
 	/**
@@ -81414,6 +84285,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDropDownItemIcons", optionValue: boolean): void;
 
 	/**
@@ -81434,6 +84306,7 @@ interface JQuery {
 	 * Type of filtering. Delegates all filtering functionality to the [$.ig.DataSource](ig.datasource).
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -81442,6 +84315,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -81462,6 +84336,7 @@ interface JQuery {
 	 * Default is 'simple' for non-virtualized grids, and 'advanced' when [virtualization](ui.iggrid#options:virtualization) is enabled.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -81470,6 +84345,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -81490,6 +84366,7 @@ interface JQuery {
 	 * Location of the advanced filtering button when [advancedModeEditorsVisible](ui.iggridfiltering#options:advancedModeEditorsVisible) is false (i.e. when the button is rendered in the header).
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "advancedModeHeaderButtonLocation"): string;
 
 	/**
@@ -81498,12 +84375,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "advancedModeHeaderButtonLocation", optionValue: string): void;
 
 	/**
 	 * Default filter dialog width (used for Advanced filtering [mode](ui.iggridfiltering#options:mode)).
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogWidth"): string|number;
 
 	/**
@@ -81512,12 +84391,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogWidth", optionValue: string|number): void;
 
 	/**
 	 * Default filter dialog height (used for Advanced filtering [mode](ui.iggridfiltering#options:mode)).
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogHeight"): string|number;
 
 	/**
@@ -81526,12 +84407,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogHeight", optionValue: string|number): void;
 
 	/**
 	 * Width of the filtering condition dropdowns in the advanced filter dialog.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterDropDownDefaultWidth"): string|number;
 
 	/**
@@ -81540,12 +84423,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterDropDownDefaultWidth", optionValue: string|number): void;
 
 	/**
 	 * Width of the filtering expression input boxes in the advanced filter dialog.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogExprInputDefaultWidth"): string|number;
 
 	/**
@@ -81554,12 +84439,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogExprInputDefaultWidth", optionValue: string|number): void;
 
 	/**
 	 * Width of the column chooser dropdowns in the advanced filter dialog.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogColumnDropDownDefaultWidth"): string|number;
 
 	/**
@@ -81568,6 +84455,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogColumnDropDownDefaultWidth", optionValue: string|number): void;
 
 	/**
@@ -81588,6 +84476,7 @@ interface JQuery {
 	 * The filtering button for filter dropdowns can be rendered either on the left of the filter editor, or on the right.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterButtonLocation"): string;
 
 	/**
@@ -81596,6 +84485,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterButtonLocation", optionValue: string): void;
 
 	/**
@@ -81708,6 +84598,7 @@ interface JQuery {
 	 * Add button width - in the advanced filter dialog.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddButtonWidth"): string|number;
 
 	/**
@@ -81716,12 +84607,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogAddButtonWidth", optionValue: string|number): void;
 
 	/**
 	 * Width of the Ok and Cancel buttons in the advanced filtering dialogs.
 	 *
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogOkCancelButtonWidth"): string|number;
 
 	/**
@@ -81730,6 +84623,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogOkCancelButtonWidth", optionValue: string|number): void;
 
 	/**
@@ -82306,9 +85200,9 @@ interface IgTreeGridHidingMethods {
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader    If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
-	 * @param callback    Specifies a custom function to be called when the column(s) is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
+	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
 	 */
 	showColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
 
@@ -82316,9 +85210,9 @@ interface IgTreeGridHidingMethods {
 	 * Hides a visible column. If the column is hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader    If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
-	 * @param callback    Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
+	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
 	 */
 	hideColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
 
@@ -82326,8 +85220,8 @@ interface IgTreeGridHidingMethods {
 	 * Hides visible columns specified by the array. If the column is hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param columns    An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback    Specifies a custom function to be called when all columns are hidden(optional)
+	 * @param columns An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when all columns are hidden(optional)
 	 */
 	hideMultiColumns(columns: any[], callback?: Function): void;
 
@@ -82335,8 +85229,8 @@ interface IgTreeGridHidingMethods {
 	 * Show visible columns specified by the array. If the column is shown the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param columns    An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback    Specifies a custom function to be called when all columns are shown(optional)
+	 * @param columns An array of identifiers for the columns. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when all columns are shown(optional)
 	 */
 	showMultiColumns(columns: any[], callback?: Function): void;
 
@@ -82930,7 +85824,7 @@ interface IgTreeGrid {
 	 * Specifies the foreign key value in the data source to treat as the root level once the grid is data bound. Defaults to -1 (which includes the entire data source)
 	 *
 	 */
-	foreignKeyRootValue?: number;
+	foreignKeyRootValue?: number|string;
 
 	/**
 	 * Specify whether to render non-data column which contains expander indicators
@@ -83461,8 +86355,8 @@ interface IgTreeGridMethods {
 	/**
 	 * Clears the transaction log (delegates to igDataSource). Note that this does not update the UI. In case the UI must be updated, set the second parameter "updateUI" to true, which will trigger a call to dataBind() to re-render the contents.
 	 *
-	 * @param rowId     If specified, will only rollback the transactions with that row id.
-	 * @param updateUI     Whether to update the UI or not.
+	 * @param rowId If specified, will only rollback the transactions with that row id.
+	 * @param updateUI Whether to update the UI or not.
 	 */
 	rollback(rowId?: Object, updateUI?: boolean): any[];
 
@@ -83474,32 +86368,32 @@ interface IgTreeGridMethods {
 	/**
 	 * Toggle row by specified row or row identifier
 	 *
-	 * @param row     jQuery table row object or a row id.
-	 * @param callback     Specifies a custom function to be called when row is expanded/collapsed. The callback has 4 arguments- a reference to the current context(this), object that holds 2 properties(unfixedRow - DOM representation of the unfixed row, fixedRow - DOM representation of the fixed row, if there is no fixed columns it is undefined), reference to the dataRecord, expand - specifies whether row is expanded
+	 * @param row jQuery table row object or a row id.
+	 * @param callback Specifies a custom function to be called when row is expanded/collapsed. The callback has 4 arguments- a reference to the current context(this), object that holds 2 properties(unfixedRow - DOM representation of the unfixed row, fixedRow - DOM representation of the fixed row, if there is no fixed columns it is undefined), reference to the dataRecord, expand - specifies whether row is expanded
 	 */
 	toggleRow(row: Object, callback?: Function): void;
 
 	/**
 	 * Expands a parent row by specified row or row identifier
 	 *
-	 * @param row     jQuery table row object or a row id.
-	 * @param callback     Specifies a custom function to be called when row is expanded/collapsed. The callback has 4 arguments- a reference to the current context(this), object that holds 2 properties(unfixedRow - DOM representation of the unfixed row, fixedRow - DOM representation of the fixed row, if there is no fixed columns it is undefined), reference to the dataRecord, expand - specifies whether row is expanded
+	 * @param row jQuery table row object or a row id.
+	 * @param callback Specifies a custom function to be called when row is expanded/collapsed. The callback has 4 arguments- a reference to the current context(this), object that holds 2 properties(unfixedRow - DOM representation of the unfixed row, fixedRow - DOM representation of the fixed row, if there is no fixed columns it is undefined), reference to the dataRecord, expand - specifies whether row is expanded
 	 */
 	expandRow(row: Object, callback?: Function): void;
 
 	/**
 	 * Collapses a parent row by specified row or row identifier
 	 *
-	 * @param row     jQuery table row object, raw DOM row object or a row id.
-	 * @param callback     Specifies a custom function to be called when row is expanded/collapsed. The callback has 4 arguments- a reference to the current context(this), object that holds 2 properties(unfixedRow - DOM representation of the unfixed row, fixedRow - DOM representation of the fixed row, if there is no fixed columns it is undefined), reference to the dataRecord, expand - specifies whether row is expanded
+	 * @param row jQuery table row object, raw DOM row object or a row id.
+	 * @param callback Specifies a custom function to be called when row is expanded/collapsed. The callback has 4 arguments- a reference to the current context(this), object that holds 2 properties(unfixedRow - DOM representation of the unfixed row, fixedRow - DOM representation of the fixed row, if there is no fixed columns it is undefined), reference to the dataRecord, expand - specifies whether row is expanded
 	 */
 	collapseRow(row: Object, callback?: Function): void;
 
 	/**
 	 * Adds a new row (TR) to the grid as a child of a specific row, by taking a data row object. Assumes the record will have the primary key.
 	 *
-	 * @param rec     The data row JavaScript object.
-	 * @param parentId     Identifier/key of the targeted parent row. If missing, then the new row is rendered to the bottom of the grid.
+	 * @param rec The data row JavaScript object.
+	 * @param parentId Identifier/key of the targeted parent row. If missing, then the new row is rendered to the bottom of the grid.
 	 */
 	renderNewChild(rec: Object, parentId?: string): void;
 
@@ -83532,7 +86426,7 @@ interface IgTreeGridMethods {
 	/**
 	 * Returns whether the column with identifier colKey is fixed
 	 *
-	 * @param colKey     An identifier of the column which should be checked. It can be a key or visible index.
+	 * @param colKey An identifier of the column which should be checked. It can be a key or visible index.
 	 */
 	isFixedColumn(colKey: Object): boolean;
 
@@ -83544,19 +86438,19 @@ interface IgTreeGridMethods {
 	/**
 	 * Returns whether the header identified by colKey is multicolumn header(has children)
 	 *
-	 * @param colKey     value of the column key
+	 * @param colKey value of the column key
 	 */
 	isGroupHeader(colKey: string): Object;
 
 	/**
 	 * Returns an object that contains information on the passed Dom element
 	 *
-	 * 	rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
-	 * 	rowIndex - the index (in the DOM) of the row associated with the element.
-	 * 	recordIndex - index of the data record associated with this element in the current dataView.
-	 * 	columnObject  - the column object associated with this element ( if the element is tr this will be null)
+	 * rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
+	 * rowIndex - the index (in the DOM) of the row associated with the element.
+	 * recordIndex - index of the data record associated with this element in the current dataView.
+	 * columnObject  - the column object associated with this element ( if the element is tr this will be null)
 	 *
-	 * @param elem    The Dom element or jQuery object which can be a TD or TR element from the grid.
+	 * @param elem The Dom element or jQuery object which can be a TD or TR element from the grid.
 	 */
 	getElementInfo(elem: Element): Object;
 
@@ -83618,17 +86512,17 @@ interface IgTreeGridMethods {
 	/**
 	 * Returns the cell TD element at the specified location
 	 *
-	 * @param x     The column index.
-	 * @param y     The row index.
-	 * @param isFixed     Optional parameter - if true get cell TD at the specified location from the fixed table
+	 * @param x The column index.
+	 * @param y The row index.
+	 * @param isFixed Optional parameter - if true get cell TD at the specified location from the fixed table
 	 */
 	cellAt(x: number, y: number, isFixed: boolean): Element;
 
 	/**
 	 * Returns the cell TD element by row id and column key
 	 *
-	 * @param rowId     The id of the row.
-	 * @param columnKey     The column key.
+	 * @param rowId The id of the row.
+	 * @param columnKey The column key.
 	 */
 	cellById(rowId: Object, columnKey: string): Element;
 
@@ -83660,22 +86554,22 @@ interface IgTreeGridMethods {
 	/**
 	 * Returns the row (TR element) at the specified index. jQuery selectors aren't used for performance reasons
 	 *
-	 * @param i     The row index.
+	 * @param i The row index.
 	 */
 	rowAt(i: number): Element;
 
 	/**
 	 * Returns the row TR element by row id
 	 *
-	 * @param rowId     The id of the row.
-	 * @param isFixed     Specify search in the fixed container.
+	 * @param rowId The id of the row.
+	 * @param isFixed Specify search in the fixed container.
 	 */
 	rowById(rowId: Object, isFixed?: boolean): Element;
 
 	/**
 	 * Returns the fixed row (TR element) at the specified index. jQuery selectors aren't used for performance reasons(in ColumnFixing scenario - only when there is at least one fixed column)
 	 *
-	 * @param i     The row index.
+	 * @param i The row index.
 	 */
 	fixedRowAt(i: number): Element;
 
@@ -83702,38 +86596,38 @@ interface IgTreeGridMethods {
 	/**
 	 * Returns a column object by the specified column key
 	 *
-	 * @param key     The column key.
+	 * @param key The column key.
 	 */
 	columnByKey(key: string): Object;
 
 	/**
 	 * Returns a column object by the specified header text. If there are multiple matches, returns the first one.
 	 *
-	 * @param text     The column header text.
+	 * @param text The column header text.
 	 */
 	columnByText(text: string): Object;
 
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -83749,98 +86643,98 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Retrieves a cell value using the row index and the column key. If a primaryKey is defined, rowId is assumed to be the row Key (not index).
-	 * 	If primary key is not defined, then rowId is converted to a number and is used as a row index.
+	 * If primary key is not defined, then rowId is converted to a number and is used as a row index.
 	 *
-	 * @param rowId     Row index or row key (primary key).
-	 * @param colKey     The column key.
+	 * @param rowId Row index or row key (primary key).
+	 * @param colKey The column key.
 	 */
 	getCellValue(rowId: Object, colKey: string): Object;
 
 	/**
 	 * Returns the cell text. If colKey is a number, the index of the column is used (instead of a column name)- does not apply when using a Multi-Row Layout grid.
-	 * 	This is the actual text (or HTML string) for the contents of the cell.
+	 * This is the actual text (or HTML string) for the contents of the cell.
 	 *
-	 * @param rowId     Row index or row data key (primary key)
-	 * @param colKey     Column key.
+	 * @param rowId Row index or row data key (primary key)
+	 * @param colKey Column key.
 	 */
 	getCellText(rowId: Object, colKey: string): string;
 
 	/**
 	 * Sets a new template for a column after initialization and renders the grid if not explicitly disabled. This method will replace any existing explicitly set row template and will build one anew from the column ones.
 	 *
-	 * @param col     An identifier of the column to set template for (index or key)
-	 * @param tmpl     The column template to set
-	 * @param render     Should the grid rerender after template is set
+	 * @param col An identifier of the column to set template for (index or key)
+	 * @param tmpl The column template to set
+	 * @param render Should the grid rerender after template is set
 	 */
 	setColumnTemplate(col: Object, tmpl: string, render?: boolean): void;
 
 	/**
 	 * Commits all pending transactions to the client data source. Note that there won't be anything to commit on the UI, since it is updated instantly. In order to rollback the actual UI, a call to dataBind() is required.
 	 *
-	 * @param rowId     If specified, will commit only that transaction corresponding to the specified record key.
+	 * @param rowId If specified, will commit only that transaction corresponding to the specified record key.
 	 */
 	commit(rowId?: Object): void;
 
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings).
-	 * 	That is a wrapper for this.dataSource.findRecordByKey(key).
+	 * That is a wrapper for this.dataSource.findRecordByKey(key).
 	 *
-	 * @param key     Primary key of the record
+	 * @param key Primary key of the record
 	 */
 	findRecordByKey(key: Object): Object;
 
 	/**
 	 * Returns a standalone object (copy) that represents the committed transactions, but detached from the data source.
-	 * 	That is a wrapper for this.dataSource.getDetachedRecord(t).
+	 * That is a wrapper for this.dataSource.getDetachedRecord(t).
 	 *
-	 * @param t     A transaction object.
+	 * @param t A transaction object.
 	 */
 	getDetachedRecord(t: Object): Object;
 
 	/**
 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source.
-	 * 	That is a wrapper for this.dataSource.pendingTransactions().
+	 * That is a wrapper for this.dataSource.pendingTransactions().
 	 */
 	pendingTransactions(): any[];
 
 	/**
 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 * 	That is a wrapper for this.dataSource.allTransactions().
+	 * That is a wrapper for this.dataSource.allTransactions().
 	 */
 	allTransactions(): any[];
 
 	/**
 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently.
-	 * 	That is a wrapper for this.dataSource.transactionsAsString().
+	 * That is a wrapper for this.dataSource.transactionsAsString().
 	 */
 	transactionsAsString(): string;
 
 	/**
 	 * Invokes an AJAX request to the updateUrl option (if specified) and passes the serialized transaction log (a serialized JSON string) as part of the POST request.
 	 *
-	 * @param success    Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
-	 * @param error    Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
+	 * @param success Specifies a custom function to be called when AJAX request to the updateUrl option succeeds(optional)
+	 * @param error Specifies a custom function to be called when AJAX request to the updateUrl option fails(optional)
 	 */
 	saveChanges(success: Function, error: Function): void;
 
 	/**
 	 * Adds a new row (TR) to the grid, by taking a data row object. Assumes the record will have the primary key.
 	 *
-	 * @param rec     Identifier/key of row. If missing, then number of rows in grid is used.
+	 * @param rec Identifier/key of row. If missing, then number of rows in grid is used.
 	 */
 	renderNewRow(rec?: string): void;
 
 	/**
 	 * If the data source points to a local JSON array of data, and it is necessary to reset it at runtime, it must be done through this API member instead of the options (options.dataSource)
 	 *
-	 * @param dataSource     New data source object.
+	 * @param dataSource New data source object.
 	 */
 	dataSourceObject(dataSource: Object): void;
 
 	/**
 	 * Returns the total number of records in the underlying backend. If paging or filtering is enabled, this may differ from the number of records in the client-side data source.
-	 * 	In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
-	 * 	This functionality is completely delegated to the data source control.
+	 * In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
+	 * This functionality is completely delegated to the data source control.
 	 */
 	totalRecordsCount(): number;
 
@@ -83848,62 +86742,62 @@ interface IgTreeGridMethods {
 	 * Moves a visible column at a specified place, in front or behind a target column or at a target index
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column    An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
-	 * @param target    An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
-	 * @param after    Specifies whether the column moved should be moved after or before the target column. This parameter is disregarded if there is no target column specified but a target index is used.
-	 * @param inDom    Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
-	 * @param callback    Specifies a custom function to be called when the column is moved.
+	 * @param column An identifier of the column to be moved. It can be a key, a Multi-Column Header identificator, or an index in a number format. The latter is not supported when the grid contains multi-column headers.
+	 * @param target An identifier of a column where the moved column should move to or an index at which the moved column should be moved to. In the case of a column identifier the column will be moved after it by default.
+	 * @param after Specifies whether the column moved should be moved after or before the target column. This parameter is disregarded if there is no target column specified but a target index is used.
+	 * @param inDom Specifies whether the column moving will be enacted through DOM manipulation or through rerendering of the grid.
+	 * @param callback Specifies a custom function to be called when the column is moved.
 	 */
 	moveColumn(column: Object, target: Object, after?: boolean, inDom?: boolean, callback?: Function): void;
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column     An identifier for the column. If a number is provided it will be used as a column index. If a string is provided it will be used as a column key.
-	 * @param callback     Specifies a custom function to be called when the column is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index. If a string is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when the column is shown(optional)
 	 */
 	showColumn(column: Object, callback: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column     An identifier for the column. If a number is provided it will be used as a column index else if a string is provided it will be used as a column key.
-	 * @param callback     Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a string is provided it will be used as a column key.
+	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
 	 */
 	hideColumn(column: Object, callback: Function): void;
 
 	/**
 	 * Gets unbound values for the specified column key. If key is not specified returns all unboundvalues
 	 *
-	 * @param key    column key
+	 * @param key column key
 	 */
 	getUnboundValues(key: string): Object;
 
 	/**
 	 * Sets unbound values for the unbound column with the specified key. If removeOldValues is true then values(if any) for the unbound columns are re-set with the new values
 	 *
-	 * @param key     key of the unbound column
-	 * @param values     array of values to be set on unbound values
-	 * @param removeOldValues     if true removes current unbound values(if any) for the specified column and apply the new ones specified in parameter values. Otherwise merge current values with the specified in parameter values
+	 * @param key key of the unbound column
+	 * @param values array of values to be set on unbound values
+	 * @param removeOldValues if true removes current unbound values(if any) for the specified column and apply the new ones specified in parameter values. Otherwise merge current values with the specified in parameter values
 	 */
 	setUnboundValues(key: string, values: any[], removeOldValues: Object): void;
 
 	/**
 	 * Sets unbound value for the unbound cell by the specified column key and row primary key.
 	 *
-	 * @param col     key of the unbound column
-	 * @param rowId     primary key value of the row
-	 * @param val     value to be set on unbound cell
-	 * @param notToRender     if false will re-render the row
+	 * @param col key of the unbound column
+	 * @param rowId primary key value of the row
+	 * @param val value to be set on unbound cell
+	 * @param notToRender if false will re-render the row
 	 */
 	setUnboundValueByPK(col: string, rowId: string, val: Object, notToRender: Object): void;
 
 	/**
 	 * Returns an unbound column with the specified key. If not found returns null
 	 *
-	 * @param key    a column key
+	 * @param key a column key
 	 */
 	getUnboundColumnByKey(key: string): Object;
 
@@ -83920,16 +86814,16 @@ interface IgTreeGridMethods {
 	/**
 	 * Calculates the width of the column so its content to be auto-fitted to the width of the data in it(the content should NOT be shrinked/cutted)
 	 *
-	 * @param columnIndex    Visible column index
+	 * @param columnIndex Visible column index
 	 */
 	calculateAutoFitColumnWidth(columnIndex: number): number;
 
 	/**
 	 * Get visible index by specified column key. If column is not found or is hidden then returns -1.
-	 * 	Note: Method does not count column groups (Multi-Column Headers).
+	 * Note: Method does not count column groups (Multi-Column Headers).
 	 *
-	 * @param columnKey     columnKey
-	 * @param includeDataSkip     Optional parameter - if set to true include non data columns(like expander column, row selectors column, etc.) in calculations
+	 * @param columnKey columnKey
+	 * @param includeDataSkip Optional parameter - if set to true include non data columns(like expander column, row selectors column, etc.) in calculations
 	 */
 	getVisibleIndexByKey(columnKey: string, includeDataSkip: boolean): number;
 
@@ -83943,14 +86837,14 @@ interface IgTreeGridMethods {
 	/**
 	 * Scroll to the specified row or specified position(in pixels)
 	 *
-	 * @param scrollerPosition     An identifier of the vertical scroll position. When it is string then it is interpreted as pixels otherwise it is the row number
+	 * @param scrollerPosition An identifier of the vertical scroll position. When it is string then it is interpreted as pixels otherwise it is the row number
 	 */
 	virtualScrollTo(scrollerPosition: Object): void;
 
 	/**
 	 * Returns column object and visible index for the table cell(TD) which is passed as argument
 	 *
-	 * @param $td     cell(TD) - either DOM TD element or jQuery object
+	 * @param $td cell(TD) - either DOM TD element or jQuery object
 	 */
 	getColumnByTD($td: Object): Object;
 }
@@ -84137,7 +87031,8 @@ interface JQuery {
 	 * Gets the foreign key value in the data source to treat as the root level once the grid is data bound. Defaults to -1 (which includes the entire data source)
 	 *
 	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "foreignKeyRootValue"): number;
+
+	igTreeGrid(optionLiteral: 'option', optionName: "foreignKeyRootValue"): number|string;
 
 	/**
 	 * Sets the foreign key value in the data source to treat as the root level once the grid is data bound. Defaults to -1 (which includes the entire data source)
@@ -84145,7 +87040,8 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "foreignKeyRootValue", optionValue: number): void;
+
+	igTreeGrid(optionLiteral: 'option', optionName: "foreignKeyRootValue", optionValue: number|string): void;
 
 	/**
 	 * Specify whether to render non-data column which contains expander indicators
@@ -84165,6 +87061,7 @@ interface JQuery {
 	 * A reference or name of a javascript function which changes first data cell - renders indentation according to databound level
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "renderFirstDataCellFunction"): string|Object;
 
 	/**
@@ -84173,6 +87070,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "renderFirstDataCellFunction", optionValue: string|Object): void;
 
 	/**
@@ -84193,6 +87091,7 @@ interface JQuery {
 	 * A reference or name of a javascript function which renders expand indicators(called ONLY IF option renderExpansionIndicatorColumn is true)
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "renderExpansionCellFunction"): string|Object;
 
 	/**
@@ -84201,6 +87100,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "renderExpansionCellFunction", optionValue: string|Object): void;
 
 	/**
@@ -84235,6 +87135,7 @@ interface JQuery {
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -84243,12 +87144,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row - (if any), etc. [Here you can find more info about setting igGrid height](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -84257,6 +87160,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -84277,6 +87181,7 @@ interface JQuery {
 	 * Used for [row virtualization](ui.iggrid#options:rowVirtualization) in [fixed mode](ui.iggrid#options:virtualizationMode). This is the average value in pixels (default) that will be used to calculate how many rows to render as the end user scrolls. Also all rows' height will be automatically set to this value.
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight"): string|number;
 
 	/**
@@ -84285,12 +87190,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "avgRowHeight", optionValue: string|number): void;
 
 	/**
 	 * Used for [column virtualization](ui.iggrid#options:columnVirtualization) in [fixed mode](ui.iggrid#options:virtualizationMode). This is the average value in pixels for a column width.
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "avgColumnWidth"): string|number;
 
 	/**
@@ -84299,12 +87206,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "avgColumnWidth", optionValue: string|number): void;
 
 	/**
 	 * Default column width that will be set for all columns, that don't have [column width](ui.iggrid#options:columns.width) defined.
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "defaultColumnWidth"): string|number;
 
 	/**
@@ -84313,6 +87222,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "defaultColumnWidth", optionValue: string|number): void;
 
 	/**
@@ -84351,6 +87261,7 @@ interface JQuery {
 	 * Determines row virtualization mode.
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "virtualizationMode"): string;
 
 	/**
@@ -84359,6 +87270,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "virtualizationMode", optionValue: string): void;
 
 	/**
@@ -84421,6 +87333,7 @@ interface JQuery {
 	 * The templating engine that will be used to render the grid [column templates](ui.iggrid#options:columns.template). [Here you can find](http://www.infragistics.com/community/blogs/marina_stoyanova/archive/2014/05/30/using-different-template-engines-with-ignite-ui-controls.aspx) how to use templating engines other than igTemplating and jsRender.
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "templatingEngine"): string;
 
 	/**
@@ -84429,6 +87342,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "templatingEngine", optionValue: string): void;
 
 	/**
@@ -84449,6 +87363,7 @@ interface JQuery {
 	 * Can be any valid data source accepted by [$.ig.DataSource](ig.datasource), or an instance of an $.ig.DataSource itself
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "dataSource"): Array<any>|Object|string;
 
 	/**
@@ -84457,6 +87372,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "dataSource", optionValue: Array<any>|Object|string): void;
 
 	/**
@@ -84723,6 +87639,7 @@ interface JQuery {
 	 * Sets gets ability to automatically format text in cells for numeric and date columns. The format patterns and rules for numbers and dates are defined in $.ig.regional.defaults object. [Here column formatting is explained in details](http://www.igniteui.com/help/iggrid-columns-and-layout#column-formatting)
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "autoFormat"): string|boolean;
 
 	/**
@@ -84731,6 +87648,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "autoFormat", optionValue: string|boolean): void;
 
 	/**
@@ -84879,6 +87797,7 @@ interface JQuery {
 	 * Configures how the feature chooser icon should display on header cells - e.g. to display as gear icon or not.
 	 *
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "featureChooserIconDisplay"): string;
 
 	/**
@@ -84887,6 +87806,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGrid(optionLiteral: 'option', optionName: "featureChooserIconDisplay", optionValue: string): void;
 
 	/**
@@ -85294,7 +88214,7 @@ interface IgTreeGridMultiColumnHeadersMethods {
 	 * Expands a collapsed group. If the group is expanded, the method does nothing.
 	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param groupKey    Group key.
+	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is expanded.
 	 */
 	expandGroup(groupKey: string, callback?: Function): void;
@@ -85403,6 +88323,25 @@ interface ContextRowRenderingEvent {
 }
 
 interface ContextRowRenderingEventUIParam {
+	/**
+	 * Gets a reference to igTreeGridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the first data row. Null if there are no records.
+	 */
+	dataRow?: any;
+
+	/**
+	 * Gets current page index.
+	 */
+	currentPageIndex?: number;
+
+	/**
+	 * Gets the current context row mode.
+	 */
+	contextRowMode?: string;
 }
 
 interface ContextRowRenderedEvent {
@@ -85410,6 +88349,30 @@ interface ContextRowRenderedEvent {
 }
 
 interface ContextRowRenderedEventUIParam {
+	/**
+	 * Gets a reference to igTreeGridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the first data row. Null if there are no records.
+	 */
+	dataRow?: any;
+
+	/**
+	 * Gets current page index.
+	 */
+	currentPageIndex?: number;
+
+	/**
+	 * Gets array of the parent rows(of the ui.dataRow). If the dataRow is null(for instance filter is applied and no records are shown) then it is empty array. Otherwise it contains all ancestors ordered by level(including the current dataRow) - the first item is root level, the last array item is the current ui.dataRow
+	 */
+	parentRows?: any[];
+
+	/**
+	 * Gets the current context row mode.
+	 */
+	contextRowMode?: string;
 }
 
 interface IgTreeGridPaging {
@@ -85751,14 +88714,14 @@ interface IgTreeGridPagingMethods {
 	/**
 	 * Gets/Sets the current page index, delegates data binding and paging to [$.ig.DataSource](ig.datasource).
 	 *
-	 * @param index     The page index to go to.
+	 * @param index The page index to go to.
 	 */
 	pageIndex(index?: number): number;
 
 	/**
 	 * Gets/Sets the page size. If no parameter is specified, just returns the current page size.
 	 *
-	 * @param size     The new page size.
+	 * @param size The new page size.
 	 */
 	pageSize(size?: number): number;
 }
@@ -85777,6 +88740,7 @@ interface JQuery {
 	 * Sets gets paging mode.
 	 *
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -85785,12 +88749,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
 	 * When data flows to the next page there are a couple of different modes that can help communicate the context of a leaf level row. When mode option is "rootLevelOnly" then the context row always shows the value of the contextRowRootText option.
 	 *
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "contextRowMode"): string;
 
 	/**
@@ -85799,6 +88765,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "contextRowMode", optionValue: string): void;
 
 	/**
@@ -85861,6 +88828,7 @@ interface JQuery {
 	 * Reference to the (or name of )function, called before rendering context row content(rendering loading message/bread crumb/parent row). The function takes 4 arguments- dataRow, $textArea- jQuery representation of the text area of the context row(when mode is loading/breadcrumb then it is <span /> otherwise <tr />), array of parent rows and context mode - "loading"|"breadcrumb"|"parent". When the function returns string it is used as html set in $textArea. If the function does not return result or returns false/empty string then rendering of the content of the context row should be handled by the developer(similar to canceling rendering of context row content).
 	 *
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "renderContextRowFunc"): Function|string;
 
 	/**
@@ -85869,6 +88837,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "renderContextRowFunc", optionValue: Function|string): void;
 
 	/**
@@ -85945,6 +88914,7 @@ interface JQuery {
 	 * Type of paging. Delegates all paging functionality to the [$.ig.DataSource](ig.datasource).
 	 *
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -85953,6 +88923,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -86001,6 +88972,7 @@ interface JQuery {
 	 * Page size dropdown location, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true. Can be rendered above the grid header or inside the pager, next to the page links.
 	 *
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLocation"): string;
 
 	/**
@@ -86009,6 +88981,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLocation", optionValue: string): void;
 
 	/**
@@ -86528,8 +89501,8 @@ interface IgTreeGridResizingMethods {
 	/**
 	 * Resizes a column to a specified width in pixels, percents or auto if no width is specified.
 	 *
-	 * @param column    An identifier for the column. If a number is provided it will be used as a columnIndex else if a strings is provided it will be used as a columnKey.
-	 * @param width    Width of the column in pixels or percents. If no width or "*" is specified the column will be auto-sized to the width of the data in it (including header and footer cells).
+	 * @param column An identifier for the column. If a number is provided it will be used as a columnIndex else if a strings is provided it will be used as a columnKey.
+	 * @param width Width of the column in pixels or percents. If no width or "*" is specified the column will be auto-sized to the width of the data in it (including header and footer cells).
 	 */
 	resize(column: Object, width?: Object): void;
 }
@@ -86771,30 +89744,30 @@ interface IgTreeGridRowSelectorsMethods {
 	/**
 	 * Change the check state of a row by row id
 	 *
-	 * @param rowId     Row Id
-	 * @param toCheck     The new check state of the checkbox - true for checked or false for unchecked
+	 * @param rowId Row Id
+	 * @param toCheck The new check state of the checkbox - true for checked or false for unchecked
 	 */
 	changeCheckStateById(rowId: Object, toCheck: boolean): void;
 
 	/**
 	 * Changes the check state of a row by index to specified value
 	 *
-	 * @param index     Row index
-	 * @param toCheck     The new check state of the checkbox - true for checked or false for unchecked
+	 * @param index Row index
+	 * @param toCheck The new check state of the checkbox - true for checked or false for unchecked
 	 */
 	changeCheckState(index: number, toCheck: boolean): void;
 
 	/**
 	 * Toggles the check state of a row by row id
 	 *
-	 * @param rowId     Row Id
+	 * @param rowId Row Id
 	 */
 	toggleCheckStateById(rowId: Object): void;
 
 	/**
 	 * Toggles the check state of a row by index
 	 *
-	 * @param index     Row index
+	 * @param index Row index
 	 */
 	toggleCheckState(index: number): void;
 
@@ -86839,6 +89812,7 @@ interface JQuery {
 	 * Determines row numbering format.
 	 *
 	 */
+
 	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "rowSelectorNumberingMode"): string;
 
 	/**
@@ -86847,12 +89821,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "rowSelectorNumberingMode", optionValue: string): void;
 
 	/**
 	 * Gets the type of checkboxes rendered in the row selector. Can be set only at initialization.
 	 *
 	 */
+
 	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "checkBoxMode"): string;
 
 	/**
@@ -86861,6 +89837,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "checkBoxMode", optionValue: string): void;
 
 	/**
@@ -86909,6 +89886,7 @@ interface JQuery {
 	 * Defines width of the row selector`s column in pixels or percentage.
 	 *
 	 */
+
 	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "rowSelectorColumnWidth"): string|number;
 
 	/**
@@ -86917,6 +89895,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "rowSelectorColumnWidth", optionValue: string|number): void;
 
 	/**
@@ -87182,7 +90161,7 @@ interface IgTreeGridSelectionMethods {
 	/**
 	 * Selects a row by row id
 	 *
-	 * @param id     Row Id
+	 * @param id Row Id
 	 */
 	selectRowById(id: Object): void;
 
@@ -87194,83 +90173,83 @@ interface IgTreeGridSelectionMethods {
 	/**
 	 * Selects a cell by row/col
 	 *
-	 * @param row     Row index
-	 * @param col     Column index
-	 * @param isFixed     If the cell is part of the fixed or unfixed area of the grid.
+	 * @param row Row index
+	 * @param col Column index
+	 * @param isFixed If the cell is part of the fixed or unfixed area of the grid.
 	 */
 	selectCell(row: number, col: number, isFixed?: boolean): void;
 
 	/**
 	 * Selects a cell by row id/column key
 	 *
-	 * @param id     Row Id
-	 * @param colKey     Column key
+	 * @param id Row Id
+	 * @param colKey Column key
 	 */
 	selectCellById(id: Object, colKey: string): void;
 
 	/**
 	 * Deselects a cell by row/col
 	 *
-	 * @param row     Row index
-	 * @param col     Column index
-	 * @param isFixed     If the cell is part of the fixed or unfixed area of the grid.
+	 * @param row Row index
+	 * @param col Column index
+	 * @param isFixed If the cell is part of the fixed or unfixed area of the grid.
 	 */
 	deselectCell(row: number, col: number, isFixed?: boolean): void;
 
 	/**
 	 * Deselects a cell by row id/column key
 	 *
-	 * @param id     Row Id
-	 * @param colKey     Column key
+	 * @param id Row Id
+	 * @param colKey Column key
 	 */
 	deselectCellById(id: Object, colKey: string): void;
 
 	/**
 	 * Selects a row by index
 	 *
-	 * @param index     Row index
+	 * @param index Row index
 	 */
 	selectRow(index: number): void;
 
 	/**
 	 * Deselects a row by index
 	 *
-	 * @param index     Row index
+	 * @param index Row index
 	 */
 	deselectRow(index: number): void;
 
 	/**
 	 * Deselects a row by row id
 	 *
-	 * @param id     Row Id
+	 * @param id Row Id
 	 */
 	deselectRowById(id: Object): void;
 
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -87338,6 +90317,7 @@ interface JQuery {
 	 * Defines type of the selection.
 	 *
 	 */
+
 	igTreeGridSelection(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -87346,6 +90326,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridSelection(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -87855,7 +90836,7 @@ interface IgTreeGridSortingMethods {
 	/**
 	 * Returns whether a column with the specified columnKey is sorted(taken from the data source sorting expressions)
 	 *
-	 * @param columnKey     Column key (string)
+	 * @param columnKey Column key (string)
 	 */
 	isColumnSorted(columnKey: string): boolean;
 	destroy(): void;
@@ -87863,8 +90844,8 @@ interface IgTreeGridSortingMethods {
 	/**
 	 * Sorts the data in a grid column  and updates the UI.
 	 *
-	 * @param index     Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column which we want to sort. If the mode is multiple, previous sorting states are not cleared.
-	 * @param direction     Specifies sorting direction (ascending or descending)
+	 * @param index Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column which we want to sort. If the mode is multiple, previous sorting states are not cleared.
+	 * @param direction Specifies sorting direction (ascending or descending)
 	 * @param header
 	 */
 	sortColumn(index: Object, direction: Object, header: Object): void;
@@ -87882,8 +90863,8 @@ interface IgTreeGridSortingMethods {
 	/**
 	 * Removes sorting for the grid column with the specified columnKey/columnIndex and updates the UI.
 	 *
-	 * @param index     Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column for which we want to remove sorting. If the mode is multiple, previous sorting states are not cleared.
-	 * @param header     - if specified client events should be fired
+	 * @param index Column key (string) or index (number) - for multi-row grid only column key can be used. Specifies the column for which we want to remove sorting. If the mode is multiple, previous sorting states are not cleared.
+	 * @param header - if specified client events should be fired
 	 */
 	unsortColumn(index: Object, header: Object): void;
 
@@ -87957,6 +90938,7 @@ interface JQuery {
 	 * Defines local or remote sorting operations.
 	 *
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "type"): string;
 
 	/**
@@ -87965,6 +90947,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
@@ -88041,6 +91024,7 @@ interface JQuery {
 	 * Defines single column sorting or multiple column sorting.
 	 *
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "mode"): string;
 
 	/**
@@ -88049,6 +91033,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "mode", optionValue: string): void;
 
 	/**
@@ -88069,6 +91054,7 @@ interface JQuery {
 	 * Gets which direction to use on the first click / keydown, if the column is sorted for the first time.
 	 *
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "firstSortDirection"): string;
 
 	/**
@@ -88077,6 +91063,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "firstSortDirection", optionValue: string): void;
 
 	/**
@@ -88179,6 +91166,7 @@ interface JQuery {
 	 * Gets width of multiple sorting dialog.
 	 *
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogWidth"): string|number;
 
 	/**
@@ -88187,12 +91175,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogWidth", optionValue: string|number): void;
 
 	/**
 	 * Gets height of multiple sorting dialog.
 	 *
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogHeight"): string|number;
 
 	/**
@@ -88201,6 +91191,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogHeight", optionValue: string|number): void;
 
 	/**
@@ -88674,6 +91665,7 @@ interface JQuery {
 	 * Determines the tooltip visibility option
 	 *
 	 */
+
 	igTreeGridTooltips(optionLiteral: 'option', optionName: "visibility"): string;
 
 	/**
@@ -88682,12 +91674,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridTooltips(optionLiteral: 'option', optionName: "visibility", optionValue: string): void;
 
 	/**
 	 * Controls the tooltip's style
 	 *
 	 */
+
 	igTreeGridTooltips(optionLiteral: 'option', optionName: "style"): string;
 
 	/**
@@ -88696,6 +91690,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridTooltips(optionLiteral: 'option', optionName: "style", optionValue: string): void;
 
 	/**
@@ -89136,23 +92131,23 @@ interface IgTreeGridUpdatingMethods {
 	/**
 	 * Adds a new child to a specific row. It also creates a transaction and updates the UI.
 	 *
-	 * @param values    Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
-	 * @param parentId    The ID of the targeted row.
+	 * @param values Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
+	 * @param parentId The ID of the targeted row.
 	 */
 	addChild(values: Object, parentId: Object): void;
 
 	/**
 	 * Starts editing for adding a new child for specific row.
 	 *
-	 * @param parentId    The ID of the targeted row.
-	 * @param raiseEvents    Specifies whether or not updating events should be raised for this operation.
+	 * @param parentId The ID of the targeted row.
+	 * @param raiseEvents Specifies whether or not updating events should be raised for this operation.
 	 */
 	startAddChildFor(parentId: Object, raiseEvents?: Object): void;
 
 	/**
 	 * Shows the "Add Child" button for specific row.
 	 *
-	 * @param row    A jQuery object of the targeted row.
+	 * @param row A jQuery object of the targeted row.
 	 */
 	showAddChildButtonFor(row: Object): void;
 
@@ -89166,9 +92161,9 @@ interface IgTreeGridUpdatingMethods {
 	 * Sets a cell value for the specified cell. It also creates a transaction and updates the UI.
 	 * If the specified cell is currently in edit mode, the function will set the desired value in the cell's editor instead.
 	 *
-	 * @param rowId    The primary key of the row the cell is a child of.
-	 * @param colKey    The column key of the cell.
-	 * @param value    The new value for the cell.
+	 * @param rowId The primary key of the row the cell is a child of.
+	 * @param colKey The column key of the cell.
+	 * @param value The new value for the cell.
 	 */
 	setCellValue(rowId: Object, colKey: string, value: Object): void;
 
@@ -89176,46 +92171,46 @@ interface IgTreeGridUpdatingMethods {
 	 * Sets values for specified cells in a row. It also creates a transaction and updates the UI.
 	 * If the specified row is currently in edit mode, the function will set the desired values in the row's editors instead.
 	 *
-	 * @param rowId    The primary key of the row to update.
-	 * @param values    Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
+	 * @param rowId The primary key of the row to update.
+	 * @param values Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
 	 */
 	updateRow(rowId: Object, values: Object): void;
 
 	/**
 	 * Adds a new row to the grid. It also creates a transaction and updates the UI.
 	 *
-	 * @param values    Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
+	 * @param values Pairs of values in the format { column1Key: value1, column2Key: value2, ... } .
 	 */
 	addRow(values: Object): void;
 
 	/**
 	 * Deletes a row from the grid. It also creates a transaction and updates the UI.
 	 *
-	 * @param rowId    The primary key of the row to delete.
+	 * @param rowId The primary key of the row to delete.
 	 */
 	deleteRow(rowId: Object): void;
 
 	/**
 	 * Starts editing for the row or cell specified (depending on the [editMode](ui.iggridupdating#options:editMode)).
 	 *
-	 * @param rowId    The row id.
-	 * @param column    The column key or index.
-	 * @param raiseEvents    Specifies whether or not updating events should be raised for this operation.
+	 * @param rowId The row id.
+	 * @param column The column key or index.
+	 * @param raiseEvents Specifies whether or not updating events should be raised for this operation.
 	 */
 	startEdit(rowId: Object, column: Object, raiseEvents?: boolean): boolean;
 
 	/**
 	 * Starts editing for adding a new row.
 	 *
-	 * @param raiseEvents    Specifies whether or not updating events should be raised for this operation.
+	 * @param raiseEvents Specifies whether or not updating events should be raised for this operation.
 	 */
 	startAddRowEdit(raiseEvents?: boolean): boolean;
 
 	/**
 	 * Ends the currently active edit mode.
 	 *
-	 * @param update    Specifies if the edit process should accept the current changes. Default is 'false'.
-	 * @param raiseEvents    Specifies whether or not updating events should be raised for this operation.
+	 * @param update Specifies if the edit process should accept the current changes. Default is 'false'.
+	 * @param raiseEvents Specifies whether or not updating events should be raised for this operation.
 	 */
 	endEdit(update?: boolean, raiseEvents?: boolean): boolean;
 
@@ -89232,22 +92227,22 @@ interface IgTreeGridUpdatingMethods {
 	/**
 	 * Gets the editor for a column by the column key. That method can be used only after the editor has been created.
 	 *
-	 * @param key    The key of the column.
+	 * @param key The key of the column.
 	 */
 	editorForKey(key: string): Object;
 
 	/**
 	 * Gets the editor for a column by the cell it resides in. If allowed the function can create the editor if it has not been created yet.
 	 *
-	 * @param cell    Reference to the jQuery-wrapped TD object of the grid that the editor belongs to.
-	 * @param create    Requests to create the editor if it has not been created yet.
+	 * @param cell Reference to the jQuery-wrapped TD object of the grid that the editor belongs to.
+	 * @param create Requests to create the editor if it has not been created yet.
 	 */
 	editorForCell(cell: string, create?: boolean): Object;
 
 	/**
 	 * Shows the delete button for specific row.
 	 *
-	 * @param row    A jQuery object of the targeted row.
+	 * @param row A jQuery object of the targeted row.
 	 */
 	showDeleteButtonFor(row: Object): void;
 
@@ -89340,6 +92335,7 @@ interface JQuery {
 	 * Gets the edit mode.
 	 *
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "editMode"): string;
 
 	/**
@@ -89348,6 +92344,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "editMode", optionValue: string): void;
 
 	/**
@@ -89536,6 +92533,7 @@ interface JQuery {
 	 * Gets how end-users are able to start edit mode. Possible values: "click", "dblclick", "F2", "enter" and their combinations separated by coma or in array. The keyboard triggers have effect only if the grid cells can receive focus (the grid's [tabIndex](ui.iggrid#options:tabIndex) property should not have a negative value) or Selection is enabled. If "dblclick" is included, then "click" has no effect.
 	 *
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "startEditTriggers"): string|Array<any>;
 
 	/**
@@ -89544,6 +92542,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "startEditTriggers", optionValue: string|Array<any>): void;
 
 	/**
@@ -89578,6 +92577,7 @@ interface JQuery {
 	 * Sets a custom function to be called when the AJAX request to the URL specified by the [updateUrl](ui.iggrid#options:updateUrl) property succeeds. The function will be called with arguments representing the data returned by the server.
 	 *
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "saveChangesSuccessHandler"): Function|string;
 
 	/**
@@ -89586,12 +92586,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "saveChangesSuccessHandler", optionValue: Function|string): void;
 
 	/**
 	 * Sets a custom function to be called when the AJAX request to the URL specified by the [updateUrl](ui.iggrid#options:updateUrl) property fails. The function will be called with arguments representing the data returned by the server.
 	 *
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "saveChangesErrorHandler"): Function|string;
 
 	/**
@@ -89600,12 +92602,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "saveChangesErrorHandler", optionValue: Function|string): void;
 
 	/**
 	 * On touch-enabled devices specifies the swipe distance for the delete button to appear.
 	 *
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "swipeDistance"): string|number;
 
 	/**
@@ -89614,6 +92618,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "swipeDistance", optionValue: string|number): void;
 
 	/**
@@ -89971,6 +92976,10 @@ interface FileSelectingEvent {
 }
 
 interface FileSelectingEventUIParam {
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileSelectedEvent {
@@ -89978,6 +92987,20 @@ interface FileSelectedEvent {
 }
 
 interface FileSelectedEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileUploadingEvent {
@@ -89985,6 +93008,40 @@ interface FileUploadingEvent {
 }
 
 interface FileUploadingEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the file size of the uploaded file.
+	 */
+	totalSize?: number;
+
+	/**
+	 * Gets the uploaded bytes.
+	 */
+	uploadedBytes?: number;
+
+	/**
+	 * Gets the current file status.
+	 */
+	fileStatus?: number;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from server side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileUploadedEvent {
@@ -89992,6 +93049,30 @@ interface FileUploadedEvent {
 }
 
 interface FileUploadedEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the file size of the uploaded file.
+	 */
+	totalSize?: number;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from server side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileUploadAbortedEvent {
@@ -89999,6 +93080,35 @@ interface FileUploadAbortedEvent {
 }
 
 interface FileUploadAbortedEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the file size of the uploaded file.
+	 */
+	totalSize?: number;
+
+	/**
+	 * Gets the uploaded bytes.
+	 */
+	uploadedBytes?: number;
+
+	/**
+	 * Gets the current file status.
+	 */
+	fileStatus?: number;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface CancelAllClickedEvent {
@@ -90006,6 +93116,10 @@ interface CancelAllClickedEvent {
 }
 
 interface CancelAllClickedEventUIParam {
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface OnErrorEvent {
@@ -90013,6 +93127,35 @@ interface OnErrorEvent {
 }
 
 interface OnErrorEventUIParam {
+	/**
+	 * Gets the current errorCode.
+	 */
+	errorCode?: number;
+
+	/**
+	 * Gets the identifier of the file for which the event is fired(after that it can be used API function getFileInfo). NOTE: It is possible to be null in some cases: try to drop multiple files when mode is single , check maximum allowed uploading files fails or check for count of maximum allowed simultaneous files upload fails.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the detailed error description.
+	 */
+	errorMessage?: string;
+
+	/**
+	 * Gets the error type - it could be clientside or serverside.
+	 */
+	errorType?: string;
+
+	/**
+	 * Gets the specific server message returned by server - if errorType is serverside.
+	 */
+	serverMessage?: string;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileExtensionsValidatingEvent {
@@ -90020,6 +93163,20 @@ interface FileExtensionsValidatingEvent {
 }
 
 interface FileExtensionsValidatingEventUIParam {
+	/**
+	 * Gets the full file name.
+	 */
+	fileName?: string;
+
+	/**
+	 * Gets the file extension.
+	 */
+	fileExtension?: string;
+
+	/**
+	 * Gets the the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface OnXHRLoadEvent {
@@ -90027,6 +93184,25 @@ interface OnXHRLoadEvent {
 }
 
 interface OnXHRLoadEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets reference to the original XMLHttpRequest object.
+	 */
+	xhr?: any;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from the server-side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface OnFormDataSubmitEvent {
@@ -90034,6 +93210,30 @@ interface OnFormDataSubmitEvent {
 }
 
 interface OnFormDataSubmitEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from the server-side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets reference to the original XMLHttpRequest object(if the browser supports HTML 5 file API - if not it is undefined).
+	 */
+	xhr?: any;
+
+	/**
+	 * Gets reference to FormData object(if the browser supports HTML5 file API) OR reference to jQuery representation of <form>.
+	 */
+	formData?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface IgUpload {
@@ -90352,23 +93552,23 @@ interface IgUploadMethods {
 	/**
 	 * Append additional data field to formData(before submitting it to the server). Usually this function is used in the handler of the event onFormDataSubmit. If the browser supports HTML5 file API formData is instance of FormData, otherwise(like IE10 and older) formData is jQuery representation of the <form> that should be submitted to the server
 	 *
-	 * @param formData    If the browser supports HTML5 file API formData is instance of FormData, otherwise(like IE10 and older) formData is jQuery representation of the <form> that should be submitted to the server
-	 * @param field    Data field that should be appended to the formData. The object has 2 properties - value and name. If the browser supports HTML5 the data field is appended to the formData object. Otherwise it is appended as input hidden field to the <form>
+	 * @param formData If the browser supports HTML5 file API formData is instance of FormData, otherwise(like IE10 and older) formData is jQuery representation of the <form> that should be submitted to the server
+	 * @param field Data field that should be appended to the formData. The object has 2 properties - value and name. If the browser supports HTML5 the data field is appended to the formData object. Otherwise it is appended as input hidden field to the <form>
 	 */
 	addDataField(formData: Object, field: Object): void;
 
 	/**
 	 * Append additional data fields to formData(before submitting it to the server). Usually this function is used in the handler of the event onFormDataSubmit. If the browser supports HTML5 file API formData is instance of FormData, otherwise(like IE10 and older) formData is jQuery representation of the <form> that should be submitted to the server
 	 *
-	 * @param formData    If the browser supports HTML5 file API formData is instance of FormData, otherwise(like IE10 and older) formData is jQuery representation of the <form> that should be submitted to the server
-	 * @param fields    Array of data fields that should be appended to the formData. Each data field is object with 2 properties - value and name. If the browser supports HTML5 these data fields are added to the formData. Otherwise each of these data field is appended as input hidden field to the <form>
+	 * @param formData If the browser supports HTML5 file API formData is instance of FormData, otherwise(like IE10 and older) formData is jQuery representation of the <form> that should be submitted to the server
+	 * @param fields Array of data fields that should be appended to the formData. Each data field is object with 2 properties - value and name. If the browser supports HTML5 these data fields are added to the formData. Otherwise each of these data field is appended as input hidden field to the <form>
 	 */
 	addDataFields(formData: Object, fields: any[]): void;
 
 	/**
 	 * Start uploading file as submitting form with the specified formNumber.
 	 *
-	 * @param formNumber    id of the upload form
+	 * @param formNumber id of the upload form
 	 */
 	startUpload(formNumber: number): void;
 
@@ -90376,7 +93576,7 @@ interface IgUploadMethods {
 	 * Cancel upload for the specified file id
 	 *  formNumber - id of the file to be canceled
 	 *
-	 * @param formNumber    id of the form which should be cancelled
+	 * @param formNumber id of the form which should be cancelled
 	 */
 	cancelUpload(formNumber: number): void;
 
@@ -90398,7 +93598,7 @@ interface IgUploadMethods {
 	/**
 	 * Returns the information about the file by specified file identifier. It could be file which is uploading/uploaded or uploading is not started. If there isn"t file with the specified file id returns null
 	 *
-	 * @param fileIndex    unique identifier of the file
+	 * @param fileIndex unique identifier of the file
 	 */
 	getFileInfo(fileIndex: number): Object;
 }
@@ -90410,21 +93610,9 @@ interface JQuery {
 	igBrowseButton(methodName: "attachFilePicker", e: Object, isHidden: Object): void;
 	igBrowseButton(methodName: "getFilePicker"): void;
 	igBrowseButton(methodName: "destroy"): void;
-
-	/**
-	 */
 	igBrowseButton(optionLiteral: 'option', optionName: "autoselect"): boolean;
-
-	/**
-	 */
 	igBrowseButton(optionLiteral: 'option', optionName: "autoselect", optionValue: boolean): void;
-
-	/**
-	 */
 	igBrowseButton(optionLiteral: 'option', optionName: "multipleFiles"): boolean;
-
-	/**
-	 */
 	igBrowseButton(optionLiteral: 'option', optionName: "multipleFiles", optionValue: boolean): void;
 
 	/**
@@ -90461,6 +93649,7 @@ interface JQuery {
 	 * Get or set width of the main container of the file upload control. Main container contains all buttons, progressbar, etc.
 	 *
 	 */
+
 	igUpload(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
@@ -90469,12 +93658,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igUpload(optionLiteral: 'option', optionName: "width", optionValue: number|string): void;
 
 	/**
 	 * Get or set height of the main container of the file upload control. Main container contains all buttons, progressbar, etc.
 	 *
 	 */
+
 	igUpload(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
@@ -90483,6 +93674,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igUpload(optionLiteral: 'option', optionName: "height", optionValue: number|string): void;
 
 	/**
@@ -91528,7 +94720,6 @@ interface IgValidator {
 	 * Gets/Sets number validation rule options.Default separators for decimals and thousands are '.' and ',' respectively and are defined in the "$.ui.igValidator.defaults" object.
 	 *
 	 *
-	 *
 	 * Valid values:
 	 * "boolean" A boolean value indicating if the field should be a number. Default separators are used.
 	 * "object" A configuration object with errorMessage, decimalSeparator and thousandsSeparator. Those properties are all optional.
@@ -91537,7 +94728,6 @@ interface IgValidator {
 
 	/**
 	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -91578,7 +94768,6 @@ interface IgValidator {
 
 	/**
 	 * Gets/Sets Credit Card number validation rule options.Note: This rule will only validate the checksum of the number using Luhn algorithm irregardless of card type.
-	 *
 	 *
 	 *
 	 * Valid values:
@@ -91858,14 +95047,14 @@ interface IgValidatorMethods {
 	/**
 	 * Trigger validation and show errors for invalid fields.
 	 *
-	 * @param field    Optional field object, its selector or zero-based index to check. Only has effect with fields collection and skips other fields.
+	 * @param field Optional field object, its selector or zero-based index to check. Only has effect with fields collection and skips other fields.
 	 */
 	validate(field?: Object): boolean;
 
 	/**
 	 * Trigger validation but do not display error messages.
 	 *
-	 * @param field    Optional field object, its selector or zero-based index to check. Only has effect with fields collection and skips other fields.
+	 * @param field Optional field object, its selector or zero-based index to check. Only has effect with fields collection and skips other fields.
 	 */
 	isValid(field?: Object): boolean;
 
@@ -91873,7 +95062,7 @@ interface IgValidatorMethods {
 	 * Hide any possible message(s) (either messageTarget or igNotifier).
 	 * Note: When the validator has a fields colleciton, not passing a field will hide messages on all fields.
 	 *
-	 * @param field    Optional field object, its selector or zero-based index to hide message for.
+	 * @param field Optional field object, its selector or zero-based index to hide message for.
 	 */
 	hide(field?: Object): void;
 
@@ -91881,7 +95070,7 @@ interface IgValidatorMethods {
 	 * Gets all current error messages for invalid field(s). Note that this method does not valdiate and states and messages are only updated on validation, so
 	 * this can be used on formValidated event or after validate/isValid method calls.
 	 *
-	 * @param field    Optional field object, selector or zero-based index for a single field to get error message for.
+	 * @param field Optional field object, selector or zero-based index for a single field to get error message for.
 	 */
 	getErrorMessages(field?: Object): any[];
 
@@ -91889,36 +95078,36 @@ interface IgValidatorMethods {
 	 * Check for currently displayed message(s). Takes an optional field.
 	 * Note: When the validator has a fields colleciton, not passing a field will return a cumulative true even if just one field has a visible message.
 	 *
-	 * @param field    Optional field object, selector or zero-based index for a single field to get error message for.
+	 * @param field Optional field object, selector or zero-based index for a single field to get error message for.
 	 */
 	isMessageDisplayed(field?: Object): boolean;
 
 	/**
 	 * Gets the notifier for the igValidator or for a single filed.
 	 *
-	 * @param field    Optional field object, its selector or zero-based index to get notifier for.
+	 * @param field Optional field object, its selector or zero-based index to get notifier for.
 	 */
 	notifier(field?: Object): Object;
 
 	/**
 	 * Adds an new input to the fields collection and initializes it with the validator. Note: Additional fields are only accepted if the validator has been created with the collection.
 	 *
-	 * @param field    An object with the field selector and options.
+	 * @param field An object with the field selector and options.
 	 */
 	addField(field: Object): void;
 
 	/**
 	 * Removes an input from the fields collection.
 	 *
-	 * @param field    The field object to remove, its zero-based index or selector.
+	 * @param field The field object to remove, its zero-based index or selector.
 	 */
 	removeField(field: Object): void;
 
 	/**
 	 * Updates a field in the validator collection. Used to reinitialize field in case a control has been created after the validator or to pass in new options.
 	 *
-	 * @param field    The field object to update, its zero-based index or selector.
-	 * @param fieldOptions    New options to apply to the field.
+	 * @param field The field object to update, its zero-based index or selector.
+	 * @param fieldOptions New options to apply to the field.
 	 */
 	updateField(field: Object, fieldOptions?: Object): void;
 
@@ -91934,6 +95123,7 @@ interface JQuery {
 declare namespace Infragistics {
 class IgValidatorBaseRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 
 	/**
@@ -91954,15 +95144,15 @@ class IgValidatorBaseRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 
 	/**
 	 * Validates a value against this rule and returns the result.
 	 *
-	 * @param options    Options for the validator, if fields are used this parameter is already populated with inherited ones.
-	 * @param value    The value to check.
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The value to check.
 	 */
 	isValid(options: Object, value: Object): boolean;
 }
@@ -91974,8 +95164,11 @@ IgValidatorBaseRule: typeof Infragistics.IgValidatorBaseRule;
 declare namespace Infragistics {
 class IgValidatorRequiredRule {
 	constructor(name: string);
+
 	constructor(groupTypes: any[]);
+
 	constructor(groupMessageName: string);
+
 	constructor(formatItems: any[]);
 	getMessageType(options: Object): void;
 	isValid(options: Object, value: Object): void;
@@ -91990,7 +95183,7 @@ class IgValidatorRequiredRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92002,6 +95195,7 @@ IgValidatorRequiredRule: typeof Infragistics.IgValidatorRequiredRule;
 declare namespace Infragistics {
 class IgValidatorControlRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	getMessageType(): void;
 
@@ -92016,7 +95210,7 @@ class IgValidatorControlRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92028,6 +95222,7 @@ IgValidatorControlRule: typeof Infragistics.IgValidatorControlRule;
 declare namespace Infragistics {
 class IgValidatorNumberRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
 
@@ -92049,7 +95244,7 @@ class IgValidatorNumberRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92061,6 +95256,7 @@ IgValidatorNumberRule: typeof Infragistics.IgValidatorNumberRule;
 declare namespace Infragistics {
 class IgValidatorDateRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
 
@@ -92082,7 +95278,7 @@ class IgValidatorDateRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92094,6 +95290,7 @@ IgValidatorDateRule: typeof Infragistics.IgValidatorDateRule;
 declare namespace Infragistics {
 class IgValidatorLengthRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	getMessageType(): void;
 	isValid(options: Object, value: Object): void;
@@ -92108,7 +95305,7 @@ class IgValidatorLengthRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92120,6 +95317,7 @@ IgValidatorLengthRule: typeof Infragistics.IgValidatorLengthRule;
 declare namespace Infragistics {
 class IgValidatorValueRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	getMessageType(): void;
 	isValid(options: Object, value: Object): void;
@@ -92132,6 +95330,7 @@ IgValidatorValueRule: typeof Infragistics.IgValidatorValueRule;
 declare namespace Infragistics {
 class IgValidatorEqualToRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
 
@@ -92153,7 +95352,7 @@ class IgValidatorEqualToRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92165,6 +95364,7 @@ IgValidatorEqualToRule: typeof Infragistics.IgValidatorEqualToRule;
 declare namespace Infragistics {
 class IgValidatorEmailRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
 
@@ -92186,7 +95386,7 @@ class IgValidatorEmailRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92198,6 +95398,7 @@ IgValidatorEmailRule: typeof Infragistics.IgValidatorEmailRule;
 declare namespace Infragistics {
 class IgValidatorPatternRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
 
@@ -92219,7 +95420,7 @@ class IgValidatorPatternRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92231,6 +95432,7 @@ IgValidatorPatternRule: typeof Infragistics.IgValidatorPatternRule;
 declare namespace Infragistics {
 class IgValidatorCustomRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 	getMessageType(): void;
 	isValid(options: Object, value: Object): void;
@@ -92245,7 +95447,7 @@ class IgValidatorCustomRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92257,12 +95459,13 @@ IgValidatorCustomRule: typeof Infragistics.IgValidatorCustomRule;
 declare namespace Infragistics {
 class IgValidatorCreditCardRule {
 	constructor(name: string);
+
 	constructor(formatItems: any[]);
 
 	/**
 	 * Based on ASP.NET CreditCardAttribute check,
 	 * https://github.com/Microsoft/referencesource/blob/master/System.ComponentModel.DataAnnotations/DataAnnotations/CreditCardAttribute.cs
-	 * using Luhn algorithm https://en.wikipedia.org/wiki/Luhn_algorithm
+	 *    using Luhn algorithm https://en.wikipedia.org/wiki/Luhn_algorithm
 	 *
 	 * @param options
 	 * @param value
@@ -92287,7 +95490,7 @@ class IgValidatorCreditCardRule {
 	/**
 	 * Formats an error message using rule-specific values (usually from formatItems).
 	 *
-	 * @param message    The unformatted error message the validator intends to display.
+	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
 }
@@ -92360,6 +95563,7 @@ interface JQuery {
 	 * Gets/Sets option to validate if a value was entered (not empty text, selected item, etc.)
 	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "required"): boolean|Object;
 
 	/**
@@ -92368,44 +95572,46 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "required", optionValue: boolean|Object): void;
 
 	/**
 	 * Gets/Sets number validation rule options.Default separators for decimals and thousands are '.' and ',' respectively and are defined in the "$.ui.igValidator.defaults" object.
 	 *
-	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "number"): boolean|Object;
 
 	/**
 	 * /Sets number validation rule options.Default separators for decimals and thousands are '.' and ',' respectively and are defined in the "$.ui.igValidator.defaults" object.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "number", optionValue: boolean|Object): void;
 
 	/**
 	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
 	 *
-	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "date"): boolean|Object;
 
 	/**
 	 * /Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "date", optionValue: boolean|Object): void;
 
 	/**
 	 * Gets/Sets email validation rule options. Uses a RegExp defined in the "$.ui.igValidator.defaults" object.
 	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "email"): boolean|Object;
 
 	/**
@@ -92414,12 +95620,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "email", optionValue: boolean|Object): void;
 
 	/**
 	 * Gets/Sets a minimum and/or maximum length of text or number of selected items. Null or 0 values are ignored.
 	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "lengthRange"): Array<any>|Object;
 
 	/**
@@ -92428,12 +95636,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "lengthRange", optionValue: Array<any>|Object): void;
 
 	/**
 	 * Gets/Sets a minimum and/or maximum value. Null values are ignored.
 	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "valueRange"): Array<any>|Object;
 
 	/**
@@ -92442,28 +95652,30 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "valueRange", optionValue: Array<any>|Object): void;
 
 	/**
 	 * Gets/Sets Credit Card number validation rule options.Note: This rule will only validate the checksum of the number using Luhn algorithm irregardless of card type.
 	 *
-	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "creditCard"): boolean|Object;
 
 	/**
 	 * /Sets Credit Card number validation rule options.Note: This rule will only validate the checksum of the number using Luhn algorithm irregardless of card type.
 	 *
 	 *
-	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "creditCard", optionValue: boolean|Object): void;
 
 	/**
 	 * Gets/Sets regular expression validation rule options.
 	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "pattern"): string|Object;
 
 	/**
@@ -92472,6 +95684,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "pattern", optionValue: string|Object): void;
 
 	/**
@@ -92536,6 +95749,7 @@ interface JQuery {
 	 * Gets/Sets a requirement for the value in this field to be the same as another input element or editor control.
 	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "equalTo"): string|Object;
 
 	/**
@@ -92544,12 +95758,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "equalTo", optionValue: string|Object): void;
 
 	/**
 	 * Gets/Sets a custom function to perform validation. Use 'this' to reference the calling validator and the value and optional field settings arguments to determine and return the state of the field.
 	 *
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "custom"): Function|string|Object;
 
 	/**
@@ -92558,6 +95774,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igValidator(optionLiteral: 'option', optionName: "custom", optionValue: Function|string|Object): void;
 
 	/**
@@ -93776,21 +96993,21 @@ interface IgVideoPlayerMethods {
 	/**
 	 * Play a linked commercial for this video.
 	 *
-	 * @param commercial     Specify the linked commercial to play.
+	 * @param commercial Specify the linked commercial to play.
 	 */
 	playCommercial(commercial: Object): void;
 
 	/**
 	 * Shows the ad banner, if there is such.
 	 *
-	 * @param index    Specify the index of the banner from the banners array.
+	 * @param index Specify the index of the banner from the banners array.
 	 */
 	showBanner(index: number): void;
 
 	/**
 	 * Hide the ad banner, if there is such.
 	 *
-	 * @param index    Specify the index of the banner from the banners array.
+	 * @param index Specify the index of the banner from the banners array.
 	 */
 	hideBanner(index: number): void;
 
@@ -93817,14 +97034,14 @@ interface IgVideoPlayerMethods {
 	/**
 	 * Gets/Sets the current time of the playing video.
 	 *
-	 * @param val     Specify the playback position in seconds to navigate to.
+	 * @param val Specify the playback position in seconds to navigate to.
 	 */
 	currentTime(val: number): number;
 
 	/**
 	 * Get a screenshot of the current video frame. It returns a canvas object that you can position and show on the page. This depends on the browser support for canvas.
 	 *
-	 * @param scaleFactor    Specify scale factor between 0 and 1.
+	 * @param scaleFactor Specify scale factor between 0 and 1.
 	 */
 	screenshot(scaleFactor?: number): Object;
 
@@ -93917,6 +97134,7 @@ interface JQuery {
 	 * Gets/Sets the width of the control. By default null will stretch the control to fit data, if no other widths are defined.
 	 *
 	 */
+
 	igVideoPlayer(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -93925,12 +97143,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igVideoPlayer(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets/Sets the height of the control. By default null will stretch the control to fit data, if no other heights are defined.
 	 *
 	 */
+
 	igVideoPlayer(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
@@ -93939,6 +97159,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igVideoPlayer(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
 
 	/**
@@ -94518,6 +97739,10 @@ interface ZoomChangingEvent {
 }
 
 interface ZoomChangingEventUIParam {
+	/**
+	 * Gets reference to igZoombar.
+	 */
+	owner?: any;
 }
 
 interface ZoomChangedEvent {
@@ -94525,6 +97750,10 @@ interface ZoomChangedEvent {
 }
 
 interface ZoomChangedEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface ProviderCreatedEvent {
@@ -94532,6 +97761,15 @@ interface ProviderCreatedEvent {
 }
 
 interface ProviderCreatedEventUIParam {
+	/**
+	 * Gets a reference to the created provider.
+	 */
+	provider?: any;
+
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragStartingEvent {
@@ -94539,6 +97777,10 @@ interface WindowDragStartingEvent {
 }
 
 interface WindowDragStartingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragStartedEvent {
@@ -94546,6 +97788,10 @@ interface WindowDragStartedEvent {
 }
 
 interface WindowDragStartedEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDraggingEvent {
@@ -94553,6 +97799,10 @@ interface WindowDraggingEvent {
 }
 
 interface WindowDraggingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragEndingEvent {
@@ -94560,6 +97810,10 @@ interface WindowDragEndingEvent {
 }
 
 interface WindowDragEndingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragEndedEvent {
@@ -94567,6 +97821,10 @@ interface WindowDragEndedEvent {
 }
 
 interface WindowDragEndedEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowResizingEvent {
@@ -94574,6 +97832,10 @@ interface WindowResizingEvent {
 }
 
 interface WindowResizingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface IgZoombar {
@@ -94751,8 +98013,8 @@ interface IgZoombarMethods {
 	/**
 	 * Gets or sets the current zoom window
 	 *
-	 * @param left     The left parameter of the new zoom window in percentages
-	 * @param width     The width parameter of the new zoom window in percentages
+	 * @param left The left parameter of the new zoom window in percentages
+	 * @param width The width parameter of the new zoom window in percentages
 	 */
 	zoom(left?: number, width?: number): Object;
 }
@@ -94798,22 +98060,22 @@ class ZoombarProviderDefault {
 	/**
 	 * Gets basic options for initializing the clone, based on the options the target is initialized with
 	 *
-	 * @param options    if the Zoombar has a copy of the options object it'll pass it to the provider
+	 * @param options if the Zoombar has a copy of the options object it'll pass it to the provider
 	 */
 	getBaseOpts(options: Object): void;
 
 	/**
 	 * Alters specific options so that the the clone is more suitable for its purpose
 	 *
-	 * @param options    the base options of the widget obtained from getBaseOpts
+	 * @param options the base options of the widget obtained from getBaseOpts
 	 */
 	cleanOptsForZoom(options: Object): void;
 
 	/**
 	 * Will be called by the Zoombar if a clone of the target widget should be created
 	 *
-	 * @param container    a jQuery wrapped element to create the clone component in
-	 * @param options    the options that are obtained from cleanOptsForZoom
+	 * @param container a jQuery wrapped element to create the clone component in
+	 * @param options the options that are obtained from cleanOptsForZoom
 	 */
 	createClone(container: Object, options: Object): void;
 
@@ -94830,22 +98092,22 @@ class ZoombarProviderDefault {
 	/**
 	 * Sets the target widget min window width (to be in sync with the same property of the zoombar)
 	 *
-	 * @param minWidth    a number from 0 to 1 representing the minimal width (i.e. maximal zoom) the zoom window can take as a fraction of the total one
+	 * @param minWidth a number from 0 to 1 representing the minimal width (i.e. maximal zoom) the zoom window can take as a fraction of the total one
 	 */
 	syncMinWidth(minWidth: number): void;
 
 	/**
 	 * Sets the width and height of the clone component
 	 *
-	 * @param width    The width to set in pixels or string (px or % -affixed).
-	 * @param height    The height to set in pixels or string (px or % -affixed).
+	 * @param width The width to set in pixels or string (px or % -affixed).
+	 * @param height The height to set in pixels or string (px or % -affixed).
 	 */
 	setSize(width: Object, height: Object): void;
 
 	/**
 	 * Gets/sets the target object
 	 *
-	 * @param obj    the new target component instance to set
+	 * @param obj the new target component instance to set
 	 */
 	targetObject(obj?: Object): void;
 
@@ -94908,6 +98170,7 @@ interface JQuery {
 	 * object A valid jQuery object, the first element of which is that element.
 	 *
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "target"): string|Object;
 
 	/**
@@ -94917,6 +98180,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "target", optionValue: string|Object): void;
 
 	/**
@@ -94924,6 +98188,7 @@ interface JQuery {
 	 * object A valid set of properties to initialize the clone with.
 	 *
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "clone"): string|Object;
 
 	/**
@@ -94933,12 +98198,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "clone", optionValue: string|Object): void;
 
 	/**
 	 * Gets the width of the Zoombar.
 	 *
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "width"): string|number;
 
 	/**
@@ -94947,12 +98214,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
 	 * Gets the height of the Zoombar.
 	 *
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
@@ -94961,12 +98230,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "height", optionValue: number|string): void;
 
 	/**
 	 * Gets when the zoom effect is applied.
 	 *
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "zoomAction"): string;
 
 	/**
@@ -94975,6 +98246,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
+
 	igZoombar(optionLiteral: 'option', optionName: "zoomAction", optionValue: string): void;
 
 	/**

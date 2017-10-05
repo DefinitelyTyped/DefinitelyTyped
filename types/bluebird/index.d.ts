@@ -695,6 +695,11 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
    * This method is convenient when a function can sometimes return synchronously or throw synchronously.
    */
+  static method<R, A1>(fn: (arg1: A1) => R | PromiseLike<R>): (arg1: A1) => Bluebird<R>
+  static method<R, A1, A2>(fn: (arg1: A1, arg2: A2) => R | PromiseLike<R>): (arg1: A1, arg2: A2) => Bluebird<R>
+  static method<R, A1, A2, A3>(fn: (arg1: A1, arg2: A2, arg3: A3) => R | PromiseLike<R>): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<R>
+  static method<R, A1, A2, A3, A4>(fn: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => R | PromiseLike<R>): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<R>
+  static method<R, A1, A2, A3, A4, A5>(fn: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => R | PromiseLike<R>): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<R>
   static method<R>(fn: (...args: any[]) => R | PromiseLike<R>): (...args: any[]) => Bluebird<R>;
 
   /**
@@ -776,9 +781,17 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
    */
-  // TODO fix coroutine GeneratorFunction
-  static coroutine(generatorFunction: (...args: any[]) => IterableIterator<any>): (...args: any[]) => Bluebird<any>;
-
+  // TODO: After https://github.com/Microsoft/TypeScript/issues/2983 is implemented, we can use
+  // the return type propagation of generators to automatically infer the return type T.
+  static coroutine<T>(generatorFunction: () => IterableIterator<any>, options?: Bluebird.CoroutineOptions): () => Bluebird<T>;
+  static coroutine<T, A1>(generatorFunction: (a1: A1) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1) => Bluebird<T>;
+  static coroutine<T, A1, A2>(generatorFunction: (a1: A1, a2: A2) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3>(generatorFunction: (a1: A1, a2: A2, a3: A3) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6, A7>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
+  static coroutine<T, A1, A2, A3, A4, A5, A6, A7, A8>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
   /**
    * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
    *
@@ -990,6 +1003,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   }): void;
 
   /**
+   * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
+   * If promise cancellation is enabled, passed in function will receive one more function argument `onCancel` that allows to register an optional cancellation callback.
+   */
+  static Promise: typeof Bluebird
+
+  /**
    * The version number of the library
    */
   static version: string;
@@ -1014,6 +1033,9 @@ declare namespace Bluebird {
     filter?: (name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean) => boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
     promisifier?: (originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>) => () => PromiseLike<any>;
+  }
+  export interface CoroutineOptions {
+    yieldHandler: (value: any) => any;
   }
 
   /**

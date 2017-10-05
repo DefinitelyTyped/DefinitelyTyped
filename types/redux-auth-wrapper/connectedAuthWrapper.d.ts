@@ -1,6 +1,6 @@
 import { ReactType } from "react";
-import { AuthBaseConfig, AuthWrapperDecorator } from "redux-auth-wrapper";
-import { AuthWrapperConfig, InjectedAuthProps } from "redux-auth-wrapper/authWrapper";
+import { AuthBaseConfig, AuthWrapperDecorator } from ".";
+import { AuthWrapperConfig, InjectedAuthProps } from "./authWrapper";
 
 export type ConnectedAuthWrapperConfig<OwnProps = {}, State = {}> = AuthWrapperConfig & AuthBaseConfig<OwnProps, State>;
 

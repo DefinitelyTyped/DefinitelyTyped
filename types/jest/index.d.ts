@@ -1,4 +1,4 @@
-// Type definitions for Jest 20.0
+// Type definitions for Jest 21.1
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -7,6 +7,7 @@
 //                 Alex Jover Morales <https://github.com/alexjoverm>
 //                 Allan Lukwago <https://github.com/epicallan>
 //                 Ika <https://github.com/ikatyang>
+//                 Waseem Dahman <https://github.com/wsmd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -60,6 +61,14 @@ declare namespace jest {
      * Equivalent to calling .mockClear() on every mocked function.
      */
     function resetAllMocks(): typeof jest;
+    /**
+     * available since Jest 21.1.0
+     * Restores all mocks back to their original value.
+     * Equivalent to calling .mockRestore on every mocked function.
+     * Beware that jest.restoreAllMocks() only works when mock was created with
+     * jest.spyOn; other mocks will require you to manually restore them.
+     */
+    function restoreAllMocks(): typeof jest;
     /**
      * Removes any pending timers from the timer system. If any timers have
      * been scheduled, they will be cleared and will never have the opportunity
@@ -319,6 +328,10 @@ declare namespace jest {
          * Matches any string that contains the exact provided string
          */
         stringMatching(str: string | RegExp): any;
+        /**
+         * Matches any received string that contains the exact expected string
+         */
+        stringContaining(str: string): any;
     }
 
     interface Matchers<R> {
@@ -353,8 +366,9 @@ declare namespace jest {
         /**
          * Using exact equality with floating point numbers is a bad idea.
          * Rounding means that intuitive things fail.
+         * The default for numDigits is 2.
          */
-        toBeCloseTo(expected: number, delta?: number): R;
+        toBeCloseTo(expected: number, numDigits?: number): R;
         /**
          * Ensure that a variable is not undefined.
          */

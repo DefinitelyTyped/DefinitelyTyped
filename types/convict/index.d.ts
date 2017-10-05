@@ -1,4 +1,4 @@
-// Type definitions for convict 4.0
+// Type definitions for convict 4.1
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Vesa Poikajärvi <https://github.com/vesse>
@@ -118,7 +118,7 @@ declare namespace convict {
 interface convict {
     addFormat(format: convict.Format): void;
     addFormats(formats: { [name: string]: convict.Format }): void;
-    (config: convict.Schema): convict.Config;
+    (config: convict.Schema | string): convict.Config;
 }
 declare var convict: convict;
 export = convict;
