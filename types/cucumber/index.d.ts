@@ -7,6 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+export interface World {
+    [key: string]: any;
+}
+
 export interface CallbackStepDefinition {
     pending(): PromiseLike<any>;
     (error?: any, pending?: string): void;
@@ -21,7 +25,7 @@ export interface TableDefinition {
 
 export type StepDefinitionParam = string | number | CallbackStepDefinition | TableDefinition;
 
-export type StepDefinitionCode = (this: {[key: string]: any}, ...stepArgs: StepDefinitionParam[]) => PromiseLike<any> | any | void;
+export type StepDefinitionCode = (this: World, ...stepArgs: StepDefinitionParam[]) => PromiseLike<any> | any | void;
 
 export interface StepDefinitionOptions {
     timeout?: number;
@@ -45,7 +49,7 @@ export interface HookScenarioResult {
     stepsResults: any;
 }
 
-export type HookCode = (this: { [key: string]: any }, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
+export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
 
 // tslint:disable-next-line ban-types
 export type AroundCode = (scenario: HookScenarioResult, runScenario?: (error: string, callback?: Function) => void) => void;
@@ -69,7 +73,7 @@ export interface Hooks {
     Around(code: AroundCode): void;
     setDefaultTimeout(time: number): void;
     // tslint:disable-next-line ban-types
-    setWorldConstructor(world: ((this: {[key: string]: any}, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
+    setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
     registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
     registerListener(listener: EventListener): void;
     defineParameterType(transform: Transform): void;

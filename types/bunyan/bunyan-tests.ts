@@ -47,7 +47,8 @@ const options: Logger.LoggerOptions = {
     }, {
         type: 'raw',
         stream: ringBuffer,
-        level: Logger.ERROR
+        level: Logger.ERROR,
+        reemitErrorEvents: true
     }]
 };
 

@@ -241,6 +241,10 @@ declare module 'twit' {
       id?: string,
       slug?: string,
       status?: string,
+      user_id?: number,
+      lat?: number,
+      long?: number,
+      follow?: boolean,
     }
     export interface PromiseResponse {
       data: Response,

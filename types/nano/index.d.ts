@@ -16,6 +16,7 @@ declare function nano(
 declare namespace nano {
   interface Configuration {
     url: string;
+    cookie?: string;
     requestDefaults?: CoreOptions;
     log?(id: string, args: any): void;
     parseUrl?: boolean;

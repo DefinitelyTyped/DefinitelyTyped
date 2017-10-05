@@ -436,7 +436,7 @@ declare namespace chrome.bookmarks {
 declare namespace chrome.browserAction {
     interface BadgeBackgroundColorDetails {
         /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
-        color: any;
+        color: string | ColorArray;
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number;
     }
@@ -447,6 +447,8 @@ declare namespace chrome.browserAction {
         /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
         tabId?: number;
     }
+
+    type ColorArray = [number, number, number, number];
 
     interface TitleDetails {
         /** The string the browser action should display when moused over. */
@@ -518,7 +520,7 @@ declare namespace chrome.browserAction {
      * @param callback The callback parameter should be a function that looks like this:
      * function( ColorArray result) {...};
      */
-    export function getBadgeBackgroundColor(details: TabDetails, callback: (result: number[]) => void): void;
+    export function getBadgeBackgroundColor(details: TabDetails, callback: (result: ColorArray) => void): void;
     /**
      * Since Chrome 19.
      * Gets the html document set as the popup for this browser action.
