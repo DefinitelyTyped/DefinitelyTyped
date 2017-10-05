@@ -13,7 +13,7 @@ interface TokenHeaderDto {
   alg: string;
 }
 
-const decodedTokenPayloadOld = jwtDecode(token) as TokenDto;
+const decodedTokenPayloadOld = jwtDecode(token);
 const decodedTokenPayload = jwtDecode<TokenDto>(token);
-const decodedTokenHeaderOld = jwtDecode(token, { header: true }) as TokenHeaderDto;
+const decodedTokenHeaderOld = jwtDecode(token, { header: true });
 const decodedTokenHeader = jwtDecode<TokenHeaderDto>(token, { header: true });

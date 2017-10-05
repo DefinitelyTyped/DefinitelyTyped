@@ -1,6 +1,6 @@
 // Type definitions for Webix UI 4.3
 // Project: http://webix.com
-// Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
+// Definitions by: Maksim Kozhukh <https://github.com/mkozhukh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

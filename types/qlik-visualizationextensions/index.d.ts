@@ -1,5 +1,5 @@
-// Type definitions for qlik-visualizationextensions 3.2
-// Project: http://help.qlik.com/en-US/sense-developer/3.2/Subsystems/Extensions/Content/extensions-introduction.htm
+// Type definitions for qlik-visualizationextensions 4.0
+// Project: http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/Extensions/Content/extensions-introduction.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -940,6 +940,38 @@ declare namespace RootAPI {
         identity: string;
     }
 
+    interface ISessionAppConfig {
+        /**
+         * Optional Qlik host.
+         */
+        host?: string;
+
+        /**
+         * Port number.
+         */
+        port: string | number;
+
+        /**
+         * Optional. Qlik virtual proxy. "/" if no proxy.
+         */
+        prefix: string;
+
+        /**
+         * Optional. Use SSL.
+         */
+        isSecure: boolean;
+
+        /**
+         * Optional. Open app without loading data.
+         */
+        openWithoutData: boolean;
+
+        /**
+         * Optional. Unique identity for the session. If omitted, the session will be shared.
+         */
+        identity: string;
+    }
+
     interface IRoot {
         /**
          * Calls the Qlik Sense repository.
@@ -1026,6 +1058,21 @@ declare namespace RootAPI {
          * @param {string} [ID] - Object id. Optional: if no ID resize event will be sent to all objects.
          */
         resize(ID?: string): void;
+
+        /**
+         * Creates a session app JavaScript object with app methods.
+         * @param {any} [config] - Additional configuration parameters
+         * @return {any} - App JavaScript object with app methods.
+         */
+        sessionApp(config?: ISessionAppConfig): AppAPI.IApp;
+
+        /**
+         * Creates a session app JavaScript object with app methods from an existing app. You can create one session app per app.
+         * @param {string} [appId] - App id of the app to base the session app upon.
+         * @param {any} [config] - Additional configuration parameters.
+         * @return {any} - App JavaScript object with app methods.
+         */
+        sessionAppFromApp(appId: string, config?: ISessionAppConfig): AppAPI.IApp;
 
         /**
          * Sets a specific language for the Qlik Sense session.
@@ -1260,6 +1307,12 @@ declare namespace AppAPI {
         getObjectProperties(id: string): ng.IPromise<any>;
 
         /**
+         * Gets the data load script of this app.
+         * @return {Promise} - A promise of an qScript object.
+         */
+        getScript(): ng.IPromise<string>;
+
+        /**
          * Inserts a Qlik Sense snapshot into a HTML element. The snapshot fills
          * the HTML object so you can size and position the element to determine
          * how large the Qlik Sense object will be. If you only supply one parameter,
@@ -1370,10 +1423,17 @@ declare namespace AppAPI {
         selectAssociations(qMatchIx: number, qTerms: any[], qOptions?: any, qSoftLock?: any): ng.IPromise<any>;
 
         /**
-         * Creates a QSelectionState object that encapsulates the selection state. Entry point to the Selection API.
+         * Sets the data load script of this app. Also validates the script syntax and returns the syntax errors if errors exist.
          * @param {string} [state] - Optional. Sets the state. Default is $.
          */
         selectionState(state?: string): SelectionStateAPI.IQSelectionState;
+
+        /**
+         * Creates a QSelectionState object that encapsulates the selection state. Entry point to the Selection API.
+         * @param {string} [script] - The script content.
+         * @return {Promise} - A promise of an empty object or a list of syntax errors depending on the validation result.
+         */
+        setScript(script: string): ng.IPromise<any>;
 
         /**
          * Unlocks all selections that has previously been locked.
@@ -2469,6 +2529,8 @@ declare module "qlik" {
 }
 
 interface IQVAngular {
+    $injector: angular.auto.IInjectorService;
+
     /**
      * Register a new directive with the compiler.
      *

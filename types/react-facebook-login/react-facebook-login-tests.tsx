@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import FacebookLogin from 'react-facebook-login';
-import { ReactFacebookLoginInfo } from 'react-facebook-login';
+import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 
 const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);

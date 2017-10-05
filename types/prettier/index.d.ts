@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.5
+// Type definitions for prettier 1.7
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,6 +62,11 @@ export interface Options {
      * Specify the input filepath. This will be used to do parser inference.
      */
     filepath?: string;
+    /**
+     * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
+     * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     */
+    requirePragma?: boolean;
 }
 
 export interface CursorOptions extends Options {
@@ -96,6 +101,34 @@ export function check(source: string, options?: Options): boolean;
  * The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
  */
 export function formatWithCursor(source: string, options: CursorOptions): CursorResult;
+
+export interface ResolveConfigOptions {
+    /**
+     * If set to `false`, all caching will be bypassed.
+     */
+    useCache?: boolean;
+}
+
+/**
+ * `resolveConfig` can be used to resolve configuration for a given source file.
+ * The function optionally accepts an input file path as an argument, which defaults to the current working directory.
+ * A promise is returned which will resolve to:
+ *
+ *  - An options object, providing a [config file](https://github.com/prettier/prettier#configuration-file) was found.
+ *  - `null`, if no file was found.
+ *
+ * The promise will be rejected if there was an error parsing the configuration file.
+ */
+export function resolveConfig(filePath?: string, options?: ResolveConfigOptions): Promise<null | Options>;
+export namespace resolveConfig {
+    function sync(filePath?: string, options?: ResolveConfigOptions): null | Options;
+}
+
+/**
+ * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
+ * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
+ */
+export function clearConfigCache(): void;
 
 /**
  * `version` field in `package.json`

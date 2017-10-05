@@ -5,4 +5,4 @@
 
 import { Middleware } from 'redux';
 
-export default function promiseMiddleware(config?: { promiseTypeSuffixes: string[] }): Middleware;
+export default function promiseMiddleware(config?: { promiseTypeSuffixes?: string[], promiseTypeSeparator?: string }): Middleware;

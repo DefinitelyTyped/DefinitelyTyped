@@ -1,6 +1,6 @@
 // Type definitions for core-js 0.9
 // Project: https://github.com/zloirock/core-js/
-// Definitions by: Ron Buckton <http://github.com/rbuckton>, Michel Felipe <http://github.com/mfdeveloper>
+// Definitions by: Ron Buckton <https://github.com/rbuckton>, Michel Felipe <https://github.com/mfdeveloper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

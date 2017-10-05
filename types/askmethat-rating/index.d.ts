@@ -1,6 +1,6 @@
 // Type definitions for askmethat-rating 0.3
 // Project: https://alexteixeira.github.io/Askmethat-Rating/
-// Definitions by: Alexandre Teixeira <https://github.com/AlexTeixeira/>
+// Definitions by: Alexandre Teixeira <https://github.com/AlexTeixeira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

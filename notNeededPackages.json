@@ -1,6 +1,12 @@
 {
     "packages": [
         {
+            "libraryName": "3d-bin-packing",
+            "typingsPackageName": "3d-bin-packing",
+            "sourceRepoURL": "https://github.com/betterwaysystems/packer",
+            "asOfVersion": "1.1.3"
+        },
+        {
             "libraryName": "ag-grid",
             "typingsPackageName": "ag-grid",
             "sourceRepoURL": "https://github.com/ceolter/ag-grid",
@@ -277,6 +283,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jpush-react-native",
+            "typingsPackageName": "jpush-react-native",
+            "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "jquery.ajaxfile",
             "typingsPackageName": "jquery.ajaxfile",
             "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
@@ -305,6 +317,12 @@
             "typingsPackageName": "knockout-pre-rendered",
             "sourceRepoURL": "https://github.com/ErikSchierboom/knockout-pre-rendered",
             "asOfVersion": "0.7.1"
+        },
+        {
+            "libraryName": "lambda-phi",
+            "typingsPackageName": "lambda-phi",
+            "sourceRepoURL": "https://github.com/elitechance/lambda-phi",
+            "asOfVersion": "1.0.1"
         },
         {
             "libraryName": "Linq.JS",
@@ -547,6 +565,30 @@
             "asOfVersion": "0.3.0"
         },
         {
+            "libraryName": "router5",
+            "typingsPackageName": "router5",
+            "sourceRepoURL": "https://github.com/router5/router5",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "samchon",
+            "typingsPackageName": "samchon",
+            "sourceRepoURL": "https://github.com/samchon/framework",
+            "asOfVersion": "2.0.22"
+        },
+        {
+            "libraryName": "samchon-framework",
+            "typingsPackageName": "samchon-framework",
+            "sourceRepoURL": "https://github.com/samchon/framework",
+            "asOfVersion": "2.0.21"
+        },
+        {
+            "libraryName": "samchon-library",
+            "typingsPackageName": "samchon-library",
+            "sourceRepoURL": "https://github.com/samchon/framework",
+            "asOfVersion": "0.1.0"
+        },
+        {
             "libraryName": "node-scanf",
             "typingsPackageName": "scanf",
             "sourceRepoURL": "https://github.com/Lellansin/node-scanf",
@@ -631,6 +673,12 @@
             "asOfVersion": "0.5.0"
         },
         {
+            "libraryName": "tstl",
+            "typingsPackageName": "tstl",
+            "sourceRepoURL": "https://github.com/samchon/tstl",
+            "asOfVersion": "1.5.7"
+        },
+        {
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
@@ -689,6 +737,12 @@
             "typingsPackageName": "x2js",
             "sourceRepoURL": "https://code.google.com/p/x2js/",
             "asOfVersion": "3.1.0"
+        },
+        {
+            "libraryName": "xlsx",
+            "typingsPackageName": "xlsx",
+            "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
+            "asOfVersion": "0.0.36"
         },
         {
             "libraryName": "xml-js",

@@ -1,6 +1,6 @@
 // Type definitions for passport-jwt 2.0
 // Project: https://github.com/ripjar/passport-client-cert
-// Definitions by: Sean Warner <https://github.com/warnersean/>
+// Definitions by: Sean Warner <https://github.com/warnersean>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

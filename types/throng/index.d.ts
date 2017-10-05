@@ -1,6 +1,6 @@
 // Type definitions for throng 4.0
 // Project: https://github.com/hunterloftis/throng
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function throng(options: throng.WorkerCallback | throng.Options | number, startFunction?: throng.WorkerCallback): void;

@@ -1,9 +1,17 @@
-{ 
+{
     "extends": "dtslint/dt.json",
     "rules": {
-        "strict-export-declare-modifiers": false,
-        "no-empty-interface": false,
+        // TODOs
+        "ban-types": false,
         "dt-header": false,
-        "ban-types": false
+        "no-any-union": false,
+        "no-declare-current-package": false,
+        "no-duplicate-imports": false,
+        "no-empty-interface": false,
+        "no-mergeable-namespace": false,
+        "no-unnecessary-qualifier": false,
+        "no-unnecessary-type-assertion": false,
+        "strict-export-declare-modifiers": false,
+        "use-default-type-parameter": false
     }
 }

@@ -1,5 +1,4 @@
 import * as fetchMock from "fetch-mock";
-import { MockResponse } from "fetch-mock";
 
 fetchMock.mock("http://test.com", 200);
 fetchMock.mock(/test\.com/, 200);

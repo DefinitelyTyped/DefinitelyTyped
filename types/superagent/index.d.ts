@@ -1,8 +1,8 @@
 // Type definitions for SuperAgent 3.5
 // Project: https://github.com/visionmedia/superagent
-// Definitions by: Nico Zelaya <https://github.com/NicoZelaya/>
-//                 Michael Ledin <https://github.com/mxl/>
-//                 Pap Lőrinc <https://github.com/paplorinc/>
+// Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
+//                 Michael Ledin <https://github.com/mxl>
+//                 Pap Lőrinc <https://github.com/paplorinc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -15,6 +15,10 @@ import * as stream from 'stream';
 type CallbackHandler = (err: any, res: request.Response) => void;
 
 type Serializer = (obj: any) => string;
+
+type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
+
+type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
 
 declare const request: request.SuperAgentStatic;
 
@@ -103,14 +107,15 @@ declare namespace request {
     interface Request extends Promise<Response> {
         abort(): void;
         accept(type: string): this;
-        attach(field: string, file: Blob | Buffer | fs.ReadStream | string, filename?: string): this;
+        attach(field: string, file: MultipartValueSingle, options?: string | { filename?: string; contentType?: string }): this;
         auth(user: string, name: string): this;
         buffer(val?: boolean): this;
         ca(cert: Buffer): this;
         cert(cert: Buffer | string): this;
         clearTimeout(): this;
         end(callback?: CallbackHandler): this;
-        field(name: string, val: string): this;
+        field(name: string, val: MultipartValue): this;
+        field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
         key(cert: Buffer | string): this;
         ok(callback: (res: Response) => boolean): this;

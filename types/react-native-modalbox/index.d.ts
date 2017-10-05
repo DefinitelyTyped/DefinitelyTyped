@@ -1,6 +1,6 @@
 // Type definitions for react-native-modalbox 1.4
 // Project: https://github.com/maxs15/react-native-modalbox#readme
-// Definitions by: Kyle Roach <https://github.com/me>
+// Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -192,7 +192,7 @@ export interface ModalProps extends ViewProperties {
   onClosingState?(state: boolean): void;
 }
 
-export default class Modal extends React.Component<ModalProps, {}> {
+export default class Modal extends React.Component<ModalProps> {
   /**
    * Open the modal
    *

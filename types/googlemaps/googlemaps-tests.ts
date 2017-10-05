@@ -153,6 +153,14 @@ var removePropertyEvent: google.maps.Data.RemovePropertyEvent = {
     oldValue: {}
 };
 
+var lineString = new google.maps.Data.LineString([ { lat: 52.201203, lng: -1.724370 }, { lat: 52.201203, lng: -2.724370 }]);
+lineString.forEachLatLng(latLng => console.log(`${latLng.lat} ${latLng.lng}`));
+
+data.setDrawingMode('LineString');
+data.setDrawingMode(null);
+
+data.setControls(['Point', 'Polygon']);
+data.setControls(null);
 
 /***** Overlays *****/
 

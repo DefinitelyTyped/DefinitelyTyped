@@ -1,6 +1,6 @@
 // Type definitions for js-logging-sdk 1.0
 // Project: https://github.com/SumoLogic/js-logging-sdk
-// Definitions by: forabi <https://github.com/forabi/>
+// Definitions by: forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

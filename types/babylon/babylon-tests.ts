@@ -6,7 +6,7 @@ const code = `function square(n) {
   return n * n;
 }`;
 
-let node = babylon.parse(code);
+const node = babylon.parse(code);
 assert(node.type === "File");
 assert(node.start === 0);
 assert(node.end === 38);

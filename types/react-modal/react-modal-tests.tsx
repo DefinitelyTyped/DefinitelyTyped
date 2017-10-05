@@ -48,6 +48,7 @@ class ExampleOfUsingReactModal extends React.Component {
         isOpen={true}
         onAfterOpen={onAfterOpenFn}
         onRequestClose={onRequestCloseFn}
+        contentLabel="demo label"
         closeTimeoutMS={1000}
         style={customStyle}
         className={customClasses}

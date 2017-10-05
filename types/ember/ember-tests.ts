@@ -15,7 +15,7 @@ App.president = Ember.Object.create({
     firstName: 'Barack',
     lastName: 'Obama',
     fullName: Ember.computed(function() {
-        return this.get('firstName') + ' ' + this.get('lastName');
+        return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 });
 App.president.get('fullName');
@@ -106,13 +106,13 @@ App.userController = Ember.Object.create({
 });
 
 Ember.Helper.helper(params => {
-    let cents = params[0];
+    const cents = params[0];
     return `${cents * 0.01}`;
 });
 
 Ember.Helper.helper((params, hash) => {
-    let cents = params[0];
-    let currency = hash.currency;
+    const cents = params[0];
+    const currency = hash.currency;
     return `${currency}${cents * 0.01}`;
 });
 
@@ -182,7 +182,27 @@ const mix2 = Ember.Mixin.create({
     bar: 2,
 });
 
-const component1 = Ember.Component.extend(mix1, mix2, {
+const mix3 = Ember.Mixin.create({
+    foo: 3,
+});
+
+const mix4 = Ember.Mixin.create({
+    bar: 4,
+});
+
+const mix5 = Ember.Mixin.create({
+    foo: 5,
+});
+
+const mix6 = Ember.Mixin.create({
+    bar: 6,
+});
+
+const mix7 = Ember.Mixin.create({
+    foo: 7,
+});
+
+const component1 = Ember.Component.extend(mix1, mix2, mix3, mix4, mix5, mix6, mix7, {
     lyft: Ember.inject.service(),
     cars: Ember.computed.readOnly('lyft.cars'),
 });

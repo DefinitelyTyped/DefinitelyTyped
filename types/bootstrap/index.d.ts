@@ -1,6 +1,6 @@
 // Type definitions for Bootstrap 3.3.5
 // Project: http://twitter.github.com/bootstrap/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

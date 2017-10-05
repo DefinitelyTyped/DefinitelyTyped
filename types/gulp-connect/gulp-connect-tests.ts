@@ -92,7 +92,7 @@ gulp.task('connect', () => {
 import * as express from "express";
 
 gulp.task('connect', () => {
-    let middleware = [
+    const middleware = [
         express()
     ];
 
@@ -106,7 +106,7 @@ gulp.task('connect', () => {
 
 // Validate using paths to restrict handler functions works
 gulp.task('connect', () => {
-    let middleware: connect.ConnectRouteHandler[] = [
+    const middleware: connect.ConnectRouteHandler[] = [
         ["/path", express()],
         ["/path2", express()],
     ];

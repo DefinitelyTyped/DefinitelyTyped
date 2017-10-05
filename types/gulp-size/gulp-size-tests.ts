@@ -9,7 +9,7 @@ gulp.task('default', () =>
 );
 
 gulp.task('default', () => {
-    let s = size();
+    const s = size();
 
     return gulp.src('fixture.js')
         .pipe(s)

@@ -1,6 +1,13 @@
 import * as assert from "power-assert";
 import cucumber = require("cucumber");
 
+// You can optionally declare your own world properties
+declare module "cucumber" {
+    interface World {
+        visit(url: string, callback: CallbackStepDefinition): void;
+    }
+}
+
 function StepSample() {
     type Callback = cucumber.CallbackStepDefinition;
     type Table = cucumber.TableDefinition;
@@ -26,9 +33,11 @@ function StepSample() {
         });
 
         Around((scenarioResult: HookScenarioResult, runScenario: (error: string | null, callback?: () => void) => void) => {
-            scenarioResult.status === "failed" && runScenario(null, () => {
-                console.log('finish tasks');
-            });
+            if (scenarioResult.status === "failed") {
+                runScenario(null, () => {
+                    console.log('finish tasks');
+                });
+            }
         });
 
         After((scenarioResult: HookScenarioResult, callback: Callback) => {
@@ -123,13 +132,13 @@ function StepSample() {
         });
     });
 
-    let fns: cucumber.SupportCodeConsumer[] = cucumber.getSupportCodeFns();
+    const fns: cucumber.SupportCodeConsumer[] = cucumber.getSupportCodeFns();
 
     cucumber.clearSupportCodeFns();
 }
 
 function registerListener(): cucumber.EventListener {
-    let listener = Object.assign(cucumber.Listener(), {
+    const listener = Object.assign(cucumber.Listener(), {
         handleBeforeScenarioEvent: (scenario: cucumber.events.ScenarioPayload, callback: () => void) => {
             // do some interesting stuff ...
 

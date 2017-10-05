@@ -2,6 +2,7 @@ import {
     GraphQLFieldConfigArgumentMap,
     GraphQLArgument
 } from './definition';
+import { DirectiveDefinitionNode } from '../language/ast';
 
 export const DirectiveLocation: {
     // Operations
@@ -34,9 +35,10 @@ export type DirectiveLocationEnum = keyof typeof DirectiveLocation;
  */
 export class GraphQLDirective {
     name: string;
-    description: string;
+    description?: string;
     locations: DirectiveLocationEnum[];
     args: GraphQLArgument[];
+    astNode?: DirectiveDefinitionNode;
 
     constructor(config: GraphQLDirectiveConfig);
 }
@@ -46,6 +48,7 @@ export interface GraphQLDirectiveConfig {
     description?: string;
     locations: DirectiveLocationEnum[];
     args?: GraphQLFieldConfigArgumentMap;
+    astNode?: DirectiveDefinitionNode;
 }
 
 /**

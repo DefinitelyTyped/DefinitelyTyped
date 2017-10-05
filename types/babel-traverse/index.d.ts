@@ -8,7 +8,7 @@
 import * as t from 'babel-types';
 export type Node = t.Node;
 
-export default function traverse(parent: Node | Node[], opts?: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath<Node>): void;
+export default function traverse(parent: Node | Node[], opts?: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
 
 export interface TraverseOptions extends Visitor {
     scope?: Scope;
@@ -16,8 +16,8 @@ export interface TraverseOptions extends Visitor {
 }
 
 export class Scope {
-    constructor(path: NodePath<Node>, parentScope?: Scope);
-    path: NodePath<Node>;
+    constructor(path: NodePath, parentScope?: Scope);
+    path: NodePath;
     block: Node;
     parentBlock: Node;
     parent: Scope;
@@ -61,13 +61,13 @@ export class Scope {
 
     toArray(node: Node, i?: number): Node;
 
-    registerDeclaration(path: NodePath<Node>): void;
+    registerDeclaration(path: NodePath): void;
 
     buildUndefinedNode(): Node;
 
-    registerConstantViolation(path: NodePath<Node>): void;
+    registerConstantViolation(path: NodePath): void;
 
-    registerBinding(kind: string, path: NodePath<Node>, bindingPath?: NodePath<Node>): void;
+    registerBinding(kind: string, path: NodePath, bindingPath?: NodePath): void;
 
     addGlobal(node: Node): void;
 
@@ -121,195 +121,200 @@ export class Scope {
 }
 
 export class Binding {
-    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath<Node>; kind: 'var' | 'let' | 'const'; });
+    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath; kind: 'var' | 'let' | 'const'; });
     identifier: t.Identifier;
     scope: Scope;
-    path: NodePath<Node>;
+    path: NodePath;
     kind: 'var' | 'let' | 'const' | 'module';
     referenced: boolean;
     references: number;
-    referencePaths: Array<NodePath<Node>>;
+    referencePaths: NodePath[];
     constant: boolean;
-    constantViolations: Array<NodePath<Node>>;
+    constantViolations: NodePath[];
 }
 
-export interface Visitor extends VisitNodeObject<Node> {
-    ArrayExpression?: VisitNode<t.ArrayExpression>;
-    AssignmentExpression?: VisitNode<t.AssignmentExpression>;
-    LVal?: VisitNode<t.LVal>;
-    Expression?: VisitNode<t.Expression>;
-    BinaryExpression?: VisitNode<t.BinaryExpression>;
-    Directive?: VisitNode<t.Directive>;
-    DirectiveLiteral?: VisitNode<t.DirectiveLiteral>;
-    BlockStatement?: VisitNode<t.BlockStatement>;
-    BreakStatement?: VisitNode<t.BreakStatement>;
-    Identifier?: VisitNode<t.Identifier>;
-    CallExpression?: VisitNode<t.CallExpression>;
-    CatchClause?: VisitNode<t.CatchClause>;
-    ConditionalExpression?: VisitNode<t.ConditionalExpression>;
-    ContinueStatement?: VisitNode<t.ContinueStatement>;
-    DebuggerStatement?: VisitNode<t.DebuggerStatement>;
-    DoWhileStatement?: VisitNode<t.DoWhileStatement>;
-    Statement?: VisitNode<t.Statement>;
-    EmptyStatement?: VisitNode<t.EmptyStatement>;
-    ExpressionStatement?: VisitNode<t.ExpressionStatement>;
-    File?: VisitNode<t.File>;
-    Program?: VisitNode<t.Program>;
-    ForInStatement?: VisitNode<t.ForInStatement>;
-    VariableDeclaration?: VisitNode<t.VariableDeclaration>;
-    ForStatement?: VisitNode<t.ForStatement>;
-    FunctionDeclaration?: VisitNode<t.FunctionDeclaration>;
-    FunctionExpression?: VisitNode<t.FunctionExpression>;
-    IfStatement?: VisitNode<t.IfStatement>;
-    LabeledStatement?: VisitNode<t.LabeledStatement>;
-    StringLiteral?: VisitNode<t.StringLiteral>;
-    NumericLiteral?: VisitNode<t.NumericLiteral>;
-    NullLiteral?: VisitNode<t.NullLiteral>;
-    BooleanLiteral?: VisitNode<t.BooleanLiteral>;
-    RegExpLiteral?: VisitNode<t.RegExpLiteral>;
-    LogicalExpression?: VisitNode<t.LogicalExpression>;
-    MemberExpression?: VisitNode<t.MemberExpression>;
-    NewExpression?: VisitNode<t.NewExpression>;
-    ObjectExpression?: VisitNode<t.ObjectExpression>;
-    ObjectMethod?: VisitNode<t.ObjectMethod>;
-    ObjectProperty?: VisitNode<t.ObjectProperty>;
-    RestElement?: VisitNode<t.RestElement>;
-    ReturnStatement?: VisitNode<t.ReturnStatement>;
-    SequenceExpression?: VisitNode<t.SequenceExpression>;
-    SwitchCase?: VisitNode<t.SwitchCase>;
-    SwitchStatement?: VisitNode<t.SwitchStatement>;
-    ThisExpression?: VisitNode<t.ThisExpression>;
-    ThrowStatement?: VisitNode<t.ThrowStatement>;
-    TryStatement?: VisitNode<t.TryStatement>;
-    UnaryExpression?: VisitNode<t.UnaryExpression>;
-    UpdateExpression?: VisitNode<t.UpdateExpression>;
-    VariableDeclarator?: VisitNode<t.VariableDeclarator>;
-    WhileStatement?: VisitNode<t.WhileStatement>;
-    WithStatement?: VisitNode<t.WithStatement>;
-    AssignmentPattern?: VisitNode<t.AssignmentPattern>;
-    ArrayPattern?: VisitNode<t.ArrayPattern>;
-    ArrowFunctionExpression?: VisitNode<t.ArrowFunctionExpression>;
-    ClassBody?: VisitNode<t.ClassBody>;
-    ClassDeclaration?: VisitNode<t.ClassDeclaration>;
-    ClassExpression?: VisitNode<t.ClassExpression>;
-    ExportAllDeclaration?: VisitNode<t.ExportAllDeclaration>;
-    ExportDefaultDeclaration?: VisitNode<t.ExportDefaultDeclaration>;
-    ExportNamedDeclaration?: VisitNode<t.ExportNamedDeclaration>;
-    Declaration?: VisitNode<t.Declaration>;
-    ExportSpecifier?: VisitNode<t.ExportSpecifier>;
-    ForOfStatement?: VisitNode<t.ForOfStatement>;
-    ImportDeclaration?: VisitNode<t.ImportDeclaration>;
-    ImportDefaultSpecifier?: VisitNode<t.ImportDefaultSpecifier>;
-    ImportNamespaceSpecifier?: VisitNode<t.ImportNamespaceSpecifier>;
-    ImportSpecifier?: VisitNode<t.ImportSpecifier>;
-    MetaProperty?: VisitNode<t.MetaProperty>;
-    ClassMethod?: VisitNode<t.ClassMethod>;
-    ObjectPattern?: VisitNode<t.ObjectPattern>;
-    SpreadElement?: VisitNode<t.SpreadElement>;
-    Super?: VisitNode<t.Super>;
-    TaggedTemplateExpression?: VisitNode<t.TaggedTemplateExpression>;
-    TemplateLiteral?: VisitNode<t.TemplateLiteral>;
-    TemplateElement?: VisitNode<t.TemplateElement>;
-    YieldExpression?: VisitNode<t.YieldExpression>;
-    AnyTypeAnnotation?: VisitNode<t.AnyTypeAnnotation>;
-    ArrayTypeAnnotation?: VisitNode<t.ArrayTypeAnnotation>;
-    BooleanTypeAnnotation?: VisitNode<t.BooleanTypeAnnotation>;
-    BooleanLiteralTypeAnnotation?: VisitNode<t.BooleanLiteralTypeAnnotation>;
-    NullLiteralTypeAnnotation?: VisitNode<t.NullLiteralTypeAnnotation>;
-    ClassImplements?: VisitNode<t.ClassImplements>;
-    ClassProperty?: VisitNode<t.ClassProperty>;
-    DeclareClass?: VisitNode<t.DeclareClass>;
-    DeclareFunction?: VisitNode<t.DeclareFunction>;
-    DeclareInterface?: VisitNode<t.DeclareInterface>;
-    DeclareModule?: VisitNode<t.DeclareModule>;
-    DeclareTypeAlias?: VisitNode<t.DeclareTypeAlias>;
-    DeclareVariable?: VisitNode<t.DeclareVariable>;
-    ExistentialTypeParam?: VisitNode<t.ExistentialTypeParam>;
-    FunctionTypeAnnotation?: VisitNode<t.FunctionTypeAnnotation>;
-    FunctionTypeParam?: VisitNode<t.FunctionTypeParam>;
-    GenericTypeAnnotation?: VisitNode<t.GenericTypeAnnotation>;
-    InterfaceExtends?: VisitNode<t.InterfaceExtends>;
-    InterfaceDeclaration?: VisitNode<t.InterfaceDeclaration>;
-    IntersectionTypeAnnotation?: VisitNode<t.IntersectionTypeAnnotation>;
-    MixedTypeAnnotation?: VisitNode<t.MixedTypeAnnotation>;
-    NullableTypeAnnotation?: VisitNode<t.NullableTypeAnnotation>;
-    NumericLiteralTypeAnnotation?: VisitNode<t.NumericLiteralTypeAnnotation>;
-    NumberTypeAnnotation?: VisitNode<t.NumberTypeAnnotation>;
-    StringLiteralTypeAnnotation?: VisitNode<t.StringLiteralTypeAnnotation>;
-    StringTypeAnnotation?: VisitNode<t.StringTypeAnnotation>;
-    ThisTypeAnnotation?: VisitNode<t.ThisTypeAnnotation>;
-    TupleTypeAnnotation?: VisitNode<t.TupleTypeAnnotation>;
-    TypeofTypeAnnotation?: VisitNode<t.TypeofTypeAnnotation>;
-    TypeAlias?: VisitNode<t.TypeAlias>;
-    TypeAnnotation?: VisitNode<t.TypeAnnotation>;
-    TypeCastExpression?: VisitNode<t.TypeCastExpression>;
-    TypeParameterDeclaration?: VisitNode<t.TypeParameterDeclaration>;
-    TypeParameterInstantiation?: VisitNode<t.TypeParameterInstantiation>;
-    ObjectTypeAnnotation?: VisitNode<t.ObjectTypeAnnotation>;
-    ObjectTypeCallProperty?: VisitNode<t.ObjectTypeCallProperty>;
-    ObjectTypeIndexer?: VisitNode<t.ObjectTypeIndexer>;
-    ObjectTypeProperty?: VisitNode<t.ObjectTypeProperty>;
-    QualifiedTypeIdentifier?: VisitNode<t.QualifiedTypeIdentifier>;
-    UnionTypeAnnotation?: VisitNode<t.UnionTypeAnnotation>;
-    VoidTypeAnnotation?: VisitNode<t.VoidTypeAnnotation>;
-    JSXAttribute?: VisitNode<t.JSXAttribute>;
-    JSXIdentifier?: VisitNode<t.JSXIdentifier>;
-    JSXNamespacedName?: VisitNode<t.JSXNamespacedName>;
-    JSXElement?: VisitNode<t.JSXElement>;
-    JSXExpressionContainer?: VisitNode<t.JSXExpressionContainer>;
-    JSXClosingElement?: VisitNode<t.JSXClosingElement>;
-    JSXMemberExpression?: VisitNode<t.JSXMemberExpression>;
-    JSXOpeningElement?: VisitNode<t.JSXOpeningElement>;
-    JSXEmptyExpression?: VisitNode<t.JSXEmptyExpression>;
-    JSXSpreadAttribute?: VisitNode<t.JSXSpreadAttribute>;
-    JSXText?: VisitNode<t.JSXText>;
-    Noop?: VisitNode<t.Noop>;
-    ParenthesizedExpression?: VisitNode<t.ParenthesizedExpression>;
-    AwaitExpression?: VisitNode<t.AwaitExpression>;
-    BindExpression?: VisitNode<t.BindExpression>;
-    Decorator?: VisitNode<t.Decorator>;
-    DoExpression?: VisitNode<t.DoExpression>;
-    ExportDefaultSpecifier?: VisitNode<t.ExportDefaultSpecifier>;
-    ExportNamespaceSpecifier?: VisitNode<t.ExportNamespaceSpecifier>;
-    RestProperty?: VisitNode<t.RestProperty>;
-    SpreadProperty?: VisitNode<t.SpreadProperty>;
-    Binary?: VisitNode<t.Binary>;
-    Scopable?: VisitNode<t.Scopable>;
-    BlockParent?: VisitNode<t.BlockParent>;
-    Block?: VisitNode<t.Block>;
-    Terminatorless?: VisitNode<t.Terminatorless>;
-    CompletionStatement?: VisitNode<t.CompletionStatement>;
-    Conditional?: VisitNode<t.Conditional>;
-    Loop?: VisitNode<t.Loop>;
-    While?: VisitNode<t.While>;
-    ExpressionWrapper?: VisitNode<t.ExpressionWrapper>;
-    For?: VisitNode<t.For>;
-    ForXStatement?: VisitNode<t.ForXStatement>;
-    Function?: VisitNode<t.Function>;
-    FunctionParent?: VisitNode<t.FunctionParent>;
-    Pureish?: VisitNode<t.Pureish>;
-    Literal?: VisitNode<t.Literal>;
-    Immutable?: VisitNode<t.Immutable>;
-    UserWhitespacable?: VisitNode<t.UserWhitespacable>;
-    Method?: VisitNode<t.Method>;
-    ObjectMember?: VisitNode<t.ObjectMember>;
-    Property?: VisitNode<t.Property>;
-    UnaryLike?: VisitNode<t.UnaryLike>;
-    Pattern?: VisitNode<t.Pattern>;
-    Class?: VisitNode<t.Class>;
-    ModuleDeclaration?: VisitNode<t.ModuleDeclaration>;
-    ExportDeclaration?: VisitNode<t.ExportDeclaration>;
-    ModuleSpecifier?: VisitNode<t.ModuleSpecifier>;
-    Flow?: VisitNode<t.Flow>;
-    FlowBaseAnnotation?: VisitNode<t.FlowBaseAnnotation>;
-    FlowDeclaration?: VisitNode<t.FlowDeclaration>;
-    JSX?: VisitNode<t.JSX>;
-    Scope?: VisitNode<t.Scopable>;
+// The Visitor has to be generic because babel binds `this` for each property.
+// `this` is usually used in babel plugins to pass plugin state from
+// `pre` -> `visitor` -> `post`. An example of this can be seen in the official
+// babel handbook:
+// https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#-pre-and-post-in-plugins
+export interface Visitor<S = Node> extends VisitNodeObject<Node> {
+    ArrayExpression?: VisitNode<S, t.ArrayExpression>;
+    AssignmentExpression?: VisitNode<S, t.AssignmentExpression>;
+    LVal?: VisitNode<S, t.LVal>;
+    Expression?: VisitNode<S, t.Expression>;
+    BinaryExpression?: VisitNode<S, t.BinaryExpression>;
+    Directive?: VisitNode<S, t.Directive>;
+    DirectiveLiteral?: VisitNode<S, t.DirectiveLiteral>;
+    BlockStatement?: VisitNode<S, t.BlockStatement>;
+    BreakStatement?: VisitNode<S, t.BreakStatement>;
+    Identifier?: VisitNode<S, t.Identifier>;
+    CallExpression?: VisitNode<S, t.CallExpression>;
+    CatchClause?: VisitNode<S, t.CatchClause>;
+    ConditionalExpression?: VisitNode<S, t.ConditionalExpression>;
+    ContinueStatement?: VisitNode<S, t.ContinueStatement>;
+    DebuggerStatement?: VisitNode<S, t.DebuggerStatement>;
+    DoWhileStatement?: VisitNode<S, t.DoWhileStatement>;
+    Statement?: VisitNode<S, t.Statement>;
+    EmptyStatement?: VisitNode<S, t.EmptyStatement>;
+    ExpressionStatement?: VisitNode<S, t.ExpressionStatement>;
+    File?: VisitNode<S, t.File>;
+    Program?: VisitNode<S, t.Program>;
+    ForInStatement?: VisitNode<S, t.ForInStatement>;
+    VariableDeclaration?: VisitNode<S, t.VariableDeclaration>;
+    ForStatement?: VisitNode<S, t.ForStatement>;
+    FunctionDeclaration?: VisitNode<S, t.FunctionDeclaration>;
+    FunctionExpression?: VisitNode<S, t.FunctionExpression>;
+    IfStatement?: VisitNode<S, t.IfStatement>;
+    LabeledStatement?: VisitNode<S, t.LabeledStatement>;
+    StringLiteral?: VisitNode<S, t.StringLiteral>;
+    NumericLiteral?: VisitNode<S, t.NumericLiteral>;
+    NullLiteral?: VisitNode<S, t.NullLiteral>;
+    BooleanLiteral?: VisitNode<S, t.BooleanLiteral>;
+    RegExpLiteral?: VisitNode<S, t.RegExpLiteral>;
+    LogicalExpression?: VisitNode<S, t.LogicalExpression>;
+    MemberExpression?: VisitNode<S, t.MemberExpression>;
+    NewExpression?: VisitNode<S, t.NewExpression>;
+    ObjectExpression?: VisitNode<S, t.ObjectExpression>;
+    ObjectMethod?: VisitNode<S, t.ObjectMethod>;
+    ObjectProperty?: VisitNode<S, t.ObjectProperty>;
+    RestElement?: VisitNode<S, t.RestElement>;
+    ReturnStatement?: VisitNode<S, t.ReturnStatement>;
+    SequenceExpression?: VisitNode<S, t.SequenceExpression>;
+    SwitchCase?: VisitNode<S, t.SwitchCase>;
+    SwitchStatement?: VisitNode<S, t.SwitchStatement>;
+    ThisExpression?: VisitNode<S, t.ThisExpression>;
+    ThrowStatement?: VisitNode<S, t.ThrowStatement>;
+    TryStatement?: VisitNode<S, t.TryStatement>;
+    UnaryExpression?: VisitNode<S, t.UnaryExpression>;
+    UpdateExpression?: VisitNode<S, t.UpdateExpression>;
+    VariableDeclarator?: VisitNode<S, t.VariableDeclarator>;
+    WhileStatement?: VisitNode<S, t.WhileStatement>;
+    WithStatement?: VisitNode<S, t.WithStatement>;
+    AssignmentPattern?: VisitNode<S, t.AssignmentPattern>;
+    ArrayPattern?: VisitNode<S, t.ArrayPattern>;
+    ArrowFunctionExpression?: VisitNode<S, t.ArrowFunctionExpression>;
+    ClassBody?: VisitNode<S, t.ClassBody>;
+    ClassDeclaration?: VisitNode<S, t.ClassDeclaration>;
+    ClassExpression?: VisitNode<S, t.ClassExpression>;
+    ExportAllDeclaration?: VisitNode<S, t.ExportAllDeclaration>;
+    ExportDefaultDeclaration?: VisitNode<S, t.ExportDefaultDeclaration>;
+    ExportNamedDeclaration?: VisitNode<S, t.ExportNamedDeclaration>;
+    Declaration?: VisitNode<S, t.Declaration>;
+    ExportSpecifier?: VisitNode<S, t.ExportSpecifier>;
+    ForOfStatement?: VisitNode<S, t.ForOfStatement>;
+    ImportDeclaration?: VisitNode<S, t.ImportDeclaration>;
+    ImportDefaultSpecifier?: VisitNode<S, t.ImportDefaultSpecifier>;
+    ImportNamespaceSpecifier?: VisitNode<S, t.ImportNamespaceSpecifier>;
+    ImportSpecifier?: VisitNode<S, t.ImportSpecifier>;
+    MetaProperty?: VisitNode<S, t.MetaProperty>;
+    ClassMethod?: VisitNode<S, t.ClassMethod>;
+    ObjectPattern?: VisitNode<S, t.ObjectPattern>;
+    SpreadElement?: VisitNode<S, t.SpreadElement>;
+    Super?: VisitNode<S, t.Super>;
+    TaggedTemplateExpression?: VisitNode<S, t.TaggedTemplateExpression>;
+    TemplateLiteral?: VisitNode<S, t.TemplateLiteral>;
+    TemplateElement?: VisitNode<S, t.TemplateElement>;
+    YieldExpression?: VisitNode<S, t.YieldExpression>;
+    AnyTypeAnnotation?: VisitNode<S, t.AnyTypeAnnotation>;
+    ArrayTypeAnnotation?: VisitNode<S, t.ArrayTypeAnnotation>;
+    BooleanTypeAnnotation?: VisitNode<S, t.BooleanTypeAnnotation>;
+    BooleanLiteralTypeAnnotation?: VisitNode<S, t.BooleanLiteralTypeAnnotation>;
+    NullLiteralTypeAnnotation?: VisitNode<S, t.NullLiteralTypeAnnotation>;
+    ClassImplements?: VisitNode<S, t.ClassImplements>;
+    ClassProperty?: VisitNode<S, t.ClassProperty>;
+    DeclareClass?: VisitNode<S, t.DeclareClass>;
+    DeclareFunction?: VisitNode<S, t.DeclareFunction>;
+    DeclareInterface?: VisitNode<S, t.DeclareInterface>;
+    DeclareModule?: VisitNode<S, t.DeclareModule>;
+    DeclareTypeAlias?: VisitNode<S, t.DeclareTypeAlias>;
+    DeclareVariable?: VisitNode<S, t.DeclareVariable>;
+    ExistentialTypeParam?: VisitNode<S, t.ExistentialTypeParam>;
+    FunctionTypeAnnotation?: VisitNode<S, t.FunctionTypeAnnotation>;
+    FunctionTypeParam?: VisitNode<S, t.FunctionTypeParam>;
+    GenericTypeAnnotation?: VisitNode<S, t.GenericTypeAnnotation>;
+    InterfaceExtends?: VisitNode<S, t.InterfaceExtends>;
+    InterfaceDeclaration?: VisitNode<S, t.InterfaceDeclaration>;
+    IntersectionTypeAnnotation?: VisitNode<S, t.IntersectionTypeAnnotation>;
+    MixedTypeAnnotation?: VisitNode<S, t.MixedTypeAnnotation>;
+    NullableTypeAnnotation?: VisitNode<S, t.NullableTypeAnnotation>;
+    NumericLiteralTypeAnnotation?: VisitNode<S, t.NumericLiteralTypeAnnotation>;
+    NumberTypeAnnotation?: VisitNode<S, t.NumberTypeAnnotation>;
+    StringLiteralTypeAnnotation?: VisitNode<S, t.StringLiteralTypeAnnotation>;
+    StringTypeAnnotation?: VisitNode<S, t.StringTypeAnnotation>;
+    ThisTypeAnnotation?: VisitNode<S, t.ThisTypeAnnotation>;
+    TupleTypeAnnotation?: VisitNode<S, t.TupleTypeAnnotation>;
+    TypeofTypeAnnotation?: VisitNode<S, t.TypeofTypeAnnotation>;
+    TypeAlias?: VisitNode<S, t.TypeAlias>;
+    TypeAnnotation?: VisitNode<S, t.TypeAnnotation>;
+    TypeCastExpression?: VisitNode<S, t.TypeCastExpression>;
+    TypeParameterDeclaration?: VisitNode<S, t.TypeParameterDeclaration>;
+    TypeParameterInstantiation?: VisitNode<S, t.TypeParameterInstantiation>;
+    ObjectTypeAnnotation?: VisitNode<S, t.ObjectTypeAnnotation>;
+    ObjectTypeCallProperty?: VisitNode<S, t.ObjectTypeCallProperty>;
+    ObjectTypeIndexer?: VisitNode<S, t.ObjectTypeIndexer>;
+    ObjectTypeProperty?: VisitNode<S, t.ObjectTypeProperty>;
+    QualifiedTypeIdentifier?: VisitNode<S, t.QualifiedTypeIdentifier>;
+    UnionTypeAnnotation?: VisitNode<S, t.UnionTypeAnnotation>;
+    VoidTypeAnnotation?: VisitNode<S, t.VoidTypeAnnotation>;
+    JSXAttribute?: VisitNode<S, t.JSXAttribute>;
+    JSXIdentifier?: VisitNode<S, t.JSXIdentifier>;
+    JSXNamespacedName?: VisitNode<S, t.JSXNamespacedName>;
+    JSXElement?: VisitNode<S, t.JSXElement>;
+    JSXExpressionContainer?: VisitNode<S, t.JSXExpressionContainer>;
+    JSXClosingElement?: VisitNode<S, t.JSXClosingElement>;
+    JSXMemberExpression?: VisitNode<S, t.JSXMemberExpression>;
+    JSXOpeningElement?: VisitNode<S, t.JSXOpeningElement>;
+    JSXEmptyExpression?: VisitNode<S, t.JSXEmptyExpression>;
+    JSXSpreadAttribute?: VisitNode<S, t.JSXSpreadAttribute>;
+    JSXText?: VisitNode<S, t.JSXText>;
+    Noop?: VisitNode<S, t.Noop>;
+    ParenthesizedExpression?: VisitNode<S, t.ParenthesizedExpression>;
+    AwaitExpression?: VisitNode<S, t.AwaitExpression>;
+    BindExpression?: VisitNode<S, t.BindExpression>;
+    Decorator?: VisitNode<S, t.Decorator>;
+    DoExpression?: VisitNode<S, t.DoExpression>;
+    ExportDefaultSpecifier?: VisitNode<S, t.ExportDefaultSpecifier>;
+    ExportNamespaceSpecifier?: VisitNode<S, t.ExportNamespaceSpecifier>;
+    RestProperty?: VisitNode<S, t.RestProperty>;
+    SpreadProperty?: VisitNode<S, t.SpreadProperty>;
+    Binary?: VisitNode<S, t.Binary>;
+    Scopable?: VisitNode<S, t.Scopable>;
+    BlockParent?: VisitNode<S, t.BlockParent>;
+    Block?: VisitNode<S, t.Block>;
+    Terminatorless?: VisitNode<S, t.Terminatorless>;
+    CompletionStatement?: VisitNode<S, t.CompletionStatement>;
+    Conditional?: VisitNode<S, t.Conditional>;
+    Loop?: VisitNode<S, t.Loop>;
+    While?: VisitNode<S, t.While>;
+    ExpressionWrapper?: VisitNode<S, t.ExpressionWrapper>;
+    For?: VisitNode<S, t.For>;
+    ForXStatement?: VisitNode<S, t.ForXStatement>;
+    Function?: VisitNode<S, t.Function>;
+    FunctionParent?: VisitNode<S, t.FunctionParent>;
+    Pureish?: VisitNode<S, t.Pureish>;
+    Literal?: VisitNode<S, t.Literal>;
+    Immutable?: VisitNode<S, t.Immutable>;
+    UserWhitespacable?: VisitNode<S, t.UserWhitespacable>;
+    Method?: VisitNode<S, t.Method>;
+    ObjectMember?: VisitNode<S, t.ObjectMember>;
+    Property?: VisitNode<S, t.Property>;
+    UnaryLike?: VisitNode<S, t.UnaryLike>;
+    Pattern?: VisitNode<S, t.Pattern>;
+    Class?: VisitNode<S, t.Class>;
+    ModuleDeclaration?: VisitNode<S, t.ModuleDeclaration>;
+    ExportDeclaration?: VisitNode<S, t.ExportDeclaration>;
+    ModuleSpecifier?: VisitNode<S, t.ModuleSpecifier>;
+    Flow?: VisitNode<S, t.Flow>;
+    FlowBaseAnnotation?: VisitNode<S, t.FlowBaseAnnotation>;
+    FlowDeclaration?: VisitNode<S, t.FlowDeclaration>;
+    JSX?: VisitNode<S, t.JSX>;
+    Scope?: VisitNode<S, t.Scopable>;
 }
 
-export type VisitNode<T> = VisitNodeFunction<T> | VisitNodeObject<T>;
+export type VisitNode<T, P> = VisitNodeFunction<T, P> | VisitNodeObject<T>;
 
-export type VisitNodeFunction<T> = (path: NodePath<T>, state: any) => void;
+export type VisitNodeFunction<T, P> = (this: T, path: NodePath<P>, state: any) => void;
 
 export interface VisitNodeObject<T> {
     enter?(path: NodePath<T>, state: any): void;
@@ -328,7 +333,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: object;
     skipKeys: object;
-    parentPath: NodePath<Node>;
+    parentPath: NodePath;
     context: TraversalContext;
     container: object | object[];
     listKey: string;
@@ -362,15 +367,15 @@ export class NodePath<T = Node> {
      * Call the provided `callback` with the `NodePath`s of all the parents.
      * When the `callback` returns a truthy value, we return that node path.
      */
-    findParent(callback: (path: NodePath<Node>) => boolean): NodePath<Node>;
+    findParent(callback: (path: NodePath) => boolean): NodePath;
 
-    find(callback: (path: NodePath<Node>) => boolean): NodePath<Node>;
+    find(callback: (path: NodePath) => boolean): NodePath;
 
     /** Get the parent function of the current path. */
-    getFunctionParent(): NodePath<Node>;
+    getFunctionParent(): NodePath;
 
     /** Walk up the tree until we hit a parent node path in a list. */
-    getStatementParent(): NodePath<Node>;
+    getStatementParent(): NodePath;
 
     /**
      * Get the deepest common ancestor and then from it, get the earliest relationship path
@@ -379,20 +384,20 @@ export class NodePath<T = Node> {
      * Earliest is defined as being "before" all the other nodes in terms of list container
      * position and visiting key.
      */
-    getEarliestCommonAncestorFrom(paths: Array<NodePath<Node>>): Array<NodePath<Node>>;
+    getEarliestCommonAncestorFrom(paths: NodePath[]): NodePath[];
 
     /** Get the earliest path in the tree where the provided `paths` intersect. */
     getDeepestCommonAncestorFrom(
-        paths: Array<NodePath<Node>>,
-        filter?: (deepest: Node, i: number, ancestries: Array<NodePath<Node>>) => NodePath<Node>
-    ): NodePath<Node>;
+        paths: NodePath[],
+        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath
+    ): NodePath;
 
     /**
      * Build an array of node paths containing the entire ancestry of the current node path.
      *
      * NOTE: The current node path is included in this.
      */
-    getAncestry(): Array<NodePath<Node>>;
+    getAncestry(): NodePath[];
 
     inType(...candidateTypes: string[]): boolean;
 
@@ -404,7 +409,7 @@ export class NodePath<T = Node> {
 
     couldBeBaseType(name: string): boolean;
 
-    baseTypeStrictlyMatches(right: NodePath<Node>): boolean;
+    baseTypeStrictlyMatches(right: NodePath): boolean;
 
     isGenericType(genericName: string): boolean;
 
@@ -428,7 +433,7 @@ export class NodePath<T = Node> {
     replaceWithSourceString(replacement: any): void;
 
     /** Replace the current node with another. */
-    replaceWith(replacement: Node | NodePath<Node>): void;
+    replaceWith(replacement: Node | NodePath): void;
 
     /**
      * This method takes an array of statements nodes and then explodes it
@@ -573,13 +578,13 @@ export class NodePath<T = Node> {
     hoist(scope: Scope): void;
 
     // ------------------------- family -------------------------
-    getOpposite(): NodePath<Node>;
+    getOpposite(): NodePath;
 
-    getCompletionRecords(): Array<NodePath<Node>>;
+    getCompletionRecords(): NodePath[];
 
-    getSibling(key: string): NodePath<Node>;
+    getSibling(key: string): NodePath;
 
-    get(key: string, context?: boolean | TraversalContext): NodePath<Node>;
+    get(key: string, context?: boolean | TraversalContext): NodePath;
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
 
@@ -960,7 +965,7 @@ export class Hub {
 }
 
 export interface TraversalContext {
-    parentPath: NodePath<Node>;
+    parentPath: NodePath;
     scope: Scope;
     state: any;
     opts: any;

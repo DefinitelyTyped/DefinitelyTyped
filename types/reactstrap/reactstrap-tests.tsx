@@ -3265,7 +3265,7 @@ function Example105() {
         Toggle
       </a>
 
-      <DropdownMenu right>
+      <DropdownMenu right className="asdf">
         <div className="d-block">
           Item
         </div>
@@ -3296,3 +3296,119 @@ const CSSModuleExample = (props: any) => {
     <Button color="secondary" cssModule={cssModule}>Button</Button>
   );
 };
+
+class Example107 extends React.Component {
+  private input: HTMLInputElement;
+
+  render() {
+    return <Input type="file" getRef={(input) => { this.input = input; }} />;
+  }
+}
+
+class Example108 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" dark toggleable>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example109 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand>
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+class Example110 extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Navbar color="faded" light expand="md">
+          <NavbarToggler right onClick={this.toggle} />
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/components/">Components</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}

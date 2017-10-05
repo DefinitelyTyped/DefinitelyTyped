@@ -1,6 +1,6 @@
 // Type definitions for Restangular v1.5.0
 // Project: https://github.com/mgonto/restangular
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -67,7 +67,8 @@ declare namespace restangular {
     setUseCannonicalId(useCannonicalId: boolean): IProvider;
     setEncodeIds(encode: boolean): IProvider;
     setSelfLinkAbsoluteUrl(value: boolean): IProvider;
-    setParentless(value: any) : IProvider;
+    setParentless(value: any): IProvider;
+    setPlainByDefault(isPlain: boolean): IProvider;
   }
 
   interface ICustom {
