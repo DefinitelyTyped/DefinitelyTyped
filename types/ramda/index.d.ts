@@ -10,6 +10,7 @@
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
+//                 Iheatu Wogu <https://github.com/iha2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -625,7 +626,11 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: T[] | T[][]): T[];
+        flatten<T>(x: T[]): T[];
+        flatten<T>(x: T[][]): T[];
+        flatten<T>(x: T[][][]): T[]
+        flatten<T>(x: T[][][][]): T[]
+        flatten<T>(x: T[][][][][]): T[]
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
