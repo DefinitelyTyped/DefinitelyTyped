@@ -15,9 +15,7 @@ Ember.Object.extend({
         return this.get('foo');
     }.property('foo', 'bar.@each.baz'),
 
-    observer: function() {
-    }.observes('foo', 'bar'),
+    observer: function() {}.observes('foo', 'bar'),
 
-    on: function() {
-    }.on('foo', 'bar')
+    on: function() {}.on('foo', 'bar'),
 });
