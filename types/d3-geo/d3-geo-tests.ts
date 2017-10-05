@@ -371,6 +371,13 @@ const inverted2: [number, number] = constructedProjection.invert([54, 2]);
 // TODO ?????
 // let stream: d3Geo.Stream = constructedProjection.stream([54, 2]);
 
+const preClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.preclip();
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipAntimeridian);
+constructedProjection = constructedProjection.preclip(d3Geo.geoClipCircle(45));
+
+const postClip: (stream: d3Geo.GeoStream) => d3Geo.GeoStream = constructedProjection.postclip();
+constructedProjection = constructedProjection.postclip(d3Geo.geoClipRectangle(0, 0, 1, 1));
+
 const clipAngle: number = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
 constructedProjection = constructedProjection.clipAngle(45);
@@ -686,3 +693,13 @@ d3Geo.geoStream(sampleExtendedFeature1, stream);
 d3Geo.geoStream(sampleExtendedFeature2, stream);
 d3Geo.geoStream(sampleFeatureCollection, stream);
 d3Geo.geoStream(sampleExtendedFeatureCollection, stream);
+
+// ----------------------------------------------------------------------
+// Clipping Function
+// ----------------------------------------------------------------------
+
+let clippingFunction: (stream: d3Geo.GeoStream) => d3Geo.GeoStream;
+
+clippingFunction = d3Geo.geoClipAntimeridian;
+clippingFunction = d3Geo.geoClipCircle(45);
+clippingFunction = d3Geo.geoClipRectangle(0, 0, 1, 1);

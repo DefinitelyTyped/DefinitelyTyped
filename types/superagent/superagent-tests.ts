@@ -285,6 +285,7 @@ request
     .attach('avatar', 'path/to/tobi.png', 'user.png')
     .attach('image', 'path/to/loki.png')
     .attach('file', 'path/to/jane.png')
+    .attach('fileWithOptions', 'path/to/file.png', { filename: 'filename', contentType: 'contentType' })
     .attach('blob', blob)
     .end(callback);
 
@@ -293,6 +294,12 @@ request
     .post('/upload')
     .field('user[name]', 'Tobi')
     .field('user[email]', 'tobi@learnboost.com')
+    .field({
+        field1: 'value1',
+        field2: Buffer.from([ 10, 20 ]),
+        field3: [ 'value1', 'value2' ],
+        field4: true,
+    })
     .attach('image', 'path/to/tobi.png')
     .end(callback);
 

@@ -679,6 +679,24 @@ declare namespace NodeJS {
         ref(): void;
         unref(): void;
     }
+
+    class Module {
+        static runMain(): void;
+        static wrap(code: string): string;
+
+        static Module: typeof Module;
+
+        exports: any;
+        require: NodeRequireFunction;
+        id: string;
+        filename: string;
+        loaded: boolean;
+        parent: Module | null;
+        children: Module[];
+        paths: string[];
+
+        constructor(id: string, parent?: Module);
+    }
 }
 
 interface IterableIterator<T> { }
@@ -5627,23 +5645,7 @@ declare module "constants" {
 }
 
 declare module "module" {
-    class Module implements NodeModule {
-        static runMain(): void;
-        static wrap(code: string): string;
-
-        exports: any;
-        require: NodeRequireFunction;
-        id: string;
-        filename: string;
-        loaded: boolean;
-        parent: NodeModule | null;
-        children: NodeModule[];
-        paths: string[];
-
-        constructor(id: string, parent?: Module);
-    }
-
-    export = Module;
+    export = NodeJS.Module;
 }
 
 declare module "process" {

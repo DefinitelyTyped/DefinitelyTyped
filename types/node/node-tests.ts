@@ -2252,8 +2252,8 @@ namespace process_tests {
         process.once("warning", (warning: Error) => { });
         process.prependListener("message", (message: any, sendHandle: any) => { });
         process.prependOnceListener("SIGBREAK", () => { });
-        process.on("newListener", (event: string, listener: Function) => { });
-        process.once("removeListener", (event: string, listener: Function) => { });
+        process.on("newListener", (event: string | symbol, listener: Function) => { });
+        process.once("removeListener", (event: string | symbol, listener: Function) => { });
 
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
@@ -3466,7 +3466,8 @@ namespace module_tests {
     require.extensions[".ts"] = () => "";
 
     Module.runMain();
-    Module.wrap("some code");
+    const s: string = Module.wrap("some code");
 
-    const m1 = new Module("moduleId");
+    const m1: Module = new Module("moduleId");
+    const m2: Module = new Module.Module("moduleId");
 }

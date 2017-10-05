@@ -1,8 +1,8 @@
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, ActionCreator, bindActionCreators, ActionCreatorsMapObject } from 'redux';
-import { connect, Provider, DispatchProp, MapStateToProps } from 'react-redux';
+import { Store, Dispatch, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject } from 'redux';
+import { Connect, connect, createProvider, Provider, DispatchProp, MapStateToProps, Options } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -14,10 +14,10 @@ import objectAssign = require('object-assign');
 // output of `connect` to make sure the signature is what is expected
 
 namespace Empty {
-    interface OwnProps { foo: string, dispatch: Dispatch<any> }    
+    interface OwnProps { foo: string, dispatch: Dispatch<any> }
 
     class TestComponent extends Component<OwnProps> {}
-    
+
     const Test = connect()(TestComponent)
 
     const verify = <Test foo='bar' />
@@ -90,7 +90,7 @@ namespace MapDispatch {
     )(TestComponent)
 
     const verifyNull = <TestNull foo='bar' />
-    
+
     const TestUndefined = connect(
         undefined,
         mapDispatchToProps,
@@ -140,7 +140,7 @@ namespace MapDispatchFactory {
     )(TestComponent)
 
     const verifyNull = <TestNull foo='bar' />
-    
+
     const TestUndefined = connect(
         undefined,
         mapDispatchToPropsFactory,
@@ -176,11 +176,11 @@ namespace MapStateFactoryAndDispatch {
     interface OwnProps { foo: string }
     interface StateProps { bar: number }
     interface DispatchProps { onClick: () => void }
-    
+
     const mapStateToPropsFactory = () => () =>({
         bar: 1
     })
-    
+
     const mapDispatchToProps = () => ({
         onClick: () => {}
     })
@@ -199,11 +199,11 @@ namespace MapStateFactoryAndDispatchFactory {
     interface OwnProps { foo: string }
     interface StateProps { bar: number }
     interface DispatchProps { onClick: () => void }
-    
+
     const mapStateToPropsFactory = () => () =>({
         bar: 1
     })
-    
+
     const mapDispatchToPropsFactory = () => () => ({
         onClick: () => {}
     })
@@ -381,6 +381,7 @@ interface DispatchProps {
 declare var actionCreators: () => {
     action: Function;
 }
+declare var dispatchActionCreators: () => DispatchProps;
 declare var addTodo: () => { type: string; };
 declare var todoActionCreators: { [type: string]: (...args: any[]) => any; };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
@@ -521,7 +522,7 @@ function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProp
     });
 }
 
-connect(mapStateToProps2, actionCreators, mergeProps)(MyRootComponent);
+connect(mapStateToProps2, dispatchActionCreators, mergeProps)(MyRootComponent);
 
 
 //https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14622#issuecomment-279820358
@@ -849,4 +850,48 @@ namespace TestWrappedComponent {
     const TestWrapped = (props: any) => <Connected.WrappedComponent name="Wrapped" />;
     // `Connected` does not require explicit `name` prop
     const TestConnected = (props: any) => <Connected />;
+}
+
+namespace TestCreateProvider {
+    const STORE_KEY = 'myStore';
+
+    const MyStoreProvider = createProvider(STORE_KEY);
+
+    const myStoreConnect: Connect = function(
+        mapStateToProps?: any,
+        mapDispatchToProps?: any,
+        mergeProps?: any,
+        options: Options = {},
+    ) {
+        options.storeKey = STORE_KEY;
+        return connect(
+            mapStateToProps,
+            mapDispatchToProps,
+            mergeProps,
+            options,
+        );
+    };
+
+    interface State { a: number };
+    const store = createStore<State>(() => ({ a: 1 }));
+    const myStore = createStore<State>(() => ({ a: 2 }));
+
+    interface AProps { a: number };
+    const A = (props: AProps) => (<h1>A is {props.a}</h1>);
+    const A1 = connect<AProps>(state => state)(A);
+    const A2 = myStoreConnect<AProps>(state => state)(A);
+
+    const Combined = () => (
+        <Provider store={store}>
+            <MyStoreProvider store={myStore}>
+                <A1 />
+                <A2 />
+            </MyStoreProvider>
+        </Provider>
+    );
+
+    // This renders:
+    // <h1>A is 1</h1>
+    // <h1>A is 2</h1>
+    ReactDOM.render(<Combined />, document.body);
 }

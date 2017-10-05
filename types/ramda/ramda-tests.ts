@@ -151,9 +151,9 @@ class F2 {
 };
 
 () => {
-    const truncate  = R.when(
+    const truncate = R.when(
         R.propSatisfies(R.flip(R.gt)(10), "length"),
-        R.pipe(R.take(10), R.append("…"), R.join(""))
+        R.pipe<string,string,string[],string>(R.take(10), R.append("…") as (wrong: any) => string[], R.join(""))
     );
     const a: string = truncate("12345");         // => '12345'
     const b: string = truncate("0123456789ABC"); // => '0123456789…'
@@ -317,8 +317,7 @@ R.times(i, 5);
 
 (() => {
     const numbers = [1, 2, 3];
-    const add     = (a: number, b: number) => a + b;
-    R.reduce(add, 10, numbers); // => 16;
+    R.reduce((a,b) => a + b, 10, numbers); // => 16;
 })();
 
 (() => {
@@ -326,7 +325,7 @@ R.times(i, 5);
 })();
 
 (() => {
-    const pairs = [["a", 1], ["b", 2], ["c", 3]];
+    const pairs = [["a", 1], ["b", 2], ["c", 3]] as [string, number][];
 
     function flattenPairs(pair: [string, number], acc: Array<string|number>): Array<string|number> {
         return acc.concat(pair);
@@ -854,13 +853,9 @@ interface Obj {
 () => {
     const numbers = [1, 2, 3];
 
-    function add(a: number, b: number) {
-        return a + b;
-    }
-
-    R.reduce(add, 10, numbers); // => 16
+    R.reduce((a,b) => a + b, 10, numbers); // => 16
     R.reduce(add)(10, numbers); // => 16
-    R.reduce(add, 10)(numbers); // => 16
+    R.reduce<number,number>((a,b) => a + b, 10)(numbers); // => 16
 };
 
 interface Student {
@@ -1086,7 +1081,7 @@ type Pair = KeyValuePair<string, number>;
     R.transduce(transducer, fn, [], numbers); // => [2, 3]
     R.transduce(transducer, fn, [])(numbers); // => [2, 3]
     R.transduce(transducer, fn)([], numbers); // => [2, 3]
-    R.transduce(transducer)(fn, [], numbers); // => [2, 3]
+    R.transduce<number, number>(transducer)(fn, [], numbers); // => [2, 3]
 };
 
 () => {
@@ -1101,7 +1096,7 @@ type Pair = KeyValuePair<string, number>;
     const list = [1, 2, 3];
     R.traverse(of, fn, list);
     R.traverse(of, fn)(list);
-    R.traverse(of)(fn, list);
+    R.traverse<number, number[], {}>(of)(fn, list);
 };
 
 () => {
@@ -1691,7 +1686,7 @@ class Rectangle {
 
     const format = R.converge(
         R.call, [
-            R.pipe(R.prop("indent"), indentN),
+            R.pipe<{}, number, (s: string) => string>(R.prop("indent"), indentN),
             R.prop("value")
         ]
     );
@@ -1841,7 +1836,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByAgeDescending = R.sortBy(R.compose(R.negate, R.prop("age")));
+    const sortByAgeDescending = R.sortBy(R.compose<{}, number, number>(R.negate, R.prop("age")));
     const alice               = {
         name: "ALICE",
         age : 101
@@ -1859,7 +1854,7 @@ class Rectangle {
 };
 
 () => {
-    const sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop("name")));
+    const sortByNameCaseInsensitive = R.sortBy(R.compose<string,string,string>(R.toLower, R.prop("name")));
     const alice                     = {
         name: "ALICE",
         age : 101
