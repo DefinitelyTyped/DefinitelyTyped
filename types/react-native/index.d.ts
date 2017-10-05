@@ -6096,8 +6096,8 @@ export interface ScrollViewPropertiesIOS {
 
     /**
      * When true, ScrollView allows use of pinch gestures to zoom in and out.
-    * The default value is true.
-    */
+     * The default value is true.
+     */
     pinchGestureEnabled?: boolean
 
     /**
