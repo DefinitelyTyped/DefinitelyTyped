@@ -18,7 +18,7 @@ declare module 'twitter-stream-channels' {
       }
 
       export interface StreamChannelsOptions {
-        track?: object,
+        track?: {},
         follow?: string,
         locations?: string,
         enableChannelsEvents?: boolean,
