@@ -10,15 +10,38 @@ declare module "convert-layout" {
     export = layouts
 }
 
+declare module "convert-layout/by" {
+    export = lang_layout
+}
+
+declare module "convert-layout/de" {
+    export = lang_layout
+}
+
+declare module "convert-layout/es" {
+    export = lang_layout
+}
+
+declare module "convert-layout/he" {
+    export = lang_layout
+}
+
+declare module "convert-layout/kk" {
+    export = lang_layout
+}
+
+
 declare module "convert-layout/ru" {
     export = lang_layout
 }
+
+declare module "convert-layout/uk" {
+    export = lang_layout
+}
+
 
 interface layout {
     toEn(s: string): string;
     fromEn(s: string): string;
 }
 
-declare namespace convert_layout {
-
-}
