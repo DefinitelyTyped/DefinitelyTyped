@@ -3019,7 +3019,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/after/}
      * @since 1.0
      */
-    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
@@ -3031,7 +3031,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4
      * @since 1.10
      */
-    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
      *
@@ -3135,7 +3135,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/append/}
      * @since 1.0
      */
-    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -3146,7 +3146,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/append/}
      * @since 1.4
      */
-    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Insert every element in the set of matched elements to the end of the target.
      *
@@ -3193,7 +3193,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/before/}
      * @since 1.0
      */
-    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      *
@@ -3205,7 +3205,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4
      * @since 1.10
      */
-    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
     /**
      * Attach a handler to an event for the elements.
@@ -4597,7 +4597,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.0
      */
-    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      *
@@ -4608,7 +4608,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.4
      */
-    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *

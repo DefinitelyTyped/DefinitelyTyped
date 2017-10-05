@@ -5130,7 +5130,7 @@ function JQuery() {
     function manipulation() {
         function after() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
+            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').after(function(index, html) {
@@ -5166,18 +5166,6 @@ function JQuery() {
                 html;
 
                 return new Text();
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').after(function(index, html) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType number
-                index;
-                // $ExpectType string
-                html;
-
-                return [new Element(), new Text()];
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5191,11 +5179,23 @@ function JQuery() {
 
                 return $('p').contents();
             });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text(), $('p').contents()];
+            });
         }
 
         function append() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
+            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append(function(index, html) {
@@ -5231,18 +5231,6 @@ function JQuery() {
                 html;
 
                 return new Text();
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').append(function(index, html) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType number
-                index;
-                // $ExpectType string
-                html;
-
-                return [new Element(), new Text()];
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5259,11 +5247,23 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append($.parseHTML('<span>myTextNode <!-- myComment --></span>'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text(), $('p').contents()];
+            });
         }
 
         function before() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
+            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').before(function(index, html) {
@@ -5310,7 +5310,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return [new Element(), new Text()];
+                return $('p').contents();
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5322,13 +5322,13 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p').contents();
+                return [new Element(), new Text(), $('p').contents()];
             });
         }
 
         function prepend() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').prepend(function(index, html) {
@@ -5375,7 +5375,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return [new Element(), new Text()];
+                return $('p').contents();
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5387,7 +5387,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p').contents();
+                return [new Element(), new Text(), $('p').contents()];
             });
         }
 
