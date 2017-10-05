@@ -24,7 +24,7 @@ declare namespace FriendlyErrorsWebpackPlugin {
 			notes: string[],
 		};
 		onErrors?(severity: Severity, errors: string): void;
-		clearConsole?: true;
+		clearConsole?: boolean;
 		additionalFormatters?: Array<(errors: WebpackError[], type: Severity) => string[]>;
 		additionalTransformers?: Array<(error: any) => any>;
 	}

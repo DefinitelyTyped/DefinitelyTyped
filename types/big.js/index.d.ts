@@ -1,4 +1,4 @@
-// Type definitions for big.js 3.2
+// Type definitions for big.js 4.0
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>
 //                 Miika Hänninen <https://github.com/googol>
@@ -89,14 +89,14 @@ export interface BigConstructor {
      * -1e+6 to 0 inclusive
      * Default value: -7
      */
-    E_NEG: number;
+    NE: number;
     /**
      * The positive exponent value at and above which toString returns exponential notation.
      *
      * 0 to 1e+6 inclusive
      * Default value: 21
      */
-    E_POS: number;
+    PE: number;
 }
 
 export interface Big {

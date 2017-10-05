@@ -365,7 +365,7 @@ interface NativeSyntheticEvent<T> {
     preventDefault(): void
     stopPropagation(): void
     target: NodeHandle
-    timeStamp: Date
+    timeStamp: number
     type: string
 }
 
@@ -533,9 +533,9 @@ export interface LayoutAnimationStatic {
         linear: LayoutAnimationConfig
         spring: LayoutAnimationConfig
     }
-    easeInEaseOut: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    linear: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
-    spring: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
+    easeInEaseOut: (onAnimationDidEnd?: () => void) => void
+    linear: (onAnimationDidEnd?: () => void) => void
+    spring: (onAnimationDidEnd?: () => void) => void
 }
 
 type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
@@ -5322,8 +5322,8 @@ export interface SystraceStatic {
 export interface DataSourceAssetCallback {
     rowHasChanged?: (r1: any, r2: any) => boolean
     sectionHeaderHasChanged?: (h1: any, h2: any) => boolean
-    getRowData?: <T>(dataBlob: any, sectionID: number | string, rowID: number | string) => T
-    getSectionHeaderData?: <T>(dataBlob: any, sectionID: number | string) => T
+    getRowData?: (dataBlob: any, sectionID: number | string, rowID: number | string) => any
+    getSectionHeaderData?: (dataBlob: any, sectionID: number | string) => any
 }
 
 /**
@@ -5383,7 +5383,7 @@ export interface ListViewDataSource {
      * handle merging of old and new data separately and then pass that into
      * this function as the `dataBlob`.
      */
-    cloneWithRows<T>(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
+    cloneWithRows(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
 
     /**
      * This performs the same function as the `cloneWithRows` function but here
@@ -5612,7 +5612,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
+export type PlatformOSType = 'ios' | 'android' | 'macos' | 'windows' | 'web'
 
 interface PlatformStatic {
     OS: PlatformOSType
@@ -5621,7 +5621,12 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>( specifics: { ios?: T, android?: T} ): T;
+    select<T>( specifics: { [platform in PlatformOSType]?: T; } ): T;
+}
+
+interface PlatformIOSStatic extends PlatformStatic {
+    isPad: boolean
+    isTVOS: boolean
 }
 
 /**
@@ -5631,7 +5636,7 @@ interface PlatformStatic {
 interface DeviceEventEmitterStatic extends EventEmitter {
     sharedSubscriber: EventSubscriptionVendor
     new(): DeviceEventEmitterStatic;
-    addListener<T>( type: string, listener: ( data: T ) => void, context?: any ): EmitterSubscription;
+    addListener( type: string, listener: ( data: any ) => void, context?: any ): EmitterSubscription;
 }
 
 // Used by Dimensions below
@@ -9171,6 +9176,7 @@ interface NativeModulesStatic {
  */
 export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
+export var PlatformIOS: PlatformIOSStatic
 export var PixelRatio: PixelRatioStatic
 
 export interface ComponentInterface<P> {

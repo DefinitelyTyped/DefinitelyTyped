@@ -1591,10 +1591,10 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: string[]|LatLng[]|Place[];
+        destinations?: string[]|LatLng[]|LatLngLiteral[]|Place[];
         drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: string[]|LatLng[]|Place[];
+        origins?: string[]|LatLng[]|LatLngLiteral[]|Place[];
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;

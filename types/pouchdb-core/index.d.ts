@@ -107,7 +107,7 @@ declare namespace PouchDB {
         type AttachmentId = string;
         type RevisionId = string;
         type Availability = 'available' | 'compacted' | 'not compacted' | 'missing';
-        type Attachment = string | Blob | Buffer;
+        type AttachmentData = string | Blob | Buffer;
 
         interface Options {
           ajax?: Configuration.RemoteRequesterConfiguration;
@@ -178,28 +178,55 @@ declare namespace PouchDB {
             _attachments?: Attachments;
         }
 
-        interface AttachmentResponse {
+        /**
+         * Stub attachments are returned by PouchDB by default (attachments option set to false)
+         */
+        interface StubAttachment {
+            /**
+             * Mime type of the attachment
+             */
             content_type: string;
 
-            /** MD5 hash, starts with "md5-" prefix */
+            /**
+             * Database digest of the attachment
+             */
             digest: string;
 
-            /** Only present if `attachments` was `false`. */
-            stub?: boolean;
-
-            /** Only present if `attachments` was `false`. */
-            length?: number;
+            /**
+             * Attachment is a stub
+             */
+            stub: true;
 
             /**
-             * Only present if `attachments` was `true`.
+             * Length of the attachment
+             */
+            length: number;
+        }
+
+        /**
+         * Full attachments are used to create new attachments or returned when the attachments option
+         * is true.
+         */
+        interface FullAttachment {
+            /**
+             * Mime type of the attachment
+             */
+            content_type: string;
+
+            /** MD5 hash, starts with "md5-" prefix; populated by PouchDB for new attachments */
+            digest?: string;
+
+            /**
              * {string} if `binary` was `false`
              * {Blob|Buffer} if `binary` was `true`
              */
-            data?: Attachment;
+            data: AttachmentData;
         }
 
+        type Attachment = StubAttachment | FullAttachment;
+
         interface Attachments {
-            [attachmentId: string]: AttachmentResponse;
+            [attachmentId: string]: Attachment;
         }
 
         type NewDocument<Content extends {}> = Content;
@@ -217,17 +244,12 @@ declare namespace PouchDB {
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;
 
-            _attachments?: {[attachmentId: string]: PutAttachment};
+            _attachments?: Attachments;
         };
 
         type PutDocument<Content extends {}> = PostDocument<Content> & ChangesMeta & {
             _id?: DocumentId;
         };
-
-        interface PutAttachment {
-            content_type: string;
-            data: Attachment;
-        }
 
         interface AllDocsOptions extends Options {
             /** Include attachment data for each document.
@@ -725,7 +747,7 @@ declare namespace PouchDB {
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
                       rev: Core.RevisionId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string,
                       callback: Core.Callback<Core.Response>): void;
 
@@ -737,7 +759,7 @@ declare namespace PouchDB {
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
                       rev: Core.RevisionId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string): Promise<Core.Response>;
 
          /**
@@ -747,7 +769,7 @@ declare namespace PouchDB {
           */
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string,
                       callback: Core.Callback<Core.Response>): void;
 
@@ -758,7 +780,7 @@ declare namespace PouchDB {
           */
         putAttachment(docId: Core.DocumentId,
                       attachmentId: Core.AttachmentId,
-                      attachment: Core.Attachment,
+                      attachment: Core.AttachmentData,
                       type: string): Promise<Core.Response>;
 
         /** Get attachment data */

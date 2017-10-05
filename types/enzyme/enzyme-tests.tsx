@@ -109,6 +109,10 @@ function ShallowWrapperTest() {
         const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' } });
     }
 
+    function test_hostNodes() {
+	    shallowWrapper.hostNodes();
+    }
+
     function test_equals() {
         boolVal = shallowWrapper.equals(<div className="foo bar" />);
     }
@@ -204,6 +208,14 @@ function ShallowWrapperTest() {
 
     function test_getNodes() {
         reactElements = shallowWrapper.getNodes();
+    }
+
+    function test_getElement() {
+        reactElement = shallowWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = shallowWrapper.getElements();
     }
 
     function test_getDOMNode() {
@@ -417,6 +429,10 @@ function ReactWrapperTest() {
         reactWrapper.detach();
     }
 
+    function test_hostNodes() {
+        reactWrapper.hostNodes();
+    }
+
     function test_find() {
         elementWrapper = reactWrapper.find('.selector');
         reactWrapper = reactWrapper.find(MyComponent);
@@ -543,6 +559,14 @@ function ReactWrapperTest() {
 
     function test_getNodes() {
         reactElements = reactWrapper.getNodes();
+    }
+
+    function test_getElement() {
+        reactElement = reactWrapper.getElement();
+    }
+
+    function test_getElements() {
+        reactElements = reactWrapper.getElements();
     }
 
     function test_getDOMNode() {
