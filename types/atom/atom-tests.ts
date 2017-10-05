@@ -926,10 +926,23 @@ async function destroyAndWait() {
 
 pane.destroyItems();
 pane.destroyInactiveItems();
-pane.saveActiveItem();
-pane.saveActiveItemAs(() => {});
-pane.saveItem(element, () => {});
-pane.saveItemAs(element, () => {});
+
+async function savePaneItem() {
+	await pane.saveActiveItem();
+	let actionReturn = await pane.saveActiveItem(() => true);
+	if (actionReturn) bool = actionReturn;
+
+	await pane.saveActiveItemAs(() => {});
+	actionReturn = await pane.saveActiveItemAs(() => false);
+
+	await pane.saveItem(element, () => {});
+	let altActionReturn = await pane.saveItem(element, () => 42);
+	if (altActionReturn) num = altActionReturn;
+
+	await pane.saveItemAs(element, () => {});
+	altActionReturn = await pane.saveItemAs(element, () => 42);
+}
+
 pane.saveItems();
 
 potentialItem = pane.itemForURI("https://test");
@@ -1265,8 +1278,10 @@ str = editor.getEncoding();
 editor.setEncoding("utf8");
 
 // File Operations
-editor.save();
-editor.saveAs("test.file");
+async function saveEditor() {
+	await editor.save();
+	await editor.saveAs("test.file");
+}
 
 // Reading Text
 str = editor.getText();
