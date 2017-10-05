@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.48
+// Type definitions for react-native 0.49
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -6135,6 +6135,12 @@ export interface ScrollViewPropertiesIOS {
      * Called when a scrolling animation ends.
      */
     onScrollAnimationEnd?: () => void
+
+    /**
+     * When true, ScrollView allows use of pinch gestures to zoom in and out.
+     * The default value is true.
+     */
+    pinchGestureEnabled?: boolean
 
     /**
      * This controls how often the scroll event will be fired while scrolling (in events per seconds).
