@@ -621,7 +621,7 @@ interface Obj {
     // => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
     // ensuring flatten infers properly during a composition. known inference issues under this condition
-    R.compose<Obj[][][], Obj[]>(R.flatten)([[[xs, xs], [xs, xs]], [[xs, xs], [xs, xs]], [[xs, xs], [xs, xs]]]);
+    const result = R.compose<Obj[][][], Obj[]>(R.flatten)([[[xs, xs], [xs, xs]], [[xs, xs], [xs, xs]], [[xs, xs], [xs, xs]]]);
     // => [xs, xs, xs, xs, xs, xs, xs, xs, xs, xs, xs, xs]
 };
 

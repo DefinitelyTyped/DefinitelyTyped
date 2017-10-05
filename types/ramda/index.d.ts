@@ -626,10 +626,11 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: T[] | T[][]): T[];
-        flatten<T>(x: T[][] | T[][][]): T[];
-        flatten<T>(x: T[][][] | T[][][][]): T[];
-        flatten<T>(x: T[][][][]| T[][][][][]): T[];
+        flatten<T>(x: T[]): T[];
+        flatten<T>(x: T[][]): T[];
+        flatten<T>(x: T[][][]): T[]
+        flatten<T>(x: T[][][][]): T[]
+        flatten<T>(x: T[][][][][]): T[]
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
