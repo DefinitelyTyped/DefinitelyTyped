@@ -1959,7 +1959,7 @@ declare module 'gl-matrix' {
          * @param height height of gl context 
          * @returns out
          */
-        public static projection(out: mat3, width: number, height: number): mat3
+        public static projection(out: mat3, width: number, height: number): mat3;
 
         /**
          * Inverts a mat3
