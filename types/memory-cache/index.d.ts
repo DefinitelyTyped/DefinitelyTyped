@@ -1,5 +1,5 @@
 // Type definitions for memory-cache
-// Project: http://github.com/ptarjan/node-cache
+// Project: https://github.com/ptarjan/node-cache
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

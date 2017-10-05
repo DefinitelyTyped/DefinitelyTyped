@@ -56,7 +56,7 @@ bot.on(['/start', 'audio', 'sticker'], msg => {
 });
 
 bot.mod('text', (data) => {
-    let msg = data.message;
+    const msg = data.message;
     msg.text = `📢 ${ msg.text }`;
     return data;
 });

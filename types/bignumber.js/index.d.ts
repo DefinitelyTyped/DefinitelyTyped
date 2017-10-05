@@ -1,6 +1,6 @@
 // Type definitions for bignumber.js 4.0
 // Project: https://github.com/MikeMcl/bignumber.js/
-// Definitions by: Viktor Smirnov <https://github.com/LaserUnicorns/>
+// Definitions by: Viktor Smirnov <https://github.com/LaserUnicorns>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

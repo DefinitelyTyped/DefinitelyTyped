@@ -142,7 +142,7 @@ let layer = new H.datalens.ObjectLayer(
     rowToStyle: (cluster) => {
       const size = 32;
 
-      let icon = H.datalens.ObjectLayer.createIcon([
+      const icon = H.datalens.ObjectLayer.createIcon([
         'svg',
         {
           viewBox: [-size, -size, 2 * size, 2 * size]

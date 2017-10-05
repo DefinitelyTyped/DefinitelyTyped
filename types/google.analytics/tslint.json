@@ -3,6 +3,7 @@
     "rules": {
         "dt-header": false,
         "ban-types": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "no-unnecessary-generics": false
     }
 }

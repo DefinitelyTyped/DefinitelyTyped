@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "moduleResolution": "node",
         "lib": [
             "es6"
         ],

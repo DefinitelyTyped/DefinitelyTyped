@@ -1,6 +1,7 @@
 // Type definitions for Auth0.js 8.6
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
+//                 Matt Durrant <https://github.com/mdurrant>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace auth0;
@@ -186,7 +187,7 @@ export class WebAuth {
      *
      * @param {AuthorizeOptions} options: https://auth0.com/docs/api/authentication#!#get--authorize_db
      */
-    authorize(options: AuthorizeOptions): void;
+    authorize(options?: AuthorizeOptions): void;
 
     /**
      * Parse the url hash and extract the returned tokens depending on the transaction.
@@ -624,6 +625,7 @@ interface DbSignUpOptions {
     password: string;
     connection: string;
     scope?: string;
+    user_metadata?: any;
 }
 
 interface ParseHashOptions {

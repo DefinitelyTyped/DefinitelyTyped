@@ -2,30 +2,23 @@
 // Project: https://github.com/restify/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 import http = require('http');
+import https = require('https');
 import Logger = require('bunyan');
 import url = require('url');
-
-export interface BunyanOptions {
-    properties: any;
-
-    serializers: any;
-
-    headers: any;
-
-    log: Logger;
-}
+import spdy = require('spdy');
+import stream = require('stream');
 
 export interface ServerOptions {
-    ca?: any;
+    ca?: string | Buffer | ReadonlyArray<string | Buffer>;
 
-    certificate?: any;
+    certificate?: string | Buffer | ReadonlyArray<string | Buffer>;
 
-    key?: any;
+    key?: string | Buffer | ReadonlyArray<string | Buffer>;
 
     passphrase?: string;
 
@@ -33,13 +26,13 @@ export interface ServerOptions {
 
     ciphers?: string;
 
-    formatters?: any;
+    formatters?: Formatters;
 
     log?: Logger;
 
     name?: string;
 
-    spdy?: any;
+    spdy?: spdy.ServerOptions;
 
     version?: string;
 
@@ -47,7 +40,7 @@ export interface ServerOptions {
 
     handleUpgrades?: boolean;
 
-    httpsServerOptions?: any;
+    httpsServerOptions?: https.ServerOptions;
 
     handleUncaughtExceptions?: boolean;
 
@@ -66,16 +59,6 @@ export interface AddressInterface {
     family: string;
 
     address: string;
-}
-
-export class Server {
-    /**
-     * Creates a new Server.
-     * @public
-     * @class
-     * @param {Object} options an options object
-     */
-    constructor(options?: ServerOptions);
 }
 
 export interface Server extends http.Server {
@@ -305,6 +288,12 @@ export interface Server extends http.Server {
 
     /** Once listen() is called, this will be filled in with where the server is running. */
     url: string;
+
+    /** Node server instance */
+    server: http.Server;
+
+    /** Router instance */
+    router: Router;
 }
 
 export interface RouterOptions {
@@ -317,10 +306,6 @@ export interface RouterOptions {
     version?: string;
 
     versions?: string[];
-}
-
-export class Router {
-    constructor(options: RouterOptions);
 }
 
 export interface Router {
@@ -913,15 +898,6 @@ export interface Response extends http.ServerResponse {
      */
     toString(): string;
 
-    /**
-     * pass through to native response.writeHead().
-     * @public
-     * @function writeHead
-     * @emits    header
-     * @returns  {undefined}
-     */
-    writeHead(): void;
-
     /** redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);
      * `next` is mandatory, to complete the response and trigger audit logger.
@@ -945,7 +921,7 @@ export interface Response extends http.ServerResponse {
      * @function redirect
      * @return   {undefined}
      */
-    redirect(options: string | any, next: Next): void;
+    redirect(options: object | string, next: Next): void;
 
     /** HTTP status code. */
     code: number;
@@ -1028,13 +1004,70 @@ export type FindRouteCallback = (err: Error, route?: Route, params?: any) => voi
 export type RequestHandler = (req: Request, res: Response, next: Next) => any;
 export type RequestHandlerType = RequestHandler | RequestHandler[];
 
-export function bunyan(options?: BunyanOptions): RequestHandler;
+export namespace bunyan {
+    interface RequestCaptureOptions {
+        /** The stream to which to write when dumping captured records. */
+        stream?: Logger.Stream;
+
+        /** The streams to which to write when dumping captured records. */
+        streams?: ReadonlyArray<Logger.Stream>;
+
+        /**
+         * The level at which to trigger dumping captured records. Defaults to
+         * bunyan.WARN.
+         */
+        level?: Logger.LogLevel;
+
+        /** Number of records to capture. Default 100. */
+        maxRecords?: number;
+
+        /**
+         * Number of simultaneous request id capturing buckets to maintain.
+         * Default 1000.
+         */
+        maxRequestIds?: number;
+
+        /**
+         * If true, then dump captured records on the *default* request id when
+         * dumping. I.e. dump records logged without "req_id" field. Default
+         * false.
+         */
+        dumpDefault?: boolean;
+    }
+
+    /**
+     * A Bunyan stream to capture records in a ring buffer and only pass through
+     * on a higher-level record. E.g. buffer up all records but only dump when
+     * getting a WARN or above.
+     */
+    class RequestCaptureStream extends stream.Stream {
+        constructor(opts: RequestCaptureOptions);
+
+        /** write to the stream */
+        write(record: any): void;
+    }
+
+    const serializers: Logger.Serializers & {
+        err: Logger.Serializer,
+        req: Logger.Serializer,
+        res: Logger.Serializer,
+        client_req: Logger.Serializer,
+        client_res: Logger.Serializer
+    };
+
+    /** create a bunyan logger */
+    function createLogger(name: string): Logger;
+}
 
 export function createServer(options?: ServerOptions): Server;
 
-export const formatters: {
-    [name: string]: RequestHandler
-};
+export type Formatter = (req: Request, res: Response, body: any) => string | null;
+
+export interface Formatters {
+    [contentType: string]: Formatter;
+}
+
+export const formatters: Formatters;
 
 export namespace plugins {
     namespace pre {

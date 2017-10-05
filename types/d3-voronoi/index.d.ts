@@ -69,7 +69,7 @@ export interface VoronoiSite<T> extends VoronoiPoint {
 
 /**
  * A Voronoi Cell in the diagram is an object with the following properties:
- * site and halfEdges
+ * site and halfedges
  *
  * The generic refers to the type of the data for the corresponding element.
  */
@@ -81,7 +81,7 @@ export interface VoronoiCell<T> {
     /**
      * An array of indexes into diagram.edges representing the cell’s polygon.
      */
-    halfEdges: number[];
+    halfedges: number[];
 }
 
 /**

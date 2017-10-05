@@ -1,6 +1,6 @@
 // Type definitions for URI Template JS 0.3.4
 // Project: https://github.com/fxa/uritemplate-js
-// Definitions by: Chui Tey <https://github.com/teyc/>
+// Definitions by: Chui Tey <https://github.com/teyc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*

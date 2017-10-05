@@ -9,6 +9,7 @@ import FormData = require('form-data');
 var value: any;
 var str: string;
 var strOrUndef: string | undefined;
+var strOrTrueOrUndef: string | true | undefined;
 var buffer: NodeBuffer = new Buffer('foo');
 var num: number = 0;
 var bool: boolean;
@@ -76,7 +77,7 @@ var aws: request.AWSOptions = { secret: 'foo' };
 str = aws.secret;
 strOrUndef = aws.bucket;
 
-var oauth: request.OAuthOptions = {};
+var oauth: request.OAuthOptions = { body_hash: 'foo' };
 strOrUndef = oauth.callback;
 strOrUndef = oauth.consumer_key;
 strOrUndef = oauth.consumer_secret;
@@ -84,6 +85,7 @@ strOrUndef = oauth.token;
 strOrUndef = oauth.token_secret;
 strOrUndef = oauth.transport_method;
 strOrUndef = oauth.verifier;
+strOrTrueOrUndef = oauth.body_hash;
 
 var options: request.Options = {
 	url: str,
@@ -120,6 +122,7 @@ var options: request.Options = {
 	pool: value,
 	timeout: num,
 	proxy: value,
+	tunnel: bool,
 	strictSSL: bool,
 	rejectUnauthorized: false
 };

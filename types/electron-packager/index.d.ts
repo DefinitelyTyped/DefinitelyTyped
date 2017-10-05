@@ -1,6 +1,6 @@
 // Type definitions for electron-packager 8.7
 // Project: https://github.com/electron-userland/electron-packager
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Juan Jimenez-Anca <https://github.com/cortopy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -185,15 +185,12 @@ declare namespace electronPackager {
          * If present, signs OS X target apps when the host platform is OS X and XCode is installed.
          */
         osxSign?: boolean | ElectronOsXSignOptions;
-        /**
-         * The URL protocol scheme(s) to associate the app with
-         */
-        protocol?: string[];
-        /**
-         * The descriptive name(s) of the URL protocol scheme(s) specified via the protocol option.
-         * Maps to the CFBundleURLName metadata property.
-         */
-        protocolName?: string[];
+
+        /** The URL protocol schemes the app supports. */
+        protocols?: Array<{
+            name: string
+            schemes: string[]
+        }>;
 
         /**
          * Windows targets only

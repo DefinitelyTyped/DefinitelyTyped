@@ -1,6 +1,6 @@
 // Type definitions for swagger-express-middleware 1.x
 // Project: https://github.com/BigstickCarpet/swagger-express-middleware
-// Definitions by: Alexandre Roba <https://github.com/alexandreroba/>
+// Definitions by: Alexandre Roba <https://github.com/alexandreroba>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================

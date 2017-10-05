@@ -6,54 +6,50 @@ let str: string;
 let strArr: string[];
 let bool: boolean;
 let num: number;
-let src: string;
-let dest: string;
-let file: string;
-let filename: string;
-let dir: string;
-let path: string;
-let data: any;
-let object: object;
-let buf: Buffer;
+declare const src: string;
+declare const dest: string;
+declare const file: string;
+declare const filename: string;
+declare const dir: string;
+declare const path: string;
+declare const data: any;
+declare const object: object;
+declare const buf: Buffer;
 let strOrBuf: string | Buffer;
 let buffer: NodeBuffer;
-let modeNum: number;
-let modeStr: string;
-let encoding: string;
-let type: string;
-let flags: string;
-let srcpath: string;
-let dstpath: string;
-let oldPath: string;
-let newPath: string;
-let cache: { [path: string]: string; };
-let offset: number;
-let length: number;
-let position: number;
-let fd: number;
-let len: number;
-let uid: number;
-let gid: number;
-let atime: number;
-let mtime: number;
-let watchListener: (curr: fs.Stats, prev: fs.Stats) => void;
-let statsCallback: (err: Error, stats: fs.Stats) => void;
-let errorCallback: (err: Error) => void;
-let openOpts: fs.ReadOptions;
-let writeOpts: fs.WriteOptions;
+declare const modeNum: number;
+declare const modeStr: string;
+declare const encoding: string;
+declare const type: string;
+declare const flags: string;
+declare const srcpath: string;
+declare const dstpath: string;
+declare const oldPath: string;
+declare const newPath: string;
+declare const cache: { [path: string]: string; };
+declare const offset: number;
+declare const length: number;
+declare const position: number;
+declare const fd: number;
+declare const len: number;
+declare const uid: number;
+declare const gid: number;
+declare const atime: number;
+declare const mtime: number;
+declare const watchListener: (curr: fs.Stats, prev: fs.Stats) => void;
+declare const statsCallback: (err: Error, stats: fs.Stats) => void;
+declare const errorCallback: (err: Error) => void;
+declare const openOpts: fs.ReadOptions;
+declare const writeOpts: fs.WriteOptions;
 let watcher: fs.FSWatcher;
 let readStream: stream.Readable;
 let writeStream: stream.Writable;
 let isDirectory: boolean;
 
 fs.copy(src, dest, errorCallback);
-fs.copy(src, dest, (src: string) => {
-	return false;
-}, errorCallback);
+fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
 fs.copySync(src, dest);
-fs.copySync(src, dest, (src: string) => {
-	return false;
-});
+fs.copySync(src, dest, { filter: (src: string, dest: string) => false });
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
@@ -206,11 +202,10 @@ readStream = fs.createReadStream(path, {
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
 	flags: str,
-	defaultEncoding: str
+	encoding: str
 });
 
-let isDirectoryCallback = (err: Error, isDirectory: boolean) => {
-};
+function isDirectoryCallback(err: Error, isDirectory: boolean) {}
 fs.isDirectory(path, isDirectoryCallback);
 fs.isDirectory(path);
 isDirectory = fs.isDirectorySync(path);

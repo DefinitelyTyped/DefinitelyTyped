@@ -3,6 +3,7 @@
 // Definitions by: Ogglas <https://github.com/Ogglas>
 //                  Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -32,7 +33,7 @@ export interface ReactTagsProps {
     id?: string;
 }
 
-export class WithContext extends React.Component<ReactTagsProps, {}> { }
-export class WithOutContext extends React.Component<ReactTagsProps, {}> { }
+export class WithContext extends React.Component<ReactTagsProps> { }
+export class WithOutContext extends React.Component<ReactTagsProps> { }
 
 export default WithContext;

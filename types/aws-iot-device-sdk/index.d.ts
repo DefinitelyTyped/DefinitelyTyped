@@ -1,6 +1,7 @@
 // Type definitions for aws-iot-device-sdk 1.0.13
 // Project: https://github.com/aws/aws-iot-device-sdk-js
 // Definitions by: Markus Olsson <https://github.com/niik>
+//                 Margus Lamp <https://github.com/mlamp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -100,7 +101,7 @@ export interface DeviceOptions extends mqtt.ClientOptions {
    * additional options to the underlying WebSocket object;
    * these options are documented here.
    */
-  websocketOptions?: WebSocket.IClientOptions;
+  websocketOptions?: WebSocket.ClientOptions;
 
   /**
    * used to specify the Access Key ID when protocol is set to "wss".
@@ -333,8 +334,7 @@ export class thingShadow extends NodeJS.EventEmitter {
    * @param options
    * @param callback
    */
-  publish(topic: string, message: Buffer, options?: mqtt.ClientPublishOptions, callback?: Function): mqtt.Client;
-  publish(topic: string, message: string, options?: mqtt.ClientPublishOptions, callback?: Function): mqtt.Client;
+  publish(topic: string, message: Buffer | string, options?: mqtt.ClientPublishOptions, callback?: Function): mqtt.Client;
 
   /**
    * Subscribe to a topic or topics
@@ -342,9 +342,7 @@ export class thingShadow extends NodeJS.EventEmitter {
    * @param the options to subscribe with
    * @param callback fired on suback
    */
-  subscribe(topic: string, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
-  subscribe(topic: string[], options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
-  subscribe(topic: mqtt.Topic, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
+  subscribe(topic: string | string[] | mqtt.Topic, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
 
   /**
    * Unsubscribe from a topic or topics
@@ -353,8 +351,7 @@ export class thingShadow extends NodeJS.EventEmitter {
    * @param options
    * @param callback  fired on unsuback
    */
-  unsubscribe(topic: string, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
-  unsubscribe(topic: string[], options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
+  unsubscribe(topic: string | string[], options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
 
   /**
    * end - close connection

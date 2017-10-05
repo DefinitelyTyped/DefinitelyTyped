@@ -1,9 +1,49 @@
-// Type definitions for gl-matrix 2.2.2
+// Type definitions for gl-matrix 2.3.2
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Mattijs Kneppers <https://github.com/mattijskneppers>, based on definitions by Tat <https://github.com/tatchx>
+//                 Nikolay Babanov <https://github.com/nbabanov>
+//                 Austin Martin <https://github.com/auzmartist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'gl-matrix' {
+    // Global Utilities
+    export class glMatrix {
+        // Configuration constants
+        public static EPSILON: number;
+        public static ARRAY_TYPE: any;
+        public static RANDOM(): number;
+        public static ENABLE_SIMD: boolean;
+
+        // Compatibility detection
+        public static SIMD_AVAILABLE: boolean;
+        public static USE_SIMD: boolean;
+
+        /**
+         * Sets the type of array used when creating new vectors and matrices
+         *
+         * @param {any} type - Array type, such as Float32Array or Array
+         */
+        public static setMatrixArrayType(type: any): void;
+
+        /**
+         * Convert Degree To Radian
+         *
+         * @param {number} a - Angle in Degrees
+         */
+        public static toRadian(a: number): number;
+
+        /**
+         * Tests whether or not the arguments have approximately the same value, within an absolute
+         * or relative tolerance of glMatrix.EPSILON (an absolute tolerance is used for values less
+         * than or equal to 1.0, and a relative tolerance is used for larger values)
+         *
+         * @param {number} a - The first number to test.
+         * @param {number} b - The second number to test.
+         * @returns {boolean} True if the numbers are approximately equal, false otherwise.
+         */
+        public static equals(a: number, b: number): boolean;
+    }
+
     // vec2
     export class vec2 extends Float32Array {
         private typeVec2: number;
@@ -2451,6 +2491,17 @@ declare module 'gl-matrix' {
         public static getTranslation(out: vec3, mat: mat4): vec3;
 
         /**
+         * Returns the scaling factor component of a transformation matrix. 
+         * If a matrix is built with fromRotationTranslationScale with a 
+         * normalized Quaternion parameter, the returned vector will be 
+         * the same as the scaling vector originally supplied.
+         * @param {vec3} out Vector to receive scaling factor component
+         * @param {mat4} mat Matrix to be decomposed (input)
+         * @return {vec3} out
+         */
+        public static getScaling(out: vec3, mat: mat4): vec3;
+
+        /**
          * Returns a quaternion representing the rotational component
          *  of a transformation matrix. If a matrix is built with
          *  fromRotationTranslation, the returned quaternion will be the
@@ -3043,6 +3094,11 @@ declare module 'gl-matrix' {
          */
         public static equals (a: quat, b: quat): boolean;
     }
+}
+
+declare module 'gl-matrix/src/gl-matrix/common' {
+    import { glMatrix } from 'gl-matrix';
+    export = glMatrix;
 }
 
 declare module 'gl-matrix/src/gl-matrix/vec2' {

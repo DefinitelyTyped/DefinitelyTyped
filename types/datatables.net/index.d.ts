@@ -1,6 +1,6 @@
 // Type definitions for JQuery DataTables 1.10.9
 // Project: http://www.datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>, Denise Mauldin <https://github.com/denisemauldin/>
+// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix>, Denise Mauldin <https://github.com/denisemauldin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1321,7 +1321,7 @@ declare namespace DataTables {
         /**
         * Set an initial filter in DataTables and / or filtering options. Since: 1.10
         */
-        search?: SearchSettings;
+        search?: SearchSettings | boolean;
 
         /**
         * Set placeholder attribute for input type="text" tag elements. Since: 1.10

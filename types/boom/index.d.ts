@@ -1,8 +1,8 @@
 // Type definitions for boom 4.3
-// Project: http://github.com/hapijs/boom
-// Definitions by: Igor Rogatty <http://github.com/rogatty>
-//                 AJP <http://github.com/AJamesPhillips>
-//                 Jinesh Shah <http://github.com/jineshshah36>
+// Project: https://github.com/hapijs/boom
+// Definitions by: Igor Rogatty <https://github.com/rogatty>
+//                 AJP <https://github.com/AJamesPhillips>
+//                 Jinesh Shah <https://github.com/jineshshah36>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

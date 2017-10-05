@@ -608,14 +608,14 @@ declare namespace UniversalAnalytics {
 
         (command: string, ...fields: any[]): void;
 
-        (readyCallback: (defaultTracker?: UniversalAnalytics.Tracker) => void): void;
+        (readyCallback: (defaultTracker?: Tracker) => void): void;
 
-        create(trackingId: string, cookieDomain: string, name: string, fieldsObject?: FieldsObject): UniversalAnalytics.Tracker;
-        create(trackingId: string, cookieDomain: string, fieldsObject?: FieldsObject): UniversalAnalytics.Tracker;
-        create(trackingId: string, fieldsObject?: FieldsObject): UniversalAnalytics.Tracker;
+        create(trackingId: string, cookieDomain: string, name: string, fieldsObject?: FieldsObject): Tracker;
+        create(trackingId: string, cookieDomain: string, fieldsObject?: FieldsObject): Tracker;
+        create(trackingId: string, fieldsObject?: FieldsObject): Tracker;
 
-        getAll(): UniversalAnalytics.Tracker[];
-        getByName(name: string): UniversalAnalytics.Tracker;
+        getAll(): Tracker[];
+        getByName(name: string): Tracker;
         remove(name: string): void;
     }
 

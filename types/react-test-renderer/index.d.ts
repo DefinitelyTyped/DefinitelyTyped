@@ -1,6 +1,6 @@
 // Type definitions for react-test-renderer 15.5
 // Project: https://facebook.github.io/react/
-// Definitions by: Arvitaly <https://github.com/arvitaly>, Lochbrunner <https://github.com/lochbrunner>, Lochbrunner <https://github.com/lochbrunner>, John Reilly <https://github.com/johnnyreilly/>
+// Definitions by: Arvitaly <https://github.com/arvitaly>, Lochbrunner <https://github.com/lochbrunner>, Lochbrunner <https://github.com/lochbrunner>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,7 +14,7 @@ export interface ReactTestInstance {
 }
 export interface ReactTestRendererJSON {
     type: string;
-    props: { [propName: string]: string };
+    props: { [propName: string]: any };
     children: null | Array<string | ReactTestRendererJSON>;
     $$typeof?: any;
 }

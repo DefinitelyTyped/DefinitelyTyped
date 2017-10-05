@@ -1,7 +1,7 @@
 import * as CanvasJS from "canvasjs";
 
 // Column Chart
-let columnChart = new CanvasJS.Chart("chartContainer",
+const columnChart = new CanvasJS.Chart("chartContainer",
     {
         title: {
             text: "Top Oil Reserves",
@@ -35,7 +35,7 @@ let columnChart = new CanvasJS.Chart("chartContainer",
         ]
     });
 columnChart.render();
-let option = columnChart.get("title");
+const option = columnChart.get("title");
 columnChart.print();
 columnChart.exportChart({ format: "jpg" });
 columnChart.destroy();
@@ -43,7 +43,7 @@ columnChart.axisX[0].convertPixelToValue(20);
 columnChart.toolTip.get("text");
 
 // Line Chart
-let lineChart = new CanvasJS.Chart("chartContainer",
+const lineChart = new CanvasJS.Chart("chartContainer",
     {
         theme: "theme2",
         title: {
@@ -81,7 +81,7 @@ let lineChart = new CanvasJS.Chart("chartContainer",
 lineChart.render();
 
 // Spline Chart
-let splineChart = new CanvasJS.Chart("chartContainer",
+const splineChart = new CanvasJS.Chart("chartContainer",
     {
         theme: "theme2",
         title: {
@@ -138,11 +138,7 @@ let splineChart = new CanvasJS.Chart("chartContainer",
         legend: {
             cursor: "pointer",
             itemclick: (e) => {
-                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                    e.dataSeries.visible = false;
-                } else {
-                    e.dataSeries.visible = true;
-                }
+                e.dataSeries.visible = !(typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible);
                 splineChart.render();
             }
         },
@@ -150,7 +146,7 @@ let splineChart = new CanvasJS.Chart("chartContainer",
 splineChart.render();
 
 // Bar Chart
-let barChart = new CanvasJS.Chart("chartContainer", {
+const barChart = new CanvasJS.Chart("chartContainer", {
     title: {
         text: "Fortune Global 500 Companies by Country"
     },
@@ -198,7 +194,7 @@ let barChart = new CanvasJS.Chart("chartContainer", {
 barChart.render();
 
 // Pie Chart
-let pieChart = new CanvasJS.Chart("chartContainer",
+const pieChart = new CanvasJS.Chart("chartContainer",
     {
         title: {
             text: "Desktop Search Engine Market Share, Dec-2012"

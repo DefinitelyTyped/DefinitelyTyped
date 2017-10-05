@@ -34,7 +34,7 @@ agent
         if (res.error) {
             console.log('oh no ' + res.error.message);
         } else {
-            console.log('got ' + res.status + ' response');
+            console.log(`got ${res.status} response`);
         }
     });
 
@@ -229,7 +229,7 @@ const reqUrl: string = req.url;
 const reqMethod: string = req.method;
 const reqCookies: string = req.cookies;
 
-console.log(reqMethod + ' request to ' + reqUrl + ' cookies ' + reqCookies);
+console.log(`${reqMethod} request to ${reqUrl} cookies ${reqCookies}`);
 
 // Basic authentication
 request.get('http://tobi:learnboost@local').end(callback);
@@ -285,6 +285,7 @@ request
     .attach('avatar', 'path/to/tobi.png', 'user.png')
     .attach('image', 'path/to/loki.png')
     .attach('file', 'path/to/jane.png')
+    .attach('fileWithOptions', 'path/to/file.png', { filename: 'filename', contentType: 'contentType' })
     .attach('blob', blob)
     .end(callback);
 
@@ -293,6 +294,12 @@ request
     .post('/upload')
     .field('user[name]', 'Tobi')
     .field('user[email]', 'tobi@learnboost.com')
+    .field({
+        field1: 'value1',
+        field2: Buffer.from([ 10, 20 ]),
+        field3: [ 'value1', 'value2' ],
+        field4: true,
+    })
     .attach('image', 'path/to/tobi.png')
     .end(callback);
 

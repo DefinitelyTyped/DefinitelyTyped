@@ -10,8 +10,7 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
-            "../",
-            "./node_modules"
+            "../"
         ],
         "types": [],
         "noEmit": true,

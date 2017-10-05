@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-force module 1.0
+// Type definitions for D3JS d3-force module 1.1
 // Project: https://github.com/d3/d3-force/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.4
+// Last module patch version validated against: 1.1.0
 
 // -----------------------------------------------------------------------
 // Force Simulation
@@ -66,14 +66,18 @@ export interface SimulationNodeDatum {
 export interface SimulationLinkDatum<NodeDatum extends SimulationNodeDatum> {
     /**
      * Link’s source node.
-     * For convenience, a link’s source property may be initialized using numeric or string identifiers rather than object references; see link.id.
+     * For convenience, a link’s source and target properties may be initialized using numeric or string identifiers rather than object references; see link.id.
+     * When the link force is initialized (or re-initialized, as when the nodes or links change), any link.source or link.target property which is not an object
+     * is replaced by an object reference to the corresponding node with the given identifier.
      * After initialization, the source property represents the source node object.
      */
     source: NodeDatum | string | number;
     /**
      * Link’s source link
-     * For convenience, a link’s target property may be initialized using numeric or string identifiers rather than object references; see link.id.
-     * After initialization, the target property represents the source node object.
+     * For convenience, a link’s source and target properties may be initialized using numeric or string identifiers rather than object references; see link.id.
+     * When the link force is initialized (or re-initialized, as when the nodes or links change), any link.source or link.target property which is not an object
+     * is replaced by an object reference to the corresponding node with the given identifier.
+     * After initialization, the target property represents the target node object.
      */
     target: NodeDatum | string | number;
     /**
@@ -565,6 +569,8 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * * index - the zero-based index into links, assigned by this method
      *
      * For convenience, a link’s source and target properties may be initialized using numeric or string identifiers rather than object references; see link.id.
+     * When the link force is initialized (or re-initialized, as when the nodes or links change), any link.source or link.target property which is not an object
+     * is replaced by an object reference to the corresponding node with the given identifier.
      * If the specified array of links is modified, such as when links are added to or removed from the simulation,
      * this method must be called again with the new (or changed) array to notify the force of the change;
      * the force does not make a defensive copy of the specified array.
@@ -1072,3 +1078,165 @@ export function forceY<NodeDatum extends SimulationNodeDatum>(y: number): ForceY
  * The function returns the y-coordinate.
  */
 export function forceY<NodeDatum extends SimulationNodeDatum>(y: (d: NodeDatum, i: number, data: NodeDatum[]) => number): ForceY<NodeDatum>;
+
+/**
+ * The radial force is similar to the x- and y-positioning forces, except it pushes nodes towards the closest point on a given circle.
+ * The circle is of the specified radius centered at ⟨x,y⟩. If x and y are not specified, they default to ⟨0,0⟩.
+ * The strength of the force is proportional to the one-dimensional distance between the node’s position and the target position.
+ * While this force can be used to position individual nodes, it is intended primarily for global forces that apply to all (or most) nodes.
+ *
+ * The generic refers to the type of data for a node.
+ */
+export interface ForceRadial<NodeDatum extends SimulationNodeDatum> extends Force<NodeDatum, any> {
+    /**
+     * Assign the array of nodes to this force. This method is called when a force is bound to a simulation via simulation.force
+     * and when the simulation’s nodes change via simulation.nodes.
+     *
+     * A force may perform necessary work during initialization, such as evaluating per-node parameters, to avoid repeatedly performing work during each application of the force.
+     */
+    initialize(nodes: NodeDatum[]): void;
+
+    /**
+     *  Returns the current strength accessor, which defaults to a constant strength for all nodes of 0.1.
+     */
+    strength(): (d: NodeDatum, i: number, data: NodeDatum[]) => number;
+    /**
+     * Set the strength accessor to the specified constant strength for all nodes, re-evaluates the strength accessor for each node, and returns this force.
+     *
+     * The strength determines how much to increment the node’s x-velocity: (x - node.x) × strength.
+     *
+     * For example, a value of 0.1 indicates that the node should move a tenth of the way from its current x-position to the target x-position with each application.
+     * Higher values moves nodes more quickly to the target position, often at the expense of other forces or constraints.
+     *
+     * A value outside the range [0,1] is not recommended.
+     *
+     * The constant is internally wrapped into a strength accessor function.
+     *
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
+     * when this method is called with a new strength, and not on every application of the force.
+     *
+     * @param strength Constant value of strength to be used for all nodes.
+     */
+    strength(strength: number): this;
+    /**
+     * Set the strength accessor to the specified function, re-evaluates the strength accessor for each node, and returns this force.
+     *
+     * The strength determines how much to increment the node’s x-velocity: (x - node.x) × strength.
+     *
+     * For example, a value of 0.1 indicates that the node should move a tenth of the way from its current x-position to the target x-position with each application.
+     * Higher values moves nodes more quickly to the target position, often at the expense of other forces or constraints.
+     *
+     * A value outside the range [0,1] is not recommended.
+     *
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
+     * when this method is called with a new strength, and not on every application of the force.
+     *
+     * @param strength A strength accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The function returns the strength.
+     */
+    strength(strength: (d: NodeDatum, i: number, data: NodeDatum[]) => number): this;
+
+    /**
+     * Return the current radius accessor for the circle.
+     */
+    radius(): (d: NodeDatum, i: number, data: NodeDatum[]) => number;
+    /**
+     * Set the radius accessor for the circle to the specified number, re-evaluates the radius accessor for each node,
+     * and returns this force.
+     *
+     * The constant is internally wrapped into a radius accessor function.
+     *
+     * The radius accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that radius of the circle for each node is only recomputed when the force is initialized or
+     * when this method is called with a new radius, and not on every application of the force.
+     *
+     * @param radius Constant radius of the circle to be used for all nodes.
+     */
+    radius(radius: number): this;
+    /**
+     * Set the radius accessor for the circle to the specified function, re-evaluates the radius accessor for each node,
+     * and returns this force.
+     *
+     * The radius accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that radius of the circle for each node is only recomputed when the force is initialized or
+     * when this method is called with a new radius, and not on every application of the force.
+     *
+     * @param radius A radius accessor function for the circle which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The function returns the radius of the circle.
+     */
+    radius(radius: (d: NodeDatum, i: number, data: NodeDatum[]) => number): this;
+
+    /**
+     * Return the current x-accessor for the circle center, which defaults to a function returning 0 for all nodes.
+     */
+    x(): (d: NodeDatum, i: number, data: NodeDatum[]) => number;
+    /**
+     * Set the x-coordinate accessor for the circle center to the specified number, re-evaluates the x-accessor for each node,
+     * and returns this force.
+     *
+     * The constant is internally wrapped into an x-coordinate accessor function.
+     *
+     * The x-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that the x-coordinate of the circle center for each node is only recomputed when the force is initialized or
+     * when this method is called with a new x, and not on every application of the force.
+     *
+     * @param x Constant x-coordinate of the circle center to be used for all nodes.
+     */
+    x(x: number): this;
+    /**
+     * Set the x-coordinate accessor to the specified function, re-evaluates the x-accessor for each node,
+     * and returns this force.
+     *
+     * The x-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that the x-coordinate of the circle center for each node is only recomputed when the force is initialized or
+     * when this method is called with a new x, and not on every application of the force.
+     *
+     * @param x A x-coordinate accessor function for the circle center which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The function returns the x-coordinate of the circle center.
+     */
+    x(x: (d: NodeDatum, i: number, data: NodeDatum[]) => number): this;
+
+    /**
+     * Return the current y-accessor for the circle center, which defaults to a function returning 0 for all nodes.
+     */
+    y(): (d: NodeDatum, i: number, data: NodeDatum[]) => number;
+    /**
+     * Set the y-coordinate accessor for the circle center to the specified number, re-evaluates the y-accessor for each node,
+     * and returns this force.
+     *
+     * The constant is internally wrapped into an y-coordinate accessor function.
+     *
+     * The y-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that the y-coordinate of the circle center for each node is only recomputed when the force is initialized or
+     * when this method is called with a new y, and not on every application of the force.
+     *
+     * @param y Constant y-coordinate of the circle center to be used for all nodes.
+     */
+    y(y: number): this;
+    /**
+     * Set the y-coordinate accessor to the specified function, re-evaluates the y-accessor for each node,
+     * and returns this force.
+     *
+     * The y-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The resulting number is then stored internally, such that the y-coordinate of the circle center for each node is only recomputed when the force is initialized or
+     * when this method is called with a new y, and not on every application of the force.
+     *
+     * @param y A y-coordinate accessor function for the circle center which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
+     * The function returns the y-coordinate of the circle center.
+     */
+    y(y: (d: NodeDatum, i: number, data: NodeDatum[]) => number): this;
+}
+
+/**
+ * Create a new radial positioning force towards a circle of the specified radius centered at ⟨x,y⟩.
+ * If x and y are not specified, they default to ⟨0,0⟩.
+ *
+ * The strength of the force is proportional to the one-dimensional distance between the node’s position and the target position.
+ * While this force can be used to position individual nodes, it is intended primarily for global forces that apply to all (or most) nodes.
+ *
+ * The generic refers to the type of data for a node.
+ */
+export function forceRadial<NodeDatum extends SimulationNodeDatum>(radius: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number),
+    x?: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number), y?: number | ((d: NodeDatum, i: number, data: NodeDatum[]) => number)): ForceRadial<NodeDatum>;

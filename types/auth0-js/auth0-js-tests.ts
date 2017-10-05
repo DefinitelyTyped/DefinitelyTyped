@@ -130,7 +130,10 @@ webAuth.signupAndAuthorize({
     connection: 'the_connection',
     email: 'me@example.com',
     password: '123456',
-    scope: 'openid'
+    scope: 'openid',
+    user_metadata: {
+        foo: 'bar'
+    }
 }, function (err, data) {
 
 });

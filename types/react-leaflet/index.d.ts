@@ -13,31 +13,31 @@ import * as React from 'react';
 export type Children = React.ReactNode | React.ReactNode[];
 
 export interface MapEvents {
-    onclick?(event: Leaflet.MouseEvent): void;
-    ondblclick?(event: Leaflet.MouseEvent): void;
-    onmousedown?(event: Leaflet.MouseEvent): void;
-    onmouseup?(event: Leaflet.MouseEvent): void;
-    onmouseover?(event: Leaflet.MouseEvent): void;
-    onmouseout?(event: Leaflet.MouseEvent): void;
-    onmousemove?(event: Leaflet.MouseEvent): void;
-    oncontextmenu?(event: Leaflet.MouseEvent): void;
-    onfocus?(event: Leaflet.Event): void;
-    onblur?(event: Leaflet.Event): void;
-    onpreclick?(event: Leaflet.MouseEvent): void;
-    onload?(event: Leaflet.Event): void;
-    onunload?(event: Leaflet.Event): void;
-    onviewreset?(event: Leaflet.Event): void;
-    onmove?(event: Leaflet.Event): void;
-    onmovestart?(event: Leaflet.Event): void;
-    onmoveend?(event: Leaflet.Event): void;
-    ondragstart?(event: Leaflet.Event): void;
-    ondrag?(event: Leaflet.Event): void;
+    onclick?(event: Leaflet.LeafletMouseEvent): void;
+    ondblclick?(event: Leaflet.LeafletMouseEvent): void;
+    onmousedown?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseup?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseover?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseout?(event: Leaflet.LeafletMouseEvent): void;
+    onmousemove?(event: Leaflet.LeafletMouseEvent): void;
+    oncontextmenu?(event: Leaflet.LeafletMouseEvent): void;
+    onfocus?(event: Leaflet.LeafletEvent): void;
+    onblur?(event: Leaflet.LeafletEvent): void;
+    onpreclick?(event: Leaflet.LeafletMouseEvent): void;
+    onload?(event: Leaflet.LeafletEvent): void;
+    onunload?(event: Leaflet.LeafletEvent): void;
+    onviewreset?(event: Leaflet.LeafletEvent): void;
+    onmove?(event: Leaflet.LeafletEvent): void;
+    onmovestart?(event: Leaflet.LeafletEvent): void;
+    onmoveend?(event: Leaflet.LeafletEvent): void;
+    ondragstart?(event: Leaflet.LeafletEvent): void;
+    ondrag?(event: Leaflet.LeafletEvent): void;
     ondragend?(event: Leaflet.DragEndEvent): void;
-    onzoomstart?(event: Leaflet.Event): void;
-    onzoomend?(event: Leaflet.Event): void;
-    onzoomlevelschange?(event: Leaflet.Event): void;
+    onzoomstart?(event: Leaflet.LeafletEvent): void;
+    onzoomend?(event: Leaflet.LeafletEvent): void;
+    onzoomlevelschange?(event: Leaflet.LeafletEvent): void;
     onresize?(event: Leaflet.ResizeEvent): void;
-    onautopanstart?(event: Leaflet.Event): void;
+    onautopanstart?(event: Leaflet.LeafletEvent): void;
     onlayeradd?(event: Leaflet.LayerEvent): void;
     onlayerremove?(event: Leaflet.LayerEvent): void;
     onbaselayerchange?(event: Leaflet.LayersControlEvent): void;
@@ -50,25 +50,25 @@ export interface MapEvents {
 }
 
 export interface MarkerEvents {
-    onclick?(event: Leaflet.MouseEvent): void;
-    ondblclick?(event: Leaflet.MouseEvent): void;
-    onmousedown?(event: Leaflet.MouseEvent): void;
-    onmouseover?(event: Leaflet.MouseEvent): void;
-    onmouseout?(event: Leaflet.MouseEvent): void;
-    oncontextmenu?(event: Leaflet.MouseEvent): void;
-    ondragstart?(event: Leaflet.Event): void;
-    ondrag?(event: Leaflet.Event): void;
+    onclick?(event: Leaflet.LeafletMouseEvent): void;
+    ondblclick?(event: Leaflet.LeafletMouseEvent): void;
+    onmousedown?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseover?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseout?(event: Leaflet.LeafletMouseEvent): void;
+    oncontextmenu?(event: Leaflet.LeafletMouseEvent): void;
+    ondragstart?(event: Leaflet.LeafletEvent): void;
+    ondrag?(event: Leaflet.LeafletEvent): void;
     ondragend?(event: Leaflet.DragEndEvent): void;
-    onmove?(event: Leaflet.Event): void;
-    onadd?(event: Leaflet.Event): void;
-    onremove?(event: Leaflet.Event): void;
+    onmove?(event: Leaflet.LeafletEvent): void;
+    onadd?(event: Leaflet.LeafletEvent): void;
+    onremove?(event: Leaflet.LeafletEvent): void;
     onpopupopen?(event: Leaflet.PopupEvent): void;
     onpopupclose?(event: Leaflet.PopupEvent): void;
 }
 
 export interface TileLayerEvents {
-    onloading?(event: Leaflet.Event): void;
-    onload?(event: Leaflet.Event): void;
+    onloading?(event: Leaflet.LeafletEvent): void;
+    onload?(event: Leaflet.LeafletEvent): void;
     ontileloadstart?(event: Leaflet.TileEvent): void;
     ontileload?(event: Leaflet.TileEvent): void;
     ontileunload?(event: Leaflet.TileEvent): void;
@@ -76,24 +76,24 @@ export interface TileLayerEvents {
 }
 
 export interface PathEvents {
-    onclick?(event: Leaflet.MouseEvent): void;
-    ondblclick?(event: Leaflet.MouseEvent): void;
-    onmousedown?(event: Leaflet.MouseEvent): void;
-    onmouseover?(event: Leaflet.MouseEvent): void;
-    onmouseout?(event: Leaflet.MouseEvent): void;
-    oncontextmenu?(event: Leaflet.MouseEvent): void;
-    onadd?(event: Leaflet.Event): void;
-    onremove?(event: Leaflet.Event): void;
+    onclick?(event: Leaflet.LeafletMouseEvent): void;
+    ondblclick?(event: Leaflet.LeafletMouseEvent): void;
+    onmousedown?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseover?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseout?(event: Leaflet.LeafletMouseEvent): void;
+    oncontextmenu?(event: Leaflet.LeafletMouseEvent): void;
+    onadd?(event: Leaflet.LeafletEvent): void;
+    onremove?(event: Leaflet.LeafletEvent): void;
     onpopupopen?(event: Leaflet.PopupEvent): void;
     onpopupclose?(event: Leaflet.PopupEvent): void;
 }
 
 export interface FeatureGroupEvents {
-    onclick?(event: Leaflet.MouseEvent): void;
-    ondblclick?(event: Leaflet.MouseEvent): void;
-    onmouseover?(event: Leaflet.MouseEvent): void;
-    onmouseout?(event: Leaflet.MouseEvent): void;
-    oncontextmenu?(event: Leaflet.MouseEvent): void;
+    onclick?(event: Leaflet.LeafletMouseEvent): void;
+    ondblclick?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseover?(event: Leaflet.LeafletMouseEvent): void;
+    onmouseout?(event: Leaflet.LeafletMouseEvent): void;
+    oncontextmenu?(event: Leaflet.LeafletMouseEvent): void;
     onlayeradd?(event: Leaflet.LayerEvent): void;
     onlayerremove?(event: Leaflet.LayerEvent): void;
 }

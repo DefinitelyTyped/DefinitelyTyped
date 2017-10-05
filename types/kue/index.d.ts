@@ -1,7 +1,7 @@
 // Type definitions for kue 0.11.x
 // Project: https://github.com/Automattic/kue
-// Definitions by: Nicholas Penree <http://github.com/drudge>
-//                 Amiram Korach <http://github.com/amiram>
+// Definitions by: Nicholas Penree <https://github.com/drudge>
+//                 Amiram Korach <https://github.com/amiram>
 //                 Christian D. <https://github.com/pc-jedi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

@@ -145,7 +145,8 @@ export function readFileSync(filename: string, options: OpenOptions | string): s
  *          OpenOptions: options
  * @param callback
  */
-export function writeFile(filename: string, data: any, options?: OpenOptions | string, callback?: (err: Error) => void): void;
+export function writeFile(filename: string, data: any, callback?: (err: Error) => void): void;
+export function writeFile(filename: string, data: any, options: OpenOptions | string, callback?: (err: Error) => void): void;
 /**
  * writeFileSync
  * @param filename
@@ -164,7 +165,8 @@ export function writeFileSync(filename: string, data: any, option?: OpenOptions 
  *          OpenOptions: options
  * @param callback
  */
-export function appendFile(filename: string, data: any, option?: OpenOptions | string, callback?: (err: Error) => void): void;
+export function appendFile(filename: string, data: any, callback?: (err: Error) => void): void;
+export function appendFile(filename: string, data: any, option: OpenOptions | string, callback?: (err: Error) => void): void;
 /**
  * appendFileSync
  * @param filename

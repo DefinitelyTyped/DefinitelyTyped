@@ -1,6 +1,7 @@
 // Type definitions for redux-logger v3.0.0
 // Project: https://github.com/fcomb/redux-logger
-// Definitions by: Alexander Rusakov <https://github.com/arusakov/>
+// Definitions by: Alexander Rusakov <https://github.com/arusakov>
+//                 Kevin Groat <https://github.com/kgroat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace ReduxLogger;
@@ -34,7 +35,7 @@ export interface ReduxLoggerOptions {
   level?: string | ActionToString | LevelObject;
   duration?: boolean;
   timestamp?: boolean;
-  colors?: ColorsObject;
+  colors?: ColorsObject | false;
   logger?: any;
   logErrors?: boolean;
   collapsed?: boolean | LoggerPredicate;

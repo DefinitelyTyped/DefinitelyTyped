@@ -1,13 +1,14 @@
 // Type definitions for ej.web.all 15.3
 // Project: http://help.syncfusion.com/js/typescript
-// Definitions by: Syncfusion <https://github.com/syncfusion/>
+// Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.3.0.26
+*  version : 15.3.0.29
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -23,17 +24,17 @@ declare namespace ej {
     function isFlat(): boolean;
     function isWindows(): boolean;
     function isCssCalc(): boolean;
-    function getCurrentPage(): JQuery<Element, HTMLElement>;
+    function getCurrentPage(): JQuery;
     function isLowerResolution(): boolean;
     function browserInfo(): browserInfoOptions;
     function isTouchDevice(): boolean;
     function addPrefix(style: string): string;
     function animationEndEvent(): string;
     function blockDefaultActions(e: any): void;
-    function buildTag(tag: string, innerHtml?: string, styles?: any, attrs?: any): JQuery<Element, HTMLElement>;
+    function buildTag(tag: string, innerHtml?: string, styles?: any, attrs?: any): JQuery;
     function cancelEvent(): string;
     function copyObject(): string;
-    function createObject(nameSpace: string, value: any, initIn: any): JQuery<Element, HTMLElement>;
+    function createObject(nameSpace: string, value: any, initIn: any): JQuery;
     function createObject(element: any, eventEmitter: any, model: any): any;
     function setCulture(culture: string): void;
     function getObject<T>(element: string, model: any): T;
@@ -67,7 +68,7 @@ declare namespace ej {
     function isIOSWebView(): boolean;
     function isLowerAndroid(): boolean;
     function isNullOrUndefined(value: any): boolean;
-    function isPlainObject(): JQuery<Element, HTMLElement>;
+    function isPlainObject(): JQuery;
     function isPortrait(): any;
     function isTablet(): boolean;
     function isWindowsWebView(): string;
@@ -143,14 +144,14 @@ declare namespace ej {
     }
     class WidgetBase {
         destroy(): void;
-        element: JQuery<Element, HTMLElement>;
+        element: JQuery;
         setModel(options: any, forceSet?: boolean): any;
         option(prop?: any, value?: any, forceSet?: boolean): any;
         _trigger(eventName?: string, eventProp?: any): any;
-        _on(element: JQuery<Element, HTMLElement>, eventType?: string, handler?: (eventObject: JQueryEventObject) => any): any;
-        _on(element: JQuery<Element, HTMLElement>, eventType?: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): any;
-        _off(element: JQuery<Element, HTMLElement>, eventName: string, handler?: (eventObject: JQueryEventObject) => any): any;
-        _off(element: JQuery<Element, HTMLElement>, eventType?: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): any;
+        _on(element: JQuery, eventType?: string, handler?: (eventObject: JQueryEventObject) => any): any;
+        _on(element: JQuery, eventType?: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): any;
+        _off(element: JQuery, eventName: string, handler?: (eventObject: JQueryEventObject) => any): any;
+        _off(element: JQuery, eventType?: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): any;
         persistState(): void;
         restoreState(silent: boolean): void;
     }
@@ -545,7 +546,7 @@ declare namespace ej {
     }
     class Draggable extends ej.Widget {
         static fn: Draggable;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Draggable.Model);
+        constructor(element: JQuery | Element, options?: Draggable.Model);
         static Locale: any;
         model: Draggable.Model;
         defaults: Draggable.Model;
@@ -709,7 +710,7 @@ declare namespace ej {
 
     class Droppable extends ej.Widget {
         static fn: Droppable;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Droppable.Model);
+        constructor(element: JQuery | Element, options?: Droppable.Model);
         static Locale: any;
         model: Droppable.Model;
         defaults: Droppable.Model;
@@ -806,7 +807,7 @@ declare namespace ej {
 
     class Resizable extends ej.Widget {
         static fn: Resizable;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Resizable.Model);
+        constructor(element: JQuery | Element, options?: Resizable.Model);
         static Locale: any;
         model: Resizable.Model;
         defaults: Resizable.Model;
@@ -981,7 +982,7 @@ declare namespace ej {
     }
     class Scroller extends ej.Widget {
         static fn: Scroller;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Scroller.Model);
+        constructor(element: JQuery | Element, options?: Scroller.Model);
         static Locale: any;
         model: Scroller.Model;
         defaults: Scroller.Model;
@@ -1294,7 +1295,7 @@ declare namespace ej {
 
     class Accordion extends ej.Widget {
         static fn: Accordion;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Accordion.Model);
+        constructor(element: JQuery | Element, options?: Accordion.Model);
         static Locale: any;
         model: Accordion.Model;
         defaults: Accordion.Model;
@@ -1817,7 +1818,7 @@ declare namespace ej {
 
     class Autocomplete extends ej.Widget {
         static fn: Autocomplete;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Autocomplete.Model);
+        constructor(element: JQuery | Element, options?: Autocomplete.Model);
         static Locale: any;
         model: Autocomplete.Model;
         defaults: Autocomplete.Model;
@@ -2517,7 +2518,7 @@ declare namespace ej {
 
     class Button extends ej.Widget {
         static fn: Button;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Button.Model);
+        constructor(element: JQuery | Element, options?: Button.Model);
         static Locale: any;
         model: Button.Model;
         defaults: Button.Model;
@@ -2733,7 +2734,7 @@ declare namespace ej {
 
     class Captcha extends ej.Widget {
         static fn: Captcha;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Captcha.Model);
+        constructor(element: JQuery | Element, options?: Captcha.Model);
         static Locale: any;
         model: Captcha.Model;
         defaults: Captcha.Model;
@@ -2966,7 +2967,7 @@ declare namespace ej {
 
     class ListBox extends ej.Widget {
         static fn: ListBox;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: ListBox.Model);
+        constructor(element: JQuery | Element, options?: ListBox.Model);
         static Locale: any;
         model: ListBox.Model;
         defaults: ListBox.Model;
@@ -4131,7 +4132,7 @@ declare namespace ej {
 
     class Calculate {
         static fn: Calculate;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Calculate.Model);
+        constructor(element: JQuery | Element, options?: Calculate.Model);
         static Locale: any;
         model: Calculate.Model;
         defaults: Calculate.Model;
@@ -4193,7 +4194,7 @@ declare namespace ej {
 
     class CheckBox extends ej.Widget {
         static fn: CheckBox;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: CheckBox.Model);
+        constructor(element: JQuery | Element, options?: CheckBox.Model);
         static Locale: any;
         model: CheckBox.Model;
         defaults: CheckBox.Model;
@@ -4421,7 +4422,7 @@ declare namespace ej {
 
     class ColorPicker extends ej.Widget {
         static fn: ColorPicker;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: ColorPicker.Model);
+        constructor(element: JQuery | Element, options?: ColorPicker.Model);
         static Locale: any;
         model: ColorPicker.Model;
         defaults: ColorPicker.Model;
@@ -4873,7 +4874,7 @@ declare namespace ej {
 
     class FileExplorer extends ej.Widget {
         static fn: FileExplorer;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: FileExplorer.Model);
+        constructor(element: JQuery | Element, options?: FileExplorer.Model);
         static Locale: any;
         model: FileExplorer.Model;
         defaults: FileExplorer.Model;
@@ -6103,7 +6104,7 @@ declare namespace ej {
 
     class DatePicker extends ej.Widget {
         static fn: DatePicker;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: DatePicker.Model);
+        constructor(element: JQuery | Element, options?: DatePicker.Model);
         static Locale: any;
         model: DatePicker.Model;
         defaults: DatePicker.Model;
@@ -6736,7 +6737,7 @@ declare namespace ej {
 
     class DateTimePicker extends ej.Widget {
         static fn: DateTimePicker;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: DateTimePicker.Model);
+        constructor(element: JQuery | Element, options?: DateTimePicker.Model);
         static Locale: any;
         model: DateTimePicker.Model;
         defaults: DateTimePicker.Model;
@@ -7219,7 +7220,7 @@ declare namespace ej {
 
     class DateRangePicker extends ej.Widget {
         static fn: DateRangePicker;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: DateRangePicker.Model);
+        constructor(element: JQuery | Element, options?: DateRangePicker.Model);
         static Locale: any;
         model: DateRangePicker.Model;
         defaults: DateRangePicker.Model;
@@ -7572,7 +7573,7 @@ declare namespace ej {
 
     class Dialog extends ej.Widget {
         static fn: Dialog;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Dialog.Model);
+        constructor(element: JQuery | Element, options?: Dialog.Model);
         static Locale: any;
         model: Dialog.Model;
         defaults: Dialog.Model;
@@ -7731,7 +7732,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set "showHeader" as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
@@ -7790,7 +7791,7 @@ declare namespace ej {
              */
             target?: string;
 
-            /** The title text to be displayed in the dialog header. In order to set title, you need to set showHeader as true since the title will be displayed in the dialog header.
+            /** The title text to be displayed in the dialog header. In order to set title, you need to set "showHeader" as true since the title will be displayed in the dialog header.
              */
             title?: string;
 
@@ -8260,7 +8261,7 @@ declare namespace ej {
 
     class DropDownList extends ej.Widget {
         static fn: DropDownList;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: DropDownList.Model);
+        constructor(element: JQuery | Element, options?: DropDownList.Model);
         static Locale: any;
         model: DropDownList.Model;
         defaults: DropDownList.Model;
@@ -9269,7 +9270,7 @@ declare namespace ej {
 
     class Tooltip extends ej.Widget {
         static fn: Tooltip;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Tooltip.Model);
+        constructor(element: JQuery | Element, options?: Tooltip.Model);
         static Locale: any;
         model: Tooltip.Model;
         defaults: Tooltip.Model;
@@ -9299,10 +9300,10 @@ declare namespace ej {
         /** Shows the Tooltip popup for the given target element with the specified effect.
          * @param {string} optional Determines the type of effect that takes place when showing the tooltip.
          * @param {() => void} optional custom effect takes place when showing the tooltip.
-         * @param {JQuery<Element, HTMLElement>} optional Tooltip will be shown for the given element
+         * @param {JQuery} optional Tooltip will be shown for the given element
          * @returns {void}
          */
-        show(effect?: string, func?: () => void, target?: JQuery<Element, HTMLElement>): void;
+        show(effect?: string, func?: () => void, target?: JQuery): void;
     }
     export namespace Tooltip {
 
@@ -9774,7 +9775,7 @@ declare namespace ej {
 
     class Editor extends ej.Widget {
         static fn: Editor;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Editor.Model);
+        constructor(element: JQuery | Element, options?: Editor.Model);
         static Locale: any;
         model: Editor.Model;
         defaults: Editor.Model;
@@ -10063,7 +10064,7 @@ declare namespace ej {
 
     class ListView extends ej.Widget {
         static fn: ListView;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: ListView.Model);
+        constructor(element: JQuery | Element, options?: ListView.Model);
         static Locale: any;
         model: ListView.Model;
         defaults: ListView.Model;
@@ -10647,7 +10648,7 @@ declare namespace ej {
 
     class MaskEdit extends ej.Widget {
         static fn: MaskEdit;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: MaskEdit.Model);
+        constructor(element: JQuery | Element, options?: MaskEdit.Model);
         static Locale: any;
         model: MaskEdit.Model;
         defaults: MaskEdit.Model;
@@ -11054,7 +11055,7 @@ declare namespace ej {
 
     class Menu extends ej.Widget {
         static fn: Menu;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Menu.Model);
+        constructor(element: JQuery | Element, options?: Menu.Model);
         static Locale: any;
         model: Menu.Model;
         defaults: Menu.Model;
@@ -11595,7 +11596,7 @@ declare namespace ej {
 
     class Pager extends ej.Widget {
         static fn: Pager;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Pager.Model);
+        constructor(element: JQuery | Element, options?: Pager.Model);
         static Locale: any;
         model: Pager.Model;
         defaults: Pager.Model;
@@ -11711,7 +11712,7 @@ declare namespace ej {
 
     class Print extends ej.Widget {
         static fn: Print;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Print.Model);
+        constructor(element: JQuery | Element, options?: Print.Model);
         static Locale: any;
         model: Print.Model;
         defaults: Print.Model;
@@ -11807,7 +11808,7 @@ declare namespace ej {
 
     class ProgressBar extends ej.Widget {
         static fn: ProgressBar;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: ProgressBar.Model);
+        constructor(element: JQuery | Element, options?: ProgressBar.Model);
         static Locale: any;
         model: ProgressBar.Model;
         defaults: ProgressBar.Model;
@@ -12029,7 +12030,7 @@ declare namespace ej {
 
     class RadioButton extends ej.Widget {
         static fn: RadioButton;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: RadioButton.Model);
+        constructor(element: JQuery | Element, options?: RadioButton.Model);
         static Locale: any;
         model: RadioButton.Model;
         defaults: RadioButton.Model;
@@ -12219,7 +12220,7 @@ declare namespace ej {
 
     class Rating extends ej.Widget {
         static fn: Rating;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Rating.Model);
+        constructor(element: JQuery | Element, options?: Rating.Model);
         static Locale: any;
         model: Rating.Model;
         defaults: Rating.Model;
@@ -12542,7 +12543,7 @@ declare namespace ej {
 
     class Ribbon extends ej.Widget {
         static fn: Ribbon;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Ribbon.Model);
+        constructor(element: JQuery | Element, options?: Ribbon.Model);
         static Locale: any;
         model: Ribbon.Model;
         defaults: Ribbon.Model;
@@ -13703,7 +13704,7 @@ declare namespace ej {
 
     class Kanban extends ej.Widget {
         static fn: Kanban;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Kanban.Model);
+        constructor(element: JQuery | Element, options?: Kanban.Model);
         static Locale: any;
         model: Kanban.Model;
         defaults: Kanban.Model;
@@ -15435,7 +15436,7 @@ declare namespace ej {
 
     class Rotator extends ej.Widget {
         static fn: Rotator;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Rotator.Model);
+        constructor(element: JQuery | Element, options?: Rotator.Model);
         static Locale: any;
         model: Rotator.Model;
         defaults: Rotator.Model;
@@ -15867,7 +15868,7 @@ declare namespace ej {
 
     class RTE extends ej.Widget {
         static fn: RTE;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: RTE.Model);
+        constructor(element: JQuery | Element, options?: RTE.Model);
         static Locale: any;
         model: RTE.Model;
         defaults: RTE.Model;
@@ -15947,17 +15948,17 @@ declare namespace ej {
 
         /** Add a table column at the right or left of the specified cell
          * @param {boolean} If itâ€™s true, add a column at the left of the cell, otherwise add a column at the right of the cell
-         * @param {JQuery<Element, HTMLElement>} Column will be added based on the given cell element
+         * @param {JQuery} Column will be added based on the given cell element
          * @returns {HTMLElement}
          */
-        insertColumn(before?: boolean, cell?: JQuery<Element, HTMLElement>): HTMLElement;
+        insertColumn(before?: boolean, cell?: JQuery): HTMLElement;
 
         /** To add a table row below or above the specified cell.
          * @param {boolean} If itâ€™s true, add a row before the cell, otherwise add a row after the cell
-         * @param {JQuery<Element, HTMLElement>} Row will be added based on the given cell element
+         * @param {JQuery} Row will be added based on the given cell element
          * @returns {HTMLElement}
          */
-        insertRow(before?: boolean, cell?: JQuery<Element, HTMLElement>): HTMLElement;
+        insertRow(before?: boolean, cell?: JQuery): HTMLElement;
 
         /** This method helps to insert/paste the content at the current cursor (caret) position or the selected content to be replaced with our text by passing the value as parameter to the
          * pasteContent method in the Editor.
@@ -15971,22 +15972,22 @@ declare namespace ej {
         refresh(): void;
 
         /** Removes the specified table column.
-         * @param {JQuery<Element, HTMLElement>} Remove the given column element
+         * @param {JQuery} Remove the given column element
          * @returns {void}
          */
-        removeColumn(cell?: JQuery<Element, HTMLElement>): void;
+        removeColumn(cell?: JQuery): void;
 
         /** Removes the specified table row.
-         * @param {JQuery<Element, HTMLElement>} Remove the given row element
+         * @param {JQuery} Remove the given row element
          * @returns {void}
          */
-        removeRow(cell?: JQuery<Element, HTMLElement>): void;
+        removeRow(cell?: JQuery): void;
 
         /** Deletes the specified table.
-         * @param {JQuery<Element, HTMLElement>} Remove the given table
+         * @param {JQuery} Remove the given table
          * @returns {void}
          */
-        removeTable(table?: JQuery<Element, HTMLElement>): void;
+        removeTable(table?: JQuery): void;
 
         /** Removes the target menu item from the RTE contextmenu.
          * @returns {void}
@@ -16047,7 +16048,7 @@ declare namespace ej {
              */
             autoHeight?: boolean;
 
-            /** This API holds configuration setting for paste clenaup behavior.
+            /** This API holds configuration setting for paste cleanup behavior.
              * @Default {{ listConversion: false, cleanCSS: false,	removeStyles: false, cleanElements: false }}
              */
             pasteCleanupSettings?: PasteCleanupSettings;
@@ -16751,7 +16752,7 @@ declare namespace ej {
 
     class Slider extends ej.Widget {
         static fn: Slider;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Slider.Model);
+        constructor(element: JQuery | Element, options?: Slider.Model);
         static Locale: any;
         model: Slider.Model;
         defaults: Slider.Model;
@@ -17137,7 +17138,7 @@ declare namespace ej {
 
     class SplitButton extends ej.Widget {
         static fn: SplitButton;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: SplitButton.Model);
+        constructor(element: JQuery | Element, options?: SplitButton.Model);
         static Locale: any;
         model: SplitButton.Model;
         defaults: SplitButton.Model;
@@ -17483,7 +17484,7 @@ declare namespace ej {
 
     class Splitter extends ej.Widget {
         static fn: Splitter;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Splitter.Model);
+        constructor(element: JQuery | Element, options?: Splitter.Model);
         static Locale: any;
         model: Splitter.Model;
         defaults: Splitter.Model;
@@ -17713,7 +17714,7 @@ declare namespace ej {
 
     class Tab extends ej.Widget {
         static fn: Tab;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Tab.Model);
+        constructor(element: JQuery | Element, options?: Tab.Model);
         static Locale: any;
         model: Tab.Model;
         defaults: Tab.Model;
@@ -18295,7 +18296,7 @@ declare namespace ej {
 
     class TagCloud extends ej.Widget {
         static fn: TagCloud;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: TagCloud.Model);
+        constructor(element: JQuery | Element, options?: TagCloud.Model);
         static Locale: any;
         model: TagCloud.Model;
         defaults: TagCloud.Model;
@@ -18536,7 +18537,7 @@ declare namespace ej {
 
     class TimePicker extends ej.Widget {
         static fn: TimePicker;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: TimePicker.Model);
+        constructor(element: JQuery | Element, options?: TimePicker.Model);
         static Locale: any;
         model: TimePicker.Model;
         defaults: TimePicker.Model;
@@ -18952,7 +18953,7 @@ declare namespace ej {
 
     class ToggleButton extends ej.Widget {
         static fn: ToggleButton;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: ToggleButton.Model);
+        constructor(element: JQuery | Element, options?: ToggleButton.Model);
         static Locale: any;
         model: ToggleButton.Model;
         defaults: ToggleButton.Model;
@@ -19164,7 +19165,7 @@ declare namespace ej {
 
     class Toolbar extends ej.Widget {
         static fn: Toolbar;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Toolbar.Model);
+        constructor(element: JQuery | Element, options?: Toolbar.Model);
         static Locale: any;
         model: Toolbar.Model;
         defaults: Toolbar.Model;
@@ -19650,7 +19651,7 @@ declare namespace ej {
 
     class TreeView extends ej.Widget {
         static fn: TreeView;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: TreeView.Model);
+        constructor(element: JQuery | Element, options?: TreeView.Model);
         static Locale: any;
         model: TreeView.Model;
         defaults: TreeView.Model;
@@ -21375,7 +21376,7 @@ declare namespace ej {
 
     class Uploadbox extends ej.Widget {
         static fn: Uploadbox;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Uploadbox.Model);
+        constructor(element: JQuery | Element, options?: Uploadbox.Model);
         static Locale: any;
         model: Uploadbox.Model;
         defaults: Uploadbox.Model;
@@ -21893,7 +21894,7 @@ declare namespace ej {
 
     class WaitingPopup extends ej.Widget {
         static fn: WaitingPopup;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: WaitingPopup.Model);
+        constructor(element: JQuery | Element, options?: WaitingPopup.Model);
         static Locale: any;
         model: WaitingPopup.Model;
         defaults: WaitingPopup.Model;
@@ -21999,7 +22000,7 @@ declare namespace ej {
 
     class Grid extends ej.Widget {
         static fn: Grid;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Grid.Model);
+        constructor(element: JQuery | Element, options?: Grid.Model);
         static Locale: any;
         model: Grid.Model;
         defaults: Grid.Model;
@@ -22115,10 +22116,10 @@ declare namespace ej {
         deleteRecord(fieldName: string, data: any): void;
 
         /** Delete the row based on the given tr element in grid.
-         * @param {JQuery<Element, HTMLElement>} Pass the tr element in grid content to get its row index
+         * @param {JQuery} Pass the tr element in grid content to get its row index
          * @returns {HTMLElement}
          */
-        deleteRow($tr: JQuery<Element, HTMLElement>): HTMLElement;
+        deleteRow($tr: JQuery): HTMLElement;
 
         /** Destroy the grid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
          * @returns {void}
@@ -22148,10 +22149,10 @@ declare namespace ej {
         expandAll(): void;
 
         /** Expand or collapse the row based on the row state in grid
-         * @param {JQuery<Element, HTMLElement>} Pass the target object to expand/collapse the row based on its row state
+         * @param {JQuery} Pass the target object to expand/collapse the row based on its row state
          * @returns {void}
          */
-        expandCollapse($target: JQuery<Element, HTMLElement>): void;
+        expandCollapse($target: JQuery): void;
 
         /** Expand the group drop area in grid.
          * @returns {void}
@@ -22308,10 +22309,10 @@ declare namespace ej {
         getHiddenColumnNames(): any[];
 
         /** Get the row index based on the given tr element in grid.
-         * @param {JQuery<Element, HTMLElement>} Pass the tr element in grid content to get its row index
+         * @param {JQuery} Pass the tr element in grid content to get its row index
          * @returns {number}
          */
-        getIndexByRow($tr: JQuery<Element, HTMLElement>): number;
+        getIndexByRow($tr: JQuery): number;
 
         /** Get the pager of grid.
          * @returns {HTMLElement}
@@ -22579,10 +22580,10 @@ declare namespace ej {
         sortColumn(columnName: string, sortingDirection?: string): void;
 
         /** Send an edit record request in grid
-         * @param {JQuery<Element, HTMLElement>} Pass the tr- selected row element to be edited in grid
+         * @param {JQuery} Pass the tr- selected row element to be edited in grid
          * @returns {void}
          */
-        startEdit($tr: JQuery<Element, HTMLElement>): void;
+        startEdit($tr: JQuery): void;
 
         /** Un-group a column from grouped columns collection in grid
          * @param {string} Pass the field Name of the column to be ungrouped from grouped column collection
@@ -26127,7 +26128,7 @@ declare namespace ej {
 
     class Sparkline extends ej.Widget {
         static fn: Sparkline;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Sparkline.Model);
+        constructor(element: JQuery | Element, options?: Sparkline.Model);
         static Locale: any;
         model: Sparkline.Model;
         defaults: Sparkline.Model;
@@ -26733,7 +26734,7 @@ declare namespace ej {
 
     class SunburstChart extends ej.Widget {
         static fn: SunburstChart;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: SunburstChart.Model);
+        constructor(element: JQuery | Element, options?: SunburstChart.Model);
         static Locale: any;
         model: SunburstChart.Model;
         defaults: SunburstChart.Model;
@@ -27282,7 +27283,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** Sets the opacity of the dispalyed tooltip
+            /** Sets the opacity of the displayed tooltip
              * @Default {0.95}
              */
             opacity?: number;
@@ -27913,7 +27914,7 @@ declare namespace ej {
 
     class PivotGrid extends ej.Widget {
         static fn: PivotGrid;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PivotGrid.Model);
+        constructor(element: JQuery | Element, options?: PivotGrid.Model);
         static Locale: any;
         model: PivotGrid.Model;
         defaults: PivotGrid.Model;
@@ -27948,6 +27949,11 @@ declare namespace ej {
          */
         refreshControl(): void;
 
+        /** This function Destroy the PivotGrid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
+
         /** This function returns the height of all rows and width each and every column.
          * @returns {any}
          */
@@ -27956,7 +27962,7 @@ declare namespace ej {
         /** This function creates the conditional formatting dialog to apply conditional formatting for PivotGrid control.
          * @returns {void}
          */
-        createConditionalDialog(): void;
+        openConditionalFormattingDialog(): void;
 
         /** This function saves the current report to the database/local storage.
          * @returns {void}
@@ -28162,10 +28168,15 @@ declare namespace ej {
              */
             enableColumnResizing?: boolean;
 
-            /** Allows the user to fit the width of the columns based on its content. This is only applicable for enableColumnResizing option.
+            /** Allows the user to fit the width of the column based on its maximum text width.
              * @Default {false}
              */
             resizeColumnsToFit?: boolean;
+
+            /** Allows the user to enable/disable the context menu of Pivot buttons in the PivotGrid.
+             * @Default {false}
+             */
+            enableContextMenu?: boolean;
 
             /** Allows the user to view large amount of data through virtual scrolling.
              * @Default {false}
@@ -28615,14 +28626,6 @@ declare namespace ej {
             values?: any[];
         }
 
-        export interface DataSourceColumnsGroupByDate {
-
-            /** Contains the collection of formatString to group item from the field.
-             * @Default {[]}
-             */
-            interval?: any[];
-        }
-
         export interface DataSourceColumn {
 
             /** Allows the user to bind the item by using its unique name as field name.
@@ -28678,11 +28681,6 @@ declare namespace ej {
              * @Default {null}
              */
             filterItems?: DataSourceColumnsFilterItems;
-
-            /** Allows the user to group the field by date. This is applicable only when the format is set as &quot;date&quot;.
-             * @Default {{}}
-             */
-            groupByDate?: DataSourceColumnsGroupByDate;
         }
 
         export interface DataSourceRowsAdvancedFilter {
@@ -28725,14 +28723,6 @@ declare namespace ej {
              * @Default {[]}
              */
             values?: any[];
-        }
-
-        export interface DataSourceRowsGroupByDate {
-
-            /** Contains the collection of formatString to group item from the field.
-             * @Default {[]}
-             */
-            interval?: any[];
         }
 
         export interface DataSourceRow {
@@ -28790,11 +28780,6 @@ declare namespace ej {
              * @Default {null}
              */
             filterItems?: DataSourceRowsFilterItems;
-
-            /** Allows the user to group the field by date. This is applicable only when the format is set as &quot;date&quot;.
-             * @Default {{}}
-             */
-            groupByDate?: DataSourceRowsGroupByDate;
         }
 
         export interface DataSourceValuesMeasure {
@@ -29127,6 +29112,16 @@ declare namespace ej {
              */
             drillThroughDataTable?: string;
 
+            /** Allows the user to set the custom name for the service method responsible for performing value sorting operation in PivotGrid.
+             * @Default {ValueSorting}
+             */
+            valueSorting?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for removing pivot button from GroupingBar/Field List.
+             * @Default {RemoveButton}
+             */
+            removeButton?: string;
+
             /** Allows the user to set the custom name for the service method responsible for write-back operation in OLAP Cube. This is only applicable in server-side component.
              * @Default {WriteBack}
              */
@@ -29200,7 +29195,7 @@ declare namespace ej {
 
     class PivotSchemaDesigner extends ej.Widget {
         static fn: PivotSchemaDesigner;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PivotSchemaDesigner.Model);
+        constructor(element: JQuery | Element, options?: PivotSchemaDesigner.Model);
         static Locale: any;
         model: PivotSchemaDesigner.Model;
         defaults: PivotSchemaDesigner.Model;
@@ -29214,6 +29209,11 @@ declare namespace ej {
          * @returns {void}
          */
         refreshControl(): void;
+
+        /** This function Destroy the PivotSchemaDesigner widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
     }
     export namespace PivotSchemaDesigner {
 
@@ -29268,7 +29268,7 @@ declare namespace ej {
             /** Allows the user to set custom name for the methods at service-end, communicated during AJAX post.
              * @Default {{}}
              */
-            serviceMethod?: ServiceMethod;
+            serviceMethods?: any;
 
             /** Connects the service using the specified URL for any server updates.
              * @Default {â€œâ€}
@@ -29371,39 +29371,6 @@ declare namespace ej {
             showNamedSets?: boolean;
         }
 
-        export interface ServiceMethod {
-
-            /** Allows the user to set the custom name for the service method responsible for getting the values for the tree-view inside filter dialog.
-             * @Default {FetchMembers}
-             */
-            fetchMembers?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for filtering operation in Field List.
-             * @Default {Filtering}
-             */
-            filtering?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for the server-side action, on expanding members in Field List.
-             * @Default {MemberExpanded}
-             */
-            memberExpand?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for the server-side action, on dropping a node into Field List.
-             * @Default {NodeDropped}
-             */
-            nodeDropped?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for the server-side action on changing the checked state of a node in Field List.
-             * @Default {NodeStateModified}
-             */
-            nodeStateModified?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for button removing operation in Field List.
-             * @Default {RemoveButton}
-             */
-            removeButton?: string;
-        }
-
         enum Layouts {
 
             ///To set the layout as same in the Excel.
@@ -29420,7 +29387,7 @@ declare namespace ej {
 
     class PivotPager extends ej.Widget {
         static fn: PivotPager;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PivotPager.Model);
+        constructor(element: JQuery | Element, options?: PivotPager.Model);
         static Locale: any;
         model: PivotPager.Model;
         defaults: PivotPager.Model;
@@ -29486,7 +29453,7 @@ declare namespace ej {
 
     class PivotChart extends ej.Widget {
         static fn: PivotChart;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PivotChart.Model);
+        constructor(element: JQuery | Element, options?: PivotChart.Model);
         static Locale: any;
         model: PivotChart.Model;
         defaults: PivotChart.Model;
@@ -29550,6 +29517,11 @@ declare namespace ej {
          * @returns {void}
          */
         refreshControl(): void;
+
+        /** This function Destroy the PivotChart widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
 
         /** Renders the control with the pivot engine obtained from olap cube.
          * @returns {void}
@@ -29647,6 +29619,11 @@ declare namespace ej {
              */
             rotation?: number;
 
+            /** Allows the user to enable/disable the context menu options in the PivotChart.
+             * @Default {false}
+             */
+            enableContextMenu?: boolean;
+
             /** Allows the user to set custom name for the methods at service-end, communicated on AJAX post.
              * @Default {{}}
              */
@@ -29673,6 +29650,10 @@ declare namespace ej {
             /** Triggers before any AJAX request is passed from PivotChart to service methods.
              */
             beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
+
+            /** Triggers before Pivot Engine starts to populate.
+             */
+            beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
             /** Triggers on performing drill up/down in PivotChart control.
              */
@@ -29738,6 +29719,13 @@ declare namespace ej {
             /** returns the HTML element of PivotChart control.
              */
             element?: any;
+        }
+
+        export interface BeforePivotEnginePopulateEventArgs {
+
+            /** returns the current instance of PivotChart.
+             */
+            chartObj?: any;
         }
 
         export interface DrillSuccessEventArgs {
@@ -30096,7 +30084,7 @@ declare namespace ej {
 
     class PivotClient extends ej.Widget {
         static fn: PivotClient;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PivotClient.Model);
+        constructor(element: JQuery | Element, options?: PivotClient.Model);
         static Locale: any;
         model: PivotClient.Model;
         defaults: PivotClient.Model;
@@ -30130,6 +30118,16 @@ declare namespace ej {
          * @returns {void}
          */
         refreshControl(): void;
+
+        /** Returns the control tab string that displays currently in PivotClient.
+         * @returns {void}
+         */
+        getActiveTab(): void;
+
+        /** This function Destroy the PivotClient widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
 
         /** Returns the OlapReport string maintained along with the axis elements information.
          * @returns {string}
@@ -30185,6 +30183,11 @@ declare namespace ej {
              */
             dataSource?: DataSource;
 
+            /** Enables the Drill-Through feature which retrieves the raw items that are used to create the specific cell in PivotGrid.
+             * @Default {false}
+             */
+            enableDrillThrough?: boolean;
+
             /** Allows the user to customize the widget's layout and appearance.
              * @Default {{}}
              */
@@ -30195,7 +30198,7 @@ declare namespace ej {
              */
             toolbarIconSettings?: ToolbarIconSettings;
 
-            /** Allows user to show unique name on pivotbutton.
+            /** Allows user to show unique name on pivot button.
              * @Default {false}
              */
             showUniqueNameOnPivotButton?: boolean;
@@ -30275,6 +30278,11 @@ declare namespace ej {
              */
             isResponsive?: boolean;
 
+            /** Options to customize the size of the PivotClient control.
+             * @Default {Example:}
+             */
+            size?: any;
+
             /** Allows the user to set the localized language for the widget.
              * @Default {en-US}
              */
@@ -30333,6 +30341,10 @@ declare namespace ej {
             /** Triggers before rendering the PivotTreeMap.
              */
             treeMapLoad?(e: TreeMapLoadEventArgs): void;
+
+            /** Triggers while clicking value cells in PivotGrid.
+             */
+            drillThrough?(e: DrillThroughEventArgs): void;
 
             /** Triggers while we initiate loading of the widget.
              */
@@ -30458,6 +30470,17 @@ declare namespace ej {
             customObject?: any;
 
             /** returns the HTML element of PivotTreeMap control.
+             */
+            element?: any;
+        }
+
+        export interface DrillThroughEventArgs {
+
+            /** return the JSON records of the generated cells on drill-through operation.
+             */
+            data?: any;
+
+            /** returns the HTML element of PivotClient.
              */
             element?: any;
         }
@@ -31012,6 +31035,16 @@ declare namespace ej {
              */
             loadReport?: string;
 
+            /** Allows the user to set the custom name for the service method responsible for remove a report collection from the database.
+             * @Default {RemoveReportFromDB}
+             */
+            removeDBReport?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for rename the report collection in the database.
+             * @Default {RenameReportInDB}
+             */
+            renameDBReport?: string;
+
             /** Allows the user to set the custom name for the service method responsible for retrieving the MDX query for the current report.
              * @Default {GetMDXQuery}
              */
@@ -31066,6 +31099,16 @@ declare namespace ej {
              * @Default {CalculatedMember}
              */
             calculatedMember?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for performing drill through operation.
+             * @Default {DrillThroughHierarchies}
+             */
+            drillThroughHierarchies?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for performing drill through operation in data table.
+             * @Default {DrillThroughDataTable}
+             */
+            drillThroughDataTable?: string;
         }
 
         enum ClientExportMode {
@@ -31117,7 +31160,7 @@ declare namespace ej {
 
     class PivotGauge extends ej.Widget {
         static fn: PivotGauge;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PivotGauge.Model);
+        constructor(element: JQuery | Element, options?: PivotGauge.Model);
         static Locale: any;
         model: PivotGauge.Model;
         defaults: PivotGauge.Model;
@@ -31141,6 +31184,11 @@ declare namespace ej {
          * @returns {void}
          */
         renderControlFromJSON(): void;
+
+        /** This function Destroy the PivotGauge widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
 
         /** Returns the OlapReport string maintained along with the axis elements information.
          * @returns {string}
@@ -31587,7 +31635,7 @@ declare namespace ej {
 
     class PivotTreeMap extends ej.Widget {
         static fn: PivotTreeMap;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PivotTreeMap.Model);
+        constructor(element: JQuery | Element, options?: PivotTreeMap.Model);
         static Locale: any;
         model: PivotTreeMap.Model;
         defaults: PivotTreeMap.Model;
@@ -31596,6 +31644,11 @@ declare namespace ej {
          * @returns {void}
          */
         doAjaxPost(): void;
+
+        /** Performs an asynchronous HTTP (FullPost) submit.
+         * @returns {void}
+         */
+        doPostBack(): void;
 
         /** Returns the OlapReport string maintained along with the axis elements information.
          * @returns {string}
@@ -31631,6 +31684,11 @@ declare namespace ej {
          * @returns {void}
          */
         renderControlSuccess(): void;
+
+        /** This function Destroy the PivotTreemap widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
     }
     export namespace PivotTreeMap {
 
@@ -31971,7 +32029,7 @@ declare namespace ej {
 
     class Schedule extends ej.Widget {
         static fn: Schedule;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Schedule.Model);
+        constructor(element: JQuery | Element, options?: Schedule.Model);
         static Locale: any;
         model: Schedule.Model;
         defaults: Schedule.Model;
@@ -33763,7 +33821,7 @@ declare namespace ej {
 
     class RecurrenceEditor extends ej.Widget {
         static fn: RecurrenceEditor;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: RecurrenceEditor.Model);
+        constructor(element: JQuery | Element, options?: RecurrenceEditor.Model);
         static Locale: any;
         model: RecurrenceEditor.Model;
         defaults: RecurrenceEditor.Model;
@@ -33874,7 +33932,7 @@ declare namespace ej {
 
     class Gantt extends ej.Widget {
         static fn: Gantt;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Gantt.Model);
+        constructor(element: JQuery | Element, options?: Gantt.Model);
         static Locale: any;
         model: Gantt.Model;
         defaults: Gantt.Model;
@@ -35729,7 +35787,7 @@ declare namespace ej {
 
     class ReportViewer extends ej.Widget {
         static fn: ReportViewer;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: ReportViewer.Model);
+        constructor(element: JQuery | Element, options?: ReportViewer.Model);
         static Locale: any;
         model: ReportViewer.Model;
         defaults: ReportViewer.Model;
@@ -36373,7 +36431,7 @@ declare namespace ej {
 
     class TreeGrid extends ej.Widget {
         static fn: TreeGrid;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: TreeGrid.Model);
+        constructor(element: JQuery | Element, options?: TreeGrid.Model);
         static Locale: any;
         model: TreeGrid.Model;
         defaults: TreeGrid.Model;
@@ -38426,16 +38484,16 @@ declare namespace ej {
 
     class GroupButton extends ej.Widget {
         static fn: GroupButton;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: GroupButton.Model);
+        constructor(element: JQuery | Element, options?: GroupButton.Model);
         static Locale: any;
         model: GroupButton.Model;
         defaults: GroupButton.Model;
 
         /** Remove the selection state of the specified the button element from the GroupButton
-         * @param {JQuery<Element, HTMLElement>} Specific button element
+         * @param {JQuery} Specific button element
          * @returns {void}
          */
-        deselectItem(element: JQuery<Element, HTMLElement>): void;
+        deselectItem(element: JQuery): void;
 
         /** Destroy the GroupButton widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
          * @returns {void}
@@ -38448,10 +38506,10 @@ declare namespace ej {
         disable(): void;
 
         /** Disable the specified button element from the ejGroupButton control.
-         * @param {JQuery<Element, HTMLElement>} Specific button element
+         * @param {JQuery} Specific button element
          * @returns {void}
          */
-        disableItem(element: JQuery<Element, HTMLElement>): void;
+        disableItem(element: JQuery): void;
 
         /** Enables the disabled ejGroupButton control.
          * @returns {void}
@@ -38459,16 +38517,16 @@ declare namespace ej {
         enable(): void;
 
         /** Enable the specified disabled button element from the ejGroupButton control.
-         * @param {JQuery<Element, HTMLElement>} Specific button element
+         * @param {JQuery} Specific button element
          * @returns {void}
          */
-        enableItem(element: JQuery<Element, HTMLElement>): void;
+        enableItem(element: JQuery): void;
 
         /** Returns the index value for specified button element in the GroupButton control.
-         * @param {JQuery<Element, HTMLElement>} Specific button element
+         * @param {JQuery} Specific button element
          * @returns {number}
          */
-        getIndex(element: JQuery<Element, HTMLElement>): number;
+        getIndex(element: JQuery): number;
 
         /** This method returns the list of active state button elements from the GroupButton control.
          * @returns {any}
@@ -38481,10 +38539,10 @@ declare namespace ej {
         hide(): void;
 
         /** Hide the specified button element from the ejGroupButton control.
-         * @param {JQuery<Element, HTMLElement>} Specific button element
+         * @param {JQuery} Specific button element
          * @returns {void}
          */
-        hideItem(element: JQuery<Element, HTMLElement>): void;
+        hideItem(element: JQuery): void;
 
         /** Returns the disabled state of the specified element button element in GroupButton as Boolean.
          * @returns {boolean}
@@ -38497,10 +38555,10 @@ declare namespace ej {
         isSelected(): boolean;
 
         /** Public method used to select the specified button element from the ejGroupButton control.
-         * @param {JQuery<Element, HTMLElement>} Specific button element
+         * @param {JQuery} Specific button element
          * @returns {void}
          */
-        selectItem(element: JQuery<Element, HTMLElement>): void;
+        selectItem(element: JQuery): void;
 
         /** Shows the GroupButton control, if its hide.
          * @returns {void}
@@ -38508,10 +38566,10 @@ declare namespace ej {
         show(): void;
 
         /** Show the specified hidden button element from the ejGroupButton control.
-         * @param {JQuery<Element, HTMLElement>} Specific button element
+         * @param {JQuery} Specific button element
          * @returns {void}
          */
-        showItem(element: JQuery<Element, HTMLElement>): void;
+        showItem(element: JQuery): void;
     }
     export namespace GroupButton {
 
@@ -38763,7 +38821,7 @@ declare namespace ej {
 
     class NavigationDrawer extends ej.Widget {
         static fn: NavigationDrawer;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: NavigationDrawer.Model);
+        constructor(element: JQuery | Element, options?: NavigationDrawer.Model);
         static Locale: any;
         model: NavigationDrawer.Model;
         defaults: NavigationDrawer.Model;
@@ -39011,7 +39069,7 @@ declare namespace ej {
 
     class RadialMenu extends ej.Widget {
         static fn: RadialMenu;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: RadialMenu.Model);
+        constructor(element: JQuery | Element, options?: RadialMenu.Model);
         static Locale: any;
         model: RadialMenu.Model;
         defaults: RadialMenu.Model;
@@ -39278,7 +39336,7 @@ declare namespace ej {
 
     class Tile extends ej.Widget {
         static fn: Tile;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Tile.Model);
+        constructor(element: JQuery | Element, options?: Tile.Model);
         static Locale: any;
         model: Tile.Model;
         defaults: Tile.Model;
@@ -39629,7 +39687,7 @@ declare namespace ej {
 
     class Signature extends ej.Widget {
         static fn: Signature;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Signature.Model);
+        constructor(element: JQuery | Element, options?: Signature.Model);
         static Locale: any;
         model: Signature.Model;
         defaults: Signature.Model;
@@ -39849,7 +39907,7 @@ declare namespace ej {
 
     class RadialSlider extends ej.Widget {
         static fn: RadialSlider;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: RadialSlider.Model);
+        constructor(element: JQuery | Element, options?: RadialSlider.Model);
         static Locale: any;
         model: RadialSlider.Model;
         defaults: RadialSlider.Model;
@@ -40097,7 +40155,7 @@ declare namespace ej {
 
     class Spreadsheet extends ej.Widget {
         static fn: Spreadsheet;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Spreadsheet.Model);
+        constructor(element: JQuery | Element, options?: Spreadsheet.Model);
         static Locale: any;
         model: Spreadsheet.Model;
         defaults: Spreadsheet.Model;
@@ -40684,6 +40742,8 @@ declare namespace ej {
         XLResize: Spreadsheet.XLResize;
 
         XLRibbon: Spreadsheet.XLRibbon;
+
+        XLScroll: Spreadsheet.XLScroll;
 
         XLSearch: Spreadsheet.XLSearch;
 
@@ -41336,6 +41396,15 @@ declare namespace ej {
              * @returns {void}
              */
             updateRibbonIcons(): void;
+        }
+
+        export interface XLScroll {
+
+            /** This method is used to scroll the sheet content to the specified cell address in the Spreadsheet.
+             * @param {string} Pass the cell address that you want to scroll to it.
+             * @returns {void}
+             */
+            scrollToCell(range: string): void;
         }
 
         export interface XLSearch {
@@ -43805,7 +43874,7 @@ declare namespace ej {
 
     class PdfViewer extends ej.Widget {
         static fn: PdfViewer;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: PdfViewer.Model);
+        constructor(element: JQuery | Element, options?: PdfViewer.Model);
         static Locale: any;
         model: PdfViewer.Model;
         defaults: PdfViewer.Model;
@@ -44480,7 +44549,7 @@ declare namespace ej {
 
             /** Returns the previous color of the signature.
              */
-            perviousColor?: string;
+            previousColor?: string;
 
             /** Returns the current color of the signature.
              */
@@ -44781,7 +44850,7 @@ declare namespace ej {
 
     class SpellCheck extends ej.Widget {
         static fn: SpellCheck;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: SpellCheck.Model);
+        constructor(element: JQuery | Element, options?: SpellCheck.Model);
         static Locale: any;
         model: SpellCheck.Model;
         defaults: SpellCheck.Model;
@@ -44840,6 +44909,12 @@ declare namespace ej {
          * @returns {any}
          */
         addToDictionary(customWord: string): any;
+
+        /** Retrieves the possible suggestion words for the error word passed as an argument.
+         * @param {string} Error word to get the suggestions
+         * @returns {any}
+         */
+        getSuggestionWords(errorWord: string): any;
     }
     export namespace SpellCheck {
 
@@ -44891,6 +44966,11 @@ declare namespace ej {
              * @Default {null}
              */
             controlsToValidate?: string;
+
+            /** When set to true, allows sending Asynchronous ajax request for checking the spelling errors.
+             * @Default {true}
+             */
+            enableAsync?: boolean;
 
             /** Triggers on the success of AJAX call request.
              */
@@ -45322,7 +45402,7 @@ declare namespace ej {
 
     class DocumentEditor extends ej.Widget {
         static fn: DocumentEditor;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: DocumentEditor.Model);
+        constructor(element: JQuery | Element, options?: DocumentEditor.Model);
         static Locale: any;
         model: DocumentEditor.Model;
         defaults: DocumentEditor.Model;
@@ -45472,7 +45552,7 @@ declare namespace ej {
 declare namespace ej.datavisualization {
     class SymbolPalette extends ej.Widget {
         static fn: SymbolPalette;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: SymbolPalette.Model);
+        constructor(element: JQuery | Element, options?: SymbolPalette.Model);
         static Locale: any;
         model: SymbolPalette.Model;
         defaults: SymbolPalette.Model;
@@ -45614,7 +45694,7 @@ declare namespace ej.datavisualization {
 
     class LinearGauge extends ej.Widget {
         static fn: LinearGauge;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: LinearGauge.Model);
+        constructor(element: JQuery | Element, options?: LinearGauge.Model);
         static Locale: any;
         model: LinearGauge.Model;
         defaults: LinearGauge.Model;
@@ -47658,7 +47738,7 @@ declare namespace ej.datavisualization {
 
     class CircularGauge extends ej.Widget {
         static fn: CircularGauge;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: CircularGauge.Model);
+        constructor(element: JQuery | Element, options?: CircularGauge.Model);
         static Locale: any;
         model: CircularGauge.Model;
         defaults: CircularGauge.Model;
@@ -49976,7 +50056,7 @@ declare namespace ej.datavisualization {
 
     class DigitalGauge extends ej.Widget {
         static fn: DigitalGauge;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: DigitalGauge.Model);
+        constructor(element: JQuery | Element, options?: DigitalGauge.Model);
         static Locale: any;
         model: DigitalGauge.Model;
         defaults: DigitalGauge.Model;
@@ -50400,7 +50480,7 @@ declare namespace ej.datavisualization {
 
     class Chart extends ej.Widget {
         static fn: Chart;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Chart.Model);
+        constructor(element: JQuery | Element, options?: Chart.Model);
         static Locale: any;
         model: Chart.Model;
         defaults: Chart.Model;
@@ -51356,7 +51436,7 @@ declare namespace ej.datavisualization {
              */
             type?: string;
 
-            /** location - X and Y co-ordinate of the points with respect to chart area.    axis - axis of the multilevellabels.    multilevellabel - Multi level label details
+            /** location - X and Y co-ordinate of the points with respect to chart area.    axis - axis of the multi level labels.    multiLevelLabel - Multi level label details
              */
             data?: any;
         }
@@ -52536,7 +52616,7 @@ declare namespace ej.datavisualization {
             /** Specifies the type of the trendline for the series.
              * @Default {linear. See TrendlinesType}
              */
-            type?: string;
+            type?: ej.datavisualization.Chart.TrendlinesType|string;
 
             /** Name for the trendlines that is to be displayed in the legend text.
              * @Default {trendline}
@@ -52740,7 +52820,7 @@ declare namespace ej.datavisualization {
              */
             dataSource?: any;
 
-            /** Specifies spline tension value for cardianal spline type. Value ranges from 0 to 1.
+            /** Specifies spline tension value for cardinal spline type. Value ranges from 0 to 1.
              * @Default {0.5}
              */
             cardinalSplineTension?: number;
@@ -57012,7 +57092,7 @@ declare namespace ej.datavisualization {
              */
             dataSource?: any;
 
-            /** Specifies spline tension values for cardianal spline type.Value ranges from 0 to 1.
+            /** Specifies spline tension values for cardinal spline type.Value ranges from 0 to 1.
              * @Default {0.5}
              */
             cardinalSplineTension?: number;
@@ -57122,7 +57202,7 @@ declare namespace ej.datavisualization {
             splitMode?: ej.datavisualization.Chart.SplitMode|string;
 
             /** Quartile calculation has been performed in three different formulas to render the boxplot series .
-             * @Default {exclusive}
+             * @Default {exclusive.See BoxPlotMode}
              */
             boxPlotMode?: ej.datavisualization.Chart.LabelPosition|string;
 
@@ -57944,6 +58024,20 @@ declare namespace ej.datavisualization {
         }
     }
     namespace Chart {
+        enum TrendlinesType {
+            //string
+            Linear,
+            //string
+            Exponential,
+            //string
+            Logarithmic,
+            //string
+            Power,
+            //string
+            Polynomial,
+        }
+    }
+    namespace Chart {
         enum Mode {
             //string
             Series,
@@ -58188,7 +58282,7 @@ declare namespace ej.datavisualization {
 
     class RangeNavigator extends ej.Widget {
         static fn: RangeNavigator;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: RangeNavigator.Model);
+        constructor(element: JQuery | Element, options?: RangeNavigator.Model);
         static Locale: any;
         model: RangeNavigator.Model;
         defaults: RangeNavigator.Model;
@@ -59400,7 +59494,7 @@ declare namespace ej.datavisualization {
 
     class BulletGraph extends ej.Widget {
         static fn: BulletGraph;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: BulletGraph.Model);
+        constructor(element: JQuery | Element, options?: BulletGraph.Model);
         static Locale: any;
         model: BulletGraph.Model;
         defaults: BulletGraph.Model;
@@ -60498,7 +60592,7 @@ declare namespace ej.datavisualization {
 
     class Barcode extends ej.Widget {
         static fn: Barcode;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Barcode.Model);
+        constructor(element: JQuery | Element, options?: Barcode.Model);
         static Locale: any;
         model: Barcode.Model;
         defaults: Barcode.Model;
@@ -60656,7 +60750,7 @@ declare namespace ej.datavisualization {
 
     class Map extends ej.Widget {
         static fn: Map;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Map.Model);
+        constructor(element: JQuery | Element, options?: Map.Model);
         static Locale: any;
         model: Map.Model;
         defaults: Map.Model;
@@ -61920,7 +62014,7 @@ declare namespace ej.datavisualization {
 
     class TreeMap extends ej.Widget {
         static fn: TreeMap;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: TreeMap.Model);
+        constructor(element: JQuery | Element, options?: TreeMap.Model);
         static Locale: any;
         model: TreeMap.Model;
         defaults: TreeMap.Model;
@@ -62542,7 +62636,7 @@ declare namespace ej.datavisualization {
 
     class Diagram extends ej.Widget {
         static fn: Diagram;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Diagram.Model);
+        constructor(element: JQuery | Element, options?: Diagram.Model);
         static Locale: any;
         model: Diagram.Model;
         defaults: Diagram.Model;
@@ -64668,22 +64762,22 @@ declare namespace ej.datavisualization {
              */
             id?: string;
 
-            /** Sets the sourcenode of the connection data source item
+            /** Sets the source node of the connection data source item
              * @Default {null}
              */
             sourceNode?: string;
 
-            /** Sets the targetnode of the connection data source item
+            /** Sets the target node of the connection data source item
              * @Default {null}
              */
             targetNode?: string;
 
-            /** Sets the sourcepoint-x value of the connection data source item
+            /** Sets the sourcePointX value of the connection data source item
              * @Default {null}
              */
             sourcePointX?: string;
 
-            /** Sets the sourcePoint-y value of the connection data source item
+            /** Sets the sourcePointY value of the connection data source item
              * @Default {null}
              */
             sourcePointY?: string;
@@ -64703,7 +64797,7 @@ declare namespace ej.datavisualization {
              */
             crudAction?: DataSourceSettingsConnectionDataSourceCrudAction;
 
-            /** Specifies the customfields to get the updated data from client side to the server side
+            /** Specifies the custom fields to get the updated data from client side to the server side
              * @Default {[]}
              */
             customFields?: any[];
@@ -64744,7 +64838,7 @@ declare namespace ej.datavisualization {
              */
             crudAction?: DataSourceSettingsCrudAction;
 
-            /** Specifies the customfields to get the updated data from client side to the server side
+            /** Specifies the custom fields to get the updated data from client side to the server side
              * @Default {[]}
              */
             customFields?: any[];
@@ -67450,7 +67544,7 @@ declare namespace ej.datavisualization {
 
     class HeatMap extends ej.Widget {
         static fn: HeatMap;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: HeatMap.Model);
+        constructor(element: JQuery | Element, options?: HeatMap.Model);
         static Locale: any;
         model: HeatMap.Model;
         defaults: HeatMap.Model;
@@ -67939,7 +68033,7 @@ declare namespace ej.datavisualization {
 
     class HeatMapLegend extends ej.Widget {
         static fn: HeatMapLegend;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: HeatMapLegend.Model);
+        constructor(element: JQuery | Element, options?: HeatMapLegend.Model);
         static Locale: any;
         model: HeatMapLegend.Model;
         defaults: HeatMapLegend.Model;
@@ -68058,7 +68152,7 @@ declare namespace ej.datavisualization {
 
     class Sparkline extends ej.Widget {
         static fn: Sparkline;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Sparkline.Model);
+        constructor(element: JQuery | Element, options?: Sparkline.Model);
         static Locale: any;
         model: Sparkline.Model;
         defaults: Sparkline.Model;
@@ -68664,7 +68758,7 @@ declare namespace ej.datavisualization {
 
     class SunburstChart extends ej.Widget {
         static fn: SunburstChart;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: SunburstChart.Model);
+        constructor(element: JQuery | Element, options?: SunburstChart.Model);
         static Locale: any;
         model: SunburstChart.Model;
         defaults: SunburstChart.Model;
@@ -69213,7 +69307,7 @@ declare namespace ej.datavisualization {
              */
             format?: string;
 
-            /** Sets the opacity of the dispalyed tooltip
+            /** Sets the opacity of the displayed tooltip
              * @Default {0.95}
              */
             opacity?: number;
@@ -69844,7 +69938,7 @@ declare namespace ej.datavisualization {
 
     class Overview extends ej.Widget {
         static fn: Overview;
-        constructor(element: JQuery<Element, HTMLElement> | Element, options?: Overview.Model);
+        constructor(element: JQuery | Element, options?: Overview.Model);
         static Locale: any;
         model: Overview.Model;
         defaults: Overview.Model;
@@ -69884,7 +69978,7 @@ interface JQueryPromise<T> {
      */
     cancel?: boolean;
 }
-interface JQueryDeferred<T> extends JQueryPromise<T> {
+interface JQueryDeferred<T> {
     /**
      * Returns the cancel option value.
      */
@@ -69896,261 +69990,261 @@ interface JQueryParam {
      */
     cancel?: boolean;
 }
-interface JQuery<TElement extends Node, HTMLElement> extends Iterable<TElement> {
+interface JQuery {
     data(key: any): any;
 }
 interface Window {
     ej: typeof ej;
 }
-interface JQuery<TElement extends Node , HTMLElement> extends Iterable<TElement> {
+interface JQuery {
 
-    ejAccordion(options?: ej.Accordion.Model): JQuery<Element, HTMLElement>;
+    ejAccordion(options?: ej.Accordion.Model): JQuery;
     ejAccordion(memberName: any, value?: any, param?: any): any;
 
-    ejAutocomplete(options?: ej.Autocomplete.Model): JQuery<Element, HTMLElement>;
+    ejAutocomplete(options?: ej.Autocomplete.Model): JQuery;
     ejAutocomplete(memberName: any, value?: any, param?: any): any;
 
-    ejBarcode(options?: ej.datavisualization.Barcode.Model): JQuery<Element, HTMLElement>;
+    ejBarcode(options?: ej.datavisualization.Barcode.Model): JQuery;
     ejBarcode(memberName: any, value?: any, param?: any): any;
 
-    ejBulletGraph(options?: ej.datavisualization.BulletGraph.Model): JQuery<Element, HTMLElement>;
+    ejBulletGraph(options?: ej.datavisualization.BulletGraph.Model): JQuery;
     ejBulletGraph(memberName: any, value?: any, param?: any): any;
 
-    ejButton(options?: ej.Button.Model): JQuery<Element, HTMLElement>;
+    ejButton(options?: ej.Button.Model): JQuery;
     ejButton(memberName: any, value?: any, param?: any): any;
 
-    ejCaptcha(options?: ej.Captcha.Model): JQuery<Element, HTMLElement>;
+    ejCaptcha(options?: ej.Captcha.Model): JQuery;
     ejCaptcha(memberName: any, value?: any, param?: any): any;
 
-    ejChart(options?: ej.datavisualization.Chart.Model): JQuery<Element, HTMLElement>;
+    ejChart(options?: ej.datavisualization.Chart.Model): JQuery;
     ejChart(memberName: any, value?: any, param?: any): any;
 
-    ejCheckBox(options?: ej.CheckBox.Model): JQuery<Element, HTMLElement>;
+    ejCheckBox(options?: ej.CheckBox.Model): JQuery;
     ejCheckBox(memberName: any, value?: any, param?: any): any;
 
-    ejCircularGauge(options?: ej.datavisualization.CircularGauge.Model): JQuery<Element, HTMLElement>;
+    ejCircularGauge(options?: ej.datavisualization.CircularGauge.Model): JQuery;
     ejCircularGauge(memberName: any, value?: any, param?: any): any;
 
-    ejColorPicker(options?: ej.ColorPicker.Model): JQuery<Element, HTMLElement>;
+    ejColorPicker(options?: ej.ColorPicker.Model): JQuery;
     ejColorPicker(memberName: any, value?: any, param?: any): any;
 
-    ejDatePicker(options?: ej.DatePicker.Model): JQuery<Element, HTMLElement>;
+    ejDatePicker(options?: ej.DatePicker.Model): JQuery;
     ejDatePicker(memberName: any, value?: any, param?: any): any;
 
-    ejDateRangePicker(options?: ej.DateRangePicker.Model): JQuery<Element, HTMLElement>;
+    ejDateRangePicker(options?: ej.DateRangePicker.Model): JQuery;
     ejDateRangePicker(memberName: any, value?: any, param?: any): any;
 
-    ejDateTimePicker(options?: ej.DateTimePicker.Model): JQuery<Element, HTMLElement>;
+    ejDateTimePicker(options?: ej.DateTimePicker.Model): JQuery;
     ejDateTimePicker(memberName: any, value?: any, param?: any): any;
 
-    ejDiagram(options?: ej.datavisualization.Diagram.Model): JQuery<Element, HTMLElement>;
+    ejDiagram(options?: ej.datavisualization.Diagram.Model): JQuery;
     ejDiagram(memberName: any, value?: any, param?: any): any;
 
-    ejDialog(options?: ej.Dialog.Model): JQuery<Element, HTMLElement>;
+    ejDialog(options?: ej.Dialog.Model): JQuery;
     ejDialog(memberName: any, value?: any, param?: any): any;
 
-    ejDigitalGauge(options?: ej.datavisualization.DigitalGauge.Model): JQuery<Element, HTMLElement>;
+    ejDigitalGauge(options?: ej.datavisualization.DigitalGauge.Model): JQuery;
     ejDigitalGauge(memberName: any, value?: any, param?: any): any;
 
-    ejDocumentEditor(options?: ej.DocumentEditor.Model): JQuery<Element, HTMLElement>;
+    ejDocumentEditor(options?: ej.DocumentEditor.Model): JQuery;
     ejDocumentEditor(memberName: any, value?: any, param?: any): any;
 
-    ejDraggable(options?: ej.Draggable.Model): JQuery<Element, HTMLElement>;
+    ejDraggable(options?: ej.Draggable.Model): JQuery;
     ejDraggable(memberName: any, value?: any, param?: any): any;
 
-    ejDropDownList(options?: ej.DropDownList.Model): JQuery<Element, HTMLElement>;
+    ejDropDownList(options?: ej.DropDownList.Model): JQuery;
     ejDropDownList(memberName: any, value?: any, param?: any): any;
 
-    ejDroppable(options?: ej.Droppable.Model): JQuery<Element, HTMLElement>;
+    ejDroppable(options?: ej.Droppable.Model): JQuery;
     ejDroppable(memberName: any, value?: any, param?: any): any;
 
-    ejFileExplorer(options?: ej.FileExplorer.Model): JQuery<Element, HTMLElement>;
+    ejFileExplorer(options?: ej.FileExplorer.Model): JQuery;
     ejFileExplorer(memberName: any, value?: any, param?: any): any;
 
-    ejGantt(options?: ej.Gantt.Model): JQuery<Element, HTMLElement>;
+    ejGantt(options?: ej.Gantt.Model): JQuery;
     ejGantt(memberName: any, value?: any, param?: any): any;
 
-    ejGrid(options?: ej.Grid.Model): JQuery<Element, HTMLElement>;
+    ejGrid(options?: ej.Grid.Model): JQuery;
     ejGrid(memberName: any, value?: any, param?: any): any;
 
-    ejGroupButton(options?: ej.GroupButton.Model): JQuery<Element, HTMLElement>;
+    ejGroupButton(options?: ej.GroupButton.Model): JQuery;
     ejGroupButton(memberName: any, value?: any, param?: any): any;
 
-    ejHeatMap(options?: ej.datavisualization.HeatMap.Model): JQuery<Element, HTMLElement>;
+    ejHeatMap(options?: ej.datavisualization.HeatMap.Model): JQuery;
     ejHeatMap(memberName: any, value?: any, param?: any): any;
 
-    ejHeatMapLegend(options?: ej.datavisualization.HeatMapLegend.Model): JQuery<Element, HTMLElement>;
+    ejHeatMapLegend(options?: ej.datavisualization.HeatMapLegend.Model): JQuery;
     ejHeatMapLegend(memberName: any, value?: any, param?: any): any;
 
-    ejKanban(options?: ej.Kanban.Model): JQuery<Element, HTMLElement>;
+    ejKanban(options?: ej.Kanban.Model): JQuery;
     ejKanban(memberName: any, value?: any, param?: any): any;
 
-    ejLinearGauge(options?: ej.datavisualization.LinearGauge.Model): JQuery<Element, HTMLElement>;
+    ejLinearGauge(options?: ej.datavisualization.LinearGauge.Model): JQuery;
     ejLinearGauge(memberName: any, value?: any, param?: any): any;
 
-    ejListBox(options?: ej.ListBox.Model): JQuery<Element, HTMLElement>;
+    ejListBox(options?: ej.ListBox.Model): JQuery;
     ejListBox(memberName: any, value?: any, param?: any): any;
 
-    ejListView(options?: ej.ListView.Model): JQuery<Element, HTMLElement>;
+    ejListView(options?: ej.ListView.Model): JQuery;
     ejListView(memberName: any, value?: any, param?: any): any;
 
-    ejMap(options?: ej.datavisualization.Map.Model): JQuery<Element, HTMLElement>;
+    ejMap(options?: ej.datavisualization.Map.Model): JQuery;
     ejMap(memberName: any, value?: any, param?: any): any;
 
-    ejMaskEdit(options?: ej.MaskEdit.Model): JQuery<Element, HTMLElement>;
+    ejMaskEdit(options?: ej.MaskEdit.Model): JQuery;
     ejMaskEdit(memberName: any, value?: any, param?: any): any;
 
-    ejMenu(options?: ej.Menu.Model): JQuery<Element, HTMLElement>;
+    ejMenu(options?: ej.Menu.Model): JQuery;
     ejMenu(memberName: any, value?: any, param?: any): any;
 
-    ejNavigationDrawer(options?: ej.NavigationDrawer.Model): JQuery<Element, HTMLElement>;
+    ejNavigationDrawer(options?: ej.NavigationDrawer.Model): JQuery;
     ejNavigationDrawer(memberName: any, value?: any, param?: any): any;
 
-    ejOverview(options?: ej.datavisualization.Overview.Model): JQuery<Element, HTMLElement>;
+    ejOverview(options?: ej.datavisualization.Overview.Model): JQuery;
     ejOverview(memberName: any, value?: any, param?: any): any;
 
-    ejPager(options?: ej.Pager.Model): JQuery<Element, HTMLElement>;
+    ejPager(options?: ej.Pager.Model): JQuery;
     ejPager(memberName: any, value?: any, param?: any): any;
 
-    ejPdfViewer(options?: ej.PdfViewer.Model): JQuery<Element, HTMLElement>;
+    ejPdfViewer(options?: ej.PdfViewer.Model): JQuery;
     ejPdfViewer(memberName: any, value?: any, param?: any): any;
 
-    ejPivotChart(options?: ej.PivotChart.Model): JQuery<Element, HTMLElement>;
+    ejPivotChart(options?: ej.PivotChart.Model): JQuery;
     ejPivotChart(memberName: any, value?: any, param?: any): any;
 
-    ejPivotClient(options?: ej.PivotClient.Model): JQuery<Element, HTMLElement>;
+    ejPivotClient(options?: ej.PivotClient.Model): JQuery;
     ejPivotClient(memberName: any, value?: any, param?: any): any;
 
-    ejPivotGauge(options?: ej.PivotGauge.Model): JQuery<Element, HTMLElement>;
+    ejPivotGauge(options?: ej.PivotGauge.Model): JQuery;
     ejPivotGauge(memberName: any, value?: any, param?: any): any;
 
-    ejPivotGrid(options?: ej.PivotGrid.Model): JQuery<Element, HTMLElement>;
+    ejPivotGrid(options?: ej.PivotGrid.Model): JQuery;
     ejPivotGrid(memberName: any, value?: any, param?: any): any;
 
-    ejPivotPager(options?: ej.PivotPager.Model): JQuery<Element, HTMLElement>;
+    ejPivotPager(options?: ej.PivotPager.Model): JQuery;
     ejPivotPager(memberName: any, value?: any, param?: any): any;
 
-    ejPivotSchemaDesigner(options?: ej.PivotSchemaDesigner.Model): JQuery<Element, HTMLElement>;
+    ejPivotSchemaDesigner(options?: ej.PivotSchemaDesigner.Model): JQuery;
     ejPivotSchemaDesigner(memberName: any, value?: any, param?: any): any;
 
-    ejPivotTreeMap(options?: ej.PivotTreeMap.Model): JQuery<Element, HTMLElement>;
+    ejPivotTreeMap(options?: ej.PivotTreeMap.Model): JQuery;
     ejPivotTreeMap(memberName: any, value?: any, param?: any): any;
 
-    ejPrint(options?: ej.Print.Model): JQuery<Element, HTMLElement>;
+    ejPrint(options?: ej.Print.Model): JQuery;
     ejPrint(memberName: any, value?: any, param?: any): any;
 
-    ejProgressBar(options?: ej.ProgressBar.Model): JQuery<Element, HTMLElement>;
+    ejProgressBar(options?: ej.ProgressBar.Model): JQuery;
     ejProgressBar(memberName: any, value?: any, param?: any): any;
 
-    ejRadialMenu(options?: ej.RadialMenu.Model): JQuery<Element, HTMLElement>;
+    ejRadialMenu(options?: ej.RadialMenu.Model): JQuery;
     ejRadialMenu(memberName: any, value?: any, param?: any): any;
 
-    ejRadialSlider(options?: ej.RadialSlider.Model): JQuery<Element, HTMLElement>;
+    ejRadialSlider(options?: ej.RadialSlider.Model): JQuery;
     ejRadialSlider(memberName: any, value?: any, param?: any): any;
 
-    ejRadioButton(options?: ej.RadioButton.Model): JQuery<Element, HTMLElement>;
+    ejRadioButton(options?: ej.RadioButton.Model): JQuery;
     ejRadioButton(memberName: any, value?: any, param?: any): any;
 
-    ejRangeNavigator(options?: ej.datavisualization.RangeNavigator.Model): JQuery<Element, HTMLElement>;
+    ejRangeNavigator(options?: ej.datavisualization.RangeNavigator.Model): JQuery;
     ejRangeNavigator(memberName: any, value?: any, param?: any): any;
 
-    ejRating(options?: ej.Rating.Model): JQuery<Element, HTMLElement>;
+    ejRating(options?: ej.Rating.Model): JQuery;
     ejRating(memberName: any, value?: any, param?: any): any;
 
-    ejRecurrenceEditor(options?: ej.RecurrenceEditor.Model): JQuery<Element, HTMLElement>;
+    ejRecurrenceEditor(options?: ej.RecurrenceEditor.Model): JQuery;
     ejRecurrenceEditor(memberName: any, value?: any, param?: any): any;
 
-    ejReportViewer(options?: ej.ReportViewer.Model): JQuery<Element, HTMLElement>;
+    ejReportViewer(options?: ej.ReportViewer.Model): JQuery;
     ejReportViewer(memberName: any, value?: any, param?: any): any;
 
-    ejResizable(options?: ej.Resizable.Model): JQuery<Element, HTMLElement>;
+    ejResizable(options?: ej.Resizable.Model): JQuery;
     ejResizable(memberName: any, value?: any, param?: any): any;
 
-    ejRibbon(options?: ej.Ribbon.Model): JQuery<Element, HTMLElement>;
+    ejRibbon(options?: ej.Ribbon.Model): JQuery;
     ejRibbon(memberName: any, value?: any, param?: any): any;
 
-    ejRotator(options?: ej.Rotator.Model): JQuery<Element, HTMLElement>;
+    ejRotator(options?: ej.Rotator.Model): JQuery;
     ejRotator(memberName: any, value?: any, param?: any): any;
 
-    ejRTE(options?: ej.RTE.Model): JQuery<Element, HTMLElement>;
+    ejRTE(options?: ej.RTE.Model): JQuery;
     ejRTE(memberName: any, value?: any, param?: any): any;
 
-    ejSchedule(options?: ej.Schedule.Model): JQuery<Element, HTMLElement>;
+    ejSchedule(options?: ej.Schedule.Model): JQuery;
     ejSchedule(memberName: any, value?: any, param?: any): any;
 
-    ejScroller(options?: ej.Scroller.Model): JQuery<Element, HTMLElement>;
+    ejScroller(options?: ej.Scroller.Model): JQuery;
     ejScroller(memberName: any, value?: any, param?: any): any;
 
-    ejSignature(options?: ej.Signature.Model): JQuery<Element, HTMLElement>;
+    ejSignature(options?: ej.Signature.Model): JQuery;
     ejSignature(memberName: any, value?: any, param?: any): any;
 
-    ejSlider(options?: ej.Slider.Model): JQuery<Element, HTMLElement>;
+    ejSlider(options?: ej.Slider.Model): JQuery;
     ejSlider(memberName: any, value?: any, param?: any): any;
 
-    ejSparkline(options?: ej.datavisualization.Sparkline.Model): JQuery<Element, HTMLElement>;
+    ejSparkline(options?: ej.datavisualization.Sparkline.Model): JQuery;
     ejSparkline(memberName: any, value?: any, param?: any): any;
 
-    ejSpellCheck(options?: ej.SpellCheck.Model): JQuery<Element, HTMLElement>;
+    ejSpellCheck(options?: ej.SpellCheck.Model): JQuery;
     ejSpellCheck(memberName: any, value?: any, param?: any): any;
 
-    ejSplitButton(options?: ej.SplitButton.Model): JQuery<Element, HTMLElement>;
+    ejSplitButton(options?: ej.SplitButton.Model): JQuery;
     ejSplitButton(memberName: any, value?: any, param?: any): any;
 
-    ejSplitter(options?: ej.Splitter.Model): JQuery<Element, HTMLElement>;
+    ejSplitter(options?: ej.Splitter.Model): JQuery;
     ejSplitter(memberName: any, value?: any, param?: any): any;
 
-    ejSpreadsheet(options?: ej.Spreadsheet.Model): JQuery<Element, HTMLElement>;
+    ejSpreadsheet(options?: ej.Spreadsheet.Model): JQuery;
     ejSpreadsheet(memberName: any, value?: any, param?: any): any;
 
-    ejSunburstChart(options?: ej.datavisualization.SunburstChart.Model): JQuery<Element, HTMLElement>;
+    ejSunburstChart(options?: ej.datavisualization.SunburstChart.Model): JQuery;
     ejSunburstChart(memberName: any, value?: any, param?: any): any;
 
-    ejSymbolPalette(options?: ej.datavisualization.SymbolPalette.Model): JQuery<Element, HTMLElement>;
+    ejSymbolPalette(options?: ej.datavisualization.SymbolPalette.Model): JQuery;
     ejSymbolPalette(memberName: any, value?: any, param?: any): any;
 
-    ejTab(options?: ej.Tab.Model): JQuery<Element, HTMLElement>;
+    ejTab(options?: ej.Tab.Model): JQuery;
     ejTab(memberName: any, value?: any, param?: any): any;
 
-    ejTagCloud(options?: ej.TagCloud.Model): JQuery<Element, HTMLElement>;
+    ejTagCloud(options?: ej.TagCloud.Model): JQuery;
     ejTagCloud(memberName: any, value?: any, param?: any): any;
 
-    ejNumericTextbox(options?: ej.Editor.Model): JQuery<Element, HTMLElement>;
+    ejNumericTextbox(options?: ej.Editor.Model): JQuery;
     ejNumericTextbox(memberName: any, value?: any, param?: any): any;
 
-    ejCurrencyTextbox(options?: ej.Editor.Model): JQuery<Element, HTMLElement>;
+    ejCurrencyTextbox(options?: ej.Editor.Model): JQuery;
     ejCurrencyTextbox(memberName: any, value?: any, param?: any): any;
 
-    ejPercentageTextbox(options?: ej.Editor.Model): JQuery<Element, HTMLElement>;
+    ejPercentageTextbox(options?: ej.Editor.Model): JQuery;
     ejPercentageTextbox(memberName: any, value?: any, param?: any): any;
 
-    ejTile(options?: ej.Tile.Model): JQuery<Element, HTMLElement>;
+    ejTile(options?: ej.Tile.Model): JQuery;
     ejTile(memberName: any, value?: any, param?: any): any;
 
-    ejTimePicker(options?: ej.TimePicker.Model): JQuery<Element, HTMLElement>;
+    ejTimePicker(options?: ej.TimePicker.Model): JQuery;
     ejTimePicker(memberName: any, value?: any, param?: any): any;
 
-    ejToggleButton(options?: ej.ToggleButton.Model): JQuery<Element, HTMLElement>;
+    ejToggleButton(options?: ej.ToggleButton.Model): JQuery;
     ejToggleButton(memberName: any, value?: any, param?: any): any;
 
-    ejToolbar(options?: ej.Toolbar.Model): JQuery<Element, HTMLElement>;
+    ejToolbar(options?: ej.Toolbar.Model): JQuery;
     ejToolbar(memberName: any, value?: any, param?: any): any;
 
-    ejTooltip(options?: ej.Tooltip.Model): JQuery<Element, HTMLElement>;
+    ejTooltip(options?: ej.Tooltip.Model): JQuery;
     ejTooltip(memberName: any, value?: any, param?: any): any;
 
-    ejTreeGrid(options?: ej.TreeGrid.Model): JQuery<Element, HTMLElement>;
+    ejTreeGrid(options?: ej.TreeGrid.Model): JQuery;
     ejTreeGrid(memberName: any, value?: any, param?: any): any;
 
-    ejTreeMap(options?: ej.datavisualization.TreeMap.Model): JQuery<Element, HTMLElement>;
+    ejTreeMap(options?: ej.datavisualization.TreeMap.Model): JQuery;
     ejTreeMap(memberName: any, value?: any, param?: any): any;
 
-    ejTreeView(options?: ej.TreeView.Model): JQuery<Element, HTMLElement>;
+    ejTreeView(options?: ej.TreeView.Model): JQuery;
     ejTreeView(memberName: any, value?: any, param?: any): any;
 
-    ejUploadbox(options?: ej.Uploadbox.Model): JQuery<Element, HTMLElement>;
+    ejUploadbox(options?: ej.Uploadbox.Model): JQuery;
     ejUploadbox(memberName: any, value?: any, param?: any): any;
 
-    ejWaitingPopup(options?: ej.WaitingPopup.Model): JQuery<Element, HTMLElement>;
+    ejWaitingPopup(options?: ej.WaitingPopup.Model): JQuery;
     ejWaitingPopup(memberName: any, value?: any, param?: any): any;
     data(key: "ejAccordion"): ej.Accordion;
     data(key: "ejAutocomplete"): ej.Autocomplete;

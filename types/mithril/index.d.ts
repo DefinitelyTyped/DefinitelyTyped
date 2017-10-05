@@ -21,9 +21,9 @@ declare function request <T>(options: Mithril.RequestOptions<T> & { url: string 
 declare function request <T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
 
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>;
+declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // tslint:disable-line:no-unnecessary-generics
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>;
+declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // tslint:disable-line:no-unnecessary-generics
 
 /** Creates an event handler which takes the value of the specified DOM element property and calls a function with it as the argument. */
 declare function withAttr(name: string, callback: (value: any) => any): (e: { currentTarget: any, [p: string]: any }) => void;
@@ -116,7 +116,7 @@ declare namespace Mithril {
 		/** Whether to send cookies to 3rd party domains. */
 		withCredentials?: boolean;
 		/** Exposes the underlying XMLHttpRequest object for low-level configuration. */
-		config?(xhr: XMLHttpRequest): XMLHttpRequest | void;
+		config?(xhr: XMLHttpRequest, options: this): XMLHttpRequest | void;
 		/** Headers to append to the request before sending it. */
 		headers?: { [key: string]: string };
 		/** A constructor to be applied to each object in the response. */
