@@ -1,6 +1,6 @@
 // Type definitions for ember-testing/lib/helpers
 // Project: https://github.com/emberjs/ember.js/tree/master/packages/ember-testing/lib/helpers
-// Definitions by: Chris Krycho <github.com/chriskrycho>
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
