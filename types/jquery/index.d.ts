@@ -156,7 +156,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.Callbacks/}
      * @since 1.7
      */
-    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
+    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<Function>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
@@ -3889,6 +3889,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      * @since 1.4
      */
+    // HACK: The type parameter T is not used but ensures the 'event' callback parameter is typed correctly.
     hover<T>(handlerInOut: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false,
              handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
