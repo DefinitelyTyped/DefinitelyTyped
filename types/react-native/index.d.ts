@@ -6095,6 +6095,12 @@ export interface ScrollViewPropertiesIOS {
     onScrollAnimationEnd?: () => void
 
     /**
+     * When true, ScrollView allows use of pinch gestures to zoom in and out.
+    * The default value is true.
+    */
+    pinchGestureEnabled?: boolean
+
+    /**
      * This controls how often the scroll event will be fired while scrolling (in events per seconds).
      * A higher number yields better accuracy for code that is tracking the scroll position,
      * but can lead to scroll performance problems due to the volume of information being send over the bridge.
