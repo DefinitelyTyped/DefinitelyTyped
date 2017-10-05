@@ -9,8 +9,8 @@ class ApplicationController extends Ember.Controller {
 }
 
 class LoginRoute extends Ember.Route {
-    auth = Ember.inject.service<AuthService>('authentication');
-    application = Ember.inject.controller<ApplicationController>();
+    auth = Ember.inject.service('authentication') as Ember.ComputedProperty<AuthService>;
+    application = Ember.inject.controller() as Ember.ComputedProperty<ApplicationController>;
 
     didTransition() {
         if (!this.get('auth').get('isAuthenticated')) {

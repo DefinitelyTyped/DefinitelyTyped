@@ -15,11 +15,13 @@ class SessionService extends Ember.Service {
 }
 
 const CurrentUserEmailHelper = Ember.Helper.extend({
-    session: Ember.inject.service<SessionService>(),
+    session: Ember.inject.service() as Ember.ComputedProperty<SessionService>,
     onNewUser: Ember.observer('session.currentUser', function(this: Ember.Helper) {
         this.recompute();
     }),
     compute(): string {
-        return this.get('session').get('currentUser').get('email');
-    }
+        return this.get('session')
+            .get('currentUser')
+            .get('email');
+    },
 });
