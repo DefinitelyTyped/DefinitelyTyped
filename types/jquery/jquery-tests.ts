@@ -1654,8 +1654,8 @@ function JQueryStatic() {
     }
 
     function type() {
-        // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "array" | "date" | "error" | "null" | "regexp"
-        $.type({});
+        // // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "array" | "date" | "error" | "null" | "regexp"
+        // $.type({});
     }
 
     function unique() {
@@ -2127,8 +2127,8 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-                textStatus;
+                // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+                // textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
             });
@@ -2139,8 +2139,8 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-                textStatus;
+                // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+                // textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
             });
@@ -2151,8 +2151,8 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-                textStatus;
+                // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+                // textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
             });
@@ -6199,8 +6199,8 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
         },
         contents: {
             mycustomtype: /mycustomtype/
@@ -6310,8 +6310,8 @@ function JQuery_AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
         }],
         contentType: false,
         data: 'myData',
@@ -6519,22 +6519,22 @@ function JQuery_jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         });
@@ -6543,15 +6543,15 @@ function JQuery_jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }]);
@@ -6560,15 +6560,15 @@ function JQuery_jqXHR() {
         $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         });
@@ -6577,8 +6577,8 @@ function JQuery_jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         });
@@ -6587,8 +6587,8 @@ function JQuery_jqXHR() {
         $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
-            textStatus;
+            // // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
+            // textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }]);
