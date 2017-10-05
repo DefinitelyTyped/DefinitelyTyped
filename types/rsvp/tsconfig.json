@@ -10,5 +10,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "rsvp-tests.ts", "assert.ts"]
+    "files": ["index.d.ts", "rsvp-tests.ts"]
 }

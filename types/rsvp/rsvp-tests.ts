@@ -1,6 +1,8 @@
 import RSVP from 'rsvp';
 import { all, race, resolve } from 'rsvp';
-import { assertType } from './assert';
+
+/** Static assertion that `value` has type `T` */
+declare function assertType<T>(value: T): void;
 
 async function testAsyncAwait() {
     const awaitedNothing = await RSVP.resolve();
