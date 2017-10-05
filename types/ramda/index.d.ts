@@ -1,4 +1,4 @@
-// Type definitions for ramda 0.24
+// Type definitions for ramda 0.25
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Matt DeKrey <https://github.com/mdekrey>
@@ -11,7 +11,7 @@
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.5
 
 declare let R: R.Static;
 
