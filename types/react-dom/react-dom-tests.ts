@@ -31,6 +31,11 @@ describe('ReactDOM', () => {
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
     });
+
+    it('createPortal', () => {
+        const rootElement = document.createElement('div');
+        ReactDOM.createPortal(React.createElement('div'), rootElement);
+    });
 });
 
 describe('ReactDOMServer', () => {
