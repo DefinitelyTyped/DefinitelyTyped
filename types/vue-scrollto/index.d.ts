@@ -3,7 +3,6 @@
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="vue" />
 /// <reference types="node" />
 
 import { default as Vue, PluginFunction } from "vue";
