@@ -15,14 +15,14 @@ import { Options } from 'request';
 declare namespace TelegramBot {
     interface TextListener {
         regexp: RegExp;
-        callback: ((msg: Message, match: RegExpExecArray | null) => void);
+        callback(msg: Message, match: RegExpExecArray | null): void;
     }
 
     interface ReplyListener {
         id: number;
         chatId: number | string;
         messageId: number | string;
-        callback: ((msg: Message) => void);
+        callback(msg: Message): void;
     }
 
     /// METHODS OPTIONS ///
