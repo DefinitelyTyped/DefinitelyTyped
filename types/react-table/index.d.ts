@@ -1,6 +1,6 @@
-// Type definitions for react-table 6.5
+// Type definitions for react-table 6.6.0
 // Project: https://github.com/react-tools/react-table
-// Definitions by: Roy Xue <https://github.com/royxue>
+// Definitions by: Roy Xue <https://github.com/royxue>, Dylan Stewart <https://github.com/dyst5422>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as React from 'react';
@@ -506,4 +506,4 @@ export interface FinalState extends TableProps {
     rowMinWidth: number;
 }
 
-export class ReactTable extends React.Component<Partial<TableProps>> {}
+export default class ReactTable extends React.Component<Partial<TableProps>> {}
