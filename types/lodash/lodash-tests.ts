@@ -5547,7 +5547,7 @@ namespace TestReduce {
     result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, (r: ABC, num: number, key: string) => {
         r[key] = num * 3;
         return r;
-    }, {} as ABC);
+    }, {} as ABC); // tslint:disable-line no-object-literal-type-assertion
 
     result = <number>_([1, 2, 3]).reduce<number>((sum: number, num: number) => sum + num);
     result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>((r: ABC, num: number, key: string) => {
