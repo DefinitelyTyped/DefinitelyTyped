@@ -63,17 +63,17 @@ export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldPr
     getRenderedComponent(): Component<WrappedFieldProps & P>;
 }
 
-interface WrappedFieldProps {
+export interface WrappedFieldProps {
     input: WrappedFieldInputProps;
     meta: WrappedFieldMetaProps;
 }
 
-interface WrappedFieldInputProps extends CommonFieldProps {
+export interface WrappedFieldInputProps extends CommonFieldProps {
     checked?: boolean;
     value: any;
 }
 
-interface WrappedFieldMetaProps {
+export interface WrappedFieldMetaProps {
     active?: boolean;
     autofilled: boolean;
     asyncValidating: boolean;
@@ -91,3 +91,5 @@ interface WrappedFieldMetaProps {
     visited: boolean;
     warning?: any;
 }
+
+export default Field;
