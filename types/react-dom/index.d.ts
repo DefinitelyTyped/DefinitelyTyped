@@ -15,7 +15,6 @@ import {
     DOMAttributes, DOMElement
 } from 'react';
 
-export function findDOMNode<E extends Element>(instance: ReactInstance): E;
 export function findDOMNode(instance: ReactInstance): Element;
 export function unmountComponentAtNode(container: Element): boolean;
 
@@ -27,9 +26,9 @@ export function unstable_batchedUpdates<A, B>(callback: (a: A, b: B) => any, a: 
 export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
 export function unstable_batchedUpdates(callback: () => any): void;
 
-export function unstable_renderSubtreeIntoContainer<P extends DOMAttributes<T>, T extends Element>(
+export function unstable_renderSubtreeIntoContainer<T extends Element>(
     parentComponent: Component<any>,
-    element: DOMElement<P, T>,
+    element: DOMElement<DOMAttributes<T>, T>,
     container: Element,
     callback?: (element: T) => any): T;
 export function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
@@ -44,30 +43,55 @@ export function unstable_renderSubtreeIntoContainer<P>(
     callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
 export interface Renderer {
-    <P extends DOMAttributes<T>, T extends Element>(
-        element: DOMElement<P, T>,
+    // Deprecated(render): The return value is deprecated.
+    // In future releases the render function's return type will be void.
+
+    <T extends Element>(
+        element: DOMElement<DOMAttributes<T>, T>,
         container: Element | null,
-        callback?: (element: T) => any
+        callback?: () => void
     ): T;
-    <P>(
-        element: SFCElement<P>,
+
+    (
+        element: Array<DOMElement<DOMAttributes<any>, any>>,
         container: Element | null,
-        callback?: () => any
+        callback?: () => void
+    ): Element;
+
+    (
+        element: SFCElement<any> | Array<SFCElement<any>>,
+        container: Element | null,
+        callback?: () => void
     ): void;
+
     <P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         container: Element | null,
-        callback?: (component: T) => any
+        callback?: () => void
     ): T;
+
+    (
+        element: Array<CElement<any, Component<any, ComponentState>>>,
+        container: Element | null,
+        callback?: () => void
+    ): Component<any, ComponentState>;
+
     <P>(
         element: ReactElement<P>,
         container: Element | null,
-        callback?: (component?: Component<P, ComponentState> | Element) => any
+        callback?: () => void
     ): Component<P, ComponentState> | Element | void;
-    <P>(
-        parentComponent: Component<any>,
-        element: SFCElement<P>,
+
+    (
+        element: Array<ReactElement<any>>,
+        container: Element | null,
+        callback?: () => void
+    ): Component<any, ComponentState> | Element | void;
+
+    (
+        parentComponent: Component<any> | Array<Component<any>>,
+        element: SFCElement<any>,
         container: Element,
-        callback?: () => any
+        callback?: () => void
     ): void;
 }
