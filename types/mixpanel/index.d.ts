@@ -8,7 +8,7 @@ interface Mixpanel
 {
     people:Mixpanel.People;
 
-    init(token:string, config?:{[index:string]:any}, libraryName?:string):Mixpanel;
+    init(token:string, config?:Mixpanel.Config, libraryName?:string):Mixpanel;
 
     push(item:any[]):void;
 
@@ -74,6 +74,59 @@ declare namespace Mixpanel
         clear_charges():void;
 
         delete_user():void;
+    }
+
+    interface Config
+    {
+        api_host?: string;
+
+        app_host?: string;
+
+        cdn?: string;
+
+        persistence?: string;
+
+        persistence_name?: string;
+
+        cookie_name?: string;
+
+        autotrack?: boolean;
+
+        cross_subdomain_cookie?: boolean;
+
+        store_google?: boolean;
+
+        save_referrer?: boolean;
+
+        test?: boolean;
+
+        verbose?: boolean;
+
+        img?: boolean;
+
+        track_pageview?: boolean;
+
+        debug?: boolean;
+
+        upgrade?: boolean;
+
+        disable_persistence?: boolean;
+
+        disable_cookie?: boolean;
+
+        secure_cookie?: boolean;
+
+        ip?: boolean;
+
+        loaded?: (lib:Mixpanel) => void;
+
+        track_links_timeout?: number;
+
+        cookie_expiration?: number;
+
+        property_blacklist?: string[];
+
+        [other:string]:any
     }
 }
 
