@@ -1,7 +1,7 @@
 // Type definitions for algoliasearch-client-js 3.18.1
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
-// Definitions by: Haroen Viaene <https://github.com/haroenv>
+//                 Haroen Viaene <https://github.com/haroenv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace algoliasearch {
