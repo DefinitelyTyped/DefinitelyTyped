@@ -8,7 +8,7 @@
 import { default as Vue, PluginFunction } from "vue";
 
 declare namespace VueScrollTo {
-    export interface Options {
+    interface Options {
         // The element you want to scroll to.
         el?: string;
         element?: string;
