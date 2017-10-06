@@ -4,6 +4,7 @@
 //                 Alan Marcell <https://github.com/alanmarcell>
 //                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
+//                 Gaurav Lahoti <https://github.com/dante-101>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -316,7 +317,7 @@ export interface DbAddUserOptions {
     roles?: Object[];
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#createCollection
 export interface CollectionCreateOptions {
     w?: number | string;
     wtimeout?: number;
@@ -327,9 +328,18 @@ export interface CollectionCreateOptions {
     serializeFunctions?: boolean;
     strict?: boolean;
     capped?: boolean;
+    autoIndexId?: boolean;
     size?: number;
     max?: number;
-    autoIndexId?: boolean;
+    flags?:	number;
+    storageEngine?:	object;
+    validator?: object;
+    validationLevel?: "off" | "strict" | "moderate";
+    validationAction?: "error" | "warn";
+    indexOptionDefaults?: object;
+    viewOn?: string;
+    pipeline?: any[];
+    collation?: object;
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collection
