@@ -10,9 +10,8 @@
 
 import * as React from "react";
 
+export = ReactModal;
 export as namespace ReactModal;
-
-export default ReactModal;
 
 declare namespace ReactModal {
     interface Styles {
