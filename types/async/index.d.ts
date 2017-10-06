@@ -2,6 +2,7 @@
 // Project: https://github.com/caolan/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Arseniy Maximov <https://github.com/kern0>, Joe Herman <https://github.com/Penryn>, Angus Fenying <https://github.com/fenying>, Pascal Martin <https://github.com/pascalmartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export as namespace async;
 
@@ -22,6 +23,11 @@ export interface AsyncBooleanIterator<T, E> { (item: T, callback: AsyncBooleanRe
 
 export interface AsyncWorker<T, E> { (task: T, callback: ErrorCallback<E>): void; }
 export interface AsyncVoidFunction<E> { (callback: ErrorCallback<E>): void; }
+
+export type AsyncAutoTasks<R extends Dictionary<any>, E> = { [K in keyof R]: AsyncAutoTask<R[K], R, E> }
+export type AsyncAutoTask<R1, R extends Dictionary<any>, E> = AsyncAutoTaskFunctionWithoutDependencies<R1, E> | (keyof R | AsyncAutoTaskFunction<R1, R, E>)[];
+export interface AsyncAutoTaskFunctionWithoutDependencies<R1, E> { (cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
+export interface AsyncAutoTaskFunction<R1, R extends Dictionary<any>, E> { (results: R, cb: AsyncResultCallback<R1, E> | ErrorCallback<E>): void; }
 
 export interface AsyncQueue<T> {
     length(): number;
@@ -183,7 +189,7 @@ export function queue<T, E>(worker: AsyncWorker<T, E>, concurrency?: number): As
 export function queue<T, R, E>(worker: AsyncResultIterator<T, R, E>, concurrency?: number): AsyncQueue<T>;
 export function priorityQueue<T, E>(worker: AsyncWorker<T, E>, concurrency: number): AsyncPriorityQueue<T>;
 export function cargo<E>(worker : (tasks: any[], callback : ErrorCallback<E>) => void, payload? : number) : AsyncCargo;
-export function auto<E>(tasks: any, concurrency?: number, callback?: AsyncResultCallback<any, E>): void;
+export function auto<R extends Dictionary<any>, E>(tasks: AsyncAutoTasks<R, E>, concurrency?: number, callback?: AsyncResultCallback<R, E>): void;
 export function autoInject<E>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 export function retry<T, E>(opts: number, task: (callback : AsyncResultCallback<T, E>, results: any) => void, callback:  AsyncResultCallback<any, E | Error>): void;
 export function retry<T, E>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results : any) => void, callback:  AsyncResultCallback<any, E | Error>): void;
