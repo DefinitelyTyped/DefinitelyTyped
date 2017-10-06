@@ -3,8 +3,6 @@
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
 import {PluginFunction} from "vue";
 
 declare namespace VueScrollTo {
