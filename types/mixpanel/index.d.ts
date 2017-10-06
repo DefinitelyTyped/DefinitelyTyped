@@ -1,4 +1,4 @@
-// Type definitions for Mixpanel 2.11
+// Type definitions for Mixpanel 2.13.0
 // Project: https://mixpanel.com/
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
@@ -13,6 +13,8 @@ interface Mixpanel
     push(item:any[]):void;
 
     disable(events?:string[]):void;
+
+    time_event(eventName:string):void;
 
     track(eventName:string, params?:{[index:string]:any}, callback?:() => void):void;
 
@@ -52,6 +54,10 @@ declare namespace Mixpanel
         set_once(keys:{[index:string]:any}, callback?:() => void):void;
 
         set_once(key:string, value:any, callback?:() => void):void;
+
+        union(prop: string, values:any, callback?:() => void):void;
+
+        union(keys:{[index:string]:any}, callback?:() => void):void;
 
         increment(key:string):void;
 
