@@ -4,21 +4,21 @@
 //                 Agadar <https://github.com/agadar>
 //                 Giorgio Garasto <https://github.com/Dabolus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 /// <reference types="node" />
 
-import {EventEmitter} from 'events';
-import {Stream} from 'stream';
-import {ServerOptions} from 'https';
-import {Options} from 'request';
+import { EventEmitter } from 'events';
+import { Stream } from 'stream';
+import { ServerOptions } from 'https';
+import { Options } from 'request';
 
 declare namespace TelegramBot {
-    export interface TextListener {
+    interface TextListener {
         regexp: RegExp;
         callback: ((msg: Message, match: RegExpExecArray | null) => void);
     }
 
-    export interface ReplyListener {
+    interface ReplyListener {
         id: number;
         chatId: number | string;
         messageId: number | string;
@@ -26,13 +26,13 @@ declare namespace TelegramBot {
     }
 
     /// METHODS OPTIONS ///
-    export interface PollingOptions {
+    interface PollingOptions {
         interval?: string | number;
         autoStart?: boolean;
         params?: GetUpdatesOptions;
     }
 
-    export interface WebHookOptions {
+    interface WebHookOptions {
         host?: string;
         post?: number;
         key: string;
@@ -43,7 +43,7 @@ declare namespace TelegramBot {
         healthEndpoint?: string;
     }
 
-    export interface ConstructorOptions {
+    interface ConstructorOptions {
         polling?: boolean | PollingOptions;
         webHook?: boolean | WebHookOptions;
         onlyFirstMatch?: boolean;
@@ -52,22 +52,22 @@ declare namespace TelegramBot {
         filepath?: boolean;
     }
 
-    export interface StartPollingOptions extends ConstructorOptions {
+    interface StartPollingOptions extends ConstructorOptions {
         restart?: boolean;
     }
 
-    export interface SetWebHookOptions {
-        url: string;
+    interface SetWebHookOptions {
+        url?: string;
         certificate?: string | Stream;
         max_connections?: number;
-        allowed_updates?: Array<string>;
+        allowed_updates?: string[];
     }
 
-    export interface GetUpdatesOptions {
+    interface GetUpdatesOptions {
         offset?: number;
         limit?: number;
         timeout?: number;
-        allowed_updates?: Array<string>;
+        allowed_updates?: string[];
     }
 
     interface SendBasicOptions {
@@ -76,12 +76,12 @@ declare namespace TelegramBot {
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
     }
 
-    export interface SendMessageOptions extends SendBasicOptions {
+    interface SendMessageOptions extends SendBasicOptions {
         parse_mode?: string;
         disable_web_page_preview?: boolean;
     }
 
-    export interface AnswerInlineQueryOptions {
+    interface AnswerInlineQueryOptions {
         cache_time?: number;
         is_personal?: boolean;
         next_offset?: string;
@@ -89,60 +89,57 @@ declare namespace TelegramBot {
         switch_pm_parameter?: string;
     }
 
-    export interface ForwardMessageOptions {
+    interface ForwardMessageOptions {
         disable_notification?: boolean;
     }
 
-    export interface SendPhotoOptions extends SendBasicOptions {
+    interface SendPhotoOptions extends SendBasicOptions {
         caption?: string;
     }
 
-    export interface SendAudioOptions extends SendBasicOptions {
+    interface SendAudioOptions extends SendBasicOptions {
         caption?: string;
         duration?: number;
         performer?: string;
         title?: string;
     }
 
-    export interface SendDocumentOptions extends SendBasicOptions {
+    interface SendDocumentOptions extends SendBasicOptions {
         caption?: string;
     }
 
-    export interface SendStickerOptions extends SendBasicOptions {
-    }
+    type SendStickerOptions = SendBasicOptions;
 
-    export interface SendVideoOptions extends SendBasicOptions {
+    interface SendVideoOptions extends SendBasicOptions {
         duration?: number;
         width?: number;
         height?: number;
         caption?: string;
     }
 
-    export interface SendVoiceOptions extends SendBasicOptions {
+    interface SendVoiceOptions extends SendBasicOptions {
         caption?: string;
         duration?: number;
     }
 
-    export interface SendVideoNoteOptions extends SendBasicOptions {
+    interface SendVideoNoteOptions extends SendBasicOptions {
         duration?: number;
         length?: number;
     }
 
-    export interface SendLocationOptions extends SendBasicOptions {
-    }
+    type SendLocationOptions = SendBasicOptions;
 
-    export interface SendVenueOptions extends SendBasicOptions {
+    interface SendVenueOptions extends SendBasicOptions {
         foursquare_id?: string;
     }
 
-    export interface SendContactOptions extends SendBasicOptions {
+    interface SendContactOptions extends SendBasicOptions {
         last_name?: string;
     }
 
-    export interface SendGameOptions extends SendBasicOptions {
-    }
+    type SendGameOptions = SendBasicOptions;
 
-    export interface SendInvoiceOptions extends SendBasicOptions {
+    interface SendInvoiceOptions extends SendBasicOptions {
         photo_url?: string;
         photo_size?: number;
         photo_width?: number;
@@ -154,7 +151,7 @@ declare namespace TelegramBot {
         is_flexible?: boolean;
     }
 
-    export interface RestrictChatMemberOptions {
+    interface RestrictChatMemberOptions {
         until_date?: number;
         can_send_messages?: boolean;
         can_send_media_messages?: boolean;
@@ -162,7 +159,7 @@ declare namespace TelegramBot {
         can_add_web_page_previews?: boolean;
     }
 
-    export interface PromoteChatMemberOptions {
+    interface PromoteChatMemberOptions {
         can_change_info?: boolean;
         can_post_messages?: boolean;
         can_edit_messages?: boolean;
@@ -173,7 +170,7 @@ declare namespace TelegramBot {
         can_promote_members?: boolean;
     }
 
-    export interface AnswerCallbackQueryOptions {
+    interface AnswerCallbackQueryOptions {
         callback_query_id: string;
         text?: string;
         show_alert?: boolean;
@@ -181,27 +178,27 @@ declare namespace TelegramBot {
         cache_time?: number;
     }
 
-    export interface EditMessageTextOptions extends EditMessageCaptionOptions {
+    interface EditMessageTextOptions extends EditMessageCaptionOptions {
         parse_mode?: string;
         disable_web_page_preview?: boolean;
     }
 
-    export interface EditMessageCaptionOptions extends EditMessageReplyMarkupOptions {
+    interface EditMessageCaptionOptions extends EditMessageReplyMarkupOptions {
         reply_markup?: InlineKeyboardMarkup;
     }
 
-    export interface EditMessageReplyMarkupOptions {
+    interface EditMessageReplyMarkupOptions {
         chat_id?: number | string;
         message_id?: number;
         inline_message_id?: string;
     }
 
-    export interface GetUserProfilePhotosOptions {
+    interface GetUserProfilePhotosOptions {
         offset?: number;
         limit?: number;
     }
 
-    export interface SetGameScoreOptions {
+    interface SetGameScoreOptions {
         force?: boolean;
         disable_edit_message?: boolean;
         chat_id?: number;
@@ -209,23 +206,23 @@ declare namespace TelegramBot {
         inline_message_id?: string;
     }
 
-    export interface GetGameHighScoresOptions {
+    interface GetGameHighScoresOptions {
         chat_id?: number;
         message_id?: number;
         inline_message_id?: string;
     }
 
-    export interface AnswerShippingQueryOptions {
-        shipping_options?: Array<ShippingOption>;
+    interface AnswerShippingQueryOptions {
+        shipping_options?: ShippingOption[];
         error_message?: string;
     }
 
-    export interface AnswerPreCheckoutQueryOptions {
+    interface AnswerPreCheckoutQueryOptions {
         error_message?: string;
     }
 
     /// TELEGRAM TYPES ///
-    export interface Update {
+    interface Update {
         update_id: number;
         message?: Message;
         edited_message?: Message;
@@ -238,17 +235,17 @@ declare namespace TelegramBot {
         pre_checkout_query?: PreCheckoutQuery;
     }
 
-    export interface WebhookInfo {
+    interface WebhookInfo {
         url: string;
         has_custom_certificate: boolean;
         pending_update_count: number;
         last_error_date?: number;
         last_error_message?: string;
         max_connections?: number;
-        allowed_updates?: Array<string>;
+        allowed_updates?: string[];
     }
 
-    export interface User {
+    interface User {
         id: number;
         is_bot: boolean;
         first_name: string;
@@ -257,7 +254,7 @@ declare namespace TelegramBot {
         language_code?: string;
     }
 
-    export interface Chat {
+    interface Chat {
         id: number;
         type: string;
         title?: string;
@@ -271,7 +268,7 @@ declare namespace TelegramBot {
         pinned_message?: Message;
     }
 
-    export interface Message {
+    interface Message {
         message_id: number;
         from?: User;
         date: number;
@@ -285,11 +282,11 @@ declare namespace TelegramBot {
         edit_date?: number;
         author_signature?: string;
         text?: string;
-        entities?: Array<MessageEntity>;
+        entities?: MessageEntity[];
         audio?: Audio;
         document?: Document;
         game?: Game;
-        photo?: Array<PhotoSize>;
+        photo?: PhotoSize[];
         sticker?: Sticker;
         video?: Video;
         voice?: Voice;
@@ -298,10 +295,10 @@ declare namespace TelegramBot {
         contact?: Contact;
         location?: Location;
         venue?: Venue;
-        new_chat_members?: Array<User>;
+        new_chat_members?: User[];
         left_chat_member?: User;
         new_chat_title?: string;
-        new_chat_photo?: Array<PhotoSize>;
+        new_chat_photo?: PhotoSize[];
         delete_chat_photo?: boolean;
         group_chat_created?: boolean;
         supergroup_chat_created?: boolean;
@@ -313,8 +310,8 @@ declare namespace TelegramBot {
         successful_payment?: SuccessfulPayment;
     }
 
-    export interface MessageEntity {
-        type: string,
+    interface MessageEntity {
+        type: string;
         offset: number;
         length: number;
         url?: string;
@@ -326,25 +323,25 @@ declare namespace TelegramBot {
         file_size?: number;
     }
 
-    export interface PhotoSize extends FileBase {
+    interface PhotoSize extends FileBase {
         width: number;
         height: number;
     }
 
-    export interface Audio extends FileBase {
+    interface Audio extends FileBase {
         duration: number;
         performer?: string;
         title?: string;
-        mime_type?: string
+        mime_type?: string;
     }
 
-    export interface Document extends FileBase {
+    interface Document extends FileBase {
         thumb?: PhotoSize;
         file_name?: string;
         mime_type?: string;
     }
 
-    export interface Video {
+    interface Video {
         width: number;
         height: number;
         duration: number;
@@ -352,68 +349,68 @@ declare namespace TelegramBot {
         mime_type?: string;
     }
 
-    export interface Voice extends FileBase {
+    interface Voice extends FileBase {
         duration: number;
         mime_type?: string;
     }
 
-    export interface VideoNote extends FileBase {
+    interface VideoNote extends FileBase {
         length: number;
         duration: number;
         thumb?: PhotoSize;
     }
 
-    export interface Contact {
+    interface Contact {
         phone_number: string;
         first_name: string;
         last_name?: string;
         user_id?: number;
     }
 
-    export interface Location {
+    interface Location {
         longitude: number;
         latitude: number;
     }
 
-    export interface Venue {
+    interface Venue {
         location: Location;
         title: string;
         address: string;
         foursquare_id?: string;
     }
 
-    export interface UserProfilePhotos {
+    interface UserProfilePhotos {
         total_count: number;
-        photos: Array<Array<PhotoSize>>;
+        photos: PhotoSize[][];
     }
 
-    export interface File extends FileBase {
+    interface File extends FileBase {
         file_path?: string;
     }
 
-    export interface ReplyKeyboardMarkup {
-        keyboard: Array<Array<KeyboardButton>>;
+    interface ReplyKeyboardMarkup {
+        keyboard: KeyboardButton[][];
         resize_keyboard?: boolean;
         one_time_keyboard?: boolean;
         selective?: boolean;
     }
 
-    export interface KeyboardButton {
+    interface KeyboardButton {
         text: string;
         request_contact?: boolean;
         request_location?: boolean;
     }
 
-    export interface ReplyKeyboardRemove {
+    interface ReplyKeyboardRemove {
         remove_keyboard: boolean;
         selective?: boolean;
     }
 
-    export interface InlineKeyboardMarkup {
-        inline_keyboard: Array<Array<InlineKeyboardButton>>;
+    interface InlineKeyboardMarkup {
+        inline_keyboard: InlineKeyboardButton[][];
     }
 
-    export interface InlineKeyboardButton {
+    interface InlineKeyboardButton {
         text: string;
         url?: string;
         callback_data?: string;
@@ -423,7 +420,7 @@ declare namespace TelegramBot {
         pay?: boolean;
     }
 
-    export interface CallbackQuery {
+    interface CallbackQuery {
         id: string;
         from: User;
         message?: Message;
@@ -433,17 +430,17 @@ declare namespace TelegramBot {
         game_short_name?: string;
     }
 
-    export interface ForceReply {
+    interface ForceReply {
         force_reply: boolean;
         selective?: boolean;
     }
 
-    export interface ChatPhoto {
+    interface ChatPhoto {
         small_file_id: string;
         big_file_id: string;
     }
 
-    export interface ChatMember {
+    interface ChatMember {
         user: User;
         status: string;
         until_date?: number;
@@ -462,7 +459,7 @@ declare namespace TelegramBot {
         can_add_web_page_previews?: boolean;
     }
 
-    export interface Sticker {
+    interface Sticker {
         file_id: string;
         width: number;
         height: number;
@@ -473,21 +470,21 @@ declare namespace TelegramBot {
         file_size?: number;
     }
 
-    export interface StickerSet {
+    interface StickerSet {
         name: string;
         title: string;
         contains_masks: boolean;
-        stickers: Array<Sticker>;
+        stickers: Sticker[];
     }
 
-    export interface MaskPosition {
+    interface MaskPosition {
         point: string;
         x_shift: number;
         y_shift: number;
         scale: number;
     }
 
-    export interface InlineQuery {
+    interface InlineQuery {
         id: string;
         from: User;
         location?: Location;
@@ -501,7 +498,7 @@ declare namespace TelegramBot {
         reply_markup?: InlineKeyboardMarkup;
     }
 
-    export interface InlineQueryResultArticle extends InlineQueryResult {
+    interface InlineQueryResultArticle extends InlineQueryResult {
         title: string;
         input_message_content: InputMessageContent;
         url?: string;
@@ -512,7 +509,7 @@ declare namespace TelegramBot {
         thumb_height?: number;
     }
 
-    export interface InlineQueryResultPhoto extends InlineQueryResult {
+    interface InlineQueryResultPhoto extends InlineQueryResult {
         photo_url: string;
         thumb_url: string;
         photo_width?: number;
@@ -523,7 +520,7 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultGif extends InlineQueryResult {
+    interface InlineQueryResultGif extends InlineQueryResult {
         gif_url: string;
         gif_width?: number;
         gif_height?: number;
@@ -534,7 +531,7 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultMpeg4Gif extends InlineQueryResult {
+    interface InlineQueryResultMpeg4Gif extends InlineQueryResult {
         mpeg4_url: string;
         mpeg4_width?: number;
         mpeg4_height?: number;
@@ -545,7 +542,7 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultVideo extends InlineQueryResult {
+    interface InlineQueryResultVideo extends InlineQueryResult {
         video_url: string;
         mime_type: string;
         thumb_url: string;
@@ -558,7 +555,7 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultAudio extends InlineQueryResult {
+    interface InlineQueryResultAudio extends InlineQueryResult {
         audio_url: string;
         title: string;
         caption?: string;
@@ -567,7 +564,7 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultVoice extends InlineQueryResult {
+    interface InlineQueryResultVoice extends InlineQueryResult {
         voice_url: string;
         title: string;
         caption?: string;
@@ -575,7 +572,7 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultDocument extends InlineQueryResult {
+    interface InlineQueryResultDocument extends InlineQueryResult {
         title: string;
         caption?: string;
         document_url: string;
@@ -587,7 +584,7 @@ declare namespace TelegramBot {
         thumb_height?: number;
     }
 
-    export interface InlineQueryResultLocation extends InlineQueryResult {
+    interface InlineQueryResultLocation extends InlineQueryResult {
         latitude: number;
         longitude: number;
         title: string;
@@ -597,12 +594,12 @@ declare namespace TelegramBot {
         thumb_height?: number;
     }
 
-    export interface InlineQueryResultVenue extends InlineQueryResultLocation {
+    interface InlineQueryResultVenue extends InlineQueryResultLocation {
         address: string;
         foursquare_id?: string;
     }
 
-    export interface InlineQueryResultContact extends InlineQueryResult {
+    interface InlineQueryResultContact extends InlineQueryResult {
         phone_number: string;
         first_name: string;
         last_name?: string;
@@ -612,11 +609,11 @@ declare namespace TelegramBot {
         thumb_height?: number;
     }
 
-    export interface InlineQueryResultGame extends InlineQueryResult {
+    interface InlineQueryResultGame extends InlineQueryResult {
         game_short_name: string;
     }
 
-    export interface InlineQueryResultCachedPhoto extends InlineQueryResult {
+    interface InlineQueryResultCachedPhoto extends InlineQueryResult {
         photo_file_id: string;
         title?: string;
         description?: string;
@@ -624,26 +621,26 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultCachedGif extends InlineQueryResult {
+    interface InlineQueryResultCachedGif extends InlineQueryResult {
         gif_file_id: string;
         title?: string;
         caption?: string;
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultCachedMpeg4Gif extends InlineQueryResult {
+    interface InlineQueryResultCachedMpeg4Gif extends InlineQueryResult {
         mpeg4_file_id: string;
         title?: string;
         caption?: string;
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultCachedSticker extends InlineQueryResult {
+    interface InlineQueryResultCachedSticker extends InlineQueryResult {
         sticker_file_id: string;
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultCachedDocument extends InlineQueryResult {
+    interface InlineQueryResultCachedDocument extends InlineQueryResult {
         title: string;
         document_file_id: string;
         description?: string;
@@ -651,7 +648,7 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultCachedVideo extends InlineQueryResult {
+    interface InlineQueryResultCachedVideo extends InlineQueryResult {
         video_file_id: string;
         title: string;
         description?: string;
@@ -659,46 +656,45 @@ declare namespace TelegramBot {
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultCachedVoice extends InlineQueryResult {
+    interface InlineQueryResultCachedVoice extends InlineQueryResult {
         voice_file_id: string;
         title: string;
         caption?: string;
         input_message_content?: InputMessageContent;
     }
 
-    export interface InlineQueryResultCachedAudio extends InlineQueryResult {
+    interface InlineQueryResultCachedAudio extends InlineQueryResult {
         audio_file_id: string;
         caption?: string;
         input_message_content?: InputMessageContent;
     }
 
-    interface InputMessageContent {
-    }
+    type InputMessageContent = object;
 
-    export interface InputTextMessageContent extends InputMessageContent {
+    interface InputTextMessageContent extends InputMessageContent {
         message_text: string;
         parse_mode?: string;
         disable_web_page_preview?: boolean;
     }
 
-    export interface InputLocationMessageContent extends InputMessageContent {
+    interface InputLocationMessageContent extends InputMessageContent {
         latitude: number;
         longitude: number;
     }
 
-    export interface InputVenueMessageContent extends InputLocationMessageContent {
+    interface InputVenueMessageContent extends InputLocationMessageContent {
         title: string;
         address: string;
         foursquare_id?: string;
     }
 
-    export interface InputContactMessageContent extends InputMessageContent {
+    interface InputContactMessageContent extends InputMessageContent {
         phone_number: string;
         first_name: string;
         last_name?: string;
     }
 
-    export interface ChosenInlineResult {
+    interface ChosenInlineResult {
         result_id: string;
         from: User;
         location?: Location;
@@ -706,17 +702,17 @@ declare namespace TelegramBot {
         query: string;
     }
 
-    export interface ResponseParameters {
+    interface ResponseParameters {
         migrate_to_chat_id?: number;
         retry_after?: number;
     }
 
-    export interface LabeledPrice {
+    interface LabeledPrice {
         label: string;
         amount: number;
     }
 
-    export interface Invoice {
+    interface Invoice {
         title: string;
         description: string;
         start_parameter: string;
@@ -724,7 +720,7 @@ declare namespace TelegramBot {
         total_amount: number;
     }
 
-    export interface ShippingAddress {
+    interface ShippingAddress {
         country_code: string;
         state: string;
         city: string;
@@ -733,20 +729,20 @@ declare namespace TelegramBot {
         post_code: string;
     }
 
-    export interface OrderInfo {
+    interface OrderInfo {
         name?: string;
         phone_number?: string;
         email?: string;
         shipping_address?: ShippingAddress;
     }
 
-    export interface ShippingOption {
+    interface ShippingOption {
         id: string;
         title: string;
-        prices: Array<LabeledPrice>;
+        prices: LabeledPrice[];
     }
 
-    export interface SuccessfulPayment {
+    interface SuccessfulPayment {
         currency: string;
         total_amount: number;
         invoice_payload: string;
@@ -756,14 +752,14 @@ declare namespace TelegramBot {
         provider_payment_charge_id: string;
     }
 
-    export interface ShippingQuery {
+    interface ShippingQuery {
         id: string;
         from: User;
         invoice_payload: string;
         shipping_address: ShippingAddress;
     }
 
-    export interface PreCheckoutQuery {
+    interface PreCheckoutQuery {
         id: string;
         from: User;
         currency: string;
@@ -773,16 +769,16 @@ declare namespace TelegramBot {
         order_info?: OrderInfo;
     }
 
-    export interface Game {
+    interface Game {
         title: string;
         description: string;
-        photo: Array<PhotoSize>;
+        photo: PhotoSize[];
         text?: string;
-        text_entities?: Array<MessageEntity>;
+        text_entities?: MessageEntity[];
         animation?: Animation;
     }
 
-    export interface Animation {
+    interface Animation {
         file_id: string;
         thumb?: PhotoSize;
         file_name?: string;
@@ -790,11 +786,9 @@ declare namespace TelegramBot {
         file_size?: number;
     }
 
-    export interface CallbackGame {
-        // Placeholder
-    }
+    type CallbackGame = object;
 
-    export interface GameHighScore {
+    interface GameHighScore {
         position: number;
         user: User;
         score: number;
@@ -816,7 +810,7 @@ declare class TelegramBot extends EventEmitter {
 
     hasOpenWebHook(): boolean;
 
-    getMe(): Promise<TelegramBot.User | Error>
+    getMe(): Promise<TelegramBot.User | Error>;
 
     setWebHook(url: string, options?: TelegramBot.SetWebHookOptions): Promise<any>;
 
@@ -824,13 +818,13 @@ declare class TelegramBot extends EventEmitter {
 
     getWebHookInfo(): Promise<TelegramBot.WebhookInfo | Error>;
 
-    getUpdates(options?: TelegramBot.GetUpdatesOptions): Promise<Array<TelegramBot.Update> | Error>;
+    getUpdates(options?: TelegramBot.GetUpdatesOptions): Promise<TelegramBot.Update[] | Error>;
 
     processUpdate(update: TelegramBot.Update): void;
 
     sendMessage(chatId: number | string, text: string, options?: TelegramBot.SendMessageOptions): Promise<TelegramBot.Message | Error>;
 
-    answerInlineQuery(inlineQueryId: string, results: Array<TelegramBot.InlineQueryResult>, options?: TelegramBot.AnswerInlineQueryOptions): Promise<boolean | Error>;
+    answerInlineQuery(inlineQueryId: string, results: TelegramBot.InlineQueryResult[], options?: TelegramBot.AnswerInlineQueryOptions): Promise<boolean | Error>;
 
     forwardMessage(chatId: number | string, fromChatId: number | string, messageId: number | string, options?: TelegramBot.ForwardMessageOptions): Promise<TelegramBot.Message | Error>;
 
@@ -888,7 +882,7 @@ declare class TelegramBot extends EventEmitter {
 
     sendContact(chatId: number | string, phoneNumber: string, firstName: string, options?: TelegramBot.SendContactOptions): Promise<TelegramBot.Message | Error>;
 
-    getFile(fileId: string): Promise<File | Error>;
+    getFile(fileId: string): Promise<TelegramBot.File | Error>;
 
     getFileLink(fileId: string): Promise<string | Error>;
 
@@ -904,7 +898,7 @@ declare class TelegramBot extends EventEmitter {
 
     getChat(chatId: number | string): Promise<TelegramBot.Chat | Error>;
 
-    getChatAdministrators(chatId: number | string): Promise<Array<TelegramBot.ChatMember> | Error>;
+    getChatAdministrators(chatId: number | string): Promise<TelegramBot.ChatMember[] | Error>;
 
     getChatMembersCount(chatId: number | string): Promise<number | Error>;
 
@@ -916,11 +910,12 @@ declare class TelegramBot extends EventEmitter {
 
     setGameScore(userId: string, score: number, options?: TelegramBot.SetGameScoreOptions): Promise<TelegramBot.Message | boolean | Error>;
 
-    getGameHighScores(userId: string, options?: TelegramBot.GetGameHighScoresOptions): Promise<Array<TelegramBot.GameHighScore> | Error>;
+    getGameHighScores(userId: string, options?: TelegramBot.GetGameHighScoresOptions): Promise<TelegramBot.GameHighScore[] | Error>;
 
     deleteMessage(chatId: number | string, messageId: string, options?: any): Promise<boolean | Error>;
 
-    sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string, prices: Array<TelegramBot.LabeledPrice>, options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message | Error>;
+    sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string, prices: TelegramBot.LabeledPrice[],
+                options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message | Error>;
 
     answerShippingQuery(shippingQueryId: string, ok: boolean, options?: TelegramBot.AnswerShippingQueryOptions): Promise<boolean | Error>;
 
