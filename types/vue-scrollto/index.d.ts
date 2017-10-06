@@ -3,7 +3,7 @@
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {PluginFunction} from "vue";
+import { PluginFunction } from "vue";
 
 declare namespace VueScrollTo {
     interface Options {
