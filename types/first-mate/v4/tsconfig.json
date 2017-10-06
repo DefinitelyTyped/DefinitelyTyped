@@ -8,13 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "event-kit": [ "event-kit/v1" ],
-          "first-mate": [ "first-mate/v4" ]
+            "event-kit": [
+                "event-kit/v1"
+            ],
+            "first-mate": [
+                "first-mate/v4"
+            ]
         },
         "types": [],
         "noEmit": true,
