@@ -808,10 +808,9 @@ declare namespace algoliasearch {
     interface AlgoliaAction {
         /**
          * Type of the batch action
-         * values: addObject, updateObject, partialUpdateObject, partialUpdateObjectNoCreate, deleteObject
          * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
          */
-        action: string;
+        action: "addObject" | "updateObject" | "partialUpdateObject" | "partialUpdateObjectNoCreate" | "deleteObject" | "delete" | "clear";
         /**
          * Name of the index where the bact will be performed
          * https://github.com/algolia/algoliasearch-client-js#custom-batch---batch
@@ -924,10 +923,9 @@ declare namespace algoliasearch {
         objectID: string;
         /**
          * Type of synonym
-         * values: synonym,oneWaySynonym
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
          */
-            type: string;
+            type: "synonym" | "oneWaySynonym";
         /**
          * Values used for the synonym
          * https://github.com/algolia/algoliasearch-client-js#save-synonym---savesynonym
