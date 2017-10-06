@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "generator",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "BjornMelgaard <melgaardbjorn@gmail.com>",
+  "description": "no",
+  "engines": {
+    "node": ">=7.8.0"
+  },
+  "scripts": {
+    "run": "ts-node generator.ts"
+  },
+  "dependencies": {
+    "@types/handlebars": "^4.0.36",
+    "@types/node": "^8.0.32",
+    "handlebars": "^4.0.10",
+    "handlebars-helper-repeat": "BjornMelgaard/handlebars-helper-repeat#feature/block_params",
+    "handlebars-helpers": "^0.9.8",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.3"
+  }
+}

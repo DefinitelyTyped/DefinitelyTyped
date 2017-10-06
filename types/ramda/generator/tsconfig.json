@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "declaration": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "target": "es6",
+    "outDir": "lib",
+    "module": "commonjs",
+    "moduleResolution": "node"
+  },
+  "files": [
+    "index.ts"
+  ]
+}

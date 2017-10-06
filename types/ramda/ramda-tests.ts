@@ -24,23 +24,23 @@ class F2 {
     }
 }
 
-(() => {
+() => {
     let x: boolean;
     x = R.isArrayLike("a");
     x = R.isArrayLike([1, 2, 3]);
     x = R.isArrayLike([]);
-});
+};
 
-(() => {
+() => {
     R.propIs(Number, "x", {x: 1, y: 2});  // => true
     R.propIs(Number, "x")({x: 1, y: 2});  // => true
     R.propIs(Number)("x", {x: 1, y: 2});  // => true
     R.propIs(Number)("x")({x: 1, y: 2});  // => true
     R.propIs(Number, "x", {x: "foo"});    // => false
     R.propIs(Number, "x", {});            // => false
-});
+};
 
-(() => {
+() => {
     R.type({}); // => "Object"
     R.type(1); // => "Number"
     R.type(false); // => "Boolean"
@@ -48,7 +48,7 @@ class F2 {
     R.type(null); // => "Null"
     R.type([]); // => "Array"
     R.type(/[A-z]/); // => "RegExp"
-});
+};
 
 () => {
     function takesNoArg() {
@@ -136,10 +136,10 @@ class F2 {
     const b: number[] = coerceArray(1);         // => [1]
 };
 
-(() => {
+() => {
     R.nthArg(1)("a", "b", "c"); // => 'b'
     R.nthArg(-1)("a", "b", "c"); // => 'c'
-});
+};
 
 () => {
     const fn: (...args: string[]) => string = R.unapply(JSON.stringify);
@@ -185,6 +185,28 @@ class F2 {
     const g_res: boolean = g([1, 2, 10, 13]);
 };
 
+/* composeP */
+() => {
+    const numberToSrtP = (x: number) => Promise.resolve('asdf');
+
+    const someObj: object = { x: 'any' };
+    const strToObjP = (x: string) => Promise.resolve(someObj);
+
+    // $ExpectType (x0: number) => Promise<object>
+    R.composeP(strToObjP, numberToSrtP);
+};
+
+/* composeK */
+() => {
+    const numberToSrtK = (x: number) => ['asdf'];
+
+    const someObj: object = { x: 'any' };
+    const strToObjK = (x: string) => [someObj];
+
+    // $ExpectType (x0: number) => object[]
+    R.composeK(strToObjK, numberToSrtK);
+};
+
 /* pipe */
 () => {
     const func: (x: number) => string = R.pipe(double, double, shout);
@@ -200,18 +222,40 @@ class F2 {
     const fr: number = f(3, 4); // -(3^4) + 1
 };
 
+/* pipeP */
+() => {
+    const numberToSrtP = (x: number) => Promise.resolve('asdf');
+
+    const someObj: object = { x: 'any' };
+    const strToObjP = (x: string) => Promise.resolve(someObj);
+
+    // $ExpectType (x0: number) => Promise<object>
+    R.pipeP(numberToSrtP, strToObjP);
+};
+
+/* pipeK */
+() => {
+    const numberToSrtK = (x: number) => ['asdf'];
+
+    const someObj: object = { x: 'any' };
+    const strToObjK = (x: string) => [someObj];
+
+    // $ExpectType (x0: number) => object[]
+    R.pipeK(numberToSrtK, strToObjK);
+};
+
 () => {
     R.invoker("charAt", String.prototype);
     R.invoker("charAt", String.prototype, 1);
 };
 
-(() => {
+() => {
     const range = R.juxt([Math.min, Math.max]);
     range(3, 4, 9, -3); // => [-3, 9]
 
     const chopped = R.juxt([R.head, R.last]);
     chopped("longstring"); // => ["l", "g"]
-});
+};
 
 function square(x: number) {
     return x * x;
@@ -227,7 +271,7 @@ function addAll() {
 // Basic example
 R.useWith(addAll, [double, square]);
 
-(() => {
+() => {
     function printXPlusFive(x: number) {
         console.log(x + 5);
     }
@@ -235,7 +279,7 @@ R.useWith(addAll, [double, square]);
     R.forEach(printXPlusFive, [1, 2, 3]);
     R.clone([{}, {}, {}]);
     R.clone([1, 2, 3]);
-})();
+};
 
 // (() => {
 //   function printXPlusFive(x, i) { console.log(i + 5); }
@@ -247,7 +291,7 @@ function i(x: number) {
 }
 R.times(i, 5);
 
-(() => {
+() => {
     function triple(x: number): number {
         return x * 3;
     }
@@ -258,9 +302,9 @@ R.times(i, 5);
 
     const squareThenDoubleThenTriple = R.pipe(square, double, triple);
     squareThenDoubleThenTriple(5); // => 150
-})();
+};
 
-(() => {
+() => {
     function multiply(a: number, b: number) {
         return a * b;
     }
@@ -278,9 +322,9 @@ R.times(i, 5);
 
     const greetMsJaneJones = R.partialRight(greet, "Ms.", "Jane", "Jones");
     greetMsJaneJones("Hello"); // => 'Hello, Ms. Jane Jones!'
-})();
+};
 
-(() => {
+() => {
     let numberOfCalls = 0;
 
     function trackedAdd(a: number, b: number) {
@@ -300,29 +344,23 @@ R.times(i, 5);
     // Note that argument order matters
     memoTrackedAdd(2, 1); // => 3
     numberOfCalls; // => 3
-})();
+};
 
-(() => {
+() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
-})();
+};
 
-(() => {
-    const slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
-})();
-
-(() => {
+() => {
     const numbers = [1, 2, 3];
-    R.reduce((a,b) => a + b, 10, numbers); // => 16;
-})();
+    const add     = (a: number, b: number) => a + b;
+    R.reduce(add, 10, numbers); // => 16;
+};
 
-(() => {
+() => {
     const plus3 = R.add(3);
-})();
+};
 
 (() => {
     const pairs = [["a", 1], ["b", 2], ["c", 3]] as [string, number][];
@@ -332,9 +370,9 @@ R.times(i, 5);
     }
 
     R.reduceRight(flattenPairs, [], pairs); // => [ 'c', 3, 'b', 2, 'a', 1 ]
-})();
+};
 
-(() => {
+() => {
     const values = {x: 1, y: 2, z: 3};
 
     function prependKeyAndDouble(num: number, key: string, obj: any) {
@@ -342,13 +380,13 @@ R.times(i, 5);
     }
 
     R.mapObjIndexed(prependKeyAndDouble, values); // => { x: 'x2', y: 'y4', z: 'z6' }
-});
+};
 
-(() => {
+() => {
     const a: number[]   = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
     const b: number[][] = R.of([1]); // => [[1]]
     const c: number[]   = R.of(1);
-});
+};
 
 () => {
     const a1 = R.empty([1, 2, 3, 4, 5]); // => []
@@ -357,11 +395,11 @@ R.times(i, 5);
     const a4 = R.empty({x: 1, y: 2});  // => {}
 };
 
-(() => {
+() => {
     R.length([1, 2, 3]); // => 3
-});
+};
 
-(() => {
+() => {
     function isEven(n: number) {
         return n % 2 === 0;
     }
@@ -383,16 +421,17 @@ R.times(i, 5);
 
     R.reject(isOdd, [1, 2, 3, 4]); // => [2, 4]
     R.reject(isOdd, { a: 0, b: 1 }); // => { a: 0 }
-});
-(() => {
+};
+() => {
     function isNotFour(x: number) {
         return !(x === 4);
     }
 
     R.takeWhile(isNotFour, [1, 2, 3, 4]); // => [1, 2, 3]
     R.take(2, [1, 2, 3, 4]); // => [1, 2]
-});
-(() => {
+};
+
+() => {
     function f(n: number): false | [number, number] {
         return n > 50 ? false : [-n, n + 10];
     }
@@ -400,7 +439,7 @@ R.times(i, 5);
     const a = R.unfold(f, 10); // => [-10, -20, -30, -40, -50]
     const b = R.unfold(f); // => [-10, -20, -30, -40, -50]
     const c = b(10);
-});
+};
 /*****************************************************************
  * Function category
  */
@@ -442,10 +481,8 @@ R.times(i, 5);
     R.append("tests", ["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests")(["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests", []); // => ['tests']
-    R.append<string, string[]>(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append<string[]>(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
+    R.append<string | string[]>(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
+    R.append<string | string[]>(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
 };
 
 () => {
@@ -487,17 +524,17 @@ R.times(i, 5);
     R.drop(3)("ramda"); // => 'ram'
 };
 
-(() => {
+() => {
     R.dropLast(1, ["foo", "bar", "baz"]); // => ['foo', 'bar']
     R.dropLast(2)(["foo", "bar", "baz"]); // => ['foo']
     R.dropLast(3, "ramda");               // => 'ra'
     R.dropLast(3)("ramda");               // => 'ra'
-});
+};
 
-(() => {
+() => {
     const lteThree = (x: number) => x <= 3;
     R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); // => [1, 2, 3, 4]
-});
+};
 
 () => {
     function lteTwo(x: number) {
@@ -672,12 +709,12 @@ interface Obj {
     R.head(""); // => ''
 };
 
-(() => {
+() => {
     const list = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
     const a1 = R.indexBy(R.prop<string>("id"), list);
     const a2 = R.indexBy(R.prop<string>("id"))(list);
     const a3 = R.indexBy<{ id: string }>(R.prop<string>("id"))(list);
-});
+};
 
 () => {
     R.indexOf(3, [1, 2, 3, 4]); // => 2
@@ -1101,9 +1138,9 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const x          = R.prop("x");
-    const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
-    const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
-    const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
+    const a: boolean = R.tryCatch(R.prop("x"), R.F)({x: true}); // => true
+    const b: boolean = R.tryCatch(R.prop("x"), R.F)(null);      // => false
+    const c: boolean = R.tryCatch<(l: boolean, r: boolean) => boolean>(R.and, R.F)(true, true);      // => true
 };
 
 () => {
@@ -1125,8 +1162,7 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.equals(R.unnest([1, [2], [[3]]]), [1, 2, [3]]); // => true
-    R.equals(R.unnest<number>([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
+    R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
 };
 
 () => {
@@ -1393,7 +1429,7 @@ class Rectangle {
 };
 
 () => {
-    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foor: bar: 2}}
+    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: bar: 2}}
 };
 
 () => {
@@ -1530,19 +1566,15 @@ class Rectangle {
 
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
-    const a       = R.prop("x", {}); // => undefined
 };
 
 () => {
-    const alice               = {
+    const alice = {
         name: "ALICE",
         age : 101
     };
-    const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
-
-    const s1 = favorite(alice);  // => undefined
-    const s2 = favoriteWithDefault(alice);  // => 'Ramda'
+    const s1 = favoriteWithDefault(alice);  // => 'Ramda'
 };
 
 () => {
@@ -1552,8 +1584,7 @@ class Rectangle {
 };
 
 () => {
-    R.props(["x", "y"], {x: 1, y: 2}); // => [1, 2]
-    R.props(["c", "a", "b"], {b: 2, a: 1}); // => [undefined, 1, 2]
+    const ret: Array<string | number> = R.props(["x", "y"], {x: 1, y: '2'}); // => [1, '2']
 
     const fullName = R.compose(R.join(" "), R.props(["first", "last"]));
     fullName({last: "Bullet-Tooth", age: 33, first: "Tony"}); // => 'Tony Bullet-Tooth'
@@ -1591,21 +1622,12 @@ class Rectangle {
 };
 
 () => {
-    const spec        = {x: 2};
+    const spec        = {x: R.equals(2)};
     const x1: boolean = R.where(spec, {w: 10, x: 2, y: 300}); // => true
     const x2: boolean = R.where(spec, {x: 1, y: "moo", z: true}); // => false
-    const x3: boolean = R.where(spec)({w: 10, x: 2, y: 300}); // => true
-    const x4: boolean = R.where(spec)({x: 1, y: "moo", z: true}); // => false
-
-    // There's no way to represent the below functionality in typescript
-    // per http://stackoverflow.com/a/29803848/632495
-    // will need a work around.
-
-    const spec2 = {
-        x: (val: number, obj: any) => val + obj.y > 10
-    };
-    R.where(spec2, {x: 2, y: 7}); // => false
-    R.where(spec2, {x: 3, y: 8}); // => true
+    interface Data { w?: number; x: number; y: string; z?: boolean; }
+    const x3: boolean = R.where<Data>(spec)({w: 10, x: 2, y: "what"}); // => true
+    const x4: boolean = R.where<Data>(spec)({x: 1, y: "moo", z: true}); // => false
 
     const xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
     R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
@@ -1675,7 +1697,8 @@ class Rectangle {
     const takesTwoArgs = R.binary(takesThreeArgs);
     takesTwoArgs.length; // => 2
     // Only 2 arguments are passed to the wrapped function
-    takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
+    takesTwoArgs(1, 2);
+    // takesTwoArgs(1, 2, 3); // type error
 };
 
 () => {
@@ -1758,7 +1781,7 @@ class Rectangle {
     const x: number = gn("Hello", 4, "world");
 };
 
-(() => {
+() => {
     function Circle(r: number) {
         this.r      = r;
         this.colors = Array.prototype.slice.call(arguments, 1);
@@ -1770,7 +1793,7 @@ class Rectangle {
     let c1      = circleN(1, "red");
     const circle  = R.construct(Circle);
     c1          = circle(1, "red");
-})();
+};
 
 /*****************************************************************
  * Relation category

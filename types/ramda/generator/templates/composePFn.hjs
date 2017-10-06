@@ -1,0 +1,11 @@
+interface ComposePFn {
+  {{#repeat count=maxFnN start=minFnN as |currFnN currFnNData|}}
+    {{#repeat count=maxArgN start=minArgN as |currArgN currArgNData|}}
+    {{> genparams vsN=currArgN tsN=currFnN}}(
+      {{#repeat currFnN}}
+      fn{{minus (minus currFnN @index) 1}}: {{#if @last}}{{> funcparams argSymb="V" argN=currArgN}}{{else}}(x: T{{minus (minus currFnN @index) 1}}){{/if}} => Promise<T{{minus currFnN @index}}>{{#if @last}}): {{> funcparams argSymb="V" argN=currArgN}} => Promise<T{{add @index 1}}>;{{else}},{{/if}}
+{{/repeat}}{{#unless (and currFnNData.last currArgNData.last)}}
+{{/unless}}
+    {{/repeat}}
+  {{/repeat}}
+}
