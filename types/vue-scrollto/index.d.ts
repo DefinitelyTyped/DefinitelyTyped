@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { default as Vue, PluginFunction } from "vue";
+import {PluginFunction} from "vue";
 
 declare namespace VueScrollTo {
     interface Options {
