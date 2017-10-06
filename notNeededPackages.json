@@ -507,7 +507,7 @@
         {
             "libraryName": "realm",
             "typingsPackageName": "realm",
-            "sourceRepoURL": "https://github.com/realm/realm-js/blob/master/lib/index.d.ts",
+            "sourceRepoURL": "https://github.com/realm/realm-js",
             "asOfVersion": "1.0.3"
         },
         {
