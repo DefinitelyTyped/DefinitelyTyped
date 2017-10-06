@@ -3,8 +3,9 @@
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Vue from 'vue';
-import { PluginFunction } from "vue";
+/// <reference types="express" />
+
+import { default as Vue, PluginFunction } from "vue";
 
 declare namespace VueScrollTo {
     export interface Options {
