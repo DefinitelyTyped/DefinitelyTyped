@@ -64,7 +64,7 @@ interface EventObject<T> {
  * Base class for all objects with a native implementation.
  */
 declare class NativeObject {
-    protected constructor(properties?: {});
+    protected constructor(properties?: object);
 
     /**
      * Gets the current value of the given *property*.
@@ -84,7 +84,7 @@ declare class NativeObject {
      * Removes all listeners in the given object from the event type indicated by their key.
      * @param listeners A key-value map where the keys are event types and the values are the listeners to deregister from these events, e.g. `{tap: onTap, scroll: onScroll}`.
      */
-    off(listeners: {}): this;
+    off(listeners: object): this;
 
     /**
      * Registers a *listener* function to be notified of events of the given *type*.
@@ -98,7 +98,7 @@ declare class NativeObject {
      * Registers all listeners in the given object for the event type indicated by their key.
      * @param listeners A key-value map where the keys are event types and the values are the listeners to register for these events, e.g. `{tap: onTap, scroll: onScroll}`.
      */
-    on(listeners: {}): this;
+    on(listeners: object): this;
 
     /**
      * Same as `on`, but removes the listener after it has been invoked by an event.
@@ -112,7 +112,7 @@ declare class NativeObject {
      * Same as `on`, but removes the listener after it has been invoked by an event.
      * @param listeners A key-value map where the keys are event types and the values are the listeners to register for these events, e.g. `{tap: onTap, scroll: onScroll}`.
      */
-    once(listeners: {}): this;
+    once(listeners: object): this;
 
     /**
      * Sets the given property.
@@ -125,7 +125,7 @@ declare class NativeObject {
      * Sets all key-value pairs in the properties object as widget properties.
      * @param properties
      */
-    set(properties: {}): this;
+    set(properties: object): this;
 
     /**
      * Notifies all registered listeners for the given *type* and passes the *event* object to the
