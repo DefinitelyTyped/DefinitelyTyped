@@ -1,0 +1,112 @@
+// Type definitions for zookeeper 3.4
+// Project: https://github.com/yfinkelstein/node-zookeeper#readme
+// Definitions by: xialeistudio <https://github.com/xialeistudio>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+// log levels
+
+// struct definition
+interface Stat {
+    czxid: number;
+    mzxid: number;
+    ctime: number;
+    mtime: number;
+    version: number;
+    cversion: number;
+    aversion: number;
+    ephemeralOwner: string;
+    dataLength: number;
+    numChildren: number;
+    pzxid: number;
+}
+
+interface ConnectionOptions {
+    connect?: string;
+    timeout?: number;
+    host_order_deterministic?: boolean;
+    data_as_buffer?: boolean;
+    debug_level?: number;
+}
+
+// callback definition
+type path_callback = (rc?: number, error?: string, path?: string) => void;
+type stat_callback = (rc?: number, error?: string, stat?: Stat) => void;
+type data_callback = (rc?: number, error?: string, data?: Buffer | string) => void;
+type child_callback = (rc?: number, error?: string, children?: string[]) => void;
+type child2_callback = (rc?: number, error?: string, children?: string[], stat?: Stat) => void;
+type void_callback = (rc?: number, error?: string) => void;
+type watch_callback = (type?: number, state?: number, path?: string) => void;
+type acl_callback = (rc?: number, error?: string, acl?: ({ perms: number; scheme: string; auth: string; } | number)[], stat?: Stat) => void;
+
+// function definitions
+export = Zookeeper;
+
+declare class Zookeeper extends Client {
+
+    constructor(options: ConnectionOptions);
+
+    connect(callback: (e: Error | null, client: Client) => void): void;
+
+    close(): void;
+}
+
+declare class Client {
+    client_id?: number;
+    client_password?: any;
+    state?: any;
+    timeout?: number;
+    is_unrecoverable?: boolean;
+
+    a_create(path: string, data: string | Buffer, flags: any, callback: path_callback): void;
+
+    mkdirp(path: string, callback: (e?: Error) => void): void;
+
+    a_exists(path: string, watch: boolean, callback: stat_callback): void;
+
+    a_get(path: string, watch: boolean, callback: data_callback): void;
+
+    a_get_children(path: string, watch: boolean, callback: child_callback): void;
+
+    a_get_children2(path: string, watch: boolean, callback: child2_callback): void;
+
+    a_set(path: string, data: Buffer | string, version: number, callback: stat_callback): void;
+
+    a_delete_(path: string, version: number, callback: void_callback): void;
+
+    a_set_acl(path: string, version: number, acl: ({ perms: number; scheme: string; auth: string; } | number)[], callback: void_callback): void;
+
+    a_get_acl(path: string, callback: acl_callback): void;
+
+    add_auth(schema: string, auth: string, callback: void_callback): void;
+
+    aw_exists(path: string, watch_callback: watch_callback, callback: stat_callback): void;
+
+    aw_get(path: string, watch_callback: watch_callback, callback: data_callback): void;
+
+    aw_get_children(path: string, watch_callback: watch_callback, callback: child_callback): void;
+
+    aw_get_children2(path: string, watch_callback: watch_callback, callback: child2_callback): void;
+}
+
+declare namespace Zookeeper {
+    // log levels
+    export const ZOO_LOG_LEVEL_ERROR = 1;
+    export const ZOO_LOG_LEVEL_WARN = 2;
+    export const ZOO_LOG_LEVEL_INFO = 3;
+    export const ZOO_LOG_LEVEL_DEBUG = 4;
+    // acl permissions
+    export const ZOO_OPEN_ACL_UNSAFE: number;
+    export const ZOO_READ_ACL_UNSAFE: number;
+    export const ZOO_CREATOR_ALL_ACL: number;
+    export const ZOO_PERM_READ = 1;
+    export const ZOO_PERM_WRITE = 2;
+    export const ZOO_PERM_CREATE = 4;
+    export const ZOO_PERM_DELETE = 8;
+    export const ZOO_PERM_ADMIN = 16;
+    export const ZOO_PERM_ALL = 31;
+
+    // Dunno
+    export const ZOO_EPHEMERAL = 1;
+    export const ZOO_SEQUENCE = 2;
+}
