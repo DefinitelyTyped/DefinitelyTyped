@@ -3,6 +3,7 @@
 // Definitions by: Michael McCarthy <https://github.com/mwmccarthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
+
 declare namespace md5 {
     type message = string | any[] | Uint8Array | ArrayBuffer;
 
@@ -14,6 +15,7 @@ declare namespace md5 {
         hex(): string;
         toString(): string;
         update(message: message): Md5;
+        base64(): string;
     }
 
     interface md5 {
@@ -25,6 +27,7 @@ declare namespace md5 {
         buffer(message: message): ArrayBuffer;
         create(): Md5;
         update(message: message): Md5;
+        base64(message: message): string
     }
 }
 
