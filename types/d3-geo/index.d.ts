@@ -804,6 +804,7 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
     fitSize(size: [number, number], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+
     /**
      * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
      *
@@ -832,6 +833,7 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
     fitWidth(width: number, object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+
     /**
      * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
      *
@@ -860,6 +862,7 @@ export interface GeoProjection extends GeoStreamWrapper {
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
     fitHeight(height: number, object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
+
     /**
      * Returns a new array [longitude, latitude] in degrees representing the unprojected point of the given projected point.
      * May return null if the specified point has no defined projected position, such as when the point is outside the clipping bounds of the projection.
