@@ -1,4 +1,5 @@
 import * as kdbush from 'kdbush';
+import { KDBush } from 'kdbush';
 
 // API
 const points = [[110, 60], [130, 40]];
@@ -20,7 +21,7 @@ index.within(10, 10, 5).map(id => points[id]);
 
 // custom points (object)
 const xy = [{x: 110, y: 60}, {x: 130, y: 40}];
-const index2 = kdbush(xy, p => p.x, p => p.y);
+const index2: KDBush<{x: number, y: number}> = kdbush(xy, p => p.x, p => p.y);
 index2.points[0].x;
 index2.points[0].y;
 index2.points.map(p => [p.x, p.y]);

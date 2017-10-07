@@ -5,4 +5,4 @@ import { GraphQLSchema } from '../type/schema';
 export function typeFromAST(
     schema: GraphQLSchema,
     typeNode: TypeNode
-): GraphQLType
+): GraphQLType;

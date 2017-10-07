@@ -1,7 +1,9 @@
+import detectIndent = require('detect-indent');
 
-import di = require('detect-indent');
+const indent = detectIndent('').indent || '    ';
 
-var str: string;
-
-str = di(str);
-str = di(str, str);
+const indentInfo = detectIndent('');
+indentInfo; // $ExpectType IndentInfo
+const num: number = indentInfo.amount;
+const str: string = indentInfo.indent;
+const type: 'space' | 'tab' | null = indentInfo.type;

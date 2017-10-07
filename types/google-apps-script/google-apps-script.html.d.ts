@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module HTML {
@@ -22,6 +22,7 @@ declare namespace GoogleAppsScript {
      * guide to restrictions in HTML service
      */
     export interface HtmlOutput {
+      addMetaTag(name: string, content: string): HtmlOutput;
       append(addedContent: string): HtmlOutput;
       appendUntrusted(addedContent: string): HtmlOutput;
       asTemplate(): HtmlTemplate;
@@ -29,14 +30,33 @@ declare namespace GoogleAppsScript {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getContent(): string;
+      getFaviconUrl(): string;
       getHeight(): Integer;
+      getMetaTags(): HtmlOutputMetaTag[];
       getTitle(): string;
       getWidth(): Integer;
       setContent(content: string): HtmlOutput;
+      setFaviconUrl(iconUrl: string): HtmlOutput;
       setHeight(height: Integer): HtmlOutput;
       setSandboxMode(mode: SandboxMode): HtmlOutput;
       setTitle(title: string): HtmlOutput;
       setWidth(width: Integer): HtmlOutput;
+      setXFrameOptionsMode(mode: XFrameOptionsMode): HtmlOutput;
+    }
+
+    /**
+     * An object that represents a meta tag added to the page by calling
+     *  HtmlOutput.addMetaTag(name, content).
+     *
+     *      var output = HtmlService.createHtmlOutput('<b>Hello, world!</b>');
+     *      output.addMetaTag('viewport', 'width=device-width, initial-scale=1');
+     *
+     *      var tags = output.getMetaTags();
+     *      Logger.log('<meta name="%s" content="%s"/>', tags[0].getName(), tags[0].getContent());
+     */
+    export interface HtmlOutputMetaTag {
+      getContent(): string;
+      getName(): string;
     }
 
     /**
@@ -47,7 +67,8 @@ declare namespace GoogleAppsScript {
      *  HtmlOutput for what limitations this implies on what can be returned.
      */
     export interface HtmlService {
-      SandboxMode: SandboxMode
+      SandboxMode: typeof SandboxMode;
+      XFrameOptionsMode: typeof XFrameOptionsMode;
       createHtmlOutput(): HtmlOutput;
       createHtmlOutput(blob: Base.BlobSource): HtmlOutput;
       createHtmlOutput(html: string): HtmlOutput;
@@ -74,24 +95,17 @@ declare namespace GoogleAppsScript {
      *  scripts. These values can be accessed from HtmlService.SandboxMode, and set by calling
      *  HtmlOutput.setSandboxMode(mode).
      *
+     * The NATIVE and EMULATED modes were
+     *  deprecated on October 13, 2015 and both are
+     *  now sunset.
+     *  Only IFRAME mode is now supported.
      * To protect users from being served malicious HTML or JavaScript, client-side code served from
      *  HTML service executes in a security sandbox that imposes restrictions on the code. The method
-     *  HtmlOutput.setSandboxMode(mode) allows script authors to choose between
-     *  different versions of the sandbox. For more information, see the
+     *  HtmlOutput.setSandboxMode(mode) previously allowed script authors to choose
+     *  between different versions of the sandbox, but now has no effect. For more information, see the
      *  guide to restrictions in HTML service.
-     * If a script does not set a sandbox mode, Apps Script uses NATIVE mode as the default.
-     *  Prior to February 2014, the default was EMULATED. The default is subject to change.
      * The IFRAME mode imposes many fewer restrictions than the other sandbox modes and runs
-     *  fastest, but does not work at all in certain older browsers, including Internet Explorer 9. By
-     *  contrast, EMULATED mode is more likely to work in
-     *  older browsers that do not support ECMAScript 5 strict
-     *  mode, most notably Internet Explorer 9. NATIVE mode is the middle ground. If
-     *  NATIVE mode is set but not supported in the user's browser, the sandbox mode falls back
-     *  to EMULATED mode for that user.
-     *
-     *      // Serve HTML with a defined sandbox mode (in Apps Script server-side code).
-     *      var output = HtmlService.createHtmlOutput('<b>Hello, world!</b>');
-     *      output.setSandboxMode(HtmlService.SandboxMode.IFRAME);
+     *  fastest, but does not work at all in certain older browsers, including Internet Explorer 9.
      *
      * google.script.sandbox.mode
      *
@@ -101,6 +115,23 @@ declare namespace GoogleAppsScript {
      *      </script>
      */
     export enum SandboxMode { EMULATED, IFRAME, NATIVE }
+
+    /**
+     * An enum representing the X-Frame-Options modes that can be used for client-side
+     *  HtmlService scripts. These values can be accessed from
+     *  HtmlService.XFrameOptionsMode, and set by calling
+     *  HtmlOutput.setXFrameOptionsMode(mode).
+     *
+     * Setting XFrameOptionsMode.ALLOWALL will let any site iframe the page, so the developer
+     *  should implement their own protection against clickjacking.
+     * If a script does not set an X-Frame-Options mode, Apps Script uses DEFAULT
+     *  mode as the default.
+     *
+     *      // Serve HTML with no X-Frame-Options header (in Apps Script server-side code).
+     *      var output = HtmlService.createHtmlOutput('<b>Hello, world!</b>');
+     *      output.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+     */
+    export enum XFrameOptionsMode { ALLOWALL, DEFAULT }
 
   }
 }

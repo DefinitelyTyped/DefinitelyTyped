@@ -1,4 +1,4 @@
-import L = require('leaflet');
+import * as L from 'leaflet';
 
 const latLngLiteral: L.LatLngLiteral = {lat: 12, lng: 13};
 const latLngTuple: L.LatLngTuple = [12, 13];
@@ -20,6 +20,9 @@ let latLngBounds: L.LatLngBounds;
 latLngBounds = L.latLngBounds(latLng, latLng);
 latLngBounds = L.latLngBounds(latLngLiteral, latLngLiteral);
 latLngBounds = L.latLngBounds(latLngTuple, latLngTuple);
+latLngBounds = L.latLngBounds(latLngBoundsLiteral);
+latLngBounds = L.latLngBounds([latLngLiteral, latLngLiteral, latLngLiteral]);
+latLngBounds = L.latLngBounds([latLng, latLng, latLng]);
 
 latLngBounds = new L.LatLngBounds(latLng, latLng);
 latLngBounds = new L.LatLngBounds(latLngLiteral, latLngLiteral);
@@ -447,21 +450,37 @@ L.marker([1, 2], {
 	className: 'my-div-icon'
 }));
 
+const latLngs = [
+  {lat: 0, lng: 0},
+  {lat: 1, lng: 1}
+];
+const polygon = new L.Polygon(latLngs);
+const polygonExclusion = new L.Polygon([latLngs, latLngs]);
+
+L.polygon(latLngs).addTo(map);
+L.polygon([latLngs, latLngs]).addTo(map);
+
 L.Util.extend({});
 L.Util.create({});
 L.Util.bind(() => {}, {});
 L.Util.stamp({});
 L.Util.throttle(() => {}, 123, {});
 L.Util.wrapNum(123, []);
+L.Util.wrapNum(123, [], true);
 L.Util.falseFn();
 L.Util.formatNum(123);
+L.Util.formatNum(123, 1);
 L.Util.trim('word   ');
 L.Util.splitWords('word word');
 L.Util.setOptions({}, {});
 L.Util.getParamString({});
+L.Util.getParamString({}, '');
+L.Util.getParamString({}, '', true);
 L.Util.template('template', {});
 L.Util.isArray({});
 L.Util.indexOf([], {});
 L.Util.requestAnimFrame(() => {});
+L.Util.requestAnimFrame(() => {}, {});
+L.Util.requestAnimFrame(() => {}, {}, true);
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;

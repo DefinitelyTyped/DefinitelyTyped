@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import inquirer = require('inquirer');
 
 

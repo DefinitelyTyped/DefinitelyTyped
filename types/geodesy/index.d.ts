@@ -1,6 +1,7 @@
 // Type definitions for geodesy 1.1
 // Project: https://github.com/chrisveness/geodesy
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+// 		   Gilbert Handy <https://github.com/HandyG52>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type format = 'd' | 'dm' | 'dms';
@@ -146,4 +147,27 @@ export class LatLonEllipsoidal {
     toString(format?: format, dp?: 0 | 2 | 4): string;
     static datum: Datums;
     static ellipsoid: Ellipsoids;
+}
+
+export class LatLonSpherical {
+    lat: number;
+    lon: number;
+    constructor(lat: number, lon: number)
+    distanceTo(point: LatLonSpherical, radius?: number): number;
+    bearingTo(point: LatLonSpherical): number;
+    finalBearingTo(point: LatLonSpherical): number;
+    midpointTo(point: LatLonSpherical): number;
+    intermediatePointTo(point: LatLonSpherical, fraction: number): LatLonSpherical;
+    destinationPoint(distance: number, bearing: number, radius?: number): LatLonSpherical;
+    static intersection(point1: LatLonSpherical, bearing1: number, point2: LatLonSpherical, bearing2: number): LatLonSpherical;
+    crossTrackDistanceTo(pathStart: LatLonSpherical, pathEnd: LatLonSpherical, radius?: number): number;
+    maxLatitude(bearing: number): number;
+    static crossingParallels(point1: LatLonSpherical, point2: LatLonSpherical, latitude: number): any;
+    rhumbDistanceTo(point: LatLonSpherical, radius?: number): number;
+    rhumbBearingTo(point: LatLonSpherical): number;
+    rhumbDestinationPoint(distance: number, bearing: number, radius?: number): LatLonSpherical;
+    rhumbMidpointTo(point: LatLonSpherical): LatLonSpherical;
+    equals(point: LatLonSpherical): boolean;
+    static areaOf(polygon: LatLonSpherical[], radius?: number): number;
+    toString(format?: string, dp?: number): string;
 }

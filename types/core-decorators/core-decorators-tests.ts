@@ -31,7 +31,7 @@ import { readonly } from 'core-decorators';
 
 class Meal {
     @readonly
-    entree: string = 'steak';
+    entree = 'steak';
 }
 
 const dinner = new Meal();
@@ -155,7 +155,7 @@ class Meal2 {
     entree = 'steak';
 
     @nonenumerable
-    cost: number = 4.44;
+    cost = 4.44;
 }
 
 const dinner2 = new Meal2();
@@ -175,7 +175,7 @@ import { nonconfigurable } from 'core-decorators';
 
 class Meal3 {
     @nonconfigurable
-    entree: string = 'steak';
+    entree = 'steak';
 }
 
 const dinner3 = new Meal3();

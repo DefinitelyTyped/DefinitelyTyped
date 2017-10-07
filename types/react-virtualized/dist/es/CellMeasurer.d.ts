@@ -45,29 +45,29 @@ export class CellMeasurerCache {
     ): void;
 }
 
-export type CellMeasurerChildProps = {
-    getColumnWidth: () => number,
-    getRowHeight: () => number,
-    resetMeasurements: () => any,
-    resetMeasurementsForColumn: (index: number) => any,
-    resetMeasurementsForRow: (index: number) => any,
-}
-
 export type CellMeasurerProps = {
     cache?: CellMeasurerCache;
-    children?: (props: CellMeasurerChildProps) => React.ReactNode;
+    children?: ((props: {measure: () => void}) => React.ReactNode) | JSX.Element;
     columnIndex?: number;
     index?: number;
     parent?: React.ReactType;
     rowIndex?: number;
     style?: React.CSSProperties;
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 }
 /**
  * Wraps a cell and measures its rendered content.
  * Measurements are stored in a per-cell cache.
  * Cached-content is not be re-measured.
  */
-export class CellMeasurer extends PureComponent<CellMeasurerProps, {}> {
+export class CellMeasurer extends PureComponent<CellMeasurerProps> {
     constructor(props: CellMeasurerProps, context: any);
 
     componentDidMount(): void;

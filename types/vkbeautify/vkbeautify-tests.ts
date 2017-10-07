@@ -1,4 +1,4 @@
-import VKBeautify from 'vkbeautify';
+import VKBeautify = require('vkbeautify');
 
 /*
  * Beautifying

@@ -9,6 +9,7 @@ console.log(bytes.format(104857, { thousandsSeparator: ' ' }));
 console.log(bytes.format(104857, { decimalPlaces: 2 }));
 console.log(bytes.format(104857, { fixedDecimals: true }));
 console.log(bytes.format(104857, { unitSeparator: '-' }));
+console.log(bytes.format(104857, { unit: 'GB' }));
 console.log(bytes('1024kb'));
 console.log(bytes(1024));
 

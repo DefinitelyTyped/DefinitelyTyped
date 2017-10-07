@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Drive {
@@ -14,8 +14,7 @@ declare namespace GoogleAppsScript {
      *  DriveApp.Access.
      *
      *      // Creates a folder that anyone on the Internet can read from and write to. (Domain
-     *      // administrators can prohibit this setting for users of Google Apps for Business, Google Apps
-     *      // for Education, or Google Apps for Your Domain.)
+     *      // administrators can prohibit this setting for users of a G Suite domain.)
      *      var folder = DriveApp.createFolder('Shared Folder');
      *      folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
      */
@@ -32,8 +31,8 @@ declare namespace GoogleAppsScript {
      *      }
      */
     export interface DriveApp {
-      Access: Access
-      Permission: Permission
+      Access: typeof Access;
+      Permission: typeof Permission;
       addFile(child: File): Folder;
       addFolder(child: Folder): Folder;
       continueFileIterator(continuationToken: string): FileIterator;
@@ -234,12 +233,11 @@ declare namespace GoogleAppsScript {
      *  DriveApp.Permission.
      *
      *      // Creates a folder that anyone on the Internet can read from and write to. (Domain
-     *      // administrators can prohibit this setting for users of Google Apps for Business, Google Apps
-     *      // for Education, or Google Apps for Your Domain.)
+     *      // administrators can prohibit this setting for users of a G Suite domain.)
      *      var folder = DriveApp.createFolder('Shared Folder');
      *      folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
      */
-    export enum Permission { VIEW, EDIT, COMMENT, OWNER, NONE }
+    export enum Permission { VIEW, EDIT, COMMENT, OWNER, ORGANIZER, NONE }
 
     /**
      * A user associated with a file in Google Drive. Users can be accessed from

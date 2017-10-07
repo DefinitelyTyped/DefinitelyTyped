@@ -306,3 +306,5 @@ $.parseHTML(html, null, true);
  * Not in doc
  */
 $el.toArray();
+
+cheerio.html($el);

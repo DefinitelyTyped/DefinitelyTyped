@@ -1,7 +1,5 @@
-/// <reference types="node" />
-
-import assert = require('assert');
 import extend = require('extend');
+declare function assert(cond: boolean): void;
 
 var objectBase = {
     test: 'base'

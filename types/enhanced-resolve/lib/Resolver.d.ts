@@ -2,7 +2,6 @@
 import Tapable = require('tapable');
 import {
     ResolveParseResult,
-    ResolveResult,
     ResolverRequest,
     LoggingCallbackWrapper,
     AbstractInputFileSystem,
@@ -14,7 +13,7 @@ declare class Resolver extends Tapable {
 
     constructor(fileSystem: AbstractInputFileSystem);
 
-    resolveSync(context: ResolveContext, path: string, request: string): ResolveResult;
+    resolveSync(context: ResolveContext, path: string, request: string): string;
 
     resolve(context: ResolveContext, path: string, request: string, callback: LoggingCallbackWrapper): any;
 

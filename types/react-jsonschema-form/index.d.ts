@@ -2,7 +2,7 @@
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>, Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
@@ -22,6 +22,7 @@ declare module "react-jsonschema-form" {
         onSubmit?: (e: any) => any;
         liveValidate?: boolean;
         safeRenderCompletion?: boolean;
+        FieldTemplate?: any;
     }
 
     export interface IChangeEvent {
@@ -33,5 +34,5 @@ declare module "react-jsonschema-form" {
         status: string;
     }
 
-    export default class Form extends React.Component<FormProps, any> {}
+    export default class Form extends React.Component<FormProps> {}
 }

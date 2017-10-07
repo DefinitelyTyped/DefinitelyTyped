@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Slider from 'rc-slider';
-import { Range, Handle } from 'rc-slider';
+import Slider, { Range, Handle } from 'rc-slider';
 
 ReactDOM.render(
     <Slider defaultValue={1} max={2} step={0.01} min={0.01} />,

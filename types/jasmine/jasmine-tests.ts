@@ -112,6 +112,13 @@ describe("Included matchers:", () => {
         expect(a).not.toContain("quux");
     });
 
+    it("The 'toContain' matcher is also for finding an object containing distinct properties in an Array", () => {
+        var a = [{ a: "foo" }, { a: "bar" }, { b: "baz" }];
+
+        expect(a).toContain(jasmine.objectContaining({ a: "foo" }));
+        expect(a).not.toContain({ a: "quux" });
+    });
+
     it("The 'toBeLessThan' matcher is for mathematical comparisons", () => {
         var pi = 3.1415926,
             e = 2.78;
@@ -263,19 +270,24 @@ describe("Pending specs", () => {
 });
 
 describe("A spy", () => {
-    var foo: any, bar: any = null;
+    var foo: any, bar: any, baz: any = null;
 
     beforeEach(() => {
         foo = {
             setBar: (value: any) => {
                 bar = value;
+            },
+            setBaz: (value: any) => {
+                baz = value;
             }
         };
 
         spyOn(foo, 'setBar');
+        spyOn(foo, 'setBaz');
 
         foo.setBar(123);
         foo.setBar(456, 'another param');
+        foo.setBaz(789);
     });
 
     it("tracks that the spy was called", () => {
@@ -285,6 +297,10 @@ describe("A spy", () => {
     it("tracks all the arguments of its calls", () => {
         expect(foo.setBar).toHaveBeenCalledWith(123);
         expect(foo.setBar).toHaveBeenCalledWith(456, 'another param');
+    });
+
+    it("tracks the order in which spies were called", () => {
+        expect(foo.setBar).toHaveBeenCalledBefore(foo.setBaz);
     });
 
     it("stops all execution on a function", () => {
@@ -616,9 +632,14 @@ describe("A spy, when created manually", () => {
 
 describe("Multiple spies, when created manually", () => {
     var tape: any;
+    var el: jasmine.SpyObj<Element>;
 
     beforeEach(() => {
         tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+        el = jasmine.createSpyObj<Element>('Element', ['hasAttribute']);
+
+        el.hasAttribute.and.returnValue(false);
+        el.hasAttribute("href");
 
         tape.play();
         tape.pause();
@@ -648,6 +669,25 @@ describe("jasmine.any", () => {
     it("matches any value", () => {
         expect({}).toEqual(jasmine.any(Object));
         expect(12).toEqual(jasmine.any(Number));
+    });
+
+    it("matches any function", () => {
+        interface Test {
+            fn1(): void;
+            fn2(param1: number): number;
+        }
+
+        const a: Test = {
+            fn1: () => { },
+            fn2: (param1: number) => { return param1; },
+        };
+
+        const expected: Test = {
+            fn1: jasmine.any(Function),
+            fn2: jasmine.any(Function),
+        };
+
+        expect(a).toEqual(expected);
     });
 
     describe("when used with a spy", () => {
@@ -841,7 +881,7 @@ describe("Fail", () => {
 
 // test based on http://jasmine.github.io/2.2/custom_equality.html
 describe("custom equality", () => {
-    var myCustomEquality: jasmine.CustomEqualityTester = function(first: any, second: any): boolean {
+    var myCustomEquality: jasmine.CustomEqualityTester = function (first: any, second: any): boolean | void {
         if (typeof first === "string" && typeof second === "string") {
             return first[0] === second[1];
         }
@@ -980,6 +1020,54 @@ describe("Randomize Tests", () => {
             env.randomizeTests(true);
             return env.seed(1234);
         }).not.toThrow();
+    });
+});
+
+//dest spces copied from jasmine project (https://github.com/jasmine/jasmine/blob/master/spec/core/SpecSpec.js)
+describe("createSpyObj", function () {
+    it("should create an object with spy methods and corresponding return values when you call jasmine.createSpyObj() with an object", function () {
+        var spyObj = jasmine.createSpyObj('BaseName', { 'method1': 42, 'method2': 'special sauce' });
+
+        expect(spyObj.method1()).toEqual(42);
+        expect(spyObj.method1.and.identity()).toEqual('BaseName.method1');
+
+        expect(spyObj.method2()).toEqual('special sauce');
+        expect(spyObj.method2.and.identity()).toEqual('BaseName.method2');
+    });
+
+
+    it("should create an object with a bunch of spy methods when you call jasmine.createSpyObj()", function () {
+        var spyObj = jasmine.createSpyObj('BaseName', ['method1', 'method2']);
+
+        expect(spyObj).toEqual({ method1: jasmine.any(Function), method2: jasmine.any(Function) });
+        expect(spyObj.method1.and.identity()).toEqual('BaseName.method1');
+        expect(spyObj.method2.and.identity()).toEqual('BaseName.method2');
+    });
+
+    it("should allow you to omit the baseName", function () {
+        var spyObj = jasmine.createSpyObj(['method1', 'method2']);
+
+        expect(spyObj).toEqual({ method1: jasmine.any(Function), method2: jasmine.any(Function) });
+        expect(spyObj.method1.and.identity()).toEqual('unknown.method1');
+        expect(spyObj.method2.and.identity()).toEqual('unknown.method2');
+    });
+
+    it("should throw if you do not pass an array or object argument", function () {
+        expect(function () {
+            jasmine.createSpyObj('BaseName');
+        }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
+    });
+
+    it("should throw if you pass an empty array argument", function () {
+        expect(function () {
+            jasmine.createSpyObj('BaseName', []);
+        }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
+    });
+
+    it("should throw if you pass an empty object argument", function () {
+        expect(function () {
+            jasmine.createSpyObj('BaseName', {});
+        }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
     });
 });
 

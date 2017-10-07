@@ -1,5 +1,5 @@
 import * as m from 'mithril';
-import {ClassComponent, Vnode, CVnode, CVnodeDOM} from 'mithril';
+import { ClassComponent, Vnode, CVnode, CVnodeDOM } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
