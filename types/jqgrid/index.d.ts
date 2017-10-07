@@ -1,6 +1,7 @@
 // Type definitions for jQuery jqgrid Plugin 1.3
 // Project: https://github.com/tonytomov/jqGrid
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta>
+//                 xiao liu <https://github.com/LiuXiao617111>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -103,6 +104,38 @@ interface JQueryJqGridColumn {
      * Set the initial width of the column, in pixels. This value currently can not be set as percentage
      */
     width?: number;
+
+    /**
+     * If set to true this option does not allow recalculation of the width of the column if shrinkToFit option is set to true. 
+     * Also the width does not change if a setGridWidth method is used to change the grid width.
+     */
+    fixed?: boolean;
+    
+    resize?: boolean;
+
+    /**
+     * Used when datatype is local. Defines the type of the column for appropriate sorting.Possible values: 
+     * int/integer - for sorting integer 
+     * float/number/currency - for sorting decimal numbers 
+     * date - for sorting date 
+     * text - for text sorting 
+     * function - defines a custom function for sorting. To this function we pass the value to be sorted and it should return a value too. 
+     * See Array Data
+     */
+    sorttype?: string;
+
+    /**
+     * http://www.trirand.com/jqgridwiki/doku.php?id=wiki:predefined_formatter
+     */
+    formatoptions?: any;
+    /**
+     * Custom function to “unformat” a value of the cell when used in editing See Custom Formatter. 
+     * (Unformat is also called during sort operations. The value returned by unformat is the value compared during the sort.)
+     */
+    unformat?: Function;
+
+    editoptions?: any;
+    edittype?: any;
 }
 
 interface IJqGridJsonReader {
@@ -337,6 +370,55 @@ interface JQueryJqGridOptions {
      * @returns {} 
      */
     onSelectRow?: (id: string, status: any, e: Event) => void;
+
+    /**
+     * Set a zebra-striped grid (alternate rows have different styles)
+     */
+    altRows?: boolean;
+    /**
+     * If set to true this enables using a sub-grid. If the subGrid option is enabled,
+     * an additional column at left side is added to the basic grid. 
+     * This column contains a 'plus' image which indicates that the user can click on it to expand the row. 
+     * By default all rows are collapsed. See Subgrid
+     */
+    subGrid?: boolean;
+    /**
+     * A set of additional options for the subgrid. For more information and default values see Subgrid.
+     */
+    subGridOptions?: SubGridOptions;
+    subGridModel?: Array<any>;
+    subGridUrl?: string;
+    /**
+     * This event is executed immediately after every server request. 
+     * data Data from the response depending on datatype grid parameter
+     */
+    loadComplete?: Function;
+
+    /**
+     * This event is raised when the subgrid is enabled and is executed when the user clicks 
+     * on the plus icon of the grid. Can be used to put custom data in the subgrid.
+     */
+    subGridRowExpanded?: Function | any;
+
+    /**
+     * Defines the url for inline and form editing. 
+     * May be set to clientArray to manually post data to server, see Inline Editing.
+     */
+    editurl?: string;
+
+    loadloadComplete? :Function | any;
+}
+
+/**
+ * A set of options for the subgrid. Below are all the options with their default values 
+ */
+interface SubGridOptions {
+    plusicon?: string;
+    minusicon?: string;
+    openicon?: string;
+    expandOnLoad?: boolean;
+    selectOnExpand?: boolean;
+    reloadOnExpand?: boolean;
 }
 
 interface JQueryJqGridStatic {
@@ -345,6 +427,7 @@ interface JQueryJqGridStatic {
     (gridName: string, propName: string): any;
     (gridName: string, obj: any): any;
     (gridName: string, id: any, colname: any): any;
+    (gridName: string, id: any, ...restOfName: any[]): any;
     (options: JQueryJqGridOptions): JQuery;
 }
 
