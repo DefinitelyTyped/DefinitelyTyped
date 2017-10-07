@@ -283,7 +283,7 @@ declare namespace karma {
          * @default [{type: 'console'}]
          * @description A list of log appenders to be used. See the documentation for [log4js] for more information.
          */
-        loggers?: log4js.AppenderConfigBase[];
+        loggers?: log4js.Logger[];
         /**
          * @default {}
          * @description Redefine default mapping from file extensions to MIME-type.
