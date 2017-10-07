@@ -13,7 +13,8 @@
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",

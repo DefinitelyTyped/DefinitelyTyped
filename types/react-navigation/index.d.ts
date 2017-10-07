@@ -539,9 +539,9 @@ export const DrawerItems: React.ComponentClass<any>;
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
-  drawerWidth: number;
-  drawerPosition: 'left' | 'right';
-  contentComponent: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
+  drawerWidth?: number;
+  drawerPosition?: 'left' | 'right';
+  contentComponent?: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
   contentOptions?: any;
   style?: StyleProp<ViewStyle>;
 }

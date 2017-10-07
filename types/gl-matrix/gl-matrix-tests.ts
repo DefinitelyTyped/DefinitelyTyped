@@ -267,6 +267,7 @@ outMat3 = mat3.multiplyScalar (outMat3, mat3A, 2);
 outMat3 = mat3.multiplyScalarAndAdd (outMat3, mat3A, mat3B, 2);
 outBool = mat3.exactEquals(mat3A, mat3B);
 outBool = mat3.equals(mat3A, mat3B);
+outMat3 = mat3.projection(outMat3, 100, 100);
 
 //mat4
 outMat4 = mat4.create();
