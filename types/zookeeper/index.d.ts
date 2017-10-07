@@ -2,11 +2,11 @@
 // Project: https://github.com/yfinkelstein/node-zookeeper#readme
 // Definitions by: xialeistudio <https://github.com/xialeistudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.1
 /// <reference types="node" />
-// log levels
 
-// struct definition
+type ACL = number | { perms: number, scheme: string, auth: string };
+
 interface Stat {
     czxid: number;
     mzxid: number;
@@ -29,7 +29,6 @@ interface ConnectionOptions {
     debug_level?: number;
 }
 
-// callback definition
 type path_callback = (rc?: number, error?: string, path?: string) => void;
 type stat_callback = (rc?: number, error?: string, stat?: Stat) => void;
 type data_callback = (rc?: number, error?: string, data?: Buffer | string) => void;
@@ -37,13 +36,11 @@ type child_callback = (rc?: number, error?: string, children?: string[]) => void
 type child2_callback = (rc?: number, error?: string, children?: string[], stat?: Stat) => void;
 type void_callback = (rc?: number, error?: string) => void;
 type watch_callback = (type?: number, state?: number, path?: string) => void;
-type acl_callback = (rc?: number, error?: string, acl?: ({ perms: number; scheme: string; auth: string; } | number)[], stat?: Stat) => void;
+type acl_callback = (rc?: number, error?: string, acl?: ACL[], stat?: Stat) => void;
 
-// function definitions
 export = Zookeeper;
 
 declare class Zookeeper extends Client {
-
     constructor(options: ConnectionOptions);
 
     connect(callback: (e: Error | null, client: Client) => void): void;
@@ -74,7 +71,7 @@ declare class Client {
 
     a_delete_(path: string, version: number, callback: void_callback): void;
 
-    a_set_acl(path: string, version: number, acl: ({ perms: number; scheme: string; auth: string; } | number)[], callback: void_callback): void;
+    a_set_acl(path: string, version: number, acl: ACL[], callback: void_callback): void;
 
     a_get_acl(path: string, callback: acl_callback): void;
 
@@ -91,22 +88,21 @@ declare class Client {
 
 declare namespace Zookeeper {
     // log levels
-    export const ZOO_LOG_LEVEL_ERROR = 1;
-    export const ZOO_LOG_LEVEL_WARN = 2;
-    export const ZOO_LOG_LEVEL_INFO = 3;
-    export const ZOO_LOG_LEVEL_DEBUG = 4;
+    const ZOO_LOG_LEVEL_ERROR = 1;
+    const ZOO_LOG_LEVEL_WARN = 2;
+    const ZOO_LOG_LEVEL_INFO = 3;
+    const ZOO_LOG_LEVEL_DEBUG = 4;
     // acl permissions
-    export const ZOO_OPEN_ACL_UNSAFE: number;
-    export const ZOO_READ_ACL_UNSAFE: number;
-    export const ZOO_CREATOR_ALL_ACL: number;
-    export const ZOO_PERM_READ = 1;
-    export const ZOO_PERM_WRITE = 2;
-    export const ZOO_PERM_CREATE = 4;
-    export const ZOO_PERM_DELETE = 8;
-    export const ZOO_PERM_ADMIN = 16;
-    export const ZOO_PERM_ALL = 31;
-
+    const ZOO_OPEN_ACL_UNSAFE: number;
+    const ZOO_READ_ACL_UNSAFE: number;
+    const ZOO_CREATOR_ALL_ACL: number;
+    const ZOO_PERM_READ = 1;
+    const ZOO_PERM_WRITE = 2;
+    const ZOO_PERM_CREATE = 4;
+    const ZOO_PERM_DELETE = 8;
+    const ZOO_PERM_ADMIN = 16;
+    const ZOO_PERM_ALL = 31;
     // Dunno
-    export const ZOO_EPHEMERAL = 1;
-    export const ZOO_SEQUENCE = 2;
+    const ZOO_EPHEMERAL = 1;
+    const ZOO_SEQUENCE = 2;
 }
