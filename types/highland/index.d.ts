@@ -73,7 +73,7 @@ interface HighlandStatic {
 	 */
 	<R>(): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
-	<R>(xs: (push: (err: Error, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
+	<R>(xs: (push: (err: Error | null, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
 	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
@@ -561,7 +561,7 @@ declare namespace Highland {
 		 * @param {Function} f - the function to handle errors and values
 		 * @api public
 		 */
-		consume<U>(f: (err: Error, x: R, push: (err: Error, value?: U) => void, next: () => void) => void): Stream<U>;
+		consume<U>(f: (err: Error, x: R, push: (err: Error | null, value?: U) => void, next: () => void) => void): Stream<U>;
 
 		/**
 		 * Holds off pushing data events downstream until there has been no more
@@ -626,7 +626,7 @@ declare namespace Highland {
 		 * @param {Function} f - the function to pass all errors to
 		 * @api public
 		 */
-		errors(f: (err: Error, push: (err: Error, x?: R) => void) => void): Stream<R>;
+		errors(f: (err: Error, push: (err: Error | null, x?: R) => void) => void): Stream<R>;
 
 		/**
 		 * Creates a new Stream including only the values which pass a truth test.
