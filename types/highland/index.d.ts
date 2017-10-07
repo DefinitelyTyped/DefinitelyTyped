@@ -1243,6 +1243,29 @@ declare namespace Highland {
 		 * });
 		 */
 		toCallback(cb: (err?: Error, x?: R) => void): void;
+
+    /**
+     * Converts the result of a stream to Promise.
+     *
+     * If the stream contains a single value, it will return
+     * with the single item emitted by the stream (if present).
+     * If the stream is empty, `undefined` will be returned.
+     * If an error is encountered in the stream, this function will stop
+     * consumption and call `cb` with the error.
+     * If the stream contains more than one item, it will stop consumption
+     * and reject with an error.
+     *
+     * @id toPromise
+     * @section Consumption
+     * @name Stream.toPromise(PromiseCtor)
+     * @param {Function} PromiseCtor - Promises/A+ compliant constructor
+     * @api public
+     *
+     * _([1, 2, 3, 4]).collect().toPromise(Promise).then(function (result) {
+     *     // parameter result will be [1,2,3,4]
+     * });
+     */
+    toPromise(promiseConstructor: PromiseConstructor): PromiseLike<R>;
 	}
 
 	interface PipeableStream<T, R> extends Stream<R> {}
