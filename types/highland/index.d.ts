@@ -1167,7 +1167,7 @@ declare namespace Highland {
 		 * @param {Function} f - the iterator function
 		 * @api public
 		 */
-		each(f: (x: R) => void): void;
+		each(f: (x: R) => void): Pick<Stream<R>, 'done'>;
 
 		/**
 		 * Pipes a Highland Stream to a [Node Writable Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable)
