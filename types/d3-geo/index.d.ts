@@ -805,56 +805,56 @@ export interface GeoProjection extends GeoStreamWrapper {
      */
     fitSize(size: [number, number], object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
     /**
-     *A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
      *
      * @param width The width of the extent.
      * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
      */
     fitWidth(width: number, object: ExtendedFeature<GeoGeometryObjects, any>): this;
     /**
-     *A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
      *
      * @param width The width of the extent.
      * @param object A GeoJson Geometry Object or GeoSphere object supported by d3-geo (An extension of GeoJSON).
      */
     fitWidth(width: number, object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>): this;
     /**
-     *A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
      *
      * @param width The width of the extent.
      * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
      */
     fitWidth(width: number, object: GeoGeometryObjects): this;
     /**
-     *A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
+     * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
      *
      * @param width The width of the extent.
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
      */
     fitWidth(width: number, object: ExtendedGeometryCollection<GeoGeometryObjects>): this;
     /**
-     *A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
      *
      * @param height The height of the extent.
      * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
      */
     fitHeight(height: number, object: ExtendedFeature<GeoGeometryObjects, any>): this;
     /**
-     *A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
      *
      * @param height The height of the extent.
      * @param object A GeoJson Geometry Object or GeoSphere object supported by d3-geo (An extension of GeoJSON).
      */
     fitHeight(height: number, object: ExtendedFeatureCollection<ExtendedFeature<GeoGeometryObjects, any>>): this;
     /**
-     *A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
      *
      * @param height The height of the extent.
      * @param object A geographic feature supported by d3-geo (An extension of GeoJSON feature).
      */
     fitHeight(height: number, object: GeoGeometryObjects): this;
     /**
-     *A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
+     * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
      *
      * @param height The height of the extent.
      * @param object A geographic geometry collection supported by d3-geo (An extension of GeoJSON geometry collection).
