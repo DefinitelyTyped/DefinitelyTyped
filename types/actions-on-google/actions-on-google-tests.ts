@@ -29,5 +29,5 @@ function testApiAi(request: express.Request, response: express.Response) {
 }
 
 const expressApp = express();
-expressApp.get('/actionssdk', (req, res) => testActionsSdk);
-expressApp.get('/apiai', (req, res) => testApiAi);
+expressApp.get('/actionssdk', testActionsSdk);
+expressApp.get('/apiai', testApiAi);
