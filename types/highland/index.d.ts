@@ -72,6 +72,7 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
+  <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
 	<R>(xs: (push: (err: Error | null, x?: R) => void, next: () => void) => void): Highland.Stream<R>;
 
@@ -1035,7 +1036,7 @@ declare namespace Highland {
 		 * _([txt, md]).merge();
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
-		merge (ys: Stream<Stream<R>>): Stream<R>;
+	  merge(): Stream<R>;
 
 		/**
 		 * Observes a stream, allowing you to handle values as they are emitted, without
