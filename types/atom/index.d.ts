@@ -309,6 +309,27 @@ declare global {
 				/** The number of lines after the matched line to include in the results object. */
 				trailingContextLineCount?: number;
 			}
+
+			interface BuildEnvironment {
+				/** An object responsible for Atom's interaction with the browser process and host OS.
+				 *  Use buildDefaultApplicationDelegate for a default instance.
+				 */
+				applicationDelegate?: object;
+
+				/** A window global. */
+				window?: Window;
+
+				/** A document global. */
+				document?: Document;
+
+				/** A path to the configuration directory (usually ~/.atom). */
+				configDirPath?: string;
+
+				/** A boolean indicating whether the Atom environment should save or load state
+				 *  from the file system. You probably want this to be false.
+				 */
+				enablePersistence?: boolean;
+			}
 		}
 
 		/** The static side to each exported class. Should generally only be used internally. */
@@ -445,6 +466,30 @@ declare global {
 				profileStartup: boolean;
 				resourcePath: string;
 				safeMode: boolean;
+			}
+
+			interface TestRunnerArgs {
+				/** An array of paths to tests to run. Could be paths to files or directories. */
+				testPaths: string[];
+
+				/** A function that can be called to construct an instance of the atom global.
+				 *  No atom global will be explicitly assigned, but you can assign one in your
+				 *  runner if desired.
+				 */
+				buildAtomEnvironment(options: Options.BuildEnvironment): AtomEnvironment;
+
+				/** A function that builds a default instance of the application delegate, suitable
+				 *  to be passed as the applicationDelegate parameter to buildAtomEnvironment.
+				 */
+				buildDefaultApplicationDelegate(): object;
+
+				/** An optional path to a log file to which test output should be logged. */
+				logFile: string;
+
+				/** A boolean indicating whether or not the tests are being run from the command
+				 *  line via atom --test.
+				 */
+				headless: boolean;
 			}
 		}
 
@@ -2234,6 +2279,9 @@ declare global {
 			cancel(): boolean;
 		}
 
+		/** An interface which all custom test runners should implement. */
+		type TestRunner = (params: Structures.TestRunnerArgs) => Promise<number>;
+
 		/** This class represents all essential editing state for a single TextBuffer,
 		 *  including cursor and selection positions, folds, and soft wraps.
 		 */
@@ -3895,6 +3943,7 @@ declare global {
 			type ErrorNotification = AtomCore.Options.ErrorNotification;
 			type Tooltip = AtomCore.Options.Tooltip;
 			type WorkspaceScan = AtomCore.Options.WorkspaceScan;
+			type BuildEnvironment = AtomCore.Options.BuildEnvironment;
 		}
 
 		/** Data structures that are used within classes. */
@@ -3917,6 +3966,7 @@ declare global {
 			type CancellablePromise<T> = AtomCore.Structures.CancellablePromise<T>;
 			type ScandalResult = AtomCore.Structures.ScandalResult;
 			type WindowLoadSettings = AtomCore.Structures.WindowLoadSettings;
+			type TestRunnerArgs = AtomCore.Structures.TestRunnerArgs;
 		}
 
 		// Atom Keymap ============================================================
@@ -4130,6 +4180,9 @@ declare global {
 
 		/** Run a node script in a separate process. */
 		type Task = AtomCore.Task;
+
+		/** An interface which all custom test runners should implement. */
+		type TestRunner = AtomCore.TestRunner;
 
 		/** This class represents all essential editing state for a single TextBuffer,
 		 *  including cursor and selection positions, folds, and soft wraps.
