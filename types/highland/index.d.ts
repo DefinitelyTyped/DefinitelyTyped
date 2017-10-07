@@ -904,6 +904,28 @@ declare namespace Highland {
 		 */
 		throttle(ms: number): Stream<R>;
 
+    /**
+     * Filters out all duplicate values from the stream and keeps only the first
+     * occurence of each value, using === to define equality.
+     *
+     * @id uniq
+     * @section Streams
+     * @name Stream.uniq()
+     * @api public
+     */
+    uniq(): Stream<R>;
+
+    /**
+     * Filters out all duplicate values from the stream and keeps only the first
+     * occurence of each value, using the provided function to define equality.
+     *
+     * @id uniqBy
+     * @section Streams
+     * @name Stream.uniqBy()
+     * @api public
+     */
+    uniqBy(f: (a: R, b: R) => boolean): Stream<R>;
+
 		/**
 		 * A convenient form of filter, which returns all objects from a Stream
 		 * match a set of property values.
