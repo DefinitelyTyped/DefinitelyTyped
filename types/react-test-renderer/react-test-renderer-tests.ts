@@ -65,3 +65,4 @@ const component = React.createElement(TestComponent);
 const shallowRenderer = createRenderer();
 shallowRenderer.render(component);
 shallowRenderer.getRenderOutput();
+shallowRenderer.getMountedInstance();
