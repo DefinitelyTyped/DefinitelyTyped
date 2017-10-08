@@ -1945,7 +1945,7 @@ sub = atom.workspace.onDidStopChangingActivePaneItem((item) => {});
 
 sub = atom.workspace.onDidChangeActiveTextEditor(editor => {
 	if (editor) {
-		editor.alive;
+		editor.id;
 	}
 });
 

@@ -25,6 +25,7 @@
         ],
         // Soon to be defaults.
         "arrow-return-shorthand": [true, "multiline"],
+        "no-any": true,
         "no-floating-promises": true,
         "no-unbound-method": true,
         "no-unsafe-any": true,
