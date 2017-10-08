@@ -2,6 +2,7 @@
 
 
 import * as React from 'react';
+import * as createReactClass from 'create-react-class';
 import { Chip, ChipContact,
     Badge,
     FABButton, Button, IconButton,
@@ -28,7 +29,7 @@ import { Chip, ChipContact,
 // all tests are from the examples provided here: https://tleunen.github.io/react-mdl/
 
 // Badge tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -41,7 +42,7 @@ React.createClass({
                 <Badge text="♥" overlap>
                     <Icon name="account_box" />
                 </Badge>
-                
+
                 {/* Number badge on text */}
                 <Badge text="4">Inbox</Badge>
 
@@ -53,7 +54,7 @@ React.createClass({
 });
 
 // Chip tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -77,11 +78,11 @@ React.createClass({
                 </Chip>
             </div>
         );
-    } 
+    }
 });
 
 // Button tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -164,7 +165,7 @@ React.createClass({
 })
 
 // Card tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -181,7 +182,7 @@ React.createClass({
                         <IconButton name="share" />
                     </CardMenu>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '320px', height: '320px', margin: 'auto'}}>
                     <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>Update</CardTitle>
                     <CardText>
@@ -192,7 +193,7 @@ React.createClass({
                         <Button colored>View Updates</Button>
                     </CardActions>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '256px', height: '256px', background: 'url(http://www.getmdl.io/assets/demos/image_card.jpg) center / cover', margin: 'auto'}}>
                     <CardTitle expand />
                     <CardActions style={{height: '52px', padding: '16px', background: 'rgba(0,0,0,0.2)'}}>
@@ -201,7 +202,7 @@ React.createClass({
                         </span>
                     </CardActions>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '256px', height: '256px', background: '#3E4EB8'}}>
                     <CardTitle expand style={{alignItems: 'flex-start', color: '#fff'}}>
                         <h4 style={{marginTop: '0'}}>
@@ -222,7 +223,7 @@ React.createClass({
 });
 
 // Checkbox tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -235,7 +236,7 @@ React.createClass({
 });
 
 // DataTable tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -307,7 +308,7 @@ React.createClass({
 });
 
 // Dialog tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -324,7 +325,7 @@ React.createClass({
                     </DialogActions>
                     </Dialog>
                 </div>
-                
+
                 <div>
                     <Button colored onClick={this.handleOpenDialog} raised ripple>Show Modal</Button>
                     <Dialog open={this.state.openDialog}>
@@ -338,7 +339,7 @@ React.createClass({
                     </DialogActions>
                     </Dialog>
                 </div>
-                
+
                 <div>
                     <Button colored onClick={this.handleOpenDialog} onAbort={this.handleCloseDialog} raised ripple>Show Dialog</Button>
                     <Dialog open={this.state.openDialog} onAbort={this.handleCloseDialog}>
@@ -358,7 +359,7 @@ React.createClass({
 });
 
 // Grid tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -399,7 +400,7 @@ React.createClass({
 });
 
 // IconToggle tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -412,7 +413,7 @@ React.createClass({
 });
 
 // Layout tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -692,7 +693,7 @@ React.createClass({
 });
 
 // List tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -803,7 +804,7 @@ React.createClass({
 });
 
 // Menu tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -856,7 +857,7 @@ React.createClass({
 });
 
 // ProgressBar tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -874,7 +875,7 @@ React.createClass({
 });
 
 // Radio tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -893,7 +894,7 @@ React.createClass({
 });
 
 // Slider tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -908,7 +909,7 @@ React.createClass({
 });
 
 // Snackbar tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -920,7 +921,7 @@ React.createClass({
                         onTimeout={this.handleTimeoutSnackbar}
                         action="Undo">Button color changed.</Snackbar>
                 </div>
-                
+
                 <div>
                     <Button raised onClick={this.handleShowSnackbar}>Show a Toast</Button>
                     <Snackbar
@@ -935,7 +936,7 @@ React.createClass({
 });
 
 // Spinner tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -950,7 +951,7 @@ React.createClass({
 });
 
 // Switch tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -963,7 +964,7 @@ React.createClass({
 });
 
 // Tab tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -976,14 +977,14 @@ React.createClass({
                     <section>
                         <div className="content">Content for the tab: {this.state.activeTab}</div>
                     </section>
-                </div> 
+                </div>
             </div>
         );
     }
 });
 
 // Textfield tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -1025,7 +1026,7 @@ React.createClass({
 });
 
 // Tooltip tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <div>
@@ -1074,7 +1075,7 @@ React.createClass({
 });
 
 // MDLComponent tests
-React.createClass({
+createReactClass({
     render: function() {
         return (
             <MDLComponent recursive={false}>

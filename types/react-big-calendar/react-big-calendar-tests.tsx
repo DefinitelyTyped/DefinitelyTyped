@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
+import * as createReactClass from "create-react-class";
 import BigCalendar from "react-big-calendar";
 
 // Don't want to add this as a dependency, because it is only used for tests.
@@ -29,7 +30,7 @@ class CalendarEvent {
 }
 
 // Basic Example Test
-const BasicExample = React.createClass({
+const BasicExample = createReactClass({
     render() {
         return (
             <BigCalendar
@@ -45,7 +46,7 @@ console.log('Test Results -> BasicExample', basicExampleHtml);
 
 // Full API Example Test - based on API Documentation
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-const FullAPIExample = React.createClass({
+const FullAPIExample = createReactClass({
     render() {
         return (
             <BigCalendar

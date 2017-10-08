@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as createReactClass from 'create-react-class';
 import Infinite = require('react-infinite');
 
 class Test1 extends React.Component {
@@ -51,7 +52,7 @@ class Test4 extends React.Component {
     }
 }
 
-var ListItem = React.createClass<{key: number; num: number;}, {}>({
+var ListItem = createReactClass<{key: number; num: number;}, {}>({
     render: function() {
         return <div className="infinite-list-item">
         List Item {this.props.num}
@@ -59,7 +60,7 @@ var ListItem = React.createClass<{key: number; num: number;}, {}>({
     }
 });
 
-var InfiniteList = React.createClass({
+var InfiniteList = createReactClass({
     getInitialState: function() {
         return {
             elements: this.buildElements(0, 20),

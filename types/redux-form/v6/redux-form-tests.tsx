@@ -86,7 +86,7 @@ reduxForm({
 // adapted from: http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState/
 
 import { connect, DispatchProp } from 'react-redux'
-const { DOM: { input } } = React
+import { input } from 'react-dom-factories';
 
 interface DataShape {
     firstName: string;

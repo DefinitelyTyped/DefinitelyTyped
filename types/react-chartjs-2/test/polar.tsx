@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as createReactClass from 'create-react-class';
 import { Polar } from 'react-chartjs-2';
 
 const data = {
@@ -28,7 +29,7 @@ const data = {
   ]
 };
 
-export default React.createClass({
+export default createReactClass({
   displayName: 'PolarExample',
 
   render() {

@@ -1,5 +1,7 @@
 import * as angular from "angular";
 import * as React from "react";
+import * as createReactClass from "create-react-class";
+import * as PropTypes from "prop-types";
 import { ReactDirective } from "ngreact";
 
 const app = angular.module("app", ["react"]);
@@ -24,10 +26,10 @@ app.directive('helloComponent', function(reactDirective: ReactDirective, $locati
   return reactDirective(HelloComponent, undefined, {}, { $location });
 });
 
-var HelloComponent = React.createClass({
+var HelloComponent = createReactClass({
   propTypes: {
-    fname : React.PropTypes.string.isRequired,
-    lname : React.PropTypes.string.isRequired
+    fname : PropTypes.string.isRequired,
+    lname : PropTypes.string.isRequired
   },
   render: function() {
     return <span>Hello {this.props.fname} {this.props.lname}</span>;
