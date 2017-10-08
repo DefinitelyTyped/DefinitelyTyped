@@ -1,10 +1,6 @@
-import { ReactElement, ReactInstance } from 'react';
+import { ReactElement } from 'react';
 
 export interface ShallowRenderer {
-    /**
-     * After `shallowRenderer.render()` has been called, returns mounted instance.
-     */
-    getMountedInstance(): ReactInstance;
     /**
      * After `shallowRenderer.render()` has been called, returns shallowly rendered output.
      */
