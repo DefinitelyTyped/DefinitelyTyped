@@ -167,8 +167,6 @@ declare namespace React {
     // Top Level API
     // ----------------------------------------------------------------------
 
-    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
-
     // DOM Elements
     function createFactory<T extends HTMLElement>(
         type: keyof ReactHTML): HTMLFactory<T>;
@@ -260,8 +258,6 @@ declare namespace React {
 
     function isValidElement<P>(object: {}): object is ReactElement<P>;
 
-    const DOM: ReactDOM;
-    const PropTypes: ReactPropTypes;
     const Children: ReactChildren;
     const version: string;
 
