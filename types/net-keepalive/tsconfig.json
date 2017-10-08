@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "module": "commonjs",
-    "typeRoots": [
-      "../"
+    "lib": [
+      "es5"
     ],
-    "strict": true
+    "baseUrl": "../",
+    "typeRoots": ["../"],
+    "types": [],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noEmit": true
   },
   "files": [
     "index.d.ts",
