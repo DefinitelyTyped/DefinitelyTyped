@@ -20,7 +20,8 @@ let options: sanitize.IOptions = {
   },
   allowedSchemesByTag: {
     'a': ['http', 'https']
-  }
+  },
+  allowProtocolRelative: false
 };
 
 let unsafe = '<div><script>alert("hello");</script></div>';
