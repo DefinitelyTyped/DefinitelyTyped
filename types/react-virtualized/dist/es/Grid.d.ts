@@ -126,7 +126,14 @@ export type GridCellRangeProps = {
     rowStartIndex: number,
     rowStopIndex: number,
     scrollLeft: number,
-    scrollTop: number
+    scrollTop: number,
+    deferredMeasurementCache: CellMeasurerCache,
+    horizontalOffsetAdjustment: number,
+    parent: Grid | List | Table,
+    styleCache: Map<React.CSSProperties>,
+    verticalOffsetAdjustment: number,
+    visibleColumnIndices: VisibleCellRange,
+    visibleRowIndices: VisibleCellRange
 }
 export type GridCellRangeRenderer = (params: GridCellRangeProps) => React.ReactNode[];
 
