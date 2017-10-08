@@ -6,7 +6,6 @@
         "class-name": true,
         "indent": [true, "tabs"],
         "jsdoc-format": true,
-        "linebreak-style": [true, "LF"],
         "max-line-length": [true, 100],
         "no-any": false,
         "quotemark": [true, "double", "avoid-escape"],
