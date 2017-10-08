@@ -130,6 +130,11 @@ declare namespace ReactGridLayout {
          * If true, the layout will compact vertically.
          */
         verticalCompact?: boolean;
+        
+        /**
+         * Compaction type.
+         */
+        compactType?: "vertical" | "horizontal";
 
         /**
          * This allows setting the initial width on the server side.
