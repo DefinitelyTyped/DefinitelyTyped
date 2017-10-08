@@ -2,7 +2,7 @@
 
 /// <reference types="node" />
 
-import * as sequencify from 'sequencify';
+import sequencify = require('sequencify');
 
 const items: sequencify.TaskMap = {
     a: {
