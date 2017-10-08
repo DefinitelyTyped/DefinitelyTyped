@@ -1,0 +1,16 @@
+$('#jqGrid').checkbox("");
+$('#jqGrid').combobox("");
+$('#jqGrid').datepicker("");
+$('#jqGrid').infinitescroll("");
+$('#jqGrid').loader("");
+$('#jqGrid').pillbox("");
+$('#jqGrid').placard("");
+$('#jqGrid').radio("");
+$('#jqGrid').repeater("");
+$('#jqGrid').scheduler("");
+$('#jqGrid').search("");
+$('#jqGrid').selectlist("");
+$('#jqGrid').spinbox("");
+$('#jqGrid').tree("");
+$('#jqGrid').ace_tree("");
+$('#jqGrid').wizard("");
