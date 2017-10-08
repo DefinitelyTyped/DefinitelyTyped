@@ -1935,7 +1935,7 @@ declare namespace google.maps {
     }
 
     /***** Street View *****/
-    export class StreetViewPanorama {
+    export class StreetViewPanorama extends MVCObject {
         constructor(container: Element, opts?: StreetViewPanoramaOptions);
         controls: MVCArray<Node>[];
         getLinks(): StreetViewLink[];
