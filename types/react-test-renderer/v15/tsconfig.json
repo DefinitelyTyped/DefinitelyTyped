@@ -5,13 +5,21 @@
             "es6",
             "dom"
         ],
+        "paths": {
+            "react": [
+                "react/v15"
+            ],
+            "react-test-renderer": [
+                "react-test-renderer/v15"
+            ]
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
