@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../",
+    "typeRoots": ["../"],
+    "types": [],
+    "module": "commonjs",
+    "lib": ["es6", "dom"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
+  },
+  "files": [
+    "index.d.ts",
+    "enzyme-adapter-react-15-tests.ts"
+  ]
+}
