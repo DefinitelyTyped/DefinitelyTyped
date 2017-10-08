@@ -11,32 +11,29 @@ import { ascending } from 'd3-array';
 
 // Preparatory steps --------------------------------------------------------------
 
-let keyValueObj = {
+const keyValueObj = {
     a: 'test',
     b: 123,
     c: [true, true, false]
 };
 
-let keyValueObj2 = {
+const keyValueObj2 = {
     a: 'test',
     b: 'same',
     c: 'type'
 };
 
-let stringArray: string[],
-    anyArray: any[],
-    stringKVArray: Array<{ key: string, value: string }>,
-    anyKVArray: Array<{ key: string, value: any }>;
-
+let stringArray: string[];
+let anyArray: any[];
+let stringKVArray: Array<{ key: string, value: string }>;
+let anyKVArray: Array<{ key: string, value: any }>;
 
 let num: number;
-let str: string;
 let booleanFlag: boolean;
 
 // ---------------------------------------------------------------------
 // Test Objects
 // ---------------------------------------------------------------------
-
 
 // test keys(...) signatures ------------------------------------------------------
 
@@ -74,7 +71,7 @@ interface TestObject {
 }
 
 let testObject: TestObject;
-let testObjArray: Array<TestObject>;
+let testObjArray: TestObject[];
 let testObjKVArray: Array<{ key: string, value: TestObject }>;
 
 // Create Map ========================================================
@@ -87,7 +84,7 @@ basicMap = d3Collection.map(['foo', 'bar']); // map with key-value pairs { '0': 
 
 // from array with accessor
 let testObjMap: d3Collection.Map<TestObject>;
-testObjMap = d3Collection.map<TestObject>([{ name: 'foo', val: 10 }, { name: 'bar', val: 42 }], function (value, i, array) {
+testObjMap = d3Collection.map<TestObject>([{ name: 'foo', val: 10 }, { name: 'bar', val: 42 }], (value, i, array) => {
     return value.name;
 });
 
@@ -101,7 +98,6 @@ objectMap = d3Collection.map(keyValueObj);
 
 let objectMap2: d3Collection.Map<string>;
 objectMap2 = d3Collection.map(keyValueObj2);
-
 
 // Use Map ===========================================================
 
@@ -133,17 +129,16 @@ stringArray = testObjMap.keys();
 
 testObjArray = testObjMap.values();
 
-
 // entries() -----------------------------------------------------------
 
 testObjKVArray = testObjMap.entries();
 
 // each() --------------------------------------------------------------
 
-testObjMap.each(function (value, key, map) {
-    let v: TestObject = value;
-    let k: string = key;
-    let m: d3Collection.Map<TestObject> = map;
+testObjMap.each((value, key, map) => {
+    const v: TestObject = value;
+    const k: string = key;
+    const m: d3Collection.Map<TestObject> = map;
     console.log(v.val);
 });
 
@@ -172,10 +167,10 @@ basicSet = d3Collection.set(); // empty set
 basicSet = d3Collection.set(['foo', 'bar', 42]); // last element is coerced
 
 // from array without accessor
-basicSet = d3Collection.set(testObjArray, function (value, index, array) {
-    let v: TestObject = value;
-    let i: number = index;
-    let a: Array<TestObject> = array;
+basicSet = d3Collection.set(testObjArray, (value, index, array) => {
+    const v: TestObject = value;
+    const i: number = index;
+    const a: TestObject[] = array;
     return v.name;
 });
 
@@ -211,10 +206,10 @@ stringArray = basicSet.values();
 
 // each() --------------------------------------------------------------
 
-basicSet.each(function (value, valueRepeat, set) {
-    let v: string = value;
-    let vr: string = valueRepeat;
-    let s: d3Collection.Set = set;
+basicSet.each((value, valueRepeat, set) => {
+    const v: string = value;
+    const vr: string = valueRepeat;
+    const s: d3Collection.Set = set;
     console.log(v);
 });
 
@@ -225,7 +220,6 @@ booleanFlag = basicSet.empty();
 // size() --------------------------------------------------------------
 
 num = basicSet.size();
-
 
 // ---------------------------------------------------------------------
 // nest / Nest
@@ -238,7 +232,7 @@ interface Yield {
     site: string;
 }
 
-let raw: Array<Yield> = [
+const raw: Yield[] = [
     { yield: 27.00, variety: 'Manchuria', year: 1931, site: 'University Farm' },
     { yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca' },
     { yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris' },
@@ -259,52 +253,49 @@ nestL2 = d3Collection.nest<Yield>();
 let nestL1Rollup: d3Collection.Nest<Yield, number>;
 nestL1Rollup = d3Collection.nest<Yield, number>();
 
-
 // Configure Nest =====================================================
 
 // key(...) and sortKeys(...) -----------------------------------------
 
 nestL2 = nestL2
-    .key(function (d) {
+    .key(d => {
         return d.year.toString();
     });
 
 // with 2nd key with sortkey(...)
 nestL2 = nestL2
-    .key(function (d) {
+    .key(d => {
         return d.variety;
     })
     .sortKeys(ascending);
 
 nestL1Rollup = nestL1Rollup
-    .key(function (d) {
+    .key(d => {
         return d.year.toString();
     });
 
 // sortValues(...) ----------------------------------------------------
 
 nestL2 = nestL2
-    .sortValues(function (a, b) {
-        let val1: Yield = a; // data type Yield
-        let val2: Yield = b; // data type Yield
+    .sortValues((a, b) => {
+        const val1: Yield = a; // data type Yield
+        const val2: Yield = b; // data type Yield
         return a.yield - b.yield;
     });
-
 
 // rollup(...) --------------------------------------------------------
 
 nestL1Rollup = nestL1Rollup
-    .rollup(function (values) {
-        let vs: Array<Yield> = values; // correct data array type
+    .rollup(values => {
+        const vs: Yield[] = values; // correct data array type
         return vs.length;
     });
 
 // Use Nest ===========================================================
 
-
 // map(...) -----------------------------------------------------------
 
-type TestL2NestedMap = d3Collection.Map<d3Collection.Map<Array<Yield>>>;
+type TestL2NestedMap = d3Collection.Map<d3Collection.Map<Yield[]>>;
 
 type TestL1NestedMapRollup = d3Collection.Map<number>;
 
@@ -323,7 +314,7 @@ num = testL1NestedMapRollup.get('1931'); // get rollup value
 
 interface TestL2NestedObject {
     [keyL1: string]: {
-        [keyL2: string]: Array<Yield>;
+        [keyL2: string]: Yield[];
     };
 }
 
@@ -348,14 +339,14 @@ type TestL2NestedArray = Array<{
     key: string;
     values: Array<{
         key: string;
-        values: Array<Yield>;
+        values: Yield[];
     }>
-}>
+}>;
 
 type TestL1NestedArrayRollup = Array<{
     key: string;
     value: number;
-}>
+}>;
 
 let testL2NestedArray: TestL2NestedArray;
 let testL1NestedArrayRollup: TestL1NestedArrayRollup;

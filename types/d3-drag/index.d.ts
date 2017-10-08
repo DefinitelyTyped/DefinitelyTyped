@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-drag module 1.0
+// Type definitions for D3JS d3-drag module 1.1
 // Project: https://github.com/d3/d3-drag/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.2
+// Last module patch version validated against: 1.1.0
 
 import { ArrayLike, Selection, ValueFn } from 'd3-selection';
 
@@ -163,6 +163,20 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
      * however, other starting touches may yet start drag gestures.
      */
     subject(accessor: ValueFn<GElement, Datum, Subject>): this;
+
+    /**
+     * Return the current click distance threshold, which defaults to zero.
+     */
+    clickDistance(): number;
+    /**
+     * Set the maximum distance that the mouse can move between mousedown and mouseup that will trigger
+     * a subsequent click event. If at any point between mousedown and mouseup the mouse is greater than or equal to
+     * distance from its position on mousedown, the click event follwing mouseup will be suppressed.
+     *
+     * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
+     * The default is zero.
+     */
+    clickDistance(distance: number): this;
 
     /**
      * Return the first currently-assigned listener matching the specified typenames, if any.

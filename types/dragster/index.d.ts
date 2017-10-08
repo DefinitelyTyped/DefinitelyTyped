@@ -21,3 +21,9 @@ export = Dragster;
 
 // Support as a global
 export as namespace Dragster;
+
+declare global {
+    interface Window {
+        Dragster: Dragster.DragsterStatic;
+    }
+}

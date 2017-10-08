@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {HorizontalBar} from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
 const data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],

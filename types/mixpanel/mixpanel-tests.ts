@@ -32,6 +32,8 @@ function mixpanel_base()
     mixpanel.get_config();
 
     mixpanel.get_property('device');
+
+    mixpanel.reset();
 }
 
 function mixpanel_people()

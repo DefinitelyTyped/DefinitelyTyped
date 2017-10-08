@@ -3,7 +3,7 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="rx-lite"/>
+/// <reference types="rx-lite" />
 
 declare namespace Rx {
     interface Observable<T> {

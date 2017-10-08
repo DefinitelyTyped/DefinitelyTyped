@@ -378,11 +378,11 @@ export interface FS {
     /**
      * Show statistic data of a path.
      * @param  {string} path Target path
-     * @return {RNFetchBlobFile}
+     * @return {RNFetchBlobStat}
      */
-    stat(path: string): Promise<RNFetchBlobFile>;
+    stat(path: string): Promise<RNFetchBlobStat>;
 
-    lstat(path: string): Promise<RNFetchBlobFile[]>;
+    lstat(path: string): Promise<RNFetchBlobStat[]>;
 
     /**
      * Android only method, request media scanner to scan the file.
@@ -568,6 +568,11 @@ export interface RNFetchBlobConfig {
     session?: string;
 
     addAndroidDownloads?: AddAndroidDownloads;
+
+    /**
+     * Fix IOS request timeout issue #368 by change default request setting to defaultSessionConfiguration, and make backgroundSessionConfigurationWithIdentifier optional
+     */
+    IOSBackgroundTask?: boolean;
 }
 
 export interface AddAndroidDownloads {
@@ -618,4 +623,12 @@ export interface RNFetchBlobStream {
 }
 
 export declare class RNFetchBlobFile {
+}
+
+export declare class RNFetchBlobStat {
+    lastModified: string;
+    size: string;
+    type: "directory" | "file";
+    path: string;
+    filename: string;
 }

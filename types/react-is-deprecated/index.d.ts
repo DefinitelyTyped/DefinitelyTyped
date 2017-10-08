@@ -2,7 +2,7 @@
 // Project: https://github.com/Aweary/react-is-deprecated
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'react-is-deprecated' {
   import { Validator, Requireable, ValidationMap, ReactPropTypes } from 'react';

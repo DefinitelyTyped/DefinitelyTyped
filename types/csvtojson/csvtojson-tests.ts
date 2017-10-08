@@ -5,9 +5,21 @@ import fs = require('fs');
 
 /////////////////////////////
 // From CSV String
-const csvStr: string = `1,2,3
+const csvStr = `1,2,3
 4,5,6
 7,8,9`;
+
+// Factory instantiation with options.
+csv({
+    noheader: true,
+    constructResult: false,
+    delimiter: 'auto',
+    checkType: false,
+    trim: true,
+    workerNum: 2,
+    checkColumn: true,
+    maxRowLength: 65535
+});
 
 // event emitter version using factory function
 csv({ noheader: true })

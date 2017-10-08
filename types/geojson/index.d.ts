@@ -1,6 +1,6 @@
 // Type definitions for GeoJSON Format Specification Revision 1.0
 // Project: http://geojson.org/
-// Definitions by: Jacob Bruun <https://github.com/cobster/>
+// Definitions by: Jacob Bruun <https://github.com/cobster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace GeoJSON;
@@ -92,7 +92,7 @@ export interface GeometryCollection extends GeoJsonObject {
 export interface Feature<T extends GeometryObject> extends GeoJsonObject {
     type: 'Feature';
     geometry: T;
-    properties: {} | null;
+    properties: any;
     id?: string;
 }
 

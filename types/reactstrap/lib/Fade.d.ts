@@ -1,8 +1,11 @@
+import { CSSModule } from '../index';
+
 interface Props {
   baseClass?: string;
   baseClassIn?: string;
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
   transitionAppearTimeout?: number;
   transitionEnterTimeout?: number;
   transitionLeaveTimeout?: number;

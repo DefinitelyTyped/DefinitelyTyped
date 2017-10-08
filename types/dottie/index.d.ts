@@ -1,6 +1,6 @@
 // Type definitions for dottie 2.0
 // Project: https://github.com/mickhansen/dottie
-// Definitions by: Dom Armstrong <https://github.com/domarmstrong/>
+// Definitions by: Dom Armstrong <https://github.com/domarmstrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -76,7 +76,7 @@ declare namespace dottie {
          * dottie.get<string>(values, 'some.undefined.key', 'defaultval'); // 'defaultval'
          * dottie.get<string>(values, ['some.dot.included', 'key']); // 'barfoo'
          */
-        get<T>(obj: object, path: DottiePath, defaultValue: T): T;
+        get<T>(obj: object, path: DottiePath, defaultValue?: T): T;
 
         /**
          * Sets nested value, creates nested structure if needed

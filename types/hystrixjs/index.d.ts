@@ -1,6 +1,6 @@
 // Type definitions for dragula v2.1.2
 // Project: https://bitbucket.org/igor_sechyn/hystrixjs
-// Definitions by: Igor Sechyn <https://github.com/igorsechyn/>
+// Definitions by: Igor Sechyn <https://github.com/igorsechyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Q from "q";

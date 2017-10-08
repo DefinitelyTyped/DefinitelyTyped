@@ -2,7 +2,7 @@
 // Project: https://github.com/remojansen/redux-bootstrap
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 import { Middleware, Reducer, Store } from "redux";

@@ -1,6 +1,6 @@
 // Type definitions for fossil-delta 0.2.5
 // Project: https://github.com/dchest/fossil-delta-js
-// Definitions by: Endel Dreyer <https://github.com/endel/>
+// Definitions by: Endel Dreyer <https://github.com/endel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

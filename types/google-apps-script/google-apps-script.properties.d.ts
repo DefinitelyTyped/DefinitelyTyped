@@ -1,9 +1,9 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Properties {
@@ -22,7 +22,7 @@ declare namespace GoogleAppsScript {
       deleteProperty(key: string): Properties;
       getKeys(): String[];
       getProperties(): Object;
-      getProperty(key: string): string;
+      getProperty(key: string): string | null;
       setProperties(properties: Object): Properties;
       setProperties(properties: Object, deleteAllOthers: boolean): Properties;
       setProperty(key: string, value: string): Properties;
@@ -60,7 +60,7 @@ declare namespace GoogleAppsScript {
       deleteProperty(key: string): ScriptProperties;
       getKeys(): String[];
       getProperties(): Object;
-      getProperty(key: string): string;
+      getProperty(key: string): string | null;
       setProperties(properties: Object): ScriptProperties;
       setProperties(properties: Object, deleteAllOthers: boolean): ScriptProperties;
       setProperty(key: string, value: string): ScriptProperties;
@@ -77,7 +77,7 @@ declare namespace GoogleAppsScript {
       deleteProperty(key: string): UserProperties;
       getKeys(): String[];
       getProperties(): Object;
-      getProperty(key: string): string;
+      getProperty(key: string): string | null;
       setProperties(properties: Object): UserProperties;
       setProperties(properties: Object, deleteAllOthers: boolean): UserProperties;
       setProperty(key: string, value: string): UserProperties;

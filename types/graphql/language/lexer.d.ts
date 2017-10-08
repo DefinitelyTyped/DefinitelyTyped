@@ -18,7 +18,7 @@ export function createLexer<TOptions>(
 /**
  * The return type of createLexer.
  */
-export type Lexer<TOptions> = {
+export interface Lexer<TOptions> {
     source: Source;
     options: TOptions;
 
@@ -46,7 +46,7 @@ export type Lexer<TOptions> = {
      * Advances the token stream to the next non-ignored token.
      */
     advance(): Token;
-};
+}
 
 /**
  * An exported enum describing the different kinds of tokens that the

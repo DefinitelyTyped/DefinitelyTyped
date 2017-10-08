@@ -3,7 +3,7 @@ import { Component, CSSProperties } from 'react';
 import { Button } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
-export class ReactRouterBootstrapTest extends Component<any, any> {
+export class ReactRouterBootstrapTest extends Component {
     callback() {
         alert('Callback: ' + JSON.stringify(arguments));
     }
@@ -15,6 +15,7 @@ export class ReactRouterBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                     <LinkContainer to="/page"><Button>Link</Button></LinkContainer>
+                    <LinkContainer to="/page" exact strict><Button>Link</Button></LinkContainer>
                     <IndexLinkContainer to="/index"><Button>Link</Button></IndexLinkContainer>
                 </div>
             </div>

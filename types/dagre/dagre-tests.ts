@@ -1,6 +1,6 @@
 const gDagre = new dagre.graphlib.Graph();
 gDagre.setGraph({})
-  .setDefaultEdgeLabel(() => {})
+  .setDefaultEdgeLabel(() => ({}))
   .setNode("a", {})
   .setEdge("b", "c")
   .setEdge("c", "d", {class: "class"});

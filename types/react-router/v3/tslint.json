@@ -1,1 +1,8 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODO
+        "no-duplicate-imports": false,
+        "no-unnecessary-generics": false
+    }
+}

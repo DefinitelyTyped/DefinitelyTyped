@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
 import {Activity, External, Export} from 'react-bytesize-icons';
 
 render(<Activity/>, document.getElementById('test'));
