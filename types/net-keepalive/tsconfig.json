@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "typeRoots": [
+      "../"
+    ],
+    "strict": true
+  },
+  "files": [
+    "index.d.ts",
+    "net-keepalive-tests.ts"
+  ]
+}
