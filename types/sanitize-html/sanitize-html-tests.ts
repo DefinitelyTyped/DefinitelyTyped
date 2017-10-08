@@ -17,6 +17,9 @@ let options: sanitize.IOptions = {
   },
   exclusiveFilter: function(frame: sanitize.IFrame) {
     return frame.tag === 'a' && !frame.text.trim();
+  },
+  allowedSchemesByTag: {
+    'a': ['http', 'https']
   }
 };
 
