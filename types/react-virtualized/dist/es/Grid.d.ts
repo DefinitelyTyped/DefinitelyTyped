@@ -382,7 +382,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
         onScroll: () => null,
         onSectionRendered: () => null,
         overscanColumnCount: 0,
-        overscanIndicesGetter: OverscanIndicesGetterParams,
+        overscanIndicesGetter: OverscanIndicesGetter,
         overscanRowCount: 10,
         role: 'grid',
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL,
