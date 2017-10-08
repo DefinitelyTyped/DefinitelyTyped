@@ -3,6 +3,8 @@ import { Component } from 'react';
 import { Action } from 'redux';
 import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps, FormAction, actionTypes, reducer } from "redux-form";
 
+ // TODO: tests fail in TypeScript@next when strictFunctionTypes=true
+
 interface CustomComponentProps {
     customProp: string;
 }
