@@ -1,4 +1,4 @@
-// Type definitions for nsqjs 0.8.4
+// Type definitions for nsqjs 0.9.2
 // Project: https://github.com/dudleycarr/nsqjs
 // Definitions by: Robert Kania <https://github.com/cezaryrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -48,6 +48,8 @@ declare namespace nsqjs {
 
         respond(responseType: RESPONSE_TYPE, wireData: any): any;
 
+        on(event: "backoff", listener: () => void): this;
+        on(event: "respond", listener: (responseType: number, wireData: Buffer) => void): this;
     }
 
     export class Writer extends events.EventEmitter {
@@ -67,12 +69,9 @@ declare namespace nsqjs {
 
         close(): any;
 
-        on(event: string, listener: Function): this;
-        on(event: "ready", listener: () => void): void;
-        on(event: "closed", listener: () => void): void;
-        on(event: "error", listener: (err: Error) => void): void;
-        on(event: "connection_error", listener: (err: Error) => void): void;
-
+        on(event: "ready", listener: () => void): this;
+        on(event: "closed", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
     }
 
     export class Reader extends events.EventEmitter {
@@ -101,15 +100,11 @@ declare namespace nsqjs {
 
         handleMessage(message: any): any;
 
-        on(event: string, listener: Function): this;
-        on(event: "nsqd_connected", listener: (host: string, port: number) => void): void;
-        on(event: "nsqd_closed", listener: (host: string, port: number) => void): void;
-        on(event: "message", listener: (message: Message) => void): void;
-        on(event: "discard", listener: (message: Message) => void): void;
-        on(event: "error", listener: (err: Error) => void): void;
-        on(event: "connection_error", listener: (err: Error) => void): void;
-
-
+        on(event: "nsqd_connected", listener: (host: string, port: number) => void): this;
+        on(event: "nsqd_closed", listener: (host: string, port: number) => void): this;
+        on(event: "message", listener: (message: Message) => void): this;
+        on(event: "discard", listener: (message: Message) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
     }
 
 
