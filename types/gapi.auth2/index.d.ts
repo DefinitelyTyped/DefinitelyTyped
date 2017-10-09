@@ -201,6 +201,7 @@ declare namespace gapi.auth2 {
   interface AuthorizeConfig {
     client_id: string;
     scope: string;
+    authuser?: string;
     response_type?: string;
     prompt?: string;
     cookie_policy?: string;
