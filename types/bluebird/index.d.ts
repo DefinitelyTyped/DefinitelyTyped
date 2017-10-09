@@ -1,4 +1,4 @@
-// Type definitions for bluebird 3.5.0
+// Type definitions for bluebird 3.5
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1006,7 +1006,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
    * If promise cancellation is enabled, passed in function will receive one more function argument `onCancel` that allows to register an optional cancellation callback.
    */
-  static Promise: typeof Bluebird
+  static Promise: typeof Bluebird;
 
   /**
    * The version number of the library
@@ -1030,12 +1030,12 @@ declare namespace Bluebird {
   }
   export interface PromisifyAllOptions extends PromisifyOptions {
     suffix?: string;
-    filter?: (name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean) => boolean;
+    filter?(name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean): boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
-    promisifier?: (originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>) => () => PromiseLike<any>;
+    promisifier?(originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>): () => PromiseLike<any>;
   }
   export interface CoroutineOptions {
-    yieldHandler: (value: any) => any;
+    yieldHandler(value: any): any;
   }
 
   /**
@@ -1088,7 +1088,6 @@ declare namespace Bluebird {
     reverse(): AggregateError;
   }
 
-
   /**
    * returned by `Bluebird.disposer()`.
    */
@@ -1123,7 +1122,7 @@ declare namespace Bluebird {
      * If the the callback is called with multiple success values, the resolver fullfills its promise with an array of the values.
      */
     // TODO specify resolver callback
-    callback: (err: any, value: R, ...values: R[]) => void;
+    callback(err: any, value: R, ...values: R[]): void;
   }
 
   export interface Inspection<R> {
