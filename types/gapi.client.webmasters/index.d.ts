@@ -442,7 +442,7 @@ declare namespace gapi.client {
                 siteUrl: string;
                 /**
                  * The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL
-                 * https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename
+                 * https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename
                  */
                 url: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
@@ -499,7 +499,7 @@ declare namespace gapi.client {
                 siteUrl: string;
                 /**
                  * The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL
-                 * https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename
+                 * https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename
                  */
                 url: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
