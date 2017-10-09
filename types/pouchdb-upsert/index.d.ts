@@ -2,7 +2,7 @@
 // Project: https://github.com/pouchdb/upsert
 // Definitions by: Keith D. Moore <https://github.com/keithdmoore>, Andrew Mitchell <https://github.com/hotforfeature>, Eddie Hsu <https://github.com/apolkingg8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5.3
+// TypeScript Version: 2.5
 
 /// <reference types="pouchdb-core" />
 
