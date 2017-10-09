@@ -3,8 +3,6 @@
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>, Izayoi Ko <https://github.com/izayoiko>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
-
 import * as Koa from "koa";
 
 export = cors;
