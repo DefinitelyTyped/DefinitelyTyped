@@ -579,7 +579,7 @@ export interface ReferenceDotProps {
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
 
-export interface ReferenceLineProps {
+export interface ReferenceLineProps extends PartialAndNumber<CSSStyleDeclaration> {
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	x?: number | string;

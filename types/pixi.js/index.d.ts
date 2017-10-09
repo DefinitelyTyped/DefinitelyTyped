@@ -1417,7 +1417,7 @@ declare namespace PIXI {
         width: number;
         height: number;
         lines: number[];
-        lineWidgets: number[];
+        lineWidths: number[];
         lineHeight: number;
         maxLineWidth: number;
         fontProperties: any;

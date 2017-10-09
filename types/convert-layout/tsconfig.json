@@ -1,16 +1,13 @@
 {
-    "files": [
-        "index.d.ts",
-        "js-data-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,5 +15,16 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "by.d.ts",
+        "de.d.ts",
+        "es.d.ts",
+        "he.d.ts",
+        "kk.d.ts",
+        "ru.d.ts",
+        "uk.d.ts",
+        "convert-layout-tests.ts"
+    ]
 }

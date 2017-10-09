@@ -1,5 +1,5 @@
 import * as React from "react";
-import ReactModal from 'react-modal';
+import ReactModal = require('react-modal');
 
 class ExampleOfUsingReactModal extends React.Component {
   render() {
