@@ -3,6 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Hugo Wood <https://github.com/hgwood>
 //                 William Yu <https://github.com/iwllyu>
+//                 Alvis HT Tang <https://github.com/alvis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
