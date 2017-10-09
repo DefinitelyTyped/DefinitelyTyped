@@ -12,24 +12,18 @@ export as namespace ReactDOM;
 import {
     ReactInstance, Component, ComponentState,
     ReactElement, SFCElement, CElement,
-    DOMAttributes, DOMElement, ReactNode
+    DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
 export function findDOMNode<E extends Element>(instance: ReactInstance): E;
 export function findDOMNode(instance: ReactInstance): Element;
 export function unmountComponentAtNode(container: Element): boolean;
 
-// @TODO: I think ReactPortal should be part of React types (as a valid ReactNode)
-// Mostly copied from Reacts own flow definitions:
-// https://github.com/facebook/react/blob/589c0a25dfa18c2090549cc6f5b626d69ea53c2a/src/renderers/shared/fiber/isomorphic/ReactTypes.js#L43-L50
-export interface ReactPortal {
-    $$typeof: symbol | number;
-    key: string | null;
-    containerInfo: any;
-    children: ReactNode;
-    implementation: any;
-}
-export function createPortal(children: ReactNode, container: Element, key?: string): ReactPortal;
+export function createPortal(
+    children: ReactNode,
+    container: Element,
+    implementation?: any,
+    key?: string): ReactPortal;
 
 export const version: string;
 export const render: Renderer;
