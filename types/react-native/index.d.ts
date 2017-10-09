@@ -6404,6 +6404,11 @@ export interface NativeScrollPoint {
     y: number;
 }
 
+export interface NativeScrollVelocity {
+    x: number;
+    y: number;
+}
+
 export interface NativeScrollSize {
     height: number;
     width: number;
@@ -6414,6 +6419,7 @@ export interface NativeScrollEvent {
     contentOffset: NativeScrollPoint;
     contentSize: NativeScrollSize;
     layoutMeasurement: NativeScrollSize;
+    velocity?: NativeScrollVelocity;
     zoomScale: number;
 }
 
