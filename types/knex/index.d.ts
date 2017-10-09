@@ -615,6 +615,17 @@ declare namespace Knex {
         priorityRange?: number;
         validate?: Function;
         log?: boolean;
+
+        // generic-pool v3 configs
+        maxWaitingClients?: number;
+        testOnBorrow?: boolean;
+        acquireTimeoutMillis?: number;
+        fifo?: boolean;
+        autostart?: boolean;
+        evictionRunIntervalMillis?: number;
+        numTestsPerRun?: number;
+        softIdleTimeoutMillis?: number;
+        Promise?: any;
     }
 
     interface MigratorConfig {
