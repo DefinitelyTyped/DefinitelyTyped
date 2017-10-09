@@ -5,23 +5,18 @@
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
-        "baseUrl": "../../",
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
-        "paths": {
-            "js-data": [
-                "js-data/v1"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "js-data-tests.ts"
+        "tabris-plugin-firebase-tests.ts"
     ]
 }
