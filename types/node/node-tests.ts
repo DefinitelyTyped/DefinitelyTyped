@@ -495,6 +495,12 @@ function bufferTests() {
         let buffer = new Buffer('123');
         let octets = new Uint8Array(buffer.buffer);
     }
+
+    {
+        let s: number;
+        s = Buffer.poolSize;
+        Buffer.poolSize = 4096;
+    }
 }
 
 ////////////////////////////////////////////////////

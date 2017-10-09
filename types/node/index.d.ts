@@ -284,6 +284,10 @@ declare var Buffer: {
      * @param size count of octets to allocate
      */
     allocUnsafeSlow(size: number): Buffer;
+    /**
+     * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
+     */
+    poolSize: number;    
 };
 
 /************************************************
