@@ -295,6 +295,12 @@
             "asOfVersion": "0.2.29"
         },
         {
+            "libraryName": "js-data",
+            "typingsPackageName": "js-data",
+            "sourceRepoURL": "https://github.com/js-data/js-data",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",

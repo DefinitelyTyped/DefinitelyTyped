@@ -7,13 +7,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "pathwatcher": [ "pathwatcher/v0" ],
-            "q": [ "q/v0" ]
+            "pathwatcher": [
+                "pathwatcher/v0"
+            ],
+            "q": [
+                "q/v0"
+            ]
         },
         "types": [],
         "noEmit": true,
