@@ -19,11 +19,7 @@ import {
 export function findDOMNode(instance: ReactInstance): Element;
 export function unmountComponentAtNode(container: Element): boolean;
 
-export function createPortal(
-    children: ReactNode,
-    container: Element,
-    implementation?: any,
-    key?: string): ReactPortal;
+export function createPortal(children: ReactNode, container: Element): ReactPortal;
 
 export const version: string;
 export const render: Renderer;

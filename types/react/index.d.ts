@@ -126,9 +126,7 @@ declare namespace React {
 
     interface ReactPortal {
         key: Key | null;
-        containerInfo: any;
         children: ReactNode;
-        implementation: any;
     }
 
     //
