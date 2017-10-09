@@ -3,7 +3,9 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class ReactSixteenAdapter {
+import { EnzymeAdapter } from 'enzyme';
+
+declare class ReactSixteenAdapter extends EnzymeAdapter {
 }
 
 declare namespace ReactSixteenAdapter {
