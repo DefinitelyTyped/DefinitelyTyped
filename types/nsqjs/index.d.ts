@@ -11,14 +11,6 @@ export = nsqjs
 
 
 declare namespace nsqjs {
-
-
-    export enum RESPONSE_TYPE {
-        FINISH = 0,
-        REQUEUE = 1,
-        TOUCH = 2
-    }
-
     export class Message extends events.EventEmitter {
 
         static BACKOFF: string;
@@ -42,11 +34,11 @@ declare namespace nsqjs {
 
         finish(): any;
 
-        requeue(delay: number, backoff: string): any;
+        requeue(delay?: number, backoff?: boolean): any;
 
         touch(): any;
 
-        respond(responseType: RESPONSE_TYPE, wireData: any): any;
+        respond(responseType: number, wireData: Buffer): any;
 
         on(event: "backoff", listener: () => void): this;
         on(event: "respond", listener: (responseType: number, wireData: Buffer) => void): this;
