@@ -327,7 +327,7 @@ declare namespace algoliasearch {
          * @param cb(err, res)
          * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
          */
-        saveObjects(objects: [{}], cb: (err: Error, res: any) => void): void;
+        saveObjects(objects: object[], cb: (err: Error, res: any) => void): void;
         /**
          * Update parameters of a specific object
          * @param object
@@ -541,7 +541,7 @@ declare namespace algoliasearch {
          * return {Promise}
          * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
          */
-        saveObjects(objects: [{}]): Promise<any> ;
+        saveObjects(objects: object[]): Promise<any> ;
         /**
          * Update parameters of a specific object
          * @param object
