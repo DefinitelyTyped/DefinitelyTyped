@@ -34,7 +34,16 @@ describe('ReactDOM', () => {
 
     it('createPortal', () => {
         const rootElement = document.createElement('div');
-        ReactDOM.createPortal(React.createElement('div'), rootElement);
+        const portalTarget = document.createElement('div');
+
+        class ClassComponent extends React.Component {
+            render() {
+                return ReactDOM.createPortal(<div />, portalTarget);
+            }
+        }
+
+        ReactDOM.createPortal(React.createElement('div'), portalTarget);
+        ReactDOM.render(<ClassComponent />, rootElement);
     });
 });
 
