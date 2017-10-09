@@ -847,7 +847,7 @@ declare namespace CodeMirror {
         This affects the amount of updates needed when scrolling, and the amount of work that such an update does.
         You should usually leave it at its default, 10. Can be set to Infinity to make sure the whole document is always rendered,
         and thus the browser's text search works on it. This will have bad effects on performance of big documents. */
-        viewportMargin?: number;
+        viewportMargin?: number | string;
 
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
         lint?: boolean | LintOptions;
