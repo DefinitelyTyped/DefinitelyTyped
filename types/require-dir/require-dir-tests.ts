@@ -1,3 +1,3 @@
-var requireDir = require('require-dir');
+import requireDir = require('require-dir');
 
 requireDir('./test-directory');
