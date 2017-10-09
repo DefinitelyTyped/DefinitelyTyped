@@ -2,7 +2,7 @@ import * as React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { Text, StyleSheet } from 'react-native';
 
-export default class MyLinearGradient extends React.Component<{}, {}> {
+export default class MyLinearGradient extends React.Component {
     render() {
         return (
             <LinearGradient
