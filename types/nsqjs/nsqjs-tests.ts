@@ -12,8 +12,8 @@ let reader = new nsqjs.Reader("sample_topic", 'test_channel', {
 reader.connect()
 
 
-reader.on("nsqd_connected", function (err: Error) {
-    console.log('reader connected => ', err)
+reader.on("nsqd_connected", function (host, port) {
+    console.log(`reader connected => ${host}:${port}`)
 })
 
 reader.on('message', function (msg: nsqjs.Message) {
@@ -49,4 +49,17 @@ writer.on('closed', function () {
     console.log('Writer closed');
 });
 
+/*
+ * Message
+ */
 
+let message: nsqjs.Message = new nsqjs.Message('1', Date.now(), 0, 'body', 90, 50, 100);
+
+message.finish()
+
+message.requeue()
+message.requeue(100)
+message.requeue(100, false)
+
+message.on('backoff', () => {})
+message.on('respond', (responseType, wireData) => {})
