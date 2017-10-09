@@ -1,4 +1,4 @@
-// Type definitions for nsqjs 0.9.2
+// Type definitions for nsqjs 0.9
 // Project: https://github.com/dudleycarr/nsqjs
 // Definitions by: Robert Kania <https://github.com/cezaryrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,125 +7,110 @@
 
 import * as events from 'events';
 
-export = nsqjs
+export class Message extends events.EventEmitter {
+    static BACKOFF: string;
+    static RESPOND: string;
+    static FINISH: number;
+    static REQUEUE: number;
+    static TOUCH: number;
 
+    readonly id: string;
+    body: any;
+    hasResponded: boolean;
+    timestamp: number;
 
-declare namespace nsqjs {
-    export class Message extends events.EventEmitter {
+    constructor(id: string, timestamp: number, attempts: number, body: any,
+                requeueDelay: number, msgTimeout: number, maxMsgTimeout: number);
 
-        static BACKOFF: string;
-        static RESPOND: string;
-        static FINISH: number;
-        static REQUEUE: number;
-        static TOUCH: number;
+    json(): any;
 
-        readonly id: string;
-        body: any;
-        hasResponded: boolean;
-        timestamp: number;
+    timeUntilTimeout(hard?: boolean): number;
 
+    finish(): any;
 
-        constructor(id: string, timestamp: number, attempts: number, body: any,
-                    requeueDelay: number, msgTimeout: number, maxMsgTimeout: number);
+    requeue(delay?: number, backoff?: boolean): any;
 
-        json(): any;
+    touch(): any;
 
-        timeUntilTimeout(hard?: boolean): number;
+    respond(responseType: number, wireData: Buffer): any;
 
-        finish(): any;
+    on(event: "backoff", listener: () => void): this;
+    on(event: "respond", listener: (responseType: number, wireData: Buffer) => void): this;
+}
 
-        requeue(delay?: number, backoff?: boolean): any;
+export class Writer extends events.EventEmitter {
+    readonly nsqdHost: string;
+    readonly nsqdPort: number;
 
-        touch(): any;
+    static READY: string;
+    static CLOSED: string;
+    static ERROR: string;
 
-        respond(responseType: number, wireData: Buffer): any;
+    constructor(nsqdHost: string, nsqdPort: number, options?: ConnectionConfigOptions);
 
-        on(event: "backoff", listener: () => void): this;
-        on(event: "respond", listener: (responseType: number, wireData: Buffer) => void): this;
-    }
+    connect(): any;
 
-    export class Writer extends events.EventEmitter {
+    publish(topic: string, msgs: any, listener?: (err: Error) => void): any;
 
-        readonly nsqdHost: string
-        readonly nsqdPort: number
+    close(): any;
 
-        static READY: string;
-        static CLOSED: string;
-        static ERROR: string;
+    on(event: "ready" | "closed", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+}
 
-        constructor(nsqdHost: string, nsqdPort: number, options?: IConnectionConfigOptions);
+export class Reader extends events.EventEmitter {
+    static ERROR: string;
+    static MESSAGE: string;
+    static DISCARD: string;
+    static NSQD_CONNECTED: string;
+    static NSQD_CLOSED: string;
 
-        connect(): any;
+    constructor(topic: string, channel: any, options?: ReaderConnectionConfigOptions);
 
-        publish(topic: string, msgs: any, listener?: (err: Error) => void): any;
+    connect(): any;
 
-        close(): any;
+    close(): any;
 
-        on(event: "ready", listener: () => void): this;
-        on(event: "closed", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-    }
+    pause(): any;
 
-    export class Reader extends events.EventEmitter {
+    unpause(): any;
 
-        static ERROR: string;
-        static MESSAGE: string;
-        static DISCARD: string;
-        static NSQD_CONNECTED: string;
-        static NSQD_CLOSED: string;
+    isPaused(): boolean;
 
-        constructor(topic: string, channel: any, options?: IReaderConnectionConfigOptions);
+    queryLookupd(): any;
 
-        connect(): any;
+    connectToNSQD(host: string, port: number): any;
 
-        close(): any;
+    handleMessage(message: any): any;
 
-        pause(): any;
+    on(event: "nsqd_connected" | "nsqd_closed", listener: (host: string, port: number) => void): this;
+    on(event: "message" | "discard", listener: (message: Message) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+}
 
-        unpause(): any;
+export interface ConnectionConfigOptions {
+    authSecret?: string;
+    clientId?: string;
+    deflate?: boolean;
+    deflateLevel?: number;
+    heartbeatInterval?: number;
+    maxInFlight?: number;
+    messageTimeout?: number;
+    outputBufferSize?: number;
+    outputBufferTimeout?: number;
+    requeueDelay?: number;
+    sampleRate?: number;
+    snappy?: boolean;
+    tls?: boolean;
+    tlsVerification?: boolean;
+}
 
-        isPaused(): boolean;
-
-        queryLookupd(): any;
-
-        connectToNSQD(host: string, port: number): any;
-
-        handleMessage(message: any): any;
-
-        on(event: "nsqd_connected", listener: (host: string, port: number) => void): this;
-        on(event: "nsqd_closed", listener: (host: string, port: number) => void): this;
-        on(event: "message", listener: (message: Message) => void): this;
-        on(event: "discard", listener: (message: Message) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-    }
-
-
-    interface IConnectionConfigOptions {
-        authSecret?: string,
-        clientId?: string,
-        deflate?: boolean,
-        deflateLevel?: number,
-        heartbeatInterval?: number,
-        maxInFlight?: number,
-        messageTimeout?: number,
-        outputBufferSize?: number,
-        outputBufferTimeout?: number,
-        requeueDelay?: number,
-        sampleRate?: number,
-        snappy?: boolean,
-        tls?: boolean,
-        tlsVerification?: boolean
-    }
-
-    interface IReaderConnectionConfigOptions extends IConnectionConfigOptions {
-        lookupdHTTPAddresses?: string | string[],
-        lookupdPollInterval?: number,
-        lookupdPollJitter?: number,
-        name?: string,
-        nsqdTCPAddresses?: string | string[],
-        maxAttempts?: number,
-        maxBackoffDuration?: number
-    }
-
-
+export interface ReaderConnectionConfigOptions extends ConnectionConfigOptions {
+    lookupdHTTPAddresses?: string | string[];
+    lookupdPollInterval?: number;
+    lookupdPollJitter?: number;
+    name?: string;
+    nsqdTCPAddresses?: string | string[];
+    maxAttempts?: number;
+    maxBackoffDuration?: number;
 }
