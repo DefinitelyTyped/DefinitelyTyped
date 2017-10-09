@@ -263,11 +263,17 @@ declare namespace nano {
     server: ServerScope;
   }
 
+  interface AttachmentData {
+      name: string;
+      data: any;
+      content_type: any;
+  }
+
   interface Multipart<D> {
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
-    insert(doc: D, attachments: any[], callback?: Callback<DocumentInsertResponse>): Request;
+    insert(doc: D, attachments: AttachmentData[], callback?: Callback<DocumentInsertResponse>): Request;
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
-    insert(doc: D, attachments: any[], params: any, callback?: Callback<DocumentInsertResponse>): Request;
+    insert(doc: D, attachments: AttachmentData[], params: any, callback?: Callback<DocumentInsertResponse>): Request;
     get(docname: string, callback?: Callback<any>): Request;
     get(docname: string, params: any, callback?: Callback<any>): Request;
   }
