@@ -1,8 +1,9 @@
-// Type definitions for OpenLayers v4.3.0
+// Type definitions for OpenLayers v4.3.4
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
 //                 Junyoung Clare Jang <https://github.com/ailrun>
+//                 Alexandre Melard <https://github.com/mylen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -9906,6 +9907,29 @@ declare module ol {
     }
 
     /**
+     * Object literal with options for the {@link ol.Sphere.getLength} or
+     * {@link ol.Sphere.getArea} functions.
+     */
+    interface SphereMetricOptions {
+
+        /**
+         * Projection of the geometry.  By default, the geometry is assumed to be in
+         * EPSG:3857 (Web Mercator).
+         */
+        projection?: ol.proj.Projection;
+
+
+        /**
+         * Sphere radius.  By default, the radius of the earth is used (Clarke 1866
+         * Authalic Sphere).
+         * @type {(number|undefined)}
+         * @api
+         */
+        radius?: number;
+
+    }
+
+    /**
      * @classdesc
      * Class to create objects that can be used with {@link
      * ol.geom.Polygon.circular}.
@@ -9966,6 +9990,31 @@ declare module ol {
          */
         haversineDistance(c1: ol.Coordinate, c2: ol.Coordinate): number;
 
+        /**
+         * Get the spherical area of a geometry.  This is the area (in meters) assuming
+         * that polygon edges are segments of great circles on a sphere.
+         * @param {ol.geom.Geometry} geometry A geometry.
+         * @param {olx.SphereMetricOptions=} opt_options Options for the area
+         *     calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
+         *     You can change this by providing a `projection` option.
+         * @return {number} The spherical area (in square meters).
+         * @api
+         */
+        static getArea(geometry: geom.Geometry, opt_options?: SphereMetricOptions): number;
+
+        /**
+         * Get the spherical length of a geometry.  This length is the sum of the
+         * great circle distances between coordinates.  For polygons, the length is
+         * the sum of all rings.  For points, the length is zero.  For multi-part
+         * geometries, the length is the sum of the length of each part.
+         * @param {ol.geom.Geometry} geometry A geometry.
+         * @param {olx.SphereMetricOptions=} opt_options Options for the length
+         *     calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
+         *     You can change this by providing a `projection` option.
+         * @return {number} The spherical length (in meters).
+         * @api
+         */
+        static getLength(geometry: geom.Geometry, opt_options?: SphereMetricOptions): number;
     }
 
     /**
@@ -12424,12 +12473,14 @@ declare module olx {
         /**
          * @typedef {{formatConstructors: (Array.<function(new: ol.format.Feature)>|undefined),
          *     projection: ol.ProjectionLike,
-         *     target: (Element|undefined)}}
+         *     target: (Element|undefined),
+         *     source: (ol.source.Vector|undefined)}}
          */
         interface DragAndDropOptions {
             formatConstructors?: ((n: ol.format.Feature) => any)[];
             projection: ol.ProjectionLike;
             target?: Element;
+            source?: ol.source.Vector;
         }
 
 
@@ -12569,7 +12620,8 @@ declare module olx {
          *     pixelTolerance: (number|undefined),
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     features: ol.Collection.<ol.Feature>,
-         *     wrapX: (boolean|undefined)}}
+         *     wrapX: (boolean|undefined),
+         *     source: (ol.source.Vector|undefined)}}
          */
         interface ModifyOptions {
             condition?: ol.EventsConditionType;
@@ -12578,6 +12630,7 @@ declare module olx {
             style?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
             features: ol.Collection<ol.Feature>;
             wrapX?: boolean;
+            source?: ol.source.Vector;            
         }
 
 
@@ -13025,7 +13078,6 @@ declare module olx {
          *                 ol.TileLoadFunctionType)|undefined),
          *            tileGrid: (ol.tilegrid.TileGrid|undefined),
          *            tileLoadFunction: (ol.TileLoadFunctionType|undefined),
-         *            tilePixelRatio: (number|undefined),
          *            tileUrlFunction: (ol.TileUrlFunctionType|undefined),
          *            url: (string|undefined),
          *            urls: (Array.<string>|undefined),
@@ -13042,7 +13094,6 @@ declare module olx {
             tileClass?: ((n: ol.VectorTile, coords: ol.TileCoord, state: ol.Tile.State, s: string, feature: ol.format.Feature, type: ol.TileLoadFunctionType) => any);
             tileGrid?: ol.tilegrid.TileGrid;
             tileLoadFunction?: ol.TileLoadFunctionType;
-            tilePixelRatio?: number;
             tileUrlFunction?: ol.TileUrlFunctionType;
             url?: string;
             urls?: string[];

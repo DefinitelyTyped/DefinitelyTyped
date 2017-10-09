@@ -802,3 +802,13 @@ styleRegularShape = new ol.style.RegularShape({
 //
 
 let value = ol.proj.METERS_PER_UNIT['degrees'];
+
+numberValue = ol.Sphere.getArea(geometry, {
+    projection: projection,
+    radius: numberValue,
+});
+
+numberValue = ol.Sphere.getLength(geometry, {
+    projection: projection,
+    radius: numberValue,
+});
