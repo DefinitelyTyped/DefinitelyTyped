@@ -1,6 +1,7 @@
-var fs = require('fs');
-var youtubedl = require('youtube-dl');
-var video = youtubedl('http://www.youtube.com/watch?v=90AiXO1pAiA',
+import 'node';
+import * as fs from 'fs';
+const youtubedl = require('youtube-dl');
+const video = youtubedl('http://www.youtube.com/watch?v=90AiXO1pAiA',
   // Optional arguments passed to youtube-dl.
   ['--format=18'],
   // Additional options can be given for calling `child_process.execFile()`.

@@ -4,12 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+import 'node';
 import * as fs from "fs";
 
 type callback = (info: object) => void;
 
 interface Youtubedl {
-    (url: string, arg: Array<string>, opt: {[key: string]: string}): this;
+    (url: string, arg: string[], opt: {[key: string]: string}): this;
     on(event: string, func: callback): this;
     pipe(stream: fs.WriteStream): this;
 }
