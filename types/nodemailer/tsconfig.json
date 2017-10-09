@@ -6,12 +6,12 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "allowJs": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

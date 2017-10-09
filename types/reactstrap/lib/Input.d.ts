@@ -38,7 +38,8 @@ interface InputProps extends Intermediate {
   size?: string;
   state?: string;
   tag?: React.ReactType;
-  getRef?: string | ((instance: HTMLButtonElement) => any);
+  getRef?: string | ((instance: HTMLInputElement) => any);
+  static?: boolean;
   addon?: boolean;
   className?: string;
   cssModule?: CSSModule;

@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-state 0.21
+// Type definitions for prosemirror-state 0.24
 // Project: https://github.com/ProseMirror/prosemirror-state
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -27,11 +27,8 @@ export interface PluginSpecProps {
   handleDoubleClick?: EditorProps["handleDoubleClick"];
   handleTripleClickOn?: EditorProps["handleTripleClickOn"];
   handleTripleClick?: EditorProps["handleTripleClick"];
-  handleContextMenu?: EditorProps["handleContextMenu"];
   handlePaste?: EditorProps["handlePaste"];
   handleDrop?: EditorProps["handleDrop"];
-  onFocus?: EditorProps["onFocus"];
-  onBlur?: EditorProps["onBlur"];
   createSelectionBetween?: EditorProps["createSelectionBetween"];
   domParser?: EditorProps["domParser"];
   clipboardParser?: EditorProps["clipboardParser"];
@@ -66,7 +63,7 @@ export class Plugin<T = any> {
   getState(state: EditorState): T | undefined;
 }
 
-export interface StateField <T> {
+export interface StateField<T> {
   init(config: AnyObject, instance: EditorState): T;
   apply(tr: Transaction, value: T, oldState: EditorState, newState: EditorState): T;
   toJSON?: ((value: T) => any) | null;
@@ -91,7 +88,7 @@ export class Selection {
   empty: boolean;
   eq(p: Selection): boolean;
   map(doc: Node, mapping: Mappable): Selection;
-  content: Slice;
+  content(): Slice;
   replace(tr: Transaction, content?: Slice): void;
   replaceWith(tr: Transaction, node: Node): void;
   toJSON(): AnyObject;

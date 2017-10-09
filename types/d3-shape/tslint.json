@@ -4,6 +4,7 @@
         // TODO
         "no-this-assignment": false,
         "unified-signatures": false,
-        "callable-types": false
+        "callable-types": false,
+        "no-unnecessary-generics": false
     }
 }

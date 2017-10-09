@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import isNumber from 'is-number';
+import isNumber = require('is-number');
 
 const numberTest: boolean = isNumber(-1.1);
 const stringTest: boolean = isNumber('-1.1');

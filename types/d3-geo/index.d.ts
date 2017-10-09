@@ -1,9 +1,9 @@
-// Type definitions for D3JS d3-geo module 1.6
+// Type definitions for D3JS d3-geo module 1.8
 // Project: https://github.com/d3/d3-geo/
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.6.1
+// Last module patch version validated against: 1.8.1
 
 import * as GeoJSON from 'geojson';
 
@@ -646,6 +646,34 @@ export interface GeoProjection extends GeoStreamWrapper {
     center(point: [number, number]): this;
 
     /**
+     * Returns the current spherical clipping function.
+     * Pre-clipping occurs in geographic coordinates. Cutting along the antimeridian line,
+     * or clipping along a small circle are the most common strategies.
+     */
+    preclip(): (stream: GeoStream) => GeoStream;
+    /**
+     * Sets the projection’s spherical clipping to the specified function and returns the projection.
+     * Pre-clipping occurs in geographic coordinates. Cutting along the antimeridian line, or clipping along a small circle are the most common strategies.
+     *
+     * @param preclip A spherical clipping function. Clipping functions are implemented as transformations of a projection stream.
+     * Pre-clipping operates on spherical coordinates, in radians.
+     */
+    preclip(preclip: (stream: GeoStream) => GeoStream): this;
+
+    /**
+     * Returns the current cartesian clipping function.
+     * Post-clipping occurs on the plane, when a projection is bounded to a certain extent such as a rectangle.
+     */
+    postclip(): (stream: GeoStream) => GeoStream;
+    /**
+     * Sets the projection’s cartesian clipping to the specified function and returns the projection.
+     *
+     * @param postclip A cartesian clipping function. Clipping functions are implemented as transformations of a projection stream.
+     * Post-clipping operates on planar coordinates, in pixels.
+     */
+    postclip(postclip: (stream: GeoStream) => GeoStream): this;
+
+    /**
      * Returns the current clip angle which defaults to null.
      *
      * null switches to antimeridian cutting rather than small-circle clipping.
@@ -653,6 +681,7 @@ export interface GeoProjection extends GeoStreamWrapper {
     clipAngle(): number | null;
     /**
      * Switches to antimeridian cutting rather than small-circle clipping.
+     * See also projection.preclip, d3.geoClipAntimeridian, d3.geoClipCircle.
      *
      * @param angle Set to null to switch to antimeridian cutting.
      */
@@ -660,6 +689,8 @@ export interface GeoProjection extends GeoStreamWrapper {
     /**
      * Sets the projection’s clipping circle radius to the specified angle in degrees and returns the projection.
      * Small-circle clipping is independent of viewport clipping via projection.clipExtent.
+     *
+     * See also projection.preclip, d3.geoClipAntimeridian, d3.geoClipCircle.
      *
      * @param angle Angle in degrees.
      */
@@ -675,6 +706,8 @@ export interface GeoProjection extends GeoStreamWrapper {
      *
      * Viewport clipping is independent of small-circle clipping via projection.clipAngle.
      *
+     * See also projection.postclip, d3.geoClipRectangle.
+     *
      * @param extent Set to null to disable viewport clipping.
      */
     clipExtent(extent: null): this;
@@ -683,6 +716,8 @@ export interface GeoProjection extends GeoStreamWrapper {
      * The extent bounds are specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left-side of the viewport, y₀ is the top, x₁ is the right and y₁ is the bottom.
      *
      * Viewport clipping is independent of small-circle clipping via projection.clipAngle.
+     *
+     * See also projection.postclip, d3.geoClipRectangle.
      *
      * @param extent The extent bounds are specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left-side of the viewport, y₀ is the top, x₁ is the right and y₁ is the bottom.
      */
@@ -1314,6 +1349,16 @@ export function geoTransverseMercator(): GeoProjection;
  */
 export function geoTransverseMercatorRaw(): GeoRawProjection;
 
+/**
+ * The Natural Earth projection is a pseudocylindrical projection designed by Tom Patterson. It is neither conformal nor equal-area, but appealing to the eye for small-scale maps of the whole world.
+ */
+export function geoNaturalEarth1(): GeoProjection;
+
+/**
+ * The raw pseudo-cylindircal Natural Earth projection.
+ */
+export function geoNaturalEarth1Raw(): GeoRawProjection;
+
 // ----------------------------------------------------------------------
 // Projection Transforms
 // ----------------------------------------------------------------------
@@ -1541,3 +1586,32 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
  * Returns the identity transform which can be used to scale, translate and clip planar geometry.
  */
 export function geoIdentity(): GeoIdentityTranform;
+
+// ----------------------------------------------------------------------
+// Clipping Functions
+// ----------------------------------------------------------------------
+
+/**
+ * A clipping function transforming a stream such that geometries (lines or polygons) that cross the antimeridian line are cut in two, one on each side.
+ * Typically used for pre-clipping.
+ */
+export const geoClipAntimeridian: ((stream: GeoStream) => GeoStream);
+
+/**
+ * Generates a clipping function transforming a stream such that geometries are bounded by a small circle of radius angle around the projection’s center.
+ * Typically used for pre-clipping.
+ *
+ * @param angle
+ */
+export function geoClipCircle(angle: number): (stream: GeoStream) => GeoStream;
+
+/**
+ * Generates a clipping function transforming a stream such that geometries are bounded by a rectangle of coordinates [[x0, y0], [x1, y1]].
+ * Typically used for post-clipping.
+ *
+ * @param x0 x0 coordinate.
+ * @param y0 y0 coordinate.
+ * @param x1 x1 coordinate.
+ * @param y1 y1 coordinate.
+ */
+export function geoClipRectangle(x0: number, y0: number, x1: number, y1: number): (stream: GeoStream) => GeoStream;

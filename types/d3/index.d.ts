@@ -5,6 +5,7 @@
 
 export as namespace d3;
 
+export const version: string;
 export * from 'd3-array';
 export * from 'd3-axis';
 export * from 'd3-brush';

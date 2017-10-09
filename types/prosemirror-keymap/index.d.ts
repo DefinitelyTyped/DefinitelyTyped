@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-keymap 0.21
+// Type definitions for prosemirror-keymap 0.24
 // Project: https://github.com/ProseMirror/prosemirror-keymap
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>

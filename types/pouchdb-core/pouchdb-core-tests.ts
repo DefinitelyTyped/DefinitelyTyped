@@ -104,7 +104,11 @@ function testBasics() {
     db.post(model, null, (error, response) => {
     });
 
-    db.get(id).then((result) => model = result);
+    db.get(id).then((result) => {
+        model = result;
+        isString(result._id);
+        isString(result._rev);
+    });
     db.get(id, null, (error, result) => {
     });
 
@@ -117,6 +121,9 @@ function testBasics() {
     });
     db.info((error, result) => {
     });
+
+    // "Round-trippable": can put back a document from get
+    db.get('id').then(doc => db.put(doc));
 
     PouchDB.debug.enable('*');
 }
@@ -232,11 +239,28 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
         thud: boolean;
     }
 
+    // Attachment test
+    db.put<Cat>({
+        _attachments: {
+            ['meme.gif']: {
+                content_type: 'image/gif',
+                data: new Blob(['fake example'])
+            }
+        },
+        meow: 'roar'
+    });
+
     db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true })
         .then(cats => {
             for (const row of cats.rows) {
                 if (row.doc) {
                     row.doc.meow; // $ExpectType string
+
+                    // Round-trip test
+                    db.put(row.doc);
+                    db.put<Cat>(row.doc);
+                    // Generic strictness test
+                    db.put<Boot>(row.doc); // $ExpectError
                 }
             }
         });

@@ -1,4 +1,4 @@
-// Type definitions for Draft.js v0.10.0
+// Type definitions for Draft.js v0.10.1
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 //                 Eelco Lempsink <https://github.com/eelco>
@@ -6,6 +6,7 @@
 //                 Ryan Schwers <https://github.com/schwers>
 //                 Michael Wu <https://github.com/michael-yx-wu>
 //                 Willis Plummer <https://github.com/willisplummer>
+//                 Santiago Vilar <https://github.com/smvilar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -125,20 +126,20 @@ declare namespace Draft {
 
                 // Useful for managing special behavior for pressing the `Return` key. E.g.
                 // removing the style from an empty list item.
-                handleReturn?(e: SyntheticKeyboardEvent): DraftHandleValue,
+                handleReturn?(e: SyntheticKeyboardEvent, editorState: EditorState): DraftHandleValue,
 
                 // Map a key command string provided by your key binding function to a
                 // specified behavior.
-                handleKeyCommand?(command: EditorCommand): DraftHandleValue,
+                handleKeyCommand?(command: EditorCommand, editorState: EditorState): DraftHandleValue,
 
                 // Handle intended text insertion before the insertion occurs. This may be
                 // useful in cases where the user has entered characters that you would like
                 // to trigger some special behavior. E.g. immediately converting `:)` to an
                 // emoji Unicode character, or replacing ASCII quote characters with smart
                 // quotes.
-                handleBeforeInput?(chars: string): DraftHandleValue,
+                handleBeforeInput?(chars: string, editorState: EditorState): DraftHandleValue,
 
-                handlePastedText?(text: string, html?: string): DraftHandleValue,
+                handlePastedText?(text: string, html: string|undefined, editorState: EditorState): DraftHandleValue,
 
                 handlePastedFiles?(files: Array<Blob>): DraftHandleValue,
 
@@ -798,8 +799,8 @@ declare namespace Draft {
                 "undo"
             )
 
-            interface BlockMapBuilder {
-                createFromArray(blocks: Array<ContentBlock>): BlockMap;
+            class BlockMapBuilder {
+                static createFromArray(blocks: Array<ContentBlock>): BlockMap;
             }
 
             const DefaultDraftBlockRenderMap: Immutable.Map<any, any>;
@@ -937,6 +938,12 @@ import genKey = Draft.Model.Keys.generateRandomKey;
 import getDefaultKeyBinding = Draft.Component.Utils.getDefaultKeyBinding;
 import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRect;
 
+import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
+import DraftDragType = Draft.Model.Constants.DraftDragType;
+import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftRemovalDirection = Draft.Model.Constants.DraftRemovalDirection;
+import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
+
 export {
     Editor,
     EditorProps,
@@ -969,5 +976,11 @@ export {
 
     genKey,
     getDefaultKeyBinding,
-    getVisibleSelectionRect
+    getVisibleSelectionRect,
+
+    DraftEditorCommand,
+    DraftDragType,
+    DraftBlockType,
+    DraftRemovalDirection,
+    DraftHandleValue
 };

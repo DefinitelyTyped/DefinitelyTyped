@@ -21,6 +21,7 @@
         "semicolon": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "use-default-type-parameter": false
+        "use-default-type-parameter": false,
+        "no-unnecessary-generics": false
     }
 }

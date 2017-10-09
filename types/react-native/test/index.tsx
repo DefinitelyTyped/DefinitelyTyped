@@ -18,6 +18,8 @@ import {
     AppStateIOS,
     BackAndroid,
     Button,
+    DataSourceAssetCallback,
+    DeviceEventEmitterStatic,
     Dimensions,
     InteractionManager,
     ListView,
@@ -39,7 +41,24 @@ import {
     ScrollViewProps,
     RefreshControl,
     TabBarIOS,
+    NativeModules,
+    MaskedView,
 } from 'react-native';
+
+declare module 'react-native' {
+    interface NativeTypedModule {
+        someFunction(): void;
+        someProperty: string;
+    }
+    interface NativeModulesStatic {
+        NativeTypedModule: NativeTypedModule
+    }
+}
+
+NativeModules.NativeUntypedModule;
+
+NativeModules.NativeTypedModule.someFunction();
+NativeModules.NativeTypedModule.someProperty = "";
 
 function testDimensions() {
   const {
@@ -280,7 +299,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 
                     return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]}/>
                 }}
-                renderRow={({ type, data }, _, row: number) => {
+                renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>
                 }
             } />
@@ -338,3 +357,32 @@ class AlertTest extends React.Component {
         );
     }
 }
+
+class MaskedViewTest extends React.Component {
+    render() {
+        return (
+            <MaskedView
+                maskElement={
+                    <View />
+                }
+            >
+                <View />
+            </MaskedView>
+        )
+    }
+}
+
+// DataSourceAssetCallback
+const dataSourceAssetCallback1: DataSourceAssetCallback = {
+    rowHasChanged: (r1, r2) => true,
+    sectionHeaderHasChanged: (h1, h2) => true,
+    getRowData: (dataBlob, sectionID, rowID) => (sectionID as number) + (rowID as number),
+    getSectionHeaderData: (dataBlob, sectionID) => sectionID as string,
+}
+
+const dataSourceAssetCallback2: DataSourceAssetCallback = {}
+
+// DeviceEventEmitterStatic
+const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
+deviceEventEmitterStatic.addListener('keyboardWillShow', (data) => true);
+deviceEventEmitterStatic.addListener('keyboardWillShow', (data) => true, {});

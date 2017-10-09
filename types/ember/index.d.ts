@@ -10,7 +10,7 @@
 
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
-import Rsvp from 'rsvp';
+import Rsvp = require('rsvp');
 
 declare namespace EmberStates {
     interface Transition {
@@ -913,6 +913,11 @@ declare namespace Ember {
         static extend<T>(args?: CoreObjectArguments): T;
         static extend<T>(mixin1: Mixin, args?: CoreObjectArguments): T;
         static extend<T>(mixin1: Mixin, mixin2: Mixin, args?: CoreObjectArguments): T;
+        static extend<T>(mixin1: Mixin, mixin2: Mixin, mixin3: Mixin, args?: CoreObjectArguments): T;
+        static extend<T>(mixin1: Mixin, mixin2: Mixin, mixin3: Mixin, mixin4: Mixin, args?: CoreObjectArguments): T;
+        static extend<T>(mixin1: Mixin, mixin2: Mixin, mixin3: Mixin, mixin4: Mixin, mixin5: Mixin, args?: CoreObjectArguments): T;
+        static extend<T>(mixin1: Mixin, mixin2: Mixin, mixin3: Mixin, mixin4: Mixin, mixin5: Mixin, mixin6: Mixin, args?: CoreObjectArguments): T;
+        static extend<T>(mixin1: Mixin, mixin2: Mixin, mixin3: Mixin, mixin4: Mixin, mixin5: Mixin, mixin6: Mixin, mixin7: Mixin, args?: CoreObjectArguments): T;
 
         /**
         Creates a new subclass.

@@ -2,10 +2,11 @@
 // Project: http://esri.github.io/esri-leaflet
 // Definitions by: strajuser <https://github.com/strajuser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace esri {
         type CallbackHandler = (error: any, metadata: any) => void;
 
@@ -834,11 +835,7 @@ declare namespace L {
          * @returns {FeatureLayer}
          */
         function featureLayer(options: FeatureLayerOptions): FeatureLayer;
-    }
-}
 
-declare namespace L {
-    namespace esri {
         type FeatureCallbackHandler = (error?: any, featureCollection?: any, response?: any) => void;
         type ResponseCallbackHandler = (error?: any, response?: any) => void;
 
@@ -1620,8 +1617,4 @@ declare namespace L {
          */
         function find(options: FindOptions | MapService): Find;
     }
-}
-
-declare module 'esri-leaflet' {
-    export = L.esri;
 }

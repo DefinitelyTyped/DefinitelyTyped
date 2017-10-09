@@ -16,6 +16,7 @@
 /// <reference path="./mongo.d.ts" />
 /// <reference path="./random.d.ts" />
 /// <reference path="./reactive-var.d.ts" />
+/// <reference path="./server-render.d.ts" />
 /// <reference path="./session.d.ts" />
 /// <reference path="./templating.d.ts" />
 /// <reference path="./tiny-test.d.ts" />

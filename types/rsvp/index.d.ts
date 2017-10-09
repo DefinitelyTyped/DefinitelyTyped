@@ -379,4 +379,4 @@ declare namespace RSVP {
     export function rethrow<C>(reason: C): void;
 }
 
-export default RSVP;
+export = RSVP;

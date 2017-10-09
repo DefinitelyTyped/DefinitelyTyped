@@ -6,7 +6,8 @@
 
 import * as angular from "angular";
 
-export default "gridster";
+declare const exportedString: "gridster";
+export default exportedString;
 
 declare module "angular" {
     namespace gridster {

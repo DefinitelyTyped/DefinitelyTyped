@@ -1,4 +1,4 @@
-import Qty from "js-quantities";
+import Qty = require("js-quantities");
 
 declare function describe(desc: string, fn: () => void): void;
 declare function it(desc: string, fn: () => void): void;

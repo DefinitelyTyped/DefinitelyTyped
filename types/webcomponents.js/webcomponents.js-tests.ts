@@ -2,9 +2,11 @@
  * Custom Elements
  */
 const fooProto = Object.create(HTMLElement.prototype, {
-    createdCallback(this: HTMLElement) {
-        // `this` should be the created element
-        this.getElementsByTagName("a");
+    createdCallback: {
+        value(this: HTMLElement) {
+            // `this` should be the created element
+            this.getElementsByTagName("a");
+        }
     }
 });
 

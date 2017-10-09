@@ -4,14 +4,17 @@
 // tslint:disable:only-arrow-functions
 // tslint:disable:space-before-function-paren
 
-let latlng: L.LatLng = new L.LatLng(0, 0);
-let latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
-let map: L.Map = new L.Map('map');
+import * as L from 'leaflet';
+import 'esri-leaflet';
 
-let marker: L.Marker = new L.Marker(latlng);
-let polygon: L.Polygon = new L.Polygon([latlng, latlng]);
-let polyline: L.Polyline = new L.Polyline([latlng, latlng]);
-let geojson: L.GeoJSON = new L.GeoJSON();
+const latlng: L.LatLng = new L.LatLng(0, 0);
+const latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
+const map: L.Map = new L.Map('map');
+
+const marker: L.Marker = new L.Marker(latlng);
+const polygon: L.Polygon = new L.Polygon([latlng, latlng]);
+const polyline: L.Polyline = new L.Polyline([latlng, latlng]);
+const geojson: L.GeoJSON = new L.GeoJSON();
 
 let basemapLayer: L.esri.BasemapLayer;
 basemapLayer = L.esri.basemapLayer('Streets');

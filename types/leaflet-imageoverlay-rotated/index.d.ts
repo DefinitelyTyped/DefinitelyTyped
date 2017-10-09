@@ -3,11 +3,11 @@
 // Definitions by: Thomas Kleinke <https://github.com/tkleinke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace ImageOverlay {
-        interface Rotated extends L.ImageOverlay {
+        interface Rotated extends ImageOverlay {
             reposition(
                 topleft: LatLngExpression,
                 topright: LatLngExpression,
@@ -21,6 +21,6 @@ declare namespace L {
             topleft: LatLngExpression,
             topright: LatLngExpression,
             bottomleft: LatLngExpression,
-            options?: ImageOverlayOptions): L.ImageOverlay.Rotated;
+            options?: ImageOverlayOptions): ImageOverlay.Rotated;
     }
 }

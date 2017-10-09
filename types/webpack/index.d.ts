@@ -6,6 +6,7 @@
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
+//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -36,7 +37,7 @@ declare namespace webpack {
          * If `output.pathinfo` is set, the included pathinfo is shortened to this directory.
          */
         context?: string;
-        entry?: string | string[] | Entry;
+        entry?: string | string[] | Entry | EntryFunc;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
         devtool?: Options.Devtool;
         /** Options affecting the output. */
@@ -103,6 +104,8 @@ declare namespace webpack {
         [name: string]: string | string[];
     }
 
+    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
+
     interface DevtoolModuleFilenameTemplateInfo {
         identifier: string;
         shortIdentifier: string;
@@ -148,7 +151,7 @@ declare namespace webpack {
         /** Include comments with information about the modules. */
         pathinfo?: boolean;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string;
+        library?: string | string[];
         /**
          * Which format to export the library:
          * <ul>
@@ -1034,6 +1037,8 @@ declare namespace webpack {
                 comments?: boolean | RegExp | CommentFilter;
                 exclude?: Condition | Condition[];
                 include?: Condition | Condition[];
+                /** Parallelization can speedup your build significantly and is therefore highly recommended. */
+                parallel?: boolean | { cache: boolean, workers: boolean | number };
                 sourceMap?: boolean;
                 test?: Condition | Condition[];
             }
@@ -1162,13 +1167,13 @@ declare namespace webpack {
              * Emit a warning.
              * @param message
              */
-            emitWarning(message: string): void;
+            emitWarning(message: string | Error): void;
 
             /**
              * Emit a error.
              * @param message
              */
-            emitError(message: string): void;
+            emitError(message: string | Error): void;
 
             /**
              * Execute some code fragment like a module.

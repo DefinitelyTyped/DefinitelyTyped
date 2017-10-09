@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
+/// <reference types="node" />
 
 declare class Nightmare {
     constructor(options?: Nightmare.IConstructorOptions);
@@ -30,6 +30,8 @@ declare class Nightmare {
     uncheck(seletor: string): Nightmare;
     select(seletor: string, option: string): Nightmare;
     upload(selector: string, path: string): Nightmare;
+    download(path:string): Nightmare;
+    download(action: "cancel" | "continue"): Nightmare;  
     scrollTo(top: number, left: number): Nightmare;
     viewport(width: number, height: number): Nightmare;
     inject(type: string, file: string): Nightmare;
@@ -95,7 +97,10 @@ declare class Nightmare {
     removeListener(event: 'prompt', cb: (msg: string, defaultValue?: string) => void): Nightmare;
     removeListener(event: 'error', cb: (msg: string, trace?: Nightmare.IStackTrace[]) => void): Nightmare;
     removeListener(event: 'timeout', cb: (msg: string) => void): Nightmare;
-    screenshot(path: string): Nightmare;
+    screenshot(done?: (err: any, buffer: Buffer) => void): Nightmare;
+    screenshot(path: string, done?: (err: any) => void): Nightmare;
+    screenshot(clip: { x: number, y: number, width: number, height: number }, done?: (err: any, buffer: Buffer) => void): Nightmare;
+    screenshot(path: string, clip?: { x: number, y: number, width: number, height: number }, done?: (err: any) => void): Nightmare;
     html(path: string, saveType: string): Nightmare;
     html(path: string, saveType: 'HTMLOnly'): Nightmare;
     html(path: string, saveType: 'HTMLComplete'): Nightmare;
@@ -134,6 +139,14 @@ declare namespace Nightmare {
         cookiesFile?: string;
         phantomPath?: string;
         show?: boolean;
+        paths?: {
+            downloads?:string;
+        };
+        maxDownloadRequestWait?:number;
+        ignoreDownloads?:boolean;
+        typeInterval?: number;
+        x?: number;
+        y?: number;
     }
 
     export interface IRequest {

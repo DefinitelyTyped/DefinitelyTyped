@@ -28,6 +28,8 @@ import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
+import * as inspector from "inspector";
+import Module = require("module");
 
 // Specifically test buffer module regression.
 import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
@@ -640,6 +642,79 @@ namespace util_tests {
             breakLength: Infinity
         });
         assert(typeof util.inspect.custom === 'symbol');
+
+        // util.callbackify
+        class callbackifyTest {
+            static fn(): Promise<void> {
+                assert(arguments.length === 0);
+
+                return Promise.resolve();
+            }
+
+            static fnE(): Promise<void> {
+                assert(arguments.length === 0);
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnT1(arg1: string): Promise<void> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.resolve();
+            }
+
+            static fnT1E(arg1: string): Promise<void> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnTResult(): Promise<string> {
+                assert(arguments.length === 0);
+
+                return Promise.resolve('result');
+            }
+
+            static fnTResultE(): Promise<string> {
+                assert(arguments.length === 0);
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnT1TResult(arg1: string): Promise<string> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.resolve('result');
+            }
+
+            static fnT1TResultE(arg1: string): Promise<string> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static test(): void {
+                var cfn = util.callbackify(this.fn);
+                var cfnE = util.callbackify(this.fnE);
+                var cfnT1 = util.callbackify(this.fnT1);
+                var cfnT1E = util.callbackify(this.fnT1E);
+                var cfnTResult = util.callbackify(this.fnTResult);
+                var cfnTResultE = util.callbackify(this.fnTResultE);
+                var cfnT1TResult = util.callbackify(this.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+
+                cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+                cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnT1('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+                cfnT1E('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnTResult((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+                cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnT1TResult('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+                cfnT1TResultE('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+            }
+        }
+        callbackifyTest.test();
+
         // util.promisify
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
@@ -1706,6 +1781,25 @@ namespace child_process_tests {
         childProcess.spawnSync("echo test");
     }
 
+	{
+		childProcess.execFile("npm", () => {});
+		childProcess.execFile("npm", ["-v"], () => {});
+		childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+		childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+		childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+		childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+	}
+
+    async function testPromisify() {
+        const execFile = util.promisify(childProcess.execFile);
+		let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
+		r = await execFile("npm", ["-v"]);
+		r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
+		r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+		r = await execFile("npm", { encoding: 'utf-8' });
+		r = await execFile("npm", { encoding: 'buffer' });
+    }
+
     {
         let _cp: childProcess.ChildProcess;
         let _socket: net.Socket;
@@ -2175,6 +2269,15 @@ namespace timers_tests {
         timeout.ref();
         timers.clearTimeout(timeout);
     }
+    async function testPromisify() {
+        const setTimeout = util.promisify(timers.setTimeout);
+        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
+        let s: string = await setTimeout(100, "");
+
+        const setImmediate = util.promisify(timers.setImmediate);
+        v = await setImmediate(); // tslint:disable-line no-void-expression
+        s = await setImmediate("");
+    }
 }
 
 /////////////////////////////////////////////////////////
@@ -2222,8 +2325,8 @@ namespace process_tests {
         process.once("warning", (warning: Error) => { });
         process.prependListener("message", (message: any, sendHandle: any) => { });
         process.prependOnceListener("SIGBREAK", () => { });
-        process.on("newListener", (event: string, listener: Function) => { });
-        process.once("removeListener", (event: string, listener: Function) => { });
+        process.on("newListener", (event: string | symbol, listener: Function) => { });
+        process.once("removeListener", (event: string | symbol, listener: Function) => { });
 
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
@@ -2532,6 +2635,11 @@ namespace repl_tests {
 
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
+
+        _server.outputStream.write("test");
+        let line = _server.inputStream.read();
+
+        throw new repl.Recoverable(new Error("test"));
     }
 }
 
@@ -3379,4 +3487,60 @@ namespace http2_tests {
         str = constants.HTTP2_METHOD_UPDATEREDIRECTREF;
         str = constants.HTTP2_METHOD_VERSION_CONTROL;
     }
+}
+
+///////////////////////////////////////////////////////////
+/// Inspector Tests                                     ///
+///////////////////////////////////////////////////////////
+
+namespace inspector_tests {
+    {
+        inspector.open();
+        inspector.open(0);
+        inspector.open(0, 'localhost');
+        inspector.open(0, 'localhost', true);
+        inspector.close();
+        const inspectorUrl: string = inspector.url();
+
+        const session = new inspector.Session();
+        session.connect();
+        session.disconnect();
+
+        // Unknown post method
+        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
+        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b');
+        // Known post method
+        const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
+        session.post('Runtime.evaluate', parameter,
+            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
+            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
+            const resultClassName: string = params.result.className;
+        });
+        session.post('Runtime.evaluate');
+
+        // General event
+        session.on('inspectorNotification', (message: inspector.InspectorNotification<object>) => {});
+        // Known events
+        session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
+            const method: string = message.method;
+            const pauseReason: string = message.params.reason;
+        });
+        session.on('Debugger.resumed', () => {});
+    }
+}
+
+////////////////////////////////////////////////////
+/// module tests : http://nodejs.org/api/modules.html
+////////////////////////////////////////////////////
+
+namespace module_tests {
+    require.extensions[".ts"] = () => "";
+
+    Module.runMain();
+    const s: string = Module.wrap("some code");
+
+    const m1: Module = new Module("moduleId");
+    const m2: Module = new Module.Module("moduleId");
 }

@@ -575,7 +575,7 @@ declare namespace Highcharts {
          * categories: ['Apples', 'Bananas', 'Oranges']
          * @default null
          */
-        categories?: string[];
+        categories?: any[];
         /**
          * The highest allowed value for automatically computed axis extremes.
          * @since 4.0
@@ -1994,6 +1994,8 @@ declare namespace Highcharts {
         position?: string;
         top?: string;
         textOutline?: string;
+        textOverflow?: string;
+        whiteSpace?: string;
     }
 
     interface CreditsOptions {
@@ -4219,7 +4221,7 @@ declare namespace Highcharts {
          * @default true
          * @since 4.1.9
          */
-        softTreshold?: boolean;
+        softThreshold?: boolean;
         /**
          * Whether to stack the values of each series on top of each other. Possible values are null to disable, 'normal' to
          * stack by value or 'percent'.
@@ -5369,6 +5371,10 @@ declare namespace Highcharts {
          * @since 2.1
          */
         stack?: any;
+        /**
+         * The series' visibility state as set by series.show(), series.hide(), or the initial configuration.
+         */
+        visible?: boolean;
         /**
          * When using dual or multiple x axes, this number defines which xAxis the particular series is connected to. It
          * refers to either the axis id or the index of the axis in the xAxis array, with 0 being the first.

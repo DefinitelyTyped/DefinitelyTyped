@@ -1,6 +1,6 @@
 // Type definitions for ej.web.all 15.3
 // Project: http://help.syncfusion.com/js/typescript
-// Definitions by: Syncfusion <https://github.com/syncfusion/>
+// Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.3.0.26
+*  version : 15.3.0.33
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -37,7 +37,7 @@ declare namespace ej {
     function createObject(nameSpace: string, value: any, initIn: any): JQuery;
     function createObject(element: any, eventEmitter: any, model: any): any;
     function setCulture(culture: string): void;
-    function getObject<T>(element: string, model: any): T;
+    function getObject(element: string, model: any): any;
     function getObject(nameSpace: string, fromdata?: any): any;
     function defineClass(className: string, constructor: any, proto: any, replace: boolean): any;
     function destroyWidgets(element: any): void;
@@ -7732,7 +7732,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set "showHeader" as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set 'showHeader' as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
@@ -8442,6 +8442,12 @@ declare namespace ej {
              * @Default {false}
              */
             enableFilterSearch?: boolean;
+
+            /** The serverfiltering is to perform filter action when text is typed in the search box and filtering will be done based on the collection which contains the matched item from entire
+             * datasource. Serverfiltering will be done based on the entire items in DataSource.
+             * @Default {false}
+             */
+            enableServerFiltering?: boolean;
 
             /** Saves the current model value to the browser cookies for state maintenance. While refreshing the DropDownList control page, it retains the model value and it is applied from the
              * browser cookies.
@@ -10273,7 +10279,7 @@ declare namespace ej {
 
             /** Specifies the field settings to map the datasource.
              */
-            fieldSettings?: any;
+            fieldSettings?: FieldSettings;
 
             /** Contains the array of items to be added in ListView.
              * @Default {[]}
@@ -10644,6 +10650,61 @@ declare namespace ej {
              */
             type?: string;
         }
+
+        export interface FieldSettings {
+
+            /** Defines the specific field name which contains Boolean values to specify whether the list items to be checked by default or not.
+             */
+            checked?: boolean;
+
+            /** Defines the URL to be navigated while clicking the list item.
+             */
+            navigateUrl?: string;
+
+            /** Defines the HTML attributes such as id, class, styles for the specific list item.
+             */
+            attributes?: any;
+
+            /** Defines the specific field name which contains id values for the list items.
+             */
+            id?: string;
+
+            /** Defines the URL for the image to be displayed in the list item.
+             */
+            imageUrl?: string;
+
+            /** Defines the class name for image in that specific list items.
+             */
+            imageClass?: string;
+
+            /** Specifies whether to prevent the selection of the list item.
+             */
+            preventSelection?: boolean;
+
+            /** Specifies whether to retain the selection of the list item.
+             */
+            persistSelection?: boolean;
+
+            /** To define the first level of list items.
+             */
+            primaryKey?: string;
+
+            /** To define the child level of list items inside the parent items.
+             */
+            parentPrimaryKey?: string;
+
+            /** Defines the specific field name in the data source to load the list with data.
+             */
+            text?: string;
+
+            /** To trigger the mouseup event for specific list items.
+             */
+            mouseUP?: string;
+
+            /** To trigger the mousedown event for specific list items.
+             */
+            mouseDown?: string;
+        }
     }
 
     class MaskEdit extends ej.Widget {
@@ -10720,6 +10781,11 @@ declare namespace ej {
              * @Default {ej.InputMode.Text}
              */
             inputMode?: ej.InputMode|string;
+
+            /** Defines the localization culture for MaskEdit.
+             * @Default {en-US}
+             */
+            locale?: string;
 
             /** Specifies the input mask.
              * @Default {null}
@@ -11741,7 +11807,7 @@ declare namespace ej {
              */
             externalStyles?: string;
 
-            /** Prepend a doctype to the document frame.
+            /** Prepend a docType to the document frame.
              * @Default {&lt;!doctype html&gt;}
              */
             docType?: string;
@@ -15901,7 +15967,7 @@ declare namespace ej {
         /** Performs the action value based on the given command.
          * @param {string} Command Name.
          * @param {any} Content to be inserted as argument.
-         * @param {boolean} Boolean value to specify whether the argument is textnode or not, this is optional.
+         * @param {boolean} Boolean value to specify whether the argument is textNode or not, this is optional.
          * @returns {void}
          */
         executeCommand(cmdName: string, args: any, textnodeType?: boolean): void;
@@ -16048,7 +16114,7 @@ declare namespace ej {
              */
             autoHeight?: boolean;
 
-            /** This API holds configuration setting for paste clenaup behavior.
+            /** This API holds configuration setting for paste cleanup behavior.
              * @Default {{ listConversion: false, cleanCSS: false,	removeStyles: false, cleanElements: false }}
              */
             pasteCleanupSettings?: PasteCleanupSettings;
@@ -22044,6 +22110,19 @@ declare namespace ej {
          */
         cancelEditCell(): void;
 
+        /** Returns the total page size need to be displayed in grid based on the given container height. This method will also work when the property allowTextWrap as true only when wrap
+         * mode is header.
+         * @param {number} When passing the container height as integer or percentage, it will returns the page size that need to be displayed for grid.
+         * @returns {number}
+         */
+        calculatePageSizeByParentHeight(containerHeight: number): number;
+
+        /** It is used to change the number of records displayed per page in grid based on the given page size.
+         * @param {number} When passing the page size, it will change the number of records displayed per page in grid.
+         * @returns {void}
+         */
+        changePageSize(pageSize: number): void;
+
         /** It is used to clear all the cell selection.
          * @returns {boolean}
          */
@@ -22169,7 +22248,7 @@ declare namespace ej {
         export(action?: string, serverEvent?: string, multipleExport?: boolean, gridIds?: any[]): void;
 
         /** Send a filtering request to filter one column in grid.
-         * @param {any[]} Pass the field name of the column
+         * @param {any[]|string} Pass the field name of the column
          * @param {string} string/integer/dateTime operator
          * @param {string} Pass the value to be filtered in a column
          * @param {string} Pass the predicate as and/or
@@ -22177,7 +22256,7 @@ declare namespace ej {
          * @param {any} optionalactualFilterValue denote the filter object of current filtered columns.Pass the value to filtered in a column
          * @returns {void}
          */
-        filterColumn(fieldName: any[], filterOperator: string, filterValue: string, predicate: string, matchcase?: boolean, actualFilterValue?: any): void;
+        filterColumn(fieldName: any[]|string, filterOperator: string, filterValue: string, predicate: string, matchcase?: boolean, actualFilterValue?: any): void;
 
         /** Send a filtering request to filter single or multiple column in grid.
          * @param {any[]} Pass array of filterColumn query for performing filter operation
@@ -25152,7 +25231,7 @@ declare namespace ej {
             /** Gets or sets a value that indicates to display a column value as checkbox or string
              * @Default {true}
              */
-            displayAsCheckBox?: boolean;
+            displayAsCheckbox?: boolean;
 
             /** Gets or sets a value that indicates to customize ejNumericTextbox of an editable column. See editingType
              */
@@ -25288,6 +25367,11 @@ declare namespace ej {
              * @Default {[]}
              */
             subMenu?: any[];
+
+            /** Used to get or set the sub menu items to the custom context menu item using JsRender template.
+             * @Default {null}
+             */
+            template?: string;
         }
 
         export interface ContextMenuSettings {
@@ -27283,7 +27367,7 @@ declare namespace ej {
              */
             format?: string;
 
-            /** Sets the opacity of the dispalyed tooltip
+            /** Sets the opacity of the displayed tooltip
              * @Default {0.95}
              */
             opacity?: number;
@@ -27949,6 +28033,11 @@ declare namespace ej {
          */
         refreshControl(): void;
 
+        /** This function Destroy the PivotGrid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
+
         /** This function returns the height of all rows and width each and every column.
          * @returns {any}
          */
@@ -27957,7 +28046,7 @@ declare namespace ej {
         /** This function creates the conditional formatting dialog to apply conditional formatting for PivotGrid control.
          * @returns {void}
          */
-        createConditionalDialog(): void;
+        openConditionalFormattingDialog(): void;
 
         /** This function saves the current report to the database/local storage.
          * @returns {void}
@@ -28163,10 +28252,15 @@ declare namespace ej {
              */
             enableColumnResizing?: boolean;
 
-            /** Allows the user to fit the width of the columns based on its content. This is only applicable for enableColumnResizing option.
+            /** Allows the user to fit the width of the column based on its maximum text width.
              * @Default {false}
              */
             resizeColumnsToFit?: boolean;
+
+            /** Allows the user to enable/disable the context menu of Pivot buttons in the PivotGrid.
+             * @Default {false}
+             */
+            enableContextMenu?: boolean;
 
             /** Allows the user to view large amount of data through virtual scrolling.
              * @Default {false}
@@ -28616,14 +28710,6 @@ declare namespace ej {
             values?: any[];
         }
 
-        export interface DataSourceColumnsGroupByDate {
-
-            /** Contains the collection of formatString to group item from the field.
-             * @Default {[]}
-             */
-            interval?: any[];
-        }
-
         export interface DataSourceColumn {
 
             /** Allows the user to bind the item by using its unique name as field name.
@@ -28679,11 +28765,6 @@ declare namespace ej {
              * @Default {null}
              */
             filterItems?: DataSourceColumnsFilterItems;
-
-            /** Allows the user to group the field by date. This is applicable only when the format is set as &quot;date&quot;.
-             * @Default {{}}
-             */
-            groupByDate?: DataSourceColumnsGroupByDate;
         }
 
         export interface DataSourceRowsAdvancedFilter {
@@ -28726,14 +28807,6 @@ declare namespace ej {
              * @Default {[]}
              */
             values?: any[];
-        }
-
-        export interface DataSourceRowsGroupByDate {
-
-            /** Contains the collection of formatString to group item from the field.
-             * @Default {[]}
-             */
-            interval?: any[];
         }
 
         export interface DataSourceRow {
@@ -28791,11 +28864,6 @@ declare namespace ej {
              * @Default {null}
              */
             filterItems?: DataSourceRowsFilterItems;
-
-            /** Allows the user to group the field by date. This is applicable only when the format is set as &quot;date&quot;.
-             * @Default {{}}
-             */
-            groupByDate?: DataSourceRowsGroupByDate;
         }
 
         export interface DataSourceValuesMeasure {
@@ -29128,6 +29196,16 @@ declare namespace ej {
              */
             drillThroughDataTable?: string;
 
+            /** Allows the user to set the custom name for the service method responsible for performing value sorting operation in PivotGrid.
+             * @Default {ValueSorting}
+             */
+            valueSorting?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for removing pivot button from GroupingBar/Field List.
+             * @Default {RemoveButton}
+             */
+            removeButton?: string;
+
             /** Allows the user to set the custom name for the service method responsible for write-back operation in OLAP Cube. This is only applicable in server-side component.
              * @Default {WriteBack}
              */
@@ -29215,6 +29293,11 @@ declare namespace ej {
          * @returns {void}
          */
         refreshControl(): void;
+
+        /** This function Destroy the PivotSchemaDesigner widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
     }
     export namespace PivotSchemaDesigner {
 
@@ -29269,7 +29352,7 @@ declare namespace ej {
             /** Allows the user to set custom name for the methods at service-end, communicated during AJAX post.
              * @Default {{}}
              */
-            serviceMethod?: ServiceMethod;
+            serviceMethods?: any;
 
             /** Connects the service using the specified URL for any server updates.
              * @Default {â€œâ€}
@@ -29370,39 +29453,6 @@ declare namespace ej {
              * @Default {false}
              */
             showNamedSets?: boolean;
-        }
-
-        export interface ServiceMethod {
-
-            /** Allows the user to set the custom name for the service method responsible for getting the values for the tree-view inside filter dialog.
-             * @Default {FetchMembers}
-             */
-            fetchMembers?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for filtering operation in Field List.
-             * @Default {Filtering}
-             */
-            filtering?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for the server-side action, on expanding members in Field List.
-             * @Default {MemberExpanded}
-             */
-            memberExpand?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for the server-side action, on dropping a node into Field List.
-             * @Default {NodeDropped}
-             */
-            nodeDropped?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for the server-side action on changing the checked state of a node in Field List.
-             * @Default {NodeStateModified}
-             */
-            nodeStateModified?: string;
-
-            /** Allows the user to set the custom name for the service method responsible for button removing operation in Field List.
-             * @Default {RemoveButton}
-             */
-            removeButton?: string;
         }
 
         enum Layouts {
@@ -29552,6 +29602,11 @@ declare namespace ej {
          */
         refreshControl(): void;
 
+        /** This function Destroy the PivotChart widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
+
         /** Renders the control with the pivot engine obtained from olap cube.
          * @returns {void}
          */
@@ -29648,6 +29703,11 @@ declare namespace ej {
              */
             rotation?: number;
 
+            /** Allows the user to enable/disable the context menu options in the PivotChart.
+             * @Default {false}
+             */
+            enableContextMenu?: boolean;
+
             /** Allows the user to set custom name for the methods at service-end, communicated on AJAX post.
              * @Default {{}}
              */
@@ -29674,6 +29734,10 @@ declare namespace ej {
             /** Triggers before any AJAX request is passed from PivotChart to service methods.
              */
             beforeServiceInvoke?(e: BeforeServiceInvokeEventArgs): void;
+
+            /** Triggers before Pivot Engine starts to populate.
+             */
+            beforePivotEnginePopulate?(e: BeforePivotEnginePopulateEventArgs): void;
 
             /** Triggers on performing drill up/down in PivotChart control.
              */
@@ -29739,6 +29803,13 @@ declare namespace ej {
             /** returns the HTML element of PivotChart control.
              */
             element?: any;
+        }
+
+        export interface BeforePivotEnginePopulateEventArgs {
+
+            /** returns the current instance of PivotChart.
+             */
+            chartObj?: any;
         }
 
         export interface DrillSuccessEventArgs {
@@ -30132,6 +30203,16 @@ declare namespace ej {
          */
         refreshControl(): void;
 
+        /** Returns the control tab string that displays currently in PivotClient.
+         * @returns {void}
+         */
+        getActiveTab(): void;
+
+        /** This function Destroy the PivotClient widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
+
         /** Returns the OlapReport string maintained along with the axis elements information.
          * @returns {string}
          */
@@ -30186,6 +30267,11 @@ declare namespace ej {
              */
             dataSource?: DataSource;
 
+            /** Enables the Drill-Through feature which retrieves the raw items that are used to create the specific cell in PivotGrid.
+             * @Default {false}
+             */
+            enableDrillThrough?: boolean;
+
             /** Allows the user to customize the widget's layout and appearance.
              * @Default {{}}
              */
@@ -30196,7 +30282,7 @@ declare namespace ej {
              */
             toolbarIconSettings?: ToolbarIconSettings;
 
-            /** Allows user to show unique name on pivotbutton.
+            /** Allows user to show unique name on pivot button.
              * @Default {false}
              */
             showUniqueNameOnPivotButton?: boolean;
@@ -30276,6 +30362,11 @@ declare namespace ej {
              */
             isResponsive?: boolean;
 
+            /** Options to customize the size of the PivotClient control.
+             * @Default {Example:}
+             */
+            size?: any;
+
             /** Allows the user to set the localized language for the widget.
              * @Default {en-US}
              */
@@ -30334,6 +30425,10 @@ declare namespace ej {
             /** Triggers before rendering the PivotTreeMap.
              */
             treeMapLoad?(e: TreeMapLoadEventArgs): void;
+
+            /** Triggers while clicking value cells in PivotGrid.
+             */
+            drillThrough?(e: DrillThroughEventArgs): void;
 
             /** Triggers while we initiate loading of the widget.
              */
@@ -30459,6 +30554,17 @@ declare namespace ej {
             customObject?: any;
 
             /** returns the HTML element of PivotTreeMap control.
+             */
+            element?: any;
+        }
+
+        export interface DrillThroughEventArgs {
+
+            /** return the JSON records of the generated cells on drill-through operation.
+             */
+            data?: any;
+
+            /** returns the HTML element of PivotClient.
              */
             element?: any;
         }
@@ -31013,6 +31119,16 @@ declare namespace ej {
              */
             loadReport?: string;
 
+            /** Allows the user to set the custom name for the service method responsible for remove a report collection from the database.
+             * @Default {RemoveReportFromDB}
+             */
+            removeDBReport?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for rename the report collection in the database.
+             * @Default {RenameReportInDB}
+             */
+            renameDBReport?: string;
+
             /** Allows the user to set the custom name for the service method responsible for retrieving the MDX query for the current report.
              * @Default {GetMDXQuery}
              */
@@ -31067,6 +31183,16 @@ declare namespace ej {
              * @Default {CalculatedMember}
              */
             calculatedMember?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for performing drill through operation.
+             * @Default {DrillThroughHierarchies}
+             */
+            drillThroughHierarchies?: string;
+
+            /** Allows the user to set the custom name for the service method responsible for performing drill through operation in data table.
+             * @Default {DrillThroughDataTable}
+             */
+            drillThroughDataTable?: string;
         }
 
         enum ClientExportMode {
@@ -31142,6 +31268,11 @@ declare namespace ej {
          * @returns {void}
          */
         renderControlFromJSON(): void;
+
+        /** This function Destroy the PivotGauge widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
 
         /** Returns the OlapReport string maintained along with the axis elements information.
          * @returns {string}
@@ -31598,6 +31729,11 @@ declare namespace ej {
          */
         doAjaxPost(): void;
 
+        /** Performs an asynchronous HTTP (FullPost) submit.
+         * @returns {void}
+         */
+        doPostBack(): void;
+
         /** Returns the OlapReport string maintained along with the axis elements information.
          * @returns {string}
          */
@@ -31632,6 +31768,11 @@ declare namespace ej {
          * @returns {void}
          */
         renderControlSuccess(): void;
+
+        /** This function Destroy the PivotTreemap widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
+         * @returns {void}
+         */
+        destroy(): void;
     }
     export namespace PivotTreeMap {
 
@@ -40686,6 +40827,8 @@ declare namespace ej {
 
         XLRibbon: Spreadsheet.XLRibbon;
 
+        XLScroll: Spreadsheet.XLScroll;
+
         XLSearch: Spreadsheet.XLSearch;
 
         XLSelection: Spreadsheet.XLSelection;
@@ -41337,6 +41480,15 @@ declare namespace ej {
              * @returns {void}
              */
             updateRibbonIcons(): void;
+        }
+
+        export interface XLScroll {
+
+            /** This method is used to scroll the sheet content to the specified cell address in the Spreadsheet.
+             * @param {string} Pass the cell address that you want to scroll to it.
+             * @returns {void}
+             */
+            scrollToCell(range: string): void;
         }
 
         export interface XLSearch {
@@ -44481,7 +44633,7 @@ declare namespace ej {
 
             /** Returns the previous color of the signature.
              */
-            perviousColor?: string;
+            previousColor?: string;
 
             /** Returns the current color of the signature.
              */
@@ -44841,6 +44993,12 @@ declare namespace ej {
          * @returns {any}
          */
         addToDictionary(customWord: string): any;
+
+        /** Retrieves the possible suggestion words for the error word passed as an argument.
+         * @param {string} Error word to get the suggestions
+         * @returns {any}
+         */
+        getSuggestionWords(errorWord: string): any;
     }
     export namespace SpellCheck {
 
@@ -44892,6 +45050,11 @@ declare namespace ej {
              * @Default {null}
              */
             controlsToValidate?: string;
+
+            /** When set to true, allows sending Asynchronous ajax request for checking the spelling errors.
+             * @Default {true}
+             */
+            enableAsync?: boolean;
 
             /** Triggers on the success of AJAX call request.
              */
@@ -51357,7 +51520,7 @@ declare namespace ej.datavisualization {
              */
             type?: string;
 
-            /** location - X and Y co-ordinate of the points with respect to chart area.    axis - axis of the multilevellabels.    multilevellabel - Multi level label details
+            /** location - X and Y co-ordinate of the points with respect to chart area.    axis - axis of the multi level labels.    multiLevelLabel - Multi level label details
              */
             data?: any;
         }
@@ -51375,6 +51538,11 @@ declare namespace ej.datavisualization {
             /** Name of the event
              */
             type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to chart area.id - ID of the target element.    size - Width and height of the chart.    pageX - x-coordinate of the
+             * pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
         }
 
         export interface ChartDoubleClickEventArgs {
@@ -51390,6 +51558,11 @@ declare namespace ej.datavisualization {
             /** Name of the event
              */
             type?: string;
+
+            /** location - X and Y co-ordinate of the points with respect to chart area.id - ID of the target element.    size - Width and height of the chart.    pageX - x-coordinate of the
+             * pointer, relative to the page    pageY - y-coordinate of the pointer, relative to the page
+             */
+            data?: any;
         }
 
         export interface ChartMouseLeaveEventArgs {
@@ -51485,7 +51658,7 @@ declare namespace ej.datavisualization {
              */
             type?: string;
 
-            /** errorbar - Error bar Object
+            /** errorBar - Error bar Object
              */
             data?: any;
         }
@@ -51504,7 +51677,7 @@ declare namespace ej.datavisualization {
              */
             type?: string;
 
-            /** multilevellabels - MultiLevel Label Object
+            /** MultiLevelLabels - MultiLevel Label Object
              */
             data?: any;
         }
@@ -51917,7 +52090,7 @@ declare namespace ej.datavisualization {
         export interface CommonSeriesOptionsBubbleOptions {
 
             /** Used for the calculation of the bubble radius based on the mode selected
-             * @Default {minmax}
+             * @Default {minMax}
              */
             radiusMode?: ej.datavisualization.Chart.RadiusMode|string;
 
@@ -52537,7 +52710,7 @@ declare namespace ej.datavisualization {
             /** Specifies the type of the trendline for the series.
              * @Default {linear. See TrendlinesType}
              */
-            type?: string;
+            type?: ej.datavisualization.Chart.TrendlinesType|string;
 
             /** Name for the trendlines that is to be displayed in the legend text.
              * @Default {trendline}
@@ -52741,7 +52914,7 @@ declare namespace ej.datavisualization {
              */
             dataSource?: any;
 
-            /** Specifies spline tension value for cardianal spline type. Value ranges from 0 to 1.
+            /** Specifies spline tension value for cardinal spline type. Value ranges from 0 to 1.
              * @Default {0.5}
              */
             cardinalSplineTension?: number;
@@ -52901,7 +53074,7 @@ declare namespace ej.datavisualization {
              */
             pieOfPieCoefficient?: number;
 
-            /** Split Value of pieofpie series.
+            /** Split Value of pieOfPie series.
              * @Default {null}
              */
             splitValue?: string;
@@ -55889,7 +56062,7 @@ declare namespace ej.datavisualization {
         export interface SeriesBubbleOptions {
 
             /** Used for the calculation of the bubble radius based on the mode selected
-             * @Default {minmax .See RadiusMode}
+             * @Default {minMax .See RadiusMode}
              */
             radiusMode?: ej.datavisualization.Chart.RadiusMode|string;
 
@@ -57013,7 +57186,7 @@ declare namespace ej.datavisualization {
              */
             dataSource?: any;
 
-            /** Specifies spline tension values for cardianal spline type.Value ranges from 0 to 1.
+            /** Specifies spline tension values for cardinal spline type.Value ranges from 0 to 1.
              * @Default {0.5}
              */
             cardinalSplineTension?: number;
@@ -57123,7 +57296,7 @@ declare namespace ej.datavisualization {
             splitMode?: ej.datavisualization.Chart.SplitMode|string;
 
             /** Quartile calculation has been performed in three different formulas to render the boxplot series .
-             * @Default {exclusive}
+             * @Default {exclusive.See BoxPlotMode}
              */
             boxPlotMode?: ej.datavisualization.Chart.LabelPosition|string;
 
@@ -57178,7 +57351,7 @@ declare namespace ej.datavisualization {
              */
             pieOfPieCoefficient?: number;
 
-            /** Split Value of pieofpie series.
+            /** Split Value of pieOfPie series.
              * @Default {null}
              */
             splitValue?: string;
@@ -57942,6 +58115,20 @@ declare namespace ej.datavisualization {
             Plus,
             //string
             Minus,
+        }
+    }
+    namespace Chart {
+        enum TrendlinesType {
+            //string
+            Linear,
+            //string
+            Exponential,
+            //string
+            Logarithmic,
+            //string
+            Power,
+            //string
+            Polynomial,
         }
     }
     namespace Chart {
@@ -61250,7 +61437,7 @@ declare namespace ej.datavisualization {
             valuePath?: string;
         }
 
-        export interface LayersSublayersBubbleSettingsColorMappingsRangeColorMapping {
+        export interface LayersSubLayersBubbleSettingsColorMappingsRangeColorMapping {
 
             /** Start range colorMappings in the bubble layer.
              * @Default {null}
@@ -61272,15 +61459,15 @@ declare namespace ej.datavisualization {
             color?: string;
         }
 
-        export interface LayersSublayersBubbleSettingsColorMappings {
+        export interface LayersSubLayersBubbleSettingsColorMappings {
 
             /** Specifies the range colorMappings in the bubble layer.
              * @Default {null}
              */
-            rangeColorMapping?: LayersSublayersBubbleSettingsColorMappingsRangeColorMapping[];
+            rangeColorMapping?: LayersSubLayersBubbleSettingsColorMappingsRangeColorMapping[];
         }
 
-        export interface LayersSublayersBubbleSettings {
+        export interface LayersSubLayersBubbleSettings {
 
             /** Specifies the bubble Opacity value of bubbles for shape layer in map
              * @Default {0.9}
@@ -61295,7 +61482,7 @@ declare namespace ej.datavisualization {
             /** Specifies the colorMappings of the shape layer in map
              * @Default {null}
              */
-            colorMappings?: LayersSublayersBubbleSettingsColorMappings;
+            colorMappings?: LayersSubLayersBubbleSettingsColorMappings;
 
             /** Specifies the bubble color valuePath of the shape layer in map
              * @Default {null}
@@ -61333,7 +61520,7 @@ declare namespace ej.datavisualization {
             valuePath?: string;
         }
 
-        export interface LayersSublayersLabelSettings {
+        export interface LayersSubLayersLabelSettings {
 
             /** enable or disable the enableSmartLabel property
              * @Default {false}
@@ -61361,7 +61548,7 @@ declare namespace ej.datavisualization {
             smartLabelSize?: ej.datavisualization.Map.LabelSize|string;
         }
 
-        export interface LayersSublayersLegendSettings {
+        export interface LayersSubLayersLegendSettings {
 
             /** Determines whether the legend should be placed outside or inside the map bounds
              * @Default {false}
@@ -61454,7 +61641,7 @@ declare namespace ej.datavisualization {
             width?: number;
         }
 
-        export interface LayersSublayersShapeSettingsColorMappingsRangeColorMapping {
+        export interface LayersSubLayersShapeSettingsColorMappingsRangeColorMapping {
 
             /** Specifies the start range colorMappings in the shape layer of map.
              * @Default {null}
@@ -61472,7 +61659,7 @@ declare namespace ej.datavisualization {
             gradientColors?: any[];
         }
 
-        export interface LayersSublayersShapeSettingsColorMappingsEqualColorMapping {
+        export interface LayersSubLayersShapeSettingsColorMappingsEqualColorMapping {
 
             /** Specifies the equalColorMapping value in the shape layer of map.
              * @Default {null}
@@ -61485,20 +61672,20 @@ declare namespace ej.datavisualization {
             color?: string;
         }
 
-        export interface LayersSublayersShapeSettingsColorMappings {
+        export interface LayersSubLayersShapeSettingsColorMappings {
 
             /** Specifies the range colorMappings in the shape layer of map.
              * @Default {null}
              */
-            rangeColorMapping?: LayersSublayersShapeSettingsColorMappingsRangeColorMapping[];
+            rangeColorMapping?: LayersSubLayersShapeSettingsColorMappingsRangeColorMapping[];
 
             /** Specifies the equalColorMapping in the shape layer of map.
              * @Default {null}
              */
-            equalColorMapping?: LayersSublayersShapeSettingsColorMappingsEqualColorMapping[];
+            equalColorMapping?: LayersSubLayersShapeSettingsColorMappingsEqualColorMapping[];
         }
 
-        export interface LayersSublayersShapeSettings {
+        export interface LayersSubLayersShapeSettings {
 
             /** Enables or Disables the auto fill colors for shape layer in map. When this property value set to true, shapes will be filled with palette colors.
              * @Default {false}
@@ -61508,7 +61695,7 @@ declare namespace ej.datavisualization {
             /** Specifies the colorMappings of the shape layer in map
              * @Default {null}
              */
-            colorMappings?: LayersSublayersShapeSettingsColorMappings;
+            colorMappings?: LayersSubLayersShapeSettingsColorMappings;
 
             /** Specifies the shape color palette value of the shape layer in map. Accepted colorPalette values are palette1, palette2, palette3 and custompalette.
              * @Default {palette1}
@@ -61576,7 +61763,7 @@ declare namespace ej.datavisualization {
             valuePath?: string;
         }
 
-        export interface LayersSublayer {
+        export interface LayersSubLayer {
 
             /** to get the type of bing map.
              * @Default {aerial}
@@ -61585,7 +61772,7 @@ declare namespace ej.datavisualization {
 
             /** Specifies the bubble settings for map
              */
-            bubbleSettings?: LayersSublayersBubbleSettings;
+            bubbleSettings?: LayersSubLayersBubbleSettings;
 
             /** Specifies the datasource for the shape layer
              */
@@ -61616,7 +61803,7 @@ declare namespace ej.datavisualization {
 
             /** Options for enabling and configuring labelSettings labelPath, smartLabelSize, labelLength etc.,
              */
-            labelSettings?: LayersSublayersLabelSettings;
+            labelSettings?: LayersSubLayersLabelSettings;
 
             /** Specifies the map view type.
              * @Default {'geographic'}
@@ -61630,7 +61817,7 @@ declare namespace ej.datavisualization {
 
             /** Options for enabling and configuring legendSettings position, height, width, mode, type etc.,
              */
-            legendSettings?: LayersSublayersLegendSettings;
+            legendSettings?: LayersSubLayersLegendSettings;
 
             /** Specifies the map items template for shapes.
              */
@@ -61661,7 +61848,7 @@ declare namespace ej.datavisualization {
 
             /** Specifies the shape settings of map layer
              */
-            shapeSettings?: LayersSublayersShapeSettings;
+            shapeSettings?: LayersSubLayersShapeSettings;
 
             /** Shows or hides the map items.
              * @Default {false}
@@ -61791,7 +61978,7 @@ declare namespace ej.datavisualization {
 
             /** Sublayer is the collection of shape Layer
              */
-            sublayers?: LayersSublayer[];
+            subLayers?: LayersSubLayer[];
         }
     }
     namespace Map {
@@ -62513,7 +62700,7 @@ declare namespace ej.datavisualization {
             //Wrap the label by letter when its width exceeds grid width
             Wrap,
             //Wrap the label by word when its width exceeds grid width
-            Wrapbyword,
+            WrapByWord,
         }
     }
     namespace TreeMap {
@@ -63982,11 +64169,11 @@ declare namespace ej.datavisualization {
 
             /** A method that defines whether the command is executable at the moment or not.
              */
-            canExecute?: '() => void';
+            canExecute?: any;
 
             /** A method that defines what to be executed when the key combination is recognized.
              */
-            execute?: '() => void';
+            execute?: any;
 
             /** Defines a combination of keys and key modifiers, on recognition of which the command will be executed
              */
@@ -64669,22 +64856,22 @@ declare namespace ej.datavisualization {
              */
             id?: string;
 
-            /** Sets the sourcenode of the connection data source item
+            /** Sets the source node of the connection data source item
              * @Default {null}
              */
             sourceNode?: string;
 
-            /** Sets the targetnode of the connection data source item
+            /** Sets the target node of the connection data source item
              * @Default {null}
              */
             targetNode?: string;
 
-            /** Sets the sourcepoint-x value of the connection data source item
+            /** Sets the sourcePointX value of the connection data source item
              * @Default {null}
              */
             sourcePointX?: string;
 
-            /** Sets the sourcePoint-y value of the connection data source item
+            /** Sets the sourcePointY value of the connection data source item
              * @Default {null}
              */
             sourcePointY?: string;
@@ -64704,7 +64891,7 @@ declare namespace ej.datavisualization {
              */
             crudAction?: DataSourceSettingsConnectionDataSourceCrudAction;
 
-            /** Specifies the customfields to get the updated data from client side to the server side
+            /** Specifies the custom fields to get the updated data from client side to the server side
              * @Default {[]}
              */
             customFields?: any[];
@@ -64745,7 +64932,7 @@ declare namespace ej.datavisualization {
              */
             crudAction?: DataSourceSettingsCrudAction;
 
-            /** Specifies the customfields to get the updated data from client side to the server side
+            /** Specifies the custom fields to get the updated data from client side to the server side
              * @Default {[]}
              */
             customFields?: any[];
@@ -64778,24 +64965,24 @@ declare namespace ej.datavisualization {
 
             /** A method that takes a history entry as argument and returns whether the specific entry can be popped or not
              */
-            canPop?: '() => void';
+            canPop?: any;
 
             /** A method that ends grouping the changes
              */
-            closeGroupAction?: '() => void';
+            closeGroupAction?: any;
 
             /** A method that removes the history of a recent change made in diagram
              */
-            pop?: '() => void';
+            pop?: any;
 
             /** A method that allows to track the custom changes made in diagram
              */
-            push?: '() => void';
+            push?: any;
 
             /** Defines what should be happened while trying to restore a custom change
              * @Default {null}
              */
-            redo?: '() => void';
+            redo?: any;
 
             /** The redoStack property is used to get the number of redo actions to be stored on the history manager. Its an read-only property and the collection should not be modified.
              * @Default {[]}
@@ -64809,11 +64996,11 @@ declare namespace ej.datavisualization {
 
             /** A method that starts to group the changes to revert/restore them in a single undo or redo
              */
-            startGroupAction?: '() => void';
+            startGroupAction?: any;
 
             /** Defines what should be happened while trying to revert a custom change
              */
-            undo?: '() => void';
+            undo?: any;
 
             /** The undoStack property is used to get the number of undo actions to be stored on the history manager. Its an read-only property and the collection should not be modified.
              * @Default {[]}
@@ -65104,6 +65291,11 @@ declare namespace ej.datavisualization {
              */
             stops?: any[];
 
+            /** Defines the type of gradient
+             * @Default {linear}
+             */
+            type?: string;
+
             /** Defines the left most position(relative to node) of the rectangular region that needs to be painted
              * @Default {0}
              */
@@ -65126,6 +65318,11 @@ declare namespace ej.datavisualization {
         }
 
         export interface NodesGradientRadialGradient {
+
+            /** Defines the type of gradient
+             * @Default {radial}
+             */
+            type?: string;
 
             /** Defines the position of the outermost circle
              * @Default {0}
@@ -69214,7 +69411,7 @@ declare namespace ej.datavisualization {
              */
             format?: string;
 
-            /** Sets the opacity of the dispalyed tooltip
+            /** Sets the opacity of the displayed tooltip
              * @Default {0.95}
              */
             opacity?: number;
@@ -69885,7 +70082,7 @@ interface JQueryPromise<T> {
      */
     cancel?: boolean;
 }
-interface JQueryDeferred<T> extends JQueryPromise<T> {
+interface JQueryDeferred<T> {
     /**
      * Returns the cancel option value.
      */
