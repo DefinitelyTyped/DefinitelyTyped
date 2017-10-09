@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "target": "es6",
         "module": "commonjs",
         "lib": [
             "es6",
@@ -19,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "atom-keymap-tests.ts"
+        "atom-mocha-test-runner-tests.ts"
     ]
 }
