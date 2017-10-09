@@ -1940,7 +1940,7 @@ gapi.load('client', () => {
         });
         /** Changes a backup target pool's configurations. */
         await gapi.client.targetPools.setBackup({
-            failoverRatio: "failoverRatio",
+            failoverRatio: 1,
             project: "project",
             region: "region",
             requestId: "requestId",

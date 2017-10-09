@@ -142,7 +142,6 @@ declare namespace gapi {
          * Creates a batch object for batching individual requests.
          */
         function newBatch<T>(): Batch<T>;
-
     }
 
     namespace auth {
@@ -169,9 +168,9 @@ declare namespace gapi {
         }
 
         /**
-         * Initiates the OAuth 2.0 authorization process. The browser displays a popup window prompting the user authenticate and authorize. 
+         * Initiates the OAuth 2.0 authorization process. The browser displays a popup window prompting the user authenticate and authorize.
          * After the user authorizes, the popup closes and the callback function fires.
-         * @param params A key/value map of parameters for the request. If the key is not one of the expected OAuth 2.0 parameters, it is added to the 
+         * @param params A key/value map of parameters for the request. If the key is not one of the expected OAuth 2.0 parameters, it is added to the
          * URI as a query parameter.
          * @param callback The function to call once the login process is complete. The function takes an OAuth 2.0 token object as its only parameter.
          */
