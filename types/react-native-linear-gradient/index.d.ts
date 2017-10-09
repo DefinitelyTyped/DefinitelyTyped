@@ -6,7 +6,7 @@
 import * as React from 'react';
 import { ViewProperties } from 'react-native';
 
-interface LinearGradienttProps extends ViewProperties {
+interface LinearGradientProps extends ViewProperties {
     children?: React.ReactNode;
 
     /**
@@ -39,8 +39,8 @@ interface LinearGradienttProps extends ViewProperties {
     locations?: ReadonlyArray<number>;
 }
 
-declare class LinearGradient extends React.Component<LinearGradienttProps> {
-    constructor(props: LinearGradienttProps);
+declare class LinearGradient extends React.Component<LinearGradientProps> {
+    constructor(props: LinearGradientProps);
 }
 
 export default LinearGradient;
