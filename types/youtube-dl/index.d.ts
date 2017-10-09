@@ -7,13 +7,11 @@
 import * as fs from "fs";
 
 type callback = (info: object) => void;
-type onMethod = (event: string, func: callback) => Youtubedl;
-type pipeMethod = (stream: fs.WriteStream) => Youtubedl;
 
 interface Youtubedl {
     (url: string, arg: Array<string>, opt: {[key: string]: string}): this;
-    on: onMethod;
-    pipe: pipeMethod;
+    on(event: string, func: callback): this;
+    pipe(stream: fs.WriteStream): this;
 }
 
-export = {} as Youtubedl;
+export = Youtubedl;
