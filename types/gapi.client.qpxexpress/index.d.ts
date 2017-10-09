@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load QPX Express API v1 */
-    function load(name: "qpxexpress", version: "v1"): PromiseLike<void>;    
-    function load(name: "qpxexpress", version: "v1", callback: () => any): void;    
-    
-    const trips: qpxexpress.TripsResource; 
-    
+    function load(name: "qpxexpress", version: "v1"): PromiseLike<void>;
+    function load(name: "qpxexpress", version: "v1", callback: () => any): void;
+
+    const trips: qpxexpress.TripsResource;
+
     namespace qpxexpress {
-        
         interface AircraftData {
             /** The aircraft code. For example, for a Boeing 777 the code would be 777. */
             code?: string;
@@ -28,7 +27,6 @@ declare namespace gapi.client {
             /** The name of an aircraft, for example Boeing 777. */
             name?: string;
         }
-        
         interface AirportData {
             /** The city code an airport is located in. For example, for JFK airport, this is NYC. */
             city?: string;
@@ -39,7 +37,6 @@ declare namespace gapi.client {
             /** The name of an airport. For example, for airport BOS the name is "Boston Logan International". */
             name?: string;
         }
-        
         interface BagDescriptor {
             /** Provides the commercial name for an optional service. */
             commercialName?: string;
@@ -52,7 +49,6 @@ declare namespace gapi.client {
             /** The standard IATA subcode used to identify this optional service. */
             subcode?: string;
         }
-        
         interface CarrierData {
             /** The IATA designator of a carrier (airline, etc). For example, for American Airlines, the code is AA. */
             code?: string;
@@ -61,7 +57,6 @@ declare namespace gapi.client {
             /** The long, full name of a carrier. For example: American Airlines. */
             name?: string;
         }
-        
         interface CityData {
             /** The IATA character ID of a city. For example, for Boston this is BOS. */
             code?: string;
@@ -72,7 +67,6 @@ declare namespace gapi.client {
             /** The full name of a city. An example would be: New York. */
             name?: string;
         }
-        
         interface Data {
             /** The aircraft that is flying between an origin and destination. */
             aircraft?: AircraftData[];
@@ -82,12 +76,14 @@ declare namespace gapi.client {
             carrier?: CarrierData[];
             /** The city that is either the origin or destination of part of a trip. */
             city?: CityData[];
-            /** Identifies this as QPX Express response resource, including a trip's airport, city, taxes, airline, and aircraft. Value: the fixed string qpxexpress#data. */
+            /**
+             * Identifies this as QPX Express response resource, including a trip's airport, city, taxes, airline, and aircraft. Value: the fixed string
+             * qpxexpress#data.
+             */
             kind?: string;
             /** The taxes due for flying between an origin and a destination. */
             tax?: TaxData[];
         }
-        
         interface FareInfo {
             basisCode?: string;
             /** The carrier of the aircraft or other vehicle commuting between two points. */
@@ -103,13 +99,11 @@ declare namespace gapi.client {
             /** Whether this is a private fare, for example one offered only to select customers rather than the general public. */
             private?: boolean;
         }
-        
         interface FlightInfo {
             carrier?: string;
             /** The flight number. */
             number?: string;
         }
-        
         interface FreeBaggageAllowance {
             /** A representation of a type of bag, such as an ATPCo subcode, Commercial Name, or other description. */
             bagDescriptor?: BagDescriptor[];
@@ -124,7 +118,6 @@ declare namespace gapi.client {
             /** The number of pounds of free baggage allowed. */
             pounds?: number;
         }
-        
         interface LegInfo {
             /** The aircraft (or bus, ferry, railcar, etc) travelling between the two points of this leg. */
             aircraft?: string;
@@ -144,7 +137,10 @@ declare namespace gapi.client {
             duration?: number;
             /** An identifier that uniquely identifies this leg in the solution. */
             id?: string;
-            /** Identifies this as a leg object. A leg is the smallest unit of travel, in the case of a flight a takeoff immediately followed by a landing at two set points on a particular carrier with a particular flight number. Value: the fixed string qpxexpress#legInfo. */
+            /**
+             * Identifies this as a leg object. A leg is the smallest unit of travel, in the case of a flight a takeoff immediately followed by a landing at two set
+             * points on a particular carrier with a particular flight number. Value: the fixed string qpxexpress#legInfo.
+             */
             kind?: string;
             /** A simple, general description of the meal(s) served on the flight, for example: "Hot meal". */
             meal?: string;
@@ -152,7 +148,10 @@ declare namespace gapi.client {
             mileage?: number;
             /** In percent, the published on time performance on this leg. */
             onTimePerformance?: number;
-            /** Department of Transportation disclosure information on the actual operator of a flight in a code share. (A code share refers to a marketing agreement between two carriers, where one carrier will list in its schedules (and take bookings for) flights that are actually operated by another carrier.) */
+            /**
+             * Department of Transportation disclosure information on the actual operator of a flight in a code share. (A code share refers to a marketing agreement
+             * between two carriers, where one carrier will list in its schedules (and take bookings for) flights that are actually operated by another carrier.)
+             */
             operatingDisclosure?: string;
             /** The leg origin as a city and airport. */
             origin?: string;
@@ -161,7 +160,6 @@ declare namespace gapi.client {
             /** Whether passenger information must be furnished to the United States Transportation Security Administration (TSA) prior to departure. */
             secure?: boolean;
         }
-        
         interface PassengerCounts {
             /** The number of passengers that are adults. */
             adultCount?: number;
@@ -176,9 +174,11 @@ declare namespace gapi.client {
             /** The number of passengers that are senior citizens. */
             seniorCount?: number;
         }
-        
         interface PricingInfo {
-            /** The total fare in the base fare currency (the currency of the country of origin). This element is only present when the sales currency and the currency of the country of commencement are different. */
+            /**
+             * The total fare in the base fare currency (the currency of the country of origin). This element is only present when the sales currency and the currency
+             * of the country of commencement are different.
+             */
             baseFareTotal?: string;
             /** The fare used to price one or more segments. */
             fare?: FareInfo[];
@@ -186,11 +186,17 @@ declare namespace gapi.client {
             fareCalculation?: string;
             /** Identifies this as a pricing object, representing the price of one or more travel segments. Value: the fixed string qpxexpress#pricingInfo. */
             kind?: string;
-            /** The latest ticketing time for this pricing assuming the reservation occurs at ticketing time and there is no change in fares/rules. The time is local to the point of sale (POS). */
+            /**
+             * The latest ticketing time for this pricing assuming the reservation occurs at ticketing time and there is no change in fares/rules. The time is local
+             * to the point of sale (POS).
+             */
             latestTicketingTime?: string;
             /** The number of passengers to which this price applies. */
             passengers?: PassengerCounts;
-            /** The passenger type code for this pricing. An alphanumeric code used by a carrier to restrict fares to certain categories of passenger. For instance, a fare might be valid only for senior citizens. */
+            /**
+             * The passenger type code for this pricing. An alphanumeric code used by a carrier to restrict fares to certain categories of passenger. For instance, a
+             * fare might be valid only for senior citizens.
+             */
             ptc?: string;
             /** Whether the fares on this pricing are refundable. */
             refundable?: boolean;
@@ -205,7 +211,6 @@ declare namespace gapi.client {
             /** The taxes used to calculate the tax total per ticket. */
             tax?: TaxInfo[];
         }
-        
         interface SegmentInfo {
             /** The booking code or class for this segment. */
             bookingCode?: string;
@@ -221,16 +226,24 @@ declare namespace gapi.client {
             flight?: FlightInfo;
             /** An id uniquely identifying the segment in the solution. */
             id?: string;
-            /** Identifies this as a segment object. A segment is one or more consecutive legs on the same flight. For example a hypothetical flight ZZ001, from DFW to OGG, could have one segment with two legs: DFW to HNL (leg 1), HNL to OGG (leg 2). Value: the fixed string qpxexpress#segmentInfo. */
+            /**
+             * Identifies this as a segment object. A segment is one or more consecutive legs on the same flight. For example a hypothetical flight ZZ001, from DFW to
+             * OGG, could have one segment with two legs: DFW to HNL (leg 1), HNL to OGG (leg 2). Value: the fixed string qpxexpress#segmentInfo.
+             */
             kind?: string;
             /** The legs composing this segment. */
             leg?: LegInfo[];
-            /** The solution-based index of a segment in a married segment group. Married segments can only be booked together. For example, an airline might report a certain booking code as sold out from Boston to Pittsburgh, but as available as part of two married segments Boston to Chicago connecting through Pittsburgh. For example content of this field, consider the round-trip flight ZZ1 PHX-PHL ZZ2 PHL-CLT ZZ3 CLT-PHX. This has three segments, with the two outbound ones (ZZ1 ZZ2) married. In this case, the two outbound segments belong to married segment group 0, and the return segment belongs to married segment group 1. */
+            /**
+             * The solution-based index of a segment in a married segment group. Married segments can only be booked together. For example, an airline might report a
+             * certain booking code as sold out from Boston to Pittsburgh, but as available as part of two married segments Boston to Chicago connecting through
+             * Pittsburgh. For example content of this field, consider the round-trip flight ZZ1 PHX-PHL ZZ2 PHL-CLT ZZ3 CLT-PHX. This has three segments, with the
+             * two outbound ones (ZZ1 ZZ2) married. In this case, the two outbound segments belong to married segment group 0, and the return segment belongs to
+             * married segment group 1.
+             */
             marriedSegmentGroup?: string;
             /** Whether the operation of this segment remains subject to government approval. */
             subjectToGovernmentApproval?: boolean;
         }
-        
         interface SegmentPricing {
             /** A segment identifier unique within a single solution. It is used to refer to different parts of the same solution. */
             fareId?: string;
@@ -241,18 +254,22 @@ declare namespace gapi.client {
             /** Unique identifier in the response of this segment. */
             segmentId?: string;
         }
-        
         interface SliceInfo {
             /** The duration of the slice in minutes. */
             duration?: number;
-            /** Identifies this as a slice object. A slice represents a traveller's intent, the portion of a low-fare search corresponding to a traveler's request to get between two points. One-way journeys are generally expressed using 1 slice, round-trips using 2. Value: the fixed string qpxexpress#sliceInfo. */
+            /**
+             * Identifies this as a slice object. A slice represents a traveller's intent, the portion of a low-fare search corresponding to a traveler's request to
+             * get between two points. One-way journeys are generally expressed using 1 slice, round-trips using 2. Value: the fixed string qpxexpress#sliceInfo.
+             */
             kind?: string;
             /** The segment(s) constituting the slice. */
             segment?: SegmentInfo[];
         }
-        
         interface SliceInput {
-            /** Slices with only the carriers in this alliance should be returned; do not use this field with permittedCarrier. Allowed values are ONEWORLD, SKYTEAM, and STAR. */
+            /**
+             * Slices with only the carriers in this alliance should be returned; do not use this field with permittedCarrier. Allowed values are ONEWORLD, SKYTEAM,
+             * and STAR.
+             */
             alliance?: string;
             /** Departure date in YYYY-MM-DD format. */
             date?: string;
@@ -275,7 +292,6 @@ declare namespace gapi.client {
             /** A list of 2-letter IATA airline designators. Exclude slices that use these carriers. */
             prohibitedCarrier?: string[];
         }
-        
         interface TaxData {
             /** An identifier uniquely identifying a tax in a response. */
             id?: string;
@@ -284,7 +300,6 @@ declare namespace gapi.client {
             /** The name of a tax. */
             name?: string;
         }
-        
         interface TaxInfo {
             /** Whether this is a government charge or a carrier surcharge. */
             chargeType?: string;
@@ -299,16 +314,17 @@ declare namespace gapi.client {
             /** The price of the tax in the sales or equivalent currency. */
             salePrice?: string;
         }
-        
         interface TimeOfDayRange {
             /** The earliest time of day in HH:MM format. */
             earliestTime?: string;
-            /** Identifies this as a time of day range object, representing two times in a single day defining a time range. Value: the fixed string qpxexpress#timeOfDayRange. */
+            /**
+             * Identifies this as a time of day range object, representing two times in a single day defining a time range. Value: the fixed string
+             * qpxexpress#timeOfDayRange.
+             */
             kind?: string;
             /** The latest time of day in HH:MM format. */
             latestTime?: string;
         }
-        
         interface TripOption {
             /** Identifier uniquely identifying this trip in a response. */
             id?: string;
@@ -321,9 +337,11 @@ declare namespace gapi.client {
             /** The slices that make up this trip's itinerary. */
             slice?: SliceInfo[];
         }
-        
         interface TripOptionsRequest {
-            /** Do not return solutions that cost more than this price. The alphabetical part of the price is in ISO 4217. The format, in regex, is [A-Z]{3}\d+(\.\d+)? Example: $102.07 */
+            /**
+             * Do not return solutions that cost more than this price. The alphabetical part of the price is in ISO 4217. The format, in regex, is [A-Z]{3}\d+(\.\d+)?
+             * Example: $102.07
+             */
             maxPrice?: string;
             /** Counts for each passenger type in the request. */
             passengers?: PassengerCounts;
@@ -331,14 +349,17 @@ declare namespace gapi.client {
             refundable?: boolean;
             /** IATA country code representing the point of sale. This determines the "equivalent amount paid" currency for the ticket. */
             saleCountry?: string;
-            /** The slices that make up the itinerary of this trip. A slice represents a traveler's intent, the portion of a low-fare search corresponding to a traveler's request to get between two points. One-way journeys are generally expressed using one slice, round-trips using two. An example of a one slice trip with three segments might be BOS-SYD, SYD-LAX, LAX-BOS if the traveler only stopped in SYD and LAX just long enough to change planes. */
+            /**
+             * The slices that make up the itinerary of this trip. A slice represents a traveler's intent, the portion of a low-fare search corresponding to a
+             * traveler's request to get between two points. One-way journeys are generally expressed using one slice, round-trips using two. An example of a one
+             * slice trip with three segments might be BOS-SYD, SYD-LAX, LAX-BOS if the traveler only stopped in SYD and LAX just long enough to change planes.
+             */
             slice?: SliceInput[];
             /** The number of solutions to return, maximum 500. */
             solutions?: number;
             /** IATA country code representing the point of ticketing. */
             ticketingCountry?: string;
         }
-        
         interface TripOptionsResponse {
             /** Informational data global to list of solutions. */
             data?: Data;
@@ -349,22 +370,19 @@ declare namespace gapi.client {
             /** A list of priced itinerary solutions to the QPX Express query. */
             tripOption?: TripOption[];
         }
-        
         interface TripsSearchRequest {
             /** A QPX Express search request. Required values are at least one adult or senior passenger, an origin, a destination, and a date. */
             request?: TripOptionsRequest;
         }
-        
         interface TripsSearchResponse {
             /** Identifies this as a QPX Express API search response resource. Value: the fixed string qpxExpress#tripsSearch. */
             kind?: string;
             /** All possible solutions to the QPX Express search request. */
             trips?: TripOptionsResponse;
         }
-        
         interface TripsResource {
             /** Returns a list of flights. */
-            search(request: {            
+            search(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -375,12 +393,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TripsSearchResponse>;            
-            
+            }): Request<TripsSearchResponse>;
         }
     }
 }

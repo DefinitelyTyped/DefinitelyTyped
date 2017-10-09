@@ -13,18 +13,16 @@
 
 declare namespace gapi.client {
     /** Load Google Search Console URL Testing Tools API v1 */
-    function load(name: "searchconsole", version: "v1"): PromiseLike<void>;    
-    function load(name: "searchconsole", version: "v1", callback: () => any): void;    
-    
-    const urlTestingTools: searchconsole.UrlTestingToolsResource; 
-    
+    function load(name: "searchconsole", version: "v1"): PromiseLike<void>;
+    function load(name: "searchconsole", version: "v1", callback: () => any): void;
+
+    const urlTestingTools: searchconsole.UrlTestingToolsResource;
+
     namespace searchconsole {
-        
         interface BlockedResource {
             /** URL of the blocked resource. */
             url?: string;
         }
-        
         interface Image {
             /**
              * Image data in format determined by the mime type. Currently, the format
@@ -34,24 +32,20 @@ declare namespace gapi.client {
             /** The mime-type of the image data. */
             mimeType?: string;
         }
-        
         interface MobileFriendlyIssue {
             /** Rule violated. */
             rule?: string;
         }
-        
         interface ResourceIssue {
             /** Describes a blocked resource issue. */
             blockedResource?: BlockedResource;
         }
-        
         interface RunMobileFriendlyTestRequest {
             /** Whether or not screenshot is requested. Default is false. */
             requestScreenshot?: boolean;
             /** URL for inspection. */
             url?: string;
         }
-        
         interface RunMobileFriendlyTestResponse {
             /** Test verdict, whether the page is mobile friendly or not. */
             mobileFriendliness?: string;
@@ -64,17 +58,15 @@ declare namespace gapi.client {
             /** Final state of the test, can be either complete or an error. */
             testStatus?: TestStatus;
         }
-        
         interface TestStatus {
             /** Error details if applicable. */
             details?: string;
             /** Status of the test. */
             status?: string;
         }
-        
         interface MobileFriendlyTestResource {
             /** Runs Mobile-Friendly Test for a given URL. */
-            run(request: {            
+            run(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -101,10 +93,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<RunMobileFriendlyTestResponse>;            
-            
+            }): Request<RunMobileFriendlyTestResponse>;
         }
-        
         interface UrlTestingToolsResource {
             mobileFriendlyTest: MobileFriendlyTestResource;
         }

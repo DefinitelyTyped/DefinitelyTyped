@@ -13,19 +13,18 @@
 
 declare namespace gapi.client {
     /** Load Google Proximity Beacon API v1beta1 */
-    function load(name: "proximitybeacon", version: "v1beta1"): PromiseLike<void>;    
-    function load(name: "proximitybeacon", version: "v1beta1", callback: () => any): void;    
-    
-    const beaconinfo: proximitybeacon.BeaconinfoResource; 
-    
-    const beacons: proximitybeacon.BeaconsResource; 
-    
-    const namespaces: proximitybeacon.NamespacesResource; 
-    
-    const v1beta1: proximitybeacon.V1beta1Resource; 
-    
+    function load(name: "proximitybeacon", version: "v1beta1"): PromiseLike<void>;
+    function load(name: "proximitybeacon", version: "v1beta1", callback: () => any): void;
+
+    const beaconinfo: proximitybeacon.BeaconinfoResource;
+
+    const beacons: proximitybeacon.BeaconsResource;
+
+    const namespaces: proximitybeacon.NamespacesResource;
+
+    const v1beta1: proximitybeacon.V1beta1Resource;
+
     namespace proximitybeacon {
-        
         interface AdvertisedId {
             /**
              * The actual beacon identifier, as broadcast by the beacon hardware. Must be
@@ -42,7 +41,6 @@ declare namespace gapi.client {
              */
             type?: string;
         }
-        
         interface AttachmentInfo {
             /** An opaque data container for client-provided data. */
             data?: string;
@@ -53,13 +51,12 @@ declare namespace gapi.client {
              */
             namespacedType?: string;
         }
-        
         interface Beacon {
             /**
              * The identifier of a beacon as advertised by it. This field must be
              * populated when registering. It may be empty when updating a beacon
              * record because it is ignored in updates.
-             * 
+             *
              * When registering a beacon that broadcasts Eddystone-EID, this field
              * should contain a "stable" Eddystone-UID that identifies the beacon and
              * links it to its attachments. The stable Eddystone-UID is only used for
@@ -71,7 +68,7 @@ declare namespace gapi.client {
              * "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
              * the beacon and N is a code for the beacon's type. Possible values are
              * `3` for Eddystone, `1` for iBeacon, or `5` for AltBeacon.
-             * 
+             *
              * This field must be left empty when registering. After reading a beacon,
              * clients can use the name for future operations.
              */
@@ -121,7 +118,7 @@ declare namespace gapi.client {
              * version.
              * Optional.
              */
-            properties?: Record<string, string>;            
+            properties?: Record<string, string>;
             /**
              * Some beacons may require a user to provide an authorization key before
              * changing any of its configuration (e.g. broadcast frames, transmit power).
@@ -139,7 +136,6 @@ declare namespace gapi.client {
              */
             status?: string;
         }
-        
         interface BeaconAttachment {
             /**
              * Resource name of this attachment. Attachment names have the format:
@@ -160,6 +156,26 @@ declare namespace gapi.client {
              */
             data?: string;
             /**
+             * The distance away from the beacon at which this attachment should be
+             * delivered to a mobile app.
+             *
+             * Setting this to a value greater than zero indicates that the app should
+             * behave as if the beacon is "seen" when the mobile device is less than this
+             * distance away from the beacon.
+             *
+             * Different attachments on the same beacon can have different max distances.
+             *
+             * Note that even though this value is expressed with fractional meter
+             * precision, real-world behavior is likley to be much less precise than one
+             * meter, due to the nature of current Bluetooth radio technology.
+             *
+             * Optional. When not set or zero, the attachment should be delivered at the
+             * beacon's outer limit of detection.
+             *
+             * Negative values are invalid and return an error.
+             */
+            maxDistanceMeters?: number;
+            /**
              * Specifies what kind of attachment this is. Tells a client how to
              * interpret the `data` field. Format is <var>namespace/type</var>. Namespace
              * provides type separation between clients. Type describes the type of
@@ -168,7 +184,6 @@ declare namespace gapi.client {
              */
             namespacedType?: string;
         }
-        
         interface BeaconInfo {
             /** The ID advertised by the beacon. */
             advertisedId?: AdvertisedId;
@@ -180,7 +195,6 @@ declare namespace gapi.client {
             /** The name under which the beacon is registered. */
             beaconName?: string;
         }
-        
         interface Date {
             /**
              * Day of month. Must be from 1 to 31 and valid for the year and month, or 0
@@ -195,12 +209,10 @@ declare namespace gapi.client {
              */
             year?: number;
         }
-        
         interface DeleteAttachmentsResponse {
             /** The number of attachments that were deleted. */
             numDeleted?: number;
         }
-        
         interface Diagnostics {
             /** An unordered list of Alerts that the beacon has. */
             alerts?: string[];
@@ -216,7 +228,6 @@ declare namespace gapi.client {
              */
             estimatedLowBatteryDate?: Date;
         }
-        
         interface EphemeralIdRegistration {
             /**
              * The beacon's public key used for the Elliptic curve Diffie-Hellman
@@ -262,7 +273,6 @@ declare namespace gapi.client {
              */
             serviceEcdhPublicKey?: string;
         }
-        
         interface EphemeralIdRegistrationParams {
             /**
              * Indicates the maximum rotation period supported by the service.
@@ -280,7 +290,6 @@ declare namespace gapi.client {
              */
             serviceEcdhPublicKey?: string;
         }
-        
         interface GetInfoForObservedBeaconsRequest {
             /**
              * Specifies what kind of attachments to include in the response.
@@ -297,7 +306,6 @@ declare namespace gapi.client {
              */
             observations?: Observation[];
         }
-        
         interface GetInfoForObservedBeaconsResponse {
             /**
              * Public information about beacons.
@@ -305,24 +313,20 @@ declare namespace gapi.client {
              */
             beacons?: BeaconInfo[];
         }
-        
         interface IndoorLevel {
             /** The name of this level. */
             name?: string;
         }
-        
         interface LatLng {
             /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
             latitude?: number;
             /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
             longitude?: number;
         }
-        
         interface ListBeaconAttachmentsResponse {
             /** The attachments that corresponded to the request params. */
             attachments?: BeaconAttachment[];
         }
-        
         interface ListBeaconsResponse {
             /** The beacons that matched the search criteria. */
             beacons?: Beacon[];
@@ -337,7 +341,6 @@ declare namespace gapi.client {
              */
             totalCount?: string;
         }
-        
         interface ListDiagnosticsResponse {
             /** The diagnostics matching the given request. */
             diagnostics?: Diagnostics[];
@@ -347,12 +350,10 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListNamespacesResponse {
             /** The attachments that corresponded to the request params. */
             namespaces?: Namespace[];
         }
-        
         interface Namespace {
             /**
              * Resource name of this namespace. Namespaces names have the format:
@@ -365,11 +366,10 @@ declare namespace gapi.client {
              */
             servingVisibility?: string;
         }
-        
         interface Observation {
             /**
              * The ID advertised by the beacon the client has encountered.
-             * 
+             *
              * If the submitted `advertised_id` type is Eddystone-EID, then the client
              * must be authorized to resolve the given beacon. Otherwise no data will be
              * returned for that beacon.
@@ -385,7 +385,6 @@ declare namespace gapi.client {
             /** Time when the beacon was observed. */
             timestampMs?: string;
         }
-        
         interface BeaconinfoResource {
             /**
              * Given one or more beacon observations, returns any beacon information
@@ -393,7 +392,7 @@ declare namespace gapi.client {
              * [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)
              * for the application.
              */
-            getforobserved(request: {            
+            getforobserved(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -420,25 +419,23 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GetInfoForObservedBeaconsResponse>;            
-            
+            }): Request<GetInfoForObservedBeaconsResponse>;
         }
-        
         interface AttachmentsResource {
             /**
              * Deletes multiple attachments on a given beacon. This operation is
              * permanent and cannot be undone.
-             * 
+             *
              * You can optionally specify `namespacedType` to choose which attachments
              * should be deleted. If you do not specify `namespacedType`,  all your
              * attachments on the given beacon will be deleted. You also may explicitly
              * specify `&#42;/&#42;` to delete all.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            batchDelete(request: {            
+            batchDelete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -491,8 +488,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<DeleteAttachmentsResponse>;            
-            
+            }): Request<DeleteAttachmentsResponse>;
             /**
              * Associates the given data with the specified beacon. Attachment data must
              * contain two parts:
@@ -504,14 +500,14 @@ declare namespace gapi.client {
              * The namespace must be one of the values returned by the `namespaces`
              * endpoint, while the type can be a string of any characters except for the
              * forward slash (`/`) up to 100 characters in length.
-             * 
+             *
              * Attachment data can be up to 1024 bytes long.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -555,20 +551,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BeaconAttachment>;            
-            
+            }): Request<BeaconAttachment>;
             /**
              * Deletes the specified attachment for the given beacon. Each attachment has
              * a unique attachment name (`attachmentName`) which is returned when you
              * fetch the attachment data via this API. You specify this with the delete
              * request to control which attachment is removed. This operation cannot be
              * undone.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -610,22 +605,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Returns the attachments for the specified beacon that match the specified
              * namespaced-type pattern.
-             * 
+             *
              * To control which namespaced types are returned, you add the
              * `namespacedType` query parameter to the request. You must either use
              * `&#42;/&#42;`, to return all attachments, or the namespace must be one of
              * the ones returned from the  `namespaces` endpoint.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42;
              * permissions in the Google Developers Console project.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -677,21 +671,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBeaconAttachmentsResponse>;            
-            
+            }): Request<ListBeaconAttachmentsResponse>;
         }
-        
         interface DiagnosticsResource {
             /**
              * List the diagnostics for a single beacon. You can also list diagnostics for
              * all the beacons owned by your Google Developers Console project by using
              * the beacon name `beacons/-`.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42;
              * permissions in the Google Developers Console project.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -741,22 +733,20 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListDiagnosticsResponse>;            
-            
+            }): Request<ListDiagnosticsResponse>;
         }
-        
         interface BeaconsResource {
             /**
              * Activates a beacon. A beacon that is active will return information
              * and attachment data when queried via `beaconinfo.getforobserved`.
              * Calling this method on an already active beacon will do nothing (but
              * will return a successful response code).
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            activate(request: {            
+            activate(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -800,19 +790,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Deactivates a beacon. Once deactivated, the API will not return
              * information nor attachment data for the beacon when queried via
              * `beaconinfo.getforobserved`. Calling this method on an already inactive
              * beacon will do nothing (but will return a successful response code).
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            deactivate(request: {            
+            deactivate(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -856,19 +845,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Decommissions the specified beacon in the service. This beacon will no
              * longer be returned from `beaconinfo.getforobserved`. This operation is
              * permanent -- you will not be able to re-register a beacon with this ID
              * again.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            decommission(request: {            
+            decommission(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -912,18 +900,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Deletes the specified beacon including all diagnostics data for the beacon
              * as well as any attachments on the beacon (including those belonging to
              * other projects). This operation cannot be undone.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -966,22 +953,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Returns detailed information about the specified beacon.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42;
              * permissions in the Google Developers Console project.
-             * 
+             *
              * Requests may supply an Eddystone-EID beacon name in the form:
              * `beacons/4!beaconId` where the `beaconId` is the base16 ephemeral ID
              * broadcast by the beacon. The returned `Beacon` object will contain the
              * beacon's stable Eddystone-UID. Clients not authorized to resolve the
              * beacon's ephemeral Eddystone-EID broadcast will receive an error.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1025,18 +1011,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Beacon>;            
-            
+            }): Request<Beacon>;
             /**
              * Searches the beacon registry for beacons that match the given search
              * criteria. Only those beacons that the client has permission to list
              * will be returned.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42;
              * permissions in the Google Developers Console project.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1072,70 +1057,70 @@ declare namespace gapi.client {
                 projectId?: string;
                 /**
                  * Filter query string that supports the following field filters:
-                 * 
+                 *
                  * &#42; &#42;&#42;description:`"<string>"`&#42;&#42;
-                 *   For example: &#42;&#42;description:"Room 3"&#42;&#42;
-                 *   Returns beacons whose description matches tokens in the string "Room 3"
-                 *   (not necessarily that exact string).
-                 *   The string must be double-quoted.
+                 * For example: &#42;&#42;description:"Room 3"&#42;&#42;
+                 * Returns beacons whose description matches tokens in the string "Room 3"
+                 * (not necessarily that exact string).
+                 * The string must be double-quoted.
                  * &#42; &#42;&#42;status:`<enum>`&#42;&#42;
-                 *   For example: &#42;&#42;status:active&#42;&#42;
-                 *   Returns beacons whose status matches the given value. Values must be
-                 *   one of the Beacon.Status enum values (case insensitive). Accepts
-                 *   multiple filters which will be combined with OR logic.
+                 * For example: &#42;&#42;status:active&#42;&#42;
+                 * Returns beacons whose status matches the given value. Values must be
+                 * one of the Beacon.Status enum values (case insensitive). Accepts
+                 * multiple filters which will be combined with OR logic.
                  * &#42; &#42;&#42;stability:`<enum>`&#42;&#42;
-                 *   For example: &#42;&#42;stability:mobile&#42;&#42;
-                 *   Returns beacons whose expected stability matches the given value.
-                 *   Values must be one of the Beacon.Stability enum values (case
-                 *   insensitive). Accepts multiple filters which will be combined with
-                 *   OR logic.
+                 * For example: &#42;&#42;stability:mobile&#42;&#42;
+                 * Returns beacons whose expected stability matches the given value.
+                 * Values must be one of the Beacon.Stability enum values (case
+                 * insensitive). Accepts multiple filters which will be combined with
+                 * OR logic.
                  * &#42; &#42;&#42;place\_id:`"<string>"`&#42;&#42;
-                 *   For example: &#42;&#42;place\_id:"ChIJVSZzVR8FdkgRXGmmm6SslKw="&#42;&#42;
-                 *   Returns beacons explicitly registered at the given place, expressed as
-                 *   a Place ID obtained from [Google Places API](/places/place-id). Does not
-                 *   match places inside the given place. Does not consider the beacon's
-                 *   actual location (which may be different from its registered place).
-                 *   Accepts multiple filters that will be combined with OR logic. The place
-                 *   ID must be double-quoted.
+                 * For example: &#42;&#42;place\_id:"ChIJVSZzVR8FdkgRXGmmm6SslKw="&#42;&#42;
+                 * Returns beacons explicitly registered at the given place, expressed as
+                 * a Place ID obtained from [Google Places API](/places/place-id). Does not
+                 * match places inside the given place. Does not consider the beacon's
+                 * actual location (which may be different from its registered place).
+                 * Accepts multiple filters that will be combined with OR logic. The place
+                 * ID must be double-quoted.
                  * &#42; &#42;&#42;registration\_time`[<|>|<=|>=]<integer>`&#42;&#42;
-                 *   For example: &#42;&#42;registration\_time>=1433116800&#42;&#42;
-                 *   Returns beacons whose registration time matches the given filter.
-                 *   Supports the operators: <, >, <=, and >=. Timestamp must be expressed as
-                 *   an integer number of seconds since midnight January 1, 1970 UTC. Accepts
-                 *   at most two filters that will be combined with AND logic, to support
-                 *   "between" semantics. If more than two are supplied, the latter ones are
-                 *   ignored.
+                 * For example: &#42;&#42;registration\_time>=1433116800&#42;&#42;
+                 * Returns beacons whose registration time matches the given filter.
+                 * Supports the operators: <, >, <=, and >=. Timestamp must be expressed as
+                 * an integer number of seconds since midnight January 1, 1970 UTC. Accepts
+                 * at most two filters that will be combined with AND logic, to support
+                 * "between" semantics. If more than two are supplied, the latter ones are
+                 * ignored.
                  * &#42; &#42;&#42;lat:`<double> lng:<double> radius:<integer>`&#42;&#42;
-                 *   For example: &#42;&#42;lat:51.1232343 lng:-1.093852 radius:1000&#42;&#42;
-                 *   Returns beacons whose registered location is within the given circle.
-                 *   When any of these fields are given, all are required. Latitude and
-                 *   longitude must be decimal degrees between -90.0 and 90.0 and between
-                 *   -180.0 and 180.0 respectively. Radius must be an integer number of
-                 *   meters between 10 and 1,000,000 (1000 km).
+                 * For example: &#42;&#42;lat:51.1232343 lng:-1.093852 radius:1000&#42;&#42;
+                 * Returns beacons whose registered location is within the given circle.
+                 * When any of these fields are given, all are required. Latitude and
+                 * longitude must be decimal degrees between -90.0 and 90.0 and between
+                 * -180.0 and 180.0 respectively. Radius must be an integer number of
+                 * meters between 10 and 1,000,000 (1000 km).
                  * &#42; &#42;&#42;property:`"<string>=<string>"`&#42;&#42;
-                 *   For example: &#42;&#42;property:"battery-type=CR2032"&#42;&#42;
-                 *   Returns beacons which have a property of the given name and value.
-                 *   Supports multiple filters which will be combined with OR logic.
-                 *   The entire name=value string must be double-quoted as one string.
+                 * For example: &#42;&#42;property:"battery-type=CR2032"&#42;&#42;
+                 * Returns beacons which have a property of the given name and value.
+                 * Supports multiple filters which will be combined with OR logic.
+                 * The entire name=value string must be double-quoted as one string.
                  * &#42; &#42;&#42;attachment\_type:`"<string>"`&#42;&#42;
-                 *   For example: &#42;&#42;attachment_type:"my-namespace/my-type"&#42;&#42;
-                 *   Returns beacons having at least one attachment of the given namespaced
-                 *   type. Supports "any within this namespace" via the partial wildcard
-                 *   syntax: "my-namespace/&#42;". Supports multiple filters which will be
-                 *   combined with OR logic. The string must be double-quoted.
+                 * For example: &#42;&#42;attachment_type:"my-namespace/my-type"&#42;&#42;
+                 * Returns beacons having at least one attachment of the given namespaced
+                 * type. Supports "any within this namespace" via the partial wildcard
+                 * syntax: "my-namespace/&#42;". Supports multiple filters which will be
+                 * combined with OR logic. The string must be double-quoted.
                  * &#42; &#42;&#42;indoor\_level:`"<string>"`&#42;&#42;
-                 *   For example: &#42;&#42;indoor\_level:"1"&#42;&#42;
-                 *   Returns beacons which are located on the given indoor level. Accepts
-                 *   multiple filters that will be combined with OR logic.
-                 * 
+                 * For example: &#42;&#42;indoor\_level:"1"&#42;&#42;
+                 * Returns beacons which are located on the given indoor level. Accepts
+                 * multiple filters that will be combined with OR logic.
+                 *
                  * Multiple filters on the same field are combined with OR logic (except
                  * registration_time which is combined with AND logic).
                  * Multiple filters on different fields are combined with AND logic.
                  * Filters should be separated by spaces.
-                 * 
+                 *
                  * As with any HTTP query string parameter, the whole filter expression must
                  * be URL-encoded.
-                 * 
+                 *
                  * Example REST request:
                  * `GET /v1beta1/beacons?q=status:active%20lat:51.123%20lng:-1.095%20radius:1000`
                  */
@@ -1146,17 +1131,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBeaconsResponse>;            
-            
+            }): Request<ListBeaconsResponse>;
             /**
              * Registers a previously unregistered beacon given its `advertisedId`.
              * These IDs are unique within the system. An ID can be registered only once.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            register(request: {            
+            register(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1190,14 +1174,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Beacon>;            
-            
+            }): Request<Beacon>;
             /**
              * Updates the information about the specified beacon. &#42;&#42;Any field that you do
              * not populate in the submitted beacon will be permanently erased&#42;&#42;, so you
              * should follow the "read, modify, write" pattern to avoid inadvertently
              * destroying data.
-             * 
+             *
              * Changes to the beacon status via this method will be  silently ignored.
              * To update beacon status, use the separate methods on this API for
              * activation, deactivation, and decommissioning.
@@ -1205,7 +1188,7 @@ declare namespace gapi.client {
              * from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the
              * Google Developers Console project.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1217,7 +1200,7 @@ declare namespace gapi.client {
                  * "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
                  * the beacon and N is a code for the beacon's type. Possible values are
                  * `3` for Eddystone, `1` for iBeacon, or `5` for AltBeacon.
-                 * 
+                 *
                  * This field must be left empty when registering. After reading a beacon,
                  * clients can use the name for future operations.
                  */
@@ -1249,23 +1232,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Beacon>;            
-            
+            }): Request<Beacon>;
             attachments: AttachmentsResource;
             diagnostics: DiagnosticsResource;
         }
-        
         interface NamespacesResource {
             /**
              * Lists all attachment namespaces owned by your Google Developers Console
              * project. Attachment data associated with a beacon must include a
              * namespaced type, and the namespace must be owned by your project.
-             * 
+             *
              * Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
              * from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42;
              * permissions in the Google Developers Console project.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1297,13 +1278,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListNamespacesResponse>;            
-            
+            }): Request<ListNamespacesResponse>;
             /**
              * Updates the information about the specified namespace. Only the namespace
              * visibility can be updated.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1342,10 +1322,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Namespace>;            
-            
+            }): Request<Namespace>;
         }
-        
         interface V1beta1Resource {
             /**
              * Gets the Proximity Beacon API's current public key and associated
@@ -1356,7 +1334,7 @@ declare namespace gapi.client {
              * prepared to refresh this key when they encounter an error registering an
              * Eddystone-EID beacon.
              */
-            getEidparams(request: {            
+            getEidparams(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1383,8 +1361,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<EphemeralIdRegistrationParams>;            
-            
+            }): Request<EphemeralIdRegistrationParams>;
         }
     }
 }

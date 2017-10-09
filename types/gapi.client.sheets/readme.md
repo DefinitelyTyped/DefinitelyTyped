@@ -115,5 +115,31 @@ Multiple ranges can be specified.  Limiting the range will
 return only the portions of the spreadsheet that intersect the requested
 ranges. Ranges are specified using A1 notation.  
 */
-await gapi.client.spreadsheets.get({ spreadsheetId: "spreadsheetId",  });
+await gapi.client.spreadsheets.get({ spreadsheetId: "spreadsheetId",  }); 
+    
+/* 
+Returns the spreadsheet at the given ID.
+The caller must specify the spreadsheet ID.
+
+This method differs from GetSpreadsheet in that it allows selecting
+which subsets of spreadsheet data to return by specifying a
+dataFilters parameter.
+Multiple DataFilters can be specified.  Specifying one or
+more data filters will return the portions of the spreadsheet that
+intersect ranges matched by any of the filters.
+
+By default, data within grids will not be returned.
+You can include grid data one of two ways:
+
+* Specify a field mask listing your desired fields using the `fields` URL
+parameter in HTTP
+
+* Set the includeGridData
+parameter to true.  If a field mask is set, the `includeGridData`
+parameter is ignored
+
+For large spreadsheets, it is recommended to retrieve only the specific
+fields of the spreadsheet that you want.  
+*/
+await gapi.client.spreadsheets.getByDataFilter({ spreadsheetId: "spreadsheetId",  });
 ```

@@ -13,23 +13,22 @@
 
 declare namespace gapi.client {
     /** Load Fusion Tables API v2 */
-    function load(name: "fusiontables", version: "v2"): PromiseLike<void>;    
-    function load(name: "fusiontables", version: "v2", callback: () => any): void;    
-    
-    const column: fusiontables.ColumnResource; 
-    
-    const query: fusiontables.QueryResource; 
-    
-    const style: fusiontables.StyleResource; 
-    
-    const table: fusiontables.TableResource; 
-    
-    const task: fusiontables.TaskResource; 
-    
-    const template: fusiontables.TemplateResource; 
-    
+    function load(name: "fusiontables", version: "v2"): PromiseLike<void>;
+    function load(name: "fusiontables", version: "v2", callback: () => any): void;
+
+    const column: fusiontables.ColumnResource;
+
+    const query: fusiontables.QueryResource;
+
+    const style: fusiontables.StyleResource;
+
+    const table: fusiontables.TableResource;
+
+    const task: fusiontables.TaskResource;
+
+    const template: fusiontables.TemplateResource;
+
     namespace fusiontables {
-        
         interface Bucket {
             /** Color of line or the interior of a polygon in #RRGGBB format. */
             color?: string;
@@ -44,15 +43,14 @@ declare namespace gapi.client {
             /** Width of a line (in pixels). */
             weight?: number;
         }
-        
         interface Column {
             /** Identifier of the base column. If present, this column is derived from the specified base column. */
-            baseColumn?: {            
+            baseColumn?: {
                 /** The id of the column in the base table from which this column is derived. */
                 columnId?: number;
                 /** Offset to the entry in the list of base tables in the table definition. */
                 tableIndex?: number;
-            };            
+            };
             /** Identifier for the column. */
             columnId?: number;
             /** JSON schema for interpreting JSON in this column. */
@@ -63,7 +61,17 @@ declare namespace gapi.client {
             description?: string;
             /**
              * Format pattern.
-             * Acceptable values are DT_DATE_MEDIUMe.g Dec 24, 2008 DT_DATE_SHORTfor example 12/24/08 DT_DATE_TIME_MEDIUMfor example Dec 24, 2008 8:30:45 PM DT_DATE_TIME_SHORTfor example 12/24/08 8:30 PM DT_DAY_MONTH_2_DIGIT_YEARfor example 24/12/08 DT_DAY_MONTH_2_DIGIT_YEAR_TIMEfor example 24/12/08 20:30 DT_DAY_MONTH_2_DIGIT_YEAR_TIME_MERIDIANfor example 24/12/08 8:30 PM DT_DAY_MONTH_4_DIGIT_YEARfor example 24/12/2008 DT_DAY_MONTH_4_DIGIT_YEAR_TIMEfor example 24/12/2008 20:30 DT_DAY_MONTH_4_DIGIT_YEAR_TIME_MERIDIANfor example 24/12/2008 8:30 PM DT_ISO_YEAR_MONTH_DAYfor example 2008-12-24 DT_ISO_YEAR_MONTH_DAY_TIMEfor example 2008-12-24 20:30:45 DT_MONTH_DAY_4_DIGIT_YEARfor example 12/24/2008 DT_TIME_LONGfor example 8:30:45 PM UTC-6 DT_TIME_MEDIUMfor example 8:30:45 PM DT_TIME_SHORTfor example 8:30 PM DT_YEAR_ONLYfor example 2008 HIGHLIGHT_UNTYPED_CELLSHighlight cell data that does not match the data type NONENo formatting (default) NUMBER_CURRENCYfor example $1234.56 NUMBER_DEFAULTfor example 1,234.56 NUMBER_INTEGERfor example 1235 NUMBER_NO_SEPARATORfor example 1234.56 NUMBER_PERCENTfor example 123,456% NUMBER_SCIENTIFICfor example 1E3 STRING_EIGHT_LINE_IMAGEDisplays thumbnail images as tall as eight lines of text STRING_FOUR_LINE_IMAGEDisplays thumbnail images as tall as four lines of text STRING_JSON_TEXTAllows editing of text as JSON in UI STRING_JSON_LISTAllows editing of text as a JSON list in UI STRING_LINKTreats cell as a link (must start with http:// or https://) STRING_ONE_LINE_IMAGEDisplays thumbnail images as tall as one line of text STRING_VIDEO_OR_MAPDisplay a video or map thumbnail
+             * Acceptable values are DT_DATE_MEDIUMe.g Dec 24, 2008 DT_DATE_SHORTfor example 12/24/08 DT_DATE_TIME_MEDIUMfor example Dec 24, 2008 8:30:45 PM
+             * DT_DATE_TIME_SHORTfor example 12/24/08 8:30 PM DT_DAY_MONTH_2_DIGIT_YEARfor example 24/12/08 DT_DAY_MONTH_2_DIGIT_YEAR_TIMEfor example 24/12/08 20:30
+             * DT_DAY_MONTH_2_DIGIT_YEAR_TIME_MERIDIANfor example 24/12/08 8:30 PM DT_DAY_MONTH_4_DIGIT_YEARfor example 24/12/2008 DT_DAY_MONTH_4_DIGIT_YEAR_TIMEfor
+             * example 24/12/2008 20:30 DT_DAY_MONTH_4_DIGIT_YEAR_TIME_MERIDIANfor example 24/12/2008 8:30 PM DT_ISO_YEAR_MONTH_DAYfor example 2008-12-24
+             * DT_ISO_YEAR_MONTH_DAY_TIMEfor example 2008-12-24 20:30:45 DT_MONTH_DAY_4_DIGIT_YEARfor example 12/24/2008 DT_TIME_LONGfor example 8:30:45 PM UTC-6
+             * DT_TIME_MEDIUMfor example 8:30:45 PM DT_TIME_SHORTfor example 8:30 PM DT_YEAR_ONLYfor example 2008 HIGHLIGHT_UNTYPED_CELLSHighlight cell data that does
+             * not match the data type NONENo formatting (default) NUMBER_CURRENCYfor example $1234.56 NUMBER_DEFAULTfor example 1,234.56 NUMBER_INTEGERfor example
+             * 1235 NUMBER_NO_SEPARATORfor example 1234.56 NUMBER_PERCENTfor example 123,456% NUMBER_SCIENTIFICfor example 1E3 STRING_EIGHT_LINE_IMAGEDisplays
+             * thumbnail images as tall as eight lines of text STRING_FOUR_LINE_IMAGEDisplays thumbnail images as tall as four lines of text STRING_JSON_TEXTAllows
+             * editing of text as JSON in UI STRING_JSON_LISTAllows editing of text as a JSON list in UI STRING_LINKTreats cell as a link (must start with http:// or
+             * https://) STRING_ONE_LINE_IMAGEDisplays thumbnail images as tall as one line of text STRING_VIDEO_OR_MAPDisplay a video or map thumbnail
              */
             formatPattern?: string;
             /**
@@ -83,7 +91,6 @@ declare namespace gapi.client {
             /** If true, data entered via the web application is validated. */
             validateData?: boolean;
         }
-        
         interface ColumnList {
             /** List of all requested columns. */
             items?: Column[];
@@ -94,7 +101,6 @@ declare namespace gapi.client {
             /** Total number of columns for the table. */
             totalItems?: number;
         }
-        
         interface Geometry {
             /** The list of geometries in this geometry collection. */
             geometries?: any[];
@@ -102,21 +108,18 @@ declare namespace gapi.client {
             /** Type: A collection of geometries. */
             type?: string;
         }
-        
         interface Import {
             /** The kind of item this is. For an import, this is always fusiontables#import. */
             kind?: string;
             /** The number of rows received from the import request. */
             numRowsReceived?: string;
         }
-        
         interface Line {
             /** The coordinates that define the line. */
             coordinates?: number[][];
             /** Type: A line geometry. */
             type?: string;
         }
-        
         interface LineStyle {
             /** Color of the line in #RRGGBB format. */
             strokeColor?: string;
@@ -129,28 +132,24 @@ declare namespace gapi.client {
             /** Column-value or bucket styler that is used to determine the width of the line. */
             strokeWeightStyler?: StyleFunction;
         }
-        
         interface Point {
             /** The coordinates that define the point. */
             coordinates?: number[];
             /** Point: A point geometry. */
             type?: string;
         }
-        
         interface PointStyle {
             /** Name of the icon. Use values defined in http://www.google.com/fusiontables/DataSource?dsrcid=308519 */
             iconName?: string;
             /** Column or a bucket value from which the icon name is to be determined. */
             iconStyler?: StyleFunction;
         }
-        
         interface Polygon {
             /** The coordinates that define the polygon. */
             coordinates?: number[][][];
             /** Type: A polygon geometry. */
             type?: string;
         }
-        
         interface PolygonStyle {
             /** Color of the interior of the polygon in #RRGGBB format. */
             fillColor?: string;
@@ -169,41 +168,48 @@ declare namespace gapi.client {
             /** Column-value or bucket styler that is used to determine the width of the polygon border. */
             strokeWeightStyler?: StyleFunction;
         }
-        
         interface Sqlresponse {
             /** Columns in the table. */
             columns?: string[];
             /** The kind of item this is. For responses to SQL queries, this is always fusiontables#sqlresponse. */
             kind?: string;
-            /** The rows in the table. For each cell we print out whatever cell value (e.g., numeric, string) exists. Thus it is important that each cell contains only one value. */
+            /**
+             * The rows in the table. For each cell we print out whatever cell value (e.g., numeric, string) exists. Thus it is important that each cell contains only
+             * one value.
+             */
             rows?: any[][];
         }
-        
         interface StyleFunction {
             /** Bucket function that assigns a style based on the range a column value falls into. */
             buckets?: Bucket[];
             /** Name of the column whose value is used in the style. */
             columnName?: string;
             /** Gradient function that interpolates a range of colors based on column value. */
-            gradient?: {            
+            gradient?: {
                 /** Array with two or more colors. */
-                colors?: Array<{                
+                colors?: Array<{
                     /** Color in #RRGGBB format. */
                     color?: string;
                     /** Opacity of the color: 0.0 (transparent) to 1.0 (opaque). */
                     opacity?: number;
-                }>;                
+                }>;
                 /** Higher-end of the interpolation range: rows with this value will be assigned to colors[n-1]. */
                 max?: number;
                 /** Lower-end of the interpolation range: rows with this value will be assigned to colors[0]. */
                 min?: number;
-            };            
-            /** Stylers can be one of three kinds: "fusiontables#fromColumn if the column value is to be used as is, i.e., the column values can have colors in #RRGGBBAA format or integer line widths or icon names; fusiontables#gradient if the styling of the row is to be based on applying the gradient function on the column value; or fusiontables#buckets if the styling is to based on the bucket into which the the column value falls. */
+            };
+            /**
+             * Stylers can be one of three kinds: "fusiontables#fromColumn if the column value is to be used as is, i.e., the column values can have colors in
+             * #RRGGBBAA format or integer line widths or icon names; fusiontables#gradient if the styling of the row is to be based on applying the gradient function
+             * on the column value; or fusiontables#buckets if the styling is to based on the bucket into which the the column value falls.
+             */
             kind?: string;
         }
-        
         interface StyleSetting {
-            /** The kind of item this is. A StyleSetting contains the style definitions for points, lines, and polygons in a table. Since a table can have any one or all of them, a style definition can have point, line and polygon style definitions. */
+            /**
+             * The kind of item this is. A StyleSetting contains the style definitions for points, lines, and polygons in a table. Since a table can have any one or
+             * all of them, a style definition can have point, line and polygon style definitions.
+             */
             kind?: string;
             /** Style definition for points in the table. */
             markerOptions?: PointStyle;
@@ -218,7 +224,6 @@ declare namespace gapi.client {
             /** Identifier for the table. */
             tableId?: string;
         }
-        
         interface StyleSettingList {
             /** All requested style settings. */
             items?: StyleSetting[];
@@ -229,7 +234,6 @@ declare namespace gapi.client {
             /** Total number of styles for the table. */
             totalItems?: number;
         }
-        
         interface Table {
             /** Attribution assigned to the table. */
             attribution?: string;
@@ -258,7 +262,6 @@ declare namespace gapi.client {
             /** JSON schema for validating the JSON table properties. */
             tablePropertiesJsonSchema?: string;
         }
-        
         interface TableList {
             /** List of all requested tables. */
             items?: Table[];
@@ -267,7 +270,6 @@ declare namespace gapi.client {
             /** Token used to access the next page of this result. No token is displayed if there are no more pages left. */
             nextPageToken?: string;
         }
-        
         interface Task {
             /** Type of the resource. This is always "fusiontables#task". */
             kind?: string;
@@ -280,7 +282,6 @@ declare namespace gapi.client {
             /** Type of background task. */
             type?: string;
         }
-        
         interface TaskList {
             /** List of all requested tasks. */
             items?: Task[];
@@ -291,11 +292,13 @@ declare namespace gapi.client {
             /** Total number of tasks for the table. */
             totalItems?: number;
         }
-        
         interface Template {
             /** List of columns from which the template is to be automatically constructed. Only one of body or automaticColumns can be specified. */
             automaticColumnNames?: string[];
-            /** Body of the template. It contains HTML with {column_name} to insert values from a particular column. The body is sanitized to remove certain tags, e.g., script. Only one of body or automaticColumns can be specified. */
+            /**
+             * Body of the template. It contains HTML with {column_name} to insert values from a particular column. The body is sanitized to remove certain tags,
+             * e.g., script. Only one of body or automaticColumns can be specified.
+             */
             body?: string;
             /** The kind of item this is. For a template, this is always fusiontables#template. */
             kind?: string;
@@ -306,7 +309,6 @@ declare namespace gapi.client {
             /** Identifier for the template, unique within the context of a particular table. */
             templateId?: number;
         }
-        
         interface TemplateList {
             /** List of all requested templates. */
             items?: Template[];
@@ -317,10 +319,9 @@ declare namespace gapi.client {
             /** Total number of templates for the table. */
             totalItems?: number;
         }
-        
         interface ColumnResource {
             /** Deletes the specified column. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name or identifier for the column being deleted. */
@@ -333,16 +334,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table from which the column is being deleted. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves a specific column by its ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name or identifier for the column that is being requested. */
@@ -355,16 +358,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table to which the column belongs. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Column>;            
-            
+            }): Request<Column>;
             /** Adds a new column to the table. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -375,16 +380,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table for which a new column is being added. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Column>;            
-            
+            }): Request<Column>;
             /** Retrieves a list of columns. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -399,16 +406,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table whose columns are being listed. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ColumnList>;            
-            
+            }): Request<ColumnList>;
             /** Updates the name or type of an existing column. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name or identifier for the column that is being updated. */
@@ -421,16 +430,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table for which the column is being updated. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Column>;            
-            
+            }): Request<Column>;
             /** Updates the name or type of an existing column. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name or identifier for the column that is being updated. */
@@ -443,19 +454,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table for which the column is being updated. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Column>;            
-            
+            }): Request<Column>;
         }
-        
         interface QueryResource {
             /**
-             * Executes a Fusion Tables SQL statement, which can be any of 
+             * Executes a Fusion Tables SQL statement, which can be any of
              * - SELECT
              * - INSERT
              * - UPDATE
@@ -464,7 +476,7 @@ declare namespace gapi.client {
              * - DESCRIBE
              * - CREATE statement.
              */
-            sql(request: {            
+            sql(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -477,10 +489,13 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /**
-                 * A Fusion Tables SQL statement, which can be any of 
+                 * A Fusion Tables SQL statement, which can be any of
                  * - SELECT
                  * - INSERT
                  * - UPDATE
@@ -494,15 +509,14 @@ declare namespace gapi.client {
                 typed?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Sqlresponse>;            
-            
+            }): Request<Sqlresponse>;
             /**
-             * Executes a SQL statement which can be any of 
+             * Executes a SQL statement which can be any of
              * - SELECT
              * - SHOW
              * - DESCRIBE
              */
-            sqlGet(request: {            
+            sqlGet(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -515,10 +529,13 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /**
-                 * A SQL statement which can be any of 
+                 * A SQL statement which can be any of
                  * - SELECT
                  * - SHOW
                  * - DESCRIBE
@@ -528,13 +545,11 @@ declare namespace gapi.client {
                 typed?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Sqlresponse>;            
-            
+            }): Request<Sqlresponse>;
         }
-        
         interface StyleResource {
             /** Deletes a style. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -545,7 +560,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Identifier (within a table) for the style being deleted */
                 styleId: number;
@@ -553,10 +571,9 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a specific style. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -567,7 +584,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Identifier (integer) for a specific style in a table */
                 styleId: number;
@@ -575,10 +595,9 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<StyleSetting>;            
-            
+            }): Request<StyleSetting>;
             /** Adds a new style for the table. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -589,16 +608,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table for which a new style is being added */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<StyleSetting>;            
-            
+            }): Request<StyleSetting>;
             /** Retrieves a list of styles. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -613,16 +634,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table whose styles are being listed */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<StyleSettingList>;            
-            
+            }): Request<StyleSettingList>;
             /** Updates an existing style. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -633,7 +656,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Identifier (within a table) for the style being updated. */
                 styleId: number;
@@ -641,10 +667,9 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<StyleSetting>;            
-            
+            }): Request<StyleSetting>;
             /** Updates an existing style. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -655,7 +680,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Identifier (within a table) for the style being updated. */
                 styleId: number;
@@ -663,13 +691,11 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<StyleSetting>;            
-            
+            }): Request<StyleSetting>;
         }
-        
         interface TableResource {
             /** Copies a table. */
-            copy(request: {            
+            copy(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Whether to also copy tabs, styles, and templates. Default is false. */
@@ -682,16 +708,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of the table that is being copied. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Table>;            
-            
+            }): Request<Table>;
             /** Deletes a table. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -702,16 +730,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of the table to be deleted. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves a specific table by its ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -722,27 +752,35 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Identifier for the table being requested. */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Table>;            
-            
+            }): Request<Table>;
             /** Imports more rows into a table. */
-            importRows(request: {            
+            importRows(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The delimiter used to separate cell values. This can only consist of a single character. Default is ,. */
                 delimiter?: string;
                 /** The encoding of the content. Default is UTF-8. Use auto-detect if you are unsure of the encoding. */
                 encoding?: string;
-                /** The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of the file; the imported content will exclude the last endLine lines. */
+                /**
+                 * The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of
+                 * the file; the imported content will exclude the last endLine lines.
+                 */
                 endLine?: number;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Whether the imported CSV must have the same number of values for each row. If false, rows with fewer values will be padded with empty values. Default is true. */
+                /**
+                 * Whether the imported CSV must have the same number of values for each row. If false, rows with fewer values will be padded with empty values. Default
+                 * is true.
+                 */
                 isStrict?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -750,7 +788,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The index of the first line from which to start importing, inclusive. Default is 0. */
                 startLine?: number;
@@ -758,10 +799,9 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Import>;            
-            
+            }): Request<Import>;
             /** Imports a new table. */
-            importTable(request: {            
+            importTable(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The delimiter used to separate cell values. This can only consist of a single character. Default is ,. */
@@ -778,14 +818,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Table>;            
-            
+            }): Request<Table>;
             /** Creates a new table. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -796,14 +838,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Table>;            
-            
+            }): Request<Table>;
             /** Retrieves a list of tables a user owns. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -818,14 +862,19 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TableList>;            
-            
-            /** Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<TableList>;
+            /**
+             * Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch
+             * semantics.
+             */
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -836,7 +885,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the view definition is also updated. The specified view definition replaces the existing one. Only a view can be updated with a new definition. */
                 replaceViewDefinition?: boolean;
@@ -844,21 +896,26 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Table>;            
-            
+            }): Request<Table>;
             /** Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready. */
-            replaceRows(request: {            
+            replaceRows(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The delimiter used to separate cell values. This can only consist of a single character. Default is ,. */
                 delimiter?: string;
                 /** The encoding of the content. Default is UTF-8. Use 'auto-detect' if you are unsure of the encoding. */
                 encoding?: string;
-                /** The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of the file; the imported content will exclude the last endLine lines. */
+                /**
+                 * The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of
+                 * the file; the imported content will exclude the last endLine lines.
+                 */
                 endLine?: number;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Whether the imported CSV must have the same number of column values for each row. If true, throws an exception if the CSV does not have the same number of columns. If false, rows with fewer column values will be padded with empty values. Default is true. */
+                /**
+                 * Whether the imported CSV must have the same number of column values for each row. If true, throws an exception if the CSV does not have the same number
+                 * of columns. If false, rows with fewer column values will be padded with empty values. Default is true.
+                 */
                 isStrict?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -866,7 +923,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The index of the first line from which to start importing, inclusive. Default is 0. */
                 startLine?: number;
@@ -874,10 +934,9 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -888,7 +947,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the view definition is also updated. The specified view definition replaces the existing one. Only a view can be updated with a new definition. */
                 replaceViewDefinition?: boolean;
@@ -896,13 +958,11 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Table>;            
-            
+            }): Request<Table>;
         }
-        
         interface TaskResource {
             /** Deletes a specific task by its ID, unless that task has already started running. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -913,7 +973,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table from which the task is being deleted. */
                 tableId: string;
@@ -921,10 +984,9 @@ declare namespace gapi.client {
                 taskId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves a specific task by its ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -935,7 +997,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table to which the task belongs. */
                 tableId: string;
@@ -943,10 +1008,9 @@ declare namespace gapi.client {
                 taskId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Retrieves a list of tasks. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -961,7 +1025,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Index of the first result returned in the current page. */
                 startIndex?: number;
@@ -969,13 +1036,11 @@ declare namespace gapi.client {
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TaskList>;            
-            
+            }): Request<TaskList>;
         }
-        
         interface TemplateResource {
             /** Deletes a template */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -986,7 +1051,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table from which the template is being deleted */
                 tableId: string;
@@ -994,10 +1062,9 @@ declare namespace gapi.client {
                 templateId: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves a specific template by its id */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1008,7 +1075,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table to which the template belongs */
                 tableId: string;
@@ -1016,10 +1086,9 @@ declare namespace gapi.client {
                 templateId: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Template>;            
-            
+            }): Request<Template>;
             /** Creates a new template for the table. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1030,16 +1099,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table for which a new template is being created */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Template>;            
-            
+            }): Request<Template>;
             /** Retrieves a list of templates. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1054,16 +1125,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Identifier for the table whose templates are being requested */
                 tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TemplateList>;            
-            
+            }): Request<TemplateList>;
             /** Updates an existing template. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1074,7 +1147,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table to which the updated template belongs */
                 tableId: string;
@@ -1082,10 +1158,9 @@ declare namespace gapi.client {
                 templateId: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Template>;            
-            
+            }): Request<Template>;
             /** Updates an existing template */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1096,7 +1171,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Table to which the updated template belongs */
                 tableId: string;
@@ -1104,8 +1182,7 @@ declare namespace gapi.client {
                 templateId: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Template>;            
-            
+            }): Request<Template>;
         }
     }
 }

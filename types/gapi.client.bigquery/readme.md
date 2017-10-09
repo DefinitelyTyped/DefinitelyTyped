@@ -131,6 +131,11 @@ Runs a BigQuery SQL query synchronously and returns query results if the query c
 await gapi.client.jobs.query({ projectId: "projectId",  }); 
     
 /* 
+Returns the email address of the service account for your project used for interactions with Google Cloud KMS.  
+*/
+await gapi.client.projects.getServiceAccount({ projectId: "projectId",  }); 
+    
+/* 
 Lists all projects to which you have been granted any project role.  
 */
 await gapi.client.projects.list({  }); 

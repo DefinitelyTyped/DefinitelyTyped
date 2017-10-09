@@ -13,18 +13,15 @@
 
 declare namespace gapi.client {
     /** Load Google Ad Experience Report API v1 */
-    function load(name: "adexperiencereport", version: "v1"): PromiseLike<void>;    
-    function load(name: "adexperiencereport", version: "v1", callback: () => any): void;    
-    
-    const sites: adexperiencereport.SitesResource; 
-    
-    const violatingSites: adexperiencereport.ViolatingSitesResource; 
-    
+    function load(name: "adexperiencereport", version: "v1"): PromiseLike<void>;
+    function load(name: "adexperiencereport", version: "v1", callback: () => any): void;
+
+    const sites: adexperiencereport.SitesResource;
+
+    const violatingSites: adexperiencereport.ViolatingSitesResource;
+
     namespace adexperiencereport {
-        
         interface PlatformSummary {
-            /** The status of the site reviewed for abusive ads. */
-            abusiveStatus?: string;
             /** The status of the site reviewed for the Better Ads Standards. */
             betterAdsStatus?: string;
             /** The date on which ad filtering begins. */
@@ -40,7 +37,6 @@ declare namespace gapi.client {
             /** Whether the site is currently under review. */
             underReview?: boolean;
         }
-        
         interface SiteSummaryResponse {
             /** Summary for the desktop review of the site. */
             desktopSummary?: PlatformSummary;
@@ -49,15 +45,13 @@ declare namespace gapi.client {
             /** The name of the site reviewed. */
             reviewedSite?: string;
         }
-        
         interface ViolatingSitesResponse {
             /** A list of summaries of violating sites. */
             violatingSites?: SiteSummaryResponse[];
         }
-        
         interface SitesResource {
             /** Gets a summary of the ad experience rating of a site. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -94,13 +88,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SiteSummaryResponse>;            
-            
+            }): Request<SiteSummaryResponse>;
         }
-        
         interface ViolatingSitesResource {
             /** Lists sites with Ad Experience Report statuses of "Failing" or "Warning". */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -127,8 +119,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ViolatingSitesResponse>;            
-            
+            }): Request<ViolatingSitesResponse>;
         }
     }
 }

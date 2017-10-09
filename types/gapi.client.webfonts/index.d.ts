@@ -13,20 +13,19 @@
 
 declare namespace gapi.client {
     /** Load Google Fonts Developer API v1 */
-    function load(name: "webfonts", version: "v1"): PromiseLike<void>;    
-    function load(name: "webfonts", version: "v1", callback: () => any): void;    
-    
-    const webfonts: webfonts.WebfontsResource; 
-    
+    function load(name: "webfonts", version: "v1"): PromiseLike<void>;
+    function load(name: "webfonts", version: "v1", callback: () => any): void;
+
+    const webfonts: webfonts.WebfontsResource;
+
     namespace webfonts {
-        
         interface Webfont {
             /** The category of the font. */
             category?: string;
             /** The name of the font. */
             family?: string;
             /** The font files (with all supported scripts) for each one of the available variants, as a key : value map. */
-            files?: Record<string, string>;            
+            files?: Record<string, string>;
             /** This kind represents a webfont object in the webfonts service. */
             kind?: string;
             /** The date (format "yyyy-MM-dd") the font was modified for the last time. */
@@ -38,17 +37,15 @@ declare namespace gapi.client {
             /** The font version. */
             version?: string;
         }
-        
         interface WebfontList {
             /** The list of fonts currently served by the Google Fonts API. */
             items?: Webfont[];
             /** This kind represents a list of webfont objects in the webfonts service. */
             kind?: string;
         }
-        
         interface WebfontsResource {
             /** Retrieves the list of fonts currently served by the Google Fonts Developer API */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -59,14 +56,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Enables sorting of the list */
                 sort?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WebfontList>;            
-            
+            }): Request<WebfontList>;
         }
     }
 }

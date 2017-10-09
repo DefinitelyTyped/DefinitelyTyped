@@ -1,6 +1,6 @@
 # TypeScript typings for Google Vault API v1
-
-For detailed description please check [documentation](https://apps.google.com/products/vault/).
+Archiving and eDiscovery for G Suite.
+For detailed description please check [documentation](https://developers.google.com/vault).
 
 ## Installing
 
@@ -27,7 +27,29 @@ gapi.client.load('vault', 'v1', () => {
 });
 ```
 
+Don't forget to authenticate your client before sending any request to resources:
+```typescript
 
+// declare client_id registered in Google Developers Console
+var client_id = '',
+    scope = [     
+        // Manage your eDiscovery data
+        'https://www.googleapis.com/auth/ediscovery',
+    
+        // View your eDiscovery data
+        'https://www.googleapis.com/auth/ediscovery.readonly',
+    ],
+    immediate = true;
+// ...
+
+gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
+    if (authResult && !authResult.error) {
+        /* handle succesfull authorization */
+    } else {
+        /* handle authorization error */
+    }
+});            
+```
 
 After that you can use Google Vault API resources:
 
@@ -44,7 +66,9 @@ Closes the specified matter. Returns matter with updated state.
 await gapi.client.matters.close({ matterId: "matterId",  }); 
     
 /* 
-Creates a new matter. Returns created matter with default view.  
+Creates a new matter with the given name and description. The initial state
+is open, and the owner is the method caller. Returns the created matter
+with default view.  
 */
 await gapi.client.matters.create({  }); 
     

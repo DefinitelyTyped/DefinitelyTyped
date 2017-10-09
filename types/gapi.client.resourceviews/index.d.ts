@@ -13,48 +13,48 @@
 
 declare namespace gapi.client {
     /** Load Google Compute Engine Instance Groups API v1beta2 */
-    function load(name: "resourceviews", version: "v1beta2"): PromiseLike<void>;    
-    function load(name: "resourceviews", version: "v1beta2", callback: () => any): void;    
-    
-    const zoneOperations: resourceviews.ZoneOperationsResource; 
-    
-    const zoneViews: resourceviews.ZoneViewsResource; 
-    
+    function load(name: "resourceviews", version: "v1beta2"): PromiseLike<void>;
+    function load(name: "resourceviews", version: "v1beta2", callback: () => any): void;
+
+    const zoneOperations: resourceviews.ZoneOperationsResource;
+
+    const zoneViews: resourceviews.ZoneViewsResource;
+
     namespace resourceviews {
-        
         interface Label {
             /** Key of the label. */
             key?: string;
             /** Value of the label. */
             value?: string;
         }
-        
         interface ListResourceResponseItem {
             /** The list of service end points on the resource. */
-            endpoints?: Record<string, number[]>;            
+            endpoints?: Record<string, number[]>;
             /** The full URL of the resource. */
             resource?: string;
         }
-        
         interface Operation {
-            /** [Output only] An optional identifier specified by the client when the mutation was initiated. Must be unique for all operation resources in the project. */
+            /**
+             * [Output only] An optional identifier specified by the client when the mutation was initiated. Must be unique for all operation resources in the
+             * project.
+             */
             clientOperationId?: string;
             /** [Output Only] The time that this operation was requested, in RFC3339 text format. */
             creationTimestamp?: string;
             /** [Output Only] The time that this operation was completed, in RFC3339 text format. */
             endTime?: string;
             /** [Output Only] If errors occurred during processing of this operation, this field will be populated. */
-            error?: {            
+            error?: {
                 /** [Output Only] The array of errors encountered while processing this operation. */
-                errors?: Array<{                
+                errors?: Array<{
                     /** [Output Only] The error type identifier for this error. */
                     code?: string;
                     /** [Output Only] Indicates the field in the request which caused the error. This property is optional. */
                     location?: string;
                     /** [Output Only] An optional, human-readable error message. */
                     message?: string;
-                }>;                
-            };            
+                }>;
+            };
             /** [Output only] If operation fails, the HTTP error message returned. */
             httpErrorMessage?: string;
             /** [Output only] If operation fails, the HTTP error status code returned. */
@@ -69,7 +69,11 @@ declare namespace gapi.client {
             name?: string;
             /** [Output only] Type of the operation. Operations include insert, update, and delete. */
             operationType?: string;
-            /** [Output only] An optional progress indicator that ranges from 0 to 100. There is no requirement that this be linear or support any granularity of operations. This should not be used to guess at when the operation will be complete. This number should be monotonically increasing as the operation progresses. */
+            /**
+             * [Output only] An optional progress indicator that ranges from 0 to 100. There is no requirement that this be linear or support any granularity of
+             * operations. This should not be used to guess at when the operation will be complete. This number should be monotonically increasing as the operation
+             * progresses.
+             */
             progress?: number;
             /** [Output Only] URL of the region where the operation resides. Only available when performing regional operations. */
             region?: string;
@@ -88,23 +92,22 @@ declare namespace gapi.client {
             /** [Output Only] User who requested the operation, for example: user@example.com. */
             user?: string;
             /** [Output Only] If there are issues with this operation, a warning is returned. */
-            warnings?: Array<{            
+            warnings?: Array<{
                 /** [Output only] The warning type identifier for this warning. */
                 code?: string;
                 /** [Output only] Metadata for this warning in key:value format. */
-                data?: Array<{                
+                data?: Array<{
                     /** [Output Only] Metadata key for this warning. */
                     key?: string;
                     /** [Output Only] Metadata value for this warning. */
                     value?: string;
-                }>;                
+                }>;
                 /** [Output only] Optional human-readable details for this warning. */
                 message?: string;
-            }>;            
+            }>;
             /** [Output Only] URL of the zone where the operation resides. Only available when performing per-zone operations. */
             zone?: string;
         }
-        
         interface OperationList {
             /** Unique identifier for the resource; defined by the server (output only). */
             id?: string;
@@ -117,7 +120,6 @@ declare namespace gapi.client {
             /** Server defined URL for this resource (output only). */
             selfLink?: string;
         }
-        
         interface ResourceView {
             /** The creation time of the resource view. */
             creationTimestamp?: string;
@@ -144,26 +146,22 @@ declare namespace gapi.client {
             /** The total number of resources in the resource view. */
             size?: number;
         }
-        
         interface ServiceEndpoint {
             /** The name of the service endpoint. */
             name?: string;
             /** The port of the service endpoint. */
             port?: number;
         }
-        
         interface ZoneViewsAddResourcesRequest {
             /** The list of resources to be added. */
             resources?: string[];
         }
-        
         interface ZoneViewsGetServiceResponse {
             /** The service information. */
             endpoints?: ServiceEndpoint[];
             /** The fingerprint of the service information. */
             fingerprint?: string;
         }
-        
         interface ZoneViewsList {
             /** The result that contains all resource views that meet the criteria. */
             items?: ResourceView[];
@@ -174,7 +172,6 @@ declare namespace gapi.client {
             /** Server defined URL for this resource (output only). */
             selfLink?: string;
         }
-        
         interface ZoneViewsListResourcesResponse {
             /** The formatted JSON that is requested by the user. */
             items?: ListResourceResponseItem[];
@@ -183,12 +180,10 @@ declare namespace gapi.client {
             /** A token used for pagination. */
             nextPageToken?: string;
         }
-        
         interface ZoneViewsRemoveResourcesRequest {
             /** The list of resources to be removed. */
             resources?: string[];
         }
-        
         interface ZoneViewsSetServiceRequest {
             /** The service information to be updated. */
             endpoints?: ServiceEndpoint[];
@@ -197,10 +192,9 @@ declare namespace gapi.client {
             /** The name of the resource if user wants to update the service information of the resource. */
             resourceName?: string;
         }
-        
         interface ZoneOperationsResource {
             /** Retrieves the specified zone-specific operation resource. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -215,16 +209,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name of the project scoping this request. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Retrieves the list of operation resources contained within the specified zone. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -243,19 +239,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name of the project scoping this request. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): Request<OperationList>;            
-            
+            }): Request<OperationList>;
         }
-        
         interface ZoneViewsResource {
             /** Add resources to the view. */
-            addResources(request: {            
+            addResources(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -268,7 +265,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the resource view. */
                 resourceView: string;
@@ -276,10 +276,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Delete a resource view. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -292,7 +291,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the resource view. */
                 resourceView: string;
@@ -300,10 +302,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Get the information of a zonal resource view. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -316,7 +317,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the resource view. */
                 resourceView: string;
@@ -324,10 +328,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<ResourceView>;            
-            
+            }): Request<ResourceView>;
             /** Get the service information of a resource view or a resource. */
-            getService(request: {            
+            getService(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -340,7 +343,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the resource if user wants to get the service information of the resource. */
                 resourceName?: string;
@@ -350,10 +356,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<ZoneViewsGetServiceResponse>;            
-            
+            }): Request<ZoneViewsGetServiceResponse>;
             /** Create a resource view. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -366,16 +371,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** List resource views. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -392,21 +399,26 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<ZoneViewsList>;            
-            
+            }): Request<ZoneViewsList>;
             /** List the resources of the resource view. */
-            listResources(request: {            
+            listResources(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** The requested format of the return value. It can be URL or URL_PORT. A JSON object will be included in the response based on the format. The default format is NONE, which results in no JSON in the response. */
+                /**
+                 * The requested format of the return value. It can be URL or URL_PORT. A JSON object will be included in the response based on the format. The default
+                 * format is NONE, which results in no JSON in the response.
+                 */
                 format?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -422,7 +434,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the resource view. */
                 resourceView: string;
@@ -432,10 +447,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<ZoneViewsListResourcesResponse>;            
-            
+            }): Request<ZoneViewsListResourcesResponse>;
             /** Remove resources from the view. */
-            removeResources(request: {            
+            removeResources(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -448,7 +462,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the resource view. */
                 resourceView: string;
@@ -456,10 +473,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Update the service information of a resource view or a resource. */
-            setService(request: {            
+            setService(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -472,7 +488,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project name of the resource view. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the resource view. */
                 resourceView: string;
@@ -480,8 +499,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for Google BigQuery Data Transfer Service API v1 1.0
+// Type definitions for Google BigQuery Data Transfer API v1 1.0
 // Project: https://cloud.google.com/bigquery/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,19 +12,17 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client {
-    /** Load BigQuery Data Transfer Service API v1 */
-    function load(name: "bigquerydatatransfer", version: "v1"): PromiseLike<void>;    
-    function load(name: "bigquerydatatransfer", version: "v1", callback: () => any): void;    
-    
-    const projects: bigquerydatatransfer.ProjectsResource; 
-    
+    /** Load BigQuery Data Transfer API v1 */
+    function load(name: "bigquerydatatransfer", version: "v1"): PromiseLike<void>;
+    function load(name: "bigquerydatatransfer", version: "v1", callback: () => any): void;
+
+    const projects: bigquerydatatransfer.ProjectsResource;
+
     namespace bigquerydatatransfer {
-        
         interface CheckValidCredsResponse {
             /** If set to `true`, the credentials exist and are valid. */
             hasValidCreds?: boolean;
         }
-        
         interface DataSource {
             /** Indicates the type of authorization. */
             authorizationType?: string;
@@ -66,6 +64,8 @@ declare namespace gapi.client {
              * for the data source.
              */
             manualRunsDisabled?: boolean;
+            /** The minimum interval between two consecutive scheduled runs. */
+            minimumScheduleInterval?: string;
             /** Data source resource name. */
             name?: string;
             /** Data source parameters. */
@@ -77,11 +77,6 @@ declare namespace gapi.client {
              * e.g., https://www.googleapis.com/auth/bigquery
              */
             scopes?: string[];
-            /**
-             * The number of seconds to wait for a status update from the data source
-             * before BigQuery marks the transfer as failed.
-             */
-            statusUpdateDeadlineSeconds?: number;
             /**
              * Specifies whether the data source supports a user defined schedule, or
              * operates on the default schedule.
@@ -99,8 +94,12 @@ declare namespace gapi.client {
              * query) to ingest the data.
              */
             transferType?: string;
+            /**
+             * The number of seconds to wait for an update from the data source
+             * before BigQuery marks the transfer as failed.
+             */
+            updateDeadlineSeconds?: number;
         }
-        
         interface DataSourceParameter {
             /** All possible values for the parameter. */
             allowedValues?: string[];
@@ -139,118 +138,92 @@ declare namespace gapi.client {
             /** Regular expression which can be used for parameter validation. */
             validationRegex?: string;
         }
-        
-        interface IsEnabledResponse {
-            /** Indicates whether the project is enabled. */
-            enabled?: boolean;
-        }
-        
         interface ListDataSourcesResponse {
             /** List of supported data sources and their transfer settings. */
             dataSources?: DataSource[];
             /**
-             * The next-pagination token. For multiple-page list results,
+             * Output only. The next-pagination token. For multiple-page list results,
              * this token can be used as the
              * `ListDataSourcesRequest.page_token`
              * to request the next page of list results.
-             * @OutputOnly
              */
             nextPageToken?: string;
         }
-        
         interface ListLocationsResponse {
             /** A list of locations that matches the specified filter in the request. */
             locations?: Location[];
             /** The standard List next-page token. */
             nextPageToken?: string;
         }
-        
         interface ListTransferConfigsResponse {
             /**
-             * The next-pagination token. For multiple-page list results,
+             * Output only. The next-pagination token. For multiple-page list results,
              * this token can be used as the
              * `ListTransferConfigsRequest.page_token`
              * to request the next page of list results.
-             * @OutputOnly
              */
             nextPageToken?: string;
-            /**
-             * The stored pipeline transfer configurations.
-             * @OutputOnly
-             */
+            /** Output only. The stored pipeline transfer configurations. */
             transferConfigs?: TransferConfig[];
         }
-        
         interface ListTransferLogsResponse {
             /**
-             * The next-pagination token. For multiple-page list results,
+             * Output only. The next-pagination token. For multiple-page list results,
              * this token can be used as the
              * `GetTransferRunLogRequest.page_token`
              * to request the next page of list results.
-             * @OutputOnly
              */
             nextPageToken?: string;
-            /**
-             * The stored pipeline transfer messages.
-             * @OutputOnly
-             */
+            /** Output only. The stored pipeline transfer messages. */
             transferMessages?: TransferMessage[];
         }
-        
         interface ListTransferRunsResponse {
             /**
-             * The next-pagination token. For multiple-page list results,
+             * Output only. The next-pagination token. For multiple-page list results,
              * this token can be used as the
              * `ListTransferRunsRequest.page_token`
              * to request the next page of list results.
-             * @OutputOnly
              */
             nextPageToken?: string;
-            /**
-             * The stored pipeline transfer runs.
-             * @OutputOnly
-             */
+            /** Output only. The stored pipeline transfer runs. */
             transferRuns?: TransferRun[];
         }
-        
         interface Location {
             /**
              * Cross-service attributes for the location. For example
-             * 
-             *     {"cloud.googleapis.com/region": "us-east1"}
+             *
+             * {"cloud.googleapis.com/region": "us-east1"}
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** The canonical id for this location. For example: `"us-east1"`. */
             locationId?: string;
             /**
              * Service-specific metadata. For example the available capacity at the given
              * location.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * Resource name for the location, which may vary between implementations.
              * For example: `"projects/example-project/locations/us-east1"`
              */
             name?: string;
         }
-        
         interface ScheduleTransferRunsRequest {
-            /** End time of the range of transfer runs. */
-            rangeEndTime?: string;
-            /** Start time of the range of transfer runs. */
-            rangeStartTime?: string;
+            /**
+             * End time of the range of transfer runs. For example,
+             * `"2017-05-30T00:00:00+00:00"`.
+             */
+            endTime?: string;
+            /**
+             * Start time of the range of transfer runs. For example,
+             * `"2017-05-25T00:00:00+00:00"`.
+             */
+            startTime?: string;
         }
-        
         interface ScheduleTransferRunsResponse {
-            /** The transfer runs that were created. */
-            createdRuns?: TransferRun[];
+            /** The transfer runs that were scheduled. */
+            runs?: TransferRun[];
         }
-        
-        interface SetEnabledRequest {
-            /** Whether data transfer should be enabled or disabled for the project. */
-            enabled?: boolean;
-        }
-        
         interface TransferConfig {
             /**
              * The number of days to look back to automatically refresh the data.
@@ -263,11 +236,7 @@ declare namespace gapi.client {
             dataRefreshWindowDays?: number;
             /** Data source id. Cannot be changed once data transfer is created. */
             dataSourceId?: string;
-            /**
-             * Region in which BigQuery dataset is located. Currently possible values are:
-             * "US" and "EU".
-             * @OutputOnly
-             */
+            /** Output only. Region in which BigQuery dataset is located. */
             datasetRegion?: string;
             /** The BigQuery target dataset id. */
             destinationDatasetId?: string;
@@ -279,21 +248,18 @@ declare namespace gapi.client {
             /** User specified display name for the data transfer. */
             displayName?: string;
             /**
-             * The resource name of the transfer run.
-             * Transfer run names have the form
+             * The resource name of the transfer config.
+             * Transfer config names have the form
              * `projects/{project_id}/transferConfigs/{config_id}`.
              * Where `config_id` is usually a uuid, even though it is not
-             * guaranteed or required. The name is ignored when creating a transfer run.
+             * guaranteed or required. The name is ignored when creating a transfer
+             * config.
              */
             name?: string;
-            /**
-             * Next time when data transfer will run. Output only. Applicable
-             * only for batch data transfers.
-             * @OutputOnly
-             */
+            /** Output only. Next time when data transfer will run. */
             nextRunTime?: string;
             /** Data transfer specific parameters. */
-            params?: Record<string, any>;            
+            params?: Record<string, any>;
             /**
              * Data transfer schedule.
              * If the data source does not support a custom schedule, this should be
@@ -309,25 +275,17 @@ declare namespace gapi.client {
              * NOTE: the granularity should be at least 8 hours, or less frequent.
              */
             schedule?: string;
-            /**
-             * Status of the most recently updated transfer run.
-             * @OutputOnly
-             */
-            status?: string;
-            /**
-             * Data transfer modification time. Ignored by server on input.
-             * @OutputOnly
-             */
+            /** Output only. State of the most recently updated transfer run. */
+            state?: string;
+            /** Output only. Data transfer modification time. Ignored by server on input. */
             updateTime?: string;
             /**
-             * GaiaID of the user on whose behalf transfer is done. Applicable only
-             * to data sources that do not support service accounts. When set to 0,
-             * the data source service account credentials are used.
-             * @OutputOnly
+             * Output only. Unique ID of the user on whose behalf transfer is done.
+             * Applicable only to data sources that do not support service accounts.
+             * When set to 0, the data source service account credentials are used.
              */
             userId?: string;
         }
-        
         interface TransferMessage {
             /** Message text. */
             messageText?: string;
@@ -336,25 +294,16 @@ declare namespace gapi.client {
             /** Message severity. */
             severity?: string;
         }
-        
         interface TransferRun {
-            /**
-             * Data source id.
-             * @OutputOnly
-             */
+            /** Output only. Data source id. */
             dataSourceId?: string;
-            /**
-             * Region in which BigQuery dataset is located. Currently possible values are:
-             * "US" and "EU".
-             * @OutputOnly
-             */
+            /** Output only. Region in which BigQuery dataset is located. */
             datasetRegion?: string;
             /** The BigQuery target dataset id. */
             destinationDatasetId?: string;
             /**
-             * Time when transfer run ended. Parameter ignored by server for input
-             * requests.
-             * @OutputOnly
+             * Output only. Time when transfer run ended.
+             * Parameter ignored by server for input requests.
              */
             endTime?: string;
             /**
@@ -365,52 +314,48 @@ declare namespace gapi.client {
              */
             name?: string;
             /** Data transfer specific parameters. */
-            params?: Record<string, any>;            
+            params?: Record<string, any>;
             /**
              * For batch transfer runs, specifies the date and time that
              * data should be ingested.
              */
             runTime?: string;
             /**
-             * Describes the schedule of this transfer run if it was created as part of
-             * a regular schedule. For batch transfer runs that are directly created,
-             * this is empty.
+             * Output only. Describes the schedule of this transfer run if it was
+             * created as part of a regular schedule. For batch transfer runs that are
+             * scheduled manually, this is empty.
              * NOTE: the system might choose to delay the schedule depending on the
              * current load, so `schedule_time` doesn't always matches this.
-             * @OutputOnly
              */
             schedule?: string;
             /** Minimum time after which a transfer run can be started. */
             scheduleTime?: string;
             /**
-             * Time when transfer run was started. Parameter ignored by server for input
-             * requests.
-             * @OutputOnly
+             * Output only. Time when transfer run was started.
+             * Parameter ignored by server for input requests.
              */
             startTime?: string;
-            /**
-             * Data transfer run status. Ignored for input requests.
-             * @OutputOnly
-             */
-            status?: string;
-            /**
-             * Last time the data transfer run status was updated.
-             * @OutputOnly
-             */
+            /** Output only. Data transfer run state. Ignored for input requests. */
+            state?: string;
+            /** Output only. Last time the data transfer run state was updated. */
             updateTime?: string;
             /**
-             * The user id for this transfer run.
-             * @OutputOnly
+             * Output only. Unique ID of the user on whose behalf transfer is done.
+             * Applicable only to data sources that do not support service accounts.
+             * When set to 0, the data source service account credentials are used.
              */
             userId?: string;
         }
-        
         interface DataSourcesResource {
             /**
              * Returns true if valid credentials exist for the given data source and
              * requesting user.
+             * Some data sources doesn't support service account, so we need to talk to
+             * them on behalf of the end user. This API just checks whether we have OAuth
+             * token for the particular user, which is a pre-requisite before user can
+             * create a transfer config.
              */
-            checkValidCreds(request: {            
+            checkValidCreds(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -442,13 +387,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CheckValidCredsResponse>;            
-            
+            }): Request<CheckValidCredsResponse>;
             /**
              * Retrieves a supported data source and returns its settings,
              * which can be used for UI rendering.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -480,13 +424,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<DataSource>;            
-            
+            }): Request<DataSource>;
             /**
              * Lists supported data sources and returns their settings,
              * which can be used for UI rendering.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -528,16 +471,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListDataSourcesResponse>;            
-            
+            }): Request<ListDataSourcesResponse>;
         }
-        
         interface DataSourcesResource {
             /**
              * Returns true if valid credentials exist for the given data source and
              * requesting user.
+             * Some data sources doesn't support service account, so we need to talk to
+             * them on behalf of the end user. This API just checks whether we have OAuth
+             * token for the particular user, which is a pre-requisite before user can
+             * create a transfer config.
              */
-            checkValidCreds(request: {            
+            checkValidCreds(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -569,13 +514,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CheckValidCredsResponse>;            
-            
+            }): Request<CheckValidCredsResponse>;
             /**
              * Retrieves a supported data source and returns its settings,
              * which can be used for UI rendering.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -607,13 +551,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<DataSource>;            
-            
+            }): Request<DataSource>;
             /**
              * Lists supported data sources and returns their settings,
              * which can be used for UI rendering.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -655,13 +598,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListDataSourcesResponse>;            
-            
+            }): Request<ListDataSourcesResponse>;
         }
-        
         interface TransferLogsResource {
             /** Returns user facing log messages for the data transfer run. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -708,13 +649,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTransferLogsResponse>;            
-            
+            }): Request<ListTransferLogsResponse>;
         }
-        
         interface RunsResource {
             /** Deletes the specified transfer run. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -746,10 +685,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Returns information about the particular transfer run. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -781,10 +719,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferRun>;            
-            
+            }): Request<TransferRun>;
             /** Returns information about running and completed jobs. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -825,20 +762,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Indicates how run attempts are to be pulled. */
                 runAttempt?: string;
-                /** When specified, only transfer runs with requested statuses are returned. */
-                statuses?: string;
+                /** When specified, only transfer runs with requested states are returned. */
+                states?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTransferRunsResponse>;            
-            
+            }): Request<ListTransferRunsResponse>;
             transferLogs: TransferLogsResource;
         }
-        
         interface TransferConfigsResource {
             /** Creates a new data transfer configuration. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -852,16 +787,16 @@ declare namespace gapi.client {
                  * In order to obtain authorization_code, please make a
                  * request to
                  * https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=<datatransferapiclientid>&scope=<data_source_scopes>&redirect_uri=<redirect_uri>
-                 * 
+                 *
                  * &#42; client_id should be OAuth client_id of BigQuery DTS API for the given
-                 *   data source returned by ListDataSources method.
+                 * data source returned by ListDataSources method.
                  * &#42; data_source_scopes are the scopes returned by ListDataSources method.
                  * &#42; redirect_uri is an optional parameter. If not specified, then
-                 *   authorization code is posted to the opener of authorization flow window.
-                 *   Otherwise it will be sent to the redirect uri. A special value of
-                 *   urn:ietf:wg:oauth:2.0:oob means that authorization code should be
-                 *   returned in the title bar of the browser, with the page text prompting
-                 *   the user to copy the code and paste it in the application.
+                 * authorization code is posted to the opener of authorization flow window.
+                 * Otherwise it will be sent to the redirect uri. A special value of
+                 * urn:ietf:wg:oauth:2.0:oob means that authorization code should be
+                 * returned in the title bar of the browser, with the page text prompting
+                 * the user to copy the code and paste it in the application.
                  */
                 authorizationCode?: string;
                 /** OAuth bearer token. */
@@ -893,13 +828,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferConfig>;            
-            
+            }): Request<TransferConfig>;
             /**
              * Deletes a data transfer configuration,
              * including any associated transfer runs and logs.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -931,10 +865,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Returns information about a data transfer config. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -966,10 +899,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferConfig>;            
-            
+            }): Request<TransferConfig>;
             /** Returns information about all data transfers in the project. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1013,13 +945,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTransferConfigsResponse>;            
-            
+            }): Request<ListTransferConfigsResponse>;
             /**
              * Updates a data transfer configuration.
              * All fields must be set, even if they are not updated.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1033,16 +964,16 @@ declare namespace gapi.client {
                  * In order to obtain authorization_code, please make a
                  * request to
                  * https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=<datatransferapiclientid>&scope=<data_source_scopes>&redirect_uri=<redirect_uri>
-                 * 
+                 *
                  * &#42; client_id should be OAuth client_id of BigQuery DTS API for the given
-                 *   data source returned by ListDataSources method.
+                 * data source returned by ListDataSources method.
                  * &#42; data_source_scopes are the scopes returned by ListDataSources method.
                  * &#42; redirect_uri is an optional parameter. If not specified, then
-                 *   authorization code is posted to the opener of authorization flow window.
-                 *   Otherwise it will be sent to the redirect uri. A special value of
-                 *   urn:ietf:wg:oauth:2.0:oob means that authorization code should be
-                 *   returned in the title bar of the browser, with the page text prompting
-                 *   the user to copy the code and paste it in the application.
+                 * authorization code is posted to the opener of authorization flow window.
+                 * Otherwise it will be sent to the redirect uri. A special value of
+                 * urn:ietf:wg:oauth:2.0:oob means that authorization code should be
+                 * returned in the title bar of the browser, with the page text prompting
+                 * the user to copy the code and paste it in the application.
                  */
                 authorizationCode?: string;
                 /** OAuth bearer token. */
@@ -1054,11 +985,12 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /**
-                 * The resource name of the transfer run.
-                 * Transfer run names have the form
+                 * The resource name of the transfer config.
+                 * Transfer config names have the form
                  * `projects/{project_id}/transferConfigs/{config_id}`.
                  * Where `config_id` is usually a uuid, even though it is not
-                 * guaranteed or required. The name is ignored when creating a transfer run.
+                 * guaranteed or required. The name is ignored when creating a transfer
+                 * config.
                  */
                 name: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1075,15 +1007,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferConfig>;            
-            
+            }): Request<TransferConfig>;
             /**
              * Creates transfer runs for a time range [range_start_time, range_end_time].
              * For each date - or whatever granularity the data source supports - in the
              * range, one transfer run is created.
              * Note that runs are created per UTC time in the time range.
              */
-            scheduleRuns(request: {            
+            scheduleRuns(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1115,14 +1046,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ScheduleTransferRunsResponse>;            
-            
+            }): Request<ScheduleTransferRunsResponse>;
             runs: RunsResource;
         }
-        
         interface LocationsResource {
             /** Get information about a location. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1151,45 +1080,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Location>;            
-            
-            /** Returns true if data transfer is enabled for a project. */
-            isEnabled(request: {            
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /**
-                 * The name of the project resource in the form:
-                 * `projects/{project_id}`
-                 */
-                name: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            }): Request<IsEnabledResponse>;            
-            
+            }): Request<Location>;
             /** Lists information about the supported locations for this service. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1224,55 +1117,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListLocationsResponse>;            
-            
-            /**
-             * Enables or disables data transfer for a project. This
-             * method requires the additional scope of
-             * 'https://www.googleapis.com/auth/cloudplatformprojects'
-             * to manage the cloud project permissions.
-             */
-            setEnabled(request: {            
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /**
-                 * The name of the project resource in the form:
-                 * `projects/{project_id}`
-                 */
-                name: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<ListLocationsResponse>;
             dataSources: DataSourcesResource;
             transferConfigs: TransferConfigsResource;
         }
-        
         interface TransferLogsResource {
             /** Returns user facing log messages for the data transfer run. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1319,13 +1170,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTransferLogsResponse>;            
-            
+            }): Request<ListTransferLogsResponse>;
         }
-        
         interface RunsResource {
             /** Deletes the specified transfer run. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1357,10 +1206,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Returns information about the particular transfer run. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1392,10 +1240,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferRun>;            
-            
+            }): Request<TransferRun>;
             /** Returns information about running and completed jobs. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1436,20 +1283,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Indicates how run attempts are to be pulled. */
                 runAttempt?: string;
-                /** When specified, only transfer runs with requested statuses are returned. */
-                statuses?: string;
+                /** When specified, only transfer runs with requested states are returned. */
+                states?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTransferRunsResponse>;            
-            
+            }): Request<ListTransferRunsResponse>;
             transferLogs: TransferLogsResource;
         }
-        
         interface TransferConfigsResource {
             /** Creates a new data transfer configuration. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1463,16 +1308,16 @@ declare namespace gapi.client {
                  * In order to obtain authorization_code, please make a
                  * request to
                  * https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=<datatransferapiclientid>&scope=<data_source_scopes>&redirect_uri=<redirect_uri>
-                 * 
+                 *
                  * &#42; client_id should be OAuth client_id of BigQuery DTS API for the given
-                 *   data source returned by ListDataSources method.
+                 * data source returned by ListDataSources method.
                  * &#42; data_source_scopes are the scopes returned by ListDataSources method.
                  * &#42; redirect_uri is an optional parameter. If not specified, then
-                 *   authorization code is posted to the opener of authorization flow window.
-                 *   Otherwise it will be sent to the redirect uri. A special value of
-                 *   urn:ietf:wg:oauth:2.0:oob means that authorization code should be
-                 *   returned in the title bar of the browser, with the page text prompting
-                 *   the user to copy the code and paste it in the application.
+                 * authorization code is posted to the opener of authorization flow window.
+                 * Otherwise it will be sent to the redirect uri. A special value of
+                 * urn:ietf:wg:oauth:2.0:oob means that authorization code should be
+                 * returned in the title bar of the browser, with the page text prompting
+                 * the user to copy the code and paste it in the application.
                  */
                 authorizationCode?: string;
                 /** OAuth bearer token. */
@@ -1504,13 +1349,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferConfig>;            
-            
+            }): Request<TransferConfig>;
             /**
              * Deletes a data transfer configuration,
              * including any associated transfer runs and logs.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1542,10 +1386,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Returns information about a data transfer config. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1577,10 +1420,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferConfig>;            
-            
+            }): Request<TransferConfig>;
             /** Returns information about all data transfers in the project. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1624,13 +1466,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTransferConfigsResponse>;            
-            
+            }): Request<ListTransferConfigsResponse>;
             /**
              * Updates a data transfer configuration.
              * All fields must be set, even if they are not updated.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1644,16 +1485,16 @@ declare namespace gapi.client {
                  * In order to obtain authorization_code, please make a
                  * request to
                  * https://www.gstatic.com/bigquerydatatransfer/oauthz/auth?client_id=<datatransferapiclientid>&scope=<data_source_scopes>&redirect_uri=<redirect_uri>
-                 * 
+                 *
                  * &#42; client_id should be OAuth client_id of BigQuery DTS API for the given
-                 *   data source returned by ListDataSources method.
+                 * data source returned by ListDataSources method.
                  * &#42; data_source_scopes are the scopes returned by ListDataSources method.
                  * &#42; redirect_uri is an optional parameter. If not specified, then
-                 *   authorization code is posted to the opener of authorization flow window.
-                 *   Otherwise it will be sent to the redirect uri. A special value of
-                 *   urn:ietf:wg:oauth:2.0:oob means that authorization code should be
-                 *   returned in the title bar of the browser, with the page text prompting
-                 *   the user to copy the code and paste it in the application.
+                 * authorization code is posted to the opener of authorization flow window.
+                 * Otherwise it will be sent to the redirect uri. A special value of
+                 * urn:ietf:wg:oauth:2.0:oob means that authorization code should be
+                 * returned in the title bar of the browser, with the page text prompting
+                 * the user to copy the code and paste it in the application.
                  */
                 authorizationCode?: string;
                 /** OAuth bearer token. */
@@ -1665,11 +1506,12 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /**
-                 * The resource name of the transfer run.
-                 * Transfer run names have the form
+                 * The resource name of the transfer config.
+                 * Transfer config names have the form
                  * `projects/{project_id}/transferConfigs/{config_id}`.
                  * Where `config_id` is usually a uuid, even though it is not
-                 * guaranteed or required. The name is ignored when creating a transfer run.
+                 * guaranteed or required. The name is ignored when creating a transfer
+                 * config.
                  */
                 name: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1686,15 +1528,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferConfig>;            
-            
+            }): Request<TransferConfig>;
             /**
              * Creates transfer runs for a time range [range_start_time, range_end_time].
              * For each date - or whatever granularity the data source supports - in the
              * range, one transfer run is created.
              * Note that runs are created per UTC time in the time range.
              */
-            scheduleRuns(request: {            
+            scheduleRuns(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1726,87 +1567,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ScheduleTransferRunsResponse>;            
-            
+            }): Request<ScheduleTransferRunsResponse>;
             runs: RunsResource;
         }
-        
         interface ProjectsResource {
-            /** Returns true if data transfer is enabled for a project. */
-            isEnabled(request: {            
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /**
-                 * The name of the project resource in the form:
-                 * `projects/{project_id}`
-                 */
-                name: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            }): Request<IsEnabledResponse>;            
-            
-            /**
-             * Enables or disables data transfer for a project. This
-             * method requires the additional scope of
-             * 'https://www.googleapis.com/auth/cloudplatformprojects'
-             * to manage the cloud project permissions.
-             */
-            setEnabled(request: {            
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /**
-                 * The name of the project resource in the form:
-                 * `projects/{project_id}`
-                 */
-                name: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            }): Request<{}>;            
-            
             dataSources: DataSourcesResource;
             locations: LocationsResource;
             transferConfigs: TransferConfigsResource;

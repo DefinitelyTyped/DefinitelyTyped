@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Key Management Service (KMS) API v1 */
-    function load(name: "cloudkms", version: "v1"): PromiseLike<void>;    
-    function load(name: "cloudkms", version: "v1", callback: () => any): void;    
-    
-    const projects: cloudkms.ProjectsResource; 
-    
+    function load(name: "cloudkms", version: "v1"): PromiseLike<void>;
+    function load(name: "cloudkms", version: "v1", callback: () => any): void;
+
+    const projects: cloudkms.ProjectsResource;
+
     namespace cloudkms {
-        
         interface AuditConfig {
             /**
              * The configuration for logging of each type of permission.
@@ -34,7 +33,6 @@ declare namespace gapi.client {
              */
             service?: string;
         }
-        
         interface AuditLogConfig {
             /**
              * Specifies the identities that do not cause logging for this type of
@@ -45,7 +43,6 @@ declare namespace gapi.client {
             /** The log type that this config enables. */
             logType?: string;
         }
-        
         interface Binding {
             /**
              * The condition that is associated with this binding.
@@ -58,26 +55,26 @@ declare namespace gapi.client {
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -87,40 +84,11 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
-        interface CloudAuditOptions {
-            /** The log_name to populate in the Cloud Audit Record. */
-            logName?: string;
-        }
-        
-        interface Condition {
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
-            /**
-             * Trusted attributes supplied by any service that owns resources and uses
-             * the IAM system for access control.
-             */
-            sys?: string;
-            /** DEPRECATED. Use 'values' instead. */
-            value?: string;
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
-        }
-        
-        interface CounterOptions {
-            /** The field value to attribute. */
-            field?: string;
-            /** The metric to update. */
-            metric?: string;
-        }
-        
         interface CryptoKey {
             /** Output only. The time at which this CryptoKey was created. */
             createTime?: string;
+            /** Labels with user defined metadata. */
+            labels?: Record<string, string>;
             /**
              * Output only. The resource name for this CryptoKey in the format
              * `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;`.
@@ -128,10 +96,10 @@ declare namespace gapi.client {
             name?: string;
             /**
              * At next_rotation_time, the Key Management Service will automatically:
-             * 
+             *
              * 1. Create a new version of this CryptoKey.
              * 2. Mark the new version as primary.
-             * 
+             *
              * Key rotations performed manually via
              * CreateCryptoKeyVersion and
              * UpdateCryptoKeyPrimaryVersion
@@ -142,7 +110,7 @@ declare namespace gapi.client {
              * Output only. A copy of the "primary" CryptoKeyVersion that will be used
              * by Encrypt when this CryptoKey is given
              * in EncryptRequest.name.
-             * 
+             *
              * The CryptoKey's primary version can be updated via
              * UpdateCryptoKeyPrimaryVersion.
              */
@@ -155,12 +123,11 @@ declare namespace gapi.client {
             /**
              * next_rotation_time will be advanced by this period when the service
              * automatically rotates a key. Must be at least one day.
-             * 
+             *
              * If rotation_period is set, next_rotation_time must also be set.
              */
             rotationPeriod?: string;
         }
-        
         interface CryptoKeyVersion {
             /** Output only. The time at which this CryptoKeyVersion was created. */
             createTime?: string;
@@ -184,15 +151,6 @@ declare namespace gapi.client {
             /** The current state of the CryptoKeyVersion. */
             state?: string;
         }
-        
-        interface DataAccessOptions {
-            /**
-             * Whether Gin logging should happen in a fail-closed manner at the caller.
-             * This is relevant only in the LocalIAM implementation, for now.
-             */
-            logMode?: string;
-        }
-        
         interface DecryptRequest {
             /**
              * Optional data that must match the data originally supplied in
@@ -205,12 +163,10 @@ declare namespace gapi.client {
              */
             ciphertext?: string;
         }
-        
         interface DecryptResponse {
             /** The decrypted data originally supplied in EncryptRequest.plaintext. */
             plaintext?: string;
         }
-        
         interface EncryptRequest {
             /**
              * Optional data that, if specified, must also be provided during decryption
@@ -221,14 +177,12 @@ declare namespace gapi.client {
             /** Required. The data to encrypt. Must be no larger than 64KiB. */
             plaintext?: string;
         }
-        
         interface EncryptResponse {
             /** The encrypted data. */
             ciphertext?: string;
             /** The resource name of the CryptoKeyVersion used in encryption. */
             name?: string;
         }
-        
         interface Expr {
             /**
              * An optional description of the expression. This is a longer text which
@@ -238,7 +192,7 @@ declare namespace gapi.client {
             /**
              * Textual representation of an expression in
              * Common Expression Language syntax.
-             * 
+             *
              * The application context of the containing message determines which
              * well-known feature set of CEL is supported.
              */
@@ -255,7 +209,6 @@ declare namespace gapi.client {
              */
             title?: string;
         }
-        
         interface KeyRing {
             /** Output only. The time at which this KeyRing was created. */
             createTime?: string;
@@ -265,7 +218,6 @@ declare namespace gapi.client {
              */
             name?: string;
         }
-        
         interface ListCryptoKeyVersionsResponse {
             /** The list of CryptoKeyVersions. */
             cryptoKeyVersions?: CryptoKeyVersion[];
@@ -281,7 +233,6 @@ declare namespace gapi.client {
              */
             totalSize?: number;
         }
-        
         interface ListCryptoKeysResponse {
             /** The list of CryptoKeys. */
             cryptoKeys?: CryptoKey[];
@@ -293,7 +244,6 @@ declare namespace gapi.client {
             /** The total number of CryptoKeys that matched the query. */
             totalSize?: number;
         }
-        
         interface ListKeyRingsResponse {
             /** The list of KeyRings. */
             keyRings?: KeyRing[];
@@ -305,44 +255,32 @@ declare namespace gapi.client {
             /** The total number of KeyRings that matched the query. */
             totalSize?: number;
         }
-        
         interface ListLocationsResponse {
             /** A list of locations that matches the specified filter in the request. */
             locations?: Location[];
             /** The standard List next-page token. */
             nextPageToken?: string;
         }
-        
         interface Location {
             /**
              * Cross-service attributes for the location. For example
-             * 
-             *     {"cloud.googleapis.com/region": "us-east1"}
+             *
+             * {"cloud.googleapis.com/region": "us-east1"}
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** The canonical id for this location. For example: `"us-east1"`. */
             locationId?: string;
             /**
              * Service-specific metadata. For example the available capacity at the given
              * location.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * Resource name for the location, which may vary between implementations.
              * For example: `"projects/example-project/locations/us-east1"`
              */
             name?: string;
         }
-        
-        interface LogConfig {
-            /** Cloud audit options. */
-            cloudAudit?: CloudAuditOptions;
-            /** Counter options. */
-            counter?: CounterOptions;
-            /** Data access options. */
-            dataAccess?: DataAccessOptions;
-        }
-        
         interface Policy {
             /** Specifies cloud audit logging configuration for this policy. */
             auditConfigs?: AuditConfig[];
@@ -359,60 +297,15 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
             etag?: string;
             iamOwned?: boolean;
-            /**
-             * If more than one rule is specified, the rules are applied in the following
-             * manner:
-             * - All matching LOG rules are always applied.
-             * - If any DENY/DENY_WITH_LOG rule matches, permission is denied.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is
-             *   granted.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if no rule applies, permission is denied.
-             */
-            rules?: Rule[];
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
-        interface Rule {
-            /** Required */
-            action?: string;
-            /** Additional restrictions that must be met */
-            conditions?: Condition[];
-            /** Human-readable description of the rule. */
-            description?: string;
-            /**
-             * If one or more 'in' clauses are specified, the rule matches if
-             * the PRINCIPAL/AUTHORITY_SELECTOR is in at least one of these entries.
-             */
-            in?: string[];
-            /**
-             * The config returned to callers of tech.iam.IAM.CheckPolicy for any entries
-             * that match the LOG action.
-             */
-            logConfig?: LogConfig[];
-            /**
-             * If one or more 'not_in' clauses are specified, the rule matches
-             * if the PRINCIPAL/AUTHORITY_SELECTOR is in none of the entries.
-             * The format for in and not_in entries is the same as for members in a
-             * Binding (see google/iam/v1/policy.proto).
-             */
-            notIn?: string[];
-            /**
-             * A permission is a string of form '<service>.<resource type>.<verb>'
-             * (e.g., 'storage.buckets.list'). A value of '&#42;' matches all permissions,
-             * and a verb part of '&#42;' (e.g., 'storage.buckets.&#42;') matches all verbs.
-             */
-            permissions?: string[];
-        }
-        
         interface SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -430,7 +323,6 @@ declare namespace gapi.client {
              */
             updateMask?: string;
         }
-        
         interface TestIamPermissionsRequest {
             /**
              * The set of permissions to check for the `resource`. Permissions with
@@ -440,7 +332,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -448,21 +339,19 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface UpdateCryptoKeyPrimaryVersionRequest {
             /** The id of the child CryptoKeyVersion to use as primary. */
             cryptoKeyVersionId?: string;
         }
-        
         interface CryptoKeyVersionsResource {
             /**
              * Create a new CryptoKeyVersion in a CryptoKey.
-             * 
+             *
              * The server will assign the next sequential id. If unset,
              * state will be set to
              * ENABLED.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -494,11 +383,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKeyVersion>;            
-            
+            }): Request<CryptoKeyVersion>;
             /**
              * Schedule a CryptoKeyVersion for destruction.
-             * 
+             *
              * Upon calling this method, CryptoKeyVersion.state will be set to
              * DESTROY_SCHEDULED
              * and destroy_time will be set to a time 24
@@ -506,11 +394,11 @@ declare namespace gapi.client {
              * will be changed to
              * DESTROYED, and the key
              * material will be irrevocably destroyed.
-             * 
+             *
              * Before the destroy_time is reached,
              * RestoreCryptoKeyVersion may be called to reverse the process.
              */
-            destroy(request: {            
+            destroy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -539,10 +427,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKeyVersion>;            
-            
+            }): Request<CryptoKeyVersion>;
             /** Returns metadata for a given CryptoKeyVersion. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -571,10 +458,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKeyVersion>;            
-            
+            }): Request<CryptoKeyVersion>;
             /** Lists CryptoKeyVersions. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -619,18 +505,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListCryptoKeyVersionsResponse>;            
-            
+            }): Request<ListCryptoKeyVersionsResponse>;
             /**
              * Update a CryptoKeyVersion's metadata.
-             * 
+             *
              * state may be changed between
              * ENABLED and
              * DISABLED using this
              * method. See DestroyCryptoKeyVersion and RestoreCryptoKeyVersion to
              * move between other states.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -664,18 +549,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKeyVersion>;            
-            
+            }): Request<CryptoKeyVersion>;
             /**
              * Restore a CryptoKeyVersion in the
              * DESTROY_SCHEDULED,
              * state.
-             * 
+             *
              * Upon restoration of the CryptoKeyVersion, state
              * will be set to DISABLED,
              * and destroy_time will be cleared.
              */
-            restore(request: {            
+            restore(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -704,17 +588,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKeyVersion>;            
-            
+            }): Request<CryptoKeyVersion>;
         }
-        
         interface CryptoKeysResource {
             /**
              * Create a new CryptoKey within a KeyRing.
-             * 
+             *
              * CryptoKey.purpose is required.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -751,10 +633,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKey>;            
-            
+            }): Request<CryptoKey>;
             /** Decrypts data that was protected by Encrypt. */
-            decrypt(request: {            
+            decrypt(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -786,10 +667,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<DecryptResponse>;            
-            
+            }): Request<DecryptResponse>;
             /** Encrypts data, so that it can only be recovered by a call to Decrypt. */
-            encrypt(request: {            
+            encrypt(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -807,7 +687,7 @@ declare namespace gapi.client {
                 /**
                  * Required. The resource name of the CryptoKey or CryptoKeyVersion
                  * to use for encryption.
-                 * 
+                 *
                  * If a CryptoKey is specified, the server will use its
                  * primary version.
                  */
@@ -824,13 +704,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<EncryptResponse>;            
-            
+            }): Request<EncryptResponse>;
             /**
              * Returns metadata for a given CryptoKey, as well as its
              * primary CryptoKeyVersion.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -859,14 +738,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKey>;            
-            
+            }): Request<CryptoKey>;
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -898,10 +776,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Lists CryptoKeys. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -945,10 +822,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListCryptoKeysResponse>;            
-            
+            }): Request<ListCryptoKeysResponse>;
             /** Update a CryptoKey. */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -982,13 +858,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKey>;            
-            
+            }): Request<CryptoKey>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1020,18 +895,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
-             * 
+             *
              * Note: This operation is designed to be used for building permission-aware
              * UIs and command-line tools, not for authorization checking. This operation
              * may "fail open" without warning.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1063,10 +937,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             /** Update the version of a CryptoKey that will be used in Encrypt */
-            updatePrimaryVersion(request: {            
+            updatePrimaryVersion(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1095,14 +968,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CryptoKey>;            
-            
+            }): Request<CryptoKey>;
             cryptoKeyVersions: CryptoKeyVersionsResource;
         }
-        
         interface KeyRingsResource {
             /** Create a new KeyRing in a given Project and Location. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1139,10 +1010,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<KeyRing>;            
-            
+            }): Request<KeyRing>;
             /** Returns metadata for a given KeyRing. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1171,14 +1041,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<KeyRing>;            
-            
+            }): Request<KeyRing>;
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1210,10 +1079,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Lists KeyRings. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1257,13 +1125,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListKeyRingsResponse>;            
-            
+            }): Request<ListKeyRingsResponse>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1295,18 +1162,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
-             * 
+             *
              * Note: This operation is designed to be used for building permission-aware
              * UIs and command-line tools, not for authorization checking. This operation
              * may "fail open" without warning.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1338,14 +1204,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             cryptoKeys: CryptoKeysResource;
         }
-        
         interface LocationsResource {
             /** Get information about a location. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1374,10 +1238,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Location>;            
-            
+            }): Request<Location>;
             /** Lists information about the supported locations for this service. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1412,11 +1275,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListLocationsResponse>;            
-            
+            }): Request<ListLocationsResponse>;
             keyRings: KeyRingsResource;
         }
-        
         interface ProjectsResource {
             locations: LocationsResource;
         }

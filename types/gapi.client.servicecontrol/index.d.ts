@@ -13,21 +13,24 @@
 
 declare namespace gapi.client {
     /** Load Google Service Control API v1 */
-    function load(name: "servicecontrol", version: "v1"): PromiseLike<void>;    
-    function load(name: "servicecontrol", version: "v1", callback: () => any): void;    
-    
-    const services: servicecontrol.ServicesResource; 
-    
+    function load(name: "servicecontrol", version: "v1"): PromiseLike<void>;
+    function load(name: "servicecontrol", version: "v1", callback: () => any): void;
+
+    const services: servicecontrol.ServicesResource;
+
     namespace servicecontrol {
-        
+        interface AllocateInfo {
+            /**
+             * A list of label keys that were unused by the server in processing the
+             * request. Thus, for similar requests repeated in a certain future time
+             * window, the caller can choose to ignore these labels in the requests
+             * to achieve better client-side cache hits and quota aggregation.
+             */
+            unusedArguments?: string[];
+        }
         interface AllocateQuotaRequest {
             /** Operation that describes the quota allocation. */
             allocateOperation?: QuotaOperation;
-            /**
-             * Allocation mode for this operation.
-             * Deprecated: use QuotaMode inside the QuotaOperation.
-             */
-            allocationMode?: string;
             /**
              * Specifies which version of service configuration should be used to process
              * the request. If unspecified or no matching version can be found, the latest
@@ -35,10 +38,11 @@ declare namespace gapi.client {
              */
             serviceConfigId?: string;
         }
-        
         interface AllocateQuotaResponse {
             /** Indicates the decision of the allocate. */
             allocateErrors?: QuotaError[];
+            /** WARNING: DO NOT use this field until this warning message is removed. */
+            allocateInfo?: AllocateInfo;
             /**
              * The same operation_id value used in the AllocateQuotaRequest. Used for
              * logging and diagnostics purposes.
@@ -47,28 +51,19 @@ declare namespace gapi.client {
             /**
              * Quota metrics to indicate the result of allocation. Depending on the
              * request, one or more of the following metrics will be included:
-             * 
-             * 1. For rate quota, per quota group or per quota metric incremental usage
-             * will be specified using the following delta metric:
-             *   "serviceruntime.googleapis.com/api/consumer/quota_used_count"
-             * 
-             * 2. For allocation quota, per quota metric total usage will be specified
-             * using the following gauge metric:
-             *   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
-             * 
-             * 3. For both rate quota and allocation quota, the quota limit reached
-             * condition will be specified using the following boolean metric:
-             *   "serviceruntime.googleapis.com/quota/exceeded"
-             * 
-             * 4. For allocation quota, value for each quota limit associated with
-             * the metrics will be specified using the following gauge metric:
-             *   "serviceruntime.googleapis.com/quota/limit"
+             *
+             * 1. Per quota group or per quota metric incremental usage will be specified
+             * using the following delta metric :
+             * "serviceruntime.googleapis.com/api/consumer/quota_used_count"
+             *
+             * 2. The quota limit reached condition will be specified using the following
+             * boolean metric :
+             * "serviceruntime.googleapis.com/quota/exceeded"
              */
             quotaMetrics?: MetricValueSet[];
             /** ID of the actual config used to process the request. */
             serviceConfigId?: string;
         }
-        
         interface AuditLog {
             /** Authentication information. */
             authenticationInfo?: AuthenticationInfo;
@@ -79,12 +74,17 @@ declare namespace gapi.client {
              */
             authorizationInfo?: AuthorizationInfo[];
             /**
+             * Other service-specific data about the request, response, and other
+             * information associated with the current audited event.
+             */
+            metadata?: Record<string, any>;
+            /**
              * The name of the service method or operation.
              * For API calls, this should be the name of the API method.
              * For example,
-             * 
-             *     "google.datastore.v1.Datastore.RunQuery"
-             *     "google.logging.v1.LoggingService.DeleteLog"
+             *
+             * "google.datastore.v1.Datastore.RunQuery"
+             * "google.logging.v1.LoggingService.DeleteLog"
              */
             methodName?: string;
             /**
@@ -100,16 +100,16 @@ declare namespace gapi.client {
              * When the JSON object represented here has a proto equivalent, the proto
              * name will be indicated in the `@type` property.
              */
-            request?: Record<string, any>;            
+            request?: Record<string, any>;
             /** Metadata about the operation. */
             requestMetadata?: RequestMetadata;
             /**
              * The resource or collection that is the target of the operation.
              * The name is a scheme-less URI, not including the API service name.
              * For example:
-             * 
-             *     "shelves/SHELF_ID/books"
-             *     "shelves/SHELF_ID/books/BOOK_ID"
+             *
+             * "shelves/SHELF_ID/books"
+             * "shelves/SHELF_ID/books/BOOK_ID"
              */
             resourceName?: string;
             /**
@@ -120,12 +120,13 @@ declare namespace gapi.client {
              * When the JSON object represented here has a proto equivalent, the proto
              * name will be indicated in the `@type` property.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
             /**
+             * Deprecated, use `metadata` field instead.
              * Other service-specific data about the request, response, and other
              * activities.
              */
-            serviceData?: Record<string, any>;            
+            serviceData?: Record<string, any>;
             /**
              * The name of the API service performing the operation. For example,
              * `"datastore.googleapis.com"`.
@@ -134,7 +135,6 @@ declare namespace gapi.client {
             /** The status of the overall operation. */
             status?: Status;
         }
-        
         interface AuthenticationInfo {
             /**
              * The authority selector specified by the requestor, if any.
@@ -142,13 +142,20 @@ declare namespace gapi.client {
              */
             authoritySelector?: string;
             /**
-             * The email address of the authenticated user making the request.
-             * For privacy reasons, the principal email address is redacted for all
-             * read-only operations that fail with a "permission denied" error.
+             * The email address of the authenticated user (or service account on behalf
+             * of third party principal) making the request. For privacy reasons, the
+             * principal email address is redacted for all read-only operations that fail
+             * with a "permission denied" error.
              */
             principalEmail?: string;
+            /**
+             * The third party identification (if any) of the authenticated user making
+             * the request.
+             * When the JSON object represented here has a proto equivalent, the proto
+             * name will be indicated in the `@type` property.
+             */
+            thirdPartyPrincipal?: Record<string, any>;
         }
-        
         interface AuthorizationInfo {
             /**
              * Whether or not authorization for `resource` and `permission`
@@ -159,19 +166,17 @@ declare namespace gapi.client {
             permission?: string;
             /**
              * The resource being accessed, as a REST-style string. For example:
-             * 
-             *     bigquery.googleapis.com/projects/PROJECTID/datasets/DATASETID
+             *
+             * bigquery.googleapis.com/projects/PROJECTID/datasets/DATASETID
              */
             resource?: string;
         }
-        
         interface CheckError {
             /** The error code. */
             code?: string;
             /** Free-form text providing details on the error cause of the error. */
             detail?: string;
         }
-        
         interface CheckInfo {
             /** Consumer info of this check. */
             consumerInfo?: ConsumerInfo;
@@ -182,7 +187,6 @@ declare namespace gapi.client {
              */
             unusedArguments?: string[];
         }
-        
         interface CheckRequest {
             /** The operation to be checked. */
             operation?: Operation;
@@ -191,7 +195,7 @@ declare namespace gapi.client {
             /**
              * Specifies which version of service configuration should be used to process
              * the request.
-             * 
+             *
              * If unspecified or no matching version can be found, the
              * latest one will be used.
              */
@@ -202,11 +206,10 @@ declare namespace gapi.client {
              */
             skipActivationCheck?: boolean;
         }
-        
         interface CheckResponse {
             /**
              * Indicate the decision of the check.
-             * 
+             *
              * If no check errors are present, the service should process the operation.
              * Otherwise the service should use the list of errors to determine the
              * appropriate action.
@@ -224,7 +227,6 @@ declare namespace gapi.client {
             /** The actual config id used to process the request. */
             serviceConfigId?: string;
         }
-        
         interface ConsumerInfo {
             /**
              * The Google cloud project number, e.g. 1234567890. A value of 0 indicates
@@ -232,19 +234,18 @@ declare namespace gapi.client {
              */
             projectNumber?: string;
         }
-        
         interface Distribution {
             /**
              * The number of samples in each histogram bucket. `bucket_counts` are
              * optional. If present, they must sum to the `count` value.
-             * 
+             *
              * The buckets are defined below in `bucket_option`. There are N buckets.
              * `bucket_counts[0]` is the number of samples in the underflow bucket.
              * `bucket_counts[1]` to `bucket_counts[N-1]` are the numbers of samples
              * in each of the finite buckets. And `bucket_counts[N] is the number
              * of samples in the overflow bucket. See the comments of `bucket_option`
              * below for more details.
-             * 
+             *
              * Any suffix of trailing zeros may be omitted.
              */
             bucketCounts?: string[];
@@ -267,13 +268,12 @@ declare namespace gapi.client {
             minimum?: number;
             /**
              * The sum of squared deviations from the mean:
-             *   Sum[i=1..count]((x_i - mean)^2)
+             * Sum[i=1..count]((x_i - mean)^2)
              * where each x_i is a sample values. If `count` is zero then this field
              * must be zero, otherwise validation of the request fails.
              */
             sumOfSquaredDeviation?: number;
         }
-        
         interface EndReconciliationRequest {
             /** Operation that describes the quota reconciliation. */
             reconciliationOperation?: QuotaOperation;
@@ -284,7 +284,6 @@ declare namespace gapi.client {
              */
             serviceConfigId?: string;
         }
-        
         interface EndReconciliationResponse {
             /**
              * The same operation_id value used in the EndReconciliationRequest. Used for
@@ -294,20 +293,20 @@ declare namespace gapi.client {
             /**
              * Metric values as tracked by One Platform before the adjustment was made.
              * The following metrics will be included:
-             * 
+             *
              * 1. Per quota metric total usage will be specified using the following gauge
              * metric:
-             *   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
-             * 
+             * "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+             *
              * 2. Value for each quota limit associated with the metrics will be specified
              * using the following gauge metric:
-             *   "serviceruntime.googleapis.com/quota/limit"
-             * 
+             * "serviceruntime.googleapis.com/quota/limit"
+             *
              * 3. Delta value of the usage after the reconciliation for limits associated
              * with the metrics will be specified using the following metric:
-             *   "serviceruntime.googleapis.com/allocation/reconciliation_delta"
+             * "serviceruntime.googleapis.com/allocation/reconciliation_delta"
              * The delta value is defined as:
-             *   new_usage_from_client - existing_value_in_spanner.
+             * new_usage_from_client - existing_value_in_spanner.
              * This metric is not defined in serviceruntime.yaml or in Cloud Monarch.
              * This metric is meant for callers' use only. Since this metric is not
              * defined in the monitoring backend, reporting on this metric will result in
@@ -319,32 +318,30 @@ declare namespace gapi.client {
             /** ID of the actual config used to process the request. */
             serviceConfigId?: string;
         }
-        
         interface ExplicitBuckets {
             /**
              * 'bound' is a list of strictly increasing boundaries between
              * buckets. Note that a list of length N-1 defines N buckets because
              * of fenceposting. See comments on `bucket_options` for details.
-             * 
+             *
              * The i'th finite bucket covers the interval
-             *   [bound[i-1], bound[i])
+             * [bound[i-1], bound[i])
              * where i ranges from 1 to bound_size() - 1. Note that there are no
              * finite buckets at all if 'bound' only contains a single element; in
              * that special case the single bound defines the boundary between the
              * underflow and overflow buckets.
-             * 
+             *
              * bucket number                   lower bound    upper bound
-             *  i == 0 (underflow)              -inf           bound[i]
-             *  0 < i < bound_size()            bound[i-1]     bound[i]
-             *  i == bound_size() (overflow)    bound[i-1]     +inf
+             * i == 0 (underflow)              -inf           bound[i]
+             * 0 < i < bound_size()            bound[i-1]     bound[i]
+             * i == bound_size() (overflow)    bound[i-1]     +inf
              */
             bounds?: number[];
         }
-        
         interface ExponentialBuckets {
             /**
              * The i'th exponential bucket covers the interval
-             *   [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i)
+             * [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i)
              * where i ranges from 1 to num_finite_buckets inclusive.
              * Must be larger than 1.0.
              */
@@ -357,13 +354,12 @@ declare namespace gapi.client {
             numFiniteBuckets?: number;
             /**
              * The i'th exponential bucket covers the interval
-             *   [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i)
+             * [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i)
              * where i ranges from 1 to num_finite_buckets inclusive.
              * Must be > 0.
              */
             scale?: number;
         }
-        
         interface LinearBuckets {
             /**
              * The number of finite buckets. With the underflow and overflow buckets,
@@ -373,19 +369,18 @@ declare namespace gapi.client {
             numFiniteBuckets?: number;
             /**
              * The i'th linear bucket covers the interval
-             *   [offset + (i-1) &#42; width, offset + i &#42; width)
+             * [offset + (i-1) &#42; width, offset + i &#42; width)
              * where i ranges from 1 to num_finite_buckets, inclusive.
              */
             offset?: number;
             /**
              * The i'th linear bucket covers the interval
-             *   [offset + (i-1) &#42; width, offset + i &#42; width)
+             * [offset + (i-1) &#42; width, offset + i &#42; width)
              * where i ranges from 1 to num_finite_buckets, inclusive.
              * Must be strictly positive.
              */
             width?: number;
         }
-        
         interface LogEntry {
             /**
              * A unique ID for the log entry used for deduplication. If omitted,
@@ -396,7 +391,7 @@ declare namespace gapi.client {
              * A set of user-defined (key, value) data that provides additional
              * information about the log entry.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /**
              * Required. The log to which this log entry belongs. Examples: `"syslog"`,
              * `"book_log"`.
@@ -407,7 +402,7 @@ declare namespace gapi.client {
              * expressed as a JSON object. The only accepted type currently is
              * AuditLog.
              */
-            protoPayload?: Record<string, any>;            
+            protoPayload?: Record<string, any>;
             /**
              * The severity of the log entry. The default value is
              * `LogSeverity.DEFAULT`.
@@ -417,7 +412,7 @@ declare namespace gapi.client {
              * The log entry payload, represented as a structure that
              * is expressed as a JSON object.
              */
-            structPayload?: Record<string, any>;            
+            structPayload?: Record<string, any>;
             /** The log entry payload, represented as a Unicode string (UTF-8). */
             textPayload?: string;
             /**
@@ -426,7 +421,6 @@ declare namespace gapi.client {
              */
             timestamp?: string;
         }
-        
         interface MetricValue {
             /** A boolean value. */
             boolValue?: boolean;
@@ -446,7 +440,7 @@ declare namespace gapi.client {
              * See comments on google.api.servicecontrol.v1.Operation.labels for
              * the overriding relationship.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** A money value. */
             moneyValue?: Money;
             /**
@@ -459,14 +453,12 @@ declare namespace gapi.client {
             /** A text string value. */
             stringValue?: string;
         }
-        
         interface MetricValueSet {
             /** The metric name defined in the service configuration. */
             metricName?: string;
             /** The values in this metric. */
             metricValues?: MetricValue[];
         }
-        
         interface Money {
             /** The 3-letter currency code defined in ISO 4217. */
             currencyCode?: string;
@@ -485,18 +477,17 @@ declare namespace gapi.client {
              */
             units?: string;
         }
-        
         interface Operation {
             /**
              * Identity of the consumer who is using the service.
              * This field should be filled in for the operations initiated by a
              * consumer, but not for service-initiated operations that are
              * not related to a specific consumer.
-             * 
+             *
              * This can be in one of the following formats:
-             *   project:<project_id>,
-             *   project_number:<project_number>,
-             *   api_key:<api_key>.
+             * project:<project_id>,
+             * project_number:<project_number>,
+             * api_key:<api_key>.
              */
             consumerId?: string;
             /**
@@ -509,22 +500,22 @@ declare namespace gapi.client {
             importance?: string;
             /**
              * Labels describing the operation. Only the following labels are allowed:
-             * 
+             *
              * - Labels describing monitored resources as defined in
-             *   the service configuration.
+             * the service configuration.
              * - Default labels of metric values. When specified, labels defined in the
-             *   metric value override these default.
+             * metric value override these default.
              * - The following labels defined by Google Cloud Platform:
-             *     - `cloud.googleapis.com/location` describing the location where the
-             *        operation happened,
-             *     - `servicecontrol.googleapis.com/user_agent` describing the user agent
-             *        of the API request,
-             *     - `servicecontrol.googleapis.com/service_agent` describing the service
-             *        used to handle the API request (e.g. ESP),
-             *     - `servicecontrol.googleapis.com/platform` describing the platform
-             *        where the API is served (e.g. GAE, GCE, GKE).
+             * - `cloud.googleapis.com/location` describing the location where the
+             * operation happened,
+             * - `servicecontrol.googleapis.com/user_agent` describing the user agent
+             * of the API request,
+             * - `servicecontrol.googleapis.com/service_agent` describing the service
+             * used to handle the API request (e.g. ESP),
+             * - `servicecontrol.googleapis.com/platform` describing the platform
+             * where the API is served (e.g. GAE, GCE, GKE).
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** Represents information to be logged. */
             logEntries?: LogEntry[];
             /**
@@ -532,7 +523,7 @@ declare namespace gapi.client {
              * corresponds to a metric defined in the service configuration.
              * The data type used in the MetricValueSet must agree with
              * the data type specified in the metric definition.
-             * 
+             *
              * Within a single operation, it is not allowed to have more than one
              * MetricValue instances that have the same metric names and identical
              * label value combinations. If a request has such duplicated MetricValue
@@ -545,7 +536,7 @@ declare namespace gapi.client {
              * service that generated the operation. If the service calls
              * Check() and Report() on the same operation, the two calls should carry
              * the same id.
-             * 
+             *
              * UUID version 4 is recommended, though not required.
              * In scenarios where an operation is computed from existing information
              * and an idempotent id is desirable for deduplication purpose, UUID version 5
@@ -556,32 +547,31 @@ declare namespace gapi.client {
             operationName?: string;
             /**
              * Represents the properties needed for quota check. Applicable only if this
-             * operation is for a quota check request.
+             * operation is for a quota check request. If this is not specified, no quota
+             * check will be performed.
              */
             quotaProperties?: QuotaProperties;
             /**
+             * DO NOT USE. This field is deprecated, use "resources" field instead.
              * The resource name of the parent of a resource in the resource hierarchy.
-             * 
+             *
              * This can be in one of the following formats:
-             *     - “projects/<project-id or project-number>”
-             *     - “folders/<folder-id>”
-             *     - “organizations/<organization-id>”
+             * - “projects/<project-id or project-number>”
+             * - “folders/<folder-id>”
+             * - “organizations/<organization-id>”
              */
             resourceContainer?: string;
-            /**
-             * DO NOT USE.
-             * This field is not ready for use yet.
-             */
-            resourceContainers?: string[];
+            /** The resources that are involved in the operation. */
+            resources?: ResourceInfo[];
             /** Required. Start time of the operation. */
             startTime?: string;
             /**
              * User defined labels for the resource that this operation is associated
-             * with.
+             * with. Only a combination of 1000 user labels per consumer project are
+             * allowed.
              */
-            userLabels?: Record<string, string>;            
+            userLabels?: Record<string, string>;
         }
-        
         interface QuotaError {
             /** Error code. */
             code?: string;
@@ -594,7 +584,6 @@ declare namespace gapi.client {
              */
             subject?: string;
         }
-        
         interface QuotaInfo {
             /**
              * Quota Metrics that have exceeded quota limits.
@@ -608,59 +597,58 @@ declare namespace gapi.client {
              * Map of quota group name to the actual number of tokens consumed. If the
              * quota check was not successful, then this will not be populated due to no
              * quota consumption.
-             * 
+             *
              * We are not merging this field with 'quota_metrics' field because of the
              * complexity of scaling in Chemist client code base. For simplicity, we will
              * keep this field for Castor (that scales quota usage) and 'quota_metrics'
              * for SuperQuota (that doesn't scale quota usage).
              */
-            quotaConsumed?: Record<string, number>;            
+            quotaConsumed?: Record<string, number>;
             /**
              * Quota metrics to indicate the usage. Depending on the check request, one or
              * more of the following metrics will be included:
-             * 
+             *
              * 1. For rate quota, per quota group or per quota metric incremental usage
              * will be specified using the following delta metric:
-             *   "serviceruntime.googleapis.com/api/consumer/quota_used_count"
-             * 
+             * "serviceruntime.googleapis.com/api/consumer/quota_used_count"
+             *
              * 2. For allocation quota, per quota metric total usage will be specified
              * using the following gauge metric:
-             *   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
-             * 
+             * "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+             *
              * 3. For both rate quota and allocation quota, the quota limit reached
              * condition will be specified using the following boolean metric:
-             *   "serviceruntime.googleapis.com/quota/exceeded"
+             * "serviceruntime.googleapis.com/quota/exceeded"
              */
             quotaMetrics?: MetricValueSet[];
         }
-        
         interface QuotaOperation {
             /**
              * Identity of the consumer for whom this quota operation is being performed.
-             * 
+             *
              * This can be in one of the following formats:
-             *   project:<project_id>,
-             *   project_number:<project_number>,
-             *   api_key:<api_key>.
+             * project:<project_id>,
+             * project_number:<project_number>,
+             * api_key:<api_key>.
              */
             consumerId?: string;
             /** Labels describing the operation. */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /**
              * Fully qualified name of the API method for which this quota operation is
              * requested. This name is used for matching quota rules or metric rules and
              * billing status rules defined in service configuration. This field is not
              * required if the quota operation is performed on non-API resources.
-             * 
+             *
              * Example of an RPC method name:
-             *     google.example.library.v1.LibraryService.CreateShelf
+             * google.example.library.v1.LibraryService.CreateShelf
              */
             methodName?: string;
             /**
              * Identity of the operation. This is expected to be unique within the scope
              * of the service that generated the operation, and guarantees idempotency in
              * case of retries.
-             * 
+             *
              * UUID version 4 is recommended, though not required. In scenarios where an
              * operation is computed from existing information and an idempotent id is
              * desirable for deduplication purpose, UUID version 5 is recommended. See
@@ -672,7 +660,7 @@ declare namespace gapi.client {
              * corresponds to a metric defined in the service configuration.
              * The data type used in the MetricValueSet must agree with
              * the data type specified in the metric definition.
-             * 
+             *
              * Within a single operation, it is not allowed to have more than one
              * MetricValue instances that have the same metric names and identical
              * label value combinations. If a request has such duplicated MetricValue
@@ -683,26 +671,10 @@ declare namespace gapi.client {
             /** Quota mode for this operation. */
             quotaMode?: string;
         }
-        
         interface QuotaProperties {
-            /**
-             * LimitType IDs that should be used for checking quota. Key in this map
-             * should be a valid LimitType string, and the value is the ID to be used. For
-             * example, an entry <USER, 123> will cause all user quota limits to use 123
-             * as the user ID. See google/api/quota.proto for the definition of LimitType.
-             * CLIENT_PROJECT: Not supported.
-             * USER: Value of this entry will be used for enforcing user-level quota
-             *       limits. If none specified, caller IP passed in the
-             *       servicecontrol.googleapis.com/caller_ip label will be used instead.
-             *       If the server cannot resolve a value for this LimitType, an error
-             *       will be thrown. No validation will be performed on this ID.
-             * Deprecated: use servicecontrol.googleapis.com/user label to send user ID.
-             */
-            limitByIds?: Record<string, string>;            
             /** Quota mode for this operation. */
             quotaMode?: string;
         }
-        
         interface ReleaseQuotaRequest {
             /** Operation that describes the quota release. */
             releaseOperation?: QuotaOperation;
@@ -713,7 +685,6 @@ declare namespace gapi.client {
              */
             serviceConfigId?: string;
         }
-        
         interface ReleaseQuotaResponse {
             /**
              * The same operation_id value used in the ReleaseQuotaRequest. Used for
@@ -723,18 +694,18 @@ declare namespace gapi.client {
             /**
              * Quota metrics to indicate the result of release. Depending on the
              * request, one or more of the following metrics will be included:
-             * 
+             *
              * 1. For rate quota, per quota group or per quota metric released amount
              * will be specified using the following delta metric:
-             *   "serviceruntime.googleapis.com/api/consumer/quota_refund_count"
-             * 
+             * "serviceruntime.googleapis.com/api/consumer/quota_refund_count"
+             *
              * 2. For allocation quota, per quota metric total usage will be specified
              * using the following gauge metric:
-             *   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
-             * 
+             * "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+             *
              * 3. For allocation quota, value for each quota limit associated with
              * the metrics will be specified using the following gauge metric:
-             *   "serviceruntime.googleapis.com/quota/limit"
+             * "serviceruntime.googleapis.com/quota/limit"
              */
             quotaMetrics?: MetricValueSet[];
             /** Indicates the decision of the release. */
@@ -742,30 +713,27 @@ declare namespace gapi.client {
             /** ID of the actual config used to process the request. */
             serviceConfigId?: string;
         }
-        
         interface ReportError {
             /** The Operation.operation_id value from the request. */
             operationId?: string;
             /** Details of the error when processing the Operation. */
             status?: Status;
         }
-        
         interface ReportInfo {
             /** The Operation.operation_id value from the request. */
             operationId?: string;
             /** Quota usage info when processing the `Operation`. */
             quotaInfo?: QuotaInfo;
         }
-        
         interface ReportRequest {
             /**
              * Operations to be reported.
-             * 
+             *
              * Typically the service should report one operation per request.
              * Putting multiple operations into a single request is allowed, but should
              * be used only when multiple operations are natually available at the time
              * of the report.
-             * 
+             *
              * If multiple operations are in a single request, the total request size
              * should be no larger than 1MB. See ReportResponse.report_errors for
              * partial failure behavior.
@@ -774,74 +742,94 @@ declare namespace gapi.client {
             /**
              * Specifies which version of service config should be used to process the
              * request.
-             * 
+             *
              * If unspecified or no matching version can be found, the
              * latest one will be used.
              */
             serviceConfigId?: string;
         }
-        
         interface ReportResponse {
             /**
              * Partial failures, one for each `Operation` in the request that failed
              * processing. There are three possible combinations of the RPC status:
-             * 
+             *
              * 1. The combination of a successful RPC status and an empty `report_errors`
-             *    list indicates a complete success where all `Operations` in the
-             *    request are processed successfully.
+             * list indicates a complete success where all `Operations` in the
+             * request are processed successfully.
              * 2. The combination of a successful RPC status and a non-empty
-             *    `report_errors` list indicates a partial success where some
-             *    `Operations` in the request succeeded. Each
-             *    `Operation` that failed processing has a corresponding item
-             *    in this list.
+             * `report_errors` list indicates a partial success where some
+             * `Operations` in the request succeeded. Each
+             * `Operation` that failed processing has a corresponding item
+             * in this list.
              * 3. A failed RPC status indicates a general non-deterministic failure.
-             *    When this happens, it's impossible to know which of the
-             *    'Operations' in the request succeeded or failed.
+             * When this happens, it's impossible to know which of the
+             * 'Operations' in the request succeeded or failed.
              */
             reportErrors?: ReportError[];
             /**
              * Quota usage for each quota release `Operation` request.
-             * 
+             *
              * Fully or partially failed quota release request may or may not be present
              * in `report_quota_info`. For example, a failed quota release request will
              * have the current quota usage info when precise quota library returns the
              * info. A deadline exceeded quota request will not have quota usage info.
-             * 
+             *
              * If there is no quota release request, report_quota_info will be empty.
              */
             reportInfos?: ReportInfo[];
             /** The actual config id used to process the request. */
             serviceConfigId?: string;
         }
-        
         interface RequestMetadata {
             /**
              * The IP address of the caller.
              * For caller from internet, this will be public IPv4 or IPv6 address.
-             * For caller from GCE VM with external IP address, this will be the VM's
-             * external IP address. For caller from GCE VM without external IP address, if
-             * the VM is in the same GCP organization (or project) as the accessed
-             * resource, `caller_ip` will be the GCE VM's internal IPv4 address, otherwise
-             * it will be redacted to "gce-internal-ip".
+             * For caller from a Compute Engine VM with external IP address, this
+             * will be the VM's external IP address. For caller from a Compute
+             * Engine VM without external IP address, if the VM is in the same
+             * organization (or project) as the accessed resource, `caller_ip` will
+             * be the VM's internal IPv4 address, otherwise the `caller_ip` will be
+             * redacted to "gce-internal-ip".
              * See https://cloud.google.com/compute/docs/vpc/ for more information.
              */
             callerIp?: string;
             /**
+             * The network of the caller.
+             * Set only if the network host project is part of the same GCP organization
+             * (or project) as the accessed resource.
+             * See https://cloud.google.com/compute/docs/vpc/ for more information.
+             * This is a scheme-less URI full resource name. For example:
+             *
+             * "//compute.googleapis.com/projects/PROJECT_ID/global/networks/NETWORK_ID"
+             */
+            callerNetwork?: string;
+            /**
              * The user agent of the caller.
              * This information is not authenticated and should be treated accordingly.
              * For example:
-             * 
+             *
              * +   `google-api-python-client/1.4.0`:
-             *     The request was made by the Google API client for Python.
+             * The request was made by the Google API client for Python.
              * +   `Cloud SDK Command Line Tool apitools-client/1.0 gcloud/0.9.62`:
-             *     The request was made by the Google Cloud SDK CLI (gcloud).
+             * The request was made by the Google Cloud SDK CLI (gcloud).
              * +   `AppEngine-Google; (+http://code.google.com/appengine; appid: s~my-project`:
-             *     The request was made from the `my-project` App Engine app.
+             * The request was made from the `my-project` App Engine app.
              * NOLINT
              */
             callerSuppliedUserAgent?: string;
         }
-        
+        interface ResourceInfo {
+            /**
+             * The identifier of the parent of this resource instance.
+             * Must be in one of the following formats:
+             * - “projects/<project-id or project-number>”
+             * - “folders/<folder-id>”
+             * - “organizations/<organization-id>”
+             */
+            resourceContainer?: string;
+            /** Name of the resource. This is used for auditing purposes. */
+            resourceName?: string;
+        }
         interface StartReconciliationRequest {
             /** Operation that describes the quota reconciliation. */
             reconciliationOperation?: QuotaOperation;
@@ -852,7 +840,6 @@ declare namespace gapi.client {
              */
             serviceConfigId?: string;
         }
-        
         interface StartReconciliationResponse {
             /**
              * The same operation_id value used in the StartReconciliationRequest. Used
@@ -862,14 +849,14 @@ declare namespace gapi.client {
             /**
              * Metric values as tracked by One Platform before the start of
              * reconciliation. The following metrics will be included:
-             * 
+             *
              * 1. Per quota metric total usage will be specified using the following gauge
              * metric:
-             *   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
-             * 
+             * "serviceruntime.googleapis.com/allocation/consumer/quota_used_count"
+             *
              * 2. Value for each quota limit associated with the metrics will be specified
              * using the following gauge metric:
-             *   "serviceruntime.googleapis.com/quota/limit"
+             * "serviceruntime.googleapis.com/quota/limit"
              */
             quotaMetrics?: MetricValueSet[];
             /** Indicates the decision of the reconciliation start. */
@@ -877,7 +864,6 @@ declare namespace gapi.client {
             /** ID of the actual config used to process the request. */
             serviceConfigId?: string;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -885,7 +871,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -893,27 +879,21 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface ServicesResource {
             /**
              * Attempts to allocate quota for the specified consumer. It should be called
              * before the operation is executed.
-             * 
+             *
              * This method requires the `servicemanagement.services.quota`
              * permission on the specified service. For more information, see
-             * [Google Cloud IAM](https://cloud.google.com/iam).
-             * 
-             * &#42;&#42;NOTE:&#42;&#42; the client code &#42;&#42;must&#42;&#42; fail-open if the server returns one
-             * of the following quota errors:
-             * -   `PROJECT_STATUS_UNAVAILABLE`
-             * -   `SERVICE_STATUS_UNAVAILABLE`
-             * -   `BILLING_STATUS_UNAVAILABLE`
-             * -   `QUOTA_SYSTEM_UNAVAILABLE`
-             * 
-             * The server may inject above errors to prohibit any hard dependency
-             * on the quota system.
+             * [Cloud IAM](https://cloud.google.com/iam).
+             *
+             * &#42;&#42;NOTE:&#42;&#42; The client &#42;&#42;must&#42;&#42; fail-open on server errors `INTERNAL`,
+             * `UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
+             * reliability, the server may inject these errors to prohibit any hard
+             * dependency on the quota functionality.
              */
-            allocateQuota(request: {            
+            allocateQuota(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -939,7 +919,7 @@ declare namespace gapi.client {
                 /**
                  * Name of the service as specified in the service configuration. For example,
                  * `"pubsub.googleapis.com"`.
-                 * 
+                 *
                  * See google.api.Service for the definition of a service name.
                  */
                 serviceName: string;
@@ -947,24 +927,23 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<AllocateQuotaResponse>;            
-            
+            }): Request<AllocateQuotaResponse>;
             /**
              * Checks an operation with Google Service Control to decide whether
              * the given operation should proceed. It should be called before the
              * operation is executed.
-             * 
+             *
              * If feasible, the client should cache the check results and reuse them for
              * 60 seconds. In case of server errors, the client can rely on the cached
              * results for longer time.
-             * 
+             *
              * NOTE: the CheckRequest has the size limit of 64KB.
-             * 
+             *
              * This method requires the `servicemanagement.services.check` permission
              * on the specified service. For more information, see
              * [Google Cloud IAM](https://cloud.google.com/iam).
              */
-            check(request: {            
+            check(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -990,7 +969,7 @@ declare namespace gapi.client {
                 /**
                  * The service name as specified in its service configuration. For example,
                  * `"pubsub.googleapis.com"`.
-                 * 
+                 *
                  * See
                  * [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service)
                  * for the definition of a service name.
@@ -1000,17 +979,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CheckResponse>;            
-            
+            }): Request<CheckResponse>;
             /**
              * Signals the quota controller that service ends the ongoing usage
              * reconciliation.
-             * 
+             *
              * This method requires the `servicemanagement.services.quota`
              * permission on the specified service. For more information, see
              * [Google Cloud IAM](https://cloud.google.com/iam).
              */
-            endReconciliation(request: {            
+            endReconciliation(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1036,7 +1014,7 @@ declare namespace gapi.client {
                 /**
                  * Name of the service as specified in the service configuration. For example,
                  * `"pubsub.googleapis.com"`.
-                 * 
+                 *
                  * See google.api.Service for the definition of a service name.
                  */
                 serviceName: string;
@@ -1044,26 +1022,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<EndReconciliationResponse>;            
-            
+            }): Request<EndReconciliationResponse>;
             /**
              * Releases previously allocated quota done through AllocateQuota method.
-             * 
+             *
              * This method requires the `servicemanagement.services.quota`
              * permission on the specified service. For more information, see
-             * [Google Cloud IAM](https://cloud.google.com/iam).
-             * 
-             * &#42;&#42;NOTE:&#42;&#42; the client code &#42;&#42;must&#42;&#42; fail-open if the server returns one
-             * of the following quota errors:
-             * -   `PROJECT_STATUS_UNAVAILABLE`
-             * -   `SERVICE_STATUS_UNAVAILABLE`
-             * -   `BILLING_STATUS_UNAVAILABLE`
-             * -   `QUOTA_SYSTEM_UNAVAILABLE`
-             * 
-             * The server may inject above errors to prohibit any hard dependency
-             * on the quota system.
+             * [Cloud IAM](https://cloud.google.com/iam).
+             *
+             *
+             * &#42;&#42;NOTE:&#42;&#42; The client &#42;&#42;must&#42;&#42; fail-open on server errors `INTERNAL`,
+             * `UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
+             * reliability, the server may inject these errors to prohibit any hard
+             * dependency on the quota functionality.
              */
-            releaseQuota(request: {            
+            releaseQuota(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1089,7 +1062,7 @@ declare namespace gapi.client {
                 /**
                  * Name of the service as specified in the service configuration. For example,
                  * `"pubsub.googleapis.com"`.
-                 * 
+                 *
                  * See google.api.Service for the definition of a service name.
                  */
                 serviceName: string;
@@ -1097,25 +1070,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ReleaseQuotaResponse>;            
-            
+            }): Request<ReleaseQuotaResponse>;
             /**
              * Reports operation results to Google Service Control, such as logs and
              * metrics. It should be called after an operation is completed.
-             * 
+             *
              * If feasible, the client should aggregate reporting data for up to 5
              * seconds to reduce API traffic. Limiting aggregation to 5 seconds is to
              * reduce data loss during client crashes. Clients should carefully choose
              * the aggregation time window to avoid data loss risk more than 0.01%
              * for business and compliance reasons.
-             * 
+             *
              * NOTE: the ReportRequest has the size limit of 1MB.
-             * 
+             *
              * This method requires the `servicemanagement.services.report` permission
              * on the specified service. For more information, see
              * [Google Cloud IAM](https://cloud.google.com/iam).
              */
-            report(request: {            
+            report(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1141,7 +1113,7 @@ declare namespace gapi.client {
                 /**
                  * The service name as specified in its service configuration. For example,
                  * `"pubsub.googleapis.com"`.
-                 * 
+                 *
                  * See
                  * [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service)
                  * for the definition of a service name.
@@ -1151,8 +1123,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ReportResponse>;            
-            
+            }): Request<ReportResponse>;
             /**
              * Unlike rate quota, allocation quota does not get refilled periodically.
              * So, it is possible that the quota usage as seen by the service differs from
@@ -1161,26 +1132,26 @@ declare namespace gapi.client {
              * StartReconciliation and EndReconciliation to correct this usage drift, as
              * described below:
              * 1. Service sends StartReconciliation with a timestamp in future for each
-             *    metric that needs to be reconciled. The timestamp being in future allows
-             *    to account for in-flight AllocateQuota and ReleaseQuota requests for the
-             *    same metric.
+             * metric that needs to be reconciled. The timestamp being in future allows
+             * to account for in-flight AllocateQuota and ReleaseQuota requests for the
+             * same metric.
              * 2. One Platform records this timestamp and starts tracking subsequent
-             *    AllocateQuota and ReleaseQuota requests until EndReconciliation is
-             *    called.
+             * AllocateQuota and ReleaseQuota requests until EndReconciliation is
+             * called.
              * 3. At or after the time specified in the StartReconciliation, service
-             *    sends EndReconciliation with the usage that needs to be reconciled to.
+             * sends EndReconciliation with the usage that needs to be reconciled to.
              * 4. One Platform adjusts its own record of usage for that metric to the
-             *    value specified in EndReconciliation by taking in to account any
-             *    allocation or release between StartReconciliation and EndReconciliation.
-             * 
+             * value specified in EndReconciliation by taking in to account any
+             * allocation or release between StartReconciliation and EndReconciliation.
+             *
              * Signals the quota controller that the service wants to perform a usage
              * reconciliation as specified in the request.
-             * 
+             *
              * This method requires the `servicemanagement.services.quota`
              * permission on the specified service. For more information, see
              * [Google Cloud IAM](https://cloud.google.com/iam).
              */
-            startReconciliation(request: {            
+            startReconciliation(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1206,7 +1177,7 @@ declare namespace gapi.client {
                 /**
                  * Name of the service as specified in the service configuration. For example,
                  * `"pubsub.googleapis.com"`.
-                 * 
+                 *
                  * See google.api.Service for the definition of a service name.
                  */
                 serviceName: string;
@@ -1214,8 +1185,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<StartReconciliationResponse>;            
-            
+            }): Request<StartReconciliationResponse>;
         }
     }
 }

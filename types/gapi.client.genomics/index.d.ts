@@ -13,33 +13,32 @@
 
 declare namespace gapi.client {
     /** Load Genomics API v1 */
-    function load(name: "genomics", version: "v1"): PromiseLike<void>;    
-    function load(name: "genomics", version: "v1", callback: () => any): void;    
-    
-    const annotations: genomics.AnnotationsResource; 
-    
-    const annotationsets: genomics.AnnotationsetsResource; 
-    
-    const callsets: genomics.CallsetsResource; 
-    
-    const datasets: genomics.DatasetsResource; 
-    
-    const operations: genomics.OperationsResource; 
-    
-    const readgroupsets: genomics.ReadgroupsetsResource; 
-    
-    const reads: genomics.ReadsResource; 
-    
-    const references: genomics.ReferencesResource; 
-    
-    const referencesets: genomics.ReferencesetsResource; 
-    
-    const variants: genomics.VariantsResource; 
-    
-    const variantsets: genomics.VariantsetsResource; 
-    
+    function load(name: "genomics", version: "v1"): PromiseLike<void>;
+    function load(name: "genomics", version: "v1", callback: () => any): void;
+
+    const annotations: genomics.AnnotationsResource;
+
+    const annotationsets: genomics.AnnotationsetsResource;
+
+    const callsets: genomics.CallsetsResource;
+
+    const datasets: genomics.DatasetsResource;
+
+    const operations: genomics.OperationsResource;
+
+    const readgroupsets: genomics.ReadgroupsetsResource;
+
+    const reads: genomics.ReadsResource;
+
+    const references: genomics.ReferencesResource;
+
+    const referencesets: genomics.ReferencesetsResource;
+
+    const variants: genomics.VariantsResource;
+
+    const variantsets: genomics.VariantsetsResource;
+
     namespace genomics {
-        
         interface Annotation {
             /** The annotation set to which this annotation belongs. */
             annotationSetId?: string;
@@ -51,7 +50,7 @@ declare namespace gapi.client {
              * A map of additional read alignment information. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /** The display name of this annotation. */
             name?: string;
             /** The ID of the Google Genomics reference associated with this range. */
@@ -89,7 +88,6 @@ declare namespace gapi.client {
              */
             variant?: VariantAnnotation;
         }
-        
         interface AnnotationSet {
             /** The dataset to which this annotation set belongs. */
             datasetId?: string;
@@ -99,7 +97,7 @@ declare namespace gapi.client {
              * A map of additional read alignment information. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /** The display name for this annotation set. */
             name?: string;
             /**
@@ -115,7 +113,6 @@ declare namespace gapi.client {
             /** The type of annotations contained within this set. */
             type?: string;
         }
-        
         interface BatchCreateAnnotationsRequest {
             /**
              * The annotations to be created. At most 4096 can be specified in a single
@@ -133,7 +130,6 @@ declare namespace gapi.client {
              */
             requestId?: string;
         }
-        
         interface BatchCreateAnnotationsResponse {
             /**
              * The resulting per-annotation entries, ordered consistently with the
@@ -141,31 +137,30 @@ declare namespace gapi.client {
              */
             entries?: Entry[];
         }
-        
         interface Binding {
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -175,7 +170,6 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
         interface CallSet {
             /** The date this call set was created in milliseconds from the epoch. */
             created?: string;
@@ -185,7 +179,7 @@ declare namespace gapi.client {
              * A map of additional call set information. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /** The call set name. */
             name?: string;
             /** The sample ID this call set corresponds to. */
@@ -199,7 +193,6 @@ declare namespace gapi.client {
              */
             variantSetIds?: string[];
         }
-        
         interface CigarUnit {
             operation?: string;
             /** The number of genomic bases that the operation runs for. Required. */
@@ -212,7 +205,6 @@ declare namespace gapi.client {
              */
             referenceSequence?: string;
         }
-        
         interface ClinicalCondition {
             /**
              * The MedGen concept id associated with this gene.
@@ -229,7 +221,6 @@ declare namespace gapi.client {
              */
             omimId?: string;
         }
-        
         interface CodingSequence {
             /**
              * The end of the coding sequence on this annotation's reference sequence,
@@ -244,7 +235,6 @@ declare namespace gapi.client {
              */
             start?: string;
         }
-        
         interface ComputeEngine {
             /** The names of the disks that were created for this pipeline. */
             diskNames?: string[];
@@ -255,7 +245,6 @@ declare namespace gapi.client {
             /** The availability zone in which the instance resides. */
             zone?: string;
         }
-        
         interface CoverageBucket {
             /**
              * The average number of reads which are aligned to each individual
@@ -265,7 +254,6 @@ declare namespace gapi.client {
             /** The genomic coordinate range spanned by this bucket. */
             range?: Range;
         }
-        
         interface Dataset {
             /** The time this dataset was created, in seconds from the epoch. */
             createTime?: string;
@@ -276,14 +264,12 @@ declare namespace gapi.client {
             /** The Google Cloud project ID that this dataset belongs to. */
             projectId?: string;
         }
-        
         interface Entry {
             /** The created annotation, if creation was successful. */
             annotation?: Annotation;
             /** The creation status. */
             status?: Status;
         }
-        
         interface Exon {
             /**
              * The end position of the exon on this annotation's reference sequence,
@@ -301,7 +287,7 @@ declare namespace gapi.client {
              * exon.start. For reverse
              * strand annotations, this offset is relative to the
              * exon.end `- 1`.
-             * 
+             *
              * Unset if this exon does not intersect the coding sequence. Upon creation
              * of a transcript, the frame must be populated for all or none of the
              * coding exons.
@@ -314,7 +300,6 @@ declare namespace gapi.client {
              */
             start?: string;
         }
-        
         interface Experiment {
             /**
              * The instrument model used as part of this experiment. This maps to
@@ -337,7 +322,6 @@ declare namespace gapi.client {
             /** The sequencing center used as part of this experiment. */
             sequencingCenter?: string;
         }
-        
         interface ExportReadGroupSetRequest {
             /**
              * Required. A Google Cloud Storage URI for the exported BAM file.
@@ -357,7 +341,6 @@ declare namespace gapi.client {
              */
             referenceNames?: string[];
         }
-        
         interface ExportVariantSetRequest {
             /**
              * Required. The BigQuery dataset to export data to. This dataset must already
@@ -384,14 +367,12 @@ declare namespace gapi.client {
              */
             projectId?: string;
         }
-        
         interface ExternalId {
             /** The id used by the source of this data. */
             id?: string;
             /** The name of the source of this data. */
             sourceName?: string;
         }
-        
         interface ImportReadGroupSetsRequest {
             /**
              * Required. The ID of the dataset these read group sets will belong to. The
@@ -416,7 +397,7 @@ declare namespace gapi.client {
              * in Google Cloud Storage.
              * Those URIs can include wildcards (&#42;), but do not add or remove
              * matching files before import has completed.
-             * 
+             *
              * Note that Google Cloud Storage object listing is only eventually
              * consistent: files added may be not be immediately visible to
              * everyone. Thus, if using a wildcard it is preferable not to start
@@ -424,12 +405,10 @@ declare namespace gapi.client {
              */
             sourceUris?: string[];
         }
-        
         interface ImportReadGroupSetsResponse {
             /** IDs of the read group sets that were created. */
             readGroupSetIds?: string[];
         }
-        
         interface ImportVariantsRequest {
             /**
              * The format of the variant data being imported. If unspecified, defaults to
@@ -441,7 +420,7 @@ declare namespace gapi.client {
              * be performed on them. This is plumbed down to the MergeVariantRequests
              * generated by the resulting import job.
              */
-            infoMergeConfig?: Record<string, string>;            
+            infoMergeConfig?: Record<string, string>;
             /**
              * Convert reference names to the canonical representation.
              * hg19 haploytypes (those reference names containing "_hap")
@@ -463,12 +442,10 @@ declare namespace gapi.client {
             /** Required. The variant set to which variant data should be imported. */
             variantSetId?: string;
         }
-        
         interface ImportVariantsResponse {
             /** IDs of the call sets created during the import. */
             callSetIds?: string[];
         }
-        
         interface LinearAlignment {
             /**
              * Represents the local alignment of this sequence (alignment matches, indels,
@@ -478,7 +455,7 @@ declare namespace gapi.client {
             /**
              * The mapping quality of this alignment. Represents how likely
              * the read maps to this position as opposed to other locations.
-             * 
+             *
              * Specifically, this is -10 log10 Pr(mapping position is wrong), rounded to
              * the nearest integer.
              */
@@ -486,7 +463,6 @@ declare namespace gapi.client {
             /** The position of this alignment. */
             position?: Position;
         }
-        
         interface ListBasesResponse {
             /**
              * The continuation token, which is used to page through large result sets.
@@ -503,7 +479,6 @@ declare namespace gapi.client {
             /** A substring of the bases that make up this reference. */
             sequence?: string;
         }
-        
         interface ListCoverageBucketsResponse {
             /**
              * The length of each coverage bucket in base pairs. Note that buckets at the
@@ -526,7 +501,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListDatasetsResponse {
             /** The list of matching Datasets. */
             datasets?: Dataset[];
@@ -537,43 +511,45 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: Operation[];
         }
-        
         interface MergeVariantsRequest {
             /**
              * A mapping between info field keys and the InfoMergeOperations to
              * be performed on them.
              */
-            infoMergeConfig?: Record<string, string>;            
+            infoMergeConfig?: Record<string, string>;
             /** The destination variant set. */
             variantSetId?: string;
             /** The variants to be merged with existing variants. */
             variants?: Variant[];
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
             /** The error result of the operation in case of failure or cancellation. */
             error?: Status;
             /** An OperationMetadata object. This will always be returned with the Operation. */
-            metadata?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that originally returns it. For example&#58; `operations/CJHU7Oi_ChDrveSpBRjfuL-qzoWAgEw` */
+            metadata?: Record<string, any>;
+            /**
+             * The server-assigned name, which is only unique within the same service that originally returns it. For example&#58;
+             * `operations/CJHU7Oi_ChDrveSpBRjfuL-qzoWAgEw`
+             */
             name?: string;
-            /** If importing ReadGroupSets, an ImportReadGroupSetsResponse is returned. If importing Variants, an ImportVariantsResponse is returned. For pipelines and exports, an empty response is returned. */
-            response?: Record<string, any>;            
+            /**
+             * If importing ReadGroupSets, an ImportReadGroupSetsResponse is returned. If importing Variants, an ImportVariantsResponse is returned. For pipelines and
+             * exports, an Empty response is returned.
+             */
+            response?: Record<string, any>;
         }
-        
         interface OperationEvent {
             /** Required description of event. */
             description?: string;
@@ -585,7 +561,6 @@ declare namespace gapi.client {
             /** Optional time of when event started. */
             startTime?: string;
         }
-        
         interface OperationMetadata {
             /**
              * This field is deprecated. Use `labels` instead. Optionally provided by the
@@ -606,7 +581,7 @@ declare namespace gapi.client {
              * Optionally provided by the caller when submitting the request that creates
              * the operation.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** The Google Cloud Project in which the job is scoped. */
             projectId?: string;
             /**
@@ -614,13 +589,12 @@ declare namespace gapi.client {
              * current version of the API. If the operation was started with v1beta2 API
              * and a GetOperation is performed on v1 API, a v1 request will be returned.
              */
-            request?: Record<string, any>;            
+            request?: Record<string, any>;
             /** Runtime metadata on this Operation. */
-            runtimeMetadata?: Record<string, any>;            
+            runtimeMetadata?: Record<string, any>;
             /** The time at which the job began to run. */
             startTime?: string;
         }
-        
         interface Policy {
             /**
              * Associates a list of `members` to a `role`.
@@ -635,7 +609,7 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
@@ -643,7 +617,6 @@ declare namespace gapi.client {
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
         interface Position {
             /** The 0-based offset from the start of the forward strand for that reference. */
             position?: string;
@@ -655,7 +628,6 @@ declare namespace gapi.client {
              */
             reverseStrand?: boolean;
         }
-        
         interface Program {
             /** The command line used to run this program. */
             commandLine?: string;
@@ -674,7 +646,6 @@ declare namespace gapi.client {
             /** The version of the program run. */
             version?: string;
         }
-        
         interface Range {
             /** The end position of the range on the reference, 0-based exclusive. */
             end?: string;
@@ -686,7 +657,6 @@ declare namespace gapi.client {
             /** The start position of the range on the reference, 0-based inclusive. */
             start?: string;
         }
-        
         interface Read {
             /**
              * The quality of the read sequence contained in this alignment record
@@ -733,7 +703,7 @@ declare namespace gapi.client {
              * A map of additional read alignment information. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /**
              * The mapping of the primary alignment of the
              * `(readNumber+1)%numberReads` read in the fragment. It replaces
@@ -788,7 +758,6 @@ declare namespace gapi.client {
              */
             supplementaryAlignment?: boolean;
         }
-        
         interface ReadGroup {
             /** The dataset to which this read group belongs. */
             datasetId?: string;
@@ -806,7 +775,7 @@ declare namespace gapi.client {
              * A map of additional read group information. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /** The read group name. This corresponds to the @RG ID field in the SAM spec. */
             name?: string;
             /**
@@ -826,7 +795,6 @@ declare namespace gapi.client {
             /** A client-supplied sample identifier for the reads in this read group. */
             sampleId?: string;
         }
-        
         interface ReadGroupSet {
             /** The dataset to which this read group set belongs. */
             datasetId?: string;
@@ -835,7 +803,7 @@ declare namespace gapi.client {
             /** The server-generated read group set ID, unique for all read group sets. */
             id?: string;
             /** A map of additional read group set information. */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /**
              * The read group set name. By default this will be initialized to the sample
              * name of the sequenced data contained in this set.
@@ -849,7 +817,6 @@ declare namespace gapi.client {
             /** The reference set to which the reads in this read group set are aligned. */
             referenceSetId?: string;
         }
-        
         interface Reference {
             /** The server-generated reference ID, unique across all references. */
             id?: string;
@@ -876,7 +843,6 @@ declare namespace gapi.client {
              */
             sourceUri?: string;
         }
-        
         interface ReferenceBound {
             /** The name of the reference associated with this reference bound. */
             referenceName?: string;
@@ -886,7 +852,6 @@ declare namespace gapi.client {
              */
             upperBound?: string;
         }
-        
         interface ReferenceSet {
             /** Public id of this reference set, such as `GRCh37`. */
             assemblyId?: string;
@@ -923,12 +888,10 @@ declare namespace gapi.client {
             /** The URI from which the references were obtained. */
             sourceUri?: string;
         }
-        
         interface RuntimeMetadata {
             /** Execution information specific to Google Compute Engine. */
             computeEngine?: ComputeEngine;
         }
-        
         interface SearchAnnotationSetsRequest {
             /**
              * Required. The dataset IDs to search within. Caller must have `READ` access
@@ -962,7 +925,6 @@ declare namespace gapi.client {
              */
             types?: string[];
         }
-        
         interface SearchAnnotationSetsResponse {
             /** The matching annotation sets. */
             annotationSets?: AnnotationSet[];
@@ -973,7 +935,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface SearchAnnotationsRequest {
             /**
              * Required. The annotation sets to search within. The caller must have
@@ -1015,7 +976,6 @@ declare namespace gapi.client {
              */
             start?: string;
         }
-        
         interface SearchAnnotationsResponse {
             /** The matching annotations. */
             annotations?: Annotation[];
@@ -1026,7 +986,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface SearchCallSetsRequest {
             /**
              * Only return call sets for which a substring of the name matches this
@@ -1050,7 +1009,6 @@ declare namespace gapi.client {
              */
             variantSetIds?: string[];
         }
-        
         interface SearchCallSetsResponse {
             /** The list of matching call sets. */
             callSets?: CallSet[];
@@ -1061,7 +1019,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface SearchReadGroupSetsRequest {
             /**
              * Restricts this query to read group sets within the given datasets. At least
@@ -1085,7 +1042,6 @@ declare namespace gapi.client {
              */
             pageToken?: string;
         }
-        
         interface SearchReadGroupSetsResponse {
             /**
              * The continuation token, which is used to page through large result sets.
@@ -1096,7 +1052,6 @@ declare namespace gapi.client {
             /** The list of matching read group sets. */
             readGroupSets?: ReadGroupSet[];
         }
-        
         interface SearchReadsRequest {
             /**
              * The end position of the range on the reference, 0-based exclusive. If
@@ -1139,7 +1094,6 @@ declare namespace gapi.client {
              */
             start?: string;
         }
-        
         interface SearchReadsResponse {
             /**
              * The list of matching alignments sorted by mapped genomic coordinate,
@@ -1155,7 +1109,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface SearchReferenceSetsRequest {
             /**
              * If present, return reference sets for which a prefix of any of
@@ -1186,7 +1139,6 @@ declare namespace gapi.client {
              */
             pageToken?: string;
         }
-        
         interface SearchReferenceSetsResponse {
             /**
              * The continuation token, which is used to page through large result sets.
@@ -1197,7 +1149,6 @@ declare namespace gapi.client {
             /** The matching references sets. */
             referenceSets?: ReferenceSet[];
         }
-        
         interface SearchReferencesRequest {
             /**
              * If present, return references for which a prefix of any of
@@ -1225,7 +1176,6 @@ declare namespace gapi.client {
             /** If present, return only references which belong to this reference set. */
             referenceSetId?: string;
         }
-        
         interface SearchReferencesResponse {
             /**
              * The continuation token, which is used to page through large result sets.
@@ -1236,7 +1186,6 @@ declare namespace gapi.client {
             /** The matching references. */
             references?: Reference[];
         }
-        
         interface SearchVariantSetsRequest {
             /**
              * Exactly one dataset ID must be provided here. Only variant sets which
@@ -1255,7 +1204,6 @@ declare namespace gapi.client {
              */
             pageToken?: string;
         }
-        
         interface SearchVariantSetsResponse {
             /**
              * The continuation token, which is used to page through large result sets.
@@ -1266,7 +1214,6 @@ declare namespace gapi.client {
             /** The variant sets belonging to the requested dataset. */
             variantSets?: VariantSet[];
         }
-        
         interface SearchVariantsRequest {
             /**
              * Only return variant calls which belong to call sets with these ids.
@@ -1313,7 +1260,6 @@ declare namespace gapi.client {
              */
             variantSetIds?: string[];
         }
-        
         interface SearchVariantsResponse {
             /**
              * The continuation token, which is used to page through large result sets.
@@ -1324,7 +1270,6 @@ declare namespace gapi.client {
             /** The list of matching Variants. */
             variants?: Variant[];
         }
-        
         interface SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -1334,7 +1279,6 @@ declare namespace gapi.client {
              */
             policy?: Policy;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -1342,7 +1286,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -1350,13 +1294,12 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface TestIamPermissionsRequest {
             /**
              * REQUIRED: The set of permissions to check for the 'resource'.
              * Permissions with wildcards (such as '&#42;' or 'storage.&#42;') are not allowed.
              * Allowed permissions are&#58;
-             * 
+             *
              * &#42; `genomics.datasets.create`
              * &#42; `genomics.datasets.delete`
              * &#42; `genomics.datasets.get`
@@ -1367,7 +1310,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -1375,7 +1317,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface Transcript {
             /**
              * The range of the coding sequence for this transcript, if any. To determine
@@ -1384,7 +1325,7 @@ declare namespace gapi.client {
              * exons, the
              * codingSequence must start
              * and end within them.
-             * 
+             *
              * Note that in some cases, the reference genome will not exactly match the
              * observed mRNA transcript e.g. due to variance in the source genome from
              * reference. In these cases,
@@ -1397,23 +1338,22 @@ declare namespace gapi.client {
              * The <a href="http://en.wikipedia.org/wiki/Exon">exons</a> that compose
              * this transcript. This field should be unset for genomes where transcript
              * splicing does not occur, for example prokaryotes.
-             * 
+             *
              * Introns are regions of the transcript that are not included in the
              * spliced RNA product. Though not explicitly modeled here, intron ranges can
              * be deduced; all regions of this transcript that are not exons are introns.
-             * 
+             *
              * Exonic sequences do not necessarily code for a translational product
              * (amino acids). Only the regions of exons bounded by the
              * codingSequence correspond
              * to coding DNA sequence.
-             * 
+             *
              * Exons are ordered by start position and may not overlap.
              */
             exons?: Exon[];
             /** The annotation ID of the gene from which this transcript is transcribed. */
             geneId?: string;
         }
-        
         interface Variant {
             /** The bases that appear instead of the reference bases. */
             alternateBases?: string[];
@@ -1442,7 +1382,7 @@ declare namespace gapi.client {
              * A map of additional variant information. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /** Names for the variant, for example a RefSNP ID. */
             names?: string[];
             /**
@@ -1468,7 +1408,6 @@ declare namespace gapi.client {
             /** The ID of the variant set this variant belongs to. */
             variantSetId?: string;
         }
-        
         interface VariantAnnotation {
             /**
              * The alternate allele for this variant. If multiple alternate alleles
@@ -1503,7 +1442,6 @@ declare namespace gapi.client {
             /** Type has been adapted from ClinVar's list of variant types. */
             type?: string;
         }
-        
         interface VariantCall {
             /** The ID of the call set this variant call belongs to. */
             callSetId?: string;
@@ -1537,7 +1475,7 @@ declare namespace gapi.client {
              * A map of additional variant call information. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /**
              * If this field is present, this variant call's genotype ordering implies
              * the phase of the bases and is consistent with any other variant calls in
@@ -1547,7 +1485,6 @@ declare namespace gapi.client {
              */
             phaseset?: string;
         }
-        
         interface VariantSet {
             /** The dataset to which this variant set belongs. */
             datasetId?: string;
@@ -1570,7 +1507,7 @@ declare namespace gapi.client {
              * `referenceBounds` describe the shape of the actual variant data. The
              * reference set's reference names are a superset of those found in the
              * `referenceBounds`.
-             * 
+             *
              * For example, given a variant set that is mapped to the GRCh38 reference set
              * and contains a single variant on reference 'X', `referenceBounds` would
              * contain only an entry for 'X', while the associated reference set
@@ -1578,7 +1515,6 @@ declare namespace gapi.client {
              */
             referenceSetId?: string;
         }
-        
         interface VariantSetMetadata {
             /** A textual description of this metadata. */
             description?: string;
@@ -1592,7 +1528,7 @@ declare namespace gapi.client {
              * Remaining structured metadata key-value pairs. This must be of the form
              * map<string, string[]> (string key mapping to a list of string values).
              */
-            info?: Record<string, any[]>;            
+            info?: Record<string, any[]>;
             /** The top-level key. */
             key?: string;
             /**
@@ -1608,25 +1544,24 @@ declare namespace gapi.client {
             /** The value field for simple metadata */
             value?: string;
         }
-        
         interface AnnotationsResource {
             /**
              * Creates one or more new annotations atomically. All annotations must
              * belong to the same annotation set. Caller must have WRITE
              * permission for this annotation set. For optimal performance, batch
              * positionally adjacent annotations together.
-             * 
+             *
              * If the request has a systemic issue, such as an attempt to write to
              * an inaccessible annotation set, the entire RPC will fail accordingly. For
              * lesser data issues, when possible an error will be isolated to the
              * corresponding batch entry in the response; the remaining well formed
              * annotations will be created normally.
-             * 
+             *
              * For details on the requirements for each individual annotation resource,
              * see
              * CreateAnnotation.
              */
-            batchCreate(request: {            
+            batchCreate(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1653,33 +1588,32 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BatchCreateAnnotationsResponse>;            
-            
+            }): Request<BatchCreateAnnotationsResponse>;
             /**
              * Creates a new annotation. Caller must have WRITE permission
              * for the associated annotation set.
-             * 
+             *
              * The following fields are required:
-             * 
+             *
              * &#42; annotationSetId
              * &#42; referenceName or
-             *   referenceId
-             * 
+             * referenceId
+             *
              * ### Transcripts
-             * 
+             *
              * For annotations of type TRANSCRIPT, the following fields of
              * transcript must be provided:
-             * 
+             *
              * &#42; exons.start
              * &#42; exons.end
-             * 
+             *
              * All other fields may be optionally specified, unless documented as being
              * server-generated (for example, the `id` field). The annotated
              * range must be no longer than 100Mbp (mega base pairs). See the
              * Annotation resource
              * for additional restrictions on each field.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1706,13 +1640,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Annotation>;            
-            
+            }): Request<Annotation>;
             /**
              * Deletes an annotation. Caller must have WRITE permission for
              * the associated annotation set.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1741,13 +1674,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets an annotation. Caller must have READ permission
              * for the associated annotation set.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1776,8 +1708,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Annotation>;            
-            
+            }): Request<Annotation>;
             /**
              * Searches for annotations that match the given criteria. Results are
              * ordered by genomic coordinate (by reference sequence, then position).
@@ -1787,7 +1718,7 @@ declare namespace gapi.client {
              * across their respective streams of paginated responses. Caller must have
              * READ permission for the queried annotation sets.
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1814,13 +1745,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchAnnotationsResponse>;            
-            
+            }): Request<SearchAnnotationsResponse>;
             /**
              * Updates an annotation. Caller must have
              * WRITE permission for the associated dataset.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1858,24 +1788,22 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Annotation>;            
-            
+            }): Request<Annotation>;
         }
-        
         interface AnnotationsetsResource {
             /**
              * Creates a new annotation set. Caller must have WRITE permission for the
              * associated dataset.
-             * 
+             *
              * The following fields are required:
-             * 
-             *   &#42; datasetId
-             *   &#42; referenceSetId
-             * 
+             *
+             * &#42; datasetId
+             * &#42; referenceSetId
+             *
              * All other fields may be optionally specified, unless documented as being
              * server-generated (for example, the `id` field).
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1902,13 +1830,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<AnnotationSet>;            
-            
+            }): Request<AnnotationSet>;
             /**
              * Deletes an annotation set. Caller must have WRITE permission
              * for the associated annotation set.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1937,13 +1864,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets an annotation set. Caller must have READ permission for
              * the associated dataset.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1972,8 +1898,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<AnnotationSet>;            
-            
+            }): Request<AnnotationSet>;
             /**
              * Searches for annotation sets that match the given criteria. Annotation sets
              * are returned in an unspecified order. This order is consistent, such that
@@ -1981,7 +1906,7 @@ declare namespace gapi.client {
              * sets in the same order across their respective streams of paginated
              * responses. Caller must have READ permission for the queried datasets.
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2008,14 +1933,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchAnnotationSetsResponse>;            
-            
+            }): Request<SearchAnnotationSetsResponse>;
             /**
              * Updates an annotation set. The update must respect all mutability
              * restrictions and other invariants described on the annotation set resource.
              * Caller must have WRITE permission for the associated dataset.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2052,19 +1976,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<AnnotationSet>;            
-            
+            }): Request<AnnotationSet>;
         }
-        
         interface CallsetsResource {
             /**
              * Creates a new call set.
-             * 
+             *
              * For the definitions of call sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2091,16 +2013,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CallSet>;            
-            
+            }): Request<CallSet>;
             /**
              * Deletes a call set.
-             * 
+             *
              * For the definitions of call sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2129,16 +2050,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets a call set by ID.
-             * 
+             *
              * For the definitions of call sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2167,18 +2087,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CallSet>;            
-            
+            }): Request<CallSet>;
             /**
              * Updates a call set.
-             * 
+             *
              * For the definitions of call sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * This method supports patch semantics.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2214,19 +2133,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CallSet>;            
-            
+            }): Request<CallSet>;
             /**
              * Gets a list of call sets matching the criteria.
-             * 
+             *
              * For the definitions of call sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.searchCallSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L178).
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2253,19 +2171,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchCallSetsResponse>;            
-            
+            }): Request<SearchCallSetsResponse>;
         }
-        
         interface DatasetsResource {
             /**
              * Creates a new dataset.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2292,8 +2208,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Dataset>;            
-            
+            }): Request<Dataset>;
             /**
              * Deletes a dataset and all of its contents (all read group sets,
              * reference sets, variant sets, call sets, annotation sets, etc.)
@@ -2301,12 +2216,12 @@ declare namespace gapi.client {
              * the
              * datasets.undelete
              * operation.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2335,16 +2250,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets a dataset by ID.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2373,20 +2287,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Dataset>;            
-            
+            }): Request<Dataset>;
             /**
              * Gets the access control policy for the dataset. This is empty if the
              * policy or resource does not exist.
-             * 
+             *
              * See <a href="/iam/docs/managing-policies#getting_a_policy">Getting a
              * Policy</a> for more information.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2418,16 +2331,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Lists datasets within a project.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2467,18 +2379,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListDatasetsResponse>;            
-            
+            }): Request<ListDatasetsResponse>;
             /**
              * Updates a dataset.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * This method supports patch semantics.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2514,20 +2425,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Dataset>;            
-            
+            }): Request<Dataset>;
             /**
              * Sets the access control policy on the specified dataset. Replaces any
              * existing policy.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * See <a href="/iam/docs/managing-policies#setting_a_policy">Setting a
              * Policy</a> for more information.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2559,18 +2469,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * See <a href="/iam/docs/managing-policies#testing_permissions">Testing
              * Permissions</a> for more information.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2602,18 +2511,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             /**
              * Undeletes a dataset by restoring a dataset which was deleted via this API.
-             * 
+             *
              * For the definitions of datasets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * This operation is only possible for a week after the deletion occurred.
              */
-            undelete(request: {            
+            undelete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2642,13 +2550,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Dataset>;            
-            
+            }): Request<Dataset>;
         }
-        
         interface OperationsResource {
-            /** Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation. */
-            cancel(request: {            
+            /**
+             * Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed.
+             * Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite
+             * cancellation.
+             */
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2677,14 +2587,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2713,10 +2622,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists operations that match the specified filter in the request. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2732,18 +2640,18 @@ declare namespace gapi.client {
                 /**
                  * A string for filtering Operations.
                  * The following filter fields are supported&#58;
-                 * 
+                 *
                  * &#42; projectId&#58; Required. Corresponds to
-                 *   OperationMetadata.projectId.
+                 * OperationMetadata.projectId.
                  * &#42; createTime&#58; The time this job was created, in seconds from the
-                 *   [epoch](http://en.wikipedia.org/wiki/Unix_time). Can use `>=` and/or `<=`
-                 *   operators.
+                 * [epoch](http://en.wikipedia.org/wiki/Unix_time). Can use `>=` and/or `<=`
+                 * operators.
                  * &#42; status&#58; Can be `RUNNING`, `SUCCESS`, `FAILURE`, or `CANCELED`. Only
-                 *   one status may be specified.
+                 * one status may be specified.
                  * &#42; labels.key where key is a label key.
-                 * 
+                 *
                  * Examples&#58;
-                 * 
+                 *
                  * &#42; `projectId = my-project AND createTime >= 1432140000`
                  * &#42; `projectId = my-project AND createTime >= 1432140000 AND createTime <= 1432150000 AND status = RUNNING`
                  * &#42; `projectId = my-project AND labels.color = &#42;`
@@ -2773,27 +2681,25 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
         }
-        
         interface CoveragebucketsResource {
             /**
              * Lists fixed width coverage buckets for a read group set, each of which
              * correspond to a range of a reference sequence. Each bucket summarizes
              * coverage information across its corresponding genomic range.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Coverage is defined as the number of reads which are aligned to a given
              * base in the reference sequence. Coverage buckets are available at several
              * precomputed bucket widths, enabling retrieval of various coverage 'zoom
              * levels'. The caller must have READ permissions for the target read group
              * set.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2859,19 +2765,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListCoverageBucketsResponse>;            
-            
+            }): Request<ListCoverageBucketsResponse>;
         }
-        
         interface ReadgroupsetsResource {
             /**
              * Deletes a read group set.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2903,21 +2807,20 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Exports a read group set to a BAM file in Google Cloud Storage.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Note that currently there may be some differences between exported BAM
              * files and the original BAM file at the time of import. See
              * ImportReadGroupSets
              * for caveats.
              */
-            export(request: {            
+            export(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2949,16 +2852,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Gets a read group set by ID.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2987,20 +2889,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ReadGroupSet>;            
-            
+            }): Request<ReadGroupSet>;
             /**
              * Creates read group sets by asynchronously importing the provided
              * information.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * The caller must have WRITE permissions to the dataset.
-             * 
+             *
              * ## Notes on [BAM](https://samtools.github.io/hts-specs/SAMv1.pdf) import
-             * 
+             *
              * - Tags will be converted to strings - tag types are not preserved
              * - Comments (`@CO`) in the input file header will not be preserved
              * - Original header order of references (`@SQ`) will not be preserved
@@ -3009,7 +2910,7 @@ declare namespace gapi.client {
              * - Unmapped reads will be stripped of positional information (reference name
              * and position)
              */
-            import(request: {            
+            import(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3036,18 +2937,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Updates a read group set.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * This method supports patch semantics.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3077,10 +2977,10 @@ declare namespace gapi.client {
                 readGroupSetId: string;
                 /**
                  * An optional mask specifying which fields to update. Supported fields:
-                 * 
+                 *
                  * &#42; name.
                  * &#42; referenceSetId.
-                 * 
+                 *
                  * Leaving `updateMask` unset is equivalent to specifying all mutable
                  * fields.
                  */
@@ -3089,19 +2989,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ReadGroupSet>;            
-            
+            }): Request<ReadGroupSet>;
             /**
              * Searches for read group sets matching the criteria.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.searchReadGroupSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L135).
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3128,39 +3027,37 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchReadGroupSetsResponse>;            
-            
+            }): Request<SearchReadGroupSetsResponse>;
             coveragebuckets: CoveragebucketsResource;
         }
-        
         interface ReadsResource {
             /**
              * Gets a list of reads for one or more read group sets.
-             * 
+             *
              * For the definitions of read group sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Reads search operates over a genomic coordinate space of reference sequence
              * & position defined over the reference sequences to which the requested
              * read group sets are aligned.
-             * 
+             *
              * If a target positional range is specified, search returns all reads whose
              * alignment to the reference genome overlap the range. A query which
              * specifies only read group set IDs yields all reads in those read group
              * sets, including unmapped reads.
-             * 
+             *
              * All reads returned (including reads on subsequent pages) are ordered by
              * genomic coordinate (by reference sequence, then position). Reads with
              * equivalent genomic coordinates are returned in an unspecified order. This
              * order is consistent, such that two queries for the same content (regardless
              * of page size) yield reads in the same order across their respective streams
              * of paginated responses.
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.searchReads](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L85).
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3187,22 +3084,20 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchReadsResponse>;            
-            
+            }): Request<SearchReadsResponse>;
         }
-        
         interface BasesResource {
             /**
              * Lists the bases in a reference, optionally restricted to a range.
-             * 
+             *
              * For the definitions of references and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.getReferenceBases](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L221).
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3250,22 +3145,20 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBasesResponse>;            
-            
+            }): Request<ListBasesResponse>;
         }
-        
         interface ReferencesResource {
             /**
              * Gets a reference.
-             * 
+             *
              * For the definitions of references and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.getReference](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L158).
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3294,19 +3187,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Reference>;            
-            
+            }): Request<Reference>;
             /**
              * Searches for references which match the given criteria.
-             * 
+             *
              * For the definitions of references and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.searchReferences](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L146).
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3333,23 +3225,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchReferencesResponse>;            
-            
+            }): Request<SearchReferencesResponse>;
             bases: BasesResource;
         }
-        
         interface ReferencesetsResource {
             /**
              * Gets a reference set.
-             * 
+             *
              * For the definitions of references and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.getReferenceSet](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L83).
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3378,19 +3268,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ReferenceSet>;            
-            
+            }): Request<ReferenceSet>;
             /**
              * Searches for reference sets which match the given criteria.
-             * 
+             *
              * For the definitions of references and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.searchReferenceSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L71)
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3417,19 +3306,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchReferenceSetsResponse>;            
-            
+            }): Request<SearchReferenceSetsResponse>;
         }
-        
         interface VariantsResource {
             /**
              * Creates a new variant.
-             * 
+             *
              * For the definitions of variants and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3456,16 +3343,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Variant>;            
-            
+            }): Request<Variant>;
             /**
              * Deletes a variant.
-             * 
+             *
              * For the definitions of variants and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3494,16 +3380,15 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The ID of the variant to be deleted. */
                 variantId: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets a variant by ID.
-             * 
+             *
              * For the definitions of variants and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3532,19 +3417,18 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The ID of the variant. */
                 variantId: string;
-            }): Request<Variant>;            
-            
+            }): Request<Variant>;
             /**
              * Creates variant data by asynchronously importing the provided information.
-             * 
+             *
              * For the definitions of variant sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * The variants for import will be merged with any existing variant that
              * matches its reference sequence, start, end, reference bases, and
              * alternative bases. If no such variant exists, a new one will be created.
-             * 
+             *
              * When variants are merged, the call information from the new variant
              * is added to the existing variant, and Variant info fields are merged
              * as specified in
@@ -3554,7 +3438,7 @@ declare namespace gapi.client {
              * call-specific context.
              * Imported VCF headers are appended to the metadata already in a variant set.
              */
-            import(request: {            
+            import(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3581,102 +3465,101 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Merges the given variants with existing variants.
-             * 
+             *
              * For the definitions of variants and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Each variant will be
              * merged with an existing variant that matches its reference sequence,
              * start, end, reference bases, and alternative bases. If no such variant
              * exists, a new one will be created.
-             * 
+             *
              * When variants are merged, the call information from the new variant
              * is added to the existing variant. Variant info fields are merged as
              * specified in the
              * infoMergeConfig
              * field of the MergeVariantsRequest.
-             * 
+             *
              * Please exercise caution when using this method!  It is easy to introduce
              * mistakes in existing variants and difficult to back out of them.  For
              * example,
              * suppose you were trying to merge a new variant with an existing one and
              * both
              * variants contain calls that belong to callsets with the same callset ID.
-             * 
-             *     // Existing variant - irrelevant fields trimmed for clarity
-             *     {
-             *         "variantSetId": "10473108253681171589",
-             *         "referenceName": "1",
-             *         "start": "10582",
-             *         "referenceBases": "G",
-             *         "alternateBases": [
-             *             "A"
-             *         ],
-             *         "calls": [
-             *             {
-             *                 "callSetId": "10473108253681171589-0",
-             *                 "callSetName": "CALLSET0",
-             *                 "genotype": [
-             *                     0,
-             *                     1
-             *                 ],
-             *             }
-             *         ]
-             *     }
-             * 
-             *     // New variant with conflicting call information
-             *     {
-             *         "variantSetId": "10473108253681171589",
-             *         "referenceName": "1",
-             *         "start": "10582",
-             *         "referenceBases": "G",
-             *         "alternateBases": [
-             *             "A"
-             *         ],
-             *         "calls": [
-             *             {
-             *                 "callSetId": "10473108253681171589-0",
-             *                 "callSetName": "CALLSET0",
-             *                 "genotype": [
-             *                     1,
-             *                     1
-             *                 ],
-             *             }
-             *         ]
-             *     }
-             * 
+             *
+             * // Existing variant - irrelevant fields trimmed for clarity
+             * {
+             * "variantSetId": "10473108253681171589",
+             * "referenceName": "1",
+             * "start": "10582",
+             * "referenceBases": "G",
+             * "alternateBases": [
+             * "A"
+             * ],
+             * "calls": [
+             * {
+             * "callSetId": "10473108253681171589-0",
+             * "callSetName": "CALLSET0",
+             * "genotype": [
+             * 0,
+             * 1
+             * ],
+             * }
+             * ]
+             * }
+             *
+             * // New variant with conflicting call information
+             * {
+             * "variantSetId": "10473108253681171589",
+             * "referenceName": "1",
+             * "start": "10582",
+             * "referenceBases": "G",
+             * "alternateBases": [
+             * "A"
+             * ],
+             * "calls": [
+             * {
+             * "callSetId": "10473108253681171589-0",
+             * "callSetName": "CALLSET0",
+             * "genotype": [
+             * 1,
+             * 1
+             * ],
+             * }
+             * ]
+             * }
+             *
              * The resulting merged variant would overwrite the existing calls with those
              * from the new variant:
-             * 
-             *     {
-             *         "variantSetId": "10473108253681171589",
-             *         "referenceName": "1",
-             *         "start": "10582",
-             *         "referenceBases": "G",
-             *         "alternateBases": [
-             *             "A"
-             *         ],
-             *         "calls": [
-             *             {
-             *                 "callSetId": "10473108253681171589-0",
-             *                 "callSetName": "CALLSET0",
-             *                 "genotype": [
-             *                     1,
-             *                     1
-             *                 ],
-             *             }
-             *         ]
-             *     }
-             * 
+             *
+             * {
+             * "variantSetId": "10473108253681171589",
+             * "referenceName": "1",
+             * "start": "10582",
+             * "referenceBases": "G",
+             * "alternateBases": [
+             * "A"
+             * ],
+             * "calls": [
+             * {
+             * "callSetId": "10473108253681171589-0",
+             * "callSetName": "CALLSET0",
+             * "genotype": [
+             * 1,
+             * 1
+             * ],
+             * }
+             * ]
+             * }
+             *
              * This may be the desired outcome, but it is up to the user to determine if
              * if that is indeed the case.
              */
-            merge(request: {            
+            merge(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3703,19 +3586,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Updates a variant.
-             * 
+             *
              * For the definitions of variants and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * This method supports patch semantics. Returns the modified variant without
              * its calls.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3751,19 +3633,18 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The ID of the variant to be updated. */
                 variantId: string;
-            }): Request<Variant>;            
-            
+            }): Request<Variant>;
             /**
              * Gets a list of variants matching the criteria.
-             * 
+             *
              * For the definitions of variants and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.searchVariants](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L126).
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3790,23 +3671,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchVariantsResponse>;            
-            
+            }): Request<SearchVariantsResponse>;
         }
-        
         interface VariantsetsResource {
             /**
              * Creates a new variant set.
-             * 
+             *
              * For the definitions of variant sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * The provided variant set must have a valid `datasetId` set - all other
              * fields are optional. Note that the `id` field will be ignored, as this is
              * assigned by the server.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3833,17 +3712,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<VariantSet>;            
-            
+            }): Request<VariantSet>;
             /**
              * Deletes a variant set including all variants, call sets, and calls within.
              * This is not reversible.
-             * 
+             *
              * For the definitions of variant sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3872,16 +3750,15 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The ID of the variant set to be deleted. */
                 variantSetId: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Exports variant set data to an external destination.
-             * 
+             *
              * For the definitions of variant sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            export(request: {            
+            export(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3913,16 +3790,15 @@ declare namespace gapi.client {
                  * should be exported. The caller must have READ access to this variant set.
                  */
                 variantSetId: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Gets a variant set by ID.
-             * 
+             *
              * For the definitions of variant sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3951,16 +3827,15 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Required. The ID of the variant set. */
                 variantSetId: string;
-            }): Request<VariantSet>;            
-            
+            }): Request<VariantSet>;
             /**
              * Updates a variant set using patch semantics.
-             * 
+             *
              * For the definitions of variant sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -3985,11 +3860,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /**
                  * An optional mask specifying which fields to update. Supported fields:
-                 * 
+                 *
                  * &#42; metadata.
                  * &#42; name.
                  * &#42; description.
-                 * 
+                 *
                  * Leaving `updateMask` unset is equivalent to specifying all mutable
                  * fields.
                  */
@@ -4000,19 +3875,18 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The ID of the variant to be updated (must already exist). */
                 variantSetId: string;
-            }): Request<VariantSet>;            
-            
+            }): Request<VariantSet>;
             /**
              * Returns a list of all variant sets matching search criteria.
-             * 
+             *
              * For the definitions of variant sets and other genomics resources, see
              * [Fundamentals of Google
              * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
-             * 
+             *
              * Implements
              * [GlobalAllianceApi.searchVariantSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L49).
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -4039,8 +3913,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchVariantSetsResponse>;            
-            
+            }): Request<SearchVariantSetsResponse>;
         }
     }
 }

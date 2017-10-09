@@ -13,17 +13,16 @@
 
 declare namespace gapi.client {
     /** Load YouTube Reporting API v1 */
-    function load(name: "youtubereporting", version: "v1"): PromiseLike<void>;    
-    function load(name: "youtubereporting", version: "v1", callback: () => any): void;    
-    
-    const jobs: youtubereporting.JobsResource; 
-    
-    const media: youtubereporting.MediaResource; 
-    
-    const reportTypes: youtubereporting.ReportTypesResource; 
-    
+    function load(name: "youtubereporting", version: "v1"): PromiseLike<void>;
+    function load(name: "youtubereporting", version: "v1", callback: () => any): void;
+
+    const jobs: youtubereporting.JobsResource;
+
+    const media: youtubereporting.MediaResource;
+
+    const reportTypes: youtubereporting.ReportTypesResource;
+
     namespace youtubereporting {
-        
         interface Job {
             /** The creation date/time of the job. */
             createTime?: string;
@@ -47,7 +46,6 @@ declare namespace gapi.client {
              */
             systemManaged?: boolean;
         }
-        
         interface ListJobsResponse {
             /** The list of jobs. */
             jobs?: Job[];
@@ -60,7 +58,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListReportTypesResponse {
             /**
              * A token to retrieve next page of results.
@@ -73,7 +70,6 @@ declare namespace gapi.client {
             /** The list of report types. */
             reportTypes?: ReportType[];
         }
-        
         interface ListReportsResponse {
             /**
              * A token to retrieve next page of results.
@@ -86,12 +82,10 @@ declare namespace gapi.client {
             /** The list of report types. */
             reports?: Report[];
         }
-        
         interface Media {
             /** Name of the media resource. */
             resourceName?: string;
         }
-        
         interface Report {
             /** The date/time when this report was created. */
             createTime?: string;
@@ -114,7 +108,6 @@ declare namespace gapi.client {
              */
             startTime?: string;
         }
-        
         interface ReportType {
             /** The date/time when this report type was/will be deprecated. */
             deprecateTime?: string;
@@ -129,10 +122,9 @@ declare namespace gapi.client {
              */
             systemManaged?: boolean;
         }
-        
         interface ReportsResource {
             /** Gets the metadata of a specific report. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -168,13 +160,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Report>;            
-            
+            }): Request<Report>;
             /**
              * Lists reports created by a specific job.
              * Returns NOT_FOUND if the job does not exist.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -232,13 +223,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListReportsResponse>;            
-            
+            }): Request<ListReportsResponse>;
         }
-        
         interface JobsResource {
             /** Creates a job and returns it. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -270,10 +259,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Job>;            
-            
+            }): Request<Job>;
             /** Deletes a job. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -307,10 +295,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets a job. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -344,10 +331,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Job>;            
-            
+            }): Request<Job>;
             /** Lists jobs. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -397,17 +383,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListJobsResponse>;            
-            
+            }): Request<ListJobsResponse>;
             reports: ReportsResource;
         }
-        
         interface MediaResource {
             /**
              * Method for media download. Download is supported
              * on the URI `/v1/media/{+name}?alt=media`.
              */
-            download(request: {            
+            download(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -439,13 +423,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Media>;            
-            
+            }): Request<Media>;
         }
-        
         interface ReportTypesResource {
             /** Lists report types. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -495,8 +477,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListReportTypesResponse>;            
-            
+            }): Request<ListReportTypesResponse>;
         }
     }
 }

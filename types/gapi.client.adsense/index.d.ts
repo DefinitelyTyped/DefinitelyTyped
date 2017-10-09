@@ -13,31 +13,30 @@
 
 declare namespace gapi.client {
     /** Load AdSense Management API v1.4 */
-    function load(name: "adsense", version: "v1.4"): PromiseLike<void>;    
-    function load(name: "adsense", version: "v1.4", callback: () => any): void;    
-    
-    const accounts: adsense.AccountsResource; 
-    
-    const adclients: adsense.AdclientsResource; 
-    
-    const adunits: adsense.AdunitsResource; 
-    
-    const alerts: adsense.AlertsResource; 
-    
-    const customchannels: adsense.CustomchannelsResource; 
-    
-    const metadata: adsense.MetadataResource; 
-    
-    const payments: adsense.PaymentsResource; 
-    
-    const reports: adsense.ReportsResource; 
-    
-    const savedadstyles: adsense.SavedadstylesResource; 
-    
-    const urlchannels: adsense.UrlchannelsResource; 
-    
+    function load(name: "adsense", version: "v1.4"): PromiseLike<void>;
+    function load(name: "adsense", version: "v1.4", callback: () => any): void;
+
+    const accounts: adsense.AccountsResource;
+
+    const adclients: adsense.AdclientsResource;
+
+    const adunits: adsense.AdunitsResource;
+
+    const alerts: adsense.AlertsResource;
+
+    const customchannels: adsense.CustomchannelsResource;
+
+    const metadata: adsense.MetadataResource;
+
+    const payments: adsense.PaymentsResource;
+
+    const reports: adsense.ReportsResource;
+
+    const savedadstyles: adsense.SavedadstylesResource;
+
+    const urlchannels: adsense.UrlchannelsResource;
+
     namespace adsense {
-        
         interface Account {
             creation_time?: string;
             /** Unique identifier of this account. */
@@ -53,7 +52,6 @@ declare namespace gapi.client {
             /** AdSense timezone of this account. */
             timezone?: string;
         }
-        
         interface Accounts {
             /** ETag of this response for caching purposes. */
             etag?: string;
@@ -64,7 +62,6 @@ declare namespace gapi.client {
             /** Continuation token used to page through accounts. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface AdClient {
             /** Whether this ad client is opted in to ARC. */
             arcOptIn?: boolean;
@@ -77,7 +74,6 @@ declare namespace gapi.client {
             /** Whether this ad client supports being reported on. */
             supportsReporting?: boolean;
         }
-        
         interface AdClients {
             /** ETag of this response for caching purposes. */
             etag?: string;
@@ -88,17 +84,18 @@ declare namespace gapi.client {
             /** Continuation token used to page through ad clients. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface AdCode {
             /** The ad code snippet. */
             adCode?: string;
             /** Kind this is, in this case adsense#adCode. */
             kind?: string;
         }
-        
         interface AdStyle {
-            /** The colors which are included in the style. These are represented as six hexadecimal characters, similar to HTML color codes, but without the leading hash. */
-            colors?: {            
+            /**
+             * The colors which are included in the style. These are represented as six hexadecimal characters, similar to HTML color codes, but without the leading
+             * hash.
+             */
+            colors?: {
                 /** The color of the ad background. */
                 background?: string;
                 /** The color of the ad border. */
@@ -109,43 +106,42 @@ declare namespace gapi.client {
                 title?: string;
                 /** The color of the ad url. */
                 url?: string;
-            };            
+            };
             /** The style of the corners in the ad (deprecated: never populated, ignored). */
             corners?: string;
             /** The font which is included in the style. */
-            font?: {            
+            font?: {
                 /** The family of the font. */
                 family?: string;
                 /** The size of the font. */
                 size?: string;
-            };            
+            };
             /** Kind this is, in this case adsense#adStyle. */
             kind?: string;
         }
-        
         interface AdUnit {
             /** Identity code of this ad unit, not necessarily unique across ad clients. */
             code?: string;
             /** Settings specific to content ads (AFC) and highend mobile content ads (AFMC - deprecated). */
-            contentAdsSettings?: {            
+            contentAdsSettings?: {
                 /** The backup option to be used in instances where no ad is available. */
-                backupOption?: {                
+                backupOption?: {
                     /** Color to use when type is set to COLOR. */
                     color?: string;
                     /** Type of the backup option. Possible values are BLANK, COLOR and URL. */
                     type?: string;
                     /** URL to use when type is set to URL. */
                     url?: string;
-                };                
+                };
                 /** Size of this ad unit. */
                 size?: string;
                 /** Type of this ad unit. */
                 type?: string;
-            };            
+            };
             /** Custom style information specific to this ad unit. */
             customStyle?: AdStyle;
             /** Settings specific to feed ads (AFF) - deprecated. */
-            feedAdsSettings?: {            
+            feedAdsSettings?: {
                 /** The position of the ads relative to the feed entries. */
                 adPosition?: string;
                 /** The frequency at which ads should appear in the feed (i.e. every N entries). */
@@ -154,13 +150,13 @@ declare namespace gapi.client {
                 minimumWordCount?: number;
                 /** The type of ads which should appear. */
                 type?: string;
-            };            
+            };
             /** Unique identifier of this ad unit. This should be considered an opaque identifier; it is not safe to rely on it being in any particular format. */
             id?: string;
             /** Kind of resource this is, in this case adsense#adUnit. */
             kind?: string;
             /** Settings specific to WAP mobile content ads (AFMC) - deprecated. */
-            mobileContentAdsSettings?: {            
+            mobileContentAdsSettings?: {
                 /** The markup language to use for this ad unit. */
                 markupLanguage?: string;
                 /** The scripting language to use for this ad unit. */
@@ -169,7 +165,7 @@ declare namespace gapi.client {
                 size?: string;
                 /** Type of this ad unit. */
                 type?: string;
-            };            
+            };
             /** Name of this ad unit. */
             name?: string;
             /** ID of the saved ad style which holds this ad unit's style information. */
@@ -177,14 +173,13 @@ declare namespace gapi.client {
             /**
              * Status of this ad unit. Possible values are:
              * NEW: Indicates that the ad unit was created within the last seven days and does not yet have any activity associated with it.
-             * 
+             *
              * ACTIVE: Indicates that there has been activity on this ad unit in the last seven days.
-             * 
+             *
              * INACTIVE: Indicates that there has been no activity on this ad unit in the last seven days.
              */
             status?: string;
         }
-        
         interface AdUnits {
             /** ETag of this response for caching purposes. */
             etag?: string;
@@ -195,35 +190,42 @@ declare namespace gapi.client {
             /** Continuation token used to page through ad units. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface AdsenseReportsGenerateResponse {
             /** The averages of the report. This is the same length as any other row in the report; cells corresponding to dimension columns are empty. */
             averages?: string[];
             /** The requested end date in yyyy-mm-dd format. */
             endDate?: string;
-            /** The header information of the columns requested in the report. This is a list of headers; one for each dimension in the request, followed by one for each metric in the request. */
-            headers?: Array<{            
+            /**
+             * The header information of the columns requested in the report. This is a list of headers; one for each dimension in the request, followed by one for
+             * each metric in the request.
+             */
+            headers?: Array<{
                 /** The currency of this column. Only present if the header type is METRIC_CURRENCY. */
                 currency?: string;
                 /** The name of the header. */
                 name?: string;
                 /** The type of the header; one of DIMENSION, METRIC_TALLY, METRIC_RATIO, or METRIC_CURRENCY. */
                 type?: string;
-            }>;            
+            }>;
             /** Kind this is, in this case adsense#report. */
             kind?: string;
-            /** The output rows of the report. Each row is a list of cells; one for each dimension in the request, followed by one for each metric in the request. The dimension cells contain strings, and the metric cells contain numbers. */
+            /**
+             * The output rows of the report. Each row is a list of cells; one for each dimension in the request, followed by one for each metric in the request. The
+             * dimension cells contain strings, and the metric cells contain numbers.
+             */
             rows?: string[][];
             /** The requested start date in yyyy-mm-dd format. */
             startDate?: string;
-            /** The total number of rows matched by the report request. Fewer rows may be returned in the response due to being limited by the row count requested or the report row limit. */
+            /**
+             * The total number of rows matched by the report request. Fewer rows may be returned in the response due to being limited by the row count requested or
+             * the report row limit.
+             */
             totalMatchedRows?: string;
             /** The totals of the report. This is the same length as any other row in the report; cells corresponding to dimension columns are empty. */
             totals?: string[];
             /** Any warnings associated with generation of the report. */
             warnings?: string[];
         }
-        
         interface Alert {
             /** Unique identifier of this alert. This should be considered an opaque identifier; it is not safe to rely on it being in any particular format. */
             id?: string;
@@ -235,17 +237,18 @@ declare namespace gapi.client {
             message?: string;
             /** Severity of this alert. Possible values: INFO, WARNING, SEVERE. */
             severity?: string;
-            /** Type of this alert. Possible values: SELF_HOLD, MIGRATED_TO_BILLING3, ADDRESS_PIN_VERIFICATION, PHONE_PIN_VERIFICATION, CORPORATE_ENTITY, GRAYLISTED_PUBLISHER, API_HOLD. */
+            /**
+             * Type of this alert. Possible values: SELF_HOLD, MIGRATED_TO_BILLING3, ADDRESS_PIN_VERIFICATION, PHONE_PIN_VERIFICATION, CORPORATE_ENTITY,
+             * GRAYLISTED_PUBLISHER, API_HOLD.
+             */
             type?: string;
         }
-        
         interface Alerts {
             /** The alerts returned in this list response. */
             items?: Alert[];
             /** Kind of list this is, in this case adsense#alerts. */
             kind?: string;
         }
-        
         interface CustomChannel {
             /** Code of this custom channel, not necessarily unique across ad clients. */
             code?: string;
@@ -256,18 +259,21 @@ declare namespace gapi.client {
             /** Name of this custom channel. */
             name?: string;
             /** The targeting information of this custom channel, if activated. */
-            targetingInfo?: {            
+            targetingInfo?: {
                 /** The name used to describe this channel externally. */
                 adsAppearOn?: string;
                 /** The external description of the channel. */
                 description?: string;
-                /** The locations in which ads appear. (Only valid for content and mobile content ads (deprecated)). Acceptable values for content ads are: TOP_LEFT, TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT, MULTIPLE_LOCATIONS. Acceptable values for mobile content ads (deprecated) are: TOP, MIDDLE, BOTTOM, MULTIPLE_LOCATIONS. */
+                /**
+                 * The locations in which ads appear. (Only valid for content and mobile content ads (deprecated)). Acceptable values for content ads are: TOP_LEFT,
+                 * TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT, MULTIPLE_LOCATIONS. Acceptable values for
+                 * mobile content ads (deprecated) are: TOP, MIDDLE, BOTTOM, MULTIPLE_LOCATIONS.
+                 */
                 location?: string;
                 /** The language of the sites ads will be displayed on. */
                 siteLanguage?: string;
-            };            
+            };
         }
-        
         interface CustomChannels {
             /** ETag of this response for caching purposes. */
             etag?: string;
@@ -278,13 +284,11 @@ declare namespace gapi.client {
             /** Continuation token used to page through custom channels. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface Metadata {
             items?: ReportingMetadataEntry[];
             /** Kind of list this is, in this case adsense#metadata. */
             kind?: string;
         }
-        
         interface Payment {
             /** Unique identifier of this Payment. */
             id?: string;
@@ -297,16 +301,17 @@ declare namespace gapi.client {
             /** The date this payment was/will be credited to the user, or none if the payment threshold has not been met. */
             paymentDate?: string;
         }
-        
         interface Payments {
             /** The list of Payments for the account. One or both of a) the account's most recent payment; and b) the account's upcoming payment. */
             items?: Payment[];
             /** Kind of list this is, in this case adsense#payments. */
             kind?: string;
         }
-        
         interface ReportingMetadataEntry {
-            /** For metrics this is a list of dimension IDs which the metric is compatible with, for dimensions it is a list of compatibility groups the dimension belongs to. */
+            /**
+             * For metrics this is a list of dimension IDs which the metric is compatible with, for dimensions it is a list of compatibility groups the dimension
+             * belongs to.
+             */
             compatibleDimensions?: string[];
             /** The names of the metrics the dimension or metric this reporting metadata entry describes is compatible with. */
             compatibleMetrics?: string[];
@@ -314,14 +319,19 @@ declare namespace gapi.client {
             id?: string;
             /** Kind of resource this is, in this case adsense#reportingMetadataEntry. */
             kind?: string;
-            /** The names of the dimensions which the dimension or metric this reporting metadata entry describes requires to also be present in order for the report to be valid. Omitting these will not cause an error or warning, but may result in data which cannot be correctly interpreted. */
+            /**
+             * The names of the dimensions which the dimension or metric this reporting metadata entry describes requires to also be present in order for the report
+             * to be valid. Omitting these will not cause an error or warning, but may result in data which cannot be correctly interpreted.
+             */
             requiredDimensions?: string[];
-            /** The names of the metrics which the dimension or metric this reporting metadata entry describes requires to also be present in order for the report to be valid. Omitting these will not cause an error or warning, but may result in data which cannot be correctly interpreted. */
+            /**
+             * The names of the metrics which the dimension or metric this reporting metadata entry describes requires to also be present in order for the report to
+             * be valid. Omitting these will not cause an error or warning, but may result in data which cannot be correctly interpreted.
+             */
             requiredMetrics?: string[];
             /** The codes of the projects supported by the dimension or metric this reporting metadata entry describes. */
             supportedProducts?: string[];
         }
-        
         interface SavedAdStyle {
             /** The AdStyle itself. */
             adStyle?: AdStyle;
@@ -332,7 +342,6 @@ declare namespace gapi.client {
             /** The user selected name of this SavedAdStyle. */
             name?: string;
         }
-        
         interface SavedAdStyles {
             /** ETag of this response for caching purposes. */
             etag?: string;
@@ -343,7 +352,6 @@ declare namespace gapi.client {
             /** Continuation token used to page through ad units. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface SavedReport {
             /** Unique identifier of this saved report. */
             id?: string;
@@ -352,7 +360,6 @@ declare namespace gapi.client {
             /** This saved report's name. */
             name?: string;
         }
-        
         interface SavedReports {
             /** ETag of this response for caching purposes. */
             etag?: string;
@@ -363,7 +370,6 @@ declare namespace gapi.client {
             /** Continuation token used to page through saved reports. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface UrlChannel {
             /** Unique identifier of this URL channel. This should be considered an opaque identifier; it is not safe to rely on it being in any particular format. */
             id?: string;
@@ -372,7 +378,6 @@ declare namespace gapi.client {
             /** URL Pattern of this URL channel. Does not include "http://" or "https://". Example: www.example.com/home */
             urlPattern?: string;
         }
-        
         interface UrlChannels {
             /** ETag of this response for caching purposes. */
             etag?: string;
@@ -383,10 +388,9 @@ declare namespace gapi.client {
             /** Continuation token used to page through URL channels. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface AdclientsResource {
             /** List all ad clients in the specified account. */
-            list(request: {            
+            list(request: {
                 /** Account for which to list ad clients. */
                 accountId: string;
                 /** Data format for the response. */
@@ -399,21 +403,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdClients>;            
-            
+            }): Request<AdClients>;
         }
-        
         interface CustomchannelsResource {
             /** List all custom channels which the specified ad unit belongs to. */
-            list(request: {            
+            list(request: {
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client which contains the ad unit. */
@@ -430,21 +438,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CustomChannels>;            
-            
+            }): Request<CustomChannels>;
         }
-        
         interface AdunitsResource {
             /** Gets the specified ad unit in the specified ad client for the specified account. */
-            get(request: {            
+            get(request: {
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client for which to get the ad unit. */
@@ -461,14 +473,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdUnit>;            
-            
+            }): Request<AdUnit>;
             /** Get ad code for the specified ad unit. */
-            getAdCode(request: {            
+            getAdCode(request: {
                 /** Account which contains the ad client. */
                 accountId: string;
                 /** Ad client with contains the ad unit. */
@@ -485,14 +499,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdCode>;            
-            
+            }): Request<AdCode>;
             /** List all ad units in the specified ad client for the specified account. */
-            list(request: {            
+            list(request: {
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client for which to list ad units. */
@@ -509,22 +525,26 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdUnits>;            
-            
+            }): Request<AdUnits>;
             customchannels: CustomchannelsResource;
         }
-        
         interface AlertsResource {
             /** Dismiss (delete) the specified alert from the specified publisher AdSense account. */
-            delete(request: {            
+            delete(request: {
                 /** Account which contains the ad unit. */
                 accountId: string;
                 /** Alert to delete. */
@@ -539,14 +559,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** List the alerts for the specified AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Account for which to retrieve the alerts. */
                 accountId: string;
                 /** Data format for the response. */
@@ -555,23 +577,27 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used if the supplied locale is invalid or unsupported. */
+                /**
+                 * The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used
+                 * if the supplied locale is invalid or unsupported.
+                 */
                 locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Alerts>;            
-            
+            }): Request<Alerts>;
         }
-        
         interface AdunitsResource {
             /** List all ad units in the specified custom channel. */
-            list(request: {            
+            list(request: {
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client which contains the custom channel. */
@@ -590,21 +616,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdUnits>;            
-            
+            }): Request<AdUnits>;
         }
-        
         interface CustomchannelsResource {
             /** Get the specified custom channel from the specified ad client for the specified account. */
-            get(request: {            
+            get(request: {
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client which contains the custom channel. */
@@ -621,14 +651,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CustomChannel>;            
-            
+            }): Request<CustomChannel>;
             /** List all custom channels in the specified ad client for the specified account. */
-            list(request: {            
+            list(request: {
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client for which to list custom channels. */
@@ -643,22 +675,26 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CustomChannels>;            
-            
+            }): Request<CustomChannels>;
             adunits: AdunitsResource;
         }
-        
         interface PaymentsResource {
             /** List the payments for the specified AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Account for which to retrieve the payments. */
                 accountId: string;
                 /** Data format for the response. */
@@ -671,17 +707,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Payments>;            
-            
+            }): Request<Payments>;
         }
-        
         interface SavedResource {
             /** Generate an AdSense report based on the saved report ID sent in the query parameters. */
-            generate(request: {            
+            generate(request: {
                 /** Account to which the saved reports belong. */
                 accountId: string;
                 /** Data format for the response. */
@@ -698,7 +735,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The saved report to retrieve. */
                 savedReportId: string;
@@ -706,10 +746,9 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdsenseReportsGenerateResponse>;            
-            
+            }): Request<AdsenseReportsGenerateResponse>;
             /** List all saved reports in the specified AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Account to which the saved reports belong. */
                 accountId: string;
                 /** Data format for the response. */
@@ -722,21 +761,28 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SavedReports>;            
-            
+            }): Request<SavedReports>;
         }
-        
         interface ReportsResource {
-            /** Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter. */
-            generate(request: {            
+            /**
+             * Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format
+             * specify "alt=csv" as a query parameter.
+             */
+            generate(request: {
                 /** Account upon which to report. */
                 accountId: string;
                 /** Data format for the response. */
@@ -763,9 +809,15 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** The name of a dimension or metric to sort the resulting report on, optionally prefixed with "+" to sort ascending or "-" to sort descending. If no prefix is specified, the column is sorted ascending. */
+                /**
+                 * The name of a dimension or metric to sort the resulting report on, optionally prefixed with "+" to sort ascending or "-" to sort descending. If no
+                 * prefix is specified, the column is sorted ascending.
+                 */
                 sort?: string;
                 /** Start of the date range to report on in "YYYY-MM-DD" format, inclusive. */
                 startDate: string;
@@ -775,14 +827,12 @@ declare namespace gapi.client {
                 useTimezoneReporting?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdsenseReportsGenerateResponse>;            
-            
+            }): Request<AdsenseReportsGenerateResponse>;
             saved: SavedResource;
         }
-        
         interface SavedadstylesResource {
             /** List a specific saved ad style for the specified account. */
-            get(request: {            
+            get(request: {
                 /** Account for which to get the saved ad style. */
                 accountId: string;
                 /** Data format for the response. */
@@ -795,16 +845,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Saved ad style to retrieve. */
                 savedAdStyleId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SavedAdStyle>;            
-            
+            }): Request<SavedAdStyle>;
             /** List all saved ad styles in the specified account. */
-            list(request: {            
+            list(request: {
                 /** Account for which to list saved ad styles. */
                 accountId: string;
                 /** Data format for the response. */
@@ -817,21 +869,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through saved ad styles. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through saved ad styles. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SavedAdStyles>;            
-            
+            }): Request<SavedAdStyles>;
         }
-        
         interface UrlchannelsResource {
             /** List all URL channels in the specified ad client for the specified account. */
-            list(request: {            
+            list(request: {
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client for which to list URL channels. */
@@ -846,21 +902,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UrlChannels>;            
-            
+            }): Request<UrlChannels>;
         }
-        
         interface AccountsResource {
             /** Get information about the selected AdSense account. */
-            get(request: {            
+            get(request: {
                 /** Account to get information about. */
                 accountId: string;
                 /** Data format for the response. */
@@ -873,16 +933,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the tree of sub accounts should be returned. */
                 tree?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
             /** List all accounts available to this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -893,16 +955,21 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through accounts. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through accounts. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Accounts>;            
-            
+            }): Request<Accounts>;
             adclients: AdclientsResource;
             adunits: AdunitsResource;
             alerts: AlertsResource;
@@ -912,10 +979,9 @@ declare namespace gapi.client {
             savedadstyles: SavedadstylesResource;
             urlchannels: UrlchannelsResource;
         }
-        
         interface AdclientsResource {
             /** List all ad clients in this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -926,21 +992,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdClients>;            
-            
+            }): Request<AdClients>;
         }
-        
         interface CustomchannelsResource {
             /** List all custom channels which the specified ad unit belongs to. */
-            list(request: {            
+            list(request: {
                 /** Ad client which contains the ad unit. */
                 adClientId: string;
                 /** Ad unit for which to list custom channels. */
@@ -955,21 +1025,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CustomChannels>;            
-            
+            }): Request<CustomChannels>;
         }
-        
         interface AdunitsResource {
             /** Gets the specified ad unit in the specified ad client. */
-            get(request: {            
+            get(request: {
                 /** Ad client for which to get the ad unit. */
                 adClientId: string;
                 /** Ad unit to retrieve. */
@@ -984,14 +1058,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdUnit>;            
-            
+            }): Request<AdUnit>;
             /** Get ad code for the specified ad unit. */
-            getAdCode(request: {            
+            getAdCode(request: {
                 /** Ad client with contains the ad unit. */
                 adClientId: string;
                 /** Ad unit to get the code for. */
@@ -1006,14 +1082,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdCode>;            
-            
+            }): Request<AdCode>;
             /** List all ad units in the specified ad client for this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Ad client for which to list ad units. */
                 adClientId: string;
                 /** Data format for the response. */
@@ -1028,22 +1106,26 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdUnits>;            
-            
+            }): Request<AdUnits>;
             customchannels: CustomchannelsResource;
         }
-        
         interface AlertsResource {
             /** Dismiss (delete) the specified alert from the publisher's AdSense account. */
-            delete(request: {            
+            delete(request: {
                 /** Alert to delete. */
                 alertId: string;
                 /** Data format for the response. */
@@ -1056,37 +1138,43 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** List the alerts for this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used if the supplied locale is invalid or unsupported. */
+                /**
+                 * The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used
+                 * if the supplied locale is invalid or unsupported.
+                 */
                 locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Alerts>;            
-            
+            }): Request<Alerts>;
         }
-        
         interface AdunitsResource {
             /** List all ad units in the specified custom channel. */
-            list(request: {            
+            list(request: {
                 /** Ad client which contains the custom channel. */
                 adClientId: string;
                 /** Data format for the response. */
@@ -1103,21 +1191,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdUnits>;            
-            
+            }): Request<AdUnits>;
         }
-        
         interface CustomchannelsResource {
             /** Get the specified custom channel from the specified ad client. */
-            get(request: {            
+            get(request: {
                 /** Ad client which contains the custom channel. */
                 adClientId: string;
                 /** Data format for the response. */
@@ -1132,14 +1224,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CustomChannel>;            
-            
+            }): Request<CustomChannel>;
             /** List all custom channels in the specified ad client for this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Ad client for which to list custom channels. */
                 adClientId: string;
                 /** Data format for the response. */
@@ -1152,22 +1246,26 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CustomChannels>;            
-            
+            }): Request<CustomChannels>;
             adunits: AdunitsResource;
         }
-        
         interface DimensionsResource {
             /** List the metadata for the dimensions available to this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1178,17 +1276,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Metadata>;            
-            
+            }): Request<Metadata>;
         }
-        
         interface MetricsResource {
             /** List the metadata for the metrics available to this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1199,22 +1298,22 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Metadata>;            
-            
+            }): Request<Metadata>;
         }
-        
         interface MetadataResource {
             dimensions: DimensionsResource;
             metrics: MetricsResource;
         }
-        
         interface PaymentsResource {
             /** List the payments for this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1225,17 +1324,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Payments>;            
-            
+            }): Request<Payments>;
         }
-        
         interface SavedResource {
             /** Generate an AdSense report based on the saved report ID sent in the query parameters. */
-            generate(request: {            
+            generate(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1250,7 +1350,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The saved report to retrieve. */
                 savedReportId: string;
@@ -1258,10 +1361,9 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdsenseReportsGenerateResponse>;            
-            
+            }): Request<AdsenseReportsGenerateResponse>;
             /** List all saved reports in this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1272,21 +1374,28 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SavedReports>;            
-            
+            }): Request<SavedReports>;
         }
-        
         interface ReportsResource {
-            /** Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter. */
-            generate(request: {            
+            /**
+             * Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format
+             * specify "alt=csv" as a query parameter.
+             */
+            generate(request: {
                 /** Accounts upon which to report. */
                 accountId?: string;
                 /** Data format for the response. */
@@ -1313,9 +1422,15 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** The name of a dimension or metric to sort the resulting report on, optionally prefixed with "+" to sort ascending or "-" to sort descending. If no prefix is specified, the column is sorted ascending. */
+                /**
+                 * The name of a dimension or metric to sort the resulting report on, optionally prefixed with "+" to sort ascending or "-" to sort descending. If no
+                 * prefix is specified, the column is sorted ascending.
+                 */
                 sort?: string;
                 /** Start of the date range to report on in "YYYY-MM-DD" format, inclusive. */
                 startDate: string;
@@ -1325,14 +1440,12 @@ declare namespace gapi.client {
                 useTimezoneReporting?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AdsenseReportsGenerateResponse>;            
-            
+            }): Request<AdsenseReportsGenerateResponse>;
             saved: SavedResource;
         }
-        
         interface SavedadstylesResource {
             /** Get a specific saved ad style from the user's account. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1343,16 +1456,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Saved ad style to retrieve. */
                 savedAdStyleId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SavedAdStyle>;            
-            
+            }): Request<SavedAdStyle>;
             /** List all saved ad styles in the user's account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1363,21 +1478,25 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through saved ad styles. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through saved ad styles. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SavedAdStyles>;            
-            
+            }): Request<SavedAdStyles>;
         }
-        
         interface UrlchannelsResource {
             /** List all URL channels in the specified ad client for this AdSense account. */
-            list(request: {            
+            list(request: {
                 /** Ad client for which to list URL channels. */
                 adClientId: string;
                 /** Data format for the response. */
@@ -1390,16 +1509,21 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                /**
+                 * A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UrlChannels>;            
-            
+            }): Request<UrlChannels>;
         }
     }
 }

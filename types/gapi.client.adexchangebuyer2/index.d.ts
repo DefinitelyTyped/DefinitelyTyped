@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Ad Exchange Buyer API II v2beta1 */
-    function load(name: "adexchangebuyer2", version: "v2beta1"): PromiseLike<void>;    
-    function load(name: "adexchangebuyer2", version: "v2beta1", callback: () => any): void;    
-    
-    const accounts: adexchangebuyer2.AccountsResource; 
-    
+    function load(name: "adexchangebuyer2", version: "v2beta1"): PromiseLike<void>;
+    function load(name: "adexchangebuyer2", version: "v2beta1", callback: () => any): void;
+
+    const accounts: adexchangebuyer2.AccountsResource;
+
     namespace adexchangebuyer2 {
-        
         interface AbsoluteDateRange {
             /**
              * The end date of the range (inclusive).
@@ -34,22 +33,18 @@ declare namespace gapi.client {
              */
             startDate?: Date;
         }
-        
         interface AddDealAssociationRequest {
             /** The association between a creative and a deal that should be added. */
             association?: CreativeDealAssociation;
         }
-        
         interface AppContext {
             /** The app types this restriction applies to. */
             appTypes?: string[];
         }
-        
         interface AuctionContext {
             /** The auction types this restriction applies to. */
             auctionTypes?: string[];
         }
-        
         interface BidMetricsRow {
             /** The number of bids that Ad Exchange received from the buyer. */
             bids?: MetricValue;
@@ -72,7 +67,6 @@ declare namespace gapi.client {
              */
             viewableImpressions?: MetricValue;
         }
-        
         interface BidResponseWithoutBidsStatusRow {
             /**
              * The number of impressions for which there was a bid response with the
@@ -87,7 +81,6 @@ declare namespace gapi.client {
              */
             status?: string;
         }
-        
         interface CalloutStatusRow {
             /**
              * The ID of the callout status.
@@ -102,7 +95,6 @@ declare namespace gapi.client {
             /** The values of all dimensions associated with metric values in this row. */
             rowDimensions?: RowDimensions;
         }
-        
         interface Client {
             /**
              * The globally-unique numerical ID of the client.
@@ -121,15 +113,15 @@ declare namespace gapi.client {
              * Numerical identifier of the client entity.
              * The entity can be an advertiser, a brand, or an agency.
              * This identifier is unique among all the entities with the same type.
-             * 
+             *
              * A list of all known advertisers with their identifiers is available in the
              * [advertisers.txt](https://storage.googleapis.com/adx-rtb-dictionaries/advertisers.txt)
              * file.
-             * 
+             *
              * A list of all known brands with their identifiers is available in the
              * [brands.txt](https://storage.googleapis.com/adx-rtb-dictionaries/brands.txt)
              * file.
-             * 
+             *
              * A list of all known agencies with their identifiers is available in the
              * [agencies.txt](https://storage.googleapis.com/adx-rtb-dictionaries/agencies.txt)
              * file.
@@ -154,7 +146,6 @@ declare namespace gapi.client {
             /** Whether the client buyer will be visible to sellers. */
             visibleToSeller?: boolean;
         }
-        
         interface ClientUser {
             /**
              * Numerical account ID of the client buyer
@@ -177,7 +168,6 @@ declare namespace gapi.client {
              */
             userId?: string;
         }
-        
         interface ClientUserInvitation {
             /**
              * Numerical account ID of the client buyer
@@ -197,7 +187,6 @@ declare namespace gapi.client {
              */
             invitationId?: string;
         }
-        
         interface Correction {
             /** The contexts for the correction. */
             contexts?: ServingContext[];
@@ -206,7 +195,6 @@ declare namespace gapi.client {
             /** The type of correction that was applied to the creative. */
             type?: string;
         }
-        
         interface Creative {
             /**
              * The account that this creative belongs to.
@@ -318,7 +306,6 @@ declare namespace gapi.client {
             /** A video creative. */
             video?: VideoContent;
         }
-        
         interface CreativeDealAssociation {
             /** The account the creative belongs to. */
             accountId?: string;
@@ -327,7 +314,6 @@ declare namespace gapi.client {
             /** The externalDealId for the deal associated with the creative. */
             dealsId?: string;
         }
-        
         interface CreativeStatusRow {
             /** The number of bids with the specified status. */
             bidCount?: MetricValue;
@@ -339,7 +325,6 @@ declare namespace gapi.client {
             /** The values of all dimensions associated with metric values in this row. */
             rowDimensions?: RowDimensions;
         }
-        
         interface Date {
             /**
              * Day of month. Must be from 1 to 31 and valid for the year and month, or 0
@@ -354,14 +339,12 @@ declare namespace gapi.client {
              */
             year?: number;
         }
-        
         interface Disapproval {
             /** Additional details about the reason for disapproval. */
             details?: string[];
             /** The categorized reason for disapproval. */
             reason?: string;
         }
-        
         interface FilterSet {
             /**
              * An absolute date range, defined by a start date and an end date.
@@ -420,7 +403,6 @@ declare namespace gapi.client {
              */
             timeSeriesGranularity?: string;
         }
-        
         interface FilteredBidCreativeRow {
             /** The number of bids with the specified creative. */
             bidCount?: MetricValue;
@@ -429,7 +411,6 @@ declare namespace gapi.client {
             /** The values of all dimensions associated with metric values in this row. */
             rowDimensions?: RowDimensions;
         }
-        
         interface FilteredBidDetailRow {
             /** The number of bids with the specified detail. */
             bidCount?: MetricValue;
@@ -441,7 +422,6 @@ declare namespace gapi.client {
             /** The values of all dimensions associated with metric values in this row. */
             rowDimensions?: RowDimensions;
         }
-        
         interface FilteringStats {
             /**
              * The day during which the data was collected.
@@ -453,7 +433,6 @@ declare namespace gapi.client {
             /** The set of filtering reasons for this date. */
             reasons?: Reason[];
         }
-        
         interface HtmlContent {
             /** The height of the HTML snippet in pixels. */
             height?: number;
@@ -462,7 +441,6 @@ declare namespace gapi.client {
             /** The width of the HTML snippet in pixels. */
             width?: number;
         }
-        
         interface Image {
             /** Image height in pixels. */
             height?: number;
@@ -471,7 +449,6 @@ declare namespace gapi.client {
             /** Image width in pixels. */
             width?: number;
         }
-        
         interface ImpressionMetricsRow {
             /**
              * The number of impressions available to the buyer on Ad Exchange.
@@ -498,7 +475,6 @@ declare namespace gapi.client {
              */
             successfulResponses?: MetricValue;
         }
-        
         interface ListBidMetricsResponse {
             /** List of rows, each containing a set of bid metrics. */
             bidMetricsRows?: BidMetricsRow[];
@@ -512,7 +488,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListBidResponseErrorsResponse {
             /** List of rows, with counts of bid responses aggregated by callout status. */
             calloutStatusRows?: CalloutStatusRow[];
@@ -526,7 +501,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListBidResponsesWithoutBidsResponse {
             /**
              * List of rows, with counts of bid responses without bids aggregated by
@@ -543,7 +517,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListClientUserInvitationsResponse {
             /** The returned list of client users. */
             invitations?: ClientUserInvitation[];
@@ -558,7 +531,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListClientUsersResponse {
             /**
              * A token to retrieve the next page of results.
@@ -573,7 +545,6 @@ declare namespace gapi.client {
             /** The returned list of client users. */
             users?: ClientUser[];
         }
-        
         interface ListClientsResponse {
             /** The returned list of clients. */
             clients?: Client[];
@@ -587,7 +558,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListCreativeStatusBreakdownByCreativeResponse {
             /**
              * List of rows, with counts of bids with a given creative status aggregated
@@ -604,7 +574,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListCreativeStatusBreakdownByDetailResponse {
             /** The type of detail that the detail IDs represent. */
             detailType?: string;
@@ -623,7 +592,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListCreativesResponse {
             /** The list of creatives. */
             creatives?: Creative[];
@@ -636,7 +604,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListDealAssociationsResponse {
             /** The list of associations. */
             associations?: CreativeDealAssociation[];
@@ -649,7 +616,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListFilterSetsResponse {
             /** The filter sets belonging to the buyer. */
             filterSets?: FilterSet[];
@@ -663,7 +629,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListFilteredBidRequestsResponse {
             /**
              * List of rows, with counts of filtered bid requests aggregated by callout
@@ -680,7 +645,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListFilteredBidsResponse {
             /**
              * List of rows, with counts of filtered bids aggregated by filtering reason
@@ -697,7 +661,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListImpressionMetricsResponse {
             /** List of rows, each containing a set of impression metrics. */
             impressionMetricsRows?: ImpressionMetricsRow[];
@@ -711,7 +674,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListLosingBidsResponse {
             /**
              * List of rows, with counts of losing bids aggregated by loss reason (i.e.
@@ -728,7 +690,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListNonBillableWinningBidsResponse {
             /**
              * A token to retrieve the next page of results.
@@ -742,7 +703,6 @@ declare namespace gapi.client {
             /** List of rows, with counts of bids not billed aggregated by reason. */
             nonBillableWinningBidStatusRows?: NonBillableWinningBidStatusRow[];
         }
-        
         interface LocationContext {
             /**
              * IDs representing the geo location for this context.
@@ -752,7 +712,6 @@ declare namespace gapi.client {
              */
             geoCriteriaIds?: number[];
         }
-        
         interface MetricValue {
             /** The expected value of the metric. */
             value?: string;
@@ -763,12 +722,11 @@ declare namespace gapi.client {
              * the following formula, where Z is the standard constant that depends on the
              * desired size of the confidence interval (e.g. for 90% confidence interval,
              * use Z = 1.645):
-             * 
-             *   marginOfError = 100 &#42; Z &#42; sqrt(variance) / value
+             *
+             * marginOfError = 100 &#42; Z &#42; sqrt(variance) / value
              */
             variance?: string;
         }
-        
         interface NativeContent {
             /** The name of the advertiser or sponsor, to be displayed in the ad creative. */
             advertiserName?: string;
@@ -797,7 +755,6 @@ declare namespace gapi.client {
             /** The URL to fetch a native video ad. */
             videoUrl?: string;
         }
-        
         interface NonBillableWinningBidStatusRow {
             /** The number of bids with the specified status. */
             bidCount?: MetricValue;
@@ -806,17 +763,14 @@ declare namespace gapi.client {
             /** The status specifying why the winning bids were not billed. */
             status?: string;
         }
-        
         interface PlatformContext {
             /** The platforms this restriction applies to. */
             platforms?: string[];
         }
-        
         interface RealtimeTimeRange {
             /** The start timestamp of the real-time RTB metrics aggregation. */
             startTimestamp?: string;
         }
-        
         interface Reason {
             /**
              * The number of times the creative was filtered for the status. The
@@ -830,7 +784,6 @@ declare namespace gapi.client {
              */
             status?: number;
         }
-        
         interface RelativeDateRange {
             /**
              * The number of days in the requested date range. E.g. for a range spanning
@@ -843,22 +796,18 @@ declare namespace gapi.client {
              */
             offsetDays?: number;
         }
-        
         interface RemoveDealAssociationRequest {
             /** The association between a creative and a deal that should be removed. */
             association?: CreativeDealAssociation;
         }
-        
         interface RowDimensions {
             /** The time interval that this row represents. */
             timeInterval?: TimeInterval;
         }
-        
         interface SecurityContext {
             /** The security types in this context. */
             securities?: string[];
         }
-        
         interface ServingContext {
             /** Matches all contexts. */
             all?: string;
@@ -876,7 +825,6 @@ declare namespace gapi.client {
             /** Matches impressions for a particular security type. */
             securityType?: SecurityContext;
         }
-        
         interface ServingRestriction {
             /** The contexts for the restriction. */
             contexts?: ServingContext[];
@@ -894,7 +842,6 @@ declare namespace gapi.client {
              */
             status?: string;
         }
-        
         interface TimeInterval {
             /**
              * The timestamp marking the end of the range (exclusive) for which data is
@@ -907,12 +854,10 @@ declare namespace gapi.client {
              */
             startTime?: string;
         }
-        
         interface VideoContent {
             /** The URL to fetch a video ad. */
             videoUrl?: string;
         }
-        
         interface WatchCreativeRequest {
             /**
              * The Pub/Sub topic to publish notifications to.
@@ -923,13 +868,12 @@ declare namespace gapi.client {
              */
             topic?: string;
         }
-        
         interface InvitationsResource {
             /**
              * Creates and sends out an email invitation to access
              * an Ad Exchange client buyer account.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -963,10 +907,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ClientUserInvitation>;            
-            
+            }): Request<ClientUserInvitation>;
             /** Retrieves an existing client user invitation. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1002,13 +945,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ClientUserInvitation>;            
-            
+            }): Request<ClientUserInvitation>;
             /**
              * Lists all the client users invitations for a client
              * with a given account ID.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1060,13 +1002,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListClientUserInvitationsResponse>;            
-            
+            }): Request<ListClientUserInvitationsResponse>;
         }
-        
         interface UsersResource {
             /** Retrieves an existing client user. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1102,13 +1042,12 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Numerical identifier of the user to retrieve. (required) */
                 userId: string;
-            }): Request<ClientUser>;            
-            
+            }): Request<ClientUser>;
             /**
              * Lists all the known client users for a specified
              * sponsor buyer account ID.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1161,13 +1100,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListClientUsersResponse>;            
-            
+            }): Request<ListClientUsersResponse>;
             /**
              * Updates an existing client user.
              * Only the user status can be changed on update.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1203,13 +1141,11 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Numerical identifier of the user to retrieve. (required) */
                 userId: string;
-            }): Request<ClientUser>;            
-            
+            }): Request<ClientUser>;
         }
-        
         interface ClientsResource {
             /** Creates a new client buyer. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1241,10 +1177,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Client>;            
-            
+            }): Request<Client>;
             /** Gets a client buyer with a given client account ID. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1275,10 +1210,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Client>;            
-            
+            }): Request<Client>;
             /** Lists all the clients for the current sponsor buyer. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1320,10 +1254,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListClientsResponse>;            
-            
+            }): Request<ListClientsResponse>;
             /** Updates an existing client buyer. */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1357,15 +1290,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Client>;            
-            
+            }): Request<Client>;
             invitations: InvitationsResource;
             users: UsersResource;
         }
-        
         interface DealAssociationsResource {
             /** Associate an existing deal with a creative. */
-            add(request: {            
+            add(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1396,10 +1327,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** List all creative-deal associations. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1451,9 +1381,9 @@ declare namespace gapi.client {
                  * <li>creativeId=<i>creative_id_string</i>
                  * <li>dealsId=<i>deals_id_string</i>
                  * <li>dealsStatus:{approved, conditionally_approved, disapproved,
-                 *                   not_checked}
+                 * not_checked}
                  * <li>openAuctionStatus:{approved, conditionally_approved, disapproved,
-                 *                          not_checked}
+                 * not_checked}
                  * </ul>
                  * Example: 'dealsId=12345 AND dealsStatus:disapproved'
                  */
@@ -1464,10 +1394,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListDealAssociationsResponse>;            
-            
+            }): Request<ListDealAssociationsResponse>;
             /** Remove the association between a deal and a creative. */
-            remove(request: {            
+            remove(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1498,13 +1427,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
         }
-        
         interface CreativesResource {
             /** Creates a creative. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1543,10 +1470,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Creative>;            
-            
+            }): Request<Creative>;
             /** Gets a creative. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1577,10 +1503,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Creative>;            
-            
+            }): Request<Creative>;
             /** Lists creatives. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1628,13 +1553,15 @@ declare namespace gapi.client {
                  * <li>accountId=<i>account_id_string</i>
                  * <li>creativeId=<i>creative_id_string</i>
                  * <li>dealsStatus: {approved, conditionally_approved, disapproved,
-                 *                    not_checked}
+                 * not_checked}
                  * <li>openAuctionStatus: {approved, conditionally_approved, disapproved,
-                 *                           not_checked}
+                 * not_checked}
                  * <li>attribute: {a numeric attribute from the list of attributes}
-                 * <li>disapprovalReason: {a reason from DisapprovalReason
+                 * <li>disapprovalReason: {a reason from
+                 * DisapprovalReason
                  * </ul>
-                 * Example: 'accountId=12345 AND (dealsStatus:disapproved AND disapprovalReason:unacceptable_content) OR attribute:47'
+                 * Example: 'accountId=12345 AND (dealsStatus:disapproved AND
+                 * disapprovalReason:unacceptable_content) OR attribute:47'
                  */
                 query?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
@@ -1643,13 +1570,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListCreativesResponse>;            
-            
+            }): Request<ListCreativesResponse>;
             /**
              * Stops watching a creative. Will stop push notifications being sent to the
              * topics when the creative changes status.
              */
-            stopWatching(request: {            
+            stopWatching(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1683,10 +1609,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Updates a creative. */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1727,13 +1652,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Creative>;            
-            
+            }): Request<Creative>;
             /**
              * Watches a creative. Will result in push notifications being sent to the
              * topic when the creative changes status.
              */
-            watch(request: {            
+            watch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1770,14 +1694,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             dealAssociations: DealAssociationsResource;
         }
-        
         interface BidMetricsResource {
             /** Lists all metrics that are measured in terms of number of bids. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1822,16 +1744,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBidMetricsResponse>;            
-            
+            }): Request<ListBidMetricsResponse>;
         }
-        
         interface BidResponseErrorsResource {
             /**
              * List all errors that occurred in bid responses, with the number of bid
              * responses affected for each reason.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1876,16 +1796,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBidResponseErrorsResponse>;            
-            
+            }): Request<ListBidResponseErrorsResponse>;
         }
-        
         interface BidResponsesWithoutBidsResource {
             /**
              * List all reasons for which bid responses were considered to have no
              * applicable bids, with the number of bid responses affected for each reason.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1930,16 +1848,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBidResponsesWithoutBidsResponse>;            
-            
+            }): Request<ListBidResponsesWithoutBidsResponse>;
         }
-        
         interface FilteredBidRequestsResource {
             /**
              * List all reasons that caused a bid request not to be sent for an
              * impression, with the number of bid requests not sent for each reason.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1984,16 +1900,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListFilteredBidRequestsResponse>;            
-            
+            }): Request<ListFilteredBidRequestsResponse>;
         }
-        
         interface CreativesResource {
             /**
              * List all creatives associated with a specific reason for which bids were
              * filtered, with the number of bids filtered for each creative.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2045,16 +1959,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListCreativeStatusBreakdownByCreativeResponse>;            
-            
+            }): Request<ListCreativeStatusBreakdownByCreativeResponse>;
         }
-        
         interface DetailsResource {
             /**
              * List all details associated with a specific reason for which bids were
              * filtered, with the number of bids filtered for each detail.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2106,16 +2018,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListCreativeStatusBreakdownByDetailResponse>;            
-            
+            }): Request<ListCreativeStatusBreakdownByDetailResponse>;
         }
-        
         interface FilteredBidsResource {
             /**
              * List all reasons for which bids were filtered, with the number of bids
              * filtered for each reason.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2160,15 +2070,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListFilteredBidsResponse>;            
-            
+            }): Request<ListFilteredBidsResponse>;
             creatives: CreativesResource;
             details: DetailsResource;
         }
-        
         interface ImpressionMetricsResource {
             /** Lists all metrics that are measured in terms of number of impressions. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2213,16 +2121,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListImpressionMetricsResponse>;            
-            
+            }): Request<ListImpressionMetricsResponse>;
         }
-        
         interface LosingBidsResource {
             /**
              * List all reasons for which bids lost in the auction, with the number of
              * bids that lost for each reason.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2267,16 +2173,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListLosingBidsResponse>;            
-            
+            }): Request<ListLosingBidsResponse>;
         }
-        
         interface NonBillableWinningBidsResource {
             /**
              * List all reasons for which winning bids were not billable, with the number
              * of bids not billed for each reason.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2321,13 +2225,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListNonBillableWinningBidsResponse>;            
-            
+            }): Request<ListNonBillableWinningBidsResponse>;
         }
-        
         interface FilterSetsResource {
             /** Creates the specified filter set for the account with the given account ID. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2362,13 +2264,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FilterSet>;            
-            
+            }): Request<FilterSet>;
             /**
              * Deletes the requested filter set from the account with the given account
              * ID.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2399,13 +2300,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Retrieves the requested filter set for the account with the given account
              * ID.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2436,10 +2336,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FilterSet>;            
-            
+            }): Request<FilterSet>;
             /** Lists all filter sets for the account with the given account ID. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2482,8 +2381,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListFilterSetsResponse>;            
-            
+            }): Request<ListFilterSetsResponse>;
             bidMetrics: BidMetricsResource;
             bidResponseErrors: BidResponseErrorsResource;
             bidResponsesWithoutBids: BidResponsesWithoutBidsResource;
@@ -2493,7 +2391,6 @@ declare namespace gapi.client {
             losingBids: LosingBidsResource;
             nonBillableWinningBids: NonBillableWinningBidsResource;
         }
-        
         interface AccountsResource {
             clients: ClientsResource;
             creatives: CreativesResource;

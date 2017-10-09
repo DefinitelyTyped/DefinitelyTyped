@@ -13,22 +13,21 @@
 
 declare namespace gapi.client {
     /** Load Google Play Game Services Publishing API v1configuration */
-    function load(name: "gamesconfiguration", version: "v1configuration"): PromiseLike<void>;    
-    function load(name: "gamesconfiguration", version: "v1configuration", callback: () => any): void;    
-    
-    const achievementConfigurations: gamesconfiguration.AchievementConfigurationsResource; 
-    
-    const imageConfigurations: gamesconfiguration.ImageConfigurationsResource; 
-    
-    const leaderboardConfigurations: gamesconfiguration.LeaderboardConfigurationsResource; 
-    
+    function load(name: "gamesconfiguration", version: "v1configuration"): PromiseLike<void>;
+    function load(name: "gamesconfiguration", version: "v1configuration", callback: () => any): void;
+
+    const achievementConfigurations: gamesconfiguration.AchievementConfigurationsResource;
+
+    const imageConfigurations: gamesconfiguration.ImageConfigurationsResource;
+
+    const leaderboardConfigurations: gamesconfiguration.LeaderboardConfigurationsResource;
+
     namespace gamesconfiguration {
-        
         interface AchievementConfiguration {
             /**
              * The type of the achievement.
-             * Possible values are:  
-             * - "STANDARD" - Achievement is either locked or unlocked. 
+             * Possible values are:
+             * - "STANDARD" - Achievement is either locked or unlocked.
              * - "INCREMENTAL" - Achievement is incremental.
              */
             achievementType?: string;
@@ -38,9 +37,9 @@ declare namespace gapi.client {
             id?: string;
             /**
              * The initial state of the achievement.
-             * Possible values are:  
-             * - "HIDDEN" - Achievement is hidden. 
-             * - "REVEALED" - Achievement is revealed. 
+             * Possible values are:
+             * - "HIDDEN" - Achievement is hidden.
+             * - "REVEALED" - Achievement is revealed.
              * - "UNLOCKED" - Achievement is unlocked.
              */
             initialState?: string;
@@ -53,7 +52,6 @@ declare namespace gapi.client {
             /** The token for this resource. */
             token?: string;
         }
-        
         interface AchievementConfigurationDetail {
             /** Localized strings for the achievement description. */
             description?: LocalizedStringBundle;
@@ -68,7 +66,6 @@ declare namespace gapi.client {
             /** The sort rank of this achievement. Writes to this field are ignored. */
             sortRank?: number;
         }
-        
         interface AchievementConfigurationListResponse {
             /** The achievement configurations. */
             items?: AchievementConfiguration[];
@@ -77,13 +74,18 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface GamesNumberAffixConfiguration {
-            /** When the language requires special treatment of "small" numbers (as with 2, 3, and 4 in Czech; or numbers ending 2, 3, or 4 but not 12, 13, or 14 in Polish). */
+            /**
+             * When the language requires special treatment of "small" numbers (as with 2, 3, and 4 in Czech; or numbers ending 2, 3, or 4 but not 12, 13, or 14 in
+             * Polish).
+             */
             few?: LocalizedStringBundle;
             /** When the language requires special treatment of "large" numbers (as with numbers ending 11-99 in Maltese). */
             many?: LocalizedStringBundle;
-            /** When the language requires special treatment of numbers like one (as with the number 1 in English and most other languages; in Russian, any number ending in 1 but not ending in 11 is in this class). */
+            /**
+             * When the language requires special treatment of numbers like one (as with the number 1 in English and most other languages; in Russian, any number
+             * ending in 1 but not ending in 11 is in this class).
+             */
             one?: LocalizedStringBundle;
             /** When the language does not require special treatment of the given quantity (as with all numbers in Chinese, or 42 in English). */
             other?: LocalizedStringBundle;
@@ -92,7 +94,6 @@ declare namespace gapi.client {
             /** When the language requires special treatment of the number 0 (as in Arabic). */
             zero?: LocalizedStringBundle;
         }
-        
         interface GamesNumberFormatConfiguration {
             /** The curreny code string. Only used for CURRENCY format type. */
             currencyCode?: string;
@@ -100,8 +101,9 @@ declare namespace gapi.client {
             numDecimalPlaces?: number;
             /**
              * The formatting for the number.
-             * Possible values are:  
-             * - "NUMERIC" - Numbers are formatted to have no digits or a fixed number of digits after the decimal point according to locale. An optional custom unit can be added.
+             * Possible values are:
+             * - "NUMERIC" - Numbers are formatted to have no digits or a fixed number of digits after the decimal point according to locale. An optional custom unit
+             * can be added.
              * - "TIME_DURATION" - Numbers are formatted to hours, minutes and seconds.
              * - "CURRENCY" - Numbers are formatted to currency according to locale.
              */
@@ -109,7 +111,6 @@ declare namespace gapi.client {
             /** An optional suffix for the NUMERIC format type. These strings follow the same  plural rules as all Android string resources. */
             suffix?: GamesNumberAffixConfiguration;
         }
-        
         interface ImageConfiguration {
             /** The image type for the image. */
             imageType?: string;
@@ -120,7 +121,6 @@ declare namespace gapi.client {
             /** The url for this image. */
             url?: string;
         }
-        
         interface LeaderboardConfiguration {
             /** The draft data of the leaderboard. */
             draft?: LeaderboardConfigurationDetail;
@@ -136,15 +136,14 @@ declare namespace gapi.client {
             scoreMin?: string;
             /**
              * The type of the leaderboard.
-             * Possible values are:  
-             * - "LARGER_IS_BETTER" - Larger scores posted are ranked higher. 
+             * Possible values are:
+             * - "LARGER_IS_BETTER" - Larger scores posted are ranked higher.
              * - "SMALLER_IS_BETTER" - Smaller scores posted are ranked higher.
              */
             scoreOrder?: string;
             /** The token for this resource. */
             token?: string;
         }
-        
         interface LeaderboardConfigurationDetail {
             /** The icon url of this leaderboard. Writes to this field are ignored. */
             iconUrl?: string;
@@ -157,7 +156,6 @@ declare namespace gapi.client {
             /** The sort rank of this leaderboard. Writes to this field are ignored. */
             sortRank?: number;
         }
-        
         interface LeaderboardConfigurationListResponse {
             /** The leaderboard configurations. */
             items?: LeaderboardConfiguration[];
@@ -166,7 +164,6 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface LocalizedString {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesConfiguration#localizedString. */
             kind?: string;
@@ -175,17 +172,15 @@ declare namespace gapi.client {
             /** The string value. */
             value?: string;
         }
-        
         interface LocalizedStringBundle {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesConfiguration#localizedStringBundle. */
             kind?: string;
             /** The locale strings. */
             translations?: LocalizedString[];
         }
-        
         interface AchievementConfigurationsResource {
             /** Delete the achievement configuration with the given ID. */
-            delete(request: {            
+            delete(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -198,14 +193,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves the metadata of the achievement configuration with the given ID. */
-            get(request: {            
+            get(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -218,14 +215,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementConfiguration>;            
-            
+            }): Request<AchievementConfiguration>;
             /** Insert a new achievement configuration in this application. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -238,14 +237,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementConfiguration>;            
-            
+            }): Request<AchievementConfiguration>;
             /** Returns a list of the achievement configurations in this application. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -254,7 +255,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The maximum number of resource configurations to return in the response, used for paging. For any response, the actual number of resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of resource configurations to return in the response, used for paging. For any response, the actual number of resources returned may
+                 * be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -262,14 +266,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementConfigurationListResponse>;            
-            
+            }): Request<AchievementConfigurationListResponse>;
             /** Update the metadata of the achievement configuration with the given ID. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -282,14 +288,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementConfiguration>;            
-            
+            }): Request<AchievementConfiguration>;
             /** Update the metadata of the achievement configuration with the given ID. */
-            update(request: {            
+            update(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -302,17 +310,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementConfiguration>;            
-            
+            }): Request<AchievementConfiguration>;
         }
-        
         interface ImageConfigurationsResource {
             /** Uploads an image for a resource with the given ID and image type. */
-            upload(request: {            
+            upload(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -325,19 +334,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the resource used by this method. */
                 resourceId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ImageConfiguration>;            
-            
+            }): Request<ImageConfiguration>;
         }
-        
         interface LeaderboardConfigurationsResource {
             /** Delete the leaderboard configuration with the given ID. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -350,14 +360,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves the metadata of the leaderboard configuration with the given ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -370,14 +382,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardConfiguration>;            
-            
+            }): Request<LeaderboardConfiguration>;
             /** Insert a new leaderboard configuration in this application. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -390,14 +404,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardConfiguration>;            
-            
+            }): Request<LeaderboardConfiguration>;
             /** Returns a list of the leaderboard configurations in this application. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -406,7 +422,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The maximum number of resource configurations to return in the response, used for paging. For any response, the actual number of resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of resource configurations to return in the response, used for paging. For any response, the actual number of resources returned may
+                 * be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -414,14 +433,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardConfigurationListResponse>;            
-            
+            }): Request<LeaderboardConfigurationListResponse>;
             /** Update the metadata of the leaderboard configuration with the given ID. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -434,14 +455,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardConfiguration>;            
-            
+            }): Request<LeaderboardConfiguration>;
             /** Update the metadata of the leaderboard configuration with the given ID. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -454,12 +477,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardConfiguration>;            
-            
+            }): Request<LeaderboardConfiguration>;
         }
     }
 }

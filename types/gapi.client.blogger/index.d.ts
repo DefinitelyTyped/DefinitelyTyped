@@ -13,27 +13,26 @@
 
 declare namespace gapi.client {
     /** Load Blogger API v3 */
-    function load(name: "blogger", version: "v3"): PromiseLike<void>;    
-    function load(name: "blogger", version: "v3", callback: () => any): void;    
-    
-    const blogUserInfos: blogger.BlogUserInfosResource; 
-    
-    const blogs: blogger.BlogsResource; 
-    
-    const comments: blogger.CommentsResource; 
-    
-    const pageViews: blogger.PageViewsResource; 
-    
-    const pages: blogger.PagesResource; 
-    
-    const postUserInfos: blogger.PostUserInfosResource; 
-    
-    const posts: blogger.PostsResource; 
-    
-    const users: blogger.UsersResource; 
-    
+    function load(name: "blogger", version: "v3"): PromiseLike<void>;
+    function load(name: "blogger", version: "v3", callback: () => any): void;
+
+    const blogUserInfos: blogger.BlogUserInfosResource;
+
+    const blogs: blogger.BlogsResource;
+
+    const comments: blogger.CommentsResource;
+
+    const pageViews: blogger.PageViewsResource;
+
+    const pages: blogger.PagesResource;
+
+    const postUserInfos: blogger.PostUserInfosResource;
+
+    const posts: blogger.PostsResource;
+
+    const users: blogger.UsersResource;
+
     namespace blogger {
-        
         interface Blog {
             /** The JSON custom meta-data for the Blog */
             customMetaData?: string;
@@ -44,32 +43,32 @@ declare namespace gapi.client {
             /** The kind of this entry. Always blogger#blog */
             kind?: string;
             /** The locale this Blog is set to. */
-            locale?: {            
+            locale?: {
                 /** The country this blog's locale is set to. */
                 country?: string;
                 /** The language this blog is authored in. */
                 language?: string;
                 /** The language variant this blog is authored in. */
                 variant?: string;
-            };            
+            };
             /** The name of this blog. This is displayed as the title. */
             name?: string;
             /** The container of pages in this blog. */
-            pages?: {            
+            pages?: {
                 /** The URL of the container for pages in this blog. */
                 selfLink?: string;
                 /** The count of pages in this blog. */
                 totalItems?: number;
-            };            
+            };
             /** The container of posts in this blog. */
-            posts?: {            
+            posts?: {
                 /** The List of Posts for this Blog. */
                 items?: Post[];
                 /** The URL of the container for posts in this blog. */
                 selfLink?: string;
                 /** The count of posts in this blog. */
                 totalItems?: number;
-            };            
+            };
             /** RFC 3339 date-time when this blog was published. */
             published?: string;
             /** The API REST URL to fetch this resource from. */
@@ -81,7 +80,6 @@ declare namespace gapi.client {
             /** The URL where this blog is published. */
             url?: string;
         }
-        
         interface BlogList {
             /** Admin level list of blog per-user information */
             blogUserInfos?: BlogUserInfo[];
@@ -90,7 +88,6 @@ declare namespace gapi.client {
             /** The kind of this entity. Always blogger#blogList */
             kind?: string;
         }
-        
         interface BlogPerUserInfo {
             /** ID of the Blog resource */
             blogId?: string;
@@ -105,7 +102,6 @@ declare namespace gapi.client {
             /** ID of the User */
             userId?: string;
         }
-        
         interface BlogUserInfo {
             /** The Blog resource. */
             blog?: Blog;
@@ -114,43 +110,42 @@ declare namespace gapi.client {
             /** The kind of this entity. Always blogger#blogUserInfo */
             kind?: string;
         }
-        
         interface Comment {
             /** The author of this Comment. */
-            author?: {            
+            author?: {
                 /** The display name. */
                 displayName?: string;
                 /** The identifier of the Comment creator. */
                 id?: string;
                 /** The comment creator's avatar. */
-                image?: {                
+                image?: {
                     /** The comment creator's avatar URL. */
                     url?: string;
-                };                
+                };
                 /** The URL of the Comment creator's Profile page. */
                 url?: string;
-            };            
+            };
             /** Data about the blog containing this comment. */
-            blog?: {            
+            blog?: {
                 /** The identifier of the blog containing this comment. */
                 id?: string;
-            };            
+            };
             /** The actual content of the comment. May include HTML markup. */
             content?: string;
             /** The identifier for this resource. */
             id?: string;
             /** Data about the comment this is in reply to. */
-            inReplyTo?: {            
+            inReplyTo?: {
                 /** The identified of the parent of this comment. */
                 id?: string;
-            };            
+            };
             /** The kind of this entry. Always blogger#comment */
             kind?: string;
             /** Data about the post containing this comment. */
-            post?: {            
+            post?: {
                 /** The identifier of the post containing this comment. */
                 id?: string;
-            };            
+            };
             /** RFC 3339 date-time when this comment was published. */
             published?: string;
             /** The API REST URL to fetch this resource from. */
@@ -160,7 +155,6 @@ declare namespace gapi.client {
             /** RFC 3339 date-time when this comment was last updated. */
             updated?: string;
         }
-        
         interface CommentList {
             /** Etag of the response. */
             etag?: string;
@@ -173,27 +167,26 @@ declare namespace gapi.client {
             /** Pagination token to fetch the previous page, if one exists. */
             prevPageToken?: string;
         }
-        
         interface Page {
             /** The author of this Page. */
-            author?: {            
+            author?: {
                 /** The display name. */
                 displayName?: string;
                 /** The identifier of the Page creator. */
                 id?: string;
                 /** The page author's avatar. */
-                image?: {                
+                image?: {
                     /** The page author's avatar URL. */
                     url?: string;
-                };                
+                };
                 /** The URL of the Page creator's Profile page. */
                 url?: string;
-            };            
+            };
             /** Data about the blog containing this Page. */
-            blog?: {            
+            blog?: {
                 /** The identifier of the blog containing this page. */
                 id?: string;
-            };            
+            };
             /** The body content of this Page, in HTML. */
             content?: string;
             /** Etag of the resource. */
@@ -215,7 +208,6 @@ declare namespace gapi.client {
             /** The URL that this Page is displayed at. */
             url?: string;
         }
-        
         interface PageList {
             /** Etag of the response. */
             etag?: string;
@@ -226,41 +218,39 @@ declare namespace gapi.client {
             /** Pagination token to fetch the next page, if one exists. */
             nextPageToken?: string;
         }
-        
         interface Pageviews {
             /** Blog Id */
             blogId?: string;
             /** The container of posts in this blog. */
-            counts?: Array<{            
+            counts?: Array<{
                 /** Count of page views for the given time range */
                 count?: string;
                 /** Time range the given count applies to */
                 timeRange?: string;
-            }>;            
+            }>;
             /** The kind of this entry. Always blogger#page_views */
             kind?: string;
         }
-        
         interface Post {
             /** The author of this Post. */
-            author?: {            
+            author?: {
                 /** The display name. */
                 displayName?: string;
                 /** The identifier of the Post creator. */
                 id?: string;
                 /** The Post author's avatar. */
-                image?: {                
+                image?: {
                     /** The Post author's avatar URL. */
                     url?: string;
-                };                
+                };
                 /** The URL of the Post creator's Profile page. */
                 url?: string;
-            };            
+            };
             /** Data about the blog containing this Post. */
-            blog?: {            
+            blog?: {
                 /** The identifier of the Blog that contains this Post. */
                 id?: string;
-            };            
+            };
             /** The content of the Post. May contain HTML markup. */
             content?: string;
             /** The JSON meta-data for the Post. */
@@ -270,15 +260,15 @@ declare namespace gapi.client {
             /** The identifier of this Post. */
             id?: string;
             /** Display image for the Post. */
-            images?: Array<{            
+            images?: Array<{
                 url?: string;
-            }>;            
+            }>;
             /** The kind of this entity. Always blogger#post */
             kind?: string;
             /** The list of labels this Post was tagged with. */
             labels?: string[];
             /** The location for geotagged posts. */
-            location?: {            
+            location?: {
                 /** Location's latitude. */
                 lat?: number;
                 /** Location's longitude. */
@@ -287,20 +277,20 @@ declare namespace gapi.client {
                 name?: string;
                 /** Location's viewport span. Can be used when rendering a map preview. */
                 span?: string;
-            };            
+            };
             /** RFC 3339 date-time when this Post was published. */
             published?: string;
             /** Comment control and display setting for readers of this post. */
             readerComments?: string;
             /** The container of comments on this Post. */
-            replies?: {            
+            replies?: {
                 /** The List of Comments for this Post. */
                 items?: Comment[];
                 /** The URL of the comments on this post. */
                 selfLink?: string;
                 /** The count of comments on this post. */
                 totalItems?: string;
-            };            
+            };
             /** The API REST URL to fetch this resource from. */
             selfLink?: string;
             /** Status of the post. Only set for admin-level requests */
@@ -314,7 +304,6 @@ declare namespace gapi.client {
             /** The URL where this Post is displayed. */
             url?: string;
         }
-        
         interface PostList {
             /** Etag of the response. */
             etag?: string;
@@ -325,7 +314,6 @@ declare namespace gapi.client {
             /** Pagination token to fetch the next page, if one exists. */
             nextPageToken?: string;
         }
-        
         interface PostPerUserInfo {
             /** ID of the Blog that the post resource belongs to. */
             blogId?: string;
@@ -338,7 +326,6 @@ declare namespace gapi.client {
             /** ID of the User. */
             userId?: string;
         }
-        
         interface PostUserInfo {
             /** The kind of this entity. Always blogger#postUserInfo */
             kind?: string;
@@ -347,7 +334,6 @@ declare namespace gapi.client {
             /** Information about a User for the Post. */
             post_user_info?: PostPerUserInfo;
         }
-        
         interface PostUserInfosList {
             /** The list of Posts with User information for the post, for this Blog. */
             items?: PostUserInfo[];
@@ -356,15 +342,14 @@ declare namespace gapi.client {
             /** Pagination token to fetch the next page, if one exists. */
             nextPageToken?: string;
         }
-        
         interface User {
             /** Profile summary information. */
             about?: string;
             /** The container of blogs for this user. */
-            blogs?: {            
+            blogs?: {
                 /** The URL of the Blogs for this user. */
                 selfLink?: string;
-            };            
+            };
             /** The timestamp of when this profile was created, in seconds since epoch. */
             created?: string;
             /** The display name. */
@@ -374,23 +359,22 @@ declare namespace gapi.client {
             /** The kind of this entity. Always blogger#user */
             kind?: string;
             /** This user's locale */
-            locale?: {            
+            locale?: {
                 /** The user's country setting. */
                 country?: string;
                 /** The user's language setting. */
                 language?: string;
                 /** The user's language variant setting. */
                 variant?: string;
-            };            
+            };
             /** The API REST URL to fetch this resource from. */
             selfLink?: string;
             /** The user's profile page. */
             url?: string;
         }
-        
         interface BlogUserInfosResource {
             /** Gets one blog and user info pair by blogId and userId. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the blog to get. */
@@ -405,19 +389,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<BlogUserInfo>;            
-            
+            }): Request<BlogUserInfo>;
         }
-        
         interface BlogsResource {
             /** Gets one blog by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the blog to get. */
@@ -432,16 +417,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Access level with which to view the blog. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<Blog>;            
-            
+            }): Request<Blog>;
             /** Retrieve a Blog by URL. */
-            getByUrl(request: {            
+            getByUrl(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -452,7 +439,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The URL of the blog to retrieve. */
                 url: string;
@@ -460,10 +450,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Access level with which to view the blog. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<Blog>;            
-            
+            }): Request<Blog>;
             /** Retrieves a list of blogs, possibly filtered. */
-            listByUser(request: {            
+            listByUser(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Whether the response is a list of blogs with per-user information instead of just blogs. */
@@ -476,9 +465,15 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** User access types for blogs to include in the results, e.g. AUTHOR will return blogs where the user has author level access. If no roles are specified, defaults to ADMIN and AUTHOR roles. */
+                /**
+                 * User access types for blogs to include in the results, e.g. AUTHOR will return blogs where the user has author level access. If no roles are specified,
+                 * defaults to ADMIN and AUTHOR roles.
+                 */
                 role?: string;
                 /** Blog statuses to include in the result (default: Live blogs only). Note that ADMIN access is required to view deleted blogs. */
                 status?: string;
@@ -488,13 +483,11 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Access level with which to view the blogs. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<BlogList>;            
-            
+            }): Request<BlogList>;
         }
-        
         interface CommentsResource {
             /** Marks a comment as not spam. */
-            approve(request: {            
+            approve(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -511,14 +504,16 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Comment>;            
-            
+            }): Request<Comment>;
             /** Delete a comment by ID. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -535,14 +530,16 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets one comment by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to containing the comment. */
@@ -559,16 +556,21 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Access level for the requested comment (default: READER). Note that some comments will require elevated permissions, for example comments where the parent posts which is in a draft state, or comments that are pending moderation. */
+                /**
+                 * Access level for the requested comment (default: READER). Note that some comments will require elevated permissions, for example comments where the
+                 * parent posts which is in a draft state, or comments that are pending moderation.
+                 */
                 view?: string;
-            }): Request<Comment>;            
-            
+            }): Request<Comment>;
             /** Retrieves the comments for a post, possibly filtered. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch comments from. */
@@ -591,7 +593,10 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Earliest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
@@ -600,10 +605,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<CommentList>;            
-            
+            }): Request<CommentList>;
             /** Retrieves the comments for a blog, across all posts, possibly filtered. */
-            listByBlog(request: {            
+            listByBlog(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch comments from. */
@@ -624,17 +628,19 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Earliest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
                 status?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CommentList>;            
-            
+            }): Request<CommentList>;
             /** Marks a comment as spam. */
-            markAsSpam(request: {            
+            markAsSpam(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -651,14 +657,16 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Comment>;            
-            
+            }): Request<Comment>;
             /** Removes the content of a comment. */
-            removeContent(request: {            
+            removeContent(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -675,17 +683,18 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Comment>;            
-            
+            }): Request<Comment>;
         }
-        
         interface PageViewsResource {
             /** Retrieve pageview stats for a Blog. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the blog to get. */
@@ -698,18 +707,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 range?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Pageviews>;            
-            
+            }): Request<Pageviews>;
         }
-        
         interface PagesResource {
             /** Delete a page by ID. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -724,14 +734,16 @@ declare namespace gapi.client {
                 pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets one blog page by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog containing the page. */
@@ -746,15 +758,17 @@ declare namespace gapi.client {
                 pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 view?: string;
-            }): Request<Page>;            
-            
+            }): Request<Page>;
             /** Add a page. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to add the page to. */
@@ -769,14 +783,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Page>;            
-            
+            }): Request<Page>;
             /** Retrieves the pages for a blog, optionally including non-LIVE statuses. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch Pages from. */
@@ -795,17 +811,19 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 status?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<PageList>;            
-            
+            }): Request<PageList>;
             /** Update a page. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -822,16 +840,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the page is updated (default: false). */
                 publish?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether a revert action should be performed when the page is updated (default: false). */
                 revert?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Page>;            
-            
+            }): Request<Page>;
             /** Publishes a draft page. */
-            publish(request: {            
+            publish(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the blog. */
@@ -846,14 +866,16 @@ declare namespace gapi.client {
                 pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Page>;            
-            
+            }): Request<Page>;
             /** Revert a published or scheduled page to draft state. */
-            revert(request: {            
+            revert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the blog. */
@@ -868,14 +890,16 @@ declare namespace gapi.client {
                 pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Page>;            
-            
+            }): Request<Page>;
             /** Update a page. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -892,19 +916,23 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the page is updated (default: false). */
                 publish?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether a revert action should be performed when the page is updated (default: false). */
                 revert?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Page>;            
-            
+            }): Request<Page>;
         }
-        
         interface PostUserInfosResource {
-            /** Gets one post and user info pair, by post ID and user ID. The post user info contains per-user information about the post, such as access rights, specific to the user. */
-            get(request: {            
+            /**
+             * Gets one post and user info pair, by post ID and user ID. The post user info contains per-user information about the post, such as access rights,
+             * specific to the user.
+             */
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the blog. */
@@ -921,16 +949,21 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of the user for the per-user information to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PostUserInfo>;            
-            
-            /** Retrieves a list of post and post user info pairs, possibly filtered. The post user info contains per-user information about the post, such as access rights, specific to the user. */
-            list(request: {            
+            }): Request<PostUserInfo>;
+            /**
+             * Retrieves a list of post and post user info pairs, possibly filtered. The post user info contains per-user information about the post, such as access
+             * rights, specific to the user.
+             */
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch posts from. */
@@ -955,7 +988,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Earliest post date to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
@@ -966,13 +1002,11 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<PostUserInfosList>;            
-            
+            }): Request<PostUserInfosList>;
         }
-        
         interface PostsResource {
             /** Delete a post by ID. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -987,19 +1021,24 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Get a post by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch the post from. */
                 blogId: string;
-                /** Whether the body content of the post is included (default: true). This should be set to false when the post bodies are not required, to help minimize traffic. */
+                /**
+                 * Whether the body content of the post is included (default: true). This should be set to false when the post bodies are not required, to help minimize
+                 * traffic.
+                 */
                 fetchBody?: boolean;
                 /** Whether image URL metadata for each post is included (default: false). */
                 fetchImages?: boolean;
@@ -1015,16 +1054,18 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<Post>;            
-            
+            }): Request<Post>;
             /** Retrieve a Post by Path. */
-            getByPath(request: {            
+            getByPath(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch the post from. */
@@ -1041,16 +1082,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): Request<Post>;            
-            
+            }): Request<Post>;
             /** Add a post. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to add the post to. */
@@ -1069,21 +1112,26 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Post>;            
-            
+            }): Request<Post>;
             /** Retrieves a list of posts, possibly filtered. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch posts from. */
                 blogId: string;
                 /** Latest post date to fetch, a date-time with RFC 3339 formatting. */
                 endDate?: string;
-                /** Whether the body content of posts is included (default: true). This should be set to false when the post bodies are not required, to help minimize traffic. */
+                /**
+                 * Whether the body content of posts is included (default: true). This should be set to false when the post bodies are not required, to help minimize
+                 * traffic.
+                 */
                 fetchBodies?: boolean;
                 /** Whether image URL metadata for each post is included. */
                 fetchImages?: boolean;
@@ -1103,7 +1151,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Earliest post date to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
@@ -1113,10 +1164,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require escalated access. */
                 view?: string;
-            }): Request<PostList>;            
-            
+            }): Request<PostList>;
             /** Update a post. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -1139,16 +1189,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the post is updated (default: false). */
                 publish?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether a revert action should be performed when the post is updated (default: false). */
                 revert?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Post>;            
-            
+            }): Request<Post>;
             /** Publishes a draft post, optionally at the specific time of the given publishDate parameter. */
-            publish(request: {            
+            publish(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -1163,16 +1215,21 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Optional date and time to schedule the publishing of the Blog. If no publishDate parameter is given, the post is either published at the a previously saved schedule date (if present), or the current time. If a future date is given, the post will be scheduled to be published. */
+                /**
+                 * Optional date and time to schedule the publishing of the Blog. If no publishDate parameter is given, the post is either published at the a previously
+                 * saved schedule date (if present), or the current time. If a future date is given, the post will be scheduled to be published.
+                 */
                 publishDate?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Post>;            
-            
+            }): Request<Post>;
             /** Revert a published or scheduled post to draft state. */
-            revert(request: {            
+            revert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -1187,19 +1244,24 @@ declare namespace gapi.client {
                 postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Post>;            
-            
+            }): Request<Post>;
             /** Search for a post. */
-            search(request: {            
+            search(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ID of the blog to fetch the post from. */
                 blogId: string;
-                /** Whether the body content of posts is included (default: true). This should be set to false when the post bodies are not required, to help minimize traffic. */
+                /**
+                 * Whether the body content of posts is included (default: true). This should be set to false when the post bodies are not required, to help minimize
+                 * traffic.
+                 */
                 fetchBodies?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
@@ -1213,14 +1275,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Query terms to search this blog for matching posts. */
                 q: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PostList>;            
-            
+            }): Request<PostList>;
             /** Update a post. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the Blog. */
@@ -1243,19 +1307,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the post is updated (default: false). */
                 publish?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether a revert action should be performed when the post is updated (default: false). */
                 revert?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Post>;            
-            
+            }): Request<Post>;
         }
-        
         interface UsersResource {
             /** Gets one user by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1266,14 +1331,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the user to get. */
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<User>;            
-            
+            }): Request<User>;
         }
     }
 }

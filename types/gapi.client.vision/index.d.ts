@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Vision API v1 */
-    function load(name: "vision", version: "v1"): PromiseLike<void>;    
-    function load(name: "vision", version: "v1", callback: () => any): void;    
-    
-    const images: vision.ImagesResource; 
-    
+    function load(name: "vision", version: "v1"): PromiseLike<void>;
+    function load(name: "vision", version: "v1", callback: () => any): void;
+
+    const images: vision.ImagesResource;
+
     namespace vision {
-        
         interface AnnotateImageRequest {
             /** Requested features. */
             features?: Feature[];
@@ -28,7 +27,6 @@ declare namespace gapi.client {
             /** Additional context that may accompany the image. */
             imageContext?: ImageContext;
         }
-        
         interface AnnotateImageResponse {
             /** If present, crop hints have completed successfully. */
             cropHintsAnnotation?: CropHintsAnnotation;
@@ -62,17 +60,14 @@ declare namespace gapi.client {
             /** If present, web detection has completed successfully. */
             webDetection?: WebDetection;
         }
-        
         interface BatchAnnotateImagesRequest {
             /** Individual image annotation requests for this batch. */
             requests?: AnnotateImageRequest[];
         }
-        
         interface BatchAnnotateImagesResponse {
             /** Individual responses to image annotation requests within the batch. */
             responses?: AnnotateImageResponse[];
         }
-        
         interface Block {
             /** Detected block type (text, image etc) for this block. */
             blockType?: string;
@@ -83,15 +78,15 @@ declare namespace gapi.client {
              * is represented as around the top-left corner as defined when the text is
              * read in the 'natural' orientation.
              * For example:
-             *   &#42; when the text is horizontal it might look like:
-             *      0----1
-             *      |    |
-             *      3----2
-             *   &#42; when it's rotated 180 degrees around the top-left corner it becomes:
-             *      2----3
-             *      |    |
-             *      1----0
-             *   and the vertice order will still be (0, 1, 2, 3).
+             * &#42; when the text is horizontal it might look like:
+             * 0----1
+             * |    |
+             * 3----2
+             * &#42; when it's rotated 180 degrees around the top-left corner it becomes:
+             * 2----3
+             * |    |
+             * 1----0
+             * and the vertice order will still be (0, 1, 2, 3).
              */
             boundingBox?: BoundingPoly;
             /** List of paragraphs in this block (if this blocks is of type text). */
@@ -99,19 +94,17 @@ declare namespace gapi.client {
             /** Additional information detected for the block. */
             property?: TextProperty;
         }
-        
         interface BoundingPoly {
             /** The bounding polygon vertices. */
             vertices?: Vertex[];
         }
-        
         interface Color {
             /**
              * The fraction of this color that should be applied to the pixel. That is,
              * the final pixel color is defined by the equation:
-             * 
-             *   pixel color = alpha &#42; (this color) + (1.0 - alpha) &#42; (background color)
-             * 
+             *
+             * pixel color = alpha &#42; (this color) + (1.0 - alpha) &#42; (background color)
+             *
              * This means that a value of 1.0 corresponds to a solid color, whereas
              * a value of 0.0 corresponds to a completely transparent color. This
              * uses a wrapper message rather than a simple float scalar so that it is
@@ -127,7 +120,6 @@ declare namespace gapi.client {
             /** The amount of red in the color as a value in the interval [0, 1]. */
             red?: number;
         }
-        
         interface ColorInfo {
             /** RGB components of the color. */
             color?: Color;
@@ -139,7 +131,6 @@ declare namespace gapi.client {
             /** Image-specific score for this color. Value in range [0, 1]. */
             score?: number;
         }
-        
         interface CropHint {
             /**
              * The bounding polygon for the crop region. The coordinates of the bounding
@@ -154,12 +145,10 @@ declare namespace gapi.client {
              */
             importanceFraction?: number;
         }
-        
         interface CropHintsAnnotation {
             /** Crop hint results. */
             cropHints?: CropHint[];
         }
-        
         interface CropHintsParams {
             /**
              * Aspect ratios in floats, representing the ratio of the width to the height
@@ -171,14 +160,12 @@ declare namespace gapi.client {
              */
             aspectRatios?: number[];
         }
-        
         interface DetectedBreak {
             /** True if break prepends the element. */
             isPrefix?: boolean;
             /** Detected break type. */
             type?: string;
         }
-        
         interface DetectedLanguage {
             /** Confidence of detected language. Range [0, 1]. */
             confidence?: number;
@@ -189,12 +176,10 @@ declare namespace gapi.client {
              */
             languageCode?: string;
         }
-        
         interface DominantColorsAnnotation {
             /** RGB color values with their score and pixel fraction. */
             colors?: ColorInfo[];
         }
-        
         interface EntityAnnotation {
             /**
              * Image region to which this entity belongs. Not produced
@@ -244,7 +229,6 @@ declare namespace gapi.client {
              */
             topicality?: number;
         }
-        
         interface FaceAnnotation {
             /** Anger likelihood. */
             angerLikelihood?: string;
@@ -303,14 +287,12 @@ declare namespace gapi.client {
             /** Under-exposed likelihood. */
             underExposedLikelihood?: string;
         }
-        
         interface Feature {
             /** Maximum number of results of this type. */
             maxResults?: number;
             /** The feature type. */
             type?: string;
         }
-        
         interface Image {
             /**
              * Image content, represented as a stream of bytes.
@@ -325,7 +307,6 @@ declare namespace gapi.client {
              */
             source?: ImageSource;
         }
-        
         interface ImageContext {
             /** Parameters for crop hints annotation request. */
             cropHintsParams?: CropHintsParams;
@@ -343,12 +324,10 @@ declare namespace gapi.client {
             /** lat/long rectangle that specifies the location of the image. */
             latLongRect?: LatLongRect;
         }
-        
         interface ImageProperties {
             /** If present, dominant colors completed successfully. */
             dominantColors?: DominantColorsAnnotation;
         }
-        
         interface ImageSource {
             /**
              * NOTE: For new code `image_uri` below is preferred.
@@ -373,33 +352,28 @@ declare namespace gapi.client {
              */
             imageUri?: string;
         }
-        
         interface Landmark {
             /** Face landmark position. */
             position?: Position;
             /** Face landmark type. */
             type?: string;
         }
-        
         interface LatLng {
             /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
             latitude?: number;
             /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
             longitude?: number;
         }
-        
         interface LatLongRect {
             /** Max lat/long pair. */
             maxLatLng?: LatLng;
             /** Min lat/long pair. */
             minLatLng?: LatLng;
         }
-        
         interface LocationInfo {
             /** lat/long location coordinates. */
             latLng?: LatLng;
         }
-        
         interface Page {
             /** List of blocks of text, images etc on this page. */
             blocks?: Block[];
@@ -410,7 +384,6 @@ declare namespace gapi.client {
             /** Page width in pixels. */
             width?: number;
         }
-        
         interface Paragraph {
             /**
              * The bounding box for the paragraph.
@@ -419,15 +392,15 @@ declare namespace gapi.client {
              * is represented as around the top-left corner as defined when the text is
              * read in the 'natural' orientation.
              * For example:
-             *   &#42; when the text is horizontal it might look like:
-             *      0----1
-             *      |    |
-             *      3----2
-             *   &#42; when it's rotated 180 degrees around the top-left corner it becomes:
-             *      2----3
-             *      |    |
-             *      1----0
-             *   and the vertice order will still be (0, 1, 2, 3).
+             * &#42; when the text is horizontal it might look like:
+             * 0----1
+             * |    |
+             * 3----2
+             * &#42; when it's rotated 180 degrees around the top-left corner it becomes:
+             * 2----3
+             * |    |
+             * 1----0
+             * and the vertice order will still be (0, 1, 2, 3).
              */
             boundingBox?: BoundingPoly;
             /** Additional information detected for the paragraph. */
@@ -435,7 +408,6 @@ declare namespace gapi.client {
             /** List of words in this paragraph. */
             words?: Word[];
         }
-        
         interface Position {
             /** X coordinate. */
             x?: number;
@@ -444,7 +416,6 @@ declare namespace gapi.client {
             /** Z coordinate (or depth). */
             z?: number;
         }
-        
         interface Property {
             /** Name of the property. */
             name?: string;
@@ -453,9 +424,12 @@ declare namespace gapi.client {
             /** Value of the property. */
             value?: string;
         }
-        
         interface SafeSearchAnnotation {
-            /** Represents the adult content likelihood for the image. */
+            /**
+             * Represents the adult content likelihood for the image. Adult content may
+             * contain elements such as nudity, pornographic images or cartoons, or
+             * sexual activities.
+             */
             adult?: string;
             /** Likelihood that this is a medical image. */
             medical?: string;
@@ -465,10 +439,9 @@ declare namespace gapi.client {
              * funny or offensive.
              */
             spoof?: string;
-            /** Violence likelihood. */
+            /** Likelihood that this image contains violent content. */
             violence?: string;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -476,7 +449,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -484,7 +457,6 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface Symbol {
             /**
              * The bounding box for the symbol.
@@ -493,15 +465,15 @@ declare namespace gapi.client {
              * is represented as around the top-left corner as defined when the text is
              * read in the 'natural' orientation.
              * For example:
-             *   &#42; when the text is horizontal it might look like:
-             *      0----1
-             *      |    |
-             *      3----2
-             *   &#42; when it's rotated 180 degrees around the top-left corner it becomes:
-             *      2----3
-             *      |    |
-             *      1----0
-             *   and the vertice order will still be (0, 1, 2, 3).
+             * &#42; when the text is horizontal it might look like:
+             * 0----1
+             * |    |
+             * 3----2
+             * &#42; when it's rotated 180 degrees around the top-left corner it becomes:
+             * 2----3
+             * |    |
+             * 1----0
+             * and the vertice order will still be (0, 1, 2, 3).
              */
             boundingBox?: BoundingPoly;
             /** Additional information detected for the symbol. */
@@ -509,28 +481,24 @@ declare namespace gapi.client {
             /** The actual UTF-8 representation of the symbol. */
             text?: string;
         }
-        
         interface TextAnnotation {
             /** List of pages detected by OCR. */
             pages?: Page[];
             /** UTF-8 text detected on the pages. */
             text?: string;
         }
-        
         interface TextProperty {
             /** Detected start or end of a text segment. */
             detectedBreak?: DetectedBreak;
             /** A list of detected languages together with confidence. */
             detectedLanguages?: DetectedLanguage[];
         }
-        
         interface Vertex {
             /** X coordinate. */
             x?: number;
             /** Y coordinate. */
             y?: number;
         }
-        
         interface WebDetection {
             /**
              * Fully matching images from the Internet.
@@ -550,7 +518,6 @@ declare namespace gapi.client {
             /** Deduced entities from similar images on the Internet. */
             webEntities?: WebEntity[];
         }
-        
         interface WebEntity {
             /** Canonical description of the entity, in English. */
             description?: string;
@@ -562,21 +529,18 @@ declare namespace gapi.client {
              */
             score?: number;
         }
-        
         interface WebImage {
             /** (Deprecated) Overall relevancy score for the image. */
             score?: number;
             /** The result image URL. */
             url?: string;
         }
-        
         interface WebPage {
             /** (Deprecated) Overall relevancy score for the web page. */
             score?: number;
             /** The result web page URL. */
             url?: string;
         }
-        
         interface Word {
             /**
              * The bounding box for the word.
@@ -585,15 +549,15 @@ declare namespace gapi.client {
              * is represented as around the top-left corner as defined when the text is
              * read in the 'natural' orientation.
              * For example:
-             *   &#42; when the text is horizontal it might look like:
-             *      0----1
-             *      |    |
-             *      3----2
-             *   &#42; when it's rotated 180 degrees around the top-left corner it becomes:
-             *      2----3
-             *      |    |
-             *      1----0
-             *   and the vertice order will still be (0, 1, 2, 3).
+             * &#42; when the text is horizontal it might look like:
+             * 0----1
+             * |    |
+             * 3----2
+             * &#42; when it's rotated 180 degrees around the top-left corner it becomes:
+             * 2----3
+             * |    |
+             * 1----0
+             * and the vertice order will still be (0, 1, 2, 3).
              */
             boundingBox?: BoundingPoly;
             /** Additional information detected for the word. */
@@ -604,10 +568,9 @@ declare namespace gapi.client {
              */
             symbols?: Symbol[];
         }
-        
         interface ImagesResource {
             /** Run image detection and annotation for a batch of images. */
-            annotate(request: {            
+            annotate(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -634,8 +597,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BatchAnnotateImagesResponse>;            
-            
+            }): Request<BatchAnnotateImagesResponse>;
         }
     }
 }

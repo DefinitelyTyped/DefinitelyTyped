@@ -13,42 +13,41 @@
 
 declare namespace gapi.client {
     /** Load Books API v1 */
-    function load(name: "books", version: "v1"): PromiseLike<void>;    
-    function load(name: "books", version: "v1", callback: () => any): void;    
-    
-    const bookshelves: books.BookshelvesResource; 
-    
-    const cloudloading: books.CloudloadingResource; 
-    
-    const dictionary: books.DictionaryResource; 
-    
-    const layers: books.LayersResource; 
-    
-    const myconfig: books.MyconfigResource; 
-    
-    const mylibrary: books.MylibraryResource; 
-    
-    const notification: books.NotificationResource; 
-    
-    const onboarding: books.OnboardingResource; 
-    
-    const personalizedstream: books.PersonalizedstreamResource; 
-    
-    const promooffer: books.PromoofferResource; 
-    
-    const series: books.SeriesResource; 
-    
-    const volumes: books.VolumesResource; 
-    
+    function load(name: "books", version: "v1"): PromiseLike<void>;
+    function load(name: "books", version: "v1", callback: () => any): void;
+
+    const bookshelves: books.BookshelvesResource;
+
+    const cloudloading: books.CloudloadingResource;
+
+    const dictionary: books.DictionaryResource;
+
+    const layers: books.LayersResource;
+
+    const myconfig: books.MyconfigResource;
+
+    const mylibrary: books.MylibraryResource;
+
+    const notification: books.NotificationResource;
+
+    const onboarding: books.OnboardingResource;
+
+    const personalizedstream: books.PersonalizedstreamResource;
+
+    const promooffer: books.PromoofferResource;
+
+    const series: books.SeriesResource;
+
+    const volumes: books.VolumesResource;
+
     namespace books {
-        
         interface Annotation {
             /** Anchor text after excerpt. For requests, if the user bookmarked a screen that has no flowing text on it, then this field should be empty. */
             afterSelectedText?: string;
             /** Anchor text before excerpt. For requests, if the user bookmarked a screen that has no flowing text on it, then this field should be empty. */
             beforeSelectedText?: string;
             /** Selection ranges sent from the client. */
-            clientVersionRanges?: {            
+            clientVersionRanges?: {
                 /** Range in CFI format for this annotation sent by client. */
                 cfiRange?: BooksAnnotationsRange;
                 /** Content version the client sent in. */
@@ -59,11 +58,11 @@ declare namespace gapi.client {
                 gbTextRange?: BooksAnnotationsRange;
                 /** Range in image CFI format for this annotation sent by client. */
                 imageCfiRange?: BooksAnnotationsRange;
-            };            
+            };
             /** Timestamp for the created time of this annotation. */
             created?: string;
             /** Selection ranges for the most recent content version. */
-            currentVersionRanges?: {            
+            currentVersionRanges?: {
                 /** Range in CFI format for this annotation for version above. */
                 cfiRange?: BooksAnnotationsRange;
                 /** Content version applicable to ranges below. */
@@ -74,7 +73,7 @@ declare namespace gapi.client {
                 gbTextRange?: BooksAnnotationsRange;
                 /** Range in image CFI format for this annotation for version above. */
                 imageCfiRange?: BooksAnnotationsRange;
-            };            
+            };
             /** User-created data for this annotation. */
             data?: string;
             /** Indicates that this annotation is deleted. */
@@ -87,14 +86,14 @@ declare namespace gapi.client {
             kind?: string;
             /** The layer this annotation is for. */
             layerId?: string;
-            layerSummary?: {            
+            layerSummary?: {
                 /** Maximum allowed characters on this layer, especially for the "copy" layer. */
                 allowedCharacterCount?: number;
                 /** Type of limitation on this layer. "limited" or "unlimited" for the "copy" layer. */
                 limitType?: string;
                 /** Remaining allowed characters on this layer, especially for the "copy" layer. */
                 remainingCharacterCount?: number;
-            };            
+            };
             /** Pages that this annotation spans. */
             pageIds?: string[];
             /** Excerpt from the volume. */
@@ -106,7 +105,6 @@ declare namespace gapi.client {
             /** The volume that this annotation belongs to. */
             volumeId?: string;
         }
-        
         interface Annotationdata {
             /** The type of annotation this data is for. */
             annotationType?: string;
@@ -126,7 +124,6 @@ declare namespace gapi.client {
             /** The volume id for this data. &#42; */
             volumeId?: string;
         }
-        
         interface Annotations {
             /** A list of annotations. */
             items?: Annotation[];
@@ -137,18 +134,16 @@ declare namespace gapi.client {
             /** Total number of annotations found. This may be greater than the number of notes returned in this response if results have been paginated. */
             totalItems?: number;
         }
-        
         interface AnnotationsSummary {
             kind?: string;
-            layers?: Array<{            
+            layers?: Array<{
                 allowedCharacterCount?: number;
                 layerId?: string;
                 limitType?: string;
                 remainingCharacterCount?: number;
                 updated?: string;
-            }>;            
+            }>;
         }
-        
         interface Annotationsdata {
             /** A list of Annotation Data. */
             items?: Annotationdata[];
@@ -159,7 +154,6 @@ declare namespace gapi.client {
             /** The total number of volume annotations found. */
             totalItems?: number;
         }
-        
         interface BooksAnnotationsRange {
             /** The offset from the ending position. */
             endOffset?: string;
@@ -170,18 +164,15 @@ declare namespace gapi.client {
             /** The starting position for the range. */
             startPosition?: string;
         }
-        
         interface BooksCloudloadingResource {
             author?: string;
             processingState?: string;
             title?: string;
             volumeId?: string;
         }
-        
         interface BooksVolumesRecommendedRateResponse {
             consistency_token?: string;
         }
-        
         interface Bookshelf {
             /** Whether this bookshelf is PUBLIC or PRIVATE. */
             access?: string;
@@ -204,25 +195,22 @@ declare namespace gapi.client {
             /** Last time a volume was added or removed from this bookshelf (formatted UTC timestamp with millisecond resolution). */
             volumesLastUpdated?: string;
         }
-        
         interface Bookshelves {
             /** A list of bookshelves. */
             items?: Bookshelf[];
             /** Resource type. */
             kind?: string;
         }
-        
         interface Category {
             /** A list of onboarding categories. */
-            items?: Array<{            
+            items?: Array<{
                 badgeUrl?: string;
                 categoryId?: string;
                 name?: string;
-            }>;            
+            }>;
             /** Resource type. */
             kind?: string;
         }
-        
         interface ConcurrentAccessRestriction {
             /** Whether access is granted for this (user, device, volume). */
             deviceAllowed?: boolean;
@@ -247,95 +235,92 @@ declare namespace gapi.client {
             /** Identifies the volume for which this entry applies. */
             volumeId?: string;
         }
-        
         interface Dictlayerdata {
-            common?: {            
+            common?: {
                 /** The display title and localized canonical name to use when searching for this entity on Google search. */
                 title?: string;
-            };            
-            dict?: {            
+            };
+            dict?: {
                 /** The source, url and attribution for this dictionary data. */
-                source?: {                
+                source?: {
                     attribution?: string;
                     url?: string;
-                };                
-                words?: Array<{                
-                    derivatives?: Array<{                    
-                        source?: {                        
+                };
+                words?: Array<{
+                    derivatives?: Array<{
+                        source?: {
                             attribution?: string;
                             url?: string;
-                        };                        
+                        };
                         text?: string;
-                    }>;                    
-                    examples?: Array<{                    
-                        source?: {                        
+                    }>;
+                    examples?: Array<{
+                        source?: {
                             attribution?: string;
                             url?: string;
-                        };                        
+                        };
                         text?: string;
-                    }>;                    
-                    senses?: Array<{                    
-                        conjugations?: Array<{                        
+                    }>;
+                    senses?: Array<{
+                        conjugations?: Array<{
                             type?: string;
                             value?: string;
-                        }>;                        
-                        definitions?: Array<{                        
+                        }>;
+                        definitions?: Array<{
                             definition?: string;
-                            examples?: Array<{                            
-                                source?: {                                
+                            examples?: Array<{
+                                source?: {
                                     attribution?: string;
                                     url?: string;
-                                };                                
+                                };
                                 text?: string;
-                            }>;                            
-                        }>;                        
+                            }>;
+                        }>;
                         partOfSpeech?: string;
                         pronunciation?: string;
                         pronunciationUrl?: string;
-                        source?: {                        
+                        source?: {
                             attribution?: string;
                             url?: string;
-                        };                        
+                        };
                         syllabification?: string;
-                        synonyms?: Array<{                        
-                            source?: {                            
+                        synonyms?: Array<{
+                            source?: {
                                 attribution?: string;
                                 url?: string;
-                            };                            
+                            };
                             text?: string;
-                        }>;                        
-                    }>;                    
+                        }>;
+                    }>;
                     /** The words with different meanings but not related words, e.g. "go" (game) and "go" (verb). */
-                    source?: {                    
+                    source?: {
                         attribution?: string;
                         url?: string;
-                    };                    
-                }>;                
-            };            
+                    };
+                }>;
+            };
             kind?: string;
         }
-        
         interface Discoveryclusters {
-            clusters?: Array<{            
-                banner_with_content_container?: {                
+            clusters?: Array<{
+                banner_with_content_container?: {
                     fillColorArgb?: string;
                     imageUrl?: string;
                     maskColorArgb?: string;
                     moreButtonText?: string;
                     moreButtonUrl?: string;
                     textColorArgb?: string;
-                };                
+                };
                 subTitle?: string;
                 title?: string;
                 totalVolumes?: number;
                 uid?: string;
                 volumes?: Volume[];
-            }>;            
+            }>;
             /** Resorce type. */
             kind?: string;
             totalClusters?: number;
         }
-        
         interface DownloadAccessRestriction {
             /** If restricted, whether access is granted for this (user, device, volume). */
             deviceAllowed?: boolean;
@@ -351,7 +336,10 @@ declare namespace gapi.client {
             message?: string;
             /** Client nonce for verification. Download access and client-validation only. */
             nonce?: string;
-            /** Error/warning reason code. Additional codes may be added in the future. 0 OK 100 ACCESS_DENIED_PUBLISHER_LIMIT 101 ACCESS_DENIED_LIMIT 200 WARNING_USED_LAST_ACCESS */
+            /**
+             * Error/warning reason code. Additional codes may be added in the future. 0 OK 100 ACCESS_DENIED_PUBLISHER_LIMIT 101 ACCESS_DENIED_LIMIT 200
+             * WARNING_USED_LAST_ACCESS
+             */
             reasonCode?: string;
             /** Whether this volume has any download access restrictions. */
             restricted?: boolean;
@@ -362,16 +350,14 @@ declare namespace gapi.client {
             /** Identifies the volume for which this entry applies. */
             volumeId?: string;
         }
-        
         interface DownloadAccesses {
             /** A list of download access responses. */
             downloadAccessList?: DownloadAccessRestriction[];
             /** Resource type. */
             kind?: string;
         }
-        
         interface Geolayerdata {
-            common?: {            
+            common?: {
                 /** The language of the information url and description. */
                 lang?: string;
                 /** The URL for the preview image information. */
@@ -382,13 +368,13 @@ declare namespace gapi.client {
                 snippetUrl?: string;
                 /** The display title and localized canonical name to use when searching for this entity on Google search. */
                 title?: string;
-            };            
-            geo?: {            
+            };
+            geo?: {
                 /** The boundary of the location as a set of loops containing pairs of latitude, longitude coordinates. */
-                boundary?: Array<Array<{                
+                boundary?: Array<Array<{
                     latitude?: number;
                     longitude?: number;
-                }>>;                
+                }>>;
                 /** The cache policy active for this data. EX: UNRESTRICTED, RESTRICTED, NEVER */
                 cachePolicy?: string;
                 /** The country code of the location. */
@@ -400,22 +386,24 @@ declare namespace gapi.client {
                 /** The type of map that should be used for this location. EX: HYBRID, ROADMAP, SATELLITE, TERRAIN */
                 mapType?: string;
                 /** The viewport for showing this location. This is a latitude, longitude rectangle. */
-                viewport?: {                
-                    hi?: {                    
+                viewport?: {
+                    hi?: {
                         latitude?: number;
                         longitude?: number;
-                    };                    
-                    lo?: {                    
+                    };
+                    lo?: {
                         latitude?: number;
                         longitude?: number;
-                    };                    
-                };                
-                /** The Zoom level to use for the map. Zoom levels between 0 (the lowest zoom level, in which the entire world can be seen on one map) to 21+ (down to individual buildings). See: https://developers.google.com/maps/documentation/staticmaps/#Zoomlevels */
+                    };
+                };
+                /**
+                 * The Zoom level to use for the map. Zoom levels between 0 (the lowest zoom level, in which the entire world can be seen on one map) to 21+ (down to
+                 * individual buildings). See: https://developers.google.com/maps/documentation/staticmaps/#Zoomlevels
+                 */
                 zoom?: number;
-            };            
+            };
             kind?: string;
         }
-        
         interface Layersummaries {
             /** A list of layer summary items. */
             items?: Layersummary[];
@@ -424,7 +412,6 @@ declare namespace gapi.client {
             /** The total number of layer summaries found. */
             totalItems?: number;
         }
-        
         interface Layersummary {
             /** The number of annotations for this layer. */
             annotationCount?: number;
@@ -448,25 +435,26 @@ declare namespace gapi.client {
             selfLink?: string;
             /** Timestamp for the last time an item in this layer was updated. (RFC 3339 UTC date-time format). */
             updated?: string;
-            /** The current version of this layer's volume annotations. Note that this version applies only to the data in the books.layers.volumeAnnotations.&#42; responses. The actual annotation data is versioned separately. */
+            /**
+             * The current version of this layer's volume annotations. Note that this version applies only to the data in the books.layers.volumeAnnotations.&#42;
+             * responses. The actual annotation data is versioned separately.
+             */
             volumeAnnotationsVersion?: string;
             /** The volume id this resource is for. */
             volumeId?: string;
         }
-        
         interface Metadata {
             /** A list of offline dictionary metadata. */
-            items?: Array<{            
+            items?: Array<{
                 download_url?: string;
                 encrypted_key?: string;
                 language?: string;
                 size?: string;
                 version?: string;
-            }>;            
+            }>;
             /** Resource type. */
             kind?: string;
         }
-        
         interface Notification {
             body?: string;
             /** The list of crm experiment ids. */
@@ -485,26 +473,24 @@ declare namespace gapi.client {
             targetUrl?: string;
             title?: string;
         }
-        
         interface Offers {
             /** A list of offers. */
-            items?: Array<{            
+            items?: Array<{
                 artUrl?: string;
                 gservicesKey?: string;
                 id?: string;
-                items?: Array<{                
+                items?: Array<{
                     author?: string;
                     canonicalVolumeLink?: string;
                     coverUrl?: string;
                     description?: string;
                     title?: string;
                     volumeId?: string;
-                }>;                
-            }>;            
+                }>;
+            }>;
             /** Resource type. */
             kind?: string;
         }
-        
         interface ReadingPosition {
             /** Position in an EPUB as a CFI. */
             epubCfiPosition?: string;
@@ -521,7 +507,6 @@ declare namespace gapi.client {
             /** Volume id associated with this reading position. */
             volumeId?: string;
         }
-        
         interface RequestAccess {
             /** A concurrent access response. */
             concurrentAccess?: ConcurrentAccessRestriction;
@@ -530,13 +515,12 @@ declare namespace gapi.client {
             /** Resource type. */
             kind?: string;
         }
-        
         interface Review {
             /** Author of this review. */
-            author?: {            
+            author?: {
                 /** Name of this person. */
                 displayName?: string;
-            };            
+            };
             /** Review text. */
             content?: string;
             /** Date of this review. */
@@ -548,14 +532,14 @@ declare namespace gapi.client {
             /** Star rating for this review. Possible values are ONE, TWO, THREE, FOUR, FIVE or NOT_RATED. */
             rating?: string;
             /** Information regarding the source of this review, when the review is not from a Google Books user. */
-            source?: {            
+            source?: {
                 /** Name of the source. */
                 description?: string;
                 /** Extra text about the source of the review. */
                 extraDescription?: string;
                 /** URL of the source of the review. */
                 url?: string;
-            };            
+            };
             /** Title for this review. */
             title?: string;
             /** Source type for this review. Possible values are EDITORIAL, WEB_USER or GOOGLE_USER. */
@@ -563,51 +547,53 @@ declare namespace gapi.client {
             /** Volume that this review is for. */
             volumeId?: string;
         }
-        
         interface Series {
             /** Resource type. */
             kind?: string;
-            series?: Array<{            
+            series?: Array<{
                 bannerImageUrl?: string;
                 imageUrl?: string;
                 seriesId?: string;
                 seriesType?: string;
                 title?: string;
-            }>;            
+            }>;
         }
-        
         interface Seriesmembership {
             /** Resorce type. */
             kind?: string;
             member?: Volume[];
             nextPageToken?: string;
         }
-        
         interface Usersettings {
             /** Resource type. */
             kind?: string;
             /** User settings in sub-objects, each for different purposes. */
-            notesExport?: {            
+            notesExport?: {
                 folderName?: string;
                 isEnabled?: boolean;
-            };            
-            notification?: {            
-                moreFromAuthors?: {                
+            };
+            notification?: {
+                moreFromAuthors?: {
                     opted_state?: string;
-                };                
-                moreFromSeries?: {                
+                };
+                moreFromSeries?: {
                     opted_state?: string;
-                };                
-                rewardExpirations?: {                
+                };
+                rewardExpirations?: {
                     opted_state?: string;
-                };                
-            };            
+                };
+            };
         }
-        
         interface Volume {
-            /** Any information about a volume related to reading or obtaining that volume text. This information can depend on country (books may be public domain in one country but not in another, e.g.). */
-            accessInfo?: {            
-                /** Combines the access and viewability of this volume into a single status field for this user. Values can be FULL_PURCHASED, FULL_PUBLIC_DOMAIN, SAMPLE or NONE. (In LITE projection.) */
+            /**
+             * Any information about a volume related to reading or obtaining that volume text. This information can depend on country (books may be public domain in
+             * one country but not in another, e.g.).
+             */
+            accessInfo?: {
+                /**
+                 * Combines the access and viewability of this volume into a single status field for this user. Values can be FULL_PURCHASED, FULL_PUBLIC_DOMAIN, SAMPLE
+                 * or NONE. (In LITE projection.)
+                 */
                 accessViewStatus?: string;
                 /** The two-letter ISO_3166-1 country code for which this access information is valid. (In LITE projection.) */
                 country?: string;
@@ -618,25 +604,28 @@ declare namespace gapi.client {
                 /** Whether this volume can be embedded in a viewport using the Embedded Viewer API. */
                 embeddable?: boolean;
                 /** Information about epub content. (In LITE projection.) */
-                epub?: {                
+                epub?: {
                     /** URL to retrieve ACS token for epub download. (In LITE projection.) */
                     acsTokenLink?: string;
                     /** URL to download epub. (In LITE projection.) */
                     downloadLink?: string;
                     /** Is a flowing text epub available either as public domain or for purchase. (In LITE projection.) */
                     isAvailable?: boolean;
-                };                
-                /** Whether this volume requires that the client explicitly request offline download license rather than have it done automatically when loading the content, if the client supports it. */
+                };
+                /**
+                 * Whether this volume requires that the client explicitly request offline download license rather than have it done automatically when loading the
+                 * content, if the client supports it.
+                 */
                 explicitOfflineLicenseManagement?: boolean;
                 /** Information about pdf content. (In LITE projection.) */
-                pdf?: {                
+                pdf?: {
                     /** URL to retrieve ACS token for pdf download. (In LITE projection.) */
                     acsTokenLink?: string;
                     /** URL to download pdf. (In LITE projection.) */
                     downloadLink?: string;
                     /** Is a scanned image pdf available either as public domain or for purchase. (In LITE projection.) */
                     isAvailable?: boolean;
-                };                
+                };
                 /** Whether or not this book is public domain in the country listed above. */
                 publicDomain?: boolean;
                 /** Whether quote sharing is allowed for this volume. */
@@ -645,11 +634,15 @@ declare namespace gapi.client {
                 textToSpeechPermission?: string;
                 /** For ordered but not yet processed orders, we give a URL that can be used to go to the appropriate Google Wallet page. */
                 viewOrderUrl?: string;
-                /** The read access of a volume. Possible values are PARTIAL, ALL_PAGES, NO_PAGES or UNKNOWN. This value depends on the country listed above. A value of PARTIAL means that the publisher has allowed some portion of the volume to be viewed publicly, without purchase. This can apply to eBooks as well as non-eBooks. Public domain books will always have a value of ALL_PAGES. */
+                /**
+                 * The read access of a volume. Possible values are PARTIAL, ALL_PAGES, NO_PAGES or UNKNOWN. This value depends on the country listed above. A value of
+                 * PARTIAL means that the publisher has allowed some portion of the volume to be viewed publicly, without purchase. This can apply to eBooks as well as
+                 * non-eBooks. Public domain books will always have a value of ALL_PAGES.
+                 */
                 viewability?: string;
                 /** URL to read this volume on the Google Books site. Link will not allow users to read non-viewable volumes. */
                 webReaderLink?: string;
-            };            
+            };
             /** Opaque identifier for a specific version of a volume resource. (In LITE projection) */
             etag?: string;
             /** Unique identifier for a volume. (In LITE projection.) */
@@ -657,22 +650,28 @@ declare namespace gapi.client {
             /** Resource type for a volume. (In LITE projection.) */
             kind?: string;
             /** What layers exist in this volume and high level information about them. */
-            layerInfo?: {            
+            layerInfo?: {
                 /** A layer should appear here if and only if the layer exists for this book. */
-                layers?: Array<{                
+                layers?: Array<{
                     /** The layer id of this layer (e.g. "geo"). */
                     layerId?: string;
-                    /** The current version of this layer's volume annotations. Note that this version applies only to the data in the books.layers.volumeAnnotations.&#42; responses. The actual annotation data is versioned separately. */
+                    /**
+                     * The current version of this layer's volume annotations. Note that this version applies only to the data in the books.layers.volumeAnnotations.&#42;
+                     * responses. The actual annotation data is versioned separately.
+                     */
                     volumeAnnotationsVersion?: string;
-                }>;                
-            };            
+                }>;
+            };
             /** Recommendation related information for this volume. */
-            recommendedInfo?: {            
+            recommendedInfo?: {
                 /** A text explaining why this volume is recommended. */
                 explanation?: string;
-            };            
-            /** Any information about a volume related to the eBookstore and/or purchaseability. This information can depend on the country where the request originates from (i.e. books may not be for sale in certain countries). */
-            saleInfo?: {            
+            };
+            /**
+             * Any information about a volume related to the eBookstore and/or purchaseability. This information can depend on the country where the request
+             * originates from (i.e. books may not be for sale in certain countries).
+             */
+            saleInfo?: {
                 /** URL to purchase this volume on the Google Books site. (In LITE projection) */
                 buyLink?: string;
                 /** The two-letter ISO_3166-1 country code for which this sale information is valid. (In LITE projection.) */
@@ -680,77 +679,89 @@ declare namespace gapi.client {
                 /** Whether or not this volume is an eBook (can be added to the My eBooks shelf). */
                 isEbook?: boolean;
                 /** Suggested retail price. (In LITE projection.) */
-                listPrice?: {                
+                listPrice?: {
                     /** Amount in the currency listed below. (In LITE projection.) */
                     amount?: number;
                     /** An ISO 4217, three-letter currency code. (In LITE projection.) */
                     currencyCode?: string;
-                };                
+                };
                 /** Offers available for this volume (sales and rentals). */
-                offers?: Array<{                
+                offers?: Array<{
                     /** The finsky offer type (e.g., PURCHASE=0 RENTAL=3) */
                     finskyOfferType?: number;
                     /** Indicates whether the offer is giftable. */
                     giftable?: boolean;
                     /** Offer list (=undiscounted) price in Micros. */
-                    listPrice?: {                    
+                    listPrice?: {
                         amountInMicros?: number;
                         currencyCode?: string;
-                    };                    
+                    };
                     /** The rental duration (for rental offers only). */
-                    rentalDuration?: {                    
+                    rentalDuration?: {
                         count?: number;
                         unit?: string;
-                    };                    
+                    };
                     /** Offer retail (=discounted) price in Micros */
-                    retailPrice?: {                    
+                    retailPrice?: {
                         amountInMicros?: number;
                         currencyCode?: string;
-                    };                    
-                }>;                
+                    };
+                }>;
                 /** The date on which this book is available for sale. */
                 onSaleDate?: string;
-                /** The actual selling price of the book. This is the same as the suggested retail or list price unless there are offers or discounts on this volume. (In LITE projection.) */
-                retailPrice?: {                
+                /**
+                 * The actual selling price of the book. This is the same as the suggested retail or list price unless there are offers or discounts on this volume. (In
+                 * LITE projection.)
+                 */
+                retailPrice?: {
                     /** Amount in the currency listed below. (In LITE projection.) */
                     amount?: number;
                     /** An ISO 4217, three-letter currency code. (In LITE projection.) */
                     currencyCode?: string;
-                };                
-                /** Whether or not this book is available for sale or offered for free in the Google eBookstore for the country listed above. Possible values are FOR_SALE, FOR_RENTAL_ONLY, FOR_SALE_AND_RENTAL, FREE, NOT_FOR_SALE, or FOR_PREORDER. */
+                };
+                /**
+                 * Whether or not this book is available for sale or offered for free in the Google eBookstore for the country listed above. Possible values are FOR_SALE,
+                 * FOR_RENTAL_ONLY, FOR_SALE_AND_RENTAL, FREE, NOT_FOR_SALE, or FOR_PREORDER.
+                 */
                 saleability?: string;
-            };            
+            };
             /** Search result information related to this volume. */
-            searchInfo?: {            
+            searchInfo?: {
                 /** A text snippet containing the search query. */
                 textSnippet?: string;
-            };            
+            };
             /** URL to this resource. (In LITE projection.) */
             selfLink?: string;
             /** User specific information related to this volume. (e.g. page this user last read or whether they purchased this book) */
-            userInfo?: {            
-                /** Timestamp when this volume was acquired by the user. (RFC 3339 UTC date-time format) Acquiring includes purchase, user upload, receiving family sharing, etc. */
+            userInfo?: {
+                /**
+                 * Timestamp when this volume was acquired by the user. (RFC 3339 UTC date-time format) Acquiring includes purchase, user upload, receiving family
+                 * sharing, etc.
+                 */
                 acquiredTime?: string;
                 /** How this volume was acquired. */
                 acquisitionType?: number;
                 /** Copy/Paste accounting information. */
-                copy?: {                
+                copy?: {
                     allowedCharacterCount?: number;
                     limitType?: string;
                     remainingCharacterCount?: number;
                     updated?: string;
-                };                
+                };
                 /** Whether this volume is purchased, sample, pd download etc. */
                 entitlementType?: number;
                 /** Information on the ability to share with the family. */
-                familySharing?: {                
+                familySharing?: {
                     /** The role of the user in the family. */
                     familyRole?: string;
-                    /** Whether or not this volume can be shared with the family by the user. This includes sharing eligibility of both the volume and the user. If the value is true, the user can initiate a family sharing action. */
+                    /**
+                     * Whether or not this volume can be shared with the family by the user. This includes sharing eligibility of both the volume and the user. If the value
+                     * is true, the user can initiate a family sharing action.
+                     */
                     isSharingAllowed?: boolean;
                     /** Whether or not sharing this volume is temporarily disabled due to issues with the Family Wallet. */
                     isSharingDisabledByFop?: boolean;
-                };                
+                };
                 /** Whether or not the user shared this volume with the family. */
                 isFamilySharedFromUser?: boolean;
                 /** Whether or not the user received this volume through family sharing. */
@@ -770,22 +781,25 @@ declare namespace gapi.client {
                 /** The user's current reading position in the volume, if one is available. (In LITE projection.) */
                 readingPosition?: ReadingPosition;
                 /** Period during this book is/was a valid rental. */
-                rentalPeriod?: {                
+                rentalPeriod?: {
                     endUtcSec?: string;
                     startUtcSec?: string;
-                };                
+                };
                 /** Whether this book is an active or an expired rental. */
                 rentalState?: string;
                 /** This user's review of this volume, if one exists. */
                 review?: Review;
-                /** Timestamp when this volume was last modified by a user action, such as a reading position update, volume purchase or writing a review. (RFC 3339 UTC date-time format). */
+                /**
+                 * Timestamp when this volume was last modified by a user action, such as a reading position update, volume purchase or writing a review. (RFC 3339 UTC
+                 * date-time format).
+                 */
                 updated?: string;
-                userUploadedVolumeInfo?: {                
+                userUploadedVolumeInfo?: {
                     processingState?: string;
-                };                
-            };            
+                };
+            };
             /** General volume information. */
-            volumeInfo?: {            
+            volumeInfo?: {
                 /** Whether anonymous logging should be allowed. */
                 allowAnonLogging?: boolean;
                 /** The names of the authors and/or editors for this volume. (In LITE projection) */
@@ -798,19 +812,22 @@ declare namespace gapi.client {
                 categories?: string[];
                 /** An identifier for the version of the volume content (text & images). (In LITE projection) */
                 contentVersion?: string;
-                /** A synopsis of the volume. The text of the description is formatted in HTML and includes simple formatting elements, such as b, i, and br tags. (In LITE projection.) */
+                /**
+                 * A synopsis of the volume. The text of the description is formatted in HTML and includes simple formatting elements, such as b, i, and br tags. (In LITE
+                 * projection.)
+                 */
                 description?: string;
                 /** Physical dimensions of this volume. */
-                dimensions?: {                
+                dimensions?: {
                     /** Height or length of this volume (in cm). */
                     height?: string;
                     /** Thickness of this volume (in cm). */
                     thickness?: string;
                     /** Width of this volume (in cm). */
                     width?: string;
-                };                
+                };
                 /** A list of image links for all the sizes that are available. (In LITE projection.) */
-                imageLinks?: {                
+                imageLinks?: {
                     /** Image link for extra large size (width of ~1280 pixels). (In LITE projection) */
                     extraLarge?: string;
                     /** Image link for large size (width of ~800 pixels). (In LITE projection) */
@@ -823,14 +840,14 @@ declare namespace gapi.client {
                     smallThumbnail?: string;
                     /** Image link for thumbnail size (width of ~128 pixels). (In LITE projection) */
                     thumbnail?: string;
-                };                
+                };
                 /** Industry standard identifiers for this volume. */
-                industryIdentifiers?: Array<{                
+                industryIdentifiers?: Array<{
                     /** Industry specific volume identifier. */
                     identifier?: string;
                     /** Identifier type. Possible values are ISBN_10, ISBN_13, ISSN and OTHER. */
                     type?: string;
-                }>;                
+                }>;
                 /** URL to view information about this volume on the Google Books site. (In LITE projection) */
                 infoLink?: string;
                 /** Best language for this volume (based on content). It is the two-letter ISO 639-1 code such as 'fr', 'en', etc. */
@@ -841,12 +858,12 @@ declare namespace gapi.client {
                 /** Total number of pages as per publisher metadata. */
                 pageCount?: number;
                 /** A top-level summary of the panelization info in this volume. */
-                panelizationSummary?: {                
+                panelizationSummary?: {
                     containsEpubBubbles?: boolean;
                     containsImageBubbles?: boolean;
                     epubBubbleVersion?: string;
                     imageBubbleVersion?: string;
-                };                
+                };
                 /** URL to preview this volume on the Google Books site. */
                 previewLink?: string;
                 /** Type of publication of this volume. Possible values are BOOK or MAGAZINE. */
@@ -868,9 +885,8 @@ declare namespace gapi.client {
                 subtitle?: string;
                 /** Volume title. (In LITE projection.) */
                 title?: string;
-            };            
+            };
         }
-        
         interface Volume2 {
             /** A list of volumes. */
             items?: Volume[];
@@ -878,7 +894,6 @@ declare namespace gapi.client {
             kind?: string;
             nextPageToken?: string;
         }
-        
         interface Volumeannotation {
             /** The annotation data id for this volume annotation. */
             annotationDataId?: string;
@@ -887,7 +902,7 @@ declare namespace gapi.client {
             /** The type of annotation this is. */
             annotationType?: string;
             /** The content ranges to identify the selected text. */
-            contentRanges?: {            
+            contentRanges?: {
                 /** Range in CFI format for this annotation for version above. */
                 cfiRange?: BooksAnnotationsRange;
                 /** Content version applicable to ranges below. */
@@ -896,7 +911,7 @@ declare namespace gapi.client {
                 gbImageRange?: BooksAnnotationsRange;
                 /** Range in GB text format for this annotation for version above. */
                 gbTextRange?: BooksAnnotationsRange;
-            };            
+            };
             /** Data for this annotation. */
             data?: string;
             /** Indicates that this annotation is deleted. */
@@ -918,7 +933,6 @@ declare namespace gapi.client {
             /** The Volume this annotation is for. */
             volumeId?: string;
         }
-        
         interface Volumeannotations {
             /** A list of volume annotations. */
             items?: Volumeannotation[];
@@ -928,10 +942,12 @@ declare namespace gapi.client {
             nextPageToken?: string;
             /** The total number of volume annotations found. */
             totalItems?: number;
-            /** The version string for all of the volume annotations in this layer (not just the ones in this response). Note: the version string doesn't apply to the annotation data, just the information in this response (e.g. the location of annotations in the book). */
+            /**
+             * The version string for all of the volume annotations in this layer (not just the ones in this response). Note: the version string doesn't apply to the
+             * annotation data, just the information in this response (e.g. the location of annotations in the book).
+             */
             version?: string;
         }
-        
         interface Volumes {
             /** A list of volumes. */
             items?: Volume[];
@@ -940,7 +956,6 @@ declare namespace gapi.client {
             /** Total number of volumes found. This might be greater than the number of volumes returned in this response if results have been paginated. */
             totalItems?: number;
         }
-        
         interface Volumeseriesinfo {
             /** The display number string. This should be used only for display purposes and the actual sequence should be inferred from the below orderNumber. */
             bookDisplayNumber?: string;
@@ -948,24 +963,23 @@ declare namespace gapi.client {
             kind?: string;
             /** Short book title in the context of the series. */
             shortSeriesBookTitle?: string;
-            volumeSeries?: Array<{            
+            volumeSeries?: Array<{
                 /** List of issues. Applicable only for Collection Edition and Omnibus. */
-                issue?: Array<{                
+                issue?: Array<{
                     issueDisplayNumber?: string;
                     issueOrderNumber?: number;
-                }>;                
+                }>;
                 /** The book order number in the series. */
                 orderNumber?: number;
                 /** The book type in the context of series. Examples - Single Issue, Collection Edition, etc. */
                 seriesBookType?: string;
                 /** The series id. */
                 seriesId?: string;
-            }>;            
+            }>;
         }
-        
         interface VolumesResource {
             /** Retrieves volumes in a specific bookshelf for the specified user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -978,7 +992,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of bookshelf to retrieve volumes. */
                 shelf: string;
@@ -992,13 +1009,11 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Volumes>;            
-            
+            }): Request<Volumes>;
         }
-        
         interface BookshelvesResource {
             /** Retrieves metadata for a specific bookshelf for the specified user. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1009,7 +1024,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of bookshelf to retrieve. */
                 shelf: string;
@@ -1019,10 +1037,9 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Bookshelf>;            
-            
+            }): Request<Bookshelf>;
             /** Retrieves a list of public bookshelves for the specified user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1033,7 +1050,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -1041,13 +1061,11 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Bookshelves>;            
-            
+            }): Request<Bookshelves>;
             volumes: VolumesResource;
         }
-        
         interface CloudloadingResource {
-            addBook(request: {            
+            addBook(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** A drive document id. The upload_client_token must not be set. */
@@ -1064,15 +1082,17 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 upload_client_token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<BooksCloudloadingResource>;            
-            
+            }): Request<BooksCloudloadingResource>;
             /** Remove the book and its contents */
-            deleteBook(request: {            
+            deleteBook(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1083,15 +1103,17 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The id of the book to be removed. */
                 volumeId: string;
-            }): Request<void>;            
-            
-            updateBook(request: {            
+            }): Request<void>;
+            updateBook(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1102,17 +1124,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<BooksCloudloadingResource>;            
-            
+            }): Request<BooksCloudloadingResource>;
         }
-        
         interface DictionaryResource {
             /** Returns a list of offline dictionary metadata available */
-            listOfflineMetadata(request: {            
+            listOfflineMetadata(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The device/version ID from which to request the data. */
@@ -1125,17 +1148,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Metadata>;            
-            
+            }): Request<Metadata>;
         }
-        
         interface AnnotationDataResource {
             /** Gets the annotation data. */
-            get(request: {            
+            get(request: {
                 /** For the dictionary layer. Whether or not to allow web definitions. */
                 allowWebDefinitions?: boolean;
                 /** Data format for the response. */
@@ -1158,7 +1182,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The requested scale for the image. */
                 scale?: number;
@@ -1170,10 +1197,9 @@ declare namespace gapi.client {
                 volumeId: string;
                 /** The requested pixel width for any images. If width is provided height must also be provided. */
                 w?: number;
-            }): Request<Annotationdata>;            
-            
+            }): Request<Annotationdata>;
             /** Gets the annotation data for a volume and layer. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The list of Annotation Data Ids to retrieve. Pagination is ignored if this is set. */
@@ -1198,7 +1224,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The requested scale for the image. */
                 scale?: number;
@@ -1214,13 +1243,11 @@ declare namespace gapi.client {
                 volumeId: string;
                 /** The requested pixel width for any images. If width is provided height must also be provided. */
                 w?: number;
-            }): Request<Annotationsdata>;            
-            
+            }): Request<Annotationsdata>;
         }
-        
         interface VolumeAnnotationsResource {
             /** Gets the volume annotation. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the volume annotation to retrieve. */
@@ -1237,7 +1264,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -1245,10 +1275,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The volume to retrieve annotations for. */
                 volumeId: string;
-            }): Request<Volumeannotation>;            
-            
+            }): Request<Volumeannotation>;
             /** Gets the volume annotations for a volume and layer. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The content version for the requested volume. */
@@ -1273,7 +1302,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Set to true to return deleted annotations. updatedMin must be in the request to use this. Defaults to false. */
                 showDeleted?: boolean;
@@ -1293,13 +1325,11 @@ declare namespace gapi.client {
                 volumeAnnotationsVersion?: string;
                 /** The volume to retrieve annotations for. */
                 volumeId: string;
-            }): Request<Volumeannotations>;            
-            
+            }): Request<Volumeannotations>;
         }
-        
         interface LayersResource {
             /** Gets the layer summary for a volume. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The content version for the requested volume. */
@@ -1312,7 +1342,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -1322,10 +1355,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The volume to retrieve layers for. */
                 volumeId: string;
-            }): Request<Layersummary>;            
-            
+            }): Request<Layersummary>;
             /** List the layer summaries for a volume. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The content version for the requested volume. */
@@ -1342,7 +1374,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -1350,15 +1385,13 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The volume to retrieve layers for. */
                 volumeId: string;
-            }): Request<Layersummaries>;            
-            
+            }): Request<Layersummaries>;
             annotationData: AnnotationDataResource;
             volumeAnnotations: VolumeAnnotationsResource;
         }
-        
         interface MyconfigResource {
             /** Gets the current settings for the user. */
-            getUserSettings(request: {            
+            getUserSettings(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1369,14 +1402,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Usersettings>;            
-            
+            }): Request<Usersettings>;
             /** Release downloaded content access restriction. */
-            releaseDownloadAccess(request: {            
+            releaseDownloadAccess(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The device/version ID from which to release the restriction. */
@@ -1391,7 +1426,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -1399,10 +1437,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The volume(s) to release restrictions for. */
                 volumeIds: string;
-            }): Request<DownloadAccesses>;            
-            
+            }): Request<DownloadAccesses>;
             /** Request concurrent and download access restrictions. */
-            requestAccess(request: {            
+            requestAccess(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The device/version ID from which to request the restrictions. */
@@ -1421,7 +1458,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source: string;
@@ -1429,10 +1469,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The volume to request concurrent/download restrictions for. */
                 volumeId: string;
-            }): Request<RequestAccess>;            
-            
+            }): Request<RequestAccess>;
             /** Request downloaded content access for specified volumes on the My eBooks shelf. */
-            syncVolumeLicenses(request: {            
+            syncVolumeLicenses(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The device/version ID from which to release the restriction. */
@@ -1453,7 +1492,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Set to true to show pre-ordered books. Defaults to false. */
                 showPreorders?: boolean;
@@ -1463,10 +1505,12 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The volume(s) to request download restrictions for. */
                 volumeIds?: string;
-            }): Request<Volumes>;            
-            
-            /** Sets the settings for the user. If a sub-object is specified, it will overwrite the existing sub-object stored in the server. Unspecified sub-objects will retain the existing value. */
-            updateUserSettings(request: {            
+            }): Request<Volumes>;
+            /**
+             * Sets the settings for the user. If a sub-object is specified, it will overwrite the existing sub-object stored in the server. Unspecified sub-objects
+             * will retain the existing value.
+             */
+            updateUserSettings(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1477,17 +1521,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Usersettings>;            
-            
+            }): Request<Usersettings>;
         }
-        
         interface AnnotationsResource {
             /** Deletes an annotation. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID for the annotation to delete. */
@@ -1500,16 +1545,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Inserts a new annotation. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID for the annotation to insert. */
@@ -1524,7 +1571,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Requests that only the summary of the specified layer be provided in the response. */
                 showOnlySummaryInResponse?: boolean;
@@ -1532,10 +1582,9 @@ declare namespace gapi.client {
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Annotation>;            
-            
+            }): Request<Annotation>;
             /** Retrieves a list of annotations, possibly filtered. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The content version for the requested volume. */
@@ -1556,7 +1605,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Set to true to return deleted annotations. updatedMin must be in the request to use this. Defaults to false. */
                 showDeleted?: boolean;
@@ -1570,10 +1622,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The volume to restrict annotations to. */
                 volumeId?: string;
-            }): Request<Annotations>;            
-            
+            }): Request<Annotations>;
             /** Gets the summary of specified layers. */
-            summary(request: {            
+            summary(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1586,16 +1637,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Volume id to get the summary for. */
                 volumeId: string;
-            }): Request<AnnotationsSummary>;            
-            
+            }): Request<AnnotationsSummary>;
             /** Updates an existing annotation. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID for the annotation to update. */
@@ -1608,19 +1661,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Annotation>;            
-            
+            }): Request<Annotation>;
         }
-        
         interface VolumesResource {
             /** Gets volume information for volumes on a bookshelf. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ISO-3166-1 code to override the IP-based location. */
@@ -1639,7 +1693,10 @@ declare namespace gapi.client {
                 projection?: string;
                 /** Full-text search query string in this bookshelf. */
                 q?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The bookshelf ID or name retrieve volumes for. */
                 shelf: string;
@@ -1651,13 +1708,11 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Volumes>;            
-            
+            }): Request<Volumes>;
         }
-        
         interface BookshelvesResource {
             /** Adds a volume to a bookshelf. */
-            addVolume(request: {            
+            addVolume(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1668,7 +1723,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The reason for which the book is added to the library. */
                 reason?: string;
@@ -1680,10 +1738,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of volume to add. */
                 volumeId: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Clears all volumes from a bookshelf. */
-            clearVolumes(request: {            
+            clearVolumes(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1694,7 +1751,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of bookshelf from which to remove a volume. */
                 shelf: string;
@@ -1702,10 +1762,9 @@ declare namespace gapi.client {
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves metadata for a specific bookshelf belonging to the authenticated user. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1716,7 +1775,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of bookshelf to retrieve. */
                 shelf: string;
@@ -1724,10 +1786,9 @@ declare namespace gapi.client {
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Bookshelf>;            
-            
+            }): Request<Bookshelf>;
             /** Retrieves a list of bookshelves belonging to the authenticated user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1738,16 +1799,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Bookshelves>;            
-            
+            }): Request<Bookshelves>;
             /** Moves a volume within a bookshelf. */
-            moveVolume(request: {            
+            moveVolume(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1758,7 +1821,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** ID of bookshelf with the volume. */
                 shelf: string;
@@ -1770,10 +1836,9 @@ declare namespace gapi.client {
                 volumeId: string;
                 /** Position on shelf to move the item (0 puts the item before the current first item, 1 puts it between the first and the second and so on.) */
                 volumePosition: number;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Removes a volume from a bookshelf. */
-            removeVolume(request: {            
+            removeVolume(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1784,7 +1849,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The reason for which the book is removed from the library. */
                 reason?: string;
@@ -1796,14 +1864,12 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of volume to remove. */
                 volumeId: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             volumes: VolumesResource;
         }
-        
         interface ReadingpositionsResource {
             /** Retrieves my reading position information for a volume. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Volume content version for which this reading position is requested. */
@@ -1816,7 +1882,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -1824,10 +1893,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of volume for which to retrieve a reading position. */
                 volumeId: string;
-            }): Request<ReadingPosition>;            
-            
+            }): Request<ReadingPosition>;
             /** Sets my reading position information for a volume. */
-            setPosition(request: {            
+            setPosition(request: {
                 /** Action that caused this reading position to be set. */
                 action?: string;
                 /** Data format for the response. */
@@ -1846,7 +1914,10 @@ declare namespace gapi.client {
                 position: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -1856,19 +1927,16 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of volume for which to update the reading position. */
                 volumeId: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface MylibraryResource {
             annotations: AnnotationsResource;
             bookshelves: BookshelvesResource;
             readingpositions: ReadingpositionsResource;
         }
-        
         interface NotificationResource {
             /** Returns notification details for a given notification id. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1883,19 +1951,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Notification>;            
-            
+            }): Request<Notification>;
         }
-        
         interface OnboardingResource {
             /** List categories for onboarding experience. */
-            listCategories(request: {            
+            listCategories(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1908,14 +1977,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Category>;            
-            
+            }): Request<Category>;
             /** List available volumes under categories for onboarding experience. */
-            listCategoryVolumes(request: {            
+            listCategoryVolumes(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** List of category ids requested. */
@@ -1936,17 +2007,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Volume2>;            
-            
+            }): Request<Volume2>;
         }
-        
         interface PersonalizedstreamResource {
             /** Returns a stream of personalized book clusters */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1961,18 +2033,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Discoveryclusters>;            
-            
+            }): Request<Discoveryclusters>;
         }
-        
         interface PromoofferResource {
-            accept(request: {            
+            accept(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** device android_id */
@@ -1994,7 +2067,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** device product */
                 product?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** device serial */
                 serial?: string;
@@ -2002,9 +2078,8 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Volume id to exercise the offer */
                 volumeId?: string;
-            }): Request<void>;            
-            
-            dismiss(request: {            
+            }): Request<void>;
+            dismiss(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** device android_id */
@@ -2027,16 +2102,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** device product */
                 product?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** device serial */
                 serial?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns a list of promo offers available to the user */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** device android_id */
@@ -2057,19 +2134,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** device product */
                 product?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** device serial */
                 serial?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Offers>;            
-            
+            }): Request<Offers>;
         }
-        
         interface MembershipResource {
             /** Returns Series membership data given the series id. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2084,19 +2162,20 @@ declare namespace gapi.client {
                 page_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String that identifies the series */
                 series_id: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Seriesmembership>;            
-            
+            }): Request<Seriesmembership>;
         }
-        
         interface SeriesResource {
             /** Returns Series metadata for the given series ids. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2107,20 +2186,21 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String that identifies the series */
                 series_id: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Series>;            
-            
+            }): Request<Series>;
             membership: MembershipResource;
         }
-        
         interface AssociatedResource {
             /** Return a list of associated books. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Association type. */
@@ -2137,7 +2217,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -2145,13 +2228,11 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of the source volume. */
                 volumeId: string;
-            }): Request<Volumes>;            
-            
+            }): Request<Volumes>;
         }
-        
         interface MybooksResource {
             /** Return a list of books in My Library. */
-            list(request: {            
+            list(request: {
                 /** How the book was acquired */
                 acquireMethod?: string;
                 /** Data format for the response. */
@@ -2172,7 +2253,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The processing state of the user uploaded volumes to be returned. Applicable only if the UPLOADED is specified in the acquireMethod. */
                 processingState?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -2180,13 +2264,11 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Volumes>;            
-            
+            }): Request<Volumes>;
         }
-        
         interface RecommendedResource {
             /** Return a list of recommended books for the current user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2201,16 +2283,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Volumes>;            
-            
+            }): Request<Volumes>;
             /** Rate a recommended book for the current user. */
-            rate(request: {            
+            rate(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2223,7 +2307,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Rating to be given to the volume. */
                 rating: string;
@@ -2233,13 +2320,11 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of the source volume. */
                 volumeId: string;
-            }): Request<BooksVolumesRecommendedRateResponse>;            
-            
+            }): Request<BooksVolumesRecommendedRateResponse>;
         }
-        
         interface UseruploadedResource {
             /** Return a list of books uploaded by the current user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2256,7 +2341,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The processing state of the user uploaded volumes to be returned. */
                 processingState?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -2266,13 +2354,11 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ids of the volumes to be returned. If not specified all that match the processingState are returned. */
                 volumeId?: string;
-            }): Request<Volumes>;            
-            
+            }): Request<Volumes>;
         }
-        
         interface VolumesResource {
             /** Gets volume information for a single volume. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** ISO-3166-1 code to override the IP-based location. */
@@ -2291,7 +2377,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Restrict information returned to a set of selected fields. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
@@ -2300,10 +2389,9 @@ declare namespace gapi.client {
                 user_library_consistent_read?: boolean;
                 /** ID of volume to retrieve. */
                 volumeId: string;
-            }): Request<Volume>;            
-            
+            }): Request<Volume>;
             /** Performs a book search. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Restrict to volumes by download availability. */
@@ -2336,7 +2424,10 @@ declare namespace gapi.client {
                 projection?: string;
                 /** Full-text search query string. */
                 q: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Set to true to show books available for preorder. Defaults to false. */
                 showPreorders?: boolean;
@@ -2346,8 +2437,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Volumes>;            
-            
+            }): Request<Volumes>;
             associated: AssociatedResource;
             mybooks: MybooksResource;
             recommended: RecommendedResource;

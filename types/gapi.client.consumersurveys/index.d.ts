@@ -13,22 +13,20 @@
 
 declare namespace gapi.client {
     /** Load Consumer Surveys API v2 */
-    function load(name: "consumersurveys", version: "v2"): PromiseLike<void>;    
-    function load(name: "consumersurveys", version: "v2", callback: () => any): void;    
-    
-    const mobileapppanels: consumersurveys.MobileapppanelsResource; 
-    
-    const results: consumersurveys.ResultsResource; 
-    
-    const surveys: consumersurveys.SurveysResource; 
-    
+    function load(name: "consumersurveys", version: "v2"): PromiseLike<void>;
+    function load(name: "consumersurveys", version: "v2", callback: () => any): void;
+
+    const mobileapppanels: consumersurveys.MobileapppanelsResource;
+
+    const results: consumersurveys.ResultsResource;
+
+    const surveys: consumersurveys.SurveysResource;
+
     namespace consumersurveys {
-        
         interface FieldMask {
             fields?: FieldMask[];
             id?: number;
         }
-        
         interface MobileAppPanel {
             country?: string;
             isPublicPanel?: boolean;
@@ -37,7 +35,6 @@ declare namespace gapi.client {
             name?: string;
             owners?: string[];
         }
-        
         interface MobileAppPanelsListResponse {
             pageInfo?: PageInfo;
             /** Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests. */
@@ -46,22 +43,18 @@ declare namespace gapi.client {
             resources?: MobileAppPanel[];
             tokenPagination?: TokenPagination;
         }
-        
         interface PageInfo {
             resultPerPage?: number;
             startIndex?: number;
             totalResults?: number;
         }
-        
         interface ResultsGetRequest {
             resultMask?: ResultsMask;
         }
-        
         interface ResultsMask {
             fields?: FieldMask[];
             projection?: string;
         }
-        
         interface Survey {
             audience?: SurveyAudience;
             cost?: SurveyCost;
@@ -75,7 +68,6 @@ declare namespace gapi.client {
             title?: string;
             wantedResponseCount?: number;
         }
-        
         interface SurveyAudience {
             ages?: string[];
             country?: string;
@@ -85,14 +77,12 @@ declare namespace gapi.client {
             mobileAppPanelId?: string;
             populationSource?: string;
         }
-        
         interface SurveyCost {
             costPerResponseNanos?: string;
             currencyCode?: string;
             maxCostPerResponseNanos?: string;
             nanos?: string;
         }
-        
         interface SurveyQuestion {
             answerOrder?: string;
             answers?: string[];
@@ -113,28 +103,23 @@ declare namespace gapi.client {
             unitOfMeasurementLabel?: string;
             videoId?: string;
         }
-        
         interface SurveyQuestionImage {
             altText?: string;
             data?: string;
             url?: string;
         }
-        
         interface SurveyRejection {
             explanation?: string;
             type?: string;
         }
-        
         interface SurveyResults {
             status?: string;
             surveyUrlId?: string;
         }
-        
         interface SurveysDeleteResponse {
             /** Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests. */
             requestId?: string;
         }
-        
         interface SurveysListResponse {
             pageInfo?: PageInfo;
             /** Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests. */
@@ -143,30 +128,25 @@ declare namespace gapi.client {
             resources?: Survey[];
             tokenPagination?: TokenPagination;
         }
-        
         interface SurveysStartRequest {
             /** Threshold to start a survey automically if the quoted prices is less than or equal to this value. See Survey.Cost for more details. */
             maxCostPerResponseNanos?: string;
         }
-        
         interface SurveysStartResponse {
             /** Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests. */
             requestId?: string;
         }
-        
         interface SurveysStopResponse {
             /** Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests. */
             requestId?: string;
         }
-        
         interface TokenPagination {
             nextPageToken?: string;
             previousPageToken?: string;
         }
-        
         interface MobileapppanelsResource {
             /** Retrieves a MobileAppPanel that is available to the authenticated user. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -179,14 +159,16 @@ declare namespace gapi.client {
                 panelId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<MobileAppPanel>;            
-            
+            }): Request<MobileAppPanel>;
             /** Lists the MobileAppPanels available to the authenticated user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -198,16 +180,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 startIndex?: number;
                 token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<MobileAppPanelsListResponse>;            
-            
+            }): Request<MobileAppPanelsListResponse>;
             /** Updates a MobileAppPanel. Currently the only property that can be updated is the owners property. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -220,17 +204,21 @@ declare namespace gapi.client {
                 panelId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<MobileAppPanel>;            
-            
+            }): Request<MobileAppPanel>;
         }
-        
         interface ResultsResource {
-            /** Retrieves any survey results that have been produced so far. Results are formatted as an Excel file. You must add "?alt=media" to the URL as an argument to get results. */
-            get(request: {            
+            /**
+             * Retrieves any survey results that have been produced so far. Results are formatted as an Excel file. You must add "?alt=media" to the URL as an
+             * argument to get results.
+             */
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -241,19 +229,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SurveyResults>;            
-            
+            }): Request<SurveyResults>;
         }
-        
         interface SurveysResource {
             /** Removes a survey from view in all user GET requests. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -264,16 +253,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SurveysDeleteResponse>;            
-            
+            }): Request<SurveysDeleteResponse>;
             /** Retrieves information about the specified survey. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -284,16 +275,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Survey>;            
-            
+            }): Request<Survey>;
             /** Creates a survey. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -304,14 +297,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Survey>;            
-            
+            }): Request<Survey>;
             /** Lists the surveys owned by the authenticated user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -323,16 +318,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 startIndex?: number;
                 token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SurveysListResponse>;            
-            
+            }): Request<SurveysListResponse>;
             /** Begins running a survey. */
-            start(request: {            
+            start(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -343,15 +340,17 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 resourceId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SurveysStartResponse>;            
-            
+            }): Request<SurveysStartResponse>;
             /** Stops a running survey. */
-            stop(request: {            
+            stop(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -362,15 +361,17 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 resourceId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SurveysStopResponse>;            
-            
+            }): Request<SurveysStopResponse>;
             /** Updates a survey. Currently the only property that can be updated is the owners property. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -381,14 +382,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Survey>;            
-            
+            }): Request<Survey>;
         }
     }
 }

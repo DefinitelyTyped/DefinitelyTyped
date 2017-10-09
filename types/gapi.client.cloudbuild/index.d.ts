@@ -13,15 +13,14 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Container Builder API v1 */
-    function load(name: "cloudbuild", version: "v1"): PromiseLike<void>;    
-    function load(name: "cloudbuild", version: "v1", callback: () => any): void;    
-    
-    const operations: cloudbuild.OperationsResource; 
-    
-    const projects: cloudbuild.ProjectsResource; 
-    
+    function load(name: "cloudbuild", version: "v1"): PromiseLike<void>;
+    function load(name: "cloudbuild", version: "v1", callback: () => any): void;
+
+    const operations: cloudbuild.OperationsResource;
+
+    const projects: cloudbuild.ProjectsResource;
+
     namespace cloudbuild {
-        
         interface Build {
             /**
              * The ID of the BuildTrigger that triggered this build, if it was
@@ -36,7 +35,7 @@ declare namespace gapi.client {
             createTime?: string;
             /**
              * Time at which execution of the build was finished.
-             * 
+             *
              * The difference between finish_time and start_time is the duration of the
              * build's execution.
              * @OutputOnly
@@ -50,12 +49,12 @@ declare namespace gapi.client {
             /**
              * A list of images to be pushed upon the successful completion of all build
              * steps.
-             * 
+             *
              * The images will be pushed using the builder service account's credentials.
-             * 
+             *
              * The digests of the pushed images will be stored in the Build resource's
              * results field.
-             * 
+             *
              * If any of the images fail to be pushed, the build is marked FAILURE.
              */
             images?: string[];
@@ -110,24 +109,22 @@ declare namespace gapi.client {
             /** Describes the operations to be performed on the workspace. */
             steps?: BuildStep[];
             /** Substitutions data for Build resource. */
-            substitutions?: Record<string, string>;            
+            substitutions?: Record<string, string>;
             /** Tags for annotation of a Build. These are not docker tags. */
             tags?: string[];
             /**
              * Amount of time that this build should be allowed to run, to second
              * granularity. If this amount of time elapses, work on the build will cease
              * and the build status will be TIMEOUT.
-             * 
+             *
              * Default time is ten minutes.
              */
             timeout?: string;
         }
-        
         interface BuildOperationMetadata {
             /** The build that the operation is tracking. */
             build?: Build;
         }
-        
         interface BuildOptions {
             /** Requested verifiability options. */
             requestedVerifyOption?: string;
@@ -136,11 +133,10 @@ declare namespace gapi.client {
             /** SubstitutionOption to allow unmatch substitutions. */
             substitutionOption?: string;
         }
-        
         interface BuildStep {
             /**
              * A list of arguments that will be presented to the step when it is started.
-             * 
+             *
              * If the image used to run the step's container has an entrypoint, these args
              * will be used as arguments to that entrypoint. If the image does not define
              * an entrypoint, the first element in args will be used as the entrypoint,
@@ -159,7 +155,7 @@ declare namespace gapi.client {
             entrypoint?: string;
             /**
              * A list of environment variable definitions to be used when running a step.
-             * 
+             *
              * The elements are of the form "KEY=VALUE" for the environment variable "KEY"
              * being given the value "VALUE".
              */
@@ -171,18 +167,18 @@ declare namespace gapi.client {
             id?: string;
             /**
              * The name of the container image that will run this particular build step.
-             * 
+             *
              * If the image is already available in the host's Docker daemon's cache, it
              * will be run directly. If not, the host will attempt to pull the image
              * first, using the builder service account's credentials if necessary.
-             * 
+             *
              * The Docker daemon's cache will already have the latest versions of all of
              * the officially supported build steps
              * ([https://github.com/GoogleCloudPlatform/cloud-builders](https://github.com/GoogleCloudPlatform/cloud-builders)).
              * The Docker daemon will also have cached many of the layers for some popular
              * images, like "ubuntu", "debian", but they will be refreshed at the time you
              * attempt to use them.
-             * 
+             *
              * If you built an image in a previous build step, it will be stored in the
              * host's Docker daemon's cache and is available to use as the name for a
              * later build step.
@@ -195,11 +191,11 @@ declare namespace gapi.client {
             secretEnv?: string[];
             /**
              * List of volumes to mount into the build step.
-             * 
+             *
              * Each volume will be created as an empty volume prior to execution of the
              * build step. Upon completion of the build, volumes and their contents will
              * be discarded.
-             * 
+             *
              * Using a named volume in only one step is not valid as it is indicative
              * of a mis-configured build request.
              */
@@ -213,13 +209,12 @@ declare namespace gapi.client {
              */
             waitFor?: string[];
         }
-        
         interface BuildTrigger {
             /** Contents of the build template. */
             build?: Build;
             /**
              * Time when the trigger was created.
-             * 
+             *
              * @OutputOnly
              */
             createTime?: string;
@@ -234,22 +229,21 @@ declare namespace gapi.client {
             filename?: string;
             /**
              * Unique identifier of the trigger.
-             * 
+             *
              * @OutputOnly
              */
             id?: string;
             /** Substitutions data for Build resource. */
-            substitutions?: Record<string, string>;            
+            substitutions?: Record<string, string>;
             /**
              * Template describing the types of source changes to trigger a build.
-             * 
+             *
              * Branch and tag names in trigger templates are interpreted as regular
              * expressions. Any branch or tag change that matches that regular expression
              * will trigger a build.
              */
             triggerTemplate?: RepoSource;
         }
-        
         interface BuiltImage {
             /** Docker Registry 2.0 digest. */
             digest?: string;
@@ -259,42 +253,36 @@ declare namespace gapi.client {
              */
             name?: string;
         }
-        
         interface FileHashes {
             /** Collection of file hashes. */
             fileHash?: Hash[];
         }
-        
         interface Hash {
             /** The type of hash that was performed. */
             type?: string;
             /** The hash value. */
             value?: string;
         }
-        
         interface ListBuildTriggersResponse {
             /** BuildTriggers for the project, sorted by create_time descending. */
             triggers?: BuildTrigger[];
         }
-        
         interface ListBuildsResponse {
             /** Builds will be sorted by create_time, descending. */
             builds?: Build[];
             /** Token to receive the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: Operation[];
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
@@ -306,7 +294,7 @@ declare namespace gapi.client {
              * Some services might not provide such metadata.  Any method that returns a
              * long-running operation should document the metadata type, if any.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
@@ -323,9 +311,8 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface RepoSource {
             /** Name of the branch to build. */
             branchName?: string;
@@ -341,52 +328,45 @@ declare namespace gapi.client {
             /** Name of the tag to build. */
             tagName?: string;
         }
-        
         interface Results {
             /** List of build step digests, in order corresponding to build step indices. */
             buildStepImages?: string[];
             /** Images that were built as a part of the build. */
             images?: BuiltImage[];
         }
-        
         interface Secret {
             /** Cloud KMS key name to use to decrypt these envs. */
             kmsKeyName?: string;
             /**
              * Map of environment variable name to its encrypted value.
-             * 
+             *
              * Secret environment variables must be unique across all of a build's
              * secrets, and must be used by at least one build step. Values can be at most
              * 1 KB in size. There can be at most ten secret values across all of a
              * build's secrets.
              */
-            secretEnv?: Record<string, string>;            
+            secretEnv?: Record<string, string>;
         }
-        
         interface Source {
             /** If provided, get source from this location in a Cloud Repo. */
             repoSource?: RepoSource;
-            /**
-             * If provided, get the source from this location in in Google Cloud
-             * Storage.
-             */
+            /** If provided, get the source from this location in Google Cloud Storage. */
             storageSource?: StorageSource;
         }
-        
         interface SourceProvenance {
             /**
              * Hash(es) of the build source, which can be used to verify that the original
              * source integrity was maintained in the build. Note that FileHashes will
              * only be populated if BuildOptions has requested a SourceProvenanceHash.
-             * 
+             *
              * The keys to this map are file paths used as build source and the values
              * contain the hash values for those files.
-             * 
+             *
              * If the build source came in a single package such as a gzipped tarfile
              * (.tar.gz), the FileHash will be for the single path to that file.
              * @OutputOnly
              */
-            fileHashes?: Record<string, FileHashes>;            
+            fileHashes?: Record<string, FileHashes>;
             /**
              * A copy of the build's source.repo_source, if exists, with any
              * revisions resolved.
@@ -398,7 +378,6 @@ declare namespace gapi.client {
              */
             resolvedStorageSource?: StorageSource;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -406,7 +385,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -414,7 +393,6 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface StorageSource {
             /**
              * Google Cloud Storage bucket containing source (see
@@ -429,30 +407,28 @@ declare namespace gapi.client {
             generation?: string;
             /**
              * Google Cloud Storage object containing source.
-             * 
+             *
              * This object must be a gzipped archive file (.tar.gz) containing source to
              * build.
              */
             object?: string;
         }
-        
         interface Volume {
             /**
              * Name of the volume to mount.
-             * 
+             *
              * Volume names must be unique per build step and must be valid names for
              * Docker volumes. Each named volume must be used by at least two build steps.
              */
             name?: string;
             /**
              * Path at which to mount the volume.
-             * 
+             *
              * Paths must be absolute and cannot conflict with other volume paths on the
              * same build step or with certain reserved volume paths.
              */
             path?: string;
         }
-        
         interface OperationsResource {
             /**
              * Starts asynchronous cancellation on a long-running operation.  The server
@@ -466,7 +442,7 @@ declare namespace gapi.client {
              * an Operation.error value with a google.rpc.Status.code of 1,
              * corresponding to `Code.CANCELLED`.
              */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -495,14 +471,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -531,12 +506,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -545,7 +519,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -580,13 +554,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
         }
-        
         interface BuildsResource {
             /** Cancels a requested build in progress. */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -617,16 +589,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Build>;            
-            
+            }): Request<Build>;
             /**
              * Starts a build with the specified configuration.
-             * 
+             *
              * The long-running Operation returned by this method will include the ID of
              * the build, which can be passed to GetBuild to determine its status (e.g.,
              * success or failure).
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -655,15 +626,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Returns information about a previously requested build.
-             * 
+             *
              * The Build that is returned includes its status (e.g., success or failure,
              * or in-progress), and timing information.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -694,15 +664,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Build>;            
-            
+            }): Request<Build>;
             /**
              * Lists previously requested builds.
-             * 
+             *
              * Previously requested builds may still be in-progress, or may have finished
              * successfully or unsuccessfully.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -737,17 +706,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBuildsResponse>;            
-            
+            }): Request<ListBuildsResponse>;
         }
-        
         interface TriggersResource {
             /**
              * Creates a new BuildTrigger.
-             * 
+             *
              * This API is experimental.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -776,14 +743,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BuildTrigger>;            
-            
+            }): Request<BuildTrigger>;
             /**
              * Deletes an BuildTrigger by its project ID and trigger ID.
-             * 
+             *
              * This API is experimental.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -814,14 +780,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets information about a BuildTrigger.
-             * 
+             *
              * This API is experimental.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -852,14 +817,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BuildTrigger>;            
-            
+            }): Request<BuildTrigger>;
             /**
              * Lists existing BuildTrigger.
-             * 
+             *
              * This API is experimental.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -888,14 +852,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBuildTriggersResponse>;            
-            
+            }): Request<ListBuildTriggersResponse>;
             /**
              * Updates an BuildTrigger by its project ID and trigger ID.
-             * 
+             *
              * This API is experimental.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -926,10 +889,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BuildTrigger>;            
-            
+            }): Request<BuildTrigger>;
         }
-        
         interface ProjectsResource {
             builds: BuildsResource;
             triggers: TriggersResource;

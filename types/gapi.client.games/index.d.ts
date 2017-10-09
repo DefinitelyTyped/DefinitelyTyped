@@ -13,46 +13,45 @@
 
 declare namespace gapi.client {
     /** Load Google Play Game Services API v1 */
-    function load(name: "games", version: "v1"): PromiseLike<void>;    
-    function load(name: "games", version: "v1", callback: () => any): void;    
-    
-    const achievementDefinitions: games.AchievementDefinitionsResource; 
-    
-    const achievements: games.AchievementsResource; 
-    
-    const applications: games.ApplicationsResource; 
-    
-    const events: games.EventsResource; 
-    
-    const leaderboards: games.LeaderboardsResource; 
-    
-    const metagame: games.MetagameResource; 
-    
-    const players: games.PlayersResource; 
-    
-    const pushtokens: games.PushtokensResource; 
-    
-    const questMilestones: games.QuestMilestonesResource; 
-    
-    const quests: games.QuestsResource; 
-    
-    const revisions: games.RevisionsResource; 
-    
-    const rooms: games.RoomsResource; 
-    
-    const scores: games.ScoresResource; 
-    
-    const snapshots: games.SnapshotsResource; 
-    
-    const turnBasedMatches: games.TurnBasedMatchesResource; 
-    
+    function load(name: "games", version: "v1"): PromiseLike<void>;
+    function load(name: "games", version: "v1", callback: () => any): void;
+
+    const achievementDefinitions: games.AchievementDefinitionsResource;
+
+    const achievements: games.AchievementsResource;
+
+    const applications: games.ApplicationsResource;
+
+    const events: games.EventsResource;
+
+    const leaderboards: games.LeaderboardsResource;
+
+    const metagame: games.MetagameResource;
+
+    const players: games.PlayersResource;
+
+    const pushtokens: games.PushtokensResource;
+
+    const questMilestones: games.QuestMilestonesResource;
+
+    const quests: games.QuestsResource;
+
+    const revisions: games.RevisionsResource;
+
+    const rooms: games.RoomsResource;
+
+    const scores: games.ScoresResource;
+
+    const snapshots: games.SnapshotsResource;
+
+    const turnBasedMatches: games.TurnBasedMatchesResource;
+
     namespace games {
-        
         interface AchievementDefinition {
             /**
              * The type of the achievement.
-             * Possible values are:  
-             * - "STANDARD" - Achievement is either locked or unlocked. 
+             * Possible values are:
+             * - "STANDARD" - Achievement is either locked or unlocked.
              * - "INCREMENTAL" - Achievement is incremental.
              */
             achievementType?: string;
@@ -66,9 +65,9 @@ declare namespace gapi.client {
             id?: string;
             /**
              * The initial state of the achievement.
-             * Possible values are:  
-             * - "HIDDEN" - Achievement is hidden. 
-             * - "REVEALED" - Achievement is revealed. 
+             * Possible values are:
+             * - "HIDDEN" - Achievement is hidden.
+             * - "REVEALED" - Achievement is revealed.
              * - "UNLOCKED" - Achievement is unlocked.
              */
             initialState?: string;
@@ -87,7 +86,6 @@ declare namespace gapi.client {
             /** The image URL for the unlocked achievement icon. */
             unlockedIconUrl?: string;
         }
-        
         interface AchievementDefinitionsListResponse {
             /** The achievement definitions. */
             items?: AchievementDefinition[];
@@ -96,7 +94,6 @@ declare namespace gapi.client {
             /** Token corresponding to the next page of results. */
             nextPageToken?: string;
         }
-        
         interface AchievementIncrementResponse {
             /** The current steps recorded for this incremental achievement. */
             currentSteps?: number;
@@ -105,19 +102,17 @@ declare namespace gapi.client {
             /** Whether the current steps for the achievement has reached the number of steps required to unlock. */
             newlyUnlocked?: boolean;
         }
-        
         interface AchievementRevealResponse {
             /**
              * The current state of the achievement for which a reveal was attempted. This might be UNLOCKED if the achievement was already unlocked.
-             * Possible values are:  
-             * - "REVEALED" - Achievement is revealed. 
+             * Possible values are:
+             * - "REVEALED" - Achievement is revealed.
              * - "UNLOCKED" - Achievement is unlocked.
              */
             currentState?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementRevealResponse. */
             kind?: string;
         }
-        
         interface AchievementSetStepsAtLeastResponse {
             /** The current steps recorded for this incremental achievement. */
             currentSteps?: number;
@@ -126,28 +121,24 @@ declare namespace gapi.client {
             /** Whether the the current steps for the achievement has reached the number of steps required to unlock. */
             newlyUnlocked?: boolean;
         }
-        
         interface AchievementUnlockResponse {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementUnlockResponse. */
             kind?: string;
             /** Whether this achievement was newly unlocked (that is, whether the unlock request for the achievement was the first for the player). */
             newlyUnlocked?: boolean;
         }
-        
         interface AchievementUpdateMultipleRequest {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementUpdateMultipleRequest. */
             kind?: string;
             /** The individual achievement update requests. */
             updates?: AchievementUpdateRequest[];
         }
-        
         interface AchievementUpdateMultipleResponse {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementUpdateListResponse. */
             kind?: string;
             /** The updated state of the achievements. */
             updatedAchievements?: AchievementUpdateResponse[];
         }
-        
         interface AchievementUpdateRequest {
             /** The achievement this update is being applied to. */
             achievementId?: string;
@@ -159,23 +150,22 @@ declare namespace gapi.client {
             setStepsAtLeastPayload?: GamesAchievementSetStepsAtLeast;
             /**
              * The type of update being applied.
-             * Possible values are:  
-             * - "REVEAL" - Achievement is revealed. 
-             * - "UNLOCK" - Achievement is unlocked. 
-             * - "INCREMENT" - Achievement is incremented. 
+             * Possible values are:
+             * - "REVEAL" - Achievement is revealed.
+             * - "UNLOCK" - Achievement is unlocked.
+             * - "INCREMENT" - Achievement is incremented.
              * - "SET_STEPS_AT_LEAST" - Achievement progress is set to at least the passed value.
              */
             updateType?: string;
         }
-        
         interface AchievementUpdateResponse {
             /** The achievement this update is was applied to. */
             achievementId?: string;
             /**
              * The current state of the achievement.
-             * Possible values are:  
-             * - "HIDDEN" - Achievement is hidden. 
-             * - "REVEALED" - Achievement is revealed. 
+             * Possible values are:
+             * - "HIDDEN" - Achievement is hidden.
+             * - "REVEALED" - Achievement is revealed.
              * - "UNLOCKED" - Achievement is unlocked.
              */
             currentState?: string;
@@ -188,7 +178,6 @@ declare namespace gapi.client {
             /** Whether the requested updates actually affected the achievement. */
             updateOccurred?: boolean;
         }
-        
         interface AggregateStats {
             /** The number of messages sent between a pair of peers. */
             count?: string;
@@ -201,7 +190,6 @@ declare namespace gapi.client {
             /** The total number of bytes sent for messages between a pair of peers. */
             sum?: string;
         }
-        
         interface AnonymousPlayer {
             /** The base URL for the image to display for the anonymous player. */
             avatarImageUrl?: string;
@@ -210,7 +198,6 @@ declare namespace gapi.client {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#anonymousPlayer. */
             kind?: string;
         }
-        
         interface Application {
             /** The number of achievements visible to the currently authenticated player. */
             achievement_count?: number;
@@ -224,7 +211,7 @@ declare namespace gapi.client {
             description?: string;
             /**
              * A list of features that have been enabled for the application.
-             * Possible values are:  
+             * Possible values are:
              * - "SNAPSHOTS" - Snapshots has been enabled
              */
             enabledFeatures?: string[];
@@ -243,7 +230,6 @@ declare namespace gapi.client {
             /** A hint to the client UI for what color to use as an app-themed color. The color is given as an RGB triplet (e.g. "E0E0E0"). */
             themeColor?: string;
         }
-        
         interface ApplicationCategory {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#applicationCategory. */
             kind?: string;
@@ -252,7 +238,6 @@ declare namespace gapi.client {
             /** The secondary category. */
             secondary?: string;
         }
-        
         interface ApplicationVerifyResponse {
             /** An alternate ID that was once used for the player that was issued the auth token used in this request. (This field is not normally populated.) */
             alternate_player_id?: string;
@@ -261,7 +246,6 @@ declare namespace gapi.client {
             /** The ID of the player that was issued the auth token used in this request. */
             player_id?: string;
         }
-        
         interface Category {
             /** The category name. */
             category?: string;
@@ -270,7 +254,6 @@ declare namespace gapi.client {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#category. */
             kind?: string;
         }
-        
         interface CategoryListResponse {
             /** The list of categories with usage data. */
             items?: Category[];
@@ -279,16 +262,15 @@ declare namespace gapi.client {
             /** Token corresponding to the next page of results. */
             nextPageToken?: string;
         }
-        
         interface EventBatchRecordFailure {
             /**
              * The cause for the update failure.
-             * Possible values are:  
-             * - "TOO_LARGE": A batch request was issued with more events than are allowed in a single batch. 
-             * - "TIME_PERIOD_EXPIRED": A batch was sent with data too far in the past to record. 
-             * - "TIME_PERIOD_SHORT": A batch was sent with a time range that was too short. 
-             * - "TIME_PERIOD_LONG": A batch was sent with a time range that was too long. 
-             * - "ALREADY_UPDATED": An attempt was made to record a batch of data which was already seen. 
+             * Possible values are:
+             * - "TOO_LARGE": A batch request was issued with more events than are allowed in a single batch.
+             * - "TIME_PERIOD_EXPIRED": A batch was sent with data too far in the past to record.
+             * - "TIME_PERIOD_SHORT": A batch was sent with a time range that was too short.
+             * - "TIME_PERIOD_LONG": A batch was sent with a time range that was too long.
+             * - "ALREADY_UPDATED": An attempt was made to record a batch of data which was already seen.
              * - "RECORD_RATE_HIGH": An attempt was made to record data faster than the server will apply updates.
              */
             failureCause?: string;
@@ -297,14 +279,12 @@ declare namespace gapi.client {
             /** The time range which was rejected; empty for a request-wide failure. */
             range?: EventPeriodRange;
         }
-        
         interface EventChild {
             /** The ID of the child event. */
             childId?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventChild. */
             kind?: string;
         }
-        
         interface EventDefinition {
             /** A list of events that are a child of this event. */
             childEvents?: EventChild[];
@@ -322,13 +302,12 @@ declare namespace gapi.client {
             kind?: string;
             /**
              * The visibility of event being tracked in this definition.
-             * Possible values are:  
-             * - "REVEALED": This event should be visible to all users. 
+             * Possible values are:
+             * - "REVEALED": This event should be visible to all users.
              * - "HIDDEN": This event should only be shown to users that have recorded this event at least once.
              */
             visibility?: string;
         }
-        
         interface EventDefinitionListResponse {
             /** The event definitions. */
             items?: EventDefinition[];
@@ -337,7 +316,6 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface EventPeriodRange {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventPeriodRange. */
             kind?: string;
@@ -346,7 +324,6 @@ declare namespace gapi.client {
             /** The time when this update period begins, in millis, since 1970 UTC (Unix Epoch). */
             periodStartMillis?: string;
         }
-        
         interface EventPeriodUpdate {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventPeriodUpdate. */
             kind?: string;
@@ -355,21 +332,19 @@ declare namespace gapi.client {
             /** The updates being made for this time period. */
             updates?: EventUpdateRequest[];
         }
-        
         interface EventRecordFailure {
             /** The ID of the event that was not updated. */
             eventId?: string;
             /**
              * The cause for the update failure.
-             * Possible values are:  
-             * - "NOT_FOUND" - An attempt was made to set an event that was not defined. 
+             * Possible values are:
+             * - "NOT_FOUND" - An attempt was made to set an event that was not defined.
              * - "INVALID_UPDATE_VALUE" - An attempt was made to increment an event by a non-positive value.
              */
             failureCause?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventRecordFailure. */
             kind?: string;
         }
-        
         interface EventRecordRequest {
             /** The current time when this update was sent, in milliseconds, since 1970 UTC (Unix Epoch). */
             currentTimeMillis?: string;
@@ -380,7 +355,6 @@ declare namespace gapi.client {
             /** A list of the time period updates being made in this request. */
             timePeriods?: EventPeriodUpdate[];
         }
-        
         interface EventUpdateRequest {
             /** The ID of the event being modified in this update. */
             definitionId?: string;
@@ -389,7 +363,6 @@ declare namespace gapi.client {
             /** The number of times this event occurred in this time period. */
             updateCount?: string;
         }
-        
         interface EventUpdateResponse {
             /** Any batch-wide failures which occurred applying updates. */
             batchFailures?: EventBatchRecordFailure[];
@@ -400,7 +373,6 @@ declare namespace gapi.client {
             /** The current status of any updated events */
             playerEvents?: PlayerEvent[];
         }
-        
         interface GamesAchievementIncrement {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#GamesAchievementIncrement. */
             kind?: string;
@@ -409,14 +381,12 @@ declare namespace gapi.client {
             /** The number of steps to be incremented. */
             steps?: number;
         }
-        
         interface GamesAchievementSetStepsAtLeast {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#GamesAchievementSetStepsAtLeast. */
             kind?: string;
             /** The minimum number of steps for the achievement to be set to. */
             steps?: number;
         }
-        
         interface ImageAsset {
             /** The height of the asset. */
             height?: number;
@@ -429,7 +399,6 @@ declare namespace gapi.client {
             /** The width of the asset. */
             width?: number;
         }
-        
         interface Instance {
             /** URI which shows where a user can acquire this instance. */
             acquisitionUri?: string;
@@ -443,9 +412,9 @@ declare namespace gapi.client {
             name?: string;
             /**
              * The platform type.
-             * Possible values are:  
-             * - "ANDROID" - Instance is for Android. 
-             * - "IOS" - Instance is for iOS 
+             * Possible values are:
+             * - "ANDROID" - Instance is for Android.
+             * - "IOS" - Instance is for iOS
              * - "WEB_APP" - Instance is for Web App.
              */
             platformType?: string;
@@ -456,7 +425,6 @@ declare namespace gapi.client {
             /** Platform dependent details for Web. */
             webInstance?: InstanceWebDetails;
         }
-        
         interface InstanceAndroidDetails {
             /** Flag indicating whether the anti-piracy check is enabled. */
             enablePiracyCheck?: boolean;
@@ -467,7 +435,6 @@ declare namespace gapi.client {
             /** Indicates that this instance is the default for new installations. */
             preferred?: boolean;
         }
-        
         interface InstanceIosDetails {
             /** Bundle identifier. */
             bundleIdentifier?: string;
@@ -484,7 +451,6 @@ declare namespace gapi.client {
             /** Flag to indicate if this instance supports iPhone. */
             supportIphone?: boolean;
         }
-        
         interface InstanceWebDetails {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#instanceWebDetails. */
             kind?: string;
@@ -493,7 +459,6 @@ declare namespace gapi.client {
             /** Indicates that this instance is the default for new installations. */
             preferred?: boolean;
         }
-        
         interface Leaderboard {
             /** The icon for the leaderboard. */
             iconUrl?: string;
@@ -507,13 +472,12 @@ declare namespace gapi.client {
             name?: string;
             /**
              * How scores are ordered.
-             * Possible values are:  
-             * - "LARGER_IS_BETTER" - Larger values are better; scores are sorted in descending order. 
+             * Possible values are:
+             * - "LARGER_IS_BETTER" - Larger values are better; scores are sorted in descending order.
              * - "SMALLER_IS_BETTER" - Smaller values are better; scores are sorted in ascending order.
              */
             order?: string;
         }
-        
         interface LeaderboardEntry {
             /** The localized string for the numerical value of this score. */
             formattedScore?: string;
@@ -531,16 +495,15 @@ declare namespace gapi.client {
             scoreValue?: string;
             /**
              * The time span of this high score.
-             * Possible values are:  
-             * - "ALL_TIME" - The score is an all-time high score. 
-             * - "WEEKLY" - The score is a weekly high score. 
+             * Possible values are:
+             * - "ALL_TIME" - The score is an all-time high score.
+             * - "WEEKLY" - The score is a weekly high score.
              * - "DAILY" - The score is a daily high score.
              */
             timeSpan?: string;
             /** The timestamp at which this score was recorded, in milliseconds since the epoch in UTC. */
             writeTimestampMillis?: string;
         }
-        
         interface LeaderboardListResponse {
             /** The leaderboards. */
             items?: Leaderboard[];
@@ -549,7 +512,6 @@ declare namespace gapi.client {
             /** Token corresponding to the next page of results. */
             nextPageToken?: string;
         }
-        
         interface LeaderboardScoreRank {
             /** The number of scores in the leaderboard as a string. */
             formattedNumScores?: string;
@@ -562,7 +524,6 @@ declare namespace gapi.client {
             /** The rank in the leaderboard. */
             rank?: string;
         }
-        
         interface LeaderboardScores {
             /** The scores in the leaderboard. */
             items?: LeaderboardEntry[];
@@ -572,12 +533,14 @@ declare namespace gapi.client {
             nextPageToken?: string;
             /** The total number of scores in the leaderboard. */
             numScores?: string;
-            /** The score of the requesting player on the leaderboard. The player's score may appear both here and in the list of scores above. If you are viewing a public leaderboard and the player is not sharing their gameplay information publicly, the scoreRank and formattedScoreRank values will not be present. */
+            /**
+             * The score of the requesting player on the leaderboard. The player's score may appear both here and in the list of scores above. If you are viewing a
+             * public leaderboard and the player is not sharing their gameplay information publicly, the scoreRank and formattedScoreRank values will not be present.
+             */
             playerScore?: LeaderboardEntry;
             /** The pagination token for the previous page of results. */
             prevPageToken?: string;
         }
-        
         interface MetagameConfig {
             /** Current version of the metagame configuration data. When this data is updated, the version number will be increased by one. */
             currentVersion?: number;
@@ -586,7 +549,6 @@ declare namespace gapi.client {
             /** The list of player levels. */
             playerLevels?: PlayerLevel[];
         }
-        
         interface NetworkDiagnostics {
             /** The Android network subtype. */
             androidNetworkSubtype?: number;
@@ -596,34 +558,43 @@ declare namespace gapi.client {
             iosNetworkType?: number;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#networkDiagnostics. */
             kind?: string;
-            /** The MCC+MNC code for the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperator() On iOS, see: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html */
+            /**
+             * The MCC+MNC code for the client's network connection. On Android:
+             * http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperator() On iOS, see:
+             * https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html
+             */
             networkOperatorCode?: string;
-            /** The name of the carrier of the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperatorName() On iOS: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html#//apple_ref/occ/instp/CTCarrier/carrierName */
+            /**
+             * The name of the carrier of the client's network connection. On Android:
+             * http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperatorName() On iOS:
+             * https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html#//apple_ref/occ/instp/CTCarrier/carrierName
+             */
             networkOperatorName?: string;
             /** The amount of time in milliseconds it took for the client to establish a connection with the XMPP server. */
             registrationLatencyMillis?: number;
         }
-        
         interface ParticipantResult {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#participantResult. */
             kind?: string;
             /** The ID of the participant. */
             participantId?: string;
-            /** The placement or ranking of the participant in the match results; a number from one to the number of participants in the match. Multiple participants may have the same placing value in case of a type. */
+            /**
+             * The placement or ranking of the participant in the match results; a number from one to the number of participants in the match. Multiple participants
+             * may have the same placing value in case of a type.
+             */
             placing?: number;
             /**
              * The result of the participant for this match.
-             * Possible values are:  
-             * - "MATCH_RESULT_WIN" - The participant won the match. 
-             * - "MATCH_RESULT_LOSS" - The participant lost the match. 
-             * - "MATCH_RESULT_TIE" - The participant tied the match. 
-             * - "MATCH_RESULT_NONE" - There was no winner for the match (nobody wins or loses this kind of game.) 
-             * - "MATCH_RESULT_DISCONNECT" - The participant disconnected / left during the match. 
+             * Possible values are:
+             * - "MATCH_RESULT_WIN" - The participant won the match.
+             * - "MATCH_RESULT_LOSS" - The participant lost the match.
+             * - "MATCH_RESULT_TIE" - The participant tied the match.
+             * - "MATCH_RESULT_NONE" - There was no winner for the match (nobody wins or loses this kind of game.)
+             * - "MATCH_RESULT_DISCONNECT" - The participant disconnected / left during the match.
              * - "MATCH_RESULT_DISAGREED" - Different clients reported different results for this participant.
              */
             result?: string;
         }
-        
         interface PeerChannelDiagnostics {
             /** Number of bytes received. */
             bytesReceived?: AggregateStats;
@@ -642,7 +613,6 @@ declare namespace gapi.client {
             /** Roundtrip latency stats in milliseconds. */
             roundtripLatencyMillis?: AggregateStats;
         }
-        
         interface PeerSessionDiagnostics {
             /** Connected time in milliseconds. */
             connectedTimestampMillis?: string;
@@ -655,7 +625,6 @@ declare namespace gapi.client {
             /** Unreliable channel diagnostics. */
             unreliableChannel?: PeerChannelDiagnostics;
         }
-        
         interface Played {
             /** True if the player was auto-matched with the currently authenticated user. */
             autoMatched?: boolean;
@@ -664,7 +633,6 @@ declare namespace gapi.client {
             /** The last time the player played the game in milliseconds since the epoch in UTC. */
             timeMillis?: string;
         }
-        
         interface Player {
             /** The base URL for the image that represents the player. */
             avatarImageUrl?: string;
@@ -678,16 +646,22 @@ declare namespace gapi.client {
             experienceInfo?: PlayerExperienceInfo;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#player. */
             kind?: string;
-            /** Details about the last time this player played a multiplayer game with the currently authenticated player. Populated for PLAYED_WITH player collection members. */
+            /**
+             * Details about the last time this player played a multiplayer game with the currently authenticated player. Populated for PLAYED_WITH player collection
+             * members.
+             */
             lastPlayedWith?: Played;
             /** An object representation of the individual components of the player's name. For some players, these fields may not be present. */
-            name?: {            
+            name?: {
                 /** The family name of this player. In some places, this is known as the last name. */
                 familyName?: string;
                 /** The given name of this player. In some places, this is known as the first name. */
                 givenName?: string;
-            };            
-            /** The player ID that was used for this player the first time they signed into the game in question. This is only populated for calls to player.get for the requesting player, only if the player ID has subsequently changed, and only to clients that support remapping player IDs. */
+            };
+            /**
+             * The player ID that was used for this player the first time they signed into the game in question. This is only populated for calls to player.get for
+             * the requesting player, only if the player ID has subsequently changed, and only to clients that support remapping player IDs.
+             */
             originalPlayerId?: string;
             /** The ID of the player. */
             playerId?: string;
@@ -696,19 +670,21 @@ declare namespace gapi.client {
             /** The player's title rewarded for their game activities. */
             title?: string;
         }
-        
         interface PlayerAchievement {
             /**
              * The state of the achievement.
-             * Possible values are:  
-             * - "HIDDEN" - Achievement is hidden. 
-             * - "REVEALED" - Achievement is revealed. 
+             * Possible values are:
+             * - "HIDDEN" - Achievement is hidden.
+             * - "REVEALED" - Achievement is revealed.
              * - "UNLOCKED" - Achievement is unlocked.
              */
             achievementState?: string;
             /** The current steps for an incremental achievement. */
             currentSteps?: number;
-            /** Experience points earned for the achievement. This field is absent for achievements that have not yet been unlocked and 0 for achievements that have been unlocked by testers but that are unpublished. */
+            /**
+             * Experience points earned for the achievement. This field is absent for achievements that have not yet been unlocked and 0 for achievements that have
+             * been unlocked by testers but that are unpublished.
+             */
             experiencePoints?: string;
             /** The current steps for an incremental achievement as a string. */
             formattedCurrentStepsString?: string;
@@ -719,7 +695,6 @@ declare namespace gapi.client {
             /** The timestamp of the last modification to this achievement's state. */
             lastUpdatedTimestamp?: string;
         }
-        
         interface PlayerAchievementListResponse {
             /** The achievements. */
             items?: PlayerAchievement[];
@@ -728,11 +703,13 @@ declare namespace gapi.client {
             /** Token corresponding to the next page of results. */
             nextPageToken?: string;
         }
-        
         interface PlayerEvent {
             /** The ID of the event definition. */
             definitionId?: string;
-            /** The current number of times this event has occurred, as a string. The formatting of this string depends on the configuration of your event in the Play Games Developer Console. */
+            /**
+             * The current number of times this event has occurred, as a string. The formatting of this string depends on the configuration of your event in the Play
+             * Games Developer Console.
+             */
             formattedNumEvents?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerEvent. */
             kind?: string;
@@ -741,7 +718,6 @@ declare namespace gapi.client {
             /** The ID of the player. */
             playerId?: string;
         }
-        
         interface PlayerEventListResponse {
             /** The player events. */
             items?: PlayerEvent[];
@@ -750,7 +726,6 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface PlayerExperienceInfo {
             /** The current number of experience points for the player. */
             currentExperiencePoints?: string;
@@ -763,7 +738,6 @@ declare namespace gapi.client {
             /** The next level of the player. If the current level is the maximum level, this should be same as the current level. */
             nextLevel?: PlayerLevel;
         }
-        
         interface PlayerLeaderboardScore {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerLeaderboardScore. */
             kind?: string;
@@ -781,16 +755,15 @@ declare namespace gapi.client {
             socialRank?: LeaderboardScoreRank;
             /**
              * The time span of this score.
-             * Possible values are:  
-             * - "ALL_TIME" - The score is an all-time score. 
-             * - "WEEKLY" - The score is a weekly score. 
+             * Possible values are:
+             * - "ALL_TIME" - The score is an all-time score.
+             * - "WEEKLY" - The score is a weekly score.
              * - "DAILY" - The score is a daily score.
              */
             timeSpan?: string;
             /** The timestamp at which this score was recorded, in milliseconds since the epoch in UTC. */
             writeTimestamp?: string;
         }
-        
         interface PlayerLeaderboardScoreListResponse {
             /** The leaderboard scores. */
             items?: PlayerLeaderboardScore[];
@@ -801,7 +774,6 @@ declare namespace gapi.client {
             /** The Player resources for the owner of this score. */
             player?: Player;
         }
-        
         interface PlayerLevel {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerLevel. */
             kind?: string;
@@ -812,7 +784,6 @@ declare namespace gapi.client {
             /** The minimum experience points for this level. */
             minExperiencePoints?: string;
         }
-        
         interface PlayerListResponse {
             /** The players. */
             items?: Player[];
@@ -821,7 +792,6 @@ declare namespace gapi.client {
             /** Token corresponding to the next page of results. */
             nextPageToken?: string;
         }
-        
         interface PlayerScore {
             /** The formatted score for this player score. */
             formattedScore?: string;
@@ -833,27 +803,25 @@ declare namespace gapi.client {
             scoreTag?: string;
             /**
              * The time span for this player score.
-             * Possible values are:  
-             * - "ALL_TIME" - The score is an all-time score. 
-             * - "WEEKLY" - The score is a weekly score. 
+             * Possible values are:
+             * - "ALL_TIME" - The score is an all-time score.
+             * - "WEEKLY" - The score is a weekly score.
              * - "DAILY" - The score is a daily score.
              */
             timeSpan?: string;
         }
-        
         interface PlayerScoreListResponse {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerScoreListResponse. */
             kind?: string;
             /** The score submissions statuses. */
             submittedScores?: PlayerScoreResponse[];
         }
-        
         interface PlayerScoreResponse {
             /**
              * The time spans where the submitted score is better than the existing score for that time span.
-             * Possible values are:  
-             * - "ALL_TIME" - The score is an all-time score. 
-             * - "WEEKLY" - The score is a weekly score. 
+             * Possible values are:
+             * - "ALL_TIME" - The score is an all-time score.
+             * - "WEEKLY" - The score is a weekly score.
              * - "DAILY" - The score is a daily score.
              */
             beatenScoreTimeSpans?: string[];
@@ -865,27 +833,28 @@ declare namespace gapi.client {
             leaderboardId?: string;
             /** Additional information about this score. Values will contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
             scoreTag?: string;
-            /** The scores in time spans that have not been beaten. As an example, the submitted score may be better than the player's DAILY score, but not better than the player's scores for the WEEKLY or ALL_TIME time spans. */
+            /**
+             * The scores in time spans that have not been beaten. As an example, the submitted score may be better than the player's DAILY score, but not better than
+             * the player's scores for the WEEKLY or ALL_TIME time spans.
+             */
             unbeatenScores?: PlayerScore[];
         }
-        
         interface PlayerScoreSubmissionList {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerScoreSubmissionList. */
             kind?: string;
             /** The score submissions. */
             scores?: ScoreSubmission[];
         }
-        
         interface ProfileSettings {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#profileSettings. */
             kind?: string;
             /** The player's current profile visibility. This field is visible to both 1P and 3P APIs. */
             profileVisible?: boolean;
         }
-        
         interface PushToken {
             /**
-             * The revision of the client SDK used by your application, in the same format that's used by revisions.check. Used to send backward compatible messages. Format: [PLATFORM_TYPE]:[VERSION_NUMBER]. Possible values of PLATFORM_TYPE are:  
+             * The revision of the client SDK used by your application, in the same format that's used by revisions.check. Used to send backward compatible messages.
+             * Format: [PLATFORM_TYPE]:[VERSION_NUMBER]. Possible values of PLATFORM_TYPE are:
              * - IOS - Push token is for iOS
              */
             clientRevision?: string;
@@ -896,19 +865,17 @@ declare namespace gapi.client {
             /** The preferred language for notifications that are sent using this token. */
             language?: string;
         }
-        
         interface PushTokenId {
             /** A push token ID for iOS devices. */
-            ios?: {            
+            ios?: {
                 /** Device token supplied by an iOS system call to register for remote notifications. Encode this field as web-safe base64. */
                 apns_device_token?: string;
                 /** Indicates whether this token should be used for the production or sandbox APNS server. */
                 apns_environment?: string;
-            };            
+            };
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#pushTokenId. */
             kind?: string;
         }
-        
         interface Quest {
             /** The timestamp at which the user accepted the quest in milliseconds since the epoch in UTC. Only present if the player has accepted the quest. */
             acceptedTimestampMillis?: string;
@@ -930,7 +897,10 @@ declare namespace gapi.client {
             isDefaultIconUrl?: boolean;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#quest. */
             kind?: string;
-            /** The timestamp at which the quest was last updated by the user in milliseconds since the epoch in UTC. Only present if the player has accepted the quest. */
+            /**
+             * The timestamp at which the quest was last updated by the user in milliseconds since the epoch in UTC. Only present if the player has accepted the
+             * quest.
+             */
             lastUpdatedTimestampMillis?: string;
             /** The quest milestones. */
             milestones?: QuestMilestone[];
@@ -942,46 +912,48 @@ declare namespace gapi.client {
             startTimestampMillis?: string;
             /**
              * The state of the quest.
-             * Possible values are:  
-             * - "UPCOMING": The quest is upcoming. The user can see the quest, but cannot accept it until it is open. 
-             * - "OPEN": The quest is currently open and may be accepted at this time. 
-             * - "ACCEPTED": The user is currently participating in this quest. 
-             * - "COMPLETED": The user has completed the quest. 
-             * - "FAILED": The quest was attempted but was not completed before the deadline expired. 
-             * - "EXPIRED": The quest has expired and was not accepted. 
+             * Possible values are:
+             * - "UPCOMING": The quest is upcoming. The user can see the quest, but cannot accept it until it is open.
+             * - "OPEN": The quest is currently open and may be accepted at this time.
+             * - "ACCEPTED": The user is currently participating in this quest.
+             * - "COMPLETED": The user has completed the quest.
+             * - "FAILED": The quest was attempted but was not completed before the deadline expired.
+             * - "EXPIRED": The quest has expired and was not accepted.
              * - "DELETED": The quest should be deleted from the local database.
              */
             state?: string;
         }
-        
         interface QuestContribution {
-            /** The formatted value of the contribution as a string. Format depends on the configuration for the associated event definition in the Play Games Developer Console. */
+            /**
+             * The formatted value of the contribution as a string. Format depends on the configuration for the associated event definition in the Play Games
+             * Developer Console.
+             */
             formattedValue?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#questContribution. */
             kind?: string;
             /** The value of the contribution. */
             value?: string;
         }
-        
         interface QuestCriterion {
             /** The total number of times the associated event must be incremented for the player to complete this quest. */
             completionContribution?: QuestContribution;
             /**
-             * The number of increments the player has made toward the completion count event increments required to complete the quest. This value will not exceed the completion contribution.
+             * The number of increments the player has made toward the completion count event increments required to complete the quest. This value will not exceed
+             * the completion contribution.
              * There will be no currentContribution until the player has accepted the quest.
              */
             currentContribution?: QuestContribution;
             /** The ID of the event the criterion corresponds to. */
             eventId?: string;
             /**
-             * The value of the event associated with this quest at the time that the quest was accepted. This value may change if event increments that took place before the start of quest are uploaded after the quest starts.
+             * The value of the event associated with this quest at the time that the quest was accepted. This value may change if event increments that took place
+             * before the start of quest are uploaded after the quest starts.
              * There will be no initialPlayerProgress until the player has accepted the quest.
              */
             initialPlayerProgress?: QuestContribution;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#questCriterion. */
             kind?: string;
         }
-        
         interface QuestListResponse {
             /** The quests. */
             items?: Quest[];
@@ -990,9 +962,11 @@ declare namespace gapi.client {
             /** Token corresponding to the next page of results. */
             nextPageToken?: string;
         }
-        
         interface QuestMilestone {
-            /** The completion reward data of the milestone, represented as a Base64-encoded string. This is a developer-specified binary blob with size between 0 and 2 KB before encoding. */
+            /**
+             * The completion reward data of the milestone, represented as a Base64-encoded string. This is a developer-specified binary blob with size between 0 and
+             * 2 KB before encoding.
+             */
             completionRewardData?: string;
             /** The criteria of the milestone. */
             criteria?: QuestCriterion[];
@@ -1002,15 +976,14 @@ declare namespace gapi.client {
             kind?: string;
             /**
              * The current state of the milestone.
-             * Possible values are:  
-             * - "COMPLETED_NOT_CLAIMED" - The milestone is complete, but has not yet been claimed. 
-             * - "CLAIMED" - The milestone is complete and has been claimed. 
-             * - "NOT_COMPLETED" - The milestone has not yet been completed. 
+             * Possible values are:
+             * - "COMPLETED_NOT_CLAIMED" - The milestone is complete, but has not yet been claimed.
+             * - "CLAIMED" - The milestone is complete and has been claimed.
+             * - "NOT_COMPLETED" - The milestone has not yet been completed.
              * - "NOT_STARTED" - The milestone is for a quest that has not yet been accepted.
              */
             state?: string;
         }
-        
         interface RevisionCheckResponse {
             /** The version of the API this client revision should use when calling API methods. */
             apiVersion?: string;
@@ -1018,14 +991,13 @@ declare namespace gapi.client {
             kind?: string;
             /**
              * The result of the revision check.
-             * Possible values are:  
-             * - "OK" - The revision being used is current. 
-             * - "DEPRECATED" - There is currently a newer version available, but the revision being used still works. 
+             * Possible values are:
+             * - "OK" - The revision being used is current.
+             * - "DEPRECATED" - There is currently a newer version available, but the revision being used still works.
              * - "INVALID" - The revision being used is not supported in any released version.
              */
             revisionStatus?: string;
         }
-        
         interface Room {
             /** The ID of the application being played. */
             applicationId?: string;
@@ -1035,7 +1007,10 @@ declare namespace gapi.client {
             autoMatchingStatus?: RoomAutoMatchStatus;
             /** Details about the room creation. */
             creationDetails?: RoomModification;
-            /** This short description is generated by our servers and worded relative to the player requesting the room. It is intended to be displayed when the room is shown in a list (that is, an invitation to a room.) */
+            /**
+             * This short description is generated by our servers and worded relative to the player requesting the room. It is intended to be displayed when the room
+             * is shown in a list (that is, an invitation to a room.)
+             */
             description?: string;
             /** The ID of the participant that invited the user to the room. Not set if the user was not invited to the room. */
             inviterId?: string;
@@ -1051,27 +1026,29 @@ declare namespace gapi.client {
             roomStatusVersion?: number;
             /**
              * The status of the room.
-             * Possible values are:  
-             * - "ROOM_INVITING" - One or more players have been invited and not responded. 
-             * - "ROOM_AUTO_MATCHING" - One or more slots need to be filled by auto-matching. 
-             * - "ROOM_CONNECTING" - Players have joined and are connecting to each other (either before or after auto-matching). 
-             * - "ROOM_ACTIVE" - All players have joined and connected to each other. 
-             * - "ROOM_DELETED" - The room should no longer be shown on the client. Returned in sync calls when a player joins a room (as a tombstone), or for rooms where all joined participants have left.
+             * Possible values are:
+             * - "ROOM_INVITING" - One or more players have been invited and not responded.
+             * - "ROOM_AUTO_MATCHING" - One or more slots need to be filled by auto-matching.
+             * - "ROOM_CONNECTING" - Players have joined and are connecting to each other (either before or after auto-matching).
+             * - "ROOM_ACTIVE" - All players have joined and connected to each other.
+             * - "ROOM_DELETED" - The room should no longer be shown on the client. Returned in sync calls when a player joins a room (as a tombstone), or for rooms
+             * where all joined participants have left.
              */
             status?: string;
             /** The variant / mode of the application being played; can be any integer value, or left blank. */
             variant?: number;
         }
-        
         interface RoomAutoMatchStatus {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomAutoMatchStatus. */
             kind?: string;
             /** An estimate for the amount of time (in seconds) that auto-matching is expected to take to complete. */
             waitEstimateSeconds?: number;
         }
-        
         interface RoomAutoMatchingCriteria {
-            /** A bitmask indicating when auto-matches are valid. When ANDed with other exclusive bitmasks, the result must be zero. Can be used to support exclusive roles within a game. */
+            /**
+             * A bitmask indicating when auto-matches are valid. When ANDed with other exclusive bitmasks, the result must be zero. Can be used to support exclusive
+             * roles within a game.
+             */
             exclusiveBitmask?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomAutoMatchingCriteria. */
             kind?: string;
@@ -1080,14 +1057,12 @@ declare namespace gapi.client {
             /** The minimum number of players that should be added to the room by auto-matching. */
             minAutoMatchingPlayers?: number;
         }
-        
         interface RoomClientAddress {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomClientAddress. */
             kind?: string;
             /** The XMPP address of the client on the Google Games XMPP network. */
             xmppAddress?: string;
         }
-        
         interface RoomCreateRequest {
             /** Criteria for auto-matching players into this room. */
             autoMatchingCriteria?: RoomAutoMatchingCriteria;
@@ -1103,10 +1078,12 @@ declare namespace gapi.client {
             networkDiagnostics?: NetworkDiagnostics;
             /** A randomly generated numeric ID. This number is used at the server to ensure that the request is handled correctly across retries. */
             requestId?: string;
-            /** The variant / mode of the application to be played. This can be any integer value, or left blank. You should use a small number of variants to keep the auto-matching pool as large as possible. */
+            /**
+             * The variant / mode of the application to be played. This can be any integer value, or left blank. You should use a small number of variants to keep the
+             * auto-matching pool as large as possible.
+             */
             variant?: number;
         }
-        
         interface RoomJoinRequest {
             /** The capabilities that this client supports for realtime communication. */
             capabilities?: string[];
@@ -1117,7 +1094,6 @@ declare namespace gapi.client {
             /** Network diagnostics for the client joining the room. */
             networkDiagnostics?: NetworkDiagnostics;
         }
-        
         interface RoomLeaveDiagnostics {
             /** Android network subtype. http://developer.android.com/reference/android/net/NetworkInfo.html#getSubtype() */
             androidNetworkSubtype?: number;
@@ -1127,16 +1103,23 @@ declare namespace gapi.client {
             iosNetworkType?: number;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomLeaveDiagnostics. */
             kind?: string;
-            /** The MCC+MNC code for the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperator() On iOS, see: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html */
+            /**
+             * The MCC+MNC code for the client's network connection. On Android:
+             * http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperator() On iOS, see:
+             * https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html
+             */
             networkOperatorCode?: string;
-            /** The name of the carrier of the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperatorName() On iOS: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html#//apple_ref/occ/instp/CTCarrier/carrierName */
+            /**
+             * The name of the carrier of the client's network connection. On Android:
+             * http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperatorName() On iOS:
+             * https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html#//apple_ref/occ/instp/CTCarrier/carrierName
+             */
             networkOperatorName?: string;
             /** Diagnostics about all peer sessions. */
             peerSession?: PeerSessionDiagnostics[];
             /** Whether or not sockets were used. */
             socketsUsed?: boolean;
         }
-        
         interface RoomLeaveRequest {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomLeaveRequest. */
             kind?: string;
@@ -1144,24 +1127,23 @@ declare namespace gapi.client {
             leaveDiagnostics?: RoomLeaveDiagnostics;
             /**
              * Reason for leaving the match.
-             * Possible values are:  
-             * - "PLAYER_LEFT" - The player chose to leave the room.. 
-             * - "GAME_LEFT" - The game chose to remove the player from the room. 
-             * - "REALTIME_ABANDONED" - The player switched to another application and abandoned the room. 
-             * - "REALTIME_PEER_CONNECTION_FAILURE" - The client was unable to establish a connection to other peer(s). 
-             * - "REALTIME_SERVER_CONNECTION_FAILURE" - The client was unable to communicate with the server. 
-             * - "REALTIME_SERVER_ERROR" - The client received an error response when it tried to communicate with the server. 
-             * - "REALTIME_TIMEOUT" - The client timed out while waiting for a room. 
-             * - "REALTIME_CLIENT_DISCONNECTING" - The client disconnects without first calling Leave. 
-             * - "REALTIME_SIGN_OUT" - The user signed out of G+ while in the room. 
-             * - "REALTIME_GAME_CRASHED" - The game crashed. 
-             * - "REALTIME_ROOM_SERVICE_CRASHED" - RoomAndroidService crashed. 
-             * - "REALTIME_DIFFERENT_CLIENT_ROOM_OPERATION" - Another client is trying to enter a room. 
+             * Possible values are:
+             * - "PLAYER_LEFT" - The player chose to leave the room..
+             * - "GAME_LEFT" - The game chose to remove the player from the room.
+             * - "REALTIME_ABANDONED" - The player switched to another application and abandoned the room.
+             * - "REALTIME_PEER_CONNECTION_FAILURE" - The client was unable to establish a connection to other peer(s).
+             * - "REALTIME_SERVER_CONNECTION_FAILURE" - The client was unable to communicate with the server.
+             * - "REALTIME_SERVER_ERROR" - The client received an error response when it tried to communicate with the server.
+             * - "REALTIME_TIMEOUT" - The client timed out while waiting for a room.
+             * - "REALTIME_CLIENT_DISCONNECTING" - The client disconnects without first calling Leave.
+             * - "REALTIME_SIGN_OUT" - The user signed out of G+ while in the room.
+             * - "REALTIME_GAME_CRASHED" - The game crashed.
+             * - "REALTIME_ROOM_SERVICE_CRASHED" - RoomAndroidService crashed.
+             * - "REALTIME_DIFFERENT_CLIENT_ROOM_OPERATION" - Another client is trying to enter a room.
              * - "REALTIME_SAME_CLIENT_ROOM_OPERATION" - The same client is trying to enter a new room.
              */
             reason?: string;
         }
-        
         interface RoomList {
             /** The rooms. */
             items?: Room[];
@@ -1170,7 +1152,6 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface RoomModification {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomModification. */
             kind?: string;
@@ -1179,15 +1160,14 @@ declare namespace gapi.client {
             /** The ID of the participant that modified the room. */
             participantId?: string;
         }
-        
         interface RoomP2PStatus {
             /** The amount of time in milliseconds it took to establish connections with this peer. */
             connectionSetupLatencyMillis?: number;
             /**
              * The error code in event of a failure.
-             * Possible values are:  
-             * - "P2P_FAILED" - The client failed to establish a P2P connection with the peer. 
-             * - "PRESENCE_FAILED" - The client failed to register to receive P2P connections. 
+             * Possible values are:
+             * - "P2P_FAILED" - The client failed to establish a P2P connection with the peer.
+             * - "PRESENCE_FAILED" - The client failed to register to receive P2P connections.
              * - "RELAY_SERVER_FAILED" - The client received an error when trying to use the relay server to establish a P2P connection with the peer.
              */
             error?: string;
@@ -1199,22 +1179,20 @@ declare namespace gapi.client {
             participantId?: string;
             /**
              * The status of the peer in the room.
-             * Possible values are:  
-             * - "CONNECTION_ESTABLISHED" - The client established a P2P connection with the peer. 
+             * Possible values are:
+             * - "CONNECTION_ESTABLISHED" - The client established a P2P connection with the peer.
              * - "CONNECTION_FAILED" - The client failed to establish directed presence with the peer.
              */
             status?: string;
             /** The amount of time in milliseconds it took to send packets back and forth on the unreliable channel with this peer. */
             unreliableRoundtripLatencyMillis?: number;
         }
-        
         interface RoomP2PStatuses {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomP2PStatuses. */
             kind?: string;
             /** The updates for the peers. */
             updates?: RoomP2PStatus[];
         }
-        
         interface RoomParticipant {
             /** True if this participant was auto-matched with the requesting player. */
             autoMatched?: boolean;
@@ -1232,29 +1210,31 @@ declare namespace gapi.client {
             kind?: string;
             /**
              * The reason the participant left the room; populated if the participant status is PARTICIPANT_LEFT.
-             * Possible values are:  
-             * - "PLAYER_LEFT" - The player explicitly chose to leave the room. 
-             * - "GAME_LEFT" - The game chose to remove the player from the room. 
+             * Possible values are:
+             * - "PLAYER_LEFT" - The player explicitly chose to leave the room.
+             * - "GAME_LEFT" - The game chose to remove the player from the room.
              * - "ABANDONED" - The player switched to another application and abandoned the room.
              * - "PEER_CONNECTION_FAILURE" - The client was unable to establish or maintain a connection to other peer(s) in the room.
-             * - "SERVER_ERROR" - The client received an error response when it tried to communicate with the server. 
-             * - "TIMEOUT" - The client timed out while waiting for players to join and connect. 
+             * - "SERVER_ERROR" - The client received an error response when it tried to communicate with the server.
+             * - "TIMEOUT" - The client timed out while waiting for players to join and connect.
              * - "PRESENCE_FAILURE" - The client's XMPP connection ended abruptly.
              */
             leaveReason?: string;
-            /** Information about the player. Not populated if this player was anonymously auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
+            /**
+             * Information about the player. Not populated if this player was anonymously auto-matched against the requesting player. (Either player or
+             * autoMatchedPlayer will be set.)
+             */
             player?: Player;
             /**
              * The status of the participant with respect to the room.
-             * Possible values are:  
-             * - "PARTICIPANT_INVITED" - The participant has been invited to join the room, but has not yet responded. 
-             * - "PARTICIPANT_JOINED" - The participant has joined the room (either after creating it or accepting an invitation.) 
-             * - "PARTICIPANT_DECLINED" - The participant declined an invitation to join the room. 
+             * Possible values are:
+             * - "PARTICIPANT_INVITED" - The participant has been invited to join the room, but has not yet responded.
+             * - "PARTICIPANT_JOINED" - The participant has joined the room (either after creating it or accepting an invitation.)
+             * - "PARTICIPANT_DECLINED" - The participant declined an invitation to join the room.
              * - "PARTICIPANT_LEFT" - The participant joined the room and then left it.
              */
             status?: string;
         }
-        
         interface RoomStatus {
             /** Auto-matching status for this room. Not set if the room is not currently in the automatching queue. */
             autoMatchingStatus?: RoomAutoMatchStatus;
@@ -1266,18 +1246,17 @@ declare namespace gapi.client {
             roomId?: string;
             /**
              * The status of the room.
-             * Possible values are:  
-             * - "ROOM_INVITING" - One or more players have been invited and not responded. 
-             * - "ROOM_AUTO_MATCHING" - One or more slots need to be filled by auto-matching. 
-             * - "ROOM_CONNECTING" - Players have joined are connecting to each other (either before or after auto-matching). 
-             * - "ROOM_ACTIVE" - All players have joined and connected to each other. 
+             * Possible values are:
+             * - "ROOM_INVITING" - One or more players have been invited and not responded.
+             * - "ROOM_AUTO_MATCHING" - One or more slots need to be filled by auto-matching.
+             * - "ROOM_CONNECTING" - Players have joined are connecting to each other (either before or after auto-matching).
+             * - "ROOM_ACTIVE" - All players have joined and connected to each other.
              * - "ROOM_DELETED" - All joined players have left.
              */
             status?: string;
             /** The version of the status for the room: an increasing counter, used by the client to ignore out-of-order updates to room status. */
             statusVersion?: number;
         }
-        
         interface ScoreSubmission {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#scoreSubmission. */
             kind?: string;
@@ -1290,13 +1269,15 @@ declare namespace gapi.client {
             /** Signature Values will contain URI-safe characters as defined by section 2.3 of RFC 3986. */
             signature?: string;
         }
-        
         interface Snapshot {
             /** The cover image of this snapshot. May be absent if there is no image. */
             coverImage?: SnapshotImage;
             /** The description of this snapshot. */
             description?: string;
-            /** The ID of the file underlying this snapshot in the Drive API. Only present if the snapshot is a view on a Drive file and the file is owned by the caller. */
+            /**
+             * The ID of the file underlying this snapshot in the Drive API. Only present if the snapshot is a view on a Drive file and the file is owned by the
+             * caller.
+             */
             driveId?: string;
             /** The duration associated with this snapshot, in millis. */
             durationMillis?: string;
@@ -1312,14 +1293,13 @@ declare namespace gapi.client {
             title?: string;
             /**
              * The type of this snapshot.
-             * Possible values are:  
+             * Possible values are:
              * - "SAVE_GAME" - A snapshot representing a save game.
              */
             type?: string;
             /** The unique name provided when the snapshot was created. */
             uniqueName?: string;
         }
-        
         interface SnapshotImage {
             /** The height of the image. */
             height?: number;
@@ -1332,7 +1312,6 @@ declare namespace gapi.client {
             /** The width of the image. */
             width?: number;
         }
-        
         interface SnapshotListResponse {
             /** The snapshots. */
             items?: Snapshot[];
@@ -1341,9 +1320,11 @@ declare namespace gapi.client {
             /** Token corresponding to the next page of results. If there are no more results, the token is omitted. */
             nextPageToken?: string;
         }
-        
         interface TurnBasedAutoMatchingCriteria {
-            /** A bitmask indicating when auto-matches are valid. When ANDed with other exclusive bitmasks, the result must be zero. Can be used to support exclusive roles within a game. */
+            /**
+             * A bitmask indicating when auto-matches are valid. When ANDed with other exclusive bitmasks, the result must be zero. Can be used to support exclusive
+             * roles within a game.
+             */
             exclusiveBitmask?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedAutoMatchingCriteria. */
             kind?: string;
@@ -1352,7 +1333,6 @@ declare namespace gapi.client {
             /** The minimum number of players that should be added to the match by auto-matching. */
             minAutoMatchingPlayers?: number;
         }
-        
         interface TurnBasedMatch {
             /** The ID of the application being played. */
             applicationId?: string;
@@ -1362,7 +1342,10 @@ declare namespace gapi.client {
             creationDetails?: TurnBasedMatchModification;
             /** The data / game state for this match. */
             data?: TurnBasedMatchData;
-            /** This short description is generated by our servers based on turn state and is localized and worded relative to the player requesting the match. It is intended to be displayed when the match is shown in a list. */
+            /**
+             * This short description is generated by our servers based on turn state and is localized and worded relative to the player requesting the match. It is
+             * intended to be displayed when the match is shown in a list.
+             */
             description?: string;
             /** The ID of the participant that invited the user to the match. Not set if the user was not invited to the match. */
             inviterId?: string;
@@ -1388,21 +1371,22 @@ declare namespace gapi.client {
             results?: ParticipantResult[];
             /**
              * The status of the match.
-             * Possible values are:  
-             * - "MATCH_AUTO_MATCHING" - One or more slots need to be filled by auto-matching; the match cannot be established until they are filled. 
-             * - "MATCH_ACTIVE" - The match has started. 
-             * - "MATCH_COMPLETE" - The match has finished. 
-             * - "MATCH_CANCELED" - The match was canceled. 
-             * - "MATCH_EXPIRED" - The match expired due to inactivity. 
+             * Possible values are:
+             * - "MATCH_AUTO_MATCHING" - One or more slots need to be filled by auto-matching; the match cannot be established until they are filled.
+             * - "MATCH_ACTIVE" - The match has started.
+             * - "MATCH_COMPLETE" - The match has finished.
+             * - "MATCH_CANCELED" - The match was canceled.
+             * - "MATCH_EXPIRED" - The match expired due to inactivity.
              * - "MATCH_DELETED" - The match should no longer be shown on the client. Returned only for tombstones for matches when sync is called.
              */
             status?: string;
             /**
-             * The status of the current user in the match. Derived from the match type, match status, the user's participant status, and the pending participant for the match.
-             * Possible values are:  
-             * - "USER_INVITED" - The user has been invited to join the match and has not responded yet. 
-             * - "USER_AWAITING_TURN" - The user is waiting for their turn. 
-             * - "USER_TURN" - The user has an action to take in the match. 
+             * The status of the current user in the match. Derived from the match type, match status, the user's participant status, and the pending participant for
+             * the match.
+             * Possible values are:
+             * - "USER_INVITED" - The user has been invited to join the match and has not responded yet.
+             * - "USER_AWAITING_TURN" - The user is waiting for their turn.
+             * - "USER_TURN" - The user has an action to take in the match.
              * - "USER_MATCH_COMPLETED" - The match has ended (it is completed, canceled, or expired.)
              */
             userMatchStatus?: string;
@@ -1411,7 +1395,6 @@ declare namespace gapi.client {
             /** The ID of another participant in the match that can be used when describing the participants the user is playing with. */
             withParticipantId?: string;
         }
-        
         interface TurnBasedMatchCreateRequest {
             /** Criteria for auto-matching players into this match. */
             autoMatchingCriteria?: TurnBasedAutoMatchingCriteria;
@@ -1421,10 +1404,12 @@ declare namespace gapi.client {
             kind?: string;
             /** A randomly generated numeric ID. This number is used at the server to ensure that the request is handled correctly across retries. */
             requestId?: string;
-            /** The variant / mode of the application to be played. This can be any integer value, or left blank. You should use a small number of variants to keep the auto-matching pool as large as possible. */
+            /**
+             * The variant / mode of the application to be played. This can be any integer value, or left blank. You should use a small number of variants to keep the
+             * auto-matching pool as large as possible.
+             */
             variant?: number;
         }
-        
         interface TurnBasedMatchData {
             /** The byte representation of the data (limited to 128 kB), as a Base64-encoded string with the URL_SAFE encoding option. */
             data?: string;
@@ -1433,14 +1418,12 @@ declare namespace gapi.client {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchData. */
             kind?: string;
         }
-        
         interface TurnBasedMatchDataRequest {
             /** The byte representation of the data (limited to 128 kB), as a Base64-encoded string with the URL_SAFE encoding option. */
             data?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchDataRequest. */
             kind?: string;
         }
-        
         interface TurnBasedMatchList {
             /** The matches. */
             items?: TurnBasedMatch[];
@@ -1449,7 +1432,6 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface TurnBasedMatchModification {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchModification. */
             kind?: string;
@@ -1458,7 +1440,6 @@ declare namespace gapi.client {
             /** The ID of the participant that modified the match. */
             participantId?: string;
         }
-        
         interface TurnBasedMatchParticipant {
             /** True if this participant was auto-matched with the requesting player. */
             autoMatched?: boolean;
@@ -1468,22 +1449,25 @@ declare namespace gapi.client {
             id?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchParticipant. */
             kind?: string;
-            /** Information about the player. Not populated if this player was anonymously auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
+            /**
+             * Information about the player. Not populated if this player was anonymously auto-matched against the requesting player. (Either player or
+             * autoMatchedPlayer will be set.)
+             */
             player?: Player;
             /**
              * The status of the participant with respect to the match.
-             * Possible values are:  
-             * - "PARTICIPANT_NOT_INVITED_YET" - The participant is slated to be invited to the match, but the invitation has not been sent; the invite will be sent when it becomes their turn. 
-             * - "PARTICIPANT_INVITED" - The participant has been invited to join the match, but has not yet responded. 
-             * - "PARTICIPANT_JOINED" - The participant has joined the match (either after creating it or accepting an invitation.) 
-             * - "PARTICIPANT_DECLINED" - The participant declined an invitation to join the match. 
-             * - "PARTICIPANT_LEFT" - The participant joined the match and then left it. 
-             * - "PARTICIPANT_FINISHED" - The participant finished playing in the match. 
+             * Possible values are:
+             * - "PARTICIPANT_NOT_INVITED_YET" - The participant is slated to be invited to the match, but the invitation has not been sent; the invite will be sent
+             * when it becomes their turn.
+             * - "PARTICIPANT_INVITED" - The participant has been invited to join the match, but has not yet responded.
+             * - "PARTICIPANT_JOINED" - The participant has joined the match (either after creating it or accepting an invitation.)
+             * - "PARTICIPANT_DECLINED" - The participant declined an invitation to join the match.
+             * - "PARTICIPANT_LEFT" - The participant joined the match and then left it.
+             * - "PARTICIPANT_FINISHED" - The participant finished playing in the match.
              * - "PARTICIPANT_UNRESPONSIVE" - The participant did not take their turn in the allotted time.
              */
             status?: string;
         }
-        
         interface TurnBasedMatchRematch {
             /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchRematch. */
             kind?: string;
@@ -1492,7 +1476,6 @@ declare namespace gapi.client {
             /** The newly created match; a rematch of the old match with the same participants. */
             rematch?: TurnBasedMatch;
         }
-        
         interface TurnBasedMatchResults {
             /** The final match data. */
             data?: TurnBasedMatchDataRequest;
@@ -1503,7 +1486,6 @@ declare namespace gapi.client {
             /** The match results for the participants in the match. */
             results?: ParticipantResult[];
         }
-        
         interface TurnBasedMatchSync {
             /** The matches. */
             items?: TurnBasedMatch[];
@@ -1514,7 +1496,6 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface TurnBasedMatchTurn {
             /** The shared game state data after the turn is over. */
             data?: TurnBasedMatchDataRequest;
@@ -1522,15 +1503,18 @@ declare namespace gapi.client {
             kind?: string;
             /** The version of this match: an increasing counter, used to avoid out-of-date updates to the match. */
             matchVersion?: number;
-            /** The ID of the participant who should take their turn next. May be set to the current player's participant ID to update match state without changing the turn. If not set, the match will wait for other player(s) to join via automatching; this is only valid if automatch criteria is set on the match with remaining slots for automatched players. */
+            /**
+             * The ID of the participant who should take their turn next. May be set to the current player's participant ID to update match state without changing the
+             * turn. If not set, the match will wait for other player(s) to join via automatching; this is only valid if automatch criteria is set on the match with
+             * remaining slots for automatched players.
+             */
             pendingParticipantId?: string;
             /** The match results for the participants in the match. */
             results?: ParticipantResult[];
         }
-        
         interface AchievementDefinitionsResource {
             /** Lists all the achievement definitions for your application. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1541,7 +1525,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of achievement resources to return in the response, used for paging. For any response, the actual number of achievement resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of achievement resources to return in the response, used for paging. For any response, the actual number of achievement resources
+                 * returned may be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1549,17 +1536,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementDefinitionsListResponse>;            
-            
+            }): Request<AchievementDefinitionsListResponse>;
         }
-        
         interface AchievementsResource {
             /** Increments the steps of the achievement with the given ID for the currently authenticated player. */
-            increment(request: {            
+            increment(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -1574,18 +1562,23 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries. */
+                /**
+                 * A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled
+                 * correctly across retries.
+                 */
                 requestId?: string;
                 /** The number of steps to increment. */
                 stepsToIncrement: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementIncrementResponse>;            
-            
+            }): Request<AchievementIncrementResponse>;
             /** Lists the progress for all your application's achievements for the currently authenticated player. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1596,7 +1589,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of achievement resources to return in the response, used for paging. For any response, the actual number of achievement resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of achievement resources to return in the response, used for paging. For any response, the actual number of achievement resources
+                 * returned may be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1606,16 +1602,18 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Tells the server to return only achievements with the specified state. If this parameter isn't specified, all achievements are returned. */
                 state?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerAchievementListResponse>;            
-            
+            }): Request<PlayerAchievementListResponse>;
             /** Sets the state of the achievement with the given ID to REVEALED for the currently authenticated player. */
-            reveal(request: {            
+            reveal(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -1630,14 +1628,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementRevealResponse>;            
-            
-            /** Sets the steps for the currently authenticated player towards unlocking an achievement. If the steps parameter is less than the current number of steps that the player already gained for the achievement, the achievement is not modified. */
-            setStepsAtLeast(request: {            
+            }): Request<AchievementRevealResponse>;
+            /**
+             * Sets the steps for the currently authenticated player towards unlocking an achievement. If the steps parameter is less than the current number of steps
+             * that the player already gained for the achievement, the achievement is not modified.
+             */
+            setStepsAtLeast(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -1652,16 +1655,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The minimum value to set the steps to. */
                 steps: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementSetStepsAtLeastResponse>;            
-            
+            }): Request<AchievementSetStepsAtLeastResponse>;
             /** Unlocks this achievement for the currently authenticated player. */
-            unlock(request: {            
+            unlock(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -1676,14 +1681,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementUnlockResponse>;            
-            
+            }): Request<AchievementUnlockResponse>;
             /** Updates multiple achievements for the currently authenticated player. */
-            updateMultiple(request: {            
+            updateMultiple(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1696,17 +1703,21 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementUpdateMultipleResponse>;            
-            
+            }): Request<AchievementUpdateMultipleResponse>;
         }
-        
         interface ApplicationsResource {
-            /** Retrieves the metadata of the application with the given ID. If the requested application is not available for the specified platformType, the returned response will not include any instance data. */
-            get(request: {            
+            /**
+             * Retrieves the metadata of the application with the given ID. If the requested application is not available for the specified platformType, the returned
+             * response will not include any instance data.
+             */
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -1725,14 +1736,16 @@ declare namespace gapi.client {
                 platformType?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Application>;            
-            
+            }): Request<Application>;
             /** Indicate that the the currently authenticated user is playing your application. */
-            played(request: {            
+            played(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1745,14 +1758,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Verifies the auth token provided with this request is for the application with the specified ID, and returns the ID of the player it was granted for. */
-            verify(request: {            
+            verify(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -1767,17 +1782,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ApplicationVerifyResponse>;            
-            
+            }): Request<ApplicationVerifyResponse>;
         }
-        
         interface EventsResource {
             /** Returns a list showing the current progress on events in this application for the currently authenticated user. */
-            listByPlayer(request: {            
+            listByPlayer(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1788,7 +1804,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of events to return in the response, used for paging. For any response, the actual number of events to return may be less than the specified maxResults. */
+                /**
+                 * The maximum number of events to return in the response, used for paging. For any response, the actual number of events to return may be less than the
+                 * specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1796,14 +1815,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerEventListResponse>;            
-            
+            }): Request<PlayerEventListResponse>;
             /** Returns a list of the event definitions in this application. */
-            listDefinitions(request: {            
+            listDefinitions(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1814,7 +1835,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of event definitions to return in the response, used for paging. For any response, the actual number of event definitions to return may be less than the specified maxResults. */
+                /**
+                 * The maximum number of event definitions to return in the response, used for paging. For any response, the actual number of event definitions to return
+                 * may be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1822,14 +1846,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<EventDefinitionListResponse>;            
-            
+            }): Request<EventDefinitionListResponse>;
             /** Records a batch of changes to the number of times events have occurred for the currently authenticated user of this application. */
-            record(request: {            
+            record(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1844,17 +1870,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<EventUpdateResponse>;            
-            
+            }): Request<EventUpdateResponse>;
         }
-        
         interface LeaderboardsResource {
             /** Retrieves the metadata of the leaderboard with the given ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1871,14 +1898,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Leaderboard>;            
-            
+            }): Request<Leaderboard>;
             /** Lists all the leaderboard metadata for your application. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1889,7 +1918,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of leaderboards to return in the response. For any response, the actual number of leaderboards returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of leaderboards to return in the response. For any response, the actual number of leaderboards returned may be less than the
+                 * specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1897,17 +1929,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardListResponse>;            
-            
+            }): Request<LeaderboardListResponse>;
         }
-        
         interface MetagameResource {
             /** Return the metagame configuration data for the calling application. */
-            getMetagameConfig(request: {            
+            getMetagameConfig(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1920,14 +1953,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<MetagameConfig>;            
-            
+            }): Request<MetagameConfig>;
             /** List play data aggregated per category for the player corresponding to playerId. */
-            listCategoriesByPlayer(request: {            
+            listCategoriesByPlayer(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The collection of categories for which data will be returned. */
@@ -1940,7 +1975,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of category resources to return in the response, used for paging. For any response, the actual number of category resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of category resources to return in the response, used for paging. For any response, the actual number of category resources returned
+                 * may be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1950,17 +1988,18 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CategoryListResponse>;            
-            
+            }): Request<CategoryListResponse>;
         }
-        
         interface PlayersResource {
             /** Retrieves the Player resource with the given ID. To retrieve the player for the currently authenticated user, set playerId to me. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -1977,14 +2016,16 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Player>;            
-            
+            }): Request<Player>;
             /** Get the collection of players for the currently authenticated user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Collection of players being retrieved */
@@ -1997,7 +2038,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may
+                 * be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2005,17 +2049,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerListResponse>;            
-            
+            }): Request<PlayerListResponse>;
         }
-        
         interface PushtokensResource {
             /** Removes a push token for the current user and application. Removing a non-existent push token will report success. */
-            remove(request: {            
+            remove(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2028,14 +2073,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Registers a push token for the current user and application. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2048,17 +2095,21 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface QuestMilestonesResource {
-            /** Report that a reward for the milestone corresponding to milestoneId for the quest corresponding to questId has been claimed by the currently authorized user. */
-            claim(request: {            
+            /**
+             * Report that a reward for the milestone corresponding to milestoneId for the quest corresponding to questId has been claimed by the currently authorized
+             * user.
+             */
+            claim(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2075,19 +2126,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the quest. */
                 questId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** A numeric ID to ensure that the request is handled correctly across retries. Your client application must generate this ID randomly. */
                 requestId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface QuestsResource {
             /** Indicates that the currently authorized user will participate in the quest. */
-            accept(request: {            
+            accept(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2104,14 +2156,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the quest. */
                 questId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Quest>;            
-            
+            }): Request<Quest>;
             /** Get a list of quests for your application and the currently authenticated player. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2122,7 +2176,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of quest resources to return in the response, used for paging. For any response, the actual number of quest resources returned may be less than the specified maxResults. Acceptable values are 1 to 50, inclusive. (Default: 50). */
+                /**
+                 * The maximum number of quest resources to return in the response, used for paging. For any response, the actual number of quest resources returned may
+                 * be less than the specified maxResults. Acceptable values are 1 to 50, inclusive. (Default: 50).
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2132,25 +2189,26 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<QuestListResponse>;            
-            
+            }): Request<QuestListResponse>;
         }
-        
         interface RevisionsResource {
             /** Checks whether the games client is out of date. */
-            check(request: {            
+            check(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /**
                  * The revision of the client SDK used by your application. Format:
                  * [PLATFORM_TYPE]:[VERSION_NUMBER]. Possible values of PLATFORM_TYPE are:
-                 *  
-                 * - "ANDROID" - Client is running the Android SDK. 
-                 * - "IOS" - Client is running the iOS SDK. 
+                 *
+                 * - "ANDROID" - Client is running the Android SDK.
+                 * - "IOS" - Client is running the iOS SDK.
                  * - "WEB_APP" - Client is running as a Web App.
                  */
                 clientRevision: string;
@@ -2164,17 +2222,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RevisionCheckResponse>;            
-            
+            }): Request<RevisionCheckResponse>;
         }
-        
         interface RoomsResource {
             /** Create a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2189,14 +2248,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Room>;            
-            
+            }): Request<Room>;
             /** Decline an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-            decline(request: {            
+            decline(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2211,16 +2272,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the room. */
                 roomId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Room>;            
-            
+            }): Request<Room>;
             /** Dismiss an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-            dismiss(request: {            
+            dismiss(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2233,16 +2296,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the room. */
                 roomId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Get the data for a room. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2257,16 +2322,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the room. */
                 roomId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Room>;            
-            
+            }): Request<Room>;
             /** Join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-            join(request: {            
+            join(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2281,16 +2348,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the room. */
                 roomId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Room>;            
-            
+            }): Request<Room>;
             /** Leave a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-            leave(request: {            
+            leave(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2305,16 +2374,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the room. */
                 roomId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Room>;            
-            
+            }): Request<Room>;
             /** Returns invitations to join rooms. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2325,7 +2396,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of rooms to return in the response, used for paging. For any response, the actual number of rooms to return may be less than the specified maxResults. */
+                /**
+                 * The maximum number of rooms to return in the response, used for paging. For any response, the actual number of rooms to return may be less than the
+                 * specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2333,14 +2407,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RoomList>;            
-            
+            }): Request<RoomList>;
             /** Updates sent by a client reporting the status of peers in a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
-            reportStatus(request: {            
+            reportStatus(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2355,22 +2431,24 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the room. */
                 roomId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RoomStatus>;            
-            
+            }): Request<RoomStatus>;
         }
-        
         interface ScoresResource {
             /**
-             * Get high scores, and optionally ranks, in leaderboards for the currently authenticated player. For a specific time span, leaderboardId can be set to ALL to retrieve data for all leaderboards in a given time span.
+             * Get high scores, and optionally ranks, in leaderboards for the currently authenticated player. For a specific time span, leaderboardId can be set to
+             * ALL to retrieve data for all leaderboards in a given time span.
              * NOTE: You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same request; only one parameter may be set to 'ALL'.
              */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2385,7 +2463,10 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the leaderboard. Can be set to 'ALL' to retrieve data for all leaderboards for this application. */
                 leaderboardId: string;
-                /** The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than
+                 * the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2395,16 +2476,18 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerLeaderboardScoreListResponse>;            
-            
+            }): Request<PlayerLeaderboardScoreListResponse>;
             /** Lists the scores in a leaderboard, starting from the top. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The collection of scores you're requesting. */
@@ -2419,7 +2502,10 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-                /** The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than
+                 * the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2427,16 +2513,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardScores>;            
-            
+            }): Request<LeaderboardScores>;
             /** Lists the scores in a leaderboard around (and including) a player's score. */
-            listWindow(request: {            
+            listWindow(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The collection of scores you're requesting. */
@@ -2451,7 +2539,10 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-                /** The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than
+                 * the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2459,9 +2550,15 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** The preferred number of scores to return above the player's score. More scores may be returned if the player is at the bottom of the leaderboard; fewer may be returned if the player is at the top. Must be less than or equal to maxResults. */
+                /**
+                 * The preferred number of scores to return above the player's score. More scores may be returned if the player is at the bottom of the leaderboard; fewer
+                 * may be returned if the player is at the top. Must be less than or equal to maxResults.
+                 */
                 resultsAbove?: number;
                 /** True if the top scores should be returned when the player is not in the leaderboard. Defaults to true. */
                 returnTopIfAbsent?: boolean;
@@ -2469,10 +2566,9 @@ declare namespace gapi.client {
                 timeSpan: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LeaderboardScores>;            
-            
+            }): Request<LeaderboardScores>;
             /** Submits a score to the specified leaderboard. */
-            submit(request: {            
+            submit(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2489,18 +2585,27 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** The score you're submitting. The submitted score is ignored if it is worse than a previously submitted score, where worse depends on the leaderboard sort order. The meaning of the score value depends on the leaderboard format type. For fixed-point, the score represents the raw value. For time, the score represents elapsed time in milliseconds. For currency, the score represents a value in micro units. */
+                /**
+                 * The score you're submitting. The submitted score is ignored if it is worse than a previously submitted score, where worse depends on the leaderboard
+                 * sort order. The meaning of the score value depends on the leaderboard format type. For fixed-point, the score represents the raw value. For time, the
+                 * score represents elapsed time in milliseconds. For currency, the score represents a value in micro units.
+                 */
                 score: string;
-                /** Additional information about the score you're submitting. Values must contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
+                /**
+                 * Additional information about the score you're submitting. Values must contain no more than 64 URI-safe characters as defined by section 2.3 of RFC
+                 * 3986.
+                 */
                 scoreTag?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerScoreResponse>;            
-            
+            }): Request<PlayerScoreResponse>;
             /** Submits multiple scores to leaderboards. */
-            submitMultiple(request: {            
+            submitMultiple(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2515,17 +2620,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerScoreListResponse>;            
-            
+            }): Request<PlayerScoreListResponse>;
         }
-        
         interface SnapshotsResource {
             /** Retrieves the metadata for a given snapshot ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2540,16 +2646,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the snapshot. */
                 snapshotId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Snapshot>;            
-            
+            }): Request<Snapshot>;
             /** Retrieves a list of snapshots created by your application for the player corresponding to the player ID. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2560,7 +2668,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-                /** The maximum number of snapshot resources to return in the response, used for paging. For any response, the actual number of snapshot resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of snapshot resources to return in the response, used for paging. For any response, the actual number of snapshot resources returned
+                 * may be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2570,17 +2681,18 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SnapshotListResponse>;            
-            
+            }): Request<SnapshotListResponse>;
         }
-        
         interface TurnBasedMatchesResource {
             /** Cancel a turn-based match. */
-            cancel(request: {            
+            cancel(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2595,14 +2707,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Create a turn-based match. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2617,14 +2731,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
             /** Decline an invitation to play a turn-based match. */
-            decline(request: {            
+            decline(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2641,14 +2757,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
             /** Dismiss a turn-based match from the match list. The match will no longer show up in the list and will not generate notifications. */
-            dismiss(request: {            
+            dismiss(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2663,14 +2781,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Finish a turn-based match. Each player should make this call once, after all results are in. Only the player whose turn it is may make the first call to Finish, and can pass in the final match state. */
-            finish(request: {            
+            }): Request<void>;
+            /**
+             * Finish a turn-based match. Each player should make this call once, after all results are in. Only the player whose turn it is may make the first call
+             * to Finish, and can pass in the final match state.
+             */
+            finish(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2687,14 +2810,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
             /** Get the data for a turn-based match. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2713,14 +2838,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
             /** Join a turn-based match. */
-            join(request: {            
+            join(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2737,14 +2864,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
             /** Leave a turn-based match when it is not the current player's turn, without canceling the match. */
-            leave(request: {            
+            leave(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2761,14 +2890,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
             /** Leave a turn-based match during the current player's turn, without canceling the match. */
-            leaveTurn(request: {            
+            leaveTurn(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2785,25 +2916,34 @@ declare namespace gapi.client {
                 matchVersion: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** The ID of another participant who should take their turn next. If not set, the match will wait for other player(s) to join via automatching; this is only valid if automatch criteria is set on the match with remaining slots for automatched players. */
+                /**
+                 * The ID of another participant who should take their turn next. If not set, the match will wait for other player(s) to join via automatching; this is
+                 * only valid if automatch criteria is set on the match with remaining slots for automatched players.
+                 */
                 pendingParticipantId?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
             /** Returns turn-based matches the player is or was involved in. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request. */
+                /**
+                 * True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server
+                 * may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be
+                 * retrievable on request.
+                 */
                 includeMatchData?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -2811,7 +2951,10 @@ declare namespace gapi.client {
                 language?: string;
                 /** The maximum number of completed or canceled matches to return in the response. If not set, all matches returned could be completed or canceled. */
                 maxCompletedMatches?: number;
-                /** The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the specified maxResults. */
+                /**
+                 * The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the
+                 * specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2819,14 +2962,19 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatchList>;            
-            
-            /** Create a rematch of a match that was previously completed, with the same participants. This can be called by only one player on a match still in their list; the player must have called Finish first. Returns the newly created match; it will be the caller's turn. */
-            rematch(request: {            
+            }): Request<TurnBasedMatchList>;
+            /**
+             * Create a rematch of a match that was previously completed, with the same participants. This can be called by only one player on a match still in their
+             * list; the player must have called Finish first. Returns the newly created match; it will be the caller's turn.
+             */
+            rematch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2843,23 +2991,35 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries. */
+                /**
+                 * A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled
+                 * correctly across retries.
+                 */
                 requestId?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatchRematch>;            
-            
-            /** Returns turn-based matches the player is or was involved in that changed since the last sync call, with the least recent changes coming first. Matches that should be removed from the local cache will have a status of MATCH_DELETED. */
-            sync(request: {            
+            }): Request<TurnBasedMatchRematch>;
+            /**
+             * Returns turn-based matches the player is or was involved in that changed since the last sync call, with the least recent changes coming first. Matches
+             * that should be removed from the local cache will have a status of MATCH_DELETED.
+             */
+            sync(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request. */
+                /**
+                 * True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server
+                 * may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be
+                 * retrievable on request.
+                 */
                 includeMatchData?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -2867,7 +3027,10 @@ declare namespace gapi.client {
                 language?: string;
                 /** The maximum number of completed or canceled matches to return in the response. If not set, all matches returned could be completed or canceled. */
                 maxCompletedMatches?: number;
-                /** The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the specified maxResults. */
+                /**
+                 * The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the
+                 * specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2875,14 +3038,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatchSync>;            
-            
+            }): Request<TurnBasedMatchSync>;
             /** Commit the results of a player turn. */
-            takeTurn(request: {            
+            takeTurn(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The last-seen mutation timestamp. */
@@ -2899,12 +3064,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TurnBasedMatch>;            
-            
+            }): Request<TurnBasedMatch>;
         }
     }
 }

@@ -13,20 +13,18 @@
 
 declare namespace gapi.client {
     /** Load Stackdriver Debugger API v2 */
-    function load(name: "clouddebugger", version: "v2"): PromiseLike<void>;    
-    function load(name: "clouddebugger", version: "v2", callback: () => any): void;    
-    
-    const controller: clouddebugger.ControllerResource; 
-    
+    function load(name: "clouddebugger", version: "v2"): PromiseLike<void>;
+    function load(name: "clouddebugger", version: "v2", callback: () => any): void;
+
+    const controller: clouddebugger.ControllerResource;
+
     namespace clouddebugger {
-        
         interface AliasContext {
             /** The alias kind. */
             kind?: string;
             /** The alias name. */
             name?: string;
         }
-        
         interface Breakpoint {
             /**
              * Action that the agent should perform when the code at the
@@ -74,7 +72,7 @@ declare namespace gapi.client {
              * A set of custom breakpoint properties, populated by the agent, to be
              * displayed to the user.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** Breakpoint source location. */
             location?: SourceLocation;
             /** Indicates the severity of the log. Only relevant when action is `LOG`. */
@@ -85,7 +83,7 @@ declare namespace gapi.client {
              * `$1`, etc. These placeholders are replaced with the evaluated value
              * of the appropriate expression. Expressions not referenced in
              * `log_message_format` are not logged.
-             * 
+             *
              * Example: `Message received, id = $0, count = $1` with
              * `expressions` = `[ message.id, message.count ]`.
              */
@@ -94,18 +92,18 @@ declare namespace gapi.client {
             stackFrames?: StackFrame[];
             /**
              * Breakpoint status.
-             * 
+             *
              * The status includes an error flag and a human readable message.
              * This field is usually unset. The message can be either
              * informational or an error message. Regardless, clients should always
              * display the text message back to the user.
-             * 
+             *
              * Error status indicates complete failure of the breakpoint.
-             * 
+             *
              * Example (non-final state): `Still loading symbols...`
-             * 
+             *
              * Examples (final state):
-             * 
+             *
              * &#42;   `Invalid line number` referring to location
              * &#42;   `Field f not found in class C` referring to condition
              */
@@ -120,7 +118,7 @@ declare namespace gapi.client {
              * For example, the same `this` object, which may appear at many levels of
              * the stack, can have all of its data stored once in this table.  The
              * stack frame variables then would hold only a reference to it.
-             * 
+             *
              * The variable `var_table_index` field is an index into this repeated field.
              * The stored objects are nameless and get their name from the referencing
              * variable. The effective variable is a merge of the referencing variable
@@ -128,7 +126,6 @@ declare namespace gapi.client {
              */
             variableTable?: Variable[];
         }
-        
         interface CloudRepoSourceContext {
             /** An alias, which may be a branch or tag. */
             aliasContext?: AliasContext;
@@ -139,7 +136,6 @@ declare namespace gapi.client {
             /** A revision ID. */
             revisionId?: string;
         }
-        
         interface CloudWorkspaceId {
             /**
              * The unique name of the workspace within the repo.  This is the name
@@ -149,7 +145,6 @@ declare namespace gapi.client {
             /** The ID of the repo containing the workspace. */
             repoId?: RepoId;
         }
-        
         interface CloudWorkspaceSourceContext {
             /**
              * The ID of the snapshot.
@@ -159,7 +154,6 @@ declare namespace gapi.client {
             /** The ID of the workspace. */
             workspaceId?: CloudWorkspaceId;
         }
-        
         interface Debuggee {
             /**
              * Version ID of the agent.
@@ -176,7 +170,7 @@ declare namespace gapi.client {
             /**
              * References to the locations and revisions of the source code used in the
              * deployed application.
-             * 
+             *
              * NOTE: this field is experimental and can be ignored.
              */
             extSourceContexts?: ExtendedSourceContext[];
@@ -196,7 +190,7 @@ declare namespace gapi.client {
              * A set of custom debuggee properties, populated by the agent, to be
              * displayed to the user.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /**
              * Project the debuggee is associated with.
              * Use project number or id when registering a Google Cloud Platform project.
@@ -223,31 +217,28 @@ declare namespace gapi.client {
              */
             uniquifier?: string;
         }
-        
         interface ExtendedSourceContext {
             /** Any source context. */
             context?: SourceContext;
             /** Labels with user defined metadata. */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
         }
-        
         interface FormatMessage {
             /**
              * Format template for the message. The `format` uses placeholders `$0`,
              * `$1`, etc. to reference parameters. `$$` can be used to denote the `$`
              * character.
-             * 
+             *
              * Examples:
-             * 
+             *
              * &#42;   `Failed to load '$0' which helps debug $1 the first time it
-             *     is loaded.  Again, $0 is very important.`
+             * is loaded.  Again, $0 is very important.`
              * &#42;   `Please pay $$10 to use $0 instead of $1.`
              */
             format?: string;
             /** Optional parameters to be embedded into the message. */
             parameters?: string[];
         }
-        
         interface GerritSourceContext {
             /** An alias, which may be a branch or tag. */
             aliasContext?: AliasContext;
@@ -264,7 +255,6 @@ declare namespace gapi.client {
             /** A revision (commit) ID. */
             revisionId?: string;
         }
-        
         interface GetBreakpointResponse {
             /**
              * Complete breakpoint state.
@@ -272,7 +262,6 @@ declare namespace gapi.client {
              */
             breakpoint?: Breakpoint;
         }
-        
         interface GitSourceContext {
             /**
              * Git commit hash.
@@ -282,7 +271,6 @@ declare namespace gapi.client {
             /** Git repository URL. */
             url?: string;
         }
-        
         interface ListActiveBreakpointsResponse {
             /**
              * List of all active breakpoints.
@@ -301,7 +289,6 @@ declare namespace gapi.client {
              */
             waitExpired?: boolean;
         }
-        
         interface ListBreakpointsResponse {
             /**
              * List of breakpoints matching the request.
@@ -316,7 +303,6 @@ declare namespace gapi.client {
              */
             nextWaitToken?: string;
         }
-        
         interface ListDebuggeesResponse {
             /**
              * List of debuggees accessible to the calling user.
@@ -326,14 +312,12 @@ declare namespace gapi.client {
              */
             debuggees?: Debuggee[];
         }
-        
         interface ProjectRepoId {
             /** The ID of the project. */
             projectId?: string;
             /** The name of the repo. Leave empty for the default repo. */
             repoName?: string;
         }
-        
         interface RegisterDebuggeeRequest {
             /**
              * Debuggee information to register.
@@ -342,7 +326,6 @@ declare namespace gapi.client {
              */
             debuggee?: Debuggee;
         }
-        
         interface RegisterDebuggeeResponse {
             /**
              * Debuggee resource.
@@ -353,14 +336,12 @@ declare namespace gapi.client {
              */
             debuggee?: Debuggee;
         }
-        
         interface RepoId {
             /** A combination of a project ID and a repo name. */
             projectRepoId?: ProjectRepoId;
             /** A server-assigned, globally unique identifier. */
             uid?: string;
         }
-        
         interface SetBreakpointResponse {
             /**
              * Breakpoint resource.
@@ -368,7 +349,6 @@ declare namespace gapi.client {
              */
             breakpoint?: Breakpoint;
         }
-        
         interface SourceContext {
             /** A SourceContext referring to a revision in a cloud repo. */
             cloudRepo?: CloudRepoSourceContext;
@@ -379,14 +359,12 @@ declare namespace gapi.client {
             /** A SourceContext referring to any third party Git repo (e.g. GitHub). */
             git?: GitSourceContext;
         }
-        
         interface SourceLocation {
             /** Line inside the file. The first line in the file has the value `1`. */
             line?: number;
             /** Path to the source file within the source context of the target binary. */
             path?: string;
         }
-        
         interface StackFrame {
             /**
              * Set of arguments passed to this function.
@@ -403,7 +381,6 @@ declare namespace gapi.client {
             /** Source location of the call site. */
             location?: SourceLocation;
         }
-        
         interface StatusMessage {
             /** Status message text. */
             description?: FormatMessage;
@@ -412,7 +389,6 @@ declare namespace gapi.client {
             /** Reference to which the message applies. */
             refersTo?: string;
         }
-        
         interface UpdateActiveBreakpointRequest {
             /**
              * Updated breakpoint information.
@@ -421,7 +397,6 @@ declare namespace gapi.client {
              */
             breakpoint?: Breakpoint;
         }
-        
         interface Variable {
             /** Members contained or pointed to by the variable. */
             members?: Variable[];
@@ -433,17 +408,17 @@ declare namespace gapi.client {
              * expression. The rest of breakpoint data still remains valid. Variables
              * might be reported in error state even when breakpoint is not in final
              * state.
-             * 
+             *
              * The message may refer to variable name with `refers_to` set to
              * `VARIABLE_NAME`. Alternatively `refers_to` will be set to `VARIABLE_VALUE`.
              * In either case variable value and members will be unset.
-             * 
+             *
              * Example of error message applied to name: `Invalid expression syntax`.
-             * 
+             *
              * Example of information message applied to value: `Not captured`.
-             * 
+             *
              * Examples of error message applied to value:
-             * 
+             *
              * &#42;   `Malformed string`,
              * &#42;   `Field f not found in class C`
              * &#42;   `Null pointer dereference`
@@ -465,24 +440,23 @@ declare namespace gapi.client {
              */
             varTableIndex?: number;
         }
-        
         interface BreakpointsResource {
             /**
              * Returns the list of all active breakpoints for the debuggee.
-             * 
+             *
              * The breakpoint specification (`location`, `condition`, and `expressions`
              * fields) is semantically immutable, although the field values may
              * change. For example, an agent may update the location line number
              * to reflect the actual line where the breakpoint was set, but this
              * doesn't change the breakpoint semantics.
-             * 
+             *
              * This means that an agent does not need to check if a breakpoint has changed
              * when it encounters the same breakpoint on a successive call.
              * Moreover, an agent should remember the breakpoints that are completed
              * until the controller removes them from the active list to avoid
              * setting those breakpoints again.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -511,7 +485,7 @@ declare namespace gapi.client {
                  * If set to `true` (recommended), returns `google.rpc.Code.OK` status and
                  * sets the `wait_expired` response field to `true` when the server-selected
                  * timeout has expired.
-                 * 
+                 *
                  * If set to `false` (deprecated), returns `google.rpc.Code.ABORTED` status
                  * when the server-selected timeout has expired.
                  */
@@ -527,19 +501,18 @@ declare namespace gapi.client {
                  * the last response. The initial value should be set to `"init"`.
                  */
                 waitToken?: string;
-            }): Request<ListActiveBreakpointsResponse>;            
-            
+            }): Request<ListActiveBreakpointsResponse>;
             /**
              * Updates the breakpoint state or mutable fields.
              * The entire Breakpoint message must be sent back to the controller service.
-             * 
+             *
              * Updates to active breakpoint fields are only allowed if the new value
              * does not change the breakpoint specification. Updates to the `location`,
              * `condition` and `expressions` fields should not alter the breakpoint
              * semantics. These may only make changes such as canonicalizing a value
              * or snapping the location to the correct line of code.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -570,24 +543,22 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
         }
-        
         interface DebuggeesResource {
             /**
              * Registers the debuggee with the controller service.
-             * 
+             *
              * All agents attached to the same application must call this method with
              * exactly the same request content to get back the same stable `debuggee_id`.
              * Agents should call this method again whenever `google.rpc.Code.NOT_FOUND`
              * is returned from any controller method.
-             * 
+             *
              * This protocol allows the controller service to disable debuggees, recover
              * from data loss, or change the `debuggee_id` format. Agents must handle
              * `debuggee_id` value changing upon re-registration.
              */
-            register(request: {            
+            register(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -614,18 +585,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<RegisterDebuggeeResponse>;            
-            
+            }): Request<RegisterDebuggeeResponse>;
             breakpoints: BreakpointsResource;
         }
-        
         interface ControllerResource {
             debuggees: DebuggeesResource;
         }
-        
         interface BreakpointsResource {
             /** Deletes the breakpoint from the debuggee. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -661,10 +629,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets breakpoint information. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -700,10 +667,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GetBreakpointResponse>;            
-            
+            }): Request<GetBreakpointResponse>;
             /** Lists all breakpoints for the debuggee. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -762,10 +728,9 @@ declare namespace gapi.client {
                  * should be called again with the same `wait_token`.
                  */
                 waitToken?: string;
-            }): Request<ListBreakpointsResponse>;            
-            
+            }): Request<ListBreakpointsResponse>;
             /** Sets the breakpoint to the debuggee. */
-            set(request: {            
+            set(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -799,13 +764,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SetBreakpointResponse>;            
-            
+            }): Request<SetBreakpointResponse>;
         }
-        
         interface DebuggeesResource {
             /** Lists all the debuggees that the user has access to. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -844,11 +807,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListDebuggeesResponse>;            
-            
+            }): Request<ListDebuggeesResponse>;
             breakpoints: BreakpointsResource;
         }
-        
         interface DebuggerResource {
             debuggees: DebuggeesResource;
         }

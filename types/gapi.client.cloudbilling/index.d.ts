@@ -13,17 +13,16 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Billing API v1 */
-    function load(name: "cloudbilling", version: "v1"): PromiseLike<void>;    
-    function load(name: "cloudbilling", version: "v1", callback: () => any): void;    
-    
-    const billingAccounts: cloudbilling.BillingAccountsResource; 
-    
-    const projects: cloudbilling.ProjectsResource; 
-    
-    const services: cloudbilling.ServicesResource; 
-    
+    function load(name: "cloudbilling", version: "v1"): PromiseLike<void>;
+    function load(name: "cloudbilling", version: "v1", callback: () => any): void;
+
+    const billingAccounts: cloudbilling.BillingAccountsResource;
+
+    const projects: cloudbilling.ProjectsResource;
+
+    const services: cloudbilling.ServicesResource;
+
     namespace cloudbilling {
-        
         interface AggregationInfo {
             /**
              * The number of intervals to aggregate over.
@@ -34,7 +33,6 @@ declare namespace gapi.client {
             aggregationInterval?: string;
             aggregationLevel?: string;
         }
-        
         interface BillingAccount {
             /**
              * The display name given to the billing account, such as `My Billing
@@ -55,7 +53,6 @@ declare namespace gapi.client {
              */
             open?: boolean;
         }
-        
         interface Category {
             /**
              * The type of product the SKU refers to.
@@ -75,7 +72,6 @@ declare namespace gapi.client {
              */
             usageType?: string;
         }
-        
         interface ListBillingAccountsResponse {
             /** A list of billing accounts. */
             billingAccounts?: BillingAccount[];
@@ -86,7 +82,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListProjectBillingInfoResponse {
             /**
              * A token to retrieve the next page of results. To retrieve the next page,
@@ -100,7 +95,6 @@ declare namespace gapi.client {
              */
             projectBillingInfo?: ProjectBillingInfo[];
         }
-        
         interface ListServicesResponse {
             /**
              * A token to retrieve the next page of results. To retrieve the next page,
@@ -111,7 +105,6 @@ declare namespace gapi.client {
             /** A list of services. */
             services?: Service[];
         }
-        
         interface ListSkusResponse {
             /**
              * A token to retrieve the next page of results. To retrieve the next page,
@@ -122,7 +115,6 @@ declare namespace gapi.client {
             /** The list of public SKUs of the given service. */
             skus?: Sku[];
         }
-        
         interface Money {
             /** The 3-letter currency code defined in ISO 4217. */
             currencyCode?: string;
@@ -141,7 +133,6 @@ declare namespace gapi.client {
              */
             units?: string;
         }
-        
         interface PricingExpression {
             /**
              * The base unit for the SKU which is the unit used in usage exports.
@@ -189,7 +180,6 @@ declare namespace gapi.client {
              */
             usageUnitDescription?: string;
         }
-        
         interface PricingInfo {
             /**
              * Aggregation Info. This can be left unspecified if the pricing expression
@@ -212,7 +202,6 @@ declare namespace gapi.client {
              */
             summary?: string;
         }
-        
         interface ProjectBillingInfo {
             /**
              * The resource name of the billing account associated with the project, if
@@ -240,7 +229,6 @@ declare namespace gapi.client {
              */
             projectId?: string;
         }
-        
         interface Service {
             /** A human readable display name for this service. */
             displayName?: string;
@@ -255,7 +243,6 @@ declare namespace gapi.client {
              */
             serviceId?: string;
         }
-        
         interface Sku {
             /** The category hierarchy of this SKU, purely for organizational purpose. */
             category?: Category;
@@ -288,7 +275,6 @@ declare namespace gapi.client {
              */
             skuId?: string;
         }
-        
         interface TierRate {
             /**
              * Usage is priced at this rate only after this amount.
@@ -302,14 +288,13 @@ declare namespace gapi.client {
              */
             unitPrice?: Money;
         }
-        
         interface ProjectsResource {
             /**
              * Lists the projects associated with a billing account. The current
              * authenticated user must be an [owner of the billing
              * account](https://support.google.com/cloud/answer/4430947).
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -352,17 +337,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListProjectBillingInfoResponse>;            
-            
+            }): Request<ListProjectBillingInfoResponse>;
         }
-        
         interface BillingAccountsResource {
             /**
              * Gets information about a billing account. The current authenticated user
              * must be an [owner of the billing
              * account](https://support.google.com/cloud/answer/4430947).
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -394,13 +377,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BillingAccount>;            
-            
+            }): Request<BillingAccount>;
             /**
              * Lists the billing accounts that the current authenticated user
              * [owns](https://support.google.com/cloud/answer/4430947).
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -438,11 +420,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListBillingAccountsResponse>;            
-            
+            }): Request<ListBillingAccountsResponse>;
             projects: ProjectsResource;
         }
-        
         interface ProjectsResource {
             /**
              * Gets the billing information for a project. The current authenticated user
@@ -450,7 +430,7 @@ declare namespace gapi.client {
              * project](https://cloud.google.com/docs/permissions-overview#h.bgs0oxofvnoo
              * ).
              */
-            getBillingInfo(request: {            
+            getBillingInfo(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -482,8 +462,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ProjectBillingInfo>;            
-            
+            }): Request<ProjectBillingInfo>;
             /**
              * Sets or updates the billing account associated with a project. You specify
              * the new billing account by setting the `billing_account_name` in the
@@ -492,17 +471,17 @@ declare namespace gapi.client {
              * project and allows charges for resource usage. If the project already had a
              * billing account, this method changes the billing account used for resource
              * usage charges.
-             * 
+             *
              * &#42;Note:&#42; Incurred charges that have not yet been reported in the transaction
              * history of the Google Cloud Console may be billed to the new billing
              * account, even if the charge occurred before the new billing account was
              * assigned to the project.
-             * 
+             *
              * The current authenticated user must have ownership privileges for both the
              * [project](https://cloud.google.com/docs/permissions-overview#h.bgs0oxofvnoo
              * ) and the [billing
              * account](https://support.google.com/cloud/answer/4430947).
-             * 
+             *
              * You can disable billing on the project by setting the
              * `billing_account_name` field to empty. This action disassociates the
              * current billing account from the project. Any billable activity of your
@@ -510,14 +489,14 @@ declare namespace gapi.client {
              * expected. Any unbilled charges to date will be billed to the previously
              * associated account. The current authenticated user must be either an owner
              * of the project or an owner of the billing account for the project.
-             * 
+             *
              * Note that associating a project with a &#42;closed&#42; billing account will have
              * much the same effect as disabling billing on the project: any paid
              * resources used by the project will be shut down. Thus, unless you wish to
              * disable billing, you should always call this method with the name of an
              * &#42;open&#42; billing account.
              */
-            updateBillingInfo(request: {            
+            updateBillingInfo(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -549,13 +528,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ProjectBillingInfo>;            
-            
+            }): Request<ProjectBillingInfo>;
         }
-        
         interface SkusResource {
             /** Lists all publicly available SKUs for a given cloud service. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -617,13 +594,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListSkusResponse>;            
-            
+            }): Request<ListSkusResponse>;
         }
-        
         interface ServicesResource {
             /** Lists all public cloud services. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -658,8 +633,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListServicesResponse>;            
-            
+            }): Request<ListServicesResponse>;
             skus: SkusResource;
         }
     }

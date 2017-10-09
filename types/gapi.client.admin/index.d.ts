@@ -13,19 +13,18 @@
 
 declare namespace gapi.client {
     /** Load Admin Reports API reports_v1 */
-    function load(name: "admin", version: "reports_v1"): PromiseLike<void>;    
-    function load(name: "admin", version: "reports_v1", callback: () => any): void;    
-    
-    const activities: admin.ActivitiesResource; 
-    
-    const channels: admin.ChannelsResource; 
-    
-    const customerUsageReports: admin.CustomerUsageReportsResource; 
-    
-    const userUsageReport: admin.UserUsageReportResource; 
-    
+    function load(name: "admin", version: "reports_v1"): PromiseLike<void>;
+    function load(name: "admin", version: "reports_v1", callback: () => any): void;
+
+    const activities: admin.ActivitiesResource;
+
+    const channels: admin.ChannelsResource;
+
+    const customerUsageReports: admin.CustomerUsageReportsResource;
+
+    const userUsageReport: admin.UserUsageReportResource;
+
     namespace admin {
-        
         interface Activities {
             /** ETag of the resource. */
             etag?: string;
@@ -36,10 +35,9 @@ declare namespace gapi.client {
             /** Token for retrieving the next page */
             nextPageToken?: string;
         }
-        
         interface Activity {
             /** User doing the action. */
-            actor?: {            
+            actor?: {
                 /** User or OAuth 2LO request. */
                 callerType?: string;
                 /** Email address of the user. */
@@ -48,15 +46,15 @@ declare namespace gapi.client {
                 key?: string;
                 /** Obfuscated user id of the user. */
                 profileId?: string;
-            };            
+            };
             /** ETag of the entry. */
             etag?: string;
             /** Activity events. */
-            events?: Array<{            
+            events?: Array<{
                 /** Name of event. */
                 name?: string;
                 /** Parameter value pairs for various applications. */
-                parameters?: Array<{                
+                parameters?: Array<{
                     /** Boolean value of the parameter. */
                     boolValue?: boolean;
                     /** Integral value of the parameter. */
@@ -69,12 +67,12 @@ declare namespace gapi.client {
                     name?: string;
                     /** String value of the parameter. */
                     value?: string;
-                }>;                
+                }>;
                 /** Type of event. */
                 type?: string;
-            }>;            
+            }>;
             /** Unique identifier for each activity record. */
-            id?: {            
+            id?: {
                 /** Application name to which the event belongs. */
                 applicationName?: string;
                 /** Obfuscated customer ID of the source customer. */
@@ -83,7 +81,7 @@ declare namespace gapi.client {
                 time?: string;
                 /** Unique qualifier if multiple events have the same time. */
                 uniqueQualifier?: string;
-            };            
+            };
             /** IP Address of the user doing the action. */
             ipAddress?: string;
             /** Kind of resource this is. */
@@ -91,7 +89,6 @@ declare namespace gapi.client {
             /** Domain of source customer. */
             ownerDomain?: string;
         }
-        
         interface Channel {
             /** The address where notifications are delivered for this channel. */
             address?: string;
@@ -102,7 +99,7 @@ declare namespace gapi.client {
             /** Identifies this as a notification channel used to watch for changes to a resource. Value: the fixed string "api#channel". */
             kind?: string;
             /** Additional parameters controlling delivery channel behavior. Optional. */
-            params?: Record<string, string>;            
+            params?: Record<string, string>;
             /** A Boolean value to indicate whether payload is wanted. Optional. */
             payload?: boolean;
             /** An opaque ID that identifies the resource being watched on this channel. Stable across different API versions. */
@@ -114,12 +111,11 @@ declare namespace gapi.client {
             /** The type of delivery mechanism used for this channel. */
             type?: string;
         }
-        
         interface UsageReport {
             /** The date to which the record belongs. */
             date?: string;
             /** Information about the type of the item. */
-            entity?: {            
+            entity?: {
                 /** Obfuscated customer id for the record. */
                 customerId?: string;
                 /** Obfuscated user id for the record. */
@@ -128,13 +124,13 @@ declare namespace gapi.client {
                 type?: string;
                 /** user's email. */
                 userEmail?: string;
-            };            
+            };
             /** ETag of the resource. */
             etag?: string;
             /** The kind of object. */
             kind?: string;
             /** Parameter value pairs for various applications. */
-            parameters?: Array<{            
+            parameters?: Array<{
                 /** Boolean value of the parameter. */
                 boolValue?: boolean;
                 /** RFC 3339 formatted value of the parameter. */
@@ -142,14 +138,13 @@ declare namespace gapi.client {
                 /** Integral value of the parameter. */
                 intValue?: string;
                 /** Nested message value of the parameter. */
-                msgValue?: Array<Record<string, any>>;                
+                msgValue?: Array<Record<string, any>>;
                 /** The name of the parameter. */
                 name?: string;
                 /** String value of the parameter. */
                 stringValue?: string;
-            }>;            
+            }>;
         }
-        
         interface UsageReports {
             /** ETag of the resource. */
             etag?: string;
@@ -160,24 +155,23 @@ declare namespace gapi.client {
             /** Various application parameter records. */
             usageReports?: UsageReport[];
             /** Warnings if any. */
-            warnings?: Array<{            
+            warnings?: Array<{
                 /** Machine readable code / warning type. */
                 code?: string;
                 /** Key-Value pairs to give detailed information on the warning. */
-                data?: Array<{                
+                data?: Array<{
                     /** Key associated with a key-value pair to give detailed information on the warning. */
                     key?: string;
                     /** Value associated with a key-value pair to give detailed information on the warning. */
                     value?: string;
-                }>;                
+                }>;
                 /** Human readable message for the warning. */
                 message?: string;
-            }>;            
+            }>;
         }
-        
         interface ActivitiesResource {
             /** Retrieves a list of activities for a specific customer and application. */
-            list(request: {            
+            list(request: {
                 /** IP Address of host where the event was performed. Supports both IPv4 and IPv6 addresses. */
                 actorIpAddress?: string;
                 /** Data format for the response. */
@@ -204,18 +198,23 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Return events which occurred at or after this time. */
                 startTime?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for all users. */
+                /**
+                 * Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for
+                 * all users.
+                 */
                 userKey: string;
-            }): Request<Activities>;            
-            
+            }): Request<Activities>;
             /** Push changes to activities */
-            watch(request: {            
+            watch(request: {
                 /** IP Address of host where the event was performed. Supports both IPv4 and IPv6 addresses. */
                 actorIpAddress?: string;
                 /** Data format for the response. */
@@ -242,21 +241,25 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Return events which occurred at or after this time. */
                 startTime?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for all users. */
+                /**
+                 * Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for
+                 * all users.
+                 */
                 userKey: string;
-            }): Request<Channel>;            
-            
+            }): Request<Channel>;
         }
-        
         interface ChannelsResource {
             /** Stop watching resources through this channel */
-            stop(request: {            
+            stop(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -267,17 +270,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface CustomerUsageReportsResource {
             /** Retrieves a report which is a collection of properties / statistics for a specific customer. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Represents the customer for which the data is to be fetched. */
@@ -296,17 +300,18 @@ declare namespace gapi.client {
                 parameters?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UsageReports>;            
-            
+            }): Request<UsageReports>;
         }
-        
         interface UserUsageReportResource {
             /** Retrieves a report which is a collection of properties / statistics for a set of users. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Represents the customer for which the data is to be fetched. */
@@ -329,14 +334,16 @@ declare namespace gapi.client {
                 parameters?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Represents the profile id or the user email for which the data should be filtered. */
                 userKey: string;
-            }): Request<UsageReports>;            
-            
+            }): Request<UsageReports>;
         }
     }
 }

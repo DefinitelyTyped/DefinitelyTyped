@@ -13,19 +13,18 @@
 
 declare namespace gapi.client {
     /** Load DoubleClick Bid Manager API v1 */
-    function load(name: "doubleclickbidmanager", version: "v1"): PromiseLike<void>;    
-    function load(name: "doubleclickbidmanager", version: "v1", callback: () => any): void;    
-    
-    const lineitems: doubleclickbidmanager.LineitemsResource; 
-    
-    const queries: doubleclickbidmanager.QueriesResource; 
-    
-    const reports: doubleclickbidmanager.ReportsResource; 
-    
-    const sdf: doubleclickbidmanager.SdfResource; 
-    
+    function load(name: "doubleclickbidmanager", version: "v1"): PromiseLike<void>;
+    function load(name: "doubleclickbidmanager", version: "v1", callback: () => any): void;
+
+    const lineitems: doubleclickbidmanager.LineitemsResource;
+
+    const queries: doubleclickbidmanager.QueriesResource;
+
+    const reports: doubleclickbidmanager.ReportsResource;
+
+    const sdf: doubleclickbidmanager.SdfResource;
+
     namespace doubleclickbidmanager {
-        
         interface DownloadLineItemsRequest {
             /** File specification (column names, types, order) in which the line items will be returned. Default to EWF. */
             fileSpec?: string;
@@ -36,23 +35,23 @@ declare namespace gapi.client {
             /** Format in which the line items will be returned. Default to CSV. */
             format?: string;
         }
-        
         interface DownloadLineItemsResponse {
             /** Retrieved line items in CSV format. For more information about file formats, see  Entity Write File Format. */
             lineItems?: string;
         }
-        
         interface DownloadRequest {
             /** File types that will be returned. */
             fileTypes?: string[];
-            /** The IDs of the specified filter type. This is used to filter entities to fetch. At least one ID must be specified. Only one ID is allowed for the ADVERTISER_ID filter type. For INSERTION_ORDER_ID or LINE_ITEM_ID filter types, all IDs must be from the same Advertiser. */
+            /**
+             * The IDs of the specified filter type. This is used to filter entities to fetch. At least one ID must be specified. Only one ID is allowed for the
+             * ADVERTISER_ID filter type. For INSERTION_ORDER_ID or LINE_ITEM_ID filter types, all IDs must be from the same Advertiser.
+             */
             filterIds?: string[];
             /** Filter type used to filter line items to fetch. */
             filterType?: string;
             /** SDF Version (column names, types, order) in which the entities will be returned. Default to 3. */
             version?: string;
         }
-        
         interface DownloadResponse {
             /** Retrieved ad groups in SDF format. */
             adGroups?: string;
@@ -63,28 +62,24 @@ declare namespace gapi.client {
             /** Retrieved line items in SDF format. */
             lineItems?: string;
         }
-        
         interface FilterPair {
             /** Filter type. */
             type?: string;
             /** Filter value. */
             value?: string;
         }
-        
         interface ListQueriesResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "doubleclickbidmanager#listQueriesResponse". */
             kind?: string;
             /** Retrieved queries. */
             queries?: Query[];
         }
-        
         interface ListReportsResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "doubleclickbidmanager#listReportsResponse". */
             kind?: string;
             /** Retrieved reports. */
             reports?: Report[];
         }
-        
         interface Parameters {
             /** Filters used to match traffic data in your report. */
             filters?: FilterPair[];
@@ -97,7 +92,6 @@ declare namespace gapi.client {
             /** Report type. */
             type?: string;
         }
-        
         interface Query {
             /** Identifies what kind of resource this is. Value: the fixed string "doubleclickbidmanager#query". */
             kind?: string;
@@ -107,16 +101,21 @@ declare namespace gapi.client {
             params?: Parameters;
             /** Query ID. */
             queryId?: string;
-            /** The ending time for the data that is shown in the report. Note, reportDataEndTimeMs is required if metadata.dataRange is CUSTOM_DATES and ignored otherwise. */
+            /**
+             * The ending time for the data that is shown in the report. Note, reportDataEndTimeMs is required if metadata.dataRange is CUSTOM_DATES and ignored
+             * otherwise.
+             */
             reportDataEndTimeMs?: string;
-            /** The starting time for the data that is shown in the report. Note, reportDataStartTimeMs is required if metadata.dataRange is CUSTOM_DATES and ignored otherwise. */
+            /**
+             * The starting time for the data that is shown in the report. Note, reportDataStartTimeMs is required if metadata.dataRange is CUSTOM_DATES and ignored
+             * otherwise.
+             */
             reportDataStartTimeMs?: string;
             /** Information on how often and when to run a query. */
             schedule?: QuerySchedule;
             /** Canonical timezone code for report data time. Defaults to America/New_York. */
             timezoneCode?: string;
         }
-        
         interface QueryMetadata {
             /** Range of report data. */
             dataRange?: string;
@@ -129,8 +128,9 @@ declare namespace gapi.client {
             /** The time when the latest report started to run. */
             latestReportRunTimeMs?: string;
             /**
-             * Locale of the generated reports. Valid values are cs CZECH de GERMAN en ENGLISH es SPANISH fr FRENCH it ITALIAN ja JAPANESE ko KOREAN pl POLISH pt-BR BRAZILIAN_PORTUGUESE ru RUSSIAN tr TURKISH uk UKRAINIAN zh-CN CHINA_CHINESE zh-TW TAIWAN_CHINESE
-             * 
+             * Locale of the generated reports. Valid values are cs CZECH de GERMAN en ENGLISH es SPANISH fr FRENCH it ITALIAN ja JAPANESE ko KOREAN pl POLISH pt-BR
+             * BRAZILIAN_PORTUGUESE ru RUSSIAN tr TURKISH uk UKRAINIAN zh-CN CHINA_CHINESE zh-TW TAIWAN_CHINESE
+             *
              * An locale string not in the list above will generate reports in English.
              */
             locale?: string;
@@ -145,7 +145,6 @@ declare namespace gapi.client {
             /** Query title. It is used to name the reports generated from this query. */
             title?: string;
         }
-        
         interface QuerySchedule {
             /** Datetime to periodically run the query until. */
             endTimeMs?: string;
@@ -156,7 +155,6 @@ declare namespace gapi.client {
             /** Canonical timezone code for report generation time. Defaults to America/New_York. */
             nextRunTimezoneCode?: string;
         }
-        
         interface Report {
             /** Key used to identify a report. */
             key?: ReportKey;
@@ -165,19 +163,16 @@ declare namespace gapi.client {
             /** Report parameters. */
             params?: Parameters;
         }
-        
         interface ReportFailure {
             /** Error code that shows why the report was not created. */
             errorCode?: string;
         }
-        
         interface ReportKey {
             /** Query ID. */
             queryId?: string;
             /** Report ID. */
             reportId?: string;
         }
-        
         interface ReportMetadata {
             /** The path to the location in Google Cloud Storage where the report is stored. */
             googleCloudStoragePath?: string;
@@ -188,7 +183,6 @@ declare namespace gapi.client {
             /** Report status. */
             status?: ReportStatus;
         }
-        
         interface ReportStatus {
             /** If the report failed, this records the cause. */
             failure?: ReportFailure;
@@ -199,7 +193,6 @@ declare namespace gapi.client {
             /** The state of the report. */
             state?: string;
         }
-        
         interface RowStatus {
             /** Whether the stored entity is changed as a result of upload. */
             changed?: boolean;
@@ -214,7 +207,6 @@ declare namespace gapi.client {
             /** Row number. */
             rowNumber?: number;
         }
-        
         interface RunQueryRequest {
             /** Report data range used to generate the report. */
             dataRange?: string;
@@ -225,7 +217,6 @@ declare namespace gapi.client {
             /** Canonical timezone code for report data time. Defaults to America/New_York. */
             timezoneCode?: string;
         }
-        
         interface UploadLineItemsRequest {
             /** Set to true to get upload status without actually persisting the line items. */
             dryRun?: boolean;
@@ -234,22 +225,19 @@ declare namespace gapi.client {
             /** Line items in CSV to upload. Refer to  Entity Write File Format for more information on file format. */
             lineItems?: string;
         }
-        
         interface UploadLineItemsResponse {
             /** Status of upload. */
             uploadStatus?: UploadStatus;
         }
-        
         interface UploadStatus {
             /** Reasons why upload can't be completed. */
             errors?: string[];
             /** Per-row upload status. */
             rowStatus?: RowStatus[];
         }
-        
         interface LineitemsResource {
             /** Retrieves line items in CSV format. */
-            downloadlineitems(request: {            
+            downloadlineitems(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -260,14 +248,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DownloadLineItemsResponse>;            
-            
+            }): Request<DownloadLineItemsResponse>;
             /** Uploads line items in CSV format. */
-            uploadlineitems(request: {            
+            uploadlineitems(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -278,17 +268,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UploadLineItemsResponse>;            
-            
+            }): Request<UploadLineItemsResponse>;
         }
-        
         interface QueriesResource {
             /** Creates a query. */
-            createquery(request: {            
+            createquery(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -299,14 +290,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Query>;            
-            
+            }): Request<Query>;
             /** Deletes a stored query as well as the associated stored reports. */
-            deletequery(request: {            
+            deletequery(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -319,14 +312,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Query ID to delete. */
                 queryId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves a stored query. */
-            getquery(request: {            
+            getquery(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -339,14 +334,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Query ID to retrieve. */
                 queryId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Query>;            
-            
+            }): Request<Query>;
             /** Retrieves stored queries. */
-            listqueries(request: {            
+            listqueries(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -357,14 +354,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListQueriesResponse>;            
-            
+            }): Request<ListQueriesResponse>;
             /** Runs a stored query to generate a report. */
-            runquery(request: {            
+            runquery(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -377,17 +376,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Query ID to run. */
                 queryId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface ReportsResource {
             /** Retrieves stored reports. */
-            listreports(request: {            
+            listreports(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -400,17 +400,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Query ID with which the reports are associated. */
                 queryId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListReportsResponse>;            
-            
+            }): Request<ListReportsResponse>;
         }
-        
         interface SdfResource {
             /** Retrieves entities in SDF format. */
-            download(request: {            
+            download(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -421,12 +422,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DownloadResponse>;            
-            
+            }): Request<DownloadResponse>;
         }
     }
 }

@@ -36,6 +36,9 @@ var client_id = '',
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
     
+        // Manage your source code repositories
+        'https://www.googleapis.com/auth/source.full_control',
+    
         // View the contents of your source code repositories
         'https://www.googleapis.com/auth/source.read_only',
     

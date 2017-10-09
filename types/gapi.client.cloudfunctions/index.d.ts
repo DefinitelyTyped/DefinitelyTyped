@@ -13,54 +13,50 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Functions API v1 */
-    function load(name: "cloudfunctions", version: "v1"): PromiseLike<void>;    
-    function load(name: "cloudfunctions", version: "v1", callback: () => any): void;    
-    
-    const operations: cloudfunctions.OperationsResource; 
-    
-    const projects: cloudfunctions.ProjectsResource; 
-    
+    function load(name: "cloudfunctions", version: "v1"): PromiseLike<void>;
+    function load(name: "cloudfunctions", version: "v1", callback: () => any): void;
+
+    const operations: cloudfunctions.OperationsResource;
+
+    const projects: cloudfunctions.ProjectsResource;
+
     namespace cloudfunctions {
-        
         interface ListLocationsResponse {
             /** A list of locations that matches the specified filter in the request. */
             locations?: Location[];
             /** The standard List next-page token. */
             nextPageToken?: string;
         }
-        
         interface ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: Operation[];
         }
-        
         interface Location {
             /**
              * Cross-service attributes for the location. For example
-             * 
-             *     {"cloud.googleapis.com/region": "us-east1"}
+             *
+             * {"cloud.googleapis.com/region": "us-east1"}
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** The canonical id for this location. For example: `"us-east1"`. */
             locationId?: string;
             /**
              * Service-specific metadata. For example the available capacity at the given
              * location.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * Resource name for the location, which may vary between implementations.
              * For example: `"projects/example-project/locations/us-east1"`
              */
             name?: string;
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
@@ -72,7 +68,7 @@ declare namespace gapi.client {
              * Some services might not provide such metadata.  Any method that returns a
              * long-running operation should document the metadata type, if any.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
@@ -89,12 +85,11 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface OperationMetadataV1Beta2 {
             /** The original request that started the operation. */
-            request?: Record<string, any>;            
+            request?: Record<string, any>;
             /**
              * Target of the operation - for example
              * projects/project-1/locations/region-1/functions/function-1
@@ -102,8 +97,12 @@ declare namespace gapi.client {
             target?: string;
             /** Type of operation. */
             type?: string;
+            /**
+             * Version id of the function created or updated by an API call.
+             * This field is only pupulated for Create and Update operations.
+             */
+            versionId?: string;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -111,7 +110,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -119,14 +118,13 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface OperationsResource {
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -155,12 +153,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -169,7 +166,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -204,13 +201,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
         }
-        
         interface LocationsResource {
             /** Lists information about the supported locations for this service. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -245,10 +240,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListLocationsResponse>;            
-            
+            }): Request<ListLocationsResponse>;
         }
-        
         interface ProjectsResource {
             locations: LocationsResource;
         }

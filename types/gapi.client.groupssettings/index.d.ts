@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Groups Settings API v1 */
-    function load(name: "groupssettings", version: "v1"): PromiseLike<void>;    
-    function load(name: "groupssettings", version: "v1", callback: () => any): void;    
-    
-    const groups: groupssettings.GroupsResource; 
-    
+    function load(name: "groupssettings", version: "v1"): PromiseLike<void>;
+    function load(name: "groupssettings", version: "v1", callback: () => any): void;
+
+    const groups: groupssettings.GroupsResource;
+
     namespace groupssettings {
-        
         interface Groups {
             /** Are external members allowed to join the group. */
             allowExternalMembers?: string;
@@ -59,7 +58,10 @@ declare namespace gapi.client {
             name?: string;
             /** Primary language for the group. */
             primaryLanguage?: string;
-            /** Whome should the default reply to a message go to. Possible values are: REPLY_TO_CUSTOM REPLY_TO_SENDER REPLY_TO_LIST REPLY_TO_OWNER REPLY_TO_IGNORE REPLY_TO_MANAGERS */
+            /**
+             * Whome should the default reply to a message go to. Possible values are: REPLY_TO_CUSTOM REPLY_TO_SENDER REPLY_TO_LIST REPLY_TO_OWNER REPLY_TO_IGNORE
+             * REPLY_TO_MANAGERS
+             */
             replyTo?: string;
             /** Should the member be notified if his message is denied by owner. */
             sendMessageDenyNotification?: string;
@@ -69,7 +71,10 @@ declare namespace gapi.client {
             spamModerationLevel?: string;
             /** Permissions to add members. Possible values are: ALL_MANAGERS_CAN_ADD ALL_MEMBERS_CAN_ADD NONE_CAN_ADD */
             whoCanAdd?: string;
-            /** Permission to contact owner of the group via web UI. Possible values are: ANYONE_CAN_CONTACT ALL_IN_DOMAIN_CAN_CONTACT ALL_MEMBERS_CAN_CONTACT ALL_MANAGERS_CAN_CONTACT */
+            /**
+             * Permission to contact owner of the group via web UI. Possible values are: ANYONE_CAN_CONTACT ALL_IN_DOMAIN_CAN_CONTACT ALL_MEMBERS_CAN_CONTACT
+             * ALL_MANAGERS_CAN_CONTACT
+             */
             whoCanContactOwner?: string;
             /** Permissions to invite members. Possible values are: ALL_MEMBERS_CAN_INVITE ALL_MANAGERS_CAN_INVITE NONE_CAN_INVITE */
             whoCanInvite?: string;
@@ -77,17 +82,19 @@ declare namespace gapi.client {
             whoCanJoin?: string;
             /** Permission to leave the group. Possible values are: ALL_MANAGERS_CAN_LEAVE ALL_MEMBERS_CAN_LEAVE NONE_CAN_LEAVE */
             whoCanLeaveGroup?: string;
-            /** Permissions to post messages to the group. Possible values are: NONE_CAN_POST ALL_MANAGERS_CAN_POST ALL_MEMBERS_CAN_POST ALL_OWNERS_CAN_POST ALL_IN_DOMAIN_CAN_POST ANYONE_CAN_POST */
+            /**
+             * Permissions to post messages to the group. Possible values are: NONE_CAN_POST ALL_MANAGERS_CAN_POST ALL_MEMBERS_CAN_POST ALL_OWNERS_CAN_POST
+             * ALL_IN_DOMAIN_CAN_POST ANYONE_CAN_POST
+             */
             whoCanPostMessage?: string;
             /** Permissions to view group. Possible values are: ANYONE_CAN_VIEW ALL_IN_DOMAIN_CAN_VIEW ALL_MEMBERS_CAN_VIEW ALL_MANAGERS_CAN_VIEW */
             whoCanViewGroup?: string;
             /** Permissions to view membership. Possible values are: ALL_IN_DOMAIN_CAN_VIEW ALL_MEMBERS_CAN_VIEW ALL_MANAGERS_CAN_VIEW */
             whoCanViewMembership?: string;
         }
-        
         interface GroupsResource {
             /** Gets one resource by id. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -100,14 +107,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Groups>;            
-            
+            }): Request<Groups>;
             /** Updates an existing resource. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -120,14 +129,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Groups>;            
-            
+            }): Request<Groups>;
             /** Updates an existing resource. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -140,12 +151,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Groups>;            
-            
+            }): Request<Groups>;
         }
     }
 }

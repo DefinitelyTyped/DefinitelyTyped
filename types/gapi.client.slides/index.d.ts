@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Slides API v1 */
-    function load(name: "slides", version: "v1"): PromiseLike<void>;    
-    function load(name: "slides", version: "v1", callback: () => any): void;    
-    
-    const presentations: slides.PresentationsResource; 
-    
+    function load(name: "slides", version: "v1"): PromiseLike<void>;
+    function load(name: "slides", version: "v1", callback: () => any): void;
+
+    const presentations: slides.PresentationsResource;
+
     namespace slides {
-        
         interface AffineTransform {
             /** The X coordinate scaling element. */
             scaleX?: number;
@@ -36,7 +35,6 @@ declare namespace gapi.client {
             /** The units for translate elements. */
             unit?: string;
         }
-        
         interface AutoText {
             /** The rendered content of this auto text, if available. */
             content?: string;
@@ -45,14 +43,12 @@ declare namespace gapi.client {
             /** The type of this auto text. */
             type?: string;
         }
-        
         interface BatchUpdatePresentationRequest {
             /** A list of updates to apply to the presentation. */
             requests?: Request[];
             /** Provides control over how write requests are executed. */
             writeControl?: WriteControl;
         }
-        
         interface BatchUpdatePresentationResponse {
             /** The presentation the updates were applied to. */
             presentationId?: string;
@@ -62,7 +58,6 @@ declare namespace gapi.client {
              */
             replies?: Response[];
         }
-        
         interface Bullet {
             /** The paragraph specific text style applied to this bullet. */
             bulletStyle?: TextStyle;
@@ -73,12 +68,10 @@ declare namespace gapi.client {
             /** The nesting level of this paragraph in the list. */
             nestingLevel?: number;
         }
-        
         interface ColorScheme {
             /** The ThemeColorType and corresponding concrete color pairs. */
             colors?: ThemeColorPair[];
         }
-        
         interface ColorStop {
             /**
              * The alpha value of this color in the gradient band. Defaults to 1.0,
@@ -93,11 +86,10 @@ declare namespace gapi.client {
              */
             position?: number;
         }
-        
         interface CreateImageRequest {
             /**
              * The element properties for the image.
-             * 
+             *
              * When the aspect ratio of the provided size does not match the image aspect
              * ratio, the image is scaled and centered with respect to the size in order
              * to maintain aspect ratio. The provided transform is applied after this
@@ -106,33 +98,33 @@ declare namespace gapi.client {
             elementProperties?: PageElementProperties;
             /**
              * A user-supplied object ID.
-             * 
+             *
              * If you specify an ID, it must be unique among all pages and page elements
              * in the presentation. The ID must start with an alphanumeric character or an
              * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
              * may include those as well as a hyphen or colon (matches regex
              * `[a-zA-Z0-9_-:]`).
              * The length of the ID must not be less than 5 or greater than 50.
-             * 
+             *
              * If you don't specify an ID, a unique one is generated.
              */
             objectId?: string;
             /**
              * The image URL.
-             * 
+             *
              * The image is fetched once at insertion time and a copy is stored for
              * display inside the presentation. Images must be less than 50MB in size,
              * cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
              * format.
+             *
+             * The provided URL can be at maximum 2K bytes large.
              */
             url?: string;
         }
-        
         interface CreateImageResponse {
             /** The object ID of the created image. */
             objectId?: string;
         }
-        
         interface CreateLineRequest {
             /** The element properties for the line. */
             elementProperties?: PageElementProperties;
@@ -140,24 +132,22 @@ declare namespace gapi.client {
             lineCategory?: string;
             /**
              * A user-supplied object ID.
-             * 
+             *
              * If you specify an ID, it must be unique among all pages and page elements
              * in the presentation. The ID must start with an alphanumeric character or an
              * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
              * may include those as well as a hyphen or colon (matches regex
              * `[a-zA-Z0-9_-:]`).
              * The length of the ID must not be less than 5 or greater than 50.
-             * 
+             *
              * If you don't specify an ID, a unique one is generated.
              */
             objectId?: string;
         }
-        
         interface CreateLineResponse {
             /** The object ID of the created line. */
             objectId?: string;
         }
-        
         interface CreateParagraphBulletsRequest {
             /**
              * The kinds of bullet glyphs to be used. Defaults to the
@@ -174,13 +164,12 @@ declare namespace gapi.client {
             /** The range of text to apply the bullet presets to, based on TextElement indexes. */
             textRange?: Range;
         }
-        
         interface CreateShapeRequest {
             /** The element properties for the shape. */
             elementProperties?: PageElementProperties;
             /**
              * A user-supplied object ID.
-             * 
+             *
              * If you specify an ID, it must be unique among all pages and page elements
              * in the presentation. The ID must start with an alphanumeric character or an
              * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
@@ -193,18 +182,16 @@ declare namespace gapi.client {
             /** The shape type. */
             shapeType?: string;
         }
-        
         interface CreateShapeResponse {
             /** The object ID of the created shape. */
             objectId?: string;
         }
-        
         interface CreateSheetsChartRequest {
             /** The ID of the specific chart in the Google Sheets spreadsheet. */
             chartId?: number;
             /**
              * The element properties for the chart.
-             * 
+             *
              * When the aspect ratio of the provided size does not match the chart aspect
              * ratio, the chart is scaled and centered with respect to the size in order
              * to maintain aspect ratio. The provided transform is applied after this
@@ -218,7 +205,7 @@ declare namespace gapi.client {
             linkingMode?: string;
             /**
              * A user-supplied object ID.
-             * 
+             *
              * If specified, the ID must be unique among all pages and page elements in
              * the presentation. The ID should start with a word character [a-zA-Z0-9_]
              * and then followed by any number of the following characters [a-zA-Z0-9_-:].
@@ -229,29 +216,27 @@ declare namespace gapi.client {
             /** The ID of the Google Sheets spreadsheet that contains the chart. */
             spreadsheetId?: string;
         }
-        
         interface CreateSheetsChartResponse {
             /** The object ID of the created chart. */
             objectId?: string;
         }
-        
         interface CreateSlideRequest {
             /**
              * The optional zero-based index indicating where to insert the slides.
-             * 
+             *
              * If you don't specify an index, the new slide is created at the end.
              */
             insertionIndex?: number;
             /**
              * A user-supplied object ID.
-             * 
+             *
              * If you specify an ID, it must be unique among all pages and page elements
              * in the presentation. The ID must start with an alphanumeric character or an
              * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
              * may include those as well as a hyphen or colon (matches regex
              * `[a-zA-Z0-9_-:]`).
              * The length of the ID must not be less than 5 or greater than 50.
-             * 
+             *
              * If you don't specify an ID, a unique one is generated.
              */
             objectId?: string;
@@ -264,92 +249,86 @@ declare namespace gapi.client {
             /**
              * Layout reference of the slide to be inserted, based on the &#42;current
              * master&#42;, which is one of the following:
-             * 
+             *
              * - The master of the previous slide index.
              * - The master of the first slide, if the insertion_index is zero.
              * - The first master in the presentation, if there are no slides.
-             * 
+             *
              * If the LayoutReference is not found in the current master, a 400 bad
              * request error is returned.
-             * 
+             *
              * If you don't specify a layout reference, then the new slide will use the
              * predefined layout `BLANK`.
              */
             slideLayoutReference?: LayoutReference;
         }
-        
         interface CreateSlideResponse {
             /** The object ID of the created slide. */
             objectId?: string;
         }
-        
         interface CreateTableRequest {
             /** Number of columns in the table. */
             columns?: number;
             /**
              * The element properties for the table.
-             * 
+             *
              * The table will be created at the provided size, subject to a minimum size.
              * If no size is provided, the table will be automatically sized.
-             * 
+             *
              * Table transforms must have a scale of 1 and no shear components. If no
              * transform is provided, the table will be centered on the page.
              */
             elementProperties?: PageElementProperties;
             /**
              * A user-supplied object ID.
-             * 
+             *
              * If you specify an ID, it must be unique among all pages and page elements
              * in the presentation. The ID must start with an alphanumeric character or an
              * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
              * may include those as well as a hyphen or colon (matches regex
              * `[a-zA-Z0-9_-:]`).
              * The length of the ID must not be less than 5 or greater than 50.
-             * 
+             *
              * If you don't specify an ID, a unique one is generated.
              */
             objectId?: string;
             /** Number of rows in the table. */
             rows?: number;
         }
-        
         interface CreateTableResponse {
             /** The object ID of the created table. */
             objectId?: string;
         }
-        
         interface CreateVideoRequest {
             /** The element properties for the video. */
             elementProperties?: PageElementProperties;
             /**
              * The video source's unique identifier for this video.
-             * 
+             *
              * e.g. For YouTube video https://www.youtube.com/watch?v=7U3axjORYZ0,
              * the ID is 7U3axjORYZ0.
              */
             id?: string;
             /**
              * A user-supplied object ID.
-             * 
+             *
              * If you specify an ID, it must be unique among all pages and page elements
              * in the presentation. The ID must start with an alphanumeric character or an
              * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
              * may include those as well as a hyphen or colon (matches regex
              * `[a-zA-Z0-9_-:]`).
              * The length of the ID must not be less than 5 or greater than 50.
-             * 
+             *
              * If you don't specify an ID, a unique one is generated.
              */
             objectId?: string;
             /** The video source. */
             source?: string;
         }
-        
         interface CreateVideoResponse {
             /** The object ID of the created video. */
             objectId?: string;
         }
-        
         interface CropProperties {
             /**
              * The rotation angle of the crop window around its center, in radians.
@@ -381,20 +360,18 @@ declare namespace gapi.client {
              */
             topOffset?: number;
         }
-        
         interface DeleteObjectRequest {
             /**
              * The object ID of the page or page element to delete.
-             * 
+             *
              * If after a delete operation a group contains
              * only 1 or no page elements, the group is also deleted.
-             * 
+             *
              * If a placeholder is deleted on a layout, any empty inheriting shapes are
              * also deleted.
              */
             objectId?: string;
         }
-        
         interface DeleteParagraphBulletsRequest {
             /**
              * The optional table cell location if the text to be modified is in a table
@@ -409,11 +386,10 @@ declare namespace gapi.client {
             /** The range of text to delete bullets from, based on TextElement indexes. */
             textRange?: Range;
         }
-        
         interface DeleteTableColumnRequest {
             /**
              * The reference table cell location from which a column will be deleted.
-             * 
+             *
              * The column this cell spans will be deleted. If this is a merged cell,
              * multiple columns will be deleted. If no columns remain in the table after
              * this deletion, the whole table is deleted.
@@ -422,11 +398,10 @@ declare namespace gapi.client {
             /** The table to delete columns from. */
             tableObjectId?: string;
         }
-        
         interface DeleteTableRowRequest {
             /**
              * The reference table cell location from which a row will be deleted.
-             * 
+             *
              * The row this cell spans will be deleted. If this is a merged cell, multiple
              * rows will be deleted. If no rows remain in the table after this deletion,
              * the whole table is deleted.
@@ -435,7 +410,6 @@ declare namespace gapi.client {
             /** The table to delete rows from. */
             tableObjectId?: string;
         }
-        
         interface DeleteTextRequest {
             /**
              * The optional table cell location if the text is to be deleted from a table
@@ -446,30 +420,28 @@ declare namespace gapi.client {
             objectId?: string;
             /**
              * The range of text to delete, based on TextElement indexes.
-             * 
+             *
              * There is always an implicit newline character at the end of a shape's or
              * table cell's text that cannot be deleted. `Range.Type.ALL` will use the
              * correct bounds, but care must be taken when specifying explicit bounds for
              * range types `FROM_START_INDEX` and `FIXED_RANGE`. For example, if the text
              * is "ABC", followed by an implicit newline, then the maximum value is 2 for
              * `text_range.start_index` and 3 for `text_range.end_index`.
-             * 
+             *
              * Deleting text that crosses a paragraph boundary may result in changes
              * to paragraph styles and lists as the two paragraphs are merged.
-             * 
+             *
              * Ranges that include only one code unit of a surrogate pair are expanded to
              * include both code units.
              */
             textRange?: Range;
         }
-        
         interface Dimension {
             /** The magnitude. */
             magnitude?: number;
             /** The units for magnitude. */
             unit?: string;
         }
-        
         interface DuplicateObjectRequest {
             /** The ID of the object to duplicate. */
             objectId?: string;
@@ -481,31 +453,28 @@ declare namespace gapi.client {
              * corresponding duplicate object. The ID of the source object's duplicate
              * may be specified in this map as well, using the same value of the
              * `object_id` field as a key and the newly desired ID as the value.
-             * 
+             *
              * All keys must correspond to existing IDs in the presentation. All values
              * must be unique in the presentation and must start with an alphanumeric
              * character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining
              * characters may include those as well as a hyphen or colon (matches regex
              * `[a-zA-Z0-9_-:]`). The length of the new ID must not be less than 5 or
              * greater than 50.
-             * 
+             *
              * If any IDs of source objects are omitted from the map, a new random ID will
              * be assigned. If the map is empty or unset, all duplicate objects will
              * receive a new random ID.
              */
-            objectIds?: Record<string, string>;            
+            objectIds?: Record<string, string>;
         }
-        
         interface DuplicateObjectResponse {
             /** The ID of the new duplicate object. */
             objectId?: string;
         }
-        
         interface Group {
             /** The collection of elements in the group. The minimum size of a group is 2. */
             children?: PageElement[];
         }
-        
         interface Image {
             /**
              * An URL to an image with a default lifetime of 30 minutes.
@@ -517,7 +486,6 @@ declare namespace gapi.client {
             /** The properties of the image. */
             imageProperties?: ImageProperties;
         }
-        
         interface ImageProperties {
             /**
              * The brightness effect of the image. The value should be in the interval
@@ -555,11 +523,10 @@ declare namespace gapi.client {
              */
             transparency?: number;
         }
-        
         interface InsertTableColumnsRequest {
             /**
              * The reference table cell location from which columns will be inserted.
-             * 
+             *
              * A new column will be inserted to the left (or right) of the column where
              * the reference cell is. If the reference cell is a merged cell, a new
              * column will be inserted to the left (or right) of the merged cell.
@@ -567,7 +534,7 @@ declare namespace gapi.client {
             cellLocation?: TableCellLocation;
             /**
              * Whether to insert new columns to the right of the reference cell location.
-             * 
+             *
              * - `True`: insert to the right.
              * - `False`: insert to the left.
              */
@@ -577,11 +544,10 @@ declare namespace gapi.client {
             /** The table to insert columns into. */
             tableObjectId?: string;
         }
-        
         interface InsertTableRowsRequest {
             /**
              * The reference table cell location from which rows will be inserted.
-             * 
+             *
              * A new row will be inserted above (or below) the row where the reference
              * cell is. If the reference cell is a merged cell, a new row will be
              * inserted above (or below) the merged cell.
@@ -589,7 +555,7 @@ declare namespace gapi.client {
             cellLocation?: TableCellLocation;
             /**
              * Whether to insert new rows below the reference cell location.
-             * 
+             *
              * - `True`: insert below the cell.
              * - `False`: insert above the cell.
              */
@@ -599,7 +565,6 @@ declare namespace gapi.client {
             /** The table to insert rows into. */
             tableObjectId?: string;
         }
-        
         interface InsertTextRequest {
             /**
              * The optional table cell location if the text is to be inserted into a table
@@ -609,7 +574,7 @@ declare namespace gapi.client {
             /**
              * The index where the text will be inserted, in Unicode code units, based
              * on TextElement indexes.
-             * 
+             *
              * The index is zero-based and is computed from the start of the string.
              * The index may be adjusted to prevent insertions inside Unicode grapheme
              * clusters. In these cases, the text will be inserted immediately after the
@@ -620,24 +585,23 @@ declare namespace gapi.client {
             objectId?: string;
             /**
              * The text to be inserted.
-             * 
+             *
              * Inserting a newline character will implicitly create a new
              * ParagraphMarker at that index.
              * The paragraph style of the new paragraph will be copied from the paragraph
              * at the current insertion index, including lists and bullets.
-             * 
+             *
              * Text styles for inserted text will be determined automatically, generally
              * preserving the styling of neighboring text. In most cases, the text will be
              * added to the TextRun that exists at the
              * insertion index.
-             * 
+             *
              * Some control characters (U+0000-U+0008, U+000C-U+001F) and characters
              * from the Unicode Basic Multilingual Plane Private Use Area (U+E000-U+F8FF)
              * will be stripped out of the inserted text.
              */
             text?: string;
         }
-        
         interface LayoutPlaceholderIdMapping {
             /**
              * The placeholder on a layout that will be applied to a slide. Only type and index are needed. For example, a
@@ -653,19 +617,18 @@ declare namespace gapi.client {
             /**
              * A user-supplied object ID for the placeholder identified above that to be
              * created onto a slide.
-             * 
+             *
              * If you specify an ID, it must be unique among all pages and page elements
              * in the presentation. The ID must start with an alphanumeric character or an
              * underscore (matches regex `[a-zA-Z0-9_]`); remaining characters
              * may include those as well as a hyphen or colon (matches regex
              * `[a-zA-Z0-9_-:]`).
              * The length of the ID must not be less than 5 or greater than 50.
-             * 
+             *
              * If you don't specify an ID, a unique one is generated.
              */
             objectId?: string;
         }
-        
         interface LayoutProperties {
             /** The human-readable name of the layout. */
             displayName?: string;
@@ -674,26 +637,22 @@ declare namespace gapi.client {
             /** The name of the layout. */
             name?: string;
         }
-        
         interface LayoutReference {
             /** Layout ID: the object ID of one of the layouts in the presentation. */
             layoutId?: string;
             /** Predefined layout. */
             predefinedLayout?: string;
         }
-        
         interface Line {
             /** The properties of the line. */
             lineProperties?: LineProperties;
             /** The type of the line. */
             lineType?: string;
         }
-        
         interface LineFill {
             /** Solid color fill. */
             solidFill?: SolidFill;
         }
-        
         interface LineProperties {
             /** The dash style of the line. */
             dashStyle?: string;
@@ -711,7 +670,6 @@ declare namespace gapi.client {
             /** The thickness of the line. */
             weight?: Dimension;
         }
-        
         interface Link {
             /**
              * If set, indicates this is a link to the specific page in this
@@ -731,7 +689,6 @@ declare namespace gapi.client {
             /** If set, indicates this is a link to the external web page at this URL. */
             url?: string;
         }
-        
         interface List {
             /** The ID of the list. */
             listId?: string;
@@ -740,19 +697,16 @@ declare namespace gapi.client {
              * level. A list has at most nine levels of nesting, so the possible values
              * for the keys of this map are 0 through 8, inclusive.
              */
-            nestingLevel?: Record<string, NestingLevel>;            
+            nestingLevel?: Record<string, NestingLevel>;
         }
-        
         interface MasterProperties {
             /** The human-readable name of the master. */
             displayName?: string;
         }
-        
         interface NestingLevel {
             /** The style of a bullet at this level of nesting. */
             bulletStyle?: TextStyle;
         }
-        
         interface NotesProperties {
             /**
              * The object ID of the shape on this notes page that contains the speaker
@@ -764,14 +718,12 @@ declare namespace gapi.client {
              */
             speakerNotesObjectId?: string;
         }
-        
         interface OpaqueColor {
             /** An opaque RGB color. */
             rgbColor?: RgbColor;
             /** An opaque theme color. */
             themeColor?: string;
         }
-        
         interface OptionalColor {
             /**
              * If set, this will be used as an opaque color. If unset, this represents
@@ -779,7 +731,6 @@ declare namespace gapi.client {
              */
             opaqueColor?: OpaqueColor;
         }
-        
         interface Outline {
             /** The dash style of the outline. */
             dashStyle?: string;
@@ -787,7 +738,7 @@ declare namespace gapi.client {
             outlineFill?: OutlineFill;
             /**
              * The outline property state.
-             * 
+             *
              * Updating the the outline on a page element will implicitly update this
              * field to`RENDERED`, unless another value is specified in the same request.
              * To have no outline on a page element, set this field to `NOT_RENDERED`. In
@@ -798,12 +749,10 @@ declare namespace gapi.client {
             /** The thickness of the outline. */
             weight?: Dimension;
         }
-        
         interface OutlineFill {
             /** Solid color fill. */
             solidFill?: SolidFill;
         }
-        
         interface Page {
             /** Layout specific properties. Only set if page_type = LAYOUT. */
             layoutProperties?: LayoutProperties;
@@ -828,7 +777,7 @@ declare namespace gapi.client {
              * update requests to assert that the presentation revision hasn't changed
              * since the last read operation. Only populated if the user has edit access
              * to the presentation.
-             * 
+             *
              * The format of the revision ID may change over time, so it should be treated
              * opaquely. A returned revision ID is only guaranteed to be valid for 24
              * hours after it has been returned and cannot be shared across users. If the
@@ -841,12 +790,11 @@ declare namespace gapi.client {
             /** Slide specific properties. Only set if page_type = SLIDE. */
             slideProperties?: SlideProperties;
         }
-        
         interface PageBackgroundFill {
             /**
              * The background fill property state.
-             * 
-             * Updating the the fill on a page will implicitly update this field to
+             *
+             * Updating the fill on a page will implicitly update this field to
              * `RENDERED`, unless another value is specified in the same request. To
              * have no fill on a page, set this field to `NOT_RENDERED`. In this case,
              * any other fill fields set in the same request will be ignored.
@@ -857,7 +805,6 @@ declare namespace gapi.client {
             /** Stretched picture fill. */
             stretchedPictureFill?: StretchedPictureFill;
         }
-        
         interface PageElement {
             /**
              * The description of the page element. Combined with title to display alt
@@ -892,14 +839,23 @@ declare namespace gapi.client {
              * text.
              */
             title?: string;
-            /** The transform of the page element. */
+            /**
+             * The transform of the page element.
+             *
+             * The visual appearance of the page element is determined by its absolute
+             * transform. To compute the absolute transform, preconcatenate a page
+             * element's transform with the transforms of all of its parent groups. If the
+             * page element is not in a group, its absolute transform is the same as the
+             * value in this field.
+             *
+             * The initial transform for the newly created Group is always the identity transform.
+             */
             transform?: AffineTransform;
             /** A video page element. */
             video?: Video;
             /** A word art page element. */
             wordArt?: WordArt;
         }
-        
         interface PageElementProperties {
             /** The object ID of the page where the element is located. */
             pageObjectId?: string;
@@ -908,7 +864,6 @@ declare namespace gapi.client {
             /** The transform for the element. */
             transform?: AffineTransform;
         }
-        
         interface PageProperties {
             /**
              * The color scheme of the page. If unset, the color scheme is inherited from
@@ -923,7 +878,6 @@ declare namespace gapi.client {
              */
             pageBackgroundFill?: PageBackgroundFill;
         }
-        
         interface ParagraphMarker {
             /**
              * The bullet for this paragraph. If not present, the paragraph does not
@@ -933,7 +887,6 @@ declare namespace gapi.client {
             /** The paragraph's style */
             style?: ParagraphStyle;
         }
-        
         interface ParagraphStyle {
             /** The text alignment for this paragraph. */
             alignment?: string;
@@ -978,7 +931,6 @@ declare namespace gapi.client {
             /** The spacing mode for the paragraph. */
             spacingMode?: string;
         }
-        
         interface Placeholder {
             /**
              * The index of the placeholder. If the same placeholder types are present in
@@ -994,7 +946,6 @@ declare namespace gapi.client {
             /** The type of the placeholder. */
             type?: string;
         }
-        
         interface Presentation {
             /**
              * The layouts in the presentation. A layout is a template that determines
@@ -1008,26 +959,26 @@ declare namespace gapi.client {
              * The slide masters in the presentation. A slide master contains all common
              * page elements and the common properties for a set of layouts. They serve
              * three purposes:
-             * 
+             *
              * - Placeholder shapes on a master contain the default text styles and shape
-             *   properties of all placeholder shapes on pages that use that master.
+             * properties of all placeholder shapes on pages that use that master.
              * - The master page properties define the common page properties inherited by
-             *   its layouts.
+             * its layouts.
              * - Any other shapes on the master slide will appear on all slides using that
-             *   master, regardless of their layout.
+             * master, regardless of their layout.
              */
             masters?: Page[];
             /**
              * The notes master in the presentation. It serves three purposes:
-             * 
+             *
              * - Placeholder shapes on a notes master contain the default text styles and
-             *   shape properties of all placeholder shapes on notes pages. Specifically,
-             *   a `SLIDE_IMAGE` placeholder shape contains the slide thumbnail, and a
-             *   `BODY` placeholder shape contains the speaker notes.
+             * shape properties of all placeholder shapes on notes pages. Specifically,
+             * a `SLIDE_IMAGE` placeholder shape contains the slide thumbnail, and a
+             * `BODY` placeholder shape contains the speaker notes.
              * - The notes master page properties define the common page properties
-             *   inherited by all notes pages.
+             * inherited by all notes pages.
              * - Any other shapes on the notes master will appear on all notes pages.
-             * 
+             *
              * The notes master is read-only.
              */
             notesMaster?: Page;
@@ -1040,7 +991,7 @@ declare namespace gapi.client {
              * to assert that the presentation revision hasn't changed since the last
              * read operation. Only populated if the user has edit access to the
              * presentation.
-             * 
+             *
              * The format of the revision ID may change over time, so it should be treated
              * opaquely. A returned revision ID is only guaranteed to be valid for 24
              * hours after it has been returned and cannot be shared across users. If the
@@ -1058,7 +1009,6 @@ declare namespace gapi.client {
             /** The title of the presentation. */
             title?: string;
         }
-        
         interface Range {
             /**
              * The optional zero-based index of the end of the collection.
@@ -1073,11 +1023,10 @@ declare namespace gapi.client {
             /** The type of range. */
             type?: string;
         }
-        
         interface Recolor {
             /**
              * The name of the recolor effect.
-             * 
+             *
              * The name is determined from the `recolor_stops` by matching the gradient
              * against the colors in the page's current color scheme. This property is
              * read-only.
@@ -1086,19 +1035,17 @@ declare namespace gapi.client {
             /**
              * The recolor effect is represented by a gradient, which is a list of color
              * stops.
-             * 
+             *
              * The colors in the gradient will replace the corresponding colors at
              * the same position in the color palette and apply to the image. This
              * property is read-only.
              */
             recolorStops?: ColorStop[];
         }
-        
         interface RefreshSheetsChartRequest {
             /** The object ID of the chart to refresh. */
             objectId?: string;
         }
-        
         interface ReplaceAllShapesWithImageRequest {
             /**
              * If set, this request will replace all of the shapes that contain the
@@ -1107,16 +1054,18 @@ declare namespace gapi.client {
             containsText?: SubstringMatchCriteria;
             /**
              * The image URL.
-             * 
+             *
              * The image is fetched once at insertion time and a copy is stored for
              * display inside the presentation. Images must be less than 50MB in size,
              * cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
              * format.
+             *
+             * The provided URL can be at maximum 2K bytes large.
              */
             imageUrl?: string;
             /**
              * If non-empty, limits the matches to page elements only on the given pages.
-             * 
+             *
              * Returns a 400 bad request error if given the page object ID of a
              * notes page or a
              * notes master, or if a
@@ -1126,12 +1075,10 @@ declare namespace gapi.client {
             /** The replace method. */
             replaceMethod?: string;
         }
-        
         interface ReplaceAllShapesWithImageResponse {
             /** The number of shapes replaced with images. */
             occurrencesChanged?: number;
         }
-        
         interface ReplaceAllShapesWithSheetsChartRequest {
             /** The ID of the specific chart in the Google Sheets spreadsheet. */
             chartId?: number;
@@ -1147,7 +1094,7 @@ declare namespace gapi.client {
             linkingMode?: string;
             /**
              * If non-empty, limits the matches to page elements only on the given pages.
-             * 
+             *
              * Returns a 400 bad request error if given the page object ID of a
              * notes page or a
              * notes master, or if a
@@ -1157,18 +1104,16 @@ declare namespace gapi.client {
             /** The ID of the Google Sheets spreadsheet that contains the chart. */
             spreadsheetId?: string;
         }
-        
         interface ReplaceAllShapesWithSheetsChartResponse {
             /** The number of shapes replaced with charts. */
             occurrencesChanged?: number;
         }
-        
         interface ReplaceAllTextRequest {
             /** Finds text in a shape matching this substring. */
             containsText?: SubstringMatchCriteria;
             /**
              * If non-empty, limits the matches to page elements only on the given pages.
-             * 
+             *
              * Returns a 400 bad request error if given the page object ID of a
              * notes master,
              * or if a page with that object ID doesn't exist in the presentation.
@@ -1177,12 +1122,10 @@ declare namespace gapi.client {
             /** The text that will replace the matched text. */
             replaceText?: string;
         }
-        
         interface ReplaceAllTextResponse {
             /** The number of occurrences changed by replacing all text. */
             occurrencesChanged?: number;
         }
-        
         interface Request {
             /** Creates an image. */
             createImage?: CreateImageRequest;
@@ -1247,7 +1190,6 @@ declare namespace gapi.client {
             /** Updates the properties of a Video. */
             updateVideoProperties?: UpdateVideoPropertiesRequest;
         }
-        
         interface Response {
             /** The result of creating an image. */
             createImage?: CreateImageResponse;
@@ -1278,7 +1220,6 @@ declare namespace gapi.client {
             /** The result of replacing text. */
             replaceAllText?: ReplaceAllTextResponse;
         }
-        
         interface RgbColor {
             /** The blue component of the color, from 0.0 to 1.0. */
             blue?: number;
@@ -1287,7 +1228,6 @@ declare namespace gapi.client {
             /** The red component of the color, from 0.0 to 1.0. */
             red?: number;
         }
-        
         interface Shadow {
             /**
              * The alignment point of the shadow, that sets the origin for translate,
@@ -1305,7 +1245,7 @@ declare namespace gapi.client {
             color?: OpaqueColor;
             /**
              * The shadow property state.
-             * 
+             *
              * Updating the the shadow on a page element will implicitly update this field
              * to `RENDERED`, unless another value is specified in the same request. To
              * have no shadow on a page element, set this field to `NOT_RENDERED`. In this
@@ -1322,12 +1262,11 @@ declare namespace gapi.client {
             /** The type of the shadow. */
             type?: string;
         }
-        
         interface Shape {
             /**
              * Placeholders are shapes that are inherit from corresponding placeholders on
              * layouts and masters.
-             * 
+             *
              * If set, the shape is a placeholder shape and any inherited properties
              * can be resolved by looking at the parent placeholder identified by the
              * Placeholder.parent_object_id field.
@@ -1340,11 +1279,10 @@ declare namespace gapi.client {
             /** The text content of the shape. */
             text?: TextContent;
         }
-        
         interface ShapeBackgroundFill {
             /**
              * The background fill property state.
-             * 
+             *
              * Updating the the fill on a shape will implicitly update this field to
              * `RENDERED`, unless another value is specified in the same request. To
              * have no fill on a shape, set this field to `NOT_RENDERED`. In this case,
@@ -1354,7 +1292,6 @@ declare namespace gapi.client {
             /** Solid color fill. */
             solidFill?: SolidFill;
         }
-        
         interface ShapeProperties {
             /**
              * The hyperlink destination of the shape. If unset, there is no link. Links
@@ -1383,7 +1320,6 @@ declare namespace gapi.client {
              */
             shapeBackgroundFill?: ShapeBackgroundFill;
         }
-        
         interface SheetsChart {
             /**
              * The ID of the specific chart in the Google Sheets spreadsheet that is
@@ -1402,19 +1338,16 @@ declare namespace gapi.client {
             /** The ID of the Google Sheets spreadsheet that contains the source chart. */
             spreadsheetId?: string;
         }
-        
         interface SheetsChartProperties {
             /** The properties of the embedded chart image. */
             chartImageProperties?: ImageProperties;
         }
-        
         interface Size {
             /** The height of the object. */
             height?: Dimension;
             /** The width of the object. */
             width?: Dimension;
         }
-        
         interface SlideProperties {
             /** The object ID of the layout that this slide is based on. */
             layoutObjectId?: string;
@@ -1433,14 +1366,13 @@ declare namespace gapi.client {
              */
             notesPage?: Page;
         }
-        
         interface SolidFill {
             /**
              * The fraction of this `color` that should be applied to the pixel.
              * That is, the final pixel color is defined by the equation:
-             * 
-             *   pixel color = alpha &#42; (color) + (1.0 - alpha) &#42; (background color)
-             * 
+             *
+             * pixel color = alpha &#42; (color) + (1.0 - alpha) &#42; (background color)
+             *
              * This means that a value of 1.0 corresponds to a solid color, whereas
              * a value of 0.0 corresponds to a completely transparent color.
              */
@@ -1448,32 +1380,32 @@ declare namespace gapi.client {
             /** The color value of the solid fill. */
             color?: OpaqueColor;
         }
-        
         interface StretchedPictureFill {
             /**
              * Reading the content_url:
-             * 
+             *
              * An URL to a picture with a default lifetime of 30 minutes.
              * This URL is tagged with the account of the requester. Anyone with the URL
              * effectively accesses the picture as the original requester. Access to the
              * picture may be lost if the presentation's sharing settings change.
-             * 
+             *
              * Writing the content_url:
-             * 
+             *
              * The picture is fetched once at insertion time and a copy is stored for
              * display inside the presentation. Pictures must be less than 50MB in size,
              * cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF
              * format.
+             *
+             * The provided URL can be at maximum 2K bytes large.
              */
             contentUrl?: string;
             /** The original size of the picture fill. This field is read-only. */
             size?: Size;
         }
-        
         interface SubstringMatchCriteria {
             /**
              * Indicates whether the search should respect case:
-             * 
+             *
              * - `True`: the search is case sensitive.
              * - `False`: the search is case insensitive.
              */
@@ -1481,7 +1413,6 @@ declare namespace gapi.client {
             /** The text to search for in the shape or table. */
             text?: string;
         }
-        
         interface Table {
             /** Number of columns in the table. */
             columns?: number;
@@ -1491,14 +1422,13 @@ declare namespace gapi.client {
             tableColumns?: TableColumnProperties[];
             /**
              * Properties and contents of each row.
-             * 
+             *
              * Cells that span multiple rows are contained in only one of these rows and
              * have a row_span greater
              * than 1.
              */
             tableRows?: TableRow[];
         }
-        
         interface TableCell {
             /** Column span of the cell. */
             columnSpan?: number;
@@ -1511,11 +1441,10 @@ declare namespace gapi.client {
             /** The text content of the cell. */
             text?: TextContent;
         }
-        
         interface TableCellBackgroundFill {
             /**
              * The background fill property state.
-             * 
+             *
              * Updating the the fill on a table cell will implicitly update this field
              * to `RENDERED`, unless another value is specified in the same request. To
              * have no fill on a table cell, set this field to `NOT_RENDERED`. In this
@@ -1525,14 +1454,12 @@ declare namespace gapi.client {
             /** Solid color fill. */
             solidFill?: SolidFill;
         }
-        
         interface TableCellLocation {
             /** The 0-based column index. */
             columnIndex?: number;
             /** The 0-based row index. */
             rowIndex?: number;
         }
-        
         interface TableCellProperties {
             /**
              * The background fill of the table cell. The default fill matches the fill
@@ -1540,12 +1467,10 @@ declare namespace gapi.client {
              */
             tableCellBackgroundFill?: TableCellBackgroundFill;
         }
-        
         interface TableColumnProperties {
             /** Width of a column. */
             columnWidth?: Dimension;
         }
-        
         interface TableRange {
             /** The column span of the table range. */
             columnSpan?: number;
@@ -1554,13 +1479,12 @@ declare namespace gapi.client {
             /** The row span of the table range. */
             rowSpan?: number;
         }
-        
         interface TableRow {
             /** Height of a row. */
             rowHeight?: Dimension;
             /**
              * Properties and contents of each cell.
-             * 
+             *
              * Cells that span multiple columns are represented only once with a
              * column_span greater
              * than 1. As a result, the length of this collection does not always match
@@ -1568,17 +1492,15 @@ declare namespace gapi.client {
              */
             tableCells?: TableCell[];
         }
-        
         interface TextContent {
             /** The bulleted lists contained in this text, keyed by list ID. */
-            lists?: Record<string, List>;            
+            lists?: Record<string, List>;
             /**
              * The text contents broken down into its component parts, including styling
              * information. This property is read-only.
              */
             textElements?: TextElement[];
         }
-        
         interface TextElement {
             /**
              * A TextElement representing a spot in the text that is dynamically
@@ -1592,7 +1514,7 @@ declare namespace gapi.client {
             endIndex?: number;
             /**
              * A marker representing the beginning of a new paragraph.
-             * 
+             *
              * The `start_index` and `end_index` of this TextElement represent the
              * range of the paragraph. Other TextElements with an index range contained
              * inside this paragraph's range are considered to be part of this
@@ -1605,21 +1527,19 @@ declare namespace gapi.client {
             /**
              * A TextElement representing a run of text where all of the characters
              * in the run have the same TextStyle.
-             * 
+             *
              * The `start_index` and `end_index` of TextRuns will always be fully
              * contained in the index range of a single `paragraph_marker` TextElement.
              * In other words, a TextRun will never span multiple paragraphs.
              */
             textRun?: TextRun;
         }
-        
         interface TextRun {
             /** The text of this run. */
             content?: string;
             /** The styling applied to this run. */
             style?: TextStyle;
         }
-        
         interface TextStyle {
             /**
              * The background color of the text. If set, the color is either opaque or
@@ -1628,7 +1548,7 @@ declare namespace gapi.client {
             backgroundColor?: OptionalColor;
             /**
              * The text's vertical offset from its normal position.
-             * 
+             *
              * Text with `SUPERSCRIPT` or `SUBSCRIPT` baseline offsets is automatically
              * rendered in a smaller font size, computed based on the `font_size` field.
              * The `font_size` itself is not affected by changes in this field.
@@ -1638,11 +1558,11 @@ declare namespace gapi.client {
             bold?: boolean;
             /**
              * The font family of the text.
-             * 
+             *
              * The font family can be any font from the Font menu in Slides or from
              * [Google Fonts] (https://fonts.google.com/). If the font name is
              * unrecognized, the text is rendered in `Arial`.
-             * 
+             *
              * Some fonts can affect the weight of the text. If an update request
              * specifies values for both `font_family` and `bold`, the explicitly-set
              * `bold` value is used.
@@ -1663,24 +1583,24 @@ declare namespace gapi.client {
             /**
              * The hyperlink destination of the text. If unset, there is no link. Links
              * are not inherited from parent text.
-             * 
+             *
              * Changing the link in an update request causes some other changes to the
              * text style of the range:
-             * 
+             *
              * &#42; When setting a link, the text foreground color will be set to
-             *   ThemeColorType.HYPERLINK and the text will
-             *   be underlined. If these fields are modified in the same
-             *   request, those values will be used instead of the link defaults.
+             * ThemeColorType.HYPERLINK and the text will
+             * be underlined. If these fields are modified in the same
+             * request, those values will be used instead of the link defaults.
              * &#42; Setting a link on a text range that overlaps with an existing link will
-             *   also update the existing link to point to the new URL.
+             * also update the existing link to point to the new URL.
              * &#42; Links are not settable on newline characters. As a result, setting a link
-             *   on a text range that crosses a paragraph boundary, such as `"ABC\n123"`,
-             *   will separate the newline character(s) into their own text runs. The
-             *   link will be applied separately to the runs before and after the newline.
+             * on a text range that crosses a paragraph boundary, such as `"ABC\n123"`,
+             * will separate the newline character(s) into their own text runs. The
+             * link will be applied separately to the runs before and after the newline.
              * &#42; Removing a link will update the text style of the range to match the
-             *   style of the preceding text (or the default text styles if the preceding
-             *   text is another link) unless different styles are being set in the same
-             *   request.
+             * style of the preceding text (or the default text styles if the preceding
+             * text is another link) unless different styles are being set in the same
+             * request.
              */
             link?: Link;
             /** Whether or not the text is in small capital letters. */
@@ -1691,49 +1611,47 @@ declare namespace gapi.client {
             underline?: boolean;
             /**
              * The font family and rendered weight of the text.
-             * 
+             *
              * This field is an extension of `font_family` meant to support explicit font
              * weights without breaking backwards compatibility. As such, when reading the
              * style of a range of text, the value of `weighted_font_family#font_family`
              * will always be equal to that of `font_family`. However, when writing, if
              * both fields are included in the field mask (either explicitly or through
              * the wildcard `"&#42;"`), their values are reconciled as follows:
-             * 
+             *
              * &#42; If `font_family` is set and `weighted_font_family` is not, the value of
-             *   `font_family` is applied with weight `400` ("normal").
+             * `font_family` is applied with weight `400` ("normal").
              * &#42; If both fields are set, the value of `font_family` must match that of
-             *   `weighted_font_family#font_family`. If so, the font family and weight of
-             *   `weighted_font_family` is applied. Otherwise, a 400 bad request error is
-             *   returned.
+             * `weighted_font_family#font_family`. If so, the font family and weight of
+             * `weighted_font_family` is applied. Otherwise, a 400 bad request error is
+             * returned.
              * &#42; If `weighted_font_family` is set and `font_family` is not, the font
-             *   family and weight of `weighted_font_family` is applied.
+             * family and weight of `weighted_font_family` is applied.
              * &#42; If neither field is set, the font family and weight of the text inherit
-             *   from the parent. Note that these properties cannot inherit separately
-             *   from each other.
-             * 
+             * from the parent. Note that these properties cannot inherit separately
+             * from each other.
+             *
              * If an update request specifies values for both `weighted_font_family` and
              * `bold`, the `weighted_font_family` is applied first, then `bold`.
-             * 
+             *
              * If `weighted_font_family#weight` is not set, it defaults to `400`.
-             * 
+             *
              * If `weighted_font_family` is set, then `weighted_font_family#font_family`
              * must also be set with a non-empty value. Otherwise, a 400 bad request error
              * is returned.
              */
             weightedFontFamily?: WeightedFontFamily;
         }
-        
         interface ThemeColorPair {
             /** The concrete color corresponding to the theme color type above. */
             color?: RgbColor;
             /** The type of the theme color. */
             type?: string;
         }
-        
         interface Thumbnail {
             /**
              * The content URL of the thumbnail image.
-             * 
+             *
              * The URL to the image has a default lifetime of 30 minutes.
              * This URL is tagged with the account of the requester. Anyone with the URL
              * effectively accesses the image as the original requester. Access to the
@@ -1747,18 +1665,17 @@ declare namespace gapi.client {
             /** The positive width in pixels of the thumbnail image. */
             width?: number;
         }
-        
         interface UpdateImagePropertiesRequest {
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `imageProperties` is
              * implied and should not be specified. A single `"&#42;"` can be used as
              * short-hand for listing every field.
-             * 
+             *
              * For example to update the image outline color, set `fields` to
              * `"outline.outlineFill.solidFill.color"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1768,18 +1685,17 @@ declare namespace gapi.client {
             /** The object ID of the image the updates are applied to. */
             objectId?: string;
         }
-        
         interface UpdateLinePropertiesRequest {
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `lineProperties` is
              * implied and should not be specified. A single `"&#42;"` can be used as
              * short-hand for listing every field.
-             * 
+             *
              * For example to update the line solid fill color, set `fields` to
              * `"lineFill.solidFill.color"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1789,7 +1705,6 @@ declare namespace gapi.client {
             /** The object ID of the line the update is applied to. */
             objectId?: string;
         }
-        
         interface UpdatePageElementTransformRequest {
             /** The apply mode of the transform update. */
             applyMode?: string;
@@ -1798,18 +1713,17 @@ declare namespace gapi.client {
             /** The input transform matrix used to update the page element. */
             transform?: AffineTransform;
         }
-        
         interface UpdatePagePropertiesRequest {
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `pageProperties` is
              * implied and should not be specified. A single `"&#42;"` can be used as
              * short-hand for listing every field.
-             * 
+             *
              * For example to update the page background solid fill color, set `fields`
              * to `"pageBackgroundFill.solidFill.color"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1819,7 +1733,6 @@ declare namespace gapi.client {
             /** The page properties to update. */
             pageProperties?: PageProperties;
         }
-        
         interface UpdateParagraphStyleRequest {
             /**
              * The location of the cell in the table containing the paragraph(s) to
@@ -1829,14 +1742,14 @@ declare namespace gapi.client {
             cellLocation?: TableCellLocation;
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `style` is implied and
              * should not be specified. A single `"&#42;"` can be used as short-hand for
              * listing every field.
-             * 
+             *
              * For example, to update the paragraph alignment, set `fields` to
              * `"alignment"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1848,18 +1761,17 @@ declare namespace gapi.client {
             /** The range of text containing the paragraph(s) to style. */
             textRange?: Range;
         }
-        
         interface UpdateShapePropertiesRequest {
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `shapeProperties` is
              * implied and should not be specified. A single `"&#42;"` can be used as
              * short-hand for listing every field.
-             * 
+             *
              * For example to update the shape background solid fill color, set `fields`
              * to `"shapeBackgroundFill.solidFill.color"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1869,7 +1781,6 @@ declare namespace gapi.client {
             /** The shape properties to update. */
             shapeProperties?: ShapeProperties;
         }
-        
         interface UpdateSlidesPositionRequest {
             /**
              * The index where the slides should be inserted, based on the slide
@@ -1884,18 +1795,17 @@ declare namespace gapi.client {
              */
             slideObjectIds?: string[];
         }
-        
         interface UpdateTableCellPropertiesRequest {
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `tableCellProperties` is
              * implied and should not be specified. A single `"&#42;"` can be used as
              * short-hand for listing every field.
-             * 
+             *
              * For example to update the table cell background solid fill color, set
              * `fields` to `"tableCellBackgroundFill.solidFill.color"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1911,7 +1821,6 @@ declare namespace gapi.client {
              */
             tableRange?: TableRange;
         }
-        
         interface UpdateTextStyleRequest {
             /**
              * The location of the cell in the table containing the text to style. If
@@ -1921,13 +1830,13 @@ declare namespace gapi.client {
             cellLocation?: TableCellLocation;
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `style` is implied and
              * should not be specified. A single `"&#42;"` can be used as short-hand for
              * listing every field.
-             * 
+             *
              * For example, to update the text style to bold, set `fields` to `"bold"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1936,10 +1845,10 @@ declare namespace gapi.client {
             objectId?: string;
             /**
              * The style(s) to set on the text.
-             * 
+             *
              * If the value for a particular style matches that of the parent, that style
              * will be set to inherit.
-             * 
+             *
              * Certain text style changes may cause other changes meant to mirror the
              * behavior of the Slides editor. See the documentation of
              * TextStyle for more information.
@@ -1947,26 +1856,25 @@ declare namespace gapi.client {
             style?: TextStyle;
             /**
              * The range of text to style.
-             * 
+             *
              * The range may be extended to include adjacent newlines.
-             * 
+             *
              * If the range fully contains a paragraph belonging to a list, the
              * paragraph's bullet is also updated with the matching text style.
              */
             textRange?: Range;
         }
-        
         interface UpdateVideoPropertiesRequest {
             /**
              * The fields that should be updated.
-             * 
+             *
              * At least one field must be specified. The root `videoProperties` is
              * implied and should not be specified. A single `"&#42;"` can be used as
              * short-hand for listing every field.
-             * 
+             *
              * For example to update the video outline color, set `fields` to
              * `"outline.outlineFill.solidFill.color"`.
-             * 
+             *
              * To reset a property to its default value, include its field name in the
              * field mask but leave the field itself unset.
              */
@@ -1976,7 +1884,6 @@ declare namespace gapi.client {
             /** The video properties to update. */
             videoProperties?: VideoProperties;
         }
-        
         interface Video {
             /** The video source's unique identifier for this video. */
             id?: string;
@@ -1990,7 +1897,6 @@ declare namespace gapi.client {
             /** The properties of the video. */
             videoProperties?: VideoProperties;
         }
-        
         interface VideoProperties {
             /**
              * The outline of the video. The default outline matches the defaults for new
@@ -1998,11 +1904,10 @@ declare namespace gapi.client {
              */
             outline?: Outline;
         }
-        
         interface WeightedFontFamily {
             /**
              * The font family of the text.
-             * 
+             *
              * The font family can be any font from the Font menu in Slides or from
              * [Google Fonts] (https://fonts.google.com/). If the font name is
              * unrecognized, the text is rendered in `Arial`.
@@ -2019,12 +1924,10 @@ declare namespace gapi.client {
              */
             weight?: number;
         }
-        
         interface WordArt {
             /** The text rendered as word art. */
             renderedText?: string;
         }
-        
         interface WriteControl {
             /**
              * The revision ID of the presentation required for the write request. If
@@ -2034,10 +1937,9 @@ declare namespace gapi.client {
              */
             requiredRevisionId?: string;
         }
-        
         interface PagesResource {
             /** Gets the latest version of the specified page in the presentation. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2068,13 +1970,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): client.Request<Page>;            
-            
+            }): client.Request<Page>;
             /**
              * Generates a thumbnail of the latest version of the specified page in the
              * presentation and returns a URL to the thumbnail image.
              */
-            getThumbnail(request: {            
+            getThumbnail(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2103,13 +2004,13 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /**
                  * The optional mime type of the thumbnail image.
-                 * 
+                 *
                  * If you don't specify the mime type, the default mime type will be PNG.
                  */
                 "thumbnailProperties.mimeType"?: string;
                 /**
                  * The optional thumbnail image size.
-                 * 
+                 *
                  * If you don't specify the size, the server chooses a default size of the
                  * image.
                  */
@@ -2118,27 +2019,25 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): client.Request<Thumbnail>;            
-            
+            }): client.Request<Thumbnail>;
         }
-        
         interface PresentationsResource {
             /**
              * Applies one or more updates to the presentation.
-             * 
+             *
              * Each request is validated before
              * being applied. If any request is not valid, then the entire request will
              * fail and nothing will be applied.
-             * 
+             *
              * Some requests have replies to
              * give you some information about how they are applied. Other requests do
              * not need to return information; these each return an empty reply.
              * The order of replies matches that of the requests.
-             * 
+             *
              * For example, suppose you call batchUpdate with four updates, and only the
              * third one returns information. The response would have two empty replies:
              * the reply to the third request, and another empty reply, in that order.
-             * 
+             *
              * Because other users may be editing the presentation, the presentation
              * might not exactly reflect your changes: your changes may
              * be altered with respect to collaborator changes. If there are no
@@ -2146,7 +2045,7 @@ declare namespace gapi.client {
              * the updates in your request are guaranteed to be applied together
              * atomically.
              */
-            batchUpdate(request: {            
+            batchUpdate(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2175,14 +2074,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): client.Request<BatchUpdatePresentationResponse>;            
-            
+            }): client.Request<BatchUpdatePresentationResponse>;
             /**
              * Creates a new presentation using the title given in the request. Other
              * fields in the request are ignored.
              * Returns the created presentation.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2209,10 +2107,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): client.Request<Presentation>;            
-            
+            }): client.Request<Presentation>;
             /** Gets the latest version of the specified presentation. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2241,8 +2138,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): client.Request<Presentation>;            
-            
+            }): client.Request<Presentation>;
             pages: PagesResource;
         }
     }

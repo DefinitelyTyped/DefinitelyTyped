@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Identity Toolkit API v3 */
-    function load(name: "identitytoolkit", version: "v3"): PromiseLike<void>;    
-    function load(name: "identitytoolkit", version: "v3", callback: () => any): void;    
-    
-    const relyingparty: identitytoolkit.RelyingpartyResource; 
-    
+    function load(name: "identitytoolkit", version: "v3"): PromiseLike<void>;
+    function load(name: "identitytoolkit", version: "v3", callback: () => any): void;
+
+    const relyingparty: identitytoolkit.RelyingpartyResource;
+
     namespace identitytoolkit {
-        
         interface CreateAuthUriResponse {
             /** all providers the user has once used to do federated login */
             allProviders?: string[];
@@ -37,13 +36,13 @@ declare namespace gapi.client {
             registered?: boolean;
             /** Session ID which should be passed in the following verifyAssertion request. */
             sessionId?: string;
+            /** All sign-in methods this user has used. */
+            signinMethods?: string[];
         }
-        
         interface DeleteAccountResponse {
             /** The fixed string "identitytoolkit#DeleteAccountResponse". */
             kind?: string;
         }
-        
         interface DownloadAccountResponse {
             /** The fixed string "identitytoolkit#DownloadAccountResponse". */
             kind?: string;
@@ -52,7 +51,22 @@ declare namespace gapi.client {
             /** The user accounts data. */
             users?: UserInfo[];
         }
-        
+        interface EmailLinkSigninResponse {
+            /** The user's email. */
+            email?: string;
+            /** Expiration time of STS id token in seconds. */
+            expiresIn?: string;
+            /** The STS id token to login the newly signed in user. */
+            idToken?: string;
+            /** Whether the user is new. */
+            isNewUser?: boolean;
+            /** The fixed string "identitytoolkit#EmailLinkSigninResponse". */
+            kind?: string;
+            /** The RP local ID of the user. */
+            localId?: string;
+            /** The refresh token for the signed in user. */
+            refreshToken?: string;
+        }
         interface EmailTemplate {
             /** Email body. */
             body?: string;
@@ -67,14 +81,12 @@ declare namespace gapi.client {
             /** Subject of the email. */
             subject?: string;
         }
-        
         interface GetAccountInfoResponse {
             /** The fixed string "identitytoolkit#GetAccountInfoResponse". */
             kind?: string;
             /** The info of the users. */
             users?: UserInfo[];
         }
-        
         interface GetOobConfirmationCodeResponse {
             /** The email address that the email is sent to. */
             email?: string;
@@ -83,7 +95,6 @@ declare namespace gapi.client {
             /** The code to be send to the user. */
             oobCode?: string;
         }
-        
         interface GetRecaptchaParamResponse {
             /** The fixed string "identitytoolkit#GetRecaptchaParamResponse". */
             kind?: string;
@@ -92,7 +103,6 @@ declare namespace gapi.client {
             /** The stoken field for the recaptcha widget, used to request captcha challenge. */
             recaptchaStoken?: string;
         }
-        
         interface IdentitytoolkitRelyingpartyCreateAuthUriRequest {
             /** The app ID of the mobile app, base64(CERT_SHA1):PACKAGE_NAME for Android, BUNDLE_ID for iOS. */
             appId?: string;
@@ -104,8 +114,11 @@ declare namespace gapi.client {
             context?: string;
             /** The URI to which the IDP redirects the user after the federated login flow. */
             continueUri?: string;
-            /** The query parameter that client can customize by themselves in auth url. The following parameters are reserved for server so that they cannot be customized by clients: client_id, response_type, scope, redirect_uri, state, oauth_token. */
-            customParameter?: Record<string, string>;            
+            /**
+             * The query parameter that client can customize by themselves in auth url. The following parameters are reserved for server so that they cannot be
+             * customized by clients: client_id, response_type, scope, redirect_uri, state, oauth_token.
+             */
+            customParameter?: Record<string, string>;
             /** The hosted domain to restrict sign-in to accounts at that domain for Google Apps hosted accounts. */
             hostedDomain?: string;
             /** The email or federated ID of the user. */
@@ -118,12 +131,14 @@ declare namespace gapi.client {
             openidRealm?: string;
             /** The native app package for OTA installation. */
             otaApp?: string;
-            /** The IdP ID. For white listed IdPs it's a short domain name e.g. google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP identifier. */
+            /**
+             * The IdP ID. For white listed IdPs it's a short domain name e.g. google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP
+             * identifier.
+             */
             providerId?: string;
             /** The session_id passed by client. */
             sessionId?: string;
         }
-        
         interface IdentitytoolkitRelyingpartyDeleteAccountRequest {
             /** GCP project number of the requesting delegated app. Currently only intended for Firebase V1 migration. */
             delegatedProjectNumber?: string;
@@ -132,7 +147,6 @@ declare namespace gapi.client {
             /** The local ID of the user. */
             localId?: string;
         }
-        
         interface IdentitytoolkitRelyingpartyDownloadAccountRequest {
             /** GCP project number of the requesting delegated app. Currently only intended for Firebase V1 migration. */
             delegatedProjectNumber?: string;
@@ -143,7 +157,14 @@ declare namespace gapi.client {
             /** Specify which project (field value is actually project id) to operate. Only used when provided credential. */
             targetProjectId?: string;
         }
-        
+        interface IdentitytoolkitRelyingpartyEmailLinkSigninRequest {
+            /** The email address of the user. */
+            email?: string;
+            /** Token for linking flow. */
+            idToken?: string;
+            /** The confirmation code. */
+            oobCode?: string;
+        }
         interface IdentitytoolkitRelyingpartyGetAccountInfoRequest {
             /** GCP project number of the requesting delegated app. Currently only intended for Firebase V1 migration. */
             delegatedProjectNumber?: string;
@@ -156,7 +177,6 @@ declare namespace gapi.client {
             /** Privileged caller can query users by specified phone number. */
             phoneNumber?: string[];
         }
-        
         interface IdentitytoolkitRelyingpartyGetProjectConfigResponse {
             /** Whether to allow password user sign in or sign up. */
             allowPasswordUser?: boolean;
@@ -182,11 +202,9 @@ declare namespace gapi.client {
             /** Verify email template. */
             verifyEmailTemplate?: EmailTemplate;
         }
-        
         interface IdentitytoolkitRelyingpartyGetPublicKeysResponse {
             [key: string]: string;
         }
-        
         interface IdentitytoolkitRelyingpartyResetPasswordRequest {
             /** The email address of the user. */
             email?: string;
@@ -197,7 +215,20 @@ declare namespace gapi.client {
             /** The confirmation code. */
             oobCode?: string;
         }
-        
+        interface IdentitytoolkitRelyingpartySendVerificationCodeRequest {
+            /** Receipt of successful app token validation with APNS. */
+            iosReceipt?: string;
+            /** Secret delivered to iOS app via APNS. */
+            iosSecret?: string;
+            /** The phone number to send the verification code to in E.164 format. */
+            phoneNumber?: string;
+            /** Recaptcha solution. */
+            recaptchaToken?: string;
+        }
+        interface IdentitytoolkitRelyingpartySendVerificationCodeResponse {
+            /** Encrypted session information */
+            sessionInfo?: string;
+        }
         interface IdentitytoolkitRelyingpartySetAccountInfoRequest {
             /** The captcha challenge. */
             captchaChallenge?: string;
@@ -205,6 +236,8 @@ declare namespace gapi.client {
             captchaResponse?: string;
             /** The timestamp when the account is created. */
             createdAt?: string;
+            /** The custom attributes to be set in the user's id token. */
+            customAttributes?: string;
             /** GCP project number of the requesting delegated app. Currently only intended for Firebase V1 migration. */
             delegatedProjectNumber?: string;
             /** The attributes users request to delete. */
@@ -244,7 +277,6 @@ declare namespace gapi.client {
             /** Timestamp in seconds for valid login token. */
             validSince?: string;
         }
-        
         interface IdentitytoolkitRelyingpartySetProjectConfigRequest {
             /** Whether to allow password user sign in or sign up. */
             allowPasswordUser?: boolean;
@@ -269,24 +301,20 @@ declare namespace gapi.client {
             /** Verify email template. */
             verifyEmailTemplate?: EmailTemplate;
         }
-        
         interface IdentitytoolkitRelyingpartySetProjectConfigResponse {
             /** Project ID of the relying party. */
             projectId?: string;
         }
-        
         interface IdentitytoolkitRelyingpartySignOutUserRequest {
             /** Instance id token of the app. */
             instanceId?: string;
             /** The local ID of the user. */
             localId?: string;
         }
-        
         interface IdentitytoolkitRelyingpartySignOutUserResponse {
             /** The local ID of the user. */
             localId?: string;
         }
-        
         interface IdentitytoolkitRelyingpartySignupNewUserRequest {
             /** The captcha challenge. */
             captchaChallenge?: string;
@@ -313,16 +341,20 @@ declare namespace gapi.client {
             /** The photo url of the user. */
             photoUrl?: string;
         }
-        
         interface IdentitytoolkitRelyingpartyUploadAccountRequest {
             /** Whether allow overwrite existing account when user local_id exists. */
             allowOverwrite?: boolean;
+            blockSize?: number;
+            /** The following 4 fields are for standard scrypt algorithm. */
+            cpuMemCost?: number;
             /** GCP project number of the requesting delegated app. Currently only intended for Firebase V1 migration. */
             delegatedProjectNumber?: string;
+            dkLen?: number;
             /** The password hash algorithm. */
             hashAlgorithm?: string;
             /** Memory cost for hash calculation. Used by scrypt similar algorithms. */
             memoryCost?: number;
+            parallelization?: number;
             /** Rounds for hash calculation. Used by scrypt and similar algorithms. */
             rounds?: number;
             /** The salt separator. */
@@ -336,9 +368,11 @@ declare namespace gapi.client {
             /** The account info to be stored. */
             users?: UserInfo[];
         }
-        
         interface IdentitytoolkitRelyingpartyVerifyAssertionRequest {
-            /** When it's true, automatically creates a new account if the user doesn't exist. When it's false, allows existing user to sign in normally and throws exception if the user doesn't exist. */
+            /**
+             * When it's true, automatically creates a new account if the user doesn't exist. When it's false, allows existing user to sign in normally and throws
+             * exception if the user doesn't exist.
+             */
             autoCreate?: boolean;
             /** GCP project number of the requesting delegated app. Currently only intended for Firebase V1 migration. */
             delegatedProjectNumber?: string;
@@ -361,7 +395,6 @@ declare namespace gapi.client {
             /** Session ID, which should match the one in previous createAuthUri request. */
             sessionId?: string;
         }
-        
         interface IdentitytoolkitRelyingpartyVerifyCustomTokenRequest {
             /** GCP project number of the requesting delegated app. Currently only intended for Firebase V1 migration. */
             delegatedProjectNumber?: string;
@@ -372,7 +405,6 @@ declare namespace gapi.client {
             /** The custom token to verify */
             token?: string;
         }
-        
         interface IdentitytoolkitRelyingpartyVerifyPasswordRequest {
             /** The captcha challenge. */
             captchaChallenge?: string;
@@ -393,7 +425,28 @@ declare namespace gapi.client {
             /** Whether return sts id token and refresh token instead of gitkit token. */
             returnSecureToken?: boolean;
         }
-        
+        interface IdentitytoolkitRelyingpartyVerifyPhoneNumberRequest {
+            code?: string;
+            idToken?: string;
+            operation?: string;
+            phoneNumber?: string;
+            /** The session info previously returned by IdentityToolkit-SendVerificationCode. */
+            sessionInfo?: string;
+            temporaryProof?: string;
+            verificationProof?: string;
+        }
+        interface IdentitytoolkitRelyingpartyVerifyPhoneNumberResponse {
+            expiresIn?: string;
+            idToken?: string;
+            isNewUser?: boolean;
+            localId?: string;
+            phoneNumber?: string;
+            refreshToken?: string;
+            temporaryProof?: string;
+            temporaryProofExpiresIn?: string;
+            verificationProof?: string;
+            verificationProofExpiresIn?: string;
+        }
         interface IdpConfig {
             /** OAuth2 client ID. */
             clientId?: string;
@@ -408,7 +461,6 @@ declare namespace gapi.client {
             /** Whitelisted client IDs for audience check. */
             whitelistedAudiences?: string[];
         }
-        
         interface Relyingparty {
             /** whether or not to install the android app on the device where the link is opened */
             androidInstallApp?: boolean;
@@ -441,7 +493,6 @@ declare namespace gapi.client {
             /** The IP address of the user. */
             userIp?: string;
         }
-        
         interface ResetPasswordResponse {
             /** The user's email. If the out-of-band code is for email recovery, the user's original email. */
             email?: string;
@@ -452,7 +503,6 @@ declare namespace gapi.client {
             /** The request type. */
             requestType?: string;
         }
-        
         interface SetAccountInfoResponse {
             /** The name of the user. */
             displayName?: string;
@@ -475,20 +525,22 @@ declare namespace gapi.client {
             /** The photo url of the user. */
             photoUrl?: string;
             /** The user's profiles at the associated IdPs. */
-            providerUserInfo?: Array<{            
+            providerUserInfo?: Array<{
                 /** The user's display name at the IDP. */
                 displayName?: string;
                 /** User's identifier at IDP. */
                 federatedId?: string;
                 /** The user's photo url at the IDP. */
                 photoUrl?: string;
-                /** The IdP ID. For whitelisted IdPs it's a short domain name, e.g., google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP identifier. */
+                /**
+                 * The IdP ID. For whitelisted IdPs it's a short domain name, e.g., google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP
+                 * identifier.
+                 */
                 providerId?: string;
-            }>;            
+            }>;
             /** If idToken is STS id token, then this field will be refresh token. */
             refreshToken?: string;
         }
-        
         interface SignupNewUserResponse {
             /** The name of the user. */
             displayName?: string;
@@ -505,22 +557,22 @@ declare namespace gapi.client {
             /** If idToken is STS id token, then this field will be refresh token. */
             refreshToken?: string;
         }
-        
         interface UploadAccountResponse {
             /** The error encountered while processing the account info. */
-            error?: Array<{            
+            error?: Array<{
                 /** The index of the malformed account, starting from 0. */
                 index?: number;
                 /** Detailed error message for the account info. */
                 message?: string;
-            }>;            
+            }>;
             /** The fixed string "identitytoolkit#UploadAccountResponse". */
             kind?: string;
         }
-        
         interface UserInfo {
             /** User creation timestamp. */
             createdAt?: string;
+            /** The custom attributes to be set in the user's id token. */
+            customAttributes?: string;
             /** Whether the user is authenticated by the developer. */
             customAuth?: boolean;
             /** Whether the user is disabled. */
@@ -544,7 +596,7 @@ declare namespace gapi.client {
             /** The URL of the user profile photo. */
             photoUrl?: string;
             /** The IDP of the user. */
-            providerUserInfo?: Array<{            
+            providerUserInfo?: Array<{
                 /** The user's display name at the IDP. */
                 displayName?: string;
                 /** User's email at IDP. */
@@ -555,13 +607,16 @@ declare namespace gapi.client {
                 phoneNumber?: string;
                 /** The user's photo url at the IDP. */
                 photoUrl?: string;
-                /** The IdP ID. For white listed IdPs it's a short domain name, e.g., google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP identifier. */
+                /**
+                 * The IdP ID. For white listed IdPs it's a short domain name, e.g., google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP
+                 * identifier.
+                 */
                 providerId?: string;
                 /** User's raw identifier directly returned from IDP. */
                 rawId?: string;
                 /** User's screen name at Twitter or login name at Github. */
                 screenName?: string;
-            }>;            
+            }>;
             /** The user's plain text password. */
             rawPassword?: string;
             /** The user's password salt. */
@@ -573,7 +628,6 @@ declare namespace gapi.client {
             /** Version of the user's password. */
             version?: number;
         }
-        
         interface VerifyAssertionResponse {
             /** The action code. */
             action?: string;
@@ -605,7 +659,10 @@ declare namespace gapi.client {
             fullName?: string;
             /** The ID token. */
             idToken?: string;
-            /** It's the identifier param in the createAuthUri request if the identifier is an email. It can be used to check whether the user input email is different from the asserted email. */
+            /**
+             * It's the identifier param in the createAuthUri request if the identifier is an email. It can be used to check whether the user input email is different
+             * from the asserted email.
+             */
             inputEmail?: string;
             /** True if it's a new user sign-in, false if it's a returning user. */
             isNewUser?: boolean;
@@ -641,7 +698,11 @@ declare namespace gapi.client {
             originalEmail?: string;
             /** The URI of the public accessible profiel picture. */
             photoUrl?: string;
-            /** The IdP ID. For white listed IdPs it's a short domain name e.g. google.com, aol.com, live.net and yahoo.com. If the "providerId" param is set to OpenID OP identifer other than the whilte listed IdPs the OP identifier is returned. If the "identifier" param is federated ID in the createAuthUri request. The domain part of the federated ID is returned. */
+            /**
+             * The IdP ID. For white listed IdPs it's a short domain name e.g. google.com, aol.com, live.net and yahoo.com. If the "providerId" param is set to OpenID
+             * OP identifer other than the whilte listed IdPs the OP identifier is returned. If the "identifier" param is federated ID in the createAuthUri request.
+             * The domain part of the federated ID is returned.
+             */
             providerId?: string;
             /** Raw IDP-returned user info. */
             rawUserInfo?: string;
@@ -654,18 +715,18 @@ declare namespace gapi.client {
             /** When action is 'map', contains the idps which can be used for confirmation. */
             verifiedProvider?: string[];
         }
-        
         interface VerifyCustomTokenResponse {
             /** If idToken is STS id token, then this field will be expiration time of STS id token in seconds. */
             expiresIn?: string;
             /** The GITKit token for authenticated user. */
             idToken?: string;
+            /** True if it's a new user sign-in, false if it's a returning user. */
+            isNewUser?: boolean;
             /** The fixed string "identitytoolkit#VerifyCustomTokenResponse". */
             kind?: string;
             /** If idToken is STS id token, then this field will be refresh token. */
             refreshToken?: string;
         }
-        
         interface VerifyPasswordResponse {
             /** The name of the user. */
             displayName?: string;
@@ -692,10 +753,9 @@ declare namespace gapi.client {
             /** Whether the email is registered. */
             registered?: boolean;
         }
-        
         interface RelyingpartyResource {
             /** Creates the URI used by the IdP to authenticate the user. */
-            createAuthUri(request: {            
+            createAuthUri(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -706,14 +766,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CreateAuthUriResponse>;            
-            
+            }): Request<CreateAuthUriResponse>;
             /** Delete user account. */
-            deleteAccount(request: {            
+            deleteAccount(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -724,14 +786,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DeleteAccountResponse>;            
-            
+            }): Request<DeleteAccountResponse>;
             /** Batch download user accounts. */
-            downloadAccount(request: {            
+            downloadAccount(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -742,14 +806,36 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DownloadAccountResponse>;            
-            
+            }): Request<DownloadAccountResponse>;
+            /** Reset password for a user. */
+            emailLinkSignin(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<EmailLinkSigninResponse>;
             /** Returns the account info. */
-            getAccountInfo(request: {            
+            getAccountInfo(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -760,14 +846,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetAccountInfoResponse>;            
-            
+            }): Request<GetAccountInfoResponse>;
             /** Get a code for user action confirmation. */
-            getOobConfirmationCode(request: {            
+            getOobConfirmationCode(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -778,14 +866,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetOobConfirmationCodeResponse>;            
-            
+            }): Request<GetOobConfirmationCodeResponse>;
             /** Get project configuration. */
-            getProjectConfig(request: {            
+            getProjectConfig(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Delegated GCP project number of the request. */
@@ -800,14 +890,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** GCP project number of the request. */
                 projectNumber?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<IdentitytoolkitRelyingpartyGetProjectConfigResponse>;            
-            
+            }): Request<IdentitytoolkitRelyingpartyGetProjectConfigResponse>;
             /** Get token signing public key. */
-            getPublicKeys(request: {            
+            getPublicKeys(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -818,14 +910,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Get recaptcha secure param. */
-            getRecaptchaParam(request: {            
+            getRecaptchaParam(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -836,14 +930,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetRecaptchaParamResponse>;            
-            
+            }): Request<GetRecaptchaParamResponse>;
             /** Reset password for a user. */
-            resetPassword(request: {            
+            resetPassword(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -854,14 +950,36 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ResetPasswordResponse>;            
-            
+            }): Request<ResetPasswordResponse>;
+            /** Send SMS verification code. */
+            sendVerificationCode(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<IdentitytoolkitRelyingpartySendVerificationCodeResponse>;
             /** Set account info for a user. */
-            setAccountInfo(request: {            
+            setAccountInfo(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -872,14 +990,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SetAccountInfoResponse>;            
-            
+            }): Request<SetAccountInfoResponse>;
             /** Set project configuration. */
-            setProjectConfig(request: {            
+            setProjectConfig(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -890,14 +1010,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<IdentitytoolkitRelyingpartySetProjectConfigResponse>;            
-            
+            }): Request<IdentitytoolkitRelyingpartySetProjectConfigResponse>;
             /** Sign out user. */
-            signOutUser(request: {            
+            signOutUser(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -908,14 +1030,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<IdentitytoolkitRelyingpartySignOutUserResponse>;            
-            
+            }): Request<IdentitytoolkitRelyingpartySignOutUserResponse>;
             /** Signup new user. */
-            signupNewUser(request: {            
+            signupNewUser(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -926,14 +1050,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SignupNewUserResponse>;            
-            
+            }): Request<SignupNewUserResponse>;
             /** Batch upload existing user accounts. */
-            uploadAccount(request: {            
+            uploadAccount(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -944,14 +1070,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UploadAccountResponse>;            
-            
+            }): Request<UploadAccountResponse>;
             /** Verifies the assertion returned by the IdP. */
-            verifyAssertion(request: {            
+            verifyAssertion(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -962,14 +1090,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<VerifyAssertionResponse>;            
-            
+            }): Request<VerifyAssertionResponse>;
             /** Verifies the developer asserted ID token. */
-            verifyCustomToken(request: {            
+            verifyCustomToken(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -980,14 +1110,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<VerifyCustomTokenResponse>;            
-            
+            }): Request<VerifyCustomTokenResponse>;
             /** Verifies the user entered password. */
-            verifyPassword(request: {            
+            verifyPassword(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -998,12 +1130,34 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<VerifyPasswordResponse>;            
-            
+            }): Request<VerifyPasswordResponse>;
+            /** Verifies ownership of a phone number and creates/updates the user account accordingly. */
+            verifyPhoneNumber(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<IdentitytoolkitRelyingpartyVerifyPhoneNumberResponse>;
         }
     }
 }

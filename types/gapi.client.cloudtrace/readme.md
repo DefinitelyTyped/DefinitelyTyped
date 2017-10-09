@@ -39,9 +39,6 @@ var client_id = '',
     
         // Write Trace data for a project or application
         'https://www.googleapis.com/auth/trace.append',
-    
-        // Read Trace data for a project or application
-        'https://www.googleapis.com/auth/trace.readonly',
     ],
     immediate = true;
 // ...

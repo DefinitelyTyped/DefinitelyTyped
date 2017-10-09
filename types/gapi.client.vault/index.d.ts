@@ -1,5 +1,5 @@
 // Type definitions for Google Google Vault API v1 1.0
-// Project: https://apps.google.com/products/vault/
+// Project: https://developers.google.com/vault
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Vault API v1 */
-    function load(name: "vault", version: "v1"): PromiseLike<void>;    
-    function load(name: "vault", version: "v1", callback: () => any): void;    
-    
-    const matters: vault.MattersResource; 
-    
+    function load(name: "vault", version: "v1"): PromiseLike<void>;
+    function load(name: "vault", version: "v1", callback: () => any): void;
+
+    const matters: vault.MattersResource;
+
     namespace vault {
-        
         interface AddMatterPermissionsRequest {
             /**
              * Only relevant if send_emails is true.
@@ -35,12 +34,10 @@ declare namespace gapi.client {
              */
             sendEmails?: boolean;
         }
-        
         interface CloseMatterResponse {
             /** The updated matter, with state CLOSED. */
             matter?: Matter;
         }
-        
         interface CorpusQuery {
             /** Details pertaining to Drive holds. If set, corpus must be Drive. */
             driveQuery?: HeldDriveQuery;
@@ -49,7 +46,6 @@ declare namespace gapi.client {
             /** Details pertaining to mail holds. If set, corpus must be mail. */
             mailQuery?: HeldMailQuery;
         }
-        
         interface HeldAccount {
             /**
              * The account's ID as provided by the
@@ -59,12 +55,10 @@ declare namespace gapi.client {
             /** When the account was put on hold. */
             holdTime?: string;
         }
-        
         interface HeldDriveQuery {
             /** If true, include files in Team Drives in the hold. */
             includeTeamDriveFiles?: boolean;
         }
-        
         interface HeldGroupsQuery {
             /**
              * The end date range for the search query. These timestamps are in GMT and
@@ -79,7 +73,6 @@ declare namespace gapi.client {
             /** The search terms for the hold. */
             terms?: string;
         }
-        
         interface HeldMailQuery {
             /**
              * The end date range for the search query. These timestamps are in GMT and
@@ -94,14 +87,12 @@ declare namespace gapi.client {
             /** The search terms for the hold. */
             terms?: string;
         }
-        
         interface HeldOrgUnit {
             /** When the org unit was put on hold. This property is immutable. */
             holdTime?: string;
             /** The org unit's immutable ID as provided by the admin SDK. */
             orgUnitId?: string;
         }
-        
         interface Hold {
             /**
              * If set, the hold applies to the enumerated accounts and org_unit must be
@@ -128,12 +119,10 @@ declare namespace gapi.client {
             /** The last time this hold was modified. */
             updateTime?: string;
         }
-        
         interface ListHeldAccountsResponse {
             /** The held accounts on a hold. */
             accounts?: HeldAccount[];
         }
-        
         interface ListHoldsResponse {
             /** The list of holds. */
             holds?: Hold[];
@@ -143,14 +132,12 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListMattersResponse {
             /** List of matters. */
             matters?: Matter[];
             /** Page token to retrieve the next page of results in the list. */
             nextPageToken?: string;
         }
-        
         interface Matter {
             /** The description of the matter. */
             description?: string;
@@ -169,31 +156,27 @@ declare namespace gapi.client {
             /** The state of the matter. */
             state?: string;
         }
-        
         interface MatterPermission {
             /** The account id, as provided by <a href="https://developers.google.com/admin-sdk/">Admin SDK</a>. */
             accountId?: string;
             /** The user's role in this matter. */
             role?: string;
         }
-        
         interface RemoveMatterPermissionsRequest {
             /** The account ID. */
             accountId?: string;
         }
-        
         interface ReopenMatterResponse {
             /** The updated matter, with state OPEN. */
             matter?: Matter;
         }
-        
         interface AccountsResource {
             /**
              * Adds a HeldAccount to a hold. Accounts can only be added to a hold that
              * has no held_org_unit set. Attempting to add an account to an OU-based
              * hold will result in an error.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -224,13 +207,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<HeldAccount>;            
-            
+            }): Request<HeldAccount>;
             /**
              * Removes a HeldAccount from a hold. If this request leaves the hold with
              * no held accounts, the hold will not apply to any accounts.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -263,15 +245,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Lists HeldAccounts for a hold. This will only list individually specified
              * held accounts. If the hold is on an OU, then use
              * <a href="https://developers.google.com/admin-sdk/">Admin SDK</a>
              * to enumerate its members.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -302,13 +283,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListHeldAccountsResponse>;            
-            
+            }): Request<ListHeldAccountsResponse>;
         }
-        
         interface HoldsResource {
             /** Creates a hold in the given matter. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -337,10 +316,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Hold>;            
-            
+            }): Request<Hold>;
             /** Removes a hold by ID. This will release any HeldAccounts on this Hold. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -371,10 +349,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets a hold by ID. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -405,13 +382,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Hold>;            
-            
+            }): Request<Hold>;
             /**
              * Lists holds within a matter. An empty page token in ListHoldsResponse
              * denotes no more holds to list.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -450,14 +426,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListHoldsResponse>;            
-            
+            }): Request<ListHoldsResponse>;
             /**
              * Updates the OU and/or query parameters of a hold. You cannot add accounts
              * to a hold that covers an OU, nor can you add OUs to a hold that covers
              * individual accounts. Accounts listed in the hold will be ignored.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -488,14 +463,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Hold>;            
-            
+            }): Request<Hold>;
             accounts: AccountsResource;
         }
-        
         interface MattersResource {
             /** Adds an account as a matter collaborator. */
-            addPermissions(request: {            
+            addPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -524,10 +497,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<MatterPermission>;            
-            
+            }): Request<MatterPermission>;
             /** Closes the specified matter. Returns matter with updated state. */
-            close(request: {            
+            close(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -556,10 +528,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CloseMatterResponse>;            
-            
-            /** Creates a new matter. Returns created matter with default view. */
-            create(request: {            
+            }): Request<CloseMatterResponse>;
+            /**
+             * Creates a new matter with the given name and description. The initial state
+             * is open, and the owner is the method caller. Returns the created matter
+             * with default view.
+             */
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -586,10 +561,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Matter>;            
-            
+            }): Request<Matter>;
             /** Deletes the specified matter. Returns matter with updated state. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -618,10 +592,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Matter>;            
-            
+            }): Request<Matter>;
             /** Gets the specified matter. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -652,10 +625,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Specifies which parts of the Matter to return in the response. */
                 view?: string;
-            }): Request<Matter>;            
-            
+            }): Request<Matter>;
             /** Lists matters the user has access to. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -685,16 +657,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /**
+                 * If set, list only matters with that specific state. The default is listing
+                 * matters of all states.
+                 */
+                state?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Specifies which parts of the matter to return in response. */
                 view?: string;
-            }): Request<ListMattersResponse>;            
-            
+            }): Request<ListMattersResponse>;
             /** Removes an account as a matter collaborator. */
-            removePermissions(request: {            
+            removePermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -723,10 +699,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Reopens the specified matter. Returns matter with updated state. */
-            reopen(request: {            
+            reopen(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -755,10 +730,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ReopenMatterResponse>;            
-            
+            }): Request<ReopenMatterResponse>;
             /** Undeletes the specified matter. Returns matter with updated state. */
-            undelete(request: {            
+            undelete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -787,15 +761,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Matter>;            
-            
+            }): Request<Matter>;
             /**
              * Updates the specified matter.
              * This updates only the name and description of the matter, identified by
              * matter id. Changes to any other fields are ignored.
              * Returns the default view of the matter.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -824,8 +797,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Matter>;            
-            
+            }): Request<Matter>;
             holds: HoldsResource;
         }
     }

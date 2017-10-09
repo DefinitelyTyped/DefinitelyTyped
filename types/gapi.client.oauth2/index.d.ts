@@ -13,24 +13,22 @@
 
 declare namespace gapi.client {
     /** Load Google OAuth2 API v2 */
-    function load(name: "oauth2", version: "v2"): PromiseLike<void>;    
-    function load(name: "oauth2", version: "v2", callback: () => any): void;    
-    
-    const userinfo: oauth2.UserinfoResource; 
-    
+    function load(name: "oauth2", version: "v2"): PromiseLike<void>;
+    function load(name: "oauth2", version: "v2", callback: () => any): void;
+
+    const userinfo: oauth2.UserinfoResource;
+
     namespace oauth2 {
-        
         interface Jwk {
-            keys?: Array<{            
+            keys?: Array<{
                 alg?: string;
                 e?: string;
                 kid?: string;
                 kty?: string;
                 n?: string;
                 use?: string;
-            }>;            
+            }>;
         }
-        
         interface Tokeninfo {
             /** The access type granted with this token. It can be offline or online. */
             access_type?: string;
@@ -51,7 +49,6 @@ declare namespace gapi.client {
             /** Boolean flag which is true if the email address is verified. Present only if the email scope is present in the request. */
             verified_email?: boolean;
         }
-        
         interface Userinfoplus {
             /** The user's email address. */
             email?: string;
@@ -76,9 +73,8 @@ declare namespace gapi.client {
             /** Boolean flag which is true if the email address is verified. Always verified because we only return the user's primary email address. */
             verified_email?: boolean;
         }
-        
         interface MeResource {
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -89,20 +85,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Userinfoplus>;            
-            
+            }): Request<Userinfoplus>;
         }
-        
         interface V2Resource {
             me: MeResource;
         }
-        
         interface UserinfoResource {
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -113,12 +109,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Userinfoplus>;            
-            
+            }): Request<Userinfoplus>;
             v2: V2Resource;
         }
     }

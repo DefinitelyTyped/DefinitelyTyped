@@ -13,15 +13,14 @@
 
 declare namespace gapi.client {
     /** Load TaskQueue API v1beta2 */
-    function load(name: "taskqueue", version: "v1beta2"): PromiseLike<void>;    
-    function load(name: "taskqueue", version: "v1beta2", callback: () => any): void;    
-    
-    const taskqueues: taskqueue.TaskqueuesResource; 
-    
-    const tasks: taskqueue.TasksResource; 
-    
+    function load(name: "taskqueue", version: "v1beta2"): PromiseLike<void>;
+    function load(name: "taskqueue", version: "v1beta2", callback: () => any): void;
+
+    const taskqueues: taskqueue.TaskqueuesResource;
+
+    const tasks: taskqueue.TasksResource;
+
     namespace taskqueue {
-        
         interface Task {
             /** Time (in seconds since the epoch) at which the task was enqueued. */
             enqueueTimestamp?: string;
@@ -40,17 +39,16 @@ declare namespace gapi.client {
             /** Tag for the task, could be used later to lease tasks grouped by a specific tag. */
             tag?: string;
         }
-        
         interface TaskQueue {
             /** ACLs that are applicable to this TaskQueue object. */
-            acl?: {            
+            acl?: {
                 /** Email addresses of users who are "admins" of the TaskQueue. This means they can control the queue, eg set ACLs for the queue. */
                 adminEmails?: string[];
                 /** Email addresses of users who can "consume" tasks from the TaskQueue. This means they can Dequeue and Delete tasks from the queue. */
                 consumerEmails?: string[];
                 /** Email addresses of users who can "produce" tasks into the TaskQueue. This means they can Insert tasks into the queue. */
                 producerEmails?: string[];
-            };            
+            };
             /** Name of the taskqueue. */
             id?: string;
             /** The kind of REST object returned, in this case taskqueue. */
@@ -58,7 +56,7 @@ declare namespace gapi.client {
             /** The number of times we should lease out tasks before giving up on them. If unset we lease them out forever until a worker deletes the task. */
             maxLeases?: number;
             /** Statistics for the TaskQueue object in question. */
-            stats?: {            
+            stats?: {
                 /** Number of tasks leased in the last hour. */
                 leasedLastHour?: string;
                 /** Number of tasks leased in the last minute. */
@@ -67,26 +65,23 @@ declare namespace gapi.client {
                 oldestTask?: string;
                 /** Number of tasks in the queue. */
                 totalTasks?: number;
-            };            
+            };
         }
-        
         interface Tasks {
             /** The actual list of tasks returned as a result of the lease operation. */
             items?: Task[];
             /** The kind of object returned, a list of tasks. */
             kind?: string;
         }
-        
         interface Tasks2 {
             /** The actual list of tasks currently active in the TaskQueue. */
             items?: Task[];
             /** The kind of object returned, a list of tasks. */
             kind?: string;
         }
-        
         interface TaskqueuesResource {
             /** Get detailed information about a TaskQueue. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -101,19 +96,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The id of the taskqueue to get the properties of. */
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TaskQueue>;            
-            
+            }): Request<TaskQueue>;
         }
-        
         interface TasksResource {
             /** Delete a task from a TaskQueue. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -126,7 +122,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The id of the task to delete. */
                 task: string;
@@ -134,10 +133,9 @@ declare namespace gapi.client {
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Get a particular task from a TaskQueue. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -150,7 +148,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The task to get properties of. */
                 task: string;
@@ -158,10 +159,9 @@ declare namespace gapi.client {
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Insert a new task in a TaskQueue */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -174,16 +174,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The taskqueue to insert the task into */
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Lease 1 or more tasks from a TaskQueue. */
-            lease(request: {            
+            lease(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -202,18 +204,23 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** The tag allowed for tasks in the response. Must only be specified if group_by_tag is true. If group_by_tag is true and tag is not specified the tag will be that of the oldest task by eta, i.e. the first available tag */
+                /**
+                 * The tag allowed for tasks in the response. Must only be specified if group_by_tag is true. If group_by_tag is true and tag is not specified the tag
+                 * will be that of the oldest task by eta, i.e. the first available tag
+                 */
                 tag?: string;
                 /** The taskqueue to lease a task from. */
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Tasks>;            
-            
+            }): Request<Tasks>;
             /** List Tasks in a TaskQueue */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -226,16 +233,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The id of the taskqueue to list tasks from. */
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Tasks2>;            
-            
+            }): Request<Tasks2>;
             /** Update tasks that are leased out of a TaskQueue. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -250,16 +259,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 task: string;
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Update tasks that are leased out of a TaskQueue. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -274,14 +285,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project under which the queue lies. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 task: string;
                 taskqueue: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
         }
     }
 }

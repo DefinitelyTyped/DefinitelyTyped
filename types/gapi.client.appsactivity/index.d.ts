@@ -13,22 +13,23 @@
 
 declare namespace gapi.client {
     /** Load G Suite Activity API v1 */
-    function load(name: "appsactivity", version: "v1"): PromiseLike<void>;    
-    function load(name: "appsactivity", version: "v1", callback: () => any): void;    
-    
-    const activities: appsactivity.ActivitiesResource; 
-    
+    function load(name: "appsactivity", version: "v1"): PromiseLike<void>;
+    function load(name: "appsactivity", version: "v1", callback: () => any): void;
+
+    const activities: appsactivity.ActivitiesResource;
+
     namespace appsactivity {
-        
         interface Activity {
             /** The fields common to all of the singleEvents that make up the Activity. */
             combinedEvent?: Event;
             /** A list of all the Events that make up the Activity. */
             singleEvents?: Event[];
         }
-        
         interface Event {
-            /** Additional event types. Some events may have multiple types when multiple actions are part of a single event. For example, creating a document, renaming it, and sharing it may be part of a single file-creation event. */
+            /**
+             * Additional event types. Some events may have multiple types when multiple actions are part of a single event. For example, creating a document,
+             * renaming it, and sharing it may be part of a single file-creation event.
+             */
             additionalEventTypes?: string[];
             /** The time at which the event occurred formatted as Unix time in milliseconds. */
             eventTimeMillis?: string;
@@ -47,21 +48,18 @@ declare namespace gapi.client {
             /** Represents the user responsible for the event. */
             user?: User;
         }
-        
         interface ListActivitiesResponse {
             /** List of activities. */
             activities?: Activity[];
             /** Token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface Move {
             /** The added parent(s). */
             addedParents?: Parent[];
             /** The removed parent(s). */
             removedParents?: Parent[];
         }
-        
         interface Parent {
             /** The parent's ID. */
             id?: string;
@@ -70,7 +68,6 @@ declare namespace gapi.client {
             /** The parent's title. */
             title?: string;
         }
-        
         interface Permission {
             /** The name of the user or group the permission applies to. */
             name?: string;
@@ -85,26 +82,22 @@ declare namespace gapi.client {
             /** Whether the permission requires a link to the file. */
             withLink?: boolean;
         }
-        
         interface PermissionChange {
             /** Lists all Permission objects added. */
             addedPermissions?: Permission[];
             /** Lists all Permission objects removed. */
             removedPermissions?: Permission[];
         }
-        
         interface Photo {
             /** The URL of the photo. */
             url?: string;
         }
-        
         interface Rename {
             /** The new title. */
             newTitle?: string;
             /** The old title. */
             oldTitle?: string;
         }
-        
         interface Target {
             /** The ID of the target. For example, in Google Drive, this is the file or folder ID. */
             id?: string;
@@ -113,7 +106,6 @@ declare namespace gapi.client {
             /** The name of the target. For example, in Google Drive, this is the title of the file. */
             name?: string;
         }
-        
         interface User {
             /** A boolean which indicates whether the specified User was deleted. If true, name, photo and permission_id will be omitted. */
             isDeleted?: boolean;
@@ -121,15 +113,21 @@ declare namespace gapi.client {
             isMe?: boolean;
             /** The displayable name of the user. */
             name?: string;
-            /** The permission ID associated with this user. Equivalent to the Drive API's permission ID for this user, returned as part of the Drive Permissions resource. */
+            /**
+             * The permission ID associated with this user. Equivalent to the Drive API's permission ID for this user, returned as part of the Drive Permissions
+             * resource.
+             */
             permissionId?: string;
             /** The profile photo of the user. Not present if the user has no profile photo. */
             photo?: Photo;
         }
-        
         interface ActivitiesResource {
-            /** Returns a list of activities visible to the current logged in user. Visible activities are determined by the visiblity settings of the object that was acted on, e.g. Drive files a user can see. An activity is a record of past events. Multiple events may be merged if they are similar. A request is scoped to activities from a given Google service using the source parameter. */
-            list(request: {            
+            /**
+             * Returns a list of activities visible to the current logged in user. Visible activities are determined by the visiblity settings of the object that was
+             * acted on, e.g. Drive files a user can see. An activity is a record of past events. Multiple events may be merged if they are similar. A request is
+             * scoped to activities from a given Google service using the source parameter.
+             */
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Identifies the Drive folder containing the items for which to return activities. */
@@ -150,10 +148,13 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /**
-                 * The Google service from which to return activities. Possible values of source are: 
+                 * The Google service from which to return activities. Possible values of source are:
                  * - drive.google.com
                  */
                 source?: string;
@@ -161,8 +162,7 @@ declare namespace gapi.client {
                 userId?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListActivitiesResponse>;            
-            
+            }): Request<ListActivitiesResponse>;
         }
     }
 }

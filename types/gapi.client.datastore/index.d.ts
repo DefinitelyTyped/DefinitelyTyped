@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Datastore API v1 */
-    function load(name: "datastore", version: "v1"): PromiseLike<void>;    
-    function load(name: "datastore", version: "v1", callback: () => any): void;    
-    
-    const projects: datastore.ProjectsResource; 
-    
+    function load(name: "datastore", version: "v1"): PromiseLike<void>;
+    function load(name: "datastore", version: "v1", callback: () => any): void;
+
+    const projects: datastore.ProjectsResource;
+
     namespace datastore {
-        
         interface AllocateIdsRequest {
             /**
              * A list of keys with incomplete key paths for which to allocate IDs.
@@ -27,7 +26,6 @@ declare namespace gapi.client {
              */
             keys?: Key[];
         }
-        
         interface AllocateIdsResponse {
             /**
              * The keys specified in the request (in the same order), each with
@@ -35,7 +33,6 @@ declare namespace gapi.client {
              */
             keys?: Key[];
         }
-        
         interface ArrayValue {
             /**
              * Values in the array.
@@ -44,32 +41,29 @@ declare namespace gapi.client {
              */
             values?: Value[];
         }
-        
         interface BeginTransactionRequest {
             /** Options for a new transaction. */
             transactionOptions?: TransactionOptions;
         }
-        
         interface BeginTransactionResponse {
             /** The transaction identifier (always present). */
             transaction?: string;
         }
-        
         interface CommitRequest {
             /** The type of commit to perform. Defaults to `TRANSACTIONAL`. */
             mode?: string;
             /**
              * The mutations to perform.
-             * 
+             *
              * When mode is `TRANSACTIONAL`, mutations affecting a single entity are
              * applied in order. The following sequences of mutations affecting a single
              * entity are not permitted in a single `Commit` request:
-             * 
+             *
              * - `insert` followed by `insert`
              * - `update` followed by `insert`
              * - `upsert` followed by `insert`
              * - `delete` followed by `update`
-             * 
+             *
              * When mode is `NON_TRANSACTIONAL`, no two mutations may affect a single
              * entity.
              */
@@ -81,7 +75,6 @@ declare namespace gapi.client {
              */
             transaction?: string;
         }
-        
         interface CommitResponse {
             /**
              * The number of index entries updated during the commit, or zero if none were
@@ -94,7 +87,6 @@ declare namespace gapi.client {
              */
             mutationResults?: MutationResult[];
         }
-        
         interface CompositeFilter {
             /**
              * The list of filters to combine.
@@ -104,11 +96,10 @@ declare namespace gapi.client {
             /** The operator for combining multiple filters. */
             op?: string;
         }
-        
         interface Entity {
             /**
              * The entity's key.
-             * 
+             *
              * An entity must have a key, unless otherwise documented (for example,
              * an entity in `Value.entity_value` may have no key).
              * An entity's kind is its key path's last element's kind,
@@ -123,9 +114,8 @@ declare namespace gapi.client {
              * The name must not contain more than 500 characters.
              * The name cannot be `""`.
              */
-            properties?: Record<string, Value>;            
+            properties?: Record<string, Value>;
         }
-        
         interface EntityResult {
             /**
              * A cursor that points to the position after the result entity.
@@ -137,34 +127,32 @@ declare namespace gapi.client {
             /**
              * The version of the entity, a strictly positive number that monotonically
              * increases with changes to the entity.
-             * 
+             *
              * This field is set for `FULL` entity
              * results.
-             * 
+             *
              * For missing entities in `LookupResponse`, this
              * is the version of the snapshot that was used to look up the entity, and it
              * is always set except for eventually consistent reads.
              */
             version?: string;
         }
-        
         interface Filter {
             /** A composite filter. */
             compositeFilter?: CompositeFilter;
             /** A filter on a property. */
             propertyFilter?: PropertyFilter;
         }
-        
         interface GoogleDatastoreAdminV1beta1CommonMetadata {
             /** The time the operation ended, either successfully or otherwise. */
             endTime?: string;
             /**
              * The client-assigned labels which were provided when the operation was
-             * created.  May also include additional labels.
+             * created. May also include additional labels.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /**
-             * The type of the operation.  Can be used as a filter in
+             * The type of the operation. Can be used as a filter in
              * ListOperationsRequest.
              */
             operationType?: string;
@@ -173,22 +161,20 @@ declare namespace gapi.client {
             /** The current state of the Operation. */
             state?: string;
         }
-        
         interface GoogleDatastoreAdminV1beta1EntityFilter {
             /** If empty, then this represents all kinds. */
             kinds?: string[];
             /**
-             * An empty list represents all namespaces.  This is the preferred
+             * An empty list represents all namespaces. This is the preferred
              * usage for projects that don't use namespaces.
-             * 
-             * An empty string element represents the default namespace.  This should be
+             *
+             * An empty string element represents the default namespace. This should be
              * used if the project has data in non-default namespaces, but doesn't want to
              * include them.
              * Each namespace in this list must be unique.
              */
             namespaceIds?: string[];
         }
-        
         interface GoogleDatastoreAdminV1beta1ExportEntitiesMetadata {
             /** Metadata common to all Datastore Admin operations. */
             common?: GoogleDatastoreAdminV1beta1CommonMetadata;
@@ -207,7 +193,6 @@ declare namespace gapi.client {
             /** An estimate of the number of entities processed. */
             progressEntities?: GoogleDatastoreAdminV1beta1Progress;
         }
-        
         interface GoogleDatastoreAdminV1beta1ExportEntitiesResponse {
             /**
              * Location of the output metadata file. This can be used to begin an import
@@ -217,7 +202,6 @@ declare namespace gapi.client {
              */
             outputUrl?: string;
         }
-        
         interface GoogleDatastoreAdminV1beta1ImportEntitiesMetadata {
             /** Metadata common to all Datastore Admin operations. */
             common?: GoogleDatastoreAdminV1beta1CommonMetadata;
@@ -234,28 +218,28 @@ declare namespace gapi.client {
             /** An estimate of the number of entities processed. */
             progressEntities?: GoogleDatastoreAdminV1beta1Progress;
         }
-        
         interface GoogleDatastoreAdminV1beta1Progress {
-            /** Note that this may be greater than work_estimated. */
+            /**
+             * The amount of work that has been completed. Note that this may be greater
+             * than work_estimated.
+             */
             workCompleted?: string;
             /**
-             * An estimate of how much work needs to be performed.  May be zero if the
+             * An estimate of how much work needs to be performed. May be zero if the
              * work estimate is unavailable.
              */
             workEstimated?: string;
         }
-        
         interface GoogleLongrunningListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: GoogleLongrunningOperation[];
         }
-        
         interface GoogleLongrunningOperation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
@@ -267,7 +251,7 @@ declare namespace gapi.client {
              * Some services might not provide such metadata.  Any method that returns a
              * long-running operation should document the metadata type, if any.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
@@ -284,9 +268,8 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface GqlQuery {
             /**
              * When false, the query string must not contain any literals and instead must
@@ -298,15 +281,15 @@ declare namespace gapi.client {
             /**
              * For each non-reserved named binding site in the query string, there must be
              * a named parameter with that name, but not necessarily the inverse.
-             * 
+             *
              * Key must match regex `A-Za-z_$&#42;`, must not match regex
              * `__.&#42;__`, and must not be `""`.
              */
-            namedBindings?: Record<string, GqlQueryParameter>;            
+            namedBindings?: Record<string, GqlQueryParameter>;
             /**
              * Numbered binding site @1 references the first numbered parameter,
              * effectively using 1-based indexing, rather than the usual 0.
-             * 
+             *
              * For each binding site numbered i in `query_string`, there must be an i-th
              * numbered parameter. The inverse must also be true.
              */
@@ -317,7 +300,6 @@ declare namespace gapi.client {
              */
             queryString?: string;
         }
-        
         interface GqlQueryParameter {
             /**
              * A query cursor. Query cursors are returned in query
@@ -327,7 +309,6 @@ declare namespace gapi.client {
             /** A value parameter. */
             value?: Value;
         }
-        
         interface Key {
             /**
              * Entities are partitioned into subsets, currently identified by a project
@@ -343,38 +324,34 @@ declare namespace gapi.client {
              * a _child_ of the root entity, the third element identifies a child of the
              * second entity, and so forth. The entities identified by all prefixes of
              * the path are called the element's _ancestors_.
-             * 
+             *
              * An entity path is always fully complete: &#42;all&#42; of the entity's ancestors
              * are required to be in the path along with the entity identifier itself.
              * The only exception is that in some documented cases, the identifier in the
              * last path element (for the entity) itself may be omitted. For example,
              * the last path element of the key of `Mutation.insert` may have no
              * identifier.
-             * 
+             *
              * A path can never be empty, and a path can have at most 100 elements.
              */
             path?: PathElement[];
         }
-        
         interface KindExpression {
             /** The name of the kind. */
             name?: string;
         }
-        
         interface LatLng {
             /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
             latitude?: number;
             /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
             longitude?: number;
         }
-        
         interface LookupRequest {
             /** Keys of entities to look up. */
             keys?: Key[];
             /** The options for this lookup request. */
             readOptions?: ReadOptions;
         }
-        
         interface LookupResponse {
             /**
              * A list of keys that were not looked up due to resource constraints. The
@@ -395,7 +372,6 @@ declare namespace gapi.client {
              */
             missing?: EntityResult[];
         }
-        
         interface Mutation {
             /**
              * The version of the entity that this mutation is being applied to. If this
@@ -423,7 +399,6 @@ declare namespace gapi.client {
              */
             upsert?: Entity;
         }
-        
         interface MutationResult {
             /**
              * Whether a conflict was detected for this mutation. Always false when a
@@ -444,14 +419,12 @@ declare namespace gapi.client {
              */
             version?: string;
         }
-        
         interface PartitionId {
             /** If not empty, the ID of the namespace to which the entities belong. */
             namespaceId?: string;
             /** The ID of the project to which the entities belong. */
             projectId?: string;
         }
-        
         interface PathElement {
             /**
              * The auto-allocated ID of the entity.
@@ -474,12 +447,10 @@ declare namespace gapi.client {
              */
             name?: string;
         }
-        
         interface Projection {
             /** The property to project. */
             property?: PropertyReference;
         }
-        
         interface PropertyFilter {
             /** The operator to filter by. */
             op?: string;
@@ -488,14 +459,12 @@ declare namespace gapi.client {
             /** The value to compare the property to. */
             value?: Value;
         }
-        
         interface PropertyOrder {
             /** The direction to order by. Defaults to `ASCENDING`. */
             direction?: string;
             /** The property to order by. */
             property?: PropertyReference;
         }
-        
         interface PropertyReference {
             /**
              * The name of the property.
@@ -503,7 +472,6 @@ declare namespace gapi.client {
              */
             name?: string;
         }
-        
         interface Query {
             /**
              * The properties to make distinct. The query results will contain the first
@@ -547,7 +515,6 @@ declare namespace gapi.client {
              */
             startCursor?: string;
         }
-        
         interface QueryResultBatch {
             /** A cursor that points to the position after the last result in the batch. */
             endCursor?: string;
@@ -569,7 +536,7 @@ declare namespace gapi.client {
              * This applies to the range of results from the query's `start_cursor` (or
              * the beginning of the query if no cursor was given) to this batch's
              * `end_cursor` (not the query's `end_cursor`).
-             * 
+             *
              * In a single transaction, subsequent query result batches for the same query
              * can have a greater snapshot version number. Each batch's snapshot version
              * is valid for all preceding batches.
@@ -577,7 +544,6 @@ declare namespace gapi.client {
              */
             snapshotVersion?: string;
         }
-        
         interface ReadOptions {
             /**
              * The non-transactional read consistency to use.
@@ -591,12 +557,10 @@ declare namespace gapi.client {
              */
             transaction?: string;
         }
-        
         interface ReadWrite {
             /** The transaction identifier of the transaction being retried. */
             previousTransaction?: string;
         }
-        
         interface RollbackRequest {
             /**
              * The transaction identifier, returned by a call to
@@ -604,7 +568,6 @@ declare namespace gapi.client {
              */
             transaction?: string;
         }
-        
         interface RunQueryRequest {
             /** The GQL query to run. */
             gqlQuery?: GqlQuery;
@@ -620,14 +583,12 @@ declare namespace gapi.client {
             /** The options for this query. */
             readOptions?: ReadOptions;
         }
-        
         interface RunQueryResponse {
             /** A batch of query results (always present). */
             batch?: QueryResultBatch;
             /** The parsed form of the `GqlQuery` from the request, if it was set. */
             query?: Query;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -635,7 +596,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -643,14 +604,12 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface TransactionOptions {
             /** The transaction should only allow reads. */
             readOnly?: any;
             /** The transaction should allow both reads and writes. */
             readWrite?: ReadWrite;
         }
-        
         interface Value {
             /**
              * An array value.
@@ -672,7 +631,7 @@ declare namespace gapi.client {
             doubleValue?: number;
             /**
              * An entity value.
-             * 
+             *
              * - May have no key.
              * - May have a key with an incomplete key path.
              * - May have a reserved/read-only key.
@@ -706,7 +665,6 @@ declare namespace gapi.client {
              */
             timestampValue?: string;
         }
-        
         interface OperationsResource {
             /**
              * Starts asynchronous cancellation on a long-running operation.  The server
@@ -720,7 +678,7 @@ declare namespace gapi.client {
              * an Operation.error value with a google.rpc.Status.code of 1,
              * corresponding to `Code.CANCELLED`.
              */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -749,15 +707,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Deletes a long-running operation. This method indicates that the client is
              * no longer interested in the operation result. It does not cancel the
              * operation. If the server doesn't support this method, it returns
              * `google.rpc.Code.UNIMPLEMENTED`.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -786,14 +743,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -822,12 +778,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleLongrunningOperation>;            
-            
+            }): Request<GoogleLongrunningOperation>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -836,7 +791,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -871,16 +826,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleLongrunningListOperationsResponse>;            
-            
+            }): Request<GoogleLongrunningListOperationsResponse>;
         }
-        
         interface ProjectsResource {
             /**
              * Allocates IDs for the given keys, which is useful for referencing an entity
              * before it is inserted.
              */
-            allocateIds(request: {            
+            allocateIds(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -909,10 +862,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<AllocateIdsResponse>;            
-            
+            }): Request<AllocateIdsResponse>;
             /** Begins a new transaction. */
-            beginTransaction(request: {            
+            beginTransaction(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -941,13 +893,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BeginTransactionResponse>;            
-            
+            }): Request<BeginTransactionResponse>;
             /**
              * Commits a transaction, optionally creating, deleting or modifying some
              * entities.
              */
-            commit(request: {            
+            commit(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -976,10 +927,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CommitResponse>;            
-            
+            }): Request<CommitResponse>;
             /** Looks up entities by key. */
-            lookup(request: {            
+            lookup(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1008,10 +958,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<LookupResponse>;            
-            
+            }): Request<LookupResponse>;
             /** Rolls back a transaction. */
-            rollback(request: {            
+            rollback(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1040,10 +989,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Queries for entities. */
-            runQuery(request: {            
+            runQuery(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1072,8 +1020,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<RunQueryResponse>;            
-            
+            }): Request<RunQueryResponse>;
             operations: OperationsResource;
         }
     }

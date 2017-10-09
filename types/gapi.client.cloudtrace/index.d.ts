@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Stackdriver Trace API v2 */
-    function load(name: "cloudtrace", version: "v2"): PromiseLike<void>;    
-    function load(name: "cloudtrace", version: "v2", callback: () => any): void;    
-    
-    const projects: cloudtrace.ProjectsResource; 
-    
+    function load(name: "cloudtrace", version: "v2"): PromiseLike<void>;
+    function load(name: "cloudtrace", version: "v2", callback: () => any): void;
+
+    const projects: cloudtrace.ProjectsResource;
+
     namespace cloudtrace {
-        
         interface Annotation {
             /**
              * A set of attributes on the annotation. There is a limit of 4 attributes
@@ -32,7 +31,6 @@ declare namespace gapi.client {
              */
             description?: TruncatableString;
         }
-        
         interface AttributeValue {
             /** A Boolean value represented by `true` or `false`. */
             boolValue?: boolean;
@@ -41,19 +39,18 @@ declare namespace gapi.client {
             /** A string up to 256 bytes long. */
             stringValue?: TruncatableString;
         }
-        
         interface Attributes {
             /**
              * The set of attributes. Each attribute's key can be up to 128 bytes
              * long. The value can be a string up to 256 bytes, an integer, or the
              * Boolean values `true` and `false`. For example:
-             * 
-             *     "/instance_id": "my-instance"
-             *     "/http/user_agent": ""
-             *     "/http/request_bytes": 300
-             *     "abc.com/myattribute": true
+             *
+             * "/instance_id": "my-instance"
+             * "/http/user_agent": ""
+             * "/http/request_bytes": 300
+             * "abc.com/myattribute": true
              */
-            attributeMap?: Record<string, AttributeValue>;            
+            attributeMap?: Record<string, AttributeValue>;
             /**
              * The number of attributes that were discarded. Attributes can be discarded
              * because their keys are too long or because there are too many attributes.
@@ -61,12 +58,10 @@ declare namespace gapi.client {
              */
             droppedAttributesCount?: number;
         }
-        
         interface BatchWriteSpansRequest {
             /** A collection of spans. */
             spans?: Span[];
         }
-        
         interface Link {
             /**
              * A set of attributes on the link. There is a limit of 32 attributes per
@@ -80,7 +75,6 @@ declare namespace gapi.client {
             /** The relationship of the current span relative to the linked span. */
             type?: string;
         }
-        
         interface Links {
             /**
              * The number of dropped links after the maximum size was enforced. If
@@ -90,29 +84,6 @@ declare namespace gapi.client {
             /** A collection of links. */
             link?: Link[];
         }
-        
-        interface ListSpansResponse {
-            /**
-             * If defined, indicates that there might be more spans that match the
-             * request. Pass this as the value of `pageToken` in a subsequent request to
-             * retrieve additional spans.
-             */
-            nextPageToken?: string;
-            /** The requested spans, if there are any in the specified trace. */
-            spans?: Span[];
-        }
-        
-        interface ListTracesResponse {
-            /**
-             * If there might be more results than those appearing in this response, then
-             * `next_page_token` is included.  To get the next set of results, call this
-             * method again using the value of `next_page_token` as `page_token`.
-             */
-            nextPageToken?: string;
-            /** List of trace records returned. */
-            traces?: Trace[];
-        }
-        
         interface Module {
             /**
              * A unique identifier for the module, usually a hash of its
@@ -125,12 +96,11 @@ declare namespace gapi.client {
              */
             module?: TruncatableString;
         }
-        
         interface NetworkEvent {
+            /** The number of compressed bytes sent or received. */
+            compressedMessageSize?: string;
             /** An identifier for the message, which must be unique in this span. */
             messageId?: string;
-            /** The number of bytes sent or received. */
-            messageSize?: string;
             /**
              * For sent messages, this is the time at which the first bit was sent.
              * For received messages, this is the time at which the last bit was
@@ -142,8 +112,9 @@ declare namespace gapi.client {
              * received.
              */
             type?: string;
+            /** The number of uncompressed bytes sent or received. */
+            uncompressedMessageSize?: string;
         }
-        
         interface Span {
             /**
              * A set of attributes on the span. There is a limit of 32 attributes per
@@ -175,8 +146,8 @@ declare namespace gapi.client {
             links?: Links;
             /**
              * The resource name of the span in the following format:
-             * 
-             *     projects/[PROJECT_ID]traces/[TRACE_ID]/spans/SPAN_ID is a unique identifier for a trace within a project.
+             *
+             * projects/[PROJECT_ID]/traces/[TRACE_ID]/spans/SPAN_ID is a unique identifier for a trace within a project.
              * [SPAN_ID] is a unique identifier for a span within a trace,
              * assigned when the span is created.
              */
@@ -210,7 +181,6 @@ declare namespace gapi.client {
              */
             timeEvents?: TimeEvents;
         }
-        
         interface StackFrame {
             /**
              * The column number where the function call appears, if available.
@@ -240,7 +210,6 @@ declare namespace gapi.client {
             /** The version of the deployed source code (up to 128 bytes). */
             sourceVersion?: TruncatableString;
         }
-        
         interface StackFrames {
             /**
              * The number of stack frames that were dropped because there
@@ -251,24 +220,22 @@ declare namespace gapi.client {
             /** Stack frames in this call stack. */
             frame?: StackFrame[];
         }
-        
         interface StackTrace {
             /** Stack frames in this stack trace. A maximum of 128 frames are allowed. */
             stackFrames?: StackFrames;
             /**
              * The hash ID is used to conserve network bandwidth for duplicate
              * stack traces within a single trace.
-             * 
+             *
              * Often multiple spans will have identical stack traces.
              * The first occurrence of a stack trace should contain both the
              * `stackFrame` content and a value in `stackTraceHashId`.
-             * 
+             *
              * Subsequent spans within the same request can refer
              * to that stack trace by only setting `stackTraceHashId`.
              */
             stackTraceHashId?: string;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -276,7 +243,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -284,16 +251,14 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface TimeEvent {
-            /** One or more key:value pairs. */
+            /** Text annotation with a set of attributes. */
             annotation?: Annotation;
             /** An event describing an RPC message sent/received on the network. */
             networkEvent?: NetworkEvent;
             /** The timestamp indicating the time the event occurred. */
             time?: string;
         }
-        
         interface TimeEvents {
             /**
              * The number of dropped annotations in all the included time events.
@@ -308,17 +273,6 @@ declare namespace gapi.client {
             /** A collection of `TimeEvent`s. */
             timeEvent?: TimeEvent[];
         }
-        
-        interface Trace {
-            /**
-             * The resource name of the trace in the following format:
-             * 
-             *     projects/[PROJECT_ID]/traces/TRACE_ID is a unique identifier for a trace within a project.
-             * The ID is assigned when the trace is created.
-             */
-            name?: string;
-        }
-        
         interface TruncatableString {
             /**
              * The number of bytes removed from the original string. If this
@@ -335,10 +289,9 @@ declare namespace gapi.client {
              */
             value?: string;
         }
-        
         interface SpansResource {
             /** Creates a new Span. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -355,8 +308,8 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the span in the following format:
-                 * 
-                 *     projects/[PROJECT_ID]traces/[TRACE_ID]/spans/SPAN_ID is a unique identifier for a trace within a project.
+                 *
+                 * projects/[PROJECT_ID]/traces/[TRACE_ID]/spans/SPAN_ID is a unique identifier for a trace within a project.
                  * [SPAN_ID] is a unique identifier for a span within a trace,
                  * assigned when the span is created.
                  */
@@ -373,10 +326,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Span>;            
-            
+            }): Request<Span>;
         }
-        
         interface TracesResource {
             /**
              * Sends new spans to Stackdriver Trace or updates existing traces. If the
@@ -385,7 +336,7 @@ declare namespace gapi.client {
              * undefined behavior. If the name does not match, a new trace is created
              * with given set of spans.
              */
-            batchWrite(request: {            
+            batchWrite(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -417,126 +368,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
-            /** Returns of a list of traces that match the specified filter conditions. */
-            list(request: {            
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** JSONP */
-                callback?: string;
-                /** Optional. Do not return traces whose start time is later than this time. */
-                endTime?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /**
-                 * Opional. Return only traces that match this
-                 * [trace filter](/trace/docs/trace-filters). Example:
-                 * 
-                 *     "label:/http/url root:/_ah/background my_label:17"
-                 */
-                filter?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /**
-                 * Optional. A single field used to sort the returned traces.
-                 * Only the following field names can be used:
-                 * 
-                 * &#42;   `trace_id`: the trace's ID field
-                 * &#42;   `name`:  the root span's resource name
-                 * &#42;   `duration`: the difference between the root span's start time and end time
-                 * &#42;   `start`:  the start time of the root span
-                 * 
-                 * Sorting is in ascending order unless `desc` is appended to the sort field name.
-                 * Example: `"name desc"`).
-                 */
-                orderBy?: string;
-                /**
-                 * Optional. The maximum number of results to return from this request.
-                 * Non-positive values are ignored. The presence of `next_page_token` in the
-                 * response indicates that more results might be available, even if fewer than
-                 * the maximum number of results is returned by this request.
-                 */
-                pageSize?: number;
-                /**
-                 * Optional. If present, then retrieve the next batch of results from the
-                 * preceding call to this method.  `page_token` must be the value of
-                 * `next_page_token` from the previous response.  The values of other method
-                 * parameters should be identical to those in the previous call.
-                 */
-                pageToken?: string;
-                /**
-                 * Required. The project where the trace data is stored. The format
-                 * is `projects/PROJECT_ID`.
-                 */
-                parent: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Optional. Do not return traces whose end time is earlier than this time. */
-                startTime?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            }): Request<ListTracesResponse>;            
-            
-            /** Returns a list of spans within a trace. */
-            listSpans(request: {            
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** JSONP */
-                callback?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /**
-                 * Optional. If present, then retrieve the next batch of results from the
-                 * preceding call to this method. `page_token` must be the value of
-                 * `next_page_token` from the previous response. The values of other method
-                 * parameters should be identical to those in the previous call.
-                 */
-                pageToken?: string;
-                /**
-                 * Required: The resource name of the trace containing the spans to list.
-                 * The format is `projects/PROJECT_ID/traces/TRACE_ID`.
-                 */
-                parent: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-            }): Request<ListSpansResponse>;            
-            
+            }): Request<{}>;
             spans: SpansResource;
         }
-        
         interface ProjectsResource {
             traces: TracesResource;
         }

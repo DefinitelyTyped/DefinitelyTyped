@@ -13,52 +13,54 @@
 
 declare namespace gapi.client {
     /** Load Cloud Storage JSON API v1 */
-    function load(name: "storage", version: "v1"): PromiseLike<void>;    
-    function load(name: "storage", version: "v1", callback: () => any): void;    
-    
-    const bucketAccessControls: storage.BucketAccessControlsResource; 
-    
-    const buckets: storage.BucketsResource; 
-    
-    const channels: storage.ChannelsResource; 
-    
-    const defaultObjectAccessControls: storage.DefaultObjectAccessControlsResource; 
-    
-    const notifications: storage.NotificationsResource; 
-    
-    const objectAccessControls: storage.ObjectAccessControlsResource; 
-    
-    const objects: storage.ObjectsResource; 
-    
-    const projects: storage.ProjectsResource; 
-    
+    function load(name: "storage", version: "v1"): PromiseLike<void>;
+    function load(name: "storage", version: "v1", callback: () => any): void;
+
+    const bucketAccessControls: storage.BucketAccessControlsResource;
+
+    const buckets: storage.BucketsResource;
+
+    const channels: storage.ChannelsResource;
+
+    const defaultObjectAccessControls: storage.DefaultObjectAccessControlsResource;
+
+    const notifications: storage.NotificationsResource;
+
+    const objectAccessControls: storage.ObjectAccessControlsResource;
+
+    const objects: storage.ObjectsResource;
+
+    const projects: storage.ProjectsResource;
+
     namespace storage {
-        
         interface Bucket {
             /** Access controls on the bucket. */
             acl?: BucketAccessControl[];
             /** The bucket's billing configuration. */
-            billing?: {            
+            billing?: {
                 /** When set to true, bucket is requester pays. */
                 requesterPays?: boolean;
-            };            
+            };
             /** The bucket's Cross-Origin Resource Sharing (CORS) configuration. */
-            cors?: Array<{            
+            cors?: Array<{
                 /** The value, in seconds, to return in the  Access-Control-Max-Age header used in preflight responses. */
                 maxAgeSeconds?: number;
-                /** The list of HTTP methods on which to include CORS response headers, (GET, OPTIONS, POST, etc) Note: "&#42;" is permitted in the list of methods, and means "any method". */
+                /**
+                 * The list of HTTP methods on which to include CORS response headers, (GET, OPTIONS, POST, etc) Note: "&#42;" is permitted in the list of methods, and means
+                 * "any method".
+                 */
                 method?: string[];
                 /** The list of Origins eligible to receive CORS response headers. Note: "&#42;" is permitted in the list of origins, and means "any Origin". */
                 origin?: string[];
                 /** The list of HTTP headers other than the simple response headers to give permission for the user-agent to share across domains. */
                 responseHeader?: string[];
-            }>;            
+            }>;
             /** Default access controls to apply to new objects when no ACL is provided. */
             defaultObjectAcl?: ObjectAccessControl[];
             /** Encryption configuration used by default for newly inserted objects, when no encryption config is specified. */
-            encryption?: {            
+            encryption?: {
                 defaultKmsKeyName?: string;
-            };            
+            };
             /** HTTP 1.1 Entity tag for the bucket. */
             etag?: string;
             /** The ID of the bucket. For buckets, the id and name properities are the same. */
@@ -66,77 +68,102 @@ declare namespace gapi.client {
             /** The kind of item this is. For buckets, this is always storage#bucket. */
             kind?: string;
             /** User-provided labels, in key/value pairs. */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /** The bucket's lifecycle configuration. See lifecycle management for more information. */
-            lifecycle?: {            
+            lifecycle?: {
                 /** A lifecycle management rule, which is made of an action to take and the condition(s) under which the action will be taken. */
-                rule?: Array<{                
+                rule?: Array<{
                     /** The action to take. */
-                    action?: {                    
+                    action?: {
                         /** Target storage class. Required iff the type of the action is SetStorageClass. */
                         storageClass?: string;
                         /** Type of the action. Currently, only Delete and SetStorageClass are supported. */
                         type?: string;
-                    };                    
+                    };
                     /** The condition(s) under which the action will be taken. */
-                    condition?: {                    
+                    condition?: {
                         /** Age of an object (in days). This condition is satisfied when an object reaches the specified age. */
                         age?: number;
-                        /** A date in RFC 3339 format with only the date part (for instance, "2013-01-15"). This condition is satisfied when an object is created before midnight of the specified date in UTC. */
+                        /**
+                         * A date in RFC 3339 format with only the date part (for instance, "2013-01-15"). This condition is satisfied when an object is created before midnight
+                         * of the specified date in UTC.
+                         */
                         createdBefore?: string;
                         /** Relevant only for versioned objects. If the value is true, this condition matches live objects; if the value is false, it matches archived objects. */
                         isLive?: boolean;
-                        /** Objects having any of the storage classes specified by this condition will be matched. Values include MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, STANDARD, and DURABLE_REDUCED_AVAILABILITY. */
+                        /**
+                         * Objects having any of the storage classes specified by this condition will be matched. Values include MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE,
+                         * STANDARD, and DURABLE_REDUCED_AVAILABILITY.
+                         */
                         matchesStorageClass?: string[];
-                        /** Relevant only for versioned objects. If the value is N, this condition is satisfied when there are at least N versions (including the live version) newer than this version of the object. */
+                        /**
+                         * Relevant only for versioned objects. If the value is N, this condition is satisfied when there are at least N versions (including the live version)
+                         * newer than this version of the object.
+                         */
                         numNewerVersions?: number;
-                    };                    
-                }>;                
-            };            
-            /** The location of the bucket. Object data for objects in the bucket resides in physical storage within this region. Defaults to US. See the developer's guide for the authoritative list. */
+                    };
+                }>;
+            };
+            /**
+             * The location of the bucket. Object data for objects in the bucket resides in physical storage within this region. Defaults to US. See the developer's
+             * guide for the authoritative list.
+             */
             location?: string;
             /** The bucket's logging configuration, which defines the destination bucket and optional name prefix for the current bucket's logs. */
-            logging?: {            
+            logging?: {
                 /** The destination bucket where the current bucket's logs should be placed. */
                 logBucket?: string;
                 /** A prefix for log object names. */
                 logObjectPrefix?: string;
-            };            
+            };
             /** The metadata generation of this bucket. */
             metageneration?: string;
             /** The name of the bucket. */
             name?: string;
             /** The owner of the bucket. This is always the project team's owner group. */
-            owner?: {            
+            owner?: {
                 /** The entity, in the form project-owner-projectId. */
                 entity?: string;
                 /** The ID for the entity. */
                 entityId?: string;
-            };            
+            };
             /** The project number of the project the bucket belongs to. */
             projectNumber?: string;
             /** The URI of this bucket. */
             selfLink?: string;
-            /** The bucket's default storage class, used whenever no storageClass is specified for a newly-created object. This defines how objects in the bucket are stored and determines the SLA and the cost of storage. Values include MULTI_REGIONAL, REGIONAL, STANDARD, NEARLINE, COLDLINE, and DURABLE_REDUCED_AVAILABILITY. If this value is not specified when the bucket is created, it will default to STANDARD. For more information, see storage classes. */
+            /**
+             * The bucket's default storage class, used whenever no storageClass is specified for a newly-created object. This defines how objects in the bucket are
+             * stored and determines the SLA and the cost of storage. Values include MULTI_REGIONAL, REGIONAL, STANDARD, NEARLINE, COLDLINE, and
+             * DURABLE_REDUCED_AVAILABILITY. If this value is not specified when the bucket is created, it will default to STANDARD. For more information, see storage
+             * classes.
+             */
             storageClass?: string;
             /** The creation time of the bucket in RFC 3339 format. */
             timeCreated?: string;
             /** The modification time of the bucket in RFC 3339 format. */
             updated?: string;
             /** The bucket's versioning configuration. */
-            versioning?: {            
+            versioning?: {
                 /** While set to true, versioning is fully enabled for this bucket. */
                 enabled?: boolean;
-            };            
-            /** The bucket's website configuration, controlling how the service behaves when accessing bucket contents as a web site. See the Static Website Examples for more information. */
-            website?: {            
-                /** If the requested object path is missing, the service will ensure the path has a trailing '/', append this suffix, and attempt to retrieve the resulting object. This allows the creation of index.html objects to represent directory pages. */
+            };
+            /**
+             * The bucket's website configuration, controlling how the service behaves when accessing bucket contents as a web site. See the Static Website Examples
+             * for more information.
+             */
+            website?: {
+                /**
+                 * If the requested object path is missing, the service will ensure the path has a trailing '/', append this suffix, and attempt to retrieve the resulting
+                 * object. This allows the creation of index.html objects to represent directory pages.
+                 */
                 mainPageSuffix?: string;
-                /** If the requested object path is missing, and any mainPageSuffix object is missing, if applicable, the service will return the named object from this bucket as the content for a 404 Not Found result. */
+                /**
+                 * If the requested object path is missing, and any mainPageSuffix object is missing, if applicable, the service will return the named object from this
+                 * bucket as the content for a 404 Not Found result.
+                 */
                 notFoundPage?: string;
-            };            
+            };
         }
-        
         interface BucketAccessControl {
             /** The name of the bucket. */
             bucket?: string;
@@ -145,17 +172,17 @@ declare namespace gapi.client {
             /** The email address associated with the entity, if any. */
             email?: string;
             /**
-             * The entity holding the permission, in one of the following forms: 
-             * - user-userId 
-             * - user-email 
-             * - group-groupId 
-             * - group-email 
-             * - domain-domain 
-             * - project-team-projectId 
-             * - allUsers 
-             * - allAuthenticatedUsers Examples: 
-             * - The user liz@example.com would be user-liz@example.com. 
-             * - The group example@googlegroups.com would be group-example@googlegroups.com. 
+             * The entity holding the permission, in one of the following forms:
+             * - user-userId
+             * - user-email
+             * - group-groupId
+             * - group-email
+             * - domain-domain
+             * - project-team-projectId
+             * - allUsers
+             * - allAuthenticatedUsers Examples:
+             * - The user liz@example.com would be user-liz@example.com.
+             * - The group example@googlegroups.com would be group-example@googlegroups.com.
              * - To refer to all members of the Google Apps for Business domain example.com, the entity would be domain-example.com.
              */
             entity?: string;
@@ -168,25 +195,23 @@ declare namespace gapi.client {
             /** The kind of item this is. For bucket access control entries, this is always storage#bucketAccessControl. */
             kind?: string;
             /** The project team associated with the entity, if any. */
-            projectTeam?: {            
+            projectTeam?: {
                 /** The project number. */
                 projectNumber?: string;
                 /** The team. */
                 team?: string;
-            };            
+            };
             /** The access permission for the entity. */
             role?: string;
             /** The link to this access-control entry. */
             selfLink?: string;
         }
-        
         interface BucketAccessControls {
             /** The list of items. */
             items?: BucketAccessControl[];
             /** The kind of item this is. For lists of bucket access control entries, this is always storage#bucketAccessControls. */
             kind?: string;
         }
-        
         interface Buckets {
             /** The list of items. */
             items?: Bucket[];
@@ -195,7 +220,6 @@ declare namespace gapi.client {
             /** The continuation token, used to page through large result sets. Provide this value in a subsequent request to return the next page of results. */
             nextPageToken?: string;
         }
-        
         interface Channel {
             /** The address where notifications are delivered for this channel. */
             address?: string;
@@ -206,7 +230,7 @@ declare namespace gapi.client {
             /** Identifies this as a notification channel used to watch for changes to a resource. Value: the fixed string "api#channel". */
             kind?: string;
             /** Additional parameters controlling delivery channel behavior. Optional. */
-            params?: Record<string, string>;            
+            params?: Record<string, string>;
             /** A Boolean value to indicate whether payload is wanted. Optional. */
             payload?: boolean;
             /** An opaque ID that identifies the resource being watched on this channel. Stable across different API versions. */
@@ -218,29 +242,30 @@ declare namespace gapi.client {
             /** The type of delivery mechanism used for this channel. */
             type?: string;
         }
-        
         interface ComposeRequest {
             /** Properties of the resulting object. */
             destination?: Object;
             /** The kind of item this is. */
             kind?: string;
             /** The list of source objects that will be concatenated into a single object. */
-            sourceObjects?: Array<{            
+            sourceObjects?: Array<{
                 /** The generation of this object to use as the source. */
                 generation?: string;
                 /** The source object's name. The source object's bucket is implicitly the destination bucket. */
                 name?: string;
                 /** Conditions that must be met for this operation to execute. */
-                objectPreconditions?: {                
-                    /** Only perform the composition if the generation of the source object that would be used matches this value. If this value and a generation are both specified, they must be the same value or the call will fail. */
+                objectPreconditions?: {
+                    /**
+                     * Only perform the composition if the generation of the source object that would be used matches this value. If this value and a generation are both
+                     * specified, they must be the same value or the call will fail.
+                     */
                     ifGenerationMatch?: string;
-                };                
-            }>;            
+                };
+            }>;
         }
-        
         interface Notification {
             /** An optional list of additional attributes to attach to each Cloud PubSub message published for this notification subscription. */
-            custom_attributes?: Record<string, string>;            
+            custom_attributes?: Record<string, string>;
             /** HTTP 1.1 Entity tag for this subscription notification. */
             etag?: string;
             /** If present, only send notifications about listed event types. If empty, sent notifications for all event types. */
@@ -258,14 +283,12 @@ declare namespace gapi.client {
             /** The Cloud PubSub topic to which this subscription publishes. Formatted as: '//pubsub.googleapis.com/projects/{project-identifier}/topics/{my-topic}' */
             topic?: string;
         }
-        
         interface Notifications {
             /** The list of items. */
             items?: Notification[];
             /** The kind of item this is. For lists of notifications, this is always storage#notifications. */
             kind?: string;
         }
-        
         interface Object {
             /** Access controls on the object. */
             acl?: ObjectAccessControl[];
@@ -283,15 +306,18 @@ declare namespace gapi.client {
             contentLanguage?: string;
             /** Content-Type of the object data. If an object is stored without a Content-Type, it is served as application/octet-stream. */
             contentType?: string;
-            /** CRC32c checksum, as described in RFC 4960, Appendix B; encoded using base64 in big-endian byte order. For more information about using the CRC32c checksum, see Hashes and ETags: Best Practices. */
+            /**
+             * CRC32c checksum, as described in RFC 4960, Appendix B; encoded using base64 in big-endian byte order. For more information about using the CRC32c
+             * checksum, see Hashes and ETags: Best Practices.
+             */
             crc32c?: string;
             /** Metadata of customer-supplied encryption key, if the object is encrypted by such a key. */
-            customerEncryption?: {            
+            customerEncryption?: {
                 /** The encryption algorithm. */
                 encryptionAlgorithm?: string;
                 /** SHA256 hash value of the encryption key. */
                 keySha256?: string;
-            };            
+            };
             /** HTTP 1.1 Entity tag for the object. */
             etag?: string;
             /** The content generation of this object. Used for object versioning. */
@@ -307,18 +333,21 @@ declare namespace gapi.client {
             /** Media download link. */
             mediaLink?: string;
             /** User-provided metadata, in key/value pairs. */
-            metadata?: Record<string, string>;            
-            /** The version of the metadata for this object at this generation. Used for preconditions and for detecting changes in metadata. A metageneration number is only meaningful in the context of a particular generation of a particular object. */
+            metadata?: Record<string, string>;
+            /**
+             * The version of the metadata for this object at this generation. Used for preconditions and for detecting changes in metadata. A metageneration number
+             * is only meaningful in the context of a particular generation of a particular object.
+             */
             metageneration?: string;
             /** The name of the object. Required if not specified by URL parameter. */
             name?: string;
             /** The owner of the object. This will always be the uploader of the object. */
-            owner?: {            
+            owner?: {
                 /** The entity, in the form user-userId. */
                 entity?: string;
                 /** The ID for the entity. */
                 entityId?: string;
-            };            
+            };
             /** The link to this object. */
             selfLink?: string;
             /** Content-Length of the data in bytes. */
@@ -334,7 +363,6 @@ declare namespace gapi.client {
             /** The modification time of the object metadata in RFC 3339 format. */
             updated?: string;
         }
-        
         interface ObjectAccessControl {
             /** The name of the bucket. */
             bucket?: string;
@@ -343,17 +371,17 @@ declare namespace gapi.client {
             /** The email address associated with the entity, if any. */
             email?: string;
             /**
-             * The entity holding the permission, in one of the following forms: 
-             * - user-userId 
-             * - user-email 
-             * - group-groupId 
-             * - group-email 
-             * - domain-domain 
-             * - project-team-projectId 
-             * - allUsers 
-             * - allAuthenticatedUsers Examples: 
-             * - The user liz@example.com would be user-liz@example.com. 
-             * - The group example@googlegroups.com would be group-example@googlegroups.com. 
+             * The entity holding the permission, in one of the following forms:
+             * - user-userId
+             * - user-email
+             * - group-groupId
+             * - group-email
+             * - domain-domain
+             * - project-team-projectId
+             * - allUsers
+             * - allAuthenticatedUsers Examples:
+             * - The user liz@example.com would be user-liz@example.com.
+             * - The group example@googlegroups.com would be group-example@googlegroups.com.
              * - To refer to all members of the Google Apps for Business domain example.com, the entity would be domain-example.com.
              */
             entity?: string;
@@ -370,25 +398,23 @@ declare namespace gapi.client {
             /** The name of the object, if applied to an object. */
             object?: string;
             /** The project team associated with the entity, if any. */
-            projectTeam?: {            
+            projectTeam?: {
                 /** The project number. */
                 projectNumber?: string;
                 /** The team. */
                 team?: string;
-            };            
+            };
             /** The access permission for the entity. */
             role?: string;
             /** The link to this access-control entry. */
             selfLink?: string;
         }
-        
         interface ObjectAccessControls {
             /** The list of items. */
             items?: ObjectAccessControl[];
             /** The kind of item this is. For lists of object access control entries, this is always storage#objectAccessControls. */
             kind?: string;
         }
-        
         interface Objects {
             /** The list of items. */
             items?: Object[];
@@ -399,46 +425,54 @@ declare namespace gapi.client {
             /** The list of prefixes of objects matching-but-not-listed up to and including the requested delimiter. */
             prefixes?: string[];
         }
-        
         interface Policy {
             /** An association between a role, which comes with a set of permissions, and members who may assume that role. */
-            bindings?: Array<{            
+            bindings?: Array<{
+                condition?: any;
                 /**
-                 * A collection of identifiers for members who may assume the provided role. Recognized identifiers are as follows:  
-                 * - allUsers — A special identifier that represents anyone on the internet; with or without a Google account.  
-                 * - allAuthenticatedUsers — A special identifier that represents anyone who is authenticated with a Google account or a service account.  
-                 * - user:emailid — An email address that represents a specific account. For example, user:alice@gmail.com or user:joe@example.com.  
-                 * - serviceAccount:emailid — An email address that represents a service account. For example,  serviceAccount:my-other-app@appspot.gserviceaccount.com .  
-                 * - group:emailid — An email address that represents a Google group. For example, group:admins@example.com.  
-                 * - domain:domain — A Google Apps domain name that represents all the users of that domain. For example, domain:google.com or domain:example.com.  
-                 * - projectOwner:projectid — Owners of the given project. For example, projectOwner:my-example-project  
-                 * - projectEditor:projectid — Editors of the given project. For example, projectEditor:my-example-project  
+                 * A collection of identifiers for members who may assume the provided role. Recognized identifiers are as follows:
+                 * - allUsers — A special identifier that represents anyone on the internet; with or without a Google account.
+                 * - allAuthenticatedUsers — A special identifier that represents anyone who is authenticated with a Google account or a service account.
+                 * - user:emailid — An email address that represents a specific account. For example, user:alice@gmail.com or user:joe@example.com.
+                 * - serviceAccount:emailid — An email address that represents a service account. For example,  serviceAccount:my-other-app@appspot.gserviceaccount.com .
+                 *
+                 * - group:emailid — An email address that represents a Google group. For example, group:admins@example.com.
+                 * - domain:domain — A Google Apps domain name that represents all the users of that domain. For example, domain:google.com or domain:example.com.
+                 * - projectOwner:projectid — Owners of the given project. For example, projectOwner:my-example-project
+                 * - projectEditor:projectid — Editors of the given project. For example, projectEditor:my-example-project
                  * - projectViewer:projectid — Viewers of the given project. For example, projectViewer:my-example-project
                  */
                 members?: string[];
                 /**
-                 * The role to which members belong. Two types of roles are supported: new IAM roles, which grant permissions that do not map directly to those provided by ACLs, and legacy IAM roles, which do map directly to ACL permissions. All roles are of the format roles/storage.specificRole.
-                 * The new IAM roles are:  
-                 * - roles/storage.admin — Full control of Google Cloud Storage resources.  
-                 * - roles/storage.objectViewer — Read-Only access to Google Cloud Storage objects.  
-                 * - roles/storage.objectCreator — Access to create objects in Google Cloud Storage.  
-                 * - roles/storage.objectAdmin — Full control of Google Cloud Storage objects.   The legacy IAM roles are:  
-                 * - roles/storage.legacyObjectReader — Read-only access to objects without listing. Equivalent to an ACL entry on an object with the READER role.  
-                 * - roles/storage.legacyObjectOwner — Read/write access to existing objects without listing. Equivalent to an ACL entry on an object with the OWNER role.  
-                 * - roles/storage.legacyBucketReader — Read access to buckets with object listing. Equivalent to an ACL entry on a bucket with the READER role.  
-                 * - roles/storage.legacyBucketWriter — Read access to buckets with object listing/creation/deletion. Equivalent to an ACL entry on a bucket with the WRITER role.  
-                 * - roles/storage.legacyBucketOwner — Read and write access to existing buckets with object listing/creation/deletion. Equivalent to an ACL entry on a bucket with the OWNER role.
+                 * The role to which members belong. Two types of roles are supported: new IAM roles, which grant permissions that do not map directly to those provided
+                 * by ACLs, and legacy IAM roles, which do map directly to ACL permissions. All roles are of the format roles/storage.specificRole.
+                 * The new IAM roles are:
+                 * - roles/storage.admin — Full control of Google Cloud Storage resources.
+                 * - roles/storage.objectViewer — Read-Only access to Google Cloud Storage objects.
+                 * - roles/storage.objectCreator — Access to create objects in Google Cloud Storage.
+                 * - roles/storage.objectAdmin — Full control of Google Cloud Storage objects.   The legacy IAM roles are:
+                 * - roles/storage.legacyObjectReader — Read-only access to objects without listing. Equivalent to an ACL entry on an object with the READER role.
+                 * - roles/storage.legacyObjectOwner — Read/write access to existing objects without listing. Equivalent to an ACL entry on an object with the OWNER role.
+                 *
+                 * - roles/storage.legacyBucketReader — Read access to buckets with object listing. Equivalent to an ACL entry on a bucket with the READER role.
+                 * - roles/storage.legacyBucketWriter — Read access to buckets with object listing/creation/deletion. Equivalent to an ACL entry on a bucket with the
+                 * WRITER role.
+                 * - roles/storage.legacyBucketOwner — Read and write access to existing buckets with object listing/creation/deletion. Equivalent to an ACL entry on a
+                 * bucket with the OWNER role.
                  */
                 role?: string;
-            }>;            
+            }>;
             /** HTTP 1.1  Entity tag for the policy. */
             etag?: string;
             /** The kind of item this is. For policies, this is always storage#policy. This field is ignored on input. */
             kind?: string;
-            /** The ID of the resource to which this policy belongs. Will be of the form projects/_/buckets/bucket for buckets, and projects/_/buckets/bucket/objects/object for objects. A specific generation may be specified by appending #generationNumber to the end of the object name, e.g. projects/_/buckets/my-bucket/objects/data.txt#17. The current generation can be denoted with #0. This field is ignored on input. */
+            /**
+             * The ID of the resource to which this policy belongs. Will be of the form projects/_/buckets/bucket for buckets, and
+             * projects/_/buckets/bucket/objects/object for objects. A specific generation may be specified by appending #generationNumber to the end of the object
+             * name, e.g. projects/_/buckets/my-bucket/objects/data.txt#17. The current generation can be denoted with #0. This field is ignored on input.
+             */
             resourceId?: string;
         }
-        
         interface RewriteResponse {
             /** true if the copy is finished; otherwise, false if the copy is in progress. This property is always present in the response. */
             done?: boolean;
@@ -453,40 +487,38 @@ declare namespace gapi.client {
             /** The total bytes written so far, which can be used to provide a waiting user with a progress indicator. This property is always present in the response. */
             totalBytesRewritten?: string;
         }
-        
         interface ServiceAccount {
             /** The ID of the notification. */
             email_address?: string;
             /** The kind of item this is. For notifications, this is always storage#notification. */
             kind?: string;
         }
-        
         interface TestIamPermissionsResponse {
             /** The kind of item this is. */
             kind?: string;
             /**
-             * The permissions held by the caller. Permissions are always of the format storage.resource.capability, where resource is one of buckets or objects. The supported permissions are as follows:  
-             * - storage.buckets.delete — Delete bucket.  
-             * - storage.buckets.get — Read bucket metadata.  
-             * - storage.buckets.getIamPolicy — Read bucket IAM policy.  
-             * - storage.buckets.create — Create bucket.  
-             * - storage.buckets.list — List buckets.  
-             * - storage.buckets.setIamPolicy — Update bucket IAM policy.  
-             * - storage.buckets.update — Update bucket metadata.  
-             * - storage.objects.delete — Delete object.  
-             * - storage.objects.get — Read object data and metadata.  
-             * - storage.objects.getIamPolicy — Read object IAM policy.  
-             * - storage.objects.create — Create object.  
-             * - storage.objects.list — List objects.  
-             * - storage.objects.setIamPolicy — Update object IAM policy.  
+             * The permissions held by the caller. Permissions are always of the format storage.resource.capability, where resource is one of buckets or objects. The
+             * supported permissions are as follows:
+             * - storage.buckets.delete — Delete bucket.
+             * - storage.buckets.get — Read bucket metadata.
+             * - storage.buckets.getIamPolicy — Read bucket IAM policy.
+             * - storage.buckets.create — Create bucket.
+             * - storage.buckets.list — List buckets.
+             * - storage.buckets.setIamPolicy — Update bucket IAM policy.
+             * - storage.buckets.update — Update bucket metadata.
+             * - storage.objects.delete — Delete object.
+             * - storage.objects.get — Read object data and metadata.
+             * - storage.objects.getIamPolicy — Read object IAM policy.
+             * - storage.objects.create — Create object.
+             * - storage.objects.list — List objects.
+             * - storage.objects.setIamPolicy — Update object IAM policy.
              * - storage.objects.update — Update object metadata.
              */
             permissions?: string[];
         }
-        
         interface BucketAccessControlsResource {
             /** Permanently deletes the ACL entry for the specified entity on the specified bucket. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -501,16 +533,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns the ACL entry for the specified entity on the specified bucket. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -525,16 +559,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<BucketAccessControl>;            
-            
+            }): Request<BucketAccessControl>;
             /** Creates a new ACL entry on the specified bucket. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -547,16 +583,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<BucketAccessControl>;            
-            
+            }): Request<BucketAccessControl>;
             /** Retrieves ACL entries on the specified bucket. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -569,16 +607,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<BucketAccessControls>;            
-            
+            }): Request<BucketAccessControls>;
             /** Updates an ACL entry on the specified bucket. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -593,16 +633,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<BucketAccessControl>;            
-            
+            }): Request<BucketAccessControl>;
             /** Updates an ACL entry on the specified bucket. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -617,19 +659,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<BucketAccessControl>;            
-            
+            }): Request<BucketAccessControl>;
         }
-        
         interface BucketsResource {
             /** Permanently deletes an empty bucket. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -646,16 +689,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns metadata for the specified bucket. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -674,16 +719,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Bucket>;            
-            
+            }): Request<Bucket>;
             /** Returns an IAM policy for the specified bucket. */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -696,16 +743,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Creates a new bucket. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -724,14 +773,18 @@ declare namespace gapi.client {
                 project: string;
                 /** Set of properties to return. Defaults to noAcl, unless the bucket resource specifies acl or defaultObjectAcl properties, when it defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Bucket>;            
-            
+                /** The project to be billed for this request, for Requester Pays buckets. */
+                userProject?: string;
+            }): Request<Bucket>;
             /** Retrieves a list of buckets for a given project. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -752,14 +805,21 @@ declare namespace gapi.client {
                 project: string;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Buckets>;            
-            
-            /** Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. This method supports patch semantics. */
-            patch(request: {            
+                /** The project to be billed for this request, for Requester Pays buckets. */
+                userProject?: string;
+            }): Request<Buckets>;
+            /**
+             * Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. This method
+             * supports patch semantics.
+             */
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -782,16 +842,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Bucket>;            
-            
+            }): Request<Bucket>;
             /** Updates an IAM policy for the specified bucket. */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -804,16 +866,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Tests a set of permissions on the given bucket to see which, if any, are held by the caller. */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -828,16 +892,18 @@ declare namespace gapi.client {
                 permissions: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             /** Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -860,19 +926,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Bucket>;            
-            
+            }): Request<Bucket>;
         }
-        
         interface ChannelsResource {
             /** Stop watching resources through this channel */
-            stop(request: {            
+            stop(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -883,17 +950,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface DefaultObjectAccessControlsResource {
             /** Permanently deletes the default object ACL entry for the specified entity on the specified bucket. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -908,16 +976,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns the default object ACL entry for the specified entity on the specified bucket. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -932,16 +1002,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
             /** Creates a new default object ACL entry on the specified bucket. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -954,16 +1026,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
             /** Retrieves default object ACL entries on the specified bucket. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -980,16 +1054,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControls>;            
-            
+            }): Request<ObjectAccessControls>;
             /** Updates a default object ACL entry on the specified bucket. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1004,16 +1080,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
             /** Updates a default object ACL entry on the specified bucket. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1028,19 +1106,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
         }
-        
         interface NotificationsResource {
             /** Permanently deletes a notification subscription. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The parent bucket of the notification. */
@@ -1055,16 +1134,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** View a notification configuration. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The parent bucket of the notification. */
@@ -1079,16 +1160,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Notification>;            
-            
+            }): Request<Notification>;
             /** Creates a notification subscription for a given bucket. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The parent bucket of the notification. */
@@ -1101,16 +1184,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Notification>;            
-            
+            }): Request<Notification>;
             /** Retrieves a list of notification subscriptions for a given bucket. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a Google Cloud Storage bucket. */
@@ -1123,19 +1208,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Notifications>;            
-            
+            }): Request<Notifications>;
         }
-        
         interface ObjectAccessControlsResource {
             /** Permanently deletes the ACL entry for the specified entity on the specified object. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1154,16 +1240,18 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns the ACL entry for the specified entity on the specified object. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1182,16 +1270,18 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
             /** Creates a new ACL entry on the specified object. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1208,16 +1298,18 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
             /** Retrieves ACL entries on the specified object. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1234,16 +1326,18 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControls>;            
-            
+            }): Request<ObjectAccessControls>;
             /** Updates an ACL entry on the specified object. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1262,16 +1356,18 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
             /** Updates an ACL entry on the specified object. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of a bucket. */
@@ -1290,19 +1386,20 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<ObjectAccessControl>;            
-            
+            }): Request<ObjectAccessControl>;
         }
-        
         interface ObjectsResource {
             /** Concatenates a list of existing objects into a new object in the same bucket. */
-            compose(request: {            
+            compose(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which to store the new object. */
@@ -1313,31 +1410,42 @@ declare namespace gapi.client {
                 destinationPredefinedAcl?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if
+                 * there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the object. Overrides the object metadata's kms_key_name value, if any. */
+                /**
+                 * Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the
+                 * object. Overrides the object metadata's kms_key_name value, if any.
+                 */
                 kmsKeyName?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Object>;            
-            
+            }): Request<Object>;
             /** Copies a source object to a destination object. Optionally overrides metadata. */
-            copy(request: {            
+            copy(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any.For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                /**
+                 * Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any.For information about how to URL
+                 * encode object names to be path safe, see Encoding URI Path Parts.
+                 */
                 destinationBucket: string;
                 /** Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any. */
                 destinationObject: string;
@@ -1345,9 +1453,15 @@ declare namespace gapi.client {
                 destinationPredefinedAcl?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Makes the operation conditional on whether the destination object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the destination object's current generation matches the given value. Setting to 0 makes the operation
+                 * succeed only if there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the destination object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
+                /**
+                 * Makes the operation conditional on whether the destination object's current generation does not match the given value. If no live object exists, the
+                 * precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object.
+                 */
                 ifGenerationNotMatch?: string;
                 /** Makes the operation conditional on whether the destination object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
@@ -1369,7 +1483,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Name of the bucket in which to find the source object. */
                 sourceBucket: string;
@@ -1381,10 +1498,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Object>;            
-            
+            }): Request<Object>;
             /** Deletes an object and its metadata. Deletions are permanent if versioning is not enabled for the bucket, or if the generation parameter is used. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which the object resides. */
@@ -1393,9 +1509,15 @@ declare namespace gapi.client {
                 fields?: string;
                 /** If present, permanently deletes a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if
+                 * there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition
+                 * fails. Setting to 0 makes the operation succeed only if there is a live version of the object.
+                 */
                 ifGenerationNotMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
@@ -1409,16 +1531,18 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves an object or its metadata. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which the object resides. */
@@ -1427,9 +1551,15 @@ declare namespace gapi.client {
                 fields?: string;
                 /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if
+                 * there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition
+                 * fails. Setting to 0 makes the operation succeed only if there is a live version of the object.
+                 */
                 ifGenerationNotMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
@@ -1445,16 +1575,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Object>;            
-            
+            }): Request<Object>;
             /** Returns an IAM policy for the specified object. */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which the object resides. */
@@ -1471,27 +1603,38 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Stores a new object and metadata. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any. */
                 bucket: string;
-                /** If set, sets the contentEncoding property of the final object to this value. Setting this parameter is equivalent to setting the contentEncoding metadata property. This can be useful when uploading an object with uploadType=media to indicate the encoding of the content being uploaded. */
+                /**
+                 * If set, sets the contentEncoding property of the final object to this value. Setting this parameter is equivalent to setting the contentEncoding
+                 * metadata property. This can be useful when uploading an object with uploadType=media to indicate the encoding of the content being uploaded.
+                 */
                 contentEncoding?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if
+                 * there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition
+                 * fails. Setting to 0 makes the operation succeed only if there is a live version of the object.
+                 */
                 ifGenerationNotMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
@@ -1499,9 +1642,15 @@ declare namespace gapi.client {
                 ifMetagenerationNotMatch?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the object. Overrides the object metadata's kms_key_name value, if any. */
+                /**
+                 * Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the
+                 * object. Overrides the object metadata's kms_key_name value, if any.
+                 */
                 kmsKeyName?: string;
-                /** Name of the object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                /**
+                 * Name of the object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any. For information
+                 * about how to URL encode object names to be path safe, see Encoding URI Path Parts.
+                 */
                 name?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1511,27 +1660,36 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Object>;            
-            
+            }): Request<Object>;
             /** Retrieves a list of objects matching the criteria. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which to look for objects. */
                 bucket: string;
-                /** Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are omitted. */
+                /**
+                 * Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose
+                 * names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are
+                 * omitted.
+                 */
                 delimiter?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** Maximum number of items plus prefixes to return in a single page of responses. As duplicate prefixes are omitted, fewer total results may be returned than requested. The service will use this parameter or 1,000 items, whichever is smaller. */
+                /**
+                 * Maximum number of items plus prefixes to return in a single page of responses. As duplicate prefixes are omitted, fewer total results may be returned
+                 * than requested. The service will use this parameter or 1,000 items, whichever is smaller.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1543,7 +1701,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -1551,10 +1712,9 @@ declare namespace gapi.client {
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
                 versions?: boolean;
-            }): Request<Objects>;            
-            
+            }): Request<Objects>;
             /** Updates an object's metadata. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which the object resides. */
@@ -1563,9 +1723,15 @@ declare namespace gapi.client {
                 fields?: string;
                 /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if
+                 * there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition
+                 * fails. Setting to 0 makes the operation succeed only if there is a live version of the object.
+                 */
                 ifGenerationNotMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
@@ -1583,31 +1749,45 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Object>;            
-            
+            }): Request<Object>;
             /** Rewrites a source object to a destination object. Optionally overrides metadata. */
-            rewrite(request: {            
+            rewrite(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any. */
                 destinationBucket: string;
-                /** Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the object. Overrides the object metadata's kms_key_name value, if any. */
+                /**
+                 * Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the
+                 * object. Overrides the object metadata's kms_key_name value, if any.
+                 */
                 destinationKmsKeyName?: string;
-                /** Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                /**
+                 * Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any. For
+                 * information about how to URL encode object names to be path safe, see Encoding URI Path Parts.
+                 */
                 destinationObject: string;
                 /** Apply a predefined set of access controls to the destination object. */
                 destinationPredefinedAcl?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if
+                 * there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition
+                 * fails. Setting to 0 makes the operation succeed only if there is a live version of the object.
+                 */
                 ifGenerationNotMatch?: string;
                 /** Makes the operation conditional on whether the destination object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
@@ -1623,7 +1803,12 @@ declare namespace gapi.client {
                 ifSourceMetagenerationNotMatch?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The maximum number of bytes that will be rewritten per rewrite request. Most callers shouldn't need to specify this parameter - it is primarily in place to support testing. If specified the value must be an integral multiple of 1 MiB (1048576). Also, this only applies to requests where the source and destination span locations and/or storage classes. Finally, this value must not change across rewrite calls else you'll get an error that the rewriteToken is invalid. */
+                /**
+                 * The maximum number of bytes that will be rewritten per rewrite request. Most callers shouldn't need to specify this parameter - it is primarily in
+                 * place to support testing. If specified the value must be an integral multiple of 1 MiB (1048576). Also, this only applies to requests where the source
+                 * and destination span locations and/or storage classes. Finally, this value must not change across rewrite calls else you'll get an error that the
+                 * rewriteToken is invalid.
+                 */
                 maxBytesRewrittenPerCall?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1631,9 +1816,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** Include this field (from the previous rewrite response) on each rewrite request after the first one, until the rewrite response 'done' flag is true. Calls that provide a rewriteToken can omit all other request fields, but if included those fields must match the values provided in the first rewrite request. */
+                /**
+                 * Include this field (from the previous rewrite response) on each rewrite request after the first one, until the rewrite response 'done' flag is true.
+                 * Calls that provide a rewriteToken can omit all other request fields, but if included those fields must match the values provided in the first rewrite
+                 * request.
+                 */
                 rewriteToken?: string;
                 /** Name of the bucket in which to find the source object. */
                 sourceBucket: string;
@@ -1645,10 +1837,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<RewriteResponse>;            
-            
+            }): Request<RewriteResponse>;
             /** Updates an IAM policy for the specified object. */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which the object resides. */
@@ -1665,16 +1856,18 @@ declare namespace gapi.client {
                 object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Tests a set of permissions on the given object to see which, if any, are held by the caller. */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which the object resides. */
@@ -1693,16 +1886,18 @@ declare namespace gapi.client {
                 permissions: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             /** Updates an object's metadata. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which the object resides. */
@@ -1711,9 +1906,15 @@ declare namespace gapi.client {
                 fields?: string;
                 /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if
+                 * there are no live versions of the object.
+                 */
                 ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
+                /**
+                 * Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition
+                 * fails. Setting to 0 makes the operation succeed only if there is a live version of the object.
+                 */
                 ifGenerationNotMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
@@ -1731,27 +1932,36 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): Request<Object>;            
-            
+            }): Request<Object>;
             /** Watch for changes on all objects in a bucket. */
-            watchAll(request: {            
+            watchAll(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the bucket in which to look for objects. */
                 bucket: string;
-                /** Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are omitted. */
+                /**
+                 * Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose
+                 * names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are
+                 * omitted.
+                 */
                 delimiter?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** Maximum number of items plus prefixes to return in a single page of responses. As duplicate prefixes are omitted, fewer total results may be returned than requested. The service will use this parameter or 1,000 items, whichever is smaller. */
+                /**
+                 * Maximum number of items plus prefixes to return in a single page of responses. As duplicate prefixes are omitted, fewer total results may be returned
+                 * than requested. The service will use this parameter or 1,000 items, whichever is smaller.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1763,7 +1973,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -1771,13 +1984,11 @@ declare namespace gapi.client {
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
                 versions?: boolean;
-            }): Request<Channel>;            
-            
+            }): Request<Channel>;
         }
-        
         interface ServiceAccountResource {
             /** Get the email address of this project's Google Cloud Storage service account. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1790,14 +2001,17 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID */
                 projectId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ServiceAccount>;            
-            
+                /** The project to be billed for this request, for Requester Pays buckets. */
+                userProject?: string;
+            }): Request<ServiceAccount>;
         }
-        
         interface ProjectsResource {
             serviceAccount: ServiceAccountResource;
         }

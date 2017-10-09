@@ -13,17 +13,16 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Translation API v2 */
-    function load(name: "translate", version: "v2"): PromiseLike<void>;    
-    function load(name: "translate", version: "v2", callback: () => any): void;    
-    
-    const detections: translate.DetectionsResource; 
-    
-    const languages: translate.LanguagesResource; 
-    
-    const translations: translate.TranslationsResource; 
-    
+    function load(name: "translate", version: "v2"): PromiseLike<void>;
+    function load(name: "translate", version: "v2", callback: () => any): void;
+
+    const detections: translate.DetectionsResource;
+
+    const languages: translate.LanguagesResource;
+
+    const translations: translate.TranslationsResource;
+
     namespace translate {
-        
         interface DetectLanguageRequest {
             /**
              * The input text upon which to perform language detection. Repeat this
@@ -31,12 +30,10 @@ declare namespace gapi.client {
              */
             q?: string[];
         }
-        
         interface DetectionsListResponse {
             /** A detections contains detection results of several text */
             detections?: any[];
         }
-        
         interface GetSupportedLanguagesRequest {
             /**
              * The language to use to return localized, human readable names of supported
@@ -44,12 +41,13 @@ declare namespace gapi.client {
              */
             target?: string;
         }
-        
         interface LanguagesListResponse {
-            /** List of source/target languages supported by the translation API. If target parameter is unspecified, the list is sorted by the ASCII code point order of the language code. If target parameter is specified, the list is sorted by the collation order of the language name in the target language. */
+            /**
+             * List of source/target languages supported by the translation API. If target parameter is unspecified, the list is sorted by the ASCII code point order
+             * of the language code. If target parameter is specified, the list is sorted by the collation order of the language name in the target language.
+             */
             languages?: LanguagesResource[];
         }
-        
         interface LanguagesResource {
             /**
              * Supported language code, generally consisting of its ISO 639-1
@@ -60,7 +58,6 @@ declare namespace gapi.client {
             /** Human readable name of the language localized to the target language. */
             name?: string;
         }
-        
         interface TranslateTextRequest {
             /**
              * The format of the source text, in either HTML (default) or plain-text. A
@@ -90,12 +87,10 @@ declare namespace gapi.client {
              */
             target?: string;
         }
-        
         interface TranslationsListResponse {
             /** Translations contains list of translation results of given text */
             translations?: TranslationsResource[];
         }
-        
         interface TranslationsResource {
             /**
              * The source language of the initial request, detected automatically, if
@@ -113,10 +108,9 @@ declare namespace gapi.client {
             /** Text translated into the target language. */
             translatedText?: string;
         }
-        
         interface DetectionsResource {
             /** Detects the language of text within a request. */
-            detect(request: {            
+            detect(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -137,16 +131,18 @@ declare namespace gapi.client {
                 pp?: boolean;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<DetectionsListResponse>;            
-            
+            }): Request<DetectionsListResponse>;
             /** Detects the language of text within a request. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -172,19 +168,20 @@ declare namespace gapi.client {
                  * parameter to perform language detection on multiple text inputs.
                  */
                 q: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<DetectionsListResponse>;            
-            
+            }): Request<DetectionsListResponse>;
         }
-        
         interface LanguagesResource {
             /** Returns a list of supported languages for translation. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -207,7 +204,10 @@ declare namespace gapi.client {
                 pp?: boolean;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /**
                  * The language to use to return localized, human readable names of supported
@@ -218,13 +218,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<LanguagesListResponse>;            
-            
+            }): Request<LanguagesListResponse>;
         }
-        
         interface TranslationsResource {
             /** Translates input text, returning translated text. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -262,7 +260,10 @@ declare namespace gapi.client {
                  * operations on multiple text inputs.
                  */
                 q: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /**
                  * The language of the source text, set to one of the language codes listed in
@@ -280,10 +281,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TranslationsListResponse>;            
-            
+            }): Request<TranslationsListResponse>;
             /** Translates input text, returning translated text. */
-            translate(request: {            
+            translate(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -304,14 +304,16 @@ declare namespace gapi.client {
                 pp?: boolean;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TranslationsListResponse>;            
-            
+            }): Request<TranslationsListResponse>;
         }
     }
 }

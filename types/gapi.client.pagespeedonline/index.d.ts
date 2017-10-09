@@ -13,20 +13,22 @@
 
 declare namespace gapi.client {
     /** Load PageSpeed Insights API v2 */
-    function load(name: "pagespeedonline", version: "v2"): PromiseLike<void>;    
-    function load(name: "pagespeedonline", version: "v2", callback: () => any): void;    
-    
-    const pagespeedapi: pagespeedonline.PagespeedapiResource; 
-    
+    function load(name: "pagespeedonline", version: "v2"): PromiseLike<void>;
+    function load(name: "pagespeedonline", version: "v2", callback: () => any): void;
+
+    const pagespeedapi: pagespeedonline.PagespeedapiResource;
+
     namespace pagespeedonline {
-        
         interface PagespeedApiFormatStringV2 {
             /** List of arguments for the format string. */
-            args?: Array<{            
+            args?: Array<{
                 /** The placeholder key for this arg, as a string. */
                 key?: string;
-                /** The screen rectangles being referred to, with dimensions measured in CSS pixels. This is only ever used for SNAPSHOT_RECT arguments. If this is absent for a SNAPSHOT_RECT argument, it means that that argument refers to the entire snapshot. */
-                rects?: Array<{                
+                /**
+                 * The screen rectangles being referred to, with dimensions measured in CSS pixels. This is only ever used for SNAPSHOT_RECT arguments. If this is absent
+                 * for a SNAPSHOT_RECT argument, it means that that argument refers to the entire snapshot.
+                 */
+                rects?: Array<{
                     /** The height of the rect. */
                     height?: number;
                     /** The left coordinate of the rect, in page coordinates. */
@@ -35,9 +37,9 @@ declare namespace gapi.client {
                     top?: number;
                     /** The width of the rect. */
                     width?: number;
-                }>;                
+                }>;
                 /** Secondary screen rectangles being referred to, with dimensions measured in CSS pixels. This is only ever used for SNAPSHOT_RECT arguments. */
-                secondary_rects?: Array<{                
+                secondary_rects?: Array<{
                     /** The height of the rect. */
                     height?: number;
                     /** The left coordinate of the rect, in page coordinates. */
@@ -46,16 +48,18 @@ declare namespace gapi.client {
                     top?: number;
                     /** The width of the rect. */
                     width?: number;
-                }>;                
+                }>;
                 /** Type of argument. One of URL, STRING_LITERAL, INT_LITERAL, BYTES, DURATION, VERBATIM_STRING, PERCENTAGE, HYPERLINK, or SNAPSHOT_RECT. */
                 type?: string;
                 /** Argument value, as a localized string. */
                 value?: string;
-            }>;            
-            /** A localized format string with {{FOO}} placeholders, where 'FOO' is the key of the argument whose value should be substituted. For HYPERLINK arguments, the format string will instead contain {{BEGIN_FOO}} and {{END_FOO}} for the argument with key 'FOO'. */
+            }>;
+            /**
+             * A localized format string with {{FOO}} placeholders, where 'FOO' is the key of the argument whose value should be substituted. For HYPERLINK arguments,
+             * the format string will instead contain {{BEGIN_FOO}} and {{END_FOO}} for the argument with key 'FOO'.
+             */
             format?: string;
         }
-        
         interface PagespeedApiImageV2 {
             /** Image data base64 encoded. */
             data?: string;
@@ -66,7 +70,7 @@ declare namespace gapi.client {
             /** Mime type of image data (e.g. "image/jpeg"). */
             mime_type?: string;
             /** The region of the page that is captured by this image, with dimensions measured in CSS pixels. */
-            page_rect?: {            
+            page_rect?: {
                 /** The height of the rect. */
                 height?: number;
                 /** The left coordinate of the rect, in page coordinates. */
@@ -75,40 +79,44 @@ declare namespace gapi.client {
                 top?: number;
                 /** The width of the rect. */
                 width?: number;
-            };            
+            };
             /** Width of screenshot in pixels. */
             width?: number;
         }
-        
         interface Result {
             /** Localized PageSpeed results. Contains a ruleResults entry for each PageSpeed rule instantiated and run by the server. */
-            formattedResults?: {            
+            formattedResults?: {
                 /** The locale of the formattedResults, e.g. "en_US". */
                 locale?: string;
                 /** Dictionary of formatted rule results, with one entry for each PageSpeed rule instantiated and run by the server. */
-                ruleResults?: Record<string, {                
+                ruleResults?: Record<string, {
                     /** List of rule groups that this rule belongs to. Each entry in the list is one of "SPEED" or "USABILITY". */
                     groups?: string[];
                     /** Localized name of the rule, intended for presentation to a user. */
                     localizedRuleName?: string;
-                    /** The impact (unbounded floating point value) that implementing the suggestions for this rule would have on making the page faster. Impact is comparable between rules to determine which rule's suggestions would have a higher or lower impact on making a page faster. For instance, if enabling compression would save 1MB, while optimizing images would save 500kB, the enable compression rule would have 2x the impact of the image optimization rule, all other things being equal. */
+                    /**
+                     * The impact (unbounded floating point value) that implementing the suggestions for this rule would have on making the page faster. Impact is comparable
+                     * between rules to determine which rule's suggestions would have a higher or lower impact on making a page faster. For instance, if enabling compression
+                     * would save 1MB, while optimizing images would save 500kB, the enable compression rule would have 2x the impact of the image optimization rule, all
+                     * other things being equal.
+                     */
                     ruleImpact?: number;
                     /** A brief summary description for the rule, indicating at a high level what should be done to follow the rule and what benefit can be gained by doing so. */
                     summary?: PagespeedApiFormatStringV2;
                     /** List of blocks of URLs. Each block may contain a heading and a list of URLs. Each URL may optionally include additional details. */
-                    urlBlocks?: Array<{                    
+                    urlBlocks?: Array<{
                         /** Heading to be displayed with the list of URLs. */
                         header?: PagespeedApiFormatStringV2;
                         /** List of entries that provide information about URLs in the url block. Optional. */
-                        urls?: Array<{                        
+                        urls?: Array<{
                             /** List of entries that provide additional details about a single URL. Optional. */
                             details?: PagespeedApiFormatStringV2[];
                             /** A format string that gives information about the URL, and a list of arguments for that format string. */
                             result?: PagespeedApiFormatStringV2;
-                        }>;                        
-                    }>;                    
-                }>;                
-            };            
+                        }>;
+                    }>;
+                }>;
+            };
             /** Canonicalized and final URL for the document, after following page redirects (if any). */
             id?: string;
             /** List of rules that were specified in the request, but which the server did not know how to instantiate. */
@@ -116,7 +124,7 @@ declare namespace gapi.client {
             /** Kind of result. */
             kind?: string;
             /** Summary statistics for the page, such as number of JavaScript bytes, number of HTML bytes, etc. */
-            pageStats?: {            
+            pageStats?: {
                 /** Number of uncompressed response bytes for CSS resources on the page. */
                 cssResponseBytes?: string;
                 /** Number of response bytes for flash resources on the page. */
@@ -143,30 +151,35 @@ declare namespace gapi.client {
                 textResponseBytes?: string;
                 /** Total size of all request bytes sent by the page. */
                 totalRequestBytes?: string;
-            };            
+            };
             /** Response code for the document. 200 indicates a normal page load. 4xx/5xx indicates an error. */
             responseCode?: number;
             /** A map with one entry for each rule group in these results. */
-            ruleGroups?: Record<string, {            
-                /** The score (0-100) for this rule group, which indicates how much better a page could be in that category (e.g. how much faster, or how much more usable). A high score indicates little room for improvement, while a lower score indicates more room for improvement. */
+            ruleGroups?: Record<string, {
+                /**
+                 * The score (0-100) for this rule group, which indicates how much better a page could be in that category (e.g. how much faster, or how much more
+                 * usable). A high score indicates little room for improvement, while a lower score indicates more room for improvement.
+                 */
                 score?: number;
-            }>;            
+            }>;
             /** Base64-encoded screenshot of the page that was analyzed. */
             screenshot?: PagespeedApiImageV2;
             /** Title of the page, as displayed in the browser's title bar. */
             title?: string;
             /** The version of PageSpeed used to generate these results. */
-            version?: {            
+            version?: {
                 /** The major version number of PageSpeed used to generate these results. */
                 major?: number;
                 /** The minor version number of PageSpeed used to generate these results. */
                 minor?: number;
-            };            
+            };
         }
-        
         interface PagespeedapiResource {
-            /** Runs PageSpeed analysis on the page at the specified URL, and returns PageSpeed scores, a list of suggestions to make that page faster, and other information. */
-            runpagespeed(request: {            
+            /**
+             * Runs PageSpeed analysis on the page at the specified URL, and returns PageSpeed scores, a list of suggestions to make that page faster, and other
+             * information.
+             */
+            runpagespeed(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -181,7 +194,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** A PageSpeed rule to run; if none are given, all rules are run */
                 rule?: string;
@@ -193,8 +209,7 @@ declare namespace gapi.client {
                 url: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Result>;            
-            
+            }): Request<Result>;
         }
     }
 }

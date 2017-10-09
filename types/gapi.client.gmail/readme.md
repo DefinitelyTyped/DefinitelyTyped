@@ -51,7 +51,7 @@ var client_id = '',
         // View and modify but not delete your email
         'https://www.googleapis.com/auth/gmail.modify',
     
-        // View your emails messages and settings
+        // View your email messages and settings
         'https://www.googleapis.com/auth/gmail.readonly',
     
         // Send email on your behalf

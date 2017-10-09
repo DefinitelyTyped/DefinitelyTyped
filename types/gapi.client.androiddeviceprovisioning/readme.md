@@ -1,5 +1,5 @@
 # TypeScript typings for Android Device Provisioning Partner API v1
-Automates reseller integration into Zero Touch Provisioning by assigning devices to customers and creating device reports.
+Automates reseller integration into zero-touch enrollment by assigning devices to customers and creating device reports.
 For detailed description please check [documentation](https://developers.google.com/zero-touch/).
 
 ## Installing

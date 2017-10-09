@@ -1,10 +1,10 @@
-# TypeScript typings for BigQuery Data Transfer Service API v1
+# TypeScript typings for BigQuery Data Transfer API v1
 Transfers data from partner SaaS applications to Google BigQuery on a scheduled, managed basis.
 For detailed description please check [documentation](https://cloud.google.com/bigquery/).
 
 ## Installing
 
-Install typings for BigQuery Data Transfer Service API:
+Install typings for BigQuery Data Transfer API:
 ```
 npm install @types/gapi.client.bigquerydatatransfer@v1 --save-dev
 ```
@@ -54,20 +54,7 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 });            
 ```
 
-After that you can use BigQuery Data Transfer Service API resources:
+After that you can use BigQuery Data Transfer API resources:
 
-```typescript 
-    
-/* 
-Returns true if data transfer is enabled for a project.  
-*/
-await gapi.client.projects.isEnabled({ name: "name",  }); 
-    
-/* 
-Enables or disables data transfer for a project. This
-method requires the additional scope of
-'https://www.googleapis.com/auth/cloudplatformprojects'
-to manage the cloud project permissions.  
-*/
-await gapi.client.projects.setEnabled({ name: "name",  });
+```typescript
 ```

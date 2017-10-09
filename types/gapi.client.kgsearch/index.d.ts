@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Knowledge Graph Search API v1 */
-    function load(name: "kgsearch", version: "v1"): PromiseLike<void>;    
-    function load(name: "kgsearch", version: "v1", callback: () => any): void;    
-    
-    const entities: kgsearch.EntitiesResource; 
-    
+    function load(name: "kgsearch", version: "v1"): PromiseLike<void>;
+    function load(name: "kgsearch", version: "v1", callback: () => any): void;
+
+    const entities: kgsearch.EntitiesResource;
+
     namespace kgsearch {
-        
         interface SearchResponse {
             /**
              * The local context applicable for the response. See more details at
@@ -31,14 +30,13 @@ declare namespace gapi.client {
             /** The item list of search results. */
             itemListElement?: any[];
         }
-        
         interface EntitiesResource {
             /**
              * Searches Knowledge Graph for entities that match the constraints.
              * A list of matched entities will be returned in response, which will be in
              * JSON-LD format and compatible with http://schema.org
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -90,8 +88,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchResponse>;            
-            
+            }): Request<SearchResponse>;
         }
     }
 }

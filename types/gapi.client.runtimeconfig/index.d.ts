@@ -13,24 +13,22 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Runtime Configuration API v1 */
-    function load(name: "runtimeconfig", version: "v1"): PromiseLike<void>;    
-    function load(name: "runtimeconfig", version: "v1", callback: () => any): void;    
-    
-    const operations: runtimeconfig.OperationsResource; 
-    
+    function load(name: "runtimeconfig", version: "v1"): PromiseLike<void>;
+    function load(name: "runtimeconfig", version: "v1", callback: () => any): void;
+
+    const operations: runtimeconfig.OperationsResource;
+
     namespace runtimeconfig {
-        
         interface ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: Operation[];
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
@@ -42,7 +40,7 @@ declare namespace gapi.client {
              * Some services might not provide such metadata.  Any method that returns a
              * long-running operation should document the metadata type, if any.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
@@ -59,9 +57,8 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -69,7 +66,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -77,7 +74,6 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface OperationsResource {
             /**
              * Starts asynchronous cancellation on a long-running operation.  The server
@@ -91,7 +87,7 @@ declare namespace gapi.client {
              * an Operation.error value with a google.rpc.Status.code of 1,
              * corresponding to `Code.CANCELLED`.
              */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -120,15 +116,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Deletes a long-running operation. This method indicates that the client is
              * no longer interested in the operation result. It does not cancel the
              * operation. If the server doesn't support this method, it returns
              * `google.rpc.Code.UNIMPLEMENTED`.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -157,12 +152,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -171,7 +165,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -206,8 +200,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
         }
     }
 }

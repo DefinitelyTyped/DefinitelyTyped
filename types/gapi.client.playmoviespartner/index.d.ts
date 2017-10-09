@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Play Movies Partner API v1 */
-    function load(name: "playmoviespartner", version: "v1"): PromiseLike<void>;    
-    function load(name: "playmoviespartner", version: "v1", callback: () => any): void;    
-    
-    const accounts: playmoviespartner.AccountsResource; 
-    
+    function load(name: "playmoviespartner", version: "v1"): PromiseLike<void>;
+    function load(name: "playmoviespartner", version: "v1", callback: () => any): void;
+
+    const accounts: playmoviespartner.AccountsResource;
+
     namespace playmoviespartner {
-        
         interface Avail {
             /**
              * Other identifier referring to the Edit, as defined by partner.
@@ -211,7 +210,6 @@ declare namespace gapi.client {
             /** Work type as enumerated in EMA. */
             workType?: string;
         }
-        
         interface ListAvailsResponse {
             /** List of Avails that match the request criteria. */
             avails?: Avail[];
@@ -220,7 +218,6 @@ declare namespace gapi.client {
             /** See _List methods rules_ for more information about this field. */
             totalSize?: number;
         }
-        
         interface ListOrdersResponse {
             /** See _List methods rules_ for info about this field. */
             nextPageToken?: string;
@@ -229,7 +226,6 @@ declare namespace gapi.client {
             /** See _List methods rules_ for more information about this field. */
             totalSize?: number;
         }
-        
         interface ListStoreInfosResponse {
             /** See 'List methods rules' for info about this field. */
             nextPageToken?: string;
@@ -238,7 +234,6 @@ declare namespace gapi.client {
             /** See _List methods rules_ for more information about this field. */
             totalSize?: number;
         }
-        
         interface Order {
             /** Timestamp when the Order was approved. */
             approvedTime?: string;
@@ -339,7 +334,6 @@ declare namespace gapi.client {
              */
             videoId?: string;
         }
-        
         interface StoreInfo {
             /** Audio tracks available for this Edit. */
             audioTracks?: string[];
@@ -445,10 +439,9 @@ declare namespace gapi.client {
              */
             videoId?: string;
         }
-        
         interface AvailsResource {
             /** Get an Avail given its avail group id and avail id. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -479,15 +472,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Avail>;            
-            
+            }): Request<Avail>;
             /**
              * List Avails owned or managed by the partner.
-             * 
+             *
              * See _Authentication and Authorization rules_ and
              * _List methods rules_ for more information about this method.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -546,18 +538,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Filter Avails that match any of the given `video_id`s. */
                 videoIds?: string;
-            }): Request<ListAvailsResponse>;            
-            
+            }): Request<ListAvailsResponse>;
         }
-        
         interface OrdersResource {
             /**
              * Get an Order given its id.
-             * 
+             *
              * See _Authentication and Authorization rules_ and
              * _Get methods rules_ for more information about this method.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -588,15 +578,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Order>;            
-            
+            }): Request<Order>;
             /**
              * List Orders owned or managed by the partner.
-             * 
+             *
              * See _Authentication and Authorization rules_ and
              * _List methods rules_ for more information about this method.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -644,18 +633,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Filter Orders that match any of the given `video_id`s. */
                 videoIds?: string;
-            }): Request<ListOrdersResponse>;            
-            
+            }): Request<ListOrdersResponse>;
         }
-        
         interface CountryResource {
             /**
              * Get a StoreInfo given its video id and country.
-             * 
+             *
              * See _Authentication and Authorization rules_ and
              * _Get methods rules_ for more information about this method.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -688,18 +675,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** REQUIRED. Video ID. */
                 videoId: string;
-            }): Request<StoreInfo>;            
-            
+            }): Request<StoreInfo>;
         }
-        
         interface StoreInfosResource {
             /**
              * List StoreInfos owned or managed by the partner.
-             * 
+             *
              * See _Authentication and Authorization rules_ and
              * _List methods rules_ for more information about this method.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -758,11 +743,9 @@ declare namespace gapi.client {
                 videoId?: string;
                 /** Filter StoreInfos that match any of the given `video_id`s. */
                 videoIds?: string;
-            }): Request<ListStoreInfosResponse>;            
-            
+            }): Request<ListStoreInfosResponse>;
             country: CountryResource;
         }
-        
         interface AccountsResource {
             avails: AvailsResource;
             orders: OrdersResource;

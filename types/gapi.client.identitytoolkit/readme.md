@@ -71,6 +71,11 @@ Batch download user accounts.
 await gapi.client.relyingparty.downloadAccount({  }); 
     
 /* 
+Reset password for a user.  
+*/
+await gapi.client.relyingparty.emailLinkSignin({  }); 
+    
+/* 
 Returns the account info.  
 */
 await gapi.client.relyingparty.getAccountInfo({  }); 
@@ -99,6 +104,11 @@ await gapi.client.relyingparty.getRecaptchaParam({  });
 Reset password for a user.  
 */
 await gapi.client.relyingparty.resetPassword({  }); 
+    
+/* 
+Send SMS verification code.  
+*/
+await gapi.client.relyingparty.sendVerificationCode({  }); 
     
 /* 
 Set account info for a user.  
@@ -138,5 +148,10 @@ await gapi.client.relyingparty.verifyCustomToken({  });
 /* 
 Verifies the user entered password.  
 */
-await gapi.client.relyingparty.verifyPassword({  });
+await gapi.client.relyingparty.verifyPassword({  }); 
+    
+/* 
+Verifies ownership of a phone number and creates/updates the user account accordingly.  
+*/
+await gapi.client.relyingparty.verifyPhoneNumber({  });
 ```

@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Tag Manager API v2 */
-    function load(name: "tagmanager", version: "v2"): PromiseLike<void>;    
-    function load(name: "tagmanager", version: "v2", callback: () => any): void;    
-    
-    const accounts: tagmanager.AccountsResource; 
-    
+    function load(name: "tagmanager", version: "v2"): PromiseLike<void>;
+    function load(name: "tagmanager", version: "v2", callback: () => any): void;
+
+    const accounts: tagmanager.AccountsResource;
+
     namespace tagmanager {
-        
         interface Account {
             /** The Account ID uniquely identifies the GTM Account. */
             accountId?: string;
@@ -29,17 +28,19 @@ declare namespace gapi.client {
             name?: string;
             /** GTM Account's API relative path. */
             path?: string;
-            /** Whether the account shares data anonymously with Google and others. This flag enables benchmarking by sharing your data in an anonymous form. Google will remove all identifiable information about your website, combine the data with hundreds of other anonymous sites and report aggregate trends in the benchmarking service. */
+            /**
+             * Whether the account shares data anonymously with Google and others. This flag enables benchmarking by sharing your data in an anonymous form. Google
+             * will remove all identifiable information about your website, combine the data with hundreds of other anonymous sites and report aggregate trends in the
+             * benchmarking service.
+             */
             shareData?: boolean;
             /** Auto generated link to the tag manager UI */
             tagManagerUrl?: string;
         }
-        
         interface AccountAccess {
             /** Whether the user has no access, user access, or admin access to an account. */
             permission?: string;
         }
-        
         interface BuiltInVariable {
             /** GTM Account ID. */
             accountId?: string;
@@ -54,20 +55,19 @@ declare namespace gapi.client {
             /** GTM Workspace ID. */
             workspaceId?: string;
         }
-        
         interface Condition {
             /**
-             * A list of named parameters (key/value), depending on the condition's type. Notes: 
-             * - For binary operators, include parameters named arg0 and arg1 for specifying the left and right operands, respectively. 
-             * - At this time, the left operand (arg0) must be a reference to a variable. 
-             * - For case-insensitive Regex matching, include a boolean parameter named ignore_case that is set to true. If not specified or set to any other value, the matching will be case sensitive. 
+             * A list of named parameters (key/value), depending on the condition's type. Notes:
+             * - For binary operators, include parameters named arg0 and arg1 for specifying the left and right operands, respectively.
+             * - At this time, the left operand (arg0) must be a reference to a variable.
+             * - For case-insensitive Regex matching, include a boolean parameter named ignore_case that is set to true. If not specified or set to any other value,
+             * the matching will be case sensitive.
              * - To negate an operator, include a boolean parameter named negate boolean parameter that is set to true.
              */
             parameter?: Parameter[];
             /** The type of operator for this condition. */
             type?: string;
         }
-        
         interface Container {
             /** GTM Account ID. */
             accountId?: string;
@@ -90,14 +90,12 @@ declare namespace gapi.client {
             /** List of Usage Contexts for the Container. Valid values include: web, android, or ios. */
             usageContext?: string[];
         }
-        
         interface ContainerAccess {
             /** GTM Container ID. */
             containerId?: string;
             /** List of Container permissions. */
             permission?: string;
         }
-        
         interface ContainerVersion {
             /** GTM Account ID. */
             accountId?: string;
@@ -129,8 +127,9 @@ declare namespace gapi.client {
             trigger?: Trigger[];
             /** The variables in the container that this version was taken from. */
             variable?: Variable[];
+            /** The zones in the container that this version was taken from. */
+            zone?: Zone[];
         }
-        
         interface ContainerVersionHeader {
             /** GTM Account ID. */
             accountId?: string;
@@ -152,40 +151,40 @@ declare namespace gapi.client {
             numTriggers?: string;
             /** Number of variables in the container version. */
             numVariables?: string;
+            /** Number of zones in the container version. */
+            numZones?: string;
             /** GTM Container Versions's API relative path. */
             path?: string;
         }
-        
         interface CreateBuiltInVariableResponse {
             /** List of created built-in variables. */
             builtInVariable?: BuiltInVariable[];
         }
-        
         interface CreateContainerVersionRequestVersionOptions {
             /** The name of the container version to be created. */
             name?: string;
             /** The notes of the container version to be created. */
             notes?: string;
         }
-        
         interface CreateContainerVersionResponse {
             /** Compiler errors or not. */
             compilerError?: boolean;
             /** The container version created. */
             containerVersion?: ContainerVersion;
-            /** Auto generated workspace path created as a result of version creation. This field should only be populated if the created version was not a quick preview. */
+            /**
+             * Auto generated workspace path created as a result of version creation. This field should only be populated if the created version was not a quick
+             * preview.
+             */
             newWorkspacePath?: string;
             /** Whether version creation failed when syncing the workspace to the latest container version. */
             syncStatus?: SyncStatus;
         }
-        
         interface CreateWorkspaceProposalRequest {
             /** If present, an initial comment to associate with the workspace proposal. */
             initialComment?: WorkspaceProposalHistoryComment;
             /** List of users to review the workspace proposal. */
             reviewers?: WorkspaceProposalUser[];
         }
-        
         interface Entity {
             /** Represents how the entity has been changed in the workspace. */
             changeStatus?: string;
@@ -198,7 +197,6 @@ declare namespace gapi.client {
             /** The variable being represented by the entity. */
             variable?: Variable;
         }
-        
         interface Environment {
             /** GTM Account ID. */
             accountId?: string;
@@ -231,7 +229,6 @@ declare namespace gapi.client {
             /** Represents a link to a quick preview of a workspace. */
             workspaceId?: string;
         }
-        
         interface Folder {
             /** GTM Account ID. */
             accountId?: string;
@@ -252,7 +249,6 @@ declare namespace gapi.client {
             /** GTM Workspace ID. */
             workspaceId?: string;
         }
-        
         interface FolderEntities {
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
@@ -263,98 +259,90 @@ declare namespace gapi.client {
             /** The list of variables inside the folder. */
             variable?: Variable[];
         }
-        
         interface GetWorkspaceStatusResponse {
             /** The merge conflict after sync. */
             mergeConflict?: MergeConflict[];
             /** Entities that have been changed in the workspace. */
             workspaceChange?: Entity[];
         }
-        
         interface ListAccountsResponse {
             /** List of GTM Accounts that a user has access to. */
             account?: Account[];
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ListContainerVersionsResponse {
             /** All container version headers of a GTM Container. */
             containerVersionHeader?: ContainerVersionHeader[];
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ListContainersResponse {
             /** All Containers of a GTM Account. */
             container?: Container[];
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ListEnabledBuiltInVariablesResponse {
             /** All GTM BuiltInVariables of a GTM container. */
             builtInVariable?: BuiltInVariable[];
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ListEnvironmentsResponse {
             /** All Environments of a GTM Container. */
             environment?: Environment[];
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ListFoldersResponse {
             /** All GTM Folders of a GTM Container. */
             folder?: Folder[];
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ListTagsResponse {
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
             /** All GTM Tags of a GTM Container. */
             tag?: Tag[];
         }
-        
         interface ListTriggersResponse {
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
             /** All GTM Triggers of a GTM Container. */
             trigger?: Trigger[];
         }
-        
         interface ListUserPermissionsResponse {
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
             /** All GTM UserPermissions of a GTM Account. */
             userPermission?: UserPermission[];
         }
-        
         interface ListVariablesResponse {
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
             /** All GTM Variables of a GTM Container. */
             variable?: Variable[];
         }
-        
         interface ListWorkspacesResponse {
             /** Continuation token for fetching the next page of results. */
             nextPageToken?: string;
             /** All Workspaces of a GTM Container. */
             workspace?: Workspace[];
         }
-        
         interface MergeConflict {
-            /** The base version entity (since the latest sync operation) that has conflicting changes compared to the workspace. If this field is missing, it means the workspace entity is deleted from the base version. */
+            /**
+             * The base version entity (since the latest sync operation) that has conflicting changes compared to the workspace. If this field is missing, it means
+             * the workspace entity is deleted from the base version.
+             */
             entityInBaseVersion?: Entity;
-            /** The workspace entity that has conflicting changes compared to the base version. If an entity is deleted in a workspace, it will still appear with a deleted change status. */
+            /**
+             * The workspace entity that has conflicting changes compared to the base version. If an entity is deleted in a workspace, it will still appear with a
+             * deleted change status.
+             */
             entityInWorkspace?: Entity;
         }
-        
         interface Parameter {
             /** The named key that uniquely identifies a parameter. Required for top-level parameters, as well as map values. Ignored for list values. */
             key?: string;
@@ -363,25 +351,23 @@ declare namespace gapi.client {
             /** This map parameter's parameters (must have keys; keys must be unique). */
             map?: Parameter[];
             /**
-             * The parameter type. Valid values are: 
-             * - boolean: The value represents a boolean, represented as 'true' or 'false' 
-             * - integer: The value represents a 64-bit signed integer value, in base 10 
-             * - list: A list of parameters should be specified 
-             * - map: A map of parameters should be specified 
+             * The parameter type. Valid values are:
+             * - boolean: The value represents a boolean, represented as 'true' or 'false'
+             * - integer: The value represents a 64-bit signed integer value, in base 10
+             * - list: A list of parameters should be specified
+             * - map: A map of parameters should be specified
              * - template: The value represents any text; this can include variable references (even variable references that might return non-string types)
              */
             type?: string;
             /** A parameter's value (may contain variable references such as "{{myVariable}}") as appropriate to the specified type. */
             value?: string;
         }
-        
         interface PublishContainerVersionResponse {
             /** Compiler errors or not. */
             compilerError?: boolean;
             /** The container version created. */
             containerVersion?: ContainerVersion;
         }
-        
         interface QuickPreviewResponse {
             /** Were there compiler errors or not. */
             compilerError?: boolean;
@@ -390,53 +376,59 @@ declare namespace gapi.client {
             /** Whether quick previewing failed when syncing the workspace to the latest container version. */
             syncStatus?: SyncStatus;
         }
-        
         interface RevertBuiltInVariableResponse {
             /** Whether the built-in variable is enabled after reversion. */
             enabled?: boolean;
         }
-        
         interface RevertFolderResponse {
-            /** Folder as it appears in the latest container version since the last workspace synchronization operation. If no folder is present, that means the folder was deleted in the latest container version. */
+            /**
+             * Folder as it appears in the latest container version since the last workspace synchronization operation. If no folder is present, that means the folder
+             * was deleted in the latest container version.
+             */
             folder?: Folder;
         }
-        
         interface RevertTagResponse {
-            /** Tag as it appears in the latest container version since the last workspace synchronization operation. If no tag is present, that means the tag was deleted in the latest container version. */
+            /**
+             * Tag as it appears in the latest container version since the last workspace synchronization operation. If no tag is present, that means the tag was
+             * deleted in the latest container version.
+             */
             tag?: Tag;
         }
-        
         interface RevertTriggerResponse {
-            /** Trigger as it appears in the latest container version since the last workspace synchronization operation. If no trigger is present, that means the trigger was deleted in the latest container version. */
+            /**
+             * Trigger as it appears in the latest container version since the last workspace synchronization operation. If no trigger is present, that means the
+             * trigger was deleted in the latest container version.
+             */
             trigger?: Trigger;
         }
-        
         interface RevertVariableResponse {
-            /** Variable as it appears in the latest container version since the last workspace synchronization operation. If no variable is present, that means the variable was deleted in the latest container version. */
+            /**
+             * Variable as it appears in the latest container version since the last workspace synchronization operation. If no variable is present, that means the
+             * variable was deleted in the latest container version.
+             */
             variable?: Variable;
         }
-        
         interface SetupTag {
             /** If true, fire the main tag if and only if the setup tag fires successfully. If false, fire the main tag regardless of setup tag firing status. */
             stopOnSetupFailure?: boolean;
             /** The name of the setup tag. */
             tagName?: string;
         }
-        
         interface SyncStatus {
             /** Synchornization operation detected a merge conflict. */
             mergeConflict?: boolean;
             /** An error occurred during the synchronization operation. */
             syncError?: boolean;
         }
-        
         interface SyncWorkspaceResponse {
-            /** The merge conflict after sync. If this field is not empty, the sync is still treated as successful. But a version cannot be created until all conflicts are resolved. */
+            /**
+             * The merge conflict after sync. If this field is not empty, the sync is still treated as successful. But a version cannot be created until all conflicts
+             * are resolved.
+             */
             mergeConflict?: MergeConflict[];
             /** Indicates whether synchronization caused a merge conflict or sync error. */
             syncStatus?: SyncStatus;
         }
-        
         interface Tag {
             /** GTM Account ID. */
             accountId?: string;
@@ -464,7 +456,10 @@ declare namespace gapi.client {
             parentFolderId?: string;
             /** GTM Tag's API relative path. */
             path?: string;
-            /** User defined numeric priority of the tag. Tags are fired asynchronously in order of priority. Tags with higher numeric value fire first. A tag's priority can be a positive or negative value. The default value is 0. */
+            /**
+             * User defined numeric priority of the tag. Tags are fired asynchronously in order of priority. Tags with higher numeric value fire first. A tag's
+             * priority can be a positive or negative value. The default value is 0.
+             */
             priority?: Parameter;
             /** The end timestamp in milliseconds to schedule a tag. */
             scheduleEndMs?: string;
@@ -485,27 +480,30 @@ declare namespace gapi.client {
             /** GTM Workspace ID. */
             workspaceId?: string;
         }
-        
         interface TeardownTag {
             /** If true, fire the teardown tag if and only if the main tag fires successfully. If false, fire the teardown tag regardless of main tag firing status. */
             stopTeardownOnFailure?: boolean;
             /** The name of the teardown tag. */
             tagName?: string;
         }
-        
         interface Timestamp {
-            /** Non-negative fractions of a second at nanosecond resolution. Negative second values with fractions must still have non-negative nanos values that count forward in time. Must be from 0 to 999,999,999 inclusive. */
+            /**
+             * Non-negative fractions of a second at nanosecond resolution. Negative second values with fractions must still have non-negative nanos values that count
+             * forward in time. Must be from 0 to 999,999,999 inclusive.
+             */
             nanos?: number;
             /** Represents seconds of UTC time since Unix epoch 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z inclusive. */
             seconds?: string;
         }
-        
         interface Trigger {
             /** GTM Account ID. */
             accountId?: string;
             /** Used in the case of auto event tracking. */
             autoEventFilter?: Condition[];
-            /** Whether or not we should only fire tags if the form submit or link click event is not cancelled by some other event handler (e.g. because of validation). Only valid for Form Submission and Link Click triggers. */
+            /**
+             * Whether or not we should only fire tags if the form submit or link click event is not cancelled by some other event handler (e.g. because of
+             * validation). Only valid for Form Submission and Link Click triggers.
+             */
             checkValidation?: Parameter;
             /** GTM Container ID. */
             containerId?: string;
@@ -519,13 +517,19 @@ declare namespace gapi.client {
             filter?: Condition[];
             /** The fingerprint of the GTM Trigger as computed at storage time. This value is recomputed whenever the trigger is modified. */
             fingerprint?: string;
-            /** List of integer percentage values for scroll triggers. The trigger will fire when each percentage is reached when the view is scrolled horizontally. Only valid for AMP scroll triggers. */
+            /**
+             * List of integer percentage values for scroll triggers. The trigger will fire when each percentage is reached when the view is scrolled horizontally.
+             * Only valid for AMP scroll triggers.
+             */
             horizontalScrollPercentageList?: Parameter;
             /** Time between triggering recurring Timer Events (in milliseconds). Only valid for Timer triggers. */
             interval?: Parameter;
             /** Time between Timer Events to fire (in seconds). Only valid for AMP Timer trigger. */
             intervalSeconds?: Parameter;
-            /** Limit of the number of GTM events this Timer Trigger will fire. If no limit is set, we will continue to fire GTM events until the user leaves the page. Only valid for Timer triggers. */
+            /**
+             * Limit of the number of GTM events this Timer Trigger will fire. If no limit is set, we will continue to fire GTM events until the user leaves the page.
+             * Only valid for Timer triggers.
+             */
             limit?: Parameter;
             /** Max time to fire Timer Events (in seconds). Only valid for AMP Timer trigger. */
             maxTimerLengthSeconds?: Parameter;
@@ -533,6 +537,8 @@ declare namespace gapi.client {
             name?: string;
             /** User notes on how to apply this trigger in the container. */
             notes?: string;
+            /** Additional parameters. */
+            parameter?: Parameter[];
             /** Parent folder id. */
             parentFolderId?: string;
             /** GTM Trigger's API relative path. */
@@ -547,9 +553,16 @@ declare namespace gapi.client {
             triggerId?: string;
             /** Defines the data layer event that causes this trigger. */
             type?: string;
-            /** Globally unique id of the trigger that auto-generates this (a Form Submit, Link Click or Timer listener) if any. Used to make incompatible auto-events work together with trigger filtering based on trigger ids. This value is populated during output generation since the tags implied by triggers don't exist until then. Only valid for Form Submit, Link Click and Timer triggers. */
+            /**
+             * Globally unique id of the trigger that auto-generates this (a Form Submit, Link Click or Timer listener) if any. Used to make incompatible auto-events
+             * work together with trigger filtering based on trigger ids. This value is populated during output generation since the tags implied by triggers don't
+             * exist until then. Only valid for Form Submit, Link Click and Timer triggers.
+             */
             uniqueTriggerId?: Parameter;
-            /** List of integer percentage values for scroll triggers. The trigger will fire when each percentage is reached when the view is scrolled vertically. Only valid for AMP scroll triggers. */
+            /**
+             * List of integer percentage values for scroll triggers. The trigger will fire when each percentage is reached when the view is scrolled vertically. Only
+             * valid for AMP scroll triggers.
+             */
             verticalScrollPercentageList?: Parameter;
             /** A visibility trigger CSS selector (i.e. "#id"). Only valid for AMP Visibility trigger. */
             visibilitySelector?: Parameter;
@@ -557,14 +570,19 @@ declare namespace gapi.client {
             visiblePercentageMax?: Parameter;
             /** A visibility trigger minimum percent visibility. Only valid for AMP Visibility trigger. */
             visiblePercentageMin?: Parameter;
-            /** Whether or not we should delay the form submissions or link opening until all of the tags have fired (by preventing the default action and later simulating the default action). Only valid for Form Submission and Link Click triggers. */
+            /**
+             * Whether or not we should delay the form submissions or link opening until all of the tags have fired (by preventing the default action and later
+             * simulating the default action). Only valid for Form Submission and Link Click triggers.
+             */
             waitForTags?: Parameter;
-            /** How long to wait (in milliseconds) for tags to fire when 'waits_for_tags' above evaluates to true. Only valid for Form Submission and Link Click triggers. */
+            /**
+             * How long to wait (in milliseconds) for tags to fire when 'waits_for_tags' above evaluates to true. Only valid for Form Submission and Link Click
+             * triggers.
+             */
             waitForTagsTimeout?: Parameter;
             /** GTM Workspace ID. */
             workspaceId?: string;
         }
-        
         interface UpdateWorkspaceProposalRequest {
             /** When provided, this fingerprint must match the fingerprint of the proposal in storage. */
             fingerprint?: string;
@@ -575,7 +593,6 @@ declare namespace gapi.client {
             /** If present, the status of the workspace proposal is updated. */
             status?: string;
         }
-        
         interface UserPermission {
             /** GTM Account access permissions. */
             accountAccess?: AccountAccess;
@@ -588,15 +605,20 @@ declare namespace gapi.client {
             /** GTM UserPermission's API relative path. */
             path?: string;
         }
-        
         interface Variable {
             /** GTM Account ID. */
             accountId?: string;
             /** GTM Container ID. */
             containerId?: string;
-            /** For mobile containers only: A list of trigger IDs for disabling conditional variables; the variable is enabled if one of the enabling trigger is true while all the disabling trigger are false. Treated as an unordered set. */
+            /**
+             * For mobile containers only: A list of trigger IDs for disabling conditional variables; the variable is enabled if one of the enabling trigger is true
+             * while all the disabling trigger are false. Treated as an unordered set.
+             */
             disablingTriggerId?: string[];
-            /** For mobile containers only: A list of trigger IDs for enabling conditional variables; the variable is enabled if one of the enabling triggers is true while all the disabling triggers are false. Treated as an unordered set. */
+            /**
+             * For mobile containers only: A list of trigger IDs for enabling conditional variables; the variable is enabled if one of the enabling triggers is true
+             * while all the disabling triggers are false. Treated as an unordered set.
+             */
             enablingTriggerId?: string[];
             /** The fingerprint of the GTM Variable as computed at storage time. This value is recomputed whenever the variable is modified. */
             fingerprint?: string;
@@ -623,7 +645,6 @@ declare namespace gapi.client {
             /** GTM Workspace ID. */
             workspaceId?: string;
         }
-        
         interface Workspace {
             /** GTM Account ID. */
             accountId?: string;
@@ -642,7 +663,6 @@ declare namespace gapi.client {
             /** The Workspace ID uniquely identifies the GTM Workspace. */
             workspaceId?: string;
         }
-        
         interface WorkspaceProposal {
             /** List of authors for the workspace proposal. */
             authors?: WorkspaceProposalUser[];
@@ -657,7 +677,6 @@ declare namespace gapi.client {
             /** The status of the workspace proposal as it goes through review. */
             status?: string;
         }
-        
         interface WorkspaceProposalHistory {
             /** A user or reviewer comment. */
             comment?: WorkspaceProposalHistoryComment;
@@ -670,29 +689,69 @@ declare namespace gapi.client {
             /** The history type distinguishing between comments and status changes. */
             type?: string;
         }
-        
         interface WorkspaceProposalHistoryComment {
             /** The contents of the reviewer or author comment. */
             content?: string;
         }
-        
         interface WorkspaceProposalHistoryStatusChange {
             /** The new proposal status after that status change. */
             newStatus?: string;
             /** The old proposal status before the status change. */
             oldStatus?: string;
         }
-        
         interface WorkspaceProposalUser {
             /** Gaia id associated with a user, absent for the Google Tag Manager system. */
             gaiaId?: string;
             /** User type distinguishes between a user and the Google Tag Manager system. */
             type?: string;
         }
-        
+        interface Zone {
+            /** GTM Account ID. */
+            accountId?: string;
+            /** This Zone's boundary. */
+            boundary?: ZoneBoundary;
+            /** Containers that are children of this Zone. */
+            childContainer?: ZoneChildContainer[];
+            /** GTM Container ID. */
+            containerId?: string;
+            /** The fingerprint of the GTM Zone as computed at storage time. This value is recomputed whenever the zone is modified. */
+            fingerprint?: string;
+            /** Zone display name. */
+            name?: string;
+            /** User notes on how to apply this zone in the container. */
+            notes?: string;
+            /** GTM Zone's API relative path. */
+            path?: string;
+            /** Auto generated link to the tag manager UI */
+            tagManagerUrl?: string;
+            /** This Zone's type restrictions. */
+            typeRestriction?: ZoneTypeRestriction;
+            /** GTM Workspace ID. */
+            workspaceId?: string;
+            /** The Zone ID uniquely identifies the GTM Zone. */
+            zoneId?: string;
+        }
+        interface ZoneBoundary {
+            /** The conditions that, when conjoined, make up the boundary. */
+            condition?: Condition[];
+            /** Custom evaluation trigger IDs. A zone will evaluate its boundary conditions when any of the listed triggers are true. */
+            customEvaluationTriggerId?: string[];
+        }
+        interface ZoneChildContainer {
+            /** The zone's nickname for the child container. */
+            nickname?: string;
+            /** The child container's public id. */
+            publicId?: string;
+        }
+        interface ZoneTypeRestriction {
+            /** True if type restrictions have been enabled for this Zone. */
+            enable?: boolean;
+            /** List of type public ids that have been whitelisted for use in this Zone. */
+            whitelistedTypeId?: string[];
+        }
         interface EnvironmentsResource {
             /** Creates a GTM Environment. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -705,14 +764,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Environment>;            
-            
+            }): Request<Environment>;
             /** Deletes a GTM Environment. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -725,14 +786,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a GTM Environment. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -745,14 +808,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Environment>;            
-            
+            }): Request<Environment>;
             /** Lists all GTM Environments of a GTM Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -767,14 +832,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListEnvironmentsResponse>;            
-            
+            }): Request<ListEnvironmentsResponse>;
             /** Updates a GTM Environment. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -789,14 +856,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Environment>;            
-            
+            }): Request<Environment>;
             /** Re-generates the authorization code for a GTM Environment. */
-            reauthorize(request: {            
+            reauthorize(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -809,14 +878,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Environment>;            
-            
+            }): Request<Environment>;
             /** Updates a GTM Environment. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -831,17 +902,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Environment>;            
-            
+            }): Request<Environment>;
         }
-        
         interface Version_headersResource {
             /** Gets the latest container version header */
-            latest(request: {            
+            latest(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -854,14 +926,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ContainerVersionHeader>;            
-            
+            }): Request<ContainerVersionHeader>;
             /** Lists all Container Versions of a GTM Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -878,17 +952,18 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListContainerVersionsResponse>;            
-            
+            }): Request<ListContainerVersionsResponse>;
         }
-        
         interface VersionsResource {
             /** Deletes a Container Version. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -901,14 +976,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a Container Version. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The GTM ContainerVersion ID. Specify published to retrieve the currently published version. */
@@ -923,14 +1000,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ContainerVersion>;            
-            
+            }): Request<ContainerVersion>;
             /** Gets the live (i.e. published) container version */
-            live(request: {            
+            live(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -943,14 +1022,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ContainerVersion>;            
-            
+            }): Request<ContainerVersion>;
             /** Publishes a Container Version. */
-            publish(request: {            
+            publish(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -965,14 +1046,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PublishContainerVersionResponse>;            
-            
+            }): Request<PublishContainerVersionResponse>;
             /** Sets the latest version used for synchronization of workspaces when detecting conflicts and errors. */
-            set_latest(request: {            
+            set_latest(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -985,14 +1068,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ContainerVersion>;            
-            
+            }): Request<ContainerVersion>;
             /** Undeletes a Container Version. */
-            undelete(request: {            
+            undelete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1005,14 +1090,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ContainerVersion>;            
-            
+            }): Request<ContainerVersion>;
             /** Updates a Container Version. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1027,17 +1114,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ContainerVersion>;            
-            
+            }): Request<ContainerVersion>;
         }
-        
         interface Built_in_variablesResource {
             /** Creates one or more GTM Built-In Variables. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1050,16 +1138,18 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The types of built-in variables to enable. */
                 type?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CreateBuiltInVariableResponse>;            
-            
+            }): Request<CreateBuiltInVariableResponse>;
             /** Deletes one or more GTM Built-In Variables. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1072,16 +1162,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The types of built-in variables to delete. */
                 type?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Lists all the enabled Built-In Variables of a GTM Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1096,14 +1188,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListEnabledBuiltInVariablesResponse>;            
-            
+            }): Request<ListEnabledBuiltInVariablesResponse>;
             /** Reverts changes to a GTM Built-In Variables in a GTM Workspace. */
-            revert(request: {            
+            revert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1116,19 +1210,20 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The type of built-in variable to revert. */
                 type?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RevertBuiltInVariableResponse>;            
-            
+            }): Request<RevertBuiltInVariableResponse>;
         }
-        
         interface FoldersResource {
             /** Creates a GTM Folder. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1141,14 +1236,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Folder>;            
-            
+            }): Request<Folder>;
             /** Deletes a GTM Folder. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1161,14 +1258,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** List all entities in a GTM Folder. */
-            entities(request: {            
+            entities(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1183,14 +1282,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<FolderEntities>;            
-            
+            }): Request<FolderEntities>;
             /** Gets a GTM Folder. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1203,14 +1304,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Folder>;            
-            
+            }): Request<Folder>;
             /** Lists all GTM Folders of a Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1225,14 +1328,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListFoldersResponse>;            
-            
+            }): Request<ListFoldersResponse>;
             /** Moves entities to a GTM Folder. */
-            move_entities_to_folder(request: {            
+            move_entities_to_folder(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1245,7 +1350,10 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The tags to be moved to the folder. */
                 tagId?: string;
@@ -1255,10 +1363,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The variables to be moved to the folder. */
                 variableId?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Reverts changes to a GTM Folder in a GTM Workspace. */
-            revert(request: {            
+            revert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1273,14 +1380,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RevertFolderResponse>;            
-            
+            }): Request<RevertFolderResponse>;
             /** Updates a GTM Folder. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1295,17 +1404,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Folder>;            
-            
+            }): Request<Folder>;
         }
-        
         interface ProposalResource {
             /** Creates a GTM Workspace Proposal. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1318,14 +1428,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WorkspaceProposal>;            
-            
+            }): Request<WorkspaceProposal>;
             /** Deletes a GTM Workspace Proposal. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1338,17 +1450,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface TagsResource {
             /** Creates a GTM Tag. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1361,14 +1474,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Tag>;            
-            
+            }): Request<Tag>;
             /** Deletes a GTM Tag. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1381,14 +1496,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a GTM Tag. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1401,14 +1518,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Tag>;            
-            
+            }): Request<Tag>;
             /** Lists all GTM Tags of a Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1423,14 +1542,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListTagsResponse>;            
-            
+            }): Request<ListTagsResponse>;
             /** Reverts changes to a GTM Tag in a GTM Workspace. */
-            revert(request: {            
+            revert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1445,14 +1566,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RevertTagResponse>;            
-            
+            }): Request<RevertTagResponse>;
             /** Updates a GTM Tag. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1467,17 +1590,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Tag>;            
-            
+            }): Request<Tag>;
         }
-        
         interface TriggersResource {
             /** Creates a GTM Trigger. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1490,14 +1614,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Trigger>;            
-            
+            }): Request<Trigger>;
             /** Deletes a GTM Trigger. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1510,14 +1636,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a GTM Trigger. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1530,14 +1658,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Trigger>;            
-            
+            }): Request<Trigger>;
             /** Lists all GTM Triggers of a Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1552,14 +1682,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListTriggersResponse>;            
-            
+            }): Request<ListTriggersResponse>;
             /** Reverts changes to a GTM Trigger in a GTM Workspace. */
-            revert(request: {            
+            revert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1574,14 +1706,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RevertTriggerResponse>;            
-            
+            }): Request<RevertTriggerResponse>;
             /** Updates a GTM Trigger. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1596,17 +1730,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Trigger>;            
-            
+            }): Request<Trigger>;
         }
-        
         interface VariablesResource {
             /** Creates a GTM Variable. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1619,14 +1754,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Variable>;            
-            
+            }): Request<Variable>;
             /** Deletes a GTM Variable. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1639,14 +1776,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a GTM Variable. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1659,14 +1798,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Variable>;            
-            
+            }): Request<Variable>;
             /** Lists all GTM Variables of a Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1681,14 +1822,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListVariablesResponse>;            
-            
+            }): Request<ListVariablesResponse>;
             /** Reverts changes to a GTM Variable in a GTM Workspace. */
-            revert(request: {            
+            revert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1703,14 +1846,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RevertVariableResponse>;            
-            
+            }): Request<RevertVariableResponse>;
             /** Updates a GTM Variable. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1725,17 +1870,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Variable>;            
-            
+            }): Request<Variable>;
         }
-        
         interface WorkspacesResource {
             /** Creates a Workspace. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1748,14 +1894,19 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Workspace>;            
-            
-            /** Creates a Container Version from the entities present in the workspace, deletes the workspace, and sets the base container version to the newly created version. */
-            create_version(request: {            
+            }): Request<Workspace>;
+            /**
+             * Creates a Container Version from the entities present in the workspace, deletes the workspace, and sets the base container version to the newly created
+             * version.
+             */
+            create_version(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1768,14 +1919,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CreateContainerVersionResponse>;            
-            
+            }): Request<CreateContainerVersionResponse>;
             /** Deletes a Workspace. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1788,14 +1941,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a Workspace. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1808,14 +1963,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Workspace>;            
-            
+            }): Request<Workspace>;
             /** Gets a GTM Workspace Proposal. */
-            getProposal(request: {            
+            getProposal(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1828,14 +1985,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WorkspaceProposal>;            
-            
+            }): Request<WorkspaceProposal>;
             /** Finds conflicting and modified entities in the workspace. */
-            getStatus(request: {            
+            getStatus(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1848,14 +2007,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetWorkspaceStatusResponse>;            
-            
+            }): Request<GetWorkspaceStatusResponse>;
             /** Lists all Workspaces that belong to a GTM Container. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1870,14 +2031,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListWorkspacesResponse>;            
-            
+            }): Request<ListWorkspacesResponse>;
             /** Quick previews a workspace by creating a fake container version from all entities in the provided workspace. */
-            quick_preview(request: {            
+            quick_preview(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1890,14 +2053,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<QuickPreviewResponse>;            
-            
+            }): Request<QuickPreviewResponse>;
             /** Resolves a merge conflict for a workspace entity by updating it to the resolved entity passed in the request. */
-            resolve_conflict(request: {            
+            resolve_conflict(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1912,14 +2077,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Syncs a workspace to the latest container version by updating all unmodified workspace entities and displaying conflicts for modified entities. */
-            sync(request: {            
+            sync(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1932,14 +2099,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SyncWorkspaceResponse>;            
-            
+            }): Request<SyncWorkspaceResponse>;
             /** Updates a Workspace. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1954,14 +2123,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Workspace>;            
-            
+            }): Request<Workspace>;
             /** Updates a GTM Workspace Proposal. */
-            updateProposal(request: {            
+            updateProposal(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1974,12 +2145,14 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WorkspaceProposal>;            
-            
+            }): Request<WorkspaceProposal>;
             built_in_variables: Built_in_variablesResource;
             folders: FoldersResource;
             proposal: ProposalResource;
@@ -1987,10 +2160,9 @@ declare namespace gapi.client {
             triggers: TriggersResource;
             variables: VariablesResource;
         }
-        
         interface ContainersResource {
             /** Creates a Container. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2003,14 +2175,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Container>;            
-            
+            }): Request<Container>;
             /** Deletes a Container. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2023,14 +2197,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a Container. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2043,14 +2219,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Container>;            
-            
+            }): Request<Container>;
             /** Lists all Containers that belongs to a GTM Account. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2065,14 +2243,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListContainersResponse>;            
-            
+            }): Request<ListContainersResponse>;
             /** Updates a Container. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2087,21 +2267,22 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Container>;            
-            
+            }): Request<Container>;
             environments: EnvironmentsResource;
             version_headers: Version_headersResource;
             versions: VersionsResource;
             workspaces: WorkspacesResource;
         }
-        
         interface User_permissionsResource {
             /** Creates a user's Account & Container access. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2114,14 +2295,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UserPermission>;            
-            
+            }): Request<UserPermission>;
             /** Removes a user from the account, revoking access to it and all of its containers. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2134,14 +2317,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a user's Account & Container access. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2154,14 +2339,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UserPermission>;            
-            
+            }): Request<UserPermission>;
             /** List all users that have access to the account along with Account and Container user access granted to each of them. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2176,14 +2363,16 @@ declare namespace gapi.client {
                 parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListUserPermissionsResponse>;            
-            
+            }): Request<ListUserPermissionsResponse>;
             /** Updates a user's Account & Container access. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2196,17 +2385,18 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UserPermission>;            
-            
+            }): Request<UserPermission>;
         }
-        
         interface AccountsResource {
             /** Gets a GTM Account. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2219,14 +2409,16 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
             /** Lists all GTM Accounts that a user has access to. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2239,14 +2431,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListAccountsResponse>;            
-            
+            }): Request<ListAccountsResponse>;
             /** Updates a GTM Account. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2261,12 +2455,14 @@ declare namespace gapi.client {
                 path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
             containers: ContainersResource;
             user_permissions: User_permissionsResource;
         }

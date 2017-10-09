@@ -13,23 +13,21 @@
 
 declare namespace gapi.client {
     /** Load Google Play Custom App Publishing API v1 */
-    function load(name: "playcustomapp", version: "v1"): PromiseLike<void>;    
-    function load(name: "playcustomapp", version: "v1", callback: () => any): void;    
-    
-    const accounts: playcustomapp.AccountsResource; 
-    
+    function load(name: "playcustomapp", version: "v1"): PromiseLike<void>;
+    function load(name: "playcustomapp", version: "v1", callback: () => any): void;
+
+    const accounts: playcustomapp.AccountsResource;
+
     namespace playcustomapp {
-        
         interface CustomApp {
             /** Default listing language in BCP 47 format. */
             languageCode?: string;
             /** Title for the Android app. */
             title?: string;
         }
-        
         interface CustomAppsResource {
             /** Create and publish a new custom app. */
-            create(request: {            
+            create(request: {
                 /** Developer account ID. */
                 account: string;
                 /** Data format for the response. */
@@ -42,14 +40,15 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CustomApp>;            
-            
+            }): Request<CustomApp>;
         }
-        
         interface AccountsResource {
             customApps: CustomAppsResource;
         }

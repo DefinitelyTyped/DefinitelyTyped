@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Pub/Sub API v1 */
-    function load(name: "pubsub", version: "v1"): PromiseLike<void>;    
-    function load(name: "pubsub", version: "v1", callback: () => any): void;    
-    
-    const projects: pubsub.ProjectsResource; 
-    
+    function load(name: "pubsub", version: "v1"): PromiseLike<void>;
+    function load(name: "pubsub", version: "v1", callback: () => any): void;
+
+    const projects: pubsub.ProjectsResource;
+
     namespace pubsub {
-        
         interface AcknowledgeRequest {
             /**
              * The acknowledgment ID for the messages being acknowledged that was returned
@@ -27,31 +26,30 @@ declare namespace gapi.client {
              */
             ackIds?: string[];
         }
-        
         interface Binding {
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -61,7 +59,6 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
         interface ListSubscriptionsResponse {
             /**
              * If not empty, indicates that there may be more subscriptions that match
@@ -72,7 +69,6 @@ declare namespace gapi.client {
             /** The subscriptions that match the request. */
             subscriptions?: Subscription[];
         }
-        
         interface ListTopicSubscriptionsResponse {
             /**
              * If not empty, indicates that there may be more subscriptions that match
@@ -83,7 +79,6 @@ declare namespace gapi.client {
             /** The names of the subscriptions that match the request. */
             subscriptions?: string[];
         }
-        
         interface ListTopicsResponse {
             /**
              * If not empty, indicates that there may be more topics that match the
@@ -93,7 +88,6 @@ declare namespace gapi.client {
             /** The resulting topics. */
             topics?: Topic[];
         }
-        
         interface ModifyAckDeadlineRequest {
             /**
              * The new ack deadline with respect to the time this request was sent to
@@ -108,19 +102,17 @@ declare namespace gapi.client {
             /** List of acknowledgment IDs. */
             ackIds?: string[];
         }
-        
         interface ModifyPushConfigRequest {
             /**
              * The push configuration for future deliveries.
-             * 
+             *
              * An empty `pushConfig` indicates that the Pub/Sub system should
              * stop pushing messages from the given subscription and allow
              * messages to be pulled and acknowledged - effectively pausing
-             * the subscription if `Pull` is not called.
+             * the subscription if `Pull` or `StreamingPull` is not called.
              */
             pushConfig?: PushConfig;
         }
-        
         interface Policy {
             /**
              * Associates a list of `members` to a `role`.
@@ -135,7 +127,7 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
@@ -143,12 +135,10 @@ declare namespace gapi.client {
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
         interface PublishRequest {
             /** The messages to publish. */
             messages?: PubsubMessage[];
         }
-        
         interface PublishResponse {
             /**
              * The server-assigned ID of each published message, in the same order as
@@ -157,10 +147,9 @@ declare namespace gapi.client {
              */
             messageIds?: string[];
         }
-        
         interface PubsubMessage {
             /** Optional attributes for this message. */
-            attributes?: Record<string, string>;            
+            attributes?: Record<string, string>;
             /** The message payload. */
             data?: string;
             /**
@@ -177,7 +166,6 @@ declare namespace gapi.client {
              */
             publishTime?: string;
         }
-        
         interface PullRequest {
             /**
              * The maximum number of messages returned for this request. The Pub/Sub
@@ -194,7 +182,6 @@ declare namespace gapi.client {
              */
             returnImmediately?: boolean;
         }
-        
         interface PullResponse {
             /**
              * Received Pub/Sub messages. The Pub/Sub system will return zero messages if
@@ -204,46 +191,43 @@ declare namespace gapi.client {
              */
             receivedMessages?: ReceivedMessage[];
         }
-        
         interface PushConfig {
             /**
              * Endpoint configuration attributes.
-             * 
+             *
              * Every endpoint has a set of API supported attributes that can be used to
              * control different aspects of the message delivery.
-             * 
+             *
              * The currently supported attribute is `x-goog-version`, which you can
              * use to change the format of the pushed message. This attribute
              * indicates the version of the data expected by the endpoint. This
              * controls the shape of the pushed message (i.e., its fields and metadata).
              * The endpoint version is based on the version of the Pub/Sub API.
-             * 
+             *
              * If not present during the `CreateSubscription` call, it will default to
              * the version of the API used to make such call. If not present during a
              * `ModifyPushConfig` call, its value will not be changed. `GetSubscription`
              * calls will always return a valid version, even if the subscription was
              * created without this attribute.
-             * 
+             *
              * The possible values for this attribute are:
-             * 
+             *
              * &#42; `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API.
              * &#42; `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API.
              */
-            attributes?: Record<string, string>;            
+            attributes?: Record<string, string>;
             /**
              * A URL locating the endpoint to which messages should be pushed.
              * For example, a Webhook endpoint might use "https://example.com/push".
              */
             pushEndpoint?: string;
         }
-        
         interface ReceivedMessage {
             /** This ID can be used to acknowledge the received message. */
             ackId?: string;
             /** The message. */
             message?: PubsubMessage;
         }
-        
         interface SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -253,7 +237,6 @@ declare namespace gapi.client {
              */
             policy?: Policy;
         }
-        
         interface Subscription {
             /**
              * This value is the maximum time after a subscriber receives a message
@@ -261,18 +244,19 @@ declare namespace gapi.client {
              * delivery but before the ack deadline expires and before the message is
              * acknowledged, it is an outstanding message and will not be delivered
              * again during that time (on a best-effort basis).
-             * 
+             *
              * For pull subscriptions, this value is used as the initial value for the ack
              * deadline. To override this value for a given message, call
              * `ModifyAckDeadline` with the corresponding `ack_id` if using
-             * pull.
+             * non-streaming pull or send the `ack_id` in a
+             * `StreamingModifyAckDeadlineRequest` if using streaming pull.
              * The minimum custom deadline you can specify is 10 seconds.
              * The maximum custom deadline you can specify is 600 seconds (10 minutes).
              * If this parameter is 0, a default value of 10 seconds is used.
-             * 
+             *
              * For push delivery, this value is also used to set the request timeout for
              * the call to the push endpoint.
-             * 
+             *
              * If the subscriber never acknowledges the message, the Pub/Sub
              * system will eventually redeliver the message.
              */
@@ -300,7 +284,6 @@ declare namespace gapi.client {
              */
             topic?: string;
         }
-        
         interface TestIamPermissionsRequest {
             /**
              * The set of permissions to check for the `resource`. Permissions with
@@ -310,7 +293,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -318,7 +300,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface Topic {
             /**
              * The name of the topic. It must have the format
@@ -330,14 +311,13 @@ declare namespace gapi.client {
              */
             name?: string;
         }
-        
         interface SnapshotsResource {
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -369,13 +349,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -407,18 +386,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
-             * 
+             *
              * Note: This operation is designed to be used for building permission-aware
              * UIs and command-line tools, not for authorization checking. This operation
              * may "fail open" without warning.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -450,21 +428,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
         }
-        
         interface SubscriptionsResource {
             /**
              * Acknowledges the messages associated with the `ack_ids` in the
              * `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages
              * from the subscription.
-             * 
+             *
              * Acknowledging a message whose ack deadline has expired may succeed,
              * but such a message may be redelivered later. Acknowledging a message more
              * than once will not result in an error.
              */
-            acknowledge(request: {            
+            acknowledge(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -496,13 +472,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Creates a subscription to a given topic.
              * If the subscription already exists, returns `ALREADY_EXISTS`.
              * If the corresponding topic doesn't exist, returns `NOT_FOUND`.
-             * 
+             *
              * If the name is not provided in the request, the server will assign a random
              * name for this subscription on the same project as the topic, conforming
              * to the
@@ -510,7 +485,7 @@ declare namespace gapi.client {
              * The generated name is populated in the returned Subscription object.
              * Note that for REST API requests, you must specify a name in the request.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -546,8 +521,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Subscription>;            
-            
+            }): Request<Subscription>;
             /**
              * Deletes an existing subscription. All messages retained in the subscription
              * are immediately dropped. Calls to `Pull` after deletion will return
@@ -555,7 +529,7 @@ declare namespace gapi.client {
              * the same name, but the new one has no association with the old
              * subscription or its topic unless the same topic is specified.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -587,10 +561,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets the configuration details of a subscription. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -622,14 +595,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Subscription>;            
-            
+            }): Request<Subscription>;
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -661,10 +633,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Lists matching subscriptions. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -704,8 +675,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListSubscriptionsResponse>;            
-            
+            }): Request<ListSubscriptionsResponse>;
             /**
              * Modifies the ack deadline for a specific message. This method is useful
              * to indicate that more time is needed to process a message by the
@@ -713,7 +683,7 @@ declare namespace gapi.client {
              * processing was interrupted. Note that this does not modify the
              * subscription-level `ackDeadlineSeconds` used for subsequent messages.
              */
-            modifyAckDeadline(request: {            
+            modifyAckDeadline(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -745,17 +715,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Modifies the `PushConfig` for a specified subscription.
-             * 
+             *
              * This may be used to change a push subscription to a pull one (signified by
              * an empty `PushConfig`) or vice versa, or change the endpoint URL and other
              * attributes of a push subscription. Messages will accumulate for delivery
              * continuously through the call regardless of changes to the `PushConfig`.
              */
-            modifyPushConfig(request: {            
+            modifyPushConfig(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -787,15 +756,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Pulls messages from the server. Returns an empty list if there are no
              * messages available in the backlog. The server may return `UNAVAILABLE` if
              * there are too many concurrent pull requests pending for the given
              * subscription.
              */
-            pull(request: {            
+            pull(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -827,13 +795,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<PullResponse>;            
-            
+            }): Request<PullResponse>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -865,18 +832,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
-             * 
+             *
              * Note: This operation is designed to be used for building permission-aware
              * UIs and command-line tools, not for authorization checking. This operation
              * may "fail open" without warning.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -908,13 +874,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
         }
-        
         interface SubscriptionsResource {
             /** Lists the name of the subscriptions for this topic. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -954,13 +918,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTopicSubscriptionsResponse>;            
-            
+            }): Request<ListTopicSubscriptionsResponse>;
         }
-        
         interface TopicsResource {
             /** Creates the given topic with the given name. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -996,8 +958,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Topic>;            
-            
+            }): Request<Topic>;
             /**
              * Deletes the topic with the given name. Returns `NOT_FOUND` if the topic
              * does not exist. After a topic is deleted, a new topic may be created with
@@ -1005,7 +966,7 @@ declare namespace gapi.client {
              * configuration or subscriptions. Existing subscriptions to this topic are
              * not deleted, but their `topic` field is set to `_deleted-topic_`.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1037,10 +998,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets the configuration of a topic. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1072,14 +1032,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Topic>;            
-            
+            }): Request<Topic>;
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1111,10 +1070,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Lists matching topics. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1154,14 +1112,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTopicsResponse>;            
-            
+            }): Request<ListTopicsResponse>;
             /**
              * Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
              * does not exist. The message payload must not be empty; it must contain
-             *  either a non-empty data field, or at least one attribute.
+             * either a non-empty data field, or at least one attribute.
              */
-            publish(request: {            
+            publish(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1193,13 +1150,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<PublishResponse>;            
-            
+            }): Request<PublishResponse>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1231,18 +1187,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
-             * 
+             *
              * Note: This operation is designed to be used for building permission-aware
              * UIs and command-line tools, not for authorization checking. This operation
              * may "fail open" without warning.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1274,11 +1229,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             subscriptions: SubscriptionsResource;
         }
-        
         interface ProjectsResource {
             snapshots: SnapshotsResource;
             subscriptions: SubscriptionsResource;

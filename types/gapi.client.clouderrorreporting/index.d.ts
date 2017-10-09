@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Stackdriver Error Reporting API v1beta1 */
-    function load(name: "clouderrorreporting", version: "v1beta1"): PromiseLike<void>;    
-    function load(name: "clouderrorreporting", version: "v1beta1", callback: () => any): void;    
-    
-    const projects: clouderrorreporting.ProjectsResource; 
-    
+    function load(name: "clouderrorreporting", version: "v1beta1"): PromiseLike<void>;
+    function load(name: "clouderrorreporting", version: "v1beta1", callback: () => any): void;
+
+    const projects: clouderrorreporting.ProjectsResource;
+
     namespace clouderrorreporting {
-        
         interface ErrorContext {
             /**
              * The HTTP request which was processed when the error was
@@ -51,7 +50,6 @@ declare namespace gapi.client {
              */
             user?: string;
         }
-        
         interface ErrorEvent {
             /** Data about the context in which the error occurred. */
             context?: ErrorContext;
@@ -66,7 +64,6 @@ declare namespace gapi.client {
             /** The `ServiceContext` for which this error was reported. */
             serviceContext?: ServiceContext;
         }
-        
         interface ErrorGroup {
             /**
              * Group IDs are unique for a given project. If the same kind of error
@@ -81,7 +78,6 @@ declare namespace gapi.client {
             /** Associated tracking issues. */
             trackingIssues?: TrackingIssue[];
         }
-        
         interface ErrorGroupStats {
             /**
              * Service contexts with a non-zero error count for the given filter
@@ -139,14 +135,13 @@ declare namespace gapi.client {
             /**
              * Approximate number of occurrences over time.
              * Timed counts returned by ListGroups are guaranteed to be:
-             * 
+             *
              * - Inside the requested time interval
              * - Non-overlapping, and
              * - Ordered by ascending time.
              */
             timedCounts?: TimedCount[];
         }
-        
         interface HttpRequestContext {
             /** The type of HTTP request, such as `GET`, `POST`, etc. */
             method?: string;
@@ -166,7 +161,6 @@ declare namespace gapi.client {
             /** The user agent information that is provided with the request. */
             userAgent?: string;
         }
-        
         interface ListEventsResponse {
             /** The error events which match the given request. */
             errorEvents?: ErrorEvent[];
@@ -179,7 +173,6 @@ declare namespace gapi.client {
             /** The timestamp specifies the start time to which the request was restricted. */
             timeRangeBegin?: string;
         }
-        
         interface ListGroupStatsResponse {
             /** The error group stats which match the given request. */
             errorGroupStats?: ErrorGroupStats[];
@@ -197,7 +190,6 @@ declare namespace gapi.client {
              */
             timeRangeBegin?: string;
         }
-        
         interface ReportedErrorEvent {
             /** [Optional] A description of the context in which the error occurred. */
             context?: ErrorContext;
@@ -215,8 +207,9 @@ declare namespace gapi.client {
              * languages and formats.
              * Supported languages are Java, Python, JavaScript, Ruby, C#, PHP, and Go.
              * Supported stack trace formats are:
-             * 
-             * &#42; &#42;&#42;Java&#42;&#42;: Must be the return value of [`Throwable.printStackTrace()`](https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printStackTrace%28%29).
+             *
+             * &#42; &#42;&#42;Java&#42;&#42;: Must be the return value of
+             * [`Throwable.printStackTrace()`](https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printStackTrace%28%29).
              * &#42; &#42;&#42;Python&#42;&#42;: Must be the return value of [`traceback.format_exc()`](https://docs.python.org/2/library/traceback.html#traceback.format_exc).
              * &#42; &#42;&#42;JavaScript&#42;&#42;: Must be the value of [`error.stack`](https://github.com/v8/v8/wiki/Stack-Trace-API)
              * as returned by V8.
@@ -230,12 +223,11 @@ declare namespace gapi.client {
             /** [Required] The service context in which this error has occurred. */
             serviceContext?: ServiceContext;
         }
-        
         interface ServiceContext {
             /**
              * Type of the MonitoredResource. List of possible values:
              * https://cloud.google.com/monitoring/api/resources
-             * 
+             *
              * Value is set automatically for incoming errors and must not be set when
              * reporting errors.
              */
@@ -245,7 +237,7 @@ declare namespace gapi.client {
              * executable, job, or Google App Engine service name. This field is expected
              * to have a low number of values that are relatively stable over time, as
              * opposed to `version`, which can be changed whenever new code is deployed.
-             * 
+             *
              * Contains the service name for error reports extracted from Google
              * App Engine logs or `default` if the App Engine default service is used.
              */
@@ -258,7 +250,6 @@ declare namespace gapi.client {
              */
             version?: string;
         }
-        
         interface SourceLocation {
             /**
              * The source code filename, which can include a truncated relative
@@ -274,7 +265,6 @@ declare namespace gapi.client {
             /** 1-based. 0 indicates that the line number is unknown. */
             lineNumber?: number;
         }
-        
         interface SourceReference {
             /**
              * Optional. A URI string identifying the repository.
@@ -287,7 +277,6 @@ declare namespace gapi.client {
              */
             revisionId?: string;
         }
-        
         interface TimedCount {
             /** Approximate number of occurrences in the given time period. */
             count?: string;
@@ -296,7 +285,6 @@ declare namespace gapi.client {
             /** Start of the time period to which `count` refers (included). */
             startTime?: string;
         }
-        
         interface TrackingIssue {
             /**
              * A URL pointing to a related entry in an issue tracking system.
@@ -304,10 +292,9 @@ declare namespace gapi.client {
              */
             url?: string;
         }
-        
         interface EventsResource {
             /** Lists the specified events. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -365,11 +352,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListEventsResponse>;            
-            
+            }): Request<ListEventsResponse>;
             /**
              * Report an individual error event.
-             * 
+             *
              * This endpoint accepts <strong>either</strong> an OAuth token,
              * <strong>or</strong> an
              * <a href="https://support.google.com/cloud/answer/6158862">API key</a>
@@ -377,7 +363,7 @@ declare namespace gapi.client {
              * a `key` parameter. For example:
              * <pre>POST https://clouderrorreporting.googleapis.com/v1beta1/projects/example-project/events:report?key=123ABC456</pre>
              */
-            report(request: {            
+            report(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -411,13 +397,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
         }
-        
         interface GroupStatsResource {
             /** Lists the specified groups. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -471,7 +455,7 @@ declare namespace gapi.client {
                  * as <code>projects/</code> plus the
                  * <a href="https://support.google.com/cloud/answer/6158840">Google Cloud
                  * Platform project ID</a>.
-                 * 
+                 *
                  * Example: <code>projects/my-project-123</code>.
                  */
                 projectName: string;
@@ -503,13 +487,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListGroupStatsResponse>;            
-            
+            }): Request<ListGroupStatsResponse>;
         }
-        
         interface GroupsResource {
             /** Get the specified group. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -529,7 +511,7 @@ declare namespace gapi.client {
                  * <a href="/error-reporting/reference/rest/v1beta1/projects.groupStats/list">
                  * <code>groupStats.list</code></a> to return a list of groups belonging to
                  * this project.
-                 * 
+                 *
                  * Example: <code>projects/my-project-123/groups/my-group</code>
                  */
                 groupName: string;
@@ -547,13 +529,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ErrorGroup>;            
-            
+            }): Request<ErrorGroup>;
             /**
              * Replace the data for the specified group.
              * Fails if the group does not exist.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -585,13 +566,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ErrorGroup>;            
-            
+            }): Request<ErrorGroup>;
         }
-        
         interface ProjectsResource {
             /** Deletes all error events of a given project. */
-            deleteEvents(request: {            
+            deleteEvents(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -626,8 +605,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             events: EventsResource;
             groupStats: GroupStatsResource;
             groups: GroupsResource;

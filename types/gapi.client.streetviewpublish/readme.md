@@ -60,6 +60,13 @@ CreatePhoto
 publishes the uploaded Photo to
 Street View on Google Maps.
 
+Currently, the only way to set heading, pitch, and roll in CreatePhoto is
+through the [Photo Sphere XMP
+metadata](https://developers.google.com/streetview/spherical-metadata) in
+the photo bytes. The `pose.heading`, `pose.pitch`, `pose.roll`,
+`pose.altitude`, and `pose.level` fields in Pose are ignored for
+CreatePhoto.
+
 This method returns the following error codes:
 
 * google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
@@ -121,6 +128,16 @@ Updates the metadata of a Photo, such
 as pose, place association, connections, etc. Changing the pixels of a
 photo is not supported.
 
+Only the fields specified in the
+updateMask
+field are used. If `updateMask` is not present, the update applies to all
+fields.
+
+<aside class="note"><b>Note:</b> To update
+Pose.altitude,
+Pose.latLngPair has to be
+filled as well. Otherwise, the request will fail.</aside>
+
 This method returns the following error codes:
 
 * google.rpc.Code.PERMISSION_DENIED if the requesting user did not
@@ -131,7 +148,8 @@ create the requested photo.
 await gapi.client.photo.update({ id: "id",  }); 
     
 /* 
-Deletes a list of Photos and their metadata.
+Deletes a list of Photos and their
+metadata.
 
 Note that if
 BatchDeletePhotos
@@ -186,12 +204,23 @@ in
 BatchUpdatePhotosResponse.results.
 See
 UpdatePhoto
-for specific failures that can occur per photo.  
+for specific failures that can occur per photo.
+
+Only the fields specified in
+updateMask
+field are used. If `updateMask` is not present, the update applies to all
+fields.
+
+<aside class="note"><b>Note:</b> To update
+Pose.altitude,
+Pose.latLngPair has to be
+filled as well. Otherwise, the request will fail.</aside>  
 */
 await gapi.client.photos.batchUpdate({  }); 
     
 /* 
-Lists all the Photos that belong to the user.  
+Lists all the Photos that belong to
+the user.  
 */
 await gapi.client.photos.list({  });
 ```

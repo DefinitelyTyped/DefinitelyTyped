@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Enterprise License Manager API v1 */
-    function load(name: "licensing", version: "v1"): PromiseLike<void>;    
-    function load(name: "licensing", version: "v1", callback: () => any): void;    
-    
-    const licenseAssignments: licensing.LicenseAssignmentsResource; 
-    
+    function load(name: "licensing", version: "v1"): PromiseLike<void>;
+    function load(name: "licensing", version: "v1", callback: () => any): void;
+
+    const licenseAssignments: licensing.LicenseAssignmentsResource;
+
     namespace licensing {
-        
         interface LicenseAssignment {
             /** ETag of the resource. */
             etags?: string;
@@ -38,12 +37,10 @@ declare namespace gapi.client {
             /** Email id of the user. */
             userId?: string;
         }
-        
         interface LicenseAssignmentInsert {
             /** Email id of the user */
             userId?: string;
         }
-        
         interface LicenseAssignmentList {
             /** ETag of the resource. */
             etag?: string;
@@ -54,10 +51,9 @@ declare namespace gapi.client {
             /** The continuation token, used to page through large result sets. Provide this value in a subsequent request to return the next page of results. */
             nextPageToken?: string;
         }
-        
         interface LicenseAssignmentsResource {
             /** Revoke License. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -70,7 +66,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name for product */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Name for sku */
                 skuId: string;
@@ -78,10 +77,9 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Get license assignment of a particular product and sku for a user */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -94,7 +92,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name for product */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Name for sku */
                 skuId: string;
@@ -102,10 +103,9 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LicenseAssignment>;            
-            
+            }): Request<LicenseAssignment>;
             /** Assign License. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -118,16 +118,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name for product */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Name for sku */
                 skuId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LicenseAssignment>;            
-            
+            }): Request<LicenseAssignment>;
             /** List license assignments for given product of the customer. */
-            listForProduct(request: {            
+            listForProduct(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** CustomerId represents the customer for whom licenseassignments are queried */
@@ -146,14 +148,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name for product */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LicenseAssignmentList>;            
-            
+            }): Request<LicenseAssignmentList>;
             /** List license assignments for given product and sku of the customer. */
-            listForProductAndSku(request: {            
+            listForProductAndSku(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** CustomerId represents the customer for whom licenseassignments are queried */
@@ -172,16 +176,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name for product */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Name for sku */
                 skuId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LicenseAssignmentList>;            
-            
+            }): Request<LicenseAssignmentList>;
             /** Assign License. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -194,7 +200,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name for product */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Name for sku for which license would be revoked */
                 skuId: string;
@@ -202,10 +211,9 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LicenseAssignment>;            
-            
+            }): Request<LicenseAssignment>;
             /** Assign License. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -218,7 +226,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name for product */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Name for sku for which license would be revoked */
                 skuId: string;
@@ -226,8 +237,7 @@ declare namespace gapi.client {
                 userId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<LicenseAssignment>;            
-            
+            }): Request<LicenseAssignment>;
         }
     }
 }

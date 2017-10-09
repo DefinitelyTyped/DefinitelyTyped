@@ -13,64 +13,56 @@
 
 declare namespace gapi.client {
     /** Load Google Play Developer API v2 */
-    function load(name: "androidpublisher", version: "v2"): PromiseLike<void>;    
-    function load(name: "androidpublisher", version: "v2", callback: () => any): void;    
-    
-    const edits: androidpublisher.EditsResource; 
-    
-    const entitlements: androidpublisher.EntitlementsResource; 
-    
-    const inappproducts: androidpublisher.InappproductsResource; 
-    
-    const purchases: androidpublisher.PurchasesResource; 
-    
-    const reviews: androidpublisher.ReviewsResource; 
-    
+    function load(name: "androidpublisher", version: "v2"): PromiseLike<void>;
+    function load(name: "androidpublisher", version: "v2", callback: () => any): void;
+
+    const edits: androidpublisher.EditsResource;
+
+    const entitlements: androidpublisher.EntitlementsResource;
+
+    const inappproducts: androidpublisher.InappproductsResource;
+
+    const purchases: androidpublisher.PurchasesResource;
+
+    const reviews: androidpublisher.ReviewsResource;
+
     namespace androidpublisher {
-        
         interface Apk {
             /** Information about the binary payload of this APK. */
             binary?: ApkBinary;
             /** The version code of the APK, as specified in the APK's manifest file. */
             versionCode?: number;
         }
-        
         interface ApkBinary {
             /** A sha1 hash of the APK payload, encoded as a hex string and matching the output of the sha1sum command. */
             sha1?: string;
             /** A sha256 hash of the APK payload, encoded as a hex string and matching the output of the sha256sum command. */
             sha256?: string;
         }
-        
         interface ApkListing {
             /** The language code, in BCP 47 format (eg "en-US"). */
             language?: string;
             /** Describe what's new in your APK. */
             recentChanges?: string;
         }
-        
         interface ApkListingsListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#apkListingsListResponse". */
             kind?: string;
             listings?: ApkListing[];
         }
-        
         interface ApksAddExternallyHostedRequest {
             /** The definition of the externally-hosted APK and where it is located. */
             externallyHostedApk?: ExternallyHostedApk;
         }
-        
         interface ApksAddExternallyHostedResponse {
             /** The definition of the externally-hosted APK and where it is located. */
             externallyHostedApk?: ExternallyHostedApk;
         }
-        
         interface ApksListResponse {
             apks?: Apk[];
             /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#apksListResponse". */
             kind?: string;
         }
-        
         interface AppDetails {
             /** The user-visible support email for this app. */
             contactEmail?: string;
@@ -81,37 +73,31 @@ declare namespace gapi.client {
             /** Default language code, in BCP 47 format (eg "en-US"). */
             defaultLanguage?: string;
         }
-        
         interface AppEdit {
             /** The time at which the edit will expire and will be no longer valid for use in any subsequent API calls (encoded as seconds since the Epoch). */
             expiryTimeSeconds?: string;
             /** The ID of the edit that can be used in subsequent API calls. */
             id?: string;
         }
-        
         interface Comment {
             /** A comment from a developer. */
             developerComment?: DeveloperComment;
             /** A comment from a user. */
             userComment?: UserComment;
         }
-        
         interface DeobfuscationFile {
             /** The type of the deobfuscation file. */
             symbolType?: string;
         }
-        
         interface DeobfuscationFilesUploadResponse {
             deobfuscationFile?: DeobfuscationFile;
         }
-        
         interface DeveloperComment {
             /** The last time at which this comment was updated. */
             lastModified?: Timestamp;
             /** The content of the comment, i.e. reply body. */
             text?: string;
         }
-        
         interface DeviceMetadata {
             /** Device CPU make e.g. "Qualcomm" */
             cpuMake?: string;
@@ -136,39 +122,37 @@ declare namespace gapi.client {
             /** Screen width in pixels */
             screenWidthPx?: number;
         }
-        
         interface Entitlement {
             /** This kind represents an entitlement object in the androidpublisher service. */
             kind?: string;
             /** The SKU of the product. */
             productId?: string;
             /**
-             * The type of the inapp product. Possible values are:  
-             * - In-app item: "inapp" 
+             * The type of the inapp product. Possible values are:
+             * - In-app item: "inapp"
              * - Subscription: "subs"
              */
             productType?: string;
             /** The token which can be verified using the subscriptions or products API. */
             token?: string;
         }
-        
         interface EntitlementsListResponse {
             pageInfo?: PageInfo;
             resources?: Entitlement[];
             tokenPagination?: TokenPagination;
         }
-        
         interface ExpansionFile {
-            /** If set this field indicates that this APK has an Expansion File uploaded to it: this APK does not reference another APK's Expansion File. The field's value is the size of the uploaded Expansion File in bytes. */
+            /**
+             * If set this field indicates that this APK has an Expansion File uploaded to it: this APK does not reference another APK's Expansion File. The field's
+             * value is the size of the uploaded Expansion File in bytes.
+             */
             fileSize?: string;
             /** If set this APK's Expansion File references another APK's Expansion File. The file_size field will not be set. */
             referencesVersion?: number;
         }
-        
         interface ExpansionFilesUploadResponse {
             expansionFile?: ExpansionFile;
         }
-        
         interface ExternallyHostedApk {
             /** The application label. */
             applicationLabel?: string;
@@ -201,14 +185,12 @@ declare namespace gapi.client {
             /** The version name of this APK. */
             versionName?: string;
         }
-        
         interface ExternallyHostedApkUsesPermission {
             /** Optionally, the maximum SDK version for which the permission is required. */
             maxSdkVersion?: number;
             /** The name of the permission requested. */
             name?: string;
         }
-        
         interface Image {
             /** A unique id representing this image. */
             id?: string;
@@ -217,30 +199,26 @@ declare namespace gapi.client {
             /** A URL that will serve a preview of the image. */
             url?: string;
         }
-        
         interface ImagesDeleteAllResponse {
             deleted?: Image[];
         }
-        
         interface ImagesListResponse {
             images?: Image[];
         }
-        
         interface ImagesUploadResponse {
             image?: Image;
         }
-        
         interface InAppProduct {
             /** The default language of the localized data, as defined by BCP 47. e.g. "en-US", "en-GB". */
             defaultLanguage?: string;
             /** Default price cannot be zero. In-app products can never be free. Default price is always in the developer's Checkout merchant currency. */
             defaultPrice?: Price;
             /** List of localized title and description data. */
-            listings?: Record<string, InAppProductListing>;            
+            listings?: Record<string, InAppProductListing>;
             /** The package name of the parent app. */
             packageName?: string;
             /** Prices per buyer region. None of these prices should be zero. In-app products can never be free. */
-            prices?: Record<string, Price>;            
+            prices?: Record<string, Price>;
             /** Purchase type enum value. Unmodifiable after creation. */
             purchaseType?: string;
             /** Definition of a season for a seasonal subscription. Can be defined only for yearly subscriptions. */
@@ -248,48 +226,46 @@ declare namespace gapi.client {
             /** The stock-keeping-unit (SKU) of the product, unique within an app. */
             sku?: string;
             status?: string;
-            /** Subscription period, specified in ISO 8601 format. Acceptable values are "P1W" (one week), "P1M" (one month), "P3M" (three months), "P6M" (six months), and "P1Y" (one year). */
+            /**
+             * Subscription period, specified in ISO 8601 format. Acceptable values are "P1W" (one week), "P1M" (one month), "P3M" (three months), "P6M" (six months),
+             * and "P1Y" (one year).
+             */
             subscriptionPeriod?: string;
-            /** Trial period, specified in ISO 8601 format. Acceptable values are anything between "P7D" (seven days) and "P999D" (999 days). Seasonal subscriptions cannot have a trial period. */
+            /**
+             * Trial period, specified in ISO 8601 format. Acceptable values are anything between "P7D" (seven days) and "P999D" (999 days). Seasonal subscriptions
+             * cannot have a trial period.
+             */
             trialPeriod?: string;
         }
-        
         interface InAppProductListing {
             description?: string;
             title?: string;
         }
-        
         interface InappproductsBatchRequest {
             entrys?: InappproductsBatchRequestEntry[];
         }
-        
         interface InappproductsBatchRequestEntry {
             batchId?: number;
             inappproductsinsertrequest?: InappproductsInsertRequest;
             inappproductsupdaterequest?: InappproductsUpdateRequest;
             methodName?: string;
         }
-        
         interface InappproductsBatchResponse {
             entrys?: InappproductsBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#inappproductsBatchResponse". */
             kind?: string;
         }
-        
         interface InappproductsBatchResponseEntry {
             batchId?: number;
             inappproductsinsertresponse?: InappproductsInsertResponse;
             inappproductsupdateresponse?: InappproductsUpdateResponse;
         }
-        
         interface InappproductsInsertRequest {
             inappproduct?: InAppProduct;
         }
-        
         interface InappproductsInsertResponse {
             inappproduct?: InAppProduct;
         }
-        
         interface InappproductsListResponse {
             inappproduct?: InAppProduct[];
             /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#inappproductsListResponse". */
@@ -297,15 +273,12 @@ declare namespace gapi.client {
             pageInfo?: PageInfo;
             tokenPagination?: TokenPagination;
         }
-        
         interface InappproductsUpdateRequest {
             inappproduct?: InAppProduct;
         }
-        
         interface InappproductsUpdateResponse {
             inappproduct?: InAppProduct;
         }
-        
         interface Listing {
             /** Full description of the app; this may be up to 4000 characters in length. */
             fullDescription?: string;
@@ -318,37 +291,32 @@ declare namespace gapi.client {
             /** URL of a promotional YouTube video for the app. */
             video?: string;
         }
-        
         interface ListingsListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#listingsListResponse". */
             kind?: string;
             listings?: Listing[];
         }
-        
         interface MonthDay {
             /** Day of a month, value in [1, 31] range. Valid range depends on the specified month. */
             day?: number;
             /** Month of a year. e.g. 1 = JAN, 2 = FEB etc. */
             month?: number;
         }
-        
         interface PageInfo {
             resultPerPage?: number;
             startIndex?: number;
             totalResults?: number;
         }
-        
         interface Price {
             /** 3 letter Currency code, as defined by ISO 4217. */
             currency?: string;
             /** The price in millionths of the currency base unit represented as a string. */
             priceMicros?: string;
         }
-        
         interface ProductPurchase {
             /**
-             * The consumption state of the inapp product. Possible values are:  
-             * - Yet to be consumed 
+             * The consumption state of the inapp product. Possible values are:
+             * - Yet to be consumed
              * - Consumed
              */
             consumptionState?: number;
@@ -359,22 +327,23 @@ declare namespace gapi.client {
             /** The order id associated with the purchase of the inapp product. */
             orderId?: string;
             /**
-             * The purchase state of the order. Possible values are:  
-             * - Purchased 
+             * The purchase state of the order. Possible values are:
+             * - Purchased
              * - Cancelled
              */
             purchaseState?: number;
             /** The time the product was purchased, in milliseconds since the epoch (Jan 1, 1970). */
             purchaseTimeMillis?: string;
         }
-        
         interface Prorate {
-            /** Default price cannot be zero and must be less than the full subscription price. Default price is always in the developer's Checkout merchant currency. Targeted countries have their prices set automatically based on the default_price. */
+            /**
+             * Default price cannot be zero and must be less than the full subscription price. Default price is always in the developer's Checkout merchant currency.
+             * Targeted countries have their prices set automatically based on the default_price.
+             */
             defaultPrice?: Price;
             /** Defines the first day on which the price takes effect. */
             start?: MonthDay;
         }
-        
         interface Review {
             /** The name of the user who wrote the review. */
             authorName?: string;
@@ -383,52 +352,55 @@ declare namespace gapi.client {
             /** Unique identifier for this review. */
             reviewId?: string;
         }
-        
         interface ReviewReplyResult {
             /** The time at which the reply took effect. */
             lastEdited?: Timestamp;
             /** The reply text that was applied. */
             replyText?: string;
         }
-        
         interface ReviewsListResponse {
             pageInfo?: PageInfo;
             reviews?: Review[];
             tokenPagination?: TokenPagination;
         }
-        
         interface ReviewsReplyRequest {
             /** The text to set as the reply. Replies of more than approximately 350 characters will be rejected. HTML tags will be stripped. */
             replyText?: string;
         }
-        
         interface ReviewsReplyResponse {
             result?: ReviewReplyResult;
         }
-        
         interface Season {
             /** Inclusive end date of the recurrence period. */
             end?: MonthDay;
-            /** Optionally present list of prorations for the season. Each proration is a one-off discounted entry into a subscription. Each proration contains the first date on which the discount is available and the new pricing information. */
+            /**
+             * Optionally present list of prorations for the season. Each proration is a one-off discounted entry into a subscription. Each proration contains the
+             * first date on which the discount is available and the new pricing information.
+             */
             prorations?: Prorate[];
             /** Inclusive start date of the recurrence period. */
             start?: MonthDay;
         }
-        
         interface SubscriptionDeferralInfo {
-            /** The desired next expiry time to assign to the subscription, in milliseconds since the Epoch. The given time must be later/greater than the current expiry time for the subscription. */
+            /**
+             * The desired next expiry time to assign to the subscription, in milliseconds since the Epoch. The given time must be later/greater than the current
+             * expiry time for the subscription.
+             */
             desiredExpiryTimeMillis?: string;
-            /** The expected expiry time for the subscription. If the current expiry time for the subscription is not the value specified here, the deferral will not occur. */
+            /**
+             * The expected expiry time for the subscription. If the current expiry time for the subscription is not the value specified here, the deferral will not
+             * occur.
+             */
             expectedExpiryTimeMillis?: string;
         }
-        
         interface SubscriptionPurchase {
             /** Whether the subscription will automatically be renewed when it reaches its current expiry time. */
             autoRenewing?: boolean;
             /**
-             * The reason why a subscription was cancelled or is not auto-renewing. Possible values are:  
-             * - User cancelled the subscription 
+             * The reason why a subscription was cancelled or is not auto-renewing. Possible values are:
+             * - User cancelled the subscription
              * - Subscription was cancelled by the system, for example because of a billing problem
+             * - Subscription was replaced with a new subscription
              */
             cancelReason?: number;
             /** ISO 3166-1 alpha-2 billing country/region code of the user at the time the subscription was granted. */
@@ -442,13 +414,16 @@ declare namespace gapi.client {
             /** The order id of the latest recurring order associated with the purchase of the subscription. */
             orderId?: string;
             /**
-             * The payment state of the subscription. Possible values are:  
-             * - Payment pending 
-             * - Payment received 
+             * The payment state of the subscription. Possible values are:
+             * - Payment pending
+             * - Payment received
              * - Free trial
              */
             paymentState?: number;
-            /** Price of the subscription, not including tax. Price is expressed in micro-units, where 1,000,000 micro-units represents one unit of the currency. For example, if the subscription price is €1.99, price_amount_micros is 1990000. */
+            /**
+             * Price of the subscription, not including tax. Price is expressed in micro-units, where 1,000,000 micro-units represents one unit of the currency. For
+             * example, if the subscription price is €1.99, price_amount_micros is 1990000.
+             */
             priceAmountMicros?: string;
             /** ISO 4217 currency code for the subscription price. For example, if the price is specified in British pounds sterling, price_currency_code is "GBP". */
             priceCurrencyCode?: string;
@@ -457,44 +432,36 @@ declare namespace gapi.client {
             /** The time at which the subscription was canceled by the user, in milliseconds since the epoch. Only present if cancelReason is 0. */
             userCancellationTimeMillis?: string;
         }
-        
         interface SubscriptionPurchasesDeferRequest {
             /** The information about the new desired expiry time for the subscription. */
             deferralInfo?: SubscriptionDeferralInfo;
         }
-        
         interface SubscriptionPurchasesDeferResponse {
             /** The new expiry time for the subscription in milliseconds since the Epoch. */
             newExpiryTimeMillis?: string;
         }
-        
         interface Testers {
             googleGroups?: string[];
             googlePlusCommunities?: string[];
         }
-        
         interface Timestamp {
             nanos?: number;
             seconds?: string;
         }
-        
         interface TokenPagination {
             nextPageToken?: string;
             previousPageToken?: string;
         }
-        
         interface Track {
             track?: string;
             userFraction?: number;
             versionCodes?: number[];
         }
-        
         interface TracksListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "androidpublisher#tracksListResponse". */
             kind?: string;
             tracks?: Track[];
         }
-        
         interface UserComment {
             /** Integer Android SDK version of the user's device at the time the review was written, e.g. 23 is Marshmallow. May be absent. */
             androidOsVersion?: number;
@@ -510,18 +477,23 @@ declare namespace gapi.client {
             lastModified?: Timestamp;
             /** Untranslated text of the review, in the case where the review has been translated. If the review has not been translated this is left blank. */
             originalText?: string;
-            /** Language code for the reviewer. This is taken from the device settings so is not guaranteed to match the language the review is written in. May be absent. */
+            /**
+             * Language code for the reviewer. This is taken from the device settings so is not guaranteed to match the language the review is written in. May be
+             * absent.
+             */
             reviewerLanguage?: string;
             /** The star rating associated with the review, from 1 to 5. */
             starRating?: number;
-            /** The content of the comment, i.e. review body. In some cases users have been able to write a review with separate title and body; in those cases the title and body are concatenated and separated by a tab character. */
+            /**
+             * The content of the comment, i.e. review body. In some cases users have been able to write a review with separate title and body; in those cases the
+             * title and body are concatenated and separated by a tab character.
+             */
             text?: string;
             /** Number of users who have given this review a thumbs down */
             thumbsDownCount?: number;
             /** Number of users who have given this review a thumbs up */
             thumbsUpCount?: number;
         }
-        
         interface VoidedPurchase {
             /** This kind represents a voided purchase object in the androidpublisher service. */
             kind?: string;
@@ -532,16 +504,14 @@ declare namespace gapi.client {
             /** The time at which the purchase was cancelled/refunded/charged-back, in milliseconds since the epoch (Jan 1, 1970). */
             voidedTimeMillis?: string;
         }
-        
         interface VoidedPurchasesListResponse {
             pageInfo?: PageInfo;
             tokenPagination?: TokenPagination;
             voidedPurchases?: VoidedPurchase[];
         }
-        
         interface ApklistingsResource {
             /** Deletes the APK-specific localized listing for a specified APK and language code. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The APK version code whose APK-specific listings should be read or modified. */
@@ -552,7 +522,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -560,14 +533,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Deletes all the APK-specific localized listings for a specified APK. */
-            deleteall(request: {            
+            deleteall(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The APK version code whose APK-specific listings should be read or modified. */
@@ -584,14 +559,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Fetches the APK-specific localized listing for a specified APK and language code. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The APK version code whose APK-specific listings should be read or modified. */
@@ -602,7 +579,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -610,14 +590,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ApkListing>;            
-            
+            }): Request<ApkListing>;
             /** Lists all the APK-specific localized listings for a specified APK. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The APK version code whose APK-specific listings should be read or modified. */
@@ -634,14 +616,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ApkListingsListResponse>;            
-            
+            }): Request<ApkListingsListResponse>;
             /** Updates or creates the APK-specific localized listing for a specified APK and language code. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The APK version code whose APK-specific listings should be read or modified. */
@@ -652,7 +636,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -660,14 +647,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ApkListing>;            
-            
+            }): Request<ApkListing>;
             /** Updates or creates the APK-specific localized listing for a specified APK and language code. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The APK version code whose APK-specific listings should be read or modified. */
@@ -678,7 +667,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -686,17 +678,21 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ApkListing>;            
-            
+            }): Request<ApkListing>;
         }
-        
         interface ApksResource {
-            /** Creates a new APK without uploading the APK itself to Google Play, instead hosting the APK at a specified URL. This function is only available to enterprises using Google Play for Work whose application is configured to restrict distribution to the enterprise domain. */
-            addexternallyhosted(request: {            
+            /**
+             * Creates a new APK without uploading the APK itself to Google Play, instead hosting the APK at a specified URL. This function is only available to
+             * enterprises using Google Play for Work whose application is configured to restrict distribution to the enterprise domain.
+             */
+            addexternallyhosted(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -711,13 +707,15 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ApksAddExternallyHostedResponse>;            
-            
-            list(request: {            
+            }): Request<ApksAddExternallyHostedResponse>;
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -732,13 +730,15 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ApksListResponse>;            
-            
-            upload(request: {            
+            }): Request<ApksListResponse>;
+            upload(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -753,17 +753,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Apk>;            
-            
+            }): Request<Apk>;
         }
-        
         interface DeobfuscationfilesResource {
             /** Uploads the deobfuscation file of the specified APK. If a deobfuscation file already exists, it will be replaced. */
-            upload(request: {            
+            upload(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The version code of the APK whose deobfuscation file is being uploaded. */
@@ -781,17 +782,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DeobfuscationFilesUploadResponse>;            
-            
+            }): Request<DeobfuscationFilesUploadResponse>;
         }
-        
         interface DetailsResource {
             /** Fetches app details for this edit. This includes the default language and developer support contact information. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -806,14 +808,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AppDetails>;            
-            
+            }): Request<AppDetails>;
             /** Updates app details for this edit. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -828,14 +832,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AppDetails>;            
-            
+            }): Request<AppDetails>;
             /** Updates app details for this edit. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -850,17 +856,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AppDetails>;            
-            
+            }): Request<AppDetails>;
         }
-        
         interface ExpansionfilesResource {
             /** Fetches the Expansion File configuration for the APK specified. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
@@ -878,14 +885,19 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ExpansionFile>;            
-            
-            /** Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<ExpansionFile>;
+            /**
+             * Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method. This
+             * method supports patch semantics.
+             */
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
@@ -903,14 +915,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ExpansionFile>;            
-            
+            }): Request<ExpansionFile>;
             /** Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
@@ -928,14 +942,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ExpansionFile>;            
-            
+            }): Request<ExpansionFile>;
             /** Uploads and attaches a new Expansion File to the APK specified. */
-            upload(request: {            
+            upload(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
@@ -953,17 +969,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ExpansionFilesUploadResponse>;            
-            
+            }): Request<ExpansionFilesUploadResponse>;
         }
-        
         interface ImagesResource {
             /** Deletes the image (specified by id) from the edit. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -975,7 +992,10 @@ declare namespace gapi.client {
                 imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -983,14 +1003,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Deletes all images for the specified language and image type. */
-            deleteall(request: {            
+            deleteall(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1000,7 +1022,10 @@ declare namespace gapi.client {
                 imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1008,14 +1033,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ImagesDeleteAllResponse>;            
-            
+            }): Request<ImagesDeleteAllResponse>;
             /** Lists all images for the specified language and image type. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1025,7 +1052,10 @@ declare namespace gapi.client {
                 imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1033,14 +1063,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ImagesListResponse>;            
-            
+            }): Request<ImagesListResponse>;
             /** Uploads a new image and adds it to the list of images for the specified language and image type. */
-            upload(request: {            
+            upload(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1050,7 +1082,10 @@ declare namespace gapi.client {
                 imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                /**
+                 * The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass
+                 * "de-AT".
+                 */
                 language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1058,17 +1093,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ImagesUploadResponse>;            
-            
+            }): Request<ImagesUploadResponse>;
         }
-        
         interface ListingsResource {
             /** Deletes the specified localized store listing from an edit. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1085,14 +1121,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Deletes all localized listings from an edit. */
-            deleteall(request: {            
+            deleteall(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1107,14 +1145,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Fetches information about a localized store listing. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1131,14 +1171,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Listing>;            
-            
+            }): Request<Listing>;
             /** Returns all of the localized store listings attached to this edit. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1153,14 +1195,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListingsListResponse>;            
-            
+            }): Request<ListingsListResponse>;
             /** Creates or updates a localized store listing. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1177,14 +1221,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Listing>;            
-            
+            }): Request<Listing>;
             /** Creates or updates a localized store listing. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1201,16 +1247,17 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Listing>;            
-            
+            }): Request<Listing>;
         }
-        
         interface TestersResource {
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1225,14 +1272,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 track: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Testers>;            
-            
-            patch(request: {            
+            }): Request<Testers>;
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1247,14 +1296,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 track: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Testers>;            
-            
-            update(request: {            
+            }): Request<Testers>;
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1269,18 +1320,19 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 track: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Testers>;            
-            
+            }): Request<Testers>;
         }
-        
         interface TracksResource {
             /** Fetches the track configuration for the specified track type. Includes the APK version codes that are in this track. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1295,16 +1347,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The track type to read or modify. */
                 track: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Track>;            
-            
+            }): Request<Track>;
             /** Lists all the track configurations for this edit. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1319,14 +1373,19 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TracksListResponse>;            
-            
-            /** Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new APKs will cause it to resume. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<TracksListResponse>;
+            /**
+             * Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new
+             * APKs will cause it to resume. This method supports patch semantics.
+             */
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1341,43 +1400,49 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** The track type to read or modify. */
-                track: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-            }): Request<Track>;            
-            
-            /** Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new APKs will cause it to resume. */
-            update(request: {            
-                /** Data format for the response. */
-                alt?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The track type to read or modify. */
                 track: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Track>;            
-            
+            }): Request<Track>;
+            /**
+             * Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new
+             * APKs will cause it to resume.
+             */
+            update(request: {
+                /** Data format for the response. */
+                alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
+                quotaUser?: string;
+                /** The track type to read or modify. */
+                track: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
+            }): Request<Track>;
         }
-        
         interface EditsResource {
             /** Commits/applies the changes made in this edit back to the app. */
-            commit(request: {            
+            commit(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1392,14 +1457,19 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AppEdit>;            
-            
-            /** Deletes an edit for an app. Creating a new edit will automatically delete any of your previous edits so this method need only be called if you want to preemptively abandon an edit. */
-            delete(request: {            
+            }): Request<AppEdit>;
+            /**
+             * Deletes an edit for an app. Creating a new edit will automatically delete any of your previous edits so this method need only be called if you want to
+             * preemptively abandon an edit.
+             */
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1414,14 +1484,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns information about the edit specified. Calls will fail if the edit is no long active (e.g. has been deleted, superseded or expired). */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1436,14 +1508,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AppEdit>;            
-            
+            }): Request<AppEdit>;
             /** Creates a new edit for an app, populated with the app's current state. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1456,14 +1530,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AppEdit>;            
-            
+            }): Request<AppEdit>;
             /** Checks that the edit can be successfully committed. The edit's changes are not applied to the live app. */
-            validate(request: {            
+            validate(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Unique identifier for this edit. */
@@ -1478,12 +1554,14 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AppEdit>;            
-            
+            }): Request<AppEdit>;
             apklistings: ApklistingsResource;
             apks: ApksResource;
             deobfuscationfiles: DeobfuscationfilesResource;
@@ -1494,10 +1572,9 @@ declare namespace gapi.client {
             testers: TestersResource;
             tracks: TracksResource;
         }
-        
         interface EntitlementsResource {
             /** Lists the user's current inapp item or subscription entitlements */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1513,18 +1590,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The product id of the inapp product (for example, 'sku1'). This can be used to restrict the result set. */
                 productId?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 startIndex?: number;
                 token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<EntitlementsListResponse>;            
-            
+            }): Request<EntitlementsListResponse>;
         }
-        
         interface InappproductsResource {
-            batch(request: {            
+            batch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1535,14 +1613,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InappproductsBatchResponse>;            
-            
+            }): Request<InappproductsBatchResponse>;
             /** Delete an in-app product for an app. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1555,16 +1635,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns information about the in-app product specified. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1576,19 +1658,24 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InAppProduct>;            
-            
+            }): Request<InAppProduct>;
             /** Creates a new in-app product for an app. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
+                /**
+                 * If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the
+                 * target currency based on the default price. Defaults to false.
+                 */
                 autoConvertMissingPrices?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
@@ -1600,14 +1687,16 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InAppProduct>;            
-            
+            }): Request<InAppProduct>;
             /** List all the in-app products for an Android app, both subscriptions and managed in-app products.. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1621,19 +1710,24 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 startIndex?: number;
                 token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InappproductsListResponse>;            
-            
+            }): Request<InappproductsListResponse>;
             /** Updates the details of an in-app product. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
+                /**
+                 * If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the
+                 * target currency based on the default price. Defaults to false.
+                 */
                 autoConvertMissingPrices?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
@@ -1645,19 +1739,24 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InAppProduct>;            
-            
+            }): Request<InAppProduct>;
             /** Updates the details of an in-app product. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
+                /**
+                 * If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the
+                 * target currency based on the default price. Defaults to false.
+                 */
                 autoConvertMissingPrices?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
@@ -1669,19 +1768,20 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InAppProduct>;            
-            
+            }): Request<InAppProduct>;
         }
-        
         interface ProductsResource {
             /** Checks the purchase and consumption status of an inapp item. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1696,19 +1796,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The inapp product SKU (for example, 'com.some.thing.inapp1'). */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The token provided to the user's device when the inapp product was purchased. */
                 token: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ProductPurchase>;            
-            
+            }): Request<ProductPurchase>;
         }
-        
         interface SubscriptionsResource {
             /** Cancels a user's subscription purchase. The subscription remains valid until its expiration time. */
-            cancel(request: {            
+            cancel(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1721,7 +1822,10 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
@@ -1729,10 +1833,9 @@ declare namespace gapi.client {
                 token: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Defers a user's subscription purchase until a specified future expiration time. */
-            defer(request: {            
+            defer(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1745,7 +1848,10 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
@@ -1753,10 +1859,9 @@ declare namespace gapi.client {
                 token: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SubscriptionPurchasesDeferResponse>;            
-            
+            }): Request<SubscriptionPurchasesDeferResponse>;
             /** Checks whether a user's subscription purchase is valid and returns its expiry time. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1769,7 +1874,10 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
@@ -1777,10 +1885,9 @@ declare namespace gapi.client {
                 token: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SubscriptionPurchase>;            
-            
+            }): Request<SubscriptionPurchase>;
             /** Refunds a user's subscription purchase, but the subscription remains valid until its expiration time and it will continue to recur. */
-            refund(request: {            
+            refund(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1793,7 +1900,10 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
@@ -1801,10 +1911,9 @@ declare namespace gapi.client {
                 token: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Refunds and immediately revokes a user's subscription purchase. Access to the subscription will be terminated immediately and it will stop recurring. */
-            revoke(request: {            
+            revoke(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1817,7 +1926,10 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
@@ -1825,16 +1937,18 @@ declare namespace gapi.client {
                 token: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface VoidedpurchasesResource {
             /** Lists the purchases that were cancelled, refunded or charged-back. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** The time, in milliseconds since the Epoch, of the newest voided in-app product purchase that you want to see in the response. The value of this parameter cannot be greater than the current time and is ignored if a pagination token is set. Default value is current time. Note: This filter is applied on the time at which the record is seen as voided by our systems and not the actual voided time returned in the response. */
+                /**
+                 * The time, in milliseconds since the Epoch, of the newest voided in-app product purchase that you want to see in the response. The value of this
+                 * parameter cannot be greater than the current time and is ignored if a pagination token is set. Default value is current time. Note: This filter is
+                 * applied on the time at which the record is seen as voided by our systems and not the actual voided time returned in the response.
+                 */
                 endTime?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
@@ -1847,27 +1961,31 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 startIndex?: number;
-                /** The time, in milliseconds since the Epoch, of the oldest voided in-app product purchase that you want to see in the response. The value of this parameter cannot be older than 30 days and is ignored if a pagination token is set. Default value is current time minus 30 days. Note: This filter is applied on the time at which the record is seen as voided by our systems and not the actual voided time returned in the response. */
+                /**
+                 * The time, in milliseconds since the Epoch, of the oldest voided in-app product purchase that you want to see in the response. The value of this
+                 * parameter cannot be older than 30 days and is ignored if a pagination token is set. Default value is current time minus 30 days. Note: This filter is
+                 * applied on the time at which the record is seen as voided by our systems and not the actual voided time returned in the response.
+                 */
                 startTime?: string;
                 token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<VoidedPurchasesListResponse>;            
-            
+            }): Request<VoidedPurchasesListResponse>;
         }
-        
         interface PurchasesResource {
             products: ProductsResource;
             subscriptions: SubscriptionsResource;
             voidedpurchases: VoidedpurchasesResource;
         }
-        
         interface ReviewsResource {
             /** Returns a single review. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1880,16 +1998,18 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 reviewId: string;
                 translationLanguage?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Review>;            
-            
+            }): Request<Review>;
             /** Returns a list of reviews. Only reviews from last week will be returned. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1903,17 +2023,19 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 startIndex?: number;
                 token?: string;
                 translationLanguage?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ReviewsListResponse>;            
-            
+            }): Request<ReviewsListResponse>;
             /** Reply to a single review, or update an existing reply. */
-            reply(request: {            
+            reply(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1926,13 +2048,15 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 reviewId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ReviewsReplyResponse>;            
-            
+            }): Request<ReviewsReplyResponse>;
         }
     }
 }

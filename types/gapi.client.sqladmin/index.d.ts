@@ -13,27 +13,26 @@
 
 declare namespace gapi.client {
     /** Load Cloud SQL Administration API v1beta4 */
-    function load(name: "sqladmin", version: "v1beta4"): PromiseLike<void>;    
-    function load(name: "sqladmin", version: "v1beta4", callback: () => any): void;    
-    
-    const backupRuns: sqladmin.BackupRunsResource; 
-    
-    const databases: sqladmin.DatabasesResource; 
-    
-    const flags: sqladmin.FlagsResource; 
-    
-    const instances: sqladmin.InstancesResource; 
-    
-    const operations: sqladmin.OperationsResource; 
-    
-    const sslCerts: sqladmin.SslCertsResource; 
-    
-    const tiers: sqladmin.TiersResource; 
-    
-    const users: sqladmin.UsersResource; 
-    
+    function load(name: "sqladmin", version: "v1beta4"): PromiseLike<void>;
+    function load(name: "sqladmin", version: "v1beta4", callback: () => any): void;
+
+    const backupRuns: sqladmin.BackupRunsResource;
+
+    const databases: sqladmin.DatabasesResource;
+
+    const flags: sqladmin.FlagsResource;
+
+    const instances: sqladmin.InstancesResource;
+
+    const operations: sqladmin.OperationsResource;
+
+    const sslCerts: sqladmin.SslCertsResource;
+
+    const tiers: sqladmin.TiersResource;
+
+    const users: sqladmin.UsersResource;
+
     namespace sqladmin {
-        
         interface AclEntry {
             /** The time when this access control entry expires in RFC 3339 format, for example 2012-11-15T16:19:00.094Z. */
             expirationTime?: string;
@@ -44,7 +43,6 @@ declare namespace gapi.client {
             /** The whitelisted value for the access control list. */
             value?: string;
         }
-        
         interface BackupConfiguration {
             /** Whether binary log is enabled. If backup configuration is disabled, binary log must be disabled as well. */
             binaryLogEnabled?: boolean;
@@ -55,7 +53,6 @@ declare namespace gapi.client {
             /** Start time for the daily backup configuration in UTC timezone in the 24 hour format - HH:MM. */
             startTime?: string;
         }
-        
         interface BackupRun {
             /** The description of this run, only applicable to on-demand backups. */
             description?: string;
@@ -82,7 +79,6 @@ declare namespace gapi.client {
             /** The start time of the backup window during which this the backup was attempted in RFC 3339 format, for example 2012-11-15T16:19:00.094Z. */
             windowStartTime?: string;
         }
-        
         interface BackupRunsListResponse {
             /** A list of backup runs in reverse chronological order of the enqueued time. */
             items?: BackupRun[];
@@ -91,7 +87,6 @@ declare namespace gapi.client {
             /** The continuation token, used to page through large result sets. Provide this value in a subsequent request to return the next page of results. */
             nextPageToken?: string;
         }
-        
         interface BinLogCoordinates {
             /** Name of the binary log file for a Cloud SQL instance. */
             binLogFileName?: string;
@@ -100,16 +95,17 @@ declare namespace gapi.client {
             /** This is always sql#binLogCoordinates. */
             kind?: string;
         }
-        
         interface CloneContext {
-            /** Binary log coordinates, if specified, indentify the the position up to which the source instance should be cloned. If not specified, the source instance is cloned up to the most recent binary log coordintes. */
+            /**
+             * Binary log coordinates, if specified, indentify the the position up to which the source instance should be cloned. If not specified, the source
+             * instance is cloned up to the most recent binary log coordintes.
+             */
             binLogCoordinates?: BinLogCoordinates;
             /** Name of the Cloud SQL instance to be created as a clone. */
             destinationInstanceName?: string;
             /** This is always sql#cloneContext. */
             kind?: string;
         }
-        
         interface Database {
             /** The MySQL charset value. */
             charset?: string;
@@ -128,14 +124,16 @@ declare namespace gapi.client {
             /** The URI of this resource. */
             selfLink?: string;
         }
-        
         interface DatabaseFlags {
-            /** The name of the flag. These flags are passed at instance startup, so include both MySQL server options and MySQL system variables. Flags should be specified with underscores, not hyphens. For more information, see Configuring MySQL Flags in the Google Cloud SQL documentation, as well as the official MySQL documentation for server options and system variables. */
+            /**
+             * The name of the flag. These flags are passed at instance startup, so include both MySQL server options and MySQL system variables. Flags should be
+             * specified with underscores, not hyphens. For more information, see Configuring MySQL Flags in the Google Cloud SQL documentation, as well as the
+             * official MySQL documentation for server options and system variables.
+             */
             name?: string;
             /** The value of the flag. Booleans should be set to on for true and off for false. This field must be omitted if the flag doesn't take a value. */
             value?: string;
         }
-        
         interface DatabaseInstance {
             /**
              * FIRST_GEN: Basic Cloud SQL instance that runs in a Google-managed container.
@@ -145,20 +143,36 @@ declare namespace gapi.client {
             backendType?: string;
             /** Connection name of the Cloud SQL instance used in connection strings. */
             connectionName?: string;
-            /** The current disk usage of the instance in bytes. This property has been deprecated. Users should use the "cloudsql.googleapis.com/database/disk/bytes_used" metric in Cloud Monitoring API instead. Please see https://groups.google.com/d/msg/google-cloud-sql-announce/I_7-F9EBhT0/BtvFtdFeAgAJ for details. */
+            /**
+             * The current disk usage of the instance in bytes. This property has been deprecated. Users should use the
+             * "cloudsql.googleapis.com/database/disk/bytes_used" metric in Cloud Monitoring API instead. Please see
+             * https://groups.google.com/d/msg/google-cloud-sql-announce/I_7-F9EBhT0/BtvFtdFeAgAJ for details.
+             */
             currentDiskSize?: string;
-            /** The database engine type and version. The databaseVersion field can not be changed after instance creation. MySQL Second Generation instances: MYSQL_5_7 (default) or MYSQL_5_6. PostgreSQL instances: POSTGRES_9_6 MySQL First Generation instances: MYSQL_5_6 (default) or MYSQL_5_5 */
+            /**
+             * The database engine type and version. The databaseVersion field can not be changed after instance creation. MySQL Second Generation instances:
+             * MYSQL_5_7 (default) or MYSQL_5_6. PostgreSQL instances: POSTGRES_9_6 MySQL First Generation instances: MYSQL_5_6 (default) or MYSQL_5_5
+             */
             databaseVersion?: string;
             /** HTTP 1.1 Entity tag for the resource. */
             etag?: string;
             /** The name and status of the failover replica. This property is applicable only to Second Generation instances. */
-            failoverReplica?: {            
-                /** The availability status of the failover replica. A false status indicates that the failover replica is out of sync. The master can only failover to the falover replica when the status is true. */
+            failoverReplica?: {
+                /**
+                 * The availability status of the failover replica. A false status indicates that the failover replica is out of sync. The master can only failover to the
+                 * falover replica when the status is true.
+                 */
                 available?: boolean;
-                /** The name of the failover replica. If specified at instance creation, a failover replica is created for the instance. The name doesn't include the project ID. This property is applicable only to Second Generation instances. */
+                /**
+                 * The name of the failover replica. If specified at instance creation, a failover replica is created for the instance. The name doesn't include the
+                 * project ID. This property is applicable only to Second Generation instances.
+                 */
                 name?: string;
-            };            
-            /** The GCE zone that the instance is serving from. In case when the instance is failed over to standby zone, this value may be different with what user specified in the settings. */
+            };
+            /**
+             * The GCE zone that the instance is serving from. In case when the instance is failed over to standby zone, this value may be different with what user
+             * specified in the settings.
+             */
             gceZone?: string;
             /**
              * The instance type. This can be one of the following.
@@ -183,7 +197,11 @@ declare namespace gapi.client {
             onPremisesConfiguration?: OnPremisesConfiguration;
             /** The project ID of the project containing the Cloud SQL instance. The Google apps domain is prefixed if applicable. */
             project?: string;
-            /** The geographical region. Can be us-central (FIRST_GEN instances only), us-central1 (SECOND_GEN instances only), asia-east1 or europe-west1. Defaults to us-central or us-central1 depending on the instance type (First Generation or Second Generation). The region can not be changed after instance creation. */
+            /**
+             * The geographical region. Can be us-central (FIRST_GEN instances only), us-central1 (SECOND_GEN instances only), asia-east1 or europe-west1. Defaults to
+             * us-central or us-central1 depending on the instance type (First Generation or Second Generation). The region can not be changed after instance
+             * creation.
+             */
             region?: string;
             /** Configuration specific to read-replicas replicating from on-premises masters. */
             replicaConfiguration?: ReplicaConfiguration;
@@ -210,21 +228,23 @@ declare namespace gapi.client {
             /** If the instance state is SUSPENDED, the reason for the suspension. */
             suspensionReason?: string[];
         }
-        
         interface DatabasesListResponse {
             /** List of database resources in the instance. */
             items?: Database[];
             /** This is always sql#databasesList. */
             kind?: string;
         }
-        
         interface ExportContext {
             /** Options for exporting data as CSV. */
-            csvExportOptions?: {            
+            csvExportOptions?: {
                 /** The select query used to extract the data. */
                 selectQuery?: string;
-            };            
-            /** Databases (for example, guestbook) from which the export is made. If fileType is SQL and no database is specified, all databases are exported. If fileType is CSV, you can optionally specify at most one database to export. If csvExportOptions.selectQuery also specifies the database, this field will be ignored. */
+            };
+            /**
+             * Databases (for example, guestbook) from which the export is made. If fileType is SQL and no database is specified, all databases are exported. If
+             * fileType is CSV, you can optionally specify at most one database to export. If csvExportOptions.selectQuery also specifies the database, this field
+             * will be ignored.
+             */
             databases?: string[];
             /**
              * The file type for the specified uri.
@@ -235,23 +255,24 @@ declare namespace gapi.client {
             /** This is always sql#exportContext. */
             kind?: string;
             /** Options for exporting data as SQL statements. */
-            sqlExportOptions?: {            
+            sqlExportOptions?: {
                 /** Export only schemas. */
                 schemaOnly?: boolean;
                 /** Tables to export, or that were exported, from the specified database. If you specify tables, specify one and only one database. */
                 tables?: string[];
-            };            
-            /** The path to the file in Google Cloud Storage where the export will be stored. The URI is in the form gs://bucketName/fileName. If the file already exists, the operation fails. If fileType is SQL and the filename ends with .gz, the contents are compressed. */
+            };
+            /**
+             * The path to the file in Google Cloud Storage where the export will be stored. The URI is in the form gs://bucketName/fileName. If the file already
+             * exists, the operation fails. If fileType is SQL and the filename ends with .gz, the contents are compressed.
+             */
             uri?: string;
         }
-        
         interface FailoverContext {
             /** This is always sql#failoverContext. */
             kind?: string;
             /** The current settings version of this instance. Request will be rejected if this version doesn't match the current settings version. */
             settingsVersion?: string;
         }
-        
         interface Flag {
             /** For STRING flags, a list of strings that the value can be set to. */
             allowedStringValues?: string[];
@@ -267,26 +288,30 @@ declare namespace gapi.client {
             name?: string;
             /** Indicates whether changing this flag will trigger a database restart. Only applicable to Second Generation instances. */
             requiresRestart?: boolean;
-            /** The type of the flag. Flags are typed to being BOOLEAN, STRING, INTEGER or NONE. NONE is used for flags which do not take a value, such as skip_grant_tables. */
+            /**
+             * The type of the flag. Flags are typed to being BOOLEAN, STRING, INTEGER or NONE. NONE is used for flags which do not take a value, such as
+             * skip_grant_tables.
+             */
             type?: string;
         }
-        
         interface FlagsListResponse {
             /** List of flags. */
             items?: Flag[];
             /** This is always sql#flagsList. */
             kind?: string;
         }
-        
         interface ImportContext {
             /** Options for importing data as CSV. */
-            csvImportOptions?: {            
+            csvImportOptions?: {
                 /** The columns to which CSV data is imported. If not specified, all columns of the database table are loaded with CSV data. */
                 columns?: string[];
                 /** The table to which CSV data is imported. */
                 table?: string;
-            };            
-            /** The database (for example, guestbook) to which the import is made. If fileType is SQL and no database is specified, it is assumed that the database is specified in the file to be imported. If fileType is CSV, it must be specified. */
+            };
+            /**
+             * The database (for example, guestbook) to which the import is made. If fileType is SQL and no database is specified, it is assumed that the database is
+             * specified in the file to be imported. If fileType is CSV, it must be specified.
+             */
             database?: string;
             /**
              * The file type for the specified uri.
@@ -298,30 +323,28 @@ declare namespace gapi.client {
             importUser?: string;
             /** This is always sql#importContext. */
             kind?: string;
-            /** A path to the file in Google Cloud Storage from which the import is made. The URI is in the form gs://bucketName/fileName. Compressed gzip files (.gz) are supported when fileType is SQL. */
+            /**
+             * A path to the file in Google Cloud Storage from which the import is made. The URI is in the form gs://bucketName/fileName. Compressed gzip files (.gz)
+             * are supported when fileType is SQL.
+             */
             uri?: string;
         }
-        
         interface InstancesCloneRequest {
             /** Contains details about the clone operation. */
             cloneContext?: CloneContext;
         }
-        
         interface InstancesExportRequest {
             /** Contains details about the export operation. */
             exportContext?: ExportContext;
         }
-        
         interface InstancesFailoverRequest {
             /** Failover Context. */
             failoverContext?: FailoverContext;
         }
-        
         interface InstancesImportRequest {
             /** Contains details about the import operation. */
             importContext?: ImportContext;
         }
-        
         interface InstancesListResponse {
             /** List of database instance resources. */
             items?: DatabaseInstance[];
@@ -330,35 +353,39 @@ declare namespace gapi.client {
             /** The continuation token, used to page through large result sets. Provide this value in a subsequent request to return the next page of results. */
             nextPageToken?: string;
         }
-        
         interface InstancesRestoreBackupRequest {
             /** Parameters required to perform the restore backup operation. */
             restoreBackupContext?: RestoreBackupContext;
         }
-        
         interface InstancesTruncateLogRequest {
             /** Contains details about the truncate log operation. */
             truncateLogContext?: TruncateLogContext;
         }
-        
         interface IpConfiguration {
-            /** The list of external networks that are allowed to connect to the instance using the IP. In CIDR notation, also known as 'slash' notation (e.g. 192.168.100.0/24). */
+            /**
+             * The list of external networks that are allowed to connect to the instance using the IP. In CIDR notation, also known as 'slash' notation (e.g.
+             * 192.168.100.0/24).
+             */
             authorizedNetworks?: AclEntry[];
             /** Whether the instance should be assigned an IP address or not. */
             ipv4Enabled?: boolean;
             /** Whether SSL connections over IP should be enforced or not. */
             requireSsl?: boolean;
         }
-        
         interface IpMapping {
             /** The IP address assigned. */
             ipAddress?: string;
-            /** The due time for this IP to be retired in RFC 3339 format, for example 2012-11-15T16:19:00.094Z. This field is only available when the IP is scheduled to be retired. */
+            /**
+             * The due time for this IP to be retired in RFC 3339 format, for example 2012-11-15T16:19:00.094Z. This field is only available when the IP is scheduled
+             * to be retired.
+             */
             timeToRetire?: string;
-            /** The type of this IP address. A PRIMARY address is an address that can accept incoming connections. An OUTGOING address is the source address of connections originating from the instance, if supported. */
+            /**
+             * The type of this IP address. A PRIMARY address is an address that can accept incoming connections. An OUTGOING address is the source address of
+             * connections originating from the instance, if supported.
+             */
             type?: string;
         }
-        
         interface LocationPreference {
             /** The AppEngine application to follow, it must be in the same region as the Cloud SQL instance. */
             followGaeApplication?: string;
@@ -367,7 +394,6 @@ declare namespace gapi.client {
             /** The preferred Compute Engine zone (e.g. us-centra1-a, us-central1-b, etc.). */
             zone?: string;
         }
-        
         interface MaintenanceWindow {
             /** day of week (1-7), starting on Monday. */
             day?: number;
@@ -377,7 +403,6 @@ declare namespace gapi.client {
             kind?: string;
             updateTrack?: string;
         }
-        
         interface MySqlReplicaConfiguration {
             /** PEM representation of the trusted CA's x509 certificate. */
             caCertificate?: string;
@@ -387,7 +412,11 @@ declare namespace gapi.client {
             clientKey?: string;
             /** Seconds to wait between connect retries. MySQL's default is 60 seconds. */
             connectRetryInterval?: number;
-            /** Path to a SQL dump file in Google Cloud Storage from which the slave instance is to be created. The URI is in the form gs://bucketName/fileName. Compressed gzip files (.gz) are also supported. Dumps should have the binlog co-ordinates from which replication should begin. This can be accomplished by setting --master-data to 1 when using mysqldump. */
+            /**
+             * Path to a SQL dump file in Google Cloud Storage from which the slave instance is to be created. The URI is in the form gs://bucketName/fileName.
+             * Compressed gzip files (.gz) are also supported. Dumps should have the binlog co-ordinates from which replication should begin. This can be accomplished
+             * by setting --master-data to 1 when using mysqldump.
+             */
             dumpFilePath?: string;
             /** This is always sql#mysqlReplicaConfiguration. */
             kind?: string;
@@ -402,14 +431,12 @@ declare namespace gapi.client {
             /** Whether or not to check the master's Common Name value in the certificate that it sends during the SSL handshake. */
             verifyServerCertificate?: boolean;
         }
-        
         interface OnPremisesConfiguration {
             /** The host and port of the on-premises instance in host:port format */
             hostPort?: string;
             /** This is always sql#onPremisesConfiguration. */
             kind?: string;
         }
-        
         interface Operation {
             /** The time this operation finished in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z. */
             endTime?: string;
@@ -423,9 +450,15 @@ declare namespace gapi.client {
             insertTime?: string;
             /** This is always sql#operation. */
             kind?: string;
-            /** An identifier that uniquely identifies the operation. You can use this identifier to retrieve the Operations resource that has information about the operation. */
+            /**
+             * An identifier that uniquely identifies the operation. You can use this identifier to retrieve the Operations resource that has information about the
+             * operation.
+             */
             name?: string;
-            /** The type of the operation. Valid values are CREATE, DELETE, UPDATE, RESTART, IMPORT, EXPORT, BACKUP_VOLUME, RESTORE_VOLUME, CREATE_USER, DELETE_USER, CREATE_DATABASE, DELETE_DATABASE . */
+            /**
+             * The type of the operation. Valid values are CREATE, DELETE, UPDATE, RESTART, IMPORT, EXPORT, BACKUP_VOLUME, RESTORE_VOLUME, CREATE_USER, DELETE_USER,
+             * CREATE_DATABASE, DELETE_DATABASE .
+             */
             operationType?: string;
             /** The URI of this resource. */
             selfLink?: string;
@@ -441,7 +474,6 @@ declare namespace gapi.client {
             /** The email address of the user who initiated this operation. */
             user?: string;
         }
-        
         interface OperationError {
             /** Identifies the specific error that occurred. */
             code?: string;
@@ -450,14 +482,12 @@ declare namespace gapi.client {
             /** Additional information about the error encountered. */
             message?: string;
         }
-        
         interface OperationErrors {
             /** The list of errors encountered while processing this operation. */
             errors?: OperationError[];
             /** This is always sql#operationErrors. */
             kind?: string;
         }
-        
         interface OperationsListResponse {
             /** List of operation resources. */
             items?: Operation[];
@@ -466,19 +496,22 @@ declare namespace gapi.client {
             /** The continuation token, used to page through large result sets. Provide this value in a subsequent request to return the next page of results. */
             nextPageToken?: string;
         }
-        
         interface ReplicaConfiguration {
             /**
-             * Specifies if the replica is the failover target. If the field is set to true the replica will be designated as a failover replica. In case the master instance fails, the replica instance will be promoted as the new master instance.
+             * Specifies if the replica is the failover target. If the field is set to true the replica will be designated as a failover replica. In case the master
+             * instance fails, the replica instance will be promoted as the new master instance.
              * Only one replica can be specified as failover target, and the replica has to be in different zone with the master instance.
              */
             failoverTarget?: boolean;
             /** This is always sql#replicaConfiguration. */
             kind?: string;
-            /** MySQL specific configuration when replicating from a MySQL on-premises master. Replication configuration information such as the username, password, certificates, and keys are not stored in the instance metadata. The configuration information is used only to set up the replication connection and is stored by MySQL in a file named master.info in the data directory. */
+            /**
+             * MySQL specific configuration when replicating from a MySQL on-premises master. Replication configuration information such as the username, password,
+             * certificates, and keys are not stored in the instance metadata. The configuration information is used only to set up the replication connection and is
+             * stored by MySQL in a file named master.info in the data directory.
+             */
             mysqlReplicaConfiguration?: MySqlReplicaConfiguration;
         }
-        
         interface RestoreBackupContext {
             /** The ID of the backup run to restore from. */
             backupRunId?: string;
@@ -487,13 +520,14 @@ declare namespace gapi.client {
             /** This is always sql#restoreBackupContext. */
             kind?: string;
         }
-        
         interface Settings {
             /**
-             * The activation policy specifies when the instance is activated; it is applicable only when the instance state is RUNNABLE. The activation policy cannot be updated together with other settings for Second Generation instances. Valid values:
+             * The activation policy specifies when the instance is activated; it is applicable only when the instance state is RUNNABLE. The activation policy cannot
+             * be updated together with other settings for Second Generation instances. Valid values:
              * ALWAYS: The instance is on; it is not deactivated by inactivity.
              * NEVER: The instance is off; it is not activated, even if a connection request arrives.
-             * ON_DEMAND: The instance responds to incoming requests, and turns itself off when not in use. Instances with PER_USE pricing turn off after 15 minutes of inactivity. Instances with PER_PACKAGE pricing turn off after 12 hours of inactivity.
+             * ON_DEMAND: The instance responds to incoming requests, and turns itself off when not in use. Instances with PER_USE pricing turn off after 15 minutes
+             * of inactivity. Instances with PER_PACKAGE pricing turn off after 12 hours of inactivity.
              */
             activationPolicy?: string;
             /** The App Engine app IDs that can access this instance. This property is only applicable to First Generation instances. */
@@ -502,7 +536,10 @@ declare namespace gapi.client {
             availabilityType?: string;
             /** The daily backup configuration for the instance. */
             backupConfiguration?: BackupConfiguration;
-            /** Configuration specific to read replica instances. Indicates whether database flags for crash-safe replication are enabled. This property is only applicable to First Generation instances. */
+            /**
+             * Configuration specific to read replica instances. Indicates whether database flags for crash-safe replication are enabled. This property is only
+             * applicable to First Generation instances.
+             */
             crashSafeReplicationEnabled?: boolean;
             /** The size of data disk, in GB. The data disk size minimum is 10GB. Applies only to Second Generation instances. */
             dataDiskSizeGb?: string;
@@ -512,30 +549,47 @@ declare namespace gapi.client {
             databaseFlags?: DatabaseFlags[];
             /** Configuration specific to read replica instances. Indicates whether replication is enabled or not. */
             databaseReplicationEnabled?: boolean;
-            /** The settings for IP Management. This allows to enable or disable the instance IP and manage which external networks can connect to the instance. The IPv4 address cannot be disabled for Second Generation instances. */
+            /**
+             * The settings for IP Management. This allows to enable or disable the instance IP and manage which external networks can connect to the instance. The
+             * IPv4 address cannot be disabled for Second Generation instances.
+             */
             ipConfiguration?: IpConfiguration;
             /** This is always sql#settings. */
             kind?: string;
-            /** The location preference settings. This allows the instance to be located as near as possible to either an App Engine app or GCE zone for better performance. App Engine co-location is only applicable to First Generation instances. */
+            /**
+             * The location preference settings. This allows the instance to be located as near as possible to either an App Engine app or GCE zone for better
+             * performance. App Engine co-location is only applicable to First Generation instances.
+             */
             locationPreference?: LocationPreference;
-            /** The maintenance window for this instance. This specifies when the instance may be restarted for maintenance purposes. Applies only to Second Generation instances. */
+            /**
+             * The maintenance window for this instance. This specifies when the instance may be restarted for maintenance purposes. Applies only to Second Generation
+             * instances.
+             */
             maintenanceWindow?: MaintenanceWindow;
             /** The pricing plan for this instance. This can be either PER_USE or PACKAGE. Only PER_USE is supported for Second Generation instances. */
             pricingPlan?: string;
-            /** The type of replication this instance uses. This can be either ASYNCHRONOUS or SYNCHRONOUS. This property is only applicable to First Generation instances. */
+            /**
+             * The type of replication this instance uses. This can be either ASYNCHRONOUS or SYNCHRONOUS. This property is only applicable to First Generation
+             * instances.
+             */
             replicationType?: string;
-            /** The version of instance settings. This is a required field for update method to make sure concurrent updates are handled properly. During update, use the most recent settingsVersion value for this instance and do not try to update this value. */
+            /**
+             * The version of instance settings. This is a required field for update method to make sure concurrent updates are handled properly. During update, use
+             * the most recent settingsVersion value for this instance and do not try to update this value.
+             */
             settingsVersion?: string;
             /** Configuration to increase storage size automatically. The default value is true. Applies only to Second Generation instances. */
             storageAutoResize?: boolean;
-            /** The maximum size to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit. Applies only to Second Generation instances. */
+            /**
+             * The maximum size to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit. Applies only
+             * to Second Generation instances.
+             */
             storageAutoResizeLimit?: string;
             /** The tier of service for this instance, for example D1, D2. For more information, see pricing. */
             tier?: string;
             /** User-provided labels, represented as a dictionary where each label is a single key value pair. */
-            userLabels?: Record<string, string>;            
+            userLabels?: Record<string, string>;
         }
-        
         interface SslCert {
             /** PEM representation. */
             cert?: string;
@@ -556,24 +610,23 @@ declare namespace gapi.client {
             /** Sha1 Fingerprint. */
             sha1Fingerprint?: string;
         }
-        
         interface SslCertDetail {
             /** The public information about the cert. */
             certInfo?: SslCert;
             /** The private key for the client cert, in pem format. Keep private in order to protect your security. */
             certPrivateKey?: string;
         }
-        
         interface SslCertsCreateEphemeralRequest {
             /** PEM encoded public key to include in the signed certificate. */
             public_key?: string;
         }
-        
         interface SslCertsInsertRequest {
-            /** User supplied name. Must be a distinct name from the other certificates for this instance. New certificates will not be usable until the instance is restarted. */
+            /**
+             * User supplied name. Must be a distinct name from the other certificates for this instance. New certificates will not be usable until the instance is
+             * restarted.
+             */
             commonName?: string;
         }
-        
         interface SslCertsInsertResponse {
             /** The new client certificate and private key. The new certificate will not work until the instance is restarted for First Generation instances. */
             clientCert?: SslCertDetail;
@@ -581,17 +634,18 @@ declare namespace gapi.client {
             kind?: string;
             /** The operation to track the ssl certs insert request. */
             operation?: Operation;
-            /** The server Certificate Authority's certificate. If this is missing you can force a new one to be generated by calling resetSslConfig method on instances resource. */
+            /**
+             * The server Certificate Authority's certificate. If this is missing you can force a new one to be generated by calling resetSslConfig method on
+             * instances resource.
+             */
             serverCaCert?: SslCert;
         }
-        
         interface SslCertsListResponse {
             /** List of client certificates for the instance. */
             items?: SslCert[];
             /** This is always sql#sslCertsList. */
             kind?: string;
         }
-        
         interface Tier {
             /** The maximum disk size of this tier in bytes. */
             DiskQuota?: string;
@@ -604,25 +658,25 @@ declare namespace gapi.client {
             /** An identifier for the service tier, for example D1, D2 etc. For related information, see Pricing. */
             tier?: string;
         }
-        
         interface TiersListResponse {
             /** List of tiers. */
             items?: Tier[];
             /** This is always sql#tiersList. */
             kind?: string;
         }
-        
         interface TruncateLogContext {
             /** This is always sql#truncateLogContext. */
             kind?: string;
             /** The type of log to truncate. Valid values are MYSQL_GENERAL_TABLE and MYSQL_SLOW_TABLE. */
             logType?: string;
         }
-        
         interface User {
             /** HTTP 1.1 Entity tag for the resource. */
             etag?: string;
-            /** The host name from which the user can connect. For insert operations, host defaults to an empty string. For update operations, host is specified as part of the request URL. The host name cannot be updated after insertion. */
+            /**
+             * The host name from which the user can connect. For insert operations, host defaults to an empty string. For update operations, host is specified as
+             * part of the request URL. The host name cannot be updated after insertion.
+             */
             host?: string;
             /** The name of the Cloud SQL instance. This does not include the project ID. Can be omitted for update since it is already specified on the URL. */
             instance?: string;
@@ -632,22 +686,26 @@ declare namespace gapi.client {
             name?: string;
             /** The password for the user. */
             password?: string;
-            /** The project ID of the project containing the Cloud SQL database. The Google apps domain is prefixed if applicable. Can be omitted for update since it is already specified on the URL. */
+            /**
+             * The project ID of the project containing the Cloud SQL database. The Google apps domain is prefixed if applicable. Can be omitted for update since it
+             * is already specified on the URL.
+             */
             project?: string;
         }
-        
         interface UsersListResponse {
             /** List of user resources in the instance. */
             items?: User[];
             /** This is always sql#usersList. */
             kind?: string;
-            /** An identifier that uniquely identifies the operation. You can use this identifier to retrieve the Operations resource that has information about the operation. */
+            /**
+             * An identifier that uniquely identifies the operation. You can use this identifier to retrieve the Operations resource that has information about the
+             * operation.
+             */
             nextPageToken?: string;
         }
-        
         interface BackupRunsResource {
             /** Deletes the backup taken by a backup run. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -664,14 +722,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Retrieves a resource containing information about a backup run. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -688,14 +748,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<BackupRun>;            
-            
+            }): Request<BackupRun>;
             /** Creates a new backup run on demand. This method is applicable only to Second Generation instances. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -710,14 +772,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists all backup runs associated with a given instance and configuration in the reverse chronological order of the enqueued time. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -736,17 +800,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<BackupRunsListResponse>;            
-            
+            }): Request<BackupRunsListResponse>;
         }
-        
         interface DatabasesResource {
             /** Deletes a database from a Cloud SQL instance. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the database to be deleted in the instance. */
@@ -763,14 +828,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Retrieves a resource containing information about a database inside a Cloud SQL instance. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the database in the instance. */
@@ -787,14 +854,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Database>;            
-            
+            }): Request<Database>;
             /** Inserts a resource containing information about a database inside a Cloud SQL instance. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -809,14 +878,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists databases in the specified Cloud SQL instance. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -831,14 +902,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project for which to list Cloud SQL instances. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DatabasesListResponse>;            
-            
+            }): Request<DatabasesListResponse>;
             /** Updates a resource containing information about a database inside a Cloud SQL instance. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the database to be updated in the instance. */
@@ -855,14 +928,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Updates a resource containing information about a database inside a Cloud SQL instance. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Name of the database to be updated in the instance. */
@@ -879,17 +954,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
-        
         interface FlagsResource {
             /** List all available database flags for Google Cloud SQL instances. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Database version for flag retrieval. Flags are specific to the database version. */
@@ -902,17 +978,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<FlagsListResponse>;            
-            
+            }): Request<FlagsListResponse>;
         }
-        
         interface InstancesResource {
             /** Creates a Cloud SQL instance as a clone of the source instance. The API is not ready for Second Generation instances yet. */
-            clone(request: {            
+            clone(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -927,14 +1004,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the source as well as the clone Cloud SQL instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Deletes a Cloud SQL instance. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -949,14 +1028,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance to be deleted. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Exports data from a Cloud SQL instance to a Google Cloud Storage bucket as a MySQL dump file. */
-            export(request: {            
+            export(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -971,14 +1052,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance to be exported. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Failover the instance to its failover replica instance. */
-            failover(request: {            
+            failover(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -993,14 +1076,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** ID of the project that contains the read replica. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Retrieves a resource containing information about a Cloud SQL instance. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1015,14 +1100,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DatabaseInstance>;            
-            
+            }): Request<DatabaseInstance>;
             /** Imports data into a Cloud SQL instance from a MySQL dump file in Google Cloud Storage. */
-            import(request: {            
+            import(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1037,14 +1124,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Creates a new Cloud SQL instance. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1057,14 +1146,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists instances under a given project in the alphabetical order of the instance name. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1083,14 +1174,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project for which to list Cloud SQL instances. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InstancesListResponse>;            
-            
-            /** Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to retain. For partial updates, use patch.. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<InstancesListResponse>;
+            /**
+             * Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to
+             * retain. For partial updates, use patch.. This method supports patch semantics.
+             */
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1105,14 +1201,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Promotes the read replica instance to be a stand-alone Cloud SQL instance. */
-            promoteReplica(request: {            
+            promoteReplica(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1127,14 +1225,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** ID of the project that contains the read replica. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
-            /** Deletes all client certificates and generates a new server SSL certificate for the instance. The changes will not take effect until the instance is restarted. Existing instances without a server certificate will need to call this once to set a server certificate. */
-            resetSslConfig(request: {            
+            }): Request<Operation>;
+            /**
+             * Deletes all client certificates and generates a new server SSL certificate for the instance. The changes will not take effect until the instance is
+             * restarted. Existing instances without a server certificate will need to call this once to set a server certificate.
+             */
+            resetSslConfig(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1149,14 +1252,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Restarts a Cloud SQL instance. */
-            restart(request: {            
+            restart(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1171,14 +1276,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance to be restarted. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Restores a backup of a Cloud SQL instance. */
-            restoreBackup(request: {            
+            restoreBackup(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1193,14 +1300,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Starts the replication in the read replica instance. */
-            startReplica(request: {            
+            startReplica(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1215,14 +1324,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** ID of the project that contains the read replica. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Stops the replication in the read replica instance. */
-            stopReplica(request: {            
+            stopReplica(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1237,14 +1348,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** ID of the project that contains the read replica. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Truncate MySQL general and slow query log tables */
-            truncateLog(request: {            
+            truncateLog(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1259,14 +1372,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the Cloud SQL project. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
-            /** Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to retain. For partial updates, use patch. */
-            update(request: {            
+            }): Request<Operation>;
+            /**
+             * Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to
+             * retain. For partial updates, use patch.
+             */
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1281,17 +1399,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
-        
         interface OperationsResource {
             /** Retrieves an instance operation that has been performed on an instance. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1306,14 +1425,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists all instance operations that have been performed on the given Cloud SQL instance in the reverse chronological order of the start time. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1332,17 +1453,21 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OperationsListResponse>;            
-            
+            }): Request<OperationsListResponse>;
         }
-        
         interface SslCertsResource {
-            /** Generates a short-lived X509 certificate containing the provided public key and signed by a private key specific to the target instance. Users may use the certificate to authenticate as themselves when connecting to the database. */
-            createEphemeral(request: {            
+            /**
+             * Generates a short-lived X509 certificate containing the provided public key and signed by a private key specific to the target instance. Users may use
+             * the certificate to authenticate as themselves when connecting to the database.
+             */
+            createEphemeral(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1357,14 +1482,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the Cloud SQL project. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SslCert>;            
-            
+            }): Request<SslCert>;
             /** Deletes the SSL certificate. The change will not take effect until the instance is restarted. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1379,16 +1506,21 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance to be deleted. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Sha1 FingerPrint. */
                 sha1Fingerprint: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
-            /** Retrieves a particular SSL certificate. Does not include the private key (required for usage). The private key must be saved from the response to initial creation. */
-            get(request: {            
+            }): Request<Operation>;
+            /**
+             * Retrieves a particular SSL certificate. Does not include the private key (required for usage). The private key must be saved from the response to
+             * initial creation.
+             */
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1403,16 +1535,21 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Sha1 FingerPrint. */
                 sha1Fingerprint: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SslCert>;            
-            
-            /** Creates an SSL certificate and returns it along with the private key and server certificate authority. The new certificate will not be usable until the instance is restarted. */
-            insert(request: {            
+            }): Request<SslCert>;
+            /**
+             * Creates an SSL certificate and returns it along with the private key and server certificate authority. The new certificate will not be usable until the
+             * instance is restarted.
+             */
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1427,14 +1564,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SslCertsInsertResponse>;            
-            
+            }): Request<SslCertsInsertResponse>;
             /** Lists all of the current SSL certificates for the instance. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1449,17 +1588,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project for which to list Cloud SQL instances. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SslCertsListResponse>;            
-            
+            }): Request<SslCertsListResponse>;
         }
-        
         interface TiersResource {
             /** Lists all available service tiers for Google Cloud SQL, for example D1, D2. For related information, see Pricing. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1472,17 +1612,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project for which to list tiers. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TiersListResponse>;            
-            
+            }): Request<TiersListResponse>;
         }
-        
         interface UsersResource {
             /** Deletes a user from a Cloud SQL instance. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1501,14 +1642,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Creates a new user in a Cloud SQL instance. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1523,14 +1666,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists users in the specified Cloud SQL instance. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1545,14 +1690,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UsersListResponse>;            
-            
+            }): Request<UsersListResponse>;
             /** Updates an existing user in a Cloud SQL instance. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1571,12 +1718,14 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
     }
 }

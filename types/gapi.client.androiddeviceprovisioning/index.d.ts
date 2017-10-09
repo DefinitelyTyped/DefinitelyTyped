@@ -13,87 +13,95 @@
 
 declare namespace gapi.client {
     /** Load Android Device Provisioning Partner API v1 */
-    function load(name: "androiddeviceprovisioning", version: "v1"): PromiseLike<void>;    
-    function load(name: "androiddeviceprovisioning", version: "v1", callback: () => any): void;    
-    
-    const operations: androiddeviceprovisioning.OperationsResource; 
-    
-    const partners: androiddeviceprovisioning.PartnersResource; 
-    
+    function load(name: "androiddeviceprovisioning", version: "v1"): PromiseLike<void>;
+    function load(name: "androiddeviceprovisioning", version: "v1", callback: () => any): void;
+
+    const operations: androiddeviceprovisioning.OperationsResource;
+
+    const partners: androiddeviceprovisioning.PartnersResource;
+
     namespace androiddeviceprovisioning {
-        
         interface ClaimDeviceRequest {
             /** The customer to claim for. */
             customerId?: string;
             /** The device identifier of the device to claim. */
             deviceIdentifier?: DeviceIdentifier;
-            /** Section to claim */
+            /** The section to claim. */
             sectionType?: string;
         }
-        
         interface ClaimDeviceResponse {
-            /** the device id of the claimed device. */
+            /** The device ID of the claimed device. */
             deviceId?: string;
             /**
-             * the resource name of the device in
-             * 'partners/[PARTNER_ID]/devices/[DEVICE_ID]'.
+             * The resource name of the device in the format
+             * `partners/[PARTNER_ID]/devices/[DEVICE_ID]`.
              */
             deviceName?: string;
         }
-        
         interface ClaimDevicesRequest {
-            /** list of claims. */
+            /** List of claims. */
             claims?: PartnerClaim[];
         }
-        
         interface Company {
             /**
-             * Admin email.
-             * Admins will be able to operate on the portal.
-             * This field is a WRITE-only field at creation time.
+             * Input only. Optional. Email address of customer's users in the admin role.
+             * Each email address must be associated with a Google Account.
              */
             adminEmails?: string[];
-            /** company id */
+            /** Output only. The ID of the company. Assigned by the server. */
             companyId?: string;
-            /** company name */
+            /**
+             * Required. The name of the company. For example _XYZ Corp_. Characters
+             * allowed are: Latin letters, numerals, hyphens, and spaces. Displayed to the
+             * customer's employees in the zero-touch enrollment portal.
+             */
             companyName?: string;
-            /** REST Resource name. */
+            /**
+             * Output only. The API resource name of the company in the format
+             * `partners/[PARTNER_ID]/customers/[CUSTOMER_ID]`. Assigned by the server.
+             */
             name?: string;
             /**
-             * Owner email.
-             * Owner is able to operate on the portal, and modify admins and other owners.
-             * This field is a WRITE-only field at creation time.
+             * Input only. Email address of customer's users in the owner role. At least
+             * one `owner_email` is required. Each email address must be associated with a
+             * Google Account. Owners share the same access as admins but can also add,
+             * delete, and edit your organization's portal users.
              */
             ownerEmails?: string[];
         }
-        
+        interface CreateCustomerRequest {
+            /**
+             * Required. The company data to populate the new customer. Must contain a
+             * value for `companyName` and at least one `owner_email` that's associated
+             * with a Google Account. The values for `companyId` and `name` must be empty.
+             */
+            customer?: Company;
+        }
         interface Device {
-            /** claims */
+            /** Claims. */
             claims?: DeviceClaim[];
             /**
              * The resource name of the configuration.
              * Only set for customers.
              */
             configuration?: string;
-            /** Device id */
+            /** Device ID. */
             deviceId?: string;
-            /** Device identifier */
+            /** Device identifier. */
             deviceIdentifier?: DeviceIdentifier;
-            /** Device metadata */
+            /** Device metadata. */
             deviceMetadata?: DeviceMetadata;
-            /** Resource name in 'partners/[PARTNER_ID]/devices/[DEVICE_ID]'. */
+            /** Resource name in `partners/[PARTNER_ID]/devices/[DEVICE_ID]`. */
             name?: string;
         }
-        
         interface DeviceClaim {
-            /** owner id */
+            /** Owner ID. */
             ownerCompanyId?: string;
-            /** section type. */
+            /** Section type of the device claim. */
             sectionType?: string;
         }
-        
         interface DeviceIdentifier {
-            /** IMEI */
+            /** IMEI number. */
             imei?: string;
             /**
              * Manufacturer name to match `android.os.Build.MANUFACTURER` (required).
@@ -101,17 +109,15 @@ declare namespace gapi.client {
              * [manufacturer names](/zero-touch/resources/manufacturer-names).
              */
             manufacturer?: string;
-            /** MEID */
+            /** MEID number. */
             meid?: string;
-            /** Serial number (optional) */
+            /** Serial number (optional). */
             serialNumber?: string;
         }
-        
         interface DeviceMetadata {
             /** Metadata entries */
-            entries?: Record<string, string>;            
+            entries?: Record<string, string>;
         }
-        
         interface DevicesLongRunningOperationMetadata {
             /** Number of devices parsed in your requests. */
             devicesCount?: number;
@@ -120,77 +126,78 @@ declare namespace gapi.client {
             /** Processing progress from 0 to 100. */
             progress?: number;
         }
-        
         interface DevicesLongRunningOperationResponse {
             /**
-             * processing status for each device.
-             * One PerDeviceStatus per device. The order is the same as in your requests.
+             * Processing status for each device.
+             * One `PerDeviceStatus` per device. The order is the same as in your requests.
              */
             perDeviceStatus?: OperationPerDevice[];
             /** Number of succeesfully processed ones. */
             successCount?: number;
         }
-        
         interface FindDevicesByDeviceIdentifierRequest {
-            /** The device identifier to search */
+            /** The device identifier to search. */
             deviceIdentifier?: DeviceIdentifier;
             /** Number of devices to show. */
             limit?: string;
-            /** Page token */
+            /** Page token. */
             pageToken?: string;
         }
-        
         interface FindDevicesByDeviceIdentifierResponse {
             /** Found devices. */
             devices?: Device[];
-            /** Page token of next page */
+            /** Page token of the next page. */
             nextPageToken?: string;
         }
-        
         interface FindDevicesByOwnerRequest {
-            /** List of customer ids to search for. */
+            /** List of customer IDs to search for. */
             customerId?: string[];
             /** The number of devices to show in the result. */
             limit?: string;
-            /** Page token */
+            /** Page token. */
             pageToken?: string;
             /** The section type. */
             sectionType?: string;
         }
-        
         interface FindDevicesByOwnerResponse {
             /** Devices found. */
             devices?: Device[];
-            /** Page token of next page */
+            /** Page token of the next page. */
             nextPageToken?: string;
         }
-        
         interface ListCustomersResponse {
             /** List of customers related to this partner. */
             customers?: Company[];
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
-            /** This field will always be not set if the operation is created by `claimAsync`, `unclaimAsync`, or `updateMetadataAsync`. In this case, error information for each device is set in `response.perDeviceStatus.result.status`. */
+            /**
+             * This field will always be not set if the operation is created by `claimAsync`, `unclaimAsync`, or `updateMetadataAsync`. In this case, error
+             * information for each device is set in `response.perDeviceStatus.result.status`.
+             */
             error?: Status;
-            /** This field will contain a `DevicesLongRunningOperationMetadata` object if the operation is created by `claimAsync`, `unclaimAsync`, or `updateMetadataAsync`. */
-            metadata?: Record<string, any>;            
+            /**
+             * This field will contain a `DevicesLongRunningOperationMetadata` object if the operation is created by `claimAsync`, `unclaimAsync`, or
+             * `updateMetadataAsync`.
+             */
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
              * `name` should have the format of `operations/some/unique/name`.
              */
             name?: string;
-            /** This field will contain a `DevicesLongRunningOperationResponse` object if the operation is created by `claimAsync`, `unclaimAsync`, or `updateMetadataAsync`. */
-            response?: Record<string, any>;            
+            /**
+             * This field will contain a `DevicesLongRunningOperationResponse` object if the operation is created by `claimAsync`, `unclaimAsync`, or
+             * `updateMetadataAsync`.
+             */
+            response?: Record<string, any>;
         }
-        
         interface OperationPerDevice {
             /** Request to claim a device. */
             claim?: PartnerClaim;
@@ -201,38 +208,34 @@ declare namespace gapi.client {
             /** Request to set metadata for a device. */
             updateMetadata?: UpdateMetadataArguments;
         }
-        
         interface PartnerClaim {
-            /** customer id to claim for. */
+            /** Customer ID to claim for. */
             customerId?: string;
             /** Device identifier of the device. */
             deviceIdentifier?: DeviceIdentifier;
-            /** metadata to set at claim. */
+            /** Metadata to set at claim. */
             deviceMetadata?: DeviceMetadata;
-            /** section type to claim. */
+            /** Section type to claim. */
             sectionType?: string;
         }
-        
         interface PartnerUnclaim {
-            /** device id of the device. */
+            /** Device ID of the device. */
             deviceId?: string;
-            /** device identifier of the device. */
+            /** Device identifier of the device. */
             deviceIdentifier?: DeviceIdentifier;
-            /** section type to unclaim. */
+            /** Section type to unclaim. */
             sectionType?: string;
         }
-        
         interface PerDeviceStatusInBatch {
-            /** device id of the device if process succeeds. */
+            /** Device ID of the device if process succeeds. */
             deviceId?: string;
             /** Error identifier. */
             errorIdentifier?: string;
-            /** Error message */
+            /** Error message. */
             errorMessage?: string;
             /** Process result. */
             status?: string;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -240,7 +243,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -248,47 +251,41 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface UnclaimDeviceRequest {
-            /** The device id returned by ClaimDevice. */
+            /** The device ID returned by `ClaimDevice`. */
             deviceId?: string;
-            /** The device identifier you use when you claimed this device. */
+            /** The device identifier you used when you claimed this device. */
             deviceIdentifier?: DeviceIdentifier;
             /** The section type to unclaim for. */
             sectionType?: string;
         }
-        
         interface UnclaimDevicesRequest {
-            /** list of unclaims. */
+            /** List of devices to unclaim. */
             unclaims?: PartnerUnclaim[];
         }
-        
         interface UpdateDeviceMetadataInBatchRequest {
-            /** list of metadata updates. */
+            /** List of metadata updates. */
             updates?: UpdateMetadataArguments[];
         }
-        
         interface UpdateDeviceMetadataRequest {
             /** The metdata to set. */
             deviceMetadata?: DeviceMetadata;
         }
-        
         interface UpdateMetadataArguments {
-            /** device id of the device. */
+            /** Device ID of the device. */
             deviceId?: string;
-            /** device identifier. */
+            /** Device identifier. */
             deviceIdentifier?: DeviceIdentifier;
             /** The metadata to update. */
             deviceMetadata?: DeviceMetadata;
         }
-        
         interface OperationsResource {
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -317,13 +314,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
-        
         interface CustomersResource {
-            /** List all the customers that has delegates some role to this customer. */
-            list(request: {            
+            /**
+             * Creates a customer for zero-touch enrollment. After the method returns
+             * successfully, admin and owner roles can manage devices and EMM configs
+             * by calling API methods or using their zero-touch enrollment portal. The API
+             * doesn't notify the customer that they have access.
+             */
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -340,7 +340,45 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** the id of the partner. */
+                /**
+                 * Required. The parent resource ID in format `partners/[PARTNER_ID]` that
+                 * identifies the reseller.
+                 */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Company>;
+            /**
+             * Lists the customers that are enrolled to the reseller identified by the
+             * `partnerId` argument. This list includes customers that the reseller
+             * created and customers that enrolled themselves using the portal.
+             */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The ID of the partner. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -352,13 +390,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListCustomersResponse>;            
-            
+            }): Request<ListCustomersResponse>;
         }
-        
         interface DevicesResource {
             /** Claim the device identified by device identifier. */
-            claim(request: {            
+            claim(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -375,7 +411,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Id of the partner. */
+                /** ID of the partner. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -387,10 +423,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ClaimDeviceResponse>;            
-            
-            /** Claim devices asynchronously */
-            claimAsync(request: {            
+            }): Request<ClaimDeviceResponse>;
+            /** Claim devices asynchronously. */
+            claimAsync(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -407,7 +442,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** partner id. */
+                /** Partner ID. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -419,10 +454,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Find devices by device identifier. */
-            findByIdentifier(request: {            
+            findByIdentifier(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -439,7 +473,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** id of the partner. */
+                /** ID of the partner. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -451,10 +485,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FindDevicesByDeviceIdentifierResponse>;            
-            
+            }): Request<FindDevicesByDeviceIdentifierResponse>;
             /** Find devices by ownership. */
-            findByOwner(request: {            
+            findByOwner(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -471,7 +504,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** id of the partner. */
+                /** ID of the partner. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -483,10 +516,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FindDevicesByOwnerResponse>;            
-            
-            /** Get a device */
-            get(request: {            
+            }): Request<FindDevicesByOwnerResponse>;
+            /** Get a device. */
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -501,7 +533,7 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** resource name in 'partners/[PARTNER_ID]/devices/[DEVICE_ID]'. */
+                /** Resource name in `partners/[PARTNER_ID]/devices/[DEVICE_ID]`. */
                 name: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -515,10 +547,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Device>;            
-            
-            /** Update the metadata */
-            metadata(request: {            
+            }): Request<Device>;
+            /** Update the metadata. */
+            metadata(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -529,13 +560,13 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** JSONP */
                 callback?: string;
-                /** id of the partner. */
+                /** ID of the partner. */
                 deviceId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The owner of the newly set metadata. Should be partner id itself. */
+                /** The owner of the newly set metadata. Set this to the partner ID. */
                 metadataOwnerId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -549,10 +580,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<DeviceMetadata>;            
-            
-            /** Unclaim the device identified by device_id or identifier. */
-            unclaim(request: {            
+            }): Request<DeviceMetadata>;
+            /** Unclaim the device identified by the `device_id` or the `deviceIdentifier`. */
+            unclaim(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -569,7 +599,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Id of the partner. */
+                /** ID of the partner. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -581,10 +611,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
-            /** Unclaim devices asynchronously */
-            unclaimAsync(request: {            
+            }): Request<{}>;
+            /** Unclaim devices asynchronously. */
+            unclaimAsync(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -601,7 +630,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** partner id. */
+                /** Partner ID. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -613,10 +642,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Set metadata in batch asynchronously. */
-            updateMetadataAsync(request: {            
+            updateMetadataAsync(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -633,7 +661,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** partner id. */
+                /** Partner ID. */
                 partnerId: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -645,10 +673,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
-        
         interface PartnersResource {
             customers: CustomersResource;
             devices: DevicesResource;

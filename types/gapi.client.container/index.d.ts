@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Container Engine API v1 */
-    function load(name: "container", version: "v1"): PromiseLike<void>;    
-    function load(name: "container", version: "v1", callback: () => any): void;    
-    
-    const projects: container.ProjectsResource; 
-    
+    function load(name: "container", version: "v1"): PromiseLike<void>;
+    function load(name: "container", version: "v1", callback: () => any): void;
+
+    const projects: container.ProjectsResource;
+
     namespace container {
-        
         interface AcceleratorConfig {
             /** The number of the accelerator cards exposed to an instance. */
             acceleratorCount?: string;
@@ -29,7 +28,6 @@ declare namespace gapi.client {
              */
             acceleratorType?: string;
         }
-        
         interface AddonsConfig {
             /**
              * Configuration for the horizontal pod autoscaling feature, which
@@ -44,8 +42,13 @@ declare namespace gapi.client {
             httpLoadBalancing?: HttpLoadBalancing;
             /** Configuration for the Kubernetes Dashboard. */
             kubernetesDashboard?: KubernetesDashboard;
+            /**
+             * Configuration for NetworkPolicy. This only tracks whether the addon
+             * is enabled or not on the Master, it does not track whether network policy
+             * is enabled for the nodes.
+             */
+            networkPolicyConfig?: NetworkPolicyConfig;
         }
-        
         interface AutoUpgradeOptions {
             /**
              * [Output only] This field is set when upgrades are about to commence
@@ -59,19 +62,16 @@ declare namespace gapi.client {
              */
             description?: string;
         }
-        
         interface CidrBlock {
             /** cidr_block must be specified in CIDR notation. */
             cidrBlock?: string;
             /** display_name is an optional field for users to identify CIDR blocks. */
             displayName?: string;
         }
-        
         interface ClientCertificateConfig {
             /** Issue a client certificate. */
             issueClientCertificate?: boolean;
         }
-        
         interface Cluster {
             /** Configurations for the various addons available to run in the cluster. */
             addonsConfig?: AddonsConfig;
@@ -112,7 +112,7 @@ declare namespace gapi.client {
              * [Output only] The IP address of this cluster's master endpoint.
              * The endpoint can be accessed from the internet at
              * `https://username:password@endpoint/`.
-             * 
+             *
              * See the `masterAuth` property of this resource for username and
              * password information.
              */
@@ -161,12 +161,14 @@ declare namespace gapi.client {
             /**
              * The logging service the cluster should use to write logs.
              * Currently available options:
-             * 
+             *
              * &#42; `logging.googleapis.com` - the Google Cloud Logging service.
              * &#42; `none` - no logs will be exported from the cluster.
              * &#42; if left as an empty string,`logging.googleapis.com` will be used.
              */
             loggingService?: string;
+            /** Configure the maintenance policy for this cluster. */
+            maintenancePolicy?: MaintenancePolicy;
             /** The authentication information for accessing the master endpoint. */
             masterAuth?: MasterAuth;
             /**
@@ -177,7 +179,7 @@ declare namespace gapi.client {
             /**
              * The monitoring service the cluster should use to write metrics.
              * Currently available options:
-             * 
+             *
              * &#42; `monitoring.googleapis.com` - the Google Cloud Monitoring service.
              * &#42; `none` - no metrics will be exported from the cluster.
              * &#42; if left as an empty string, `monitoring.googleapis.com` will be used.
@@ -186,7 +188,7 @@ declare namespace gapi.client {
             /**
              * The name of this cluster. The name must be unique within this project
              * and zone, and can be up to 40 characters with the following restrictions:
-             * 
+             *
              * &#42; Lowercase letters, numbers, and hyphens only.
              * &#42; Must start with a letter.
              * &#42; Must end with a number or a letter.
@@ -210,7 +212,7 @@ declare namespace gapi.client {
              * auto-generated name. Do not use this and a node_pool at the same time.
              * For responses, this field will be populated with the node configuration of
              * the first node pool.
-             * 
+             *
              * If unspecified, the defaults are used.
              */
             nodeConfig?: NodeConfig;
@@ -230,7 +232,7 @@ declare namespace gapi.client {
              * The resource labels for the cluster to use to annotate any related
              * Google Compute Engine resources.
              */
-            resourceLabels?: Record<string, string>;            
+            resourceLabels?: Record<string, string>;
             /** [Output only] Server-defined URL for the resource. */
             selfLink?: string;
             /**
@@ -261,7 +263,6 @@ declare namespace gapi.client {
              */
             zone?: string;
         }
-        
         interface ClusterUpdate {
             /** Configurations for the various addons available to run in the cluster. */
             desiredAddonsConfig?: AddonsConfig;
@@ -276,7 +277,7 @@ declare namespace gapi.client {
              * should be located. Changing the locations a cluster is in will result
              * in nodes being either created or removed from the cluster, depending on
              * whether locations are being added or removed.
-             * 
+             *
              * This list must always include the cluster's primary zone.
              */
             desiredLocations?: string[];
@@ -294,7 +295,7 @@ declare namespace gapi.client {
             /**
              * The monitoring service the cluster should use to write metrics.
              * Currently available options:
-             * 
+             *
              * &#42; "monitoring.googleapis.com" - the Google Cloud Monitoring service
              * &#42; "none" - no metrics will be exported from the cluster
              */
@@ -320,7 +321,6 @@ declare namespace gapi.client {
              */
             desiredNodeVersion?: string;
         }
-        
         interface CreateClusterRequest {
             /**
              * A [cluster
@@ -328,12 +328,25 @@ declare namespace gapi.client {
              */
             cluster?: Cluster;
         }
-        
         interface CreateNodePoolRequest {
             /** The node pool to create. */
             nodePool?: NodePool;
         }
-        
+        interface DailyMaintenanceWindow {
+            /**
+             * [Output only] Duration of the time window, automatically chosen to be
+             * smallest possible in the given scenario.
+             * Duration will be in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt)
+             * format "PTnHnMnS".
+             */
+            duration?: string;
+            /**
+             * Time within the maintenance window to start the maintenance operations.
+             * Time format should be in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt)
+             * format "HH:MM”, where HH : [00-23] and MM : [00-59] GMT.
+             */
+            startTime?: string;
+        }
         interface HorizontalPodAutoscaling {
             /**
              * Whether the Horizontal Pod Autoscaling feature is enabled in the cluster.
@@ -342,7 +355,6 @@ declare namespace gapi.client {
              */
             disabled?: boolean;
         }
-        
         interface HttpLoadBalancing {
             /**
              * Whether the HTTP Load Balancing controller is enabled in the cluster.
@@ -351,64 +363,92 @@ declare namespace gapi.client {
              */
             disabled?: boolean;
         }
-        
         interface IPAllocationPolicy {
+            /** This field is deprecated, use cluster_ipv4_cidr_block. */
+            clusterIpv4Cidr?: string;
             /**
              * The IP address range for the cluster pod IPs. If this field is set, then
              * `cluster.cluster_ipv4_cidr` must be left blank.
-             * 
+             *
              * This field is only applicable when `use_ip_aliases` is true.
-             * 
-             * Set to blank to have a range will be chosen with the default size.
-             * 
-             * Set to /netmask (e.g. `/14`) to have a range be chosen with a specific
+             *
+             * Set to blank to have a range chosen with the default size.
+             *
+             * Set to /netmask (e.g. `/14`) to have a range chosen with a specific
              * netmask.
-             * 
-             * Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+             *
+             * Set to a
+             * [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
              * notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
              * `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
              * to use.
              */
-            clusterIpv4Cidr?: string;
+            clusterIpv4CidrBlock?: string;
+            /**
+             * The name of the secondary range to be used for the cluster CIDR
+             * block.  The secondary range will be used for pod IP
+             * addresses. This must be an existing secondary range associated
+             * with the cluster subnetwork.
+             *
+             * This field is only applicable with use_ip_aliases is true and
+             * create_subnetwork is false.
+             */
+            clusterSecondaryRangeName?: string;
             /**
              * Whether a new subnetwork will be created automatically for the cluster.
-             * 
+             *
              * This field is only applicable when `use_ip_aliases` is true.
              */
             createSubnetwork?: boolean;
+            /** This field is deprecated, use node_ipv4_cidr_block. */
+            nodeIpv4Cidr?: string;
             /**
              * The IP address range of the instance IPs in this cluster.
-             * 
+             *
              * This is applicable only if `create_subnetwork` is true.
-             * 
-             * Set to blank to have a range will be chosen with the default size.
-             * 
-             * Set to /netmask (e.g. `/14`) to have a range be chosen with a specific
+             *
+             * Set to blank to have a range chosen with the default size.
+             *
+             * Set to /netmask (e.g. `/14`) to have a range chosen with a specific
              * netmask.
-             * 
-             * Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+             *
+             * Set to a
+             * [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
              * notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
              * `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
              * to use.
              */
-            nodeIpv4Cidr?: string;
+            nodeIpv4CidrBlock?: string;
+            /** This field is deprecated, use services_ipv4_cidr_block. */
+            servicesIpv4Cidr?: string;
             /**
              * The IP address range of the services IPs in this cluster. If blank, a range
              * will be automatically chosen with the default size.
-             * 
+             *
              * This field is only applicable when `use_ip_aliases` is true.
-             * 
-             * Set to blank to have a range will be chosen with the default size.
-             * 
-             * Set to /netmask (e.g. `/14`) to have a range be chosen with a specific
+             *
+             * Set to blank to have a range chosen with the default size.
+             *
+             * Set to /netmask (e.g. `/14`) to have a range chosen with a specific
              * netmask.
-             * 
-             * Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+             *
+             * Set to a
+             * [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
              * notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
              * `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
              * to use.
              */
-            servicesIpv4Cidr?: string;
+            servicesIpv4CidrBlock?: string;
+            /**
+             * The name of the secondary range to be used as for the services
+             * CIDR block.  The secondary range will be used for service
+             * ClusterIPs. This must be an existing secondary range associated
+             * with the cluster subnetwork.
+             *
+             * This field is only applicable with use_ip_aliases is true and
+             * create_subnetwork is false.
+             */
+            servicesSecondaryRangeName?: string;
             /**
              * A custom subnetwork name to be used if `create_subnetwork` is true.  If
              * this field is empty, then an automatic name will be chosen for the new
@@ -418,12 +458,10 @@ declare namespace gapi.client {
             /** Whether alias IPs will be used for pod IPs in the cluster. */
             useIpAliases?: boolean;
         }
-        
         interface KubernetesDashboard {
             /** Whether the Kubernetes Dashboard is enabled for this cluster. */
             disabled?: boolean;
         }
-        
         interface LegacyAbac {
             /**
              * Whether the ABAC authorizer is enabled for this cluster. When enabled,
@@ -433,7 +471,6 @@ declare namespace gapi.client {
              */
             enabled?: boolean;
         }
-        
         interface ListClustersResponse {
             /**
              * A list of clusters in the project in the specified zone, or
@@ -446,12 +483,10 @@ declare namespace gapi.client {
              */
             missingZones?: string[];
         }
-        
         interface ListNodePoolsResponse {
             /** A list of node pools for a cluster. */
             nodePools?: NodePool[];
         }
-        
         interface ListOperationsResponse {
             /**
              * If any zones are listed here, the list of operations returned
@@ -461,7 +496,14 @@ declare namespace gapi.client {
             /** A list of operations in the project in the specified zone. */
             operations?: Operation[];
         }
-        
+        interface MaintenancePolicy {
+            /** Specifies the maintenance window in which maintenance may be performed. */
+            window?: MaintenanceWindow;
+        }
+        interface MaintenanceWindow {
+            /** DailyMaintenanceWindow specifies a daily maintenance operation window. */
+            dailyMaintenanceWindow?: DailyMaintenanceWindow;
+        }
         interface MasterAuth {
             /**
              * [Output only] Base64-encoded public certificate used by clients to
@@ -497,7 +539,6 @@ declare namespace gapi.client {
              */
             username?: string;
         }
-        
         interface MasterAuthorizedNetworksConfig {
             /**
              * cidr_blocks define up to 10 external networks that could access
@@ -507,14 +548,16 @@ declare namespace gapi.client {
             /** Whether or not master authorized networks is enabled. */
             enabled?: boolean;
         }
-        
         interface NetworkPolicy {
             /** Whether network policy is enabled on the cluster. */
             enabled?: boolean;
             /** The selected network policy provider. */
             provider?: string;
         }
-        
+        interface NetworkPolicyConfig {
+            /** Whether NetworkPolicy is enabled for this cluster. */
+            disabled?: boolean;
+        }
         interface NodeConfig {
             /**
              * A list of hardware accelerators to be attached to each node.
@@ -525,7 +568,7 @@ declare namespace gapi.client {
             /**
              * Size of the disk attached to each node, specified in GB.
              * The smallest allowed disk size is 10GB.
-             * 
+             *
              * If unspecified, the default disk size is 100GB.
              */
             diskSizeGb?: number;
@@ -542,12 +585,12 @@ declare namespace gapi.client {
              * the Kubernetes version -- it's best to assume the behavior is undefined
              * and conflicts should be avoided.
              * For more information, including usage and the valid values, see:
-             * http://kubernetes.io/v1.1/docs/user-guide/labels.html
+             * https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /**
              * The number of local SSD disks to be attached to the node.
-             * 
+             *
              * The limit for this value is dependant upon the maximum number of
              * disks available on a machine per zone. See:
              * https://cloud.google.com/compute/docs/disks/local-ssd#local_ssd_limits
@@ -558,40 +601,49 @@ declare namespace gapi.client {
              * The name of a Google Compute Engine [machine
              * type](/compute/docs/machine-types) (e.g.
              * `n1-standard-1`).
-             * 
+             *
              * If unspecified, the default machine type is
              * `n1-standard-1`.
              */
             machineType?: string;
             /**
              * The metadata key/value pairs assigned to instances in the cluster.
-             * 
+             *
              * Keys must conform to the regexp [a-zA-Z0-9-_]+ and be less than 128 bytes
              * in length. These are reflected as part of a URL in the metadata server.
              * Additionally, to avoid ambiguity, keys must not conflict with any other
              * metadata keys for the project or be one of the four reserved keys:
              * "instance-template", "kube-env", "startup-script", and "user-data"
-             * 
+             *
              * Values are free-form strings, and only have meaning as interpreted by
              * the image running in the instance. The only restriction placed on them is
              * that each value's size must be less than or equal to 32 KB.
-             * 
+             *
              * The total size of all keys and values must be less than 512 KB.
              */
-            metadata?: Record<string, string>;            
+            metadata?: Record<string, string>;
+            /**
+             * Minimum CPU platform to be used by this instance. The instance may be
+             * scheduled on the specified or newer CPU platform. Applicable values are the
+             * friendly names of CPU platforms, such as
+             * <code>minCpuPlatform: &quot;Intel Haswell&quot;</code> or
+             * <code>minCpuPlatform: &quot;Intel Sandy Bridge&quot;</code>. For more
+             * information, read [how to specify min CPU platform](https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform)
+             */
+            minCpuPlatform?: string;
             /**
              * The set of Google API scopes to be made available on all of the
              * node VMs under the "default" service account.
-             * 
+             *
              * The following scopes are recommended, but not required, and by default are
              * not included:
-             * 
+             *
              * &#42; `https://www.googleapis.com/auth/compute` is required for mounting
              * persistent storage on your nodes.
              * &#42; `https://www.googleapis.com/auth/devstorage.read_only` is required for
              * communicating with &#42;&#42;gcr.io&#42;&#42;
              * (the [Google Container Registry](/container-registry/)).
-             * 
+             *
              * If unspecified, no scopes are added, unless Cloud Logging or Cloud
              * Monitoring are enabled, in which case their required scopes will be added.
              */
@@ -615,7 +667,6 @@ declare namespace gapi.client {
              */
             tags?: string[];
         }
-        
         interface NodeManagement {
             /**
              * A flag that specifies whether the node auto-repair is enabled for the node
@@ -633,7 +684,6 @@ declare namespace gapi.client {
             /** Specifies the Auto Upgrade knobs for the node pool. */
             upgradeOptions?: AutoUpgradeOptions;
         }
-        
         interface NodePool {
             /**
              * Autoscaler configuration for this NodePool. Autoscaler is enabled
@@ -671,7 +721,6 @@ declare namespace gapi.client {
             /** [Output only] The version of the Kubernetes of this node. */
             version?: string;
         }
-        
         interface NodePoolAutoscaling {
             /** Is autoscaling enabled for this node pool. */
             enabled?: boolean;
@@ -686,16 +735,25 @@ declare namespace gapi.client {
              */
             minNodeCount?: number;
         }
-        
         interface Operation {
             /** Detailed operation progress, if available. */
             detail?: string;
+            /**
+             * [Output only] The time the operation completed, in
+             * [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) text format.
+             */
+            endTime?: string;
             /** The server-assigned ID for the operation. */
             name?: string;
             /** The operation type. */
             operationType?: string;
             /** Server-defined URL for the resource. */
             selfLink?: string;
+            /**
+             * [Output only] The time the operation started, in
+             * [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) text format.
+             */
+            startTime?: string;
             /** The current status of the operation. */
             status?: string;
             /** If an error has occurred, a textual description of the error. */
@@ -709,7 +767,6 @@ declare namespace gapi.client {
              */
             zone?: string;
         }
-        
         interface ServerConfig {
             /** Version of Kubernetes the service deploys by default. */
             defaultClusterVersion?: string;
@@ -722,7 +779,6 @@ declare namespace gapi.client {
             /** List of valid node upgrade target versions. */
             validNodeVersions?: string[];
         }
-        
         interface SetAddonsConfigRequest {
             /**
              * The desired configurations for the various addons available to run in the
@@ -730,7 +786,6 @@ declare namespace gapi.client {
              */
             addonsConfig?: AddonsConfig;
         }
-        
         interface SetLabelsRequest {
             /**
              * The fingerprint of the previous set of labels for this resource,
@@ -742,14 +797,12 @@ declare namespace gapi.client {
              */
             labelFingerprint?: string;
             /** The labels to set for that cluster. */
-            resourceLabels?: Record<string, string>;            
+            resourceLabels?: Record<string, string>;
         }
-        
         interface SetLegacyAbacRequest {
             /** Whether ABAC authorization will be enabled in the cluster. */
             enabled?: boolean;
         }
-        
         interface SetLocationsRequest {
             /**
              * The desired list of Google Compute Engine
@@ -757,66 +810,64 @@ declare namespace gapi.client {
              * should be located. Changing the locations a cluster is in will result
              * in nodes being either created or removed from the cluster, depending on
              * whether locations are being added or removed.
-             * 
+             *
              * This list must always include the cluster's primary zone.
              */
             locations?: string[];
         }
-        
         interface SetLoggingServiceRequest {
             /**
              * The logging service the cluster should use to write metrics.
              * Currently available options:
-             * 
+             *
              * &#42; "logging.googleapis.com" - the Google Cloud Logging service
              * &#42; "none" - no metrics will be exported from the cluster
              */
             loggingService?: string;
         }
-        
+        interface SetMaintenancePolicyRequest {
+            /**
+             * The maintenance policy to be set for the cluster. An empty field
+             * clears the existing maintenance policy.
+             */
+            maintenancePolicy?: MaintenancePolicy;
+        }
         interface SetMasterAuthRequest {
-            /** The exact form of action to be taken on the master auth */
+            /** The exact form of action to be taken on the master auth. */
             action?: string;
             /** A description of the update. */
             update?: MasterAuth;
         }
-        
         interface SetMonitoringServiceRequest {
             /**
              * The monitoring service the cluster should use to write metrics.
              * Currently available options:
-             * 
+             *
              * &#42; "monitoring.googleapis.com" - the Google Cloud Monitoring service
              * &#42; "none" - no metrics will be exported from the cluster
              */
             monitoringService?: string;
         }
-        
         interface SetNetworkPolicyRequest {
             /** Configuration options for the NetworkPolicy feature. */
             networkPolicy?: NetworkPolicy;
         }
-        
         interface SetNodePoolAutoscalingRequest {
             /** Autoscaling configuration for the node pool. */
             autoscaling?: NodePoolAutoscaling;
         }
-        
         interface SetNodePoolManagementRequest {
             /** NodeManagement configuration for the node pool. */
             management?: NodeManagement;
         }
-        
         interface SetNodePoolSizeRequest {
             /** The desired node count for the pool. */
             nodeCount?: number;
         }
-        
         interface UpdateClusterRequest {
             /** A description of the update. */
             update?: ClusterUpdate;
         }
-        
         interface UpdateMasterRequest {
             /**
              * The Kubernetes version to change the master to. The only valid value is the
@@ -825,7 +876,6 @@ declare namespace gapi.client {
              */
             masterVersion?: string;
         }
-        
         interface UpdateNodePoolRequest {
             /** The desired image type for the node pool. */
             imageType?: string;
@@ -836,10 +886,9 @@ declare namespace gapi.client {
              */
             nodeVersion?: string;
         }
-        
         interface NodePoolsResource {
             /** Sets the autoscaling settings of a specific node pool. */
-            autoscaling(request: {            
+            autoscaling(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -881,10 +930,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Creates a node pool for a cluster. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -924,10 +972,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Deletes a node pool from a cluster. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -969,10 +1016,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Retrieves the node pool requested. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1014,10 +1060,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<NodePool>;            
-            
+            }): Request<NodePool>;
             /** Lists the node pools for a cluster. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1057,13 +1102,12 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<ListNodePoolsResponse>;            
-            
+            }): Request<ListNodePoolsResponse>;
             /**
              * Roll back the previously Aborted or Failed NodePool upgrade.
              * This will be an no-op if the last upgrade successfully completed.
              */
-            rollback(request: {            
+            rollback(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1105,10 +1149,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Sets the NodeManagement options for a node pool. */
-            setManagement(request: {            
+            setManagement(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1150,10 +1193,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Sets the size of a specific node pool. */
-            setSize(request: {            
+            setSize(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1195,10 +1237,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Updates the version and/or image type of a specific node pool. */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1240,13 +1281,11 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
-        
         interface ClustersResource {
             /** Sets the addons of a specific cluster. */
-            addons(request: {            
+            addons(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1286,10 +1325,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Completes master IP rotation. */
-            completeIpRotation(request: {            
+            completeIpRotation(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1329,24 +1367,23 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Creates a cluster, consisting of the specified number and type of Google
              * Compute Engine instances.
-             * 
+             *
              * By default, the cluster is created in the project's
              * [default network](/compute/docs/networks-and-firewalls#networks).
-             * 
+             *
              * One firewall is added for the cluster. After cluster creation,
              * the cluster creates routes for each node to allow the containers
              * on that node to communicate with all other instances in the
              * cluster.
-             * 
+             *
              * Finally, an entry is added to the project's global metadata indicating
              * which CIDR range is being used by the cluster.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1384,20 +1421,19 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Deletes the cluster, including the Kubernetes endpoint and all worker
              * nodes.
-             * 
+             *
              * Firewalls and routes that were configured during cluster creation
              * are also deleted.
-             * 
+             *
              * Other Google Compute Engine resources that might be in use by the cluster
              * (e.g. load balancer resources) will not be deleted if they weren't present
              * at the initial create time.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1437,10 +1473,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Gets the details of a specific cluster. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1480,10 +1515,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Cluster>;            
-            
+            }): Request<Cluster>;
             /** Enables or disables the ABAC authorization mechanism on a cluster. */
-            legacyAbac(request: {            
+            legacyAbac(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1523,13 +1557,12 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Lists all clusters owned by a project in either the specified zone or all
              * zones.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1567,10 +1600,9 @@ declare namespace gapi.client {
                  * resides, or "-" for all zones.
                  */
                 zone: string;
-            }): Request<ListClustersResponse>;            
-            
+            }): Request<ListClustersResponse>;
             /** Sets the locations of a specific cluster. */
-            locations(request: {            
+            locations(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1610,10 +1642,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Sets the logging service of a specific cluster. */
-            logging(request: {            
+            logging(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1653,10 +1684,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Updates the master of a specific cluster. */
-            master(request: {            
+            master(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1696,10 +1726,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Sets the monitoring service of a specific cluster. */
-            monitoring(request: {            
+            monitoring(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1739,10 +1768,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Sets labels on a cluster. */
-            resourceLabels(request: {            
+            resourceLabels(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1782,14 +1810,55 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
+            /** Sets the maintenance policy for a cluster. */
+            setMaintenancePolicy(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** The name of the cluster to update. */
+                clusterId: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /**
+                 * The Google Developers Console [project ID or project
+                 * number](https://support.google.com/cloud/answer/6158840).
+                 */
+                projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /**
+                 * The name of the Google Compute Engine
+                 * [zone](/compute/docs/zones#available) in which the cluster
+                 * resides.
+                 */
+                zone: string;
+            }): Request<Operation>;
             /**
              * Used to set master auth materials. Currently supports :-
              * Changing the admin password of a specific cluster.
              * This can be either via password generation or explicitly set the password.
              */
-            setMasterAuth(request: {            
+            setMasterAuth(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1829,10 +1898,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Enables/Disables Network Policy for a cluster. */
-            setNetworkPolicy(request: {            
+            setNetworkPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1872,10 +1940,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Start master IP rotation. */
-            startIpRotation(request: {            
+            startIpRotation(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1915,10 +1982,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Updates the settings of a specific cluster. */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1958,14 +2024,12 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             nodePools: NodePoolsResource;
         }
-        
         interface OperationsResource {
             /** Cancels the specified operation. */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2004,10 +2068,9 @@ declare namespace gapi.client {
                  * [zone](/compute/docs/zones#available) in which the operation resides.
                  */
                 zone: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets the specified operation. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2047,10 +2110,9 @@ declare namespace gapi.client {
                  * resides.
                  */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists all operations in a project in a specific zone or all zones. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2087,13 +2149,11 @@ declare namespace gapi.client {
                  * to return operations for, or `-` for all zones.
                  */
                 zone: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
         }
-        
         interface ZonesResource {
             /** Returns configuration info about the Container Engine service. */
-            getServerconfig(request: {            
+            getServerconfig(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2130,12 +2190,10 @@ declare namespace gapi.client {
                  * to return operations for.
                  */
                 zone: string;
-            }): Request<ServerConfig>;            
-            
+            }): Request<ServerConfig>;
             clusters: ClustersResource;
             operations: OperationsResource;
         }
-        
         interface ProjectsResource {
             zones: ZonesResource;
         }

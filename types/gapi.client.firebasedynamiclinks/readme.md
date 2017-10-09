@@ -70,5 +70,10 @@ Fetches analytics stats of a short Dynamic Link for a given
 duration. Metrics include number of clicks, redirects, installs,
 app first opens, and app reopens.  
 */
-await gapi.client.v1.getLinkStats({ dynamicLink: "dynamicLink",  });
+await gapi.client.v1.getLinkStats({ dynamicLink: "dynamicLink",  }); 
+    
+/* 
+Get iOS strong/weak-match info for post-install attribution.  
+*/
+await gapi.client.v1.installAttribution({  });
 ```

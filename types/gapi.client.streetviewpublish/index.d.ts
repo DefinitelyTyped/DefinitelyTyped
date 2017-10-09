@@ -13,15 +13,14 @@
 
 declare namespace gapi.client {
     /** Load Street View Publish API v1 */
-    function load(name: "streetviewpublish", version: "v1"): PromiseLike<void>;    
-    function load(name: "streetviewpublish", version: "v1", callback: () => any): void;    
-    
-    const photo: streetviewpublish.PhotoResource; 
-    
-    const photos: streetviewpublish.PhotosResource; 
-    
+    function load(name: "streetviewpublish", version: "v1"): PromiseLike<void>;
+    function load(name: "streetviewpublish", version: "v1", callback: () => any): void;
+
+    const photo: streetviewpublish.PhotoResource;
+
+    const photos: streetviewpublish.PhotosResource;
+
     namespace streetviewpublish {
-        
         interface BatchDeletePhotosRequest {
             /**
              * Required. IDs of the Photos. For HTTP
@@ -30,7 +29,6 @@ declare namespace gapi.client {
              */
             photoIds?: string[];
         }
-        
         interface BatchDeletePhotosResponse {
             /**
              * The status for the operation to delete a single
@@ -38,7 +36,6 @@ declare namespace gapi.client {
              */
             status?: Status[];
         }
-        
         interface BatchGetPhotosResponse {
             /**
              * List of results for each individual
@@ -48,7 +45,6 @@ declare namespace gapi.client {
              */
             results?: PhotoResponse[];
         }
-        
         interface BatchUpdatePhotosRequest {
             /**
              * Required. List of
@@ -56,7 +52,6 @@ declare namespace gapi.client {
              */
             updatePhotoRequests?: UpdatePhotoRequest[];
         }
-        
         interface BatchUpdatePhotosResponse {
             /**
              * List of results for each individual
@@ -65,7 +60,6 @@ declare namespace gapi.client {
              */
             results?: PhotoResponse[];
         }
-        
         interface Connection {
             /**
              * Required. The destination of the connection from the containing photo to
@@ -73,14 +67,12 @@ declare namespace gapi.client {
              */
             target?: PhotoId;
         }
-        
         interface LatLng {
             /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
             latitude?: number;
             /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
             longitude?: number;
         }
-        
         interface Level {
             /**
              * Required. A name assigned to this Level, restricted to 3 characters.
@@ -95,7 +87,6 @@ declare namespace gapi.client {
              */
             number?: number;
         }
-        
         interface ListPhotosResponse {
             /**
              * Token to retrieve the next page of results, or empty if there are no more
@@ -109,7 +100,40 @@ declare namespace gapi.client {
              */
             photos?: Photo[];
         }
-        
+        interface Operation {
+            /**
+             * If the value is `false`, it means the operation is still in progress.
+             * If `true`, the operation is completed, and either `error` or `response` is
+             * available.
+             */
+            done?: boolean;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /**
+             * Service-specific metadata associated with the operation.  It typically
+             * contains progress information and common metadata such as create time.
+             * Some services might not provide such metadata.  Any method that returns a
+             * long-running operation should document the metadata type, if any.
+             */
+            metadata?: Record<string, any>;
+            /**
+             * The server-assigned name, which is only unique within the same service that
+             * originally returns it. If you use the default HTTP mapping, the
+             * `name` should have the format of `operations/some/unique/name`.
+             */
+            name?: string;
+            /**
+             * The normal response of the operation in case of success.  If the original
+             * method returns no data on success, such as `Delete`, the response is
+             * `google.protobuf.Empty`.  If the original method is standard
+             * `Get`/`Create`/`Update`, the response should be the resource.  For other
+             * methods, the response should have the type `XxxResponse`, where `Xxx`
+             * is the original method name.  For example, if the original method name
+             * is `TakeSnapshot()`, the inferred response type is
+             * `TakeSnapshotResponse`.
+             */
+            response?: Record<string, any>;
+        }
         interface Photo {
             /**
              * Absolute time when the photo was captured.
@@ -131,7 +155,7 @@ declare namespace gapi.client {
              */
             downloadUrl?: string;
             /**
-             * Required when updating photo. Output only when creating photo.
+             * Required when updating a photo. Output only when creating a photo.
              * Identifier for the photo, which is unique among all photos in
              * Google.
              */
@@ -145,19 +169,17 @@ declare namespace gapi.client {
             /** Output only. The thumbnail URL for showing a preview of the given photo. */
             thumbnailUrl?: string;
             /**
-             * Required when creating photo. Input only. The resource URL where the photo
-             * bytes are uploaded to.
+             * Required when creating a photo. Input only. The resource URL where the
+             * photo bytes are uploaded to.
              */
             uploadReference?: UploadRef;
             /** Output only. View count of the photo. */
             viewCount?: string;
         }
-        
         interface PhotoId {
-            /** Required. A base64 encoded identifier. */
+            /** Required. A unique identifier for a photo. */
             id?: string;
         }
-        
         interface PhotoResponse {
             /**
              * The Photo resource, if the request
@@ -170,15 +192,13 @@ declare namespace gapi.client {
              */
             status?: Status;
         }
-        
         interface Place {
             /**
-             * Required. Place identifier, as described in
+             * Place identifier, as described in
              * https://developers.google.com/places/place-id.
              */
             placeId?: string;
         }
-        
         interface Pose {
             /**
              * Altitude of the pose in meters above ground level (as defined by WGS84).
@@ -217,7 +237,6 @@ declare namespace gapi.client {
              */
             roll?: number;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -225,7 +244,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -233,49 +252,42 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface UpdatePhotoRequest {
             /**
              * Required. Photo object containing the
-             * new metadata. Only the fields specified in
-             * updateMask
-             * field are used. If `updateMask` is not present, the update applies to all
-             * fields. <aside class="note"><b>Note:</b> To update
-             * Pose.altitude,
-             * Pose.latLngPair has to be
-             * filled as well. Otherwise, the request will fail.
+             * new metadata.
              */
             photo?: Photo;
             /**
              * Mask that identifies fields on the photo metadata to update.
-             * If not present, the old Photo metadata will be entirely replaced with the
-             * new Photo metadata in this request. The update fails if invalid fields are
-             * specified. Multiple fields can be specified in a comma-delimited list.
-             * 
+             * If not present, the old Photo
+             * metadata will be entirely replaced with the
+             * new Photo metadata in this request.
+             * The update fails if invalid fields are specified. Multiple fields can be
+             * specified in a comma-delimited list.
+             *
              * The following fields are valid:
-             * 
+             *
              * &#42; `pose.heading`
-             * &#42; `pose.latlngpair`
+             * &#42; `pose.latLngPair`
              * &#42; `pose.pitch`
              * &#42; `pose.roll`
              * &#42; `pose.level`
              * &#42; `pose.altitude`
              * &#42; `connections`
              * &#42; `places`
-             * 
-             * 
+             *
+             *
              * <aside class="note"><b>Note:</b> Repeated fields in
              * updateMask
              * mean the entire set of repeated values will be replaced with the new
              * contents. For example, if
              * updateMask
-             * contains `connections` and
-             * google.streetview.publish.v1.UpdatePhotoRequest.photo.connections is
-             * empty, all connections will be removed.</aside>
+             * contains `connections` and `UpdatePhotoRequest.photo.connections` is empty,
+             * all connections will be removed.</aside>
              */
             updateMask?: string;
         }
-        
         interface UploadRef {
             /**
              * Required. An upload reference should be unique for each user. It follows
@@ -284,7 +296,6 @@ declare namespace gapi.client {
              */
             uploadUrl?: string;
         }
-        
         interface PhotoResource {
             /**
              * After the client finishes uploading the photo with the returned
@@ -292,15 +303,22 @@ declare namespace gapi.client {
              * CreatePhoto
              * publishes the uploaded Photo to
              * Street View on Google Maps.
-             * 
+             *
+             * Currently, the only way to set heading, pitch, and roll in CreatePhoto is
+             * through the [Photo Sphere XMP
+             * metadata](https://developers.google.com/streetview/spherical-metadata) in
+             * the photo bytes. The `pose.heading`, `pose.pitch`, `pose.roll`,
+             * `pose.altitude`, and `pose.level` fields in Pose are ignored for
+             * CreatePhoto.
+             *
              * This method returns the following error codes:
-             * 
+             *
              * &#42; google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
              * &#42; google.rpc.Code.NOT_FOUND if the upload reference does not exist.
              * &#42; google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the
              * storage limit.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -327,18 +345,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Photo>;            
-            
+            }): Request<Photo>;
             /**
              * Deletes a Photo and its metadata.
-             * 
+             *
              * This method returns the following error codes:
-             * 
+             *
              * &#42; google.rpc.Code.PERMISSION_DENIED if the requesting user did not
              * create the requested photo.
              * &#42; google.rpc.Code.NOT_FOUND if the photo ID does not exist.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -367,20 +384,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the metadata of the specified
              * Photo.
-             * 
+             *
              * This method returns the following error codes:
-             * 
+             *
              * &#42; google.rpc.Code.PERMISSION_DENIED if the requesting user did not
              * create the requested Photo.
              * &#42; google.rpc.Code.NOT_FOUND if the requested
              * Photo does not exist.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -414,30 +430,29 @@ declare namespace gapi.client {
                  * Photo response.
                  */
                 view?: string;
-            }): Request<Photo>;            
-            
+            }): Request<Photo>;
             /**
              * Creates an upload session to start uploading photo bytes. The upload URL of
              * the returned UploadRef is used to
              * upload the bytes for the Photo.
-             * 
+             *
              * In addition to the photo requirements shown in
              * https://support.google.com/maps/answer/7012050?hl=en&ref_topic=6275604,
              * the photo must also meet the following requirements:
-             * 
+             *
              * &#42; Photo Sphere XMP metadata must be included in the photo medadata. See
              * https://developers.google.com/streetview/spherical-metadata for the
              * required fields.
              * &#42; The pixel size of the photo must meet the size requirements listed in
              * https://support.google.com/maps/answer/7012050?hl=en&ref_topic=6275604, and
              * the photo must be a full 360 horizontally.
-             * 
+             *
              * After the upload is complete, the
              * UploadRef is used with
              * CreatePhoto
              * to create the Photo object entry.
              */
-            startUpload(request: {            
+            startUpload(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -464,21 +479,30 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<UploadRef>;            
-            
+            }): Request<UploadRef>;
             /**
              * Updates the metadata of a Photo, such
              * as pose, place association, connections, etc. Changing the pixels of a
              * photo is not supported.
-             * 
+             *
+             * Only the fields specified in the
+             * updateMask
+             * field are used. If `updateMask` is not present, the update applies to all
+             * fields.
+             *
+             * <aside class="note"><b>Note:</b> To update
+             * Pose.altitude,
+             * Pose.latLngPair has to be
+             * filled as well. Otherwise, the request will fail.</aside>
+             *
              * This method returns the following error codes:
-             * 
+             *
              * &#42; google.rpc.Code.PERMISSION_DENIED if the requesting user did not
              * create the requested photo.
              * &#42; google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
              * &#42; google.rpc.Code.NOT_FOUND if the requested photo does not exist.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -491,7 +515,7 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Required. A base64 encoded identifier. */
+                /** Required. A unique identifier for a photo. */
                 id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -505,44 +529,44 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /**
                  * Mask that identifies fields on the photo metadata to update.
-                 * If not present, the old Photo metadata will be entirely replaced with the
-                 * new Photo metadata in this request. The update fails if invalid fields are
-                 * specified. Multiple fields can be specified in a comma-delimited list.
-                 * 
+                 * If not present, the old Photo
+                 * metadata will be entirely replaced with the
+                 * new Photo metadata in this request.
+                 * The update fails if invalid fields are specified. Multiple fields can be
+                 * specified in a comma-delimited list.
+                 *
                  * The following fields are valid:
-                 * 
+                 *
                  * &#42; `pose.heading`
-                 * &#42; `pose.latlngpair`
+                 * &#42; `pose.latLngPair`
                  * &#42; `pose.pitch`
                  * &#42; `pose.roll`
                  * &#42; `pose.level`
                  * &#42; `pose.altitude`
                  * &#42; `connections`
                  * &#42; `places`
-                 * 
-                 * 
+                 *
+                 *
                  * <aside class="note"><b>Note:</b> Repeated fields in
                  * updateMask
                  * mean the entire set of repeated values will be replaced with the new
                  * contents. For example, if
                  * updateMask
-                 * contains `connections` and
-                 * google.streetview.publish.v1.UpdatePhotoRequest.photo.connections is
-                 * empty, all connections will be removed.</aside>
+                 * contains `connections` and `UpdatePhotoRequest.photo.connections` is empty,
+                 * all connections will be removed.</aside>
                  */
                 updateMask?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Photo>;            
-            
+            }): Request<Photo>;
         }
-        
         interface PhotosResource {
             /**
-             * Deletes a list of Photos and their metadata.
-             * 
+             * Deletes a list of Photos and their
+             * metadata.
+             *
              * Note that if
              * BatchDeletePhotos
              * fails, either critical fields are missing or there was an authentication
@@ -557,7 +581,7 @@ declare namespace gapi.client {
              * DeletePhoto
              * for specific failures that can occur per photo.
              */
-            batchDelete(request: {            
+            batchDelete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -584,12 +608,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BatchDeletePhotosResponse>;            
-            
+            }): Request<BatchDeletePhotosResponse>;
             /**
              * Gets the metadata of the specified
              * Photo batch.
-             * 
+             *
              * Note that if
              * BatchGetPhotos
              * fails, either critical fields are missing or there was an authentication
@@ -604,7 +627,7 @@ declare namespace gapi.client {
              * GetPhoto
              * for specific failures that can occur per photo.
              */
-            batchGet(request: {            
+            batchGet(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -642,13 +665,12 @@ declare namespace gapi.client {
                  * Photo response.
                  */
                 view?: string;
-            }): Request<BatchGetPhotosResponse>;            
-            
+            }): Request<BatchGetPhotosResponse>;
             /**
              * Updates the metadata of Photos, such
              * as pose, place association, connections, etc. Changing the pixels of photos
              * is not supported.
-             * 
+             *
              * Note that if
              * BatchUpdatePhotos
              * fails, either critical fields are missing or there was an authentication
@@ -662,8 +684,18 @@ declare namespace gapi.client {
              * See
              * UpdatePhoto
              * for specific failures that can occur per photo.
+             *
+             * Only the fields specified in
+             * updateMask
+             * field are used. If `updateMask` is not present, the update applies to all
+             * fields.
+             *
+             * <aside class="note"><b>Note:</b> To update
+             * Pose.altitude,
+             * Pose.latLngPair has to be
+             * filled as well. Otherwise, the request will fail.</aside>
              */
-            batchUpdate(request: {            
+            batchUpdate(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -690,10 +722,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BatchUpdatePhotosResponse>;            
-            
-            /** Lists all the Photos that belong to the user. */
-            list(request: {            
+            }): Request<BatchUpdatePhotosResponse>;
+            /**
+             * Lists all the Photos that belong to
+             * the user.
+             */
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -706,7 +740,11 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`. */
+                /**
+                 * The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`.
+                 *
+                 * The only filter supported at the moment is `placeId`.
+                 */
                 filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -743,8 +781,7 @@ declare namespace gapi.client {
                  * Photos response.
                  */
                 view?: string;
-            }): Request<ListPhotosResponse>;            
-            
+            }): Request<ListPhotosResponse>;
         }
     }
 }

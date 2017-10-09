@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Machine Learning Engine v1 */
-    function load(name: "ml", version: "v1"): PromiseLike<void>;    
-    function load(name: "ml", version: "v1", callback: () => any): void;    
-    
-    const projects: ml.ProjectsResource; 
-    
+    function load(name: "ml", version: "v1"): PromiseLike<void>;
+    function load(name: "ml", version: "v1", callback: () => any): void;
+
+    const projects: ml.ProjectsResource;
+
     namespace ml {
-        
         interface GoogleApi__HttpBody {
             /** The HTTP Content-Type string representing the content type of the body. */
             contentType?: string;
@@ -29,16 +28,14 @@ declare namespace gapi.client {
              * Application specific response metadata. Must be set in the first response
              * for streaming APIs.
              */
-            extensions?: Array<Record<string, any>>;            
+            extensions?: Array<Record<string, any>>;
         }
-        
         interface GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric {
             /** The objective value at this training step. */
             objectiveValue?: number;
             /** The global training step for this metric. */
             trainingStep?: string;
         }
-        
         interface GoogleCloudMlV1__AutoScaling {
             /**
              * Optional. The minimum number of nodes to allocate for this model. These
@@ -49,43 +46,43 @@ declare namespace gapi.client {
              * [pricing](https://cloud.google.com/ml-engine/pricing#prediction_pricing),
              * even if no predictions are performed. There is additional cost for each
              * prediction performed.
-             * 
+             *
              * Unlike manual scaling, if the load gets too heavy for the nodes
              * that are up, the service will automatically add nodes to handle the
              * increased load as well as scale back as traffic drops, always maintaining
              * at least `min_nodes`. You will be charged for the time in which additional
              * nodes are used.
-             * 
+             *
              * If not specified, `min_nodes` defaults to 0, in which case, when traffic
              * to a model stops (and after a cool-down period), nodes will be shut down
              * and no charges will be incurred until traffic to the model resumes.
              */
             minNodes?: number;
         }
-        
         interface GoogleCloudMlV1__GetConfigResponse {
             /** The service account Cloud ML uses to access resources in the project. */
             serviceAccount?: string;
             /** The project number for `service_account`. */
             serviceAccountProject?: string;
         }
-        
         interface GoogleCloudMlV1__HyperparameterOutput {
-            /** All recorded object metrics for this trial. */
+            /**
+             * All recorded object metrics for this trial. This field is not currently
+             * populated.
+             */
             allMetrics?: GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric[];
             /** The final objective metric seen for this trial. */
             finalMetric?: GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric;
             /** The hyperparameters given to this trial. */
-            hyperparameters?: Record<string, string>;            
+            hyperparameters?: Record<string, string>;
             /** The trial id for these results. */
             trialId?: string;
         }
-        
         interface GoogleCloudMlV1__HyperparameterSpec {
             /**
              * Required. The type of goal to use for tuning. Available types are
              * `MAXIMIZE` and `MINIMIZE`.
-             * 
+             *
              * Defaults to `MAXIMIZE`.
              */
             goal?: string;
@@ -104,23 +101,22 @@ declare namespace gapi.client {
              * gained in completed trials. That means that a trial does not get access to
              * the results of trials running at the same time, which could reduce the
              * quality of the overall optimization.
-             * 
+             *
              * Each trial will use the same scale tier and machine types.
-             * 
+             *
              * Defaults to one.
              */
             maxParallelTrials?: number;
             /**
              * Optional. How many training trials should be attempted to optimize
              * the specified hyperparameters.
-             * 
+             *
              * Defaults to one.
              */
             maxTrials?: number;
             /** Required. The set of parameters to tune. */
             params?: GoogleCloudMlV1__ParameterSpec[];
         }
-        
         interface GoogleCloudMlV1__Job {
             /** Output only. When the job was created. */
             createTime?: string;
@@ -143,7 +139,6 @@ declare namespace gapi.client {
             /** The current training job result. */
             trainingOutput?: GoogleCloudMlV1__TrainingOutput;
         }
-        
         interface GoogleCloudMlV1__ListJobsResponse {
             /** The list of jobs. */
             jobs?: GoogleCloudMlV1__Job[];
@@ -153,7 +148,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface GoogleCloudMlV1__ListModelsResponse {
             /** The list of models. */
             models?: GoogleCloudMlV1__Model[];
@@ -163,7 +157,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface GoogleCloudMlV1__ListVersionsResponse {
             /**
              * Optional. Pass this token as the `page_token` field of the request for a
@@ -173,7 +166,6 @@ declare namespace gapi.client {
             /** The list of versions. */
             versions?: GoogleCloudMlV1__Version[];
         }
-        
         interface GoogleCloudMlV1__ManualScaling {
             /**
              * The number of nodes to allocate for this model. These nodes are always up,
@@ -183,12 +175,11 @@ declare namespace gapi.client {
              */
             nodes?: number;
         }
-        
         interface GoogleCloudMlV1__Model {
             /**
              * Output only. The default version of the model. This version will be used to
              * handle prediction requests that do not specify a version.
-             * 
+             *
              * You can change the default version by calling
              * [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault).
              */
@@ -197,7 +188,7 @@ declare namespace gapi.client {
             description?: string;
             /**
              * Required. The name specified for the model when it was created.
-             * 
+             *
              * The model name must be unique within the project it is created in.
              */
             name?: string;
@@ -212,14 +203,13 @@ declare namespace gapi.client {
              * Defaults to 'us-central1' if nothing is set.
              * Note:
              * &#42;   No matter where a model is deployed, it can always be accessed by
-             *     users from anywhere, both for online and batch prediction.
+             * users from anywhere, both for online and batch prediction.
              * &#42;   The region for a batch prediction job is set by the region field when
-             *     submitting the batch prediction job and does not take its value from
-             *     this field.
+             * submitting the batch prediction job and does not take its value from
+             * this field.
              */
             regions?: string[];
         }
-        
         interface GoogleCloudMlV1__OperationMetadata {
             /** The time the operation was submitted. */
             createTime?: string;
@@ -236,7 +226,6 @@ declare namespace gapi.client {
             /** Contains the version associated with the operation. */
             version?: GoogleCloudMlV1__Version;
         }
-        
         interface GoogleCloudMlV1__ParameterSpec {
             /** Required if type is `CATEGORICAL`. The list of possible categories. */
             categoricalValues?: string[];
@@ -275,12 +264,10 @@ declare namespace gapi.client {
             /** Required. The type of the parameter. */
             type?: string;
         }
-        
         interface GoogleCloudMlV1__PredictRequest {
             /** Required. The prediction request body. */
             httpBody?: GoogleApi__HttpBody;
         }
-        
         interface GoogleCloudMlV1__PredictionInput {
             /**
              * Optional. Number of records per batch, defaults to 64.
@@ -304,7 +291,7 @@ declare namespace gapi.client {
             /**
              * Use this field if you want to use the default version for the specified
              * model. The string must use the following format:
-             * 
+             *
              * `"projects/<var>[YOUR_PROJECT]</var>/models/<var>[YOUR_MODEL]</var>"`
              */
             modelName?: string;
@@ -329,12 +316,11 @@ declare namespace gapi.client {
              * Use this field if you want to specify a version of the model to use. The
              * string is formatted the same way as `model_version`, with the addition
              * of the version information:
-             * 
+             *
              * `"projects/<var>[YOUR_PROJECT]</var>/models/<var>YOUR_MODEL/versions/<var>[YOUR_VERSION]</var>"`
              */
             versionName?: string;
         }
-        
         interface GoogleCloudMlV1__PredictionOutput {
             /** The number of data instances which resulted in errors. */
             errorCount?: string;
@@ -345,7 +331,6 @@ declare namespace gapi.client {
             /** The number of generated predictions. */
             predictionCount?: string;
         }
-        
         interface GoogleCloudMlV1__TrainingInput {
             /** Optional. Command line arguments to pass to the program. */
             args?: string[];
@@ -361,52 +346,52 @@ declare namespace gapi.client {
             /**
              * Optional. Specifies the type of virtual machine to use for your training
              * job's master worker.
-             * 
+             *
              * The following types are supported:
-             * 
+             *
              * <dl>
-             *   <dt>standard</dt>
-             *   <dd>
-             *   A basic machine configuration suitable for training simple models with
-             *   small to moderate datasets.
-             *   </dd>
-             *   <dt>large_model</dt>
-             *   <dd>
-             *   A machine with a lot of memory, specially suited for parameter servers
-             *   when your model is large (having many hidden layers or layers with very
-             *   large numbers of nodes).
-             *   </dd>
-             *   <dt>complex_model_s</dt>
-             *   <dd>
-             *   A machine suitable for the master and workers of the cluster when your
-             *   model requires more computation than the standard machine can handle
-             *   satisfactorily.
-             *   </dd>
-             *   <dt>complex_model_m</dt>
-             *   <dd>
-             *   A machine with roughly twice the number of cores and roughly double the
-             *   memory of <code suppresswarning="true">complex_model_s</code>.
-             *   </dd>
-             *   <dt>complex_model_l</dt>
-             *   <dd>
-             *   A machine with roughly twice the number of cores and roughly double the
-             *   memory of <code suppresswarning="true">complex_model_m</code>.
-             *   </dd>
-             *   <dt>standard_gpu</dt>
-             *   <dd>
-             *   A machine equivalent to <code suppresswarning="true">standard</code> that
-             *   also includes a
-             *   <a href="/ml-engine/docs/how-tos/using-gpus">
-             *   GPU that you can use in your trainer</a>.
-             *   </dd>
-             *   <dt>complex_model_m_gpu</dt>
-             *   <dd>
-             *   A machine equivalent to
-             *   <code suppresswarning="true">complex_model_m</code> that also includes
-             *   four GPUs.
-             *   </dd>
+             * <dt>standard</dt>
+             * <dd>
+             * A basic machine configuration suitable for training simple models with
+             * small to moderate datasets.
+             * </dd>
+             * <dt>large_model</dt>
+             * <dd>
+             * A machine with a lot of memory, specially suited for parameter servers
+             * when your model is large (having many hidden layers or layers with very
+             * large numbers of nodes).
+             * </dd>
+             * <dt>complex_model_s</dt>
+             * <dd>
+             * A machine suitable for the master and workers of the cluster when your
+             * model requires more computation than the standard machine can handle
+             * satisfactorily.
+             * </dd>
+             * <dt>complex_model_m</dt>
+             * <dd>
+             * A machine with roughly twice the number of cores and roughly double the
+             * memory of <code suppresswarning="true">complex_model_s</code>.
+             * </dd>
+             * <dt>complex_model_l</dt>
+             * <dd>
+             * A machine with roughly twice the number of cores and roughly double the
+             * memory of <code suppresswarning="true">complex_model_m</code>.
+             * </dd>
+             * <dt>standard_gpu</dt>
+             * <dd>
+             * A machine equivalent to <code suppresswarning="true">standard</code> that
+             * also includes a
+             * <a href="/ml-engine/docs/how-tos/using-gpus">
+             * GPU that you can use in your trainer</a>.
+             * </dd>
+             * <dt>complex_model_m_gpu</dt>
+             * <dd>
+             * A machine equivalent to
+             * <code suppresswarning="true">complex_model_m</code> that also includes
+             * four GPUs.
+             * </dd>
              * </dl>
-             * 
+             *
              * You must set this value when `scaleTier` is set to `CUSTOM`.
              */
             masterType?: string;
@@ -420,7 +405,7 @@ declare namespace gapi.client {
              * Optional. The number of parameter server replicas to use for the training
              * job. Each replica in the cluster will be of the type specified in
              * `parameter_server_type`.
-             * 
+             *
              * This value can only be used when `scale_tier` is set to `CUSTOM`.If you
              * set this value, you must also set `parameter_server_type`.
              */
@@ -428,10 +413,10 @@ declare namespace gapi.client {
             /**
              * Optional. Specifies the type of virtual machine to use for your training
              * job's parameter server.
-             * 
+             *
              * The supported values are the same as those described in the entry for
              * `master_type`.
-             * 
+             *
              * This value must be present when `scaleTier` is set to `CUSTOM` and
              * `parameter_server_count` is greater than zero.
              */
@@ -453,7 +438,7 @@ declare namespace gapi.client {
             /**
              * Optional. The number of worker replicas to use for the training job. Each
              * replica in the cluster will be of the type specified in `worker_type`.
-             * 
+             *
              * This value can only be used when `scale_tier` is set to `CUSTOM`. If you
              * set this value, you must also set `worker_type`.
              */
@@ -461,16 +446,15 @@ declare namespace gapi.client {
             /**
              * Optional. Specifies the type of virtual machine to use for your training
              * job's worker nodes.
-             * 
+             *
              * The supported values are the same as those described in the entry for
              * `masterType`.
-             * 
+             *
              * This value must be present when `scaleTier` is set to `CUSTOM` and
              * `workerCount` is greater than zero.
              */
             workerType?: string;
         }
-        
         interface GoogleCloudMlV1__TrainingOutput {
             /**
              * The number of hyperparameter tuning trials that completed successfully.
@@ -487,7 +471,6 @@ declare namespace gapi.client {
              */
             trials?: GoogleCloudMlV1__HyperparameterOutput[];
         }
-        
         interface GoogleCloudMlV1__Version {
             /**
              * Automatically scale the number of nodes used to serve the model in
@@ -504,7 +487,7 @@ declare namespace gapi.client {
              * [overview of model
              * deployment](/ml-engine/docs/concepts/deployment-overview) for more
              * information.
-             * 
+             *
              * When passing Version to
              * [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create)
              * the model service uses the specified location as the source of the model.
@@ -520,7 +503,7 @@ declare namespace gapi.client {
             /**
              * Output only. If true, this version will be used to handle prediction
              * requests that do not specify a version.
-             * 
+             *
              * You can change the default version by calling
              * [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault).
              */
@@ -538,7 +521,7 @@ declare namespace gapi.client {
             manualScaling?: GoogleCloudMlV1__ManualScaling;
             /**
              * Required.The name specified for the version when it was created.
-             * 
+             *
              * The version name must be unique within the model it is created in.
              */
             name?: string;
@@ -550,27 +533,6 @@ declare namespace gapi.client {
             /** Output only. The state of a version. */
             state?: string;
         }
-        
-        interface GoogleIamV1_LogConfig_CloudAuditOptions {
-            /** The log_name to populate in the Cloud Audit Record. */
-            logName?: string;
-        }
-        
-        interface GoogleIamV1_LogConfig_CounterOptions {
-            /** The field value to attribute. */
-            field?: string;
-            /** The metric to update. */
-            metric?: string;
-        }
-        
-        interface GoogleIamV1_LogConfig_DataAccessOptions {
-            /**
-             * Whether Gin logging should happen in a fail-closed manner at the caller.
-             * This is relevant only in the LocalIAM implementation, for now.
-             */
-            logMode?: string;
-        }
-        
         interface GoogleIamV1__AuditConfig {
             /**
              * The configuration for logging of each type of permission.
@@ -585,7 +547,6 @@ declare namespace gapi.client {
              */
             service?: string;
         }
-        
         interface GoogleIamV1__AuditLogConfig {
             /**
              * Specifies the identities that do not cause logging for this type of
@@ -596,7 +557,6 @@ declare namespace gapi.client {
             /** The log type that this config enables. */
             logType?: string;
         }
-        
         interface GoogleIamV1__Binding {
             /**
              * The condition that is associated with this binding.
@@ -609,26 +569,26 @@ declare namespace gapi.client {
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -638,34 +598,6 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
-        interface GoogleIamV1__Condition {
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
-            /**
-             * Trusted attributes supplied by any service that owns resources and uses
-             * the IAM system for access control.
-             */
-            sys?: string;
-            /** DEPRECATED. Use 'values' instead. */
-            value?: string;
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
-        }
-        
-        interface GoogleIamV1__LogConfig {
-            /** Cloud audit options. */
-            cloudAudit?: GoogleIamV1_LogConfig_CloudAuditOptions;
-            /** Counter options. */
-            counter?: GoogleIamV1_LogConfig_CounterOptions;
-            /** Data access options. */
-            dataAccess?: GoogleIamV1_LogConfig_DataAccessOptions;
-        }
-        
         interface GoogleIamV1__Policy {
             /** Specifies cloud audit logging configuration for this policy. */
             auditConfigs?: GoogleIamV1__AuditConfig[];
@@ -682,60 +614,15 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
             etag?: string;
             iamOwned?: boolean;
-            /**
-             * If more than one rule is specified, the rules are applied in the following
-             * manner:
-             * - All matching LOG rules are always applied.
-             * - If any DENY/DENY_WITH_LOG rule matches, permission is denied.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is
-             *   granted.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if no rule applies, permission is denied.
-             */
-            rules?: GoogleIamV1__Rule[];
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
-        interface GoogleIamV1__Rule {
-            /** Required */
-            action?: string;
-            /** Additional restrictions that must be met */
-            conditions?: GoogleIamV1__Condition[];
-            /** Human-readable description of the rule. */
-            description?: string;
-            /**
-             * If one or more 'in' clauses are specified, the rule matches if
-             * the PRINCIPAL/AUTHORITY_SELECTOR is in at least one of these entries.
-             */
-            in?: string[];
-            /**
-             * The config returned to callers of tech.iam.IAM.CheckPolicy for any entries
-             * that match the LOG action.
-             */
-            logConfig?: GoogleIamV1__LogConfig[];
-            /**
-             * If one or more 'not_in' clauses are specified, the rule matches
-             * if the PRINCIPAL/AUTHORITY_SELECTOR is in none of the entries.
-             * The format for in and not_in entries is the same as for members in a
-             * Binding (see google/iam/v1/policy.proto).
-             */
-            notIn?: string[];
-            /**
-             * A permission is a string of form '<service>.<resource type>.<verb>'
-             * (e.g., 'storage.buckets.list'). A value of '&#42;' matches all permissions,
-             * and a verb part of '&#42;' (e.g., 'storage.buckets.&#42;') matches all verbs.
-             */
-            permissions?: string[];
-        }
-        
         interface GoogleIamV1__SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -753,7 +640,6 @@ declare namespace gapi.client {
              */
             updateMask?: string;
         }
-        
         interface GoogleIamV1__TestIamPermissionsRequest {
             /**
              * The set of permissions to check for the `resource`. Permissions with
@@ -763,7 +649,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface GoogleIamV1__TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -771,18 +656,16 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface GoogleLongrunning__ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: GoogleLongrunning__Operation[];
         }
-        
         interface GoogleLongrunning__Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
@@ -794,7 +677,7 @@ declare namespace gapi.client {
              * Some services might not provide such metadata.  Any method that returns a
              * long-running operation should document the metadata type, if any.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
@@ -811,9 +694,8 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface GoogleRpc__Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -821,7 +703,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -829,7 +711,6 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface GoogleType__Expr {
             /**
              * An optional description of the expression. This is a longer text which
@@ -839,7 +720,7 @@ declare namespace gapi.client {
             /**
              * Textual representation of an expression in
              * Common Expression Language syntax.
-             * 
+             *
              * The application context of the containing message determines which
              * well-known feature set of CEL is supported.
              */
@@ -856,10 +737,9 @@ declare namespace gapi.client {
              */
             title?: string;
         }
-        
         interface JobsResource {
             /** Cancels a running job. */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -888,10 +768,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Creates a training or a batch prediction job. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -920,10 +799,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__Job>;            
-            
+            }): Request<GoogleCloudMlV1__Job>;
             /** Describes a job. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -952,14 +830,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__Job>;            
-            
+            }): Request<GoogleCloudMlV1__Job>;
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -991,10 +868,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleIamV1__Policy>;            
-            
+            }): Request<GoogleIamV1__Policy>;
             /** Lists the jobs in the project. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1017,13 +893,13 @@ declare namespace gapi.client {
                  * Optional. The number of jobs to retrieve per "page" of results. If there
                  * are more remaining results than this number, the response message will
                  * contain a valid value in the `next_page_token` field.
-                 * 
+                 *
                  * The default value is 20, and the maximum page size is 100.
                  */
                 pageSize?: number;
                 /**
                  * Optional. A page token to request the next page of results.
-                 * 
+                 *
                  * You get the token from the `next_page_token` field of the response from
                  * the previous call.
                  */
@@ -1040,13 +916,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__ListJobsResponse>;            
-            
+            }): Request<GoogleCloudMlV1__ListJobsResponse>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1078,18 +953,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleIamV1__Policy>;            
-            
+            }): Request<GoogleIamV1__Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
-             * 
+             *
              * Note: This operation is designed to be used for building permission-aware
              * UIs and command-line tools, not for authorization checking. This operation
              * may "fail open" without warning.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1121,14 +995,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleIamV1__TestIamPermissionsResponse>;            
-            
+            }): Request<GoogleIamV1__TestIamPermissionsResponse>;
         }
-        
         interface VersionsResource {
             /**
              * Creates a new version of a model from a trained TensorFlow model.
-             * 
+             *
              * If the version created in the cloud by this call is the first deployed
              * version of the specified model, it will be made the default version of the
              * model. When you add a version to a model that already has one or more
@@ -1136,7 +1008,7 @@ declare namespace gapi.client {
              * new version to be the default, you must call
              * [projects.models.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault).
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1165,18 +1037,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleLongrunning__Operation>;            
-            
+            }): Request<GoogleLongrunning__Operation>;
             /**
              * Deletes a model version.
-             * 
+             *
              * Each model can have multiple versions deployed and in use at any given
              * time. Use this method to remove a single version.
-             * 
+             *
              * Note: You cannot delete the version that is set as the default version
              * of the model unless it is the only remaining version.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1209,17 +1080,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleLongrunning__Operation>;            
-            
+            }): Request<GoogleLongrunning__Operation>;
             /**
              * Gets information about a model version.
-             * 
+             *
              * Models can have multiple versions. You can call
              * [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list)
              * to get the same information that this method returns for all of the
              * versions of a model.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1248,16 +1118,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__Version>;            
-            
+            }): Request<GoogleCloudMlV1__Version>;
             /**
              * Gets basic information about all the versions of a model.
-             * 
+             *
              * If you expect that a model has a lot of versions, or if you need to handle
              * only a limited number of results at a time, you can request that the list
              * be retrieved in batches (called pages):
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1278,13 +1147,13 @@ declare namespace gapi.client {
                  * Optional. The number of versions to retrieve per "page" of results. If
                  * there are more remaining results than this number, the response message
                  * will contain a valid value in the `next_page_token` field.
-                 * 
+                 *
                  * The default value is 20, and the maximum page size is 100.
                  */
                 pageSize?: number;
                 /**
                  * Optional. A page token to request the next page of results.
-                 * 
+                 *
                  * You get the token from the `next_page_token` field of the response from
                  * the previous call.
                  */
@@ -1301,19 +1170,72 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__ListVersionsResponse>;            
-            
+            }): Request<GoogleCloudMlV1__ListVersionsResponse>;
+            /**
+             * Updates the specified Version resource.
+             *
+             * Currently the only supported field to update is `description`.
+             */
+            patch(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Required. The name of the model. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Required. Specifies the path, relative to `Version`, of the field to
+                 * update. Must be present and non-empty.
+                 *
+                 * For example, to change the description of a version to "foo", the
+                 * `update_mask` parameter would be specified as `description`, and the
+                 * `PATCH` request body would specify the new value, as follows:
+                 * {
+                 * "description": "foo"
+                 * }
+                 * In this example, the version is blindly overwritten since no etag is given.
+                 *
+                 * To adopt etag mechanism, include `etag` field in the mask, and include the
+                 * `etag` value in your version resource.
+                 *
+                 * Currently the only supported update masks are `description`, `labels`, and
+                 * `etag`.
+                 */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<GoogleLongrunning__Operation>;
             /**
              * Designates a version to be the default for the model.
-             * 
+             *
              * The default version is used for prediction requests made against the model
              * that don't specify a version.
-             * 
+             *
              * The first version to be created for a model is automatically set as the
              * default. You must make any subsequent changes to the default version
              * setting manually using this method.
              */
-            setDefault(request: {            
+            setDefault(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1346,19 +1268,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__Version>;            
-            
+            }): Request<GoogleCloudMlV1__Version>;
         }
-        
         interface ModelsResource {
             /**
              * Creates a model which will later contain one or more versions.
-             * 
+             *
              * You must add at least one version before you can request predictions from
              * the model. Add versions by calling
              * [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create).
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1387,16 +1307,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__Model>;            
-            
+            }): Request<GoogleCloudMlV1__Model>;
             /**
              * Deletes a model.
-             * 
+             *
              * You can only delete a model if there are no versions in it. You can delete
              * versions by calling
              * [projects.models.versions.delete](/ml-engine/reference/rest/v1/projects.models.versions/delete).
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1425,14 +1344,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleLongrunning__Operation>;            
-            
+            }): Request<GoogleLongrunning__Operation>;
             /**
              * Gets information about a model, including its name, the description (if
              * set), and the default version (if at least one version of the model has
              * been deployed).
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1461,14 +1379,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__Model>;            
-            
+            }): Request<GoogleCloudMlV1__Model>;
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1500,15 +1417,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleIamV1__Policy>;            
-            
+            }): Request<GoogleIamV1__Policy>;
             /**
              * Lists the models in a project.
-             * 
+             *
              * Each project can contain multiple models, and each model can have multiple
              * versions.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1529,13 +1445,13 @@ declare namespace gapi.client {
                  * Optional. The number of models to retrieve per "page" of results. If there
                  * are more remaining results than this number, the response message will
                  * contain a valid value in the `next_page_token` field.
-                 * 
+                 *
                  * The default value is 20, and the maximum page size is 100.
                  */
                 pageSize?: number;
                 /**
                  * Optional. A page token to request the next page of results.
-                 * 
+                 *
                  * You get the token from the `next_page_token` field of the response from
                  * the previous call.
                  */
@@ -1552,13 +1468,70 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__ListModelsResponse>;            
-            
+            }): Request<GoogleCloudMlV1__ListModelsResponse>;
+            /**
+             * Updates a specific model resource.
+             *
+             * Currently the only supported fields to update are `description` and
+             * `default_version.name`.
+             */
+            patch(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Required. The project name. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /**
+                 * Required. Specifies the path, relative to `Model`, of the field to update.
+                 *
+                 * For example, to change the description of a model to "foo" and set its
+                 * default version to "version_1", the `update_mask` parameter would be
+                 * specified as `description`, `default_version.name`, and the `PATCH`
+                 * request body would specify the new value, as follows:
+                 * {
+                 * "description": "foo",
+                 * "defaultVersion": {
+                 * "name":"version_1"
+                 * }
+                 * }
+                 * In this example, the model is blindly overwritten since no etag is given.
+                 *
+                 * To adopt etag mechanism, include `etag` field in the mask, and include the
+                 * `etag` value in your model resource.
+                 *
+                 * Currently the supported update masks are `description`,
+                 * `default_version.name`, `labels`, and `etag`.
+                 */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<GoogleLongrunning__Operation>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1590,18 +1563,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleIamV1__Policy>;            
-            
+            }): Request<GoogleIamV1__Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
-             * 
+             *
              * Note: This operation is designed to be used for building permission-aware
              * UIs and command-line tools, not for authorization checking. This operation
              * may "fail open" without warning.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1633,11 +1605,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleIamV1__TestIamPermissionsResponse>;            
-            
+            }): Request<GoogleIamV1__TestIamPermissionsResponse>;
             versions: VersionsResource;
         }
-        
         interface OperationsResource {
             /**
              * Starts asynchronous cancellation on a long-running operation.  The server
@@ -1651,7 +1621,7 @@ declare namespace gapi.client {
              * an Operation.error value with a google.rpc.Status.code of 1,
              * corresponding to `Code.CANCELLED`.
              */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1680,15 +1650,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Deletes a long-running operation. This method indicates that the client is
              * no longer interested in the operation result. It does not cancel the
              * operation. If the server doesn't support this method, it returns
              * `google.rpc.Code.UNIMPLEMENTED`.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1717,14 +1686,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1753,12 +1721,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleLongrunning__Operation>;            
-            
+            }): Request<GoogleLongrunning__Operation>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -1767,7 +1734,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1802,10 +1769,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleLongrunning__ListOperationsResponse>;            
-            
+            }): Request<GoogleLongrunning__ListOperationsResponse>;
         }
-        
         interface ProjectsResource {
             /**
              * Get the service account information associated with your project. You need
@@ -1813,7 +1778,7 @@ declare namespace gapi.client {
              * the Google Cloud Storage location where you put your model training code
              * for training the model with Google Cloud Machine Learning.
              */
-            getConfig(request: {            
+            getConfig(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1842,14 +1807,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleCloudMlV1__GetConfigResponse>;            
-            
+            }): Request<GoogleCloudMlV1__GetConfigResponse>;
             /**
              * Performs prediction on the data in the request.
-             * 
+             *
              * &#42;&#42;&#42;&#42; REMOVE FROM GENERATED DOCUMENTATION
              */
-            predict(request: {            
+            predict(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1866,7 +1830,7 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * Required. The resource name of a model or a version.
-                 * 
+                 *
                  * Authorization: requires the `predict` permission on the specified resource.
                  */
                 name: string;
@@ -1882,8 +1846,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleApi__HttpBody>;            
-            
+            }): Request<GoogleApi__HttpBody>;
             jobs: JobsResource;
             models: ModelsResource;
             operations: OperationsResource;

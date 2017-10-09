@@ -13,46 +13,45 @@
 
 declare namespace gapi.client {
     /** Load Drive API v3 */
-    function load(name: "drive", version: "v3"): PromiseLike<void>;    
-    function load(name: "drive", version: "v3", callback: () => any): void;    
-    
-    const about: drive.AboutResource; 
-    
-    const changes: drive.ChangesResource; 
-    
-    const channels: drive.ChannelsResource; 
-    
-    const comments: drive.CommentsResource; 
-    
-    const files: drive.FilesResource; 
-    
-    const permissions: drive.PermissionsResource; 
-    
-    const replies: drive.RepliesResource; 
-    
-    const revisions: drive.RevisionsResource; 
-    
-    const teamdrives: drive.TeamdrivesResource; 
-    
+    function load(name: "drive", version: "v3"): PromiseLike<void>;
+    function load(name: "drive", version: "v3", callback: () => any): void;
+
+    const about: drive.AboutResource;
+
+    const changes: drive.ChangesResource;
+
+    const channels: drive.ChannelsResource;
+
+    const comments: drive.CommentsResource;
+
+    const files: drive.FilesResource;
+
+    const permissions: drive.PermissionsResource;
+
+    const replies: drive.RepliesResource;
+
+    const revisions: drive.RevisionsResource;
+
+    const teamdrives: drive.TeamdrivesResource;
+
     namespace drive {
-        
         interface About {
             /** Whether the user has installed the requesting app. */
             appInstalled?: boolean;
             /** A map of source MIME type to possible targets for all supported exports. */
-            exportFormats?: Record<string, string[]>;            
+            exportFormats?: Record<string, string[]>;
             /** The currently supported folder colors as RGB hex strings. */
             folderColorPalette?: string[];
             /** A map of source MIME type to possible targets for all supported imports. */
-            importFormats?: Record<string, string[]>;            
+            importFormats?: Record<string, string[]>;
             /** Identifies what kind of resource this is. Value: the fixed string "drive#about". */
             kind?: string;
             /** A map of maximum import sizes by MIME type, in bytes. */
-            maxImportSizes?: Record<string, string>;            
+            maxImportSizes?: Record<string, string>;
             /** The maximum upload size in bytes. */
             maxUploadSize?: string;
             /** The user's storage quota limits and usage. All fields are measured in bytes. */
-            storageQuota?: {            
+            storageQuota?: {
                 /** The usage limit, if applicable. This will not be present if the user has unlimited storage. */
                 limit?: string;
                 /** The total usage across all services. */
@@ -61,20 +60,19 @@ declare namespace gapi.client {
                 usageInDrive?: string;
                 /** The usage by trashed files in Google Drive. */
                 usageInDriveTrash?: string;
-            };            
+            };
             /** A list of themes that are supported for Team Drives. */
-            teamDriveThemes?: Array<{            
+            teamDriveThemes?: Array<{
                 /** A link to this Team Drive theme's background image. */
                 backgroundImageLink?: string;
                 /** The color of this Team Drive theme as an RGB hex string. */
                 colorRgb?: string;
                 /** The ID of the theme. */
                 id?: string;
-            }>;            
+            }>;
             /** The authenticated user. */
             user?: User;
         }
-        
         interface Change {
             /** The updated state of the file. Present if the type is file and the file has not been removed from this list of changes. */
             file?: File;
@@ -84,7 +82,10 @@ declare namespace gapi.client {
             kind?: string;
             /** Whether the file or Team Drive has been removed from this list of changes, for example by deletion or loss of access. */
             removed?: boolean;
-            /** The updated state of the Team Drive. Present if the type is teamDrive, the user is still a member of the Team Drive, and the Team Drive has not been removed. */
+            /**
+             * The updated state of the Team Drive. Present if the type is teamDrive, the user is still a member of the Team Drive, and the Team Drive has not been
+             * removed.
+             */
             teamDrive?: TeamDrive;
             /** The ID of the Team Drive associated with this change. */
             teamDriveId?: string;
@@ -93,7 +94,6 @@ declare namespace gapi.client {
             /** The type of the change. Possible values are file and teamDrive. */
             type?: string;
         }
-        
         interface ChangeList {
             /** The list of changes. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched. */
             changes?: Change[];
@@ -101,10 +101,12 @@ declare namespace gapi.client {
             kind?: string;
             /** The starting page token for future changes. This will be present only if the end of the current changes list has been reached. */
             newStartPageToken?: string;
-            /** The page token for the next page of changes. This will be absent if the end of the changes list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results. */
+            /**
+             * The page token for the next page of changes. This will be absent if the end of the changes list has been reached. If the token is rejected for any
+             * reason, it should be discarded, and pagination should be restarted from the first page of results.
+             */
             nextPageToken?: string;
         }
-        
         interface Channel {
             /** The address where notifications are delivered for this channel. */
             address?: string;
@@ -115,7 +117,7 @@ declare namespace gapi.client {
             /** Identifies this as a notification channel used to watch for changes to a resource. Value: the fixed string "api#channel". */
             kind?: string;
             /** Additional parameters controlling delivery channel behavior. Optional. */
-            params?: Record<string, string>;            
+            params?: Record<string, string>;
             /** A Boolean value to indicate whether payload is wanted. Optional. */
             payload?: boolean;
             /** An opaque ID that identifies the resource being watched on this channel. Stable across different API versions. */
@@ -127,7 +129,6 @@ declare namespace gapi.client {
             /** The type of delivery mechanism used for this channel. */
             type?: string;
         }
-        
         interface Comment {
             /** A region of the document represented as a JSON string. See anchor documentation for details on how to define and interpret anchor properties. */
             anchor?: string;
@@ -147,43 +148,50 @@ declare namespace gapi.client {
             kind?: string;
             /** The last time the comment or any of its replies was modified (RFC 3339 date-time). */
             modifiedTime?: string;
-            /** The file content to which the comment refers, typically within the anchor region. For a text file, for example, this would be the text at the location of the comment. */
-            quotedFileContent?: {            
+            /**
+             * The file content to which the comment refers, typically within the anchor region. For a text file, for example, this would be the text at the location
+             * of the comment.
+             */
+            quotedFileContent?: {
                 /** The MIME type of the quoted content. */
                 mimeType?: string;
                 /** The quoted content itself. This is interpreted as plain text if set through the API. */
                 value?: string;
-            };            
+            };
             /** The full list of replies to the comment in chronological order. */
             replies?: Reply[];
             /** Whether the comment has been resolved by one of its replies. */
             resolved?: boolean;
         }
-        
         interface CommentList {
             /** The list of comments. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched. */
             comments?: Comment[];
             /** Identifies what kind of resource this is. Value: the fixed string "drive#commentList". */
             kind?: string;
-            /** The page token for the next page of comments. This will be absent if the end of the comments list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results. */
+            /**
+             * The page token for the next page of comments. This will be absent if the end of the comments list has been reached. If the token is rejected for any
+             * reason, it should be discarded, and pagination should be restarted from the first page of results.
+             */
             nextPageToken?: string;
         }
-        
         interface File {
             /**
              * A collection of arbitrary key-value pairs which are private to the requesting app.
              * Entries with null values are cleared in update and copy requests.
              */
-            appProperties?: Record<string, string>;            
+            appProperties?: Record<string, string>;
             /** Capabilities the current user has on this file. Each capability corresponds to a fine-grained action that a user may take. */
-            capabilities?: {            
+            capabilities?: {
                 /** Whether the current user can add children to this folder. This is always false when the item is not a folder. */
                 canAddChildren?: boolean;
                 /** Whether the current user can change whether viewers can copy the contents of this file. */
                 canChangeViewersCanCopyContent?: boolean;
                 /** Whether the current user can comment on this file. */
                 canComment?: boolean;
-                /** Whether the current user can copy this file. For a Team Drive item, whether the current user can copy non-folder descendants of this item, or this item itself if it is not a folder. */
+                /**
+                 * Whether the current user can copy this file. For a Team Drive item, whether the current user can copy non-folder descendants of this item, or this item
+                 * itself if it is not a folder.
+                 */
                 canCopy?: boolean;
                 /** Whether the current user can delete this file. */
                 canDelete?: boolean;
@@ -195,9 +203,15 @@ declare namespace gapi.client {
                 canListChildren?: boolean;
                 /** Whether the current user can move this item into a Team Drive. If the item is in a Team Drive, this field is equivalent to canMoveTeamDriveItem. */
                 canMoveItemIntoTeamDrive?: boolean;
-                /** Whether the current user can move this Team Drive item by changing its parent. Note that a request to change the parent for this item may still fail depending on the new parent that is being added. Only populated for Team Drive files. */
+                /**
+                 * Whether the current user can move this Team Drive item by changing its parent. Note that a request to change the parent for this item may still fail
+                 * depending on the new parent that is being added. Only populated for Team Drive files.
+                 */
                 canMoveTeamDriveItem?: boolean;
-                /** Whether the current user can read the revisions resource of this file. For a Team Drive item, whether revisions of non-folder descendants of this item, or this item itself if it is not a folder, can be read. */
+                /**
+                 * Whether the current user can read the revisions resource of this file. For a Team Drive item, whether revisions of non-folder descendants of this item,
+                 * or this item itself if it is not a folder, can be read.
+                 */
                 canReadRevisions?: boolean;
                 /** Whether the current user can read the Team Drive to which this file belongs. Only populated for Team Drive files. */
                 canReadTeamDrive?: boolean;
@@ -211,19 +225,19 @@ declare namespace gapi.client {
                 canTrash?: boolean;
                 /** Whether the current user can restore this file from trash. */
                 canUntrash?: boolean;
-            };            
+            };
             /** Additional information about the content of the file. These fields are never populated in responses. */
-            contentHints?: {            
+            contentHints?: {
                 /** Text to be indexed for the file to improve fullText queries. This is limited to 128KB in length and may contain HTML elements. */
                 indexableText?: string;
                 /** A thumbnail for the file. This will only be used if Drive cannot generate a standard thumbnail. */
-                thumbnail?: {                
+                thumbnail?: {
                     /** The thumbnail data encoded with URL-safe Base64 (RFC 4648 section 5). */
                     image?: string;
                     /** The MIME type of the thumbnail. */
                     mimeType?: string;
-                };                
-            };            
+                };
+            };
             /** The time at which the file was created (RFC 3339 date-time). */
             createdTime?: string;
             /** A short description of the file. */
@@ -238,13 +252,17 @@ declare namespace gapi.client {
              */
             folderColorRgb?: string;
             /**
-             * The full file extension extracted from the name field. May contain multiple concatenated extensions, such as "tar.gz". This is only available for files with binary content in Drive.
+             * The full file extension extracted from the name field. May contain multiple concatenated extensions, such as "tar.gz". This is only available for files
+             * with binary content in Drive.
              * This is automatically updated when the name field changes, however it is not cleared if the new name does not contain a valid extension.
              */
             fullFileExtension?: string;
             /** Whether any users are granted file access directly on this file. This field is only populated for Team Drive files. */
             hasAugmentedPermissions?: boolean;
-            /** Whether this file has a thumbnail. This does not indicate whether the requesting app has access to the thumbnail. To check access, look for the presence of the thumbnailLink field. */
+            /**
+             * Whether this file has a thumbnail. This does not indicate whether the requesting app has access to the thumbnail. To check access, look for the
+             * presence of the thumbnailLink field.
+             */
             hasThumbnail?: boolean;
             /** The ID of the file's head revision. This is currently only available for files with binary content in Drive. */
             headRevisionId?: string;
@@ -253,7 +271,7 @@ declare namespace gapi.client {
             /** The ID of the file. */
             id?: string;
             /** Additional metadata about image media, if available. */
-            imageMediaMetadata?: {            
+            imageMediaMetadata?: {
                 /** The aperture used to create the photo (f-number). */
                 aperture?: number;
                 /** The make of the camera used to create the photo. */
@@ -279,14 +297,14 @@ declare namespace gapi.client {
                 /** The lens used to create the photo. */
                 lens?: string;
                 /** Geographic location information stored in the image. */
-                location?: {                
+                location?: {
                     /** The altitude stored in the image. */
                     altitude?: number;
                     /** The latitude stored in the image. */
                     latitude?: number;
                     /** The longitude stored in the image. */
                     longitude?: number;
-                };                
+                };
                 /** The smallest f-number of the lens at the focal length used to create the photo (APEX value). */
                 maxApertureValue?: number;
                 /** The metering mode used to create the photo. */
@@ -303,7 +321,7 @@ declare namespace gapi.client {
                 whiteBalance?: string;
                 /** The width of the image in pixels. */
                 width?: number;
-            };            
+            };
             /** Whether the file was created or opened by the requesting app. */
             isAppAuthorized?: boolean;
             /** Identifies what kind of resource this is. Value: the fixed string "drive#file". */
@@ -314,8 +332,10 @@ declare namespace gapi.client {
             md5Checksum?: string;
             /**
              * The MIME type of the file.
-             * Drive will attempt to automatically detect an appropriate value from uploaded content if no value is provided. The value cannot be changed unless a new revision is uploaded.
-             * If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. The supported import formats are published in the About resource.
+             * Drive will attempt to automatically detect an appropriate value from uploaded content if no value is provided. The value cannot be changed unless a new
+             * revision is uploaded.
+             * If a file is created with a Google Doc MIME type, the uploaded content will be imported if possible. The supported import formats are published in the
+             * About resource.
              */
             mimeType?: string;
             /** Whether the file has been modified by this user. */
@@ -327,9 +347,15 @@ declare namespace gapi.client {
              * Note that setting modifiedTime will also update modifiedByMeTime for the user.
              */
             modifiedTime?: string;
-            /** The name of the file. This is not necessarily unique within a folder. Note that for immutable items such as the top level folders of Team Drives, My Drive root folder, and Application Data folder the name is constant. */
+            /**
+             * The name of the file. This is not necessarily unique within a folder. Note that for immutable items such as the top level folders of Team Drives, My
+             * Drive root folder, and Application Data folder the name is constant.
+             */
             name?: string;
-            /** The original filename of the uploaded content if available, or else the original value of the name field. This is only available for files with binary content in Drive. */
+            /**
+             * The original filename of the uploaded content if available, or else the original value of the name field. This is only available for files with binary
+             * content in Drive.
+             */
             originalFilename?: string;
             /** Whether the user owns the file. Not populated for Team Drive files. */
             ownedByMe?: boolean;
@@ -337,16 +363,19 @@ declare namespace gapi.client {
             owners?: User[];
             /**
              * The IDs of the parent folders which contain the file.
-             * If not specified as part of a create request, the file will be placed directly in the My Drive folder. Update requests must use the addParents and removeParents parameters to modify the values.
+             * If not specified as part of a create request, the file will be placed directly in the My Drive folder. Update requests must use the addParents and
+             * removeParents parameters to modify the values.
              */
             parents?: string[];
+            /** List of permission IDs for users with access to this file. */
+            permissionIds?: string[];
             /** The full list of permissions for the file. This is only available if the requesting user can share the file. Not populated for Team Drive files. */
             permissions?: Permission[];
             /**
              * A collection of arbitrary key-value pairs which are visible to all apps.
              * Entries with null values are cleared in update and copy requests.
              */
-            properties?: Record<string, string>;            
+            properties?: Record<string, string>;
             /** The number of storage quota bytes used by the file. This includes the head revision as well as previous revisions with keepForever enabled. */
             quotaBytesUsed?: string;
             /** Whether the file has been shared. Not populated for Team Drive files. */
@@ -363,11 +392,17 @@ declare namespace gapi.client {
             starred?: boolean;
             /** ID of the Team Drive the file resides in. */
             teamDriveId?: string;
-            /** A short-lived link to the file's thumbnail, if available. Typically lasts on the order of hours. Only populated when the requesting app can access the file's content. */
+            /**
+             * A short-lived link to the file's thumbnail, if available. Typically lasts on the order of hours. Only populated when the requesting app can access the
+             * file's content.
+             */
             thumbnailLink?: string;
             /** The thumbnail version for use in thumbnail cache invalidation. */
             thumbnailVersion?: string;
-            /** Whether the file has been trashed, either explicitly or from a trashed parent folder. Only the owner may trash a file, and other users cannot see files in the owner's trash. */
+            /**
+             * Whether the file has been trashed, either explicitly or from a trashed parent folder. Only the owner may trash a file, and other users cannot see files
+             * in the owner's trash.
+             */
             trashed?: boolean;
             /** The time that the item was trashed (RFC 3339 date-time). Only populated for Team Drive files. */
             trashedTime?: string;
@@ -376,14 +411,14 @@ declare namespace gapi.client {
             /** A monotonically increasing version number for the file. This reflects every change made to the file on the server, even those not visible to the user. */
             version?: string;
             /** Additional metadata about video media. This may not be available immediately upon upload. */
-            videoMediaMetadata?: {            
+            videoMediaMetadata?: {
                 /** The duration of the video in milliseconds. */
                 durationMillis?: string;
                 /** The height of the video in pixels. */
                 height?: number;
                 /** The width of the video in pixels. */
                 width?: number;
-            };            
+            };
             /** Whether the file has been viewed by this user. */
             viewedByMe?: boolean;
             /** The last time the file was viewed by the user (RFC 3339 date-time). */
@@ -397,18 +432,23 @@ declare namespace gapi.client {
             /** Whether users with only writer permission can modify the file's permissions. Not populated for Team Drive files. */
             writersCanShare?: boolean;
         }
-        
         interface FileList {
             /** The list of files. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched. */
             files?: File[];
-            /** Whether the search process was incomplete. If true, then some search results may be missing, since all documents were not searched. This may occur when searching multiple Team Drives with the "user,allTeamDrives" corpora, but all corpora could not be searched. When this happens, it is suggested that clients narrow their query by choosing a different corpus such as "user" or "teamDrive". */
+            /**
+             * Whether the search process was incomplete. If true, then some search results may be missing, since all documents were not searched. This may occur when
+             * searching multiple Team Drives with the "user,allTeamDrives" corpora, but all corpora could not be searched. When this happens, it is suggested that
+             * clients narrow their query by choosing a different corpus such as "user" or "teamDrive".
+             */
             incompleteSearch?: boolean;
             /** Identifies what kind of resource this is. Value: the fixed string "drive#fileList". */
             kind?: string;
-            /** The page token for the next page of files. This will be absent if the end of the files list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results. */
+            /**
+             * The page token for the next page of files. This will be absent if the end of the files list has been reached. If the token is rejected for any reason,
+             * it should be discarded, and pagination should be restarted from the first page of results.
+             */
             nextPageToken?: string;
         }
-        
         interface GeneratedIds {
             /** The IDs generated for the requesting user in the specified space. */
             ids?: string[];
@@ -417,7 +457,6 @@ declare namespace gapi.client {
             /** The type of file that can be created with these IDs. */
             space?: string;
         }
-        
         interface Permission {
             /** Whether the permission allows the file to be discovered through search. This is only applicable for permissions of type domain or anyone. */
             allowFileDiscovery?: boolean;
@@ -430,9 +469,9 @@ declare namespace gapi.client {
             /** The email address of the user or group to which this permission refers. */
             emailAddress?: string;
             /**
-             * The time at which this permission will expire (RFC 3339 date-time). Expiration times have the following restrictions:  
-             * - They can only be set on user and group permissions 
-             * - The time must be in the future 
+             * The time at which this permission will expire (RFC 3339 date-time). Expiration times have the following restrictions:
+             * - They can only be set on user and group permissions
+             * - The time must be in the future
              * - The time cannot be more than a year in the future
              */
             expirationTime?: string;
@@ -443,64 +482,71 @@ declare namespace gapi.client {
             /** A link to the user's profile photo, if available. */
             photoLink?: string;
             /**
-             * The role granted by this permission. While new values may be supported in the future, the following are currently allowed:  
-             * - organizer 
-             * - owner 
-             * - writer 
-             * - commenter 
+             * The role granted by this permission. While new values may be supported in the future, the following are currently allowed:
+             * - organizer
+             * - owner
+             * - writer
+             * - commenter
              * - reader
              */
             role?: string;
-            /** Details of whether the permissions on this Team Drive item are inherited or directly on this item. This is an output-only field which is present only for Team Drive items. */
-            teamDrivePermissionDetails?: Array<{            
+            /**
+             * Details of whether the permissions on this Team Drive item are inherited or directly on this item. This is an output-only field which is present only
+             * for Team Drive items.
+             */
+            teamDrivePermissionDetails?: Array<{
                 /** Whether this permission is inherited. This field is always populated. This is an output-only field. */
                 inherited?: boolean;
                 /** The ID of the item from which this permission is inherited. This is an output-only field and is only populated for members of the Team Drive. */
                 inheritedFrom?: string;
                 /**
-                 * The primary role for this user. While new values may be added in the future, the following are currently possible:  
-                 * - organizer 
-                 * - writer 
-                 * - commenter 
+                 * The primary role for this user. While new values may be added in the future, the following are currently possible:
+                 * - organizer
+                 * - writer
+                 * - commenter
                  * - reader
                  */
                 role?: string;
                 /**
-                 * The Team Drive permission type for this user. While new values may be added in future, the following are currently possible:  
-                 * - file 
+                 * The Team Drive permission type for this user. While new values may be added in future, the following are currently possible:
+                 * - file
                  * - member
                  */
                 teamDrivePermissionType?: string;
-            }>;            
+            }>;
             /**
-             * The type of the grantee. Valid values are:  
-             * - user 
-             * - group 
-             * - domain 
+             * The type of the grantee. Valid values are:
+             * - user
+             * - group
+             * - domain
              * - anyone
              */
             type?: string;
         }
-        
         interface PermissionList {
             /** Identifies what kind of resource this is. Value: the fixed string "drive#permissionList". */
             kind?: string;
-            /** The page token for the next page of permissions. This field will be absent if the end of the permissions list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results. */
+            /**
+             * The page token for the next page of permissions. This field will be absent if the end of the permissions list has been reached. If the token is
+             * rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results.
+             */
             nextPageToken?: string;
             /** The list of permissions. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched. */
             permissions?: Permission[];
         }
-        
         interface Reply {
             /**
-             * The action the reply performed to the parent comment. Valid values are:  
-             * - resolve 
+             * The action the reply performed to the parent comment. Valid values are:
+             * - resolve
              * - reopen
              */
             action?: string;
             /** The user who created the reply. */
             author?: User;
-            /** The plain text content of the reply. This field is used for setting the content, while htmlContent should be displayed. This is required on creates if no action is specified. */
+            /**
+             * The plain text content of the reply. This field is used for setting the content, while htmlContent should be displayed. This is required on creates if
+             * no action is specified.
+             */
             content?: string;
             /** The time at which the reply was created (RFC 3339 date-time). */
             createdTime?: string;
@@ -515,21 +561,23 @@ declare namespace gapi.client {
             /** The last time the reply was modified (RFC 3339 date-time). */
             modifiedTime?: string;
         }
-        
         interface ReplyList {
             /** Identifies what kind of resource this is. Value: the fixed string "drive#replyList". */
             kind?: string;
-            /** The page token for the next page of replies. This will be absent if the end of the replies list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results. */
+            /**
+             * The page token for the next page of replies. This will be absent if the end of the replies list has been reached. If the token is rejected for any
+             * reason, it should be discarded, and pagination should be restarted from the first page of results.
+             */
             nextPageToken?: string;
             /** The list of replies. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched. */
             replies?: Reply[];
         }
-        
         interface Revision {
             /** The ID of the revision. */
             id?: string;
             /**
-             * Whether to keep this revision forever, even if it is no longer the head revision. If not set, the revision will be automatically purged 30 days after newer content is uploaded. This can be set on a maximum of 200 revisions for a file.
+             * Whether to keep this revision forever, even if it is no longer the head revision. If not set, the revision will be automatically purged 30 days after
+             * newer content is uploaded. This can be set on a maximum of 200 revisions for a file.
              * This field is only applicable to files with binary content in Drive.
              */
             keepForever?: boolean;
@@ -554,39 +602,53 @@ declare namespace gapi.client {
             /** The size of the revision's content in bytes. This is only applicable to files with binary content in Drive. */
             size?: string;
         }
-        
         interface RevisionList {
             /** Identifies what kind of resource this is. Value: the fixed string "drive#revisionList". */
             kind?: string;
-            /** The page token for the next page of revisions. This will be absent if the end of the revisions list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results. */
+            /**
+             * The page token for the next page of revisions. This will be absent if the end of the revisions list has been reached. If the token is rejected for any
+             * reason, it should be discarded, and pagination should be restarted from the first page of results.
+             */
             nextPageToken?: string;
             /** The list of revisions. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched. */
             revisions?: Revision[];
         }
-        
         interface StartPageToken {
             /** Identifies what kind of resource this is. Value: the fixed string "drive#startPageToken". */
             kind?: string;
             /** The starting page token for listing changes. */
             startPageToken?: string;
         }
-        
         interface TeamDrive {
-            /** An image file and cropping parameters from which a background image for this Team Drive is set. This is a write only field; it can only be set on drive.teamdrives.update requests that don't set themeId. When specified, all fields of the backgroundImageFile must be set. */
-            backgroundImageFile?: {            
+            /**
+             * An image file and cropping parameters from which a background image for this Team Drive is set. This is a write only field; it can only be set on
+             * drive.teamdrives.update requests that don't set themeId. When specified, all fields of the backgroundImageFile must be set.
+             */
+            backgroundImageFile?: {
                 /** The ID of an image file in Drive to use for the background image. */
                 id?: string;
-                /** The width of the cropped image in the closed range of 0 to 1. This value represents the width of the cropped image divided by the width of the entire image. The height is computed by applying a width to height aspect ratio of 80 to 9. The resulting image must be at least 1280 pixels wide and 144 pixels high. */
+                /**
+                 * The width of the cropped image in the closed range of 0 to 1. This value represents the width of the cropped image divided by the width of the entire
+                 * image. The height is computed by applying a width to height aspect ratio of 80 to 9. The resulting image must be at least 1280 pixels wide and 144
+                 * pixels high.
+                 */
                 width?: number;
-                /** The X coordinate of the upper left corner of the cropping area in the background image. This is a value in the closed range of 0 to 1. This value represents the horizontal distance from the left side of the entire image to the left side of the cropping area divided by the width of the entire image. */
+                /**
+                 * The X coordinate of the upper left corner of the cropping area in the background image. This is a value in the closed range of 0 to 1. This value
+                 * represents the horizontal distance from the left side of the entire image to the left side of the cropping area divided by the width of the entire
+                 * image.
+                 */
                 xCoordinate?: number;
-                /** The Y coordinate of the upper left corner of the cropping area in the background image. This is a value in the closed range of 0 to 1. This value represents the vertical distance from the top side of the entire image to the top side of the cropping area divided by the height of the entire image. */
+                /**
+                 * The Y coordinate of the upper left corner of the cropping area in the background image. This is a value in the closed range of 0 to 1. This value
+                 * represents the vertical distance from the top side of the entire image to the top side of the cropping area divided by the height of the entire image.
+                 */
                 yCoordinate?: number;
-            };            
+            };
             /** A short-lived link to this Team Drive's background image. */
             backgroundImageLink?: string;
             /** Capabilities the current user has on this Team Drive. */
-            capabilities?: {            
+            capabilities?: {
                 /** Whether the current user can add children to folders in this Team Drive. */
                 canAddChildren?: boolean;
                 /** Whether the current user can change the background of this Team Drive. */
@@ -595,7 +657,10 @@ declare namespace gapi.client {
                 canComment?: boolean;
                 /** Whether the current user can copy files in this Team Drive. */
                 canCopy?: boolean;
-                /** Whether the current user can delete this Team Drive. Attempting to delete the Team Drive may still fail if there are untrashed items inside the Team Drive. */
+                /**
+                 * Whether the current user can delete this Team Drive. Attempting to delete the Team Drive may still fail if there are untrashed items inside the Team
+                 * Drive.
+                 */
                 canDeleteTeamDrive?: boolean;
                 /** Whether the current user can download files in this Team Drive. */
                 canDownload?: boolean;
@@ -615,7 +680,7 @@ declare namespace gapi.client {
                 canRenameTeamDrive?: boolean;
                 /** Whether the current user can share files or folders in this Team Drive. */
                 canShare?: boolean;
-            };            
+            };
             /** The color of this Team Drive as an RGB hex string. It can only be set on a drive.teamdrives.update request that does not set themeId. */
             colorRgb?: string;
             /** The ID of this Team Drive which is also the ID of the top level folder for this Team Drive. */
@@ -624,19 +689,24 @@ declare namespace gapi.client {
             kind?: string;
             /** The name of this Team Drive. */
             name?: string;
-            /** The ID of the theme from which the background image and color will be set. The set of possible teamDriveThemes can be retrieved from a drive.about.get response. When not specified on a drive.teamdrives.create request, a random theme is chosen from which the background image and color are set. This is a write-only field; it can only be set on requests that don't set colorRgb or backgroundImageFile. */
+            /**
+             * The ID of the theme from which the background image and color will be set. The set of possible teamDriveThemes can be retrieved from a drive.about.get
+             * response. When not specified on a drive.teamdrives.create request, a random theme is chosen from which the background image and color are set. This is
+             * a write-only field; it can only be set on requests that don't set colorRgb or backgroundImageFile.
+             */
             themeId?: string;
         }
-        
         interface TeamDriveList {
             /** Identifies what kind of resource this is. Value: the fixed string "drive#teamDriveList". */
             kind?: string;
-            /** The page token for the next page of Team Drives. This will be absent if the end of the Team Drives list has been reached. If the token is rejected for any reason, it should be discarded, and pagination should be restarted from the first page of results. */
+            /**
+             * The page token for the next page of Team Drives. This will be absent if the end of the Team Drives list has been reached. If the token is rejected for
+             * any reason, it should be discarded, and pagination should be restarted from the first page of results.
+             */
             nextPageToken?: string;
             /** The list of Team Drives. If nextPageToken is populated, then this list may be incomplete and an additional page of results should be fetched. */
             teamDrives?: TeamDrive[];
         }
-        
         interface User {
             /** A plain text displayable name for this user. */
             displayName?: string;
@@ -651,10 +721,9 @@ declare namespace gapi.client {
             /** A link to the user's profile photo, if available. */
             photoLink?: string;
         }
-        
         interface AboutResource {
             /** Gets information about the user, the user's Drive, and system capabilities. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -665,17 +734,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<About>;            
-            
+            }): Request<About>;
         }
-        
         interface ChangesResource {
             /** Gets the starting pageToken for listing future changes. */
-            getStartPageToken(request: {            
+            getStartPageToken(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -686,7 +756,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
@@ -694,15 +767,17 @@ declare namespace gapi.client {
                 teamDriveId?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<StartPageToken>;            
-            
+            }): Request<StartPageToken>;
             /** Lists the changes for a user or Team Drive. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed from the list of changes and there will be no further change entries for this file. */
+                /**
+                 * Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed
+                 * from the list of changes and there will be no further change entries for this file.
+                 */
                 includeCorpusRemovals?: boolean;
                 /** Whether to include changes indicating that items have been removed from the list of changes, for example by deletion or loss of access. */
                 includeRemoved?: boolean;
@@ -714,31 +789,45 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** The maximum number of changes to return per page. */
                 pageSize?: number;
-                /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to the response from the getStartPageToken method. */
+                /**
+                 * The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to
+                 * the response from the getStartPageToken method.
+                 */
                 pageToken: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or shared files which have not been added to My Drive. */
+                /**
+                 * Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or
+                 * shared files which have not been added to My Drive.
+                 */
                 restrictToMyDrive?: boolean;
                 /** A comma-separated list of spaces to query within the user corpus. Supported values are 'drive', 'appDataFolder' and 'photos'. */
                 spaces?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-                /** The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier. */
+                /**
+                 * The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID
+                 * and change ID as an identifier.
+                 */
                 teamDriveId?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ChangeList>;            
-            
+            }): Request<ChangeList>;
             /** Subscribes to changes for a user. */
-            watch(request: {            
+            watch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed from the list of changes and there will be no further change entries for this file. */
+                /**
+                 * Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed
+                 * from the list of changes and there will be no further change entries for this file.
+                 */
                 includeCorpusRemovals?: boolean;
                 /** Whether to include changes indicating that items have been removed from the list of changes, for example by deletion or loss of access. */
                 includeRemoved?: boolean;
@@ -750,29 +839,39 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** The maximum number of changes to return per page. */
                 pageSize?: number;
-                /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to the response from the getStartPageToken method. */
+                /**
+                 * The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to
+                 * the response from the getStartPageToken method.
+                 */
                 pageToken: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or shared files which have not been added to My Drive. */
+                /**
+                 * Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or
+                 * shared files which have not been added to My Drive.
+                 */
                 restrictToMyDrive?: boolean;
                 /** A comma-separated list of spaces to query within the user corpus. Supported values are 'drive', 'appDataFolder' and 'photos'. */
                 spaces?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-                /** The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier. */
+                /**
+                 * The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID
+                 * and change ID as an identifier.
+                 */
                 teamDriveId?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Channel>;            
-            
+            }): Request<Channel>;
         }
-        
         interface ChannelsResource {
             /** Stop watching resources through this channel */
-            stop(request: {            
+            stop(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -783,17 +882,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface CommentsResource {
             /** Creates a new comment on a file. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -806,14 +906,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Comment>;            
-            
+            }): Request<Comment>;
             /** Deletes a comment. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -828,14 +930,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a comment by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -852,14 +956,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Comment>;            
-            
+            }): Request<Comment>;
             /** Lists a file's comments. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -878,16 +984,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The minimum value of 'modifiedTime' for the result comments (RFC 3339 date-time). */
                 startModifiedTime?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CommentList>;            
-            
+            }): Request<CommentList>;
             /** Updates a comment with patch semantics. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -902,24 +1010,28 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Comment>;            
-            
+            }): Request<Comment>;
         }
-        
         interface FilesResource {
             /** Creates a copy of a file and applies any requested updates with patch semantics. */
-            copy(request: {            
+            copy(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** The ID of the file. */
                 fileId: string;
-                /** Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders. */
+                /**
+                 * Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to
+                 * the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders.
+                 */
                 ignoreDefaultVisibility?: boolean;
                 /** Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Drive. */
                 keepRevisionForever?: boolean;
@@ -931,21 +1043,26 @@ declare namespace gapi.client {
                 ocrLanguage?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<File>;            
-            
+            }): Request<File>;
             /** Creates a new file. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders. */
+                /**
+                 * Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to
+                 * the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders.
+                 */
                 ignoreDefaultVisibility?: boolean;
                 /** Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Drive. */
                 keepRevisionForever?: boolean;
@@ -957,7 +1074,10 @@ declare namespace gapi.client {
                 ocrLanguage?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
@@ -965,10 +1085,12 @@ declare namespace gapi.client {
                 useContentAsIndexableText?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<File>;            
-            
-            /** Permanently deletes a file owned by the user without moving it to the trash. If the file belongs to a Team Drive the user must be an organizer on the parent. If the target is a folder, all descendants owned by the user are also deleted. */
-            delete(request: {            
+            }): Request<File>;
+            /**
+             * Permanently deletes a file owned by the user without moving it to the trash. If the file belongs to a Team Drive the user must be an organizer on the
+             * parent. If the target is a folder, all descendants owned by the user are also deleted.
+             */
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -981,16 +1103,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Permanently deletes all of the user's trashed files. */
-            emptyTrash(request: {            
+            emptyTrash(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1001,14 +1125,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Exports a Google Doc to the requested MIME type and returns the exported content. Please note that the exported content is limited to 10MB. */
-            export(request: {            
+            export(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1023,14 +1149,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Generates a set of file IDs which can be provided in create requests. */
-            generateIds(request: {            
+            generateIds(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The number of IDs to return. */
@@ -1043,16 +1171,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The space in which the IDs can be used to create new files. Supported values are 'drive' and 'appDataFolder'. */
                 space?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GeneratedIds>;            
-            
+            }): Request<GeneratedIds>;
             /** Gets a file's metadata or content by ID. */
-            get(request: {            
+            get(request: {
                 /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
                 acknowledgeAbuse?: boolean;
                 /** Data format for the response. */
@@ -1067,19 +1197,25 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<File>;            
-            
+            }): Request<File>;
             /** Lists or searches files. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** Comma-separated list of bodies of items (files/documents) to which the query applies. Supported bodies are 'user', 'domain', 'teamDrive' and 'allTeamDrives'. 'allTeamDrives' must be combined with 'user'; all other values must be used in isolation. Prefer 'user' or 'teamDrive' to 'allTeamDrives' for efficiency. */
+                /**
+                 * Comma-separated list of bodies of items (files/documents) to which the query applies. Supported bodies are 'user', 'domain', 'teamDrive' and
+                 * 'allTeamDrives'. 'allTeamDrives' must be combined with 'user'; all other values must be used in isolation. Prefer 'user' or 'teamDrive' to
+                 * 'allTeamDrives' for efficiency.
+                 */
                 corpora?: string;
                 /** The source of files to list. Deprecated: use 'corpora' instead. */
                 corpus?: string;
@@ -1091,7 +1227,12 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. Each key sorts ascending by default, but may be reversed with the 'desc' modifier. Example usage: ?orderBy=folder,modifiedTime desc,name. Please note that there is a current limitation for users with approximately one million files in which the requested sort order is ignored. */
+                /**
+                 * A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 'name_natural',
+                 * 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. Each key sorts ascending by default, but may be reversed with the
+                 * 'desc' modifier. Example usage: ?orderBy=folder,modifiedTime desc,name. Please note that there is a current limitation for users with approximately one
+                 * million files in which the requested sort order is ignored.
+                 */
                 orderBy?: string;
                 /** The maximum number of files to return per page. Partial or empty result pages are possible even before the end of the files list has been reached. */
                 pageSize?: number;
@@ -1101,7 +1242,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** A query for filtering the file results. See the "Search for Files" guide for supported syntax. */
                 q?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** A comma-separated list of spaces to query within the corpus. Supported values are 'drive', 'appDataFolder' and 'photos'. */
                 spaces?: string;
@@ -1111,10 +1255,9 @@ declare namespace gapi.client {
                 teamDriveId?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<FileList>;            
-            
+            }): Request<FileList>;
             /** Updates a file's metadata and/or content with patch semantics. */
-            update(request: {            
+            update(request: {
                 /** A comma-separated list of parent IDs to add. */
                 addParents?: string;
                 /** Data format for the response. */
@@ -1133,7 +1276,10 @@ declare namespace gapi.client {
                 ocrLanguage?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** A comma-separated list of parent IDs to remove. */
                 removeParents?: string;
@@ -1143,10 +1289,9 @@ declare namespace gapi.client {
                 useContentAsIndexableText?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<File>;            
-            
+            }): Request<File>;
             /** Subscribes to changes to a file */
-            watch(request: {            
+            watch(request: {
                 /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
                 acknowledgeAbuse?: boolean;
                 /** Data format for the response. */
@@ -1161,19 +1306,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Channel>;            
-            
+            }): Request<Channel>;
         }
-        
         interface PermissionsResource {
             /** Creates a permission for a file or Team Drive. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** A custom message to include in the notification email. */
@@ -1188,20 +1334,28 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** Whether to send a notification email when sharing to users or groups. This defaults to true for users and groups, and is not allowed for other requests. It must not be disabled for ownership transfers. */
+                /**
+                 * Whether to send a notification email when sharing to users or groups. This defaults to true for users and groups, and is not allowed for other
+                 * requests. It must not be disabled for ownership transfers.
+                 */
                 sendNotificationEmail?: boolean;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-                /** Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. */
+                /**
+                 * Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of
+                 * the side effect.
+                 */
                 transferOwnership?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Permission>;            
-            
+            }): Request<Permission>;
             /** Deletes a permission. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1216,16 +1370,18 @@ declare namespace gapi.client {
                 permissionId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a permission by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1240,16 +1396,18 @@ declare namespace gapi.client {
                 permissionId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Permission>;            
-            
+            }): Request<Permission>;
             /** Lists a file's or Team Drive's permissions. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1260,22 +1418,27 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** The maximum number of permissions to return per page. When not set for files in a Team Drive, at most 100 results will be returned. When not set for files that are not in a Team Drive, the entire list will be returned. */
+                /**
+                 * The maximum number of permissions to return per page. When not set for files in a Team Drive, at most 100 results will be returned. When not set for
+                 * files that are not in a Team Drive, the entire list will be returned.
+                 */
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PermissionList>;            
-            
+            }): Request<PermissionList>;
             /** Updates a permission with patch semantics. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1290,23 +1453,27 @@ declare namespace gapi.client {
                 permissionId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Whether to remove the expiration date. */
                 removeExpiration?: boolean;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-                /** Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. */
+                /**
+                 * Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of
+                 * the side effect.
+                 */
                 transferOwnership?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Permission>;            
-            
+            }): Request<Permission>;
         }
-        
         interface RepliesResource {
             /** Creates a new reply to a comment. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -1321,14 +1488,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Reply>;            
-            
+            }): Request<Reply>;
             /** Deletes a reply. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -1343,16 +1512,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the reply. */
                 replyId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a reply by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -1369,16 +1540,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the reply. */
                 replyId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Reply>;            
-            
+            }): Request<Reply>;
             /** Lists a comment's replies. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -1399,14 +1572,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ReplyList>;            
-            
+            }): Request<ReplyList>;
             /** Updates a reply with patch semantics. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the comment. */
@@ -1421,19 +1596,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the reply. */
                 replyId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Reply>;            
-            
+            }): Request<Reply>;
         }
-        
         interface RevisionsResource {
             /** Permanently deletes a revision. This method is only applicable to files with binary content in Drive. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1446,16 +1622,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the revision. */
                 revisionId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a revision's metadata or content by ID. */
-            get(request: {            
+            get(request: {
                 /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
                 acknowledgeAbuse?: boolean;
                 /** Data format for the response. */
@@ -1470,16 +1648,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the revision. */
                 revisionId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Revision>;            
-            
+            }): Request<Revision>;
             /** Lists a file's revisions. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1496,14 +1676,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RevisionList>;            
-            
+            }): Request<RevisionList>;
             /** Updates a revision with patch semantics. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1516,19 +1698,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the revision. */
                 revisionId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Revision>;            
-            
+            }): Request<Revision>;
         }
-        
         interface TeamdrivesResource {
             /** Creates a new Team Drive. */
-            create(request: {            
+            create(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1539,16 +1722,22 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** An ID, such as a random UUID, which uniquely identifies this user's request for idempotent creation of a Team Drive. A repeated request by the same user and with the same request ID will avoid creating duplicates by attempting to create the same Team Drive. If the Team Drive already exists a 409 error will be returned. */
+                /**
+                 * An ID, such as a random UUID, which uniquely identifies this user's request for idempotent creation of a Team Drive. A repeated request by the same
+                 * user and with the same request ID will avoid creating duplicates by attempting to create the same Team Drive. If the Team Drive already exists a 409
+                 * error will be returned.
+                 */
                 requestId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TeamDrive>;            
-            
+            }): Request<TeamDrive>;
             /** Permanently deletes a Team Drive for which the user is an organizer. The Team Drive cannot contain any untrashed items. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1559,16 +1748,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a Team Drive's metadata by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1579,16 +1770,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TeamDrive>;            
-            
+            }): Request<TeamDrive>;
             /** Lists the user's Team Drives. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1603,14 +1796,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TeamDriveList>;            
-            
+            }): Request<TeamDriveList>;
             /** Updates a Team Drive's metadata */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1621,14 +1816,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TeamDrive>;            
-            
+            }): Request<TeamDrive>;
         }
     }
 }

@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google App State API v1 */
-    function load(name: "appstate", version: "v1"): PromiseLike<void>;    
-    function load(name: "appstate", version: "v1", callback: () => any): void;    
-    
-    const states: appstate.StatesResource; 
-    
+    function load(name: "appstate", version: "v1"): PromiseLike<void>;
+    function load(name: "appstate", version: "v1", callback: () => any): void;
+
+    const states: appstate.StatesResource;
+
     namespace appstate {
-        
         interface GetResponse {
             /** The current app state version. */
             currentStateVersion?: string;
@@ -30,7 +29,6 @@ declare namespace gapi.client {
             /** The key for the data. */
             stateKey?: number;
         }
-        
         interface ListResponse {
             /** The app state data. */
             items?: GetResponse[];
@@ -39,14 +37,12 @@ declare namespace gapi.client {
             /** The maximum number of keys allowed for this user. */
             maximumKeyCount?: number;
         }
-        
         interface UpdateRequest {
             /** The new app state data that your application is trying to update with. */
             data?: string;
             /** Uniquely identifies the type of this resource. Value is always the fixed string appstate#updateRequest. */
             kind?: string;
         }
-        
         interface WriteResult {
             /** The version of the data for this key on the server. */
             currentStateVersion?: string;
@@ -55,10 +51,12 @@ declare namespace gapi.client {
             /** The written key. */
             stateKey?: number;
         }
-        
         interface StatesResource {
-            /** Clears (sets to empty) the data for the passed key if and only if the passed version matches the currently stored version. This method results in a conflict error on version mismatch. */
-            clear(request: {            
+            /**
+             * Clears (sets to empty) the data for the passed key if and only if the passed version matches the currently stored version. This method results in a
+             * conflict error on version mismatch.
+             */
+            clear(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The version of the data to be cleared. Version strings are returned by the server. */
@@ -71,16 +69,22 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WriteResult>;            
-            
-            /** Deletes a key and the data associated with it. The key is removed and no longer counts against the key quota. Note that since this method is not safe in the face of concurrent modifications, it should only be used for development and testing purposes. Invoking this method in shipping code can result in data loss and data corruption. */
-            delete(request: {            
+            }): Request<WriteResult>;
+            /**
+             * Deletes a key and the data associated with it. The key is removed and no longer counts against the key quota. Note that since this method is not safe
+             * in the face of concurrent modifications, it should only be used for development and testing purposes. Invoking this method in shipping code can result
+             * in data loss and data corruption.
+             */
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -91,16 +95,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves the data corresponding to the passed key. If the key does not exist on the server, an HTTP 404 will be returned. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -111,16 +117,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetResponse>;            
-            
+            }): Request<GetResponse>;
             /** Lists all the states keys, and optionally the state data. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -133,17 +141,25 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ListResponse>;            
-            
-            /** Update the data associated with the input key if and only if the passed version matches the currently stored version. This method is safe in the face of concurrent writes. Maximum per-key size is 128KB. */
-            update(request: {            
+            }): Request<ListResponse>;
+            /**
+             * Update the data associated with the input key if and only if the passed version matches the currently stored version. This method is safe in the face
+             * of concurrent writes. Maximum per-key size is 128KB.
+             */
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** The version of the app state your application is attempting to update. If this does not match the current version, this method will return a conflict error. If there is no data stored on the server for this key, the update will succeed irrespective of the value of this parameter. */
+                /**
+                 * The version of the app state your application is attempting to update. If this does not match the current version, this method will return a conflict
+                 * error. If there is no data stored on the server for this key, the update will succeed irrespective of the value of this parameter.
+                 */
                 currentStateVersion?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
@@ -153,14 +169,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WriteResult>;            
-            
+            }): Request<WriteResult>;
         }
     }
 }

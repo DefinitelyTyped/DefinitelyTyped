@@ -61,17 +61,12 @@ before the operation is executed.
 
 This method requires the `servicemanagement.services.quota`
 permission on the specified service. For more information, see
-[Google Cloud IAM](https://cloud.google.com/iam).
+[Cloud IAM](https://cloud.google.com/iam).
 
-**NOTE:** the client code **must** fail-open if the server returns one
-of the following quota errors:
--   `PROJECT_STATUS_UNAVAILABLE`
--   `SERVICE_STATUS_UNAVAILABLE`
--   `BILLING_STATUS_UNAVAILABLE`
--   `QUOTA_SYSTEM_UNAVAILABLE`
-
-The server may inject above errors to prohibit any hard dependency
-on the quota system.  
+**NOTE:** The client **must** fail-open on server errors `INTERNAL`,
+`UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
+reliability, the server may inject these errors to prohibit any hard
+dependency on the quota functionality.  
 */
 await gapi.client.services.allocateQuota({ serviceName: "serviceName",  }); 
     
@@ -107,17 +102,13 @@ Releases previously allocated quota done through AllocateQuota method.
 
 This method requires the `servicemanagement.services.quota`
 permission on the specified service. For more information, see
-[Google Cloud IAM](https://cloud.google.com/iam).
+[Cloud IAM](https://cloud.google.com/iam).
 
-**NOTE:** the client code **must** fail-open if the server returns one
-of the following quota errors:
--   `PROJECT_STATUS_UNAVAILABLE`
--   `SERVICE_STATUS_UNAVAILABLE`
--   `BILLING_STATUS_UNAVAILABLE`
--   `QUOTA_SYSTEM_UNAVAILABLE`
 
-The server may inject above errors to prohibit any hard dependency
-on the quota system.  
+**NOTE:** The client **must** fail-open on server errors `INTERNAL`,
+`UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
+reliability, the server may inject these errors to prohibit any hard
+dependency on the quota functionality.  
 */
 await gapi.client.services.releaseQuota({ serviceName: "serviceName",  }); 
     

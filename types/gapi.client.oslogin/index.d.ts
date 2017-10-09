@@ -13,34 +13,31 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud OS Login API v1alpha */
-    function load(name: "oslogin", version: "v1alpha"): PromiseLike<void>;    
-    function load(name: "oslogin", version: "v1alpha", callback: () => any): void;    
-    
-    const users: oslogin.UsersResource; 
-    
+    function load(name: "oslogin", version: "v1alpha"): PromiseLike<void>;
+    function load(name: "oslogin", version: "v1alpha", callback: () => any): void;
+
+    const users: oslogin.UsersResource;
+
     namespace oslogin {
-        
         interface ImportSshPublicKeyResponse {
             /** The login profile information for the user. */
             loginProfile?: LoginProfile;
         }
-        
         interface LoginProfile {
             /** A unique user ID for identifying the user. */
             name?: string;
             /** The list of POSIX accounts associated with the Directory API user. */
             posixAccounts?: PosixAccount[];
             /** A map from SSH public key fingerprint to the associated key object. */
-            sshPublicKeys?: Record<string, SshPublicKey>;            
+            sshPublicKeys?: Record<string, SshPublicKey>;
             /** Indicates if the user is suspended. */
             suspended?: boolean;
         }
-        
         interface PosixAccount {
             /** The GECOS (user information) entry for this account. */
             gecos?: string;
             /** The default group ID. */
-            gid?: number;
+            gid?: string;
             /** The path to the home directory for this account. */
             homeDirectory?: string;
             /** Only one POSIX account can be marked as primary. */
@@ -53,15 +50,17 @@ declare namespace gapi.client {
              */
             systemId?: string;
             /** The user ID. */
-            uid?: number;
+            uid?: string;
             /** The username of the POSIX account. */
             username?: string;
         }
-        
         interface SshPublicKey {
             /** An expiration time in microseconds since epoch. */
             expirationTimeUsec?: string;
-            /** [Output Only] The SHA-256 fingerprint of the SSH public key. */
+            /**
+             * The SHA-256 fingerprint of the SSH public key.
+             * Output only.
+             */
             fingerprint?: string;
             /**
              * Public key text in SSH format, defined by
@@ -70,10 +69,9 @@ declare namespace gapi.client {
              */
             key?: string;
         }
-        
         interface SshPublicKeysResource {
             /** Deletes an SSH public key. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -106,10 +104,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Retrieves an SSH public key. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -142,13 +139,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SshPublicKey>;            
-            
+            }): Request<SshPublicKey>;
             /**
              * Updates an SSH public key and returns the profile information. This method
              * supports patch semantics.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -183,16 +179,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SshPublicKey>;            
-            
+            }): Request<SshPublicKey>;
         }
-        
         interface UsersResource {
             /**
              * Retrieves the profile information used for logging in to a virtual machine
              * on Google Compute Engine.
              */
-            getLoginProfile(request: {            
+            getLoginProfile(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -221,14 +215,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<LoginProfile>;            
-            
+            }): Request<LoginProfile>;
             /**
              * Adds an SSH public key and returns the profile information. Default POSIX
              * account information is set when no username and UID exist as part of the
              * login profile.
              */
-            importSshPublicKey(request: {            
+            importSshPublicKey(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -257,8 +250,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ImportSshPublicKeyResponse>;            
-            
+            }): Request<ImportSshPublicKeyResponse>;
             sshPublicKeys: SshPublicKeysResource;
         }
     }

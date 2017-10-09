@@ -53,6 +53,12 @@ After that you can use DLP API resources:
 ```typescript 
     
 /* 
+De-identifies potentially sensitive info from a list of strings.
+This method has limits on input size and output size.  
+*/
+await gapi.client.content.deidentify({  }); 
+    
+/* 
 Finds potentially sensitive info in a list of strings.
 This method has limits on input size, processing time, and output size.  
 */
@@ -63,6 +69,12 @@ Redacts potentially sensitive info from a list of strings.
 This method has limits on input size, processing time, and output size.  
 */
 await gapi.client.content.redact({  }); 
+    
+/* 
+Schedules a job to compute risk analysis metrics over content in a Google
+Cloud Platform repository.  
+*/
+await gapi.client.dataSource.analyze({  }); 
     
 /* 
 Returns the list of root categories of sensitive information.  

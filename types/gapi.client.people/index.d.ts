@@ -13,15 +13,14 @@
 
 declare namespace gapi.client {
     /** Load Google People API v1 */
-    function load(name: "people", version: "v1"): PromiseLike<void>;    
-    function load(name: "people", version: "v1", callback: () => any): void;    
-    
-    const contactGroups: people.ContactGroupsResource; 
-    
-    const people: people.PeopleResource; 
-    
+    function load(name: "people", version: "v1"): PromiseLike<void>;
+    function load(name: "people", version: "v1", callback: () => any): void;
+
+    const contactGroups: people.ContactGroupsResource;
+
+    const people: people.PeopleResource;
+
     namespace people {
-        
         interface Address {
             /** The city of the address. */
             city?: string;
@@ -57,26 +56,23 @@ declare namespace gapi.client {
             /**
              * The type of the address. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `home`
              * &#42; `work`
              * &#42; `other`
              */
             type?: string;
         }
-        
         interface AgeRangeType {
             /** The age range. */
             ageRange?: string;
             /** Metadata about the age range. */
             metadata?: FieldMetadata;
         }
-        
         interface BatchGetContactGroupsResponse {
             /** The list of responses for each requested contact group resource. */
             responses?: ContactGroupResponse[];
         }
-        
         interface Biography {
             /** The content type of the biography. */
             contentType?: string;
@@ -85,7 +81,6 @@ declare namespace gapi.client {
             /** The short biography. */
             value?: string;
         }
-        
         interface Birthday {
             /** The date of the birthday. */
             date?: Date;
@@ -94,14 +89,12 @@ declare namespace gapi.client {
             /** A free-form string representing the user's birthday. */
             text?: string;
         }
-        
         interface BraggingRights {
             /** Metadata about the bragging rights. */
             metadata?: FieldMetadata;
             /** The bragging rights; for example, `climbed mount everest`. */
             value?: string;
         }
-        
         interface ContactGroup {
             /**
              * The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
@@ -141,20 +134,18 @@ declare namespace gapi.client {
              */
             resourceName?: string;
         }
-        
         interface ContactGroupMembership {
             /**
              * The contact group ID for the contact group membership. The contact group
              * ID can be custom or predefined. Possible values include, but are not
              * limited to, the following:
-             * 
+             *
              * &#42;  `myContacts`
              * &#42;  `starred`
              * &#42;  A numerical ID for user-created groups.
              */
             contactGroupId?: string;
         }
-        
         interface ContactGroupMetadata {
             /**
              * True if the contact group resource has been deleted. Populated only for
@@ -165,7 +156,6 @@ declare namespace gapi.client {
             /** The time the group was last updated. */
             updateTime?: string;
         }
-        
         interface ContactGroupResponse {
             /** The contact group. */
             contactGroup?: ContactGroup;
@@ -174,7 +164,6 @@ declare namespace gapi.client {
             /** The status of the response. */
             status?: Status;
         }
-        
         interface CoverPhoto {
             /**
              * True if the cover photo is the default cover photo;
@@ -186,12 +175,10 @@ declare namespace gapi.client {
             /** The URL of the cover photo. */
             url?: string;
         }
-        
         interface CreateContactGroupRequest {
             /** The contact group to create. */
             contactGroup?: ContactGroup;
         }
-        
         interface Date {
             /**
              * Day of month. Must be from 1 to 31 and valid for the year and month, or 0
@@ -206,12 +193,10 @@ declare namespace gapi.client {
              */
             year?: number;
         }
-        
         interface DomainMembership {
             /** True if the person is in the viewer's Google Apps domain. */
             inViewerDomain?: boolean;
         }
-        
         interface EmailAddress {
             /** The display name of the email. */
             displayName?: string;
@@ -225,7 +210,7 @@ declare namespace gapi.client {
             /**
              * The type of the email address. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `home`
              * &#42; `work`
              * &#42; `other`
@@ -234,7 +219,6 @@ declare namespace gapi.client {
             /** The email address. */
             value?: string;
         }
-        
         interface Event {
             /** The date of the event. */
             date?: Date;
@@ -248,13 +232,12 @@ declare namespace gapi.client {
             /**
              * The type of the event. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `anniversary`
              * &#42; `other`
              */
             type?: string;
         }
-        
         interface FieldMetadata {
             /**
              * True if the field is the primary field; false if the field is a secondary
@@ -270,7 +253,6 @@ declare namespace gapi.client {
              */
             verified?: boolean;
         }
-        
         interface Gender {
             /**
              * The read-only value of the gender translated and formatted in the viewer's
@@ -283,7 +265,7 @@ declare namespace gapi.client {
              * The gender for the person. The gender can be custom or predefined.
              * Possible values include, but are not limited to, the
              * following:
-             * 
+             *
              * &#42; `male`
              * &#42; `female`
              * &#42; `other`
@@ -291,12 +273,10 @@ declare namespace gapi.client {
              */
             value?: string;
         }
-        
         interface GetPeopleResponse {
             /** The response for each requested resource name. */
             responses?: PersonResponse[];
         }
-        
         interface ImClient {
             /**
              * The read-only protocol of the IM client formatted in the viewer's account
@@ -313,7 +293,7 @@ declare namespace gapi.client {
             /**
              * The protocol of the IM client. The protocol can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `aim`
              * &#42; `msn`
              * &#42; `yahoo`
@@ -328,7 +308,7 @@ declare namespace gapi.client {
             /**
              * The type of the IM client. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `home`
              * &#42; `work`
              * &#42; `other`
@@ -337,14 +317,12 @@ declare namespace gapi.client {
             /** The user name used in the IM client. */
             username?: string;
         }
-        
         interface Interest {
             /** Metadata about the interest. */
             metadata?: FieldMetadata;
             /** The interest; for example, `stargazing`. */
             value?: string;
         }
-        
         interface ListConnectionsResponse {
             /** The list of people that the requestor is connected to. */
             connections?: Person[];
@@ -360,7 +338,6 @@ declare namespace gapi.client {
              */
             totalPeople?: number;
         }
-        
         interface ListContactGroupsResponse {
             /**
              * The list of contact groups. Members of the contact groups are not
@@ -374,7 +351,6 @@ declare namespace gapi.client {
             /** The total number of items in the list without pagination. */
             totalItems?: number;
         }
-        
         interface Locale {
             /** Metadata about the locale. */
             metadata?: FieldMetadata;
@@ -384,7 +360,6 @@ declare namespace gapi.client {
              */
             value?: string;
         }
-        
         interface Membership {
             /** The contact group membership. */
             contactGroupMembership?: ContactGroupMembership;
@@ -393,7 +368,6 @@ declare namespace gapi.client {
             /** Metadata about the membership. */
             metadata?: FieldMetadata;
         }
-        
         interface ModifyContactGroupMembersRequest {
             /**
              * The resource names of the contact people to add in the form of in the form
@@ -406,12 +380,10 @@ declare namespace gapi.client {
              */
             resourceNamesToRemove?: string[];
         }
-        
         interface ModifyContactGroupMembersResponse {
             /** The contact people resource names that were not found. */
             notFoundResourceNames?: string[];
         }
-        
         interface Name {
             /**
              * The read-only display name formatted according to the locale specified by
@@ -449,7 +421,6 @@ declare namespace gapi.client {
             /** The middle name(s) spelled as they sound. */
             phoneticMiddleName?: string;
         }
-        
         interface Nickname {
             /** Metadata about the nickname. */
             metadata?: FieldMetadata;
@@ -458,14 +429,12 @@ declare namespace gapi.client {
             /** The nickname. */
             value?: string;
         }
-        
         interface Occupation {
             /** Metadata about the occupation. */
             metadata?: FieldMetadata;
             /** The occupation; for example, `carpenter`. */
             value?: string;
         }
-        
         interface Organization {
             /**
              * True if the organization is the person's current organization;
@@ -505,19 +474,18 @@ declare namespace gapi.client {
             /**
              * The type of the organization. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `work`
              * &#42; `school`
              */
             type?: string;
         }
-        
         interface Person {
             /** The person's street addresses. */
             addresses?: Address[];
             /**
              * &#42;&#42;DEPRECATED&#42;&#42; (Please use `person.ageRanges` instead)&#42;&#42;
-             * 
+             *
              * The person's read-only age range.
              */
             ageRange?: string;
@@ -566,7 +534,7 @@ declare namespace gapi.client {
             photos?: Photo[];
             /** The person's relations. */
             relations?: Relation[];
-            /** The person's read-only relationship interests.g4 */
+            /** The person's read-only relationship interests. */
             relationshipInterests?: RelationshipInterest[];
             /** The person's read-only relationship statuses. */
             relationshipStatuses?: RelationshipStatus[];
@@ -584,8 +552,9 @@ declare namespace gapi.client {
             taglines?: Tagline[];
             /** The person's associated URLs. */
             urls?: Url[];
+            /** The person's user defined data. */
+            userDefined?: UserDefined[];
         }
-        
         interface PersonMetadata {
             /**
              * True if the person resource has been deleted. Populated only for
@@ -598,7 +567,7 @@ declare namespace gapi.client {
             /**
              * &#42;&#42;DEPRECATED&#42;&#42; (Please use
              * `person.metadata.sources.profileMetadata.objectType` instead)
-             * 
+             *
              * The type of the person object.
              */
             objectType?: string;
@@ -606,7 +575,7 @@ declare namespace gapi.client {
              * Any former resource names this person has had. Populated only for
              * [`connections.list`](/people/api/rest/v1/people.connections/list) requests
              * that include a sync token.
-             * 
+             *
              * The resource name may change when adding or removing fields that link a
              * contact and profile such as a verified email, verified phone number, or
              * profile URL.
@@ -615,11 +584,10 @@ declare namespace gapi.client {
             /** The sources of data for the person. */
             sources?: Source[];
         }
-        
         interface PersonResponse {
             /**
              * &#42;&#42;DEPRECATED&#42;&#42; (Please use status instead)
-             * 
+             *
              * [HTTP 1.1 status code]
              * (http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
              */
@@ -629,7 +597,7 @@ declare namespace gapi.client {
             /**
              * The original requested resource name. May be different than the resource
              * name on the returned person.
-             * 
+             *
              * The resource name can change when adding or removing fields that link a
              * contact and profile such as a verified email, verified phone number, or a
              * profile URL.
@@ -638,7 +606,6 @@ declare namespace gapi.client {
             /** The status of the response. */
             status?: Status;
         }
-        
         interface PhoneNumber {
             /**
              * The read-only canonicalized [ITU-T E.164](https://law.resource.org/pub/us/cfr/ibr/004/itu-t.E.164.1.2008.pdf)
@@ -655,7 +622,7 @@ declare namespace gapi.client {
             /**
              * The type of the phone number. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `home`
              * &#42; `work`
              * &#42; `mobile`
@@ -673,8 +640,12 @@ declare namespace gapi.client {
             /** The phone number. */
             value?: string;
         }
-        
         interface Photo {
+            /**
+             * True if the photo is a default photo;
+             * false if the photo is a user-provided photo.
+             */
+            default?: boolean;
             /** Metadata about the photo. */
             metadata?: FieldMetadata;
             /**
@@ -684,14 +655,12 @@ declare namespace gapi.client {
              */
             url?: string;
         }
-        
         interface ProfileMetadata {
             /** The profile object type. */
             objectType?: string;
             /** The user types. */
             userTypes?: string[];
         }
-        
         interface Relation {
             /**
              * The type of the relation translated and formatted in the viewer's account
@@ -705,7 +674,7 @@ declare namespace gapi.client {
             /**
              * The person's relation to the other person. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following values:
-             * 
+             *
              * &#42; `spouse`
              * &#42; `child`
              * &#42; `mother`
@@ -723,7 +692,6 @@ declare namespace gapi.client {
              */
             type?: string;
         }
-        
         interface RelationshipInterest {
             /**
              * The value of the relationship interest translated and formatted in the
@@ -737,7 +705,7 @@ declare namespace gapi.client {
              * The kind of relationship the person is looking for. The value can be custom
              * or predefined. Possible values include, but are not limited to, the
              * following values:
-             * 
+             *
              * &#42; `friend`
              * &#42; `date`
              * &#42; `relationship`
@@ -745,7 +713,6 @@ declare namespace gapi.client {
              */
             value?: string;
         }
-        
         interface RelationshipStatus {
             /**
              * The read-only value of the relationship status translated and formatted in
@@ -757,7 +724,7 @@ declare namespace gapi.client {
             /**
              * The relationship status. The value can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `single`
              * &#42; `inARelationship`
              * &#42; `engaged`
@@ -770,7 +737,6 @@ declare namespace gapi.client {
              */
             value?: string;
         }
-        
         interface Residence {
             /**
              * True if the residence is the person's current residence;
@@ -782,18 +748,16 @@ declare namespace gapi.client {
             /** The address of the residence. */
             value?: string;
         }
-        
         interface Skill {
             /** Metadata about the skill. */
             metadata?: FieldMetadata;
             /** The skill; for example, `underwater basket weaving`. */
             value?: string;
         }
-        
         interface Source {
             /**
              * &#42;&#42;Only populated in `person.metadata.sources`.&#42;&#42;
-             * 
+             *
              * The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
              * source. Used for web cache validation.
              */
@@ -802,7 +766,7 @@ declare namespace gapi.client {
             id?: string;
             /**
              * &#42;&#42;Only populated in `person.metadata.sources`.&#42;&#42;
-             * 
+             *
              * Metadata about a source of type PROFILE.
              */
             profileMetadata?: ProfileMetadata;
@@ -810,12 +774,11 @@ declare namespace gapi.client {
             type?: string;
             /**
              * &#42;&#42;Only populated in `person.metadata.sources`.&#42;&#42;
-             * 
+             *
              * Last update timestamp of this source.
              */
             updateTime?: string;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -823,7 +786,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -831,19 +794,16 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface Tagline {
             /** Metadata about the tagline. */
             metadata?: FieldMetadata;
             /** The tagline. */
             value?: string;
         }
-        
         interface UpdateContactGroupRequest {
             /** The contact group to update. */
             contactGroup?: ContactGroup;
         }
-        
         interface Url {
             /**
              * The read-only type of the URL translated and formatted in the viewer's
@@ -855,7 +815,7 @@ declare namespace gapi.client {
             /**
              * The type of the URL. The type can be custom or predefined.
              * Possible values include, but are not limited to, the following:
-             * 
+             *
              * &#42; `home`
              * &#42; `work`
              * &#42; `blog`
@@ -870,10 +830,17 @@ declare namespace gapi.client {
             /** The URL. */
             value?: string;
         }
-        
+        interface UserDefined {
+            /** The end user specified key of the user defined data. */
+            key?: string;
+            /** Metadata about the user defined data. */
+            metadata?: FieldMetadata;
+            /** The end user specified value of the user defined data. */
+            value?: string;
+        }
         interface MembersResource {
             /** Modify the members of a contact group owned by the authenticated user. */
-            modify(request: {            
+            modify(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -902,16 +869,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ModifyContactGroupMembersResponse>;            
-            
+            }): Request<ModifyContactGroupMembersResponse>;
         }
-        
         interface ContactGroupsResource {
             /**
              * Get a list of contact groups owned by the authenticated user by specifying
              * a list of contact group resource names.
              */
-            batchGet(request: {            
+            batchGet(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -942,10 +907,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BatchGetContactGroupsResponse>;            
-            
+            }): Request<BatchGetContactGroupsResponse>;
             /** Create a new contact group owned by the authenticated user. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -972,13 +936,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ContactGroup>;            
-            
+            }): Request<ContactGroup>;
             /**
              * Delete an existing contact group owned by the authenticated user by
              * specifying a contact group resource name.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1009,13 +972,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Get a specific contact group owned by the authenticated user by specifying
              * a contact group resource name.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1046,13 +1008,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ContactGroup>;            
-            
+            }): Request<ContactGroup>;
             /**
              * List all contact groups owned by the authenticated user. Members of the
              * contact groups are not populated.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1092,13 +1053,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListContactGroupsResponse>;            
-            
+            }): Request<ListContactGroupsResponse>;
             /**
              * Update the name of an existing contact group owned by the authenticated
              * user.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1130,11 +1090,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ContactGroup>;            
-            
+            }): Request<ContactGroup>;
             members: MembersResource;
         }
-        
         interface ConnectionsResource {
             /**
              * Provides a list of the authenticated user's contacts merged with any
@@ -1142,7 +1100,7 @@ declare namespace gapi.client {
              * <br>
              * The request throws a 400 error if 'personFields' is not specified.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1169,7 +1127,7 @@ declare namespace gapi.client {
                 /**
                  * &#42;&#42;Required.&#42;&#42; A field mask to restrict which fields on each person are
                  * returned. Valid values are:
-                 * 
+                 *
                  * &#42; addresses
                  * &#42; ageRanges
                  * &#42; biographies
@@ -1232,13 +1190,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListConnectionsResponse>;            
-            
+            }): Request<ListConnectionsResponse>;
         }
-        
         interface PeopleResource {
             /** Create a new contact and return the person resource for that contact. */
-            createContact(request: {            
+            createContact(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1267,10 +1223,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Person>;            
-            
+            }): Request<Person>;
             /** Delete a contact person. Any non-contact data will not be deleted. */
-            deleteContact(request: {            
+            deleteContact(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1299,15 +1254,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Provides information about a person by specifying a resource name. Use
              * `people/me` to indicate the authenticated user.
              * <br>
              * The request throws a 400 error if 'personFields' is not specified.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1327,7 +1281,7 @@ declare namespace gapi.client {
                 /**
                  * &#42;&#42;Required.&#42;&#42; A field mask to restrict which fields on the person are
                  * returned. Valid values are:
-                 * 
+                 *
                  * &#42; addresses
                  * &#42; ageRanges
                  * &#42; biographies
@@ -1371,12 +1325,12 @@ declare namespace gapi.client {
                 "requestMask.includeField"?: string;
                 /**
                  * The resource name of the person to provide information about.
-                 * 
+                 *
                  * - To get information about the authenticated user, specify `people/me`.
                  * - To get information about a google account, specify
-                 *  `people/`<var>account_id</var>.
+                 * `people/`<var>account_id</var>.
                  * - To get information about a contact, specify the resource name that
-                 *   identifies the contact as returned by
+                 * identifies the contact as returned by
                  * [`people.connections.list`](/people/api/rest/v1/people.connections/list).
                  */
                 resourceName: string;
@@ -1384,8 +1338,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Person>;            
-            
+            }): Request<Person>;
             /**
              * Provides information about a list of specific people by specifying a list
              * of requested resource names. Use `people/me` to indicate the authenticated
@@ -1393,7 +1346,7 @@ declare namespace gapi.client {
              * <br>
              * The request throws a 400 error if 'personFields' is not specified.
              */
-            getBatchGet(request: {            
+            getBatchGet(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1413,7 +1366,7 @@ declare namespace gapi.client {
                 /**
                  * &#42;&#42;Required.&#42;&#42; A field mask to restrict which fields on each person are
                  * returned. Valid values are:
-                 * 
+                 *
                  * &#42; addresses
                  * &#42; ageRanges
                  * &#42; biographies
@@ -1457,14 +1410,14 @@ declare namespace gapi.client {
                 "requestMask.includeField"?: string;
                 /**
                  * The resource names of the people to provide information about.
-                 * 
+                 *
                  * - To get information about the authenticated user, specify `people/me`.
                  * - To get information about a google account, specify
-                 *   `people/`<var>account_id</var>.
+                 * `people/`<var>account_id</var>.
                  * - To get information about a contact, specify the resource name that
-                 *   identifies the contact as returned by
+                 * identifies the contact as returned by
                  * [`people.connections.list`](/people/api/rest/v1/people.connections/list).
-                 * 
+                 *
                  * You can include up to 50 resource names in one request.
                  */
                 resourceNames?: string;
@@ -1472,12 +1425,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GetPeopleResponse>;            
-            
+            }): Request<GetPeopleResponse>;
             /**
              * Update contact data for an existing contact person. Any non-contact data
              * will not be modified.
-             * 
+             *
              * The request throws a 400 error if `updatePersonFields` is not specified.
              * <br>
              * The request throws a 400 error if `person.metadata.sources` is not
@@ -1488,7 +1440,7 @@ declare namespace gapi.client {
              * since its data was read. Clients should get the latest person and re-apply
              * their updates to the latest person.
              */
-            updateContact(request: {            
+            updateContact(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1520,7 +1472,7 @@ declare namespace gapi.client {
                 /**
                  * &#42;&#42;Required.&#42;&#42; A field mask to restrict which fields on the person are
                  * updated. Valid values are:
-                 * 
+                 *
                  * &#42; addresses
                  * &#42; biographies
                  * &#42; birthdays
@@ -1546,8 +1498,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Person>;            
-            
+            }): Request<Person>;
             connections: ConnectionsResource;
         }
     }

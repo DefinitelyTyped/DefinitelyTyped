@@ -13,63 +13,64 @@
 
 declare namespace gapi.client {
     /** Load Ad Exchange Buyer API v1.4 */
-    function load(name: "adexchangebuyer", version: "v1.4"): PromiseLike<void>;    
-    function load(name: "adexchangebuyer", version: "v1.4", callback: () => any): void;    
-    
-    const accounts: adexchangebuyer.AccountsResource; 
-    
-    const billingInfo: adexchangebuyer.BillingInfoResource; 
-    
-    const budget: adexchangebuyer.BudgetResource; 
-    
-    const creatives: adexchangebuyer.CreativesResource; 
-    
-    const marketplacedeals: adexchangebuyer.MarketplacedealsResource; 
-    
-    const marketplacenotes: adexchangebuyer.MarketplacenotesResource; 
-    
-    const marketplaceprivateauction: adexchangebuyer.MarketplaceprivateauctionResource; 
-    
-    const performanceReport: adexchangebuyer.PerformanceReportResource; 
-    
-    const pretargetingConfig: adexchangebuyer.PretargetingConfigResource; 
-    
-    const products: adexchangebuyer.ProductsResource; 
-    
-    const proposals: adexchangebuyer.ProposalsResource; 
-    
-    const pubprofiles: adexchangebuyer.PubprofilesResource; 
-    
+    function load(name: "adexchangebuyer", version: "v1.4"): PromiseLike<void>;
+    function load(name: "adexchangebuyer", version: "v1.4", callback: () => any): void;
+
+    const accounts: adexchangebuyer.AccountsResource;
+
+    const billingInfo: adexchangebuyer.BillingInfoResource;
+
+    const budget: adexchangebuyer.BudgetResource;
+
+    const creatives: adexchangebuyer.CreativesResource;
+
+    const marketplacedeals: adexchangebuyer.MarketplacedealsResource;
+
+    const marketplacenotes: adexchangebuyer.MarketplacenotesResource;
+
+    const marketplaceprivateauction: adexchangebuyer.MarketplaceprivateauctionResource;
+
+    const performanceReport: adexchangebuyer.PerformanceReportResource;
+
+    const pretargetingConfig: adexchangebuyer.PretargetingConfigResource;
+
+    const products: adexchangebuyer.ProductsResource;
+
+    const proposals: adexchangebuyer.ProposalsResource;
+
+    const pubprofiles: adexchangebuyer.PubprofilesResource;
+
     namespace adexchangebuyer {
-        
         interface Account {
             /** Your bidder locations that have distinct URLs. */
-            bidderLocation?: Array<{            
+            bidderLocation?: Array<{
                 /**
-                 * The protocol that the bidder endpoint is using. OpenRTB protocols with prefix PROTOCOL_OPENRTB_PROTOBUF use proto buffer, otherwise use JSON.  Allowed values:  
-                 * - PROTOCOL_ADX 
-                 * - PROTOCOL_OPENRTB_2_2 
-                 * - PROTOCOL_OPENRTB_2_3 
-                 * - PROTOCOL_OPENRTB_2_4 
-                 * - PROTOCOL_OPENRTB_2_5 
-                 * - PROTOCOL_OPENRTB_PROTOBUF_2_3 
-                 * - PROTOCOL_OPENRTB_PROTOBUF_2_4 
+                 * The protocol that the bidder endpoint is using. OpenRTB protocols with prefix PROTOCOL_OPENRTB_PROTOBUF use proto buffer, otherwise use JSON.  Allowed
+                 * values:
+                 * - PROTOCOL_ADX
+                 * - PROTOCOL_OPENRTB_2_2
+                 * - PROTOCOL_OPENRTB_2_3
+                 * - PROTOCOL_OPENRTB_2_4
+                 * - PROTOCOL_OPENRTB_2_5
+                 * - PROTOCOL_OPENRTB_PROTOBUF_2_3
+                 * - PROTOCOL_OPENRTB_PROTOBUF_2_4
                  * - PROTOCOL_OPENRTB_PROTOBUF_2_5
                  */
                 bidProtocol?: string;
                 /** The maximum queries per second the Ad Exchange will send. */
                 maximumQps?: number;
                 /**
-                 * The geographical region the Ad Exchange should send requests from. Only used by some quota systems, but always setting the value is recommended. Allowed values:  
-                 * - ASIA 
-                 * - EUROPE 
-                 * - US_EAST 
+                 * The geographical region the Ad Exchange should send requests from. Only used by some quota systems, but always setting the value is recommended.
+                 * Allowed values:
+                 * - ASIA
+                 * - EUROPE
+                 * - US_EAST
                  * - US_WEST
                  */
                 region?: string;
                 /** The URL to which the Ad Exchange will send bid requests. */
                 url?: string;
-            }>;            
+            }>;
             /** The nid parameter value used in cookie match requests. Please contact your technical account manager if you need to change this. */
             cookieMatchingNid?: string;
             /** The base URL used in cookie match requests. */
@@ -78,21 +79,22 @@ declare namespace gapi.client {
             id?: number;
             /** Resource type. */
             kind?: string;
-            /** The maximum number of active creatives that an account can have, where a creative is active if it was inserted or bid with in the last 30 days. Please contact your technical account manager if you need to change this. */
+            /**
+             * The maximum number of active creatives that an account can have, where a creative is active if it was inserted or bid with in the last 30 days. Please
+             * contact your technical account manager if you need to change this.
+             */
             maximumActiveCreatives?: number;
             /** The sum of all bidderLocation.maximumQps values cannot exceed this. Please contact your technical account manager if you need to change this. */
             maximumTotalQps?: number;
             /** The number of creatives that this account inserted or bid with in the last 30 days. */
             numberActiveCreatives?: number;
         }
-        
         interface AccountsList {
             /** A list of accounts. */
             items?: Account[];
             /** Resource type. */
             kind?: string;
         }
-        
         interface AddOrderDealsRequest {
             /** The list of deals to add */
             deals?: MarketplaceDeal[];
@@ -101,41 +103,38 @@ declare namespace gapi.client {
             /** Indicates an optional action to take on the proposal */
             updateAction?: string;
         }
-        
         interface AddOrderDealsResponse {
             /** List of deals added (in the same proposal as passed in the request) */
             deals?: MarketplaceDeal[];
             /** The updated revision number for the proposal. */
             proposalRevisionNumber?: string;
         }
-        
         interface AddOrderNotesRequest {
             /** The list of notes to add. */
             notes?: MarketplaceNote[];
         }
-        
         interface AddOrderNotesResponse {
             notes?: MarketplaceNote[];
         }
-        
         interface BillingInfo {
             /** Account id. */
             accountId?: number;
             /** Account name. */
             accountName?: string;
-            /** A list of adgroup IDs associated with this particular account. These IDs may show up as part of a realtime bidding BidRequest, which indicates a bid request for this account. */
+            /**
+             * A list of adgroup IDs associated with this particular account. These IDs may show up as part of a realtime bidding BidRequest, which indicates a bid
+             * request for this account.
+             */
             billingId?: string[];
             /** Resource type. */
             kind?: string;
         }
-        
         interface BillingInfoList {
             /** A list of billing info relevant for your account. */
             items?: BillingInfo[];
             /** Resource type. */
             kind?: string;
         }
-        
         interface Budget {
             /** The id of the account. This is required for get and update requests. */
             accountId?: string;
@@ -150,31 +149,26 @@ declare namespace gapi.client {
             /** The kind of the resource, i.e. "adexchangebuyer#budget". */
             kind?: string;
         }
-        
         interface Buyer {
             /** Adx account id of the buyer. */
             accountId?: string;
         }
-        
         interface ContactInformation {
             /** Email address of the contact. */
             email?: string;
             /** The name of the contact. */
             name?: string;
         }
-        
         interface CreateOrdersRequest {
             /** The list of proposals to create. */
             proposals?: Proposal[];
             /** Web property id of the seller creating these orders */
             webPropertyCode?: string;
         }
-        
         interface CreateOrdersResponse {
             /** The list of proposals successfully created. */
             proposals?: Proposal[];
         }
-        
         interface Creative {
             /** The HTML snippet that displays the ad when inserted in the web page. If set, videoURL should not be set. */
             HTMLSnippet?: string;
@@ -188,18 +182,24 @@ declare namespace gapi.client {
             advertiserName?: string;
             /** The agency id for this creative. */
             agencyId?: string;
-            /** The last upload timestamp of this creative if it was uploaded via API. Read-only. The value of this field is generated, and will be ignored for uploads. (formatted RFC 3339 timestamp). */
+            /**
+             * The last upload timestamp of this creative if it was uploaded via API. Read-only. The value of this field is generated, and will be ignored for
+             * uploads. (formatted RFC 3339 timestamp).
+             */
             apiUploadTimestamp?: string;
-            /** List of buyer selectable attributes for the ads that may be shown from this snippet. Each attribute is represented by an integer as defined in  buyer-declarable-creative-attributes.txt. */
+            /**
+             * List of buyer selectable attributes for the ads that may be shown from this snippet. Each attribute is represented by an integer as defined in
+             * buyer-declarable-creative-attributes.txt.
+             */
             attribute?: number[];
             /** A buyer-specific id identifying the creative in this ad. */
             buyerCreativeId?: string;
             /** The set of destination urls for the snippet. */
             clickThroughUrl?: string[];
             /** Shows any corrections that were applied to this creative. Read-only. This field should not be set in requests. */
-            corrections?: Array<{            
+            corrections?: Array<{
                 /** All known serving contexts containing serving status information. */
-                contexts?: Array<{                
+                contexts?: Array<{
                     /** Only set when contextType=AUCTION_TYPE. Represents the auction types this correction applies to. */
                     auctionType?: string[];
                     /** The type of context (e.g., location, platform, auction type, SSL-ness). */
@@ -208,28 +208,32 @@ declare namespace gapi.client {
                     geoCriteriaId?: number[];
                     /** Only set when contextType=PLATFORM. Represents the platforms this correction applies to. */
                     platform?: string[];
-                }>;                
+                }>;
                 /** Additional details about the correction. */
                 details?: string[];
                 /** The type of correction that was applied to the creative. */
                 reason?: string;
-            }>;            
-            /** Top-level deals status. Read-only. This field should not be set in requests. If disapproved, an entry for auctionType=DIRECT_DEALS (or ALL) in servingRestrictions will also exist. Note that this may be nuanced with other contextual restrictions, in which case it may be preferable to read from servingRestrictions directly. */
+            }>;
+            /**
+             * Top-level deals status. Read-only. This field should not be set in requests. If disapproved, an entry for auctionType=DIRECT_DEALS (or ALL) in
+             * servingRestrictions will also exist. Note that this may be nuanced with other contextual restrictions, in which case it may be preferable to read from
+             * servingRestrictions directly.
+             */
             dealsStatus?: string;
             /** Detected domains for this creative. Read-only. This field should not be set in requests. */
             detectedDomains?: string[];
             /** The filtering reasons for the creative. Read-only. This field should not be set in requests. */
-            filteringReasons?: {            
+            filteringReasons?: {
                 /** The date in ISO 8601 format for the data. The data is collected from 00:00:00 to 23:59:59 in PST. */
                 date?: string;
                 /** The filtering reasons. */
-                reasons?: Array<{                
+                reasons?: Array<{
                     /** The number of times the creative was filtered for the status. The count is aggregated across all publishers on the exchange. */
                     filteringCount?: string;
                     /** The filtering status code as defined in  creative-status-codes.txt. */
                     filteringStatus?: number;
-                }>;                
-            };            
+                }>;
+            };
             /** Ad height. */
             height?: number;
             /** The set of urls to be called to record an impression. */
@@ -239,14 +243,14 @@ declare namespace gapi.client {
             /** Detected languages for this creative. Read-only. This field should not be set in requests. */
             languages?: string[];
             /** If nativeAd is set, HTMLSnippet and the videoURL outside of nativeAd should not be set. (The videoURL inside nativeAd can be set.) */
-            nativeAd?: {            
+            nativeAd?: {
                 advertiser?: string;
                 /** The app icon, for app download ads. */
-                appIcon?: {                
+                appIcon?: {
                     height?: number;
                     url?: string;
                     width?: number;
-                };                
+                };
                 /** A long description of the ad. */
                 body?: string;
                 /** A label for the button that the user is supposed to click. */
@@ -258,19 +262,19 @@ declare namespace gapi.client {
                 /** A short title for the ad. */
                 headline?: string;
                 /** A large image. */
-                image?: {                
+                image?: {
                     height?: number;
                     url?: string;
                     width?: number;
-                };                
+                };
                 /** The URLs are called when the impression is rendered. */
                 impressionTrackingUrl?: string[];
                 /** A smaller image, for the advertiser logo. */
-                logo?: {                
+                logo?: {
                     height?: number;
                     url?: string;
                     width?: number;
-                };                
+                };
                 /** The price of the promoted app including the currency info. */
                 price?: string;
                 /** The app rating in the app store. Must be in the range [0-5]. */
@@ -279,38 +283,62 @@ declare namespace gapi.client {
                 store?: string;
                 /** The URL of the XML VAST for a native ad. Note this is a separate field from resource.video_url. */
                 videoURL?: string;
-            };            
-            /** Top-level open auction status. Read-only. This field should not be set in requests. If disapproved, an entry for auctionType=OPEN_AUCTION (or ALL) in servingRestrictions will also exist. Note that this may be nuanced with other contextual restrictions, in which case it may be preferable to read from ServingRestrictions directly. */
+            };
+            /**
+             * Top-level open auction status. Read-only. This field should not be set in requests. If disapproved, an entry for auctionType=OPEN_AUCTION (or ALL) in
+             * servingRestrictions will also exist. Note that this may be nuanced with other contextual restrictions, in which case it may be preferable to read from
+             * ServingRestrictions directly.
+             */
             openAuctionStatus?: string;
-            /** Detected product categories, if any. Each category is represented by an integer as defined in  ad-product-categories.txt. Read-only. This field should not be set in requests. */
+            /**
+             * Detected product categories, if any. Each category is represented by an integer as defined in  ad-product-categories.txt. Read-only. This field should
+             * not be set in requests.
+             */
             productCategories?: number[];
-            /** All restricted categories for the ads that may be shown from this snippet. Each category is represented by an integer as defined in the  ad-restricted-categories.txt. */
+            /**
+             * All restricted categories for the ads that may be shown from this snippet. Each category is represented by an integer as defined in the
+             * ad-restricted-categories.txt.
+             */
             restrictedCategories?: number[];
-            /** Detected sensitive categories, if any. Each category is represented by an integer as defined in  ad-sensitive-categories.txt. Read-only. This field should not be set in requests. */
+            /**
+             * Detected sensitive categories, if any. Each category is represented by an integer as defined in  ad-sensitive-categories.txt. Read-only. This field
+             * should not be set in requests.
+             */
             sensitiveCategories?: number[];
-            /** The granular status of this ad in specific contexts. A context here relates to where something ultimately serves (for example, a physical location, a platform, an HTTPS vs HTTP request, or the type of auction). Read-only. This field should not be set in requests. See the examples in the Creatives guide for more details. */
-            servingRestrictions?: Array<{            
+            /**
+             * The granular status of this ad in specific contexts. A context here relates to where something ultimately serves (for example, a physical location, a
+             * platform, an HTTPS vs HTTP request, or the type of auction). Read-only. This field should not be set in requests. See the examples in the Creatives
+             * guide for more details.
+             */
+            servingRestrictions?: Array<{
                 /** All known contexts/restrictions. */
-                contexts?: Array<{                
+                contexts?: Array<{
                     /** Only set when contextType=AUCTION_TYPE. Represents the auction types this restriction applies to. */
                     auctionType?: string[];
                     /** The type of context (e.g., location, platform, auction type, SSL-ness). */
                     contextType?: string;
-                    /** Only set when contextType=LOCATION. Represents the geo criterias this restriction applies to. Impressions are considered to match a context if either the user location or publisher location matches a given geoCriteriaId. */
+                    /**
+                     * Only set when contextType=LOCATION. Represents the geo criterias this restriction applies to. Impressions are considered to match a context if either
+                     * the user location or publisher location matches a given geoCriteriaId.
+                     */
                     geoCriteriaId?: number[];
                     /** Only set when contextType=PLATFORM. Represents the platforms this restriction applies to. */
                     platform?: string[];
-                }>;                
-                /** The reasons for disapproval within this restriction, if any. Note that not all disapproval reasons may be categorized, so it is possible for the creative to have a status of DISAPPROVED or CONDITIONALLY_APPROVED with an empty list for disapproval_reasons. In this case, please reach out to your TAM to help debug the issue. */
-                disapprovalReasons?: Array<{                
+                }>;
+                /**
+                 * The reasons for disapproval within this restriction, if any. Note that not all disapproval reasons may be categorized, so it is possible for the
+                 * creative to have a status of DISAPPROVED or CONDITIONALLY_APPROVED with an empty list for disapproval_reasons. In this case, please reach out to your
+                 * TAM to help debug the issue.
+                 */
+                disapprovalReasons?: Array<{
                     /** Additional details about the reason for disapproval. */
                     details?: string[];
                     /** The categorized reason for disapproval. */
                     reason?: string;
-                }>;                
+                }>;
                 /** Why the creative is ineligible to serve in this context (e.g., it has been explicitly disapproved or is pending review). */
                 reason?: string;
-            }>;            
+            }>;
             /** List of vendor types for the ads that may be shown from this snippet. Each vendor type is represented by an integer as defined in vendors.txt. */
             vendorType?: number[];
             /** The version for this creative. Read-only. This field should not be set in requests. */
@@ -320,21 +348,19 @@ declare namespace gapi.client {
             /** Ad width. */
             width?: number;
         }
-        
         interface CreativeDealIds {
             /** A list of external deal ids and ARC approval status. */
-            dealStatuses?: Array<{            
+            dealStatuses?: Array<{
                 /** ARC approval status. */
                 arcStatus?: string;
                 /** External deal ID. */
                 dealId?: string;
                 /** Publisher ID. */
                 webPropertyId?: number;
-            }>;            
+            }>;
             /** Resource type. */
             kind?: string;
         }
-        
         interface CreativesList {
             /** A list of creatives. */
             items?: Creative[];
@@ -343,14 +369,15 @@ declare namespace gapi.client {
             /** Continuation token used to page through creatives. To retrieve the next page of results, set the next request's "pageToken" value to this. */
             nextPageToken?: string;
         }
-        
         interface DealServingMetadata {
-            /** True if alcohol ads are allowed for this deal (read-only). This field is only populated when querying for finalized orders using the method GetFinalizedOrderDeals */
+            /**
+             * True if alcohol ads are allowed for this deal (read-only). This field is only populated when querying for finalized orders using the method
+             * GetFinalizedOrderDeals
+             */
             alcoholAdsAllowed?: boolean;
             /** Tracks which parties (if any) have paused a deal. (readonly, except via PauseResumeOrderDeals action) */
             dealPauseStatus?: DealServingMetadataDealPauseStatus;
         }
-        
         interface DealServingMetadataDealPauseStatus {
             buyerPauseReason?: string;
             /** If the deal is paused, records which party paused the deal first. */
@@ -359,11 +386,13 @@ declare namespace gapi.client {
             hasSellerPaused?: boolean;
             sellerPauseReason?: string;
         }
-        
         interface DealTerms {
             /** Visibilty of the URL in bid requests. */
             brandingType?: string;
-            /** Indicates that this ExternalDealId exists under at least two different AdxInventoryDeals. Currently, the only case that the same ExternalDealId will exist is programmatic cross sell case. */
+            /**
+             * Indicates that this ExternalDealId exists under at least two different AdxInventoryDeals. Currently, the only case that the same ExternalDealId will
+             * exist is programmatic cross sell case.
+             */
             crossListedExternalDealIdType?: string;
             /** Description for the proposed terms of the deal. */
             description?: string;
@@ -382,7 +411,6 @@ declare namespace gapi.client {
             /** For deals with Cost Per Day billing, defines the timezone used to mark the boundaries of a day (buyer-readonly) */
             sellerTimeZone?: string;
         }
-        
         interface DealTermsGuaranteedFixedPriceTerms {
             /** External billing info for this Deal. This field is relevant when external billing info such as price has a different currency code than DFP/AdX. */
             billingInfo?: DealTermsGuaranteedFixedPriceTermsBillingInfo;
@@ -395,37 +423,38 @@ declare namespace gapi.client {
             /** Count of minimum daily looks for a CPD deal. For CPD deals, buyer should negotiate on this field instead of guaranteed_looks. */
             minimumDailyLooks?: string;
         }
-        
         interface DealTermsGuaranteedFixedPriceTermsBillingInfo {
-            /** The timestamp (in ms since epoch) when the original reservation price for the deal was first converted to DFP currency. This is used to convert the contracted price into buyer's currency without discrepancy. */
+            /**
+             * The timestamp (in ms since epoch) when the original reservation price for the deal was first converted to DFP currency. This is used to convert the
+             * contracted price into buyer's currency without discrepancy.
+             */
             currencyConversionTimeMs?: string;
             /** The DFP line item id associated with this deal. For features like CPD, buyers can retrieve the DFP line item for billing reconciliation. */
             dfpLineItemId?: string;
-            /** The original contracted quantity (# impressions) for this deal. To ensure delivery, sometimes the publisher will book the deal with a impression buffer, such that guaranteed_looks is greater than the contracted quantity. However clients are billed using the original contracted quantity. */
+            /**
+             * The original contracted quantity (# impressions) for this deal. To ensure delivery, sometimes the publisher will book the deal with a impression
+             * buffer, such that guaranteed_looks is greater than the contracted quantity. However clients are billed using the original contracted quantity.
+             */
             originalContractedQuantity?: string;
             /** The original reservation price for the deal, if the currency code is different from the one used in negotiation. */
             price?: Price;
         }
-        
         interface DealTermsNonGuaranteedAuctionTerms {
             /** True if open auction buyers are allowed to compete with invited buyers in this private auction (buyer-readonly). */
             autoOptimizePrivateAuction?: boolean;
             /** Reserve price for the specified buyer. */
             reservePricePerBuyers?: PricePerBuyer[];
         }
-        
         interface DealTermsNonGuaranteedFixedPriceTerms {
             /** Fixed price for the specified buyer. */
             fixedPrices?: PricePerBuyer[];
         }
-        
         interface DealTermsRubiconNonGuaranteedTerms {
             /** Optional price for Rubicon priority access in the auction. */
             priorityPrice?: Price;
             /** Optional price for Rubicon standard access in the auction. */
             standardPrice?: Price;
         }
-        
         interface DeleteOrderDealsRequest {
             /** List of deals to delete for a given proposal */
             dealIds?: string[];
@@ -434,42 +463,46 @@ declare namespace gapi.client {
             /** Indicates an optional action to take on the proposal */
             updateAction?: string;
         }
-        
         interface DeleteOrderDealsResponse {
             /** List of deals deleted (in the same proposal as passed in the request) */
             deals?: MarketplaceDeal[];
             /** The updated revision number for the proposal. */
             proposalRevisionNumber?: string;
         }
-        
         interface DeliveryControl {
             creativeBlockingLevel?: string;
             deliveryRateType?: string;
             frequencyCaps?: DeliveryControlFrequencyCap[];
         }
-        
         interface DeliveryControlFrequencyCap {
             maxImpressions?: number;
             numTimeUnits?: number;
             timeUnitType?: string;
         }
-        
         interface Dimension {
             dimensionType?: string;
             dimensionValues?: DimensionDimensionValue[];
         }
-        
         interface DimensionDimensionValue {
             /** Id of the dimension. */
             id?: number;
             /** Name of the dimension mainly for debugging purposes, except for the case of CREATIVE_SIZE. For CREATIVE_SIZE, strings are used instead of ids. */
             name?: string;
-            /** Percent of total impressions for a dimension type. e.g. {dimension_type: 'GENDER', [{dimension_value: {id: 1, name: 'MALE', percentage: 60}}]} Gender MALE is 60% of all impressions which have gender. */
+            /**
+             * Percent of total impressions for a dimension type. e.g. {dimension_type: 'GENDER', [{dimension_value: {id: 1, name: 'MALE', percentage: 60}}]} Gender
+             * MALE is 60% of all impressions which have gender.
+             */
             percentage?: number;
         }
-        
         interface EditAllOrderDealsRequest {
-            /** List of deals to edit. Service may perform 3 different operations based on comparison of deals in this list vs deals already persisted in database: 1. Add new deal to proposal If a deal in this list does not exist in the proposal, the service will create a new deal and add it to the proposal. Validation will follow AddOrderDealsRequest. 2. Update existing deal in the proposal If a deal in this list already exist in the proposal, the service will update that existing deal to this new deal in the request. Validation will follow UpdateOrderDealsRequest. 3. Delete deals from the proposal (just need the id) If a existing deal in the proposal is not present in this list, the service will delete that deal from the proposal. Validation will follow DeleteOrderDealsRequest. */
+            /**
+             * List of deals to edit. Service may perform 3 different operations based on comparison of deals in this list vs deals already persisted in database: 1.
+             * Add new deal to proposal If a deal in this list does not exist in the proposal, the service will create a new deal and add it to the proposal.
+             * Validation will follow AddOrderDealsRequest. 2. Update existing deal in the proposal If a deal in this list already exist in the proposal, the service
+             * will update that existing deal to this new deal in the request. Validation will follow UpdateOrderDealsRequest. 3. Delete deals from the proposal (just
+             * need the id) If a existing deal in the proposal is not present in this list, the service will delete that deal from the proposal. Validation will
+             * follow DeleteOrderDealsRequest.
+             */
             deals?: MarketplaceDeal[];
             /** If specified, also updates the proposal in the batch transaction. This is useful when the proposal and the deals need to be updated in one transaction. */
             proposal?: Proposal;
@@ -478,39 +511,35 @@ declare namespace gapi.client {
             /** Indicates an optional action to take on the proposal */
             updateAction?: string;
         }
-        
         interface EditAllOrderDealsResponse {
             /** List of all deals in the proposal after edit. */
             deals?: MarketplaceDeal[];
             /** The latest revision number after the update has been applied. */
             orderRevisionNumber?: string;
         }
-        
         interface GetOffersResponse {
             /** The returned list of products. */
             products?: Product[];
         }
-        
         interface GetOrderDealsResponse {
             /** List of deals for the proposal */
             deals?: MarketplaceDeal[];
         }
-        
         interface GetOrderNotesResponse {
-            /** The list of matching notes. The notes for a proposal are ordered from oldest to newest. If the notes span multiple proposals, they will be grouped by proposal, with the notes for the most recently modified proposal appearing first. */
+            /**
+             * The list of matching notes. The notes for a proposal are ordered from oldest to newest. If the notes span multiple proposals, they will be grouped by
+             * proposal, with the notes for the most recently modified proposal appearing first.
+             */
             notes?: MarketplaceNote[];
         }
-        
         interface GetOrdersResponse {
             /** The list of matching proposals. */
             proposals?: Proposal[];
         }
-        
         interface GetPublisherProfilesByAccountIdResponse {
             /** Profiles for the requested publisher */
             profiles?: PublisherProfileApiProto[];
         }
-        
         interface MarketplaceDeal {
             /** Buyer private data (hidden from seller). */
             buyerPrivateData?: PrivateData;
@@ -524,7 +553,10 @@ declare namespace gapi.client {
             dealId?: string;
             /** Metadata about the serving status of this deal (readonly, writes via custom actions) */
             dealServingMetadata?: DealServingMetadata;
-            /** The set of fields around delivery control that are interesting for a buyer to see but are non-negotiable. These are set by the publisher. This message is assigned an id of 100 since some day we would want to model this as a protobuf extension. */
+            /**
+             * The set of fields around delivery control that are interesting for a buyer to see but are non-negotiable. These are set by the publisher. This message
+             * is assigned an id of 100 since some day we would want to model this as a protobuf extension.
+             */
             deliveryControl?: DeliveryControl;
             /** The external deal id assigned to this deal once the deal is finalized. This is the deal-id that shows up in serving/reporting etc. (readonly) */
             externalDealId?: string;
@@ -548,7 +580,10 @@ declare namespace gapi.client {
             productId?: string;
             /** The revision number of the product that the deal was created from (readonly, except on create) */
             productRevisionNumber?: string;
-            /** Specifies the creative source for programmatic deals, PUBLISHER means creative is provided by seller and ADVERTISR means creative is provided by buyer. (buyer-readonly) */
+            /**
+             * Specifies the creative source for programmatic deals, PUBLISHER means creative is provided by seller and ADVERTISR means creative is provided by buyer.
+             * (buyer-readonly)
+             */
             programmaticCreativeSource?: string;
             proposalId?: string;
             /** Optional Seller contact information for the deal (buyer-readonly) */
@@ -561,14 +596,12 @@ declare namespace gapi.client {
             terms?: DealTerms;
             webPropertyCode?: string;
         }
-        
         interface MarketplaceDealParty {
             /** The buyer/seller associated with the deal. One of buyer/seller is specified for a deal-party. */
             buyer?: Buyer;
             /** The buyer/seller associated with the deal. One of buyer/seller is specified for a deal party. */
             seller?: Seller;
         }
-        
         interface MarketplaceLabel {
             /** The accountId of the party that created the label. */
             accountId?: string;
@@ -579,7 +612,6 @@ declare namespace gapi.client {
             /** The label to use. */
             label?: string;
         }
-        
         interface MarketplaceNote {
             /** The role of the person (buyer/seller) creating the note. (readonly) */
             creatorRole?: string;
@@ -598,7 +630,6 @@ declare namespace gapi.client {
             /** The timestamp (ms since epoch) that this note was created. (readonly) */
             timestampMs?: string;
         }
-        
         interface PerformanceReport {
             /** The number of bid responses with an ad. */
             bidRate?: number;
@@ -645,14 +676,12 @@ declare namespace gapi.client {
             /** The number of bid responses that were unsuccessful due to timeouts, incorrect formatting, etc. */
             unsuccessfulRequestRate?: number;
         }
-        
         interface PerformanceReportList {
             /** Resource type. */
             kind?: string;
             /** A list of performance reports relevant for the account. */
             performanceReport?: PerformanceReport[];
         }
-        
         interface PretargetingConfig {
             /** The id for billing purposes, provided for reference. Leave this field blank for insert requests; the id will be generated automatically. */
             billingId?: string;
@@ -663,23 +692,26 @@ declare namespace gapi.client {
             /** List must contain exactly one of PRETARGETING_CREATIVE_TYPE_HTML or PRETARGETING_CREATIVE_TYPE_VIDEO. */
             creativeType?: string[];
             /** Requests which allow one of these (width, height) pairs will match. All pairs must be supported ad dimensions. */
-            dimensions?: Array<{            
+            dimensions?: Array<{
                 /** Height in pixels. */
                 height?: string;
                 /** Width in pixels. */
                 width?: string;
-            }>;            
+            }>;
             /** Requests with any of these content labels will not match. Values are from content-labels.txt in the downloadable files section. */
             excludedContentLabels?: string[];
             /** Requests containing any of these geo criteria ids will not match. */
             excludedGeoCriteriaIds?: string[];
             /** Requests containing any of these placements will not match. */
-            excludedPlacements?: Array<{            
-                /** The value of the placement. Interpretation depends on the placement type, e.g. URL for a site placement, channel name for a channel placement, app id for a mobile app placement. */
+            excludedPlacements?: Array<{
+                /**
+                 * The value of the placement. Interpretation depends on the placement type, e.g. URL for a site placement, channel name for a channel placement, app id
+                 * for a mobile app placement.
+                 */
                 token?: string;
                 /** The type of the placement. */
                 type?: string;
-            }>;            
+            }>;
             /** Requests containing any of these users list ids will not match. */
             excludedUserLists?: string[];
             /** Requests containing any of these vertical ids will not match. Values are from the publisher-verticals.txt file in the downloadable files section. */
@@ -692,7 +724,10 @@ declare namespace gapi.client {
             kind?: string;
             /** Request containing any of these language codes will match. */
             languages?: string[];
-            /** Requests where the predicted viewability is below the specified decile will not match. E.g. if the buyer sets this value to 5, requests from slots where the predicted viewability is below 50% will not match. If the predicted viewability is unknown this field will be ignored. */
+            /**
+             * Requests where the predicted viewability is below the specified decile will not match. E.g. if the buyer sets this value to 5, requests from slots
+             * where the predicted viewability is below 50% will not match. If the predicted viewability is unknown this field will be ignored.
+             */
             minimumViewabilityDecile?: number;
             /** Requests containing any of these mobile carrier ids will match. Values are from mobile-carriers.csv in the downloadable files section. */
             mobileCarriers?: string[];
@@ -701,17 +736,29 @@ declare namespace gapi.client {
             /** Requests containing any of these mobile operating system version ids will match. Values are from mobile-os.csv in the downloadable files section. */
             mobileOperatingSystemVersions?: string[];
             /** Requests containing any of these placements will match. */
-            placements?: Array<{            
-                /** The value of the placement. Interpretation depends on the placement type, e.g. URL for a site placement, channel name for a channel placement, app id for a mobile app placement. */
+            placements?: Array<{
+                /**
+                 * The value of the placement. Interpretation depends on the placement type, e.g. URL for a site placement, channel name for a channel placement, app id
+                 * for a mobile app placement.
+                 */
                 token?: string;
                 /** The type of the placement. */
                 type?: string;
-            }>;            
-            /** Requests matching any of these platforms will match. Possible values are PRETARGETING_PLATFORM_MOBILE, PRETARGETING_PLATFORM_DESKTOP, and PRETARGETING_PLATFORM_TABLET. */
+            }>;
+            /**
+             * Requests matching any of these platforms will match. Possible values are PRETARGETING_PLATFORM_MOBILE, PRETARGETING_PLATFORM_DESKTOP, and
+             * PRETARGETING_PLATFORM_TABLET.
+             */
             platforms?: string[];
-            /** Creative attributes should be declared here if all creatives corresponding to this pretargeting configuration have that creative attribute. Values are from pretargetable-creative-attributes.txt in the downloadable files section. */
+            /**
+             * Creative attributes should be declared here if all creatives corresponding to this pretargeting configuration have that creative attribute. Values are
+             * from pretargetable-creative-attributes.txt in the downloadable files section.
+             */
             supportedCreativeAttributes?: string[];
-            /** Requests containing the specified type of user data will match. Possible values are HOSTED_MATCH_DATA, which means the request is cookie-targetable and has a match in the buyer's hosted match table, and COOKIE_OR_IDFA, which means the request has either a targetable cookie or an iOS IDFA. */
+            /**
+             * Requests containing the specified type of user data will match. Possible values are HOSTED_MATCH_DATA, which means the request is cookie-targetable and
+             * has a match in the buyer's hosted match table, and COOKIE_OR_IDFA, which means the request has either a targetable cookie or an iOS IDFA.
+             */
             userIdentifierDataRequired?: string[];
             /** Requests containing any of these user list ids will match. */
             userLists?: string[];
@@ -720,23 +767,21 @@ declare namespace gapi.client {
             /** Requests containing any of these vertical ids will match. */
             verticals?: string[];
             /** Video requests satisfying any of these player size constraints will match. */
-            videoPlayerSizes?: Array<{            
+            videoPlayerSizes?: Array<{
                 /** The type of aspect ratio. Leave this field blank to match all aspect ratios. */
                 aspectRatio?: string;
                 /** The minimum player height in pixels. Leave this field blank to match any player height. */
                 minHeight?: string;
                 /** The minimum player width in pixels. Leave this field blank to match any player width. */
                 minWidth?: string;
-            }>;            
+            }>;
         }
-        
         interface PretargetingConfigList {
             /** A list of pretargeting configs */
             items?: PretargetingConfig[];
             /** Resource type. */
             kind?: string;
         }
-        
         interface Price {
             /** The price value in micros. */
             amountMicros?: number;
@@ -747,23 +792,23 @@ declare namespace gapi.client {
             /** The pricing type for the deal/product. */
             pricingType?: string;
         }
-        
         interface PricePerBuyer {
             /** Optional access type for this buyer. */
             auctionTier?: string;
             /** Reference to the buyer that will get billed. */
             billedBuyer?: Buyer;
-            /** The buyer who will pay this price. If unset, all buyers can pay this price (if the advertisers match, and there's no more specific rule matching the buyer). */
+            /**
+             * The buyer who will pay this price. If unset, all buyers can pay this price (if the advertisers match, and there's no more specific rule matching the
+             * buyer).
+             */
             buyer?: Buyer;
             /** The specified price */
             price?: Price;
         }
-        
         interface PrivateData {
             referenceId?: string;
             referencePayload?: string;
         }
-        
         interface Product {
             /** The billed buyer corresponding to the buyer that created the offer. (readonly, except on create) */
             billedBuyer?: Buyer;
@@ -775,13 +820,19 @@ declare namespace gapi.client {
             creatorContacts?: ContactInformation[];
             /** The role that created the offer. Set to BUYER for buyer initiated offers. */
             creatorRole?: string;
-            /** The set of fields around delivery control that are interesting for a buyer to see but are non-negotiable. These are set by the publisher. This message is assigned an id of 100 since some day we would want to model this as a protobuf extension. */
+            /**
+             * The set of fields around delivery control that are interesting for a buyer to see but are non-negotiable. These are set by the publisher. This message
+             * is assigned an id of 100 since some day we would want to model this as a protobuf extension.
+             */
             deliveryControl?: DeliveryControl;
             /** The proposed end time for the deal (ms since epoch) (buyer-readonly) */
             flightEndTimeMs?: string;
             /** Inventory availability dates. (times are in ms since epoch) The granularity is generally in the order of seconds. (buyer-readonly) */
             flightStartTimeMs?: string;
-            /** If the creator has already signed off on the product, then the buyer can finalize the deal by accepting the product as is. When copying to a proposal, if any of the terms are changed, then auto_finalize is automatically set to false. */
+            /**
+             * If the creator has already signed off on the product, then the buyer can finalize the deal by accepting the product as is. When copying to a proposal,
+             * if any of the terms are changed, then auto_finalize is automatically set to false.
+             */
             hasCreatorSignedOff?: boolean;
             /** What exchange will provide this inventory (readonly, except on create). */
             inventorySource?: string;
@@ -793,7 +844,10 @@ declare namespace gapi.client {
             lastUpdateTimeMs?: string;
             /** Optional legacy offer id if this offer is a preferred deal offer. */
             legacyOfferId?: string;
-            /** Marketplace publisher profile Id. This Id differs from the regular publisher_profile_id in that 1. This is a new id, the old Id will be deprecated in 2017. 2. This id uniquely identifies a publisher profile by itself. */
+            /**
+             * Marketplace publisher profile Id. This Id differs from the regular publisher_profile_id in that 1. This is a new id, the old Id will be deprecated in
+             * 2017. 2. This id uniquely identifies a publisher profile by itself.
+             */
             marketplacePublisherProfileId?: string;
             /** The name for this product as set by the seller. (buyer-readonly) */
             name?: string;
@@ -801,7 +855,10 @@ declare namespace gapi.client {
             privateAuctionId?: string;
             /** The unique id for the product (readonly) */
             productId?: string;
-            /** Id of the publisher profile for a given seller. A (seller.account_id, publisher_profile_id) pair uniquely identifies a publisher profile. Buyers can call the PublisherProfiles::List endpoint to get a list of publisher profiles for a given seller. */
+            /**
+             * Id of the publisher profile for a given seller. A (seller.account_id, publisher_profile_id) pair uniquely identifies a publisher profile. Buyers can
+             * call the PublisherProfiles::List endpoint to get a list of publisher profiles for a given seller.
+             */
             publisherProfileId?: string;
             /** Publisher self-provided forecast information. */
             publisherProvidedForecast?: PublisherProvidedForecast;
@@ -809,7 +866,10 @@ declare namespace gapi.client {
             revisionNumber?: string;
             /** Information about the seller that created this product (readonly, except on create) */
             seller?: Seller;
-            /** Targeting that is shared between the buyer and the seller. Each targeting criteria has a specified key and for each key there is a list of inclusion value or exclusion values. (buyer-readonly) */
+            /**
+             * Targeting that is shared between the buyer and the seller. Each targeting criteria has a specified key and for each key there is a list of inclusion
+             * value or exclusion values. (buyer-readonly)
+             */
             sharedTargetings?: SharedTargeting[];
             /** The state of the product. (buyer-readonly) */
             state?: string;
@@ -820,7 +880,6 @@ declare namespace gapi.client {
             /** The web property code for the seller. This field is meant to be copied over as is when creating deals. */
             webPropertyCode?: string;
         }
-        
         interface Proposal {
             /** Reference to the buyer that will get billed for this proposal. (readonly) */
             billedBuyer?: Buyer;
@@ -832,15 +891,24 @@ declare namespace gapi.client {
             buyerPrivateData?: PrivateData;
             /** IDs of DBM advertisers permission to this proposal. */
             dbmAdvertiserIds?: string[];
-            /** When an proposal is in an accepted state, indicates whether the buyer has signed off. Once both sides have signed off on a deal, the proposal can be finalized by the seller. (seller-readonly) */
+            /**
+             * When an proposal is in an accepted state, indicates whether the buyer has signed off. Once both sides have signed off on a deal, the proposal can be
+             * finalized by the seller. (seller-readonly)
+             */
             hasBuyerSignedOff?: boolean;
-            /** When an proposal is in an accepted state, indicates whether the buyer has signed off Once both sides have signed off on a deal, the proposal can be finalized by the seller. (buyer-readonly) */
+            /**
+             * When an proposal is in an accepted state, indicates whether the buyer has signed off Once both sides have signed off on a deal, the proposal can be
+             * finalized by the seller. (buyer-readonly)
+             */
             hasSellerSignedOff?: boolean;
             /** What exchange will provide this inventory (readonly, except on create). */
             inventorySource?: string;
             /** True if the proposal is being renegotiated (readonly). */
             isRenegotiating?: boolean;
-            /** True, if the buyside inventory setup is complete for this proposal. (readonly, except via OrderSetupCompleted action) Deprecated in favor of deal level setup complete flag. */
+            /**
+             * True, if the buyside inventory setup is complete for this proposal. (readonly, except via OrderSetupCompleted action) Deprecated in favor of deal level
+             * setup complete flag.
+             */
             isSetupComplete?: boolean;
             /** Identifies what kind of resource this is. Value: the fixed string "adexchangebuyer#proposal". */
             kind?: string;
@@ -869,7 +937,6 @@ declare namespace gapi.client {
             /** Optional contact information of the seller (buyer-readonly). */
             sellerContacts?: ContactInformation[];
         }
-        
         interface PublisherProfileApiProto {
             /** Deprecated: use the seller.account_id. The account id of the seller. */
             accountId?: string;
@@ -917,7 +984,6 @@ declare namespace gapi.client {
             /** Publisher provided key metrics and rankings. */
             topHeadlines?: string[];
         }
-        
         interface PublisherProvidedForecast {
             /** Publisher provided dimensions. E.g. geo, sizes etc... */
             dimensions?: Dimension[];
@@ -926,14 +992,12 @@ declare namespace gapi.client {
             /** Publisher provided weekly uniques. */
             weeklyUniques?: string;
         }
-        
         interface Seller {
             /** The unique id for the seller. The seller fills in this field. The seller account id is then available to buyer in the product. */
             accountId?: string;
             /** Optional sub-account id for the seller. */
             subAccountId?: string;
         }
-        
         interface SharedTargeting {
             /** The list of values to exclude from targeting. Each value is AND'd together. */
             exclusions?: TargetingValue[];
@@ -942,7 +1006,6 @@ declare namespace gapi.client {
             /** The key representing the shared targeting criterion. */
             key?: string;
         }
-        
         interface TargetingValue {
             /** The creative size value to exclude/include. */
             creativeSizeValue?: TargetingValueCreativeSize;
@@ -953,7 +1016,6 @@ declare namespace gapi.client {
             /** The string value to exclude/include. */
             stringValue?: string;
         }
-        
         interface TargetingValueCreativeSize {
             /** For video size type, the list of companion sizes. */
             companionSizes?: TargetingValueSize[];
@@ -966,12 +1028,10 @@ declare namespace gapi.client {
             /** The skippable ad type for video size. */
             skippableAdType?: string;
         }
-        
         interface TargetingValueDayPartTargeting {
             dayParts?: TargetingValueDayPartTargetingDayPart[];
             timeZoneType?: string;
         }
-        
         interface TargetingValueDayPartTargetingDayPart {
             dayOfWeek?: string;
             endHour?: number;
@@ -979,14 +1039,12 @@ declare namespace gapi.client {
             startHour?: number;
             startMinute?: number;
         }
-        
         interface TargetingValueSize {
             /** The height of the creative. */
             height?: number;
             /** The width of the creative. */
             width?: number;
         }
-        
         interface UpdatePrivateAuctionProposalRequest {
             /** The externalDealId of the deal to be updated. */
             externalDealId?: string;
@@ -997,10 +1055,9 @@ declare namespace gapi.client {
             /** The proposed action on the private auction proposal. */
             updateAction?: string;
         }
-        
         interface AccountsResource {
             /** Gets one account by ID. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1013,14 +1070,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
             /** Retrieves the authenticated user's list of accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1031,14 +1090,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountsList>;            
-            
+            }): Request<AccountsList>;
             /** Updates an existing account. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Confirmation for erasing bidder and cookie matching urls. */
@@ -1053,14 +1114,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
             /** Updates an existing account. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Confirmation for erasing bidder and cookie matching urls. */
@@ -1075,17 +1138,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
         }
-        
         interface BillingInfoResource {
             /** Returns the billing information for one account specified by account ID. */
-            get(request: {            
+            get(request: {
                 /** The account id. */
                 accountId: number;
                 /** Data format for the response. */
@@ -1098,14 +1162,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<BillingInfo>;            
-            
+            }): Request<BillingInfo>;
             /** Retrieves a list of billing information for all accounts of the authenticated user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1116,17 +1182,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<BillingInfoList>;            
-            
+            }): Request<BillingInfoList>;
         }
-        
         interface BudgetResource {
             /** Returns the budget information for the adgroup specified by the accountId and billingId. */
-            get(request: {            
+            get(request: {
                 /** The account id to get the budget information for. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1141,14 +1208,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Budget>;            
-            
-            /** Updates the budget amount for the budget of the adgroup specified by the accountId and billingId, with the budget amount in the request. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<Budget>;
+            /**
+             * Updates the budget amount for the budget of the adgroup specified by the accountId and billingId, with the budget amount in the request. This method
+             * supports patch semantics.
+             */
+            patch(request: {
                 /** The account id associated with the budget being updated. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1163,14 +1235,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Budget>;            
-            
+            }): Request<Budget>;
             /** Updates the budget amount for the budget of the adgroup specified by the accountId and billingId, with the budget amount in the request. */
-            update(request: {            
+            update(request: {
                 /** The account id associated with the budget being updated. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1185,17 +1259,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Budget>;            
-            
+            }): Request<Budget>;
         }
-        
         interface CreativesResource {
             /** Add a deal id association for the creative. */
-            addDeal(request: {            
+            addDeal(request: {
                 /** The id for the account that will serve this creative. */
                 accountId: number;
                 /** Data format for the response. */
@@ -1212,14 +1287,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets the status for a single creative. A creative will be available 30-40 minutes after submission. */
-            get(request: {            
+            get(request: {
                 /** The id for the account that will serve this creative. */
                 accountId: number;
                 /** Data format for the response. */
@@ -1234,14 +1311,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Creative>;            
-            
+            }): Request<Creative>;
             /** Submit a new creative. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1252,14 +1331,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Creative>;            
-            
+            }): Request<Creative>;
             /** Retrieves a list of the authenticated user's active creatives. A creative will be available 30-40 minutes after submission. */
-            list(request: {            
+            list(request: {
                 /** When specified, only creatives for the given account ids are returned. */
                 accountId?: number;
                 /** Data format for the response. */
@@ -1278,18 +1359,23 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** When specified, only creatives having the given open auction status are returned. */
                 openAuctionStatusFilter?: string;
-                /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. Optional. */
+                /**
+                 * A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous
+                 * response. Optional.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CreativesList>;            
-            
+            }): Request<CreativesList>;
             /** Lists the external deal ids associated with the creative. */
-            listDeals(request: {            
+            listDeals(request: {
                 /** The id for the account that will serve this creative. */
                 accountId: number;
                 /** Data format for the response. */
@@ -1304,14 +1390,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CreativeDealIds>;            
-            
+            }): Request<CreativeDealIds>;
             /** Remove a deal id associated with the creative. */
-            removeDeal(request: {            
+            removeDeal(request: {
                 /** The id for the account that will serve this creative. */
                 accountId: number;
                 /** Data format for the response. */
@@ -1328,17 +1416,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface MarketplacedealsResource {
             /** Delete the specified deals from the proposal */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1351,14 +1440,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The proposalId to delete deals from. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DeleteOrderDealsResponse>;            
-            
+            }): Request<DeleteOrderDealsResponse>;
             /** Add new deals for the specified proposal */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1371,14 +1462,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** proposalId for which deals need to be added. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AddOrderDealsResponse>;            
-            
+            }): Request<AddOrderDealsResponse>;
             /** List all the deals for a given proposal */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1393,14 +1486,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The proposalId to get deals for. To search across all proposals specify order_id = '-' as part of the URL. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetOrderDealsResponse>;            
-            
+            }): Request<GetOrderDealsResponse>;
             /** Replaces all the deals in the proposal with the passed in deals */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1413,17 +1508,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The proposalId to edit deals on. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<EditAllOrderDealsResponse>;            
-            
+            }): Request<EditAllOrderDealsResponse>;
         }
-        
         interface MarketplacenotesResource {
             /** Add notes to the proposal */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1436,14 +1532,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The proposalId to add notes for. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AddOrderNotesResponse>;            
-            
+            }): Request<AddOrderNotesResponse>;
             /** Get all the notes associated with a proposal */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1452,23 +1550,27 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Query string to retrieve specific notes. To search the text contents of notes, please use syntax like "WHERE note.note = "foo" or "WHERE note.note LIKE "%bar%" */
+                /**
+                 * Query string to retrieve specific notes. To search the text contents of notes, please use syntax like "WHERE note.note = "foo" or "WHERE note.note LIKE
+                 * "%bar%"
+                 */
                 pqlQuery?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** The proposalId to get notes for. To search across all proposals specify order_id = '-' as part of the URL. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetOrderNotesResponse>;            
-            
+            }): Request<GetOrderNotesResponse>;
         }
-        
         interface MarketplaceprivateauctionResource {
             /** Update a given private auction proposal */
-            updateproposal(request: {            
+            updateproposal(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1481,17 +1583,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The private auction id to be updated. */
                 privateAuctionId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface PerformanceReportResource {
             /** Retrieves the authenticated user's list of performance metrics. */
-            list(request: {            
+            list(request: {
                 /** The account id to get the reports. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1506,23 +1609,27 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** A continuation token, used to page through performance reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. Optional. */
+                /**
+                 * A continuation token, used to page through performance reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the
+                 * previous response. Optional.
+                 */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The start time of the report in ISO 8601 timestamp format using UTC. */
                 startDateTime: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PerformanceReportList>;            
-            
+            }): Request<PerformanceReportList>;
         }
-        
         interface PretargetingConfigResource {
             /** Deletes an existing pretargeting config. */
-            delete(request: {            
+            delete(request: {
                 /** The account id to delete the pretargeting config for. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1537,14 +1644,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Gets a specific pretargeting configuration */
-            get(request: {            
+            get(request: {
                 /** The account id to get the pretargeting config for. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1559,14 +1668,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PretargetingConfig>;            
-            
+            }): Request<PretargetingConfig>;
             /** Inserts a new pretargeting configuration. */
-            insert(request: {            
+            insert(request: {
                 /** The account id to insert the pretargeting config for. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1579,14 +1690,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PretargetingConfig>;            
-            
+            }): Request<PretargetingConfig>;
             /** Retrieves a list of the authenticated user's pretargeting configurations. */
-            list(request: {            
+            list(request: {
                 /** The account id to get the pretargeting configs for. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1599,14 +1712,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PretargetingConfigList>;            
-            
+            }): Request<PretargetingConfigList>;
             /** Updates an existing pretargeting config. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** The account id to update the pretargeting config for. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1621,14 +1736,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PretargetingConfig>;            
-            
+            }): Request<PretargetingConfig>;
             /** Updates an existing pretargeting config. */
-            update(request: {            
+            update(request: {
                 /** The account id to update the pretargeting config for. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1643,17 +1760,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PretargetingConfig>;            
-            
+            }): Request<PretargetingConfig>;
         }
-        
         interface ProductsResource {
             /** Gets the requested product by id. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1666,14 +1784,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The id for the product to get the head revision for. */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Product>;            
-            
+            }): Request<Product>;
             /** Gets the requested product. */
-            search(request: {            
+            search(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1686,17 +1806,18 @@ declare namespace gapi.client {
                 pqlQuery?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetOffersResponse>;            
-            
+            }): Request<GetOffersResponse>;
         }
-        
         interface ProposalsResource {
             /** Get a proposal given its id */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1709,14 +1830,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Id of the proposal to retrieve. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Proposal>;            
-            
+            }): Request<Proposal>;
             /** Create the given list of proposals */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1727,14 +1850,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<CreateOrdersResponse>;            
-            
+            }): Request<CreateOrdersResponse>;
             /** Update the given proposal. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1747,18 +1872,23 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The proposal id to update. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** The last known revision number to update. If the head revision in the marketplace database has since changed, an error will be thrown. The caller should then fetch the latest proposal at head revision and retry the update at that revision. */
+                /**
+                 * The last known revision number to update. If the head revision in the marketplace database has since changed, an error will be thrown. The caller
+                 * should then fetch the latest proposal at head revision and retry the update at that revision.
+                 */
                 revisionNumber: string;
                 /** The proposed action to take on the proposal. This field is required and it must be set when updating a proposal. */
                 updateAction: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Proposal>;            
-            
+            }): Request<Proposal>;
             /** Search for proposals using pql query */
-            search(request: {            
+            search(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1771,14 +1901,16 @@ declare namespace gapi.client {
                 pqlQuery?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetOrdersResponse>;            
-            
+            }): Request<GetOrdersResponse>;
             /** Update the given proposal to indicate that setup has been completed. */
-            setupcomplete(request: {            
+            setupcomplete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1791,14 +1923,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The proposal id for which the setup is complete */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Update the given proposal */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1811,21 +1945,25 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The proposal id to update. */
                 proposalId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** The last known revision number to update. If the head revision in the marketplace database has since changed, an error will be thrown. The caller should then fetch the latest proposal at head revision and retry the update at that revision. */
+                /**
+                 * The last known revision number to update. If the head revision in the marketplace database has since changed, an error will be thrown. The caller
+                 * should then fetch the latest proposal at head revision and retry the update at that revision.
+                 */
                 revisionNumber: string;
                 /** The proposed action to take on the proposal. This field is required and it must be set when updating a proposal. */
                 updateAction: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Proposal>;            
-            
+            }): Request<Proposal>;
         }
-        
         interface PubprofilesResource {
             /** Gets the requested publisher profile(s) by publisher accountId. */
-            list(request: {            
+            list(request: {
                 /** The accountId of the publisher to get profiles for. */
                 accountId: number;
                 /** Data format for the response. */
@@ -1838,12 +1976,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<GetPublisherProfilesByAccountIdResponse>;            
-            
+            }): Request<GetPublisherProfilesByAccountIdResponse>;
         }
     }
 }

@@ -13,48 +13,46 @@
 
 declare namespace gapi.client {
     /** Load Google Identity and Access Management (IAM) API v1 */
-    function load(name: "iam", version: "v1"): PromiseLike<void>;    
-    function load(name: "iam", version: "v1", callback: () => any): void;    
-    
-    const organizations: iam.OrganizationsResource; 
-    
-    const permissions: iam.PermissionsResource; 
-    
-    const projects: iam.ProjectsResource; 
-    
-    const roles: iam.RolesResource; 
-    
+    function load(name: "iam", version: "v1"): PromiseLike<void>;
+    function load(name: "iam", version: "v1", callback: () => any): void;
+
+    const organizations: iam.OrganizationsResource;
+
+    const permissions: iam.PermissionsResource;
+
+    const projects: iam.ProjectsResource;
+
+    const roles: iam.RolesResource;
+
     namespace iam {
-        
         interface AuditData {
             /** Policy delta between the original policy and the newly set policy. */
             policyDelta?: PolicyDelta;
         }
-        
         interface Binding {
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -64,7 +62,6 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
         interface BindingDelta {
             /**
              * The action that was performed on a Binding.
@@ -91,14 +88,12 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
         interface CreateRoleRequest {
             /** The Role resource to create. */
             role?: Role;
             /** The role id to use for this role. */
             roleId?: string;
         }
-        
         interface CreateServiceAccountKeyRequest {
             /**
              * Which type of key and algorithm to use for the key.
@@ -112,7 +107,6 @@ declare namespace gapi.client {
              */
             privateKeyType?: string;
         }
-        
         interface CreateServiceAccountRequest {
             /**
              * Required. The account id that is used to generate the service account
@@ -128,7 +122,6 @@ declare namespace gapi.client {
              */
             serviceAccount?: ServiceAccount;
         }
-        
         interface Expr {
             /**
              * An optional description of the expression. This is a longer text which
@@ -138,7 +131,7 @@ declare namespace gapi.client {
             /**
              * Textual representation of an expression in
              * Common Expression Language syntax.
-             * 
+             *
              * The application context of the containing message determines which
              * well-known feature set of CEL is supported.
              */
@@ -155,7 +148,6 @@ declare namespace gapi.client {
              */
             title?: string;
         }
-        
         interface ListRolesResponse {
             /**
              * To retrieve the next page of results, set
@@ -165,12 +157,10 @@ declare namespace gapi.client {
             /** The Roles defined on this resource. */
             roles?: Role[];
         }
-        
         interface ListServiceAccountKeysResponse {
             /** The public keys for the service account. */
             keys?: ServiceAccountKey[];
         }
-        
         interface ListServiceAccountsResponse {
             /** The list of matching service accounts. */
             accounts?: ServiceAccount[];
@@ -181,7 +171,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface Permission {
             /** The current custom role support level. */
             customRolesSupportLevel?: string;
@@ -196,7 +185,6 @@ declare namespace gapi.client {
             /** The title of this Permission. */
             title?: string;
         }
-        
         interface Policy {
             /**
              * Associates a list of `members` to a `role`.
@@ -211,7 +199,7 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
@@ -219,16 +207,14 @@ declare namespace gapi.client {
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
         interface PolicyDelta {
             /** The delta for Bindings between two policies. */
             bindingDeltas?: BindingDelta[];
         }
-        
         interface QueryGrantableRolesRequest {
             /**
              * Required. The full resource name to query from the list of grantable roles.
-             * 
+             *
              * The name follows the Google Cloud Platform resource format.
              * For example, a Cloud Platform project with id `my-project` will be named
              * `//cloudresourcemanager.googleapis.com/projects/my-project`.
@@ -243,7 +229,6 @@ declare namespace gapi.client {
             pageToken?: string;
             view?: string;
         }
-        
         interface QueryGrantableRolesResponse {
             /**
              * To retrieve the next page of results, set
@@ -253,12 +238,11 @@ declare namespace gapi.client {
             /** The list of matching roles. */
             roles?: Role[];
         }
-        
         interface QueryTestablePermissionsRequest {
             /**
              * Required. The full resource name to query from the list of testable
              * permissions.
-             * 
+             *
              * The name follows the Google Cloud Platform resource format.
              * For example, a Cloud Platform project with id `my-project` will be named
              * `//cloudresourcemanager.googleapis.com/projects/my-project`.
@@ -272,7 +256,6 @@ declare namespace gapi.client {
              */
             pageToken?: string;
         }
-        
         interface QueryTestablePermissionsResponse {
             /**
              * To retrieve the next page of results, set
@@ -282,7 +265,6 @@ declare namespace gapi.client {
             /** The Permissions testable on the requested resource. */
             permissions?: Permission[];
         }
-        
         interface Role {
             /**
              * The current deleted state of the role. This field is read only.
@@ -297,9 +279,9 @@ declare namespace gapi.client {
             includedPermissions?: string[];
             /**
              * The name of the role.
-             * 
+             *
              * When Role is used in CreateRole, the role name must not be set.
-             * 
+             *
              * When Role is used in output and other input such as UpdateRole, the role
              * name is the complete path, e.g., roles/logging.viewer for curated roles
              * and organizations/{ORGANIZATION_ID}/roles/logging.viewer for custom roles.
@@ -313,7 +295,6 @@ declare namespace gapi.client {
              */
             title?: string;
         }
-        
         interface ServiceAccount {
             /**
              * Optional. A user-specified description of the service account.  Must be
@@ -326,14 +307,14 @@ declare namespace gapi.client {
             etag?: string;
             /**
              * The resource name of the service account in the following format:
-             * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-             * 
-             * Requests using `-` as a wildcard for the project will infer the project
-             * from the `account` and the `account` value can be the `email` address or
-             * the `unique_id` of the service account.
-             * 
+             * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+             *
+             * Requests using `-` as a wildcard for the `PROJECT_ID` will infer the
+             * project from the `account` and the `ACCOUNT` value can be the `email`
+             * address or the `unique_id` of the service account.
+             *
              * In responses the resource name will always be in the format
-             * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
+             * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
              */
             name?: string;
             /**
@@ -347,13 +328,12 @@ declare namespace gapi.client {
             /** @OutputOnly The unique and stable id of the service account. */
             uniqueId?: string;
         }
-        
         interface ServiceAccountKey {
             /** Specifies the algorithm (and possibly key size) for the key. */
             keyAlgorithm?: string;
             /**
              * The resource name of the service account key in the following format
-             * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}/keys/{key}`.
+             * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
              */
             name?: string;
             /**
@@ -370,7 +350,7 @@ declare namespace gapi.client {
              * The output format for the private key.
              * Only provided in `CreateServiceAccountKey` responses, not
              * in `GetServiceAccountKey` or `ListServiceAccountKey` responses.
-             * 
+             *
              * Google never exposes system-managed private keys, and never retains
              * user-managed private keys.
              */
@@ -382,7 +362,6 @@ declare namespace gapi.client {
             /** The key can be used before this timestamp. */
             validBeforeTime?: string;
         }
-        
         interface SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -392,31 +371,26 @@ declare namespace gapi.client {
              */
             policy?: Policy;
         }
-        
         interface SignBlobRequest {
             /** The bytes to sign. */
             bytesToSign?: string;
         }
-        
         interface SignBlobResponse {
             /** The id of the key used to sign the blob. */
             keyId?: string;
             /** The signed blob. */
             signature?: string;
         }
-        
         interface SignJwtRequest {
             /** The JWT payload to sign, a JSON JWT Claim set. */
             payload?: string;
         }
-        
         interface SignJwtResponse {
             /** The id of the key used to sign the JWT. */
             keyId?: string;
             /** The signed JWT. */
             signedJwt?: string;
         }
-        
         interface TestIamPermissionsRequest {
             /**
              * The set of permissions to check for the `resource`. Permissions with
@@ -426,7 +400,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -434,15 +407,13 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface UndeleteRoleRequest {
             /** Used to perform a consistent read-modify-write. */
             etag?: string;
         }
-        
         interface RolesResource {
             /** Creates a new Role. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -475,8 +446,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /**
              * Soft deletes a role. The role is suspended and cannot be used to create new
              * IAM Policy Bindings.
@@ -486,7 +456,7 @@ declare namespace gapi.client {
              * within 7 days. After 7 days the Role is deleted and all Bindings associated
              * with the role are removed.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -521,10 +491,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /** Gets a Role definition. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -558,10 +527,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /** Lists the Roles defined on a resource. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -603,10 +571,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Optional view for the returned Role objects. */
                 view?: string;
-            }): Request<ListRolesResponse>;            
-            
+            }): Request<ListRolesResponse>;
             /** Updates a Role definition. */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -642,10 +609,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /** Undelete a Role, bringing it back in its previous state. */
-            undelete(request: {            
+            undelete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -678,20 +644,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
         }
-        
         interface OrganizationsResource {
             roles: RolesResource;
         }
-        
         interface PermissionsResource {
             /**
              * Lists the permissions testable on a resource.
              * A permission is testable if it can be tested for an identity on a resource.
              */
-            queryTestablePermissions(request: {            
+            queryTestablePermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -718,13 +681,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<QueryTestablePermissionsResponse>;            
-            
+            }): Request<QueryTestablePermissionsResponse>;
         }
-        
         interface RolesResource {
             /** Creates a new Role. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -757,8 +718,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /**
              * Soft deletes a role. The role is suspended and cannot be used to create new
              * IAM Policy Bindings.
@@ -768,7 +728,7 @@ declare namespace gapi.client {
              * within 7 days. After 7 days the Role is deleted and all Bindings associated
              * with the role are removed.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -803,10 +763,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /** Gets a Role definition. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -840,10 +799,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /** Lists the Roles defined on a resource. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -885,10 +843,9 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Optional view for the returned Role objects. */
                 view?: string;
-            }): Request<ListRolesResponse>;            
-            
+            }): Request<ListRolesResponse>;
             /** Updates a Role definition. */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -924,10 +881,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /** Undelete a Role, bringing it back in its previous state. */
-            undelete(request: {            
+            undelete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -960,16 +916,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
         }
-        
         interface KeysResource {
             /**
              * Creates a ServiceAccountKey
              * and returns it.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -986,9 +940,9 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-                 * Using `-` as a wildcard for the project will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+                 * Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1004,10 +958,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ServiceAccountKey>;            
-            
+            }): Request<ServiceAccountKey>;
             /** Deletes a ServiceAccountKey. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1024,9 +977,9 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account key in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}/keys/{key}`.
-                 * Using `-` as a wildcard for the project will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
+                 * Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1042,13 +995,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the ServiceAccountKey
              * by key id.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1065,10 +1017,10 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account key in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}/keys/{key}`.
-                 * 
-                 * Using `-` as a wildcard for the project will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
+                 *
+                 * Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1089,10 +1041,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ServiceAccountKey>;            
-            
+            }): Request<ServiceAccountKey>;
             /** Lists ServiceAccountKeys. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1115,10 +1066,10 @@ declare namespace gapi.client {
                 keyTypes?: string;
                 /**
                  * The resource name of the service account in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-                 * 
-                 * Using `-` as a wildcard for the project, will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+                 *
+                 * Using `-` as a wildcard for the `PROJECT_ID`, will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1134,16 +1085,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListServiceAccountKeysResponse>;            
-            
+            }): Request<ListServiceAccountKeysResponse>;
         }
-        
         interface ServiceAccountsResource {
             /**
              * Creates a ServiceAccount
              * and returns it.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1175,10 +1124,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ServiceAccount>;            
-            
+            }): Request<ServiceAccount>;
             /** Deletes a ServiceAccount. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1195,9 +1143,9 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-                 * Using `-` as a wildcard for the project will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+                 * Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1213,10 +1161,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets a ServiceAccount. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1233,9 +1180,9 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-                 * Using `-` as a wildcard for the project will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+                 * Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1251,13 +1198,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ServiceAccount>;            
-            
+            }): Request<ServiceAccount>;
             /**
              * Returns the IAM access control policy for a
              * ServiceAccount.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1289,10 +1235,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Lists ServiceAccounts for a project. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1336,13 +1281,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListServiceAccountsResponse>;            
-            
+            }): Request<ListServiceAccountsResponse>;
             /**
              * Sets the IAM access control policy for a
              * ServiceAccount.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1374,10 +1318,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Signs a blob using a service account's system-managed private key. */
-            signBlob(request: {            
+            signBlob(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1394,9 +1337,9 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-                 * Using `-` as a wildcard for the project will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+                 * Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1412,16 +1355,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SignBlobResponse>;            
-            
+            }): Request<SignBlobResponse>;
             /**
              * Signs a JWT using a service account's system-managed private key.
-             * 
+             *
              * If no expiry time (`exp`) is provided in the `SignJwtRequest`, IAM sets an
              * an expiry time of one hour by default. If you request an expiry time of
              * more than one hour, the request will fail.
              */
-            signJwt(request: {            
+            signJwt(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1438,9 +1380,9 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-                 * Using `-` as a wildcard for the project will infer the project from
-                 * the account. The `account` value can be the `email` address or the
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+                 * Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
+                 * the account. The `ACCOUNT` value can be the `email` address or the
                  * `unique_id` of the service account.
                  */
                 name: string;
@@ -1456,13 +1398,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SignJwtResponse>;            
-            
+            }): Request<SignJwtResponse>;
             /**
              * Tests the specified permissions against the IAM access control policy
              * for a ServiceAccount.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1494,16 +1435,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             /**
              * Updates a ServiceAccount.
-             * 
+             *
              * Currently, only the following fields are updatable:
              * `display_name` .
              * The `etag` is mandatory.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1520,14 +1460,14 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * The resource name of the service account in the following format:
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
-                 * 
-                 * Requests using `-` as a wildcard for the project will infer the project
-                 * from the `account` and the `account` value can be the `email` address or
-                 * the `unique_id` of the service account.
-                 * 
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
+                 *
+                 * Requests using `-` as a wildcard for the `PROJECT_ID` will infer the
+                 * project from the `account` and the `ACCOUNT` value can be the `email`
+                 * address or the `unique_id` of the service account.
+                 *
                  * In responses the resource name will always be in the format
-                 * `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`.
+                 * `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
                  */
                 name: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1542,19 +1482,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ServiceAccount>;            
-            
+            }): Request<ServiceAccount>;
             keys: KeysResource;
         }
-        
         interface ProjectsResource {
             roles: RolesResource;
             serviceAccounts: ServiceAccountsResource;
         }
-        
         interface RolesResource {
             /** Gets a Role definition. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1588,10 +1525,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Role>;            
-            
+            }): Request<Role>;
             /** Lists the Roles defined on a resource. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1633,14 +1569,13 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Optional view for the returned Role objects. */
                 view?: string;
-            }): Request<ListRolesResponse>;            
-            
+            }): Request<ListRolesResponse>;
             /**
              * Queries roles that can be granted on a particular resource.
              * A role is grantable if it can be used as the role in a binding for a policy
              * for that resource.
              */
-            queryGrantableRoles(request: {            
+            queryGrantableRoles(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1667,8 +1602,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<QueryGrantableRolesResponse>;            
-            
+            }): Request<QueryGrantableRolesResponse>;
         }
     }
 }

@@ -13,21 +13,23 @@
 
 declare namespace gapi.client {
     /** Load Google Civic Information API v2 */
-    function load(name: "civicinfo", version: "v2"): PromiseLike<void>;    
-    function load(name: "civicinfo", version: "v2", callback: () => any): void;    
-    
-    const divisions: civicinfo.DivisionsResource; 
-    
-    const elections: civicinfo.ElectionsResource; 
-    
-    const representatives: civicinfo.RepresentativesResource; 
-    
+    function load(name: "civicinfo", version: "v2"): PromiseLike<void>;
+    function load(name: "civicinfo", version: "v2", callback: () => any): void;
+
+    const divisions: civicinfo.DivisionsResource;
+
+    const elections: civicinfo.ElectionsResource;
+
+    const representatives: civicinfo.RepresentativesResource;
+
     namespace civicinfo {
-        
         interface AdministrationRegion {
             /** The election administration body for this area. */
             electionAdministrationBody?: AdministrativeBody;
-            /** An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested from the Request more link on the Quotas page. */
+            /**
+             * An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested
+             * from the Request more link on the Quotas page.
+             */
             id?: string;
             /** The city or county that provides election information for this voter. This object can have the same elements as state. */
             local_jurisdiction?: AdministrationRegion;
@@ -36,7 +38,6 @@ declare namespace gapi.client {
             /** A list of sources for this area. If multiple sources are listed the data has been aggregated from those sources. */
             sources?: Source[];
         }
-        
         interface AdministrativeBody {
             /** A URL provided by this administrative body for information on absentee voting. */
             absenteeVotingInfoUrl?: string;
@@ -66,7 +67,6 @@ declare namespace gapi.client {
             /** A URL provided by this administrative body for looking up where to vote. */
             votingLocationFinderUrl?: string;
         }
-        
         interface Candidate {
             /** The URL for the candidate's campaign web site. */
             candidateUrl?: string;
@@ -74,7 +74,10 @@ declare namespace gapi.client {
             channels?: Channel[];
             /** The email address for the candidate's campaign. */
             email?: string;
-            /** The candidate's name. If this is a joint ticket it will indicate the name of the candidate at the top of a ticket followed by a / and that name of candidate at the bottom of the ticket. e.g. "Mitt Romney / Paul Ryan" */
+            /**
+             * The candidate's name. If this is a joint ticket it will indicate the name of the candidate at the top of a ticket followed by a / and that name of
+             * candidate at the bottom of the ticket. e.g. "Mitt Romney / Paul Ryan"
+             */
             name?: string;
             /** The order the candidate appears on the ballot for this contest. */
             orderOnBallot?: string;
@@ -85,14 +88,15 @@ declare namespace gapi.client {
             /** A URL for a photo of the candidate. */
             photoUrl?: string;
         }
-        
         interface Channel {
             /** The unique public identifier for the candidate's channel. */
             id?: string;
-            /** The type of channel. The following is a list of types of channels, but is not exhaustive. More channel types may be added at a later time. One of: GooglePlus, YouTube, Facebook, Twitter */
+            /**
+             * The type of channel. The following is a list of types of channels, but is not exhaustive. More channel types may be added at a later time. One of:
+             * GooglePlus, YouTube, Facebook, Twitter
+             */
             type?: string;
         }
-        
         interface Contest {
             /** A number specifying the position of this contest on the voter's ballot. */
             ballotPlacement?: string;
@@ -102,9 +106,16 @@ declare namespace gapi.client {
             district?: ElectoralDistrict;
             /** A description of any additional eligibility requirements for voting in this contest. */
             electorateSpecifications?: string;
-            /** An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested from the Request more link on the Quotas page. */
+            /**
+             * An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested
+             * from the Request more link on the Quotas page.
+             */
             id?: string;
-            /** The levels of government of the office for this contest. There may be more than one in cases where a jurisdiction effectively acts at two different levels of government; for example, the mayor of the District of Columbia acts at "locality" level, but also effectively at both "administrative-area-2" and "administrative-area-1". */
+            /**
+             * The levels of government of the office for this contest. There may be more than one in cases where a jurisdiction effectively acts at two different
+             * levels of government; for example, the mayor of the District of Columbia acts at "locality" level, but also effectively at both "administrative-area-2"
+             * and "administrative-area-1".
+             */
             level?: string[];
             /** The number of candidates that will be elected to office in this contest. */
             numberElected?: string;
@@ -114,13 +125,25 @@ declare namespace gapi.client {
             office?: string;
             /** If this is a partisan election, the name of the party it is for. */
             primaryParty?: string;
-            /** The set of ballot responses for the referendum. A ballot response represents a line on the ballot. Common examples might include "yes" or "no" for referenda. This field is only populated for contests of type 'Referendum'. */
+            /**
+             * The set of ballot responses for the referendum. A ballot response represents a line on the ballot. Common examples might include "yes" or "no" for
+             * referenda. This field is only populated for contests of type 'Referendum'.
+             */
             referendumBallotResponses?: string[];
-            /** Specifies a short summary of the referendum that is typically on the ballot below the title but above the text. This field is only populated for contests of type 'Referendum'. */
+            /**
+             * Specifies a short summary of the referendum that is typically on the ballot below the title but above the text. This field is only populated for
+             * contests of type 'Referendum'.
+             */
             referendumBrief?: string;
-            /** A statement in opposition to the referendum. It does not necessarily appear on the ballot. This field is only populated for contests of type 'Referendum'. */
+            /**
+             * A statement in opposition to the referendum. It does not necessarily appear on the ballot. This field is only populated for contests of type
+             * 'Referendum'.
+             */
             referendumConStatement?: string;
-            /** Specifies what effect abstaining (not voting) on the proposition will have (i.e. whether abstaining is considered a vote against it). This field is only populated for contests of type 'Referendum'. */
+            /**
+             * Specifies what effect abstaining (not voting) on the proposition will have (i.e. whether abstaining is considered a vote against it). This field is
+             * only populated for contests of type 'Referendum'.
+             */
             referendumEffectOfAbstain?: string;
             /** The threshold of votes that the referendum needs in order to pass, e.g. "two-thirds". This field is only populated for contests of type 'Referendum'. */
             referendumPassageThreshold?: string;
@@ -140,37 +163,38 @@ declare namespace gapi.client {
             sources?: Source[];
             /** "Yes" or "No" depending on whether this a contest being held outside the normal election cycle. */
             special?: string;
-            /** The type of contest. Usually this will be 'General', 'Primary', or 'Run-off' for contests with candidates. For referenda this will be 'Referendum'. For Retention contests this will typically be 'Retention'. */
+            /**
+             * The type of contest. Usually this will be 'General', 'Primary', or 'Run-off' for contests with candidates. For referenda this will be 'Referendum'. For
+             * Retention contests this will typically be 'Retention'.
+             */
             type?: string;
         }
-        
         interface ContextParams {
             clientProfile?: string;
         }
-        
         interface DivisionRepresentativeInfoRequest {
             contextParams?: ContextParams;
         }
-        
         interface DivisionSearchRequest {
             contextParams?: ContextParams;
         }
-        
         interface DivisionSearchResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#divisionSearchResponse". */
             kind?: string;
             results?: DivisionSearchResult[];
         }
-        
         interface DivisionSearchResult {
-            /** Other Open Civic Data identifiers that refer to the same division -- for example, those that refer to other political divisions whose boundaries are defined to be coterminous with this one. For example, ocd-division/country:us/state:wy will include an alias of ocd-division/country:us/state:wy/cd:1, since Wyoming has only one Congressional district. */
+            /**
+             * Other Open Civic Data identifiers that refer to the same division -- for example, those that refer to other political divisions whose boundaries are
+             * defined to be coterminous with this one. For example, ocd-division/country:us/state:wy will include an alias of ocd-division/country:us/state:wy/cd:1,
+             * since Wyoming has only one Congressional district.
+             */
             aliases?: string[];
             /** The name of the division. */
             name?: string;
             /** The unique Open Civic Data identifier for this division. */
             ocdId?: string;
         }
-        
         interface Election {
             /** Day of the election in YYYY-MM-DD format. */
             electionDay?: string;
@@ -178,10 +202,13 @@ declare namespace gapi.client {
             id?: string;
             /** A displayable name for the election. */
             name?: string;
-            /** The political division of the election. Represented as an OCD Division ID. Voters within these political jurisdictions are covered by this election. This is typically a state such as ocd-division/country:us/state:ca or for the midterms or general election the entire US (i.e. ocd-division/country:us). */
+            /**
+             * The political division of the election. Represented as an OCD Division ID. Voters within these political jurisdictions are covered by this election.
+             * This is typically a state such as ocd-division/country:us/state:ca or for the midterms or general election the entire US (i.e.
+             * ocd-division/country:us).
+             */
             ocdDivisionId?: string;
         }
-        
         interface ElectionOfficial {
             /** The email address of the election official. */
             emailAddress?: string;
@@ -194,58 +221,67 @@ declare namespace gapi.client {
             /** The title of the election official. */
             title?: string;
         }
-        
         interface ElectionsQueryRequest {
             contextParams?: ContextParams;
         }
-        
         interface ElectionsQueryResponse {
             /** A list of available elections */
             elections?: Election[];
             /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#electionsQueryResponse". */
             kind?: string;
         }
-        
         interface ElectoralDistrict {
             /** An identifier for this district, relative to its scope. For example, the 34th State Senate district would have id "34" and a scope of stateUpper. */
             id?: string;
             kgForeignKey?: string;
             /** The name of the district. */
             name?: string;
-            /** The geographic scope of this district. If unspecified the district's geography is not known. One of: national, statewide, congressional, stateUpper, stateLower, countywide, judicial, schoolBoard, cityWide, township, countyCouncil, cityCouncil, ward, special */
+            /**
+             * The geographic scope of this district. If unspecified the district's geography is not known. One of: national, statewide, congressional, stateUpper,
+             * stateLower, countywide, judicial, schoolBoard, cityWide, township, countyCouncil, cityCouncil, ward, special
+             */
             scope?: string;
         }
-        
         interface GeographicDivision {
             /**
              * Any other valid OCD IDs that refer to the same division.
-             * 
-             * Because OCD IDs are meant to be human-readable and at least somewhat predictable, there are occasionally several identifiers for a single division. These identifiers are defined to be equivalent to one another, and one is always indicated as the primary identifier. The primary identifier will be returned in ocd_id above, and any other equivalent valid identifiers will be returned in this list.
-             * 
+             *
+             * Because OCD IDs are meant to be human-readable and at least somewhat predictable, there are occasionally several identifiers for a single division.
+             * These identifiers are defined to be equivalent to one another, and one is always indicated as the primary identifier. The primary identifier will be
+             * returned in ocd_id above, and any other equivalent valid identifiers will be returned in this list.
+             *
              * For example, if this division's OCD ID is ocd-division/country:us/district:dc, this will contain ocd-division/country:us/state:dc.
              */
             alsoKnownAs?: string[];
             /** The name of the division. */
             name?: string;
-            /** List of indices in the offices array, one for each office elected from this division. Will only be present if includeOffices was true (or absent) in the request. */
+            /**
+             * List of indices in the offices array, one for each office elected from this division. Will only be present if includeOffices was true (or absent) in
+             * the request.
+             */
             officeIndices?: number[];
         }
-        
         interface Office {
             /** The OCD ID of the division with which this office is associated. */
             divisionId?: string;
-            /** The levels of government of which this office is part. There may be more than one in cases where a jurisdiction effectively acts at two different levels of government; for example, the mayor of the District of Columbia acts at "locality" level, but also effectively at both "administrative-area-2" and "administrative-area-1". */
+            /**
+             * The levels of government of which this office is part. There may be more than one in cases where a jurisdiction effectively acts at two different
+             * levels of government; for example, the mayor of the District of Columbia acts at "locality" level, but also effectively at both "administrative-area-2"
+             * and "administrative-area-1".
+             */
             levels?: string[];
             /** The human-readable name of the office. */
             name?: string;
             /** List of indices in the officials array of people who presently hold this office. */
             officialIndices?: number[];
-            /** The roles which this office fulfills. Roles are not meant to be exhaustive, or to exactly specify the entire set of responsibilities of a given office, but are meant to be rough categories that are useful for general selection from or sorting of a list of offices. */
+            /**
+             * The roles which this office fulfills. Roles are not meant to be exhaustive, or to exactly specify the entire set of responsibilities of a given office,
+             * but are meant to be rough categories that are useful for general selection from or sorting of a list of offices.
+             */
             roles?: string[];
             /** A list of sources for this office. If multiple sources are listed, the data has been aggregated from those sources. */
             sources?: Source[];
         }
-        
         interface Official {
             /** Addresses at which to contact the official. */
             address?: SimpleAddressType[];
@@ -264,13 +300,15 @@ declare namespace gapi.client {
             /** The official's public website URLs. */
             urls?: string[];
         }
-        
         interface PollingLocation {
             /** The address of the location. */
             address?: SimpleAddressType;
             /** The last date that this early vote site or drop off location may be used. This field is not populated for polling locations. */
             endDate?: string;
-            /** An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested from the Request more link on the Quotas page. */
+            /**
+             * An ID for this object. IDs may change in future requests and should not be cached. Access to this field requires special access that can be requested
+             * from the Request more link on the Quotas page.
+             */
             id?: string;
             /** The name of the early vote site or drop off location. This field is not populated for polling locations. */
             name?: string;
@@ -285,7 +323,6 @@ declare namespace gapi.client {
             /** The services provided by this early vote site or drop off location. This field is not populated for polling locations. */
             voterServices?: string;
         }
-        
         interface PostalAddress {
             addressLines?: string[];
             administrativeAreaName?: string;
@@ -319,23 +356,20 @@ declare namespace gapi.client {
             thoroughfarePreDirection?: string;
             thoroughfareTrailingType?: string;
         }
-        
         interface RepresentativeInfoData {
             /** Political geographic divisions that contain the requested address. */
-            divisions?: Record<string, GeographicDivision>;            
+            divisions?: Record<string, GeographicDivision>;
             /** Elected offices referenced by the divisions listed above. Will only be present if includeOffices was true in the request. */
             offices?: Office[];
             /** Officials holding the offices listed above. Will only be present if includeOffices was true in the request. */
             officials?: Official[];
         }
-        
         interface RepresentativeInfoRequest {
             contextParams?: ContextParams;
         }
-        
         interface RepresentativeInfoResponse {
             /** Political geographic divisions that contain the requested address. */
-            divisions?: Record<string, GeographicDivision>;            
+            divisions?: Record<string, GeographicDivision>;
             /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#representativeInfoResponse". */
             kind?: string;
             /** The normalized version of the requested address */
@@ -345,7 +379,6 @@ declare namespace gapi.client {
             /** Officials holding the offices listed above. Will only be present if includeOffices was true in the request. */
             officials?: Official[];
         }
-        
         interface SimpleAddressType {
             /** The city or town for the address. */
             city?: string;
@@ -362,23 +395,24 @@ declare namespace gapi.client {
             /** The US Postal Zip Code of the address. */
             zip?: string;
         }
-        
         interface Source {
             /** The name of the data source. */
             name?: string;
             /** Whether this data comes from an official government source. */
             official?: boolean;
         }
-        
         interface VoterInfoRequest {
             contextParams?: ContextParams;
             voterInfoSegmentResult?: VoterInfoSegmentResult;
         }
-        
         interface VoterInfoResponse {
             /** Contests that will appear on the voter's ballot. */
             contests?: Contest[];
-            /** Locations where a voter is eligible to drop off a completed ballot. The voter must have received and completed a ballot prior to arriving at the location. The location may not have ballots available on the premises. These locations could be open on or before election day as indicated in the pollingHours field. */
+            /**
+             * Locations where a voter is eligible to drop off a completed ballot. The voter must have received and completed a ballot prior to arriving at the
+             * location. The location may not have ballots available on the premises. These locations could be open on or before election day as indicated in the
+             * pollingHours field.
+             */
             dropOffLocations?: PollingLocation[];
             /** Locations where the voter is eligible to vote early, prior to election day. */
             earlyVoteSites?: PollingLocation[];
@@ -390,7 +424,10 @@ declare namespace gapi.client {
             mailOnly?: boolean;
             /** The normalized version of the requested address */
             normalizedInput?: SimpleAddressType;
-            /** If no election ID was specified in the query, and there was more than one election with data for the given voter, this will contain information about the other elections that could apply. */
+            /**
+             * If no election ID was specified in the query, and there was more than one election with data for the given voter, this will contain information about
+             * the other elections that could apply.
+             */
             otherElections?: Election[];
             /** Locations where the voter is eligible to vote on election day. */
             pollingLocations?: PollingLocation[];
@@ -398,17 +435,15 @@ declare namespace gapi.client {
             /** Local Election Information for the state that the voter votes in. For the US, there will only be one element in this array. */
             state?: AdministrationRegion[];
         }
-        
         interface VoterInfoSegmentResult {
             generatedMillis?: string;
             postalAddress?: PostalAddress;
             request?: VoterInfoRequest;
             response?: VoterInfoResponse;
         }
-        
         interface DivisionsResource {
             /** Searches for political divisions by their natural name or OCD ID. */
-            search(request: {            
+            search(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -419,19 +454,24 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** The search query. Queries can cover any parts of a OCD ID or a human readable division name. All words given in the query are treated as required patterns. In addition to that, most query operators of the Apache Lucene library are supported. See http://lucene.apache.org/core/2_9_4/queryparsersyntax.html */
+                /**
+                 * The search query. Queries can cover any parts of a OCD ID or a human readable division name. All words given in the query are treated as required
+                 * patterns. In addition to that, most query operators of the Apache Lucene library are supported. See
+                 * http://lucene.apache.org/core/2_9_4/queryparsersyntax.html
+                 */
                 query?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DivisionSearchResponse>;            
-            
+            }): Request<DivisionSearchResponse>;
         }
-        
         interface ElectionsResource {
             /** List of available elections to query. */
-            electionQuery(request: {            
+            electionQuery(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -442,14 +482,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ElectionsQueryResponse>;            
-            
+            }): Request<ElectionsQueryResponse>;
             /** Looks up information relevant to a voter based on the voter's registered address. */
-            voterInfoQuery(request: {            
+            voterInfoQuery(request: {
                 /** The registered address of the voter to look up. */
                 address: string;
                 /** Data format for the response. */
@@ -466,19 +508,23 @@ declare namespace gapi.client {
                 officialOnly?: boolean;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** If set to true, the query will return the success codeand include any partial information when it is unable to determine a matching address or unable to determine the election for electionId=0 queries. */
+                /**
+                 * If set to true, the query will return the success codeand include any partial information when it is unable to determine a matching address or unable
+                 * to determine the election for electionId=0 queries.
+                 */
                 returnAllAvailableData?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<VoterInfoResponse>;            
-            
+            }): Request<VoterInfoResponse>;
         }
-        
         interface RepresentativesResource {
             /** Looks up political geography and representative information for a single address. */
-            representativeInfoByAddress(request: {            
+            representativeInfoByAddress(request: {
                 /** The address to look up. May only be specified if the field ocdId is not given in the URL. */
                 address?: string;
                 /** Data format for the response. */
@@ -489,29 +535,40 @@ declare namespace gapi.client {
                 includeOffices?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** A list of office levels to filter by. Only offices that serve at least one of these levels will be returned. Divisions that don't contain a matching office will not be returned. */
+                /**
+                 * A list of office levels to filter by. Only offices that serve at least one of these levels will be returned. Divisions that don't contain a matching
+                 * office will not be returned.
+                 */
                 levels?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will not be returned. */
+                /**
+                 * A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will
+                 * not be returned.
+                 */
                 roles?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RepresentativeInfoResponse>;            
-            
+            }): Request<RepresentativeInfoResponse>;
             /** Looks up representative information for a single geographic division. */
-            representativeInfoByDivision(request: {            
+            representativeInfoByDivision(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** A list of office levels to filter by. Only offices that serve at least one of these levels will be returned. Divisions that don't contain a matching office will not be returned. */
+                /**
+                 * A list of office levels to filter by. Only offices that serve at least one of these levels will be returned. Divisions that don't contain a matching
+                 * office will not be returned.
+                 */
                 levels?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -519,16 +576,24 @@ declare namespace gapi.client {
                 ocdId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** If true, information about all divisions contained in the division requested will be included as well. For example, if querying ocd-division/country:us/district:dc, this would also return all DC's wards and ANCs. */
+                /**
+                 * If true, information about all divisions contained in the division requested will be included as well. For example, if querying
+                 * ocd-division/country:us/district:dc, this would also return all DC's wards and ANCs.
+                 */
                 recursive?: boolean;
-                /** A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will not be returned. */
+                /**
+                 * A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will
+                 * not be returned.
+                 */
                 roles?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<RepresentativeInfoData>;            
-            
+            }): Request<RepresentativeInfoData>;
         }
     }
 }

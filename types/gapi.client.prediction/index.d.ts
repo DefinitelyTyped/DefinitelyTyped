@@ -13,96 +13,97 @@
 
 declare namespace gapi.client {
     /** Load Prediction API v1.6 */
-    function load(name: "prediction", version: "v1.6"): PromiseLike<void>;    
-    function load(name: "prediction", version: "v1.6", callback: () => any): void;    
-    
-    const hostedmodels: prediction.HostedmodelsResource; 
-    
-    const trainedmodels: prediction.TrainedmodelsResource; 
-    
+    function load(name: "prediction", version: "v1.6"): PromiseLike<void>;
+    function load(name: "prediction", version: "v1.6", callback: () => any): void;
+
+    const hostedmodels: prediction.HostedmodelsResource;
+
+    const trainedmodels: prediction.TrainedmodelsResource;
+
     namespace prediction {
-        
         interface Analyze {
             /** Description of the data the model was trained on. */
-            dataDescription?: {            
+            dataDescription?: {
                 /** Description of the input features in the data set. */
-                features?: Array<{                
+                features?: Array<{
                     /** Description of the categorical values of this feature. */
-                    categorical?: {                    
+                    categorical?: {
                         /** Number of categorical values for this feature in the data. */
                         count?: string;
                         /** List of all the categories for this feature in the data set. */
-                        values?: Array<{                        
+                        values?: Array<{
                             /** Number of times this feature had this value. */
                             count?: string;
                             /** The category name. */
                             value?: string;
-                        }>;                        
-                    };                    
+                        }>;
+                    };
                     /** The feature index. */
                     index?: string;
                     /** Description of the numeric values of this feature. */
-                    numeric?: {                    
+                    numeric?: {
                         /** Number of numeric values for this feature in the data set. */
                         count?: string;
                         /** Mean of the numeric values of this feature in the data set. */
                         mean?: string;
                         /** Variance of the numeric values of this feature in the data set. */
                         variance?: string;
-                    };                    
+                    };
                     /** Description of multiple-word text values of this feature. */
-                    text?: {                    
+                    text?: {
                         /** Number of multiple-word text values for this feature. */
                         count?: string;
-                    };                    
-                }>;                
+                    };
+                }>;
                 /** Description of the output value or label. */
-                outputFeature?: {                
+                outputFeature?: {
                     /** Description of the output values in the data set. */
-                    numeric?: {                    
+                    numeric?: {
                         /** Number of numeric output values in the data set. */
                         count?: string;
                         /** Mean of the output values in the data set. */
                         mean?: string;
                         /** Variance of the output values in the data set. */
                         variance?: string;
-                    };                    
+                    };
                     /** Description of the output labels in the data set. */
-                    text?: Array<{                    
+                    text?: Array<{
                         /** Number of times the output label occurred in the data set. */
                         count?: string;
                         /** The output label. */
                         value?: string;
-                    }>;                    
-                };                
-            };            
+                    }>;
+                };
+            };
             /** List of errors with the data. */
-            errors?: Array<Record<string, string>>;            
+            errors?: Array<Record<string, string>>;
             /** The unique name for the predictive model. */
             id?: string;
             /** What kind of resource this is. */
             kind?: string;
             /** Description of the model. */
-            modelDescription?: {            
-                /** An output confusion matrix. This shows an estimate for how this model will do in predictions. This is first indexed by the true class label. For each true class label, this provides a pair {predicted_label, count}, where count is the estimated number of times the model will predict the predicted label given the true label. Will not output if more then 100 classes (Categorical models only). */
-                confusionMatrix?: Record<string, Record<string, string>>;                
+            modelDescription?: {
+                /**
+                 * An output confusion matrix. This shows an estimate for how this model will do in predictions. This is first indexed by the true class label. For each
+                 * true class label, this provides a pair {predicted_label, count}, where count is the estimated number of times the model will predict the predicted
+                 * label given the true label. Will not output if more then 100 classes (Categorical models only).
+                 */
+                confusionMatrix?: Record<string, Record<string, string>>;
                 /** A list of the confusion matrix row totals. */
-                confusionMatrixRowTotals?: Record<string, string>;                
+                confusionMatrixRowTotals?: Record<string, string>;
                 /** Basic information about the model. */
                 modelinfo?: Insert2;
-            };            
+            };
             /** A URL to re-request this resource. */
             selfLink?: string;
         }
-        
         interface Input {
             /** Input to the model for a prediction. */
-            input?: {            
+            input?: {
                 /** A list of input features, these can be strings or doubles. */
                 csvInstance?: any[];
-            };            
+            };
         }
-        
         interface Insert {
             /** The unique name for the predictive model. */
             id?: string;
@@ -117,16 +118,15 @@ declare namespace gapi.client {
             /** Google storage location of the pmml model file. */
             storagePMMLModelLocation?: string;
             /** Instances to train model on. */
-            trainingInstances?: Array<{            
+            trainingInstances?: Array<{
                 /** The input features for this instance. */
                 csvInstance?: any[];
                 /** The generic output value - could be regression or class label. */
                 output?: string;
-            }>;            
+            }>;
             /** A class weighting function, which allows the importance weights for class labels to be specified (Categorical models only). */
-            utility?: Array<Record<string, number>>;            
+            utility?: Array<Record<string, number>>;
         }
-        
         interface Insert2 {
             /** Insert time of the model (as a RFC 3339 timestamp). */
             created?: string;
@@ -135,10 +135,14 @@ declare namespace gapi.client {
             /** What kind of resource this is. */
             kind?: string;
             /** Model metadata. */
-            modelInfo?: {            
+            modelInfo?: {
                 /** Estimated accuracy of model taking utility weights into account (Categorical models only). */
                 classWeightedAccuracy?: string;
-                /** A number between 0.0 and 1.0, where 1.0 is 100% accurate. This is an estimate, based on the amount and quality of the training data, of the estimated prediction accuracy. You can use this is a guide to decide whether the results are accurate enough for your needs. This estimate will be more reliable if your real input data is similar to your training data (Categorical models only). */
+                /**
+                 * A number between 0.0 and 1.0, where 1.0 is 100% accurate. This is an estimate, based on the amount and quality of the training data, of the estimated
+                 * prediction accuracy. You can use this is a guide to decide whether the results are accurate enough for your needs. This estimate will be more reliable
+                 * if your real input data is similar to your training data (Categorical models only).
+                 */
                 classificationAccuracy?: string;
                 /** An estimated mean squared error. The can be used to measure the quality of the predicted model (Regression models only). */
                 meanSquaredError?: string;
@@ -148,7 +152,7 @@ declare namespace gapi.client {
                 numberInstances?: string;
                 /** Number of class labels in the trained model (Categorical models only). */
                 numberLabels?: string;
-            };            
+            };
             /** Type of predictive model (CLASSIFICATION or REGRESSION). */
             modelType?: string;
             /** A URL to re-request this resource. */
@@ -164,7 +168,6 @@ declare namespace gapi.client {
             /** The current status of the training job. This can be one of following: RUNNING; DONE; ERROR; ERROR: TRAINING JOB NOT FOUND */
             trainingStatus?: string;
         }
-        
         interface List {
             /** List of models. */
             items?: Insert2[];
@@ -175,7 +178,6 @@ declare namespace gapi.client {
             /** A URL to re-request this resource. */
             selfLink?: string;
         }
-        
         interface Output {
             /** The unique name for the predictive model. */
             id?: string;
@@ -184,28 +186,26 @@ declare namespace gapi.client {
             /** The most likely class label (Categorical models only). */
             outputLabel?: string;
             /** A list of class labels with their estimated probabilities (Categorical models only). */
-            outputMulti?: Array<{            
+            outputMulti?: Array<{
                 /** The class label. */
                 label?: string;
                 /** The probability of the class label. */
                 score?: string;
-            }>;            
+            }>;
             /** The estimated regression value (Regression models only). */
             outputValue?: string;
             /** A URL to re-request this resource. */
             selfLink?: string;
         }
-        
         interface Update {
             /** The input features for this instance. */
             csvInstance?: any[];
             /** The generic output value - could be regression or class label. */
             output?: string;
         }
-        
         interface HostedmodelsResource {
             /** Submit input and request an output against a hosted model. */
-            predict(request: {            
+            predict(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -220,17 +220,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Output>;            
-            
+            }): Request<Output>;
         }
-        
         interface TrainedmodelsResource {
             /** Get analysis of the model and the data the model was trained on. */
-            analyze(request: {            
+            analyze(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -245,14 +246,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Analyze>;            
-            
+            }): Request<Analyze>;
             /** Delete a trained model. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -267,14 +270,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Check training status of your model. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -289,14 +294,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Insert2>;            
-            
+            }): Request<Insert2>;
             /** Train a Prediction API model. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -309,14 +316,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Insert2>;            
-            
+            }): Request<Insert2>;
             /** List available models. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -333,14 +342,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<List>;            
-            
+            }): Request<List>;
             /** Submit model id and request a prediction. */
-            predict(request: {            
+            predict(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -355,14 +366,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Output>;            
-            
+            }): Request<Output>;
             /** Add new data to a trained model. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -377,12 +390,14 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The project associated with the model. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Insert2>;            
-            
+            }): Request<Insert2>;
         }
     }
 }

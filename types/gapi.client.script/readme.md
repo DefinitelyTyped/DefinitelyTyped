@@ -1,5 +1,5 @@
 # TypeScript typings for Google Apps Script Execution API v1
-Executes functions in Google Apps Script projects.
+An API for managing and executing Google Apps Script projects.
 For detailed description please check [documentation](https://developers.google.com/apps-script/execution/rest/v1/scripts/run).
 
 ## Installing

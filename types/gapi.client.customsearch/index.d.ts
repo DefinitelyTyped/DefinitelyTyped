@@ -13,40 +13,37 @@
 
 declare namespace gapi.client {
     /** Load CustomSearch API v1 */
-    function load(name: "customsearch", version: "v1"): PromiseLike<void>;    
-    function load(name: "customsearch", version: "v1", callback: () => any): void;    
-    
-    const cse: customsearch.CseResource; 
-    
+    function load(name: "customsearch", version: "v1"): PromiseLike<void>;
+    function load(name: "customsearch", version: "v1", callback: () => any): void;
+
+    const cse: customsearch.CseResource;
+
     namespace customsearch {
-        
         interface Context {
-            facets?: Array<Array<{            
+            facets?: Array<Array<{
                 anchor?: string;
                 label?: string;
                 label_with_op?: string;
-            }>>;            
+            }>>;
             title?: string;
         }
-        
         interface Promotion {
-            bodyLines?: Array<{            
+            bodyLines?: Array<{
                 htmlTitle?: string;
                 link?: string;
                 title?: string;
                 url?: string;
-            }>;            
+            }>;
             displayLink?: string;
             htmlTitle?: string;
-            image?: {            
+            image?: {
                 height?: number;
                 source?: string;
                 width?: number;
-            };            
+            };
             link?: string;
             title?: string;
         }
-        
         interface Query {
             count?: number;
             cr?: string;
@@ -85,7 +82,6 @@ declare namespace gapi.client {
             title?: string;
             totalResults?: string;
         }
-        
         interface Result {
             cacheId?: string;
             displayLink?: string;
@@ -94,7 +90,7 @@ declare namespace gapi.client {
             htmlFormattedUrl?: string;
             htmlSnippet?: string;
             htmlTitle?: string;
-            image?: {            
+            image?: {
                 byteSize?: number;
                 contextLink?: string;
                 height?: number;
@@ -102,45 +98,43 @@ declare namespace gapi.client {
                 thumbnailLink?: string;
                 thumbnailWidth?: number;
                 width?: number;
-            };            
+            };
             kind?: string;
-            labels?: Array<{            
+            labels?: Array<{
                 displayName?: string;
                 label_with_op?: string;
                 name?: string;
-            }>;            
+            }>;
             link?: string;
             mime?: string;
-            pagemap?: Record<string, Array<Record<string, any>>>;            
+            pagemap?: Record<string, Array<Record<string, any>>>;
             snippet?: string;
             title?: string;
         }
-        
         interface Search {
             context?: Context;
             items?: Result[];
             kind?: string;
             promotions?: Promotion[];
-            queries?: Record<string, Query[]>;            
-            searchInformation?: {            
+            queries?: Record<string, Query[]>;
+            searchInformation?: {
                 formattedSearchTime?: string;
                 formattedTotalResults?: string;
                 searchTime?: number;
                 totalResults?: string;
-            };            
-            spelling?: {            
+            };
+            spelling?: {
                 correctedQuery?: string;
                 htmlCorrectedQuery?: string;
-            };            
-            url?: {            
+            };
+            url?: {
                 template?: string;
                 type?: string;
-            };            
+            };
         }
-        
         interface CseResource {
             /** Returns metadata about the search performed, metadata about the custom search engine used for the search, and the search results. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Turns off the translation between zh-CN and zh-TW. */
@@ -191,17 +185,26 @@ declare namespace gapi.client {
                 num?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms */
+                /**
+                 * Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional
+                 * search terms
+                 */
                 orTerms?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Query */
                 q: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Specifies that all search results should be pages that are related to the specified URL */
                 relatedSite?: string;
-                /** Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of these. */
+                /**
+                 * Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of
+                 * these.
+                 */
                 rights?: string;
                 /** Search safety level */
                 safe?: string;
@@ -217,8 +220,7 @@ declare namespace gapi.client {
                 start?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Search>;            
-            
+            }): Request<Search>;
         }
     }
 }

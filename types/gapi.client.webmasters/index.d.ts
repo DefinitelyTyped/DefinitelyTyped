@@ -13,21 +13,20 @@
 
 declare namespace gapi.client {
     /** Load Search Console API v3 */
-    function load(name: "webmasters", version: "v3"): PromiseLike<void>;    
-    function load(name: "webmasters", version: "v3", callback: () => any): void;    
-    
-    const searchanalytics: webmasters.SearchanalyticsResource; 
-    
-    const sitemaps: webmasters.SitemapsResource; 
-    
-    const sites: webmasters.SitesResource; 
-    
-    const urlcrawlerrorscounts: webmasters.UrlcrawlerrorscountsResource; 
-    
-    const urlcrawlerrorssamples: webmasters.UrlcrawlerrorssamplesResource; 
-    
+    function load(name: "webmasters", version: "v3"): PromiseLike<void>;
+    function load(name: "webmasters", version: "v3", callback: () => any): void;
+
+    const searchanalytics: webmasters.SearchanalyticsResource;
+
+    const sitemaps: webmasters.SitemapsResource;
+
+    const sites: webmasters.SitesResource;
+
+    const urlcrawlerrorscounts: webmasters.UrlcrawlerrorscountsResource;
+
+    const urlcrawlerrorssamples: webmasters.UrlcrawlerrorssamplesResource;
+
     namespace webmasters {
-        
         interface ApiDataRow {
             clicks?: number;
             ctr?: number;
@@ -35,67 +34,74 @@ declare namespace gapi.client {
             keys?: string[];
             position?: number;
         }
-        
         interface ApiDimensionFilter {
             dimension?: string;
             expression?: string;
             operator?: string;
         }
-        
         interface ApiDimensionFilterGroup {
             filters?: ApiDimensionFilter[];
             groupType?: string;
         }
-        
         interface SearchAnalyticsQueryRequest {
             /**
-             * [Optional; Default is "auto"] How data is aggregated. If aggregated by property, all data for the same property is aggregated; if aggregated by page, all data is aggregated by canonical URI. If you filter or group by page, choose AUTO; otherwise you can aggregate either by property or by page, depending on how you want your data calculated; see  the help documentation to learn how data is calculated differently by site versus by page.
-             * 
+             * [Optional; Default is "auto"] How data is aggregated. If aggregated by property, all data for the same property is aggregated; if aggregated by page,
+             * all data is aggregated by canonical URI. If you filter or group by page, choose AUTO; otherwise you can aggregate either by property or by page,
+             * depending on how you want your data calculated; see  the help documentation to learn how data is calculated differently by site versus by page.
+             *
              * Note: If you group or filter by page, you cannot aggregate by property.
-             * 
-             * If you specify any value other than AUTO, the aggregation type in the result will match the requested type, or if you request an invalid type, you will get an error. The API will never change your aggregation type if the requested type is invalid.
+             *
+             * If you specify any value other than AUTO, the aggregation type in the result will match the requested type, or if you request an invalid type, you will
+             * get an error. The API will never change your aggregation type if the requested type is invalid.
              */
             aggregationType?: string;
-            /** [Optional] Zero or more filters to apply to the dimension grouping values; for example, 'query contains "buy"' to see only data where the query string contains the substring "buy" (not case-sensitive). You can filter by a dimension without grouping by it. */
+            /**
+             * [Optional] Zero or more filters to apply to the dimension grouping values; for example, 'query contains "buy"' to see only data where the query string
+             * contains the substring "buy" (not case-sensitive). You can filter by a dimension without grouping by it.
+             */
             dimensionFilterGroups?: ApiDimensionFilterGroup[];
-            /** [Optional] Zero or more dimensions to group results by. Dimensions are the group-by values in the Search Analytics page. Dimensions are combined to create a unique row key for each row. Results are grouped in the order that you supply these dimensions. */
+            /**
+             * [Optional] Zero or more dimensions to group results by. Dimensions are the group-by values in the Search Analytics page. Dimensions are combined to
+             * create a unique row key for each row. Results are grouped in the order that you supply these dimensions.
+             */
             dimensions?: string[];
-            /** [Required] End date of the requested date range, in YYYY-MM-DD format, in PST (UTC - 8:00). Must be greater than or equal to the start date. This value is included in the range. */
+            /**
+             * [Required] End date of the requested date range, in YYYY-MM-DD format, in PST (UTC - 8:00). Must be greater than or equal to the start date. This value
+             * is included in the range.
+             */
             endDate?: string;
             /** [Optional; Default is 1000] The maximum number of rows to return. Must be a number from 1 to 5,000 (inclusive). */
             rowLimit?: number;
             /** [Optional; Default is "web"] The search type to filter for. */
             searchType?: string;
-            /** [Required] Start date of the requested date range, in YYYY-MM-DD format, in PST time (UTC - 8:00). Must be less than or equal to the end date. This value is included in the range. */
+            /**
+             * [Required] Start date of the requested date range, in YYYY-MM-DD format, in PST time (UTC - 8:00). Must be less than or equal to the end date. This
+             * value is included in the range.
+             */
             startDate?: string;
             /** [Optional; Default is 0] Zero-based index of the first row in the response. Must be a non-negative number. */
             startRow?: number;
         }
-        
         interface SearchAnalyticsQueryResponse {
             /** How the results were aggregated. */
             responseAggregationType?: string;
             /** A list of rows grouped by the key values in the order given in the query. */
             rows?: ApiDataRow[];
         }
-        
         interface SitemapsListResponse {
             /** Contains detailed information about a specific URL submitted as a sitemap. */
             sitemap?: WmxSitemap[];
         }
-        
         interface SitesListResponse {
             /** Contains permission level information about a Search Console site. For more information, see Permissions in Search Console. */
             siteEntry?: WmxSite[];
         }
-        
         interface UrlCrawlErrorCount {
             /** The error count at the given timestamp. */
             count?: string;
             /** The date and time when the crawl attempt took place, in RFC 3339 format. */
             timestamp?: string;
         }
-        
         interface UrlCrawlErrorCountsPerType {
             /** The crawl error type. */
             category?: string;
@@ -104,12 +110,10 @@ declare namespace gapi.client {
             /** The general type of Googlebot that made the request (see list of Googlebot user-agents for the user-agents used). */
             platform?: string;
         }
-        
         interface UrlCrawlErrorsCountsQueryResponse {
             /** The time series of the number of URL crawl errors per error category and platform. */
             countPerTypes?: UrlCrawlErrorCountsPerType[];
         }
-        
         interface UrlCrawlErrorsSample {
             /** The time the error was first detected, in RFC 3339 format. */
             first_detected?: string;
@@ -122,26 +126,22 @@ declare namespace gapi.client {
             /** Additional details about the URL, set only when calling get(). */
             urlDetails?: UrlSampleDetails;
         }
-        
         interface UrlCrawlErrorsSamplesListResponse {
             /** Information about the sample URL and its crawl error. */
             urlCrawlErrorSample?: UrlCrawlErrorsSample[];
         }
-        
         interface UrlSampleDetails {
             /** List of sitemaps pointing at this URL. */
             containingSitemaps?: string[];
             /** A sample set of URLs linking to this URL. */
             linkedFromUrls?: string[];
         }
-        
         interface WmxSite {
             /** The user's permission level for the site. */
             permissionLevel?: string;
             /** The URL of the site. */
             siteUrl?: string;
         }
-        
         interface WmxSitemap {
             /** The various content types in the sitemap. */
             contents?: WmxSitemapContent[];
@@ -162,7 +162,6 @@ declare namespace gapi.client {
             /** Number of warnings for the sitemap. These are generally non-critical issues with URLs in the sitemaps. */
             warnings?: string;
         }
-        
         interface WmxSitemapContent {
             /** The number of URLs from the sitemap that were indexed (of the content type). */
             indexed?: string;
@@ -171,14 +170,15 @@ declare namespace gapi.client {
             /** The specific type of content in this sitemap. For example: web. */
             type?: string;
         }
-        
         interface SearchanalyticsResource {
             /**
-             * Query your data with filters and parameters that you define. Returns zero or more rows grouped by the row keys that you define. You must define a date range of one or more days.
-             * 
-             * When date is one of the group by values, any days without data are omitted from the result list. If you need to know which days have data, issue a broad date range query grouped by date for any metric, and see which day rows are returned.
+             * Query your data with filters and parameters that you define. Returns zero or more rows grouped by the row keys that you define. You must define a date
+             * range of one or more days.
+             *
+             * When date is one of the group by values, any days without data are omitted from the result list. If you need to know which days have data, issue a
+             * broad date range query grouped by date for any metric, and see which day rows are returned.
              */
-            query(request: {            
+            query(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -189,19 +189,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SearchAnalyticsQueryResponse>;            
-            
+            }): Request<SearchAnalyticsQueryResponse>;
         }
-        
         interface SitemapsResource {
             /** Deletes a sitemap from this site. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The URL of the actual sitemap. For example: http://www.example.com/sitemap.xml */
@@ -214,16 +215,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves information about a specific sitemap. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The URL of the actual sitemap. For example: http://www.example.com/sitemap.xml */
@@ -236,16 +239,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WmxSitemap>;            
-            
+            }): Request<WmxSitemap>;
             /** Lists the sitemaps-entries submitted for this site, or included in the sitemap index file (if sitemapIndex is specified in the request). */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -256,7 +261,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
@@ -264,10 +272,9 @@ declare namespace gapi.client {
                 sitemapIndex?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SitemapsListResponse>;            
-            
+            }): Request<SitemapsListResponse>;
             /** Submits a sitemap for a site. */
-            submit(request: {            
+            submit(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The URL of the sitemap to add. For example: http://www.example.com/sitemap.xml */
@@ -280,19 +287,20 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface SitesResource {
             /** Adds a site to the set of the user's sites in Search Console. */
-            add(request: {            
+            add(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -303,16 +311,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The URL of the site to add. */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Removes a site from the set of the user's Search Console sites. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -323,16 +333,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The URI of the property as defined in Search Console. Examples: http://www.example.com/ or android-app://com.example/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves information about specific site. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -343,16 +355,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The URI of the property as defined in Search Console. Examples: http://www.example.com/ or android-app://com.example/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<WmxSite>;            
-            
+            }): Request<WmxSite>;
             /** Lists the user's Search Console sites. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -363,17 +377,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<SitesListResponse>;            
-            
+            }): Request<SitesListResponse>;
         }
-        
         interface UrlcrawlerrorscountsResource {
             /** Retrieves a time series of the number of URL crawl errors per error category and platform. */
-            query(request: {            
+            query(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The crawl error category. For example: serverError. If not specified, returns results for all categories. */
@@ -390,19 +405,20 @@ declare namespace gapi.client {
                 platform?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UrlCrawlErrorsCountsQueryResponse>;            
-            
+            }): Request<UrlCrawlErrorsCountsQueryResponse>;
         }
-        
         interface UrlcrawlerrorssamplesResource {
             /** Retrieves details about crawl errors for a site's sample URL. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The crawl error category. For example: authPermissions */
@@ -417,18 +433,23 @@ declare namespace gapi.client {
                 platform: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-                /** The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename */
+                /**
+                 * The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL
+                 * https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename
+                 */
                 url: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UrlCrawlErrorsSample>;            
-            
+            }): Request<UrlCrawlErrorsSample>;
             /** Lists a site's sample URLs for the specified crawl error category and platform. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The crawl error category. For example: authPermissions */
@@ -443,16 +464,18 @@ declare namespace gapi.client {
                 platform: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UrlCrawlErrorsSamplesListResponse>;            
-            
+            }): Request<UrlCrawlErrorsSamplesListResponse>;
             /** Marks the provided site's sample URL as fixed, and removes it from the samples list. */
-            markAsFixed(request: {            
+            markAsFixed(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The crawl error category. For example: authPermissions */
@@ -467,16 +490,21 @@ declare namespace gapi.client {
                 platform: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-                /** The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename */
+                /**
+                 * The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL
+                 * https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename
+                 */
                 url: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
     }
 }

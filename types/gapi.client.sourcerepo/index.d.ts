@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Cloud Source Repositories API v1 */
-    function load(name: "sourcerepo", version: "v1"): PromiseLike<void>;    
-    function load(name: "sourcerepo", version: "v1", callback: () => any): void;    
-    
-    const projects: sourcerepo.ProjectsResource; 
-    
+    function load(name: "sourcerepo", version: "v1"): PromiseLike<void>;
+    function load(name: "sourcerepo", version: "v1", callback: () => any): void;
+
+    const projects: sourcerepo.ProjectsResource;
+
     namespace sourcerepo {
-        
         interface AuditConfig {
             /**
              * The configuration for logging of each type of permission.
@@ -34,7 +33,6 @@ declare namespace gapi.client {
              */
             service?: string;
         }
-        
         interface AuditLogConfig {
             /**
              * Specifies the identities that do not cause logging for this type of
@@ -45,31 +43,38 @@ declare namespace gapi.client {
             /** The log type that this config enables. */
             logType?: string;
         }
-        
         interface Binding {
+            /**
+             * The condition that is associated with this binding.
+             * NOTE: an unsatisfied condition will not allow user access via current
+             * binding. Different bindings, including their conditions, are examined
+             * independently.
+             * This field is GOOGLE_INTERNAL.
+             */
+            condition?: Expr;
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -79,37 +84,32 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
-        interface CloudAuditOptions {
-            /** The log_name to populate in the Cloud Audit Record. */
-            logName?: string;
-        }
-        
-        interface Condition {
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
+        interface Expr {
             /**
-             * Trusted attributes supplied by any service that owns resources and uses
-             * the IAM system for access control.
+             * An optional description of the expression. This is a longer text which
+             * describes the expression, e.g. when hovered over it in a UI.
              */
-            sys?: string;
-            /** DEPRECATED. Use 'values' instead. */
-            value?: string;
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
+            description?: string;
+            /**
+             * Textual representation of an expression in
+             * Common Expression Language syntax.
+             *
+             * The application context of the containing message determines which
+             * well-known feature set of CEL is supported.
+             */
+            expression?: string;
+            /**
+             * An optional string indicating the location of the expression for error
+             * reporting, e.g. a file name and a position in the file.
+             */
+            location?: string;
+            /**
+             * An optional title for the expression, i.e. a short string describing
+             * its purpose. This can be used e.g. in UIs which allow to enter the
+             * expression.
+             */
+            title?: string;
         }
-        
-        interface CounterOptions {
-            /** The field value to attribute. */
-            field?: string;
-            /** The metric to update. */
-            metric?: string;
-        }
-        
         interface ListReposResponse {
             /**
              * If non-empty, additional repositories exist within the project. These
@@ -120,16 +120,6 @@ declare namespace gapi.client {
             /** The listed repos. */
             repos?: Repo[];
         }
-        
-        interface LogConfig {
-            /** Cloud audit options. */
-            cloudAudit?: CloudAuditOptions;
-            /** Counter options. */
-            counter?: CounterOptions;
-            /** Data access options. */
-            dataAccess?: any;
-        }
-        
         interface MirrorConfig {
             /**
              * ID of the SSH deploy key at the other hosting service.
@@ -147,13 +137,11 @@ declare namespace gapi.client {
              */
             webhookId?: string;
         }
-        
         interface Policy {
             /** Specifies cloud audit logging configuration for this policy. */
             auditConfigs?: AuditConfig[];
             /**
              * Associates a list of `members` to a `role`.
-             * Multiple `bindings` must not be specified for the same `role`.
              * `bindings` with no members will result in an error.
              */
             bindings?: Binding[];
@@ -165,28 +153,15 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
             etag?: string;
             iamOwned?: boolean;
-            /**
-             * If more than one rule is specified, the rules are applied in the following
-             * manner:
-             * - All matching LOG rules are always applied.
-             * - If any DENY/DENY_WITH_LOG rule matches, permission is denied.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is
-             *   granted.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if no rule applies, permission is denied.
-             */
-            rules?: Rule[];
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
         interface Repo {
             /** How this repository mirrors a repository managed by another service. */
             mirrorConfig?: MirrorConfig;
@@ -204,39 +179,6 @@ declare namespace gapi.client {
             /** URL to clone the repository from Google Cloud Source Repositories. */
             url?: string;
         }
-        
-        interface Rule {
-            /** Required */
-            action?: string;
-            /** Additional restrictions that must be met */
-            conditions?: Condition[];
-            /** Human-readable description of the rule. */
-            description?: string;
-            /**
-             * If one or more 'in' clauses are specified, the rule matches if
-             * the PRINCIPAL/AUTHORITY_SELECTOR is in at least one of these entries.
-             */
-            in?: string[];
-            /**
-             * The config returned to callers of tech.iam.IAM.CheckPolicy for any entries
-             * that match the LOG action.
-             */
-            logConfig?: LogConfig[];
-            /**
-             * If one or more 'not_in' clauses are specified, the rule matches
-             * if the PRINCIPAL/AUTHORITY_SELECTOR is in none of the entries.
-             * The format for in and not_in entries is the same as for members in a
-             * Binding (see google/iam/v1/policy.proto).
-             */
-            notIn?: string[];
-            /**
-             * A permission is a string of form '<service>.<resource type>.<verb>'
-             * (e.g., 'storage.buckets.list'). A value of '&#42;' matches all permissions,
-             * and a verb part of '&#42;' (e.g., 'storage.buckets.&#42;') matches all verbs.
-             */
-            permissions?: string[];
-        }
-        
         interface SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -254,7 +196,6 @@ declare namespace gapi.client {
              */
             updateMask?: string;
         }
-        
         interface TestIamPermissionsRequest {
             /**
              * The set of permissions to check for the `resource`. Permissions with
@@ -264,7 +205,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -272,15 +212,14 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface ReposResource {
             /**
              * Creates a repo in the given project with the given name.
-             * 
+             *
              * If the named repository already exists, `CreateRepo` returns
              * `ALREADY_EXISTS`.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -312,10 +251,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Repo>;            
-            
+            }): Request<Repo>;
             /** Deletes a repo. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -347,10 +285,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Returns information about a repo. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -382,14 +319,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Repo>;            
-            
+            }): Request<Repo>;
             /**
              * Gets the access control policy for a resource.
              * Returns an empty policy if the resource exists and does not have a policy
              * set.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -421,13 +357,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns all repos belonging to a project. The sizes of the repos are
              * not set by ListRepos.  To get the size of a repo, use GetRepo.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -470,13 +405,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListReposResponse>;            
-            
+            }): Request<ListReposResponse>;
             /**
              * Sets the access control policy on the specified resource. Replaces any
              * existing policy.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -508,14 +442,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that a caller has on the specified resource.
              * If the resource does not exist, this will return an empty set of
              * permissions, not a NOT_FOUND error.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -547,10 +480,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
         }
-        
         interface ProjectsResource {
             repos: ReposResource;
         }

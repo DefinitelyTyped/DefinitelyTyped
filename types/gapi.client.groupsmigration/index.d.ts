@@ -13,23 +13,21 @@
 
 declare namespace gapi.client {
     /** Load Groups Migration API v1 */
-    function load(name: "groupsmigration", version: "v1"): PromiseLike<void>;    
-    function load(name: "groupsmigration", version: "v1", callback: () => any): void;    
-    
-    const archive: groupsmigration.ArchiveResource; 
-    
+    function load(name: "groupsmigration", version: "v1"): PromiseLike<void>;
+    function load(name: "groupsmigration", version: "v1", callback: () => any): void;
+
+    const archive: groupsmigration.ArchiveResource;
+
     namespace groupsmigration {
-        
         interface Groups {
             /** The kind of insert resource this is. */
             kind?: string;
             /** The status of the insert request. */
             responseCode?: string;
         }
-        
         interface ArchiveResource {
             /** Inserts a new mail into the archive of the Google group. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -42,12 +40,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Groups>;            
-            
+            }): Request<Groups>;
         }
     }
 }

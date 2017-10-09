@@ -13,15 +13,14 @@
 
 declare namespace gapi.client {
     /** Load Tasks API v1 */
-    function load(name: "tasks", version: "v1"): PromiseLike<void>;    
-    function load(name: "tasks", version: "v1", callback: () => any): void;    
-    
-    const tasklists: tasks.TasklistsResource; 
-    
-    const tasks: tasks.TasksResource; 
-    
+    function load(name: "tasks", version: "v1"): PromiseLike<void>;
+    function load(name: "tasks", version: "v1", callback: () => any): void;
+
+    const tasklists: tasks.TasklistsResource;
+
+    const tasks: tasks.TasksResource;
+
     namespace tasks {
-        
         interface Task {
             /** Completion date of the task (as a RFC 3339 timestamp). This field is omitted if the task has not been completed. */
             completed?: string;
@@ -31,26 +30,36 @@ declare namespace gapi.client {
             due?: string;
             /** ETag of the resource. */
             etag?: string;
-            /** Flag indicating whether the task is hidden. This is the case if the task had been marked completed when the task list was last cleared. The default is False. This field is read-only. */
+            /**
+             * Flag indicating whether the task is hidden. This is the case if the task had been marked completed when the task list was last cleared. The default is
+             * False. This field is read-only.
+             */
             hidden?: boolean;
             /** Task identifier. */
             id?: string;
             /** Type of the resource. This is always "tasks#task". */
             kind?: string;
             /** Collection of links. This collection is read-only. */
-            links?: Array<{            
+            links?: Array<{
                 /** The description. In HTML speak: Everything between <a> and </a>. */
                 description?: string;
                 /** The URL. */
                 link?: string;
                 /** Type of the link, e.g. "email". */
                 type?: string;
-            }>;            
+            }>;
             /** Notes describing the task. Optional. */
             notes?: string;
-            /** Parent task identifier. This field is omitted if it is a top-level task. This field is read-only. Use the "move" method to move the task under a different parent or to the top level. */
+            /**
+             * Parent task identifier. This field is omitted if it is a top-level task. This field is read-only. Use the "move" method to move the task under a
+             * different parent or to the top level.
+             */
             parent?: string;
-            /** String indicating the position of the task among its sibling tasks under the same parent task or at the top level. If this string is greater than another task's corresponding position string according to lexicographical ordering, the task is positioned after the other task under the same parent task (or at the top level). This field is read-only. Use the "move" method to move the task to another position. */
+            /**
+             * String indicating the position of the task among its sibling tasks under the same parent task or at the top level. If this string is greater than
+             * another task's corresponding position string according to lexicographical ordering, the task is positioned after the other task under the same parent
+             * task (or at the top level). This field is read-only. Use the "move" method to move the task to another position.
+             */
             position?: string;
             /** URL pointing to this task. Used to retrieve, update, or delete this task. */
             selfLink?: string;
@@ -61,7 +70,6 @@ declare namespace gapi.client {
             /** Last modification time of the task (as a RFC 3339 timestamp). */
             updated?: string;
         }
-        
         interface TaskList {
             /** ETag of the resource. */
             etag?: string;
@@ -76,7 +84,6 @@ declare namespace gapi.client {
             /** Last modification time of the task list (as a RFC 3339 timestamp). */
             updated?: string;
         }
-        
         interface TaskLists {
             /** ETag of the resource. */
             etag?: string;
@@ -87,7 +94,6 @@ declare namespace gapi.client {
             /** Token that can be used to request the next page of this result. */
             nextPageToken?: string;
         }
-        
         interface Tasks {
             /** ETag of the resource. */
             etag?: string;
@@ -98,10 +104,9 @@ declare namespace gapi.client {
             /** Token used to access the next page of this result. */
             nextPageToken?: string;
         }
-        
         interface TasklistsResource {
             /** Deletes the authenticated user's specified task list. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -112,16 +117,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task list identifier. */
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns the authenticated user's specified task list. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -132,16 +139,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task list identifier. */
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TaskList>;            
-            
+            }): Request<TaskList>;
             /** Creates a new task list and adds it to the authenticated user's task lists. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -152,14 +161,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TaskList>;            
-            
+            }): Request<TaskList>;
             /** Returns all the authenticated user's task lists. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -174,14 +185,16 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TaskLists>;            
-            
+            }): Request<TaskLists>;
             /** Updates the authenticated user's specified task list. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -192,16 +205,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task list identifier. */
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TaskList>;            
-            
+            }): Request<TaskList>;
             /** Updates the authenticated user's specified task list. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -212,19 +227,23 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task list identifier. */
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<TaskList>;            
-            
+            }): Request<TaskList>;
         }
-        
         interface TasksResource {
-            /** Clears all completed tasks from the specified task list. The affected tasks will be marked as 'hidden' and no longer be returned by default when retrieving all tasks for a task list. */
-            clear(request: {            
+            /**
+             * Clears all completed tasks from the specified task list. The affected tasks will be marked as 'hidden' and no longer be returned by default when
+             * retrieving all tasks for a task list.
+             */
+            clear(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -235,16 +254,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task list identifier. */
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Deletes the specified task from the task list. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -255,7 +276,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task identifier. */
                 task: string;
@@ -263,10 +287,9 @@ declare namespace gapi.client {
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Returns the specified task. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -277,7 +300,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task identifier. */
                 task: string;
@@ -285,10 +311,9 @@ declare namespace gapi.client {
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Creates a new task on the specified task list. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -303,16 +328,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Previous sibling task identifier. If the task is created at the first position among its siblings, this parameter is omitted. Optional. */
                 previous?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task list identifier. */
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Returns all tasks in the specified task list. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Upper bound for a task's completion date (as a RFC 3339 timestamp) to filter by. Optional. The default is not to filter by completion date. */
@@ -335,7 +362,10 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Flag indicating whether completed tasks are returned in the result. Optional. The default is True. */
                 showCompleted?: boolean;
@@ -345,14 +375,19 @@ declare namespace gapi.client {
                 showHidden?: boolean;
                 /** Task list identifier. */
                 tasklist: string;
-                /** Lower bound for a task's last modification time (as a RFC 3339 timestamp) to filter by. Optional. The default is not to filter by last modification time. */
+                /**
+                 * Lower bound for a task's last modification time (as a RFC 3339 timestamp) to filter by. Optional. The default is not to filter by last modification
+                 * time.
+                 */
                 updatedMin?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Tasks>;            
-            
-            /** Moves the specified task to another position in the task list. This can include putting it as a child task under a new parent and/or move it to a different position among its sibling tasks. */
-            move(request: {            
+            }): Request<Tasks>;
+            /**
+             * Moves the specified task to another position in the task list. This can include putting it as a child task under a new parent and/or move it to a
+             * different position among its sibling tasks.
+             */
+            move(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -367,7 +402,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** New previous sibling task identifier. If the task is moved to the first position among its siblings, this parameter is omitted. Optional. */
                 previous?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task identifier. */
                 task: string;
@@ -375,10 +413,9 @@ declare namespace gapi.client {
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Updates the specified task. This method supports patch semantics. */
-            patch(request: {            
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -389,7 +426,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task identifier. */
                 task: string;
@@ -397,10 +437,9 @@ declare namespace gapi.client {
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
             /** Updates the specified task. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -411,7 +450,10 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Task identifier. */
                 task: string;
@@ -419,8 +461,7 @@ declare namespace gapi.client {
                 tasklist: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Task>;            
-            
+            }): Request<Task>;
         }
     }
 }

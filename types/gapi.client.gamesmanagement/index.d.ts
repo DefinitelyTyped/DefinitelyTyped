@@ -13,47 +13,44 @@
 
 declare namespace gapi.client {
     /** Load Google Play Game Services Management API v1management */
-    function load(name: "gamesmanagement", version: "v1management"): PromiseLike<void>;    
-    function load(name: "gamesmanagement", version: "v1management", callback: () => any): void;    
-    
-    const achievements: gamesmanagement.AchievementsResource; 
-    
-    const applications: gamesmanagement.ApplicationsResource; 
-    
-    const events: gamesmanagement.EventsResource; 
-    
-    const players: gamesmanagement.PlayersResource; 
-    
-    const quests: gamesmanagement.QuestsResource; 
-    
-    const rooms: gamesmanagement.RoomsResource; 
-    
-    const scores: gamesmanagement.ScoresResource; 
-    
-    const turnBasedMatches: gamesmanagement.TurnBasedMatchesResource; 
-    
+    function load(name: "gamesmanagement", version: "v1management"): PromiseLike<void>;
+    function load(name: "gamesmanagement", version: "v1management", callback: () => any): void;
+
+    const achievements: gamesmanagement.AchievementsResource;
+
+    const applications: gamesmanagement.ApplicationsResource;
+
+    const events: gamesmanagement.EventsResource;
+
+    const players: gamesmanagement.PlayersResource;
+
+    const quests: gamesmanagement.QuestsResource;
+
+    const rooms: gamesmanagement.RoomsResource;
+
+    const scores: gamesmanagement.ScoresResource;
+
+    const turnBasedMatches: gamesmanagement.TurnBasedMatchesResource;
+
     namespace gamesmanagement {
-        
         interface AchievementResetAllResponse {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#achievementResetAllResponse. */
             kind?: string;
             /** The achievement reset results. */
             results?: AchievementResetResponse[];
         }
-        
         interface AchievementResetMultipleForAllRequest {
             /** The IDs of achievements to reset. */
             achievement_ids?: string[];
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#achievementResetMultipleForAllRequest. */
             kind?: string;
         }
-        
         interface AchievementResetResponse {
             /**
              * The current state of the achievement. This is the same as the initial state of the achievement.
-             * Possible values are:  
-             * - "HIDDEN"- Achievement is hidden. 
-             * - "REVEALED" - Achievement is revealed. 
+             * Possible values are:
+             * - "HIDDEN"- Achievement is hidden.
+             * - "REVEALED" - Achievement is revealed.
              * - "UNLOCKED" - Achievement is unlocked.
              */
             currentState?: string;
@@ -64,21 +61,18 @@ declare namespace gapi.client {
             /** Flag to indicate if the requested update actually occurred. */
             updateOccurred?: boolean;
         }
-        
         interface EventsResetMultipleForAllRequest {
             /** The IDs of events to reset. */
             event_ids?: string[];
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#eventsResetMultipleForAllRequest. */
             kind?: string;
         }
-        
         interface GamesPlayedResource {
             /** True if the player was auto-matched with the currently authenticated user. */
             autoMatched?: boolean;
             /** The last time the player played the game in milliseconds since the epoch in UTC. */
             timeMillis?: string;
         }
-        
         interface GamesPlayerExperienceInfoResource {
             /** The current number of experience points for the player. */
             currentExperiencePoints?: string;
@@ -89,7 +83,6 @@ declare namespace gapi.client {
             /** The next level of the player. If the current level is the maximum level, this should be same as the current level. */
             nextLevel?: GamesPlayerLevelResource;
         }
-        
         interface GamesPlayerLevelResource {
             /** The level for the user. */
             level?: number;
@@ -98,7 +91,6 @@ declare namespace gapi.client {
             /** The minimum experience points for this level. */
             minExperiencePoints?: string;
         }
-        
         interface HiddenPlayer {
             /** The time this player was hidden. */
             hiddenTimeMillis?: string;
@@ -107,7 +99,6 @@ declare namespace gapi.client {
             /** The player information. */
             player?: Player;
         }
-        
         interface HiddenPlayerList {
             /** The players. */
             items?: HiddenPlayer[];
@@ -116,7 +107,6 @@ declare namespace gapi.client {
             /** The pagination token for the next page of results. */
             nextPageToken?: string;
         }
-        
         interface Player {
             /** The base URL for the image that represents the player. */
             avatarImageUrl?: string;
@@ -130,16 +120,22 @@ declare namespace gapi.client {
             experienceInfo?: GamesPlayerExperienceInfoResource;
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#player. */
             kind?: string;
-            /** Details about the last time this player played a multiplayer game with the currently authenticated player. Populated for PLAYED_WITH player collection members. */
+            /**
+             * Details about the last time this player played a multiplayer game with the currently authenticated player. Populated for PLAYED_WITH player collection
+             * members.
+             */
             lastPlayedWith?: GamesPlayedResource;
             /** An object representation of the individual components of the player's name. For some players, these fields may not be present. */
-            name?: {            
+            name?: {
                 /** The family name of this player. In some places, this is known as the last name. */
                 familyName?: string;
                 /** The given name of this player. In some places, this is known as the first name. */
                 givenName?: string;
-            };            
-            /** The player ID that was used for this player the first time they signed into the game in question. This is only populated for calls to player.get for the requesting player, only if the player ID has subsequently changed, and only to clients that support remapping player IDs. */
+            };
+            /**
+             * The player ID that was used for this player the first time they signed into the game in question. This is only populated for calls to player.get for
+             * the requesting player, only if the player ID has subsequently changed, and only to clients that support remapping player IDs.
+             */
             originalPlayerId?: string;
             /** The ID of the player. */
             playerId?: string;
@@ -148,14 +144,12 @@ declare namespace gapi.client {
             /** The player's title rewarded for their game activities. */
             title?: string;
         }
-        
         interface PlayerScoreResetAllResponse {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#playerScoreResetResponse. */
             kind?: string;
             /** The leaderboard reset results. */
             results?: PlayerScoreResetResponse[];
         }
-        
         interface PlayerScoreResetResponse {
             /** The ID of an leaderboard for which player state has been updated. */
             definitionId?: string;
@@ -163,38 +157,37 @@ declare namespace gapi.client {
             kind?: string;
             /**
              * The time spans of the updated score.
-             * Possible values are:  
-             * - "ALL_TIME" - The score is an all-time score. 
-             * - "WEEKLY" - The score is a weekly score. 
+             * Possible values are:
+             * - "ALL_TIME" - The score is an all-time score.
+             * - "WEEKLY" - The score is a weekly score.
              * - "DAILY" - The score is a daily score.
              */
             resetScoreTimeSpans?: string[];
         }
-        
         interface ProfileSettings {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#profileSettings. */
             kind?: string;
             /** The player's current profile visibility. This field is visible to both 1P and 3P APIs. */
             profileVisible?: boolean;
         }
-        
         interface QuestsResetMultipleForAllRequest {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#questsResetMultipleForAllRequest. */
             kind?: string;
             /** The IDs of quests to reset. */
             quest_ids?: string[];
         }
-        
         interface ScoresResetMultipleForAllRequest {
             /** Uniquely identifies the type of this resource. Value is always the fixed string gamesManagement#scoresResetMultipleForAllRequest. */
             kind?: string;
             /** The IDs of leaderboards to reset. */
             leaderboard_ids?: string[];
         }
-        
         interface AchievementsResource {
-            /** Resets the achievement with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. */
-            reset(request: {            
+            /**
+             * Resets the achievement with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your
+             * application.
+             */
+            reset(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -207,14 +200,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementResetResponse>;            
-            
-            /** Resets all achievements for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for your application. */
-            resetAll(request: {            
+            }): Request<AchievementResetResponse>;
+            /**
+             * Resets all achievements for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for
+             * your application.
+             */
+            resetAll(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -225,14 +223,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AchievementResetAllResponse>;            
-            
+            }): Request<AchievementResetAllResponse>;
             /** Resets all draft achievements for all players. This method is only available to user accounts for your developer console. */
-            resetAllForAllPlayers(request: {            
+            resetAllForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -243,14 +243,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets the achievement with the given ID for all players. This method is only available to user accounts for your developer console. Only draft achievements can be reset. */
-            resetForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets the achievement with the given ID for all players. This method is only available to user accounts for your developer console. Only draft
+             * achievements can be reset.
+             */
+            resetForAllPlayers(request: {
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
                 /** Data format for the response. */
@@ -263,14 +268,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets achievements with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft achievements may be reset. */
-            resetMultipleForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets achievements with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft
+             * achievements may be reset.
+             */
+            resetMultipleForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -281,17 +291,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface ApplicationsResource {
             /** Get the list of players hidden from the given application. This method is only available to user accounts for your developer console. */
-            listHidden(request: {            
+            listHidden(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -300,7 +311,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults. */
+                /**
+                 * The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may
+                 * be less than the specified maxResults.
+                 */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -308,17 +322,21 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<HiddenPlayerList>;            
-            
+            }): Request<HiddenPlayerList>;
         }
-        
         interface EventsResource {
-            /** Resets all player progress on the event with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. All quests for this player that use the event will also be reset. */
-            reset(request: {            
+            /**
+             * Resets all player progress on the event with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester
+             * accounts for your application. All quests for this player that use the event will also be reset.
+             */
+            reset(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the event. */
@@ -331,14 +349,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets all player progress on all events for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. All quests for this player will also be reset. */
-            resetAll(request: {            
+            }): Request<void>;
+            /**
+             * Resets all player progress on all events for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your
+             * application. All quests for this player will also be reset.
+             */
+            resetAll(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -349,14 +372,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets all draft events for all players. This method is only available to user accounts for your developer console. All quests that use any of these events will also be reset. */
-            resetAllForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets all draft events for all players. This method is only available to user accounts for your developer console. All quests that use any of these
+             * events will also be reset.
+             */
+            resetAllForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -367,14 +395,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets the event with the given ID for all players. This method is only available to user accounts for your developer console. Only draft events can be reset. All quests that use the event will also be reset. */
-            resetForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets the event with the given ID for all players. This method is only available to user accounts for your developer console. Only draft events can be
+             * reset. All quests that use the event will also be reset.
+             */
+            resetForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The ID of the event. */
@@ -387,14 +420,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets events with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft events may be reset. All quests that use any of the events will also be reset. */
-            resetMultipleForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets events with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft events may be
+             * reset. All quests that use any of the events will also be reset.
+             */
+            resetMultipleForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -405,17 +443,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface PlayersResource {
             /** Hide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console. */
-            hide(request: {            
+            hide(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -430,14 +469,16 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Unhide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console. */
-            unhide(request: {            
+            unhide(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** The application ID from the Google Play developer console. */
@@ -452,17 +493,21 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface QuestsResource {
-            /** Resets all player progress on the quest with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. */
-            reset(request: {            
+            /**
+             * Resets all player progress on the quest with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester
+             * accounts for your application.
+             */
+            reset(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -475,14 +520,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the quest. */
                 questId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets all player progress on all quests for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. */
-            resetAll(request: {            
+            }): Request<void>;
+            /**
+             * Resets all player progress on all quests for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your
+             * application.
+             */
+            resetAll(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -493,14 +543,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Resets all draft quests for all players. This method is only available to user accounts for your developer console. */
-            resetAllForAllPlayers(request: {            
+            resetAllForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -511,14 +563,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets all player progress on the quest with the given ID for all players. This method is only available to user accounts for your developer console. Only draft quests can be reset. */
-            resetForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets all player progress on the quest with the given ID for all players. This method is only available to user accounts for your developer console.
+             * Only draft quests can be reset.
+             */
+            resetForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -531,14 +588,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the quest. */
                 questId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets quests with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft quests may be reset. */
-            resetMultipleForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets quests with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft quests may be
+             * reset.
+             */
+            resetMultipleForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -549,17 +611,21 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface RoomsResource {
-            /** Reset all rooms for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for your application. */
-            reset(request: {            
+            /**
+             * Reset all rooms for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for your
+             * application.
+             */
+            reset(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -570,14 +636,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Deletes rooms where the only room participants are from whitelisted tester accounts for your application. This method is only available to user accounts for your developer console. */
-            resetForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Deletes rooms where the only room participants are from whitelisted tester accounts for your application. This method is only available to user
+             * accounts for your developer console.
+             */
+            resetForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -588,17 +659,21 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface ScoresResource {
-            /** Resets scores for the leaderboard with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. */
-            reset(request: {            
+            /**
+             * Resets scores for the leaderboard with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester
+             * accounts for your application.
+             */
+            reset(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -611,14 +686,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerScoreResetResponse>;            
-            
-            /** Resets all scores for all leaderboards for the currently authenticated players. This method is only accessible to whitelisted tester accounts for your application. */
-            resetAll(request: {            
+            }): Request<PlayerScoreResetResponse>;
+            /**
+             * Resets all scores for all leaderboards for the currently authenticated players. This method is only accessible to whitelisted tester accounts for your
+             * application.
+             */
+            resetAll(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -629,14 +709,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<PlayerScoreResetAllResponse>;            
-            
+            }): Request<PlayerScoreResetAllResponse>;
             /** Resets scores for all draft leaderboards for all players. This method is only available to user accounts for your developer console. */
-            resetAllForAllPlayers(request: {            
+            resetAllForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -647,14 +729,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets scores for the leaderboard with the given ID for all players. This method is only available to user accounts for your developer console. Only draft leaderboards can be reset. */
-            resetForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets scores for the leaderboard with the given ID for all players. This method is only available to user accounts for your developer console. Only
+             * draft leaderboards can be reset.
+             */
+            resetForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -667,14 +754,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Resets scores for the leaderboards with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft leaderboards may be reset. */
-            resetMultipleForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Resets scores for the leaderboards with the given IDs for all players. This method is only available to user accounts for your developer console. Only
+             * draft leaderboards may be reset.
+             */
+            resetMultipleForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -685,17 +777,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
-        
         interface TurnBasedMatchesResource {
             /** Reset all turn-based match data for a user. This method is only accessible to whitelisted tester accounts for your application. */
-            reset(request: {            
+            reset(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -706,14 +799,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Deletes turn-based matches where the only match participants are from whitelisted tester accounts for your application. This method is only available to user accounts for your developer console. */
-            resetForAllPlayers(request: {            
+            }): Request<void>;
+            /**
+             * Deletes turn-based matches where the only match participants are from whitelisted tester accounts for your application. This method is only available
+             * to user accounts for your developer console.
+             */
+            resetForAllPlayers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -724,12 +822,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
         }
     }
 }

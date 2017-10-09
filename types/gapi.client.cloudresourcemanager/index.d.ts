@@ -13,26 +13,24 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Resource Manager API v1 */
-    function load(name: "cloudresourcemanager", version: "v1"): PromiseLike<void>;    
-    function load(name: "cloudresourcemanager", version: "v1", callback: () => any): void;    
-    
-    const folders: cloudresourcemanager.FoldersResource; 
-    
-    const liens: cloudresourcemanager.LiensResource; 
-    
-    const operations: cloudresourcemanager.OperationsResource; 
-    
-    const organizations: cloudresourcemanager.OrganizationsResource; 
-    
-    const projects: cloudresourcemanager.ProjectsResource; 
-    
+    function load(name: "cloudresourcemanager", version: "v1"): PromiseLike<void>;
+    function load(name: "cloudresourcemanager", version: "v1", callback: () => any): void;
+
+    const folders: cloudresourcemanager.FoldersResource;
+
+    const liens: cloudresourcemanager.LiensResource;
+
+    const operations: cloudresourcemanager.OperationsResource;
+
+    const organizations: cloudresourcemanager.OrganizationsResource;
+
+    const projects: cloudresourcemanager.ProjectsResource;
+
     namespace cloudresourcemanager {
-        
         interface Ancestor {
             /** Resource id of the ancestor. */
             resourceId?: ResourceId;
         }
-        
         interface AuditConfig {
             /**
              * The configuration for logging of each type of permission.
@@ -46,7 +44,6 @@ declare namespace gapi.client {
              */
             service?: string;
         }
-        
         interface AuditLogConfig {
             /**
              * Specifies the identities that do not cause logging for this type of
@@ -57,31 +54,30 @@ declare namespace gapi.client {
             /** The log type that this config enables. */
             logType?: string;
         }
-        
         interface Binding {
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -91,56 +87,54 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
         interface BooleanPolicy {
             /**
              * If `true`, then the `Policy` is enforced. If `false`, then any
              * configuration is acceptable.
-             * 
+             *
              * Suppose you have a `Constraint` `constraints/compute.disableSerialPortAccess`
              * with `constraint_default` set to `ALLOW`. A `Policy` for that
              * `Constraint` exhibits the following behavior:
-             *   - If the `Policy` at this resource has enforced set to `false`, serial
-             *     port connection attempts will be allowed.
-             *   - If the `Policy` at this resource has enforced set to `true`, serial
-             *     port connection attempts will be refused.
-             *   - If the `Policy` at this resource is `RestoreDefault`, serial port
-             *     connection attempts will be allowed.
-             *   - If no `Policy` is set at this resource or anywhere higher in the
-             *     resource hierarchy, serial port connection attempts will be allowed.
-             *   - If no `Policy` is set at this resource, but one exists higher in the
-             *     resource hierarchy, the behavior is as if the`Policy` were set at
-             *     this resource.
-             * 
+             * - If the `Policy` at this resource has enforced set to `false`, serial
+             * port connection attempts will be allowed.
+             * - If the `Policy` at this resource has enforced set to `true`, serial
+             * port connection attempts will be refused.
+             * - If the `Policy` at this resource is `RestoreDefault`, serial port
+             * connection attempts will be allowed.
+             * - If no `Policy` is set at this resource or anywhere higher in the
+             * resource hierarchy, serial port connection attempts will be allowed.
+             * - If no `Policy` is set at this resource, but one exists higher in the
+             * resource hierarchy, the behavior is as if the`Policy` were set at
+             * this resource.
+             *
              * The following examples demonstrate the different possible layerings:
-             * 
+             *
              * Example 1 (nearest `Constraint` wins):
-             *   `organizations/foo` has a `Policy` with:
-             *     {enforced: false}
-             *   `projects/bar` has no `Policy` set.
+             * `organizations/foo` has a `Policy` with:
+             * {enforced: false}
+             * `projects/bar` has no `Policy` set.
              * The constraint at `projects/bar` and `organizations/foo` will not be
              * enforced.
-             * 
+             *
              * Example 2 (enforcement gets replaced):
-             *   `organizations/foo` has a `Policy` with:
-             *     {enforced: false}
-             *   `projects/bar` has a `Policy` with:
-             *     {enforced: true}
+             * `organizations/foo` has a `Policy` with:
+             * {enforced: false}
+             * `projects/bar` has a `Policy` with:
+             * {enforced: true}
              * The constraint at `organizations/foo` is not enforced.
              * The constraint at `projects/bar` is enforced.
-             * 
+             *
              * Example 3 (RestoreDefault):
-             *   `organizations/foo` has a `Policy` with:
-             *     {enforced: true}
-             *   `projects/bar` has a `Policy` with:
-             *     {RestoreDefault: {}}
+             * `organizations/foo` has a `Policy` with:
+             * {enforced: true}
+             * `projects/bar` has a `Policy` with:
+             * {RestoreDefault: {}}
              * The constraint at `organizations/foo` is enforced.
              * The constraint at `projects/bar` is not enforced, because
              * `constraint_default` for the `Constraint` is `ALLOW`.
              */
             enforced?: boolean;
         }
-        
         interface ClearOrgPolicyRequest {
             /** Name of the `Constraint` of the `Policy` to clear. */
             constraint?: string;
@@ -150,7 +144,6 @@ declare namespace gapi.client {
              */
             etag?: string;
         }
-        
         interface Constraint {
             /** Defines this constraint as being a BooleanConstraint. */
             booleanConstraint?: any;
@@ -159,13 +152,13 @@ declare namespace gapi.client {
             /**
              * Detailed description of what this `Constraint` controls as well as how and
              * where it is enforced.
-             * 
+             *
              * Mutable.
              */
             description?: string;
             /**
              * The human readable name.
-             * 
+             *
              * Mutable.
              */
             displayName?: string;
@@ -179,7 +172,6 @@ declare namespace gapi.client {
             /** Version of the `Constraint`. Default version is 0; */
             version?: number;
         }
-        
         interface FolderOperation {
             /**
              * The resource name of the folder or organization we are either creating
@@ -196,12 +188,10 @@ declare namespace gapi.client {
              */
             sourceParent?: string;
         }
-        
         interface FolderOperationError {
             /** The type of operation error experienced. */
             errorMessageId?: string;
         }
-        
         interface GetAncestryResponse {
             /**
              * Ancestors are ordered from bottom to top of the resource hierarchy. The
@@ -210,23 +200,20 @@ declare namespace gapi.client {
              */
             ancestor?: Ancestor[];
         }
-        
         interface GetEffectiveOrgPolicyRequest {
             /** The name of the `Constraint` to compute the effective `Policy`. */
             constraint?: string;
         }
-        
         interface GetOrgPolicyRequest {
             /** Name of the `Constraint` to get the `Policy`. */
             constraint?: string;
         }
-        
         interface Lien {
             /** The creation time of this Lien. */
             createTime?: string;
             /**
              * A system-generated unique identifier for this Lien.
-             * 
+             *
              * Example: `liens/1234abcd`
              */
             name?: string;
@@ -234,21 +221,21 @@ declare namespace gapi.client {
              * A stable, user-visible/meaningful string identifying the origin of the
              * Lien, intended to be inspected programmatically. Maximum length of 200
              * characters.
-             * 
+             *
              * Example: 'compute.googleapis.com'
              */
             origin?: string;
             /**
              * A reference to the resource this Lien is attached to. The server will
              * validate the parent against those for which Liens are supported.
-             * 
+             *
              * Example: `projects/1234`
              */
             parent?: string;
             /**
              * Concise user-visible strings indicating why an action cannot be performed
              * on a resource. Maximum lenth of 200 characters.
-             * 
+             *
              * Example: 'Holds production API key'
              */
             reason?: string;
@@ -256,14 +243,13 @@ declare namespace gapi.client {
              * The types of operations which should be blocked as a result of this Lien.
              * Each value should correspond to an IAM permission. The server will
              * validate the permissions against those for which Liens are supported.
-             * 
+             *
              * An empty list is meaningless and will be rejected.
-             * 
+             *
              * Example: ['resourcemanager.projects.delete']
              */
             restrictions?: string[];
         }
-        
         interface ListAvailableOrgPolicyConstraintsRequest {
             /**
              * Size of the pages to be returned. This is currently unsupported and will
@@ -277,14 +263,12 @@ declare namespace gapi.client {
              */
             pageToken?: string;
         }
-        
         interface ListAvailableOrgPolicyConstraintsResponse {
             /** The collection of constraints that are settable on the request resource. */
             constraints?: Constraint[];
             /** Page token used to retrieve the next page. This is currently not used. */
             nextPageToken?: string;
         }
-        
         interface ListConstraint {
             /**
              * Optional. The Google Cloud Console will try to default to a configuration
@@ -292,7 +276,6 @@ declare namespace gapi.client {
              */
             suggestedValue?: string;
         }
-        
         interface ListLiensResponse {
             /** A list of Liens. */
             liens?: Lien[];
@@ -302,7 +285,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListOrgPoliciesRequest {
             /**
              * Size of the pages to be returned. This is currently unsupported and will
@@ -316,7 +298,6 @@ declare namespace gapi.client {
              */
             pageToken?: string;
         }
-        
         interface ListOrgPoliciesResponse {
             /**
              * Page token used to retrieve the next page. This is currently not used, but
@@ -329,7 +310,6 @@ declare namespace gapi.client {
              */
             policies?: OrgPolicy[];
         }
-        
         interface ListPolicy {
             /** The policy all_values state. */
             allValues?: string;
@@ -347,20 +327,20 @@ declare namespace gapi.client {
             deniedValues?: string[];
             /**
              * Determines the inheritance behavior for this `Policy`.
-             * 
+             *
              * By default, a `ListPolicy` set at a resource supercedes any `Policy` set
              * anywhere up the resource hierarchy. However, if `inherit_from_parent` is
              * set to `true`, then the values from the effective `Policy` of the parent
              * resource are inherited, meaning the values set in this `Policy` are
              * added to the values inherited up the hierarchy.
-             * 
+             *
              * Setting `Policy` hierarchies that inherit both allowed values and denied
              * values isn't recommended in most circumstances to keep the configuration
              * simple and understandable. However, it is possible to set a `Policy` with
              * `allowed_values` set that inherits a `Policy` with `denied_values` set.
              * In this case, the values that are allowed must be in `allowed_values` and
              * not present in `denied_values`.
-             * 
+             *
              * For example, suppose you have a `Constraint`
              * `constraints/serviceuser.services`, which has a `constraint_type` of
              * `list_constraint`, and with `constraint_default` set to `ALLOW`.
@@ -369,63 +349,63 @@ declare namespace gapi.client {
              * `Policy` is applied to a project below the Organization that has
              * `inherit_from_parent` set to `false` and field all_values set to DENY,
              * then an attempt to activate any API will be denied.
-             * 
+             *
              * The following examples demonstrate different possible layerings:
-             * 
+             *
              * Example 1 (no inherited values):
-             *   `organizations/foo` has a `Policy` with values:
-             *     {allowed_values: “E1” allowed_values:”E2”}
-             *   ``projects/bar`` has `inherit_from_parent` `false` and values:
-             *     {allowed_values: "E3" allowed_values: "E4"}
+             * `organizations/foo` has a `Policy` with values:
+             * {allowed_values: “E1” allowed_values:”E2”}
+             * ``projects/bar`` has `inherit_from_parent` `false` and values:
+             * {allowed_values: "E3" allowed_values: "E4"}
              * The accepted values at `organizations/foo` are `E1`, `E2`.
              * The accepted values at `projects/bar` are `E3`, and `E4`.
-             * 
+             *
              * Example 2 (inherited values):
-             *   `organizations/foo` has a `Policy` with values:
-             *     {allowed_values: “E1” allowed_values:”E2”}
-             *   `projects/bar` has a `Policy` with values:
-             *     {value: “E3” value: ”E4” inherit_from_parent: true}
+             * `organizations/foo` has a `Policy` with values:
+             * {allowed_values: “E1” allowed_values:”E2”}
+             * `projects/bar` has a `Policy` with values:
+             * {value: “E3” value: ”E4” inherit_from_parent: true}
              * The accepted values at `organizations/foo` are `E1`, `E2`.
              * The accepted values at `projects/bar` are `E1`, `E2`, `E3`, and `E4`.
-             * 
+             *
              * Example 3 (inheriting both allowed and denied values):
-             *   `organizations/foo` has a `Policy` with values:
-             *     {allowed_values: "E1" allowed_values: "E2"}
-             *   `projects/bar` has a `Policy` with:
-             *     {denied_values: "E1"}
+             * `organizations/foo` has a `Policy` with values:
+             * {allowed_values: "E1" allowed_values: "E2"}
+             * `projects/bar` has a `Policy` with:
+             * {denied_values: "E1"}
              * The accepted values at `organizations/foo` are `E1`, `E2`.
              * The value accepted at `projects/bar` is `E2`.
-             * 
+             *
              * Example 4 (RestoreDefault):
-             *   `organizations/foo` has a `Policy` with values:
-             *     {allowed_values: “E1” allowed_values:”E2”}
-             *   `projects/bar` has a `Policy` with values:
-             *     {RestoreDefault: {}}
+             * `organizations/foo` has a `Policy` with values:
+             * {allowed_values: “E1” allowed_values:”E2”}
+             * `projects/bar` has a `Policy` with values:
+             * {RestoreDefault: {}}
              * The accepted values at `organizations/foo` are `E1`, `E2`.
              * The accepted values at `projects/bar` are either all or none depending on
              * the value of `constraint_default` (if `ALLOW`, all; if
              * `DENY`, none).
-             * 
+             *
              * Example 5 (no policy inherits parent policy):
-             *   `organizations/foo` has no `Policy` set.
-             *   `projects/bar` has no `Policy` set.
+             * `organizations/foo` has no `Policy` set.
+             * `projects/bar` has no `Policy` set.
              * The accepted values at both levels are either all or none depending on
              * the value of `constraint_default` (if `ALLOW`, all; if
              * `DENY`, none).
-             * 
+             *
              * Example 6 (ListConstraint allowing all):
-             *   `organizations/foo` has a `Policy` with values:
-             *     {allowed_values: “E1” allowed_values: ”E2”}
-             *   `projects/bar` has a `Policy` with:
-             *     {all: ALLOW}
+             * `organizations/foo` has a `Policy` with values:
+             * {allowed_values: “E1” allowed_values: ”E2”}
+             * `projects/bar` has a `Policy` with:
+             * {all: ALLOW}
              * The accepted values at `organizations/foo` are `E1`, E2`.
              * Any value is accepted at `projects/bar`.
-             * 
+             *
              * Example 7 (ListConstraint allowing none):
-             *   `organizations/foo` has a `Policy` with values:
-             *     {allowed_values: “E1” allowed_values: ”E2”}
-             *   `projects/bar` has a `Policy` with:
-             *     {all: DENY}
+             * `organizations/foo` has a `Policy` with values:
+             * {allowed_values: “E1” allowed_values: ”E2”}
+             * `projects/bar` has a `Policy` with:
+             * {all: DENY}
              * The accepted values at `organizations/foo` are `E1`, E2`.
              * No value is accepted at `projects/bar`.
              */
@@ -438,19 +418,18 @@ declare namespace gapi.client {
              */
             suggestedValue?: string;
         }
-        
         interface ListProjectsResponse {
             /**
              * Pagination token.
-             * 
+             *
              * If the result set is too large to fit in a single response, this token
              * is returned. It encodes the position of the current result cursor.
              * Feeding this value into a new list request with the `page_token` parameter
              * gives the next page of the results.
-             * 
+             *
              * When `next_page_token` is not filled in, there is no next page and
              * the list returned is the last page in the result set.
-             * 
+             *
              * Pagination tokens have a limited lifetime.
              */
             nextPageToken?: string;
@@ -460,11 +439,10 @@ declare namespace gapi.client {
              */
             projects?: Project[];
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
@@ -476,7 +454,7 @@ declare namespace gapi.client {
              * Some services might not provide such metadata.  Any method that returns a
              * long-running operation should document the metadata type, if any.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
@@ -493,30 +471,29 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface OrgPolicy {
             /** For boolean `Constraints`, whether to enforce the `Constraint` or not. */
             booleanPolicy?: BooleanPolicy;
             /**
              * The name of the `Constraint` the `Policy` is configuring, for example,
              * `constraints/serviceuser.services`.
-             * 
+             *
              * Immutable after creation.
              */
             constraint?: string;
             /**
              * An opaque tag indicating the current version of the `Policy`, used for
              * concurrency control.
-             * 
+             *
              * When the `Policy` is returned from either a `GetPolicy` or a
              * `ListOrgPolicy` request, this `etag` indicates the version of the current
              * `Policy` to use when executing a read-modify-write loop.
-             * 
+             *
              * When the `Policy` is returned from a `GetEffectivePolicy` request, the
              * `etag` will be unset.
-             * 
+             *
              * When the `Policy` is used in a `SetOrgPolicy` method, use the `etag` value
              * that was returned from a `GetOrgPolicy` request as part of a
              * read-modify-write loop for concurrency control. Not setting the `etag`in a
@@ -541,7 +518,6 @@ declare namespace gapi.client {
             /** Version of the `Policy`. Default version is 0; */
             version?: number;
         }
-        
         interface Organization {
             /**
              * Timestamp when the Organization was created. Assigned by the server.
@@ -573,12 +549,10 @@ declare namespace gapi.client {
              */
             owner?: OrganizationOwner;
         }
-        
         interface OrganizationOwner {
             /** The Google for Work customer id used in the Directory API. */
             directoryCustomerId?: string;
         }
-        
         interface Policy {
             /** Specifies cloud audit logging configuration for this policy. */
             auditConfigs?: AuditConfig[];
@@ -595,7 +569,7 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
@@ -603,35 +577,34 @@ declare namespace gapi.client {
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
         interface Project {
             /**
              * Creation time.
-             * 
+             *
              * Read-only.
              */
             createTime?: string;
             /**
              * The labels associated with this Project.
-             * 
+             *
              * Label keys must be between 1 and 63 characters long and must conform
              * to the following regular expression: \[a-z\](\[-a-z0-9\]&#42;\[a-z0-9\])?.
-             * 
+             *
              * Label values must be between 0 and 63 characters long and must conform
              * to the regular expression (\[a-z\](\[-a-z0-9\]&#42;\[a-z0-9\])?)?.
-             * 
+             *
              * No more than 256 labels can be associated with a given resource.
-             * 
+             *
              * Clients should store labels in a representation such as JSON that does not
              * depend on specific characters being disallowed.
-             * 
+             *
              * Example: <code>"environment" : "dev"</code>
              * Read-write.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /**
              * The Project lifecycle state.
-             * 
+             *
              * Read-only.
              */
             lifecycleState?: string;
@@ -640,19 +613,19 @@ declare namespace gapi.client {
              * It must be 4 to 30 characters.
              * Allowed characters are: lowercase and uppercase letters, numbers,
              * hyphen, single-quote, double-quote, space, and exclamation point.
-             * 
+             *
              * Example: <code>My Project</code>
              * Read-write.
              */
             name?: string;
             /**
              * An optional reference to a parent Resource.
-             * 
+             *
              * The only supported parent type is "organization". Once set, the parent
              * cannot be modified. The `parent` can be set on creation or using the
              * `UpdateProject` method; the end user must have the
              * `resourcemanager.projects.create` permission on the parent.
-             * 
+             *
              * Read-write.
              */
             parent?: ResourceId;
@@ -661,20 +634,19 @@ declare namespace gapi.client {
              * It must be 6 to 30 lowercase letters, digits, or hyphens.
              * It must start with a letter.
              * Trailing hyphens are prohibited.
-             * 
+             *
              * Example: <code>tokyo-rain-123</code>
              * Read-only after creation.
              */
             projectId?: string;
             /**
              * The number uniquely identifying the project.
-             * 
+             *
              * Example: <code>415104041262</code>
              * Read-only.
              */
             projectNumber?: string;
         }
-        
         interface ProjectCreationStatus {
             /** Creation time of the project creation workflow. */
             createTime?: string;
@@ -687,7 +659,6 @@ declare namespace gapi.client {
             /** True if the project creation process is complete. */
             ready?: boolean;
         }
-        
         interface ResourceId {
             /**
              * Required field for the type-specific id. This should correspond to the id
@@ -700,22 +671,21 @@ declare namespace gapi.client {
              */
             type?: string;
         }
-        
         interface SearchOrganizationsRequest {
             /**
              * An optional query string used to filter the Organizations to return in
              * the response. Filter rules are case-insensitive.
-             * 
-             * 
+             *
+             *
              * Organizations may be filtered by `owner.directoryCustomerId` or by
              * `domain`, where the domain is a Google for Work domain, for example:
-             * 
+             *
              * |Filter|Description|
              * |------|-----------|
              * |owner.directorycustomerid:123456789|Organizations with
              * `owner.directory_customer_id` equal to `123456789`.|
              * |domain:google.com|Organizations corresponding to the domain `google.com`.|
-             * 
+             *
              * This field is optional.
              */
             filter?: string;
@@ -731,7 +701,6 @@ declare namespace gapi.client {
              */
             pageToken?: string;
         }
-        
         interface SearchOrganizationsResponse {
             /**
              * A pagination token to be used to retrieve the next page of results. If the
@@ -747,7 +716,6 @@ declare namespace gapi.client {
              */
             organizations?: Organization[];
         }
-        
         interface SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -765,12 +733,10 @@ declare namespace gapi.client {
              */
             updateMask?: string;
         }
-        
         interface SetOrgPolicyRequest {
             /** `Policy` to set on the resource. */
             policy?: OrgPolicy;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -778,7 +744,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -786,7 +752,6 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface TestIamPermissionsRequest {
             /**
              * The set of permissions to check for the `resource`. Permissions with
@@ -796,7 +761,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -804,10 +768,9 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface FoldersResource {
             /** Clears a `Policy` from a resource. */
-            clearOrgPolicy(request: {            
+            clearOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -836,14 +799,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the effective `Policy` on a resource. This is the result of merging
              * `Policies` in the resource hierarchy. The returned `Policy` will not have
              * an `etag`set because it is a computed `Policy` across multiple resources.
              */
-            getEffectiveOrgPolicy(request: {            
+            getEffectiveOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -872,17 +834,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /**
              * Gets a `Policy` on a resource.
-             * 
+             *
              * If no `Policy` is set on the resource, a `Policy` is returned with default
              * values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
              * `etag` value can be used with `SetOrgPolicy()` to create or update a
              * `Policy` during read-modify-write.
              */
-            getOrgPolicy(request: {            
+            getOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -911,10 +872,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /** Lists `Constraints` that could be applied on the specified resource. */
-            listAvailableOrgPolicyConstraints(request: {            
+            listAvailableOrgPolicyConstraints(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -943,10 +903,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
-            
+            }): Request<ListAvailableOrgPolicyConstraintsResponse>;
             /** Lists all the `Policies` set for a particular resource. */
-            listOrgPolicies(request: {            
+            listOrgPolicies(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -975,16 +934,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOrgPoliciesResponse>;            
-            
+            }): Request<ListOrgPoliciesResponse>;
             /**
              * Updates the specified `Policy` on the resource. Creates a new `Policy` for
              * that `Constraint` on the resource if one does not exist.
-             * 
+             *
              * Not supplying an `etag` on the request `Policy` results in an unconditional
              * write of the `Policy`.
              */
-            setOrgPolicy(request: {            
+            setOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1013,21 +971,19 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
         }
-        
         interface LiensResource {
             /**
              * Create a Lien which applies to the resource denoted by the `parent` field.
-             * 
+             *
              * Callers of this method will require permission on the `parent` resource.
              * For example, applying to `projects/1234` requires permission
              * `resourcemanager.projects.updateLiens`.
-             * 
+             *
              * NOTE: Some resources may limit the number of Liens which may be applied.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1054,16 +1010,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Lien>;            
-            
+            }): Request<Lien>;
             /**
              * Delete a Lien by `name`.
-             * 
+             *
              * Callers of this method will require permission on the `parent` resource.
              * For example, a Lien with a `parent` of `projects/1234` requires permission
              * `resourcemanager.projects.updateLiens`.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1092,16 +1047,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * List all Liens applied to the `parent` resource.
-             * 
+             *
              * Callers of this method will require permission on the `parent` resource.
              * For example, a Lien with a `parent` of `projects/1234` requires permission
              * `resourcemanager.projects.get`.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1137,17 +1091,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListLiensResponse>;            
-            
+            }): Request<ListLiensResponse>;
         }
-        
         interface OperationsResource {
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1176,13 +1128,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
-        
         interface OrganizationsResource {
             /** Clears a `Policy` from a resource. */
-            clearOrgPolicy(request: {            
+            clearOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1211,10 +1161,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Fetches an Organization resource identified by the specified resource name. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1243,14 +1192,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Organization>;            
-            
+            }): Request<Organization>;
             /**
              * Gets the effective `Policy` on a resource. This is the result of merging
              * `Policies` in the resource hierarchy. The returned `Policy` will not have
              * an `etag`set because it is a computed `Policy` across multiple resources.
              */
-            getEffectiveOrgPolicy(request: {            
+            getEffectiveOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1279,17 +1227,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /**
              * Gets the access control policy for an Organization resource. May be empty
              * if no such policy or resource exists. The `resource` field should be the
              * organization's resource name, e.g. "organizations/123".
-             * 
+             *
              * Authorization requires the Google IAM permission
              * `resourcemanager.organizations.getIamPolicy` on the specified organization
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1321,17 +1268,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Gets a `Policy` on a resource.
-             * 
+             *
              * If no `Policy` is set on the resource, a `Policy` is returned with default
              * values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
              * `etag` value can be used with `SetOrgPolicy()` to create or update a
              * `Policy` during read-modify-write.
              */
-            getOrgPolicy(request: {            
+            getOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1360,10 +1306,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /** Lists `Constraints` that could be applied on the specified resource. */
-            listAvailableOrgPolicyConstraints(request: {            
+            listAvailableOrgPolicyConstraints(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1392,10 +1337,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
-            
+            }): Request<ListAvailableOrgPolicyConstraintsResponse>;
             /** Lists all the `Policies` set for a particular resource. */
-            listOrgPolicies(request: {            
+            listOrgPolicies(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1424,18 +1368,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOrgPoliciesResponse>;            
-            
+            }): Request<ListOrgPoliciesResponse>;
             /**
              * Searches Organization resources that are visible to the user and satisfy
              * the specified filter. This method returns Organizations in an unspecified
              * order. New Organizations do not necessarily appear at the end of the
              * results.
-             * 
+             *
              * Search will only return organizations on which the user has the permission
              * `resourcemanager.organizations.get`
              */
-            search(request: {            
+            search(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1462,17 +1405,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<SearchOrganizationsResponse>;            
-            
+            }): Request<SearchOrganizationsResponse>;
             /**
              * Sets the access control policy on an Organization resource. Replaces any
              * existing policy. The `resource` field should be the organization's resource
              * name, e.g. "organizations/123".
-             * 
+             *
              * Authorization requires the Google IAM permission
              * `resourcemanager.organizations.setIamPolicy` on the specified organization
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1504,16 +1446,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Updates the specified `Policy` on the resource. Creates a new `Policy` for
              * that `Constraint` on the resource if one does not exist.
-             * 
+             *
              * Not supplying an `etag` on the request `Policy` results in an unconditional
              * write of the `Policy`.
              */
-            setOrgPolicy(request: {            
+            setOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1542,16 +1483,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /**
              * Returns permissions that a caller has on the specified Organization.
              * The `resource` field should be the organization's resource name,
              * e.g. "organizations/123".
-             * 
+             *
              * There are no permissions required for making this API call.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1583,13 +1523,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
         }
-        
         interface ProjectsResource {
             /** Clears a `Policy` from a resource. */
-            clearOrgPolicy(request: {            
+            clearOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1618,23 +1556,22 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Request that a new Project be created. The result is an Operation which
              * can be used to track the creation process. It is automatically deleted
              * after a few hours, so there is no need to call DeleteOperation.
-             * 
+             *
              * Our SLO permits Project creation to take up to 30 seconds at the 90th
              * percentile. As of 2016-08-29, we are observing 6 seconds 50th percentile
              * latency. 95th percentile latency is around 11 seconds. We recommend
              * polling at the 5th second with an exponential backoff.
-             * 
+             *
              * Authorization requires the Google IAM permission
              * `resourcemanager.projects.create` on the specified parent for the new
              * project.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1661,35 +1598,34 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Marks the Project identified by the specified
              * `project_id` (for example, `my-project-123`) for deletion.
              * This method will only affect the Project if the following criteria are met:
-             * 
+             *
              * + The Project does not have a billing account associated with it.
              * + The Project has a lifecycle state of
              * ACTIVE.
-             * 
+             *
              * This method changes the Project's lifecycle state from
              * ACTIVE
              * to DELETE_REQUESTED.
              * The deletion starts at an unspecified time,
              * at which point the Project is no longer accessible.
-             * 
+             *
              * Until the deletion completes, you can check the lifecycle state
              * checked by retrieving the Project with GetProject,
              * and the Project remains visible to ListProjects.
              * However, you cannot update the project.
-             * 
+             *
              * After the deletion completes, the Project is not retrievable by
              * the  GetProject and
              * ListProjects methods.
-             * 
+             *
              * The caller must have modify permissions for this Project.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1712,7 +1648,7 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /**
                  * The Project ID (for example, `foo-bar-123`).
-                 * 
+                 *
                  * Required.
                  */
                 projectId: string;
@@ -1722,15 +1658,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Retrieves the Project identified by the specified
              * `project_id` (for example, `my-project-123`).
-             * 
+             *
              * The caller must have read permissions for this Project.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1753,7 +1688,7 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /**
                  * The Project ID (for example, `my-project-123`).
-                 * 
+                 *
                  * Required.
                  */
                 projectId: string;
@@ -1763,15 +1698,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Project>;            
-            
+            }): Request<Project>;
             /**
              * Gets a list of ancestors in the resource hierarchy for the Project
              * identified by the specified `project_id` (for example, `my-project-123`).
-             * 
+             *
              * The caller must have read permissions for this Project.
              */
-            getAncestry(request: {            
+            getAncestry(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1794,7 +1728,7 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /**
                  * The Project ID (for example, `my-project-123`).
-                 * 
+                 *
                  * Required.
                  */
                 projectId: string;
@@ -1804,14 +1738,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GetAncestryResponse>;            
-            
+            }): Request<GetAncestryResponse>;
             /**
              * Gets the effective `Policy` on a resource. This is the result of merging
              * `Policies` in the resource hierarchy. The returned `Policy` will not have
              * an `etag`set because it is a computed `Policy` across multiple resources.
              */
-            getEffectiveOrgPolicy(request: {            
+            getEffectiveOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1840,16 +1773,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /**
              * Returns the IAM access control policy for the specified Project.
              * Permission is denied if the policy or the resource does not exist.
-             * 
+             *
              * Authorization requires the Google IAM permission
              * `resourcemanager.projects.getIamPolicy` on the project
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1881,17 +1813,16 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Gets a `Policy` on a resource.
-             * 
+             *
              * If no `Policy` is set on the resource, a `Policy` is returned with default
              * values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
              * `etag` value can be used with `SetOrgPolicy()` to create or update a
              * `Policy` during read-modify-write.
              */
-            getOrgPolicy(request: {            
+            getOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1920,14 +1851,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /**
              * Lists Projects that are visible to the user and satisfy the
              * specified filter. This method returns Projects in an unspecified order.
              * New Projects do not necessarily appear at the end of the list.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1943,13 +1873,13 @@ declare namespace gapi.client {
                 /**
                  * An expression for filtering the results of the request.  Filter rules are
                  * case insensitive. The fields eligible for filtering are:
-                 * 
+                 *
                  * + `name`
                  * + `id`
                  * + <code>labels.<em>key</em></code> where &#42;key&#42; is the name of a label
-                 * 
+                 *
                  * Some examples of using labels as filters:
-                 * 
+                 *
                  * |Filter|Description|
                  * |------|-----------|
                  * |name:how&#42;|The project's name starts with "how".|
@@ -1959,7 +1889,7 @@ declare namespace gapi.client {
                  * |labels.color:&#42;|The project has the label `color`.|
                  * |labels.color:red|The project's label `color` has the value `red`.|
                  * |labels.color:red&nbsp;labels.size:big|The project's label `color` has the value `red` and its label `size` has the value `big`.
-                 * 
+                 *
                  * If you specify a filter that has both `parent.type` and `parent.id`, then
                  * the `resourcemanager.projects.list` permission is checked on the parent.
                  * If the user has this permission, all projects under the parent will be
@@ -1968,7 +1898,7 @@ declare namespace gapi.client {
                  * `resourcemanager.projects.get` permission will be returned after remaining
                  * filters have been applied. If no filter is specified, the call will return
                  * projects for which the user has `resourcemanager.projects.get` permissions.
-                 * 
+                 *
                  * Optional.
                  */
                 filter?: string;
@@ -1980,14 +1910,14 @@ declare namespace gapi.client {
                  * The maximum number of Projects to return in the response.
                  * The server can return fewer Projects than requested.
                  * If unspecified, server picks an appropriate default.
-                 * 
+                 *
                  * Optional.
                  */
                 pageSize?: number;
                 /**
                  * A pagination token returned from a previous call to ListProjects
                  * that indicates from where listing should continue.
-                 * 
+                 *
                  * Optional.
                  */
                 pageToken?: string;
@@ -2001,10 +1931,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListProjectsResponse>;            
-            
+            }): Request<ListProjectsResponse>;
             /** Lists `Constraints` that could be applied on the specified resource. */
-            listAvailableOrgPolicyConstraints(request: {            
+            listAvailableOrgPolicyConstraints(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2033,10 +1962,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
-            
+            }): Request<ListAvailableOrgPolicyConstraintsResponse>;
             /** Lists all the `Policies` set for a particular resource. */
-            listOrgPolicies(request: {            
+            listOrgPolicies(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2065,34 +1993,33 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOrgPoliciesResponse>;            
-            
+            }): Request<ListOrgPoliciesResponse>;
             /**
              * Sets the IAM access control policy for the specified Project. Replaces
              * any existing policy.
-             * 
+             *
              * The following constraints apply when using `setIamPolicy()`:
-             * 
+             *
              * + Project does not support `allUsers` and `allAuthenticatedUsers` as
              * `members` in a `Binding` of a `Policy`.
-             * 
+             *
              * + The owner role can be granted only to `user` and `serviceAccount`.
-             * 
+             *
              * + Service accounts can be made owners of a project directly
              * without any restrictions. However, to be added as an owner, a user must be
              * invited via Cloud Platform console and must accept the invitation.
-             * 
+             *
              * + A user cannot be granted the owner role using `setIamPolicy()`. The user
              * must be granted the owner role using the Cloud Platform Console and must
              * explicitly accept the invitation.
-             * 
+             *
              * + Invitations to grant the owner role cannot be sent using
              * `setIamPolicy()`;
              * they must be sent only using the Cloud Platform Console.
-             * 
+             *
              * + Membership changes that leave the project without any owners that have
              * accepted the Terms of Service (ToS) will be rejected.
-             * 
+             *
              * + If the project is not part of an organization, there must be at least
              * one owner who has accepted the Terms of Service (ToS) agreement in the
              * policy. Calling `setIamPolicy()` to remove the last ToS-accepted owner
@@ -2100,18 +2027,18 @@ declare namespace gapi.client {
              * projects that no longer have owners who have accepted the ToS. Edits to
              * IAM policies will be rejected until the lack of a ToS-accepting owner is
              * rectified.
-             * 
+             *
              * + Calling this method requires enabling the App Engine Admin API.
-             * 
+             *
              * Note: Removing service accounts from policies or changing their roles
              * can render services completely inoperable. It is important to understand
              * how the service account is being used before removing or updating its
              * roles.
-             * 
+             *
              * Authorization requires the Google IAM permission
              * `resourcemanager.projects.setIamPolicy` on the project
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2143,16 +2070,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Updates the specified `Policy` on the resource. Creates a new `Policy` for
              * that `Constraint` on the resource if one does not exist.
-             * 
+             *
              * Not supplying an `etag` on the request `Policy` results in an unconditional
              * write of the `Policy`.
              */
-            setOrgPolicy(request: {            
+            setOrgPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2181,14 +2107,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<OrgPolicy>;            
-            
+            }): Request<OrgPolicy>;
             /**
              * Returns permissions that a caller has on the specified Project.
-             * 
+             *
              * There are no permissions required for making this API call.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2220,18 +2145,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             /**
              * Restores the Project identified by the specified
              * `project_id` (for example, `my-project-123`).
              * You can only use this method for a Project that has a lifecycle state of
              * DELETE_REQUESTED.
              * After deletion starts, the Project cannot be restored.
-             * 
+             *
              * The caller must have modify permissions for this Project.
              */
-            undelete(request: {            
+            undelete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2254,7 +2178,7 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /**
                  * The project ID (for example, `foo-bar-123`).
-                 * 
+                 *
                  * Required.
                  */
                 projectId: string;
@@ -2264,15 +2188,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Updates the attributes of the Project identified by the specified
              * `project_id` (for example, `my-project-123`).
-             * 
+             *
              * The caller must have modify permissions for this Project.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2295,7 +2218,7 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /**
                  * The project ID (for example, `my-project-123`).
-                 * 
+                 *
                  * Required.
                  */
                 projectId: string;
@@ -2305,8 +2228,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Project>;            
-            
+            }): Request<Project>;
         }
     }
 }

@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Google Apps Script Execution API v1 */
-    function load(name: "script", version: "v1"): PromiseLike<void>;    
-    function load(name: "script", version: "v1", callback: () => any): void;    
-    
-    const scripts: script.ScriptsResource; 
-    
+    function load(name: "script", version: "v1"): PromiseLike<void>;
+    function load(name: "script", version: "v1", callback: () => any): void;
+
+    const scripts: script.ScriptsResource;
+
     namespace script {
-        
         interface ExecutionError {
             /**
              * The error message thrown by Apps Script, usually localized into the user's
@@ -37,7 +36,6 @@ declare namespace gapi.client {
              */
             scriptStackTraceElements?: ScriptStackTraceElement[];
         }
-        
         interface ExecutionRequest {
             /**
              * If `true` and the user is an owner of the script, the script runs at the
@@ -72,7 +70,6 @@ declare namespace gapi.client {
              */
             sessionState?: string;
         }
-        
         interface ExecutionResponse {
             /**
              * The return value of the script function. The type matches the object type
@@ -83,41 +80,47 @@ declare namespace gapi.client {
              */
             result?: any;
         }
-        
         interface Operation {
-            /** This field is only used with asynchronous executions and indicates whether or not the script execution has completed. A completed execution has a populated response field containing the `ExecutionResponse` from function that was executed. */
+            /**
+             * This field is only used with asynchronous executions and indicates whether or not the script execution has completed. A completed execution has a
+             * populated response field containing the `ExecutionResponse` from function that was executed.
+             */
             done?: boolean;
-            /** If a `run` call succeeds but the script function (or Apps Script itself) throws an exception, this field will contain a `Status` object. The `Status` object's `details` field will contain an array with a single `ExecutionError` object that provides information about the nature of the error. */
+            /**
+             * If a `run` call succeeds but the script function (or Apps Script itself) throws an exception, this field will contain a `Status` object. The `Status`
+             * object's `details` field will contain an array with a single `ExecutionError` object that provides information about the nature of the error.
+             */
             error?: Status;
             /** This field is not used. */
-            metadata?: Record<string, any>;            
-            /** This field is only used with asynchronous executions and contains a unique identifier that can be used to subsequently invoke a `get` `cancel` or `join` on the asynchronous script execution identified by this name. */
-            name?: string;
-            /** If the script function returns successfully, this field will contain an `ExecutionResponse` object with the function's return value as the object's `result` field. */
-            response?: Record<string, any>;            
+            metadata?: Record<string, any>;
+            /**
+             * If the script function returns successfully, this field will contain an `ExecutionResponse` object with the function's return value as the object's
+             * `result` field.
+             */
+            response?: Record<string, any>;
         }
-        
         interface ScriptStackTraceElement {
             /** The name of the function that failed. */
             function?: string;
             /** The line number where the script failed. */
             lineNumber?: number;
         }
-        
         interface Status {
             /** The status code. For this API, this value will always be 3, corresponding to an <code>INVALID_ARGUMENT</code> error. */
             code?: number;
             /** An array that contains a single `ExecutionError` object that provides information about the nature of the error. */
-            details?: Array<Record<string, any>>;            
-            /** A developer-facing error message, which is in English. Any user-facing error message is localized and sent in the [`google.rpc.Status.details`](google.rpc.Status.details) field, or localized by the client. */
+            details?: Array<Record<string, any>>;
+            /**
+             * A developer-facing error message, which is in English. Any user-facing error message is localized and sent in the
+             * [`google.rpc.Status.details`](google.rpc.Status.details) field, or localized by the client.
+             */
             message?: string;
         }
-        
         interface ScriptsResource {
             /**
              * Runs a function in an Apps Script project. The project must be deployed
              * for use with the Apps Script Execution API.
-             * 
+             *
              * This method requires authorization with an OAuth 2.0 token that includes at
              * least one of the scopes listed in the [Authorization](#authorization)
              * section; script projects that do not require authorization cannot be
@@ -125,7 +128,7 @@ declare namespace gapi.client {
              * authentication token, open the project in the script editor, then select
              * &#42;&#42;File > Project properties&#42;&#42; and click the &#42;&#42;Scopes&#42;&#42; tab.
              */
-            run(request: {            
+            run(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -157,8 +160,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
     }
 }

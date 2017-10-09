@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Accelerated Mobile Pages (AMP) URL API v1 */
-    function load(name: "acceleratedmobilepageurl", version: "v1"): PromiseLike<void>;    
-    function load(name: "acceleratedmobilepageurl", version: "v1", callback: () => any): void;    
-    
-    const ampUrls: acceleratedmobilepageurl.AmpUrlsResource; 
-    
+    function load(name: "acceleratedmobilepageurl", version: "v1"): PromiseLike<void>;
+    function load(name: "acceleratedmobilepageurl", version: "v1", callback: () => any): void;
+
+    const ampUrls: acceleratedmobilepageurl.AmpUrlsResource;
+
     namespace acceleratedmobilepageurl {
-        
         interface AmpUrl {
             /** The AMP URL pointing to the publisher's web server. */
             ampUrl?: string;
@@ -31,7 +30,6 @@ declare namespace gapi.client {
             /** The original non-AMP URL. */
             originalUrl?: string;
         }
-        
         interface AmpUrlError {
             /** The error code of an API call. */
             errorCode?: string;
@@ -40,7 +38,6 @@ declare namespace gapi.client {
             /** The original non-AMP URL. */
             originalUrl?: string;
         }
-        
         interface BatchGetAmpUrlsRequest {
             /** The lookup_strategy being requested. */
             lookupStrategy?: string;
@@ -51,7 +48,6 @@ declare namespace gapi.client {
              */
             urls?: string[];
         }
-        
         interface BatchGetAmpUrlsResponse {
             /**
              * For each URL in BatchAmpUrlsRequest, the URL response. The response might
@@ -63,13 +59,12 @@ declare namespace gapi.client {
             /** The errors for requested URLs that have no AMP URL. */
             urlErrors?: AmpUrlError[];
         }
-        
         interface AmpUrlsResource {
             /**
              * Returns AMP URL(s) and equivalent
              * [AMP Cache URL(s)](/amp/cache/overview#amp-cache-url-format).
              */
-            batchGet(request: {            
+            batchGet(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -96,8 +91,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<BatchGetAmpUrlsResponse>;            
-            
+            }): Request<BatchGetAmpUrlsResponse>;
         }
     }
 }

@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load Manufacturer Center API v1 */
-    function load(name: "manufacturers", version: "v1"): PromiseLike<void>;    
-    function load(name: "manufacturers", version: "v1", callback: () => any): void;    
-    
-    const accounts: manufacturers.AccountsResource; 
-    
+    function load(name: "manufacturers", version: "v1"): PromiseLike<void>;
+    function load(name: "manufacturers", version: "v1", callback: () => any): void;
+
+    const accounts: manufacturers.AccountsResource;
+
     namespace manufacturers {
-        
         interface Attributes {
             /**
              * The additional images of the product. For more information, see
@@ -144,7 +143,7 @@ declare namespace gapi.client {
             releaseDate?: string;
             /**
              * The scent of the product. For more information, see
-             *  https://support.google.com/manufacturers/answer/6124116#scent.
+             * https://support.google.com/manufacturers/answer/6124116#scent.
              */
             scent?: string;
             /**
@@ -188,21 +187,18 @@ declare namespace gapi.client {
              */
             videoLink?: string[];
         }
-        
         interface Capacity {
             /** The unit of the capacity, i.e., MB, GB, or TB. */
             unit?: string;
             /** The numeric value of the capacity. */
             value?: string;
         }
-        
         interface Count {
             /** The unit in which these products are counted. */
             unit?: string;
             /** The numeric value of the number of products in a package. */
             value?: string;
         }
-        
         interface FeatureDescription {
             /** A short description of the feature. */
             headline?: string;
@@ -211,7 +207,6 @@ declare namespace gapi.client {
             /** A detailed description of the feature. */
             text?: string;
         }
-        
         interface Image {
             /**
              * The URL of the image. For crawled images, this is the provided URL. For
@@ -230,7 +225,6 @@ declare namespace gapi.client {
              */
             type?: string;
         }
-        
         interface Issue {
             /**
              * If present, the attribute that triggered the issue. For more information
@@ -250,21 +244,18 @@ declare namespace gapi.client {
              */
             type?: string;
         }
-        
         interface ListProductsResponse {
             /** The token for the retrieval of the next page of product statuses. */
             nextPageToken?: string;
             /** List of the products. */
             products?: Product[];
         }
-        
         interface Price {
             /** The numeric value of the price. */
             amount?: string;
             /** The currency in which the price is denoted. */
             currency?: string;
         }
-        
         interface Product {
             /**
              * The content language of the product as a two-letter ISO 639-1 language code
@@ -298,21 +289,21 @@ declare namespace gapi.client {
             manuallyProvidedAttributes?: Attributes;
             /**
              * Name in the format `{target_country}:{content_language}:{product_id}`.
-             * 
+             *
              * `target_country`   - The target country of the product as a CLDR territory
-             *                      code (for example, US).
-             * 
+             * code (for example, US).
+             *
              * `content_language` - The content language of the product as a two-letter
-             *                      ISO 639-1 language code (for example, en).
-             * 
+             * ISO 639-1 language code (for example, en).
+             *
              * `product_id`     -   The ID of the product. For more information, see
-             *                      https://support.google.com/manufacturers/answer/6124116#id.
+             * https://support.google.com/manufacturers/answer/6124116#id.
              * @OutputOnly
              */
             name?: string;
             /**
              * Parent ID in the format `accounts/{account_id}`.
-             * 
+             *
              * `account_id` - The ID of the Manufacturer Center account.
              * @OutputOnly
              */
@@ -335,7 +326,6 @@ declare namespace gapi.client {
              */
             uploadedAttributes?: Attributes;
         }
-        
         interface ProductDetail {
             /** The name of the attribute. */
             attributeName?: string;
@@ -344,10 +334,9 @@ declare namespace gapi.client {
             /** A short section name that can be reused between multiple product details. */
             sectionName?: string;
         }
-        
         interface ProductsResource {
             /** Deletes the product from a Manufacturer Center account. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -364,22 +353,22 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * Name in the format `{target_country}:{content_language}:{product_id}`.
-                 * 
+                 *
                  * `target_country`   - The target country of the product as a CLDR territory
-                 *                      code (for example, US).
-                 * 
+                 * code (for example, US).
+                 *
                  * `content_language` - The content language of the product as a two-letter
-                 *                      ISO 639-1 language code (for example, en).
-                 * 
+                 * ISO 639-1 language code (for example, en).
+                 *
                  * `product_id`     -   The ID of the product. For more information, see
-                 *                      https://support.google.com/manufacturers/answer/6124116#id.
+                 * https://support.google.com/manufacturers/answer/6124116#id.
                  */
                 name: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /**
                  * Parent ID in the format `accounts/{account_id}`.
-                 * 
+                 *
                  * `account_id` - The ID of the Manufacturer Center account.
                  */
                 parent: string;
@@ -393,18 +382,17 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the product from a Manufacturer Center account, including product
              * issues.
-             * 
+             *
              * A recently updated product takes around 15 minutes to process. Changes are
              * only visible after it has been processed. While some issues may be
              * available once the product has been processed, other issues may take days
              * to appear.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -421,22 +409,22 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * Name in the format `{target_country}:{content_language}:{product_id}`.
-                 * 
+                 *
                  * `target_country`   - The target country of the product as a CLDR territory
-                 *                      code (for example, US).
-                 * 
+                 * code (for example, US).
+                 *
                  * `content_language` - The content language of the product as a two-letter
-                 *                      ISO 639-1 language code (for example, en).
-                 * 
+                 * ISO 639-1 language code (for example, en).
+                 *
                  * `product_id`     -   The ID of the product. For more information, see
-                 *                      https://support.google.com/manufacturers/answer/6124116#id.
+                 * https://support.google.com/manufacturers/answer/6124116#id.
                  */
                 name: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /**
                  * Parent ID in the format `accounts/{account_id}`.
-                 * 
+                 *
                  * `account_id` - The ID of the Manufacturer Center account.
                  */
                 parent: string;
@@ -450,10 +438,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Product>;            
-            
+            }): Request<Product>;
             /** Lists all the products in a Manufacturer Center account. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -479,7 +466,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /**
                  * Parent ID in the format `accounts/{account_id}`.
-                 * 
+                 *
                  * `account_id` - The ID of the Manufacturer Center account.
                  */
                 parent: string;
@@ -493,23 +480,22 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListProductsResponse>;            
-            
+            }): Request<ListProductsResponse>;
             /**
              * Inserts or updates the product in a Manufacturer Center account.
-             * 
+             *
              * The checks at upload time are minimal. All required attributes need to be
              * present for a product to be valid. Issues may show up later
              * after the API has accepted an update for a product and it is possible to
              * overwrite an existing valid product with an invalid product. To detect
              * this, you should retrieve the product and check it for issues once the
              * updated version is available.
-             * 
+             *
              * Inserted or updated products first need to be processed before they can be
              * retrieved. Until then, new products will be unavailable, and retrieval
              * of updated products will return the original state of the product.
              */
-            update(request: {            
+            update(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -526,22 +512,22 @@ declare namespace gapi.client {
                 key?: string;
                 /**
                  * Name in the format `{target_country}:{content_language}:{product_id}`.
-                 * 
+                 *
                  * `target_country`   - The target country of the product as a CLDR territory
-                 *                      code (for example, US).
-                 * 
+                 * code (for example, US).
+                 *
                  * `content_language` - The content language of the product as a two-letter
-                 *                      ISO 639-1 language code (for example, en).
-                 * 
+                 * ISO 639-1 language code (for example, en).
+                 *
                  * `product_id`     -   The ID of the product. For more information, see
-                 *                      https://support.google.com/manufacturers/answer/6124116#id.
+                 * https://support.google.com/manufacturers/answer/6124116#id.
                  */
                 name: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /**
                  * Parent ID in the format `accounts/{account_id}`.
-                 * 
+                 *
                  * `account_id` - The ID of the Manufacturer Center account.
                  */
                 parent: string;
@@ -555,10 +541,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Product>;            
-            
+            }): Request<Product>;
         }
-        
         interface AccountsResource {
             products: ProductsResource;
         }

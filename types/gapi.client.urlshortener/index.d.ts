@@ -13,13 +13,12 @@
 
 declare namespace gapi.client {
     /** Load URL Shortener API v1 */
-    function load(name: "urlshortener", version: "v1"): PromiseLike<void>;    
-    function load(name: "urlshortener", version: "v1", callback: () => any): void;    
-    
-    const url: urlshortener.UrlResource; 
-    
+    function load(name: "urlshortener", version: "v1"): PromiseLike<void>;
+    function load(name: "urlshortener", version: "v1", callback: () => any): void;
+
+    const url: urlshortener.UrlResource;
+
     namespace urlshortener {
-        
         interface AnalyticsSnapshot {
             /** Top browsers, e.g. "Chrome"; sorted by (descending) click counts. Only present if this data is available. */
             browsers?: StringCount[];
@@ -34,7 +33,6 @@ declare namespace gapi.client {
             /** Number of clicks on this short URL. */
             shortUrlClicks?: string;
         }
-        
         interface AnalyticsSummary {
             /** Click analytics over all time. */
             allTime?: AnalyticsSnapshot;
@@ -47,14 +45,12 @@ declare namespace gapi.client {
             /** Click analytics over the last week. */
             week?: AnalyticsSnapshot;
         }
-        
         interface StringCount {
             /** Number of clicks for this top entry, e.g. for this particular country or browser. */
             count?: string;
             /** Label assigned to this top entry, e.g. "US" or "Chrome". */
             id?: string;
         }
-        
         interface Url {
             /** A summary of the click analytics for the short and long URL. Might not be present if not requested or currently unavailable. */
             analytics?: AnalyticsSummary;
@@ -66,10 +62,12 @@ declare namespace gapi.client {
             kind?: string;
             /** Long URL, e.g. "http://www.google.com/". Might not be present if the status is "REMOVED". */
             longUrl?: string;
-            /** Status of the target URL. Possible values: "OK", "MALWARE", "PHISHING", or "REMOVED". A URL might be marked "REMOVED" if it was flagged as spam, for example. */
+            /**
+             * Status of the target URL. Possible values: "OK", "MALWARE", "PHISHING", or "REMOVED". A URL might be marked "REMOVED" if it was flagged as spam, for
+             * example.
+             */
             status?: string;
         }
-        
         interface UrlHistory {
             /** A list of URL resources. */
             items?: Url[];
@@ -82,10 +80,9 @@ declare namespace gapi.client {
             /** Total number of short URLs associated with this user (may be approximate). */
             totalItems?: number;
         }
-        
         interface UrlResource {
             /** Expands a short URL or gets creation time and analytics. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -98,16 +95,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Additional information to return. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The short URL, including the protocol. */
                 shortUrl: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Url>;            
-            
+            }): Request<Url>;
             /** Creates a new short URL. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -118,14 +117,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Url>;            
-            
+            }): Request<Url>;
             /** Retrieves a list of URLs shortened by a user. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -138,14 +139,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Additional information to return. */
                 projection?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** Token for requesting successive pages of results. */
                 "start-token"?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<UrlHistory>;            
-            
+            }): Request<UrlHistory>;
         }
     }
 }

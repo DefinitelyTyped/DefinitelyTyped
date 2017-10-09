@@ -13,43 +13,41 @@
 
 declare namespace gapi.client {
     /** Load Google Compute Engine Instance Group Updater API v1beta1 */
-    function load(name: "replicapoolupdater", version: "v1beta1"): PromiseLike<void>;    
-    function load(name: "replicapoolupdater", version: "v1beta1", callback: () => any): void;    
-    
-    const rollingUpdates: replicapoolupdater.RollingUpdatesResource; 
-    
-    const zoneOperations: replicapoolupdater.ZoneOperationsResource; 
-    
+    function load(name: "replicapoolupdater", version: "v1beta1"): PromiseLike<void>;
+    function load(name: "replicapoolupdater", version: "v1beta1", callback: () => any): void;
+
+    const rollingUpdates: replicapoolupdater.RollingUpdatesResource;
+
+    const zoneOperations: replicapoolupdater.ZoneOperationsResource;
+
     namespace replicapoolupdater {
-        
         interface InstanceUpdate {
             /** Errors that occurred during the instance update. */
-            error?: {            
+            error?: {
                 /** [Output Only] The array of errors encountered while processing this operation. */
-                errors?: Array<{                
+                errors?: Array<{
                     /** [Output Only] The error type identifier for this error. */
                     code?: string;
                     /** [Output Only] Indicates the field in the request that caused the error. This property is optional. */
                     location?: string;
                     /** [Output Only] An optional, human-readable error message. */
                     message?: string;
-                }>;                
-            };            
+                }>;
+            };
             /** Fully-qualified URL of the instance being updated. */
             instance?: string;
             /**
-             * Status of the instance update. Possible values are:  
-             * - "PENDING": The instance update is pending execution. 
-             * - "ROLLING_FORWARD": The instance update is going forward. 
-             * - "ROLLING_BACK": The instance update is being rolled back. 
-             * - "PAUSED": The instance update is temporarily paused (inactive). 
-             * - "ROLLED_OUT": The instance update is finished, the instance is running the new template. 
-             * - "ROLLED_BACK": The instance update is finished, the instance has been reverted to the previous template. 
+             * Status of the instance update. Possible values are:
+             * - "PENDING": The instance update is pending execution.
+             * - "ROLLING_FORWARD": The instance update is going forward.
+             * - "ROLLING_BACK": The instance update is being rolled back.
+             * - "PAUSED": The instance update is temporarily paused (inactive).
+             * - "ROLLED_OUT": The instance update is finished, the instance is running the new template.
+             * - "ROLLED_BACK": The instance update is finished, the instance has been reverted to the previous template.
              * - "CANCELLED": The instance update is paused and no longer can be resumed, undefined in which template the instance is running.
              */
             status?: string;
         }
-        
         interface InstanceUpdateList {
             /** Collection of requested instance updates. */
             items?: InstanceUpdate[];
@@ -60,24 +58,23 @@ declare namespace gapi.client {
             /** [Output Only] The fully qualified URL for the resource. */
             selfLink?: string;
         }
-        
         interface Operation {
             clientOperationId?: string;
             /** [Output Only] Creation timestamp in RFC3339 text format. */
             creationTimestamp?: string;
             endTime?: string;
             /** [Output Only] If errors occurred during processing of this operation, this field will be populated. */
-            error?: {            
+            error?: {
                 /** [Output Only] The array of errors encountered while processing this operation. */
-                errors?: Array<{                
+                errors?: Array<{
                     /** [Output Only] The error type identifier for this error. */
                     code?: string;
                     /** [Output Only] Indicates the field in the request that caused the error. This property is optional. */
                     location?: string;
                     /** [Output Only] An optional, human-readable error message. */
                     message?: string;
-                }>;                
-            };            
+                }>;
+            };
             httpErrorMessage?: string;
             httpErrorStatusCode?: number;
             /** [Output Only] Unique identifier for the resource; defined by the server. */
@@ -105,23 +102,22 @@ declare namespace gapi.client {
             /** [Output Only] URL of the resource the operation is mutating. */
             targetLink?: string;
             user?: string;
-            warnings?: Array<{            
+            warnings?: Array<{
                 /** [Output only] The warning type identifier for this warning. */
                 code?: string;
                 /** [Output only] Metadata for this warning in key:value format. */
-                data?: Array<{                
+                data?: Array<{
                     /** [Output Only] Metadata key for this warning. */
                     key?: string;
                     /** [Output Only] Metadata value for this warning. */
                     value?: string;
-                }>;                
+                }>;
                 /** [Output only] Optional human-readable details for this warning. */
                 message?: string;
-            }>;            
+            }>;
             /** [Output Only] URL of the zone where the operation resides. */
             zone?: string;
         }
-        
         interface OperationList {
             /** [Output Only] Unique identifier for the resource; defined by the server. */
             id?: string;
@@ -134,26 +130,29 @@ declare namespace gapi.client {
             /** [Output Only] The fully qualified URL for the resource. */
             selfLink?: string;
         }
-        
         interface RollingUpdate {
-            /** Specifies the action to take for each instance within the instance group. This can be RECREATE which will recreate each instance and is only available for managed instance groups. It can also be REBOOT which performs a soft reboot for each instance and is only available for regular (non-managed) instance groups. */
+            /**
+             * Specifies the action to take for each instance within the instance group. This can be RECREATE which will recreate each instance and is only available
+             * for managed instance groups. It can also be REBOOT which performs a soft reboot for each instance and is only available for regular (non-managed)
+             * instance groups.
+             */
             actionType?: string;
             /** [Output Only] Creation timestamp in RFC3339 text format. */
             creationTimestamp?: string;
             /** An optional textual description of the resource; provided by the client when the resource is created. */
             description?: string;
             /** [Output Only] Errors that occurred during the rolling update. */
-            error?: {            
+            error?: {
                 /** [Output Only] The array of errors encountered while processing this operation. */
-                errors?: Array<{                
+                errors?: Array<{
                     /** [Output Only] The error type identifier for this error. */
                     code?: string;
                     /** [Output Only] Indicates the field in the request that caused the error. This property is optional. */
                     location?: string;
                     /** [Output Only] An optional, human-readable error message. */
                     message?: string;
-                }>;                
-            };            
+                }>;
+            };
             /** [Output Only] Unique identifier for the resource; defined by the server. */
             id?: string;
             /** Fully-qualified URL of an instance group being updated. Exactly one of instanceGroupManager and instanceGroup must be set. */
@@ -167,29 +166,47 @@ declare namespace gapi.client {
             /** Fully-qualified URL of the instance template encountered while starting the update. */
             oldInstanceTemplate?: string;
             /** Parameters of the update process. */
-            policy?: {            
+            policy?: {
                 /** Number of instances to update before the updater pauses the rolling update. */
                 autoPauseAfterInstances?: number;
-                /** The maximum amount of time that the updater waits for a HEALTHY state after all of the update steps are complete. If the HEALTHY state is not received before the deadline, the instance update is considered a failure. */
+                /**
+                 * The maximum amount of time that the updater waits for a HEALTHY state after all of the update steps are complete. If the HEALTHY state is not received
+                 * before the deadline, the instance update is considered a failure.
+                 */
                 instanceStartupTimeoutSec?: number;
-                /** The maximum number of instances that can be updated simultaneously. An instance update is considered complete only after the instance is restarted and initialized. */
+                /**
+                 * The maximum number of instances that can be updated simultaneously. An instance update is considered complete only after the instance is restarted and
+                 * initialized.
+                 */
                 maxNumConcurrentInstances?: number;
-                /** The maximum number of instance updates that can fail before the group update is considered a failure. An instance update is considered failed if any of its update actions (e.g. Stop call on Instance resource in Rolling Reboot) failed with permanent failure, or if the instance is in an UNHEALTHY state after it finishes all of the update actions. */
+                /**
+                 * The maximum number of instance updates that can fail before the group update is considered a failure. An instance update is considered failed if any of
+                 * its update actions (e.g. Stop call on Instance resource in Rolling Reboot) failed with permanent failure, or if the instance is in an UNHEALTHY state
+                 * after it finishes all of the update actions.
+                 */
                 maxNumFailedInstances?: number;
-                /** The minimum amount of time that the updater spends to update each instance. Update time is the time it takes to complete all update actions (e.g. Stop call on Instance resource in Rolling Reboot), reboot, and initialize. If the instance update finishes early, the updater pauses for the remainder of the time before it starts the next instance update. */
+                /**
+                 * The minimum amount of time that the updater spends to update each instance. Update time is the time it takes to complete all update actions (e.g. Stop
+                 * call on Instance resource in Rolling Reboot), reboot, and initialize. If the instance update finishes early, the updater pauses for the remainder of
+                 * the time before it starts the next instance update.
+                 */
                 minInstanceUpdateTimeSec?: number;
-            };            
-            /** [Output Only] An optional progress indicator that ranges from 0 to 100. There is no requirement that this be linear or support any granularity of operations. This should not be used to guess at when the update will be complete. This number should be monotonically increasing as the update progresses. */
+            };
+            /**
+             * [Output Only] An optional progress indicator that ranges from 0 to 100. There is no requirement that this be linear or support any granularity of
+             * operations. This should not be used to guess at when the update will be complete. This number should be monotonically increasing as the update
+             * progresses.
+             */
             progress?: number;
             /** [Output Only] The fully qualified URL for the resource. */
             selfLink?: string;
             /**
-             * [Output Only] Status of the update. Possible values are:  
-             * - "ROLLING_FORWARD": The update is going forward. 
-             * - "ROLLING_BACK": The update is being rolled back. 
-             * - "PAUSED": The update is temporarily paused (inactive). 
-             * - "ROLLED_OUT": The update is finished, all instances have been updated successfully. 
-             * - "ROLLED_BACK": The update is finished, all instances have been reverted to the previous template. 
+             * [Output Only] Status of the update. Possible values are:
+             * - "ROLLING_FORWARD": The update is going forward.
+             * - "ROLLING_BACK": The update is being rolled back.
+             * - "PAUSED": The update is temporarily paused (inactive).
+             * - "ROLLED_OUT": The update is finished, all instances have been updated successfully.
+             * - "ROLLED_BACK": The update is finished, all instances have been reverted to the previous template.
              * - "CANCELLED": The update is paused and no longer can be resumed, undefined how many instances are running in which template.
              */
             status?: string;
@@ -198,7 +215,6 @@ declare namespace gapi.client {
             /** [Output Only] User who requested the update, for example: user@example.com. */
             user?: string;
         }
-        
         interface RollingUpdateList {
             /** Collection of requested updates. */
             items?: RollingUpdate[];
@@ -209,10 +225,9 @@ declare namespace gapi.client {
             /** [Output Only] The fully qualified URL for the resource. */
             selfLink?: string;
         }
-        
         interface RollingUpdatesResource {
             /** Cancels an update. The update must be PAUSED before it can be cancelled. This has no effect if the update is already CANCELLED. */
-            cancel(request: {            
+            cancel(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -225,7 +240,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the update. */
                 rollingUpdate: string;
@@ -233,10 +251,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Returns information about an update. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -249,7 +266,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the update. */
                 rollingUpdate: string;
@@ -257,10 +277,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<RollingUpdate>;            
-            
+            }): Request<RollingUpdate>;
             /** Inserts and starts a new update. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -273,16 +292,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Lists recent updates for a given managed instance group, in reverse chronological order and paginated format. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -301,16 +322,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<RollingUpdateList>;            
-            
+            }): Request<RollingUpdateList>;
             /** Lists the current status for each instance within a given update. */
-            listInstanceUpdates(request: {            
+            listInstanceUpdates(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -329,7 +352,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the update. */
                 rollingUpdate: string;
@@ -337,10 +363,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<InstanceUpdateList>;            
-            
+            }): Request<InstanceUpdateList>;
             /** Pauses the update in state from ROLLING_FORWARD or ROLLING_BACK. Has no effect if invoked when the state of the update is PAUSED. */
-            pause(request: {            
+            pause(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -353,7 +378,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the update. */
                 rollingUpdate: string;
@@ -361,10 +389,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Continues an update in PAUSED state. Has no effect if invoked when the state of the update is ROLLED_OUT. */
-            resume(request: {            
+            resume(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -377,7 +404,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the update. */
                 rollingUpdate: string;
@@ -385,10 +415,9 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Rolls back the update in state from ROLLING_FORWARD or PAUSED. Has no effect if invoked when the state of the update is ROLLED_BACK. */
-            rollback(request: {            
+            rollback(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -401,7 +430,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The Google Developers Console project name. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the update. */
                 rollingUpdate: string;
@@ -409,13 +441,11 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
         }
-        
         interface ZoneOperationsResource {
             /** Retrieves the specified zone-specific operation resource. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -430,16 +460,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name of the project scoping this request. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Retrieves the list of Operation resources contained within the specified zone. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -458,14 +490,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Name of the project scoping this request. */
                 project: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): Request<OperationList>;            
-            
+            }): Request<OperationList>;
         }
     }
 }

@@ -13,81 +13,40 @@
 
 declare namespace gapi.client {
     /** Load Cloud Spanner API v1 */
-    function load(name: "spanner", version: "v1"): PromiseLike<void>;    
-    function load(name: "spanner", version: "v1", callback: () => any): void;    
-    
-    const projects: spanner.ProjectsResource; 
-    
+    function load(name: "spanner", version: "v1"): PromiseLike<void>;
+    function load(name: "spanner", version: "v1", callback: () => any): void;
+
+    const projects: spanner.ProjectsResource;
+
     namespace spanner {
-        
-        interface AuditConfig {
-            /**
-             * The configuration for logging of each type of permission.
-             * Next ID: 4
-             */
-            auditLogConfigs?: AuditLogConfig[];
-            exemptedMembers?: string[];
-            /**
-             * Specifies a service that will be enabled for audit logging.
-             * For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
-             * `allServices` is a special value that covers all services.
-             */
-            service?: string;
-        }
-        
-        interface AuditLogConfig {
-            /**
-             * Specifies the identities that do not cause logging for this type of
-             * permission.
-             * Follows the same format of Binding.members.
-             */
-            exemptedMembers?: string[];
-            /** The log type that this config enables. */
-            logType?: string;
-        }
-        
-        interface AuthorizationLoggingOptions {
-            /** The type of the permission that was checked. */
-            permissionType?: string;
-        }
-        
         interface BeginTransactionRequest {
             /** Required. Options for the new transaction. */
             options?: TransactionOptions;
         }
-        
         interface Binding {
-            /**
-             * The condition that is associated with this binding.
-             * NOTE: an unsatisfied condition will not allow user access via current
-             * binding. Different bindings, including their conditions, are examined
-             * independently.
-             * This field is GOOGLE_INTERNAL.
-             */
-            condition?: Expr;
             /**
              * Specifies the identities requesting access for a Cloud Platform resource.
              * `members` can have the following values:
-             * 
+             *
              * &#42; `allUsers`: A special identifier that represents anyone who is
-             *    on the internet; with or without a Google account.
-             * 
+             * on the internet; with or without a Google account.
+             *
              * &#42; `allAuthenticatedUsers`: A special identifier that represents anyone
-             *    who is authenticated with a Google account or a service account.
-             * 
+             * who is authenticated with a Google account or a service account.
+             *
              * &#42; `user:{emailid}`: An email address that represents a specific Google
-             *    account. For example, `alice@gmail.com` or `joe@example.com`.
-             * 
-             * 
+             * account. For example, `alice@gmail.com` or `joe@example.com`.
+             *
+             *
              * &#42; `serviceAccount:{emailid}`: An email address that represents a service
-             *    account. For example, `my-other-app@appspot.gserviceaccount.com`.
-             * 
+             * account. For example, `my-other-app@appspot.gserviceaccount.com`.
+             *
              * &#42; `group:{emailid}`: An email address that represents a Google group.
-             *    For example, `admins@example.com`.
-             * 
-             * 
+             * For example, `admins@example.com`.
+             *
+             *
              * &#42; `domain:{domain}`: A Google Apps domain name that represents all the
-             *    users of that domain. For example, `google.com` or `example.com`.
+             * users of that domain. For example, `google.com` or `example.com`.
              */
             members?: string[];
             /**
@@ -97,7 +56,6 @@ declare namespace gapi.client {
              */
             role?: string;
         }
-        
         interface ChildLink {
             /** The node to which the link points. */
             childIndex?: number;
@@ -120,14 +78,6 @@ declare namespace gapi.client {
              */
             variable?: string;
         }
-        
-        interface CloudAuditOptions {
-            /** Information used by the Cloud Audit Logging pipeline. */
-            authorizationLoggingOptions?: AuthorizationLoggingOptions;
-            /** The log_name to populate in the Cloud Audit Record. */
-            logName?: string;
-        }
-        
         interface CommitRequest {
             /**
              * The mutations to be executed when this transaction commits. All
@@ -150,42 +100,14 @@ declare namespace gapi.client {
             /** Commit a previously-started transaction. */
             transactionId?: string;
         }
-        
         interface CommitResponse {
             /** The Cloud Spanner timestamp at which the transaction committed. */
             commitTimestamp?: string;
         }
-        
-        interface Condition {
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
-            /**
-             * Trusted attributes supplied by any service that owns resources and uses
-             * the IAM system for access control.
-             */
-            sys?: string;
-            /** DEPRECATED. Use 'values' instead. */
-            value?: string;
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
-        }
-        
-        interface CounterOptions {
-            /** The field value to attribute. */
-            field?: string;
-            /** The metric to update. */
-            metric?: string;
-        }
-        
         interface CreateDatabaseMetadata {
             /** The database being created. */
             database?: string;
         }
-        
         interface CreateDatabaseRequest {
             /**
              * Required. A `CREATE DATABASE` statement, which specifies the ID of the
@@ -203,7 +125,6 @@ declare namespace gapi.client {
              */
             extraStatements?: string[];
         }
-        
         interface CreateInstanceMetadata {
             /**
              * The time at which this operation was cancelled. If set, this operation is
@@ -222,7 +143,6 @@ declare namespace gapi.client {
              */
             startTime?: string;
         }
-        
         interface CreateInstanceRequest {
             /**
              * Required. The instance to create.  The name may be omitted, but if
@@ -236,7 +156,10 @@ declare namespace gapi.client {
              */
             instanceId?: string;
         }
-        
+        interface CreateSessionRequest {
+            /** The session to create. */
+            session?: Session;
+        }
         interface Database {
             /**
              * Required. The name of the database. Values are of the form
@@ -249,43 +172,41 @@ declare namespace gapi.client {
             /** Output only. The current database state. */
             state?: string;
         }
-        
         interface Delete {
             /** Required. The primary keys of the rows within table to delete. */
             keySet?: KeySet;
             /** Required. The table whose rows will be deleted. */
             table?: string;
         }
-        
         interface ExecuteSqlRequest {
             /**
              * It is not always possible for Cloud Spanner to infer the right SQL type
              * from a JSON value.  For example, values of type `BYTES` and values
              * of type `STRING` both appear in params as JSON strings.
-             * 
+             *
              * In these cases, `param_types` can be used to specify the exact
              * SQL type for some or all of the SQL query parameters. See the
              * definition of Type for more information
              * about SQL types.
              */
-            paramTypes?: Record<string, Type>;            
+            paramTypes?: Record<string, Type>;
             /**
              * The SQL query string can contain parameter placeholders. A parameter
              * placeholder consists of `'@'` followed by the parameter
              * name. Parameter names consist of any combination of letters,
              * numbers, and underscores.
-             * 
+             *
              * Parameters can appear anywhere that a literal value is expected.  The same
              * parameter name can be used more than once, for example:
-             *   `"WHERE id > @msg_id AND id < @msg_id + 100"`
-             * 
+             * `"WHERE id > @msg_id AND id < @msg_id + 100"`
+             *
              * It is an error to execute an SQL query with unbound parameters.
-             * 
+             *
              * Parameter values are specified using `params`, which is a JSON
              * object whose keys are parameter names, and whose values are the
              * corresponding parameter values.
              */
-            params?: Record<string, any>;            
+            params?: Record<string, any>;
             /**
              * Used to control the amount of debugging information returned in
              * ResultSetStats.
@@ -308,34 +229,6 @@ declare namespace gapi.client {
              */
             transaction?: TransactionSelector;
         }
-        
-        interface Expr {
-            /**
-             * An optional description of the expression. This is a longer text which
-             * describes the expression, e.g. when hovered over it in a UI.
-             */
-            description?: string;
-            /**
-             * Textual representation of an expression in
-             * Common Expression Language syntax.
-             * 
-             * The application context of the containing message determines which
-             * well-known feature set of CEL is supported.
-             */
-            expression?: string;
-            /**
-             * An optional string indicating the location of the expression for error
-             * reporting, e.g. a file name and a position in the file.
-             */
-            location?: string;
-            /**
-             * An optional title for the expression, i.e. a short string describing
-             * its purpose. This can be used e.g. in UIs which allow to enter the
-             * expression.
-             */
-            title?: string;
-        }
-        
         interface Field {
             /**
              * The name of the field. For reads, this is the column name. For
@@ -350,7 +243,6 @@ declare namespace gapi.client {
             /** The type of the field. */
             type?: Type;
         }
-        
         interface GetDatabaseDdlResponse {
             /**
              * A list of formatted DDL statements defining the schema of the database
@@ -358,7 +250,6 @@ declare namespace gapi.client {
              */
             statements?: string[];
         }
-        
         interface Instance {
             /**
              * Required. The name of the instance's configuration. Values are of the form
@@ -379,15 +270,15 @@ declare namespace gapi.client {
              * resources. They can be used to control how resource metrics are aggregated.
              * And they can be used as arguments to policy management rules (e.g. route,
              * firewall, load balancing, etc.).
-             * 
-             *  &#42; Label keys must be between 1 and 63 characters long and must conform to
-             *    the following regular expression: `[a-z]([-a-z0-9]&#42;[a-z0-9])?`.
-             *  &#42; Label values must be between 0 and 63 characters long and must conform
-             *    to the regular expression `([a-z]([-a-z0-9]&#42;[a-z0-9])?)?`.
-             *  &#42; No more than 64 labels can be associated with a given resource.
-             * 
+             *
+             * &#42; Label keys must be between 1 and 63 characters long and must conform to
+             * the following regular expression: `[a-z]([-a-z0-9]&#42;[a-z0-9])?`.
+             * &#42; Label values must be between 0 and 63 characters long and must conform
+             * to the regular expression `([a-z]([-a-z0-9]&#42;[a-z0-9])?)?`.
+             * &#42; No more than 64 labels can be associated with a given resource.
+             *
              * See https://goo.gl/xmQnxf for more information on and examples of labels.
-             * 
+             *
              * If you plan to use labels in your own code, please note that additional
              * characters may be allowed in the future. And so you are advised to use an
              * internal label representation, such as JSON, which doesn't rely upon
@@ -395,7 +286,7 @@ declare namespace gapi.client {
              * as the string:  name + "_" + value  would prove problematic if we were to
              * allow "_" in a future release.
              */
-            labels?: Record<string, string>;            
+            labels?: Record<string, string>;
             /**
              * Required. A unique identifier for the instance, which cannot be changed
              * after the instance is created. Values are of the form
@@ -406,16 +297,16 @@ declare namespace gapi.client {
             /**
              * Required. The number of nodes allocated to this instance. This may be zero
              * in API responses for instances that are not yet in state `READY`.
-             * 
+             *
              * Each Spanner node can provide up to 10,000 QPS of reads or 2000 QPS of
              * writes (writing single rows at 1KB data per row), and 2 TiB storage.
-             * 
+             *
              * For optimal performance, we recommend provisioning enough nodes to keep
              * overall CPU utilization under 75%.
-             * 
+             *
              * A minimum of 3 nodes is recommended for production environments.  This
              * minimum is required for SLAs to apply to your instance.
-             * 
+             *
              * Note that Cloud Spanner performance is highly dependent on workload, schema
              * design, and dataset characteristics. The performance numbers above are
              * estimates, and assume [best practices](https://cloud.google.com/spanner/docs/bulk-loading)
@@ -431,7 +322,6 @@ declare namespace gapi.client {
              */
             state?: string;
         }
-        
         interface InstanceConfig {
             /** The name of this instance configuration as it appears in UIs. */
             displayName?: string;
@@ -442,7 +332,6 @@ declare namespace gapi.client {
              */
             name?: string;
         }
-        
         interface KeyRange {
             /**
              * If the end is closed, then the range includes all rows whose
@@ -465,7 +354,6 @@ declare namespace gapi.client {
              */
             startOpen?: any[];
         }
-        
         interface KeySet {
             /**
              * For convenience `all` can be set to `true` to indicate that this
@@ -486,7 +374,6 @@ declare namespace gapi.client {
              */
             ranges?: KeyRange[];
         }
-        
         interface ListDatabasesResponse {
             /** Databases that matched the request. */
             databases?: Database[];
@@ -497,7 +384,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListInstanceConfigsResponse {
             /** The list of requested instance configurations. */
             instanceConfigs?: InstanceConfig[];
@@ -508,7 +394,6 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListInstancesResponse {
             /** The list of requested instances. */
             instances?: Instance[];
@@ -519,23 +404,22 @@ declare namespace gapi.client {
              */
             nextPageToken?: string;
         }
-        
         interface ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: Operation[];
         }
-        
-        interface LogConfig {
-            /** Cloud audit options. */
-            cloudAudit?: CloudAuditOptions;
-            /** Counter options. */
-            counter?: CounterOptions;
-            /** Data access options. */
-            dataAccess?: any;
+        interface ListSessionsResponse {
+            /**
+             * `next_page_token` can be sent in a subsequent
+             * ListSessions call to fetch more of the matching
+             * sessions.
+             */
+            nextPageToken?: string;
+            /** The list of requested sessions. */
+            sessions?: Session[];
         }
-        
         interface Mutation {
             /**
              * Delete rows from a table. Succeeds whether or not the named
@@ -566,11 +450,10 @@ declare namespace gapi.client {
              */
             update?: Write;
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
@@ -582,7 +465,7 @@ declare namespace gapi.client {
              * Some services might not provide such metadata.  Any method that returns a
              * long-running operation should document the metadata type, if any.
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /**
              * The server-assigned name, which is only unique within the same service that
              * originally returns it. If you use the default HTTP mapping, the
@@ -599,9 +482,8 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface PartialResultSet {
             /**
              * If true, then the final value in values is chunked, and must
@@ -635,78 +517,77 @@ declare namespace gapi.client {
              * large rows and/or large values. Every N complete values defines a
              * row, where N is equal to the number of entries in
              * metadata.row_type.fields.
-             * 
+             *
              * Most values are encoded based on type as described
              * here.
-             * 
+             *
              * It is possible that the last value in values is "chunked",
              * meaning that the rest of the value is sent in subsequent
              * `PartialResultSet`(s). This is denoted by the chunked_value
              * field. Two or more chunked values can be merged to form a
              * complete value as follows:
-             * 
-             *   &#42; `bool/number/null`: cannot be chunked
-             *   &#42; `string`: concatenate the strings
-             *   &#42; `list`: concatenate the lists. If the last element in a list is a
-             *     `string`, `list`, or `object`, merge it with the first element in
-             *     the next list by applying these rules recursively.
-             *   &#42; `object`: concatenate the (field name, field value) pairs. If a
-             *     field name is duplicated, then apply these rules recursively
-             *     to merge the field values.
-             * 
+             *
+             * &#42; `bool/number/null`: cannot be chunked
+             * &#42; `string`: concatenate the strings
+             * &#42; `list`: concatenate the lists. If the last element in a list is a
+             * `string`, `list`, or `object`, merge it with the first element in
+             * the next list by applying these rules recursively.
+             * &#42; `object`: concatenate the (field name, field value) pairs. If a
+             * field name is duplicated, then apply these rules recursively
+             * to merge the field values.
+             *
              * Some examples of merging:
-             * 
-             *     # Strings are concatenated.
-             *     "foo", "bar" => "foobar"
-             * 
-             *     # Lists of non-strings are concatenated.
-             *     [2, 3], [4] => [2, 3, 4]
-             * 
-             *     # Lists are concatenated, but the last and first elements are merged
-             *     # because they are strings.
-             *     ["a", "b"], ["c", "d"] => ["a", "bc", "d"]
-             * 
-             *     # Lists are concatenated, but the last and first elements are merged
-             *     # because they are lists. Recursively, the last and first elements
-             *     # of the inner lists are merged because they are strings.
-             *     ["a", ["b", "c"]], [["d"], "e"] => ["a", ["b", "cd"], "e"]
-             * 
-             *     # Non-overlapping object fields are combined.
-             *     {"a": "1"}, {"b": "2"} => {"a": "1", "b": 2"}
-             * 
-             *     # Overlapping object fields are merged.
-             *     {"a": "1"}, {"a": "2"} => {"a": "12"}
-             * 
-             *     # Examples of merging objects containing lists of strings.
-             *     {"a": ["1"]}, {"a": ["2"]} => {"a": ["12"]}
-             * 
+             *
+             * # Strings are concatenated.
+             * "foo", "bar" => "foobar"
+             *
+             * # Lists of non-strings are concatenated.
+             * [2, 3], [4] => [2, 3, 4]
+             *
+             * # Lists are concatenated, but the last and first elements are merged
+             * # because they are strings.
+             * ["a", "b"], ["c", "d"] => ["a", "bc", "d"]
+             *
+             * # Lists are concatenated, but the last and first elements are merged
+             * # because they are lists. Recursively, the last and first elements
+             * # of the inner lists are merged because they are strings.
+             * ["a", ["b", "c"]], [["d"], "e"] => ["a", ["b", "cd"], "e"]
+             *
+             * # Non-overlapping object fields are combined.
+             * {"a": "1"}, {"b": "2"} => {"a": "1", "b": 2"}
+             *
+             * # Overlapping object fields are merged.
+             * {"a": "1"}, {"a": "2"} => {"a": "12"}
+             *
+             * # Examples of merging objects containing lists of strings.
+             * {"a": ["1"]}, {"a": ["2"]} => {"a": ["12"]}
+             *
              * For a more complete example, suppose a streaming SQL query is
              * yielding a result set whose rows contain a single string
              * field. The following `PartialResultSet`s might be yielded:
-             * 
-             *     {
-             *       "metadata": { ... }
-             *       "values": ["Hello", "W"]
-             *       "chunked_value": true
-             *       "resume_token": "Af65..."
-             *     }
-             *     {
-             *       "values": ["orl"]
-             *       "chunked_value": true
-             *       "resume_token": "Bqp2..."
-             *     }
-             *     {
-             *       "values": ["d"]
-             *       "resume_token": "Zx1B..."
-             *     }
-             * 
+             *
+             * {
+             * "metadata": { ... }
+             * "values": ["Hello", "W"]
+             * "chunked_value": true
+             * "resume_token": "Af65..."
+             * }
+             * {
+             * "values": ["orl"]
+             * "chunked_value": true
+             * "resume_token": "Bqp2..."
+             * }
+             * {
+             * "values": ["d"]
+             * "resume_token": "Zx1B..."
+             * }
+             *
              * This sequence of `PartialResultSet`s encodes two rows, one
              * containing the field value `"Hello"`, and a second containing the
              * field value `"World" = "W" + "orl" + "d"`.
              */
             values?: any[];
         }
-        
         interface PlanNode {
             /** List of child node `index`es and their relationship to this parent. */
             childLinks?: ChildLink[];
@@ -718,7 +599,7 @@ declare namespace gapi.client {
              * profile query. For example, number of executions, number of rows/time per
              * execution etc.
              */
-            executionStats?: Record<string, any>;            
+            executionStats?: Record<string, any>;
             /** The `PlanNode`'s index in node list. */
             index?: number;
             /**
@@ -733,20 +614,17 @@ declare namespace gapi.client {
              * Attributes relevant to the node contained in a group of key-value pairs.
              * For example, a Parameter Reference node could have the following
              * information in its metadata:
-             * 
-             *     {
-             *       "parameter_reference": "param1",
-             *       "parameter_type": "array"
-             *     }
+             *
+             * {
+             * "parameter_reference": "param1",
+             * "parameter_type": "array"
+             * }
              */
-            metadata?: Record<string, any>;            
+            metadata?: Record<string, any>;
             /** Condensed representation for SCALAR nodes. */
             shortRepresentation?: ShortRepresentation;
         }
-        
         interface Policy {
-            /** Specifies cloud audit logging configuration for this policy. */
-            auditConfigs?: AuditConfig[];
             /**
              * Associates a list of `members` to a `role`.
              * `bindings` with no members will result in an error.
@@ -760,28 +638,14 @@ declare namespace gapi.client {
              * conditions: An `etag` is returned in the response to `getIamPolicy`, and
              * systems are expected to put that etag in the request to `setIamPolicy` to
              * ensure that their change will be applied to the same version of the policy.
-             * 
+             *
              * If no `etag` is provided in the call to `setIamPolicy`, then the existing
              * policy is overwritten blindly.
              */
             etag?: string;
-            iamOwned?: boolean;
-            /**
-             * If more than one rule is specified, the rules are applied in the following
-             * manner:
-             * - All matching LOG rules are always applied.
-             * - If any DENY/DENY_WITH_LOG rule matches, permission is denied.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is
-             *   granted.
-             *   Logging will be applied if one or more matching rule requires logging.
-             * - Otherwise, if no rule applies, permission is denied.
-             */
-            rules?: Rule[];
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
         }
-        
         interface QueryPlan {
             /**
              * The nodes in the query plan. Plan nodes are returned in pre-order starting
@@ -790,18 +654,17 @@ declare namespace gapi.client {
              */
             planNodes?: PlanNode[];
         }
-        
         interface ReadOnly {
             /**
              * Executes all reads at a timestamp that is `exact_staleness`
              * old. The timestamp is chosen soon after the read is started.
-             * 
+             *
              * Guarantees that all writes that have committed more than the
              * specified number of seconds ago are visible. Because Cloud Spanner
              * chooses the exact timestamp, this mode works even if the client's
              * local clock is substantially skewed from Cloud Spanner commit
              * timestamps.
-             * 
+             *
              * Useful for reading at nearby replicas without the distributed
              * timestamp negotiation overhead of `max_staleness`.
              */
@@ -813,22 +676,22 @@ declare namespace gapi.client {
              * Cloud Spanner chooses the exact timestamp, this mode works even if
              * the client's local clock is substantially skewed from Cloud Spanner
              * commit timestamps.
-             * 
+             *
              * Useful for reading the freshest data available at a nearby
              * replica, while bounding the possible staleness if the local
              * replica has fallen behind.
-             * 
+             *
              * Note that this option can only be used in single-use
              * transactions.
              */
             maxStaleness?: string;
             /**
              * Executes all reads at a timestamp >= `min_read_timestamp`.
-             * 
+             *
              * This is useful for requesting fresher data than some previous
              * read, or data that is fresh enough to observe the effects of some
              * previously committed transaction whose timestamp is known.
-             * 
+             *
              * Note that this option can only be used in single-use transactions.
              */
             minReadTimestamp?: string;
@@ -838,7 +701,7 @@ declare namespace gapi.client {
              * the same timestamp always returns the same data. If the
              * timestamp is in the future, the read will block until the
              * specified timestamp, modulo the read's deadline.
-             * 
+             *
              * Useful for large scale consistent reads such as mapreduces, or
              * for coordinating many reads against a consistent snapshot of the
              * data.
@@ -855,7 +718,6 @@ declare namespace gapi.client {
              */
             strong?: boolean;
         }
-        
         interface ReadRequest {
             /**
              * The columns of table to be returned for each row matching
@@ -873,10 +735,10 @@ declare namespace gapi.client {
              * primary keys of the rows in table to be yielded, unless index
              * is present. If index is present, then key_set instead names
              * index keys in index.
-             * 
+             *
              * Rows are yielded in table primary key order (if index is empty)
              * or index key order (if index is non-empty).
-             * 
+             *
              * It is not an error for the `key_set` to name rows that do not
              * exist in the database. Read yields nothing for nonexistent rows.
              */
@@ -884,6 +746,7 @@ declare namespace gapi.client {
             /**
              * If greater than zero, only the first `limit` rows are yielded. If `limit`
              * is zero, the default is no limit.
+             * A limit cannot be specified if partition_token is set.
              */
             limit?: string;
             /**
@@ -903,7 +766,6 @@ declare namespace gapi.client {
              */
             transaction?: TransactionSelector;
         }
-        
         interface ResultSet {
             /** Metadata about the result set, such as row type information. */
             metadata?: ResultSetMetadata;
@@ -923,17 +785,16 @@ declare namespace gapi.client {
              */
             stats?: ResultSetStats;
         }
-        
         interface ResultSetMetadata {
             /**
              * Indicates the field names and types for the rows in the result
              * set.  For example, a SQL query like `"SELECT UserId, UserName FROM
              * Users"` could return a `row_type` value like:
-             * 
-             *     "fields": [
-             *       { "name": "UserId", "type": { "code": "INT64" } },
-             *       { "name": "UserName", "type": { "code": "STRING" } },
-             *     ]
+             *
+             * "fields": [
+             * { "name": "UserId", "type": { "code": "INT64" } },
+             * { "name": "UserName", "type": { "code": "STRING" } },
+             * ]
              */
             rowType?: StructType;
             /**
@@ -942,7 +803,6 @@ declare namespace gapi.client {
              */
             transaction?: Transaction;
         }
-        
         interface ResultSetStats {
             /** QueryPlan for the query associated with this result. */
             queryPlan?: QueryPlan;
@@ -950,58 +810,40 @@ declare namespace gapi.client {
              * Aggregated statistics from the execution of the query. Only present when
              * the query is profiled. For example, a query could return the statistics as
              * follows:
-             * 
-             *     {
-             *       "rows_returned": "3",
-             *       "elapsed_time": "1.22 secs",
-             *       "cpu_time": "1.19 secs"
-             *     }
+             *
+             * {
+             * "rows_returned": "3",
+             * "elapsed_time": "1.22 secs",
+             * "cpu_time": "1.19 secs"
+             * }
              */
-            queryStats?: Record<string, any>;            
+            queryStats?: Record<string, any>;
         }
-        
         interface RollbackRequest {
             /** Required. The transaction to roll back. */
             transactionId?: string;
         }
-        
-        interface Rule {
-            /** Required */
-            action?: string;
-            /** Additional restrictions that must be met */
-            conditions?: Condition[];
-            /** Human-readable description of the rule. */
-            description?: string;
-            /**
-             * If one or more 'in' clauses are specified, the rule matches if
-             * the PRINCIPAL/AUTHORITY_SELECTOR is in at least one of these entries.
-             */
-            in?: string[];
-            /**
-             * The config returned to callers of tech.iam.IAM.CheckPolicy for any entries
-             * that match the LOG action.
-             */
-            logConfig?: LogConfig[];
-            /**
-             * If one or more 'not_in' clauses are specified, the rule matches
-             * if the PRINCIPAL/AUTHORITY_SELECTOR is in none of the entries.
-             * The format for in and not_in entries is the same as for members in a
-             * Binding (see google/iam/v1/policy.proto).
-             */
-            notIn?: string[];
-            /**
-             * A permission is a string of form '<service>.<resource type>.<verb>'
-             * (e.g., 'storage.buckets.list'). A value of '&#42;' matches all permissions,
-             * and a verb part of '&#42;' (e.g., 'storage.buckets.&#42;') matches all verbs.
-             */
-            permissions?: string[];
-        }
-        
         interface Session {
-            /** Required. The name of the session. */
+            /**
+             * Output only. The approximate timestamp when the session is last used. It is
+             * typically earlier than the actual last use time.
+             */
+            approximateLastUseTime?: string;
+            /** Output only. The timestamp when the session is created. */
+            createTime?: string;
+            /**
+             * The labels for the session.
+             *
+             * &#42; Label keys must be between 1 and 63 characters long and must conform to
+             * the following regular expression: `[a-z]([-a-z0-9]&#42;[a-z0-9])?`.
+             * &#42; Label values must be between 0 and 63 characters long and must conform
+             * to the regular expression `([a-z]([-a-z0-9]&#42;[a-z0-9])?)?`.
+             * &#42; No more than 20 labels can be associated with a given session.
+             */
+            labels?: Record<string, string>;
+            /** The name of the session. */
             name?: string;
         }
-        
         interface SetIamPolicyRequest {
             /**
              * REQUIRED: The complete policy to be applied to the `resource`. The size of
@@ -1010,16 +852,7 @@ declare namespace gapi.client {
              * might reject them.
              */
             policy?: Policy;
-            /**
-             * OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
-             * the fields in the mask will be modified. If no mask is provided, the
-             * following default mask is used:
-             * paths: "bindings, etag"
-             * This field is only used by Cloud IAM.
-             */
-            updateMask?: string;
         }
-        
         interface ShortRepresentation {
             /** A string representation of the expression subtree rooted at this node. */
             description?: string;
@@ -1030,9 +863,8 @@ declare namespace gapi.client {
              * referenced `SCALAR` subquery may not necessarily be a direct child of
              * this node.
              */
-            subqueries?: Record<string, number>;            
+            subqueries?: Record<string, number>;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -1040,7 +872,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -1048,7 +880,6 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface StructType {
             /**
              * The list of fields that make up this struct. Order is
@@ -1060,7 +891,6 @@ declare namespace gapi.client {
              */
             fields?: Field[];
         }
-        
         interface TestIamPermissionsRequest {
             /**
              * REQUIRED: The set of permissions to check for 'resource'.
@@ -1068,7 +898,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface TestIamPermissionsResponse {
             /**
              * A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -1076,7 +905,6 @@ declare namespace gapi.client {
              */
             permissions?: string[];
         }
-        
         interface Transaction {
             /**
              * `id` may be used to identify the transaction in subsequent
@@ -1084,7 +912,7 @@ declare namespace gapi.client {
              * ExecuteSql,
              * Commit, or
              * Rollback calls.
-             * 
+             *
              * Single-use read-only transactions do not have IDs, because
              * single-use transactions do not support multiple requests.
              */
@@ -1096,11 +924,10 @@ declare namespace gapi.client {
              */
             readTimestamp?: string;
         }
-        
         interface TransactionOptions {
             /**
              * Transaction will not write.
-             * 
+             *
              * Authorization to begin a read-only transaction requires
              * `spanner.databases.beginReadOnlyTransaction` permission
              * on the `session` resource.
@@ -1108,14 +935,13 @@ declare namespace gapi.client {
             readOnly?: ReadOnly;
             /**
              * Transaction may write.
-             * 
+             *
              * Authorization to begin a read-write transaction requires
              * `spanner.databases.beginOrRollbackReadWriteTransaction` permission
              * on the `session` resource.
              */
             readWrite?: any;
         }
-        
         interface TransactionSelector {
             /**
              * Begin a new transaction and execute this read or SQL query in
@@ -1132,7 +958,6 @@ declare namespace gapi.client {
              */
             singleUse?: TransactionOptions;
         }
-        
         interface Type {
             /**
              * If code == ARRAY, then `array_element_type`
@@ -1147,7 +972,6 @@ declare namespace gapi.client {
              */
             structType?: StructType;
         }
-        
         interface UpdateDatabaseDdlMetadata {
             /**
              * Reports the commit timestamps of all statements that have
@@ -1163,14 +987,13 @@ declare namespace gapi.client {
              */
             statements?: string[];
         }
-        
         interface UpdateDatabaseDdlRequest {
             /**
              * If empty, the new update request is assigned an
              * automatically-generated operation ID. Otherwise, `operation_id`
              * is used to construct the name of the resulting
              * Operation.
-             * 
+             *
              * Specifying an explicit operation ID simplifies determining
              * whether the statements were executed in the event that the
              * UpdateDatabaseDdl call is replayed,
@@ -1178,7 +1001,7 @@ declare namespace gapi.client {
              * `operation_id` fields can be combined to form the
              * name of the resulting
              * longrunning.Operation: `<database>/operations/<operation_id>`.
-             * 
+             *
              * `operation_id` should be unique within the database, and must be
              * a valid identifier: `a-z&#42;`. Note that
              * automatically-generated operation IDs always begin with an
@@ -1190,7 +1013,6 @@ declare namespace gapi.client {
             /** DDL statements to be applied to the database. */
             statements?: string[];
         }
-        
         interface UpdateInstanceMetadata {
             /**
              * The time at which this operation was cancelled. If set, this operation is
@@ -1208,7 +1030,6 @@ declare namespace gapi.client {
              */
             startTime?: string;
         }
-        
         interface UpdateInstanceRequest {
             /**
              * Required. A mask specifying which fields in [][google.spanner.admin.instance.v1.UpdateInstanceRequest.instance] should be updated.
@@ -1223,11 +1044,10 @@ declare namespace gapi.client {
              */
             instance?: Instance;
         }
-        
         interface Write {
             /**
              * The names of the columns in table to be written.
-             * 
+             *
              * The list of columns must contain enough columns to allow
              * Cloud Spanner to derive values for all primary key columns in the
              * row(s) to be modified.
@@ -1247,10 +1067,9 @@ declare namespace gapi.client {
              */
             values?: any[][];
         }
-        
         interface InstanceConfigsResource {
             /** Gets information about a particular instance configuration. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1282,10 +1101,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<InstanceConfig>;            
-            
+            }): Request<InstanceConfig>;
             /** Lists the supported instance configurations for a given project. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1329,10 +1147,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListInstanceConfigsResponse>;            
-            
+            }): Request<ListInstanceConfigsResponse>;
         }
-        
         interface OperationsResource {
             /**
              * Starts asynchronous cancellation on a long-running operation.  The server
@@ -1346,7 +1162,7 @@ declare namespace gapi.client {
              * an Operation.error value with a google.rpc.Status.code of 1,
              * corresponding to `Code.CANCELLED`.
              */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1375,15 +1191,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Deletes a long-running operation. This method indicates that the client is
              * no longer interested in the operation result. It does not cancel the
              * operation. If the server doesn't support this method, it returns
              * `google.rpc.Code.UNIMPLEMENTED`.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1412,14 +1227,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1448,12 +1262,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -1462,7 +1275,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1497,10 +1310,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
         }
-        
         interface SessionsResource {
             /**
              * Begins a new transaction. This step can often be skipped:
@@ -1508,7 +1319,7 @@ declare namespace gapi.client {
              * Commit can begin a new transaction as a
              * side-effect.
              */
-            beginTransaction(request: {            
+            beginTransaction(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1537,19 +1348,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Transaction>;            
-            
+            }): Request<Transaction>;
             /**
              * Commits a transaction. The request includes the mutations to be
              * applied to rows in the database.
-             * 
+             *
              * `Commit` might return an `ABORTED` error. This can occur at any time;
              * commonly, the cause is conflicts with concurrent
              * transactions. However, it can also happen for a variety of other
              * reasons. If `Commit` returns `ABORTED`, the caller should re-attempt
              * the transaction from the beginning, re-using the same session.
              */
-            commit(request: {            
+            commit(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1578,30 +1388,29 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CommitResponse>;            
-            
+            }): Request<CommitResponse>;
             /**
              * Creates a new session. A session can be used to perform
              * transactions that read and/or modify data in a Cloud Spanner database.
              * Sessions are meant to be reused for many consecutive
              * transactions.
-             * 
+             *
              * Sessions can only execute one transaction at a time. To execute
              * multiple concurrent read-write/write-only transactions, create
              * multiple sessions. Note that standalone reads and queries use a
              * transaction internally, and count toward the one transaction
              * limit.
-             * 
+             *
              * Cloud Spanner limits the number of sessions that can exist at any given
              * time; thus, it is a good idea to delete idle and/or unneeded sessions.
              * Aside from explicit deletes, Cloud Spanner can delete sessions for which no
              * operations are sent for more than an hour. If a session is deleted,
              * requests to it return `NOT_FOUND`.
-             * 
+             *
              * Idle sessions can be kept alive by sending a trivial SQL query
              * periodically, e.g., `"SELECT 1"`.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1630,10 +1439,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Session>;            
-            
+            }): Request<Session>;
             /** Ends a session, releasing server resources associated with it. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1662,22 +1470,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Executes an SQL query, returning all rows in a single reply. This
              * method cannot be used to return a result set larger than 10 MiB;
              * if the query yields more data than that, the query fails with
              * a `FAILED_PRECONDITION` error.
-             * 
+             *
              * Queries inside read-write transactions might return `ABORTED`. If
              * this occurs, the application should restart the transaction from
              * the beginning. See Transaction for more details.
-             * 
+             *
              * Larger result sets can be fetched in streaming fashion by calling
              * ExecuteStreamingSql instead.
              */
-            executeSql(request: {            
+            executeSql(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1706,8 +1513,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ResultSet>;            
-            
+            }): Request<ResultSet>;
             /**
              * Like ExecuteSql, except returns the result
              * set as a stream. Unlike ExecuteSql, there
@@ -1715,7 +1521,7 @@ declare namespace gapi.client {
              * individual row in the result set can exceed 100 MiB, and no
              * column value can exceed 10 MiB.
              */
-            executeStreamingSql(request: {            
+            executeStreamingSql(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1744,14 +1550,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<PartialResultSet>;            
-            
+            }): Request<PartialResultSet>;
             /**
              * Gets a session. Returns `NOT_FOUND` if the session does not exist.
              * This is mainly useful for determining whether a session is still
              * alive.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1780,8 +1585,62 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Session>;            
-            
+            }): Request<Session>;
+            /** Lists all sessions in a given database. */
+            list(request: {
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Required. The database in which to list sessions. */
+                database: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /**
+                 * An expression for filtering the results of the request. Filter rules are
+                 * case insensitive. The fields eligible for filtering are:
+                 *
+                 * &#42; labels.key where key is the name of a label
+                 *
+                 * Some examples of using filters are:
+                 *
+                 * &#42; labels.env:&#42; --> The session has the label "env".
+                 * &#42; labels.env:dev --> The session has the label "env" and the value of
+                 * the label contains the string "dev".
+                 */
+                filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /**
+                 * Number of sessions to be returned in the response. If 0 or less, defaults
+                 * to the server's maximum allowed page size.
+                 */
+                pageSize?: number;
+                /**
+                 * If non-empty, `page_token` should contain a
+                 * next_page_token from a previous
+                 * ListSessionsResponse.
+                 */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListSessionsResponse>;
             /**
              * Reads rows from the database using key lookups and scans, as a
              * simple key/value style alternative to
@@ -1789,15 +1648,15 @@ declare namespace gapi.client {
              * return a result set larger than 10 MiB; if the read matches more
              * data than that, the read fails with a `FAILED_PRECONDITION`
              * error.
-             * 
+             *
              * Reads inside read-write transactions might return `ABORTED`. If
              * this occurs, the application should restart the transaction from
              * the beginning. See Transaction for more details.
-             * 
+             *
              * Larger result sets can be yielded in streaming fashion by calling
              * StreamingRead instead.
              */
-            read(request: {            
+            read(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1826,19 +1685,18 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ResultSet>;            
-            
+            }): Request<ResultSet>;
             /**
              * Rolls back a transaction, releasing any locks it holds. It is a good
              * idea to call this for any transaction that includes one or more
              * Read or ExecuteSql requests and
              * ultimately decides not to commit.
-             * 
+             *
              * `Rollback` returns `OK` if it successfully aborts the transaction, the
              * transaction was already aborted, or the transaction is not
              * found. `Rollback` never returns `ABORTED`.
              */
-            rollback(request: {            
+            rollback(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1867,8 +1725,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Like Read, except returns the result set as a
              * stream. Unlike Read, there is no limit on the
@@ -1876,7 +1733,7 @@ declare namespace gapi.client {
              * the result set can exceed 100 MiB, and no column value can exceed
              * 10 MiB.
              */
-            streamingRead(request: {            
+            streamingRead(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1905,10 +1762,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<PartialResultSet>;            
-            
+            }): Request<PartialResultSet>;
         }
-        
         interface DatabasesResource {
             /**
              * Creates a new Cloud Spanner database and starts to prepare it for serving.
@@ -1920,7 +1775,7 @@ declare namespace gapi.client {
              * response field type is
              * Database, if successful.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1952,10 +1807,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /** Drops (aka deletes) a Cloud Spanner database. */
-            dropDatabase(request: {            
+            dropDatabase(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1984,10 +1838,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets the state of a Cloud Spanner database. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2019,14 +1872,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Database>;            
-            
+            }): Request<Database>;
             /**
              * Returns the schema of a Cloud Spanner database as a list of formatted
              * DDL statements. This method does not show pending schema updates, those may
              * be queried using the Operations API.
              */
-            getDdl(request: {            
+            getDdl(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2055,16 +1907,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GetDatabaseDdlResponse>;            
-            
+            }): Request<GetDatabaseDdlResponse>;
             /**
              * Gets the access control policy for a database resource. Returns an empty
              * policy if a database exists but does not have a policy set.
-             * 
+             *
              * Authorization requires `spanner.databases.getIamPolicy` permission on
              * resource.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2087,16 +1938,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
+                /**
+                 * REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for
+                 * instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources.
+                 */
                 resource: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Lists Cloud Spanner databases. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2139,16 +1992,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListDatabasesResponse>;            
-            
+            }): Request<ListDatabasesResponse>;
             /**
              * Sets the access control policy on a database resource. Replaces any
              * existing policy.
-             * 
+             *
              * Authorization requires `spanner.databases.setIamPolicy` permission on
              * resource.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2171,23 +2023,25 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources. */
+                /**
+                 * REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance
+                 * resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources.
+                 */
                 resource: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that the caller has on the specified database resource.
-             * 
+             *
              * Attempting this RPC on a non-existent Cloud Spanner database will result in
              * a NOT_FOUND error if the user has `spanner.databases.list` permission on
              * the containing Cloud Spanner instance. Otherwise returns an empty set of
              * permissions.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2210,14 +2064,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
+                /**
+                 * REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `projects/<project ID>/instances/<instance ID>` for instance
+                 * resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources.
+                 */
                 resource: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             /**
              * Updates the schema of a Cloud Spanner database by
              * creating/altering/dropping tables, columns, indexes, etc. The returned
@@ -2227,7 +2083,7 @@ declare namespace gapi.client {
              * metadata field type is
              * UpdateDatabaseDdlMetadata.  The operation has no response.
              */
-            updateDdl(request: {            
+            updateDdl(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2256,12 +2112,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             operations: OperationsResource;
             sessions: SessionsResource;
         }
-        
         interface OperationsResource {
             /**
              * Starts asynchronous cancellation on a long-running operation.  The server
@@ -2275,7 +2129,7 @@ declare namespace gapi.client {
              * an Operation.error value with a google.rpc.Status.code of 1,
              * corresponding to `Code.CANCELLED`.
              */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2304,15 +2158,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Deletes a long-running operation. This method indicates that the client is
              * no longer interested in the operation result. It does not cancel the
              * operation. If the server doesn't support this method, it returns
              * `google.rpc.Code.UNIMPLEMENTED`.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2341,14 +2194,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2377,12 +2229,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -2391,7 +2242,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2426,10 +2277,8 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
         }
-        
         interface InstancesResource {
             /**
              * Creates an instance and begins preparing it to begin serving. The
@@ -2438,27 +2287,27 @@ declare namespace gapi.client {
              * instance. The instance name is assigned by the caller. If the
              * named instance already exists, `CreateInstance` returns
              * `ALREADY_EXISTS`.
-             * 
+             *
              * Immediately upon completion of this request:
-             * 
-             *   &#42; The instance is readable via the API, with all requested attributes
-             *     but no allocated resources. Its state is `CREATING`.
-             * 
+             *
+             * &#42; The instance is readable via the API, with all requested attributes
+             * but no allocated resources. Its state is `CREATING`.
+             *
              * Until completion of the returned operation:
-             * 
-             *   &#42; Cancelling the operation renders the instance immediately unreadable
-             *     via the API.
-             *   &#42; The instance can be deleted.
-             *   &#42; All other attempts to modify the instance are rejected.
-             * 
+             *
+             * &#42; Cancelling the operation renders the instance immediately unreadable
+             * via the API.
+             * &#42; The instance can be deleted.
+             * &#42; All other attempts to modify the instance are rejected.
+             *
              * Upon completion of the returned operation:
-             * 
-             *   &#42; Billing for all successfully-allocated resources begins (some types
-             *     may have lower than the requested levels).
-             *   &#42; Databases can be created in the instance.
-             *   &#42; The instance's allocated resource levels are readable via the API.
-             *   &#42; The instance's state becomes `READY`.
-             * 
+             *
+             * &#42; Billing for all successfully-allocated resources begins (some types
+             * may have lower than the requested levels).
+             * &#42; Databases can be created in the instance.
+             * &#42; The instance's allocated resource levels are readable via the API.
+             * &#42; The instance's state becomes `READY`.
+             *
              * The returned long-running operation will
              * have a name of the format `<instance_name>/operations/<operation_id>` and
              * can be used to track creation of the instance.  The
@@ -2467,7 +2316,7 @@ declare namespace gapi.client {
              * The response field type is
              * Instance, if successful.
              */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2499,22 +2348,21 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Deletes an instance.
-             * 
+             *
              * Immediately upon completion of the request:
-             * 
-             *   &#42; Billing ceases for all of the instance's reserved resources.
-             * 
+             *
+             * &#42; Billing ceases for all of the instance's reserved resources.
+             *
              * Soon afterward:
-             * 
-             *   &#42; The instance and &#42;all of its databases&#42; immediately and
-             *     irrevocably disappear from the API. All data in the databases
-             *     is permanently deleted.
+             *
+             * &#42; The instance and &#42;all of its databases&#42; immediately and
+             * irrevocably disappear from the API. All data in the databases
+             * is permanently deleted.
              */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2546,10 +2394,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets information about a particular instance. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2581,16 +2428,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Instance>;            
-            
+            }): Request<Instance>;
             /**
              * Gets the access control policy for an instance resource. Returns an empty
              * policy if an instance exists but does not have a policy set.
-             * 
+             *
              * Authorization requires `spanner.instances.getIamPolicy` on
              * resource.
              */
-            getIamPolicy(request: {            
+            getIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2613,16 +2459,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
+                /**
+                 * REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for
+                 * instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources.
+                 */
                 resource: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /** Lists all instances in the given project. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2638,23 +2486,23 @@ declare namespace gapi.client {
                 /**
                  * An expression for filtering the results of the request. Filter rules are
                  * case insensitive. The fields eligible for filtering are:
-                 * 
-                 *   &#42; name
-                 *   &#42; display_name
-                 *   &#42; labels.key where key is the name of a label
-                 * 
+                 *
+                 * &#42; name
+                 * &#42; display_name
+                 * &#42; labels.key where key is the name of a label
+                 *
                  * Some examples of using filters are:
-                 * 
-                 *   &#42; name:&#42; --> The instance has a name.
-                 *   &#42; name:Howl --> The instance's name contains the string "howl".
-                 *   &#42; name:HOWL --> Equivalent to above.
-                 *   &#42; NAME:howl --> Equivalent to above.
-                 *   &#42; labels.env:&#42; --> The instance has the label "env".
-                 *   &#42; labels.env:dev --> The instance has the label "env" and the value of
-                 *                        the label contains the string "dev".
-                 *   &#42; name:howl labels.env:dev --> The instance's name contains "howl" and
-                 *                                  it has the label "env" with its value
-                 *                                  containing "dev".
+                 *
+                 * &#42; name:&#42; --> The instance has a name.
+                 * &#42; name:Howl --> The instance's name contains the string "howl".
+                 * &#42; name:HOWL --> Equivalent to above.
+                 * &#42; NAME:howl --> Equivalent to above.
+                 * &#42; labels.env:&#42; --> The instance has the label "env".
+                 * &#42; labels.env:dev --> The instance has the label "env" and the value of
+                 * the label contains the string "dev".
+                 * &#42; name:howl labels.env:dev --> The instance's name contains "howl" and
+                 * it has the label "env" with its value
+                 * containing "dev".
                  */
                 filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -2687,39 +2535,38 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListInstancesResponse>;            
-            
+            }): Request<ListInstancesResponse>;
             /**
              * Updates an instance, and begins allocating or releasing resources
              * as requested. The returned long-running
              * operation can be used to track the
              * progress of updating the instance. If the named instance does not
              * exist, returns `NOT_FOUND`.
-             * 
+             *
              * Immediately upon completion of this request:
-             * 
-             *   &#42; For resource types for which a decrease in the instance's allocation
-             *     has been requested, billing is based on the newly-requested level.
-             * 
+             *
+             * &#42; For resource types for which a decrease in the instance's allocation
+             * has been requested, billing is based on the newly-requested level.
+             *
              * Until completion of the returned operation:
-             * 
-             *   &#42; Cancelling the operation sets its metadata's
-             *     cancel_time, and begins
-             *     restoring resources to their pre-request values. The operation
-             *     is guaranteed to succeed at undoing all resource changes,
-             *     after which point it terminates with a `CANCELLED` status.
-             *   &#42; All other attempts to modify the instance are rejected.
-             *   &#42; Reading the instance via the API continues to give the pre-request
-             *     resource levels.
-             * 
+             *
+             * &#42; Cancelling the operation sets its metadata's
+             * cancel_time, and begins
+             * restoring resources to their pre-request values. The operation
+             * is guaranteed to succeed at undoing all resource changes,
+             * after which point it terminates with a `CANCELLED` status.
+             * &#42; All other attempts to modify the instance are rejected.
+             * &#42; Reading the instance via the API continues to give the pre-request
+             * resource levels.
+             *
              * Upon completion of the returned operation:
-             * 
-             *   &#42; Billing begins for all successfully-allocated resources (some types
-             *     may have lower than the requested levels).
-             *   &#42; All newly-reserved resources are available for serving the instance's
-             *     tables.
-             *   &#42; The instance's new resource levels are readable via the API.
-             * 
+             *
+             * &#42; Billing begins for all successfully-allocated resources (some types
+             * may have lower than the requested levels).
+             * &#42; All newly-reserved resources are available for serving the instance's
+             * tables.
+             * &#42; The instance's new resource levels are readable via the API.
+             *
              * The returned long-running operation will
              * have a name of the format `<instance_name>/operations/<operation_id>` and
              * can be used to track the instance modification.  The
@@ -2727,11 +2574,11 @@ declare namespace gapi.client {
              * UpdateInstanceMetadata.
              * The response field type is
              * Instance, if successful.
-             * 
+             *
              * Authorization requires `spanner.instances.update` permission on
              * resource name.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2765,16 +2612,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Sets the access control policy on an instance resource. Replaces any
              * existing policy.
-             * 
+             *
              * Authorization requires `spanner.instances.setIamPolicy` on
              * resource.
              */
-            setIamPolicy(request: {            
+            setIamPolicy(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2797,23 +2643,25 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources. */
+                /**
+                 * REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance
+                 * resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources.
+                 */
                 resource: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Policy>;            
-            
+            }): Request<Policy>;
             /**
              * Returns permissions that the caller has on the specified instance resource.
-             * 
+             *
              * Attempting this RPC on a non-existent Cloud Spanner instance resource will
              * result in a NOT_FOUND error if the user has `spanner.instances.list`
              * permission on the containing Google Cloud Project. Otherwise returns an
              * empty set of permissions.
              */
-            testIamPermissions(request: {            
+            testIamPermissions(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -2836,18 +2684,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
+                /**
+                 * REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `projects/<project ID>/instances/<instance ID>` for instance
+                 * resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources.
+                 */
                 resource: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
+            }): Request<TestIamPermissionsResponse>;
             databases: DatabasesResource;
             operations: OperationsResource;
         }
-        
         interface ProjectsResource {
             instanceConfigs: InstanceConfigsResource;
             instances: InstancesResource;

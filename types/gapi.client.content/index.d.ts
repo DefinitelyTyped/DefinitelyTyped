@@ -13,35 +13,38 @@
 
 declare namespace gapi.client {
     /** Load Content API for Shopping v2 */
-    function load(name: "content", version: "v2"): PromiseLike<void>;    
-    function load(name: "content", version: "v2", callback: () => any): void;    
-    
-    const accounts: content.AccountsResource; 
-    
-    const accountstatuses: content.AccountstatusesResource; 
-    
-    const accounttax: content.AccounttaxResource; 
-    
-    const datafeeds: content.DatafeedsResource; 
-    
-    const datafeedstatuses: content.DatafeedstatusesResource; 
-    
-    const inventory: content.InventoryResource; 
-    
-    const orders: content.OrdersResource; 
-    
-    const products: content.ProductsResource; 
-    
-    const productstatuses: content.ProductstatusesResource; 
-    
-    const shippingsettings: content.ShippingsettingsResource; 
-    
+    function load(name: "content", version: "v2"): PromiseLike<void>;
+    function load(name: "content", version: "v2", callback: () => any): void;
+
+    const accounts: content.AccountsResource;
+
+    const accountstatuses: content.AccountstatusesResource;
+
+    const accounttax: content.AccounttaxResource;
+
+    const datafeeds: content.DatafeedsResource;
+
+    const datafeedstatuses: content.DatafeedstatusesResource;
+
+    const inventory: content.InventoryResource;
+
+    const orders: content.OrdersResource;
+
+    const products: content.ProductsResource;
+
+    const productstatuses: content.ProductstatusesResource;
+
+    const shippingsettings: content.ShippingsettingsResource;
+
     namespace content {
-        
         interface Account {
             /** Indicates whether the merchant sells adult content. */
             adultContent?: boolean;
-            /** List of linked AdWords accounts that are active or pending approval. To create a new link request, add a new link with status active to the list. It will remain in a pending state until approved or rejected either in the AdWords interface or through the  AdWords API. To delete an active link, or to cancel a link request, remove it from the list. */
+            /**
+             * List of linked AdWords accounts that are active or pending approval. To create a new link request, add a new link with status active to the list. It
+             * will remain in a pending state until approved or rejected either in the AdWords interface or through the  AdWords API. To delete an active link, or to
+             * cancel a link request, remove it from the list.
+             */
             adwordsLinks?: AccountAdwordsLink[];
             /** Merchant Center account ID. */
             id?: string;
@@ -57,22 +60,31 @@ declare namespace gapi.client {
             users?: AccountUser[];
             /** The merchant's website. */
             websiteUrl?: string;
+            /**
+             * List of linked YouTube channels that are active or pending approval. To create a new link request, add a new link with status active to the list. It
+             * will remain in a pending state until approved or rejected in the YT Creator Studio interface. To delete an active link, or to cancel a link request,
+             * remove it from the list.
+             */
+            youtubeChannelLinks?: AccountYouTubeChannelLink[];
         }
-        
         interface AccountAdwordsLink {
             /** Customer ID of the AdWords account. */
             adwordsId?: string;
-            /** Status of the link between this Merchant Center account and the AdWords account. Upon retrieval, it represents the actual status of the link and can be either active if it was approved in Google AdWords or pending if it's pending approval. Upon insertion, it represents the intended status of the link. Re-uploading a link with status active when it's still pending or with status pending when it's already active will have no effect: the status will remain unchanged. Re-uploading a link with deprecated status inactive is equivalent to not submitting the link at all and will delete the link if it was active or cancel the link request if it was pending. */
+            /**
+             * Status of the link between this Merchant Center account and the AdWords account. Upon retrieval, it represents the actual status of the link and can be
+             * either active if it was approved in Google AdWords or pending if it's pending approval. Upon insertion, it represents the intended status of the link.
+             * Re-uploading a link with status active when it's still pending or with status pending when it's already active will have no effect: the status will
+             * remain unchanged. Re-uploading a link with deprecated status inactive is equivalent to not submitting the link at all and will delete the link if it
+             * was active or cancel the link request if it was pending.
+             */
             status?: string;
         }
-        
         interface AccountIdentifier {
             /** The aggregator ID, set for aggregators and subaccounts (in that case, it represents the aggregator of the subaccount). */
             aggregatorId?: string;
             /** The merchant account ID, set for individual accounts and subaccounts. */
             merchantId?: string;
         }
-        
         interface AccountStatus {
             /** The ID of the account for which the status is reported. */
             accountId?: string;
@@ -85,7 +97,6 @@ declare namespace gapi.client {
             /** Whether the account's website is claimed or not. */
             websiteClaimed?: boolean;
         }
-        
         interface AccountStatusAccountLevelIssue {
             /** Country for which this issue is reported. */
             country?: string;
@@ -98,7 +109,6 @@ declare namespace gapi.client {
             /** Short description of the issue. */
             title?: string;
         }
-        
         interface AccountStatusDataQualityIssue {
             /** Country for which this issue is reported. */
             country?: string;
@@ -121,7 +131,6 @@ declare namespace gapi.client {
             /** Submitted value that causes the issue. */
             submittedValue?: string;
         }
-        
         interface AccountStatusExampleItem {
             /** Unique item ID as specified in the uploaded product data. */
             itemId?: string;
@@ -134,7 +143,6 @@ declare namespace gapi.client {
             /** The actual value on the landing page. */
             valueOnLandingPage?: string;
         }
-        
         interface AccountTax {
             /** The ID of the account to which these account tax settings belong. */
             accountId?: string;
@@ -143,7 +151,6 @@ declare namespace gapi.client {
             /** Tax rules. Updating the tax rules will enable US taxes (not reversible). Defining no rules is equivalent to not charging tax at all. */
             rules?: AccountTaxTaxRule[];
         }
-        
         interface AccountTaxTaxRule {
             /** Country code in which tax is applicable. */
             country?: string;
@@ -156,14 +163,24 @@ declare namespace gapi.client {
             /** Whether the tax rate is taken from a global tax table or specified explicitly. */
             useGlobalRate?: boolean;
         }
-        
         interface AccountUser {
             /** Whether user is an admin. */
             admin?: boolean;
             /** User's email address. */
             emailAddress?: string;
         }
-        
+        interface AccountYouTubeChannelLink {
+            /** Channel ID. */
+            channelId?: string;
+            /**
+             * Status of the link between this Merchant Center account and the YouTube channel. Upon retrieval, it represents the actual status of the link and can be
+             * either active if it was approved in YT Creator Studio or pending if it's pending approval. Upon insertion, it represents the intended status of the
+             * link. Re-uploading a link with status active when it's still pending or with status pending when it's already active will have no effect: the status
+             * will remain unchanged. Re-uploading a link with deprecated status inactive is equivalent to not submitting the link at all and will delete the link if
+             * it was active or cancel the link request if it was pending.
+             */
+            status?: string;
+        }
         interface AccountsAuthInfoResponse {
             /**
              * The account identifiers corresponding to the authenticated user.
@@ -175,17 +192,14 @@ declare namespace gapi.client {
             /** Identifies what kind of resource this is. Value: the fixed string "content#accountsAuthInfoResponse". */
             kind?: string;
         }
-        
         interface AccountsClaimWebsiteResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#accountsClaimWebsiteResponse". */
             kind?: string;
         }
-        
         interface AccountsCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: AccountsCustomBatchRequestEntry[];
         }
-        
         interface AccountsCustomBatchRequestEntry {
             /** The account to create or update. Only defined if the method is insert or update. */
             account?: Account;
@@ -193,20 +207,20 @@ declare namespace gapi.client {
             accountId?: string;
             /** An entry ID, unique within the batch request. */
             batchId?: number;
+            /** Whether the account should be deleted if the account has offers. Only applicable if the method is delete. */
+            force?: boolean;
             /** The ID of the managing account. */
             merchantId?: string;
             method?: string;
             /** Only applicable if the method is claimwebsite. Indicates whether or not to take the claim from another account in case there is a conflict. */
             overwrite?: boolean;
         }
-        
         interface AccountsCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: AccountsCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#accountsCustomBatchResponse". */
             kind?: string;
         }
-        
         interface AccountsCustomBatchResponseEntry {
             /** The retrieved, created, or updated account. Not defined if the method was delete or claimwebsite. */
             account?: Account;
@@ -217,7 +231,6 @@ declare namespace gapi.client {
             /** Identifies what kind of resource this is. Value: the fixed string "content#accountsCustomBatchResponseEntry". */
             kind?: string;
         }
-        
         interface AccountsListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#accountsListResponse". */
             kind?: string;
@@ -225,12 +238,10 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: Account[];
         }
-        
         interface AccountstatusesCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: AccountstatusesCustomBatchRequestEntry[];
         }
-        
         interface AccountstatusesCustomBatchRequestEntry {
             /** The ID of the (sub-)account whose status to get. */
             accountId?: string;
@@ -241,14 +252,12 @@ declare namespace gapi.client {
             /** The method (get). */
             method?: string;
         }
-        
         interface AccountstatusesCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: AccountstatusesCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#accountstatusesCustomBatchResponse". */
             kind?: string;
         }
-        
         interface AccountstatusesCustomBatchResponseEntry {
             /** The requested account status. Defined if and only if the request was successful. */
             accountStatus?: AccountStatus;
@@ -257,7 +266,6 @@ declare namespace gapi.client {
             /** A list of errors defined if and only if the request failed. */
             errors?: Errors;
         }
-        
         interface AccountstatusesListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#accountstatusesListResponse". */
             kind?: string;
@@ -265,12 +273,10 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: AccountStatus[];
         }
-        
         interface AccounttaxCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: AccounttaxCustomBatchRequestEntry[];
         }
-        
         interface AccounttaxCustomBatchRequestEntry {
             /** The ID of the account for which to get/update account tax settings. */
             accountId?: string;
@@ -282,14 +288,12 @@ declare namespace gapi.client {
             merchantId?: string;
             method?: string;
         }
-        
         interface AccounttaxCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: AccounttaxCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#accounttaxCustomBatchResponse". */
             kind?: string;
         }
-        
         interface AccounttaxCustomBatchResponseEntry {
             /** The retrieved or updated account tax settings. */
             accountTax?: AccountTax;
@@ -300,7 +304,6 @@ declare namespace gapi.client {
             /** Identifies what kind of resource this is. Value: the fixed string "content#accounttaxCustomBatchResponseEntry". */
             kind?: string;
         }
-        
         interface AccounttaxListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#accounttaxListResponse". */
             kind?: string;
@@ -308,22 +311,29 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: AccountTax[];
         }
-        
         interface CarrierRate {
             /** Carrier service, such as "UPS" or "Fedex". The list of supported carriers can be retrieved via the getSupportedCarriers method. Required. */
             carrierName?: string;
-            /** Carrier service, such as "ground" or "2 days". The list of supported services for a carrier can be retrieved via the getSupportedCarriers method. Required. */
+            /**
+             * Carrier service, such as "ground" or "2 days". The list of supported services for a carrier can be retrieved via the getSupportedCarriers method.
+             * Required.
+             */
             carrierService?: string;
-            /** Additive shipping rate modifier. Can be negative. For example { "value": "1", "currency" : "USD" } adds $1 to the rate, { "value": "-3", "currency" : "USD" } removes $3 from the rate. Optional. */
+            /**
+             * Additive shipping rate modifier. Can be negative. For example { "value": "1", "currency" : "USD" } adds $1 to the rate, { "value": "-3", "currency" :
+             * "USD" } removes $3 from the rate. Optional.
+             */
             flatAdjustment?: Price;
             /** Name of the carrier rate. Must be unique per rate group. Required. */
             name?: string;
             /** Shipping origin for this carrier rate. Required. */
             originPostalCode?: string;
-            /** Multiplicative shipping rate modifier as a number in decimal notation. Can be negative. For example "5.4" increases the rate by 5.4%, "-3" decreases the rate by 3%. Optional. */
+            /**
+             * Multiplicative shipping rate modifier as a number in decimal notation. Can be negative. For example "5.4" increases the rate by 5.4%, "-3" decreases
+             * the rate by 3%. Optional.
+             */
             percentageAdjustment?: string;
         }
-        
         interface CarriersCarrier {
             /** The CLDR country code of the carrier (e.g., "US"). Always present. */
             country?: string;
@@ -332,11 +342,13 @@ declare namespace gapi.client {
             /** A list of supported services (e.g., "ground") for that carrier. Contains at least one service. */
             services?: string[];
         }
-        
         interface Datafeed {
             /** The two-letter ISO 639-1 language in which the attributes are defined in the data feed. */
             attributeLanguage?: string;
-            /** The two-letter ISO 639-1 language of the items in the feed. Must be a valid language for targetCountry. */
+            /**
+             * [DEPRECATED] Please use target.language instead. The two-letter ISO 639-1 language of the items in the feed. Must be a valid language for
+             * targetCountry.
+             */
             contentLanguage?: string;
             /** The type of data feed. For product inventory feeds, only feeds for local stores, not online stores, are supported. */
             contentType?: string;
@@ -348,20 +360,27 @@ declare namespace gapi.client {
             format?: DatafeedFormat;
             /** The ID of the data feed. */
             id?: string;
-            /** The list of intended destinations (corresponds to checked check boxes in Merchant Center). */
+            /** [DEPRECATED] Please use target.includedDestination instead. The list of intended destinations (corresponds to checked check boxes in Merchant Center). */
             intendedDestinations?: string[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#datafeed". */
             kind?: string;
             /** A descriptive name of the data feed. */
             name?: string;
-            /** The country where the items in the feed will be included in the search index, represented as a CLDR territory code. */
+            /**
+             * [DEPRECATED] Please use target.country instead. The country where the items in the feed will be included in the search index, represented as a CLDR
+             * territory code.
+             */
             targetCountry?: string;
+            /** The targets this feed should apply to (country, language, destinations). */
+            targets?: DatafeedTarget[];
         }
-        
         interface DatafeedFetchSchedule {
             /** The day of the month the feed file should be fetched (1-31). */
             dayOfMonth?: number;
-            /** The URL where the feed file can be fetched. Google Merchant Center will support automatic scheduled uploads using the HTTP, HTTPS, FTP, or SFTP protocols, so the value will need to be a valid link using one of those four protocols. */
+            /**
+             * The URL where the feed file can be fetched. Google Merchant Center will support automatic scheduled uploads using the HTTP, HTTPS, FTP, or SFTP
+             * protocols, so the value will need to be a valid link using one of those four protocols.
+             */
             fetchUrl?: string;
             /** The hour of the day the feed file should be fetched (0-23). */
             hour?: number;
@@ -378,17 +397,20 @@ declare namespace gapi.client {
             /** The day of the week the feed file should be fetched. */
             weekday?: string;
         }
-        
         interface DatafeedFormat {
-            /** Delimiter for the separation of values in a delimiter-separated values feed. If not specified, the delimiter will be auto-detected. Ignored for non-DSV data feeds. */
+            /**
+             * Delimiter for the separation of values in a delimiter-separated values feed. If not specified, the delimiter will be auto-detected. Ignored for non-DSV
+             * data feeds.
+             */
             columnDelimiter?: string;
             /** Character encoding scheme of the data feed. If not specified, the encoding will be auto-detected. */
             fileEncoding?: string;
             /** Specifies how double quotes are interpreted. If not specified, the mode will be auto-detected. Ignored for non-DSV data feeds. */
             quotingMode?: string;
         }
-        
         interface DatafeedStatus {
+            /** The country for which the status is reported, represented as a  CLDR territory code. */
+            country?: string;
             /** The ID of the feed for which the status is reported. */
             datafeedId?: string;
             /** The list of errors occurring in the feed. */
@@ -399,6 +421,8 @@ declare namespace gapi.client {
             itemsValid?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#datafeedStatus". */
             kind?: string;
+            /** The two-letter ISO 639-1 language for which the status is reported. */
+            language?: string;
             /** The last date at which the feed was uploaded. */
             lastUploadDate?: string;
             /** The processing status of the feed. */
@@ -406,7 +430,6 @@ declare namespace gapi.client {
             /** The list of errors occurring in the feed. */
             warnings?: DatafeedStatusError[];
         }
-        
         interface DatafeedStatusError {
             /** The code of the error, e.g., "validation/invalid_value". */
             code?: string;
@@ -417,7 +440,6 @@ declare namespace gapi.client {
             /** The error message, e.g., "Invalid price". */
             message?: string;
         }
-        
         interface DatafeedStatusExample {
             /** The ID of the example item. */
             itemId?: string;
@@ -426,12 +448,23 @@ declare namespace gapi.client {
             /** The problematic value. */
             value?: string;
         }
-        
+        interface DatafeedTarget {
+            /** The country where the items in the feed will be included in the search index, represented as a  CLDR territory code. */
+            country?: string;
+            /** The list of destinations to exclude for this target (corresponds to unchecked check boxes in Merchant Center). */
+            excludedDestinations?: string[];
+            /**
+             * The list of destinations to include for this target (corresponds to checked check boxes in Merchant Center). Default destinations are always included
+             * unless provided in the excluded_destination field.
+             */
+            includedDestinations?: string[];
+            /** The two-letter ISO 639-1 language of the items in the feed. Must be a valid language for targets[].country. */
+            language?: string;
+        }
         interface DatafeedsCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: DatafeedsCustomBatchRequestEntry[];
         }
-        
         interface DatafeedsCustomBatchRequestEntry {
             /** An entry ID, unique within the batch request. */
             batchId?: number;
@@ -443,14 +476,12 @@ declare namespace gapi.client {
             merchantId?: string;
             method?: string;
         }
-        
         interface DatafeedsCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: DatafeedsCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#datafeedsCustomBatchResponse". */
             kind?: string;
         }
-        
         interface DatafeedsCustomBatchResponseEntry {
             /** The ID of the request entry this entry responds to. */
             batchId?: number;
@@ -459,7 +490,6 @@ declare namespace gapi.client {
             /** A list of errors defined if and only if the request failed. */
             errors?: Errors;
         }
-        
         interface DatafeedsListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#datafeedsListResponse". */
             kind?: string;
@@ -467,29 +497,35 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: Datafeed[];
         }
-        
         interface DatafeedstatusesCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: DatafeedstatusesCustomBatchRequestEntry[];
         }
-        
         interface DatafeedstatusesCustomBatchRequestEntry {
             /** An entry ID, unique within the batch request. */
             batchId?: number;
-            /** The ID of the data feed to get or delete. */
+            /**
+             * The country for which to get the datafeed status. If this parameter is provided then language must also be provided. Note that for multi-target
+             * datafeeds this parameter is required.
+             */
+            country?: string;
+            /** The ID of the data feed to get. */
             datafeedId?: string;
+            /**
+             * The language for which to get the datafeed status. If this parameter is provided then country must also be provided. Note that for multi-target
+             * datafeeds this parameter is required.
+             */
+            language?: string;
             /** The ID of the managing account. */
             merchantId?: string;
             method?: string;
         }
-        
         interface DatafeedstatusesCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: DatafeedstatusesCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#datafeedstatusesCustomBatchResponse". */
             kind?: string;
         }
-        
         interface DatafeedstatusesCustomBatchResponseEntry {
             /** The ID of the request entry this entry responds to. */
             batchId?: number;
@@ -498,7 +534,6 @@ declare namespace gapi.client {
             /** A list of errors defined if and only if the request failed. */
             errors?: Errors;
         }
-        
         interface DatafeedstatusesListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#datafeedstatusesListResponse". */
             kind?: string;
@@ -506,14 +541,15 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: DatafeedStatus[];
         }
-        
         interface DeliveryTime {
-            /** Maximum number of business days that is spent in transit. 0 means same day delivery, 1 means next day delivery. Must be greater than or equal to minTransitTimeInDays. Required. */
+            /**
+             * Maximum number of business days that is spent in transit. 0 means same day delivery, 1 means next day delivery. Must be greater than or equal to
+             * minTransitTimeInDays. Required.
+             */
             maxTransitTimeInDays?: number;
             /** Minimum number of business days that is spent in transit. 0 means same day delivery, 1 means next day delivery. Required. */
             minTransitTimeInDays?: number;
         }
-        
         interface Error {
             /** The domain of the error. */
             domain?: string;
@@ -522,7 +558,6 @@ declare namespace gapi.client {
             /** The error code. */
             reason?: string;
         }
-        
         interface Errors {
             /** The HTTP status of the first error in errors. */
             code?: number;
@@ -531,27 +566,37 @@ declare namespace gapi.client {
             /** The message of the first error in errors. */
             message?: string;
         }
-        
         interface Headers {
             /** A list of location ID sets. Must be non-empty. Can only be set if all other fields are not set. */
             locations?: LocationIdSet[];
-            /** A list of inclusive number of items upper bounds. The last value can be "infinity". For example ["10", "50", "infinity"] represents the headers "<= 10 items", " 50 items". Must be non-empty. Can only be set if all other fields are not set. */
+            /**
+             * A list of inclusive number of items upper bounds. The last value can be "infinity". For example ["10", "50", "infinity"] represents the headers "<= 10
+             * items", " 50 items". Must be non-empty. Can only be set if all other fields are not set.
+             */
             numberOfItems?: string[];
-            /** A list of postal group names. The last value can be "all other locations". Example: ["zone 1", "zone 2", "all other locations"]. The referred postal code groups must match the delivery country of the service. Must be non-empty. Can only be set if all other fields are not set. */
+            /**
+             * A list of postal group names. The last value can be "all other locations". Example: ["zone 1", "zone 2", "all other locations"]. The referred postal
+             * code groups must match the delivery country of the service. Must be non-empty. Can only be set if all other fields are not set.
+             */
             postalCodeGroupNames?: string[];
-            /** be "infinity". For example [{"value": "10", "currency": "USD"}, {"value": "500", "currency": "USD"}, {"value": "infinity", "currency": "USD"}] represents the headers "<= $10", " $500". All prices within a service must have the same currency. Must be non-empty. Can only be set if all other fields are not set. */
+            /**
+             * be "infinity". For example [{"value": "10", "currency": "USD"}, {"value": "500", "currency": "USD"}, {"value": "infinity", "currency": "USD"}]
+             * represents the headers "<= $10", " $500". All prices within a service must have the same currency. Must be non-empty. Can only be set if all other
+             * fields are not set.
+             */
             prices?: Price[];
-            /** be "infinity". For example [{"value": "10", "unit": "kg"}, {"value": "50", "unit": "kg"}, {"value": "infinity", "unit": "kg"}] represents the headers "<= 10kg", " 50kg". All weights within a service must have the same unit. Must be non-empty. Can only be set if all other fields are not set. */
+            /**
+             * be "infinity". For example [{"value": "10", "unit": "kg"}, {"value": "50", "unit": "kg"}, {"value": "infinity", "unit": "kg"}] represents the headers
+             * "<= 10kg", " 50kg". All weights within a service must have the same unit. Must be non-empty. Can only be set if all other fields are not set.
+             */
             weights?: Weight[];
         }
-        
         interface Installment {
             /** The amount the buyer has to pay per month. */
             amount?: Price;
             /** The number of installments the buyer has to pay. */
             months?: string;
         }
-        
         interface Inventory {
             /** The availability of the product. */
             availability?: string;
@@ -561,7 +606,10 @@ declare namespace gapi.client {
             kind?: string;
             /** Loyalty points that users receive after purchasing the item. Japan only. */
             loyaltyPoints?: LoyaltyPoints;
-            /** Store pickup information. Only supported for local inventory. Not setting pickup means "don't update" while setting it to the empty value ({} in JSON) means "delete". Otherwise, pickupMethod and pickupSla must be set together, unless pickupMethod is "not supported". */
+            /**
+             * Store pickup information. Only supported for local inventory. Not setting pickup means "don't update" while setting it to the empty value ({} in JSON)
+             * means "delete". Otherwise, pickupMethod and pickupSla must be set together, unless pickupMethod is "not supported".
+             */
             pickup?: InventoryPickup;
             /** The price of the product. */
             price?: Price;
@@ -574,12 +622,10 @@ declare namespace gapi.client {
             /** The quantity of the product that is reserved for sell-on-google ads. Supported only for online products. */
             sellOnGoogleQuantity?: number;
         }
-        
         interface InventoryCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: InventoryCustomBatchRequestEntry[];
         }
-        
         interface InventoryCustomBatchRequestEntry {
             /** An entry ID, unique within the batch request. */
             batchId?: number;
@@ -592,14 +638,12 @@ declare namespace gapi.client {
             /** The code of the store for which to update price and availability. Use online to update price and availability of an online product. */
             storeCode?: string;
         }
-        
         interface InventoryCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: InventoryCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#inventoryCustomBatchResponse". */
             kind?: string;
         }
-        
         interface InventoryCustomBatchResponseEntry {
             /** The ID of the request entry this entry responds to. */
             batchId?: number;
@@ -608,14 +652,18 @@ declare namespace gapi.client {
             /** Identifies what kind of resource this is. Value: the fixed string "content#inventoryCustomBatchResponseEntry". */
             kind?: string;
         }
-        
         interface InventoryPickup {
-            /** Whether store pickup is available for this offer and whether the pickup option should be shown as buy, reserve, or not supported. Only supported for local inventory. Unless the value is "not supported", must be submitted together with pickupSla. */
+            /**
+             * Whether store pickup is available for this offer and whether the pickup option should be shown as buy, reserve, or not supported. Only supported for
+             * local inventory. Unless the value is "not supported", must be submitted together with pickupSla.
+             */
             pickupMethod?: string;
-            /** The expected date that an order will be ready for pickup, relative to when the order is placed. Only supported for local inventory. Must be submitted together with pickupMethod. */
+            /**
+             * The expected date that an order will be ready for pickup, relative to when the order is placed. Only supported for local inventory. Must be submitted
+             * together with pickupMethod.
+             */
             pickupSla?: string;
         }
-        
         interface InventorySetRequest {
             /** The availability of the product. */
             availability?: string;
@@ -623,7 +671,10 @@ declare namespace gapi.client {
             installment?: Installment;
             /** Loyalty points that users receive after purchasing the item. Japan only. */
             loyaltyPoints?: LoyaltyPoints;
-            /** Store pickup information. Only supported for local inventory. Not setting pickup means "don't update" while setting it to the empty value ({} in JSON) means "delete". Otherwise, pickupMethod and pickupSla must be set together, unless pickupMethod is "not supported". */
+            /**
+             * Store pickup information. Only supported for local inventory. Not setting pickup means "don't update" while setting it to the empty value ({} in JSON)
+             * means "delete". Otherwise, pickupMethod and pickupSla must be set together, unless pickupMethod is "not supported".
+             */
             pickup?: InventoryPickup;
             /** The price of the product. */
             price?: Price;
@@ -636,17 +687,14 @@ declare namespace gapi.client {
             /** The quantity of the product that is reserved for sell-on-google ads. Supported only for online products. */
             sellOnGoogleQuantity?: number;
         }
-        
         interface InventorySetResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#inventorySetResponse". */
             kind?: string;
         }
-        
         interface LocationIdSet {
             /** A non-empty list of location IDs. They must all be of the same location type (e.g., state). */
             locationIds?: string[];
         }
-        
         interface LoyaltyPoints {
             /** Name of loyalty points program. It is recommended to limit the name to 12 full-width characters or 24 Roman characters. */
             name?: string;
@@ -655,7 +703,6 @@ declare namespace gapi.client {
             /** The ratio of a point when converted to currency. Google assumes currency based on Merchant Center settings. If ratio is left out, it defaults to 1.0. */
             ratio?: number;
         }
-        
         interface Order {
             /** Whether the order was acknowledged. */
             acknowledged?: boolean;
@@ -674,7 +721,10 @@ declare namespace gapi.client {
             merchantId?: string;
             /** Merchant-provided id of the order. */
             merchantOrderId?: string;
-            /** The net amount for the order. For example, if an order was originally for a grand total of $100 and a refund was issued for $20, the net amount will be $80. */
+            /**
+             * The net amount for the order. For example, if an order was originally for a grand total of $100 and a refund was issued for $20, the net amount will be
+             * $80.
+             */
             netAmount?: Price;
             /** The details of the payment method. */
             paymentMethod?: OrderPaymentMethod;
@@ -697,7 +747,6 @@ declare namespace gapi.client {
             /** The status of the order. */
             status?: string;
         }
-        
         interface OrderAddress {
             /** CLDR country code (e.g. "US"). */
             country?: string;
@@ -722,7 +771,6 @@ declare namespace gapi.client {
             /** Street-level part of the address. */
             streetAddress?: string[];
         }
-        
         interface OrderCancellation {
             /** The actor that created the cancellation. */
             actor?: string;
@@ -730,31 +778,36 @@ declare namespace gapi.client {
             creationDate?: string;
             /** The quantity that was canceled. */
             quantity?: number;
-            /** The reason for the cancellation. Orders that are cancelled with a noInventory reason will lead to the removal of the product from POG until you make an update to that product. This will not affect your Shopping ads. */
+            /**
+             * The reason for the cancellation. Orders that are cancelled with a noInventory reason will lead to the removal of the product from POG until you make an
+             * update to that product. This will not affect your Shopping ads.
+             */
             reason?: string;
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrderCustomer {
             /** Email address of the customer. */
             email?: string;
-            /** If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the checkout flow. */
+            /**
+             * If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has
+             * already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the checkout flow.
+             */
             explicitMarketingPreference?: boolean;
             /** Full name of the customer. */
             fullName?: string;
         }
-        
         interface OrderDeliveryDetails {
             /** The delivery address */
             address?: OrderAddress;
             /** The phone number of the person receiving the delivery. */
             phoneNumber?: string;
         }
-        
         interface OrderLineItem {
             /** Cancellations of the line item. */
             cancellations?: OrderCancellation[];
+            /** The channel type of the order: "purchaseOnGoogle" or "googleExpress". */
+            channelType?: string;
             /** The id of the line item. */
             id?: string;
             /** Total price for the line item. For example, if two items for $10 are purchased, the total price will be $20. */
@@ -782,7 +835,6 @@ declare namespace gapi.client {
             /** Total tax amount for the line item. For example, if two items are purchased, and each have a cost tax of $2, the total tax amount will be $4. */
             tax?: Price;
         }
-        
         interface OrderLineItemProduct {
             /** Brand of the item. */
             brand?: string;
@@ -812,17 +864,18 @@ declare namespace gapi.client {
             targetCountry?: string;
             /** The title of the product. */
             title?: string;
-            /** Variant attributes for the item. These are dimensions of the product, such as color, gender, material, pattern, and size. You can find a comprehensive list of variant attributes here. */
+            /**
+             * Variant attributes for the item. These are dimensions of the product, such as color, gender, material, pattern, and size. You can find a comprehensive
+             * list of variant attributes here.
+             */
             variantAttributes?: OrderLineItemProductVariantAttribute[];
         }
-        
         interface OrderLineItemProductVariantAttribute {
             /** The dimension of the variant. */
             dimension?: string;
             /** The value for the dimension. */
             value?: string;
         }
-        
         interface OrderLineItemReturnInfo {
             /** How many days later the item can be returned. */
             daysToReturn?: number;
@@ -831,7 +884,6 @@ declare namespace gapi.client {
             /** URL of the item return policy. */
             policyUrl?: string;
         }
-        
         interface OrderLineItemShippingDetails {
             /** The delivery by date, in ISO 8601 format. */
             deliverByDate?: string;
@@ -840,9 +892,8 @@ declare namespace gapi.client {
             /** The ship by date, in ISO 8601 format. */
             shipByDate?: string;
         }
-        
         interface OrderLineItemShippingDetailsMethod {
-            /** The carrier for the shipping. Optional. */
+            /** The carrier for the shipping. Optional. See shipments[].carrier for a list of acceptable values. */
             carrier?: string;
             /** Maximum transit time. */
             maxDaysInTransit?: number;
@@ -851,7 +902,6 @@ declare namespace gapi.client {
             /** Minimum transit time. */
             minDaysInTransit?: number;
         }
-        
         interface OrderPaymentMethod {
             /** The billing address. */
             billingAddress?: OrderAddress;
@@ -863,15 +913,28 @@ declare namespace gapi.client {
             lastFourDigits?: string;
             /** The billing phone number. */
             phoneNumber?: string;
-            /** The type of instrument (VISA, Mastercard, etc). */
+            /**
+             * The type of instrument.
+             *
+             * Acceptable values are:
+             * - "AMEX"
+             * - "DISCOVER"
+             * - "JCB"
+             * - "MASTERCARD"
+             * - "UNIONPAY"
+             * - "VISA"
+             * - ""
+             */
             type?: string;
         }
-        
         interface OrderPromotion {
             benefits?: OrderPromotionBenefit[];
             /**
-             * The date and time frame when the promotion is active and ready for validation review. Note that the promotion live time may be delayed for a few hours due to the validation review.
-             * Start date and end date are separated by a forward slash (/). The start date is specified by the format (YYYY-MM-DD), followed by the letter ?T?, the time of the day when the sale starts (in Greenwich Mean Time, GMT), followed by an expression of the time zone for the sale. The end date is in the same format.
+             * The date and time frame when the promotion is active and ready for validation review. Note that the promotion live time may be delayed for a few hours
+             * due to the validation review.
+             * Start date and end date are separated by a forward slash (/). The start date is specified by the format (YYYY-MM-DD), followed by the letter ?T?, the
+             * time of the day when the sale starts (in Greenwich Mean Time, GMT), followed by an expression of the time zone for the sale. The end date is in the
+             * same format.
              */
             effectiveDates?: string;
             /** Optional. The text code that corresponds to the promotion when applied on the retailer?s website. */
@@ -885,7 +948,6 @@ declare namespace gapi.client {
             /** Indicates that the promotion is valid online. */
             redemptionChannel?: string;
         }
-        
         interface OrderPromotionBenefit {
             /** The discount in the order price when the promotion is applied. */
             discount?: Price;
@@ -898,7 +960,6 @@ declare namespace gapi.client {
             /** Describes whether the promotion applies to products (e.g. 20% off) or to shipping (e.g. Free Shipping). */
             type?: string;
         }
-        
         interface OrderRefund {
             /** The actor that created the refund. */
             actor?: string;
@@ -911,7 +972,6 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrderReturn {
             /** The actor that created the refund. */
             actor?: string;
@@ -924,9 +984,34 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrderShipment {
-            /** The carrier handling the shipment. */
+            /**
+             * The carrier handling the shipment.
+             *
+             * Acceptable values are:
+             * - "gsx"
+             * - "ups"
+             * - "united parcel service"
+             * - "usps"
+             * - "united states postal service"
+             * - "fedex"
+             * - "dhl"
+             * - "ecourier"
+             * - "cxt"
+             * - "google"
+             * - "on trac"
+             * - "ontrac"
+             * - "on-trac"
+             * - "on_trac"
+             * - "delvic"
+             * - "dynamex"
+             * - "lasership"
+             * - "smartpost"
+             * - "fedex smartpost"
+             * - "mpx"
+             * - "uds"
+             * - "united delivery service"
+             */
             carrier?: string;
             /** Date on which the shipment has been created, in ISO 8601 format. */
             creationDate?: string;
@@ -941,33 +1026,31 @@ declare namespace gapi.client {
             /** The tracking id for the shipment. */
             trackingId?: string;
         }
-        
         interface OrderShipmentLineItemShipment {
             /** The id of the line item that is shipped. */
             lineItemId?: string;
             /** The quantity that is shipped. */
             quantity?: number;
         }
-        
         interface OrdersAcknowledgeRequest {
             /** The ID of the operation. Unique across all operations for a given order. */
             operationId?: string;
         }
-        
         interface OrdersAcknowledgeResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersAcknowledgeResponse". */
             kind?: string;
         }
-        
         interface OrdersAdvanceTestOrderResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersAdvanceTestOrderResponse". */
             kind?: string;
         }
-        
         interface OrdersCancelLineItemRequest {
-            /** Amount to refund for the cancelation. Optional. If not set, Google will calculate the default based on the price and tax of the items involved. The amount must not be larger than the net amount left on the order. */
+            /**
+             * Amount to refund for the cancelation. Optional. If not set, Google will calculate the default based on the price and tax of the items involved. The
+             * amount must not be larger than the net amount left on the order.
+             */
             amount?: Price;
             /** The ID of the line item to cancel. */
             lineItemId?: string;
@@ -980,14 +1063,12 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersCancelLineItemResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersCancelLineItemResponse". */
             kind?: string;
         }
-        
         interface OrdersCancelRequest {
             /** The ID of the operation. Unique across all operations for a given order. */
             operationId?: string;
@@ -996,33 +1077,31 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersCancelResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersCancelResponse". */
             kind?: string;
         }
-        
         interface OrdersCreateTestOrderRequest {
-            /** The test order template to use. Specify as an alternative to testOrder as a shortcut for retrieving a template and then creating an order using that template. */
+            /**
+             * The test order template to use. Specify as an alternative to testOrder as a shortcut for retrieving a template and then creating an order using that
+             * template.
+             */
             templateName?: string;
             /** The test order to create. */
             testOrder?: TestOrder;
         }
-        
         interface OrdersCreateTestOrderResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersCreateTestOrderResponse". */
             kind?: string;
             /** The ID of the newly created test order. */
             orderId?: string;
         }
-        
         interface OrdersCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: OrdersCustomBatchRequestEntry[];
         }
-        
         interface OrdersCustomBatchRequestEntry {
             /** An entry ID, unique within the batch request. */
             batchId?: number;
@@ -1049,16 +1128,17 @@ declare namespace gapi.client {
             /** Required for updateShipment method. */
             updateShipment?: OrdersCustomBatchRequestEntryUpdateShipment;
         }
-        
         interface OrdersCustomBatchRequestEntryCancel {
             /** The reason for the cancellation. */
             reason?: string;
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersCustomBatchRequestEntryCancelLineItem {
-            /** Amount to refund for the cancelation. Optional. If not set, Google will calculate the default based on the price and tax of the items involved. The amount must not be larger than the net amount left on the order. */
+            /**
+             * Amount to refund for the cancelation. Optional. If not set, Google will calculate the default based on the price and tax of the items involved. The
+             * amount must not be larger than the net amount left on the order.
+             */
             amount?: Price;
             /** The ID of the line item to cancel. */
             lineItemId?: string;
@@ -1069,7 +1149,6 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersCustomBatchRequestEntryRefund {
             /** The amount that is refunded. */
             amount?: Price;
@@ -1078,7 +1157,6 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersCustomBatchRequestEntryReturnLineItem {
             /** The ID of the line item to return. */
             lineItemId?: string;
@@ -1089,20 +1167,34 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersCustomBatchRequestEntryShipLineItems {
-            /** The carrier handling the shipment. */
+            /**
+             * Deprecated. Please use shipmentInfo instead. The carrier handling the shipment. See shipments[].carrier in the  Orders resource representation for a
+             * list of acceptable values.
+             */
             carrier?: string;
             /** Line items to ship. */
             lineItems?: OrderShipmentLineItemShipment[];
+            /** Deprecated. Please use shipmentInfo instead. The ID of the shipment. */
+            shipmentId?: string;
+            /** Shipment information. This field is repeated because a single line item can be shipped in several packages (and have several tracking IDs). */
+            shipmentInfos?: OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
+            /** Deprecated. Please use shipmentInfo instead. The tracking id for the shipment. */
+            trackingId?: string;
+        }
+        interface OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo {
+            /** The carrier handling the shipment. See shipments[].carrier in the  Orders resource representation for a list of acceptable values. */
+            carrier?: string;
             /** The ID of the shipment. */
             shipmentId?: string;
             /** The tracking id for the shipment. */
             trackingId?: string;
         }
-        
         interface OrdersCustomBatchRequestEntryUpdateShipment {
-            /** The carrier handling the shipment. Not updated if missing. */
+            /**
+             * The carrier handling the shipment. Not updated if missing. See shipments[].carrier in the  Orders resource representation for a list of acceptable
+             * values.
+             */
             carrier?: string;
             /** The ID of the shipment. */
             shipmentId?: string;
@@ -1111,14 +1203,12 @@ declare namespace gapi.client {
             /** The tracking id for the shipment. Not updated if missing. */
             trackingId?: string;
         }
-        
         interface OrdersCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: OrdersCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersCustomBatchResponse". */
             kind?: string;
         }
-        
         interface OrdersCustomBatchResponseEntry {
             /** The ID of the request entry this entry responds to. */
             batchId?: number;
@@ -1131,21 +1221,18 @@ declare namespace gapi.client {
             /** The retrieved order. Only defined if the method is get and if the request was successful. */
             order?: Order;
         }
-        
         interface OrdersGetByMerchantOrderIdResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersGetByMerchantOrderIdResponse". */
             kind?: string;
             /** The requested order. */
             order?: Order;
         }
-        
         interface OrdersGetTestOrderTemplateResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersGetTestOrderTemplateResponse". */
             kind?: string;
             /** The requested test order template. */
             template?: TestOrder;
         }
-        
         interface OrdersListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersListResponse". */
             kind?: string;
@@ -1153,7 +1240,6 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: Order[];
         }
-        
         interface OrdersRefundRequest {
             /** The amount that is refunded. */
             amount?: Price;
@@ -1164,14 +1250,12 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersRefundResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersRefundResponse". */
             kind?: string;
         }
-        
         interface OrdersReturnLineItemRequest {
             /** The ID of the line item to return. */
             lineItemId?: string;
@@ -1184,50 +1268,52 @@ declare namespace gapi.client {
             /** The explanation of the reason. */
             reasonText?: string;
         }
-        
         interface OrdersReturnLineItemResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersReturnLineItemResponse". */
             kind?: string;
         }
-        
         interface OrdersShipLineItemsRequest {
-            /** The carrier handling the shipment. */
+            /**
+             * Deprecated. Please use shipmentInfo instead. The carrier handling the shipment. See shipments[].carrier in the  Orders resource representation for a
+             * list of acceptable values.
+             */
             carrier?: string;
             /** Line items to ship. */
             lineItems?: OrderShipmentLineItemShipment[];
             /** The ID of the operation. Unique across all operations for a given order. */
             operationId?: string;
-            /** The ID of the shipment. */
+            /** Deprecated. Please use shipmentInfo instead. The ID of the shipment. */
             shipmentId?: string;
-            /** The tracking id for the shipment. */
+            /** Shipment information. This field is repeated because a single line item can be shipped in several packages (and have several tracking IDs). */
+            shipmentInfos?: OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
+            /** Deprecated. Please use shipmentInfo instead. The tracking id for the shipment. */
             trackingId?: string;
         }
-        
         interface OrdersShipLineItemsResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersShipLineItemsResponse". */
             kind?: string;
         }
-        
         interface OrdersUpdateMerchantOrderIdRequest {
             /** The merchant order id to be assigned to the order. Must be unique per merchant. */
             merchantOrderId?: string;
             /** The ID of the operation. Unique across all operations for a given order. */
             operationId?: string;
         }
-        
         interface OrdersUpdateMerchantOrderIdResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersUpdateMerchantOrderIdResponse". */
             kind?: string;
         }
-        
         interface OrdersUpdateShipmentRequest {
-            /** The carrier handling the shipment. Not updated if missing. */
+            /**
+             * The carrier handling the shipment. Not updated if missing. See shipments[].carrier in the  Orders resource representation for a list of acceptable
+             * values.
+             */
             carrier?: string;
             /** The ID of the operation. Unique across all operations for a given order. */
             operationId?: string;
@@ -1238,14 +1324,12 @@ declare namespace gapi.client {
             /** The tracking id for the shipment. Not updated if missing. */
             trackingId?: string;
         }
-        
         interface OrdersUpdateShipmentResponse {
             /** The status of the execution. */
             executionStatus?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "content#ordersUpdateShipmentResponse". */
             kind?: string;
         }
-        
         interface PostalCodeGroup {
             /** The CLDR territory code of the country the postal code group applies to. Required. */
             country?: string;
@@ -1254,21 +1338,26 @@ declare namespace gapi.client {
             /** A range of postal codes. Required. */
             postalCodeRanges?: PostalCodeRange[];
         }
-        
         interface PostalCodeRange {
-            /** A postal code or a pattern of the form prefix&#42; denoting the inclusive lower bound of the range defining the area. Examples values: "94108", "9410&#42;", "9&#42;". Required. */
+            /**
+             * A postal code or a pattern of the form prefix&#42; denoting the inclusive lower bound of the range defining the area. Examples values: "94108", "9410&#42;",
+             * "9&#42;". Required.
+             */
             postalCodeRangeBegin?: string;
-            /** A postal code or a pattern of the form prefix&#42; denoting the inclusive upper bound of the range defining the area. It must have the same length as postalCodeRangeBegin: if postalCodeRangeBegin is a postal code then postalCodeRangeEnd must be a postal code too; if postalCodeRangeBegin is a pattern then postalCodeRangeEnd must be a pattern with the same prefix length. Optional: if not set, then the area is defined as being all the postal codes matching postalCodeRangeBegin. */
+            /**
+             * A postal code or a pattern of the form prefix&#42; denoting the inclusive upper bound of the range defining the area. It must have the same length as
+             * postalCodeRangeBegin: if postalCodeRangeBegin is a postal code then postalCodeRangeEnd must be a postal code too; if postalCodeRangeBegin is a pattern
+             * then postalCodeRangeEnd must be a pattern with the same prefix length. Optional: if not set, then the area is defined as being all the postal codes
+             * matching postalCodeRangeBegin.
+             */
             postalCodeRangeEnd?: string;
         }
-        
         interface Price {
             /** The currency of the price. */
             currency?: string;
             /** The price represented as a number. */
             value?: string;
         }
-        
         interface Product {
             /** Additional URLs of images of the item. */
             additionalImageLinks?: string[];
@@ -1300,7 +1389,10 @@ declare namespace gapi.client {
             condition?: string;
             /** The two-letter ISO 639-1 language code for the item. */
             contentLanguage?: string;
-            /** A list of custom (merchant-provided) attributes. It can also be used for submitting any attribute of the feed specification in its generic form (e.g., { "name": "size type", "type": "text", "value": "regular" }). This is useful for submitting attributes not explicitly exposed by the API. */
+            /**
+             * A list of custom (merchant-provided) attributes. It can also be used for submitting any attribute of the feed specification in its generic form (e.g.,
+             * { "name": "size type", "type": "text", "value": "regular" }). This is useful for submitting attributes not explicitly exposed by the API.
+             */
             customAttributes?: ProductCustomAttribute[];
             /** A list of custom (merchant-provided) custom attribute groups. */
             customGroups?: ProductCustomGroup[];
@@ -1330,7 +1422,10 @@ declare namespace gapi.client {
             displayAdsValue?: number;
             /** The energy efficiency class as defined in EU directive 2010/30/EU. */
             energyEfficiencyClass?: string;
-            /** Date on which the item should expire, as specified upon insertion, in ISO 8601 format. The actual expiration date in Google Shopping is exposed in productstatuses as googleExpirationDate and might be earlier if expirationDate is too far in the future. */
+            /**
+             * Date on which the item should expire, as specified upon insertion, in ISO 8601 format. The actual expiration date in Google Shopping is exposed in
+             * productstatuses as googleExpirationDate and might be earlier if expirationDate is too far in the future.
+             */
             expirationDate?: string;
             /** Target gender of the item. */
             gender?: string;
@@ -1340,7 +1435,10 @@ declare namespace gapi.client {
             gtin?: string;
             /** The REST id of the product. */
             id?: string;
-            /** False when the item does not have unique product identifiers appropriate to its category, such as GTIN, MPN, and brand. Required according to the Unique Product Identifier Rules for all target countries except for Canada. */
+            /**
+             * False when the item does not have unique product identifiers appropriate to its category, such as GTIN, MPN, and brand. Required according to the
+             * Unique Product Identifier Rules for all target countries except for Canada.
+             */
             identifierExists?: boolean;
             /** URL of an image of the item. */
             imageLink?: string;
@@ -1368,7 +1466,10 @@ declare namespace gapi.client {
             mpn?: string;
             /** The number of identical products in a merchant-defined multipack. */
             multipack?: string;
-            /** An identifier of the item. Leading and trailing whitespaces are stripped and multiple whitespaces are replaced by a single whitespace upon submission. Only valid unicode characters are accepted. See the products feed specification for details. */
+            /**
+             * An identifier of the item. Leading and trailing whitespaces are stripped and multiple whitespaces are replaced by a single whitespace upon submission.
+             * Only valid unicode characters are accepted. See the products feed specification for details.
+             */
             offerId?: string;
             /** Whether an item is available for purchase only online. */
             onlineOnly?: boolean;
@@ -1419,7 +1520,6 @@ declare namespace gapi.client {
             /** Read-only warnings. */
             warnings?: Error[];
         }
-        
         interface ProductAspect {
             /** The name of the aspect. */
             aspectName?: string;
@@ -1428,7 +1528,6 @@ declare namespace gapi.client {
             /** Whether the aspect is required, excluded or should be validated. */
             intention?: string;
         }
-        
         interface ProductCustomAttribute {
             /** The name of the attribute. Underscores will be replaced by spaces upon insertion. */
             name?: string;
@@ -1439,21 +1538,18 @@ declare namespace gapi.client {
             /** The value of the attribute. */
             value?: string;
         }
-        
         interface ProductCustomGroup {
             /** The sub-attributes. */
             attributes?: ProductCustomAttribute[];
             /** The name of the group. Underscores will be replaced by spaces upon insertion. */
             name?: string;
         }
-        
         interface ProductDestination {
             /** The name of the destination. */
             destinationName?: string;
             /** Whether the destination is required, excluded or should be validated. */
             intention?: string;
         }
-        
         interface ProductShipping {
             /** The CLDR territory code of the country to which an item will ship. */
             country?: string;
@@ -1461,7 +1557,10 @@ declare namespace gapi.client {
             locationGroupName?: string;
             /** The numeric id of a location that the shipping rate applies to as defined in the AdWords API. */
             locationId?: string;
-            /** The postal code range that the shipping rate applies to, represented by a postal code, a postal code prefix followed by a &#42; wildcard, a range between two postal codes or two postal code prefixes of equal length. */
+            /**
+             * The postal code range that the shipping rate applies to, represented by a postal code, a postal code prefix followed by a &#42; wildcard, a range between
+             * two postal codes or two postal code prefixes of equal length.
+             */
             postalCode?: string;
             /** Fixed shipping price, represented as a number. */
             price?: Price;
@@ -1470,27 +1569,24 @@ declare namespace gapi.client {
             /** A free-form description of the service class or delivery speed. */
             service?: string;
         }
-        
         interface ProductShippingDimension {
             /**
              * The unit of value.
-             * 
-             * Acceptable values are:  
-             * - "cm" 
+             *
+             * Acceptable values are:
+             * - "cm"
              * - "in"
              */
             unit?: string;
             /** The dimension of the product used to calculate the shipping cost of the item. */
             value?: number;
         }
-        
         interface ProductShippingWeight {
             /** The unit of value. */
             unit?: string;
             /** The weight of the product used to calculate the shipping cost of the item. */
             value?: number;
         }
-        
         interface ProductStatus {
             /** Date on which the item has been created, in ISO 8601 format. */
             creationDate?: string;
@@ -1513,7 +1609,6 @@ declare namespace gapi.client {
             /** The title of the product. */
             title?: string;
         }
-        
         interface ProductStatusDataQualityIssue {
             /** A more detailed error string. */
             detail?: string;
@@ -1532,7 +1627,6 @@ declare namespace gapi.client {
             /** The value the attribute had at time of evaluation. */
             valueProvided?: string;
         }
-        
         interface ProductStatusDestinationStatus {
             /** The destination's approval status. */
             approvalStatus?: string;
@@ -1541,13 +1635,15 @@ declare namespace gapi.client {
             /** Whether the destination is required, excluded, selected by default or should be validated. */
             intention?: string;
         }
-        
         interface ProductTax {
             /** The country within which the item is taxed, specified as a CLDR territory code. */
             country?: string;
             /** The numeric id of a location that the tax rate applies to as defined in the AdWords API. */
             locationId?: string;
-            /** The postal code range that the tax rate applies to, represented by a ZIP code, a ZIP code prefix using &#42; wildcard, a range between two ZIP codes or two ZIP code prefixes of equal length. Examples: 94114, 94&#42;, 94002-95460, 94&#42;-95&#42;. */
+            /**
+             * The postal code range that the tax rate applies to, represented by a ZIP code, a ZIP code prefix using &#42; wildcard, a range between two ZIP codes or two
+             * ZIP code prefixes of equal length. Examples: 94114, 94&#42;, 94002-95460, 94&#42;-95&#42;.
+             */
             postalCode?: string;
             /** The percentage of tax rate that applies to the item price. */
             rate?: number;
@@ -1556,26 +1652,22 @@ declare namespace gapi.client {
             /** Set to true if tax is charged on shipping. */
             taxShip?: boolean;
         }
-        
         interface ProductUnitPricingBaseMeasure {
             /** The unit of the denominator. */
             unit?: string;
             /** The denominator of the unit price. */
             value?: string;
         }
-        
         interface ProductUnitPricingMeasure {
             /** The unit of the measure. */
             unit?: string;
             /** The measure of an item. */
             value?: number;
         }
-        
         interface ProductsCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: ProductsCustomBatchRequestEntry[];
         }
-        
         interface ProductsCustomBatchRequestEntry {
             /** An entry ID, unique within the batch request. */
             batchId?: number;
@@ -1587,14 +1679,12 @@ declare namespace gapi.client {
             /** The ID of the product to get or delete. Only defined if the method is get or delete. */
             productId?: string;
         }
-        
         interface ProductsCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: ProductsCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#productsCustomBatchResponse". */
             kind?: string;
         }
-        
         interface ProductsCustomBatchResponseEntry {
             /** The ID of the request entry this entry responds to. */
             batchId?: number;
@@ -1605,7 +1695,6 @@ declare namespace gapi.client {
             /** The inserted product. Only defined if the method is insert and if the request was successful. */
             product?: Product;
         }
-        
         interface ProductsListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#productsListResponse". */
             kind?: string;
@@ -1613,12 +1702,10 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: Product[];
         }
-        
         interface ProductstatusesCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: ProductstatusesCustomBatchRequestEntry[];
         }
-        
         interface ProductstatusesCustomBatchRequestEntry {
             /** An entry ID, unique within the batch request. */
             batchId?: number;
@@ -1629,14 +1716,12 @@ declare namespace gapi.client {
             /** The ID of the product whose status to get. */
             productId?: string;
         }
-        
         interface ProductstatusesCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: ProductstatusesCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#productstatusesCustomBatchResponse". */
             kind?: string;
         }
-        
         interface ProductstatusesCustomBatchResponseEntry {
             /** The ID of the request entry this entry responds to. */
             batchId?: number;
@@ -1647,7 +1732,6 @@ declare namespace gapi.client {
             /** The requested product status. Only defined if the request was successful. */
             productStatus?: ProductStatus;
         }
-        
         interface ProductstatusesListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#productstatusesListResponse". */
             kind?: string;
@@ -1655,9 +1739,11 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: ProductStatus[];
         }
-        
         interface RateGroup {
-            /** A list of shipping labels defining the products to which this rate group applies to. This is a disjunction: only one of the labels has to match for the rate group to apply. May only be empty for the last rate group of a service. Required. */
+            /**
+             * A list of shipping labels defining the products to which this rate group applies to. This is a disjunction: only one of the labels has to match for the
+             * rate group to apply. May only be empty for the last rate group of a service. Required.
+             */
             applicableShippingLabels?: string[];
             /** A list of carrier rates that can be referred to by mainTable or singleValue. */
             carrierRates?: CarrierRate[];
@@ -1668,12 +1754,13 @@ declare namespace gapi.client {
             /** A list of subtables referred to by mainTable. Can only be set if mainTable is set. */
             subtables?: Table[];
         }
-        
         interface Row {
-            /** The list of cells that constitute the row. Must have the same length as columnHeaders for two-dimensional tables, a length of 1 for one-dimensional tables. Required. */
+            /**
+             * The list of cells that constitute the row. Must have the same length as columnHeaders for two-dimensional tables, a length of 1 for one-dimensional
+             * tables. Required.
+             */
             cells?: Value[];
         }
-        
         interface Service {
             /** A boolean exposing the active status of the shipping service. Required. */
             active?: boolean;
@@ -1683,12 +1770,19 @@ declare namespace gapi.client {
             deliveryCountry?: string;
             /** Time spent in various aspects from order to the delivery of the product. Required. */
             deliveryTime?: DeliveryTime;
+            /**
+             * Minimum order value for this service. If set, indicates that customers will have to spend at least this amount. All prices within a service must have
+             * the same currency.
+             */
+            minimumOrderValue?: Price;
             /** Free-form name of the service. Must be unique within target account. Required. */
             name?: string;
-            /** Shipping rate group definitions. Only the last one is allowed to have an empty applicableShippingLabels, which means "everything else". The other applicableShippingLabels must not overlap. */
+            /**
+             * Shipping rate group definitions. Only the last one is allowed to have an empty applicableShippingLabels, which means "everything else". The other
+             * applicableShippingLabels must not overlap.
+             */
             rateGroups?: RateGroup[];
         }
-        
         interface ShippingSettings {
             /** The ID of the account to which these account shipping settings belong. Ignored upon update, always present in get request responses. */
             accountId?: string;
@@ -1697,12 +1791,10 @@ declare namespace gapi.client {
             /** The target account's list of services. Optional. */
             services?: Service[];
         }
-        
         interface ShippingsettingsCustomBatchRequest {
             /** The request entries to be processed in the batch. */
             entries?: ShippingsettingsCustomBatchRequestEntry[];
         }
-        
         interface ShippingsettingsCustomBatchRequestEntry {
             /** The ID of the account for which to get/update account shipping settings. */
             accountId?: string;
@@ -1714,14 +1806,12 @@ declare namespace gapi.client {
             /** The account shipping settings to update. Only defined if the method is update. */
             shippingSettings?: ShippingSettings;
         }
-        
         interface ShippingsettingsCustomBatchResponse {
             /** The result of the execution of the batch requests. */
             entries?: ShippingsettingsCustomBatchResponseEntry[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#shippingsettingsCustomBatchResponse". */
             kind?: string;
         }
-        
         interface ShippingsettingsCustomBatchResponseEntry {
             /** The ID of the request entry to which this entry responds. */
             batchId?: number;
@@ -1732,14 +1822,12 @@ declare namespace gapi.client {
             /** The retrieved or updated account shipping settings. */
             shippingSettings?: ShippingSettings;
         }
-        
         interface ShippingsettingsGetSupportedCarriersResponse {
             /** A list of supported carriers. May be empty. */
             carriers?: CarriersCarrier[];
             /** Identifies what kind of resource this is. Value: the fixed string "content#shippingsettingsGetSupportedCarriersResponse". */
             kind?: string;
         }
-        
         interface ShippingsettingsListResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "content#shippingsettingsListResponse". */
             kind?: string;
@@ -1747,7 +1835,6 @@ declare namespace gapi.client {
             nextPageToken?: string;
             resources?: ShippingSettings[];
         }
-        
         interface Table {
             /** Headers of the table's columns. Optional: if not set then the table has only one dimension. */
             columnHeaders?: Headers;
@@ -1758,7 +1845,6 @@ declare namespace gapi.client {
             /** The list of rows that constitute the table. Must have the same length as rowHeaders. Required. */
             rows?: Row[];
         }
-        
         interface TestOrder {
             /** The details of the customer who placed the order. */
             customer?: TestOrderCustomer;
@@ -1779,16 +1865,17 @@ declare namespace gapi.client {
             /** The requested shipping option. */
             shippingOption?: string;
         }
-        
         interface TestOrderCustomer {
             /** Email address of the customer. */
             email?: string;
-            /** If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the checkout flow. Optional. */
+            /**
+             * If set, this indicates the user explicitly chose to opt in or out of providing marketing rights to the merchant. If unset, this indicates the user has
+             * already made this choice in a previous purchase, and was thus not shown the marketing right opt in/out checkbox during the checkout flow. Optional.
+             */
             explicitMarketingPreference?: boolean;
             /** Full name of the customer. */
             fullName?: string;
         }
-        
         interface TestOrderLineItem {
             /** Product data from the time of the order placement. */
             product?: TestOrderLineItemProduct;
@@ -1801,7 +1888,6 @@ declare namespace gapi.client {
             /** Unit tax for the line item. */
             unitTax?: Price;
         }
-        
         interface TestOrderLineItemProduct {
             /** Brand of the item. */
             brand?: string;
@@ -1830,7 +1916,6 @@ declare namespace gapi.client {
             /** Variant attributes for the item. Optional. */
             variantAttributes?: OrderLineItemProductVariantAttribute[];
         }
-        
         interface TestOrderPaymentMethod {
             /** The card expiration month (January = 1, February = 2 etc.). */
             expirationMonth?: number;
@@ -1843,7 +1928,6 @@ declare namespace gapi.client {
             /** The type of instrument. Note that real orders might have different values than the four values accepted by createTestOrder. */
             type?: string;
         }
-        
         interface Value {
             /** The name of a carrier rate referring to a carrier rate defined in the same rate group. Can only be set if all other fields are not set. */
             carrierRateName?: string;
@@ -1856,17 +1940,15 @@ declare namespace gapi.client {
             /** The name of a subtable. Can only be set in table cells (i.e., not for single values), and only if all other fields are not set. */
             subtableName?: string;
         }
-        
         interface Weight {
             /** The weight unit. */
             unit?: string;
             /** The weight represented as a number. */
             value?: string;
         }
-        
         interface AccountsResource {
             /** Returns information about the authenticated user. */
-            authinfo(request: {            
+            authinfo(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1877,14 +1959,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountsAuthInfoResponse>;            
-            
-            /** Claims the website of a Merchant Center sub-account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            claimwebsite(request: {            
+            }): Request<AccountsAuthInfoResponse>;
+            /**
+             * Claims the website of a Merchant Center sub-account. This method can only be called for accounts to which the managing account has access: either the
+             * managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            claimwebsite(request: {
                 /** The ID of the account whose website is claimed. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1897,18 +1984,23 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Flag to remove any existing claim on the requested website by another account and replace it with a claim from this account. */
+                /**
+                 * Only available to selected merchants. When set to True, this flag removes any existing claim on the requested website by another account and replaces
+                 * it with a claim from this account.
+                 */
                 overwrite?: boolean;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountsClaimWebsiteResponse>;            
-            
+            }): Request<AccountsClaimWebsiteResponse>;
             /** Retrieves, inserts, updates, and deletes multiple Merchant Center (sub-)accounts in a single request. */
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -1921,14 +2013,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountsCustomBatchResponse>;            
-            
+            }): Request<AccountsCustomBatchResponse>;
             /** Deletes a Merchant Center sub-account. This method can only be called for multi-client accounts. */
-            delete(request: {            
+            delete(request: {
                 /** The ID of the account. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1937,6 +2031,8 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Flag to delete sub-accounts with products. The default value is false. */
+                force?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The ID of the managing account. */
@@ -1945,14 +2041,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
-            /** Retrieves a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            get(request: {            
+            }): Request<void>;
+            /**
+             * Retrieves a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account
+             * itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            get(request: {
                 /** The ID of the account. */
                 accountId: string;
                 /** Data format for the response. */
@@ -1967,14 +2068,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
             /** Creates a Merchant Center sub-account. This method can only be called for multi-client accounts. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -1989,14 +2092,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
             /** Lists the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2013,14 +2118,19 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountsListResponse>;            
-            
-            /** Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<AccountsListResponse>;
+            /**
+             * Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account
+             * itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics.
+             */
+            patch(request: {
                 /** The ID of the account. */
                 accountId: string;
                 /** Data format for the response. */
@@ -2037,14 +2147,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
-            /** Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            update(request: {            
+            }): Request<Account>;
+            /**
+             * Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account
+             * itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            update(request: {
                 /** The ID of the account. */
                 accountId: string;
                 /** Data format for the response. */
@@ -2061,16 +2176,17 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Account>;            
-            
+            }): Request<Account>;
         }
-        
         interface AccountstatusesResource {
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2081,14 +2197,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountstatusesCustomBatchResponse>;            
-            
-            /** Retrieves the status of a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            get(request: {            
+            }): Request<AccountstatusesCustomBatchResponse>;
+            /**
+             * Retrieves the status of a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the
+             * managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            get(request: {
                 /** The ID of the account. */
                 accountId: string;
                 /** Data format for the response. */
@@ -2103,14 +2224,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountStatus>;            
-            
+            }): Request<AccountStatus>;
             /** Lists the statuses of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2127,17 +2250,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountstatusesListResponse>;            
-            
+            }): Request<AccountstatusesListResponse>;
         }
-        
         interface AccounttaxResource {
             /** Retrieves and updates tax settings of multiple accounts in a single request. */
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2150,14 +2274,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccounttaxCustomBatchResponse>;            
-            
-            /** Retrieves the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            get(request: {            
+            }): Request<AccounttaxCustomBatchResponse>;
+            /**
+             * Retrieves the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing
+             * account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            get(request: {
                 /** The ID of the account for which to get/update account tax settings. */
                 accountId: string;
                 /** Data format for the response. */
@@ -2172,14 +2301,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountTax>;            
-            
+            }): Request<AccountTax>;
             /** Lists the tax settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2196,14 +2327,20 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccounttaxListResponse>;            
-            
-            /** Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<AccounttaxListResponse>;
+            /**
+             * Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing
+             * account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch
+             * semantics.
+             */
+            patch(request: {
                 /** The ID of the account for which to get/update account tax settings. */
                 accountId: string;
                 /** Data format for the response. */
@@ -2220,14 +2357,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountTax>;            
-            
-            /** Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            update(request: {            
+            }): Request<AccountTax>;
+            /**
+             * Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing
+             * account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            update(request: {
                 /** The ID of the account for which to get/update account tax settings. */
                 accountId: string;
                 /** Data format for the response. */
@@ -2244,16 +2386,17 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<AccountTax>;            
-            
+            }): Request<AccountTax>;
         }
-        
         interface DatafeedsResource {
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2266,14 +2409,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DatafeedsCustomBatchResponse>;            
-            
+            }): Request<DatafeedsCustomBatchResponse>;
             /** Deletes a datafeed configuration from your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 datafeedId: string;
@@ -2288,14 +2433,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves a datafeed configuration from your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 datafeedId: string;
@@ -2308,14 +2455,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Datafeed>;            
-            
+            }): Request<Datafeed>;
             /** Registers a datafeed configuration with your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            insert(request: {            
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2329,14 +2478,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Datafeed>;            
-            
+            }): Request<Datafeed>;
             /** Lists the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2353,14 +2504,19 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DatafeedsListResponse>;            
-            
-            /** Updates a datafeed configuration of your Merchant Center account. This method can only be called for non-multi-client accounts. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<DatafeedsListResponse>;
+            /**
+             * Updates a datafeed configuration of your Merchant Center account. This method can only be called for non-multi-client accounts. This method supports
+             * patch semantics.
+             */
+            patch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 datafeedId: string;
@@ -2375,14 +2531,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Datafeed>;            
-            
+            }): Request<Datafeed>;
             /** Updates a datafeed configuration of your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            update(request: {            
+            update(request: {
                 /** Data format for the response. */
                 alt?: string;
                 datafeedId: string;
@@ -2397,16 +2555,17 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Datafeed>;            
-            
+            }): Request<Datafeed>;
         }
-        
         interface DatafeedstatusesResource {
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2417,34 +2576,48 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DatafeedstatusesCustomBatchResponse>;            
-            
+            }): Request<DatafeedstatusesCustomBatchResponse>;
             /** Retrieves the status of a datafeed from your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
+                /**
+                 * The country for which to get the datafeed status. If this parameter is provided then language must also be provided. Note that this parameter is
+                 * required for feeds targeting multiple countries and languages, since a feed may have a different status for each target.
+                 */
+                country?: string;
                 datafeedId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**
+                 * The language for which to get the datafeed status. If this parameter is provided then country must also be provided. Note that this parameter is
+                 * required for feeds targeting multiple countries and languages, since a feed may have a different status for each target.
+                 */
+                language?: string;
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DatafeedStatus>;            
-            
+            }): Request<DatafeedStatus>;
             /** Lists the statuses of the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2461,17 +2634,21 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<DatafeedstatusesListResponse>;            
-            
+            }): Request<DatafeedstatusesListResponse>;
         }
-        
         interface InventoryResource {
-            /** Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products. This method can only be called for non-multi-client accounts. */
-            custombatch(request: {            
+            /**
+             * Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products.
+             * This method can only be called for non-multi-client accounts.
+             */
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2484,14 +2661,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InventoryCustomBatchResponse>;            
-            
-            /** Updates price and availability of a product in your Merchant Center account. This operation does not update the expiration date of the product. This method can only be called for non-multi-client accounts. */
-            set(request: {            
+            }): Request<InventoryCustomBatchResponse>;
+            /**
+             * Updates price and availability of a product in your Merchant Center account. This operation does not update the expiration date of the product. This
+             * method can only be called for non-multi-client accounts.
+             */
+            set(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2508,19 +2690,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the product for which to update price and availability. */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The code of the store for which to update price and availability. Use online to update price and availability of an online product. */
                 storeCode: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<InventorySetResponse>;            
-            
+            }): Request<InventorySetResponse>;
         }
-        
         interface OrdersResource {
             /** Marks an order as acknowledged. This method can only be called for non-multi-client accounts. */
-            acknowledge(request: {            
+            acknowledge(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2535,14 +2718,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersAcknowledgeResponse>;            
-            
+            }): Request<OrdersAcknowledgeResponse>;
             /** Sandbox only. Moves a test order from state "inProgress" to state "pendingShipment". This method can only be called for non-multi-client accounts. */
-            advancetestorder(request: {            
+            advancetestorder(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2557,14 +2742,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersAdvanceTestOrderResponse>;            
-            
+            }): Request<OrdersAdvanceTestOrderResponse>;
             /** Cancels all line items in an order, making a full refund. This method can only be called for non-multi-client accounts. */
-            cancel(request: {            
+            cancel(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2579,14 +2766,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersCancelResponse>;            
-            
+            }): Request<OrdersCancelResponse>;
             /** Cancels a line item, making a full refund. This method can only be called for non-multi-client accounts. */
-            cancellineitem(request: {            
+            cancellineitem(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2601,14 +2790,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersCancelLineItemResponse>;            
-            
+            }): Request<OrdersCancelLineItemResponse>;
             /** Sandbox only. Creates a test order. This method can only be called for non-multi-client accounts. */
-            createtestorder(request: {            
+            createtestorder(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2621,14 +2812,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersCreateTestOrderResponse>;            
-            
+            }): Request<OrdersCreateTestOrderResponse>;
             /** Retrieves or modifies multiple orders in a single request. This method can only be called for non-multi-client accounts. */
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2639,14 +2832,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersCustomBatchResponse>;            
-            
+            }): Request<OrdersCustomBatchResponse>;
             /** Retrieves an order from your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2661,14 +2856,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Order>;            
-            
+            }): Request<Order>;
             /** Retrieves an order using merchant order id. This method can only be called for non-multi-client accounts. */
-            getbymerchantorderid(request: {            
+            getbymerchantorderid(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2683,14 +2880,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersGetByMerchantOrderIdResponse>;            
-            
-            /** Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox. This method can only be called for non-multi-client accounts. */
-            gettestordertemplate(request: {            
+            }): Request<OrdersGetByMerchantOrderIdResponse>;
+            /**
+             * Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox. This method can only be called for
+             * non-multi-client accounts.
+             */
+            gettestordertemplate(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2703,18 +2905,21 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** The name of the template to retrieve. */
                 templateName: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersGetTestOrderTemplateResponse>;            
-            
+            }): Request<OrdersGetTestOrderTemplateResponse>;
             /** Lists the orders in your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /**
-                 * Obtains orders that match the acknowledgement status. When set to true, obtains orders that have been acknowledged. When false, obtains orders that have not been acknowledged.
+                 * Obtains orders that match the acknowledgement status. When set to true, obtains orders that have been acknowledged. When false, obtains orders that
+                 * have not been acknowledged.
                  * We recommend using this filter set to false, in conjunction with the acknowledge call, such that only un-acknowledged orders are returned.
                  */
                 acknowledged?: boolean;
@@ -2725,7 +2930,8 @@ declare namespace gapi.client {
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /**
-                 * The maximum number of orders to return in the response, used for paging. The default value is 25 orders per page, and the maximum allowed value is 250 orders per page.
+                 * The maximum number of orders to return in the response, used for paging. The default value is 25 orders per page, and the maximum allowed value is 250
+                 * orders per page.
                  * Known issue: All List calls will return all Orders without limit regardless of the value of this field.
                  */
                 maxResults?: number;
@@ -2733,7 +2939,11 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** The ordering of the returned list. The only supported value are placedDate desc and placedDate asc for now, which returns orders sorted by placement date. "placedDate desc" stands for listing orders by placement date, from oldest to most recent. "placedDate asc" stands for listing orders by placement date, from most recent to oldest. In future releases we'll support other sorting criteria. */
+                /**
+                 * The ordering of the returned list. The only supported value are placedDate desc and placedDate asc for now, which returns orders sorted by placement
+                 * date. "placedDate desc" stands for listing orders by placement date, from oldest to most recent. "placedDate asc" stands for listing orders by
+                 * placement date, from most recent to oldest. In future releases we'll support other sorting criteria.
+                 */
                 orderBy?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
@@ -2743,16 +2953,22 @@ declare namespace gapi.client {
                 placedDateStart?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
-                /** Obtains orders that match any of the specified statuses. Multiple values can be specified with comma separation. Additionally, please note that active is a shortcut for pendingShipment and partiallyShipped, and completed is a shortcut for shipped , partiallyDelivered, delivered, partiallyReturned, returned, and canceled. */
+                /**
+                 * Obtains orders that match any of the specified statuses. Multiple values can be specified with comma separation. Additionally, please note that active
+                 * is a shortcut for pendingShipment and partiallyShipped, and completed is a shortcut for shipped , partiallyDelivered, delivered, partiallyReturned,
+                 * returned, and canceled.
+                 */
                 statuses?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersListResponse>;            
-            
+            }): Request<OrdersListResponse>;
             /** Refund a portion of the order, up to the full amount paid. This method can only be called for non-multi-client accounts. */
-            refund(request: {            
+            refund(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2767,14 +2983,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersRefundResponse>;            
-            
+            }): Request<OrdersRefundResponse>;
             /** Returns a line item. This method can only be called for non-multi-client accounts. */
-            returnlineitem(request: {            
+            returnlineitem(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2789,14 +3007,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersReturnLineItemResponse>;            
-            
+            }): Request<OrdersReturnLineItemResponse>;
             /** Marks line item(s) as shipped. This method can only be called for non-multi-client accounts. */
-            shiplineitems(request: {            
+            shiplineitems(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2811,14 +3031,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersShipLineItemsResponse>;            
-            
+            }): Request<OrdersShipLineItemsResponse>;
             /** Updates the merchant order ID for a given order. This method can only be called for non-multi-client accounts. */
-            updatemerchantorderid(request: {            
+            updatemerchantorderid(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2833,14 +3055,16 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersUpdateMerchantOrderIdResponse>;            
-            
+            }): Request<OrdersUpdateMerchantOrderIdResponse>;
             /** Updates a shipment's status, carrier, and/or tracking ID. This method can only be called for non-multi-client accounts. */
-            updateshipment(request: {            
+            updateshipment(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2855,17 +3079,18 @@ declare namespace gapi.client {
                 orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<OrdersUpdateShipmentResponse>;            
-            
+            }): Request<OrdersUpdateShipmentResponse>;
         }
-        
         interface ProductsResource {
             /** Retrieves, inserts, and deletes multiple products in a single request. This method can only be called for non-multi-client accounts. */
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2878,14 +3103,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ProductsCustomBatchResponse>;            
-            
+            }): Request<ProductsCustomBatchResponse>;
             /** Deletes a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            delete(request: {            
+            delete(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2902,14 +3129,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the product. */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<void>;            
-            
+            }): Request<void>;
             /** Retrieves a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2924,14 +3153,19 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the product. */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Product>;            
-            
-            /** Uploads a product to your Merchant Center account. If an item with the same channel, contentLanguage, offerId, and targetCountry already exists, this method updates that entry. This method can only be called for non-multi-client accounts. */
-            insert(request: {            
+            }): Request<Product>;
+            /**
+             * Uploads a product to your Merchant Center account. If an item with the same channel, contentLanguage, offerId, and targetCountry already exists, this
+             * method updates that entry. This method can only be called for non-multi-client accounts.
+             */
+            insert(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -2946,14 +3180,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<Product>;            
-            
+            }): Request<Product>;
             /** Lists the products in your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2972,17 +3208,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ProductsListResponse>;            
-            
+            }): Request<ProductsListResponse>;
         }
-        
         interface ProductstatusesResource {
             /** Gets the statuses of multiple products in a single request. This method can only be called for non-multi-client accounts. */
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -2995,14 +3232,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ProductstatusesCustomBatchResponse>;            
-            
+            }): Request<ProductstatusesCustomBatchResponse>;
             /** Gets the status of a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            get(request: {            
+            get(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -3019,14 +3258,16 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** The ID of the product. */
                 productId: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ProductStatus>;            
-            
+            }): Request<ProductStatus>;
             /** Lists the statuses of the products in your Merchant Center account. This method can only be called for non-multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -3047,17 +3288,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ProductstatusesListResponse>;            
-            
+            }): Request<ProductstatusesListResponse>;
         }
-        
         interface ShippingsettingsResource {
             /** Retrieves and updates the shipping settings of multiple accounts in a single request. */
-            custombatch(request: {            
+            custombatch(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Flag to run the request in dry-run mode. */
@@ -3070,14 +3312,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ShippingsettingsCustomBatchResponse>;            
-            
-            /** Retrieves the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            get(request: {            
+            }): Request<ShippingsettingsCustomBatchResponse>;
+            /**
+             * Retrieves the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the
+             * managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            get(request: {
                 /** The ID of the account for which to get/update shipping settings. */
                 accountId: string;
                 /** Data format for the response. */
@@ -3092,14 +3339,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ShippingSettings>;            
-            
+            }): Request<ShippingSettings>;
             /** Retrieves supported carriers and carrier services for an account. */
-            getsupportedcarriers(request: {            
+            getsupportedcarriers(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -3112,14 +3361,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ShippingsettingsGetSupportedCarriersResponse>;            
-            
+            }): Request<ShippingsettingsGetSupportedCarriersResponse>;
             /** Lists the shipping settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
-            list(request: {            
+            list(request: {
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -3136,14 +3387,20 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ShippingsettingsListResponse>;            
-            
-            /** Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
-            patch(request: {            
+            }): Request<ShippingsettingsListResponse>;
+            /**
+             * Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing
+             * account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch
+             * semantics.
+             */
+            patch(request: {
                 /** The ID of the account for which to get/update shipping settings. */
                 accountId: string;
                 /** Data format for the response. */
@@ -3160,14 +3417,19 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ShippingSettings>;            
-            
-            /** Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
-            update(request: {            
+            }): Request<ShippingSettings>;
+            /**
+             * Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing
+             * account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account.
+             */
+            update(request: {
                 /** The ID of the account for which to get/update shipping settings. */
                 accountId: string;
                 /** Data format for the response. */
@@ -3184,12 +3446,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                /**
+                 * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+                 * Overrides userIp if both are provided.
+                 */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): Request<ShippingSettings>;            
-            
+            }): Request<ShippingSettings>;
         }
     }
 }

@@ -13,23 +13,22 @@
 
 declare namespace gapi.client {
     /** Load Google Safe Browsing API v4 */
-    function load(name: "safebrowsing", version: "v4"): PromiseLike<void>;    
-    function load(name: "safebrowsing", version: "v4", callback: () => any): void;    
-    
-    const encodedFullHashes: safebrowsing.EncodedFullHashesResource; 
-    
-    const encodedUpdates: safebrowsing.EncodedUpdatesResource; 
-    
-    const fullHashes: safebrowsing.FullHashesResource; 
-    
-    const threatListUpdates: safebrowsing.ThreatListUpdatesResource; 
-    
-    const threatLists: safebrowsing.ThreatListsResource; 
-    
-    const threatMatches: safebrowsing.ThreatMatchesResource; 
-    
+    function load(name: "safebrowsing", version: "v4"): PromiseLike<void>;
+    function load(name: "safebrowsing", version: "v4", callback: () => any): void;
+
+    const encodedFullHashes: safebrowsing.EncodedFullHashesResource;
+
+    const encodedUpdates: safebrowsing.EncodedUpdatesResource;
+
+    const fullHashes: safebrowsing.FullHashesResource;
+
+    const threatListUpdates: safebrowsing.ThreatListUpdatesResource;
+
+    const threatLists: safebrowsing.ThreatListsResource;
+
+    const threatMatches: safebrowsing.ThreatMatchesResource;
+
     namespace safebrowsing {
-        
         interface Checksum {
             /**
              * The SHA256 hash of the client state; that is, of the sorted list of all
@@ -37,7 +36,6 @@ declare namespace gapi.client {
              */
             sha256?: string;
         }
-        
         interface ClientInfo {
             /**
              * A client ID that (hopefully) uniquely identifies the client implementation
@@ -47,7 +45,6 @@ declare namespace gapi.client {
             /** The version of the client implementation. */
             clientVersion?: string;
         }
-        
         interface Constraints {
             /**
              * Sets the maximum number of entries that the client is willing to have
@@ -70,14 +67,12 @@ declare namespace gapi.client {
             /** The compression types supported by the client. */
             supportedCompressions?: string[];
         }
-        
         interface FetchThreatListUpdatesRequest {
             /** The client metadata. */
             client?: ClientInfo;
             /** The requested threat list updates. */
             listUpdateRequests?: ListUpdateRequest[];
         }
-        
         interface FetchThreatListUpdatesResponse {
             /** The list updates requested by the clients. */
             listUpdateResponses?: ListUpdateResponse[];
@@ -87,7 +82,6 @@ declare namespace gapi.client {
              */
             minimumWaitDuration?: string;
         }
-        
         interface FindFullHashesRequest {
             /**
              * Client metadata associated with callers of higher-level APIs built on top
@@ -101,7 +95,6 @@ declare namespace gapi.client {
             /** The lists and hashes to be checked. */
             threatInfo?: ThreatInfo;
         }
-        
         interface FindFullHashesResponse {
             /** The full hashes that matched the requested prefixes. */
             matches?: ThreatMatch[];
@@ -117,24 +110,20 @@ declare namespace gapi.client {
              */
             negativeCacheDuration?: string;
         }
-        
         interface FindThreatMatchesRequest {
             /** The client metadata. */
             client?: ClientInfo;
             /** The lists and entries to be checked for matches. */
             threatInfo?: ThreatInfo;
         }
-        
         interface FindThreatMatchesResponse {
             /** The threat list matches. */
             matches?: ThreatMatch[];
         }
-        
         interface ListThreatListsResponse {
             /** The lists available for download by the client. */
             threatLists?: ThreatListDescriptor[];
         }
-        
         interface ListUpdateRequest {
             /** The constraints associated with this request. */
             constraints?: Constraints;
@@ -150,7 +139,6 @@ declare namespace gapi.client {
             /** The type of threat posed by entries present in the list. */
             threatType?: string;
         }
-        
         interface ListUpdateResponse {
             /**
              * A set of entries to add to a local threat type's list. Repeated to allow
@@ -184,14 +172,12 @@ declare namespace gapi.client {
             /** The threat type for which data is returned. */
             threatType?: string;
         }
-        
         interface MetadataEntry {
             /** The metadata entry key. For JSON requests, the key is base64-encoded. */
             key?: string;
             /** The metadata entry value. For JSON requests, the value is base64-encoded. */
             value?: string;
         }
-        
         interface RawHashes {
             /**
              * The number of bytes for each prefix encoded below.  This field can be
@@ -205,12 +191,10 @@ declare namespace gapi.client {
              */
             rawHashes?: string;
         }
-        
         interface RawIndices {
             /** The indices to remove from a lexicographically-sorted local list. */
             indices?: number[];
         }
-        
         interface RiceDeltaEncoding {
             /** The encoded deltas that are encoded using the Golomb-Rice coder. */
             encodedData?: string;
@@ -231,7 +215,6 @@ declare namespace gapi.client {
              */
             riceParameter?: number;
         }
-        
         interface ThreatEntry {
             /**
              * The digest of an executable in SHA256 format. The API supports both
@@ -247,12 +230,10 @@ declare namespace gapi.client {
             /** A URL. */
             url?: string;
         }
-        
         interface ThreatEntryMetadata {
             /** The metadata entries. */
             entries?: MetadataEntry[];
         }
-        
         interface ThreatEntrySet {
             /** The compression type for the entries in this set. */
             compressionType?: string;
@@ -274,7 +255,6 @@ declare namespace gapi.client {
              */
             riceIndices?: RiceDeltaEncoding;
         }
-        
         interface ThreatInfo {
             /** The platform types to be checked. */
             platformTypes?: string[];
@@ -285,7 +265,6 @@ declare namespace gapi.client {
             /** The threat types to be checked. */
             threatTypes?: string[];
         }
-        
         interface ThreatListDescriptor {
             /** The platform type targeted by the list's entries. */
             platformType?: string;
@@ -294,7 +273,6 @@ declare namespace gapi.client {
             /** The threat type posed by the list's entries. */
             threatType?: string;
         }
-        
         interface ThreatMatch {
             /**
              * The cache lifetime for the returned match. Clients must not cache this
@@ -312,9 +290,8 @@ declare namespace gapi.client {
             /** The threat type matching this threat. */
             threatType?: string;
         }
-        
         interface EncodedFullHashesResource {
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -350,12 +327,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FindFullHashesResponse>;            
-            
+            }): Request<FindFullHashesResponse>;
         }
-        
         interface EncodedUpdatesResource {
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -391,13 +366,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FetchThreatListUpdatesResponse>;            
-            
+            }): Request<FetchThreatListUpdatesResponse>;
         }
-        
         interface FullHashesResource {
             /** Finds the full hashes that match the requested hash prefixes. */
-            find(request: {            
+            find(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -424,16 +397,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FindFullHashesResponse>;            
-            
+            }): Request<FindFullHashesResponse>;
         }
-        
         interface ThreatListUpdatesResource {
             /**
              * Fetches the most recent threat list updates. A client can request updates
              * for multiple lists at once.
              */
-            fetch(request: {            
+            fetch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -460,13 +431,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FetchThreatListUpdatesResponse>;            
-            
+            }): Request<FetchThreatListUpdatesResponse>;
         }
-        
         interface ThreatListsResource {
             /** Lists the Safe Browsing threat lists available for download. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -493,13 +462,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListThreatListsResponse>;            
-            
+            }): Request<ListThreatListsResponse>;
         }
-        
         interface ThreatMatchesResource {
             /** Finds the threat entries that match the Safe Browsing lists. */
-            find(request: {            
+            find(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -526,8 +493,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<FindThreatMatchesResponse>;            
-            
+            }): Request<FindThreatMatchesResponse>;
         }
     }
 }

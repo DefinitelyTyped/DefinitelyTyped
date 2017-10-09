@@ -1,10 +1,10 @@
-# TypeScript typings for Google Cloud Video Intelligence API v1beta1
-Google Cloud Video Intelligence API.
+# TypeScript typings for Cloud Video Intelligence API v1beta1
+Cloud Video Intelligence API.
 For detailed description please check [documentation](https://cloud.google.com/video-intelligence/docs/).
 
 ## Installing
 
-Install typings for Google Cloud Video Intelligence API:
+Install typings for Cloud Video Intelligence API:
 ```
 npm install @types/gapi.client.videointelligence@v1beta1 --save-dev
 ```
@@ -48,7 +48,7 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 });            
 ```
 
-After that you can use Google Cloud Video Intelligence API resources:
+After that you can use Cloud Video Intelligence API resources:
 
 ```typescript 
     

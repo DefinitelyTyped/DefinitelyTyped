@@ -1,12 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-trailing-whitespace": [false],
-        "no-padding": [false],
-        "max-line-length": [],
         "interface-name": [false],
-        "ban-types": [false],
-        "await-promise": [false],
-        "no-irregular-whitespace": [false]
+        "ban-types": [false]
     }
 }

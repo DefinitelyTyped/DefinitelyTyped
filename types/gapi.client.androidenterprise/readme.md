@@ -148,7 +148,7 @@ If no notifications are present, an empty notification list is returned. Subsequ
 await gapi.client.enterprises.pullNotificationSet({  }); 
     
 /* 
-Sends a test push notification to validate the EMM integration with the Google Cloud Pub/Sub service for this enterprise.  
+Sends a test notification to validate the EMM integration with the Google Cloud Pub/Sub service for this enterprise.  
 */
 await gapi.client.enterprises.sendTestPushNotification({ enterpriseId: "enterpriseId",  }); 
     

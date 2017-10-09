@@ -63,6 +63,12 @@ other properties.
 await gapi.client.documents.analyzeEntities({  }); 
     
 /* 
+Finds entities, similar to AnalyzeEntities in the text and analyzes
+sentiment associated with each entity and its mentions.  
+*/
+await gapi.client.documents.analyzeEntitySentiment({  }); 
+    
+/* 
 Analyzes the sentiment of the provided text.  
 */
 await gapi.client.documents.analyzeSentiment({  }); 

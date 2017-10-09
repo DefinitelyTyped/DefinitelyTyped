@@ -743,6 +743,11 @@ Sets metadata for the specified instance to the data included in the request.
 await gapi.client.instances.setMetadata({ instance: "instance", project: "project", zone: "zone",  }); 
     
 /* 
+Changes the minimum CPU platform that this instance should use. This method can only be called on a stopped instance. For more information, read Specifying a Minimum CPU Platform.  
+*/
+await gapi.client.instances.setMinCpuPlatform({ instance: "instance", project: "project", zone: "zone",  }); 
+    
+/* 
 Sets an instance's scheduling options.  
 */
 await gapi.client.instances.setScheduling({ instance: "instance", project: "project", zone: "zone",  }); 
@@ -816,6 +821,11 @@ await gapi.client.networks.insert({ project: "project",  });
 Retrieves the list of networks available to the specified project.  
 */
 await gapi.client.networks.list({ project: "project",  }); 
+    
+/* 
+Patches the specified network with the data included in the request.  
+*/
+await gapi.client.networks.patch({ network: "network", project: "project",  }); 
     
 /* 
 Removes a peering from the specified network.  

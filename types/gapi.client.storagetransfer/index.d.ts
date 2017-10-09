@@ -13,17 +13,16 @@
 
 declare namespace gapi.client {
     /** Load Google Storage Transfer API v1 */
-    function load(name: "storagetransfer", version: "v1"): PromiseLike<void>;    
-    function load(name: "storagetransfer", version: "v1", callback: () => any): void;    
-    
-    const googleServiceAccounts: storagetransfer.GoogleServiceAccountsResource; 
-    
-    const transferJobs: storagetransfer.TransferJobsResource; 
-    
-    const transferOperations: storagetransfer.TransferOperationsResource; 
-    
+    function load(name: "storagetransfer", version: "v1"): PromiseLike<void>;
+    function load(name: "storagetransfer", version: "v1", callback: () => any): void;
+
+    const googleServiceAccounts: storagetransfer.GoogleServiceAccountsResource;
+
+    const transferJobs: storagetransfer.TransferJobsResource;
+
+    const transferOperations: storagetransfer.TransferOperationsResource;
+
     namespace storagetransfer {
-        
         interface AwsAccessKey {
             /**
              * AWS access key ID.
@@ -36,7 +35,6 @@ declare namespace gapi.client {
              */
             secretAccessKey?: string;
         }
-        
         interface AwsS3Data {
             /**
              * AWS access key used to sign the API requests to the AWS S3 bucket.
@@ -52,7 +50,6 @@ declare namespace gapi.client {
              */
             bucketName?: string;
         }
-        
         interface Date {
             /**
              * Day of month. Must be from 1 to 31 and valid for the year and month, or 0
@@ -67,7 +64,6 @@ declare namespace gapi.client {
              */
             year?: number;
         }
-        
         interface ErrorLogEntry {
             /** A list of messages that carry the error details. */
             errorDetails?: string[];
@@ -78,7 +74,6 @@ declare namespace gapi.client {
              */
             url?: string;
         }
-        
         interface ErrorSummary {
             /** Required. */
             errorCode?: string;
@@ -90,7 +85,6 @@ declare namespace gapi.client {
             /** Error samples. */
             errorLogEntries?: ErrorLogEntry[];
         }
-        
         interface GcsData {
             /**
              * Google Cloud Storage bucket name (see
@@ -99,12 +93,10 @@ declare namespace gapi.client {
              */
             bucketName?: string;
         }
-        
         interface GoogleServiceAccount {
             /** Required. */
             accountEmail?: string;
         }
-        
         interface HttpData {
             /**
              * The URL that points to the file that stores the object list entries.
@@ -114,26 +106,23 @@ declare namespace gapi.client {
              */
             listUrl?: string;
         }
-        
         interface ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: Operation[];
         }
-        
         interface ListTransferJobsResponse {
             /** The list next page token. */
             nextPageToken?: string;
             /** A list of transfer jobs. */
             transferJobs?: TransferJob[];
         }
-        
         interface ObjectConditions {
             /**
              * `excludePrefixes` must follow the requirements described for
              * `includePrefixes`.
-             * 
+             *
              * The max size of `excludePrefixes` is 1000.
              */
             excludePrefixes?: string[];
@@ -143,33 +132,33 @@ declare namespace gapi.client {
              * and that do not start with any of the `excludePrefixes`. If `includePrefixes`
              * is not specified, all objects except those that have names starting with
              * one of the `excludePrefixes` must satisfy the object conditions.
-             * 
+             *
              * Requirements:
-             * 
-             *   &#42; Each include-prefix and exclude-prefix can contain any sequence of
-             *     Unicode characters, of max length 1024 bytes when UTF8-encoded, and
-             *     must not contain Carriage Return or Line Feed characters.  Wildcard
-             *     matching and regular expression matching are not supported.
-             * 
-             *   &#42; Each include-prefix and exclude-prefix must omit the leading slash.
-             *     For example, to include the `requests.gz` object in a transfer from
-             *     `s3://my-aws-bucket/logs/y=2015/requests.gz`, specify the include
-             *     prefix as `logs/y=2015/requests.gz`.
-             * 
-             *   &#42; None of the include-prefix or the exclude-prefix values can be empty,
-             *     if specified.
-             * 
-             *   &#42; Each include-prefix must include a distinct portion of the object
-             *     namespace, i.e., no include-prefix may be a prefix of another
-             *     include-prefix.
-             * 
-             *   &#42; Each exclude-prefix must exclude a distinct portion of the object
-             *     namespace, i.e., no exclude-prefix may be a prefix of another
-             *     exclude-prefix.
-             * 
-             *   &#42; If `includePrefixes` is specified, then each exclude-prefix must start
-             *     with the value of a path explicitly included by `includePrefixes`.
-             * 
+             *
+             * &#42; Each include-prefix and exclude-prefix can contain any sequence of
+             * Unicode characters, of max length 1024 bytes when UTF8-encoded, and
+             * must not contain Carriage Return or Line Feed characters.  Wildcard
+             * matching and regular expression matching are not supported.
+             *
+             * &#42; Each include-prefix and exclude-prefix must omit the leading slash.
+             * For example, to include the `requests.gz` object in a transfer from
+             * `s3://my-aws-bucket/logs/y=2015/requests.gz`, specify the include
+             * prefix as `logs/y=2015/requests.gz`.
+             *
+             * &#42; None of the include-prefix or the exclude-prefix values can be empty,
+             * if specified.
+             *
+             * &#42; Each include-prefix must include a distinct portion of the object
+             * namespace, i.e., no include-prefix may be a prefix of another
+             * include-prefix.
+             *
+             * &#42; Each exclude-prefix must exclude a distinct portion of the object
+             * namespace, i.e., no exclude-prefix may be a prefix of another
+             * exclude-prefix.
+             *
+             * &#42; If `includePrefixes` is specified, then each exclude-prefix must start
+             * with the value of a path explicitly included by `includePrefixes`.
+             *
              * The max size of `includePrefixes` is 1000.
              */
             includePrefixes?: string[];
@@ -189,19 +178,21 @@ declare namespace gapi.client {
              */
             minTimeElapsedSinceLastModification?: string;
         }
-        
         interface Operation {
             /**
              * If the value is `false`, it means the operation is still in progress.
-             * If true, the operation is completed, and either `error` or `response` is
+             * If `true`, the operation is completed, and either `error` or `response` is
              * available.
              */
             done?: boolean;
             /** The error result of the operation in case of failure or cancellation. */
             error?: Status;
             /** Represents the transfer operation object. */
-            metadata?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should have the format of `transferOperations/some/unique/name`. */
+            metadata?: Record<string, any>;
+            /**
+             * The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name`
+             * should have the format of `transferOperations/some/unique/name`.
+             */
             name?: string;
             /**
              * The normal response of the operation in case of success.  If the original
@@ -213,9 +204,8 @@ declare namespace gapi.client {
              * is `TakeSnapshot()`, the inferred response type is
              * `TakeSnapshotResponse`.
              */
-            response?: Record<string, any>;            
+            response?: Record<string, any>;
         }
-        
         interface Schedule {
             /**
              * The last day the recurring transfer will be run. If `scheduleEndDate`
@@ -241,7 +231,6 @@ declare namespace gapi.client {
              */
             startTimeOfDay?: TimeOfDay;
         }
-        
         interface Status {
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
@@ -249,7 +238,7 @@ declare namespace gapi.client {
              * A list of messages that carry the error details.  There is a common set of
              * message types for APIs to use.
              */
-            details?: Array<Record<string, any>>;            
+            details?: Array<Record<string, any>>;
             /**
              * A developer-facing error message, which should be in English. Any
              * user-facing error message should be localized and sent in the
@@ -257,7 +246,6 @@ declare namespace gapi.client {
              */
             message?: string;
         }
-        
         interface TimeOfDay {
             /**
              * Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
@@ -274,7 +262,6 @@ declare namespace gapi.client {
              */
             seconds?: number;
         }
-        
         interface TransferCounters {
             /** Bytes that are copied to the data sink. */
             bytesCopiedToSink?: string;
@@ -323,7 +310,6 @@ declare namespace gapi.client {
              */
             objectsFromSourceSkippedBySync?: string;
         }
-        
         interface TransferJob {
             /** This field cannot be changed by user requests. */
             creationTime?: string;
@@ -343,33 +329,23 @@ declare namespace gapi.client {
              * error.
              */
             name?: string;
-            /**
-             * The ID of the Google Cloud Platform Console project that owns the job.
-             * Required.
-             */
+            /** The ID of the Google Cloud Platform Console project that owns the job. */
             projectId?: string;
-            /**
-             * Schedule specification.
-             * Required.
-             */
+            /** Schedule specification. */
             schedule?: Schedule;
             /**
              * Status of the job. This value MUST be specified for
              * `CreateTransferJobRequests`.
-             * 
+             *
              * NOTE: The effect of the new job status takes place during a subsequent job
              * run. For example, if you change the job status from `ENABLED` to
              * `DISABLED`, and an operation spawned by the transfer is running, the status
              * change would not affect the current operation.
              */
             status?: string;
-            /**
-             * Transfer specification.
-             * Required.
-             */
+            /** Transfer specification. */
             transferSpec?: TransferSpec;
         }
-        
         interface TransferOperation {
             /** Information about the progress of the transfer operation. */
             counters?: TransferCounters;
@@ -396,7 +372,6 @@ declare namespace gapi.client {
              */
             transferSpec?: TransferSpec;
         }
-        
         interface TransferOptions {
             /**
              * Whether objects should be deleted from the source after they are
@@ -413,7 +388,6 @@ declare namespace gapi.client {
             /** Whether overwriting objects that already exist in the sink is allowed. */
             overwriteObjectsAlreadyExistingInSink?: boolean;
         }
-        
         interface TransferSpec {
             /** An AWS S3 data source. */
             awsS3DataSource?: AwsS3Data;
@@ -436,7 +410,6 @@ declare namespace gapi.client {
              */
             transferOptions?: TransferOptions;
         }
-        
         interface UpdateTransferJobRequest {
             /**
              * The ID of the Google Cloud Platform Console project that owns the job.
@@ -461,7 +434,6 @@ declare namespace gapi.client {
              */
             updateTransferJobFieldMask?: string;
         }
-        
         interface GoogleServiceAccountsResource {
             /**
              * Returns the Google service account that is used by Storage Transfer
@@ -473,7 +445,7 @@ declare namespace gapi.client {
              * account is created and owned by Storage Transfer Service and can
              * only be used by Storage Transfer Service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -506,13 +478,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GoogleServiceAccount>;            
-            
+            }): Request<GoogleServiceAccount>;
         }
-        
         interface TransferJobsResource {
             /** Creates a transfer job that runs periodically. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -539,10 +509,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferJob>;            
-            
+            }): Request<TransferJob>;
             /** Gets a transfer job. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -579,10 +548,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferJob>;            
-            
+            }): Request<TransferJob>;
             /** Lists transfer jobs. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -624,14 +592,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListTransferJobsResponse>;            
-            
+            }): Request<ListTransferJobsResponse>;
             /**
              * Updates a transfer job. Updating a job's transfer spec does not affect
              * transfer operations that are running already. Updating the scheduling
              * of a job is not allowed.
              */
-            patch(request: {            
+            patch(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -663,13 +630,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<TransferJob>;            
-            
+            }): Request<TransferJob>;
         }
-        
         interface TransferOperationsResource {
             /** Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation. */
-            cancel(request: {            
+            cancel(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -698,10 +663,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** This method is not supported and the server returns `UNIMPLEMENTED`. */
-            delete(request: {            
+            delete(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -730,14 +694,13 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /**
              * Gets the latest state of a long-running operation.  Clients can use this
              * method to poll the operation result at intervals as recommended by the API
              * service.
              */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -766,12 +729,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Operation>;            
-            
+            }): Request<Operation>;
             /**
              * Lists operations that match the specified filter in the request. If the
              * server doesn't support this method, it returns `UNIMPLEMENTED`.
-             * 
+             *
              * NOTE: the `name` binding allows API services to override the binding
              * to use different resource name schemes, such as `users/&#42;/operations`. To
              * override the binding, API services can add a binding such as
@@ -780,7 +742,7 @@ declare namespace gapi.client {
              * collection id, however overriding users must ensure the name binding
              * is the parent resource, without the operations collection id.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -793,7 +755,12 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** A list of query parameters specified as JSON text in the form of {\"project_id\" : \"my_project_id\", \"job_names\" : [\"jobid1\", \"jobid2\",...], \"operation_names\" : [\"opid1\", \"opid2\",...], \"transfer_statuses\":[\"status1\", \"status2\",...]}. Since `job_names`, `operation_names`, and `transfer_statuses` support multiple values, they must be specified with array notation. `job_names`, `operation_names`, and `transfer_statuses` are optional. */
+                /**
+                 * A list of query parameters specified as JSON text in the form of {\"project_id\" : \"my_project_id\", \"job_names\" : [\"jobid1\", \"jobid2\",...],
+                 * \"operation_names\" : [\"opid1\", \"opid2\",...], \"transfer_statuses\":[\"status1\", \"status2\",...]}. Since `job_names`, `operation_names`, and
+                 * `transfer_statuses` support multiple values, they must be specified with array notation. `job_names`, `operation_names`, and `transfer_statuses` are
+                 * optional.
+                 */
                 filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -815,10 +782,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOperationsResponse>;            
-            
+            }): Request<ListOperationsResponse>;
             /** Pauses a transfer operation. */
-            pause(request: {            
+            pause(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -850,10 +816,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Resumes a transfer operation that is paused. */
-            resume(request: {            
+            resume(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -885,8 +850,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
         }
     }
 }

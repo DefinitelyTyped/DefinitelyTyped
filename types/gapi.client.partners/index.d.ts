@@ -13,38 +13,36 @@
 
 declare namespace gapi.client {
     /** Load Google Partners API v2 */
-    function load(name: "partners", version: "v2"): PromiseLike<void>;    
-    function load(name: "partners", version: "v2", callback: () => any): void;    
-    
-    const analytics: partners.AnalyticsResource; 
-    
-    const clientMessages: partners.ClientMessagesResource; 
-    
-    const companies: partners.CompaniesResource; 
-    
-    const exams: partners.ExamsResource; 
-    
-    const leads: partners.LeadsResource; 
-    
-    const offers: partners.OffersResource; 
-    
-    const userEvents: partners.UserEventsResource; 
-    
-    const userStates: partners.UserStatesResource; 
-    
-    const users: partners.UsersResource; 
-    
-    const v2: partners.V2Resource; 
-    
+    function load(name: "partners", version: "v2"): PromiseLike<void>;
+    function load(name: "partners", version: "v2", callback: () => any): void;
+
+    const analytics: partners.AnalyticsResource;
+
+    const clientMessages: partners.ClientMessagesResource;
+
+    const companies: partners.CompaniesResource;
+
+    const exams: partners.ExamsResource;
+
+    const leads: partners.LeadsResource;
+
+    const offers: partners.OffersResource;
+
+    const userEvents: partners.UserEventsResource;
+
+    const userStates: partners.UserStatesResource;
+
+    const users: partners.UsersResource;
+
+    const v2: partners.V2Resource;
+
     namespace partners {
-        
         interface AdWordsManagerAccountInfo {
             /** Name of the customer this account represents. */
             customerName?: string;
             /** The AdWords Manager Account id. */
             id?: string;
         }
-        
         interface Analytics {
             /**
              * Instances of users contacting the `Company`
@@ -64,7 +62,6 @@ declare namespace gapi.client {
              */
             searchViews?: AnalyticsDataPoint;
         }
-        
         interface AnalyticsDataPoint {
             /**
              * Number of times the type of event occurred.
@@ -74,7 +71,6 @@ declare namespace gapi.client {
             /** Location information of where these events occurred. */
             eventLocations?: LatLng[];
         }
-        
         interface AnalyticsSummary {
             /**
              * Aggregated number of times users contacted the `Company`
@@ -89,7 +85,6 @@ declare namespace gapi.client {
              */
             searchViewsCount?: number;
         }
-        
         interface AvailableOffer {
             /** The number of codes for this offer that are available for distribution. */
             available?: number;
@@ -116,7 +111,6 @@ declare namespace gapi.client {
             /** Terms of the offer. */
             terms?: string;
         }
-        
         interface Certification {
             /** Whether this certification has been achieved. */
             achieved?: boolean;
@@ -129,14 +123,12 @@ declare namespace gapi.client {
             /** Whether this certification is in the state of warning. */
             warning?: boolean;
         }
-        
         interface CertificationExamStatus {
             /** The number of people who have passed the certification exam. */
             numberUsersPass?: number;
             /** The type of certification exam. */
             type?: string;
         }
-        
         interface CertificationStatus {
             /** List of certification exam statuses. */
             examStatuses?: CertificationExamStatus[];
@@ -147,7 +139,6 @@ declare namespace gapi.client {
             /** Number of people who are certified, */
             userCount?: number;
         }
-        
         interface Company {
             /**
              * URL of the company's additional websites used to verify the dynamic badges.
@@ -217,7 +208,6 @@ declare namespace gapi.client {
             /** URL of the company's website. */
             websiteUrl?: string;
         }
-        
         interface CompanyRelation {
             /** The primary address for this company. */
             address?: string;
@@ -270,7 +260,6 @@ declare namespace gapi.client {
             /** The website URL for this company. */
             website?: string;
         }
-        
         interface CountryOfferInfo {
             /** (localized) Get Y amount for that country's offer. */
             getYAmount?: string;
@@ -281,7 +270,6 @@ declare namespace gapi.client {
             /** (localized) Spend X amount for that country's offer. */
             spendXAmount?: string;
         }
-        
         interface CreateLeadRequest {
             /**
              * The lead resource. The `LeadType` must not be `LEAD_TYPE_UNSPECIFIED`
@@ -293,7 +281,6 @@ declare namespace gapi.client {
             /** Current request metadata. */
             requestMetadata?: RequestMetadata;
         }
-        
         interface CreateLeadResponse {
             /**
              * Lead that was created depending on the outcome of
@@ -308,7 +295,6 @@ declare namespace gapi.client {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface Date {
             /**
              * Day of month. Must be from 1 to 31 and valid for the year and month, or 0
@@ -323,7 +309,6 @@ declare namespace gapi.client {
              */
             year?: number;
         }
-        
         interface DebugInfo {
             /** Info about the server that serviced this request. */
             serverInfo?: string;
@@ -332,14 +317,12 @@ declare namespace gapi.client {
             /** URL of the service that handled this request. */
             serviceUrl?: string;
         }
-        
         interface EventData {
             /** Data type. */
             key?: string;
             /** Data values. */
             values?: string[];
         }
-        
         interface ExamStatus {
             /** The type of the exam. */
             examType?: string;
@@ -354,7 +337,6 @@ declare namespace gapi.client {
             /** Whether this exam is in the state of warning. */
             warning?: boolean;
         }
-        
         interface ExamToken {
             /** The id of the exam the token is for. */
             examId?: string;
@@ -363,19 +345,16 @@ declare namespace gapi.client {
             /** The token, only present if the user has access to the exam. */
             token?: string;
         }
-        
         interface GetCompanyResponse {
             /** The company. */
             company?: Company;
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface GetPartnersStatusResponse {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface HistoricalOffer {
             /** Client's AdWords page URL. */
             adwordsUrl?: string;
@@ -402,14 +381,12 @@ declare namespace gapi.client {
             /** Status of the offer. */
             status?: string;
         }
-        
         interface LatLng {
             /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
             latitude?: number;
             /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
             longitude?: number;
         }
-        
         interface Lead {
             /** The AdWords Customer ID of the lead. */
             adwordsCustomerId?: string;
@@ -446,7 +423,6 @@ declare namespace gapi.client {
             /** Website URL of lead source. */
             websiteUrl?: string;
         }
-        
         interface ListAnalyticsResponse {
             /**
              * The list of analytics.
@@ -470,7 +446,6 @@ declare namespace gapi.client {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface ListCompaniesResponse {
             /** The list of companies. */
             companies?: Company[];
@@ -485,7 +460,6 @@ declare namespace gapi.client {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface ListLeadsResponse {
             /** The list of leads. */
             leads?: Lead[];
@@ -502,7 +476,6 @@ declare namespace gapi.client {
             /** The total count of leads for the given company. */
             totalSize?: number;
         }
-        
         interface ListOffersHistoryResponse {
             /** True if the user has the option to show entire company history. */
             canShowEntireCompany?: boolean;
@@ -517,7 +490,6 @@ declare namespace gapi.client {
             /** Number of results across all pages. */
             totalResults?: number;
         }
-        
         interface ListOffersResponse {
             /** Available Offers to be distributed. */
             availableOffers?: AvailableOffer[];
@@ -526,14 +498,12 @@ declare namespace gapi.client {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface ListUserStatesResponse {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
             /** User's states. */
             userStates?: string[];
         }
-        
         interface LocalizedCompanyInfo {
             /** List of country codes for the localized company info. */
             countryCodes?: string[];
@@ -548,7 +518,6 @@ declare namespace gapi.client {
             /** Localized brief description that the company uses to advertise themselves. */
             overview?: string;
         }
-        
         interface Location {
             /** The single string version of the address. */
             address?: string;
@@ -580,10 +549,9 @@ declare namespace gapi.client {
              */
             sortingCode?: string;
         }
-        
         interface LogMessageRequest {
             /** Map of client info, such as URL, browser navigator, browser platform, etc. */
-            clientInfo?: Record<string, string>;            
+            clientInfo?: Record<string, string>;
             /** Details about the client message. */
             details?: string;
             /** Message level of client message. */
@@ -591,12 +559,10 @@ declare namespace gapi.client {
             /** Current request metadata. */
             requestMetadata?: RequestMetadata;
         }
-        
         interface LogMessageResponse {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface LogUserEventRequest {
             /** The action that occurred. */
             eventAction?: string;
@@ -613,12 +579,10 @@ declare namespace gapi.client {
             /** The URL where the event occurred. */
             url?: string;
         }
-        
         interface LogUserEventResponse {
             /** Current response metadata. */
             responseMetadata?: ResponseMetadata;
         }
-        
         interface Money {
             /** The 3-letter currency code defined in ISO 4217. */
             currencyCode?: string;
@@ -637,7 +601,6 @@ declare namespace gapi.client {
              */
             units?: string;
         }
-        
         interface OfferCustomer {
             /** URL to the customer's AdWords page. */
             adwordsUrl?: string;
@@ -658,7 +621,6 @@ declare namespace gapi.client {
             /** Formatted Spend X amount with currency code. */
             spendXAmount?: string;
         }
-        
         interface OptIns {
             /**
              * An opt-in about receiving email from Partners marketing teams. Includes
@@ -677,7 +639,6 @@ declare namespace gapi.client {
             /** An opt-in about receiving email regarding new features and products. */
             specialOffers?: boolean;
         }
-        
         interface PublicProfile {
             /** The URL to the main display image of the public profile. Being deprecated. */
             displayImageUrl?: string;
@@ -690,21 +651,18 @@ declare namespace gapi.client {
             /** The URL of the public profile. */
             url?: string;
         }
-        
         interface Rank {
             /** The type of rank. */
             type?: string;
             /** The numerical value of the rank. */
             value?: number;
         }
-        
         interface RecaptchaChallenge {
             /** The ID of the reCaptcha challenge. */
             id?: string;
             /** The response to the reCaptcha challenge. */
             response?: string;
         }
-        
         interface RequestMetadata {
             /** Experiment IDs the current request belongs to. */
             experimentIds?: string[];
@@ -720,19 +678,16 @@ declare namespace gapi.client {
              */
             userOverrides?: UserOverrides;
         }
-        
         interface ResponseMetadata {
             /** Debug information about this request. */
             debugInfo?: DebugInfo;
         }
-        
         interface SpecializationStatus {
             /** The specialization this status is for. */
             badgeSpecialization?: string;
             /** State of agency specialization. */
             badgeSpecializationState?: string;
         }
-        
         interface TrafficSource {
             /**
              * Identifier to indicate where the traffic comes from.
@@ -747,7 +702,6 @@ declare namespace gapi.client {
              */
             trafficSubId?: string;
         }
-        
         interface User {
             /**
              * This is the list of AdWords Manager Accounts the user has edit access to.
@@ -803,14 +757,12 @@ declare namespace gapi.client {
             /** Information about a user's external public profile outside Google Partners. */
             publicProfile?: PublicProfile;
         }
-        
         interface UserOverrides {
             /** IP address to use instead of the user's geo-located IP address. */
             ipAddress?: string;
             /** Logged-in user ID to impersonate instead of the user's ID. */
             userId?: string;
         }
-        
         interface UserProfile {
             /** The user's mailing address, contains multiple fields. */
             address?: Location;
@@ -845,13 +797,12 @@ declare namespace gapi.client {
             /** Whether the user's public profile is visible to anyone with the URL. */
             profilePublic?: boolean;
         }
-        
         interface AnalyticsResource {
             /**
              * Lists analytics data for a user's associated company.
              * Should only be called within the context of an authorized logged in user.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -920,17 +871,15 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListAnalyticsResponse>;            
-            
+            }): Request<ListAnalyticsResponse>;
         }
-        
         interface ClientMessagesResource {
             /**
              * Logs a generic message from the client, such as
              * `Failed to render component`, `Profile page is running slow`,
              * `More than 500 users have accessed this result.`, etc.
              */
-            log(request: {            
+            log(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -957,13 +906,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<LogMessageResponse>;            
-            
+            }): Request<LogMessageResponse>;
         }
-        
         interface LeadsResource {
             /** Creates an advertiser lead for the given company ID. */
-            create(request: {            
+            create(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -992,13 +939,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<CreateLeadResponse>;            
-            
+            }): Request<CreateLeadResponse>;
         }
-        
         interface CompaniesResource {
             /** Gets a company. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1072,10 +1017,9 @@ declare namespace gapi.client {
                  * `COMPANY_VIEW_UNSPECIFIED`.
                  */
                 view?: string;
-            }): Request<GetCompanyResponse>;            
-            
+            }): Request<GetCompanyResponse>;
             /** Lists companies. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1215,14 +1159,12 @@ declare namespace gapi.client {
                  * .
                  */
                 websiteUrl?: string;
-            }): Request<ListCompaniesResponse>;            
-            
+            }): Request<ListCompaniesResponse>;
             leads: LeadsResource;
         }
-        
         interface ExamsResource {
             /** Gets an Exam Token for a Partner's user to take an exam in the Exams System */
-            getToken(request: {            
+            getToken(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1273,16 +1215,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ExamToken>;            
-            
+            }): Request<ExamToken>;
         }
-        
         interface LeadsResource {
             /**
              * Lists advertiser leads for a user's associated company.
              * Should only be called within the context of an authorized logged in user.
              */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1348,13 +1288,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListLeadsResponse>;            
-            
+            }): Request<ListLeadsResponse>;
         }
-        
         interface HistoryResource {
             /** Lists the Historical Offers for the current user (or user's entire company) */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1377,8 +1315,8 @@ declare namespace gapi.client {
                  * Comma-separated list of fields to order by, e.g.: "foo,bar,baz".
                  * Use "foo desc" to sort descending.
                  * List of valid field names is: name, offer_code, expiration_time, status,
-                 *     last_modified_time, sender_name, creation_time, country_code,
-                 *     offer_type.
+                 * last_modified_time, sender_name, creation_time, country_code,
+                 * offer_type.
                  */
                 orderBy?: string;
                 /** Maximum number of rows to return per page. */
@@ -1417,13 +1355,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOffersHistoryResponse>;            
-            
+            }): Request<ListOffersHistoryResponse>;
         }
-        
         interface OffersResource {
             /** Lists the Offers available for the current user */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1472,14 +1408,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListOffersResponse>;            
-            
+            }): Request<ListOffersResponse>;
             history: HistoryResource;
         }
-        
         interface UserEventsResource {
             /** Logs a user event. */
-            log(request: {            
+            log(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1506,13 +1440,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<LogUserEventResponse>;            
-            
+            }): Request<LogUserEventResponse>;
         }
-        
         interface UserStatesResource {
             /** Lists states for current user. */
-            list(request: {            
+            list(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1561,13 +1493,11 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<ListUserStatesResponse>;            
-            
+            }): Request<ListUserStatesResponse>;
         }
-        
         interface UsersResource {
             /** Creates a user's company relation. Affiliates the user to a company. */
-            createCompanyRelation(request: {            
+            createCompanyRelation(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1621,10 +1551,9 @@ declare namespace gapi.client {
                  * the currently authenticated user.
                  */
                 userId: string;
-            }): Request<CompanyRelation>;            
-            
+            }): Request<CompanyRelation>;
             /** Deletes a user's company relation. Unaffiliaites the user from a company. */
-            deleteCompanyRelation(request: {            
+            deleteCompanyRelation(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1678,10 +1607,9 @@ declare namespace gapi.client {
                  * the currently authenticated user.
                  */
                 userId: string;
-            }): Request<{}>;            
-            
+            }): Request<{}>;
             /** Gets a user. */
-            get(request: {            
+            get(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1737,13 +1665,12 @@ declare namespace gapi.client {
                 userId: string;
                 /** Specifies what parts of the user information to return. */
                 userView?: string;
-            }): Request<User>;            
-            
+            }): Request<User>;
             /**
              * Updates a user's profile. A user can only update their own profile and
              * should only be called within the context of a logged in user.
              */
-            updateProfile(request: {            
+            updateProfile(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1792,16 +1719,14 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<UserProfile>;            
-            
+            }): Request<UserProfile>;
         }
-        
         interface V2Resource {
             /**
              * Gets Partners Status of the logged in user's agency.
              * Should only be called if the logged in user is the admin of the agency.
              */
-            getPartnersstatus(request: {            
+            getPartnersstatus(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1850,13 +1775,12 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<GetPartnersStatusResponse>;            
-            
+            }): Request<GetPartnersStatusResponse>;
             /**
              * Update company.
              * Should only be called within the context of an authorized logged in user.
              */
-            updateCompanies(request: {            
+            updateCompanies(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1910,10 +1834,9 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Company>;            
-            
+            }): Request<Company>;
             /** Updates the specified lead. */
-            updateLeads(request: {            
+            updateLeads(request: {
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** OAuth access token. */
@@ -1968,8 +1891,7 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-            }): Request<Lead>;            
-            
+            }): Request<Lead>;
         }
     }
 }
