@@ -2324,7 +2324,7 @@ declare namespace gapi.client {
             rotation?: string;
             /** A value that uniquely identifies a video vendor. Typically, the value is a four-letter vendor code. */
             vendor?: string;
-            /** The encoded video content's width in pixels. You can calculate the video's encoding aspect ratio as width_pixels / height_pixels. */
+            /** The encoded video content's width in pixels. You can calculate the video's encoding aspect ratio as width_pixels / height_pixels. */
             widthPixels?: number;
         }
         interface VideoGetRatingResponse {
