@@ -31,21 +31,21 @@ gapi.load('client', () => {
 
     async function run() {
         /** Deletes an access control rule. */
-        await gapi.client.acl.delete( {
+        await gapi.client.acl.delete({
             calendarId: "calendarId",
             ruleId: "ruleId",
         });
         /** Returns an access control rule. */
-        await gapi.client.acl.get( {
+        await gapi.client.acl.get({
             calendarId: "calendarId",
             ruleId: "ruleId",
         });
         /** Creates an access control rule. */
-        await gapi.client.acl.insert( {
+        await gapi.client.acl.insert({
             calendarId: "calendarId",
         });
         /** Returns the rules in the access control list for the calendar. */
-        await gapi.client.acl.list( {
+        await gapi.client.acl.list({
             calendarId: "calendarId",
             maxResults: 2,
             pageToken: "pageToken",
@@ -53,17 +53,17 @@ gapi.load('client', () => {
             syncToken: "syncToken",
         });
         /** Updates an access control rule. This method supports patch semantics. */
-        await gapi.client.acl.patch( {
+        await gapi.client.acl.patch({
             calendarId: "calendarId",
             ruleId: "ruleId",
         });
         /** Updates an access control rule. */
-        await gapi.client.acl.update( {
+        await gapi.client.acl.update({
             calendarId: "calendarId",
             ruleId: "ruleId",
         });
         /** Watch for changes to ACL resources. */
-        await gapi.client.acl.watch( {
+        await gapi.client.acl.watch({
             calendarId: "calendarId",
             maxResults: 2,
             pageToken: "pageToken",
@@ -71,19 +71,19 @@ gapi.load('client', () => {
             syncToken: "syncToken",
         });
         /** Deletes an entry on the user's calendar list. */
-        await gapi.client.calendarList.delete( {
+        await gapi.client.calendarList.delete({
             calendarId: "calendarId",
         });
         /** Returns an entry on the user's calendar list. */
-        await gapi.client.calendarList.get( {
+        await gapi.client.calendarList.get({
             calendarId: "calendarId",
         });
         /** Adds an entry to the user's calendar list. */
-        await gapi.client.calendarList.insert( {
+        await gapi.client.calendarList.insert({
             colorRgbFormat: true,
         });
         /** Returns entries on the user's calendar list. */
-        await gapi.client.calendarList.list( {
+        await gapi.client.calendarList.list({
             maxResults: 1,
             minAccessRole: "minAccessRole",
             pageToken: "pageToken",
@@ -92,17 +92,17 @@ gapi.load('client', () => {
             syncToken: "syncToken",
         });
         /** Updates an entry on the user's calendar list. This method supports patch semantics. */
-        await gapi.client.calendarList.patch( {
+        await gapi.client.calendarList.patch({
             calendarId: "calendarId",
             colorRgbFormat: true,
         });
         /** Updates an entry on the user's calendar list. */
-        await gapi.client.calendarList.update( {
+        await gapi.client.calendarList.update({
             calendarId: "calendarId",
             colorRgbFormat: true,
         });
         /** Watch for changes to CalendarList resources. */
-        await gapi.client.calendarList.watch( {
+        await gapi.client.calendarList.watch({
             maxResults: 1,
             minAccessRole: "minAccessRole",
             pageToken: "pageToken",
@@ -111,42 +111,42 @@ gapi.load('client', () => {
             syncToken: "syncToken",
         });
         /** Clears a primary calendar. This operation deletes all events associated with the primary calendar of an account. */
-        await gapi.client.calendars.clear( {
+        await gapi.client.calendars.clear({
             calendarId: "calendarId",
         });
         /** Deletes a secondary calendar. Use calendars.clear for clearing all events on primary calendars. */
-        await gapi.client.calendars.delete( {
+        await gapi.client.calendars.delete({
             calendarId: "calendarId",
         });
         /** Returns metadata for a calendar. */
-        await gapi.client.calendars.get( {
+        await gapi.client.calendars.get({
             calendarId: "calendarId",
         });
         /** Creates a secondary calendar. */
-        await gapi.client.calendars.insert( {
+        await gapi.client.calendars.insert({
         });
         /** Updates metadata for a calendar. This method supports patch semantics. */
-        await gapi.client.calendars.patch( {
+        await gapi.client.calendars.patch({
             calendarId: "calendarId",
         });
         /** Updates metadata for a calendar. */
-        await gapi.client.calendars.update( {
+        await gapi.client.calendars.update({
             calendarId: "calendarId",
         });
         /** Stop watching resources through this channel */
-        await gapi.client.channels.stop( {
+        await gapi.client.channels.stop({
         });
         /** Returns the color definitions for calendars and events. */
-        await gapi.client.colors.get( {
+        await gapi.client.colors.get({
         });
         /** Deletes an event. */
-        await gapi.client.events.delete( {
+        await gapi.client.events.delete({
             calendarId: "calendarId",
             eventId: "eventId",
             sendNotifications: true,
         });
         /** Returns an event. */
-        await gapi.client.events.get( {
+        await gapi.client.events.get({
             alwaysIncludeEmail: true,
             calendarId: "calendarId",
             eventId: "eventId",
@@ -154,19 +154,19 @@ gapi.load('client', () => {
             timeZone: "timeZone",
         });
         /** Imports an event. This operation is used to add a private copy of an existing event to a calendar. */
-        await gapi.client.events.import( {
+        await gapi.client.events.import({
             calendarId: "calendarId",
             supportsAttachments: true,
         });
         /** Creates an event. */
-        await gapi.client.events.insert( {
+        await gapi.client.events.insert({
             calendarId: "calendarId",
             maxAttendees: 2,
             sendNotifications: true,
             supportsAttachments: true,
         });
         /** Returns instances of the specified recurring event. */
-        await gapi.client.events.instances( {
+        await gapi.client.events.instances({
             alwaysIncludeEmail: true,
             calendarId: "calendarId",
             eventId: "eventId",
@@ -180,7 +180,7 @@ gapi.load('client', () => {
             timeZone: "timeZone",
         });
         /** Returns events on the specified calendar. */
-        await gapi.client.events.list( {
+        await gapi.client.events.list({
             alwaysIncludeEmail: true,
             calendarId: "calendarId",
             iCalUID: "iCalUID",
@@ -201,14 +201,14 @@ gapi.load('client', () => {
             updatedMin: "updatedMin",
         });
         /** Moves an event to another calendar, i.e. changes an event's organizer. */
-        await gapi.client.events.move( {
+        await gapi.client.events.move({
             calendarId: "calendarId",
             destination: "destination",
             eventId: "eventId",
             sendNotifications: true,
         });
         /** Updates an event. This method supports patch semantics. */
-        await gapi.client.events.patch( {
+        await gapi.client.events.patch({
             alwaysIncludeEmail: true,
             calendarId: "calendarId",
             eventId: "eventId",
@@ -217,13 +217,13 @@ gapi.load('client', () => {
             supportsAttachments: true,
         });
         /** Creates an event based on a simple text string. */
-        await gapi.client.events.quickAdd( {
+        await gapi.client.events.quickAdd({
             calendarId: "calendarId",
             sendNotifications: true,
             text: "text",
         });
         /** Updates an event. */
-        await gapi.client.events.update( {
+        await gapi.client.events.update({
             alwaysIncludeEmail: true,
             calendarId: "calendarId",
             eventId: "eventId",
@@ -232,7 +232,7 @@ gapi.load('client', () => {
             supportsAttachments: true,
         });
         /** Watch for changes to Events resources. */
-        await gapi.client.events.watch( {
+        await gapi.client.events.watch({
             alwaysIncludeEmail: true,
             calendarId: "calendarId",
             iCalUID: "iCalUID",
@@ -253,20 +253,20 @@ gapi.load('client', () => {
             updatedMin: "updatedMin",
         });
         /** Returns free/busy information for a set of calendars. */
-        await gapi.client.freebusy.query( {
+        await gapi.client.freebusy.query({
         });
         /** Returns a single user setting. */
-        await gapi.client.settings.get( {
+        await gapi.client.settings.get({
             setting: "setting",
         });
         /** Returns all user settings for the authenticated user. */
-        await gapi.client.settings.list( {
+        await gapi.client.settings.list({
             maxResults: 1,
             pageToken: "pageToken",
             syncToken: "syncToken",
         });
         /** Watch for changes to Settings resources. */
-        await gapi.client.settings.watch( {
+        await gapi.client.settings.watch({
             maxResults: 1,
             pageToken: "pageToken",
             syncToken: "syncToken",

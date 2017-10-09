@@ -56,7 +56,7 @@ gapi.load('client', () => {
          * }
          * }
          */
-        await gapi.client.projects.test( {
+        await gapi.client.projects.test({
             name: "name",
         });
     }

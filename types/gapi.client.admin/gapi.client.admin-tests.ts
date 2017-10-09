@@ -31,7 +31,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves a list of activities for a specific customer and application. */
-        await gapi.client.activities.list( {
+        await gapi.client.activities.list({
             actorIpAddress: "actorIpAddress",
             applicationName: "applicationName",
             customerId: "customerId",
@@ -44,7 +44,7 @@ gapi.load('client', () => {
             userKey: "userKey",
         });
         /** Push changes to activities */
-        await gapi.client.activities.watch( {
+        await gapi.client.activities.watch({
             actorIpAddress: "actorIpAddress",
             applicationName: "applicationName",
             customerId: "customerId",
@@ -57,17 +57,17 @@ gapi.load('client', () => {
             userKey: "userKey",
         });
         /** Stop watching resources through this channel */
-        await gapi.client.channels.stop( {
+        await gapi.client.channels.stop({
         });
         /** Retrieves a report which is a collection of properties / statistics for a specific customer. */
-        await gapi.client.customerUsageReports.get( {
+        await gapi.client.customerUsageReports.get({
             customerId: "customerId",
             date: "date",
             pageToken: "pageToken",
             parameters: "parameters",
         });
         /** Retrieves a report which is a collection of properties / statistics for a set of users. */
-        await gapi.client.userUsageReport.get( {
+        await gapi.client.userUsageReport.get({
             customerId: "customerId",
             date: "date",
             filters: "filters",

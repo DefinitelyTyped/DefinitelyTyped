@@ -39,7 +39,7 @@ gapi.load('client', () => {
          * - NOT_FOUND - if the environment type does not exist
          * - INTERNAL - if an internal error occurred
          */
-        await gapi.client.testEnvironmentCatalog.get( {
+        await gapi.client.testEnvironmentCatalog.get({
             environmentType: "environmentType",
             projectId: "projectId",
         });

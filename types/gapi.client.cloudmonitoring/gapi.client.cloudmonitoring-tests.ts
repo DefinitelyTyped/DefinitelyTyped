@@ -31,11 +31,11 @@ gapi.load('client', () => {
 
     async function run() {
         /** Create a new metric. */
-        await gapi.client.metricDescriptors.create( {
+        await gapi.client.metricDescriptors.create({
             project: "project",
         });
         /** Delete an existing metric. */
-        await gapi.client.metricDescriptors.delete( {
+        await gapi.client.metricDescriptors.delete({
             metric: "metric",
             project: "project",
         });
@@ -44,7 +44,7 @@ gapi.load('client', () => {
          * paginated, use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value
          * of the nextPageToken.
          */
-        await gapi.client.metricDescriptors.list( {
+        await gapi.client.metricDescriptors.list({
             count: 1,
             pageToken: "pageToken",
             project: "project",
@@ -55,7 +55,7 @@ gapi.load('client', () => {
          * paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value
          * of the nextPageToken.
          */
-        await gapi.client.timeseries.list( {
+        await gapi.client.timeseries.list({
             aggregator: "aggregator",
             count: 2,
             labels: "labels",
@@ -73,7 +73,7 @@ gapi.load('client', () => {
          * youngest point of that time series will be discarded silently. Therefore, users should make sure that points of a time series are written sequentially
          * in the order of their end time.
          */
-        await gapi.client.timeseries.write( {
+        await gapi.client.timeseries.write({
             project: "project",
         });
         /**
@@ -81,7 +81,7 @@ gapi.load('client', () => {
          * paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value
          * of the nextPageToken.
          */
-        await gapi.client.timeseriesDescriptors.list( {
+        await gapi.client.timeseriesDescriptors.list({
             aggregator: "aggregator",
             count: 2,
             labels: "labels",

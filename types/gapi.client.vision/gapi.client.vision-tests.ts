@@ -31,7 +31,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Run image detection and annotation for a batch of images. */
-        await gapi.client.images.annotate( {
+        await gapi.client.images.annotate({
         });
     }
 });

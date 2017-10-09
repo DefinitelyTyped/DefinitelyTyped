@@ -31,7 +31,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Returns the Analytics data. */
-        await gapi.client.reports.batchGet( {
+        await gapi.client.reports.batchGet({
         });
     }
 });

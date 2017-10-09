@@ -34,7 +34,7 @@ gapi.load('client', () => {
          * `Operation.metadata` contains `AnnotateVideoProgress` (progress).
          * `Operation.response` contains `AnnotateVideoResponse` (results).
          */
-        await gapi.client.videos.annotate( {
+        await gapi.client.videos.annotate({
         });
     }
 });

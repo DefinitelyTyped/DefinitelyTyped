@@ -37,66 +37,66 @@ gapi.load('client', () => {
          * When date is one of the group by values, any days without data are omitted from the result list. If you need to know which days have data, issue a
          * broad date range query grouped by date for any metric, and see which day rows are returned.
          */
-        await gapi.client.searchanalytics.query( {
+        await gapi.client.searchanalytics.query({
             siteUrl: "siteUrl",
         });
         /** Deletes a sitemap from this site. */
-        await gapi.client.sitemaps.delete( {
+        await gapi.client.sitemaps.delete({
             feedpath: "feedpath",
             siteUrl: "siteUrl",
         });
         /** Retrieves information about a specific sitemap. */
-        await gapi.client.sitemaps.get( {
+        await gapi.client.sitemaps.get({
             feedpath: "feedpath",
             siteUrl: "siteUrl",
         });
         /** Lists the sitemaps-entries submitted for this site, or included in the sitemap index file (if sitemapIndex is specified in the request). */
-        await gapi.client.sitemaps.list( {
+        await gapi.client.sitemaps.list({
             siteUrl: "siteUrl",
             sitemapIndex: "sitemapIndex",
         });
         /** Submits a sitemap for a site. */
-        await gapi.client.sitemaps.submit( {
+        await gapi.client.sitemaps.submit({
             feedpath: "feedpath",
             siteUrl: "siteUrl",
         });
         /** Adds a site to the set of the user's sites in Search Console. */
-        await gapi.client.sites.add( {
+        await gapi.client.sites.add({
             siteUrl: "siteUrl",
         });
         /** Removes a site from the set of the user's Search Console sites. */
-        await gapi.client.sites.delete( {
+        await gapi.client.sites.delete({
             siteUrl: "siteUrl",
         });
         /** Retrieves information about specific site. */
-        await gapi.client.sites.get( {
+        await gapi.client.sites.get({
             siteUrl: "siteUrl",
         });
         /** Lists the user's Search Console sites. */
-        await gapi.client.sites.list( {
+        await gapi.client.sites.list({
         });
         /** Retrieves a time series of the number of URL crawl errors per error category and platform. */
-        await gapi.client.urlcrawlerrorscounts.query( {
+        await gapi.client.urlcrawlerrorscounts.query({
             category: "category",
             latestCountsOnly: true,
             platform: "platform",
             siteUrl: "siteUrl",
         });
         /** Retrieves details about crawl errors for a site's sample URL. */
-        await gapi.client.urlcrawlerrorssamples.get( {
+        await gapi.client.urlcrawlerrorssamples.get({
             category: "category",
             platform: "platform",
             siteUrl: "siteUrl",
             url: "url",
         });
         /** Lists a site's sample URLs for the specified crawl error category and platform. */
-        await gapi.client.urlcrawlerrorssamples.list( {
+        await gapi.client.urlcrawlerrorssamples.list({
             category: "category",
             platform: "platform",
             siteUrl: "siteUrl",
         });
         /** Marks the provided site's sample URL as fixed, and removes it from the samples list. */
-        await gapi.client.urlcrawlerrorssamples.markAsFixed( {
+        await gapi.client.urlcrawlerrorssamples.markAsFixed({
             category: "category",
             platform: "platform",
             siteUrl: "siteUrl",

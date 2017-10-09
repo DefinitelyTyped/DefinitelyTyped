@@ -31,54 +31,54 @@ gapi.load('client', () => {
 
     async function run() {
         /** Deletes the authenticated user's specified task list. */
-        await gapi.client.tasklists.delete( {
+        await gapi.client.tasklists.delete({
             tasklist: "tasklist",
         });
         /** Returns the authenticated user's specified task list. */
-        await gapi.client.tasklists.get( {
+        await gapi.client.tasklists.get({
             tasklist: "tasklist",
         });
         /** Creates a new task list and adds it to the authenticated user's task lists. */
-        await gapi.client.tasklists.insert( {
+        await gapi.client.tasklists.insert({
         });
         /** Returns all the authenticated user's task lists. */
-        await gapi.client.tasklists.list( {
+        await gapi.client.tasklists.list({
             maxResults: "maxResults",
             pageToken: "pageToken",
         });
         /** Updates the authenticated user's specified task list. This method supports patch semantics. */
-        await gapi.client.tasklists.patch( {
+        await gapi.client.tasklists.patch({
             tasklist: "tasklist",
         });
         /** Updates the authenticated user's specified task list. */
-        await gapi.client.tasklists.update( {
+        await gapi.client.tasklists.update({
             tasklist: "tasklist",
         });
         /**
          * Clears all completed tasks from the specified task list. The affected tasks will be marked as 'hidden' and no longer be returned by default when
          * retrieving all tasks for a task list.
          */
-        await gapi.client.tasks.clear( {
+        await gapi.client.tasks.clear({
             tasklist: "tasklist",
         });
         /** Deletes the specified task from the task list. */
-        await gapi.client.tasks.delete( {
+        await gapi.client.tasks.delete({
             task: "task",
             tasklist: "tasklist",
         });
         /** Returns the specified task. */
-        await gapi.client.tasks.get( {
+        await gapi.client.tasks.get({
             task: "task",
             tasklist: "tasklist",
         });
         /** Creates a new task on the specified task list. */
-        await gapi.client.tasks.insert( {
+        await gapi.client.tasks.insert({
             parent: "parent",
             previous: "previous",
             tasklist: "tasklist",
         });
         /** Returns all tasks in the specified task list. */
-        await gapi.client.tasks.list( {
+        await gapi.client.tasks.list({
             completedMax: "completedMax",
             completedMin: "completedMin",
             dueMax: "dueMax",
@@ -95,19 +95,19 @@ gapi.load('client', () => {
          * Moves the specified task to another position in the task list. This can include putting it as a child task under a new parent and/or move it to a
          * different position among its sibling tasks.
          */
-        await gapi.client.tasks.move( {
+        await gapi.client.tasks.move({
             parent: "parent",
             previous: "previous",
             task: "task",
             tasklist: "tasklist",
         });
         /** Updates the specified task. This method supports patch semantics. */
-        await gapi.client.tasks.patch( {
+        await gapi.client.tasks.patch({
             task: "task",
             tasklist: "tasklist",
         });
         /** Updates the specified task. */
-        await gapi.client.tasks.update( {
+        await gapi.client.tasks.update({
             task: "task",
             tasklist: "tasklist",
         });

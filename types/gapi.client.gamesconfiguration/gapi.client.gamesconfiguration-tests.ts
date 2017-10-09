@@ -29,60 +29,60 @@ gapi.load('client', () => {
 
     async function run() {
         /** Delete the achievement configuration with the given ID. */
-        await gapi.client.achievementConfigurations.delete( {
+        await gapi.client.achievementConfigurations.delete({
             achievementId: "achievementId",
         });
         /** Retrieves the metadata of the achievement configuration with the given ID. */
-        await gapi.client.achievementConfigurations.get( {
+        await gapi.client.achievementConfigurations.get({
             achievementId: "achievementId",
         });
         /** Insert a new achievement configuration in this application. */
-        await gapi.client.achievementConfigurations.insert( {
+        await gapi.client.achievementConfigurations.insert({
             applicationId: "applicationId",
         });
         /** Returns a list of the achievement configurations in this application. */
-        await gapi.client.achievementConfigurations.list( {
+        await gapi.client.achievementConfigurations.list({
             applicationId: "applicationId",
             maxResults: 2,
             pageToken: "pageToken",
         });
         /** Update the metadata of the achievement configuration with the given ID. This method supports patch semantics. */
-        await gapi.client.achievementConfigurations.patch( {
+        await gapi.client.achievementConfigurations.patch({
             achievementId: "achievementId",
         });
         /** Update the metadata of the achievement configuration with the given ID. */
-        await gapi.client.achievementConfigurations.update( {
+        await gapi.client.achievementConfigurations.update({
             achievementId: "achievementId",
         });
         /** Uploads an image for a resource with the given ID and image type. */
-        await gapi.client.imageConfigurations.upload( {
+        await gapi.client.imageConfigurations.upload({
             imageType: "imageType",
             resourceId: "resourceId",
         });
         /** Delete the leaderboard configuration with the given ID. */
-        await gapi.client.leaderboardConfigurations.delete( {
+        await gapi.client.leaderboardConfigurations.delete({
             leaderboardId: "leaderboardId",
         });
         /** Retrieves the metadata of the leaderboard configuration with the given ID. */
-        await gapi.client.leaderboardConfigurations.get( {
+        await gapi.client.leaderboardConfigurations.get({
             leaderboardId: "leaderboardId",
         });
         /** Insert a new leaderboard configuration in this application. */
-        await gapi.client.leaderboardConfigurations.insert( {
+        await gapi.client.leaderboardConfigurations.insert({
             applicationId: "applicationId",
         });
         /** Returns a list of the leaderboard configurations in this application. */
-        await gapi.client.leaderboardConfigurations.list( {
+        await gapi.client.leaderboardConfigurations.list({
             applicationId: "applicationId",
             maxResults: 2,
             pageToken: "pageToken",
         });
         /** Update the metadata of the leaderboard configuration with the given ID. This method supports patch semantics. */
-        await gapi.client.leaderboardConfigurations.patch( {
+        await gapi.client.leaderboardConfigurations.patch({
             leaderboardId: "leaderboardId",
         });
         /** Update the metadata of the leaderboard configuration with the given ID. */
-        await gapi.client.leaderboardConfigurations.update( {
+        await gapi.client.leaderboardConfigurations.update({
             leaderboardId: "leaderboardId",
         });
     }

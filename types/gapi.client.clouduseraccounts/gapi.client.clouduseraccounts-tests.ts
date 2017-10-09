@@ -35,17 +35,17 @@ gapi.load('client', () => {
 
     async function run() {
         /** Deletes the specified operation resource. */
-        await gapi.client.globalAccountsOperations.delete( {
+        await gapi.client.globalAccountsOperations.delete({
             operation: "operation",
             project: "project",
         });
         /** Retrieves the specified operation resource. */
-        await gapi.client.globalAccountsOperations.get( {
+        await gapi.client.globalAccountsOperations.get({
             operation: "operation",
             project: "project",
         });
         /** Retrieves the list of operation resources contained within the specified project. */
-        await gapi.client.globalAccountsOperations.list( {
+        await gapi.client.globalAccountsOperations.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -53,31 +53,31 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Adds users to the specified group. */
-        await gapi.client.groups.addMember( {
+        await gapi.client.groups.addMember({
             groupName: "groupName",
             project: "project",
         });
         /** Deletes the specified Group resource. */
-        await gapi.client.groups.delete( {
+        await gapi.client.groups.delete({
             groupName: "groupName",
             project: "project",
         });
         /** Returns the specified Group resource. */
-        await gapi.client.groups.get( {
+        await gapi.client.groups.get({
             groupName: "groupName",
             project: "project",
         });
         /** Gets the access control policy for a resource. May be empty if no such policy or resource exists. */
-        await gapi.client.groups.getIamPolicy( {
+        await gapi.client.groups.getIamPolicy({
             project: "project",
             resource: "resource",
         });
         /** Creates a Group resource in the specified project using the data included in the request. */
-        await gapi.client.groups.insert( {
+        await gapi.client.groups.insert({
             project: "project",
         });
         /** Retrieves the list of groups contained within the specified project. */
-        await gapi.client.groups.list( {
+        await gapi.client.groups.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -85,22 +85,22 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Removes users from the specified group. */
-        await gapi.client.groups.removeMember( {
+        await gapi.client.groups.removeMember({
             groupName: "groupName",
             project: "project",
         });
         /** Sets the access control policy on the specified resource. Replaces any existing policy. */
-        await gapi.client.groups.setIamPolicy( {
+        await gapi.client.groups.setIamPolicy({
             project: "project",
             resource: "resource",
         });
         /** Returns permissions that a caller has on the specified resource. */
-        await gapi.client.groups.testIamPermissions( {
+        await gapi.client.groups.testIamPermissions({
             project: "project",
             resource: "resource",
         });
         /** Returns a list of authorized public keys for a specific user account. */
-        await gapi.client.linux.getAuthorizedKeysView( {
+        await gapi.client.linux.getAuthorizedKeysView({
             instance: "instance",
             login: true,
             project: "project",
@@ -108,7 +108,7 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Retrieves a list of user accounts for an instance within a specific project. */
-        await gapi.client.linux.getLinuxAccountViews( {
+        await gapi.client.linux.getLinuxAccountViews({
             filter: "filter",
             instance: "instance",
             maxResults: 3,
@@ -118,31 +118,31 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Adds a public key to the specified User resource with the data included in the request. */
-        await gapi.client.users.addPublicKey( {
+        await gapi.client.users.addPublicKey({
             project: "project",
             user: "user",
         });
         /** Deletes the specified User resource. */
-        await gapi.client.users.delete( {
+        await gapi.client.users.delete({
             project: "project",
             user: "user",
         });
         /** Returns the specified User resource. */
-        await gapi.client.users.get( {
+        await gapi.client.users.get({
             project: "project",
             user: "user",
         });
         /** Gets the access control policy for a resource. May be empty if no such policy or resource exists. */
-        await gapi.client.users.getIamPolicy( {
+        await gapi.client.users.getIamPolicy({
             project: "project",
             resource: "resource",
         });
         /** Creates a User resource in the specified project using the data included in the request. */
-        await gapi.client.users.insert( {
+        await gapi.client.users.insert({
             project: "project",
         });
         /** Retrieves a list of users contained within the specified project. */
-        await gapi.client.users.list( {
+        await gapi.client.users.list({
             filter: "filter",
             maxResults: 2,
             orderBy: "orderBy",
@@ -150,18 +150,18 @@ gapi.load('client', () => {
             project: "project",
         });
         /** Removes the specified public key from the user. */
-        await gapi.client.users.removePublicKey( {
+        await gapi.client.users.removePublicKey({
             fingerprint: "fingerprint",
             project: "project",
             user: "user",
         });
         /** Sets the access control policy on the specified resource. Replaces any existing policy. */
-        await gapi.client.users.setIamPolicy( {
+        await gapi.client.users.setIamPolicy({
             project: "project",
             resource: "resource",
         });
         /** Returns permissions that a caller has on the specified resource. */
-        await gapi.client.users.testIamPermissions( {
+        await gapi.client.users.testIamPermissions({
             project: "project",
             resource: "resource",
         });

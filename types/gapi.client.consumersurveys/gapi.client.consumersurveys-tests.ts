@@ -33,53 +33,53 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves a MobileAppPanel that is available to the authenticated user. */
-        await gapi.client.mobileapppanels.get( {
+        await gapi.client.mobileapppanels.get({
             panelId: "panelId",
         });
         /** Lists the MobileAppPanels available to the authenticated user. */
-        await gapi.client.mobileapppanels.list( {
+        await gapi.client.mobileapppanels.list({
             maxResults: 1,
             startIndex: 2,
             token: "token",
         });
         /** Updates a MobileAppPanel. Currently the only property that can be updated is the owners property. */
-        await gapi.client.mobileapppanels.update( {
+        await gapi.client.mobileapppanels.update({
             panelId: "panelId",
         });
         /**
          * Retrieves any survey results that have been produced so far. Results are formatted as an Excel file. You must add "?alt=media" to the URL as an
          * argument to get results.
          */
-        await gapi.client.results.get( {
+        await gapi.client.results.get({
             surveyUrlId: "surveyUrlId",
         });
         /** Removes a survey from view in all user GET requests. */
-        await gapi.client.surveys.delete( {
+        await gapi.client.surveys.delete({
             surveyUrlId: "surveyUrlId",
         });
         /** Retrieves information about the specified survey. */
-        await gapi.client.surveys.get( {
+        await gapi.client.surveys.get({
             surveyUrlId: "surveyUrlId",
         });
         /** Creates a survey. */
-        await gapi.client.surveys.insert( {
+        await gapi.client.surveys.insert({
         });
         /** Lists the surveys owned by the authenticated user. */
-        await gapi.client.surveys.list( {
+        await gapi.client.surveys.list({
             maxResults: 1,
             startIndex: 2,
             token: "token",
         });
         /** Begins running a survey. */
-        await gapi.client.surveys.start( {
+        await gapi.client.surveys.start({
             resourceId: "resourceId",
         });
         /** Stops a running survey. */
-        await gapi.client.surveys.stop( {
+        await gapi.client.surveys.stop({
             resourceId: "resourceId",
         });
         /** Updates a survey. Currently the only property that can be updated is the owners property. */
-        await gapi.client.surveys.update( {
+        await gapi.client.surveys.update({
             surveyUrlId: "surveyUrlId",
         });
     }

@@ -31,32 +31,32 @@ gapi.load('client', () => {
 
     async function run() {
         /** Deletes the specified column. */
-        await gapi.client.column.delete( {
+        await gapi.client.column.delete({
             columnId: "columnId",
             tableId: "tableId",
         });
         /** Retrieves a specific column by its ID. */
-        await gapi.client.column.get( {
+        await gapi.client.column.get({
             columnId: "columnId",
             tableId: "tableId",
         });
         /** Adds a new column to the table. */
-        await gapi.client.column.insert( {
+        await gapi.client.column.insert({
             tableId: "tableId",
         });
         /** Retrieves a list of columns. */
-        await gapi.client.column.list( {
+        await gapi.client.column.list({
             maxResults: 1,
             pageToken: "pageToken",
             tableId: "tableId",
         });
         /** Updates the name or type of an existing column. This method supports patch semantics. */
-        await gapi.client.column.patch( {
+        await gapi.client.column.patch({
             columnId: "columnId",
             tableId: "tableId",
         });
         /** Updates the name or type of an existing column. */
-        await gapi.client.column.update( {
+        await gapi.client.column.update({
             columnId: "columnId",
             tableId: "tableId",
         });
@@ -70,7 +70,7 @@ gapi.load('client', () => {
          * - DESCRIBE
          * - CREATE statement.
          */
-        await gapi.client.query.sql( {
+        await gapi.client.query.sql({
             hdrs: true,
             sql: "sql",
             typed: true,
@@ -81,56 +81,56 @@ gapi.load('client', () => {
          * - SHOW
          * - DESCRIBE
          */
-        await gapi.client.query.sqlGet( {
+        await gapi.client.query.sqlGet({
             hdrs: true,
             sql: "sql",
             typed: true,
         });
         /** Deletes a style. */
-        await gapi.client.style.delete( {
+        await gapi.client.style.delete({
             styleId: 1,
             tableId: "tableId",
         });
         /** Gets a specific style. */
-        await gapi.client.style.get( {
+        await gapi.client.style.get({
             styleId: 1,
             tableId: "tableId",
         });
         /** Adds a new style for the table. */
-        await gapi.client.style.insert( {
+        await gapi.client.style.insert({
             tableId: "tableId",
         });
         /** Retrieves a list of styles. */
-        await gapi.client.style.list( {
+        await gapi.client.style.list({
             maxResults: 1,
             pageToken: "pageToken",
             tableId: "tableId",
         });
         /** Updates an existing style. This method supports patch semantics. */
-        await gapi.client.style.patch( {
+        await gapi.client.style.patch({
             styleId: 1,
             tableId: "tableId",
         });
         /** Updates an existing style. */
-        await gapi.client.style.update( {
+        await gapi.client.style.update({
             styleId: 1,
             tableId: "tableId",
         });
         /** Copies a table. */
-        await gapi.client.table.copy( {
+        await gapi.client.table.copy({
             copyPresentation: true,
             tableId: "tableId",
         });
         /** Deletes a table. */
-        await gapi.client.table.delete( {
+        await gapi.client.table.delete({
             tableId: "tableId",
         });
         /** Retrieves a specific table by its ID. */
-        await gapi.client.table.get( {
+        await gapi.client.table.get({
             tableId: "tableId",
         });
         /** Imports more rows into a table. */
-        await gapi.client.table.importRows( {
+        await gapi.client.table.importRows({
             delimiter: "delimiter",
             encoding: "encoding",
             endLine: 3,
@@ -139,16 +139,16 @@ gapi.load('client', () => {
             tableId: "tableId",
         });
         /** Imports a new table. */
-        await gapi.client.table.importTable( {
+        await gapi.client.table.importTable({
             delimiter: "delimiter",
             encoding: "encoding",
             name: "name",
         });
         /** Creates a new table. */
-        await gapi.client.table.insert( {
+        await gapi.client.table.insert({
         });
         /** Retrieves a list of tables a user owns. */
-        await gapi.client.table.list( {
+        await gapi.client.table.list({
             maxResults: 1,
             pageToken: "pageToken",
         });
@@ -156,12 +156,12 @@ gapi.load('client', () => {
          * Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch
          * semantics.
          */
-        await gapi.client.table.patch( {
+        await gapi.client.table.patch({
             replaceViewDefinition: true,
             tableId: "tableId",
         });
         /** Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready. */
-        await gapi.client.table.replaceRows( {
+        await gapi.client.table.replaceRows({
             delimiter: "delimiter",
             encoding: "encoding",
             endLine: 3,
@@ -170,54 +170,54 @@ gapi.load('client', () => {
             tableId: "tableId",
         });
         /** Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. */
-        await gapi.client.table.update( {
+        await gapi.client.table.update({
             replaceViewDefinition: true,
             tableId: "tableId",
         });
         /** Deletes a specific task by its ID, unless that task has already started running. */
-        await gapi.client.task.delete( {
+        await gapi.client.task.delete({
             tableId: "tableId",
             taskId: "taskId",
         });
         /** Retrieves a specific task by its ID. */
-        await gapi.client.task.get( {
+        await gapi.client.task.get({
             tableId: "tableId",
             taskId: "taskId",
         });
         /** Retrieves a list of tasks. */
-        await gapi.client.task.list( {
+        await gapi.client.task.list({
             maxResults: 1,
             pageToken: "pageToken",
             startIndex: 3,
             tableId: "tableId",
         });
         /** Deletes a template */
-        await gapi.client.template.delete( {
+        await gapi.client.template.delete({
             tableId: "tableId",
             templateId: 2,
         });
         /** Retrieves a specific template by its id */
-        await gapi.client.template.get( {
+        await gapi.client.template.get({
             tableId: "tableId",
             templateId: 2,
         });
         /** Creates a new template for the table. */
-        await gapi.client.template.insert( {
+        await gapi.client.template.insert({
             tableId: "tableId",
         });
         /** Retrieves a list of templates. */
-        await gapi.client.template.list( {
+        await gapi.client.template.list({
             maxResults: 1,
             pageToken: "pageToken",
             tableId: "tableId",
         });
         /** Updates an existing template. This method supports patch semantics. */
-        await gapi.client.template.patch( {
+        await gapi.client.template.patch({
             tableId: "tableId",
             templateId: 2,
         });
         /** Updates an existing template */
-        await gapi.client.template.update( {
+        await gapi.client.template.update({
             tableId: "tableId",
             templateId: 2,
         });

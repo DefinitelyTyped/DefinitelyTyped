@@ -29,7 +29,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves a list of conversions from a DoubleClick Search engine account. */
-        await gapi.client.conversion.get( {
+        await gapi.client.conversion.get({
             adGroupId: "adGroupId",
             adId: "adId",
             advertiserId: "advertiserId",
@@ -43,10 +43,10 @@ gapi.load('client', () => {
             startRow: 11,
         });
         /** Inserts a batch of new conversions into DoubleClick Search. */
-        await gapi.client.conversion.insert( {
+        await gapi.client.conversion.insert({
         });
         /** Updates a batch of conversions in DoubleClick Search. This method supports patch semantics. */
-        await gapi.client.conversion.patch( {
+        await gapi.client.conversion.patch({
             advertiserId: "advertiserId",
             agencyId: "agencyId",
             endDate: 3,
@@ -56,28 +56,28 @@ gapi.load('client', () => {
             startRow: 7,
         });
         /** Updates a batch of conversions in DoubleClick Search. */
-        await gapi.client.conversion.update( {
+        await gapi.client.conversion.update({
         });
         /** Updates the availabilities of a batch of floodlight activities in DoubleClick Search. */
-        await gapi.client.conversion.updateAvailability( {
+        await gapi.client.conversion.updateAvailability({
         });
         /** Generates and returns a report immediately. */
-        await gapi.client.reports.generate( {
+        await gapi.client.reports.generate({
         });
         /** Polls for the status of a report request. */
-        await gapi.client.reports.get( {
+        await gapi.client.reports.get({
             reportId: "reportId",
         });
         /** Downloads a report file encoded in UTF-8. */
-        await gapi.client.reports.getFile( {
+        await gapi.client.reports.getFile({
             reportFragment: 1,
             reportId: "reportId",
         });
         /** Inserts a report request into the reporting system. */
-        await gapi.client.reports.request( {
+        await gapi.client.reports.request({
         });
         /** Retrieve the list of saved columns for a specified advertiser. */
-        await gapi.client.savedColumns.list( {
+        await gapi.client.savedColumns.list({
             advertiserId: "advertiserId",
             agencyId: "agencyId",
         });

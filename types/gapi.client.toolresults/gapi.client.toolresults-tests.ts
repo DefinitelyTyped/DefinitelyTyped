@@ -35,7 +35,7 @@ gapi.load('client', () => {
          *
          * - PERMISSION_DENIED - if the user is not authorized to read from project
          */
-        await gapi.client.projects.getSettings( {
+        await gapi.client.projects.getSettings({
             projectId: "projectId",
         });
         /**
@@ -57,7 +57,7 @@ gapi.load('client', () => {
          *
          * - PERMISSION_DENIED - if the user is not authorized to write to project - Any error code raised by Google Cloud Storage
          */
-        await gapi.client.projects.initializeSettings( {
+        await gapi.client.projects.initializeSettings({
             projectId: "projectId",
         });
     }

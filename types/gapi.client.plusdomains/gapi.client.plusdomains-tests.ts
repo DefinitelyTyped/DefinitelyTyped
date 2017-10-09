@@ -50,75 +50,75 @@ gapi.load('client', () => {
 
     async function run() {
         /** Get an activity. */
-        await gapi.client.activities.get( {
+        await gapi.client.activities.get({
             activityId: "activityId",
         });
         /** Create a new activity for the authenticated user. */
-        await gapi.client.activities.insert( {
+        await gapi.client.activities.insert({
             preview: true,
             userId: "userId",
         });
         /** List all of the activities in the specified collection for a particular user. */
-        await gapi.client.activities.list( {
+        await gapi.client.activities.list({
             collection: "collection",
             maxResults: 2,
             pageToken: "pageToken",
             userId: "userId",
         });
         /** List all of the audiences to which a user can share. */
-        await gapi.client.audiences.list( {
+        await gapi.client.audiences.list({
             maxResults: 1,
             pageToken: "pageToken",
             userId: "userId",
         });
         /** Add a person to a circle. Google+ limits certain circle operations, including the number of circle adds. Learn More. */
-        await gapi.client.circles.addPeople( {
+        await gapi.client.circles.addPeople({
             circleId: "circleId",
             email: "email",
             userId: "userId",
         });
         /** Get a circle. */
-        await gapi.client.circles.get( {
+        await gapi.client.circles.get({
             circleId: "circleId",
         });
         /** Create a new circle for the authenticated user. */
-        await gapi.client.circles.insert( {
+        await gapi.client.circles.insert({
             userId: "userId",
         });
         /** List all of the circles for a user. */
-        await gapi.client.circles.list( {
+        await gapi.client.circles.list({
             maxResults: 1,
             pageToken: "pageToken",
             userId: "userId",
         });
         /** Update a circle's description. This method supports patch semantics. */
-        await gapi.client.circles.patch( {
+        await gapi.client.circles.patch({
             circleId: "circleId",
         });
         /** Delete a circle. */
-        await gapi.client.circles.remove( {
+        await gapi.client.circles.remove({
             circleId: "circleId",
         });
         /** Remove a person from a circle. */
-        await gapi.client.circles.removePeople( {
+        await gapi.client.circles.removePeople({
             circleId: "circleId",
             email: "email",
             userId: "userId",
         });
         /** Update a circle's description. */
-        await gapi.client.circles.update( {
+        await gapi.client.circles.update({
             circleId: "circleId",
         });
         /** Get a comment. */
-        await gapi.client.comments.get( {
+        await gapi.client.comments.get({
             commentId: "commentId",
         });
         /** Create a new comment in reply to an activity. */
-        await gapi.client.comments.insert( {
+        await gapi.client.comments.insert({
             activityId: "activityId",
         });
         /** List all of the comments for an activity. */
-        await gapi.client.comments.list( {
+        await gapi.client.comments.list({
             activityId: "activityId",
             maxResults: 2,
             pageToken: "pageToken",
@@ -128,16 +128,16 @@ gapi.load('client', () => {
          * Add a new media item to an album. The current upload size limitations are 36MB for a photo and 1GB for a video. Uploads do not count against quota if
          * photos are less than 2048 pixels on their longest side or videos are less than 15 minutes in length.
          */
-        await gapi.client.media.insert( {
+        await gapi.client.media.insert({
             collection: "collection",
             userId: "userId",
         });
         /** Get a person's profile. */
-        await gapi.client.people.get( {
+        await gapi.client.people.get({
             userId: "userId",
         });
         /** List all of the people in the specified collection. */
-        await gapi.client.people.list( {
+        await gapi.client.people.list({
             collection: "collection",
             maxResults: 2,
             orderBy: "orderBy",
@@ -145,14 +145,14 @@ gapi.load('client', () => {
             userId: "userId",
         });
         /** List all of the people in the specified collection for a particular activity. */
-        await gapi.client.people.listByActivity( {
+        await gapi.client.people.listByActivity({
             activityId: "activityId",
             collection: "collection",
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** List all of the people who are members of a circle. */
-        await gapi.client.people.listByCircle( {
+        await gapi.client.people.listByCircle({
             circleId: "circleId",
             maxResults: 2,
             pageToken: "pageToken",

@@ -29,41 +29,41 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves metadata for a specific bookshelf for the specified user. */
-        await gapi.client.bookshelves.get( {
+        await gapi.client.bookshelves.get({
             shelf: "shelf",
             source: "source",
             userId: "userId",
         });
         /** Retrieves a list of public bookshelves for the specified user. */
-        await gapi.client.bookshelves.list( {
+        await gapi.client.bookshelves.list({
             source: "source",
             userId: "userId",
         });
-        await gapi.client.cloudloading.addBook( {
+        await gapi.client.cloudloading.addBook({
             drive_document_id: "drive_document_id",
             mime_type: "mime_type",
             name: "name",
             upload_client_token: "upload_client_token",
         });
         /** Remove the book and its contents */
-        await gapi.client.cloudloading.deleteBook( {
+        await gapi.client.cloudloading.deleteBook({
             volumeId: "volumeId",
         });
-        await gapi.client.cloudloading.updateBook( {
+        await gapi.client.cloudloading.updateBook({
         });
         /** Returns a list of offline dictionary metadata available */
-        await gapi.client.dictionary.listOfflineMetadata( {
+        await gapi.client.dictionary.listOfflineMetadata({
             cpksver: "cpksver",
         });
         /** Gets the layer summary for a volume. */
-        await gapi.client.layers.get( {
+        await gapi.client.layers.get({
             contentVersion: "contentVersion",
             source: "source",
             summaryId: "summaryId",
             volumeId: "volumeId",
         });
         /** List the layer summaries for a volume. */
-        await gapi.client.layers.list( {
+        await gapi.client.layers.list({
             contentVersion: "contentVersion",
             maxResults: 2,
             pageToken: "pageToken",
@@ -71,17 +71,17 @@ gapi.load('client', () => {
             volumeId: "volumeId",
         });
         /** Gets the current settings for the user. */
-        await gapi.client.myconfig.getUserSettings( {
+        await gapi.client.myconfig.getUserSettings({
         });
         /** Release downloaded content access restriction. */
-        await gapi.client.myconfig.releaseDownloadAccess( {
+        await gapi.client.myconfig.releaseDownloadAccess({
             cpksver: "cpksver",
             locale: "locale",
             source: "source",
             volumeIds: "volumeIds",
         });
         /** Request concurrent and download access restrictions. */
-        await gapi.client.myconfig.requestAccess( {
+        await gapi.client.myconfig.requestAccess({
             cpksver: "cpksver",
             licenseTypes: "licenseTypes",
             locale: "locale",
@@ -90,7 +90,7 @@ gapi.load('client', () => {
             volumeId: "volumeId",
         });
         /** Request downloaded content access for specified volumes on the My eBooks shelf. */
-        await gapi.client.myconfig.syncVolumeLicenses( {
+        await gapi.client.myconfig.syncVolumeLicenses({
             cpksver: "cpksver",
             features: "features",
             includeNonComicsSeries: true,
@@ -104,20 +104,20 @@ gapi.load('client', () => {
          * Sets the settings for the user. If a sub-object is specified, it will overwrite the existing sub-object stored in the server. Unspecified sub-objects
          * will retain the existing value.
          */
-        await gapi.client.myconfig.updateUserSettings( {
+        await gapi.client.myconfig.updateUserSettings({
         });
         /** Returns notification details for a given notification id. */
-        await gapi.client.notification.get( {
+        await gapi.client.notification.get({
             locale: "locale",
             notification_id: "notification_id",
             source: "source",
         });
         /** List categories for onboarding experience. */
-        await gapi.client.onboarding.listCategories( {
+        await gapi.client.onboarding.listCategories({
             locale: "locale",
         });
         /** List available volumes under categories for onboarding experience. */
-        await gapi.client.onboarding.listCategoryVolumes( {
+        await gapi.client.onboarding.listCategoryVolumes({
             categoryId: "categoryId",
             locale: "locale",
             maxAllowedMaturityRating: "maxAllowedMaturityRating",
@@ -125,12 +125,12 @@ gapi.load('client', () => {
             pageToken: "pageToken",
         });
         /** Returns a stream of personalized book clusters */
-        await gapi.client.personalizedstream.get( {
+        await gapi.client.personalizedstream.get({
             locale: "locale",
             maxAllowedMaturityRating: "maxAllowedMaturityRating",
             source: "source",
         });
-        await gapi.client.promooffer.accept( {
+        await gapi.client.promooffer.accept({
             androidId: "androidId",
             device: "device",
             manufacturer: "manufacturer",
@@ -140,7 +140,7 @@ gapi.load('client', () => {
             serial: "serial",
             volumeId: "volumeId",
         });
-        await gapi.client.promooffer.dismiss( {
+        await gapi.client.promooffer.dismiss({
             androidId: "androidId",
             device: "device",
             manufacturer: "manufacturer",
@@ -150,7 +150,7 @@ gapi.load('client', () => {
             serial: "serial",
         });
         /** Returns a list of promo offers available to the user */
-        await gapi.client.promooffer.get( {
+        await gapi.client.promooffer.get({
             androidId: "androidId",
             device: "device",
             manufacturer: "manufacturer",
@@ -159,11 +159,11 @@ gapi.load('client', () => {
             serial: "serial",
         });
         /** Returns Series metadata for the given series ids. */
-        await gapi.client.series.get( {
+        await gapi.client.series.get({
             series_id: "series_id",
         });
         /** Gets volume information for a single volume. */
-        await gapi.client.volumes.get( {
+        await gapi.client.volumes.get({
             country: "country",
             includeNonComicsSeries: true,
             partner: "partner",
@@ -173,7 +173,7 @@ gapi.load('client', () => {
             volumeId: "volumeId",
         });
         /** Performs a book search. */
-        await gapi.client.volumes.list( {
+        await gapi.client.volumes.list({
             download: "download",
             filter: "filter",
             langRestrict: "langRestrict",

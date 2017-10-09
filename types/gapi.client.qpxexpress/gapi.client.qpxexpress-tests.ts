@@ -13,7 +13,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Returns a list of flights. */
-        await gapi.client.trips.search( {
+        await gapi.client.trips.search({
         });
     }
 });

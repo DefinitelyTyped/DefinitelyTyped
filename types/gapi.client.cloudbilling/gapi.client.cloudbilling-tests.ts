@@ -33,14 +33,14 @@ gapi.load('client', () => {
          * must be an [owner of the billing
          * account](https://support.google.com/cloud/answer/4430947).
          */
-        await gapi.client.billingAccounts.get( {
+        await gapi.client.billingAccounts.get({
             name: "name",
         });
         /**
          * Lists the billing accounts that the current authenticated user
          * [owns](https://support.google.com/cloud/answer/4430947).
          */
-        await gapi.client.billingAccounts.list( {
+        await gapi.client.billingAccounts.list({
             pageSize: 1,
             pageToken: "pageToken",
         });
@@ -50,7 +50,7 @@ gapi.load('client', () => {
          * project](https://cloud.google.com/docs/permissions-overview#h.bgs0oxofvnoo
          * ).
          */
-        await gapi.client.projects.getBillingInfo( {
+        await gapi.client.projects.getBillingInfo({
             name: "name",
         });
         /**
@@ -86,11 +86,11 @@ gapi.load('client', () => {
          * disable billing, you should always call this method with the name of an
          * &#42;open&#42; billing account.
          */
-        await gapi.client.projects.updateBillingInfo( {
+        await gapi.client.projects.updateBillingInfo({
             name: "name",
         });
         /** Lists all public cloud services. */
-        await gapi.client.services.list( {
+        await gapi.client.services.list({
             pageSize: 1,
             pageToken: "pageToken",
         });

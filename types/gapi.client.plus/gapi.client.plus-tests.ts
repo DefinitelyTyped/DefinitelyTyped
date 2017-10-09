@@ -35,18 +35,18 @@ gapi.load('client', () => {
 
     async function run() {
         /** Get an activity. */
-        await gapi.client.activities.get( {
+        await gapi.client.activities.get({
             activityId: "activityId",
         });
         /** List all of the activities in the specified collection for a particular user. */
-        await gapi.client.activities.list( {
+        await gapi.client.activities.list({
             collection: "collection",
             maxResults: 2,
             pageToken: "pageToken",
             userId: "userId",
         });
         /** Search public activities. */
-        await gapi.client.activities.search( {
+        await gapi.client.activities.search({
             language: "language",
             maxResults: 2,
             orderBy: "orderBy",
@@ -54,22 +54,22 @@ gapi.load('client', () => {
             query: "query",
         });
         /** Get a comment. */
-        await gapi.client.comments.get( {
+        await gapi.client.comments.get({
             commentId: "commentId",
         });
         /** List all of the comments for an activity. */
-        await gapi.client.comments.list( {
+        await gapi.client.comments.list({
             activityId: "activityId",
             maxResults: 2,
             pageToken: "pageToken",
             sortOrder: "sortOrder",
         });
         /** Get a person's profile. If your app uses scope https://www.googleapis.com/auth/plus.login, this method is guaranteed to return ageRange and language. */
-        await gapi.client.people.get( {
+        await gapi.client.people.get({
             userId: "userId",
         });
         /** List all of the people in the specified collection. */
-        await gapi.client.people.list( {
+        await gapi.client.people.list({
             collection: "collection",
             maxResults: 2,
             orderBy: "orderBy",
@@ -77,14 +77,14 @@ gapi.load('client', () => {
             userId: "userId",
         });
         /** List all of the people in the specified collection for a particular activity. */
-        await gapi.client.people.listByActivity( {
+        await gapi.client.people.listByActivity({
             activityId: "activityId",
             collection: "collection",
             maxResults: 3,
             pageToken: "pageToken",
         });
         /** Search all public profiles. */
-        await gapi.client.people.search( {
+        await gapi.client.people.search({
             language: "language",
             maxResults: 2,
             pageToken: "pageToken",

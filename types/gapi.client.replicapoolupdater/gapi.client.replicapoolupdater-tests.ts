@@ -35,24 +35,24 @@ gapi.load('client', () => {
 
     async function run() {
         /** Cancels an update. The update must be PAUSED before it can be cancelled. This has no effect if the update is already CANCELLED. */
-        await gapi.client.rollingUpdates.cancel( {
+        await gapi.client.rollingUpdates.cancel({
             project: "project",
             rollingUpdate: "rollingUpdate",
             zone: "zone",
         });
         /** Returns information about an update. */
-        await gapi.client.rollingUpdates.get( {
+        await gapi.client.rollingUpdates.get({
             project: "project",
             rollingUpdate: "rollingUpdate",
             zone: "zone",
         });
         /** Inserts and starts a new update. */
-        await gapi.client.rollingUpdates.insert( {
+        await gapi.client.rollingUpdates.insert({
             project: "project",
             zone: "zone",
         });
         /** Lists recent updates for a given managed instance group, in reverse chronological order and paginated format. */
-        await gapi.client.rollingUpdates.list( {
+        await gapi.client.rollingUpdates.list({
             filter: "filter",
             maxResults: 2,
             pageToken: "pageToken",
@@ -60,7 +60,7 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Lists the current status for each instance within a given update. */
-        await gapi.client.rollingUpdates.listInstanceUpdates( {
+        await gapi.client.rollingUpdates.listInstanceUpdates({
             filter: "filter",
             maxResults: 2,
             pageToken: "pageToken",
@@ -69,31 +69,31 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Pauses the update in state from ROLLING_FORWARD or ROLLING_BACK. Has no effect if invoked when the state of the update is PAUSED. */
-        await gapi.client.rollingUpdates.pause( {
+        await gapi.client.rollingUpdates.pause({
             project: "project",
             rollingUpdate: "rollingUpdate",
             zone: "zone",
         });
         /** Continues an update in PAUSED state. Has no effect if invoked when the state of the update is ROLLED_OUT. */
-        await gapi.client.rollingUpdates.resume( {
+        await gapi.client.rollingUpdates.resume({
             project: "project",
             rollingUpdate: "rollingUpdate",
             zone: "zone",
         });
         /** Rolls back the update in state from ROLLING_FORWARD or PAUSED. Has no effect if invoked when the state of the update is ROLLED_BACK. */
-        await gapi.client.rollingUpdates.rollback( {
+        await gapi.client.rollingUpdates.rollback({
             project: "project",
             rollingUpdate: "rollingUpdate",
             zone: "zone",
         });
         /** Retrieves the specified zone-specific operation resource. */
-        await gapi.client.zoneOperations.get( {
+        await gapi.client.zoneOperations.get({
             operation: "operation",
             project: "project",
             zone: "zone",
         });
         /** Retrieves the list of Operation resources contained within the specified zone. */
-        await gapi.client.zoneOperations.list( {
+        await gapi.client.zoneOperations.list({
             filter: "filter",
             maxResults: 2,
             pageToken: "pageToken",

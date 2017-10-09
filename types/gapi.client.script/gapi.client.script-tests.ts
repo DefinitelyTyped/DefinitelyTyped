@@ -59,7 +59,7 @@ gapi.load('client', () => {
          * authentication token, open the project in the script editor, then select
          * &#42;&#42;File > Project properties&#42;&#42; and click the &#42;&#42;Scopes&#42;&#42; tab.
          */
-        await gapi.client.scripts.run( {
+        await gapi.client.scripts.run({
             scriptId: "scriptId",
         });
     }

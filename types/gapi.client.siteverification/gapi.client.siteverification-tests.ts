@@ -31,29 +31,29 @@ gapi.load('client', () => {
 
     async function run() {
         /** Relinquish ownership of a website or domain. */
-        await gapi.client.webResource.delete( {
+        await gapi.client.webResource.delete({
             id: "id",
         });
         /** Get the most current data for a website or domain. */
-        await gapi.client.webResource.get( {
+        await gapi.client.webResource.get({
             id: "id",
         });
         /** Get a verification token for placing on a website or domain. */
-        await gapi.client.webResource.getToken( {
+        await gapi.client.webResource.getToken({
         });
         /** Attempt verification of a website or domain. */
-        await gapi.client.webResource.insert( {
+        await gapi.client.webResource.insert({
             verificationMethod: "verificationMethod",
         });
         /** Get the list of your verified websites and domains. */
-        await gapi.client.webResource.list( {
+        await gapi.client.webResource.list({
         });
         /** Modify the list of owners for your website or domain. This method supports patch semantics. */
-        await gapi.client.webResource.patch( {
+        await gapi.client.webResource.patch({
             id: "id",
         });
         /** Modify the list of owners for your website or domain. */
-        await gapi.client.webResource.update( {
+        await gapi.client.webResource.update({
             id: "id",
         });
     }

@@ -38,19 +38,19 @@ gapi.load('client', () => {
          * account is created and owned by Storage Transfer Service and can
          * only be used by Storage Transfer Service.
          */
-        await gapi.client.googleServiceAccounts.get( {
+        await gapi.client.googleServiceAccounts.get({
             projectId: "projectId",
         });
         /** Creates a transfer job that runs periodically. */
-        await gapi.client.transferJobs.create( {
+        await gapi.client.transferJobs.create({
         });
         /** Gets a transfer job. */
-        await gapi.client.transferJobs.get( {
+        await gapi.client.transferJobs.get({
             jobName: "jobName",
             projectId: "projectId",
         });
         /** Lists transfer jobs. */
-        await gapi.client.transferJobs.list( {
+        await gapi.client.transferJobs.list({
             filter: "filter",
             pageSize: 2,
             pageToken: "pageToken",
@@ -60,15 +60,15 @@ gapi.load('client', () => {
          * transfer operations that are running already. Updating the scheduling
          * of a job is not allowed.
          */
-        await gapi.client.transferJobs.patch( {
+        await gapi.client.transferJobs.patch({
             jobName: "jobName",
         });
         /** Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation. */
-        await gapi.client.transferOperations.cancel( {
+        await gapi.client.transferOperations.cancel({
             name: "name",
         });
         /** This method is not supported and the server returns `UNIMPLEMENTED`. */
-        await gapi.client.transferOperations.delete( {
+        await gapi.client.transferOperations.delete({
             name: "name",
         });
         /**
@@ -76,7 +76,7 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.transferOperations.get( {
+        await gapi.client.transferOperations.get({
             name: "name",
         });
         /**
@@ -91,18 +91,18 @@ gapi.load('client', () => {
          * collection id, however overriding users must ensure the name binding
          * is the parent resource, without the operations collection id.
          */
-        await gapi.client.transferOperations.list( {
+        await gapi.client.transferOperations.list({
             filter: "filter",
             name: "name",
             pageSize: 3,
             pageToken: "pageToken",
         });
         /** Pauses a transfer operation. */
-        await gapi.client.transferOperations.pause( {
+        await gapi.client.transferOperations.pause({
             name: "name",
         });
         /** Resumes a transfer operation that is paused. */
-        await gapi.client.transferOperations.resume( {
+        await gapi.client.transferOperations.resume({
             name: "name",
         });
     }

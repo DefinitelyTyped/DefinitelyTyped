@@ -52,7 +52,7 @@ gapi.load('client', () => {
          * see
          * CreateAnnotation.
          */
-        await gapi.client.annotations.batchCreate( {
+        await gapi.client.annotations.batchCreate({
         });
         /**
          * Creates a new annotation. Caller must have WRITE permission
@@ -78,20 +78,20 @@ gapi.load('client', () => {
          * Annotation resource
          * for additional restrictions on each field.
          */
-        await gapi.client.annotations.create( {
+        await gapi.client.annotations.create({
         });
         /**
          * Deletes an annotation. Caller must have WRITE permission for
          * the associated annotation set.
          */
-        await gapi.client.annotations.delete( {
+        await gapi.client.annotations.delete({
             annotationId: "annotationId",
         });
         /**
          * Gets an annotation. Caller must have READ permission
          * for the associated annotation set.
          */
-        await gapi.client.annotations.get( {
+        await gapi.client.annotations.get({
             annotationId: "annotationId",
         });
         /**
@@ -103,13 +103,13 @@ gapi.load('client', () => {
          * across their respective streams of paginated responses. Caller must have
          * READ permission for the queried annotation sets.
          */
-        await gapi.client.annotations.search( {
+        await gapi.client.annotations.search({
         });
         /**
          * Updates an annotation. Caller must have
          * WRITE permission for the associated dataset.
          */
-        await gapi.client.annotations.update( {
+        await gapi.client.annotations.update({
             annotationId: "annotationId",
             updateMask: "updateMask",
         });
@@ -125,20 +125,20 @@ gapi.load('client', () => {
          * All other fields may be optionally specified, unless documented as being
          * server-generated (for example, the `id` field).
          */
-        await gapi.client.annotationsets.create( {
+        await gapi.client.annotationsets.create({
         });
         /**
          * Deletes an annotation set. Caller must have WRITE permission
          * for the associated annotation set.
          */
-        await gapi.client.annotationsets.delete( {
+        await gapi.client.annotationsets.delete({
             annotationSetId: "annotationSetId",
         });
         /**
          * Gets an annotation set. Caller must have READ permission for
          * the associated dataset.
          */
-        await gapi.client.annotationsets.get( {
+        await gapi.client.annotationsets.get({
             annotationSetId: "annotationSetId",
         });
         /**
@@ -148,14 +148,14 @@ gapi.load('client', () => {
          * sets in the same order across their respective streams of paginated
          * responses. Caller must have READ permission for the queried datasets.
          */
-        await gapi.client.annotationsets.search( {
+        await gapi.client.annotationsets.search({
         });
         /**
          * Updates an annotation set. The update must respect all mutability
          * restrictions and other invariants described on the annotation set resource.
          * Caller must have WRITE permission for the associated dataset.
          */
-        await gapi.client.annotationsets.update( {
+        await gapi.client.annotationsets.update({
             annotationSetId: "annotationSetId",
             updateMask: "updateMask",
         });
@@ -166,7 +166,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.callsets.create( {
+        await gapi.client.callsets.create({
         });
         /**
          * Deletes a call set.
@@ -175,7 +175,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.callsets.delete( {
+        await gapi.client.callsets.delete({
             callSetId: "callSetId",
         });
         /**
@@ -185,7 +185,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.callsets.get( {
+        await gapi.client.callsets.get({
             callSetId: "callSetId",
         });
         /**
@@ -197,7 +197,7 @@ gapi.load('client', () => {
          *
          * This method supports patch semantics.
          */
-        await gapi.client.callsets.patch( {
+        await gapi.client.callsets.patch({
             callSetId: "callSetId",
             updateMask: "updateMask",
         });
@@ -211,7 +211,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.searchCallSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L178).
          */
-        await gapi.client.callsets.search( {
+        await gapi.client.callsets.search({
         });
         /**
          * Creates a new dataset.
@@ -220,7 +220,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.datasets.create( {
+        await gapi.client.datasets.create({
         });
         /**
          * Deletes a dataset and all of its contents (all read group sets,
@@ -234,7 +234,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.datasets.delete( {
+        await gapi.client.datasets.delete({
             datasetId: "datasetId",
         });
         /**
@@ -244,7 +244,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.datasets.get( {
+        await gapi.client.datasets.get({
             datasetId: "datasetId",
         });
         /**
@@ -258,7 +258,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.datasets.getIamPolicy( {
+        await gapi.client.datasets.getIamPolicy({
             resource: "resource",
         });
         /**
@@ -268,7 +268,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.datasets.list( {
+        await gapi.client.datasets.list({
             pageSize: 1,
             pageToken: "pageToken",
             projectId: "projectId",
@@ -282,7 +282,7 @@ gapi.load('client', () => {
          *
          * This method supports patch semantics.
          */
-        await gapi.client.datasets.patch( {
+        await gapi.client.datasets.patch({
             datasetId: "datasetId",
             updateMask: "updateMask",
         });
@@ -297,7 +297,7 @@ gapi.load('client', () => {
          * See <a href="/iam/docs/managing-policies#setting_a_policy">Setting a
          * Policy</a> for more information.
          */
-        await gapi.client.datasets.setIamPolicy( {
+        await gapi.client.datasets.setIamPolicy({
             resource: "resource",
         });
         /**
@@ -309,7 +309,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.datasets.testIamPermissions( {
+        await gapi.client.datasets.testIamPermissions({
             resource: "resource",
         });
         /**
@@ -321,7 +321,7 @@ gapi.load('client', () => {
          *
          * This operation is only possible for a week after the deletion occurred.
          */
-        await gapi.client.datasets.undelete( {
+        await gapi.client.datasets.undelete({
             datasetId: "datasetId",
         });
         /**
@@ -329,7 +329,7 @@ gapi.load('client', () => {
          * Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite
          * cancellation.
          */
-        await gapi.client.operations.cancel( {
+        await gapi.client.operations.cancel({
             name: "name",
         });
         /**
@@ -337,11 +337,11 @@ gapi.load('client', () => {
          * method to poll the operation result at intervals as recommended by the API
          * service.
          */
-        await gapi.client.operations.get( {
+        await gapi.client.operations.get({
             name: "name",
         });
         /** Lists operations that match the specified filter in the request. */
-        await gapi.client.operations.list( {
+        await gapi.client.operations.list({
             filter: "filter",
             name: "name",
             pageSize: 3,
@@ -354,7 +354,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.readgroupsets.delete( {
+        await gapi.client.readgroupsets.delete({
             readGroupSetId: "readGroupSetId",
         });
         /**
@@ -369,7 +369,7 @@ gapi.load('client', () => {
          * ImportReadGroupSets
          * for caveats.
          */
-        await gapi.client.readgroupsets.export( {
+        await gapi.client.readgroupsets.export({
             readGroupSetId: "readGroupSetId",
         });
         /**
@@ -379,7 +379,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.readgroupsets.get( {
+        await gapi.client.readgroupsets.get({
             readGroupSetId: "readGroupSetId",
         });
         /**
@@ -402,7 +402,7 @@ gapi.load('client', () => {
          * - Unmapped reads will be stripped of positional information (reference name
          * and position)
          */
-        await gapi.client.readgroupsets.import( {
+        await gapi.client.readgroupsets.import({
         });
         /**
          * Updates a read group set.
@@ -413,7 +413,7 @@ gapi.load('client', () => {
          *
          * This method supports patch semantics.
          */
-        await gapi.client.readgroupsets.patch( {
+        await gapi.client.readgroupsets.patch({
             readGroupSetId: "readGroupSetId",
             updateMask: "updateMask",
         });
@@ -427,7 +427,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.searchReadGroupSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L135).
          */
-        await gapi.client.readgroupsets.search( {
+        await gapi.client.readgroupsets.search({
         });
         /**
          * Gets a list of reads for one or more read group sets.
@@ -455,7 +455,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.searchReads](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L85).
          */
-        await gapi.client.reads.search( {
+        await gapi.client.reads.search({
         });
         /**
          * Gets a reference.
@@ -467,7 +467,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.getReference](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L158).
          */
-        await gapi.client.references.get( {
+        await gapi.client.references.get({
             referenceId: "referenceId",
         });
         /**
@@ -480,7 +480,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.searchReferences](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L146).
          */
-        await gapi.client.references.search( {
+        await gapi.client.references.search({
         });
         /**
          * Gets a reference set.
@@ -492,7 +492,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.getReferenceSet](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L83).
          */
-        await gapi.client.referencesets.get( {
+        await gapi.client.referencesets.get({
             referenceSetId: "referenceSetId",
         });
         /**
@@ -505,7 +505,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.searchReferenceSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L71)
          */
-        await gapi.client.referencesets.search( {
+        await gapi.client.referencesets.search({
         });
         /**
          * Creates a new variant.
@@ -514,7 +514,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.variants.create( {
+        await gapi.client.variants.create({
         });
         /**
          * Deletes a variant.
@@ -523,7 +523,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.variants.delete( {
+        await gapi.client.variants.delete({
             variantId: "variantId",
         });
         /**
@@ -533,7 +533,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.variants.get( {
+        await gapi.client.variants.get({
             variantId: "variantId",
         });
         /**
@@ -556,7 +556,7 @@ gapi.load('client', () => {
          * call-specific context.
          * Imported VCF headers are appended to the metadata already in a variant set.
          */
-        await gapi.client.variants.import( {
+        await gapi.client.variants.import({
         });
         /**
          * Merges the given variants with existing variants.
@@ -651,7 +651,7 @@ gapi.load('client', () => {
          * This may be the desired outcome, but it is up to the user to determine if
          * if that is indeed the case.
          */
-        await gapi.client.variants.merge( {
+        await gapi.client.variants.merge({
         });
         /**
          * Updates a variant.
@@ -663,7 +663,7 @@ gapi.load('client', () => {
          * This method supports patch semantics. Returns the modified variant without
          * its calls.
          */
-        await gapi.client.variants.patch( {
+        await gapi.client.variants.patch({
             updateMask: "updateMask",
             variantId: "variantId",
         });
@@ -677,7 +677,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.searchVariants](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L126).
          */
-        await gapi.client.variants.search( {
+        await gapi.client.variants.search({
         });
         /**
          * Creates a new variant set.
@@ -690,7 +690,7 @@ gapi.load('client', () => {
          * fields are optional. Note that the `id` field will be ignored, as this is
          * assigned by the server.
          */
-        await gapi.client.variantsets.create( {
+        await gapi.client.variantsets.create({
         });
         /**
          * Deletes a variant set including all variants, call sets, and calls within.
@@ -700,7 +700,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.variantsets.delete( {
+        await gapi.client.variantsets.delete({
             variantSetId: "variantSetId",
         });
         /**
@@ -710,7 +710,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.variantsets.export( {
+        await gapi.client.variantsets.export({
             variantSetId: "variantSetId",
         });
         /**
@@ -720,7 +720,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.variantsets.get( {
+        await gapi.client.variantsets.get({
             variantSetId: "variantSetId",
         });
         /**
@@ -730,7 +730,7 @@ gapi.load('client', () => {
          * [Fundamentals of Google
          * Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics)
          */
-        await gapi.client.variantsets.patch( {
+        await gapi.client.variantsets.patch({
             updateMask: "updateMask",
             variantSetId: "variantSetId",
         });
@@ -744,7 +744,7 @@ gapi.load('client', () => {
          * Implements
          * [GlobalAllianceApi.searchVariantSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L49).
          */
-        await gapi.client.variantsets.search( {
+        await gapi.client.variantsets.search({
         });
     }
 });

@@ -17,7 +17,7 @@ gapi.load('client', () => {
          * Returns the RemoteConfig as the payload, and also the eTag as a
          * response header.
          */
-        await gapi.client.projects.getRemoteConfig( {
+        await gapi.client.projects.getRemoteConfig({
             project: "project",
         });
         /**
@@ -40,7 +40,7 @@ gapi.load('client', () => {
          * &#42; Internal error (HTTP status 500) for Database problems or other internal
          * errors.
          */
-        await gapi.client.projects.updateRemoteConfig( {
+        await gapi.client.projects.updateRemoteConfig({
             project: "project",
             validateOnly: true,
         });

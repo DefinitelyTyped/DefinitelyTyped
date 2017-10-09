@@ -31,19 +31,19 @@ gapi.load('client', () => {
 
     async function run() {
         /** Detects the language of text within a request. */
-        await gapi.client.detections.detect( {
+        await gapi.client.detections.detect({
         });
         /** Detects the language of text within a request. */
-        await gapi.client.detections.list( {
+        await gapi.client.detections.list({
             q: "q",
         });
         /** Returns a list of supported languages for translation. */
-        await gapi.client.languages.list( {
+        await gapi.client.languages.list({
             model: "model",
             target: "target",
         });
         /** Translates input text, returning translated text. */
-        await gapi.client.translations.list( {
+        await gapi.client.translations.list({
             cid: "cid",
             format: "format",
             model: "model",
@@ -52,7 +52,7 @@ gapi.load('client', () => {
             target: "target",
         });
         /** Translates input text, returning translated text. */
-        await gapi.client.translations.translate( {
+        await gapi.client.translations.translate({
         });
     }
 });

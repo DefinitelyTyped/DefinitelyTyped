@@ -35,7 +35,7 @@ gapi.load('client', () => {
 
     async function run() {
         /** Send a worker_message to the service. */
-        await gapi.client.projects.workerMessages( {
+        await gapi.client.projects.workerMessages({
             projectId: "projectId",
         });
     }

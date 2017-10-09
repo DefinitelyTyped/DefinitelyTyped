@@ -29,35 +29,35 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves line items in CSV format. */
-        await gapi.client.lineitems.downloadlineitems( {
+        await gapi.client.lineitems.downloadlineitems({
         });
         /** Uploads line items in CSV format. */
-        await gapi.client.lineitems.uploadlineitems( {
+        await gapi.client.lineitems.uploadlineitems({
         });
         /** Creates a query. */
-        await gapi.client.queries.createquery( {
+        await gapi.client.queries.createquery({
         });
         /** Deletes a stored query as well as the associated stored reports. */
-        await gapi.client.queries.deletequery( {
+        await gapi.client.queries.deletequery({
             queryId: "queryId",
         });
         /** Retrieves a stored query. */
-        await gapi.client.queries.getquery( {
+        await gapi.client.queries.getquery({
             queryId: "queryId",
         });
         /** Retrieves stored queries. */
-        await gapi.client.queries.listqueries( {
+        await gapi.client.queries.listqueries({
         });
         /** Runs a stored query to generate a report. */
-        await gapi.client.queries.runquery( {
+        await gapi.client.queries.runquery({
             queryId: "queryId",
         });
         /** Retrieves stored reports. */
-        await gapi.client.reports.listreports( {
+        await gapi.client.reports.listreports({
             queryId: "queryId",
         });
         /** Retrieves entities in SDF format. */
-        await gapi.client.sdf.download( {
+        await gapi.client.sdf.download({
         });
     }
 });

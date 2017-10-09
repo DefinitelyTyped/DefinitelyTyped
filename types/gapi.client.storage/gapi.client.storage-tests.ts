@@ -37,48 +37,48 @@ gapi.load('client', () => {
 
     async function run() {
         /** Permanently deletes the ACL entry for the specified entity on the specified bucket. */
-        await gapi.client.bucketAccessControls.delete( {
+        await gapi.client.bucketAccessControls.delete({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Returns the ACL entry for the specified entity on the specified bucket. */
-        await gapi.client.bucketAccessControls.get( {
+        await gapi.client.bucketAccessControls.get({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Creates a new ACL entry on the specified bucket. */
-        await gapi.client.bucketAccessControls.insert( {
+        await gapi.client.bucketAccessControls.insert({
             bucket: "bucket",
             userProject: "userProject",
         });
         /** Retrieves ACL entries on the specified bucket. */
-        await gapi.client.bucketAccessControls.list( {
+        await gapi.client.bucketAccessControls.list({
             bucket: "bucket",
             userProject: "userProject",
         });
         /** Updates an ACL entry on the specified bucket. This method supports patch semantics. */
-        await gapi.client.bucketAccessControls.patch( {
+        await gapi.client.bucketAccessControls.patch({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Updates an ACL entry on the specified bucket. */
-        await gapi.client.bucketAccessControls.update( {
+        await gapi.client.bucketAccessControls.update({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Permanently deletes an empty bucket. */
-        await gapi.client.buckets.delete( {
+        await gapi.client.buckets.delete({
             bucket: "bucket",
             ifMetagenerationMatch: "ifMetagenerationMatch",
             ifMetagenerationNotMatch: "ifMetagenerationNotMatch",
             userProject: "userProject",
         });
         /** Returns metadata for the specified bucket. */
-        await gapi.client.buckets.get( {
+        await gapi.client.buckets.get({
             bucket: "bucket",
             ifMetagenerationMatch: "ifMetagenerationMatch",
             ifMetagenerationNotMatch: "ifMetagenerationNotMatch",
@@ -86,12 +86,12 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Returns an IAM policy for the specified bucket. */
-        await gapi.client.buckets.getIamPolicy( {
+        await gapi.client.buckets.getIamPolicy({
             bucket: "bucket",
             userProject: "userProject",
         });
         /** Creates a new bucket. */
-        await gapi.client.buckets.insert( {
+        await gapi.client.buckets.insert({
             predefinedAcl: "predefinedAcl",
             predefinedDefaultObjectAcl: "predefinedDefaultObjectAcl",
             project: "project",
@@ -99,7 +99,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Retrieves a list of buckets for a given project. */
-        await gapi.client.buckets.list( {
+        await gapi.client.buckets.list({
             maxResults: 1,
             pageToken: "pageToken",
             prefix: "prefix",
@@ -111,7 +111,7 @@ gapi.load('client', () => {
          * Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. This method
          * supports patch semantics.
          */
-        await gapi.client.buckets.patch( {
+        await gapi.client.buckets.patch({
             bucket: "bucket",
             ifMetagenerationMatch: "ifMetagenerationMatch",
             ifMetagenerationNotMatch: "ifMetagenerationNotMatch",
@@ -121,18 +121,18 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Updates an IAM policy for the specified bucket. */
-        await gapi.client.buckets.setIamPolicy( {
+        await gapi.client.buckets.setIamPolicy({
             bucket: "bucket",
             userProject: "userProject",
         });
         /** Tests a set of permissions on the given bucket to see which, if any, are held by the caller. */
-        await gapi.client.buckets.testIamPermissions( {
+        await gapi.client.buckets.testIamPermissions({
             bucket: "bucket",
             permissions: "permissions",
             userProject: "userProject",
         });
         /** Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. */
-        await gapi.client.buckets.update( {
+        await gapi.client.buckets.update({
             bucket: "bucket",
             ifMetagenerationMatch: "ifMetagenerationMatch",
             ifMetagenerationNotMatch: "ifMetagenerationNotMatch",
@@ -142,68 +142,68 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Stop watching resources through this channel */
-        await gapi.client.channels.stop( {
+        await gapi.client.channels.stop({
         });
         /** Permanently deletes the default object ACL entry for the specified entity on the specified bucket. */
-        await gapi.client.defaultObjectAccessControls.delete( {
+        await gapi.client.defaultObjectAccessControls.delete({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Returns the default object ACL entry for the specified entity on the specified bucket. */
-        await gapi.client.defaultObjectAccessControls.get( {
+        await gapi.client.defaultObjectAccessControls.get({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Creates a new default object ACL entry on the specified bucket. */
-        await gapi.client.defaultObjectAccessControls.insert( {
+        await gapi.client.defaultObjectAccessControls.insert({
             bucket: "bucket",
             userProject: "userProject",
         });
         /** Retrieves default object ACL entries on the specified bucket. */
-        await gapi.client.defaultObjectAccessControls.list( {
+        await gapi.client.defaultObjectAccessControls.list({
             bucket: "bucket",
             ifMetagenerationMatch: "ifMetagenerationMatch",
             ifMetagenerationNotMatch: "ifMetagenerationNotMatch",
             userProject: "userProject",
         });
         /** Updates a default object ACL entry on the specified bucket. This method supports patch semantics. */
-        await gapi.client.defaultObjectAccessControls.patch( {
+        await gapi.client.defaultObjectAccessControls.patch({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Updates a default object ACL entry on the specified bucket. */
-        await gapi.client.defaultObjectAccessControls.update( {
+        await gapi.client.defaultObjectAccessControls.update({
             bucket: "bucket",
             entity: "entity",
             userProject: "userProject",
         });
         /** Permanently deletes a notification subscription. */
-        await gapi.client.notifications.delete( {
+        await gapi.client.notifications.delete({
             bucket: "bucket",
             notification: "notification",
             userProject: "userProject",
         });
         /** View a notification configuration. */
-        await gapi.client.notifications.get( {
+        await gapi.client.notifications.get({
             bucket: "bucket",
             notification: "notification",
             userProject: "userProject",
         });
         /** Creates a notification subscription for a given bucket. */
-        await gapi.client.notifications.insert( {
+        await gapi.client.notifications.insert({
             bucket: "bucket",
             userProject: "userProject",
         });
         /** Retrieves a list of notification subscriptions for a given bucket. */
-        await gapi.client.notifications.list( {
+        await gapi.client.notifications.list({
             bucket: "bucket",
             userProject: "userProject",
         });
         /** Permanently deletes the ACL entry for the specified entity on the specified object. */
-        await gapi.client.objectAccessControls.delete( {
+        await gapi.client.objectAccessControls.delete({
             bucket: "bucket",
             entity: "entity",
             generation: "generation",
@@ -211,7 +211,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Returns the ACL entry for the specified entity on the specified object. */
-        await gapi.client.objectAccessControls.get( {
+        await gapi.client.objectAccessControls.get({
             bucket: "bucket",
             entity: "entity",
             generation: "generation",
@@ -219,21 +219,21 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Creates a new ACL entry on the specified object. */
-        await gapi.client.objectAccessControls.insert( {
+        await gapi.client.objectAccessControls.insert({
             bucket: "bucket",
             generation: "generation",
             object: "object",
             userProject: "userProject",
         });
         /** Retrieves ACL entries on the specified object. */
-        await gapi.client.objectAccessControls.list( {
+        await gapi.client.objectAccessControls.list({
             bucket: "bucket",
             generation: "generation",
             object: "object",
             userProject: "userProject",
         });
         /** Updates an ACL entry on the specified object. This method supports patch semantics. */
-        await gapi.client.objectAccessControls.patch( {
+        await gapi.client.objectAccessControls.patch({
             bucket: "bucket",
             entity: "entity",
             generation: "generation",
@@ -241,7 +241,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Updates an ACL entry on the specified object. */
-        await gapi.client.objectAccessControls.update( {
+        await gapi.client.objectAccessControls.update({
             bucket: "bucket",
             entity: "entity",
             generation: "generation",
@@ -249,7 +249,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Concatenates a list of existing objects into a new object in the same bucket. */
-        await gapi.client.objects.compose( {
+        await gapi.client.objects.compose({
             destinationBucket: "destinationBucket",
             destinationObject: "destinationObject",
             destinationPredefinedAcl: "destinationPredefinedAcl",
@@ -259,7 +259,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Copies a source object to a destination object. Optionally overrides metadata. */
-        await gapi.client.objects.copy( {
+        await gapi.client.objects.copy({
             destinationBucket: "destinationBucket",
             destinationObject: "destinationObject",
             destinationPredefinedAcl: "destinationPredefinedAcl",
@@ -278,7 +278,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Deletes an object and its metadata. Deletions are permanent if versioning is not enabled for the bucket, or if the generation parameter is used. */
-        await gapi.client.objects.delete( {
+        await gapi.client.objects.delete({
             bucket: "bucket",
             generation: "generation",
             ifGenerationMatch: "ifGenerationMatch",
@@ -289,7 +289,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Retrieves an object or its metadata. */
-        await gapi.client.objects.get( {
+        await gapi.client.objects.get({
             bucket: "bucket",
             generation: "generation",
             ifGenerationMatch: "ifGenerationMatch",
@@ -301,14 +301,14 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Returns an IAM policy for the specified object. */
-        await gapi.client.objects.getIamPolicy( {
+        await gapi.client.objects.getIamPolicy({
             bucket: "bucket",
             generation: "generation",
             object: "object",
             userProject: "userProject",
         });
         /** Stores a new object and metadata. */
-        await gapi.client.objects.insert( {
+        await gapi.client.objects.insert({
             bucket: "bucket",
             contentEncoding: "contentEncoding",
             ifGenerationMatch: "ifGenerationMatch",
@@ -322,7 +322,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Retrieves a list of objects matching the criteria. */
-        await gapi.client.objects.list( {
+        await gapi.client.objects.list({
             bucket: "bucket",
             delimiter: "delimiter",
             maxResults: 3,
@@ -333,7 +333,7 @@ gapi.load('client', () => {
             versions: true,
         });
         /** Updates an object's metadata. This method supports patch semantics. */
-        await gapi.client.objects.patch( {
+        await gapi.client.objects.patch({
             bucket: "bucket",
             generation: "generation",
             ifGenerationMatch: "ifGenerationMatch",
@@ -346,7 +346,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Rewrites a source object to a destination object. Optionally overrides metadata. */
-        await gapi.client.objects.rewrite( {
+        await gapi.client.objects.rewrite({
             destinationBucket: "destinationBucket",
             destinationKmsKeyName: "destinationKmsKeyName",
             destinationObject: "destinationObject",
@@ -368,14 +368,14 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Updates an IAM policy for the specified object. */
-        await gapi.client.objects.setIamPolicy( {
+        await gapi.client.objects.setIamPolicy({
             bucket: "bucket",
             generation: "generation",
             object: "object",
             userProject: "userProject",
         });
         /** Tests a set of permissions on the given object to see which, if any, are held by the caller. */
-        await gapi.client.objects.testIamPermissions( {
+        await gapi.client.objects.testIamPermissions({
             bucket: "bucket",
             generation: "generation",
             object: "object",
@@ -383,7 +383,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Updates an object's metadata. */
-        await gapi.client.objects.update( {
+        await gapi.client.objects.update({
             bucket: "bucket",
             generation: "generation",
             ifGenerationMatch: "ifGenerationMatch",
@@ -396,7 +396,7 @@ gapi.load('client', () => {
             userProject: "userProject",
         });
         /** Watch for changes on all objects in a bucket. */
-        await gapi.client.objects.watchAll( {
+        await gapi.client.objects.watchAll({
             bucket: "bucket",
             delimiter: "delimiter",
             maxResults: 3,

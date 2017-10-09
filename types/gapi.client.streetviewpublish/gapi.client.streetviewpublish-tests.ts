@@ -49,7 +49,7 @@ gapi.load('client', () => {
          * &#42; google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the
          * storage limit.
          */
-        await gapi.client.photo.create( {
+        await gapi.client.photo.create({
         });
         /**
          * Deletes a Photo and its metadata.
@@ -60,7 +60,7 @@ gapi.load('client', () => {
          * create the requested photo.
          * &#42; google.rpc.Code.NOT_FOUND if the photo ID does not exist.
          */
-        await gapi.client.photo.delete( {
+        await gapi.client.photo.delete({
             photoId: "photoId",
         });
         /**
@@ -74,7 +74,7 @@ gapi.load('client', () => {
          * &#42; google.rpc.Code.NOT_FOUND if the requested
          * Photo does not exist.
          */
-        await gapi.client.photo.get( {
+        await gapi.client.photo.get({
             photoId: "photoId",
             view: "view",
         });
@@ -99,7 +99,7 @@ gapi.load('client', () => {
          * CreatePhoto
          * to create the Photo object entry.
          */
-        await gapi.client.photo.startUpload( {
+        await gapi.client.photo.startUpload({
         });
         /**
          * Updates the metadata of a Photo, such
@@ -123,7 +123,7 @@ gapi.load('client', () => {
          * &#42; google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
          * &#42; google.rpc.Code.NOT_FOUND if the requested photo does not exist.
          */
-        await gapi.client.photo.update( {
+        await gapi.client.photo.update({
             id: "id",
             updateMask: "updateMask",
         });
@@ -145,7 +145,7 @@ gapi.load('client', () => {
          * DeletePhoto
          * for specific failures that can occur per photo.
          */
-        await gapi.client.photos.batchDelete( {
+        await gapi.client.photos.batchDelete({
         });
         /**
          * Gets the metadata of the specified
@@ -165,7 +165,7 @@ gapi.load('client', () => {
          * GetPhoto
          * for specific failures that can occur per photo.
          */
-        await gapi.client.photos.batchGet( {
+        await gapi.client.photos.batchGet({
             photoIds: "photoIds",
             view: "view",
         });
@@ -198,13 +198,13 @@ gapi.load('client', () => {
          * Pose.latLngPair has to be
          * filled as well. Otherwise, the request will fail.</aside>
          */
-        await gapi.client.photos.batchUpdate( {
+        await gapi.client.photos.batchUpdate({
         });
         /**
          * Lists all the Photos that belong to
          * the user.
          */
-        await gapi.client.photos.list( {
+        await gapi.client.photos.list({
             filter: "filter",
             pageSize: 2,
             pageToken: "pageToken",

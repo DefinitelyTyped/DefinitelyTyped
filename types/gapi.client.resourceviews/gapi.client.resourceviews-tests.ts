@@ -39,13 +39,13 @@ gapi.load('client', () => {
 
     async function run() {
         /** Retrieves the specified zone-specific operation resource. */
-        await gapi.client.zoneOperations.get( {
+        await gapi.client.zoneOperations.get({
             operation: "operation",
             project: "project",
             zone: "zone",
         });
         /** Retrieves the list of operation resources contained within the specified zone. */
-        await gapi.client.zoneOperations.list( {
+        await gapi.client.zoneOperations.list({
             filter: "filter",
             maxResults: 2,
             pageToken: "pageToken",
@@ -53,44 +53,44 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Add resources to the view. */
-        await gapi.client.zoneViews.addResources( {
+        await gapi.client.zoneViews.addResources({
             project: "project",
             resourceView: "resourceView",
             zone: "zone",
         });
         /** Delete a resource view. */
-        await gapi.client.zoneViews.delete( {
+        await gapi.client.zoneViews.delete({
             project: "project",
             resourceView: "resourceView",
             zone: "zone",
         });
         /** Get the information of a zonal resource view. */
-        await gapi.client.zoneViews.get( {
+        await gapi.client.zoneViews.get({
             project: "project",
             resourceView: "resourceView",
             zone: "zone",
         });
         /** Get the service information of a resource view or a resource. */
-        await gapi.client.zoneViews.getService( {
+        await gapi.client.zoneViews.getService({
             project: "project",
             resourceName: "resourceName",
             resourceView: "resourceView",
             zone: "zone",
         });
         /** Create a resource view. */
-        await gapi.client.zoneViews.insert( {
+        await gapi.client.zoneViews.insert({
             project: "project",
             zone: "zone",
         });
         /** List resource views. */
-        await gapi.client.zoneViews.list( {
+        await gapi.client.zoneViews.list({
             maxResults: 1,
             pageToken: "pageToken",
             project: "project",
             zone: "zone",
         });
         /** List the resources of the resource view. */
-        await gapi.client.zoneViews.listResources( {
+        await gapi.client.zoneViews.listResources({
             format: "format",
             listState: "listState",
             maxResults: 3,
@@ -101,13 +101,13 @@ gapi.load('client', () => {
             zone: "zone",
         });
         /** Remove resources from the view. */
-        await gapi.client.zoneViews.removeResources( {
+        await gapi.client.zoneViews.removeResources({
             project: "project",
             resourceView: "resourceView",
             zone: "zone",
         });
         /** Update the service information of a resource view or a resource. */
-        await gapi.client.zoneViews.setService( {
+        await gapi.client.zoneViews.setService({
             project: "project",
             resourceView: "resourceView",
             zone: "zone",

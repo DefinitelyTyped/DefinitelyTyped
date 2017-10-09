@@ -31,24 +31,24 @@ gapi.load('client', () => {
 
     async function run() {
         /** Gets one blog and user info pair by blogId and userId. */
-        await gapi.client.blogUserInfos.get( {
+        await gapi.client.blogUserInfos.get({
             blogId: "blogId",
             maxPosts: 2,
             userId: "userId",
         });
         /** Gets one blog by ID. */
-        await gapi.client.blogs.get( {
+        await gapi.client.blogs.get({
             blogId: "blogId",
             maxPosts: 2,
             view: "view",
         });
         /** Retrieve a Blog by URL. */
-        await gapi.client.blogs.getByUrl( {
+        await gapi.client.blogs.getByUrl({
             url: "url",
             view: "view",
         });
         /** Retrieves a list of blogs, possibly filtered. */
-        await gapi.client.blogs.listByUser( {
+        await gapi.client.blogs.listByUser({
             fetchUserInfo: true,
             role: "role",
             status: "status",
@@ -56,26 +56,26 @@ gapi.load('client', () => {
             view: "view",
         });
         /** Marks a comment as not spam. */
-        await gapi.client.comments.approve( {
+        await gapi.client.comments.approve({
             blogId: "blogId",
             commentId: "commentId",
             postId: "postId",
         });
         /** Delete a comment by ID. */
-        await gapi.client.comments.delete( {
+        await gapi.client.comments.delete({
             blogId: "blogId",
             commentId: "commentId",
             postId: "postId",
         });
         /** Gets one comment by ID. */
-        await gapi.client.comments.get( {
+        await gapi.client.comments.get({
             blogId: "blogId",
             commentId: "commentId",
             postId: "postId",
             view: "view",
         });
         /** Retrieves the comments for a post, possibly filtered. */
-        await gapi.client.comments.list( {
+        await gapi.client.comments.list({
             blogId: "blogId",
             endDate: "endDate",
             fetchBodies: true,
@@ -87,7 +87,7 @@ gapi.load('client', () => {
             view: "view",
         });
         /** Retrieves the comments for a blog, across all posts, possibly filtered. */
-        await gapi.client.comments.listByBlog( {
+        await gapi.client.comments.listByBlog({
             blogId: "blogId",
             endDate: "endDate",
             fetchBodies: true,
@@ -97,40 +97,40 @@ gapi.load('client', () => {
             status: "status",
         });
         /** Marks a comment as spam. */
-        await gapi.client.comments.markAsSpam( {
+        await gapi.client.comments.markAsSpam({
             blogId: "blogId",
             commentId: "commentId",
             postId: "postId",
         });
         /** Removes the content of a comment. */
-        await gapi.client.comments.removeContent( {
+        await gapi.client.comments.removeContent({
             blogId: "blogId",
             commentId: "commentId",
             postId: "postId",
         });
         /** Retrieve pageview stats for a Blog. */
-        await gapi.client.pageViews.get( {
+        await gapi.client.pageViews.get({
             blogId: "blogId",
             range: "range",
         });
         /** Delete a page by ID. */
-        await gapi.client.pages.delete( {
+        await gapi.client.pages.delete({
             blogId: "blogId",
             pageId: "pageId",
         });
         /** Gets one blog page by ID. */
-        await gapi.client.pages.get( {
+        await gapi.client.pages.get({
             blogId: "blogId",
             pageId: "pageId",
             view: "view",
         });
         /** Add a page. */
-        await gapi.client.pages.insert( {
+        await gapi.client.pages.insert({
             blogId: "blogId",
             isDraft: true,
         });
         /** Retrieves the pages for a blog, optionally including non-LIVE statuses. */
-        await gapi.client.pages.list( {
+        await gapi.client.pages.list({
             blogId: "blogId",
             fetchBodies: true,
             maxResults: 3,
@@ -139,24 +139,24 @@ gapi.load('client', () => {
             view: "view",
         });
         /** Update a page. This method supports patch semantics. */
-        await gapi.client.pages.patch( {
+        await gapi.client.pages.patch({
             blogId: "blogId",
             pageId: "pageId",
             publish: true,
             revert: true,
         });
         /** Publishes a draft page. */
-        await gapi.client.pages.publish( {
+        await gapi.client.pages.publish({
             blogId: "blogId",
             pageId: "pageId",
         });
         /** Revert a published or scheduled page to draft state. */
-        await gapi.client.pages.revert( {
+        await gapi.client.pages.revert({
             blogId: "blogId",
             pageId: "pageId",
         });
         /** Update a page. */
-        await gapi.client.pages.update( {
+        await gapi.client.pages.update({
             blogId: "blogId",
             pageId: "pageId",
             publish: true,
@@ -166,7 +166,7 @@ gapi.load('client', () => {
          * Gets one post and user info pair, by post ID and user ID. The post user info contains per-user information about the post, such as access rights,
          * specific to the user.
          */
-        await gapi.client.postUserInfos.get( {
+        await gapi.client.postUserInfos.get({
             blogId: "blogId",
             maxComments: 2,
             postId: "postId",
@@ -176,7 +176,7 @@ gapi.load('client', () => {
          * Retrieves a list of post and post user info pairs, possibly filtered. The post user info contains per-user information about the post, such as access
          * rights, specific to the user.
          */
-        await gapi.client.postUserInfos.list( {
+        await gapi.client.postUserInfos.list({
             blogId: "blogId",
             endDate: "endDate",
             fetchBodies: true,
@@ -190,12 +190,12 @@ gapi.load('client', () => {
             view: "view",
         });
         /** Delete a post by ID. */
-        await gapi.client.posts.delete( {
+        await gapi.client.posts.delete({
             blogId: "blogId",
             postId: "postId",
         });
         /** Get a post by ID. */
-        await gapi.client.posts.get( {
+        await gapi.client.posts.get({
             blogId: "blogId",
             fetchBody: true,
             fetchImages: true,
@@ -204,21 +204,21 @@ gapi.load('client', () => {
             view: "view",
         });
         /** Retrieve a Post by Path. */
-        await gapi.client.posts.getByPath( {
+        await gapi.client.posts.getByPath({
             blogId: "blogId",
             maxComments: 2,
             path: "path",
             view: "view",
         });
         /** Add a post. */
-        await gapi.client.posts.insert( {
+        await gapi.client.posts.insert({
             blogId: "blogId",
             fetchBody: true,
             fetchImages: true,
             isDraft: true,
         });
         /** Retrieves a list of posts, possibly filtered. */
-        await gapi.client.posts.list( {
+        await gapi.client.posts.list({
             blogId: "blogId",
             endDate: "endDate",
             fetchBodies: true,
@@ -232,7 +232,7 @@ gapi.load('client', () => {
             view: "view",
         });
         /** Update a post. This method supports patch semantics. */
-        await gapi.client.posts.patch( {
+        await gapi.client.posts.patch({
             blogId: "blogId",
             fetchBody: true,
             fetchImages: true,
@@ -242,25 +242,25 @@ gapi.load('client', () => {
             revert: true,
         });
         /** Publishes a draft post, optionally at the specific time of the given publishDate parameter. */
-        await gapi.client.posts.publish( {
+        await gapi.client.posts.publish({
             blogId: "blogId",
             postId: "postId",
             publishDate: "publishDate",
         });
         /** Revert a published or scheduled post to draft state. */
-        await gapi.client.posts.revert( {
+        await gapi.client.posts.revert({
             blogId: "blogId",
             postId: "postId",
         });
         /** Search for a post. */
-        await gapi.client.posts.search( {
+        await gapi.client.posts.search({
             blogId: "blogId",
             fetchBodies: true,
             orderBy: "orderBy",
             q: "q",
         });
         /** Update a post. */
-        await gapi.client.posts.update( {
+        await gapi.client.posts.update({
             blogId: "blogId",
             fetchBody: true,
             fetchImages: true,
@@ -270,7 +270,7 @@ gapi.load('client', () => {
             revert: true,
         });
         /** Gets one user by ID. */
-        await gapi.client.users.get( {
+        await gapi.client.users.get({
             userId: "userId",
         });
     }

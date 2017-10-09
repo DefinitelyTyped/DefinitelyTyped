@@ -37,16 +37,16 @@ gapi.load('client', () => {
 
     async function run() {
         /** Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs. */
-        await gapi.client.entries.list( {
+        await gapi.client.entries.list({
         });
         /**
          * Log entry resourcesWrites log entries to Stackdriver Logging. This API method is the only way to send log entries to Stackdriver Logging. This method
          * is used, directly or indirectly, by the Stackdriver Logging agent (fluentd) and all logging libraries configured to use Stackdriver Logging.
          */
-        await gapi.client.entries.write( {
+        await gapi.client.entries.write({
         });
         /** Lists the descriptors for monitored resource types used by Stackdriver Logging. */
-        await gapi.client.monitoredResourceDescriptors.list( {
+        await gapi.client.monitoredResourceDescriptors.list({
             pageSize: 1,
             pageToken: "pageToken",
         });

@@ -34,7 +34,7 @@ gapi.load('client', () => {
          * the Google Cloud Storage location where you put your model training code
          * for training the model with Google Cloud Machine Learning.
          */
-        await gapi.client.projects.getConfig( {
+        await gapi.client.projects.getConfig({
             name: "name",
         });
         /**
@@ -42,7 +42,7 @@ gapi.load('client', () => {
          *
          * &#42;&#42;&#42;&#42; REMOVE FROM GENERATED DOCUMENTATION
          */
-        await gapi.client.projects.predict( {
+        await gapi.client.projects.predict({
             name: "name",
         });
     }
