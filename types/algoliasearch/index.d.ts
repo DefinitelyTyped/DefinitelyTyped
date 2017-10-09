@@ -1,7 +1,8 @@
-// Type definitions for algoliasearch-client-js 3.18.1
+// Type definitions for algoliasearch-client-js 3.18.2
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
+//                 Aurélien Hervé <https://github.com/aherve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace algoliasearch {
@@ -146,7 +147,7 @@ declare namespace algoliasearch {
          * @param filters
          * https://github.com/algolia/algoliasearch-client-js#generate-key---generatesecuredapikey
          */
-        generateSecuredApiKey(key: string, filters: AlgoliaSecuredApiOptions): void;
+        generateSecuredApiKey(key: string, filters: AlgoliaSecuredApiOptions): string;
         /**
          * Perform multiple operations with one API call to reduce latency
          * @param action
