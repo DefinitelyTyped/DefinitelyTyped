@@ -5,11 +5,15 @@
 // TypeScript Version: 2.4
 
 import * as fs from "fs";
+
+type callback = (info: object) => void;
+type onMethod = (event: string, func: callback) => Youtubedl;
+type pipeMethod = (stream: fs.WriteStream) => Youtubedl;
+
 interface Youtubedl {
-    (url: string, arg: string[], opt: {[key: string]: string}): this;
-    on: (event: string, func: Function) => this;
-    pipe: (stream: fs.WriteStream) => this;
-    eventNames(): (string | symbol)[];
+    (url: string, arg: Array<string>, opt: {[key: string]: string}): this;
+    on: onMethod;
+    pipe: pipeMethod;
 }
 
 export = {} as Youtubedl;
