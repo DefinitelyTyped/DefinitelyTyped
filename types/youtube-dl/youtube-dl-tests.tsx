@@ -1,6 +1,6 @@
 import 'node';
 import * as fs from 'fs';
-import youtubedl = require('youtube-dl');
+const youtubedl = require('youtube-dl');
 
 const video = youtubedl('http://www.youtube.com/watch?v=90AiXO1pAiA',
   // Optional arguments passed to youtube-dl.
