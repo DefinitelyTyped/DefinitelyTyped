@@ -11,7 +11,6 @@ declare namespace gapi {
     function load(api: string, callback: () => void): void;
 
     namespace client {
-
         /**
          * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
          * @param name The name of the API to load.
@@ -45,7 +44,7 @@ declare namespace gapi {
             /**
              * The HTTP request body (applies to PUT or POST).
              */
-            body?: string | any;
+            body?: any;
             // /**
             //  * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
             //  */
@@ -58,11 +57,10 @@ declare namespace gapi {
          */
         function setApiKey(apiKey: string): void;
 
-        /** 
+        /**
          * An object containing information about the HTTP response
          */
         interface Response<T> {
-
             // The JSON-parsed result.
             result: T;
 
@@ -148,7 +146,6 @@ declare namespace gapi {
     }
 
     namespace auth {
-
         /**
          * The OAuth 2.0 token object represents the OAuth 2.0 token and any associated data.
          */
@@ -172,8 +169,10 @@ declare namespace gapi {
         }
 
         /**
-         * Initiates the OAuth 2.0 authorization process. The browser displays a popup window prompting the user authenticate and authorize. After the user authorizes, the popup closes and the callback function fires.
-         * @param params A key/value map of parameters for the request. If the key is not one of the expected OAuth 2.0 parameters, it is added to the URI as a query parameter.
+         * Initiates the OAuth 2.0 authorization process. The browser displays a popup window prompting the user authenticate and authorize. 
+         * After the user authorizes, the popup closes and the callback function fires.
+         * @param params A key/value map of parameters for the request. If the key is not one of the expected OAuth 2.0 parameters, it is added to the 
+         * URI as a query parameter.
          * @param callback The function to call once the login process is complete. The function takes an OAuth 2.0 token object as its only parameter.
          */
         function authorize(
@@ -194,7 +193,6 @@ declare namespace gapi {
                  * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
                  */
                 scope?: string | string[];
-
             },
             callback: (authResult: GoogleApiOAuth2TokenObject) => void): void;
 
