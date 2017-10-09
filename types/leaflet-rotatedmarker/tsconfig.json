@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "leaflet.rotatedmarker-tests.ts"
+        "leaflet-rotatedmarker-tests.ts"
     ]
 }
