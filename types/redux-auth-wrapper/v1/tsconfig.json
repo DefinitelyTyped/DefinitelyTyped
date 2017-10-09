@@ -8,15 +8,22 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "types": [],
         "paths": {
-          "history": ["history/v3"],
-          "history/*": ["history/v3/*"],
-          "redux-auth-wrapper": ["redux-auth-wrapper/v1"]
+            "history": [
+                "history/v3"
+            ],
+            "history/*": [
+                "history/v3/*"
+            ],
+            "redux-auth-wrapper": [
+                "redux-auth-wrapper/v1"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

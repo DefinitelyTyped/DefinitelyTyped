@@ -8,13 +8,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "atom-keymap": [ "atom-keymap/v5" ],
-            "event-kit": [ "event-kit/v1" ]
+            "atom-keymap": [
+                "atom-keymap/v5"
+            ],
+            "event-kit": [
+                "event-kit/v1"
+            ]
         },
         "types": [],
         "noEmit": true,

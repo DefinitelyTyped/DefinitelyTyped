@@ -938,6 +938,12 @@ import genKey = Draft.Model.Keys.generateRandomKey;
 import getDefaultKeyBinding = Draft.Component.Utils.getDefaultKeyBinding;
 import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRect;
 
+import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
+import DraftDragType = Draft.Model.Constants.DraftDragType;
+import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftRemovalDirection = Draft.Model.Constants.DraftRemovalDirection;
+import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
+
 export {
     Editor,
     EditorProps,
@@ -970,5 +976,11 @@ export {
 
     genKey,
     getDefaultKeyBinding,
-    getVisibleSelectionRect
+    getVisibleSelectionRect,
+
+    DraftEditorCommand,
+    DraftDragType,
+    DraftBlockType,
+    DraftRemovalDirection,
+    DraftHandleValue
 };

@@ -8,13 +8,16 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "paths": {
-            "@vimeo/player": ["vimeo__player"]
+            "@vimeo/player": [
+                "vimeo__player"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

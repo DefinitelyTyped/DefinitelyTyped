@@ -1,6 +1,7 @@
 // Type definitions for NeDB 1.8
 // Project: https://github.com/louischatriot/nedb
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
+//                 Anthony Nichols <https://github.com/anthonynichols>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Nedb;
@@ -197,6 +198,9 @@ declare namespace Nedb {
         // (optional): between 0 and 1, defaults to 10%. NeDB will refuse to start if more than this percentage of the datafile is corrupt.
         // 0 means you don't tolerate any corruption, 1 means you don't care
         corruptAlertThreshold?: number;
+        // (optional, defaults to false)
+        // timestamp the insertion and last update of all documents, with the fields createdAt and updatedAt. User-specified values override automatic generation, usually useful for testing.
+        timestampData?: boolean;
     }
 
     /**

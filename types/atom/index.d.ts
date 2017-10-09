@@ -1706,20 +1706,24 @@ declare global {
 			destroyInactiveItems(): void;
 
 			/** Save the active item. */
-			saveActiveItem(): void;
+			saveActiveItem<T = void>(nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Prompt the user for a location and save the active item with the path
 			 *  they select.
 			 */
-			saveActiveItemAs<T>(nextAction?: (error?: Error) => T): T|undefined;
+			saveActiveItemAs<T = void>(nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Save the given item. */
-			saveItem<T>(item: object, nextAction?: (error?: Error) => T): T|undefined;
+			saveItem<T = void>(item: object, nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Prompt the user for a location and save the active item with the path
 			 *  they select.
 			 */
-			saveItemAs<T>(item: object, nextAction?: (error?: Error) => T): T|undefined;
+			saveItemAs<T = void>(item: object, nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Save all items. */
 			saveItems(): void;
@@ -1809,7 +1813,7 @@ declare global {
 			/** Return a Promise that will resolve when the underlying native watcher is
 			 *  ready to begin sending events.
 			 */
-			getStartPromise(): Promise<undefined>;
+			getStartPromise(): Promise<void>;
 
 			/** Invokes a function when any errors related to this watcher are reported. */
 			onDidError(callback: (error: Error) => void): EventKit.Disposable;
@@ -2391,12 +2395,12 @@ declare global {
 			/** Saves the editor's text buffer.
 			 *  See TextBuffer::save for more details.
 			 */
-			save(): void;
+			save(): Promise<void>;
 
 			/** Saves the editor's text buffer as the given path.
 			 *  See TextBuffer::saveAs for more details.
 			 */
-			saveAs(filePath: string): void;
+			saveAs(filePath: string): Promise<void>;
 
 			// Reading Text
 			/** Returns a string representing the entire contents of the editor. */
@@ -3551,7 +3555,7 @@ declare global {
 			 *  hide them. Otherwise, open the URL.
 			 *  Returns a Promise that resolves when the item is shown or hidden.
 			 */
-			toggle(itemOrURI: object|string): Promise<undefined>;
+			toggle(itemOrURI: object|string): Promise<void>;
 
 			/** Creates a new item that corresponds to the provided URI.
 			 *  If no URI is given, or no registered opener can open the URI, a new empty TextEditor
@@ -3719,7 +3723,7 @@ declare global {
 			/** Performs a replace across all the specified files in the project. */
 			replace(regex: RegExp, replacementText: string, filePaths: ReadonlyArray<string>,
 				iterator: (result: { filePath: string|undefined, replacements: number }) => void):
-				Promise<undefined>;
+				Promise<void>;
 		}
 
 		// https://github.com/atom/atom/blob/master/src/workspace-center.js
@@ -3827,7 +3831,7 @@ declare global {
 	namespace Atom {
 		/** Objects that appear as parameters to callbacks. */
 		namespace Events {
-			// Atom Keymap ============================================================
+			// Atom Keymap ==========================================================
 			type FullKeybindingMatch = AtomKeymap.Events.FullKeybindingMatch;
 			type PartialKeybindingMatch = AtomKeymap.Events.PartialKeybindingMatch;
 			type FailedKeybindingMatch = AtomKeymap.Events.FailedKeybindingMatch;
@@ -3835,11 +3839,11 @@ declare global {
 			type KeymapLoaded = AtomKeymap.Events.KeymapLoaded;
 			type AddedKeystrokeResolver = AtomKeymap.Events.AddedKeystrokeResolver;
 
-			// Path Watcher ===========================================================
+			// Path Watcher =========================================================
 			type PathWatchErrorThrown = PathWatcher.Events.PathWatchErrorThrown;
 			type WatchedFilePathChanged = PathWatcher.Events.WatchedFilePathChanged;
 
-			// Text Buffer ============================================================
+			// Text Buffer ==========================================================
 			type BufferWatchError = TextBuffer.Events.BufferWatchError;
 			type FileSaved = TextBuffer.Events.FileSaved;
 			type MarkerChanged = TextBuffer.Events.MarkerChanged;
@@ -3848,7 +3852,7 @@ declare global {
 			type BufferStoppedChanging = TextBuffer.Events.BufferStoppedChanging;
 			type DisplayMarkerChanged = TextBuffer.Events.DisplayMarkerChanged;
 
-			// Core ===================================================================
+			// Core =================================================================
 			type ExceptionThrown = AtomCore.Events.ExceptionThrown;
 			type PreventableExceptionThrown = AtomCore.Events.PreventableExceptionThrown;
 			type SelectionChanged = AtomCore.Events.SelectionChanged;
@@ -3867,20 +3871,20 @@ declare global {
 
 		/** Objects that appear as parameters to functions. */
 		namespace Options {
-			// Atom Keymap ============================================================
+			// Atom Keymap ==========================================================
 			type BuildKeyEvent = AtomKeymap.Options.BuildKeyEvent;
 
-			// First Mate =============================================================
+			// First Mate ===========================================================
 			type Grammar = FirstMate.Options.Grammar;
 
-			// Text Buffer ============================================================
+			// Text Buffer ==========================================================
 			type BufferLoad = TextBuffer.Options.BufferLoad;
 			type CopyMarker = TextBuffer.Options.CopyMarker;
 			type FindMarker = TextBuffer.Options.FindMarker;
 			type FindDisplayMarker = TextBuffer.Options.FindDisplayMarker;
 			type ScanContext = TextBuffer.Options.ScanContext;
 
-			// Core ===================================================================
+			// Core =================================================================
 			type TextInsertion = AtomCore.Options.TextInsertion;
 			type Menu = AtomCore.Options.Menu;
 			type ContextMenu = AtomCore.Options.ContextMenu;
@@ -3895,17 +3899,17 @@ declare global {
 
 		/** Data structures that are used within classes. */
 		namespace Structures {
-			// First Mate =============================================================
+			// First Mate ===========================================================
 			type GrammarToken = FirstMate.Structures.GrammarToken;
 			type TokenizeLineResult = FirstMate.Structures.TokenizeLineResult;
 			type GrammarRule = FirstMate.Structures.GrammarRule;
 
-			// Text Buffer ============================================================
+			// Text Buffer ==========================================================
 			type TextChange = TextBuffer.Structures.TextChange;
 			type BufferScanResult = TextBuffer.Structures.BufferScanResult;
 			type ContextualBufferScanResult = TextBuffer.Structures.ContextualBufferScanResult;
 
-			// Core ===================================================================
+			// Core =================================================================
 			type SharedDecorationProps = AtomCore.Structures.SharedDecorationProps;
 			type DecorationProps = AtomCore.Structures.DecorationProps;
 			type DecorationLayerProps = AtomCore.Structures.DecorationLayerProps;
@@ -3915,7 +3919,7 @@ declare global {
 			type WindowLoadSettings = AtomCore.Structures.WindowLoadSettings;
 		}
 
-		// Atom Keymap ==============================================================
+		// Atom Keymap ============================================================
 		/** This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
 		 *  method, as well as versions of the ::stopPropagation methods that record the
 		 *  intent to stop propagation so event bubbling can be properly simulated for
@@ -3930,7 +3934,7 @@ declare global {
 		 */
 		type KeymapManager = AtomKeymap.KeymapManager;
 
-		// Event Kit ================================================================
+		// Event Kit ==============================================================
 		/** An object that aggregates multiple Disposable instances together into a
 		 *  single disposable, so they can all be disposed as a group.
 		 */
@@ -3946,7 +3950,7 @@ declare global {
 		 */
 		type Emitter = EventKit.Emitter;
 
-		// First Mate ===============================================================
+		// First Mate =============================================================
 		/** Grammar that tokenizes lines of text. */
 		type Grammar = FirstMate.Grammar;
 
@@ -3955,14 +3959,14 @@ declare global {
 
 		type ScopeSelector = FirstMate.ScopeSelector;
 
-		// Path Watcher =============================================================
+		// Path Watcher ===========================================================
 		/** Represents a directory on disk that can be watched for changes. */
 		type Directory = PathWatcher.Directory;
 
 		/** Represents an individual file that can be watched, read from, and written to. */
 		type File = PathWatcher.File;
 
-		// Text Buffer ==============================================================
+		// Text Buffer ============================================================
 		/** The interface that should be implemented for all "point-compatible" objects. */
 		/** Represents a buffer annotation that remains logically stationary even as the
 		 *  buffer changes. This is used to represent cursors, folds, snippet targets,
@@ -4003,7 +4007,7 @@ declare global {
 		 */
 		type TextBuffer = TextBuffer.TextBuffer;
 
-		// Atom =====================================================================
+		// Atom ===================================================================
 		/** Atom global for dealing with packages, themes, menus, and the window.
 		 *  An instance of this class is always available as the atom global.
 		 */
