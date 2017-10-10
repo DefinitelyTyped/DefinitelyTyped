@@ -973,26 +973,26 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
 }
 
 declare namespace Bluebird {
-  export interface ConcurrencyOption {
+  interface ConcurrencyOption {
     concurrency: number;
   }
-  export interface SpreadOption {
+  interface SpreadOption {
     spread: boolean;
   }
-  export interface FromNodeOptions {
+  interface FromNodeOptions {
     multiArgs?: boolean;
   }
-  export interface PromisifyOptions {
+  interface PromisifyOptions {
     context?: any;
     multiArgs?: boolean;
   }
-  export interface PromisifyAllOptions extends PromisifyOptions {
+  interface PromisifyAllOptions extends PromisifyOptions {
     suffix?: string;
     filter?(name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean): boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
     promisifier?(originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>): () => PromiseLike<any>;
   }
-  export interface CoroutineOptions {
+  interface CoroutineOptions {
     yieldHandler(value: any): any;
   }
 
@@ -1004,17 +1004,17 @@ declare namespace Bluebird {
    *
    * `OperationalError`s are caught in `.error` handlers.
    */
-  export class OperationalError extends Error { }
+  class OperationalError extends Error { }
 
   /**
    * Signals that an operation has timed out. Used as a custom cancellation reason in `.timeout`.
    */
-  export class TimeoutError extends Error { }
+  class TimeoutError extends Error { }
 
   /**
    * Signals that an operation has been aborted or cancelled. The default reason used by `.cancel`.
    */
-  export class CancellationError extends Error {}
+  class CancellationError extends Error {}
 
   /**
    * A collection of errors. `AggregateError` is an array-like object, with numeric indices and a `.length` property.
@@ -1024,7 +1024,7 @@ declare namespace Bluebird {
    *
    * `Promise.some` and `Promise.any` use `AggregateError` as rejection reason when they fail.
    */
-  export class AggregateError extends Error implements ArrayLike<Error> {
+  class AggregateError extends Error implements ArrayLike<Error> {
     length: number;
     [index: number]: Error;
     join(separator?: string): string;
@@ -1049,15 +1049,14 @@ declare namespace Bluebird {
   /**
    * returned by `Bluebird.disposer()`.
    */
-  export class Disposer<R> {
-  }
+  class Disposer<R> {}
 
   /** @deprecated Use PromiseLike<T> directly. */
-  export type Thenable<T> = PromiseLike<T>;
+  type Thenable<T> = PromiseLike<T>;
 
-  export type ResolvableProps<T> = object & { [K in keyof T]: PromiseLike<T[K]> | T[K] };
+  type ResolvableProps<T> = object & { [K in keyof T]: PromiseLike<T[K]> | T[K] };
 
-  export interface Resolver<R> {
+  interface Resolver<R> {
     /**
      * Returns a reference to the controlled promise that can be passed to clients.
      */
@@ -1083,7 +1082,7 @@ declare namespace Bluebird {
     callback(err: any, value: R, ...values: R[]): void;
   }
 
-  export interface Inspection<R> {
+  interface Inspection<R> {
     /**
      * See if the underlying promise was fulfilled at the creation time of this inspection object.
      */
@@ -1124,14 +1123,14 @@ declare namespace Bluebird {
    *
    * This method should be used before you use any of the methods which would otherwise alter the global Bluebird object - to avoid polluting global state.
    */
-  export function getNewLibraryCopy(): typeof Bluebird;
+  function getNewLibraryCopy(): typeof Bluebird;
 
   /**
    * This is relevant to browser environments with no module loader.
    *
    * Release control of the Promise namespace to whatever it was before this library was loaded. Returns a reference to the library namespace so you can attach it to something else.
    */
-  export function noConflict(): typeof Bluebird;
+  function noConflict(): typeof Bluebird;
 
   /**
    * Changes how bluebird schedules calls a-synchronously.
@@ -1139,7 +1138,7 @@ declare namespace Bluebird {
    * @param scheduler Should be a function that asynchronously schedules
    *                  the calling of the passed in function
    */
-  export function setScheduler(scheduler: (callback: (...args: any[]) => void) => void): void;
+  function setScheduler(scheduler: (callback: (...args: any[]) => void) => void): void;
 }
 
 export = Bluebird;
