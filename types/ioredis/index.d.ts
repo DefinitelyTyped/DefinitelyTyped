@@ -711,6 +711,10 @@ declare module IORedis {
         * If you are using the hiredis parser, it's highly recommended to enable this option. Create another instance with dropBufferSupport disabled for other commands that you want to return binary instead of string:
         */
         dropBufferSupport?: boolean;
+        /**
+         * Whether to show a friendly error stack. Will decrease the performance significantly.
+         */
+        showFriendlyErrorStack?: boolean;
     }
 
     interface ScanStreamOption {
