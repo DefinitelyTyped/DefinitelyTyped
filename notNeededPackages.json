@@ -148,7 +148,7 @@
             "libraryName": "dojo",
             "typingsPackageName": "dojo",
             "sourceRepoURL": "https://github.com/dojo/typings",
-            "asOfVersion": "1.11"
+            "asOfVersion": "1.11.0"
         },
         {
             "libraryName": "dot-case",
