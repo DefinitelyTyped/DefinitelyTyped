@@ -2,7 +2,7 @@ import { CSSModule } from '../index';
 
 interface Props {
   inline?: boolean;
-  tag?: string;
+  tag?: React.ReactType;
   color?: string;
   className?: string;
   cssModule?: CSSModule;
