@@ -6404,6 +6404,11 @@ export interface NativeScrollPoint {
     y: number;
 }
 
+export interface NativeScrollVelocity {
+    x: number;
+    y: number;
+}
+
 export interface NativeScrollSize {
     height: number;
     width: number;
@@ -6414,6 +6419,7 @@ export interface NativeScrollEvent {
     contentOffset: NativeScrollPoint;
     contentSize: NativeScrollSize;
     layoutMeasurement: NativeScrollSize;
+    velocity?: NativeScrollVelocity;
     zoomScale: number;
 }
 
@@ -8489,11 +8495,6 @@ export interface ImageStoreStatic {
             failure: (error: any) => void
         ): void
 }
-
-// Network Polyfill
-// TODO: Add proper support for fetch
-export type fetch = (url: string, options?: Object) => Promise<any>
-export const fetch: fetch;
 
 export interface TabsReducerStatic {
     JumpToAction(index: number): any;

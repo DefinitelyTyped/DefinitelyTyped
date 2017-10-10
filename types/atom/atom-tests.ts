@@ -524,6 +524,21 @@ regExp = cursor.subwordRegExp();
 regExp = cursor.subwordRegExp({});
 regExp = cursor.subwordRegExp({ backwards: true });
 
+//// CustomTestRunner =========================================================
+// http://flight-manual.atom.io/hacking-atom/sections/writing-specs/#customizing-your-test-runner
+const testRunner: Atom.TestRunner = (params) => {
+	const delegate = params.buildDefaultApplicationDelegate();
+	const environment = params.buildAtomEnvironment({
+		applicationDelegate: delegate,
+		configDirPath: "/var/test",
+		document,
+		enablePersistence: false,
+		window,
+	});
+	const { width, height } = environment.getSize();
+	return Promise.resolve(width + height);
+};
+
 //// Decoration ===============================================================
 // Construction and Destruction
 decoration.destroy();
@@ -1930,7 +1945,7 @@ sub = atom.workspace.onDidStopChangingActivePaneItem((item) => {});
 
 sub = atom.workspace.onDidChangeActiveTextEditor(editor => {
 	if (editor) {
-		editor.alive;
+		editor.id;
 	}
 });
 
