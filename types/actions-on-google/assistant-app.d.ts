@@ -425,7 +425,7 @@ export class AssistantApp {
      * Constructor for AssistantApp object.
      * Should not be instantiated; rather instantiate one of the subclasses
      *
-     * {@link ActionsSdkApp} or {@link ApiAiApp}.
+     * {@link ActionsSdkApp} or {@link DialogflowApp}.
      *
      * @param {Object} options JSON configuration.
      * @param {Object} options.request Express HTTP request object.
@@ -473,8 +473,8 @@ export class AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * // API.AI
-     * const app = new ApiAiApp({request: req, response: res});
+     * // Dialogflow
+     * const app = new DialogflowApp({request: req, response: res});
      * const NAME_ACTION = 'make_name';
      * const COLOR_ARGUMENT = 'color';
      * const NUMBER_ARGUMENT = 'number';
@@ -493,7 +493,7 @@ export class AssistantApp {
      *
      * @param {(Function|Map)} handler The handler (or Map of handlers) for the request.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     handleRequest(handler?: RequestHandler | Map<string, RequestHandler>): void;
 
@@ -512,7 +512,7 @@ export class AssistantApp {
      *   equivalent to just asking for DEVICE_PRECISE_LOCATION
      *
      * @example
-     * const app = new ApiAIApp({request: req, response: res});
+     * const app = new DialogflowApp({request: req, response: res});
      * const REQUEST_PERMISSION_ACTION = 'request_permission';
      * const GET_RIDE_ACTION = 'get_ride';
      *
@@ -549,7 +549,7 @@ export class AssistantApp {
      * @return A response is sent to Assistant to ask for the user's permission; for any
      *     invalid input, we return null.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     askForPermissions(context: string, permissions: string[], dialogState?: object): object;
 
@@ -557,7 +557,7 @@ export class AssistantApp {
      * Checks whether user is in transactable state.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const TXN_REQ_COMPLETE = 'txn.req.complete';
      *
@@ -591,7 +591,7 @@ export class AssistantApp {
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
      * @return {Object} HTTP response.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     askForTransactionRequirements(transactionConfig?: ActionPaymentTransactionConfig | GooglePaymentTransactionConfig, dialogState?: object): object;
 
@@ -599,7 +599,7 @@ export class AssistantApp {
      * Asks user to confirm transaction information.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const TXN_COMPLETE = 'txn.complete';
      *
@@ -631,7 +631,7 @@ export class AssistantApp {
      *     options and order options.
      * @param {Object=} dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @apiai
+     * @dialogflow
      */
     askForTransactionDecision(order: object, transactionConfig?: ActionPaymentTransactionConfig | GooglePaymentTransactionConfig, dialogState?: object): object;
 
@@ -655,7 +655,7 @@ export class AssistantApp {
      * * {@link AssistantApp#getUserName|getUserName}
      *
      * @example
-     * const app = new ApiAiApp({request: req, response: res});
+     * const app = new DialogflowApp({request: req, response: res});
      * const REQUEST_PERMISSION_ACTION = 'request_permission';
      * const GET_RIDE_ACTION = 'get_ride';
      *
@@ -687,7 +687,7 @@ export class AssistantApp {
      * @return A response is sent to the Assistant to ask for the user's permission;
      *     for any invalid input, we return null.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     askForPermission(context: string, permission: string, dialogState?: object): object;
 
@@ -699,7 +699,7 @@ export class AssistantApp {
      * @example
      * const app = new ActionsSdkApp({request: request, response: response});
      * // or
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * app.askForPermissions("To get you a ride", [
      *   app.SupportedPermissions.NAME,
      *   app.SupportedPermissions.DEVICE_PRECISE_LOCATION
@@ -711,7 +711,7 @@ export class AssistantApp {
      * }
      *
      * @return {boolean} true if permissions granted.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     isPermissionGranted(): boolean;
@@ -720,8 +720,8 @@ export class AssistantApp {
      * Asks user for delivery address.
      *
      * @example
-     * // For ApiAiApp:
-     * const app = new ApiAiApp({request, response});
+     * // For DialogflowApp:
+     * const app = new DialogflowApp({request, response});
      * const WELCOME_INTENT = 'input.welcome';
      * const DELIVERY_INTENT = 'delivery.address';
      *
@@ -771,7 +771,7 @@ export class AssistantApp {
      *     will be circulated back by Assistant.
      * @return {Object} HTTP response.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     askForDeliveryAddress(reason: string, dialogState?: object): object;
 
@@ -779,7 +779,7 @@ export class AssistantApp {
      * Asks user for a confirmation.
      *
      * @example
-     * const app = new ApiAiApp({ request, response });
+     * const app = new DialogflowApp({ request, response });
      * const WELCOME_INTENT = 'input.welcome';
      * const CONFIRMATION = 'confirmation';
      *
@@ -806,7 +806,7 @@ export class AssistantApp {
      * @param {Object=} dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     askForConfirmation(prompt?: string, dialogState?: object): object;
 
@@ -814,7 +814,7 @@ export class AssistantApp {
      * Asks user for a timezone-agnostic date and time.
      *
      * @example
-     * const app = new ApiAiApp({ request, response });
+     * const app = new DialogflowApp({ request, response });
      * const WELCOME_INTENT = 'input.welcome';
      * const DATETIME = 'datetime';
      *
@@ -850,7 +850,7 @@ export class AssistantApp {
      * @param {Object=} dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     askForDateTime(initialPrompt?: string, datePrompt?: string, timePrompt?: string, dialogState?: object): object;
 
@@ -866,7 +866,7 @@ export class AssistantApp {
      * consent".
      *
      * @example
-     * const app = new ApiAiApp({ request, response });
+     * const app = new DialogflowApp({ request, response });
      * const WELCOME_INTENT = 'input.welcome';
      * const SIGN_IN = 'sign.in';
      *
@@ -891,7 +891,7 @@ export class AssistantApp {
      * @param {Object=} dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     askForSignIn(dialogState?: object): object;
 
@@ -899,7 +899,7 @@ export class AssistantApp {
      * Requests the user to switch to another surface during the conversation.
      *
      * @example
-     * const app = new ApiAiApp({ request, response });
+     * const app = new DialogflowApp({ request, response });
      * const WELCOME_INTENT = 'input.welcome';
      * const SHOW_IMAGE = 'show.image';
      *
@@ -937,7 +937,7 @@ export class AssistantApp {
      *     the surface.
      * @param {Object=} dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     askForNewSurface(context: string, notificationTitle: string, capabilities: string[], dialogState?: object): object;
@@ -949,14 +949,14 @@ export class AssistantApp {
      * see {@link AssistantApp#askForPermissions|askForPermissions}).
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * // or
      * const app = new ActionsSdkApp({request: request, response: response});
      * const userId = app.getUser().userId;
      *
      * @return {User} Null if no value.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     getUser(): User;
 
@@ -966,7 +966,7 @@ export class AssistantApp {
      * returns null.
      *
      * @example
-     * const app = new ApiAIApp({request: req, response: res});
+     * const app = new DialogflowApp({request: req, response: res});
      * const REQUEST_PERMISSION_ACTION = 'request_permission';
      * const SAY_NAME_ACTION = 'get_name';
      *
@@ -989,7 +989,7 @@ export class AssistantApp {
      * app.handleRequest(actionMap);
      * @return {UserName} Null if name permission is not granted.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     getUserName(): UserName;
 
@@ -999,12 +999,12 @@ export class AssistantApp {
      * For example, 'en-US' represents US English.
      *
      * @example
-     * const app = new ApiAiApp({request, response});
+     * const app = new DialogflowApp({request, response});
      * const locale = app.getUserLocale();
      *
      * @return {string} User's locale, e.g. 'en-US'. Null if no locale given.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     getUserLocale(): string;
 
@@ -1014,7 +1014,7 @@ export class AssistantApp {
      * If device info is unavailable, returns null.
      *
      * @example
-     * const app = new ApiAiApp({request: req, response: res});
+     * const app = new DialogflowApp({request: req, response: res});
      * // or
      * const app = new ActionsSdkApp({request: req, response: res});
      * app.askForPermission("To get you a ride",
@@ -1027,7 +1027,7 @@ export class AssistantApp {
      *
      * @return {DeviceLocation} Null if location permission is not granted.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     getDeviceLocation(): DeviceLocation;
 
@@ -1036,7 +1036,7 @@ export class AssistantApp {
      *
      * @return {number} One of AssistantApp.InputTypes.
      *     Null if no input type given.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getInputType(): number;
@@ -1050,7 +1050,7 @@ export class AssistantApp {
      * the argument object will be in Proto2 format (snake_case, etc).
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
      *
@@ -1071,7 +1071,7 @@ export class AssistantApp {
      * @param {string} argName Name of the argument.
      * @return {Object} Argument value matching argName
      *     or null if no matching argument.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getArgumentCommon(argName: string): object;
@@ -1081,7 +1081,7 @@ export class AssistantApp {
      * askForTransactionRequirements. Null if no result given.
      *
      * @return {string} One of Transactions.ResultType.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getTransactionRequirementsResult(): string;
@@ -1091,7 +1091,7 @@ export class AssistantApp {
      *
      * @return {DeliveryAddress} Delivery address information. Null if user
      *     denies permission, or no address given.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getDeliveryAddress(): Location;
@@ -1103,7 +1103,7 @@ export class AssistantApp {
      * @return {TransactionDecision} Transaction decision data. Returns object with
      *     userDecision only if user declines. userDecision will be one of
      *     Transactions.ConfirmationDecision. Null if no decision given.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getTransactionDecision(): TransactionDecision;
@@ -1113,7 +1113,7 @@ export class AssistantApp {
      *
      *     False if user replied with negative response. Null if no user
      *     confirmation decision given.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getUserConfirmation(): boolean | null;
@@ -1123,7 +1123,7 @@ export class AssistantApp {
      *
      * @return {DateTime} Date and time given by the user. Null if no user
      *     date and time given.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getDateTime(): DateTime;
@@ -1132,9 +1132,9 @@ export class AssistantApp {
      * Gets status of user sign in request.
      *
      * @return {string} Result of user sign in request. One of
-     * ApiAiApp.SignInStatus or ActionsSdkApp.SignInStatus
+     * DialogflowApp.SignInStatus or ActionsSdkApp.SignInStatus
      * Null if no sign in status.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getSignInStatus(): string;
@@ -1146,7 +1146,7 @@ export class AssistantApp {
      * @return {boolean} True if user device has the given capability.
      *
      * @example
-     * const app = new ApiAIApp({request: req, response: res});
+     * const app = new DialogflowApp({request: req, response: res});
      * const DESCRIBE_SOMETHING = 'DESCRIBE_SOMETHING';
      *
      * function describe (app) {
@@ -1160,7 +1160,7 @@ export class AssistantApp {
      * actionMap.set(DESCRIBE_SOMETHING, describe);
      * app.handleRequest(actionMap);
      *
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     hasSurfaceCapability(requestedCapability: string): boolean;
@@ -1170,7 +1170,7 @@ export class AssistantApp {
      *
      * @return {Array<string>} Supported surface capabilities, as defined in
      *     AssistantApp.SurfaceCapabilities.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getSurfaceCapabilities(): string[];
@@ -1180,7 +1180,7 @@ export class AssistantApp {
      *
      * @return {Array<Surface>} Empty if no available surfaces.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     getAvailableSurfaces(): Surface[];
 
@@ -1193,7 +1193,7 @@ export class AssistantApp {
      *     {@link SurfaceCapabilities}.
      * @return {boolean} True if user has a capability available on some surface.
      *
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     hasAvailableSurfaceCapabilities(capabilities: string | string[]): boolean;
@@ -1204,7 +1204,7 @@ export class AssistantApp {
      * @return {boolean} True if user has triggered conversation on a new device
      *     following the NEW_SURFACE intent.
      * @actionssdk
-     * @apiai
+     * @dialogflow
      */
     isNewSurface(): boolean;
 
@@ -1214,7 +1214,7 @@ export class AssistantApp {
      * transactions.
      *
      * @return {boolean} True if app is being used in Sandbox mode.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     isInSandbox(): boolean;
@@ -1249,7 +1249,7 @@ export class AssistantApp {
      *
      * @return {number} The current reprompt count. Null if no reprompt count
      *     available (e.g. not in the NO_INPUT intent).
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     getRepromptCount(): number;
@@ -1284,7 +1284,7 @@ export class AssistantApp {
      *
      * @return {boolean} True if in a NO_INPUT intent and this is the final turn
      *     of dialog.
-     * @apiai
+     * @dialogflow
      * @actionssdk
      */
     isFinalReprompt(): boolean;

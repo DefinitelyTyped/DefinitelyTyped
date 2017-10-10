@@ -1,4 +1,4 @@
-import { ActionsSdkApp, ActionsSdkAppOptions, ApiAiApp, ApiAiAppOptions, AssistantApp,
+import { ActionsSdkApp, ActionsSdkAppOptions, DialogflowApp, DialogflowAppOptions, AssistantApp,
     Responses, Transactions } from 'actions-on-google';
 import * as express from 'express';
 
@@ -14,8 +14,8 @@ function testActionsSdk(request: express.Request, response: express.Response) {
     app.handleRequest(actionMap);
 }
 
-function testApiAi(request: express.Request, response: express.Response) {
-    const app = new ApiAiApp({request, response});
+function testDialogflow(request: express.Request, response: express.Response) {
+    const app = new DialogflowApp({request, response});
     const actionMap = new Map();
     actionMap.set(app.StandardIntents.MAIN, () => {
         const order: Transactions.Order = app.buildOrder('foo');
@@ -30,4 +30,4 @@ function testApiAi(request: express.Request, response: express.Response) {
 
 const expressApp = express();
 expressApp.get('/actionssdk', testActionsSdk);
-expressApp.get('/apiai', testApiAi);
+expressApp.get('/dialogflow', testDialogflow);

@@ -1,4 +1,4 @@
-// Type definitions for actions-on-google 1.4
+// Type definitions for actions-on-google 1.5
 // Project: https://github.com/actions-on-google/actions-on-google-nodejs
 // Definitions by: Joel Hegg <https://github.com/joelhegg>, Pilwon Huh <https://github.com/pilwon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,10 +14,11 @@ import * as Responses from './response-builder';
 
 export { AssistantApp, AssistantAppOptions, RequestHandler, SessionStartedFunction, State } from './assistant-app';
 export { ActionsSdkApp, ActionsSdkAppOptions } from './actions-sdk-app';
-export { ApiAiApp, ApiAiAppOptions } from './api-ai-app';
+export { DialogflowApp, DialogflowAppOptions } from './dialogflow-app';
 export { Transactions };
 export { Responses };
 // Backwards compatibility
 export { AssistantApp as Assistant } from './assistant-app';
 export { ActionsSdkApp as ActionsSdkAssistant } from './actions-sdk-app';
-export { ApiAiApp as ApiAiAssistant } from './api-ai-app';
+export { DialogflowApp as ApiAiAssistant } from './dialogflow-app';
+export { DialogflowApp as ApiAiApp } from './dialogflow-app';

@@ -5,41 +5,41 @@ import { Carousel, List, RichResponse, SimpleResponse } from './response-builder
 import { TransactionDecision } from './transactions';
 
 // ---------------------------------------------------------------------------
-//                   API.AI support
+//                   Dialogflow support
 // ---------------------------------------------------------------------------
 
 /**
- * API.AI {@link https://docs.api.ai/docs/concept-contexts|Context}.
+ * DialogflowApp {@link https://dialogflow.com/docs/concept-contexts|Context}.
  */
 export interface Context {
     /** Full name of the context. */
     name: string;
     /**
      * Parameters carried within this context.
-     * See {@link https://docs.api.ai/docs/concept-actions#section-extracting-values-from-contexts|here}.
+     * See {@link https://dialogflow.com/docs/concept-actions#section-extracting-values-from-contexts|here}.
      */
     parameters: object;
     /** Remaining number of intents */
     lifespan: number;
 }
 
-export interface ApiAiAppOptions {
+export interface DialogflowAppOptions {
     request: Request;
     response: Response;
     sessionStarted?: SessionStartedFunction;
 }
 
 /**
- * This is the class that handles the communication with API.AI's fulfillment API.
+ * This is the class that handles the communication with Dialogflow's fulfillment API.
  */
-export class ApiAiApp extends AssistantApp {
+export class DialogflowApp extends AssistantApp {
     /**
-     * Constructor for ApiAiApp object.
-     * To be used in the API.AI fulfillment webhook logic.
+     * Constructor for DialogflowApp object.
+     * To be used in the Dialogflow fulfillment webhook logic.
      *
      * @example
-     * const ApiAiApp = require('actions-on-google').ApiAiApp;
-     * const app = new ApiAiApp({request: request, response: response,
+     * const DialogflowApp = require('actions-on-google').DialogflowApp;
+     * const app = new DialogflowApp({request: request, response: response,
      *   sessionStarted:sessionStarted});
      *
      * @param {Object} options JSON configuration.
@@ -47,31 +47,44 @@ export class ApiAiApp extends AssistantApp {
      * @param {Object} options.response Express HTTP response object.
      * @param {Function=} options.sessionStarted Function callback when session starts.
      *     Only called if webhook is enabled for welcome/triggering intents, and
-     *     called from Web Simulator or Google Home device (i.e., not API.AI simulator).
-     * @apiai
+     *     called from Web Simulator or Google Home device (i.e., not Dialogflow simulator).
+     * @dialogflow
      */
-    constructor(options: ApiAiAppOptions);
+    constructor(options: DialogflowAppOptions);
 
     /**
-     * Verifies whether the request comes from API.AI.
+     * @deprecated
+     * Verifies whether the request comes from Dialogflow.
      *
      * @param {string} key The header key specified by the developer in the
-     *     API.AI Fulfillment settings of the app.
+     *     Dialogflow Fulfillment settings of the app.
      * @param {string} value The private value specified by the developer inside the
      *     fulfillment header.
-     * @return {boolean} True if the request comes from API.AI.
-     * @apiai
+     * @return {boolean} True if the request comes from Dialogflow.
+     * @dialogflow
      */
     isRequestFromApiAi(key: string, value: string): boolean;
+
+    /**
+     * Verifies whether the request comes from Dialogflow.
+     *
+     * @param {string} key The header key specified by the developer in the
+     *     Dialogflow Fulfillment settings of the app.
+     * @param {string} value The private value specified by the developer inside the
+     *     fulfillment header.
+     * @return {boolean} True if the request comes from Dialogflow.
+     * @dialogflow
+     */
+    isRequestFromDialogflow(key: string, value: string): boolean;
 
     /**
      * Get the current intent. Alternatively, using a handler Map with
      * {@link AssistantApp#handleRequest|handleRequest},
      * the client library will automatically handle the incoming intents.
-     * 'Intent' in the API.ai context translates into the current action.
+     * 'Intent' in the Dialogflow context translates into the current action.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      *
      * function responseHandler (app) {
      *   const intent = app.getIntent();
@@ -90,7 +103,7 @@ export class ApiAiApp extends AssistantApp {
      * app.handleRequest(responseHandler);
      *
      * @return {string} Intent id or null if no value (action name).
-     * @apiai
+     * @dialogflow
      */
     getIntent(): string;
 
@@ -103,7 +116,7 @@ export class ApiAiApp extends AssistantApp {
      * the argument object will be in Proto2 format (snake_case, etc).
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
      *
@@ -124,7 +137,7 @@ export class ApiAiApp extends AssistantApp {
      * @param {string} argName Name of the argument.
      * @return {Object} Argument value matching argName
      *     or null if no matching argument.
-     * @apiai
+     * @dialogflow
      */
     getArgument(argName: string): object;
 
@@ -136,7 +149,7 @@ export class ApiAiApp extends AssistantApp {
      * as part of the return object.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
      * const OUT_CONTEXT = 'output_context';
@@ -164,12 +177,12 @@ export class ApiAiApp extends AssistantApp {
      * @param {string} argName Name of the argument.
      * @return {Object} Object containing value property and optional original
      *     property matching context argument. Null if no matching argument.
-     * @apiai
+     * @dialogflow
      */
     getContextArgument(contextName: string, argName: string): object;
 
     /**
-     * Returns the RichResponse constructed in API.AI response builder.
+     * Returns the RichResponse constructed in Dialogflow response builder.
      *
      * @example
      * const app = new App({request: req, response: res});
@@ -192,14 +205,14 @@ export class ApiAiApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {RichResponse} RichResponse created in API.AI. If no RichResponse was
+     * @return {RichResponse} RichResponse created in Dialogflow. If no RichResponse was
      *     created, an empty RichResponse is returned.
-     * @apiai
+     * @dialogflow
      */
     getIncomingRichResponse(): RichResponse;
 
     /**
-     * Returns the List constructed in API.AI response builder.
+     * Returns the List constructed in Dialogflow response builder.
      *
      * @example
      * const app = new App({request: req, response: res});
@@ -220,14 +233,14 @@ export class ApiAiApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {List} List created in API.AI. If no List was created, an empty
+     * @return {List} List created in Dialogflow. If no List was created, an empty
      *     List is returned.
-     * @apiai
+     * @dialogflow
      */
     getIncomingList(): List;
 
     /**
-     * Returns the Carousel constructed in API.AI response builder.
+     * Returns the Carousel constructed in Dialogflow response builder.
      *
      * @example
      * const app = new App({request: req, response: res});
@@ -248,9 +261,9 @@ export class ApiAiApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {Carousel} Carousel created in API.AI. If no Carousel was created,
+     * @return {Carousel} Carousel created in Dialogflow. If no Carousel was created,
      *     an empty Carousel is returned.
-     * @apiai
+     * @dialogflow
      */
     getIncomingCarousel(): Carousel;
 
@@ -283,7 +296,7 @@ export class ApiAiApp extends AssistantApp {
      *
      * @return {string} Option key of selected item. Null if no option selected or
      *     if current intent is not OPTION intent.
-     * @apiai
+     * @dialogflow
      */
     getSelectedOption(): string;
 
@@ -296,7 +309,7 @@ export class ApiAiApp extends AssistantApp {
      * for a bye message until the bug is fixed.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
      *
@@ -319,7 +332,7 @@ export class ApiAiApp extends AssistantApp {
      *     response.
      * @param {Array<string>=} noInputs Array of re-prompts when the user does not respond (max 3).
      * @return {Object} HTTP response.
-     * @apiai
+     * @dialogflow
      */
     ask(inputPrompt: string | SimpleResponse | RichResponse, noInputs?: string[]): object;
 
@@ -327,7 +340,7 @@ export class ApiAiApp extends AssistantApp {
      * Asks to collect the user's input with a list.
      *
      * @example
-     * const app = new ApiAiApp({request, response});
+     * const app = new DialogflowApp({request, response});
      * const WELCOME_INTENT = 'input.welcome';
      * const OPTION_INTENT = 'option.select';
      *
@@ -361,7 +374,7 @@ export class ApiAiApp extends AssistantApp {
      *     response.
      * @param {List} list List built with {@link AssistantApp#buildList|buildList}.
      * @return {Object} HTTP response.
-     * @apiai
+     * @dialogflow
      */
     askWithList(inputPrompt: string | RichResponse | SimpleResponse, list: List): object;
 
@@ -369,7 +382,7 @@ export class ApiAiApp extends AssistantApp {
      * Asks to collect the user's input with a carousel.
      *
      * @example
-     * const app = new ApiAiApp({request, response});
+     * const app = new DialogflowApp({request, response});
      * const WELCOME_INTENT = 'input.welcome';
      * const OPTION_INTENT = 'option.select';
      *
@@ -404,7 +417,7 @@ export class ApiAiApp extends AssistantApp {
      * @param {Carousel} carousel Carousel built with
      *     {@link AssistantApp#buildCarousel|buildCarousel}.
      * @return {Object} HTTP response.
-     * @apiai
+     * @dialogflow
      */
     askWithCarousel(inputPrompt: string | RichResponse | SimpleResponse, carousel: Carousel): object;
 
@@ -412,7 +425,7 @@ export class ApiAiApp extends AssistantApp {
      * Tells the Assistant to render the speech response and close the mic.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
      *
@@ -433,7 +446,7 @@ export class ApiAiApp extends AssistantApp {
      * @param {string|SimpleResponse|RichResponse} textToSpeech Final response.
      *     Spoken response can be SSML.
      * @return The response that is sent back to Assistant.
-     * @apiai
+     * @dialogflow
      */
     tell(speechResponse: string | SimpleResponse | RichResponse): object;
 
@@ -441,7 +454,7 @@ export class ApiAiApp extends AssistantApp {
      * Set a new context for the current intent.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const CONTEXT_NUMBER = 'number';
      * const NUMBER_ARGUMENT = 'myNumber';
      *
@@ -460,10 +473,10 @@ export class ApiAiApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string} name Name of the context. API.AI converts to lowercase.
+     * @param {string} name Name of the context. Dialogflow converts to lowercase.
      * @param {int} [lifespan=1] Context lifespan.
      * @param {Object=} parameters Context JSON parameters.
-     * @apiai
+     * @dialogflow
      */
     setContext(name: string, lifespan: number, parameters?: object): void;
 
@@ -471,7 +484,7 @@ export class ApiAiApp extends AssistantApp {
      * Returns the incoming contexts for this intent.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const CONTEXT_NUMBER = 'number';
      * const NUMBER_ARGUMENT = 'myNumber';
      *
@@ -500,7 +513,7 @@ export class ApiAiApp extends AssistantApp {
      * app.handleRequest(actionMap);
      *
      * @return {Context[]} Empty if no active contexts.
-     * @apiai
+     * @dialogflow
      */
     getContexts(): Context[];
 
@@ -508,7 +521,7 @@ export class ApiAiApp extends AssistantApp {
      * Returns the incoming context by name for this intent.
      *
      * @example
-     * const app = new ApiAiapp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * const CONTEXT_NUMBER = 'number';
      * const NUMBER_ARGUMENT = 'myNumber';
      *
@@ -538,7 +551,7 @@ export class ApiAiApp extends AssistantApp {
      *
      * @return {Object} Context value matching name
      *     or null if no matching context.
-     * @apiai
+     * @dialogflow
      */
     getContext(name: string): object;
 
@@ -546,11 +559,11 @@ export class ApiAiApp extends AssistantApp {
      * Gets the user's raw input query.
      *
      * @example
-     * const app = new ApiAiApp({request: request, response: response});
+     * const app = new DialogflowApp({request: request, response: response});
      * app.tell('You said ' + app.getRawInput());
      *
      * @return {string} User's raw query or null if no value.
-     * @apiai
+     * @dialogflow
      */
     getRawInput(): string;
 }
