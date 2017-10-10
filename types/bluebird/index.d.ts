@@ -340,8 +340,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Like `.finally()`, but not called for rejections.
    */
-  tap<U>(onFulFill: (value: R) => PromiseLike<U>): Bluebird<R>;
-  tap<U>(onFulfill: (value: R) => U): Bluebird<R>;
+  tap<U>(onFulFill: (value: R) => PromiseLike<U> | U): Bluebird<R>;
 
   /**
    * Like `.catch()` but rethrows the error
@@ -819,13 +818,14 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * *The original object is not modified.*
    */
-  // trusted promise for object
+  // trusted promise for map
   static props<K, V>(map: PromiseLike<Map<K, PromiseLike<V> | V>>): Bluebird<Map<K, V>>;
-  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
+  // trusted promise for object
+  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>; // tslint:disable-line:unified-signatures
   // map
-  static props<K, V>(map: Map<K, PromiseLike<V> | V>): Bluebird<Map<K, V>>;
+  static props<K, V>(map: Map<K, PromiseLike<V> | V>): Bluebird<Map<K, V>>; // tslint:disable-line:unified-signatures
   // object
-  static props<T>(object: Bluebird.ResolvableProps<T>): Bluebird<T>;
+  static props<T>(object: Bluebird.ResolvableProps<T>): Bluebird<T>; // tslint:disable-line:unified-signatures
 
   /**
    * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
@@ -846,14 +846,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * *The original array is not modified.*
    */
-  // promise of array with promises of value
-  static some<R>(values: PromiseLike<PromiseLike<R>[]>, count: number): Bluebird<R[]>;
-  // promise of array with values
-  static some<R>(values: PromiseLike<R[]>, count: number): Bluebird<R[]>;
-  // array with promises of value
-  static some<R>(values: PromiseLike<R>[], count: number): Bluebird<R[]>;
-  // array with values
-  static some<R>(values: R[], count: number): Bluebird<R[]>;
+  static some<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, count: number): Bluebird<R[]>;
 
   /**
    * Promise.join(
@@ -881,17 +874,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * *The original array is not modified.*
    */
-  // promise of array with promises of value
-  static map<R, U>(values: PromiseLike<PromiseLike<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
-
-  // promise of array with values
-  static map<R, U>(values: PromiseLike<R[]>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
-
-  // array with promises of value
-  static map<R, U>(values: PromiseLike<R>[], mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
-
-  // array with values
-  static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  static map<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   /**
    * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -900,17 +883,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
    */
-  // promise of array with promises of value
-  static reduce<R, U>(values: PromiseLike<PromiseLike<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
-
-  // promise of array with values
-  static reduce<R, U>(values: PromiseLike<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
-
-  // array with promises of value
-  static reduce<R, U>(values: PromiseLike<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
-
-  // array with values
-  static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
+  static reduce<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
 
   /**
    * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -919,29 +892,14 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * *The original array is not modified.
    */
-  // promise of array with promises of value
-  static filter<R>(values: PromiseLike<PromiseLike<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
-
-  // promise of array with values
-  static filter<R>(values: PromiseLike<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
-
-  // array with promises of value
-  static filter<R>(values: PromiseLike<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
-
-  // array with values
-  static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
+  static filter<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
 
   /**
    * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    */
-  // promise of array with promises of value
-  static each<R, U>(values: PromiseLike<PromiseLike<R>[]>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
-  // array with promises of value
-  static each<R, U>(values: PromiseLike<R>[], iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
-  // array with values OR promise of array with values
-  static each<R, U>(values: R[] | PromiseLike<R[]>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
+  static each<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
 
   /**
    * Given an Iterable(arrays are Iterable), or a promise of an Iterable, which produces promises (or a mix of promises and values), iterate over all the values in the Iterable into an array and iterate over the array serially, in-order.
