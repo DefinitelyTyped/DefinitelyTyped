@@ -14,8 +14,6 @@ export class patch_obj {
 }
 
 export class diff_match_patch {
-    constructor();
-
     Diff_Timeout: number;
     Diff_EditCost: number;
     Match_Threshold: number;
