@@ -87,7 +87,7 @@ declare namespace mapboxgl {
 
 		getLayer(id: string): mapboxgl.Layer;
 
-		setFilter(layer: string, filter: any[]): this;
+		setFilter(layer: string, filter?: any[]): this;
 
 		setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -224,7 +224,7 @@ declare namespace mapboxgl {
 		/** If true, enable keyboard shortcuts (see KeyboardHandler). */
 		keyboard?: boolean;
 
-		logoPosition?: boolean;
+		logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 		/** If set, the map is constrained to the given bounds. */
 		maxBounds?: LngLatBoundsLike;
