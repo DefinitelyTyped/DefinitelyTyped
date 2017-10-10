@@ -168,8 +168,7 @@ barThen = barProm;
 fooProm = new Promise((resolve: (value: Foo) => void, reject: (reason: any) => void) => {
 	if (bool) {
 		resolve(foo);
-	}
-	else {
+	} else {
 		reject(new Error(str));
 	}
 });
@@ -185,8 +184,7 @@ fooProm = new Promise((resolve: (value: Foo) => void) => {
 fooProm = new Promise<Foo>((resolve, reject) => {
 	if (bool) {
 		resolve(fooThen);
-	}
-	else {
+	} else {
 		reject(new Error(str));
 	}
 });
