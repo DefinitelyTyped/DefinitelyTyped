@@ -44,6 +44,14 @@ interface Person {
 
 const personFactory = Factory.define<Person>('Person').attr('firstName', 'John').sequence('id');
 
+// Building does not require the first (attributes) and second (options) arguments
+personFactory.build();
+personFactory.buildList(3);
+
+// Building with attributes does not require the second (options) argument
+personFactory.build({ firstName: "John" });
+personFactory.buildList(3, { firstName: "John" });
+
 // It will automatically type up to five dependencies
 personFactory.attr('fullName', ['firstName'], firstName => firstName);
 personFactory.attr('fullName', ['firstName', 'lastName'], (firstName, lastName) => lastName);
