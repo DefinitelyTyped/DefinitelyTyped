@@ -1,8 +1,7 @@
-// Type definitions for node-diff-match-patch 1.0
-// Project: https://github.com/ForbesLindesay/diff-match-patch
+// Type definitions for diff-match-patch 1.0
+// Project: https://www.npmjs.com/package/diff-match-patch
 // Definitions by: Asana <https://github.com/asana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 
 export type Diff = [number, string];
 
