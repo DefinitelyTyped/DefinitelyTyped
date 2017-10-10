@@ -7,8 +7,18 @@
 import * as Promise from 'bluebird';
 
 export interface ManagementClientOptions {
-  token: string;
-  domain?: string;
+  token?: string;
+  domain: string;
+  clientId?: string;
+  clientSecret?: string;
+  audience?: string;
+  scope?: string;
+  tokenProvider?: TokenProvider;
+}
+
+export interface TokenProvider {
+  enableCache: boolean;
+  cacheTTLInSeconds?: number;
 }
 
 export interface UserMetadata { }

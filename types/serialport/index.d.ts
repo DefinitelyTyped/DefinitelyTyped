@@ -62,10 +62,10 @@ declare namespace SerialPort {
 	type callback = (error: any) => void;
 
 	interface parsers {
-		raw: serialParser;
-		readline: readlineParser;
-		byteLength: byteLengthParser;
-		byteDelimiter: byteDelimiterParser;
+		Raw: serialParser;
+		Readline: readlineParser;
+		ByteLength: byteLengthParser;
+		ByteDelimiter: byteDelimiterParser;
 	}
 
 	// https://github.com/EmergingTechnologyAdvisors/node-serialport/blob/4.0.7/README.md#user-content-serialport-path-options-opencallback

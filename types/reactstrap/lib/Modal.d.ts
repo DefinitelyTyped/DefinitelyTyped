@@ -2,6 +2,7 @@ import { CSSModule } from '../index';
 
 interface Props {
   isOpen?: boolean;
+  autoFocus?: boolean;
   size?: string;
   toggle?: () => void;
   keyboard?: boolean;

@@ -642,6 +642,79 @@ namespace util_tests {
             breakLength: Infinity
         });
         assert(typeof util.inspect.custom === 'symbol');
+
+        // util.callbackify
+        class callbackifyTest {
+            static fn(): Promise<void> {
+                assert(arguments.length === 0);
+
+                return Promise.resolve();
+            }
+
+            static fnE(): Promise<void> {
+                assert(arguments.length === 0);
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnT1(arg1: string): Promise<void> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.resolve();
+            }
+
+            static fnT1E(arg1: string): Promise<void> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnTResult(): Promise<string> {
+                assert(arguments.length === 0);
+
+                return Promise.resolve('result');
+            }
+
+            static fnTResultE(): Promise<string> {
+                assert(arguments.length === 0);
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static fnT1TResult(arg1: string): Promise<string> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.resolve('result');
+            }
+
+            static fnT1TResultE(arg1: string): Promise<string> {
+                assert(arguments.length === 1 && arg1 === 'parameter');
+
+                return Promise.reject(new Error('fail'));
+            }
+
+            static test(): void {
+                var cfn = util.callbackify(this.fn);
+                var cfnE = util.callbackify(this.fnE);
+                var cfnT1 = util.callbackify(this.fnT1);
+                var cfnT1E = util.callbackify(this.fnT1E);
+                var cfnTResult = util.callbackify(this.fnTResult);
+                var cfnTResultE = util.callbackify(this.fnTResultE);
+                var cfnT1TResult = util.callbackify(this.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+
+                cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+                cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnT1('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
+                cfnT1E('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnTResult((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+                cfnTResultE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+                cfnT1TResult('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === 'result'));
+                cfnT1TResultE('parameter', (err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
+            }
+        }
+        callbackifyTest.test();
+
         // util.promisify
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
@@ -1708,6 +1781,25 @@ namespace child_process_tests {
         childProcess.spawnSync("echo test");
     }
 
+	{
+		childProcess.execFile("npm", () => {});
+		childProcess.execFile("npm", ["-v"], () => {});
+		childProcess.execFile("npm", ["-v"], { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+		childProcess.execFile("npm", ["-v"], { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+		childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
+		childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+	}
+
+    async function testPromisify() {
+        const execFile = util.promisify(childProcess.execFile);
+		let r: { stdout: string | Buffer, stderr: string | Buffer } = await execFile("npm");
+		r = await execFile("npm", ["-v"]);
+		r = await execFile("npm", ["-v"], { encoding: 'utf-8' });
+		r = await execFile("npm", ["-v"], { encoding: 'buffer' });
+		r = await execFile("npm", { encoding: 'utf-8' });
+		r = await execFile("npm", { encoding: 'buffer' });
+    }
+
     {
         let _cp: childProcess.ChildProcess;
         let _socket: net.Socket;
@@ -2233,8 +2325,8 @@ namespace process_tests {
         process.once("warning", (warning: Error) => { });
         process.prependListener("message", (message: any, sendHandle: any) => { });
         process.prependOnceListener("SIGBREAK", () => { });
-        process.on("newListener", (event: string, listener: Function) => { });
-        process.once("removeListener", (event: string, listener: Function) => { });
+        process.on("newListener", (event: string | symbol, listener: Function) => { });
+        process.once("removeListener", (event: string | symbol, listener: Function) => { });
 
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
@@ -3447,7 +3539,8 @@ namespace module_tests {
     require.extensions[".ts"] = () => "";
 
     Module.runMain();
-    Module.wrap("some code");
+    const s: string = Module.wrap("some code");
 
-    const m1 = new Module("moduleId");
+    const m1: Module = new Module("moduleId");
+    const m2: Module = new Module.Module("moduleId");
 }

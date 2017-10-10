@@ -225,9 +225,9 @@ declare namespace R {
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
+        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
         append<T, U>(el: U, list: T[]): Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
+        append<T>(el: T, list: string): Array<T & string>;
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -1227,9 +1227,9 @@ declare namespace R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: T, p: Path, obj: any): any;
-        pathOr<T>(d: T, p: Path): (obj: any) => any;
-        pathOr<T>(d: T): CurriedFunction2<Path, any, any>;
+        pathOr<T>(defaultValue: T, path: Path, obj: any): any;
+        pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
+        pathOr<T>(defaultValue: T): CurriedFunction2<Path, any, any>;
 
         /**
          * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
@@ -1438,7 +1438,7 @@ declare namespace R {
          * Note: TS1.9 # replace any by dictionary
          */
         prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<T>(p: string): (obj: any) => T;
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1525,9 +1525,9 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: T[]): TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult): (acc: TResult, list: T[]) => TResult;
-        reduceRight<T, TResult>(fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: T[]): TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: T[]) => TResult;
+        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: T[]) => TResult;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate

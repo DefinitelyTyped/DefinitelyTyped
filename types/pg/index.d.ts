@@ -95,7 +95,7 @@ export class Pool extends events.EventEmitter {
 export class Client extends events.EventEmitter {
     constructor(config: ClientConfig);
 
-    connect(): Promise<Client>;
+    connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
 
     end(): Promise<void>;
@@ -114,6 +114,9 @@ export class Client extends events.EventEmitter {
 
     pauseDrain(): void;
     resumeDrain(): void;
+
+    escapeIdentifier(str: string): string;
+    escapeLiteral(str: string): string;
 
     on(event: "drain", listener: () => void): this;
     on(event: "error" | "notice", listener: (err: Error) => void): this;
@@ -136,6 +139,6 @@ export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
 
-import * as Pg from 'pg';
+import * as Pg from '.';
 
 export const native: typeof Pg | null;

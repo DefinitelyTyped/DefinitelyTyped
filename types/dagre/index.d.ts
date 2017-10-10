@@ -1,7 +1,10 @@
 // Type definitions for dagre 0.7
 // Project: https://github.com/cpettitt/dagre
-// Definitions by: Qinfeng Chen <https://github.com/qinfchen>, Lisa Vallfors <https://github.com/Frankrike>
+// Definitions by: Qinfeng Chen <https://github.com/qinfchen>
+//                 Lisa Vallfors <https://github.com/Frankrike>
+//                 Pete Vilter <https://github.com/vilterp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace dagre;
 
@@ -11,8 +14,8 @@ export namespace graphlib {
         edge(id: any): any;
         nodes(): string[];
         node(id: any): any;
-        setDefaultEdgeLabel(callback: string|(() => string|void)): Graph;
-        setDefaultNodeLabel(callback: string|(() => string|void)): Graph;
+        setDefaultEdgeLabel(callback: string|(() => string|object)): Graph;
+        setDefaultNodeLabel(callback: string|(() => string|object)): Graph;
         setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }, value?: string): Graph;
         setEdge(params: {v: string, w: string, name?: string}, value?: string): Graph;
         setGraph(label: GraphLabel): Graph;
