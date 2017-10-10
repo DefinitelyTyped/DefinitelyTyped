@@ -1,5 +1,7 @@
+import { NightwatchAPI } from 'nightwatch';
+
 const test: NightwatchTests = {
-  'Demo test Google': (browser) => {
+  'Demo test Google': (browser: NightWatchAPI) => {
     browser
       .url('http://www.google.com')
       .waitForElementVisible('body', 1000)
