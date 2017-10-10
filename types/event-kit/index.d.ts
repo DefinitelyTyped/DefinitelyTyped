@@ -92,21 +92,25 @@ declare global {
 
 			// Event Subscription
 			/** Registers a handler to be invoked whenever the given event is emitted. */
+			// tslint:disable-next-line:no-any
 			on(eventName: string, handler: (value: any) => void): Disposable;
 
 			/** Register the given handler function to be invoked the next time an event
 			 *  with the given name is emitted via ::emit.
 			 */
+			// tslint:disable-next-line:no-any
 			once(eventName: string, handler: (value: any) => void): Disposable;
 
 			/** Register the given handler function to be invoked before all other
 			 *  handlers existing at the time of subscription whenever events by the
 			 *  given name are emitted via ::emit.
 			 */
+			// tslint:disable-next-line:no-any
 			preempt(eventName: string, handler: (value: any) => void): Disposable;
 
 			// Event Emission
 			/** Invoke handlers registered via ::on for the given event name. */
+			// tslint:disable-next-line:no-any
 			emit(eventName: string, value?: any): void;
 		}
 	}

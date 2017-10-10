@@ -13,6 +13,7 @@ interface Cheerio {
 
     // Attributes
 
+    attr(): {[attr: string]: string};
     attr(name: string): string;
     attr(name: string, value: any): Cheerio;
 

@@ -309,6 +309,27 @@ declare global {
 				/** The number of lines after the matched line to include in the results object. */
 				trailingContextLineCount?: number;
 			}
+
+			interface BuildEnvironment {
+				/** An object responsible for Atom's interaction with the browser process and host OS.
+				 *  Use buildDefaultApplicationDelegate for a default instance.
+				 */
+				applicationDelegate?: object;
+
+				/** A window global. */
+				window?: Window;
+
+				/** A document global. */
+				document?: Document;
+
+				/** A path to the configuration directory (usually ~/.atom). */
+				configDirPath?: string;
+
+				/** A boolean indicating whether the Atom environment should save or load state
+				 *  from the file system. You probably want this to be false.
+				 */
+				enablePersistence?: boolean;
+			}
 		}
 
 		/** The static side to each exported class. Should generally only be used internally. */
@@ -348,6 +369,7 @@ declare global {
 				// this appearing in the middle of the parameter list, which isn't aligned with
 				// the ES6 spec. Maybe when they rewrite it in JavaScript this will change.
 				/** A helper method to easily launch and run a task once. */
+				// tslint:disable-next-line:no-any
 				once(taskPath: string, ...args: any[]): AtomCore.Task;
 
 				/** Creates a task. You should probably use .once */
@@ -445,6 +467,30 @@ declare global {
 				profileStartup: boolean;
 				resourcePath: string;
 				safeMode: boolean;
+			}
+
+			interface TestRunnerArgs {
+				/** An array of paths to tests to run. Could be paths to files or directories. */
+				testPaths: string[];
+
+				/** A function that can be called to construct an instance of the atom global.
+				 *  No atom global will be explicitly assigned, but you can assign one in your
+				 *  runner if desired.
+				 */
+				buildAtomEnvironment(options: Options.BuildEnvironment): AtomEnvironment;
+
+				/** A function that builds a default instance of the application delegate, suitable
+				 *  to be passed as the applicationDelegate parameter to buildAtomEnvironment.
+				 */
+				buildDefaultApplicationDelegate(): object;
+
+				/** An optional path to a log file to which test output should be logged. */
+				logFile: string;
+
+				/** A boolean indicating whether or not the tests are being run from the command
+				 *  line via atom --test.
+				 */
+				headless: boolean;
 			}
 		}
 
@@ -708,38 +754,47 @@ declare global {
 			/** Add a listener for changes to a given key path. This is different than ::onDidChange in
 			 *  that it will immediately call your callback with the current value of the config entry.
 			 */
+			// tslint:disable-next-line:no-any
 			observe(keyPath: string, callback: (value: any) => void):
 				EventKit.Disposable;
 			/** Add a listener for changes to a given key path. This is different than ::onDidChange in
 			 *  that it will immediately call your callback with the current value of the config entry.
 			 */
+			// tslint:disable:no-any
 			observe(keyPath: string, options: { scope: string[]|ScopeDescriptor },
 				callback: (value: any) => void): EventKit.Disposable;
+			// tslint:enable:no-any
 
 			/** Add a listener for changes to a given key path. If keyPath is not specified, your
 			 *  callback will be called on changes to any key.
 			 */
+			// tslint:disable-next-line:no-any
 			onDidChange<T = any>(callback: (values: { newValue: T, oldValue: T }) => void):
 				EventKit.Disposable;
 			/** Add a listener for changes to a given key path. If keyPath is not specified, your
 			 *  callback will be called on changes to any key.
 			 */
+			// tslint:disable-next-line:no-any
 			onDidChange<T = any>(keyPath: string, callback: (values: { newValue: T,
 				oldValue: T }) => void): EventKit.Disposable;
 			/** Add a listener for changes to a given key path. If keyPath is not specified, your
 			 *  callback will be called on changes to any key.
 			 */
+			// tslint:disable-next-line:no-any
 			onDidChange<T = any>(keyPath: string, options: { scope: string[]|ScopeDescriptor },
 				callback: (values: { newValue: T, oldValue: T }) => void): EventKit.Disposable;
 
 			// Managing Settings
 			/** Retrieves the setting for the given key. */
+			// tslint:disable:no-any
 			get(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
 				scope?: string[]|ScopeDescriptor }): any;
+			// tslint:enable:no-any
 
 			/** Sets the value for a configuration setting.
 			 *  This value is stored in Atom's internal configuration file.
 			 */
+			// tslint:disable-next-line:no-any
 			set(keyPath: string, value: any, options?: { scopeSelector?: string, source?:
 				string }): void;
 
@@ -749,8 +804,10 @@ declare global {
 			/** Get all of the values for the given key-path, along with their associated
 			 *  scope selector.
 			 */
+			// tslint:disable:no-any
 			getAll(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
 				scope?: ScopeDescriptor }): Array<{ scopeDescriptor: ScopeDescriptor, value: any}>;
+			// tslint:enable:no-any
 
 			/** Get an Array of all of the source Strings with which settings have been added
 			 *  via ::set.
@@ -1393,21 +1450,6 @@ declare global {
 
 			/** Refreshes the currently visible menu. */
 			update(): void;
-		}
-
-		interface Model {
-			// Properties
-			alive: boolean;
-
-			// Lifecycle
-			/** Destroys this Model. */
-			destroy(): void;
-
-			/** Returns whether or not this Model is alive. */
-			isAlive(): boolean;
-
-			/** Returns whether or not this Model has been destroyed. */
-			isDestroyed(): boolean;
 		}
 
 		/** A notification to the user containing a message and type. */
@@ -2214,6 +2256,7 @@ declare global {
 			 *  Throws an error if this task has already been terminated or if sending a
 			 *  message to the child process fails.
 			 */
+			// tslint:disable-next-line:no-any
 			start(...args: any[]): void;
 
 			/** Send message to the task.
@@ -2223,6 +2266,7 @@ declare global {
 			send(message: string): void;
 
 			/** Call a function when an event is emitted by the child process. */
+			// tslint:disable-next-line:no-any
 			on(eventName: string, callback: (param: any) => void): EventKit.Disposable;
 
 			/** Forcefully stop the running task.
@@ -2234,10 +2278,13 @@ declare global {
 			cancel(): boolean;
 		}
 
+		/** An interface which all custom test runners should implement. */
+		type TestRunner = (params: Structures.TestRunnerArgs) => Promise<number>;
+
 		/** This class represents all essential editing state for a single TextBuffer,
 		 *  including cursor and selection positions, folds, and soft wraps.
 		 */
-		interface TextEditor extends Model {
+		interface TextEditor {
 			// Properties
 			id: number;
 			buffer: TextBuffer.TextBuffer;
@@ -3440,6 +3487,7 @@ declare global {
 			/** Add a provider that will be used to construct views in the workspace's view
 			 *  layer based on model objects in its model layer.
 			 */
+			// tslint:disable-next-line:no-any
 			addViewProvider<T>(modelConstructor: { new (...args: any[]): T }, createView:
 				(instance: T) => HTMLElement|undefined): EventKit.Disposable;
 
@@ -3895,6 +3943,7 @@ declare global {
 			type ErrorNotification = AtomCore.Options.ErrorNotification;
 			type Tooltip = AtomCore.Options.Tooltip;
 			type WorkspaceScan = AtomCore.Options.WorkspaceScan;
+			type BuildEnvironment = AtomCore.Options.BuildEnvironment;
 		}
 
 		/** Data structures that are used within classes. */
@@ -3917,6 +3966,7 @@ declare global {
 			type CancellablePromise<T> = AtomCore.Structures.CancellablePromise<T>;
 			type ScandalResult = AtomCore.Structures.ScandalResult;
 			type WindowLoadSettings = AtomCore.Structures.WindowLoadSettings;
+			type TestRunnerArgs = AtomCore.Structures.TestRunnerArgs;
 		}
 
 		// Atom Keymap ============================================================
@@ -4084,8 +4134,6 @@ declare global {
 		/** Provides a registry for menu items that you'd like to appear in the application menu. */
 		type MenuManager = AtomCore.MenuManager;
 
-		type Model = AtomCore.Model;
-
 		/** A notification to the user containing a message and type. */
 		type Notification = AtomCore.Notification;
 
@@ -4130,6 +4178,9 @@ declare global {
 
 		/** Run a node script in a separate process. */
 		type Task = AtomCore.Task;
+
+		/** An interface which all custom test runners should implement. */
+		type TestRunner = AtomCore.TestRunner;
 
 		/** This class represents all essential editing state for a single TextBuffer,
 		 *  including cursor and selection positions, folds, and soft wraps.
