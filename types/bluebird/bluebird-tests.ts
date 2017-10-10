@@ -116,27 +116,27 @@ let barArrThen: PromiseLike<Bar[]>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-let numPromArr: Promise<number>[];
-let strPromArr: Promise<string>[];
-let anyPromArr: Promise<any>[];
+let numPromArr: Array<Promise<number>>;
+let strPromArr: Array<Promise<string>>;
+let anyPromArr: Array<Promise<any>>;
 
-let fooPromArr: Promise<Foo>[];
-let barPromArr: Promise<Bar>[];
+let fooPromArr: Array<Promise<Foo>>;
+let barPromArr: Array<Promise<Bar>>;
 
 // - - - - - - - - - - - - - - - - -
 
-let numThenArr: PromiseLike<number>[];
-let strThenArr: PromiseLike<string>[];
-let anyThenArr: PromiseLike<any>[];
+let numThenArr: Array<PromiseLike<number>>;
+let strThenArr: Array<PromiseLike<string>>;
+let anyThenArr: Array<PromiseLike<any>>;
 
-let fooThenArr: PromiseLike<Foo>[];
-let barThenArr: PromiseLike<Bar>[];
+let fooThenArr: Array<PromiseLike<Foo>>;
+let barThenArr: Array<PromiseLike<Bar>>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // booya!
-let fooThenArrThen: PromiseLike<PromiseLike<Foo>[]>;
-let barThenArrThen: PromiseLike<PromiseLike<Bar>[]>;
+let fooThenArrThen: PromiseLike<Array<PromiseLike<Foo>>>;
+let barThenArrThen: PromiseLike<Array<PromiseLike<Bar>>>;
 
 let fooResolver: Promise.Resolver<Foo>;
 let barResolver: Promise.Resolver<Bar>;
@@ -144,8 +144,8 @@ let barResolver: Promise.Resolver<Bar>;
 let fooInspection: Promise.Inspection<Foo>;
 let fooInspectionPromise: Promise<Promise.Inspection<Foo>>;
 
-let fooInspectionArrProm: Promise<Promise.Inspection<Foo>[]>;
-let barInspectionArrProm: Promise<Promise.Inspection<Bar>[]>;
+let fooInspectionArrProm: Promise<Array<Promise.Inspection<Foo>>>;
+let barInspectionArrProm: Promise<Array<Promise.Inspection<Bar>>>;
 
 let BlueBird: typeof Promise;
 
