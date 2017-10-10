@@ -12,6 +12,7 @@ url2.query.baz;
 
 url3.slashes;
 url3.set("protocol", "http://");
+url3.set("slashed", false);
 
 parse.extractProtocol("https://github.com/foo/bar");
 parse.location("https://github.com/foo/bar");

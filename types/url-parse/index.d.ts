@@ -21,7 +21,7 @@ declare class URL {
     readonly protocol: string;
     query: { [key: string]: string | undefined };
     readonly search: string;
-    set(property: string, value: string | object | number | undefined): URL;
+    set(property: string, value: string | object | number | boolean | undefined): URL;
     readonly slashes: boolean;
     readonly username: string;
     readonly searchParams: URLSearchParams;
