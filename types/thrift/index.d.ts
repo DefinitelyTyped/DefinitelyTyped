@@ -49,6 +49,11 @@ export interface TStruct {
     fname: string;
 }
 
+export interface TStructLike {
+    read(input: TProtocol): void;
+    write(output: TProtocol): void;
+}
+
 export interface TTransport {
     commitPosition(): void;
     rollbackPosition(): void;
@@ -310,7 +315,7 @@ export function createServer<TProcessor, THandler>(
 export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
 
 export class TBufferedTransport implements TTransport {
-    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
     static receiver(callback: (trans: TBufferedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
     commitPosition(): void;
     rollbackPosition(): void;
@@ -330,7 +335,7 @@ export class TBufferedTransport implements TTransport {
 }
 
 export class TFramedTransport implements TTransport {
-    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
     static receiver(callback: (trans: TFramedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
     commitPosition(): void;
     rollbackPosition(): void;
@@ -350,7 +355,7 @@ export class TFramedTransport implements TTransport {
 }
 
 export interface TTransportConstructor {
-  new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
+  new (buffer?: Buffer, callback?: TTransportCallback): TTransport;
 }
 
 export class TBinaryProtocol implements TProtocol {
