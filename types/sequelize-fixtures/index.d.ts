@@ -11,7 +11,8 @@ declare namespace SequelizeFixtures {
         encoding?: string,
         log?: (message: string) => void,
         transaction?: Sequelize.Transaction,
-        transformFixtureDataFn?: (data: any) => any
+        transformFixtureDataFn?: (data: any) => any,
+        modifyFixtureDataFn?: (data: any) => any
     }
 
     interface SequelizeFixturesStatic {
