@@ -43,3 +43,11 @@ app.use(session({
     secret: 'secret',
     store: new MongoStore({db: mongoDb})
 }));
+
+// NativeMongoPromiseOptions
+var Client = mongodb.MongoClient;
+var mongoDbPromise = Client.connect('mongodb://localhost/test');
+app.use(session({
+    secret: 'secret',
+    store: new MongoStore({ dbPromise: mongoDbPromise})
+}));

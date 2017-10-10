@@ -1,12 +1,12 @@
 ## Atom API Type Definitions
 
-TypeScript type definitions for the [Atom Text Editor](https://atom.io/) public API, which is used to develop packages for the editor. Documentation for the public API can be found [here](https://atom.io/docs/api/v1.19.5/), though these type definitions include many types and class properties not mentioned within that documentation.
+TypeScript type definitions for the [Atom Text Editor](https://atom.io/) public API, which is used to develop packages for the editor. Documentation for the public API can be found [here](https://atom.io/docs/api/v1.21.0/).
 
 ### Exports
 
 #### The "atom" Variable
 
-These definitions declare a global static variable named "atom" as ambient. Once these definitions have been referenced within your project, you will be able to access properties and member functions from the [AtomEnvironment](https://atom.io/docs/api/v1.19.5/AtomEnvironment) class off of this variable, as it is an instance of that class.
+These definitions declare a global static variable named "atom" as ambient. Once these definitions have been referenced within your project, you will be able to access properties and member functions from the [AtomEnvironment](https://atom.io/docs/api/v1.21.0/AtomEnvironment) class off of this variable, as it is an instance of that class.
 
 ```ts
 if (atom.inDevMode()) {}

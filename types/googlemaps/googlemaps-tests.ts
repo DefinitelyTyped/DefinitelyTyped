@@ -313,6 +313,9 @@ var panoramaOptions: google.maps.StreetViewPanoramaOptions = {
 };
 var panorama = new google.maps.StreetViewPanorama(document.createElement("div"), panoramaOptions);
 
+// MVCObject method on StreetViewPanorama
+var panoramaEvent = panorama.addListener("pano_changed", () => {});
+
 
 /***** MVCArray *****/
 

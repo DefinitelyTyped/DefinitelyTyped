@@ -57,7 +57,15 @@ declare let paneContainer: Atom.Dock|Atom.WorkspaceCenter;
 // Exports Testing ============================================================
 import { BufferedNodeProcess, BufferedProcess, GitRepository, Notification,
 	TextBuffer, TextEditor, Point, Range, File, Directory, Emitter, Disposable,
-	CompositeDisposable, Task } from "atom";
+	CompositeDisposable, Task, watchPath } from "atom";
+
+const pathWatcher = watchPath("/var/test", {}, (events) => {
+	for (const event of events) {
+		str = event.path;
+		str = event.action;
+		if (event.oldPath) str = event.oldPath;
+	}
+});
 
 // global "atom"
 atom.commands;
@@ -86,6 +94,7 @@ atom.inDevMode();
 atom.inSafeMode();
 atom.inSpecMode();
 atom.getVersion();
+str = atom.getReleaseChannel();
 atom.isReleasedVersion();
 atom.getWindowLoadTime();
 
@@ -102,8 +111,7 @@ atom.getPosition();
 atom.setPosition(42, 42);
 atom.pickFolder((): void => {});
 
-const window = atom.getCurrentWindow();
-const [windowWidth, windowHeight] = window.getSize();
+obj = atom.getCurrentWindow();
 
 atom.center();
 atom.focus();
@@ -330,6 +338,11 @@ atom.commands.add("test", {
 	"test-function": (event) => {},
 	"test-function2": (event) => {},
 });
+atom.commands.add("test", "test:function", {
+	didDispatch: (event) => event.stopImmediatePropagation(),
+	description: "A Command Test",
+	displayName: "Command: Test",
+});
 
 const commands = atom.commands.findCommands({ target: element });
 atom.commands.dispatch(element, "test:function");
@@ -510,6 +523,21 @@ regExp = cursor.wordRegExp({ includeNonWordCharacters: true });
 regExp = cursor.subwordRegExp();
 regExp = cursor.subwordRegExp({});
 regExp = cursor.subwordRegExp({ backwards: true });
+
+//// CustomTestRunner =========================================================
+// http://flight-manual.atom.io/hacking-atom/sections/writing-specs/#customizing-your-test-runner
+const testRunner: Atom.TestRunner = (params) => {
+	const delegate = params.buildDefaultApplicationDelegate();
+	const environment = params.buildAtomEnvironment({
+		applicationDelegate: delegate,
+		configDirPath: "/var/test",
+		document,
+		enablePersistence: false,
+		window,
+	});
+	const { width, height } = environment.getSize();
+	return Promise.resolve(width + height);
+};
 
 //// Decoration ===============================================================
 // Construction and Destruction
@@ -906,15 +934,30 @@ pane.moveItem(element, 42);
 pane.moveItemToPane(element, pane, 42);
 pane.destroyActiveItem();
 
-pane.destroyItem(element);
-pane.destroyItem(element, true);
+async function destroyAndWait() {
+	bool = await pane.destroyItem(element);
+	bool = await pane.destroyItem(element, true);
+}
 
 pane.destroyItems();
 pane.destroyInactiveItems();
-pane.saveActiveItem();
-pane.saveActiveItemAs(() => {});
-pane.saveItem(element, () => {});
-pane.saveItemAs(element, () => {});
+
+async function savePaneItem() {
+	await pane.saveActiveItem();
+	let actionReturn = await pane.saveActiveItem(() => true);
+	if (actionReturn) bool = actionReturn;
+
+	await pane.saveActiveItemAs(() => {});
+	actionReturn = await pane.saveActiveItemAs(() => false);
+
+	await pane.saveItem(element, () => {});
+	let altActionReturn = await pane.saveItem(element, () => 42);
+	if (altActionReturn) num = altActionReturn;
+
+	await pane.saveItemAs(element, () => {});
+	altActionReturn = await pane.saveItemAs(element, () => 42);
+}
+
 pane.saveItems();
 
 potentialItem = pane.itemForURI("https://test");
@@ -970,10 +1013,25 @@ bool = panel.isVisible();
 panel.hide();
 panel.show();
 
+//// PathWatcher ==============================================================
+pathWatcher.dispose();
+sub = pathWatcher.onDidError((error) => str = error.name);
+
+async function waitForPathWatcher() {
+	await pathWatcher.getStartPromise();
+}
+
 //// Point -- See 'text-buffer' testing.
 //// Project ==================================================================
 // Event Subscription
 sub = project.onDidChangePaths(paths => paths.length);
+
+sub = project.onDidChangeFiles(events => {
+	for (const event of events) {
+		str = event.action;
+	}
+});
+
 sub = project.onDidAddBuffer(buffer => buffer.id);
 sub = project.observeBuffers(buffer => buffer.file);
 
@@ -989,6 +1047,11 @@ async function getDirectoryRepo() {
 strs = project.getPaths();
 project.setPaths(["a", "b"]);
 project.addPath("Test");
+
+async function initWatcher() {
+	await project.getWatcherPromise("/var/test");
+}
+
 project.removePath("Test");
 dirs = project.getDirectories();
 
@@ -1230,8 +1293,10 @@ str = editor.getEncoding();
 editor.setEncoding("utf8");
 
 // File Operations
-editor.save();
-editor.saveAs("test.file");
+async function saveEditor() {
+	await editor.save();
+	await editor.saveAs("test.file");
+}
 
 // Reading Text
 str = editor.getText();
@@ -1880,7 +1945,7 @@ sub = atom.workspace.onDidStopChangingActivePaneItem((item) => {});
 
 sub = atom.workspace.onDidChangeActiveTextEditor(editor => {
 	if (editor) {
-		editor.alive;
+		editor.id;
 	}
 });
 
