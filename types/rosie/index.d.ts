@@ -210,9 +210,9 @@ declare namespace rosie {
      * @param {object=} options
      * @return {*}
      */
-    build(attributes: { [k in keyof T]?: T[k] }, options?: any): T;
+    build(attributes?: { [k in keyof T]?: T[k] }, options?: any): T;
 
-    buildList(size: number, attributes: { [k in keyof T]?: T[k] }, options: any): T[];
+    buildList(size: number, attributes?: { [k in keyof T]?: T[k] }, options?: any): T[];
 
     /**
      * Extends a given factory by copying over its attributes, options,
