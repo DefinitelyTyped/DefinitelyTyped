@@ -655,7 +655,7 @@ export interface NightwatchTypedCallbackResult<T> {
     state: Error | string;
 }
 
-export // tslint:disable-next-line:no-empty-interface
+// tslint:disable-next-line:no-empty-interface
 export interface NightwatchCallbackResult extends NightwatchTypedCallbackResult<any> {
 }
 
@@ -2255,10 +2255,10 @@ export interface NightwatchAPI {
     launch_url: string;
 }
 
-export /* tslint:disable-next-line:no-empty-interface */
+/* tslint:disable-next-line:no-empty-interface */
 export interface NightwatchCustomCommands {}
 
-export /* tslint:disable-next-line:no-empty-interface */
+/* tslint:disable-next-line:no-empty-interface */
 export interface NightwatchCustomAssertions {}
 
 export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
@@ -2273,7 +2273,7 @@ export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomComman
  * @param abortOnFailure
  * @param originalStackTrace
  */
-type NightwatchTest = (browser: NightwatchBrowser) => void;
+export type NightwatchTest = (browser: NightwatchBrowser) => void;
 
 export interface NightwatchTests {
     [key: string]: NightwatchTest;
@@ -2289,7 +2289,7 @@ export interface NightwatchTests {
  * @param abortOnFailure
  * @param originalStackTrace
  */
-type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: any, message?: string, abortOnFailure?: boolean, originalStackTrace?: string) => void;
+export type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: any, message?: string, abortOnFailure?: boolean, originalStackTrace?: string) => void;
 
 /**
  * Abstract assertion class that will subclass all defined assertions
