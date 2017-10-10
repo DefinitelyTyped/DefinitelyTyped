@@ -7,7 +7,7 @@
 
 import Promise = require("bluebird");
 
-let obj: Object;
+let obj: object;
 let bool: boolean;
 let num: number;
 let str: string;
@@ -75,7 +75,7 @@ let numProm: Promise<number>;
 let strProm: Promise<string>;
 let anyProm: Promise<any>;
 let boolProm: Promise<boolean>;
-let objProm: Promise<Object>;
+let objProm: Promise<object>;
 let voidProm: Promise<void>;
 
 let fooProm: Promise<Foo>;
@@ -90,7 +90,7 @@ let numThen: PromiseLike<number>;
 let strThen: PromiseLike<string>;
 let anyThen: PromiseLike<any>;
 let boolThen: PromiseLike<boolean>;
-let objThen: PromiseLike<Object>;
+let objThen: PromiseLike<object>;
 let voidThen: PromiseLike<void>;
 
 let fooThen: PromiseLike<Foo>;
@@ -375,7 +375,7 @@ fooProm = fooProm.catch(CustomError, reason => {
 	const booPredicate1 = (error: CustomError1) => true;
 	const booPredicate2 = (error: [number]) => true;
 	const booPredicate3 = (error: string) => true;
-	const booPredicate4 = (error: Object) => true;
+	const booPredicate4 = (error: object) => true;
 	const booPredicate5 = (error: any) => true;
 
 	fooProm = fooProm.catch(booPredicate1, error => {});
@@ -806,13 +806,13 @@ anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback), 
 
 declare let util: any;
 
-function defaultFilter(name: string, func: Function) {
+function defaultFilter(name: string, func: (...args: any[]) => any) {
     return util.isIdentifier(name) &&
         name.charAt(0) !== "_" &&
         !util.isClass(func);
 }
 
-function DOMPromisifier(originalMethod: Function) {
+function DOMPromisifier(originalMethod: (...args: any[]) => any) {
     // return a function
     return function promisified() {
         let args = [].slice.call(arguments);
