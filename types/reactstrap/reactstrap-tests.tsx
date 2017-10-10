@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   Card,
+  CardBody,
   CardBlock,
   CardColumns,
   CardDeck,
@@ -3484,3 +3485,18 @@ class Example112 extends React.Component<any, any> {
     );
   }
 }
+
+const Example113 = (props: any) => {
+    return (
+      <div>
+        <Card>
+          <CardBody>
+            Anim pariatur cliche reprehenderit,
+            enim eiusmod high life accusamus terry richardson ad squid. Nihil
+            anim keffiyeh helvetica, craft beer labore wes anderson cred
+            nesciunt sapiente ea proident.
+          </CardBody>
+        </Card>
+      </div>
+    );
+  };
