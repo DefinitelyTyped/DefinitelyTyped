@@ -2578,6 +2578,7 @@ declare namespace React {
         media?: string;
         rel?: string;
         target?: string;
+        type?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
