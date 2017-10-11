@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/thrift
 // Definitions by: Kamek <https://github.com/kamek-pf>
 //                 Kevin Greene <https://github.com/kevin-greene-ck>
+//                 Jesse Zhang <https://github.com/jessezhang91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -197,8 +198,8 @@ export class WSConnection extends NodeJS.EventEmitter {
     write(data: Buffer): void;
 }
 
-export class Multiplexer<TClient> {
-    createClient(serviceName: string, client: TClientConstructor<TClient>, connection: Connection): TClient;
+export class Multiplexer {
+    createClient<TClient>(serviceName: string, client: TClientConstructor<TClient>, connection: Connection): TClient;
 }
 
 export class MultiplexedProcessor {
