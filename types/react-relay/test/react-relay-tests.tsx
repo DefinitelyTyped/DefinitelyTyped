@@ -182,7 +182,7 @@ const FeedPaginationContainer = createPaginationContainer(
     },
     {
         direction: "forward",
-        getConnectionFromProps(props: { user: { feed: any } }) {
+        getConnectionFromProps(props) {
             return props.user && props.user.feed;
         },
         getFragmentVariables(prevVars, totalCount) {
