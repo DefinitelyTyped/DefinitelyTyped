@@ -90,7 +90,7 @@ export namespace RelayCommonTypes {
         variables: Variables,
         cacheConfig: CacheConfig,
         uploadables?: UploadableMap
-    ): Runtime.ObservableFromValue<QueryPayload>;
+    ): RelayRuntimeTypes.ObservableFromValue<QueryPayload>;
 
     /**
      * A function that executes a GraphQL subscription operation, returning one or
@@ -104,7 +104,7 @@ export namespace RelayCommonTypes {
         variables: Variables,
         cacheConfig: CacheConfig,
         observer: LegacyObserver<QueryPayload>
-    ) => Runtime.RelayObservable<QueryPayload> | Disposable;
+    ) => RelayRuntimeTypes.RelayObservable<QueryPayload> | Disposable;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayStoreTypes
