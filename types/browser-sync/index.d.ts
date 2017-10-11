@@ -48,6 +48,7 @@ declare namespace browserSync {
          * middleware - Default: undefined
          * reqHeaders - Default: undefined
          * proxyRes - Default: undefined
+         * proxyReq - Default: undefined
          */
         proxy?: string | boolean | ProxyOptions;
         /**
@@ -293,8 +294,8 @@ declare namespace browserSync {
         middleware?: MiddlewareHandler;
         ws?: boolean;
         reqHeaders?: (config: any) => Hash<any>;
-        proxyRes?: (res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any;
-        proxyReq?: (res: http.ServerRequest) => any;
+        proxyRes?: ((res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any)[] | (res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any;
+        proxyReq?: ((res: http.ServerRequest) => any)[] | (res: http.ServerRequest) => any;
     }
 
     interface MiddlewareHandler {
