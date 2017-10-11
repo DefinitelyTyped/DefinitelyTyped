@@ -36,10 +36,7 @@ export namespace RelayCommonTypes {
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayQL
     // ~~~~~~~~~~~~~~~~~~~~~
-    type RelayQL = (
-        strings: string[],
-        ...substitutions: any[]
-    ) => RelayConcreteNode;
+    type RelayQL = (strings: string[], ...substitutions: any[]) => RelayConcreteNode;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayModernGraphQLTag
@@ -48,13 +45,11 @@ export namespace RelayCommonTypes {
         [key: string]: GraphQLTaggedNode;
     }
     type GraphQLTaggedNode =
-        (() => ConcreteFragment | ConcreteBatch) |
-        {
-            modern(): ConcreteFragment | ConcreteBatch,
-            classic(relayQL: RelayQL):
-                | ConcreteFragmentDefinition
-                | ConcreteOperationDefinition,
-        };
+        | (() => ConcreteFragment | ConcreteBatch)
+        | {
+              modern(): ConcreteFragment | ConcreteBatch;
+              classic(relayQL: RelayQL): ConcreteFragmentDefinition | ConcreteOperationDefinition;
+          };
     // ~~~~~~~~~~~~~~~~~~~~~
     // General Usage
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -81,8 +76,8 @@ export namespace RelayCommonTypes {
     interface PayloadError {
         message: string;
         locations?: Array<{
-            line: number,
-            column: number,
+            line: number;
+            column: number;
         }>;
     }
     /**
@@ -94,7 +89,7 @@ export namespace RelayCommonTypes {
         operation: ConcreteBatch,
         variables: Variables,
         cacheConfig: CacheConfig,
-        uploadables?: UploadableMap,
+        uploadables?: UploadableMap
     ): Runtime.ObservableFromValue<QueryPayload>;
 
     /**
@@ -108,7 +103,7 @@ export namespace RelayCommonTypes {
         operation: ConcreteBatch,
         variables: Variables,
         cacheConfig: CacheConfig,
-        observer: LegacyObserver<QueryPayload>,
+        observer: LegacyObserver<QueryPayload>
     ) => Runtime.RelayObservable<QueryPayload> | Disposable;
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -131,7 +126,7 @@ export namespace RelayCommonTypes {
         store: RecordSourceSelectorProxy,
         // Actually RelayCombinedEnvironmentTypes#SelectorData, but mixed is
         // inconvenient to access deeply in product code.
-        data: any, // FLOW FIXME
+        data: any // FLOW FIXME
     ) => void;
 
     /**
@@ -152,22 +147,14 @@ export namespace RelayCommonTypes {
         getDataID(): DataID;
         getLinkedRecord(name: string, args?: Variables): RecordProxy | void;
         getLinkedRecords(name: string, args?: Variables): Array<RecordProxy | null> | void;
-        getOrCreateLinkedRecord(
-            name: string,
-            typeName: string,
-            args?: Variables,
-        ): RecordProxy;
+        getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables): RecordProxy;
         getType(): string;
         getValue(name: string, args?: Variables): any;
-        setLinkedRecord(
-            record: RecordProxy,
-            name: string,
-            args?: Variables,
-        ): RecordProxy;
+        setLinkedRecord(record: RecordProxy, name: string, args?: Variables): RecordProxy;
         setLinkedRecords(
             records: Array<RecordProxy | null> | undefined | null,
             name: string,
-            args?: Variables,
+            args?: Variables
         ): RecordProxy;
         setValue(value: any, name: string, args?: Variables): RecordProxy;
     }
@@ -228,17 +215,23 @@ export namespace RelayCommonTypes {
     /**
      * Arbitrary data e.g. received by a container as props.
      */
-    interface Props { [key: string]: any; }
+    interface Props {
+        [key: string]: any;
+    }
 
     /*
         * An individual cached graph object.
         */
-    interface Record { [key: string]: any; }
+    interface Record {
+        [key: string]: any;
+    }
 
     /**
      * A collection of records keyed by id.
      */
-    interface RecordMap { [dataID: string]: Record | null | undefined; }
+    interface RecordMap {
+        [dataID: string]: Record | null | undefined;
+    }
 
     /**
      * A selector defines the starting point for a traversal into the graph for the
@@ -254,20 +247,24 @@ export namespace RelayCommonTypes {
      * A representation of a selector and its results at a particular point in time.
      */
     type CSnapshot<TNode> = CSelector<TNode> & {
-        data: SelectorData | null | undefined,
-        seenRecords: RecordMap,
+        data: SelectorData | null | undefined;
+        seenRecords: RecordMap;
     };
 
     /**
      * The results of a selector given a store/RecordSource.
      */
-    interface SelectorData { [key: string]: any; }
+    interface SelectorData {
+        [key: string]: any;
+    }
 
     /**
      * The results of reading the results of a FragmentMap given some input
      * `Props`.
      */
-    interface FragmentSpecResults { [key: string]: any; }
+    interface FragmentSpecResults {
+        [key: string]: any;
+    }
 
     /**
      * A utility for resolving and subscribing to the results of a fragment spec
@@ -304,7 +301,9 @@ export namespace RelayCommonTypes {
         setVariables(variables: Variables): void;
     }
 
-    interface CFragmentMap<TFragment> { [key: string]: TFragment; }
+    interface CFragmentMap<TFragment> {
+        [key: string]: TFragment;
+    }
 
     /**
      * An operation selector describes a specific instance of a GraphQL operation
@@ -326,14 +325,7 @@ export namespace RelayCommonTypes {
      * The public API of Relay core. Represents an encapsulated environment with its
      * own in-memory cache.
      */
-    interface CEnvironment<
-        TEnvironment,
-        TFragment,
-        TGraphQLTaggedNode,
-        TNode,
-        TOperation,
-        TPayload,
-    > {
+    interface CEnvironment<TEnvironment, TFragment, TGraphQLTaggedNode, TNode, TOperation, TPayload> {
         /**
          * Read the results of a selector from in-memory records in the store.
          */
@@ -344,10 +336,7 @@ export namespace RelayCommonTypes {
          * when data has been committed to the store that would cause the results of
          * the snapshot's selector to change.
          */
-        subscribe(
-            snapshot: CSnapshot<TNode>,
-            callback: (snapshot: CSnapshot<TNode>) => void,
-        ): Disposable;
+        subscribe(snapshot: CSnapshot<TNode>, callback: (snapshot: CSnapshot<TNode>) => void): Disposable;
 
         /**
          * Ensure that all the records necessary to fulfill the given selector are
@@ -370,11 +359,11 @@ export namespace RelayCommonTypes {
          * after receving the first `onNext` result.
          */
         sendQuery(config: {
-            cacheConfig?: CacheConfig,
-            onCompleted?(): void,
-            onError?(error: Error): void,
-            onNext?(payload: TPayload): void,
-            operation: COperationSelector<TNode, TOperation>,
+            cacheConfig?: CacheConfig;
+            onCompleted?(): void;
+            onError?(error: Error): void;
+            onNext?(payload: TPayload): void;
+            operation: COperationSelector<TNode, TOperation>;
         }): Disposable;
 
         /**
@@ -386,29 +375,17 @@ export namespace RelayCommonTypes {
          * subscription open indefinitely such that `onCompleted` is not called.
          */
         streamQuery(config: {
-            cacheConfig?: CacheConfig,
-            onCompleted?(): void,
-            onError?(error: Error): void,
-            onNext?(payload: TPayload): void,
-            operation: COperationSelector<TNode, TOperation>,
+            cacheConfig?: CacheConfig;
+            onCompleted?(): void;
+            onError?(error: Error): void;
+            onNext?(payload: TPayload): void;
+            operation: COperationSelector<TNode, TOperation>;
         }): Disposable;
 
-        unstable_internal: CUnstableEnvironmentCore<
-            TEnvironment,
-            TFragment,
-            TGraphQLTaggedNode,
-            TNode,
-            TOperation
-        >;
+        unstable_internal: CUnstableEnvironmentCore<TEnvironment, TFragment, TGraphQLTaggedNode, TNode, TOperation>;
     }
 
-    interface CUnstableEnvironmentCore<
-        TEnvironment,
-        TFragment,
-        TGraphQLTaggedNode,
-        TNode,
-        TOperation,
-    > {
+    interface CUnstableEnvironmentCore<TEnvironment, TFragment, TGraphQLTaggedNode, TNode, TOperation> {
         /**
          * Create an instance of a FragmentSpecResolver.
          *
@@ -421,7 +398,7 @@ export namespace RelayCommonTypes {
             containerName: string,
             fragments: CFragmentMap<TFragment>,
             props: Props,
-            callback: () => void,
+            callback: () => void
         ): FragmentSpecResolver;
 
         /**
@@ -430,10 +407,7 @@ export namespace RelayCommonTypes {
          * filtered to exclude variables that do not matche defined arguments on the
          * operation, and default values are populated for null values.
          */
-        createOperationSelector(
-            operation: TOperation,
-            variables: Variables,
-        ): COperationSelector<TNode, TOperation>;
+        createOperationSelector(operation: TOperation, variables: Variables): COperationSelector<TNode, TOperation>;
 
         /**
          * Given a graphql`...` tagged template, extract a fragment definition usable
@@ -482,11 +456,7 @@ export namespace RelayCommonTypes {
          * const childData = environment.lookup(childSelector).data;
          * ```
          */
-        getSelector(
-            operationVariables: Variables,
-            fragment: TFragment,
-            prop: any,
-        ): CSelector<TNode> | void;
+        getSelector(operationVariables: Variables, fragment: TFragment, prop: any): CSelector<TNode> | void;
 
         /**
          * Given the result `items` from a parent that fetched `fragment`, creates a
@@ -497,7 +467,7 @@ export namespace RelayCommonTypes {
         getSelectorList(
             operationVariables: Variables,
             fragment: TFragment,
-            props: any[],
+            props: any[]
         ): Array<CSelector<TNode>> | void;
 
         /**
@@ -511,7 +481,7 @@ export namespace RelayCommonTypes {
         getSelectorsFromObject(
             operationVariables: Variables,
             fragments: CFragmentMap<TFragment>,
-            props: Props,
+            props: Props
         ): { [key: string]: CSelector<TNode> | Array<CSelector<TNode>> | null | undefined };
 
         /**
@@ -523,7 +493,7 @@ export namespace RelayCommonTypes {
          */
         getDataIDsFromObject(
             fragments: CFragmentMap<TFragment>,
-            props: Props,
+            props: Props
         ): { [key: string]: DataID | DataID[] | null | undefined };
 
         /**
@@ -537,7 +507,7 @@ export namespace RelayCommonTypes {
         getVariablesFromObject(
             operationVariables: Variables,
             fragments: CFragmentMap<TFragment>,
-            props: Props,
+            props: Props
         ): Variables;
     }
 
@@ -564,51 +534,46 @@ export namespace RelayCommonTypes {
         max_runs: number;
     }
     interface FIELDS_CHANGE {
-        type: 'FIELDS_CHANGE';
-        fieldIDs: { [fieldName: string]: DataID | DataID[]; };
+        type: "FIELDS_CHANGE";
+        fieldIDs: { [fieldName: string]: DataID | DataID[] };
     }
     interface RANGE_ADD {
-        type: 'RANGE_ADD';
+        type: "RANGE_ADD";
         parentName?: string;
         parentID?: string;
         connectionInfo?: Array<{
-            key: string,
-            filters?: Variables,
-            rangeBehavior: string,
+            key: string;
+            filters?: Variables;
+            rangeBehavior: string;
         }>;
         connectionName?: string;
         edgeName: string;
         rangeBehaviors?: RangeBehaviors;
     }
     interface NODE_DELETE {
-        type: 'NODE_DELETE';
+        type: "NODE_DELETE";
         parentName?: string;
         parentID?: string;
         connectionName?: string;
         deletedIDFieldName: string;
     }
     interface RANGE_DELETE {
-        type: 'RANGE_DELETE';
+        type: "RANGE_DELETE";
         parentName?: string;
         parentID?: string;
         connectionKeys?: Array<{
-            key: string,
-            filters?: Variables,
+            key: string;
+            filters?: Variables;
         }>;
         connectionName?: string;
         deletedIDFieldName: string | string[];
         pathToConnection: string[];
     }
     interface REQUIRED_CHILDREN {
-        type: 'REQUIRED_CHILDREN';
+        type: "REQUIRED_CHILDREN";
         children: RelayConcreteNode[];
     }
-    type RelayMutationConfig =
-        FIELDS_CHANGE |
-        RANGE_ADD |
-        NODE_DELETE |
-        RANGE_DELETE |
-        REQUIRED_CHILDREN;
+    type RelayMutationConfig = FIELDS_CHANGE | RANGE_ADD | NODE_DELETE | RANGE_DELETE | REQUIRED_CHILDREN;
 
     interface RelayMutationTransactionCommitCallbacks {
         onFailure?: RelayMutationTransactionCommitFailureCallback;
@@ -616,11 +581,13 @@ export namespace RelayCommonTypes {
     }
     type RelayMutationTransactionCommitFailureCallback = (
         transaction: RelayMutationTransaction,
-        preventAutoRollback: () => void,
+        preventAutoRollback: () => void
     ) => void;
-    type RelayMutationTransactionCommitSuccessCallback = (response: {
-        [key: string]: any,
-    }) => void;
+    type RelayMutationTransactionCommitSuccessCallback = (
+        response: {
+            [key: string]: any;
+        }
+    ) => void;
     interface NetworkLayer {
         sendMutation(request: RelayMutationRequest): Promise<any> | void;
         sendQueries(requests: RelayQueryRequest[]): Promise<any> | void;
@@ -639,18 +606,16 @@ export namespace RelayCommonTypes {
         ready: boolean;
         stale: boolean;
     }
-    type RelayContainerErrorEventType =
-        | 'CACHE_RESTORE_FAILED'
-        | 'NETWORK_QUERY_ERROR';
+    type RelayContainerErrorEventType = "CACHE_RESTORE_FAILED" | "NETWORK_QUERY_ERROR";
     type RelayContainerLoadingEventType =
-        | 'ABORT'
-        | 'CACHE_RESTORED_REQUIRED'
-        | 'CACHE_RESTORE_START'
-        | 'NETWORK_QUERY_RECEIVED_ALL'
-        | 'NETWORK_QUERY_RECEIVED_REQUIRED'
-        | 'NETWORK_QUERY_START'
-        | 'STORE_FOUND_ALL'
-        | 'STORE_FOUND_REQUIRED';
+        | "ABORT"
+        | "CACHE_RESTORED_REQUIRED"
+        | "CACHE_RESTORE_START"
+        | "NETWORK_QUERY_RECEIVED_ALL"
+        | "NETWORK_QUERY_RECEIVED_REQUIRED"
+        | "NETWORK_QUERY_START"
+        | "STORE_FOUND_ALL"
+        | "STORE_FOUND_REQUIRED";
     type ReadyStateChangeCallback = (readyState: ReadyState) => void;
     interface ReadyStateEvent {
         type: RelayContainerLoadingEventType | RelayContainerErrorEventType;
@@ -668,13 +633,19 @@ export namespace RelayCommonTypes {
      * https://github.com/facebook/relay/blob/master/packages/react-relay/classic/tools/RelayInternalTypes.js
      */
     // ~~~~~~~~~~~~~~~~~~~~~
-    interface QueryPayload { [key: string]: any; }
-    interface RelayQuerySet { [queryName: string]: any; }
-    type RangeBehaviorsFunction = (connectionArgs: {
-        [argName: string]: any,
-    }) => 'APPEND' | 'IGNORE' | 'PREPEND' | 'REFETCH' | 'REMOVE';
+    interface QueryPayload {
+        [key: string]: any;
+    }
+    interface RelayQuerySet {
+        [queryName: string]: any;
+    }
+    type RangeBehaviorsFunction = (
+        connectionArgs: {
+            [argName: string]: any;
+        }
+    ) => "APPEND" | "IGNORE" | "PREPEND" | "REFETCH" | "REMOVE";
     interface RangeBehaviorsObject {
-        [key: string]: 'APPEND' | 'IGNORE' | 'PREPEND' | 'REFETCH' | 'REMOVE';
+        [key: string]: "APPEND" | "IGNORE" | "PREPEND" | "REFETCH" | "REMOVE";
     }
     type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
 }
@@ -700,7 +671,7 @@ export namespace RelayRuntimeTypes {
         operation: object,
         variables: RelayCommonTypes.Variables,
         cacheConfig: RelayCommonTypes.CacheConfig,
-        uploadables?: RelayCommonTypes.UploadableMap,
+        uploadables?: RelayCommonTypes.UploadableMap
     ) => Promise<any>;
     interface RelayNetwork {
         execute: ExecuteFunction;
@@ -728,41 +699,39 @@ export namespace RelayRuntimeTypes {
         revertUpdate(update: OptimisticUpdate): void;
         replaceUpdate(update: OptimisticUpdate, newUpdate: OptimisticUpdate): void;
         applyMutation(config: {
-            operation: OperationSelector,
-            optimisticUpdater?: RelayCommonTypes.SelectorStoreUpdater,
-            optimisticResponse?: object,
+            operation: OperationSelector;
+            optimisticUpdater?: RelayCommonTypes.SelectorStoreUpdater;
+            optimisticResponse?: object;
         }): RelayCommonTypes.Disposable;
         check(readSelector: Selector): boolean;
-        commitPayload(
-            operationSelector: OperationSelector,
-            payload: PayloadData,
-        ): void;
+        commitPayload(operationSelector: OperationSelector, payload: PayloadData): void;
         commitUpdate(updater: RelayCommonTypes.StoreUpdater): void;
         lookup(readSelector: Selector): Snapshot;
-        subscribe(
-            snapshot: Snapshot,
-            callback: (snapshot: Snapshot) => void,
-        ): RelayCommonTypes.Disposable;
+        subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): RelayCommonTypes.Disposable;
         retain(selector: Selector): RelayCommonTypes.Disposable;
         execute(config: {
-            operation: OperationSelector,
-            cacheConfig?: RelayCommonTypes.CacheConfig,
-            updater?: RelayCommonTypes.SelectorStoreUpdater,
+            operation: OperationSelector;
+            cacheConfig?: RelayCommonTypes.CacheConfig;
+            updater?: RelayCommonTypes.SelectorStoreUpdater;
         }): RelayObservable<RelayResponsePayload>;
         executeMutation(config: {
-            operation: OperationSelector,
-            optimisticUpdater?: RelayCommonTypes.SelectorStoreUpdater,
-            optimisticResponse?: object,
-            updater?: RelayCommonTypes.SelectorStoreUpdater,
-            uploadables?: RelayCommonTypes.UploadableMap,
+            operation: OperationSelector;
+            optimisticUpdater?: RelayCommonTypes.SelectorStoreUpdater;
+            optimisticResponse?: object;
+            updater?: RelayCommonTypes.SelectorStoreUpdater;
+            uploadables?: RelayCommonTypes.UploadableMap;
         }): RelayObservable<RelayResponsePayload>;
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayInMemoryRecordSource
     // ~~~~~~~~~~~~~~~~~~~~~
-    interface Record { [key: string]: any; }
-    interface RecordMap { [dataID: string]: Record | null | undefined; }
+    interface Record {
+        [key: string]: any;
+    }
+    interface RecordMap {
+        [dataID: string]: Record | null | undefined;
+    }
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // Network
@@ -772,7 +741,10 @@ export namespace RelayRuntimeTypes {
          * Creates an implementation of the `Network` interface defined in
          * `RelayNetworkTypes` given `fetch` and `subscribe` functions.
          */
-        static create(fetchFn: typeof RelayCommonTypes.FetchFunction, subscribeFn?: RelayCommonTypes.SubscribeFunction): RelayNetwork;
+        static create(
+            fetchFn: typeof RelayCommonTypes.FetchFunction,
+            subscribeFn?: RelayCommonTypes.SubscribeFunction
+        ): RelayNetwork;
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -784,12 +756,9 @@ export namespace RelayRuntimeTypes {
         delete(dataID: RelayCommonTypes.DataID): void;
         get(dataID: RelayCommonTypes.DataID): Record | void;
         getRecordIDs(): RelayCommonTypes.DataID[];
-        getStatus(dataID: RelayCommonTypes.DataID): 'EXISTENT' | 'NONEXISTENT' | 'UNKNOWN';
+        getStatus(dataID: RelayCommonTypes.DataID): "EXISTENT" | "NONEXISTENT" | "UNKNOWN";
         has(dataID: RelayCommonTypes.DataID): boolean;
-        load(
-            dataID: RelayCommonTypes.DataID,
-            callback: (error: Error | null, record: Record | null) => void,
-        ): void;
+        load(dataID: RelayCommonTypes.DataID, callback: (error: Error | null, record: Record | null) => void): void;
         remove(dataID: RelayCommonTypes.DataID): void;
         set(dataID: RelayCommonTypes.DataID, record: Record): void;
         size(): number;
@@ -807,10 +776,7 @@ export namespace RelayRuntimeTypes {
         lookup(selector: Selector): Snapshot;
         notify(): void;
         publish(source: RecordSource): void;
-        subscribe(
-            snapshot: Snapshot,
-            callback: (snapshot: Snapshot) => void,
-        ): RelayCommonTypes.Disposable;
+        subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): RelayCommonTypes.Disposable;
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -955,7 +921,9 @@ export namespace RelayRuntimeTypes {
          * legacy Relay observer and directly return an Observable instead.
          */
         static fromLegacy<V>(
-            callback: (legacyObserver: RelayCommonTypes.LegacyObserver<V>) => RelayCommonTypes.Disposable | RelayObservable<V>,
+            callback: (
+                legacyObserver: RelayCommonTypes.LegacyObserver<V>
+            ) => RelayCommonTypes.Disposable | RelayObservable<V>
         ): RelayObservable<V>;
 
         /**
@@ -1036,10 +1004,7 @@ export namespace RelayRuntimeTypes {
     // commitLocalUpdate
     // ~~~~~~~~~~~~~~~~~~~~~
     // exposed through RelayModern, not Runtime directly
-    type commitLocalUpdate = (
-        environment: Environment,
-        updater: RelayCommonTypes.StoreUpdater,
-    ) => void;
+    type commitLocalUpdate = (environment: Environment, updater: RelayCommonTypes.StoreUpdater) => void;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // commitRelayModernMutation
@@ -1058,7 +1023,7 @@ export namespace RelayRuntimeTypes {
     }
     function commitRelayModernMutation(
         environment: Environment,
-        config: MutationConfig<any>,
+        config: MutationConfig<any>
     ): RelayCommonTypes.Disposable;
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -1094,7 +1059,7 @@ export namespace RelayRuntimeTypes {
         environment: any, // FIXME - $FlowFixMe in facebook source code
         taggedNode: RelayCommonTypes.GraphQLTaggedNode,
         variables: RelayCommonTypes.Variables,
-        cacheConfig?: RelayCommonTypes.CacheConfig,
+        cacheConfig?: RelayCommonTypes.CacheConfig
     ): Promise<any>; // FIXME - $FlowFixMe in facebook source code
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -1112,7 +1077,7 @@ export namespace RelayRuntimeTypes {
     }
     function requestRelaySubscription(
         environment: Environment,
-        config: GraphQLSubscriptionConfig,
+        config: GraphQLSubscriptionConfig
     ): RelayCommonTypes.Disposable;
 }
 

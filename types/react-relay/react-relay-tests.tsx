@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-    Environment,
-    Network,
-    RecordSource,
-    Store,
-    ConnectionHandler,
-} from 'relay-runtime';
+import { Environment, Network, RecordSource, Store, ConnectionHandler } from "relay-runtime";
 
 ////////////////////////////
 //  RELAY MODERN TESTS
@@ -25,7 +19,7 @@ import {
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
 function fetchQuery(operation: any, variables: any, cacheConfig: {}) {
-    return fetch('/graphql');
+    return fetch("/graphql");
 }
 const network = Network.create(fetchQuery);
 const source = new RecordSource();
@@ -35,28 +29,28 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern QueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
-const MyQueryRenderer = (props: { name: string}) => (
-  <QueryRenderer
-    environment={ modernEnvironment }
-    query={graphql`
-      query ExampleQuery($pageID: ID!) {
-        page(id: $pageID) {
-          name
-        }
-      }
-    `}
-    variables={{
-      pageID: '110798995619330',
-    }}
-    render={({error, props}) => {
-      if (error) {
-        return <div>{error.message}</div>;
-      } else if (props) {
-        return <div>{props.name} is great!</div>;
-      }
-      return <div>Loading</div>;
-    }}
-  />
+const MyQueryRenderer = (props: { name: string }) => (
+    <QueryRenderer
+        environment={modernEnvironment}
+        query={graphql`
+            query ExampleQuery($pageID: ID!) {
+                page(id: $pageID) {
+                    name
+                }
+            }
+        `}
+        variables={{
+            pageID: "110798995619330",
+        }}
+        render={({ error, props }) => {
+            if (error) {
+                return <div>{error.message}</div>;
+            } else if (props) {
+                return <div>{props.name} is great!</div>;
+            }
+            return <div>Loading</div>;
+        }}
+    />
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -65,14 +59,14 @@ const MyQueryRenderer = (props: { name: string}) => (
 const MyFragmentContainer = createFragmentContainer(
     class TodoListView extends React.Component {
         render() {
-            return <div/>;
+            return <div />;
         }
     },
     {
         item: graphql`
             fragment TodoItem_item on Todo {
-            text
-            isComplete
+                text
+                isComplete
             }
         `,
     }
@@ -81,84 +75,75 @@ const MyFragmentContainer = createFragmentContainer(
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern RefetchContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-interface StoryInterface { id: string; }
+interface StoryInterface {
+    id: string;
+}
 interface FeedStoriesProps {
     relay: ModernTypes.RelayRefetchProp;
     feed: {
-        stories: { edges: Array<{ node: StoryInterface }> }
+        stories: { edges: Array<{ node: StoryInterface }> };
     };
 }
 class Story extends React.Component<{ story: StoryInterface }> {}
 class FeedStories extends React.Component<FeedStoriesProps> {
     render() {
-      return (
-        <div>
-          {this.props.feed.stories.edges.map(
-            edge => <Story story={edge.node} key={edge.node.id} />
-          )}
-          <button
-            onClick={() => this._loadMore}
-            title="Load More"
-          />
-        </div>
-      );
+        return (
+            <div>
+                {this.props.feed.stories.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
+                <button onClick={() => this._loadMore} title="Load More" />
+            </div>
+        );
     }
 
     _loadMore() {
-      // Increments the number of stories being rendered by 10.
-      const refetchVariables = (fragmentVariables: {count: number }) => ({
-        count: fragmentVariables.count + 10,
-      });
-      this.props.relay.refetch(refetchVariables);
+        // Increments the number of stories being rendered by 10.
+        const refetchVariables = (fragmentVariables: { count: number }) => ({
+            count: fragmentVariables.count + 10,
+        });
+        this.props.relay.refetch(refetchVariables);
     }
-  }
+}
 
 const FeedRefetchContainer = createRefetchContainer(
     FeedStories,
     {
-      feed: graphql.experimental`
-        fragment FeedStories_feed on Feed
-        @argumentDefinitions(
-          count: {type: "Int", defaultValue: 10}
-        ) {
-          stories(first: $count) {
-            edges {
-              node {
-                id
-                ...Story_story
-              }
+        feed: graphql.experimental`
+            fragment FeedStories_feed on Feed @argumentDefinitions(count: { type: "Int", defaultValue: 10 }) {
+                stories(first: $count) {
+                    edges {
+                        node {
+                            id
+                            ...Story_story
+                        }
+                    }
+                }
             }
-          }
-        }
-      `
+        `,
     },
     graphql.experimental`
-      query FeedStoriesRefetchQuery($count: Int) {
-        feed {
-          ...FeedStories_feed @arguments(count: $count)
+        query FeedStoriesRefetchQuery($count: Int) {
+            feed {
+                ...FeedStories_feed @arguments(count: $count)
+            }
         }
-      }
-    `,
-  );
+    `
+);
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern PaginationContainer
 // ~~~~~~~~~~~~~~~~~~~~~
 interface FeedProps {
-    user: { feed: { edges: Array<{ node: StoryInterface}>}};
+    user: { feed: { edges: Array<{ node: StoryInterface }> } };
     relay: ModernTypes.RelayPaginationProp;
 }
 class Feed extends React.Component<FeedProps> {
     render() {
-        return (<div>
-            {this.props.user.feed.edges.map(
-            edge => <Story story={edge.node} key={edge.node.id} />
-            )}
-            <button
-                onClick={() => this._loadMore()}
-                title="Load More"
-            />
-        </div>);
+        return (
+            <div>
+                {this.props.user.feed.edges.map(edge => <Story story={edge.node} key={edge.node.id} />)}
+                <button onClick={() => this._loadMore()} title="Load More" />
+            </div>
+        );
     }
 
     _loadMore() {
@@ -170,7 +155,7 @@ class Feed extends React.Component<FeedProps> {
             10, // Fetch the next 10 feed items
             e => {
                 console.log(e);
-            },
+            }
         );
     }
 }
@@ -179,25 +164,25 @@ const FeedPaginationContainer = createPaginationContainer(
     Feed,
     {
         user: graphql`
-        fragment Feed_user on User {
-            feed(
-            first: $count
-            after: $cursor
-            orderby: $orderBy # other variables
-            ) @connection(key: "Feed_feed") {
-            edges {
-                node {
-                id
-                ...Story_story
+            fragment Feed_user on User {
+                feed(
+                    first: $count
+                    after: $cursor
+                    orderby: $orderBy # other variables
+                ) @connection(key: "Feed_feed") {
+                    edges {
+                        node {
+                            id
+                            ...Story_story
+                        }
+                    }
                 }
             }
-            }
-        }
         `,
     },
     {
-        direction: 'forward',
-        getConnectionFromProps(props: { user: {feed: any}}) {
+        direction: "forward",
+        getConnectionFromProps(props: { user: { feed: any } }) {
             return props.user && props.user.feed;
         },
         getFragmentVariables(prevVars, totalCount) {
@@ -206,7 +191,7 @@ const FeedPaginationContainer = createPaginationContainer(
                 count: totalCount,
             };
         },
-        getVariables(props, {count, cursor}, fragmentVariables) {
+        getVariables(props, { count, cursor }, fragmentVariables) {
             return {
                 count,
                 cursor,
@@ -216,17 +201,13 @@ const FeedPaginationContainer = createPaginationContainer(
             };
         },
         query: graphql`
-        query FeedPaginationQuery(
-            $count: Int!
-            $cursor: String
-            $orderby: String!
-        ) {
-            user {
-            # You could reference the fragment defined previously.
-            ...Feed_user
+            query FeedPaginationQuery($count: Int!, $cursor: String, $orderby: String!) {
+                user {
+                    # You could reference the fragment defined previously.
+                    ...Feed_user
+                }
             }
-        }
-        `
+        `,
     }
 );
 
@@ -234,46 +215,52 @@ const FeedPaginationContainer = createPaginationContainer(
 // Modern Mutations
 // ~~~~~~~~~~~~~~~~~~~~~
 const mutation = graphql`
-mutation MarkReadNotificationMutation(
-    $input: MarkReadNotificationData!
-) {
-    markReadNotification(data: $input) {
-        notification {
-            seenState
+    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+        markReadNotification(data: $input) {
+            notification {
+                seenState
+            }
         }
     }
-}
 `;
 
 const optimisticResponse = {
     markReadNotification: {
         notification: {
-            seenState: 'SEEN',
+            seenState: "SEEN",
         },
     },
 };
 
-const configs = [{
-    type: 'NODE_DELETE' as 'NODE_DELETE',
-    deletedIDFieldName: 'destroyedShipId',
-}, {
-    type: 'RANGE_ADD' as 'RANGE_ADD',
-    parentID: 'shipId',
-    connectionInfo: [{
-        key: 'AddShip_ships',
-        rangeBehavior: 'append',
-    }],
-    edgeName: 'newShipEdge',
-}, {
-    type: 'RANGE_DELETE' as 'RANGE_DELETE',
-    parentID: 'todoId',
-    connectionKeys: [{
-        key: 'RemoveTags_tags',
-        rangeBehavior: 'append',
-    }],
-    pathToConnection: ['todo', 'tags'],
-    deletedIDFieldName: 'removedTagId'
-}];
+const configs = [
+    {
+        type: "NODE_DELETE" as "NODE_DELETE",
+        deletedIDFieldName: "destroyedShipId",
+    },
+    {
+        type: "RANGE_ADD" as "RANGE_ADD",
+        parentID: "shipId",
+        connectionInfo: [
+            {
+                key: "AddShip_ships",
+                rangeBehavior: "append",
+            },
+        ],
+        edgeName: "newShipEdge",
+    },
+    {
+        type: "RANGE_DELETE" as "RANGE_DELETE",
+        parentID: "todoId",
+        connectionKeys: [
+            {
+                key: "RemoveTags_tags",
+                rangeBehavior: "append",
+            },
+        ],
+        pathToConnection: ["todo", "tags"],
+        deletedIDFieldName: "removedTagId",
+    },
+];
 
 function markNotificationAsRead(source: string, storyID: string) {
     const variables = {
@@ -283,37 +270,32 @@ function markNotificationAsRead(source: string, storyID: string) {
         },
     };
 
-    commitMutation(
-        modernEnvironment,
-        {
-            configs,
-            mutation,
-            optimisticResponse,
-            variables,
-            onCompleted: (response, errors) => {
-                console.log('Response received from server.');
-            },
-            onError: err => console.error(err),
+    commitMutation(modernEnvironment, {
+        configs,
+        mutation,
+        optimisticResponse,
+        variables,
+        onCompleted: (response, errors) => {
+            console.log("Response received from server.");
         },
-    );
+        onError: err => console.error(err),
+    });
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
 // ~~~~~~~~~~~~~~~~~~~~~
 const subscription = graphql`
-    subscription MarkReadNotificationSubscription(
-        $storyID: ID!
-    ) {
-    markReadNotification(storyID: $storyID) {
-        notification {
-        seenState
+    subscription MarkReadNotificationSubscription($storyID: ID!) {
+        markReadNotification(storyID: $storyID) {
+            notification {
+                seenState
+            }
         }
-    }
     }
 `;
 const variables = {
-    storyID: '123',
+    storyID: "123",
 };
 requestSubscription(
     modernEnvironment, // see Environment docs
@@ -326,18 +308,12 @@ requestSubscription(
         // example of a custom updater
         updater: store => {
             // Get the notification
-            const rootField = store.getRootField('markReadNotification');
-            const notification = !!rootField && rootField.getLinkedRecord('notification');
+            const rootField = store.getRootField("markReadNotification");
+            const notification = !!rootField && rootField.getLinkedRecord("notification");
             // Add it to a connection
-            const viewer = store.getRoot().getLinkedRecord('viewer');
-            const notifications =
-                ConnectionHandler.getConnection(viewer, 'notifications');
-            const edge = ConnectionHandler.createEdge(
-                store,
-                notifications,
-                notification,
-                '<TypeOfNotificationsEdge>',
-            );
+            const viewer = store.getRoot().getLinkedRecord("viewer");
+            const notifications = ConnectionHandler.getConnection(viewer, "notifications");
+            const edge = ConnectionHandler.createEdge(store, notifications, notification, "<TypeOfNotificationsEdge>");
             ConnectionHandler.insertEdgeAfter(notifications, edge);
         },
     }
@@ -348,7 +324,7 @@ requestSubscription(
 ///////////////////////////
 import {
     QueryRenderer as CompatQueryRenderer,
-    createFragmentContainer as createFragmentContainerCompat
+    createFragmentContainer as createFragmentContainerCompat,
 } from "react-relay/compat";
 
 // TODO? This is all more or less identical to modern...
@@ -378,16 +354,18 @@ export default class AddTweetMutation extends Relay.Mutation<Props, {}> {
     }
 
     getConfigs() {
-        return [{
-            type: "RANGE_ADD",
-            parentName: "user",
-            parentID: this.props.userId,
-            connectionName: "tweets",
-            edgeName: "tweetEdge",
-            rangeBehaviors: {
-                "": "append",
+        return [
+            {
+                type: "RANGE_ADD",
+                parentName: "user",
+                parentID: this.props.userId,
+                connectionName: "tweets",
+                edgeName: "tweetEdge",
+                rangeBehaviors: {
+                    "": "append",
+                },
             },
-        }];
+        ];
     }
 
     getVariables() {
@@ -397,18 +375,14 @@ export default class AddTweetMutation extends Relay.Mutation<Props, {}> {
 
 interface ArtworkProps {
     artwork: {
-        title: string
+        title: string;
     };
     relay: Relay.RelayProp;
 }
 
 class Artwork extends React.Component<ArtworkProps> {
     render() {
-        return (
-            <a href={`/artworks/${this.props.relay.variables.artworkID}`}>
-                {this.props.artwork.title}
-            </a>
-        );
+        return <a href={`/artworks/${this.props.relay.variables.artworkID}`}>{this.props.artwork.title}</a>;
     }
 }
 
@@ -418,8 +392,8 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
             fragment on Artwork {
                 title
             }
-        `
-    }
+        `,
+    },
 });
 
 class StubbedArtwork extends React.Component {
@@ -428,7 +402,7 @@ class StubbedArtwork extends React.Component {
             artwork: { title: "CHAMPAGNE FORMICA FLAG" },
             relay: {
                 route: {
-                    name: "champagne"
+                    name: "champagne",
                 },
                 variables: {
                     artworkID: "champagne-formica-flag",
@@ -438,7 +412,7 @@ class StubbedArtwork extends React.Component {
                 hasOptimisticUpdate: () => false,
                 getPendingTransactions: (): any => undefined,
                 commitUpdate: () => {},
-            }
+            },
         };
         return <ArtworkContainer {...props} />;
     }

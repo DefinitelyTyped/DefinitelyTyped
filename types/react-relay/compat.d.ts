@@ -1,6 +1,6 @@
-import { RelayRuntimeTypes, RelayCommonTypes } from 'relay-runtime';
-import { RelayEnvironmentInterface } from 'react-relay/classic';
-import {} from 'react-relay/modern';
+import { RelayRuntimeTypes, RelayCommonTypes } from "relay-runtime";
+import { RelayEnvironmentInterface } from "react-relay/classic";
+import {} from "react-relay/modern";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
@@ -34,20 +34,22 @@ export type CompatEnvironment = RelayRuntimeTypes.Environment | RelayClassicEnvi
 // ~~~~~~~~~~~~~~~~~~~~~
 export function commitUpdate(
     environment: CompatEnvironment,
-    config: RelayRuntimeTypes.MutationConfig<any>,
+    config: RelayRuntimeTypes.MutationConfig<any>
 ): RelayCommonTypes.Disposable;
 export function applyUpdate(
     environment: CompatEnvironment,
-    config: RelayRuntimeTypes.OptimisticMutationConfig,
+    config: RelayRuntimeTypes.OptimisticMutationConfig
 ): RelayCommonTypes.Disposable;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayCompatContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-export interface GeneratedNodeMap { [key: string]: RelayCommonTypes.GraphQLTaggedNode; }
+export interface GeneratedNodeMap {
+    [key: string]: RelayCommonTypes.GraphQLTaggedNode;
+}
 export function createContainer<T>(
     Component: ReactBaseComponent<T>,
-    fragmentSpec: RelayCommonTypes.GraphQLTaggedNode | GeneratedNodeMap,
+    fragmentSpec: RelayCommonTypes.GraphQLTaggedNode | GeneratedNodeMap
 ): ReactFragmentComponent<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~

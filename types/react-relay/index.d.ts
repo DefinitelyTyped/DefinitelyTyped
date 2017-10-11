@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { RelayRuntimeTypes } from 'relay-runtime';
-import * as ReactRelayModernTypes from 'react-relay/modern';
+import { RelayRuntimeTypes } from "relay-runtime";
+import * as ReactRelayModernTypes from "react-relay/modern";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // React-Relay Modern

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { RelayCommonTypes } from 'relay-runtime';
+import * as React from "react";
+import { RelayCommonTypes } from "relay-runtime";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
@@ -7,7 +7,11 @@ import { RelayCommonTypes } from 'relay-runtime';
 export type StoreReaderData = any;
 export type StoreReaderOptions = any;
 export type RelayStoreData = any;
-export interface RelayQuery { Fragment: any; Node: any; Root: any; }
+export interface RelayQuery {
+    Fragment: any;
+    Node: any;
+    Root: any;
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Environment
@@ -16,33 +20,27 @@ export interface FragmentResolver {
     dispose(): void;
     resolve(
         fragment: RelayQuery["Fragment"],
-        dataIDs: RelayCommonTypes.DataID | RelayCommonTypes.DataID[],
+        dataIDs: RelayCommonTypes.DataID | RelayCommonTypes.DataID[]
     ): StoreReaderData | StoreReaderData[] | undefined | null;
 }
 
 export interface RelayEnvironmentInterface {
     forceFetch(
         querySet: RelayCommonTypes.RelayQuerySet,
-        onReadyStateChange: RelayCommonTypes.ReadyStateChangeCallback,
+        onReadyStateChange: RelayCommonTypes.ReadyStateChangeCallback
     ): RelayCommonTypes.Abortable;
-    getFragmentResolver(
-        fragment: RelayQuery["Fragment"],
-        onNext: () => void,
-    ): FragmentResolver;
+    getFragmentResolver(fragment: RelayQuery["Fragment"], onNext: () => void): FragmentResolver;
     getStoreData(): RelayStoreData;
     primeCache(
         querySet: RelayCommonTypes.RelayQuerySet,
-        onReadyStateChange: RelayCommonTypes.ReadyStateChangeCallback,
+        onReadyStateChange: RelayCommonTypes.ReadyStateChangeCallback
     ): RelayCommonTypes.Abortable;
     read(
         node: RelayQuery["Node"],
         dataID: RelayCommonTypes.DataID,
-        options?: StoreReaderOptions,
+        options?: StoreReaderOptions
     ): StoreReaderData | void;
-    readQuery(
-        root: RelayQuery["Root"],
-        options?: StoreReaderOptions,
-    ): StoreReaderData[] | void;
+    readQuery(root: RelayQuery["Root"], options?: StoreReaderOptions): StoreReaderData[] | void;
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -75,12 +73,12 @@ export interface RelayQueryRequestResolve {
 }
 
 export type RelayMutationStatus =
-    'UNCOMMITTED' | // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
-    'COMMIT_QUEUED' | // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
-    'COLLISION_COMMIT_FAILED' | // Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue,
+    | "UNCOMMITTED" // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
+    | "COMMIT_QUEUED" // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
+    | "COLLISION_COMMIT_FAILED" // Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue,
     // including this one, have been failed. Transaction can be recommitted or rolled back.
-    'COMMITTING' | // Transaction is waiting for the server to respond.
-    'COMMIT_FAILED';
+    | "COMMITTING" // Transaction is waiting for the server to respond.
+    | "COMMIT_FAILED";
 
 export class RelayMutationTransaction {
     applyOptimistic(): RelayMutationTransaction;
@@ -118,13 +116,16 @@ export class DefaultNetworkLayer implements RelayNetworkLayer {
     supports(...options: string[]): boolean;
 }
 
-export function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<T>;
+export function createContainer<T>(
+    component: React.ComponentClass<T> | React.StatelessComponent<T>,
+    params?: CreateContainerOpts
+): RelayContainerClass<T>;
 export function injectNetworkLayer(networkLayer: RelayNetworkLayer): any;
 export function isContainer(component: React.ComponentClass<any>): boolean;
 export function QL(...args: any[]): string;
 
 export class Route {
-    constructor(params?: RelayVariables)
+    constructor(params?: RelayVariables);
 }
 
 /**
@@ -155,7 +156,7 @@ export interface Store {
 
 export const Store: Store;
 
-export class RootContainer extends React.Component<RootContainerProps, any> { }
+export class RootContainer extends React.Component<RootContainerProps, any> {}
 
 export interface RootContainerProps extends React.Props<RootContainer> {
     Component: RelayContainerClass<any>;
@@ -165,13 +166,13 @@ export interface RootContainerProps extends React.Props<RootContainer> {
     renderFailure?(error: Error, retry: (...args: any[]) => any): JSX.Element;
 }
 
-export class Renderer extends React.Component<RendererProps, any> { }
+export class Renderer extends React.Component<RendererProps, any> {}
 
 export interface RendererProps {
     Container: RelayContainerClass<any>; // Relay container that defines fragments and the view to render.
     forceFetch?: boolean; // Whether to send a server request regardless of data available on the client.
     queryConfig: Route; // `QueryConfig` or `Relay.Route` that defines the query roots.
-    environment: Store;  // An instance of `Relay.Environment` or any object that implements the `RelayEnvironment` interface.
+    environment: Store; // An instance of `Relay.Environment` or any object that implements the `RelayEnvironment` interface.
     render?: RenderCallback; //  Called to render when data requirements are being fulfilled.
     onReadyStateChange?: OnReadyStateChange;
 }
@@ -186,28 +187,30 @@ export interface RenderStateConfig {
 export type RenderCallback = (renderState: RenderStateConfig) => any;
 
 export type ReadyStateEvent =
-    'ABORT' |
-    'CACHE_RESTORED_REQUIRED' |
-    'CACHE_RESTORE_FAILED' |
-    'CACHE_RESTORE_START' |
-    'NETWORK_QUERY_ERROR' |
-    'NETWORK_QUERY_RECEIVED_ALL' |
-    'NETWORK_QUERY_RECEIVED_REQUIRED' |
-    'NETWORK_QUERY_START' |
-    'STORE_FOUND_ALL' |
-    'STORE_FOUND_REQUIRED';
+    | "ABORT"
+    | "CACHE_RESTORED_REQUIRED"
+    | "CACHE_RESTORE_FAILED"
+    | "CACHE_RESTORE_START"
+    | "NETWORK_QUERY_ERROR"
+    | "NETWORK_QUERY_RECEIVED_ALL"
+    | "NETWORK_QUERY_RECEIVED_REQUIRED"
+    | "NETWORK_QUERY_START"
+    | "STORE_FOUND_ALL"
+    | "STORE_FOUND_REQUIRED";
 
-export type OnReadyStateChange = (readyState: {
-    ready: boolean,
-    done: boolean,
-    stale: boolean,
-    error?: Error,
-    events: ReadyStateEvent[],
-    aborted: boolean
-}) => void;
+export type OnReadyStateChange = (
+    readyState: {
+        ready: boolean;
+        done: boolean;
+        stale: boolean;
+        error?: Error;
+        events: ReadyStateEvent[];
+        aborted: boolean;
+    }
+) => void;
 
 export interface RelayProp {
-    readonly route: { name: string; }; // incomplete, also has params and queries
+    readonly route: { name: string }; // incomplete, also has params and queries
     readonly variables: any;
     readonly pendingVariables?: any;
     setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
