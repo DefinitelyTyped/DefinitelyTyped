@@ -4837,6 +4837,8 @@ export class Mesh extends Object3D {
     geometry: Geometry|BufferGeometry;
     material: Material | Material[];
     drawMode: TrianglesDrawModes;
+    morphTargetInfluences?: number[];
+    morphTargetDictionary?: {};
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
