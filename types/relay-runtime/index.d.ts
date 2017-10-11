@@ -137,17 +137,17 @@ export namespace RelayCommonTypes {
     interface RecordSourceSelectorProxy {
         create(dataID: DataID, typeName: string): RecordProxy;
         delete(dataID: DataID): void;
-        get(dataID: DataID): RecordProxy | void;
+        get(dataID: DataID): RecordProxy | null;
         getRoot(): RecordProxy;
-        getRootField(fieldName: string): RecordProxy | void;
-        getPluralRootField(fieldName: string): RecordProxy[] | void;
+        getRootField(fieldName: string): RecordProxy | null;
+        getPluralRootField(fieldName: string): RecordProxy[] | null;
     }
 
     interface RecordProxy {
         copyFieldsFrom(source: RecordProxy): void;
         getDataID(): DataID;
-        getLinkedRecord(name: string, args?: Variables): RecordProxy | void;
-        getLinkedRecords(name: string, args?: Variables): Array<RecordProxy | null> | void;
+        getLinkedRecord(name: string, args?: Variables): RecordProxy | null;
+        getLinkedRecords(name: string, args?: Variables): Array<RecordProxy | null> | null;
         getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables): RecordProxy;
         getType(): string;
         getValue(name: string, args?: Variables): any;
@@ -163,7 +163,7 @@ export namespace RelayCommonTypes {
     interface RecordSourceProxy {
         create(dataID: DataID, typeName: string): RecordProxy;
         delete(dataID: DataID): void;
-        get(dataID: DataID): Array<RecordProxy | null> | void;
+        get(dataID: DataID): Array<RecordProxy | null> | null;
         getRoot(): RecordProxy;
     }
 
@@ -457,7 +457,7 @@ export namespace RelayCommonTypes {
          * const childData = environment.lookup(childSelector).data;
          * ```
          */
-        getSelector(operationVariables: Variables, fragment: TFragment, prop: any): CSelector<TNode> | void;
+        getSelector(operationVariables: Variables, fragment: TFragment, prop: any): CSelector<TNode> | null;
 
         /**
          * Given the result `items` from a parent that fetched `fragment`, creates a
@@ -469,7 +469,7 @@ export namespace RelayCommonTypes {
             operationVariables: Variables,
             fragment: TFragment,
             props: any[]
-        ): Array<CSelector<TNode>> | void;
+        ): Array<CSelector<TNode>> | null;
 
         /**
          * Given a mapping of keys -> results and a mapping of keys -> fragments,
@@ -590,8 +590,8 @@ export namespace RelayCommonTypes {
         }
     ) => void;
     interface NetworkLayer {
-        sendMutation(request: RelayMutationRequest): Promise<any> | void;
-        sendQueries(requests: RelayQueryRequest[]): Promise<any> | void;
+        sendMutation(request: RelayMutationRequest): Promise<any> | null;
+        sendQueries(requests: RelayQueryRequest[]): Promise<any> | null;
         supports(...options: string[]): boolean;
     }
     interface QueryResult {
@@ -681,7 +681,7 @@ export namespace RelayRuntimeTypes {
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayDefaultHandlerProvider
     // ~~~~~~~~~~~~~~~~~~~~~
-    function HandlerProvider(name: string): typeof RelayCommonTypes.Handler | void;
+    function HandlerProvider(name: string): typeof RelayCommonTypes.Handler | null;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayModernEnvironment
@@ -755,7 +755,7 @@ export namespace RelayRuntimeTypes {
         constructor(records?: RecordMap);
         clear(): void;
         delete(dataID: RelayCommonTypes.DataID): void;
-        get(dataID: RelayCommonTypes.DataID): Record | void;
+        get(dataID: RelayCommonTypes.DataID): Record | null;
         getRecordIDs(): RelayCommonTypes.DataID[];
         getStatus(dataID: RelayCommonTypes.DataID): "EXISTENT" | "NONEXISTENT" | "UNKNOWN";
         has(dataID: RelayCommonTypes.DataID): boolean;
@@ -833,14 +833,14 @@ export namespace RelayRuntimeTypes {
          * value is another Record instead of a scalar). May throw if the field is
          * present but not a scalar linked record.
          */
-        getLinkedRecord(name: string, args?: RelayCommonTypes.Variables): RecordInspector | void;
+        getLinkedRecord(name: string, args?: RelayCommonTypes.Variables): RecordInspector | null;
 
         /**
          * Returns an array of inspectors for the given plural "linked" field (a field
          * whose value is an array of Records instead of a scalar). May throw if the
          * field is  present but not a plural linked record.
          */
-        getLinkedRecords(name: string, args?: RelayCommonTypes.Variables): RecordInspector[] | void;
+        getLinkedRecords(name: string, args?: RelayCommonTypes.Variables): RecordInspector[] | null;
     }
 
     class RelayRecordSourceInspector {
@@ -850,7 +850,7 @@ export namespace RelayRuntimeTypes {
          * Returns an inspector for the record with the given id, or null/undefined if
          * that record is deleted/unfetched.
          */
-        get(dataID: RelayCommonTypes.DataID): RecordInspector | void;
+        get(dataID: RelayCommonTypes.DataID): RecordInspector | null;
         /**
          * Returns a list of "<id>: <type>" for each record in the store that has an
          * `id`.

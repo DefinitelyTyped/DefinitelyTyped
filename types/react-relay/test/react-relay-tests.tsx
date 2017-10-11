@@ -279,6 +279,12 @@ function markNotificationAsRead(source: string, storyID: string) {
             console.log("Response received from server.");
         },
         onError: err => console.error(err),
+        updater: (store, data) => {
+            const field = store.get(storyID);
+            if (field) {
+                field.setValue(data.story, "story");
+            }
+        }
     });
 }
 
