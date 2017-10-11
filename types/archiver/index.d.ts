@@ -22,7 +22,7 @@ declare namespace archiver {
     }
 
     /** A function that lets you either opt out of including an entry (by returning false), or modify the contents of an entry as it is added (by returning an EntryData) */
-    type EntryDataFunction = (entry: EntryData) => false | EntryData
+    type EntryDataFunction = (entry: EntryData) => false | EntryData;
 
     interface Archiver extends stream.Transform {
         abort(): this;
