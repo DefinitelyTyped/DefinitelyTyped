@@ -47,12 +47,12 @@ export interface ConfigureParams {
     /**
      * iOS client ID from Developer Console. Required for iOS.
      */
-    iOSClientID?: string;
+    iosClientId?: string;
 
     /**
      * Web client ID from Developer Console. Required for offline access
      */
-    webClientID?: string;
+    webClientId?: string;
 
     /**
      * Must be true if you wish to access user APIs on behalf of the user from
@@ -84,6 +84,7 @@ export interface User {
     photo: string | null;
     familyName?: string | null;
     givenName?: string | null;
+    idToken: string | null;
     /**
      * IOS ONLY. Use getAccessToken() on Android
      */
@@ -92,10 +93,6 @@ export interface User {
      * IOS ONLY. Use getAccessToken() on Android
      */
     accessTokenExpirationDate: number;
-    /**
-     * Not null only if a valid webClientId was specified in configure().
-     */
-    idToken: string | null;
     /**
      * Not null only if a valid webClientId and offlineAccess: true was
      * specified in configure().
