@@ -4,7 +4,6 @@ var key: any;
 var value: string;
 var bool: boolean;
 var num: number;
-
 var returnedValue: string;
 
 returnedValue = memoryCache.put(key, value);
@@ -31,7 +30,9 @@ var customCache = new memoryCache.Cache<string, boolean>();
 
 var customKey: string;
 var customValue: boolean;
+var customKeys: string[];
 
 customValue = customCache.put(customKey, customValue);
 customCache.get(customKey);
 customCache.del(customKey);
+customKeys = customCache.keys();

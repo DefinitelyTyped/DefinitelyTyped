@@ -18,7 +18,7 @@ declare class CacheClass<K, V> {
     public debug(bool: boolean): void;
     public hits(): number;
     public misses(): number;
-    public keys(): any;
+    public keys(): K[];
 }
 
 export declare let Cache: typeof CacheClass;
@@ -34,4 +34,4 @@ export declare function memsize(): number;
 export declare function debug(bool: boolean): void;
 export declare function hits(): number;
 export declare function misses(): number;
-export declare function keys(): any;
+export declare function keys(): any[];
