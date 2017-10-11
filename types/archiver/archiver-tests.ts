@@ -1,6 +1,5 @@
 import * as Archiver from 'archiver';
 import * as fs from 'fs';
-import { EntryData } from 'archiver';
 
 const options: Archiver.ArchiverOptions = {
     statConcurrency: 1,
@@ -38,11 +37,11 @@ archiver.append(readStream, {name: 'archiver.d.ts'})
 archiver.directory('./path', './someOtherPath');
 archiver.directory('./', "", {});
 archiver.directory('./', false, { name: 'test' });
-archiver.directory('./', false, (entry: EntryData) => {
+archiver.directory('./', false, (entry: Archiver.EntryData) => {
     entry.name = "foobar";
     return entry;
 });
-archiver.directory('./', false, (entry: EntryData) => false);
+archiver.directory('./', false, (entry: Archiver.EntryData) => false);
 
 archiver.append(readStream, {
     name: "sub/folder.xml"
