@@ -23,6 +23,7 @@ declare namespace Dynamsoft {
         function GetWebTwain (cid: string): WebTwain;
         function RegisterEvent(event: string, fn: () => void): void;
         function Load(): void;
+      function Unload(): void;
         let AutoLoad: boolean;
     }
 }
