@@ -799,6 +799,11 @@ function simplified_stream_ctor_test() {
         },
         destroy(error) {
             error.stack;
+        },
+        final(error) {
+            if (error) {
+                error.stack
+            }
         }
     });
 
