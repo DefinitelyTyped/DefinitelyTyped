@@ -25,7 +25,7 @@ declare namespace Dynamsoft {
         function Load(): void;
         function Unload(): void;
         let AutoLoad: boolean;
-        let Containers: Array<Container>;
+        let Containers: Container[];
     }
 }
 
