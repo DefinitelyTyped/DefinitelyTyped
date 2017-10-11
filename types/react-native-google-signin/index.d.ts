@@ -82,8 +82,8 @@ export interface User {
     email: string | null;
     scopes?: string[];
     photo: string | null;
-    familyName?: string | null;
-    givenName?: string | null;
+    familyName: string | null;
+    givenName: string | null;
     idToken: string | null;
     /**
      * IOS ONLY. Use getAccessToken() on Android
