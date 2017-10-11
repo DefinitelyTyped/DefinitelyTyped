@@ -288,6 +288,7 @@ declare namespace request {
         token_secret?: string;
         transport_method?: 'body' | 'header' | 'query';
         verifier?: string;
+        body_hash?: true | string
     }
 
     export interface HawkOptions {

@@ -85,7 +85,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
          * @since 1.3
          */
         off: boolean;
-        step: JQuery.PlainObject<JQuery.AnimationHook<TElement>>;
+        step: JQuery.PlainObject<JQuery.AnimationHook<Node>>;
     };
     /**
      * A Promise-like object (or "thenable") that resolves when the document is ready.
@@ -4754,7 +4754,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/queue/}
      * @since 1.2
      */
-    queue(queueName?: string): JQuery.Queue<TElement>;
+    queue(queueName?: string): JQuery.Queue<Node>;
     /**
      * Specify a function to execute when the DOM is fully loaded.
      *

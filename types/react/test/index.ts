@@ -129,6 +129,13 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
+class ModernComponentArrayRender extends React.Component<Props> {
+    render() {
+        return [React.DOM.h1({ key: "1" }, "1"),
+                React.DOM.h1({ key: "2" }, "2")];
+    }
+}
+
 class ModernComponentNoState extends React.Component<Props> { }
 class ModernComponentNoPropsAndState extends React.Component { }
 
@@ -496,7 +503,7 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: number;
+    private _interval: NodeJS.Timer;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1

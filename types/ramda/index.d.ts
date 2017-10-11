@@ -225,9 +225,9 @@ declare namespace R {
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
+        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
         append<T, U>(el: U, list: T[]): Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
+        append<T>(el: T, list: string): Array<T & string>;
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -1438,7 +1438,7 @@ declare namespace R {
          * Note: TS1.9 # replace any by dictionary
          */
         prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<T>(p: string): (obj: any) => T;
 
         /**
          * Determines whether the given property of an object has a specific

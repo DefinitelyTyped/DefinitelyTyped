@@ -149,6 +149,16 @@ export interface CommonWrapper<P = {}, S = {}> {
     getNodes(): Array<ReactElement<any>>;
 
     /**
+     * Returns the wrapper's underlying node.
+     */
+    getElement(): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying node.
+     */
+    getElements(): Array<ReactElement<any>>;
+
+    /**
      * Returns the outer most DOMComponent of the current wrapper.
      */
     getDOMNode(): Element;
@@ -423,6 +433,14 @@ export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
 
     /**
+     * Strips out all the not host-nodes from the list of nodes
+     *
+     * This method is useful if you want to check for the presence of host nodes
+     * (actually rendered HTML elements) ignoring the React nodes.
+     */
+    hostNodes(): ShallowWrapper<HTMLAttributes>;
+
+    /**
      * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
      * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
      *
@@ -479,6 +497,14 @@ export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
      * It is your responsibility to clean up after yourself at the end of the test if you do decide to use it, though.
      */
     detach(): void;
+
+    /**
+     * Strips out all the not host-nodes from the list of nodes
+     *
+     * This method is useful if you want to check for the presence of host nodes
+     * (actually rendered HTML elements) ignoring the React nodes.
+     */
+    hostNodes(): ReactWrapper<HTMLAttributes>;
 
     /**
      * Find every node in the render tree that matches the provided selector.
@@ -613,9 +639,13 @@ export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps)
  */
 export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
 
+// See https://github.com/airbnb/enzyme/blob/v3.1.0/packages/enzyme/src/EnzymeAdapter.js
+export class EnzymeAdapter {
+}
+
 /**
  * Configure enzyme to use the correct adapter for the react verstion
  * This is enabling the Enzyme configuration with adapters in TS
  * @param options
  */
-export function configure(options: { adapter: any }): void;
+export function configure(options: { adapter: EnzymeAdapter }): void;

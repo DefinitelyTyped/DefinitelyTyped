@@ -1591,10 +1591,10 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: string[]|LatLng[]|Place[];
+        destinations?: string[]|LatLng[]|LatLngLiteral[]|Place[];
         drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: string[]|LatLng[]|Place[];
+        origins?: string[]|LatLng[]|LatLngLiteral[]|Place[];
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;
@@ -1935,7 +1935,7 @@ declare namespace google.maps {
     }
 
     /***** Street View *****/
-    export class StreetViewPanorama {
+    export class StreetViewPanorama extends MVCObject {
         constructor(container: Element, opts?: StreetViewPanoramaOptions);
         controls: MVCArray<Node>[];
         getLinks(): StreetViewLink[];

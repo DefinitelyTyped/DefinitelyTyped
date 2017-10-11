@@ -2381,6 +2381,18 @@ declare namespace Ember {
         oneWay(dependentKey: string): ComputedProperty;
         or(...args: string[]): ComputedProperty;
         readOnly(dependentString: string): ComputedProperty;
+
+        /** A computed property which returns a new array with all the unique
+            elements from one or more dependent arrays. Alias for uniq. */
+        union(...propertyKeys: string[]): ComputedProperty;
+
+        /** A computed property which returns a new array with all the unique
+            elements from one or more dependent arrays. */
+        uniq(...propertyKeys: string[]): ComputedProperty;
+
+        /** A computed property which returns a new array with all the unique
+            elements from an array, with uniqueness determined by specific key. */
+        uniqBy(dependentKey: string, propertyKey: string): ComputedProperty;
     };
     // ReSharper restore DuplicatingLocalDeclaration
     function controllerFor(
