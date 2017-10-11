@@ -25,7 +25,7 @@ declare namespace Dynamsoft {
         function Load(): void;
         function Unload(): void;
         let AutoLoad: boolean;
-        let Containers: Array<Object>;
+        let Containers: Array<Container>;
     }
 }
 
@@ -1253,6 +1253,12 @@ declare enum EnumDWT_MouseShape {
 	Hand = 1,
 	Crosshair = 2,
 	Zoom = 3
+}
+
+interface Container {
+    ContainerId: string;
+    Width: string | number;
+    Height: string | number;
 }
 
 /**
