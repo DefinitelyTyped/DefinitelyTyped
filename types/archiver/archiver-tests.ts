@@ -35,9 +35,10 @@ archiver.append(readStream, {name: 'archiver.d.ts'})
 .append(readStream, {name: 'archiver.d.ts'});
 
 archiver.directory('./path', './someOtherPath');
-archiver.directory('./path', { name: "testName" });
 archiver.directory('./', "", {});
-archiver.directory('./', { name: 'test' }, {});
+archiver.directory('./', false, { name: 'test' });
+archiver.directory('./', false, entry => ({ ...entry, name : "foobar" }));
+archiver.directory('./', false, entry => false);
 
 archiver.append(readStream, {
     name: "sub/folder.xml"
