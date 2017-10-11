@@ -21,7 +21,7 @@
 declare namespace Dynamsoft {
     namespace WebTwainEnv {
         function GetWebTwain (cid: string): WebTwain;
-        function RegisterEvent(event: string, fn: () => void): void;
+        function RegisterEvent(event: string, fn: (...args: any[]) => void): void;
         function Load(): void;
         function Unload(): void;
         let AutoLoad: boolean;
