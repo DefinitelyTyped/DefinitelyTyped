@@ -494,11 +494,12 @@ declare namespace Sinon {
     }
 
     interface SinonSandboxStatic {
-        create(): SinonSandbox;
-        create(config: SinonSandboxConfig): SinonSandbox;
+        create(config?: SinonSandboxConfig): SinonSandbox;
     }
 
     interface SinonStatic {
+        createSandbox(config?: SinonSandboxConfig): SinonSandbox;
+        defaultConfig: SinonSandboxConfig;
         sandbox: SinonSandboxStatic;
     }
 

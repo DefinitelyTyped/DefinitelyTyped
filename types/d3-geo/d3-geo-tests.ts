@@ -422,6 +422,26 @@ constructedProjection = constructedProjection.fitSize([960, 500], sampleExtended
 constructedProjection = constructedProjection.fitSize([960, 500], sampleFeatureCollection);
 constructedProjection = constructedProjection.fitSize([960, 500], sampleExtendedFeatureCollection);
 
+constructedProjection = constructedProjection.fitWidth(960, samplePolygon);
+constructedProjection = constructedProjection.fitWidth(960, sampleSphere);
+constructedProjection = constructedProjection.fitWidth(960, sampleGeometryCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedGeometryCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleFeature);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeature1);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitWidth(960, sampleFeatureCollection);
+constructedProjection = constructedProjection.fitWidth(960, sampleExtendedFeatureCollection);
+
+constructedProjection = constructedProjection.fitHeight(500, samplePolygon);
+constructedProjection = constructedProjection.fitHeight(500, sampleSphere);
+constructedProjection = constructedProjection.fitHeight(500, sampleGeometryCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedGeometryCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleFeature);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeature1);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeature2);
+constructedProjection = constructedProjection.fitHeight(500, sampleFeatureCollection);
+constructedProjection = constructedProjection.fitHeight(500, sampleExtendedFeatureCollection);
+
 // ----------------------------------------------------------------------
 // GeoConicProjection interface
 // ----------------------------------------------------------------------
