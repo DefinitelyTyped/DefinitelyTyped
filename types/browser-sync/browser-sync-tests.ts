@@ -28,7 +28,7 @@ browserSync({
     proxy: {
         target: "http://yourlocal.dev",
         proxyReq: function(proxyReq) {
-           proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
+           console.log(proxyReq);
         }
     }
 });
@@ -38,7 +38,7 @@ browserSync({
         target: "http://yourlocal.dev",
         proxyReq: [
             function(proxyReq) {
-                proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
+                console.log(proxyReq);
             }
         ]
     }
@@ -48,7 +48,7 @@ browserSync({
     proxy: {
         target: "http://yourlocal.dev",
         proxyRes: function(proxyRes, req, res) {
-            console.log(proxyRes.headers);
+            console.log(proxyRes);
         }
     }
 });
@@ -58,7 +58,7 @@ browserSync({
         target: "http://yourlocal.dev",
         proxyRes: [
             function(proxyRes, req, res) {
-                console.log(proxyRes.headers);
+                console.log(proxyRes);
             }
         ]
     }
