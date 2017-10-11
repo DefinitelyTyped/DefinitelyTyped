@@ -950,6 +950,9 @@ namespace tls_tests {
             port: 55
         };
         var tlsSocket = tls.connect(connOpts);
+
+        const ciphers: string[] = tls.getCiphers();
+        const curve: string = tls.DEFAULT_ECDH_CURVE;
     }
 
     {
