@@ -55,6 +55,6 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
-    <RangeWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} />,
+    <RangeWithTooltip defaultValue={[1]} max={2} step={0.01} min={0.01} />,
     document.querySelector('.app')
 );
