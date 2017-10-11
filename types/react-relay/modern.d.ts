@@ -105,9 +105,9 @@ export function FragmentVariablesGetter(
     prevVars: RelayCommonTypes.Variables,
     totalCount: number
 ): RelayCommonTypes.Variables;
-export interface ConnectionConfig {
+export interface ConnectionConfig<T> {
     direction?: "backward" | "forward";
-    getConnectionFromProps?(props: object): ConnectionData | undefined | null;
+    getConnectionFromProps?(props: T): ConnectionData | undefined | null;
     getFragmentVariables?: typeof FragmentVariablesGetter;
     getVariables(
         props: { [propName: string]: any },
@@ -119,7 +119,7 @@ export interface ConnectionConfig {
 export function createPaginationContainer<T>(
     Component: ReactBaseComponent<T>,
     fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
-    connectionConfig: ConnectionConfig
+    connectionConfig: ConnectionConfig<T>
 ): ReactBaseComponent<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
