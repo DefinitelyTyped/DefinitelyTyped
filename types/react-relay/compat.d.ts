@@ -1,6 +1,6 @@
 import { RelayRuntimeTypes, RelayCommonTypes } from 'relay-runtime';
-import { RelayEnvironmentInterface } from './react-relay-classic';
-import {} from './react-relay-modern';
+import { RelayEnvironmentInterface } from 'react-relay/classic';
+import {} from 'react-relay/modern';
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
