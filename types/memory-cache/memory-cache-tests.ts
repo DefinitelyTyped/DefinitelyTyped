@@ -1,19 +1,21 @@
-
 import memoryCache = require('memory-cache');
 
 var key: any;
-var value: any;
+var value: string;
 var bool: boolean;
 var num: number;
 
-memoryCache.put(key, value);
-memoryCache.put(key, value, num);
-memoryCache.put(key, value, num, (key) => {
+var returnedValue: string;
+
+returnedValue = memoryCache.put(key, value);
+returnedValue = memoryCache.put(key, value, num);
+returnedValue = memoryCache.put(key, value, num, (key) => {
 
 });
-memoryCache.put(key, value, num, (key, value) => {
+returnedValue = memoryCache.put(key, value, num, (key, value) => {
 
 });
+
 value = memoryCache.get(key);
 memoryCache.del(key);
 memoryCache.clear();
@@ -24,3 +26,12 @@ num = memoryCache.memsize();
 memoryCache.debug(bool);
 num = memoryCache.hits();
 num = memoryCache.misses();
+
+var customCache = new memoryCache.Cache<string, boolean>();
+
+var customKey: string;
+var customValue: boolean;
+
+customValue = customCache.put(customKey, customValue);
+customCache.get(customKey);
+customCache.del(customKey);
