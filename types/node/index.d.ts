@@ -5104,7 +5104,7 @@ declare module "stream" {
             write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
             writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
             destroy?: (error?: Error) => any;
-            final?: (callback?: (error: Error | null) => void) => void;
+            final?: (callback: (error?: Error) => void) => void;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
