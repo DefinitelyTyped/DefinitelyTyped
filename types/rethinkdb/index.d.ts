@@ -238,6 +238,7 @@ declare module "rethinkdb" {
         indexCreate(name: string, index?: ExpressionFunction<any>): Operation<CreateResult>;
         indexDrop(name: string): Operation<DropResult>;
         indexList(): Operation<string[]>;
+        indexWait(name?: string): Operation<Array<{ index: string, ready: true, function: number, multi: boolean, geo: boolean, outdated: boolean }>>;
 
         insert(obj: any[], options?: InsertOptions): Operation<WriteResult>;
         insert(obj: any, options?: InsertOptions): Operation<WriteResult>;
