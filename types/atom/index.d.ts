@@ -1,11 +1,10 @@
-// Type definitions for Atom 1.20
+// Type definitions for Atom 1.21
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-/// <reference types="electron" />
 /// <reference types="jquery" />
 /// <reference types="atom-keymap" />
 /// <reference types="event-kit" />
@@ -113,6 +112,19 @@ declare global {
 				/** Object the new parameters the decoration now has */
 				newProperties: Structures.DecorationProps;
 			}
+
+			type FilesystemChange = Array<{
+				/** A string describing the filesystem action that occurred. */
+				action: "created"|"modified"|"deleted"|"renamed";
+
+				/** The absolute path to the filesystem entry that was acted upon. */
+				path: string;
+
+				/** For rename events, a string containing the filesystem entry's former
+				 *  absolute path.
+				 */
+				oldPath?: string;
+			}>;
 		}
 
 		/** Objects that appear as parameters to functions. */
@@ -297,6 +309,27 @@ declare global {
 				/** The number of lines after the matched line to include in the results object. */
 				trailingContextLineCount?: number;
 			}
+
+			interface BuildEnvironment {
+				/** An object responsible for Atom's interaction with the browser process and host OS.
+				 *  Use buildDefaultApplicationDelegate for a default instance.
+				 */
+				applicationDelegate?: object;
+
+				/** A window global. */
+				window?: Window;
+
+				/** A document global. */
+				document?: Document;
+
+				/** A path to the configuration directory (usually ~/.atom). */
+				configDirPath?: string;
+
+				/** A boolean indicating whether the Atom environment should save or load state
+				 *  from the file system. You probably want this to be false.
+				 */
+				enablePersistence?: boolean;
+			}
 		}
 
 		/** The static side to each exported class. Should generally only be used internally. */
@@ -336,6 +369,7 @@ declare global {
 				// this appearing in the middle of the parameter list, which isn't aligned with
 				// the ES6 spec. Maybe when they rewrite it in JavaScript this will change.
 				/** A helper method to easily launch and run a task once. */
+				// tslint:disable-next-line:no-any
 				once(taskPath: string, ...args: any[]): AtomCore.Task;
 
 				/** Creates a task. You should probably use .once */
@@ -434,6 +468,30 @@ declare global {
 				resourcePath: string;
 				safeMode: boolean;
 			}
+
+			interface TestRunnerArgs {
+				/** An array of paths to tests to run. Could be paths to files or directories. */
+				testPaths: string[];
+
+				/** A function that can be called to construct an instance of the atom global.
+				 *  No atom global will be explicitly assigned, but you can assign one in your
+				 *  runner if desired.
+				 */
+				buildAtomEnvironment(options: Options.BuildEnvironment): AtomEnvironment;
+
+				/** A function that builds a default instance of the application delegate, suitable
+				 *  to be passed as the applicationDelegate parameter to buildAtomEnvironment.
+				 */
+				buildDefaultApplicationDelegate(): object;
+
+				/** An optional path to a log file to which test output should be logged. */
+				logFile: string;
+
+				/** A boolean indicating whether or not the tests are being run from the command
+				 *  line via atom --test.
+				 */
+				headless: boolean;
+			}
 		}
 
 		/** Atom global for dealing with packages, themes, menus, and the window.
@@ -527,6 +585,11 @@ declare global {
 			/** Get the version of the Atom application. */
 			getVersion(): string;
 
+			/** Gets the release channel of the Atom application.
+			 *  Returns the release channel, which can be 'dev', 'beta', or 'stable'.
+			 */
+			getReleaseChannel(): "dev"|"beta"|"stable";
+
 			/** Returns a boolean that is true if the current version is an official release. */
 			isReleasedVersion(): boolean;
 
@@ -564,7 +627,7 @@ declare global {
 			pickFolder(callback: (paths: string[]|null) => void): void;
 
 			/** Get the current window. */
-			getCurrentWindow(): Electron.BrowserWindow;
+			getCurrentWindow(): object; // Electron's BrowserWindow class.
 
 			/** Move current window to the center of the screen. */
 			center(): void;
@@ -691,38 +754,47 @@ declare global {
 			/** Add a listener for changes to a given key path. This is different than ::onDidChange in
 			 *  that it will immediately call your callback with the current value of the config entry.
 			 */
+			// tslint:disable-next-line:no-any
 			observe(keyPath: string, callback: (value: any) => void):
 				EventKit.Disposable;
 			/** Add a listener for changes to a given key path. This is different than ::onDidChange in
 			 *  that it will immediately call your callback with the current value of the config entry.
 			 */
+			// tslint:disable:no-any
 			observe(keyPath: string, options: { scope: string[]|ScopeDescriptor },
 				callback: (value: any) => void): EventKit.Disposable;
+			// tslint:enable:no-any
 
 			/** Add a listener for changes to a given key path. If keyPath is not specified, your
 			 *  callback will be called on changes to any key.
 			 */
+			// tslint:disable-next-line:no-any
 			onDidChange<T = any>(callback: (values: { newValue: T, oldValue: T }) => void):
 				EventKit.Disposable;
 			/** Add a listener for changes to a given key path. If keyPath is not specified, your
 			 *  callback will be called on changes to any key.
 			 */
+			// tslint:disable-next-line:no-any
 			onDidChange<T = any>(keyPath: string, callback: (values: { newValue: T,
 				oldValue: T }) => void): EventKit.Disposable;
 			/** Add a listener for changes to a given key path. If keyPath is not specified, your
 			 *  callback will be called on changes to any key.
 			 */
+			// tslint:disable-next-line:no-any
 			onDidChange<T = any>(keyPath: string, options: { scope: string[]|ScopeDescriptor },
 				callback: (values: { newValue: T, oldValue: T }) => void): EventKit.Disposable;
 
 			// Managing Settings
 			/** Retrieves the setting for the given key. */
+			// tslint:disable:no-any
 			get(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
 				scope?: string[]|ScopeDescriptor }): any;
+			// tslint:enable:no-any
 
 			/** Sets the value for a configuration setting.
 			 *  This value is stored in Atom's internal configuration file.
 			 */
+			// tslint:disable-next-line:no-any
 			set(keyPath: string, value: any, options?: { scopeSelector?: string, source?:
 				string }): void;
 
@@ -732,8 +804,10 @@ declare global {
 			/** Get all of the values for the given key-path, along with their associated
 			 *  scope selector.
 			 */
+			// tslint:disable:no-any
 			getAll(keyPath: string, options?: { sources?: string[], excludeSources?: string[],
 				scope?: ScopeDescriptor }): Array<{ scopeDescriptor: ScopeDescriptor, value: any}>;
+			// tslint:enable:no-any
 
 			/** Get an Array of all of the source Strings with which settings have been added
 			 *  via ::set.
@@ -767,16 +841,24 @@ declare global {
 		 *  using CSS selectors.
 		 */
 		interface CommandRegistry {
-			// Register a single command.
-			add(target: string|Node, commandName: string, callback: (event:
-				AtomKeymap.CommandEvent) => void): EventKit.Disposable;
+			/** Register a single command. */
+			add(target: string|Node, commandName: string, listener: {
+				didDispatch(event: AtomKeymap.CommandEvent): void,
+				displayName?: string,
+				description?: string,
+			} | ((event: AtomKeymap.CommandEvent) => void)): EventKit.Disposable;
 
-			// Register multiple commands.
+			/** Register multiple commands. */
 			add(target: string|Node, commands: { [key: string]: (event:
 				AtomKeymap.CommandEvent) => void }): EventKit.CompositeDisposable;
 
 			/** Find all registered commands matching a query. */
-			findCommands(params: { target: Node }): Array<{ name: string, displayName: string }>;
+			findCommands(params: { target: Node }): Array<{
+				name: string,
+				displayName: string,
+				description?: string,
+				tags?: string[],
+			}>;
 
 			/** Simulate the dispatch of a command on a DOM node. */
 			dispatch(target: Node, commandName: string): void;
@@ -1073,7 +1155,7 @@ declare global {
 			/** Hide the dock and activate the WorkspaceCenter if the dock was was previously focused. */
 			hide(): void;
 
-			/** Toggle the dock's visiblity without changing the Workspace's active pane container. */
+			/** Toggle the dock's visibility without changing the Workspace's active pane container. */
 			toggle(): void;
 
 			/** Check if the dock is visible. */
@@ -1370,21 +1452,6 @@ declare global {
 			update(): void;
 		}
 
-		interface Model {
-			// Properties
-			alive: boolean;
-
-			// Lifecycle
-			/** Destroys this Model. */
-			destroy(): void;
-
-			/** Returns whether or not this Model is alive. */
-			isAlive(): boolean;
-
-			/** Returns whether or not this Model has been destroyed. */
-			isDestroyed(): boolean;
-		}
-
 		/** A notification to the user containing a message and type. */
 		interface Notification {
 			// Properties
@@ -1672,7 +1739,7 @@ declare global {
 			destroyActiveItem(): void;
 
 			/** Destroy the given item. */
-			destroyItem(item: object, force?: boolean): void;
+			destroyItem(item: object, force?: boolean): Promise<boolean>;
 
 			/** Destroy all items. */
 			destroyItems(): void;
@@ -1681,20 +1748,24 @@ declare global {
 			destroyInactiveItems(): void;
 
 			/** Save the active item. */
-			saveActiveItem(): void;
+			saveActiveItem<T = void>(nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Prompt the user for a location and save the active item with the path
 			 *  they select.
 			 */
-			saveActiveItemAs<T>(nextAction?: (error?: Error) => T): T|undefined;
+			saveActiveItemAs<T = void>(nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Save the given item. */
-			saveItem<T>(item: object, nextAction?: (error?: Error) => T): T|undefined;
+			saveItem<T = void>(item: object, nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Prompt the user for a location and save the active item with the path
 			 *  they select.
 			 */
-			saveItemAs<T>(item: object, nextAction?: (error?: Error) => T): T|undefined;
+			saveItemAs<T = void>(item: object, nextAction?: (error?: Error) => T):
+				Promise<T>|undefined;
 
 			/** Save all items. */
 			saveItems(): void;
@@ -1779,6 +1850,23 @@ declare global {
 			show(): void;
 		}
 
+		/** Manage a subscription to filesystem events that occur beneath a root directory. */
+		interface PathWatcher extends EventKit.DisposableLike {
+			/** Return a Promise that will resolve when the underlying native watcher is
+			 *  ready to begin sending events.
+			 */
+			getStartPromise(): Promise<void>;
+
+			/** Invokes a function when any errors related to this watcher are reported. */
+			onDidError(callback: (error: Error) => void): EventKit.Disposable;
+
+			/** Unsubscribe all subscribers from filesystem events. Native resources will be
+			 *  release asynchronously, but this watcher will stop broadcasting events
+			 *  immediately.
+			 */
+			dispose(): void;
+		}
+
 		/** Represents a project that's opened in Atom. */
 		interface Project {
 			// Event Subscription
@@ -1792,6 +1880,9 @@ declare global {
 			 *  the project.
 			 */
 			observeBuffers(callback: (buffer: TextBuffer.TextBuffer) => void): EventKit.Disposable;
+
+			/** Invoke a callback when a filesystem change occurs within any open project path. */
+			onDidChangeFiles(callback: (events: Events.FilesystemChange) => void): EventKit.Disposable;
 
 			// Accessing the Git Repository
 			/** Get an Array of GitRepositorys associated with the project's directories. */
@@ -1809,6 +1900,11 @@ declare global {
 
 			/** Add a path to the project's list of root paths. */
 			addPath(projectPath: string): void;
+
+			/** Access a promise that resolves when the filesystem watcher associated with a
+			 *  project root directory is ready to begin receiving events.
+			 */
+			getWatcherPromise(projectPath: string): Promise<PathWatcher>;
 
 			/** Remove a path from the project's list of root paths. */
 			removePath(projectPath: string): void;
@@ -2160,6 +2256,7 @@ declare global {
 			 *  Throws an error if this task has already been terminated or if sending a
 			 *  message to the child process fails.
 			 */
+			// tslint:disable-next-line:no-any
 			start(...args: any[]): void;
 
 			/** Send message to the task.
@@ -2169,6 +2266,7 @@ declare global {
 			send(message: string): void;
 
 			/** Call a function when an event is emitted by the child process. */
+			// tslint:disable-next-line:no-any
 			on(eventName: string, callback: (param: any) => void): EventKit.Disposable;
 
 			/** Forcefully stop the running task.
@@ -2180,10 +2278,13 @@ declare global {
 			cancel(): boolean;
 		}
 
+		/** An interface which all custom test runners should implement. */
+		type TestRunner = (params: Structures.TestRunnerArgs) => Promise<number>;
+
 		/** This class represents all essential editing state for a single TextBuffer,
 		 *  including cursor and selection positions, folds, and soft wraps.
 		 */
-		interface TextEditor extends Model {
+		interface TextEditor {
 			// Properties
 			id: number;
 			buffer: TextBuffer.TextBuffer;
@@ -2341,12 +2442,12 @@ declare global {
 			/** Saves the editor's text buffer.
 			 *  See TextBuffer::save for more details.
 			 */
-			save(): void;
+			save(): Promise<void>;
 
 			/** Saves the editor's text buffer as the given path.
 			 *  See TextBuffer::saveAs for more details.
 			 */
-			saveAs(filePath: string): void;
+			saveAs(filePath: string): Promise<void>;
 
 			// Reading Text
 			/** Returns a string representing the entire contents of the editor. */
@@ -2863,36 +2964,36 @@ declare global {
 				{ reversed?: boolean, preserveFolds?: boolean }): Selection;
 
 			/** Select from the current cursor position to the given position in buffer coordinates.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectToBufferPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 			/** Select from the current cursor position to the given position in screen coordinates.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectToScreenPosition(position: TextBuffer.PointLike|[number, number]): void;
 
 			/** Move the cursor of each selection one character upward while preserving the
 			 *  selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectUp(rowCount?: number): void;
 
 			/** Move the cursor of each selection one character downward while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectDown(rowCount?: number): void;
 
 			/** Move the cursor of each selection one character leftward while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectLeft(columnCount?: number): void;
 
 			/** Move the cursor of each selection one character rightward while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectRight(columnCount?: number): void;
 
@@ -2913,7 +3014,7 @@ declare global {
 
 			/** Move the cursor of each selection to the beginning of its line while preserving
 			 *  the selection's tail position.
-			 *  This method may merge selections that end up intesecting.
+			 *  This method may merge selections that end up intersecting.
 			 */
 			selectToBeginningOfLine(): void;
 
@@ -3386,6 +3487,7 @@ declare global {
 			/** Add a provider that will be used to construct views in the workspace's view
 			 *  layer based on model objects in its model layer.
 			 */
+			// tslint:disable-next-line:no-any
 			addViewProvider<T>(modelConstructor: { new (...args: any[]): T }, createView:
 				(instance: T) => HTMLElement|undefined): EventKit.Disposable;
 
@@ -3501,7 +3603,7 @@ declare global {
 			 *  hide them. Otherwise, open the URL.
 			 *  Returns a Promise that resolves when the item is shown or hidden.
 			 */
-			toggle(itemOrURI: object|string): Promise<undefined>;
+			toggle(itemOrURI: object|string): Promise<void>;
 
 			/** Creates a new item that corresponds to the provided URI.
 			 *  If no URI is given, or no registered opener can open the URI, a new empty TextEditor
@@ -3650,6 +3752,7 @@ declare global {
 				item: object,
 				visible?: boolean,
 				priority?: number,
+				autoFocus?: boolean,
 			}): Panel;
 
 			/** Returns the Panel associated with the given item or null when the item
@@ -3668,7 +3771,7 @@ declare global {
 			/** Performs a replace across all the specified files in the project. */
 			replace(regex: RegExp, replacementText: string, filePaths: ReadonlyArray<string>,
 				iterator: (result: { filePath: string|undefined, replacements: number }) => void):
-				Promise<undefined>;
+				Promise<void>;
 		}
 
 		// https://github.com/atom/atom/blob/master/src/workspace-center.js
@@ -3776,7 +3879,7 @@ declare global {
 	namespace Atom {
 		/** Objects that appear as parameters to callbacks. */
 		namespace Events {
-			// Atom Keymap ============================================================
+			// Atom Keymap ==========================================================
 			type FullKeybindingMatch = AtomKeymap.Events.FullKeybindingMatch;
 			type PartialKeybindingMatch = AtomKeymap.Events.PartialKeybindingMatch;
 			type FailedKeybindingMatch = AtomKeymap.Events.FailedKeybindingMatch;
@@ -3784,11 +3887,11 @@ declare global {
 			type KeymapLoaded = AtomKeymap.Events.KeymapLoaded;
 			type AddedKeystrokeResolver = AtomKeymap.Events.AddedKeystrokeResolver;
 
-			// Path Watcher ===========================================================
+			// Path Watcher =========================================================
 			type PathWatchErrorThrown = PathWatcher.Events.PathWatchErrorThrown;
 			type WatchedFilePathChanged = PathWatcher.Events.WatchedFilePathChanged;
 
-			// Text Buffer ============================================================
+			// Text Buffer ==========================================================
 			type BufferWatchError = TextBuffer.Events.BufferWatchError;
 			type FileSaved = TextBuffer.Events.FileSaved;
 			type MarkerChanged = TextBuffer.Events.MarkerChanged;
@@ -3797,7 +3900,7 @@ declare global {
 			type BufferStoppedChanging = TextBuffer.Events.BufferStoppedChanging;
 			type DisplayMarkerChanged = TextBuffer.Events.DisplayMarkerChanged;
 
-			// Core ===================================================================
+			// Core =================================================================
 			type ExceptionThrown = AtomCore.Events.ExceptionThrown;
 			type PreventableExceptionThrown = AtomCore.Events.PreventableExceptionThrown;
 			type SelectionChanged = AtomCore.Events.SelectionChanged;
@@ -3811,24 +3914,25 @@ declare global {
 			type PaneItemMoved = AtomCore.Events.PaneItemMoved;
 			type CursorPositionChanged = AtomCore.Events.CursorPositionChanged;
 			type DecorationPropsChanged = AtomCore.Events.DecorationPropsChanged;
+			type FilesystemChange = AtomCore.Events.FilesystemChange;
 		}
 
 		/** Objects that appear as parameters to functions. */
 		namespace Options {
-			// Atom Keymap ============================================================
+			// Atom Keymap ==========================================================
 			type BuildKeyEvent = AtomKeymap.Options.BuildKeyEvent;
 
-			// First Mate =============================================================
+			// First Mate ===========================================================
 			type Grammar = FirstMate.Options.Grammar;
 
-			// Text Buffer ============================================================
+			// Text Buffer ==========================================================
 			type BufferLoad = TextBuffer.Options.BufferLoad;
 			type CopyMarker = TextBuffer.Options.CopyMarker;
 			type FindMarker = TextBuffer.Options.FindMarker;
 			type FindDisplayMarker = TextBuffer.Options.FindDisplayMarker;
 			type ScanContext = TextBuffer.Options.ScanContext;
 
-			// Core ===================================================================
+			// Core =================================================================
 			type TextInsertion = AtomCore.Options.TextInsertion;
 			type Menu = AtomCore.Options.Menu;
 			type ContextMenu = AtomCore.Options.ContextMenu;
@@ -3839,21 +3943,22 @@ declare global {
 			type ErrorNotification = AtomCore.Options.ErrorNotification;
 			type Tooltip = AtomCore.Options.Tooltip;
 			type WorkspaceScan = AtomCore.Options.WorkspaceScan;
+			type BuildEnvironment = AtomCore.Options.BuildEnvironment;
 		}
 
 		/** Data structures that are used within classes. */
 		namespace Structures {
-			// First Mate =============================================================
+			// First Mate ===========================================================
 			type GrammarToken = FirstMate.Structures.GrammarToken;
 			type TokenizeLineResult = FirstMate.Structures.TokenizeLineResult;
 			type GrammarRule = FirstMate.Structures.GrammarRule;
 
-			// Text Buffer ============================================================
+			// Text Buffer ==========================================================
 			type TextChange = TextBuffer.Structures.TextChange;
 			type BufferScanResult = TextBuffer.Structures.BufferScanResult;
 			type ContextualBufferScanResult = TextBuffer.Structures.ContextualBufferScanResult;
 
-			// Core ===================================================================
+			// Core =================================================================
 			type SharedDecorationProps = AtomCore.Structures.SharedDecorationProps;
 			type DecorationProps = AtomCore.Structures.DecorationProps;
 			type DecorationLayerProps = AtomCore.Structures.DecorationLayerProps;
@@ -3861,9 +3966,10 @@ declare global {
 			type CancellablePromise<T> = AtomCore.Structures.CancellablePromise<T>;
 			type ScandalResult = AtomCore.Structures.ScandalResult;
 			type WindowLoadSettings = AtomCore.Structures.WindowLoadSettings;
+			type TestRunnerArgs = AtomCore.Structures.TestRunnerArgs;
 		}
 
-		// Atom Keymap ==============================================================
+		// Atom Keymap ============================================================
 		/** This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
 		 *  method, as well as versions of the ::stopPropagation methods that record the
 		 *  intent to stop propagation so event bubbling can be properly simulated for
@@ -3878,7 +3984,7 @@ declare global {
 		 */
 		type KeymapManager = AtomKeymap.KeymapManager;
 
-		// Event Kit ================================================================
+		// Event Kit ==============================================================
 		/** An object that aggregates multiple Disposable instances together into a
 		 *  single disposable, so they can all be disposed as a group.
 		 */
@@ -3894,7 +4000,7 @@ declare global {
 		 */
 		type Emitter = EventKit.Emitter;
 
-		// First Mate ===============================================================
+		// First Mate =============================================================
 		/** Grammar that tokenizes lines of text. */
 		type Grammar = FirstMate.Grammar;
 
@@ -3903,16 +4009,14 @@ declare global {
 
 		type ScopeSelector = FirstMate.ScopeSelector;
 
-		// Path Watcher =============================================================
+		// Path Watcher ===========================================================
 		/** Represents a directory on disk that can be watched for changes. */
 		type Directory = PathWatcher.Directory;
 
 		/** Represents an individual file that can be watched, read from, and written to. */
 		type File = PathWatcher.File;
 
-		type PathWatcher = PathWatcher.PathWatcher;
-
-		// Text Buffer ==============================================================
+		// Text Buffer ============================================================
 		/** The interface that should be implemented for all "point-compatible" objects. */
 		/** Represents a buffer annotation that remains logically stationary even as the
 		 *  buffer changes. This is used to represent cursors, folds, snippet targets,
@@ -3953,7 +4057,7 @@ declare global {
 		 */
 		type TextBuffer = TextBuffer.TextBuffer;
 
-		// Atom =====================================================================
+		// Atom ===================================================================
 		/** Atom global for dealing with packages, themes, menus, and the window.
 		 *  An instance of this class is always available as the atom global.
 		 */
@@ -4030,8 +4134,6 @@ declare global {
 		/** Provides a registry for menu items that you'd like to appear in the application menu. */
 		type MenuManager = AtomCore.MenuManager;
 
-		type Model = AtomCore.Model;
-
 		/** A notification to the user containing a message and type. */
 		type Notification = AtomCore.Notification;
 
@@ -4055,6 +4157,9 @@ declare global {
 		 */
 		type Panel = AtomCore.Panel;
 
+		/** Manage a subscription to filesystem events that occur beneath a root directory. */
+		type PathWatcher = AtomCore.PathWatcher;
+
 		/** Represents a project that's opened in Atom. */
 		type Project = AtomCore.Project;
 
@@ -4073,6 +4178,9 @@ declare global {
 
 		/** Run a node script in a separate process. */
 		type Task = AtomCore.Task;
+
+		/** An interface which all custom test runners should implement. */
+		type TestRunner = AtomCore.TestRunner;
 
 		/** This class represents all essential editing state for a single TextBuffer,
 		 *  including cursor and selection positions, folds, and soft wraps.
@@ -4145,3 +4253,10 @@ export const TextBuffer: TextBuffer.Statics.TextBuffer;
  *  including cursor and selection positions, folds, and soft wraps.
  */
 export const TextEditor: AtomCore.Statics.TextEditor;
+
+/** Invoke a callback with each filesystem event that occurs beneath a specified path.
+ *  If you only need to watch events within the project's root paths, use
+ *  Project::onDidChangeFiles instead.
+ */
+export function watchPath(rootPath: string, options: {}, eventCallback: (events:
+	AtomCore.Events.FilesystemChange) => void): AtomCore.PathWatcher;

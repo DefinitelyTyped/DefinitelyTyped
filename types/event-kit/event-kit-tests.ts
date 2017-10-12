@@ -14,7 +14,7 @@ class User {
 		this.emitter = new Emitter();
 	}
 
-	onDidChangeName(callback: (value: any) => void) {
+	onDidChangeName(callback: (value: string) => void) {
 		return this.emitter.on("did-change-name", callback);
 	}
 

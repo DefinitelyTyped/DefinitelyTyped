@@ -1,6 +1,5 @@
-/// <reference types="activex-word" />
-
-const collectionToArray = <T>(col: any) => {
+// tslint:disable-next-line no-unnecessary-generics
+const collectionToArray = <T>(col: any): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();

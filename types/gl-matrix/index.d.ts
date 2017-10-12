@@ -1950,6 +1950,16 @@ declare module 'gl-matrix' {
          * @returns out
          */
         public static transpose(out: mat3, a: mat3): mat3;
+        
+         /**
+         * Generates a 2D projection matrix with the given bounds
+         *
+         * @param out the receiving matrix
+         * @param width width of your gl context
+         * @param height height of gl context 
+         * @returns out
+         */
+        public static projection(out: mat3, width: number, height: number): mat3;
 
         /**
          * Inverts a mat3

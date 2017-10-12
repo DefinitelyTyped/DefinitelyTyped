@@ -10,6 +10,7 @@ import * as React from 'react';
 
 export type Percentage = string;
 export type RechartsFunction = () => void;
+export type TickFormatterFunction = (value: any) => any;
 export type LabelFormatter = (label: string | number) => React.ReactNode;
 export type TooltipFormatter = (value: string | number | Array<string | number>, name: string,
                                 entry: TooltipPayload, index: number) => React.ReactNode;
@@ -22,6 +23,10 @@ export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out
 export type ScaleType = 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
 export type PositionType = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
 	'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' | 'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
+
+export type PartialAndNumber<T> = {
+   [P in keyof T]?: number | T[P];
+};
 
 export interface Margin {
 	top: number;
@@ -139,7 +144,7 @@ export interface BrushProps {
 	travellerWidth?: number;
 	startIndex?: number;
 	endIndex?: number;
-	tickFormatter?: RechartsFunction;
+	tickFormatter?: TickFormatterFunction;
 	onChange?: RechartsFunction;
 }
 
@@ -379,7 +384,7 @@ export interface PolarAngleAxisProps {
 	tick?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	ticks: any[];
 	orient?: string;
-	tickFormatter: RechartsFunction;
+	tickFormatter: TickFormatterFunction;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
 	onMouseUp?: RechartsFunction;
@@ -413,7 +418,7 @@ export interface PolarRadiusAxisProps {
 	orientation?: "left" | "right" | "middle";
 	axisLine?: boolean | any;
 	tick?: boolean | any | Element | RechartsFunction;
-	tickFormatter: RechartsFunction;
+	tickFormatter: TickFormatterFunction;
 	tickCount?: number;
 	scale?: ScaleType | RechartsFunction;
 	onClick?: RechartsFunction;
@@ -534,7 +539,7 @@ export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 
 export class Rectangle extends React.Component<RectangleProps> { }
 
-export interface ReferenceAreaProps {
+export interface ReferenceAreaProps extends PartialAndNumber<CSSStyleDeclaration> {
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	x1?: number | string;
@@ -574,7 +579,7 @@ export interface ReferenceDotProps {
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
 
-export interface ReferenceLineProps {
+export interface ReferenceLineProps extends PartialAndNumber<CSSStyleDeclaration> {
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	x?: number | string;
@@ -763,7 +768,7 @@ export interface XAxisProps {
 	axisLine?: boolean | any;
 	tickLine?: boolean | any;
 	tickSize?: number;
-	tickFormatter?: RechartsFunction;
+	tickFormatter?: TickFormatterFunction;
 	ticks?: any[];
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
@@ -806,7 +811,7 @@ export interface YAxisProps {
 	tickCount?: number;
 	tickLine?: boolean | any;
 	tickSize?: number;
-	tickFormatter?: RechartsFunction;
+	tickFormatter?: TickFormatterFunction;
 	ticks?: any[];
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;

@@ -4,14 +4,70 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/**
+ * Shim for new Blob() to support older browsers that use the deprecated BlobBuilder API.
+ *
+ * @param parts content of the Blob
+ * @param options usually just `{ type: mimeType }`
+ */
 export function createBlob(parts: any[], options?: { type: string }): Blob;
+
+/**
+ * Shim for URL.createObjectURL() to support browsers that only have the prefixed webkitURL (e.g. Android <4.4).
+ *
+ * @param blob
+ */
 export function createObjectURL(blob: Blob): string;
+
+/**
+ * Shim for URL.revokeObjectURL() to support browsers that only have the prefixed webkitURL (e.g. Android <4.4).
+ *
+ * @param url
+ */
 export function revokeObjectURL(url: string): void;
+
+/**
+ * Convert a Blob to a binary string.
+ *
+ * @param blob
+ */
 export function blobToBinaryString(blob: Blob): Promise<string>;
+
+/**
+ * Convert a binary string to a Blob.
+ *
+ * @param binary
+ * @param type the content type
+ */
 export function binaryStringToBlob(binary: string, type?: string): Promise<Blob>;
+
+/**
+ * Convert a Blob to a base-64 string.
+ *
+ * @param blob
+ */
 export function blobToBase64String(blob: Blob): Promise<string>;
+
+/**
+ * Convert a base-64 string to a Blob.
+ *
+ * @param base64
+ * @param type the content type
+ */
 export function base64StringToBlob(base64: string, type?: string): Promise<Blob>;
+
+/**
+ * Convert a data URL string (e.g. `'data:image/png;base64,iVBORw0KG...'`) to a Blob.
+ *
+ * @param dataURL
+ */
 export function dataURLToBlob(dataURL: string): Promise<Blob>;
+
+/**
+ * Convert a Blob to a data URL string (e.g. `'data:image/png;base64,iVBORw0KG...'`).
+ *
+ * @param blob
+ */
 export function blobToDataURL(blob: Blob): Promise<string>;
 
 /**
@@ -47,5 +103,17 @@ export function canvasToBlob(canvas: HTMLCanvasElement, type?: string, quality?:
  */
 export function imgSrcToBlob(src: string, type?: string, crossOrigin?: string, quality?: number): Promise<Blob>;
 
+/**
+ * Convert an ArrayBuffer to a Blob.
+ *
+ * @param arrayBuff
+ * @param type the content type
+ */
 export function arrayBufferToBlob(arrayBuff: ArrayBuffer, type?: string): Promise<Blob>;
+
+/**
+ * Convert a Blob to an ArrayBuffer.
+ *
+ * @param blob
+ */
 export function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer>;

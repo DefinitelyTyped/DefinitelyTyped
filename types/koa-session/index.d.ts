@@ -108,7 +108,7 @@ declare function session(app: Koa): Koa.Middleware;
 
 declare module 'koa' {
     interface Context {
-        session: session.sessionProps;
+        session: session.sessionProps | null;
     }
 }
 

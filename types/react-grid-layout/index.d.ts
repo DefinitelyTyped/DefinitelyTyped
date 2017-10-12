@@ -1,8 +1,9 @@
-// Type definitions for react-grid-layout 0.14
+// Type definitions for react-grid-layout 0.16
 // Project: https://github.com/STRML/react-grid-layout
 // Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
 //                 Ali Taheri <https://github.com/alitaheri>,
-//                 Zheyang Song <https://github.com/ZheyangSong>
+//                 Zheyang Song <https://github.com/ZheyangSong>,
+//                 Andrew Hathaway <https://github.com/andrewhathaway>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -130,6 +131,11 @@ declare namespace ReactGridLayout {
          * If true, the layout will compact vertically.
          */
         verticalCompact?: boolean;
+
+        /**
+         * Compaction type.
+         */
+        compactType?: "vertical" | "horizontal";
 
         /**
          * This allows setting the initial width on the server side.
