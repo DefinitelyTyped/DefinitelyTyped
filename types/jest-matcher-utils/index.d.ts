@@ -8,8 +8,8 @@ import * as chalk from 'chalk';
 
 export const EXPECTED_COLOR: chalk.ChalkChain;
 export const RECEIVED_COLOR: chalk.ChalkChain;
-// export const EXPECTED_BG: chalk.ChalkChain; // removed in b430e51a
-// export const RECEIVED_BG: chalk.ChalkChain; // removed in b430e51a
+export const EXPECTED_BG: chalk.ChalkChain; // TODO: removed in b430e51a
+export const RECEIVED_BG: chalk.ChalkChain; // TODO: removed in b430e51a
 export const SUGGEST_TO_EQUAL: string;
 
 export function stringify(object: any, maxDepth?: number): string;
