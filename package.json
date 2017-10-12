@@ -21,9 +21,7 @@
     "lint": "dtslint types"
   },
   "devDependencies": {
-    "dts-gen": "^0.5.6",
     "dtslint": "github:Microsoft/dtslint#production",
-    "tress": "^1.0.5",
     "types-publisher": "Microsoft/types-publisher#production"
   }
 }
