@@ -3199,8 +3199,8 @@ namespace http2_tests {
 
             response.setTimeout(0, () => {});
             response.createPushResponse(outgoingHeaders, () => {});
-            response.createPushResponse(outgoingHeaders, (err: Error) => {});
-            response.createPushResponse(outgoingHeaders, (err: Error, res: http2.Http2ServerResponse) => {});
+            response.createPushResponse(outgoingHeaders, (err: Error | null) => {});
+            response.createPushResponse(outgoingHeaders, (err: Error | null, res: http2.Http2ServerResponse) => {});
 
             response.writeContinue();
             response.writeHead(200);
