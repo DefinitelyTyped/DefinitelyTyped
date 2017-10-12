@@ -470,7 +470,7 @@ declare module 'firebird' {
         unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
+        wrap(oldStream: NodeJS.ReadableStream): this;
 
         /* NodeJS.WriteStream */
         writable: boolean;

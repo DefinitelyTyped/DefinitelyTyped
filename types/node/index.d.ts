@@ -345,7 +345,7 @@ declare namespace NodeJS {
         unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
-        wrap(oldStream: ReadableStream): ReadableStream;
+        wrap(oldStream: ReadableStream): this;
     }
 
     export interface WritableStream extends EventEmitter {
@@ -5084,7 +5084,7 @@ declare module "stream" {
             isPaused(): boolean;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
-            wrap(oldStream: NodeJS.ReadableStream): Readable;
+            wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
             _destroy(err: Error, callback: Function): void;
             destroy(error?: Error): void;
