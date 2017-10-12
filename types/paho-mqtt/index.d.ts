@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference path="module.d.ts"/>
+
 declare namespace Paho {
     /**
      * Send and receive messages using web browsers.
@@ -438,7 +440,7 @@ declare namespace Paho {
              *
              * @default 0
              */
-            qos: number;
+            qos: Qos;
 
             /**
              * If true, the message is to be retained by the server and delivered to both current and future
