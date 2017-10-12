@@ -42,7 +42,7 @@ export type Node =
     ClassBody | Class | MethodDefinition | ModuleDeclaration | ModuleSpecifier;
 
 export interface Comment extends BaseNodeWithoutComments {
-  type: 'Line' | 'Block';
+  type: "Line" | "Block";
   value: string;
 }
 
@@ -349,7 +349,7 @@ export type Literal = SimpleLiteral | RegExpLiteral;
 export interface SimpleLiteral extends BaseNode, BaseExpression {
   type: "Literal";
   value: string | boolean | number | null;
-  raw: string;
+  raw?: string;
 }
 
 export interface RegExpLiteral extends BaseNode, BaseExpression {
