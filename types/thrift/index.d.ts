@@ -119,6 +119,10 @@ export interface TProtocol {
     skip(type: Thrift.Type): void;
 }
 
+export interface HttpHeaders {
+    [name: string]: number | string | string[] | undefined
+}
+
 export interface SeqId2Service {
     [seqid: number]: string;
 }
@@ -162,7 +166,7 @@ export class XHRConnection extends NodeJS.EventEmitter {
     recv_buf: string;
     transport: TTransport;
     protocol: TProtocol;
-    headers: http.OutgoingHttpHeaders;
+    headers: HttpHeaders;
     constructor(host: string, port: number, options?: ConnectOptions);
     getXmlHttpRequestObject(): XMLHttpRequest;
     flush(): void;
@@ -180,7 +184,7 @@ export interface WSOptions {
     host: string;
     port: number;
     path: string;
-    headers: http.OutgoingHttpHeaders;
+    headers: HttpHeaders;
 }
 
 export class WSConnection extends NodeJS.EventEmitter {
@@ -228,7 +232,7 @@ export interface ServiceOptions<TProcessor, THandler> {
 export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TProcessor, THandler> {
     cors?: string[];
     files?: string;
-    headers?: http.IncomingHttpHeaders;
+    headers?: HttpHeaders;
     services?: ServiceMap<TProcessor, THandler>;
     tls?: tls.TlsOptions;
 }
@@ -237,7 +241,7 @@ export interface ConnectOptions {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
     path?: string;
-    headers?: http.OutgoingHttpHeaders;
+    headers?: HttpHeaders;
     https?: boolean;
     debug?: boolean;
     max_attempts?: number;
@@ -251,7 +255,7 @@ export interface WSConnectOptions {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
     path?: string;
-    headers?: http.OutgoingHttpHeaders;
+    headers?: HttpHeaders;
     secure?: boolean;
     wsOptions?: WSOptions;
 }
