@@ -1,4 +1,5 @@
 import * as N3 from "n3";
+import * as RDF from "rdf-js";
 import * as fs from "fs";
 import * as stream from "stream";
 
@@ -54,17 +55,16 @@ function test_doc_rdf_to_triples_2() {
 
 function test_doc_rdf_stream_to_triples_1() {
     const parser = N3.Parser();
-    const rdfStream1 = fs.createReadStream('cartoons.ttl');
-    parser.parse(rdfStream1, console.log);
+    parser.parse('abc', console.log);
 
     const streamParser = N3.StreamParser();
-    const rdfStream2 = fs.createReadStream('cartoons.ttl');
-    rdfStream2.pipe(streamParser);
+    const rdfStream = fs.createReadStream('cartoons.ttl');
+    rdfStream.pipe(streamParser);
     streamParser.pipe(new class SlowConsumer extends stream.Writable {
         constructor() {
             super({ objectMode: true });
-            this._write = (triple, encoding, done) => {
-                console.log(triple);
+            this._write = (quad: RDF.Quad, encoding, done) => {
+                console.log(quad);
                 setTimeout(done, 1000);
             };
         }
