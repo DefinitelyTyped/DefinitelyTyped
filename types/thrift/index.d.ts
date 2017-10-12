@@ -120,7 +120,7 @@ export interface TProtocol {
 }
 
 export interface HttpHeaders {
-    [name: string]: number | string | string[] | undefined
+    [name: string]: number | string | string[] | undefined;
 }
 
 export interface SeqId2Service {
