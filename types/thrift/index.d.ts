@@ -50,6 +50,11 @@ export interface TStruct {
     fname: string;
 }
 
+export interface TStructLike {
+    read(input: TProtocol): void;
+    write(output: TProtocol): void;
+}
+
 export interface TTransport {
     commitPosition(): void;
     rollbackPosition(): void;
@@ -115,6 +120,10 @@ export interface TProtocol {
     skip(type: Thrift.Type): void;
 }
 
+export interface HttpHeaders {
+    [name: string]: number | string | string[] | undefined;
+}
+
 export interface SeqId2Service {
     [seqid: number]: string;
 }
@@ -158,7 +167,7 @@ export class XHRConnection extends NodeJS.EventEmitter {
     recv_buf: string;
     transport: TTransport;
     protocol: TProtocol;
-    headers: http.OutgoingHttpHeaders;
+    headers: HttpHeaders;
     constructor(host: string, port: number, options?: ConnectOptions);
     getXmlHttpRequestObject(): XMLHttpRequest;
     flush(): void;
@@ -176,7 +185,7 @@ export interface WSOptions {
     host: string;
     port: number;
     path: string;
-    headers: http.OutgoingHttpHeaders;
+    headers: HttpHeaders;
 }
 
 export class WSConnection extends NodeJS.EventEmitter {
@@ -224,7 +233,7 @@ export interface ServiceOptions<TProcessor, THandler> {
 export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TProcessor, THandler> {
     cors?: string[];
     files?: string;
-    headers?: http.IncomingHttpHeaders;
+    headers?: HttpHeaders;
     services?: ServiceMap<TProcessor, THandler>;
     tls?: tls.TlsOptions;
 }
@@ -233,7 +242,7 @@ export interface ConnectOptions {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
     path?: string;
-    headers?: http.OutgoingHttpHeaders;
+    headers?: HttpHeaders;
     https?: boolean;
     debug?: boolean;
     max_attempts?: number;
@@ -247,7 +256,7 @@ export interface WSConnectOptions {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
     path?: string;
-    headers?: http.OutgoingHttpHeaders;
+    headers?: HttpHeaders;
     secure?: boolean;
     wsOptions?: WSOptions;
 }
@@ -311,7 +320,7 @@ export function createServer<TProcessor, THandler>(
 export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
 
 export class TBufferedTransport implements TTransport {
-    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
     static receiver(callback: (trans: TBufferedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
     commitPosition(): void;
     rollbackPosition(): void;
@@ -331,7 +340,7 @@ export class TBufferedTransport implements TTransport {
 }
 
 export class TFramedTransport implements TTransport {
-    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
     static receiver(callback: (trans: TFramedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
     commitPosition(): void;
     rollbackPosition(): void;
@@ -351,7 +360,7 @@ export class TFramedTransport implements TTransport {
 }
 
 export interface TTransportConstructor {
-  new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
+  new (buffer?: Buffer, callback?: TTransportCallback): TTransport;
 }
 
 export class TBinaryProtocol implements TProtocol {
