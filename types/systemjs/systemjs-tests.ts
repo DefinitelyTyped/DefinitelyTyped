@@ -11,10 +11,8 @@ SystemJS.config({
     transpiler: 'plugin-babel',
     // or traceurOptions or typescriptOptions
     babelOptions: {
-
     }
 });
-
 
 SystemJS.config({
     map: {
@@ -52,18 +50,18 @@ SystemJS.config({
 SystemJS.transpiler = 'traceur';
 
 const mockModule = {
-    default: function () {
+    default: () => {
         return 42;
     }
 };
 
 SystemJS.set('./app.js', SystemJS.newModule(mockModule));
 
-SystemJS.import('./app.js').then(function (m: typeof mockModule) {
+SystemJS.import('./app.js').then((m: typeof mockModule) => {
     m.default();
 });
 
-SystemJS.import('lodash').then(function (_: (...args: any[]) => any) {
+SystemJS.import('lodash').then((_: (...args: any[]) => any) => {
     _(1, '2', {}, []);
 });
 

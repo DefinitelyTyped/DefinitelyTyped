@@ -1,6 +1,7 @@
 // Type definitions for SystemJS 0.20
 // Project: https://github.com/systemjs/systemjs
-// Definitions by: Ludovic HENIN <https://github.com/ludohenin>, Nathan Walker <https://github.com/NathanWalker>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Aluan Haddad <https://github.com/aluanhaddad>
+// Definitions by: Ludovic HENIN <https://github.com/ludohenin>, Nathan Walker <https://github.com/NathanWalker>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>,
+//                 Aluan Haddad <https://github.com/aluanhaddad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = SystemJSLoader;
@@ -20,7 +21,6 @@ declare global {
 declare const SystemJSLoader: SystemJSLoader.System;
 
 declare namespace SystemJSLoader {
-
     interface ModulesList {
         [bundleName: string]: string[];
     }
@@ -188,7 +188,7 @@ declare namespace SystemJSLoader {
         /**
          * Set the Babel transpiler options when System.transpiler is set to babel.
          */
-        //TODO: Import BabelCore.TransformOptions
+        // TODO: Import BabelCore.TransformOptions
         babelOptions?: any;
 
         /**
@@ -249,7 +249,7 @@ declare namespace SystemJSLoader {
         /**
          * Sets the TypeScript transpiler options.
          */
-        //TODO: Import Typescript.CompilerOptions
+        // TODO: Import Typescript.CompilerOptions
         typescriptOptions?: {
             /**
              * A boolean flag which instructs the plugin to load configuration from "tsconfig.json".
@@ -276,12 +276,12 @@ declare namespace SystemJSLoader {
         /**
          * For backwards-compatibility with AMD environments, set window.define = System.amdDefine.
          */
-        amdDefine: (...args: any[]) => void;
+        amdDefine(...args: any[]): void;
 
         /**
          * For backwards-compatibility with AMD environments, set window.require = System.amdRequire.
          */
-        amdRequire: (deps: string[], callback: (...modules: any[]) => void) => void;
+        amdRequire(deps: string[], callback: (...modules: any[]) => void): void;
 
         /**
          * SystemJS configuration helper function.
@@ -303,7 +303,6 @@ declare namespace SystemJSLoader {
          * Returns a module from the registry by normalized name.
          */
         get(moduleName: string): any;
-        get<TModule>(moduleName: string): TModule;
 
         /**
          * Returns a clone of the internal SystemJS configuration in use.
@@ -320,7 +319,6 @@ declare namespace SystemJSLoader {
          * Promise resolves to the module value.
          */
         import(moduleName: string, normalizedParentName?: string): Promise<any>;
-        import<TModule>(moduleName: string, normalizedParentName?: string): Promise<TModule>;
 
         /**
          * Given any object, returns true if the object is either a SystemJS module or native JavaScript module object, and false otherwise.
@@ -333,7 +331,6 @@ declare namespace SystemJSLoader {
          * Useful when writing a custom instantiate hook or using System.set.
          */
         newModule(object: any): any;
-        newModule<TModule>(object: any): TModule;
 
         /**
          * Declaration function for defining modules of the System.register polyfill module format.
@@ -370,7 +367,7 @@ declare namespace SystemJSLoader {
          * loaded to ensure the correct detection paths in loaded code.
          * The CommonJS require can be recovered within these modules from System._nodeRequire.
          */
-        _nodeRequire: (dep: string) => any;
+        _nodeRequire(dep: string): any;
 
         /**
          * Modules list available only with trace=true
