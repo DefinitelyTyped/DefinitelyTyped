@@ -881,17 +881,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * *The original array is not modified.*
    */
-  // promise of array with promises of value
-  static map<R, U>(values: PromiseLike<PromiseLike<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
-
-  // promise of array with values
-  static map<R, U>(values: PromiseLike<R[]>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
-
-  // array with promises of value
-  static map<R, U>(values: PromiseLike<R>[], mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
-
-  // array with values
-  static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  static map<R, U>(values: PromiseLike<PromiseLike<R>[]> | PromiseLike<R[]> | Iterable<R> | PromiseLike<R>[] | Iterable<PromiseLike<R>>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   /**
    * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
