@@ -355,6 +355,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "log4js",
+            "typingsPackageName": "log4js",
+            "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
+            "asOfVersion": "2.3.5"
+        },
+        {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
@@ -379,12 +385,6 @@
             "asOfVersion": "0.8.1"
         },
         {
-            "libraryName": "MQTT",
-            "typingsPackageName": "mqtt",
-            "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
-            "asOfVersion": "2.5.0"
-        },
-        {
             "libraryName": "mobservable",
             "typingsPackageName": "mobservable",
             "sourceRepoURL": "github.com/mweststrate/mobservable",
@@ -401,6 +401,12 @@
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "MQTT",
+            "typingsPackageName": "mqtt",
+            "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
+            "asOfVersion": "2.5.0"
         },
         {
             "libraryName": "ng-table",
