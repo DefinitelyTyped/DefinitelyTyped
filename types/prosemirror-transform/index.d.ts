@@ -1,11 +1,11 @@
-// Type definitions for prosemirror-transform 0.21
+// Type definitions for prosemirror-transform 0.24
 // Project: https://github.com/ProseMirror/prosemirror-transform
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Fragment, Mark, MarkType, Node, NodeRange, NodeType, Schema, Slice } from 'prosemirror-model';
+import { Fragment, Mark, MarkType, Node, NodeRange, NodeType, Schema, Slice, ContentMatch } from 'prosemirror-model';
 
 export interface Mappable {
   map(pos: number, assoc?: number): number;
@@ -21,6 +21,7 @@ export class StepMap {
   map(pos: number, assoc?: number): number;
   forEach(f: (oldStart: number, oldEnd: number, newStart: number, newEnd: number) => void): void;
   invert(): StepMap;
+  static offset(n: number): StepMap;
 }
 export class Mapping {
   constructor(maps?: StepMap[])
@@ -42,28 +43,28 @@ export class RemoveMarkStep extends Step {
 }
 export class Transform {
   constructor(doc: Node)
-  addMark(from: number, to: number, mark: Mark): Transform;
-  removeMark(from: number, to: number, mark?: Mark | MarkType): Transform;
-  clearMarkup(from: number, to: number): Transform;
-  replaceRange(from: number, to: number, slice: Slice): Transform;
-  replaceRangeWith(from: number, to: number, node: Node): Transform;
-  deleteRange(from: number, to: number): Transform;
-  delete(from: number, to: number): Transform;
-  replace(from: number, to?: number, slice?: Slice): Transform;
-  replaceWith(from: number, to: number, content: Fragment | Node | Node[]): Transform;
-  insert(pos: number, content: Fragment | Node | Node[]): Transform;
-  lift(range: NodeRange, target: number): Transform;
-  wrap(range: NodeRange, wrappers: Array<{ type: NodeType, attrs?: object | null }>): Transform;
-  setBlockType(from: number, to: number | undefined, type: NodeType, attrs?: object): Transform;
-  setNodeType(pos: number, type?: NodeType, attrs?: object, marks?: Mark[]): Transform;
-  split(pos: number, depth?: number, typesAfter?: Array<{ type: NodeType, attrs?: object | null }>): Transform;
-  join(pos: number, depth?: number, p1?: boolean): Transform;
+  addMark(from: number, to: number, mark: Mark): this;
+  removeMark(from: number, to: number, mark?: Mark | MarkType): this;
+  clearIncompatible(pos: number, parentType: NodeType, match?: ContentMatch | null): this;
+  replaceRange(from: number, to: number, slice: Slice): this;
+  replaceRangeWith(from: number, to: number, node: Node): this;
+  deleteRange(from: number, to: number): this;
+  delete(from: number, to: number): this;
+  replace(from: number, to?: number, slice?: Slice): this;
+  replaceWith(from: number, to: number, content: Fragment | Node | Node[]): this;
+  insert(pos: number, content: Fragment | Node | Node[]): this;
+  lift(range: NodeRange, target: number): this;
+  wrap(range: NodeRange, wrappers: Array<{ type: NodeType, attrs?: object | null }>): this;
+  setBlockType(from: number, to: number | undefined, type: NodeType, attrs?: object): this;
+  setNodeMarkup(pos: number, type?: NodeType, attrs?: object, marks?: Mark[]): this;
+  split(pos: number, depth?: number, typesAfter?: Array<{ type: NodeType, attrs?: object | null }>): this;
+  join(pos: number, depth?: number, p1?: boolean): this;
   doc: Node;
   steps: Step[];
   docs: Node[];
   mapping: Mapping;
   before: Node;
-  step(step: Step): Transform;
+  step(step: Step): this;
   maybeStep(step: Step): StepResult;
   docChanged: boolean;
 }
@@ -80,7 +81,6 @@ export class Step {
   invert(doc: Node): Step;
   map(mapping: Mappable): Step | null | undefined;
   merge(other: Step): Step | null | undefined;
-  offset(n: number): Step;
   toJSON(): object;
   static fromJSON(schema: Schema, json: object): Step;
   static jsonID(id: string, stepClass: { new(...args: any[]): Step }): void;

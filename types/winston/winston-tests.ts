@@ -1,17 +1,17 @@
 import winston = require('winston');
 
-let str: string;
+declare const str: string;
 let bool: boolean;
-let num: number;
-let metadata: any;
-let obj: any = {};
-let stamp: boolean | (() => string | boolean);
+declare const num: number;
+declare const metadata: any;
+const obj: any = {};
+declare const stamp: boolean | (() => string | boolean);
 
 winston.level = 'debug';
 
 let queryOptions: winston.QueryOptions;
-let transportOptions: winston.TransportOptions;
-let loggerOptions: winston.LoggerOptions = {
+declare const transportOptions: winston.TransportOptions;
+const loggerOptions: winston.LoggerOptions = {
   transports: [new (winston.Transport)()],
   rewriters: [
     (level: string, msg: string, meta: any): any => {
@@ -22,21 +22,21 @@ let loggerOptions: winston.LoggerOptions = {
   handleExceptions: false
 };
 
-let options: any;
+declare const options: any;
 let value: any;
 let transport: winston.TransportInstance;
 let logger: winston.LoggerInstance;
 let profiler: winston.ProfileHandler;
 
-let writeableStream: NodeJS.WritableStream;
+declare const writeableStream: NodeJS.WritableStream;
 let readableStream: NodeJS.ReadableStream;
 
-let transportStatic: winston.TransportStatic = winston.Transport;
+const transportStatic: winston.TransportStatic = winston.Transport;
 
 let transportInstance: winston.TransportInstance = new (winston.Transport)(transportOptions);
 transportInstance = new (winston.Transport)();
 
-let containerInstance: winston.ContainerInstance = new (winston.Container)(loggerOptions);
+const containerInstance: winston.ContainerInstance = new (winston.Container)(loggerOptions);
 winston.loggers.options.transports = [
   new (winston.Transport)()
 ];
@@ -164,8 +164,7 @@ logger = profiler.done(str);
 logger = profiler.logger;
 profiler.start = new Date();
 
-let testRewriter: winston.MetadataRewriter;
-testRewriter = (level: string, msg: string, meta: any): any => {
+const testRewriter: winston.MetadataRewriter = (level: string, msg: string, meta: any): any => {
     return meta;
 };
 
@@ -278,7 +277,7 @@ winston.config.colorize(winston.config.syslog.levels['info'], "Hello world!");
 // https://github.com/Microsoft/TypeScript/issues/7545
 declare module 'winston' {
   interface LoggerInstance {
-    yay: winston.LeveledLogMethod;
+    yay: LeveledLogMethod;
   }
 }
 const customLevelLogger = new winston.Logger({

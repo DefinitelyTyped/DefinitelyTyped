@@ -7,7 +7,7 @@ const strVal = "string";
 const dateVal = new Date();
 
 // Options tests
-let opts: touch.Options = {};
+const opts: touch.Options = {};
 
 opts.force = boolVal;
 

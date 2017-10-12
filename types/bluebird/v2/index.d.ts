@@ -36,7 +36,8 @@ interface PromiseConstructor {
         reject: (error: any) => void,
         onCancel?: PromiseCancelHandlerSetter
     ) => void): Promise<T>;
-    
+    Promise: typeof Promise
+
     config(options: {
         warnings?: boolean | {wForgottenReturn?: boolean};
         longStackTraces?: boolean;
@@ -313,7 +314,7 @@ interface PromiseConstructor {
 
     // array with values
     mapSeries<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
-    
+
 
     /**
      * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.

@@ -1,6 +1,6 @@
 // Type definitions for rc-slider 8.1
 // Project: https://github.com/react-component/slider
-// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus/>, Alexander Mattoni <https://github.com/mattoni/>
+// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>, Alexander Mattoni <https://github.com/mattoni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -163,3 +163,6 @@ export interface HandleProps extends CommonApiProps {
 export default class Slider extends React.Component<SliderProps> { }
 export class Range extends React.Component<RangeProps> { }
 export class Handle extends React.Component<HandleProps> { }
+
+export function createSliderWithTooltip(slider: typeof Slider): new() => Slider;
+export function createSliderWithTooltip(range: typeof Range): new() => Range;

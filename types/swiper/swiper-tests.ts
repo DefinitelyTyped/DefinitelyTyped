@@ -241,23 +241,23 @@ function dynamicSlides() {
     document.querySelector('.prepend-2-slides').addEventListener('click', e => {
         e.preventDefault();
         swiper.prependSlide([
-            '<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>',
-            '<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>'
+            `<div class="swiper-slide">Slide ${--prependNumber}</div>`,
+            `<div class="swiper-slide">Slide ${--prependNumber}</div>`
         ]);
     });
     document.querySelector('.prepend-slide').addEventListener('click', e => {
         e.preventDefault();
-        swiper.prependSlide('<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>');
+        swiper.prependSlide(`<div class="swiper-slide">Slide ${--prependNumber}</div>`);
     });
     document.querySelector('.append-slide').addEventListener('click', e => {
         e.preventDefault();
-        swiper.appendSlide('<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>');
+        swiper.appendSlide(`<div class="swiper-slide">Slide ${++appendNumber}</div>`);
     });
     document.querySelector('.append-2-slides').addEventListener('click', e => {
         e.preventDefault();
         swiper.appendSlide([
-            '<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>',
-            '<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>'
+            `<div class="swiper-slide">Slide ${++appendNumber}</div>`,
+            `<div class="swiper-slide">Slide ${++appendNumber}</div>`
         ]);
     });
 }
@@ -363,7 +363,7 @@ function customPagination() {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         paginationBulletRender(swiper, index, className) {
-            return '<span class="' + className + '">' + (index + 1) + '</span>';
+            return `<span class="${className}">${index + 1}</span>`;
         }
     });
 }

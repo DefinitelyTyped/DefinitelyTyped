@@ -1,6 +1,6 @@
 // Type definitions for kafka-node 2.0
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // # Classes
@@ -15,6 +15,7 @@ export class Client {
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
     on(eventName: "ready", cb: () => any): this;
+    on(eventName: "reconnect", cb: () => void): this;
     on(eventName: "error", cb: (error: any) => any): this;
     connect(): void;
 }

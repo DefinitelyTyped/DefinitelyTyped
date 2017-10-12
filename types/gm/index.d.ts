@@ -1,10 +1,9 @@
-// Type definitions for gm 1.17.0
+// Type definitions for gm 1.17
 // Project: https://github.com/aheckmann/gm
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
-
 
 import stream = require('stream');
 
@@ -14,49 +13,41 @@ declare function m(buffer: Buffer, image?: string): m.State;
 declare function m(width: number, height: number, color?: string): m.State;
 
 declare namespace m {
-    export interface ClassOptions {
+    interface ClassOptions {
         imageMagick?: boolean;
         nativeAutoOrient?: boolean;
     }
 
-    export interface CompareCallback {
-        (err: Error, isEqual: boolean, equality: number, raw: number): any;
-    }
-
-    export interface GetterCallback<T> {
-        (err: Error, value: T): any;
-    }
-
-    export interface WriteCallback {
-        (err: Error, stdout: string, stderr: string, cmd: string): any;
-    }
-
-    export interface ChannelInfo<T> {
+    interface ChannelInfo<T> {
         Red: T;
         Green: T;
         Blue: T;
     }
 
-    export interface CompareOptions {
+    interface CompareOptions {
         file?: string;
         highlightColor?: string;
         highlightStyle?: string;
         tolerance?: number;
     }
 
-    export interface ColorStatistics {
+    interface ColorStatistics {
         Minimum: string;
         Maximum: string;
         Mean: string;
         'Standard Deviation': string;
     }
 
-    export interface Dimensions {
+    interface Dimensions {
         width: number;
         height: number;
     }
 
-    export interface ImageInfo {
+    interface GetterOptions {
+       bufferStream?: boolean;
+    }
+
+    interface ImageInfo {
         'Background Color': string;
         'Border Color': string;
         'Channel Depths': ChannelInfo<string>;
@@ -99,7 +90,7 @@ declare namespace m {
         Type: string;
     }
 
-    export interface State {
+    interface State {
         // Image Operations
         adjoin(): State;
         affine(matrix: string): State;
@@ -255,19 +246,7 @@ declare namespace m {
         fuzz(distance: number, percent?: boolean): State;
         gamma(r: number, g: number, b: number): State;
         gaussian(radius: number, sigma?: number): State;
-        /** Width and height are specified in percents */
-        geometry(width: number, height: number, option: '%'): State;
-        /** Specify maximum area in pixels */
-        geometry(width: number, height: number, option: '@'): State;
-        /** Ignore aspect ratio */
-        geometry(width: number, height: number, option: '!'): State;
-        /** Width and height are minimum values */
-        geometry(width: number, height: number, option: '^'): State;
-        /** Change dimensions only if image is smaller than width or height */
-        geometry(width: number, height: number, option: '<'): State;
-        /** Change dimensions only if image is larger than width or height */
-        geometry(width: number, height: number, option: '>'): State;
-        geometry(width: number, height?: number, option?: string): State;
+        geometry(width: number, height?: number, option?: ResizeOption): State;
         geometry(geometry: string): State;
         greenPrimary(x: number, y: number): State;
         gravity(direction: 'NorthWest'): State;
@@ -437,17 +416,7 @@ declare namespace m {
         process(command: string): State;
         profile(filename: string): State;
         progress(): State;
-        randomThreshold(channelType: 'All', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Intensity', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Red', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Green', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Blue', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Cyan', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Magenta', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Yellow', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Black', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Opacity', LOWxHIGH: string): State;
-        randomThreshold(channelType: string, LOWxHIGH: string): State;
+        randomThreshold(channelType: ChannelType, LOWxHIGH: string): State;
         quality(level: number): State;
         raise(width: number, height: number): State;
         recolor(matrix: string): State;
@@ -462,19 +431,8 @@ declare namespace m {
         samplingFactor(horizontalFactor: number, verticalFactor: number): State;
         rawSize(width: number, height: number, offset?: number): State;
         resample(horizontal: number, vertical: number): State;
-        /** Width and height are specified in percents */
-        resize(width: number, height: number, option: '%'): State;
-        /** Specify maximum area in pixels */
-        resize(width: number, height: number, option: '@'): State;
-        /** Ignore aspect ratio */
-        resize(width: number, height: number, option: '!'): State;
-        /** Width and height are minimum values */
-        resize(width: number, height: number, option: '^'): State;
-        /** Change dimensions only if image is smaller than width or height */
-        resize(width: number, height: number, option: '<'): State;
-        /** Change dimensions only if image is larger than width or height */
-        resize(width: number, height: number, option: '>'): State;
-        resize(width: number, height?: number, option?: string): State;
+        resize(width: number, height: number, option: ResizeOption): State;
+        resize(width: number, height?: number, option?: ResizeOption): State;
         roll(horizontal: number, vertical: number): State;
         rotate(backgroundColor: string, degrees: number): State;
         scene(index: number): State;
@@ -553,13 +511,21 @@ declare namespace m {
 
         // Getters
         color(callback: GetterCallback<number>): State;
+        color(opts: GetterOptions, callback: GetterCallback<number>): State;
         depth(callback: GetterCallback<number>): State;
+        depth(opts: GetterOptions, callback: GetterCallback<number>): State;
         filesize(callback: GetterCallback<string>): State;
+        filesize(opts: GetterOptions, callback: GetterCallback<string>): State;
         format(callback: GetterCallback<string>): State;
+        format(opts: GetterOptions, callback: GetterCallback<string>): State;
         identify(callback: GetterCallback<ImageInfo>): State;
+        identify(opts: GetterOptions, callback: GetterCallback<ImageInfo>): State;
         res(callback: GetterCallback<string>): State;
+        res(opts: GetterOptions, callback: GetterCallback<string>): State;
         size(callback: GetterCallback<Dimensions>): State;
+        size(opts: GetterOptions, callback: GetterCallback<Dimensions>): State;
         orientation(callback: GetterCallback<string>): State;
+        orientation(opts: GetterOptions, callback: GetterCallback<string>): State;
 
         // Drawing Operations
         draw(args: string): State;
@@ -613,18 +579,42 @@ declare namespace m {
         write(filename: string, callback: WriteCallback): void;
     }
 
-    export interface SubClass {
+    interface SubClass {
         (image: string): State;
         (stream: NodeJS.ReadableStream, image?: string): State;
         (buffer: Buffer, image?: string): State;
         (width: number, height: number, color?: string): State;
     }
 
-    export function compare(filename1: string, filename2: string, callback: CompareCallback): void;
-    export function compare(filename1: string, filename2: string, tolerance: number, callback: CompareCallback): void;
-    export function compare(filename1: string, filename2: string, options: CompareOptions, callback: CompareCallback): void;
+    function compare(filename1: string, filename2: string, callback: CompareCallback): void;
+    function compare(filename1: string, filename2: string, tolerance: number, callback: CompareCallback): void;
+    function compare(filename1: string, filename2: string, options: CompareOptions, callback: CompareCallback): void;
 
-    export function subClass(options: ClassOptions): SubClass;
+    function subClass(options: ClassOptions): SubClass;
+
+    type ChannelType = 'All'
+        | 'Intensity'
+        | 'Red'
+        | 'Green'
+        | 'Blue'
+        | 'Cyan'
+        | 'Magenta'
+        | 'Yellow'
+        | 'Black'
+        | 'Opacity';
+
+    type CompareCallback = (err: Error, isEqual: boolean, equality: number, raw: number) => any;
+
+    type GetterCallback<T> = (err: Error, value: T) => any;
+
+    type ResizeOption = '%' /** Width and height are specified in percents */
+        | '@' /** Specify maximum area in pixels */
+        | '!' /** Ignore aspect ratio */
+        | '^' /** Width and height are minimum values */
+        | '<' /** Change dimensions only if image is smaller than width or height */
+        | '>'; /** Change dimensions only if image is larger than width or height */
+
+    type WriteCallback = (err: Error, stdout: string, stderr: string, cmd: string) => any;
 }
 
 export = m;

@@ -2,9 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { WithContext as ReactTags } from "react-tag-input";
 
-let tags = Array({ id: 0, text: "test" }, { id: 1, text: "testing" });
+const tags = Array({ id: 0, text: "test" }, { id: 1, text: "testing" });
 
-let suggestions = Array("test1", "test2");
+const suggestions = Array("test1", "test2");
 
 ReactDOM.render(
     <ReactTags

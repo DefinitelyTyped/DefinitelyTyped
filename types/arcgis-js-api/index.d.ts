@@ -1,13 +1,14 @@
-// Type definitions for ArcGIS API for JavaScript 4.4
+// Type definitions for ArcGIS API for JavaScript 4.5
 // Project: http://js.arcgis.com
 // Definitions by: Esri <https://github.com/Esri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-interface HashMap<T> {
+interface HashMap<T = any> {
   [index: string]: T;
 }
 
-interface IPromise<T> {
+interface IPromise<T = any> {
   always<U>(callback?: (valueOrError: T) => IPromise<U> | U | void): IPromise<U>;
   cancel?<U>(reason?: U, strict?: boolean): U;
   isCanceled?(): boolean;
@@ -51,43 +52,951 @@ declare namespace __esri {
     protected _set<T>(propertyName: string, value: T): this;
   }
 
+
+  export type ItemCallback<T> = (item: T, index: number) => void;
+
+  export type ItemCompareCallback<T> = (firstItem: T, secondItem: T) => number;
+
+  export type ItemMapCallback<T, R> = (item: T, index: number) => R;
+
+  export type ItemReduceCallback<T, R> = (previousValue: R, currentValue: T, index: number) => R;
+
+  export type ItemTestCallback<T> = (item: T, index: number) => boolean;
+
+  interface Collection<T = any> extends Evented {}
+
+  type Constructor<T> = new (...params: any[]) => T;
+
+  interface Types<T extends Base, Base = T> {
+    key: string | ((obj: any) => string);
+    base: Constructor<Base> | Function;
+    typeMap: HashMap<Constructor<T>>;
+  }
+
+  export class Collection<T = any> extends Accessor {
+    constructor(values?: any[] | Collection<any>);
+
+    readonly length: number;
+
+    add(item: T, index?: number): void;
+    addMany(items: T[] | Collection<T>, index?: number): void;
+    clone(): Collection<T>;
+    concat(value: T[] | Collection<T>): Collection<T>;
+    every(callback: ItemTestCallback<T>): boolean;
+    filter(callback: ItemTestCallback<T>): Collection<T>;
+    find(callback: ItemTestCallback<T>): T;
+    findIndex(callback: ItemTestCallback<T>): number;
+    flatten(callback: ItemCallback<T>): Collection<T>;
+    forEach(callback: ItemCallback<T>): void;
+    getItemAt(index: number): T;
+    includes(searchElement: T): boolean;
+    indexOf(searchElement: T, fromIndex?: number): number;
+    join(separator?: string): string;
+    lastIndexOf(searchElement: T, fromIndex?: number): number;
+    map<R = T>(callback: ItemMapCallback<T, R>): Collection<R>;
+    pop(): T;
+    push(item: T): number;
+    reduce<R = T>(callback: ItemReduceCallback<T, R>, initialValue?: R): R;
+    reduceRight<R = T>(callback: ItemReduceCallback<T, R>, initialValue?: R): R;
+    remove(item: T): void;
+    removeAll(): void;
+    removeAt(index: number): any;
+    removeMany(items: T[] | Collection<T>): T[];
+    reorder(item: T, index: number): T;
+    reverse(): Collection<T>;
+    shift(): T;
+    slice(begin?: number, end?: number): Collection<T>;
+    some(callback: ItemCallback<T>): boolean;
+    sort(compareFunction?: ItemCompareCallback<T>): void;
+    splice(start: number, deleteCount: number, items: T[] | Collection<T>): T[];
+    toArray(): T[];
+    unshift(...items: T[]): number;
+
+    static isCollection<T = any>(value: any | Collection<T>): value is Collection<T>;
+
+    static ofType<T extends Base, Base = T>(type: Constructor<T> | Types<T, Base>): new (items?: (T[] | Collection<T>) | { items?: T[] | Collection<T> }) => Collection<T>;
+  }
+
+  type CollectionProperties<T = any> = T[] | Collection<T>;
+
+
+
+  type DateProperties = number | string | Date;
+
+
+  export type BaseDynamicLayerLayerviewCreateEventHandler = (event: BaseDynamicLayerLayerviewCreateEvent) => void;
+
+  export type BaseDynamicLayerLayerviewDestroyEventHandler = (event: BaseDynamicLayerLayerviewDestroyEvent) => void;
+
+  export type BaseElevationLayerLayerviewCreateEventHandler = (event: BaseElevationLayerLayerviewCreateEvent) => void;
+
+  export type BaseElevationLayerLayerviewDestroyEventHandler = (event: BaseElevationLayerLayerviewDestroyEvent) => void;
+
+  export type BaseTileLayerLayerviewCreateEventHandler = (event: BaseTileLayerLayerviewCreateEvent) => void;
+
+  export type BaseTileLayerLayerviewDestroyEventHandler = (event: BaseTileLayerLayerviewDestroyEvent) => void;
+
+  export type CSVLayerLayerviewCreateEventHandler = (event: CSVLayerLayerviewCreateEvent) => void;
+
+  export type CSVLayerLayerviewDestroyEventHandler = (event: CSVLayerLayerviewDestroyEvent) => void;
+
+  export type ElevationLayerLayerviewCreateEventHandler = (event: ElevationLayerLayerviewCreateEvent) => void;
+
+  export type ElevationLayerLayerviewDestroyEventHandler = (event: ElevationLayerLayerviewDestroyEvent) => void;
+
+  export type FeatureLayerLayerviewCreateEventHandler = (event: FeatureLayerLayerviewCreateEvent) => void;
+
+  export type FeatureLayerLayerviewDestroyEventHandler = (event: FeatureLayerLayerviewDestroyEvent) => void;
+
+  export type GeoRSSLayerLayerviewCreateEventHandler = (event: GeoRSSLayerLayerviewCreateEvent) => void;
+
+  export type GeoRSSLayerLayerviewDestroyEventHandler = (event: GeoRSSLayerLayerviewDestroyEvent) => void;
+
+  export type GraphicsLayerLayerviewCreateEventHandler = (event: GraphicsLayerLayerviewCreateEvent) => void;
+
+  export type GraphicsLayerLayerviewDestroyEventHandler = (event: GraphicsLayerLayerviewDestroyEvent) => void;
+
+  export type GroupLayerLayerviewCreateEventHandler = (event: GroupLayerLayerviewCreateEvent) => void;
+
+  export type GroupLayerLayerviewDestroyEventHandler = (event: GroupLayerLayerviewDestroyEvent) => void;
+
+  export type IdentityManagerCredentialCreateEventHandler = (event: IdentityManagerCredentialCreateEvent) => void;
+
+  export type IdentityManagerCredentialsDestroyEventHandler = (event: IdentityManagerCredentialsDestroyEvent) => void;
+
+  export type ImageryLayerLayerviewCreateEventHandler = (event: ImageryLayerLayerviewCreateEvent) => void;
+
+  export type ImageryLayerLayerviewDestroyEventHandler = (event: ImageryLayerLayerviewDestroyEvent) => void;
+
+  export type IntegratedMeshLayerLayerviewCreateEventHandler = (event: IntegratedMeshLayerLayerviewCreateEvent) => void;
+
+  export type IntegratedMeshLayerLayerviewDestroyEventHandler = (event: IntegratedMeshLayerLayerviewDestroyEvent) => void;
+
+  export type KMLLayerLayerviewCreateEventHandler = (event: KMLLayerLayerviewCreateEvent) => void;
+
+  export type KMLLayerLayerviewDestroyEventHandler = (event: KMLLayerLayerviewDestroyEvent) => void;
+
+  export type MapImageLayerLayerviewCreateEventHandler = (event: MapImageLayerLayerviewCreateEvent) => void;
+
+  export type MapImageLayerLayerviewDestroyEventHandler = (event: MapImageLayerLayerviewDestroyEvent) => void;
+
+  export type MapNotesLayerLayerviewCreateEventHandler = (event: MapNotesLayerLayerviewCreateEvent) => void;
+
+  export type MapNotesLayerLayerviewDestroyEventHandler = (event: MapNotesLayerLayerviewDestroyEvent) => void;
+
+  export type MapViewClickEventHandler = (event: MapViewClickEvent) => void;
+
+  export type MapViewDoubleClickEventHandler = (event: MapViewDoubleClickEvent) => void;
+
+  export type MapViewDragEventHandler = (event: MapViewDragEvent) => void;
+
+  export type MapViewHoldEventHandler = (event: MapViewHoldEvent) => void;
+
+  export type MapViewKeyDownEventHandler = (event: MapViewKeyDownEvent) => void;
+
+  export type MapViewKeyUpEventHandler = (event: MapViewKeyUpEvent) => void;
+
+  export type MapViewLayerviewCreateEventHandler = (event: MapViewLayerviewCreateEvent) => void;
+
+  export type MapViewLayerviewDestroyEventHandler = (event: MapViewLayerviewDestroyEvent) => void;
+
+  export type MapViewMouseWheelEventHandler = (event: MapViewMouseWheelEvent) => void;
+
+  export type MapViewPointerDownEventHandler = (event: MapViewPointerDownEvent) => void;
+
+  export type MapViewPointerMoveEventHandler = (event: MapViewPointerMoveEvent) => void;
+
+  export type MapViewPointerUpEventHandler = (event: MapViewPointerUpEvent) => void;
+
+  export type MapViewResizeEventHandler = (event: MapViewResizeEvent) => void;
+
+  interface Basemap extends Accessor, Loadable, JSONSupport {
+    baseLayers: Collection<Layer>;
+    id: string;
+    loaded: boolean;
+    portalItem: PortalItem;
+    referenceLayers: Collection<Layer>;
+    thumbnailUrl: string;
+    title: string;
+
+    clone(): Basemap;
+  }
+
+  interface BasemapConstructor {
+    new(properties?: BasemapProperties): Basemap;
+
+
+    fromId(id: string): Basemap;
+
+    fromJSON(json: any): Basemap;
+  }
+
+  export const Basemap: BasemapConstructor;
+
+  interface BasemapProperties extends LoadableProperties {
+    baseLayers?: CollectionProperties<LayerProperties>;
+    id?: string;
+    loaded?: boolean;
+    portalItem?: PortalItemProperties;
+    referenceLayers?: CollectionProperties<LayerProperties>;
+    thumbnailUrl?: string;
+    title?: string;
+  }
+
+  interface Camera extends Accessor, JSONSupport {
+    fov: number;
+    heading: number;
+    position: Point;
+    tilt: number;
+
+    clone(): Camera;
+  }
+
+  interface CameraConstructor {
+    new(properties?: CameraProperties): Camera;
+
+    fromJSON(json: any): Camera;
+  }
+
+  export const Camera: CameraConstructor;
+
+  interface CameraProperties {
+    fov?: number;
+    heading?: number;
+    position?: PointProperties;
+    tilt?: number;
+  }
+
+  interface Color {
+    a: number;
+    b: number;
+    g: number;
+    r: number;
+
+    clone(): Color;
+    setColor(color: string | number[] | any): Color;
+    toCss(includeAlpha?: boolean): string;
+    toHex(): string;
+    toJSON(): any;
+    toRgb(): number[];
+    toRgba(): number[];
+  }
+
+  interface ColorConstructor {
+
+    blendColors(start: Color, end: Color, weight: number, obj?: Color): Color;
+    new(color: string | number[] | any): Color;
+    fromArray(a: number[], obj?: Color): Color;
+    fromHex(color: string, obj?: Color): Color;
+    fromJSON(json: any): Color;
+    fromRgb(color: string, obj?: Color): Color;
+    fromString(str: string, obj?: Color): Color;
+  }
+
+  export const Color: ColorConstructor;
+
+  interface config {
+    geometryServiceUrl: string;
+    geoRSSServiceUrl: string;
+    kmlServiceUrl: string;
+    portalUrl: string;
+    request: configRequest;
+    workers: configWorkers;
+  }
+
+  export const config: config;
+
+  export interface configRequest {
+    corsDetection?: boolean;
+    corsDetectionTimeout?: number;
+    corsEnabledServers?: (string | configRequestCorsEnabledServers)[];
+    forceProxy?: boolean;
+    httpsDomains?: string[];
+    maxUrlLength?: number;
+    proxyUrl?: string;
+    timeout?: number;
+    useCors?: string | boolean;
+    useIdentity?: boolean;
+    proxyRules?: configRequestProxyRules[];
+  }
+
+  export interface configRequestCorsEnabledServers {
+    host?: string;
+    withCredentials?: boolean;
+  }
+
+  export interface configRequestProxyRules {
+    proxyUrl?: string;
+    urlPrefix?: string;
+  }
+
+  export interface configWorkers {
+    loaderConfig?: configWorkersLoaderConfig;
+  }
+
+  export interface configWorkersLoaderConfig {
+    has?: any;
+    paths?: any;
+    map?: any;
+    packages?: any[];
+  }
+
+
+
+  export type WatchCallback = (newValue: any, oldValue: any, propertyName: string, target: Accessor) => void;
+
+  export interface WatchHandle {
+    remove(): void;
+  }
+
+  interface decorators {
+    aliasOf(propertyName: string): Function;
+    cast(propertyName: string): Function;
+    cast(classFunction: Function): Function;
+    declared<T>(baseClass: T, ...mixinClasses: any[]): T;
+    property(propertyMetadata?: decoratorsPropertyPropertyMetadata): Function;
+    subclass(declaredClass?: string): Function;
+  }
+
+  export const decorators: decorators;
+
+  export interface decoratorsPropertyPropertyMetadata {
+    dependsOn?: string[];
+    type?: Function;
+    cast?: Function;
+    readOnly?: boolean;
+    constructOnly?: boolean;
+    aliasOf?: string;
+    value?: any;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  interface Error {
+    details: any;
+    message: string;
+    name: string;
+  }
+
+  export const Error: Error;
+
+  export class Evented {
+    protected emit(type: string, event: any): void;
+    hasEventListener(type: string): boolean;
+    on(type: string, listener: EventHandler): IHandle;
+  }
+
+  export type EventHandler = (event: any) => void;
+
+  interface JSONSupport {
+    toJSON(): any;
+  }
+
+  interface JSONSupportConstructor {
+    new(): JSONSupport;
+
+
+    fromJSON(json: any): any;
+  }
+
+  export const JSONSupport: JSONSupportConstructor;
+
+  interface lang {
+    clone(elem: any): any;
+  }
+
+  export const lang: lang;
+
+  interface Loadable {
+    loadError: Error;
+    loadStatus: string;
+    loadWarnings: any[];
+
+    always(callbackOrErrback?: Function): IPromise<any>;
+    cancelLoad(): void;
+    isFulfilled(): boolean;
+    isRejected(): boolean;
+    isResolved(): boolean;
+    load(): IPromise<any>;
+    otherwise(errback?: Function): IPromise<any>;
+    then(callback?: Function, errback?: Function, progback?: Function): IPromise<any>;
+  }
+
+  interface LoadableConstructor {
+    new(): Loadable;
+  }
+
+  export const Loadable: LoadableConstructor;
+
+  interface LoadableProperties {
+    loadError?: Error;
+    loadStatus?: string;
+    loadWarnings?: any[];
+  }
+
+  interface corePromise {
+    always(callbackOrErrback?: Function): IPromise<any>;
+    isFulfilled(): boolean;
+    isRejected(): boolean;
+    isResolved(): boolean;
+    otherwise(errback?: Function): IPromise<any>;
+    then(callback?: Function, errback?: Function, progback?: Function): IPromise<any>;
+  }
+
+  interface corePromiseConstructor {
+    new(): corePromise;
+  }
+
+  export const corePromise: corePromiseConstructor;
+
+  interface promiseUtils {
+    eachAlways(promises: IPromise<any>[] | any): IPromise<EachAlwaysResult[]> | any;
+    filter<T>(input: T[], predicate: FilterPredicateCallback): IPromise<T[]>;
+    reject<T>(error?: any): IPromise<T>;
+    resolve<T>(value?: T): IPromise<T>;
+  }
+
+  export const promiseUtils: promiseUtils;
+
+  export interface EachAlwaysResult {
+    promise: IPromise<any>;
+    value: any;
+    error: any;
+  }
+
+  export type FilterPredicateCallback = (value: any, index: number) => IPromise<any>;
+
+  interface requireUtils {
+    when(moduleRequire: any, moduleNames: string[] | string): IPromise<any>;
+  }
+
+  export const requireUtils: requireUtils;
+
+  interface urlUtils {
+    addProxyRule(rule: urlUtilsAddProxyRuleRule): number;
+    getProxyRule(url: string): any;
+    urlToObject(url: string): any;
+  }
+
+  export const urlUtils: urlUtils;
+
+  export interface urlUtilsAddProxyRuleRule {
+    proxyUrl: string;
+    urlPrefix: string;
+  }
+
+  interface watchUtils {
+    init(obj: Accessor, propertyName: string | string[], callback: WatchCallback): WatchHandle;
+    on(obj: Accessor, propertyName: string, eventName: string, eventHandler: Function, attachedHandler?: EventAttachedCallback, detachedHandler?: EventAttachedCallback): WatchHandle;
+    once(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
+    pausable(obj: Accessor, propertyName: string, callback?: WatchCallback): PausableWatchHandle;
+    watch(obj: Accessor, propertyName: string | string[], callback: WatchCallback): WatchHandle;
+    when(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
+    whenDefined(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
+    whenDefinedOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
+    whenFalse(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
+    whenFalseOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
+    whenNot(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
+    whenNotOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
+    whenOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
+    whenTrue(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
+    whenTrueOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
+    whenUndefined(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
+    whenUndefinedOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
+  }
+
+  export const watchUtils: watchUtils;
+
+  export type EventAttachedCallback = (target: any, propName: string, obj: Accessor, eventName: string) => void;
+
+  export interface PausableWatchHandle {
+    remove(): void;
+    pause(): void;
+    resume(): void;
+  }
+
   export interface PromisedWatchHandle extends IPromise<any> {
     remove(): void;
   }
-  export type ItemCallback = (item: any, index: number) => void;
 
-  export type ItemCompareCallback = (firstItem: any, secondItem: any) => number;
-
-  export type ItemMapCallback = (item: any, index: number) => any;
-
-  export type ItemReduceCallback = (previousValue: any, currentValue: any, index: number) => any;
-
-  export type ItemTestCallback = (item: any, index: number) => boolean;
-
-  export interface PortalItemFetchRelatedItemsParams {
-    relationshipType: string;
-    direction?: string;
+  interface workers {
+    open(client: any, modulePath: string): IPromise<Connection>;
   }
 
-  export interface PortalItemUpdateParams {
-    data: string | any;
+  export const workers: workers;
+
+  interface Connection {
+    broadcast(methodName: string, data?: any, buffers?: ArrayBuffer[]): IPromise<any[]>;
+    close(): void;
+    invoke(methodName: string, data?: any, buffers?: ArrayBuffer[]): IPromise<any>;
   }
 
-  export interface PortalUserAddItemParams {
-    item: PortalItem;
-    data?: string | any;
-    folder?: PortalFolder;
+  interface ConnectionConstructor {
+    new(client: any, id: number): Connection;
   }
 
-  export interface PortalUserFetchItemsParams {
-    folder: PortalFolder;
-    num: number;
-    start: number;
+  export const Connection: ConnectionConstructor;
+
+  interface Circle extends Polygon {
+    center: Point | number[];
+    geodesic: boolean;
+    numberOfPoints: number;
+    radius: number;
+    radiusUnit: string;
+
+    clone(): Circle;
   }
 
-  export interface PortalFeaturedGroups {
-    owner: string;
-    title: string;
+  interface CircleConstructor {
+    new(properties?: CircleProperties): Circle;
+
+    fromJSON(json: any): Circle;
+  }
+
+  export const Circle: CircleConstructor;
+
+  interface CircleProperties extends PolygonProperties {
+    center?: PointProperties | number[];
+    geodesic?: boolean;
+    numberOfPoints?: number;
+    radius?: number;
+    radiusUnit?: string;
+  }
+
+  interface Extent extends Geometry {
+    center: Point;
+    height: number;
+    mmax: number;
+    mmin: number;
+    width: number;
+    xmax: number;
+    xmin: number;
+    ymax: number;
+    ymin: number;
+    zmax: number;
+    zmin: number;
+
+    centerAt(point: Point): Extent;
+    clone(): Extent;
+    contains(geometry: Point | Extent): boolean;
+    equals(extent: Extent): boolean;
+    expand(factor: number): Extent;
+    intersection(extent: Extent): Extent;
+    intersects(geometry: Geometry): boolean;
+    normalize(): Extent[];
+    offset(dx: number, dy: number, dz: number): Extent;
+    union(extent: Extent): Extent;
+  }
+
+  interface ExtentConstructor {
+    new(properties?: ExtentProperties): Extent;
+
+    fromJSON(json: any): Extent;
+  }
+
+  export const Extent: ExtentConstructor;
+
+  interface ExtentProperties extends GeometryProperties {
+    center?: PointProperties;
+    height?: number;
+    mmax?: number;
+    mmin?: number;
+    width?: number;
+    xmax?: number;
+    xmin?: number;
+    ymax?: number;
+    ymin?: number;
+    zmax?: number;
+    zmin?: number;
+  }
+
+  interface Geometry extends Accessor, JSONSupport {
+    cache: any;
+    extent: Extent;
+    hasM: boolean;
+    hasZ: boolean;
+    spatialReference: SpatialReference;
+    type: string;
+
+    clone(): Geometry;
+  }
+
+  interface GeometryConstructor {
+    new(properties?: GeometryProperties): Geometry;
+
+    fromJSON(json: any): Geometry;
+  }
+
+  export const Geometry: GeometryConstructor;
+
+  interface GeometryProperties {
+    cache?: any;
+    extent?: ExtentProperties;
+    hasM?: boolean;
+    hasZ?: boolean;
+    spatialReference?: SpatialReferenceProperties;
+    type?: string;
+  }
+
+  interface geometryEngine {
+    buffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): Polygon | Polygon[];
+    clip(geometry: Geometry, envelope: Extent): Geometry;
+    contains(containerGeometry: Geometry, insideGeometry: Geometry): boolean;
+    convexHull(geometry: Geometry, merge?: boolean): Geometry | Geometry[];
+    crosses(geometry1: Geometry, geometry2: Geometry): boolean;
+    cut(geometry: Geometry, cutter: Polyline): Geometry[];
+    densify(geometry: Geometry, maxSegmentLength: number, maxSegmentLengthUnit: string | number): Geometry;
+    difference(inputGeometry: Geometry | Geometry[], subtractor: Geometry): Geometry | Geometry[];
+    disjoint(geometry1: Geometry, geometry2: Geometry): boolean;
+    distance(geometry1: Geometry, geometry2: Geometry, distanceUnit: string | number): number;
+    equals(geometry1: Geometry, geometry2: Geometry): boolean;
+    extendedSpatialReferenceInfo(spatialReference: SpatialReference): any;
+    flipHorizontal(geometry: Geometry, flipOrigin?: Point): Geometry;
+    flipVertical(geometry: Geometry, flipOrigin?: Point): Geometry;
+    generalize(geometry: Geometry, maxDeviation: number, removeDegenerateParts?: boolean, maxDeviationUnit?: string | number): Geometry;
+    geodesicArea(geometry: Polygon, unit: string | number): number;
+    geodesicBuffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): Polygon | Polygon[];
+    geodesicDensify(geometry: Polyline | Polygon, maxSegmentLength: number, maxSegmentLengthUnit: string | number): Geometry;
+    geodesicLength(geometry: Geometry, unit: string | number): number;
+    intersect(geometry: Geometry | Geometry[], intersector: Geometry): Geometry | Geometry[];
+    intersects(geometry1: Geometry, geometry2: Geometry): boolean;
+    isSimple(geometry: Geometry): boolean;
+    nearestCoordinate(geometry: Geometry, inputPoint: Point): NearestPointResult;
+    nearestVertex(geometry: Geometry, inputPoint: Point): NearestPointResult;
+    nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): NearestPointResult[];
+    offset(geometry: Geometry | Geometry[], offsetDistance: number, offsetUnit: string | number, joinType: string, bevelRatio?: number, flattenError?: number): Geometry | Geometry[];
+    overlaps(geometry1: Geometry, geometry2: Geometry): boolean;
+    planarArea(geometry: Polygon, unit: string | number): number;
+    planarLength(geometry: Geometry, unit: string | number): number;
+    relate(geometry1: Geometry, geometry2: Geometry, relation: string): boolean;
+    rotate(geometry: Geometry, angle: number, rotationOrigin?: Point): Geometry;
+    simplify(geometry: Geometry): Geometry;
+    symmetricDifference(leftGeometry: Geometry | Geometry[], rightGeometry: Geometry): Geometry | Geometry[];
+    touches(geometry1: Geometry, geometry2: Geometry): boolean;
+    union(geometries: Geometry[]): Geometry;
+    within(innerGeometry: Geometry, outerGeometry: Geometry): boolean;
+  }
+
+  export const geometryEngine: geometryEngine;
+
+  export interface NearestPointResult {
+    coordinate: Point;
+    distance: number;
+    isRightSide: boolean;
+    vertexIndex: number;
+    isEmpty: boolean;
+  }
+
+  interface geometryEngineAsync {
+    buffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): IPromise<Polygon | Polygon[]>;
+    clip(geometry: Geometry, envelope: Extent): IPromise<Geometry>;
+    contains(containerGeometry: Geometry, insideGeometry: Geometry): IPromise<boolean>;
+    convexHull(geometry: Geometry, merge?: boolean): IPromise<Geometry>;
+    crosses(geometry1: Geometry, geometry2: Geometry): IPromise<boolean>;
+    cut(geometry: Geometry, cutter: Polyline): IPromise<Geometry[]>;
+    densify(geometry: Geometry, maxSegmentLength: number, maxSegmentLengthUnit: string | number): IPromise<Geometry>;
+    difference(inputGeometry: Geometry | Geometry[], subtractor: Geometry): IPromise<Geometry>;
+    disjoint(geometry1: Geometry, geometry2: Geometry): IPromise<boolean>;
+    distance(geometry1: Geometry, geometry2: Geometry, distanceUnit: string | number): IPromise<number>;
+    equals(geometry1: Geometry, geometry2: Geometry): IPromise<boolean>;
+    extendedSpatialReferenceInfo(spatialReference: SpatialReference): IPromise<any>;
+    flipHorizontal(geometry: Geometry, flipOrigin?: Point): IPromise<Geometry>;
+    flipVertical(geometry: Geometry, flipOrigin?: Point): IPromise<Geometry>;
+    generalize(geometry: Geometry, maxDeviation: number, removeDegenerateParts?: boolean, maxDeviationUnit?: string | number): IPromise<Geometry>;
+    geodesicArea(geometry: Polygon, unit: string | number): IPromise<number>;
+    geodesicBuffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): IPromise<Polygon | Polygon[]>;
+    geodesicDensify(geometry: Polyline | Polygon, maxSegmentLength: number, maxSegmentLengthUnit: string | number): IPromise<Geometry>;
+    geodesicLength(geometry: Geometry, unit: string | number): IPromise<number>;
+    intersect(geometry: Geometry | Geometry[], intersector: Geometry): IPromise<Geometry>;
+    intersects(geometry1: Geometry, geometry2: Geometry): IPromise<boolean>;
+    isSimple(geometry: Geometry): IPromise<boolean>;
+    nearestCoordinate(geometry: Geometry, inputPoint: Point): IPromise<NearestPointResult>;
+    nearestVertex(geometry: Geometry, inputPoint: Point): IPromise<NearestPointResult>;
+    nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): IPromise<NearestPointResult>;
+    offset(geometry: Geometry | Geometry[], offsetDistance: number, offsetUnit: string | number, joinType: string, bevelRatio?: number, flattenError?: number): IPromise<Geometry[]>;
+    overlaps(geometry1: Geometry, geometry2: Geometry): IPromise<boolean>;
+    planarArea(geometry: Polygon, unit: string | number): IPromise<number>;
+    planarLength(geometry: Geometry, unit: string | number): IPromise<number>;
+    relate(geometry1: Geometry, geometry2: Geometry, relation: string): IPromise<boolean>;
+    rotate(geometry: Geometry, angle: number, rotationOrigin?: Point): IPromise<Geometry>;
+    simplify(geometry: Geometry): IPromise<Geometry>;
+    symmetricDifference(leftGeometry: Geometry | Geometry[], rightGeometry: Geometry): IPromise<Geometry | Geometry[]>;
+    touches(geometry1: Geometry, geometry2: Geometry): IPromise<boolean>;
+    union(geometries: Geometry[]): IPromise<Geometry>;
+    within(innerGeometry: Geometry, outerGeometry: Geometry): IPromise<boolean>;
+  }
+
+  export const geometryEngineAsync: geometryEngineAsync;
+
+  interface HeightModelInfo extends Accessor, JSONSupport {
+    heightModel: string;
+    heightUnit: string;
+    vertCRS: string;
+  }
+
+  interface HeightModelInfoConstructor {
+    new(properties?: HeightModelInfoProperties): HeightModelInfo;
+
+    fromJSON(json: any): HeightModelInfo;
+  }
+
+  export const HeightModelInfo: HeightModelInfoConstructor;
+
+  interface HeightModelInfoProperties {
+    heightModel?: string;
+    heightUnit?: string;
+    vertCRS?: string;
+  }
+
+  interface Multipoint extends Geometry {
+    points: number[][];
+
+    addPoint(point: Point | number[]): Multipoint;
+    clone(): Multipoint;
+    getPoint(index: number): Point;
+    removePoint(index: number): Point;
+    setPoint(index: number, point: Point): Multipoint;
+  }
+
+  interface MultipointConstructor {
+    new(properties?: MultipointProperties): Multipoint;
+
+    fromJSON(json: any): Multipoint;
+  }
+
+  export const Multipoint: MultipointConstructor;
+
+  interface MultipointProperties extends GeometryProperties {
+    points?: number[][];
+  }
+
+  interface Point extends Geometry {
+    latitude: number;
+    longitude: number;
+    m: number;
+    x: number;
+    y: number;
+    z: number;
+
+    clone(): Point;
+    copy(other: Point): void;
+    distance(other: Point): number;
+    equals(point: Point): boolean;
+    normalize(): Point;
+  }
+
+  interface PointConstructor {
+    new(properties?: PointProperties): Point;
+
+    fromJSON(json: any): Point;
+  }
+
+  export const Point: PointConstructor;
+
+  interface PointProperties extends GeometryProperties {
+    latitude?: number;
+    longitude?: number;
+    m?: number;
+    x?: number;
+    y?: number;
+    z?: number;
+  }
+
+  interface Polygon extends Geometry {
+    centroid: Point;
+    isSelfIntersecting: boolean;
+    rings: number[][][];
+
+    addRing(ring: Point[] | number[][]): Polygon;
+    clone(): Polygon;
+    contains(point: Point): boolean;
+    getPoint(ringIndex: number, pointIndex: number): Point;
+    insertPoint(ringIndex: number, pointIndex: number, point: Point): Polygon;
+    isClockwise(ring: Point[] | number[][]): boolean;
+    removePoint(ringIndex: number, pointIndex: number): Point[];
+    removeRing(index: number): Point[];
+    setPoint(ringIndex: number, pointIndex: number, point: Point): Polygon;
+  }
+
+  interface PolygonConstructor {
+    new(properties?: PolygonProperties): Polygon;
+
+
+    fromExtent(extent: Extent): Polygon;
+
+    fromJSON(json: any): Polygon;
+  }
+
+  export const Polygon: PolygonConstructor;
+
+  interface PolygonProperties extends GeometryProperties {
+    centroid?: PointProperties;
+    isSelfIntersecting?: boolean;
+    rings?: number[][][];
+  }
+
+  interface Polyline extends Geometry {
+    paths: number[][][];
+
+    addPath(points: number[][]): Polyline;
+    clone(): Polyline;
+    getPoint(pathIndex: number, pointIndex: number): Point;
+    insertPoint(pathIndex: number, pointIndex: number, point: Point): Polyline;
+    removePath(index: number): Point[];
+    removePoint(pathIndex: number, pointIndex: number): Point;
+    setPoint(pathIndex: number, pointIndex: number, point: Point): Polyline;
+  }
+
+  interface PolylineConstructor {
+    new(properties?: PolylineProperties): Polyline;
+
+    fromJSON(json: any): Polyline;
+  }
+
+  export const Polyline: PolylineConstructor;
+
+  interface PolylineProperties extends GeometryProperties {
+    paths?: number[][][];
+  }
+
+  interface ScreenPoint extends Accessor {
+    x: number;
+    y: number;
+  }
+
+  interface ScreenPointConstructor {
+    new(properties?: ScreenPointProperties): ScreenPoint;
+  }
+
+  export const ScreenPoint: ScreenPointConstructor;
+
+  interface ScreenPointProperties {
+    x?: number;
+    y?: number;
+  }
+
+  interface SpatialReference extends Accessor, JSONSupport {
+    isGeographic: boolean;
+    isWebMercator: boolean;
+    isWGS84: boolean;
+    isWrappable: boolean;
+    WebMercator: SpatialReference;
+    WGS84: SpatialReference;
+    wkid: number;
+    wkt: string;
+
+    clone(): SpatialReference;
+    equals(spatialReference: SpatialReference): boolean;
+  }
+
+  interface SpatialReferenceConstructor {
+    new(properties?: SpatialReferenceProperties): SpatialReference;
+
+    fromJSON(json: any): SpatialReference;
+  }
+
+  export const SpatialReference: SpatialReferenceConstructor;
+
+  interface SpatialReferenceProperties {
+    isGeographic?: boolean;
+    isWebMercator?: boolean;
+    isWGS84?: boolean;
+    isWrappable?: boolean;
+    WebMercator?: SpatialReferenceProperties;
+    WGS84?: SpatialReferenceProperties;
+    wkid?: number;
+    wkt?: string;
+  }
+
+  interface jsonUtils {
+    fromJSON(json: any): Geometry;
+    getJsonType(geometry: Geometry): string;
+  }
+
+  export const jsonUtils: jsonUtils;
+
+  interface normalizeUtils {
+    normalizeCentralMeridian(geometries: Geometry[], geometryService?: GeometryService): IPromise<Geometry[]>;
+  }
+
+  export const normalizeUtils: normalizeUtils;
+
+  interface webMercatorUtils {
+    canProject(source: SpatialReference | any, target: SpatialReference | any): boolean;
+    geographicToWebMercator(geometry: Geometry): Geometry;
+    lngLatToXY(long: number, lat: number): number[];
+    project(geometry: Geometry, spatialReference: SpatialReference | any): Geometry;
+    webMercatorToGeographic(geometry: Geometry): Geometry;
+    xyToLngLat(x: number, y: number): number[];
+  }
+
+  export const webMercatorUtils: webMercatorUtils;
+
+  interface Graphic extends Accessor, JSONSupport {
+    attributes: any;
+    geometry: Geometry;
+    layer: FeatureLayer | GraphicsLayer;
+    popupTemplate: PopupTemplate;
+    symbol: Symbol;
+    visible: boolean;
+
+    clone(): Graphic;
+    getAttribute(name: string): any;
+    setAttribute(name: string, newValue: any): void;
+  }
+
+  interface GraphicConstructor {
+    new(properties?: GraphicProperties): Graphic;
+
+    fromJSON(json: any): Graphic;
+  }
+
+  export const Graphic: GraphicConstructor;
+
+  interface GraphicProperties {
+    attributes?: any;
+    geometry?: GeometryProperties;
+    layer?: FeatureLayerProperties | GraphicsLayerProperties;
+    popupTemplate?: PopupTemplateProperties;
+    symbol?: SymbolProperties;
+    visible?: boolean;
+  }
+
+  interface Ground extends Accessor, Loadable, JSONSupport {
+    layers: Collection<Layer>;
+    loaded: boolean;
+
+    clone(): Ground;
+    queryElevation(geometry: Point | Multipoint | Polyline, options?: GroundQueryElevationOptions): IPromise<ElevationQueryResult>;
+  }
+
+  interface GroundConstructor {
+    new(properties?: GroundProperties): Ground;
+
+    fromJSON(json: any): Ground;
+  }
+
+  export const Ground: GroundConstructor;
+
+  interface GroundProperties extends LoadableProperties {
+    layers?: CollectionProperties<LayerProperties>;
+    loaded?: boolean;
+  }
+
+  export interface ElevationQueryResult {
+    geometry: Point | Multipoint | Polyline;
+    sampleInfo: ElevationQueryResultSampleInfo[];
+    noDataValue: number;
   }
 
   export interface GroundQueryElevationOptions {
@@ -95,27 +1004,576 @@ declare namespace __esri {
     noDataValue?: number;
   }
 
-  export interface PopupTemplateExpressionInfos {
-    name: string;
-    title?: string;
-    expression: string;
-    returnType?: string;
+  export interface ElevationQueryResultSampleInfo {
+    demResolution: number;
+    source: ElevationLayer;
   }
 
-  export interface PopupTemplateFieldInfos {
-    fieldName: string;
-    format?: PopupTemplateFieldInfosFormat;
-    isEditable?: boolean;
-    label?: string;
-    stringFieldOption?: string;
-    tooltip?: string;
-    visible?: boolean;
+  interface Credential extends Accessor {
+    expires: number;
+    isAdmin: boolean;
+    oAuthState: any;
+    server: string;
+    ssl: boolean;
+    token: string;
+    userId: string;
+
+    destroy(): void;
+    refreshToken(): void;
   }
 
-  export interface PopupTemplateFieldInfosFormat {
-    dateFormat?: string;
-    digitSeparator?: boolean;
-    places?: number;
+  interface CredentialConstructor {
+    new(properties?: CredentialProperties): Credential;
+  }
+
+  export const Credential: CredentialConstructor;
+
+  interface CredentialProperties {
+    expires?: number;
+    isAdmin?: boolean;
+    oAuthState?: any;
+    server?: string;
+    ssl?: boolean;
+    token?: string;
+    userId?: string;
+  }
+
+  interface IdentityManager extends IdentityManagerBase {
+    dialog: any;
+
+    setOAuthRedirectionHandler(handlerFunction: HandlerCallback): void;
+    setOAuthResponseHash(hash: string): void;
+
+    on(name: "credential-create", eventHandler: IdentityManagerCredentialCreateEventHandler): IHandle;
+    on(name: "credential-create", modifiers: string[], eventHandler: IdentityManagerCredentialCreateEventHandler): IHandle;
+    on(name: "credentials-destroy", eventHandler: IdentityManagerCredentialsDestroyEventHandler): IHandle;
+    on(name: "credentials-destroy", modifiers: string[], eventHandler: IdentityManagerCredentialsDestroyEventHandler): IHandle;
+  }
+
+  interface IdentityManagerConstructor {
+    new(): IdentityManager;
+  }
+
+  export const IdentityManager: IdentityManagerConstructor;
+
+  export interface IdentityManagerCredentialCreateEvent {
+    credential: Credential;
+  }
+
+  export interface IdentityManagerCredentialsDestroyEvent {
+  }
+
+  export type HandlerCallback = (authorizeParams: any, authorizeUrl: string, oAuthInfo: OAuthInfo, resourceUrl: string, serverInfo: ServerInfo) => void;
+
+  interface IdentityManagerBase extends Evented {
+    tokenValidity: number;
+
+    checkSignInStatus(resUrl: string): IPromise<Credential>;
+    destroyCredentials(): void;
+    findCredential(url: string, userId?: string): Credential;
+    findOAuthInfo(url: string): OAuthInfo;
+    findServerInfo(url: string): ServerInfo;
+    generateToken(serverInfo: ServerInfo, userInfo: any, options?: IdentityManagerBaseGenerateTokenOptions): IPromise<any>;
+    getCredential(url: string, options?: IdentityManagerBaseGetCredentialOptions): IPromise<any>;
+    initialize(json: any): void;
+    isBusy(): boolean;
+    oAuthSignIn(resUrl: string, serverInfo: ServerInfo, oAuthInfo: OAuthInfo, options?: IdentityManagerBaseOAuthSignInOptions): IPromise<any>;
+    registerOAuthInfos(oAuthInfos: OAuthInfo[]): void;
+    registerServers(serverInfos: ServerInfo[]): void;
+    registerToken(properties: IdentityManagerBaseRegisterTokenProperties): void;
+    setProtocolErrorHandler(handlerFunction: IdentityManagerBaseSetProtocolErrorHandlerHandlerFunction): void;
+    setRedirectionHandler(handlerFunction: IdentityManagerBaseSetRedirectionHandlerHandlerFunction): void;
+    signIn(url: string, serverInfo: ServerInfo, options?: IdentityManagerBaseSignInOptions): IPromise<any>;
+    toJSON(): any;
+  }
+
+  interface IdentityManagerBaseConstructor {
+    new(): IdentityManagerBase;
+  }
+
+  export const IdentityManagerBase: IdentityManagerBaseConstructor;
+
+  export interface IdentityManagerBaseGenerateTokenOptions {
+    serverUrl: string;
+    token: string;
+    ssl: boolean;
+  }
+
+  export interface IdentityManagerBaseGetCredentialOptions {
+    error?: Error;
+    oAuthPopupConfirmation?: boolean;
+    retry?: boolean;
+    token?: string;
+  }
+
+  export interface IdentityManagerBaseOAuthSignInOptions {
+    error: Error;
+    oAuthPopupConfirmation: boolean;
+    token: string;
+  }
+
+  export interface IdentityManagerBaseRegisterTokenProperties {
+    expires?: number;
+    server: string;
+    ssl?: boolean;
+    token: string;
+    userId?: string;
+  }
+
+  export interface IdentityManagerBaseSetProtocolErrorHandlerHandlerFunction {
+    resourceUrl: string;
+    serverInfo: ServerInfo;
+  }
+
+  export interface IdentityManagerBaseSetRedirectionHandlerHandlerFunction {
+    resourceUrl: string;
+    returnUrlParamName: string;
+    serverInfo: ServerInfo;
+    signInPage: string;
+  }
+
+  export interface IdentityManagerBaseSignInOptions {
+    error: Error;
+  }
+
+  interface OAuthInfo extends Accessor, JSONSupport {
+    appId: string;
+    authNamespace: string;
+    expiration: number;
+    locale: string;
+    minTimeUntilExpiration: number;
+    popup: boolean;
+    popupCallbackUrl: string;
+    popupWindowFeatures: string;
+    portalUrl: string;
+
+    clone(): OAuthInfo;
+  }
+
+  interface OAuthInfoConstructor {
+    new(properties?: OAuthInfoProperties): OAuthInfo;
+
+    fromJSON(json: any): OAuthInfo;
+  }
+
+  export const OAuthInfo: OAuthInfoConstructor;
+
+  interface OAuthInfoProperties {
+    appId?: string;
+    authNamespace?: string;
+    expiration?: number;
+    locale?: string;
+    minTimeUntilExpiration?: number;
+    popup?: boolean;
+    popupCallbackUrl?: string;
+    popupWindowFeatures?: string;
+    portalUrl?: string;
+  }
+
+  interface ServerInfo extends Accessor, JSONSupport {
+    adminTokenServiceUrl: string;
+    currentVersion: number;
+    server: string;
+    shortLivedTokenValidity: number;
+    tokenServiceUrl: string;
+  }
+
+  interface ServerInfoConstructor {
+    new(properties?: ServerInfoProperties): ServerInfo;
+
+    fromJSON(json: any): ServerInfo;
+  }
+
+  export const ServerInfo: ServerInfoConstructor;
+
+  interface ServerInfoProperties {
+    adminTokenServiceUrl?: string;
+    currentVersion?: number;
+    server?: string;
+    shortLivedTokenValidity?: number;
+    tokenServiceUrl?: string;
+  }
+
+  interface kernel {
+    version: string;
+  }
+
+  export const kernel: kernel;
+
+  interface BaseDynamicLayer extends Layer, ScaleRangeLayer {
+    addResolvingPromise(promiseToLoad: IPromise<any>): IPromise<any>;
+    fetchImage(extent: Extent, width: number, height: number, options?: BaseDynamicLayerFetchImageOptions): IPromise<HTMLImageElement | HTMLCanvasElement>;
+    getImageUrl(extent: Extent, width: number, height: number): IPromise<string> | string;
+
+    on(name: "layerview-create", eventHandler: BaseDynamicLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: BaseDynamicLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: BaseDynamicLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: BaseDynamicLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface BaseDynamicLayerConstructor {
+    new(properties?: BaseDynamicLayerProperties): BaseDynamicLayer;
+  }
+
+  export const BaseDynamicLayer: BaseDynamicLayerConstructor;
+
+  interface BaseDynamicLayerProperties extends LayerProperties, ScaleRangeLayerProperties {
+
+  }
+
+  export interface BaseDynamicLayerFetchImageOptions {
+    allowImageDataAccess?: boolean;
+  }
+
+  export interface BaseDynamicLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface BaseDynamicLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface BaseElevationLayer extends Layer {
+    spatialReference: SpatialReference;
+    tileInfo: TileInfo;
+
+    addResolvingPromise(promiseToLoad: IPromise<any>): IPromise<any>;
+    fetchTile(level: number, row: number, column: number, options?: BaseElevationLayerFetchTileOptions): IPromise<ElevationTileData>;
+    getTileBounds(level: number, row: number, column: number, out?: number[]): number[];
+
+    on(name: "layerview-create", eventHandler: BaseElevationLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: BaseElevationLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: BaseElevationLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: BaseElevationLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface BaseElevationLayerConstructor {
+    new(properties?: BaseElevationLayerProperties): BaseElevationLayer;
+  }
+
+  export const BaseElevationLayer: BaseElevationLayerConstructor;
+
+  interface BaseElevationLayerProperties extends LayerProperties {
+    spatialReference?: SpatialReferenceProperties;
+    tileInfo?: TileInfoProperties;
+  }
+
+  export interface BaseElevationLayerFetchTileOptions {
+    noDataValue?: number;
+  }
+
+  export interface ElevationTileData {
+    values: number[];
+    width: number;
+    height: number;
+    maxZError: number;
+    noDataValue: number;
+  }
+
+  export interface BaseElevationLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface BaseElevationLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface BaseTileLayer extends Layer, ScaleRangeLayer {
+    spatialReference: SpatialReference;
+    tileInfo: TileInfo;
+
+    addResolvingPromise(promiseToLoad: IPromise<any>): IPromise<any>;
+    fetchTile(level: number, row: number, column: number, options?: BaseTileLayerFetchTileOptions): IPromise<HTMLImageElement | HTMLCanvasElement>;
+    getTileBounds(level: number, row: number, column: number, out?: number[]): number[];
+    getTileUrl(level: number, row: number, column: number): string | IPromise<any>;
+
+    on(name: "layerview-create", eventHandler: BaseTileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: BaseTileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: BaseTileLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: BaseTileLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface BaseTileLayerConstructor {
+    new(properties?: BaseTileLayerProperties): BaseTileLayer;
+  }
+
+  export const BaseTileLayer: BaseTileLayerConstructor;
+
+  interface BaseTileLayerProperties extends LayerProperties, ScaleRangeLayerProperties {
+    spatialReference?: SpatialReferenceProperties;
+    tileInfo?: TileInfoProperties;
+  }
+
+  export interface BaseTileLayerFetchTileOptions {
+    allowImageDataAccess?: boolean;
+  }
+
+  export interface BaseTileLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface BaseTileLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface CSVLayer extends Layer {
+    copyright: string;
+    delimiter: string;
+    elevationInfo: CSVLayerElevationInfo;
+    featureReduction: CSVLayerFeatureReduction;
+    fields: Field[];
+    labelingInfo: LabelClass[];
+    labelsVisible: boolean;
+    latitudeField: string;
+    legendEnabled: boolean;
+    longitudeField: string;
+    maxScale: number;
+    minScale: number;
+    outFields: string[];
+    popupEnabled: boolean;
+    popupTemplate: PopupTemplate;
+    renderer: Renderer;
+    screenSizePerspectiveEnabled: boolean;
+    url: string;
+
+    on(name: "layerview-create", eventHandler: CSVLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: CSVLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: CSVLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: CSVLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface CSVLayerConstructor {
+    new(properties?: CSVLayerProperties): CSVLayer;
+  }
+
+  export const CSVLayer: CSVLayerConstructor;
+
+  interface CSVLayerProperties extends LayerProperties {
+    copyright?: string;
+    delimiter?: string;
+    elevationInfo?: CSVLayerElevationInfo;
+    featureReduction?: CSVLayerFeatureReduction;
+    fields?: FieldProperties[];
+    labelingInfo?: LabelClassProperties[];
+    labelsVisible?: boolean;
+    latitudeField?: string;
+    legendEnabled?: boolean;
+    longitudeField?: string;
+    maxScale?: number;
+    minScale?: number;
+    outFields?: string[];
+    popupEnabled?: boolean;
+    popupTemplate?: PopupTemplateProperties;
+    renderer?: RendererProperties;
+    screenSizePerspectiveEnabled?: boolean;
+    url?: string;
+  }
+
+  export interface CSVLayerElevationInfo {
+    mode: string;
+    offset?: number;
+    featureExpressionInfo?: CSVLayerElevationInfoFeatureExpressionInfo;
+    unit?: string;
+  }
+
+  export interface CSVLayerElevationInfoFeatureExpressionInfo {
+    expression?: string;
+  }
+
+  export interface CSVLayerFeatureReduction {
+    type: string;
+  }
+
+  export interface CSVLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface CSVLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface DynamicLayer {
+    portalItem: PortalItem;
+    url: string;
+
+    fetchImage(extent: Extent, width: number, height: number, options?: DynamicLayerFetchImageOptions): IPromise<HTMLImageElement | HTMLCanvasElement>;
+    getImageUrl(extent: Extent, width: number, height: number, options?: DynamicLayerGetImageUrlOptions): IPromise<string> | string;
+  }
+
+  interface DynamicLayerConstructor {
+    new(): DynamicLayer;
+  }
+
+  export const DynamicLayer: DynamicLayerConstructor;
+
+  interface DynamicLayerProperties {
+    portalItem?: PortalItemProperties;
+    url?: string;
+  }
+
+  export interface DynamicLayerFetchImageOptions {
+    allowImageDataAccess?: boolean;
+    rotation?: number;
+    pixelRatio?: number;
+  }
+
+  export interface DynamicLayerGetImageUrlOptions {
+    pixelRatio?: number;
+    rotation?: number;
+  }
+
+  interface ElevationLayer extends Layer, ArcGISMapService, ArcGISCachedService, PortalLayer, TiledLayer {
+    url: string;
+
+    fetchTile(level: number, row: number, column: number, noDataValue?: number): IPromise<ElevationTileData>;
+    queryElevation(geometry: Point | Multipoint | Polyline, options?: ElevationLayerQueryElevationOptions): IPromise<ElevationLayerElevationQueryResult>;
+
+    on(name: "layerview-create", eventHandler: ElevationLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: ElevationLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: ElevationLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: ElevationLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface ElevationLayerConstructor {
+    new(properties?: ElevationLayerProperties): ElevationLayer;
+
+    fromJSON(json: any): ElevationLayer;
+  }
+
+  export const ElevationLayer: ElevationLayerConstructor;
+
+  interface ElevationLayerProperties extends LayerProperties, ArcGISMapServiceProperties, ArcGISCachedServiceProperties, PortalLayerProperties, TiledLayerProperties {
+    url?: string;
+  }
+
+  export interface ElevationLayerQueryElevationOptions {
+    demResolution?: number | string;
+    returnSampleInfo?: boolean;
+    noDataValue?: number;
+  }
+
+  export interface ElevationLayerElevationQueryResult {
+    geometry: Point | Multipoint | Polyline;
+    sampleInfo: ElevationLayerElevationQueryResultSampleInfo[];
+    noDataValue: number;
+  }
+
+  export interface ElevationLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface ElevationLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface ElevationLayerElevationQueryResultSampleInfo {
+    demResolution: number;
+  }
+
+  interface FeatureLayer extends Layer, PortalLayer, ScaleRangeLayer {
+    capabilities: FeatureLayerCapabilities;
+    copyright: string;
+    definitionExpression: string;
+    displayField: string;
+    elevationInfo: FeatureLayerElevationInfo;
+    featureReduction: FeatureLayerFeatureReduction;
+    fields: Field[];
+    gdbVersion: string;
+    geometryType: string;
+    hasAttachments: boolean;
+    hasM: boolean;
+    hasZ: boolean;
+    labelingInfo: LabelClass[];
+    labelsVisible: boolean;
+    layerId: number;
+    legendEnabled: boolean;
+    objectIdField: string;
+    outFields: string[];
+    popupEnabled: boolean;
+    popupTemplate: PopupTemplate;
+    renderer: Renderer;
+    returnM: boolean;
+    returnZ: boolean;
+    screenSizePerspectiveEnabled: boolean;
+    source: Collection<Graphic>;
+    spatialReference: SpatialReference;
+    templates: FeatureTemplate[];
+    token: string;
+    typeIdField: string;
+    types: FeatureType[];
+    url: string;
+    version: number;
+
+    applyEdits(edits: FeatureLayerApplyEditsEdits): IPromise<any>;
+    createQuery(): Query;
+    getFieldDomain(fieldName: string, options?: FeatureLayerGetFieldDomainOptions): Domain;
+    queryExtent(params?: Query): IPromise<any>;
+    queryFeatureCount(params?: Query): IPromise<number>;
+    queryFeatures(params?: Query): IPromise<FeatureSet>;
+    queryObjectIds(params?: Query): IPromise<number[]>;
+
+    on(name: "layerview-create", eventHandler: FeatureLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: FeatureLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: FeatureLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: FeatureLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface FeatureLayerConstructor {
+    new(properties?: FeatureLayerProperties): FeatureLayer;
+
+    fromJSON(json: any): FeatureLayer;
+  }
+
+  export const FeatureLayer: FeatureLayerConstructor;
+
+  interface FeatureLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties {
+    capabilities?: FeatureLayerCapabilities;
+    copyright?: string;
+    definitionExpression?: string;
+    displayField?: string;
+    elevationInfo?: FeatureLayerElevationInfo;
+    featureReduction?: FeatureLayerFeatureReduction;
+    fields?: FieldProperties[];
+    gdbVersion?: string;
+    geometryType?: string;
+    hasAttachments?: boolean;
+    hasM?: boolean;
+    hasZ?: boolean;
+    labelingInfo?: LabelClassProperties[];
+    labelsVisible?: boolean;
+    layerId?: number;
+    legendEnabled?: boolean;
+    objectIdField?: string;
+    outFields?: string[];
+    popupEnabled?: boolean;
+    popupTemplate?: PopupTemplateProperties;
+    renderer?: RendererProperties;
+    returnM?: boolean;
+    returnZ?: boolean;
+    screenSizePerspectiveEnabled?: boolean;
+    source?: CollectionProperties<GraphicProperties>;
+    spatialReference?: SpatialReferenceProperties;
+    templates?: FeatureTemplateProperties[];
+    token?: string;
+    typeIdField?: string;
+    types?: FeatureTypeProperties[];
+    url?: string;
+    version?: number;
+  }
+
+  export interface FeatureEditResult {
+    objectId: number;
+    error: FeatureEditResultError;
   }
 
   export interface FeatureLayerApplyEditsEdits {
@@ -184,6 +1642,12 @@ declare namespace __esri {
   export interface FeatureLayerElevationInfo {
     mode: string;
     offset?: number;
+    featureExpressionInfo?: FeatureLayerElevationInfoFeatureExpressionInfo;
+    unit?: string;
+  }
+
+  export interface FeatureLayerElevationInfoFeatureExpressionInfo {
+    expression?: string;
   }
 
   export interface FeatureLayerFeatureReduction {
@@ -195,3220 +1659,21 @@ declare namespace __esri {
   }
 
   export interface FeatureLayerLayerviewCreateEvent {
-    view: View;
     layerView: LayerView;
+    view: View;
   }
-
-  export type FeatureLayerLayerviewCreateEventHandler = (event: FeatureLayerLayerviewCreateEvent) => void;
 
   export interface FeatureLayerLayerviewDestroyEvent {
+    layerView: LayerView;
     view: View;
-    layerView: LayerView;
   }
 
-  export type FeatureLayerLayerviewDestroyEventHandler = (event: FeatureLayerLayerviewDestroyEvent) => void;
-
-  export interface GraphicsLayerElevationInfo {
-    mode: string;
-    offset?: number;
-  }
-
-  export interface GraphicsLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type GraphicsLayerLayerviewCreateEventHandler = (event: GraphicsLayerLayerviewCreateEvent) => void;
-
-  export interface GraphicsLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type GraphicsLayerLayerviewDestroyEventHandler = (event: GraphicsLayerLayerviewDestroyEvent) => void;
-
-  export interface LayerFromArcGISServerUrlParams {
-    url: string;
-    properties?: any;
-  }
-
-  export interface LayerFromPortalItemParams {
-    portalItem: PortalItem;
-  }
-
-  export interface FeatureTemplateThumbnail {
-    contentType: any;
-    imageData: string;
-    height: number;
-    width: number;
-  }
-
-  export interface LabelClassLabelExpressionInfo {
-    value?: string;
-  }
-
-  export interface LabelSymbol3DVerticalOffsetProperties {
-    screenLength?: number;
-    minWorldLength?: number;
-    maxWorldLength?: number;
-  }
-  export interface LabelSymbol3DVerticalOffset extends Accessor {
-    screenLength: number;
-    minWorldLength?: number;
-    maxWorldLength?: number;
-  }
-
-  export interface QueryQuantizationParameters {
-    extent?: Extent;
-    mode?: string;
-    originPosition?: string;
-    tolerance?: number;
-  }
-
-  export interface ViewPadding {
-    left?: number;
-    top?: number;
-    right?: number;
-    bottom?: number;
-  }
-
-  export interface WebMapSourceVersion {
-    major: number;
-    minor: number;
-  }
-
-  export interface WebSceneSaveAsOptions {
-    folder?: PortalFolder;
-    ignoreUnsupported?: boolean;
-  }
-
-  export interface WebSceneSaveOptions {
-    ignoreUnsupported?: boolean;
-  }
-
-  export interface WebSceneSourceVersion {
-    major: number;
-    minor: number;
-  }
-
-  export interface WebSceneUpdateFromOptions {
-    environmentExcluded?: boolean;
-    viewpointExcluded?: boolean;
-  }
-
-  export type EventHandler = (event: any) => void;
-
-  export interface SceneViewDragEventOrigin {
-    x: number;
-    y: number;
-  }
-
-  export interface SceneViewClickEvent {
-    mapPoint: Point;
-    x: number;
-    y: number;
-    button: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewClickEventHandler = (event: SceneViewClickEvent) => void;
-
-  export interface SceneViewDoubleClickEvent {
-    mapPoint: Point;
-    x: number;
-    y: number;
-    button: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewDoubleClickEventHandler = (event: SceneViewDoubleClickEvent) => void;
-
-  export interface SceneViewDragEvent {
-    action: string;
-    x: number;
-    y: number;
-    origin: SceneViewDragEventOrigin;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewDragEventHandler = (event: SceneViewDragEvent) => void;
-
-  export type EasingFunction = (t: number, duration: number) => number;
-
-  export interface SceneViewHoldEvent {
-    mapPoint: Point;
-    x: number;
-    y: number;
-    button: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewHoldEventHandler = (event: SceneViewHoldEvent) => void;
-
-  export interface SceneViewKeyDownEvent {
-    repeat: boolean;
-    key: string;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewKeyDownEventHandler = (event: SceneViewKeyDownEvent) => void;
-
-  export interface SceneViewKeyUpEvent {
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewKeyUpEventHandler = (event: SceneViewKeyUpEvent) => void;
-
-  export interface SceneViewLayerviewCreateEvent {
-    layer: Layer;
-    layerView: LayerView;
-  }
-
-  export type SceneViewLayerviewCreateEventHandler = (event: SceneViewLayerviewCreateEvent) => void;
-
-  export interface SceneViewLayerviewDestroyEvent {
-    layer: Layer;
-    layerView: LayerView;
-  }
-
-  export type SceneViewLayerviewDestroyEventHandler = (event: SceneViewLayerviewDestroyEvent) => void;
-
-  export interface SceneViewMouseWheelEvent {
-    x: number;
-    y: number;
-    deltaY: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewMouseWheelEventHandler = (event: SceneViewMouseWheelEvent) => void;
-
-  export interface SceneViewPointerDownEvent {
-    pointerId: number;
-    pointerType: string;
-    x: number;
-    y: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewPointerDownEventHandler = (event: SceneViewPointerDownEvent) => void;
-
-  export interface SceneViewPointerMoveEvent {
-    pointerId: number;
-    pointerType: string;
-    x: number;
-    y: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewPointerMoveEventHandler = (event: SceneViewPointerMoveEvent) => void;
-
-  export interface SceneViewPointerUpEvent {
-    pointerId: number;
-    pointerType: string;
-    x: number;
-    y: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type SceneViewPointerUpEventHandler = (event: SceneViewPointerUpEvent) => void;
-
-  export interface SceneViewResizeEvent {
-    oldWidth: number;
-    oldHeight: number;
-    width: number;
-    height: number;
-  }
-
-  export type SceneViewResizeEventHandler = (event: SceneViewResizeEvent) => void;
-
-  export interface SceneViewConstraintsProperties {
-    altitude?: SceneViewConstraintsAltitudeProperties;
-    clipDistance?: SceneViewConstraintsClipDistanceProperties;
-    collision?: SceneViewConstraintsCollision;
-    tilt?: SceneViewConstraintsTiltProperties;
-  }
-  export interface SceneViewConstraints extends Accessor {
-    altitude?: SceneViewConstraintsAltitude;
-    clipDistance?: SceneViewConstraintsClipDistance;
-    collision?: SceneViewConstraintsCollision;
-    tilt?: SceneViewConstraintsTilt;
-  }
-
-  export interface SceneViewConstraintsAltitudeProperties {
-    min?: number;
-    max?: number;
-  }
-  export interface SceneViewConstraintsAltitude extends Accessor {
-    min?: number;
-    max?: number;
-  }
-
-  export interface SceneViewConstraintsClipDistanceProperties {
-    near?: number;
-    far?: number;
-    mode?: string;
-  }
-  export interface SceneViewConstraintsClipDistance extends Accessor {
-    near?: number;
-    far?: number;
-    mode?: string;
-  }
-
-  export interface SceneViewConstraintsCollision {
-    enabled?: boolean;
-  }
-
-  export interface SceneViewConstraintsTiltProperties {
-    max?: number;
-    mode?: string;
-  }
-  export interface SceneViewConstraintsTilt extends Accessor {
-    max?: number;
-    mode?: string;
-  }
-
-  export interface SceneViewEnvironmentProperties {
-    lighting?: SceneViewEnvironmentLightingProperties;
-    atmosphereEnabled?: boolean;
-    atmosphere?: SceneViewEnvironmentAtmosphereProperties;
-    starsEnabled?: boolean;
-  }
-  export interface SceneViewEnvironment extends Accessor {
-    lighting?: SceneViewEnvironmentLighting;
-    atmosphereEnabled?: boolean;
-    atmosphere?: SceneViewEnvironmentAtmosphere;
-    starsEnabled?: boolean;
-  }
-
-  export interface SceneViewEnvironmentAtmosphereProperties {
-    quality?: string;
-  }
-  export interface SceneViewEnvironmentAtmosphere extends Accessor {
-    quality?: string;
-  }
-
-  export interface SceneViewEnvironmentLightingProperties {
-    date?: Date;
-    directShadowsEnabled?: boolean;
-    ambientOcclusionEnabled?: boolean;
-    cameraTrackingEnabled?: boolean;
-  }
-  export interface SceneViewEnvironmentLighting extends Accessor {
-    date?: Date;
-    directShadowsEnabled?: boolean;
-    ambientOcclusionEnabled?: boolean;
-    cameraTrackingEnabled?: boolean;
-  }
-
-  export interface SceneViewGoToOptions {
-    animate?: boolean;
-    speedFactor?: number;
-    duration?: number;
-    maxDuration?: number;
-    easing?: string | EasingFunction;
-  }
-
-  export interface SceneViewHighlightOptions {
-    color?: Color;
-    haloOpacity?: number;
-    fillOpacity?: number;
-  }
-
-  export interface SceneViewHitTestScreenPoint {
-    x: number;
-    y: number;
-  }
-
-  export interface SceneViewToMapScreenPoint {
-    x: number;
-    y: number;
-  }
-
-  export interface WatchHandle {
-    remove(): void;
-  }
-
-  export type WatchCallback = (newValue: any, oldValue: any, propertyName: string, target: Accessor) => void;
-
-  export interface IdentityManagerBaseGenerateTokenOptions {
-    serverUrl: string;
-    token: string;
-    ssl: boolean;
-  }
-
-  export interface IdentityManagerBaseGetCredentialOptions {
-    error?: Error;
-    oAuthPopupConfirmation?: boolean;
-    retry?: boolean;
-    token?: string;
-  }
-
-  export interface IdentityManagerBaseOAuthSignInOptions {
-    error: Error;
-    oAuthPopupConfirmation: boolean;
-    token: string;
-  }
-
-  export interface IdentityManagerBaseRegisterTokenProperties {
-    expires?: number;
-    server: string;
-    ssl?: boolean;
-    token: string;
-    userId?: string;
-  }
-
-  export interface IdentityManagerBaseSetProtocolErrorHandlerHandlerFunction {
-    resourceUrl: string;
-    serverInfo: ServerInfo;
-  }
-
-  export interface IdentityManagerBaseSetRedirectionHandlerHandlerFunction {
-    resourceUrl: string;
-    returnUrlParamName: string;
-    serverInfo: ServerInfo;
-    signInPage: string;
-  }
-
-  export interface IdentityManagerBaseSignInOptions {
-    error: Error;
-  }
-
-  export interface IdentityManagerCredentialCreateEvent {
-    credential: Credential;
-  }
-
-  export type IdentityManagerCredentialCreateEventHandler = (event: IdentityManagerCredentialCreateEvent) => void;
-
-  export interface IdentityManagerCredentialsDestroyEvent {
-  }
-
-  export type IdentityManagerCredentialsDestroyEventHandler = (event: IdentityManagerCredentialsDestroyEvent) => void;
-
-  export type HandlerCallback = (authorizeParams: any, authorizeUrl: string, oAuthInfo: OAuthInfo, resourceUrl: string, serverInfo: ServerInfo) => void;
-
-  export interface BaseElevationLayerFetchTileOptions {
-    noDataValue?: number;
-  }
-
-  export interface BaseElevationLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type BaseElevationLayerLayerviewCreateEventHandler = (event: BaseElevationLayerLayerviewCreateEvent) => void;
-
-  export interface BaseElevationLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type BaseElevationLayerLayerviewDestroyEventHandler = (event: BaseElevationLayerLayerviewDestroyEvent) => void;
-
-  export interface CSVLayerElevationInfo {
-    mode: string;
-    offset?: number;
-  }
-
-  export interface CSVLayerFeatureReduction {
-    type: string;
-  }
-
-  export interface CSVLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type CSVLayerLayerviewCreateEventHandler = (event: CSVLayerLayerviewCreateEvent) => void;
-
-  export interface CSVLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type CSVLayerLayerviewDestroyEventHandler = (event: CSVLayerLayerviewDestroyEvent) => void;
-
-  export interface ElevationLayerQueryElevationOptions {
-    demResolution?: number | string;
-    returnSampleInfo?: boolean;
-    noDataValue?: number;
-  }
-
-  export interface ElevationLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type ElevationLayerLayerviewCreateEventHandler = (event: ElevationLayerLayerviewCreateEvent) => void;
-
-  export interface ElevationLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type ElevationLayerLayerviewDestroyEventHandler = (event: ElevationLayerLayerviewDestroyEvent) => void;
-
-  export interface GeoRSSLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type GeoRSSLayerLayerviewCreateEventHandler = (event: GeoRSSLayerLayerviewCreateEvent) => void;
-
-  export interface GeoRSSLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type GeoRSSLayerLayerviewDestroyEventHandler = (event: GeoRSSLayerLayerviewDestroyEvent) => void;
-
-  export interface GroupLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type GroupLayerLayerviewCreateEventHandler = (event: GroupLayerLayerviewCreateEvent) => void;
-
-  export interface GroupLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type GroupLayerLayerviewDestroyEventHandler = (event: GroupLayerLayerviewDestroyEvent) => void;
-
-  export interface ImageryLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type ImageryLayerLayerviewCreateEventHandler = (event: ImageryLayerLayerviewCreateEvent) => void;
-
-  export interface ImageryLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type ImageryLayerLayerviewDestroyEventHandler = (event: ImageryLayerLayerviewDestroyEvent) => void;
-
-  export interface IntegratedMeshLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type IntegratedMeshLayerLayerviewCreateEventHandler = (event: IntegratedMeshLayerLayerviewCreateEvent) => void;
-
-  export interface IntegratedMeshLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type IntegratedMeshLayerLayerviewDestroyEventHandler = (event: IntegratedMeshLayerLayerviewDestroyEvent) => void;
-
-  export interface MapImageLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type MapImageLayerLayerviewCreateEventHandler = (event: MapImageLayerLayerviewCreateEvent) => void;
-
-  export interface MapImageLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type MapImageLayerLayerviewDestroyEventHandler = (event: MapImageLayerLayerviewDestroyEvent) => void;
-
-  export interface MapNotesLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type MapNotesLayerLayerviewCreateEventHandler = (event: MapNotesLayerLayerviewCreateEvent) => void;
-
-  export interface MapNotesLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type MapNotesLayerLayerviewDestroyEventHandler = (event: MapNotesLayerLayerviewDestroyEvent) => void;
-
-  export interface OpenStreetMapLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type OpenStreetMapLayerLayerviewCreateEventHandler = (event: OpenStreetMapLayerLayerviewCreateEvent) => void;
-
-  export interface OpenStreetMapLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type OpenStreetMapLayerLayerviewDestroyEventHandler = (event: OpenStreetMapLayerLayerviewDestroyEvent) => void;
-
-  export interface PointCloudLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type PointCloudLayerLayerviewCreateEventHandler = (event: PointCloudLayerLayerviewCreateEvent) => void;
-
-  export interface PointCloudLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type PointCloudLayerLayerviewDestroyEventHandler = (event: PointCloudLayerLayerviewDestroyEvent) => void;
-
-  export interface PointCloudLayerElevationInfo {
-    mode: string;
-    offset?: number;
-  }
-
-  export interface PointCloudRendererColorModulation {
-    field: string;
-    minValue: number;
-    maxValue: number;
-  }
-
-  export interface PointCloudRendererPointSizeAlgorithm {
-    type?: string;
-    useRealWorldSymbolSizes?: boolean;
-    size?: number;
-    scaleFactor?: number;
-    minSize?: number;
-  }
-
-  export interface SceneLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type SceneLayerLayerviewCreateEventHandler = (event: SceneLayerLayerviewCreateEvent) => void;
-
-  export interface SceneLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type SceneLayerLayerviewDestroyEventHandler = (event: SceneLayerLayerviewDestroyEvent) => void;
-
-  export interface SceneLayerElevationInfo {
-    mode: string;
-    offset?: number;
-  }
-
-  export interface SceneLayerFeatureReduction {
-    type: string;
-  }
-
-  export interface StreamLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type StreamLayerLayerviewCreateEventHandler = (event: StreamLayerLayerviewCreateEvent) => void;
-
-  export interface StreamLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type StreamLayerLayerviewDestroyEventHandler = (event: StreamLayerLayerviewDestroyEvent) => void;
-
-  export interface StreamLayerFilter {
-    geometry?: Extent;
-    where?: string;
-  }
-
-  export interface StreamLayerPurgeOptions {
-    displayCount: number;
-    age: number;
-  }
-
-  export interface StreamLayerUpdateFilterFilterChanges {
-    geometry: Extent;
-    where: string;
-  }
-
-  export interface TileLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type TileLayerLayerviewCreateEventHandler = (event: TileLayerLayerviewCreateEvent) => void;
-
-  export interface TileLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type TileLayerLayerviewDestroyEventHandler = (event: TileLayerLayerviewDestroyEvent) => void;
-
-  export interface TileLayerFetchTileOptions {
-    allowImageDataAccess?: boolean;
-  }
-
-  export interface UnknownLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type UnknownLayerLayerviewCreateEventHandler = (event: UnknownLayerLayerviewCreateEvent) => void;
-
-  export interface UnknownLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type UnknownLayerLayerviewDestroyEventHandler = (event: UnknownLayerLayerviewDestroyEvent) => void;
-
-  export interface UnsupportedLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type UnsupportedLayerLayerviewCreateEventHandler = (event: UnsupportedLayerLayerviewCreateEvent) => void;
-
-  export interface UnsupportedLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type UnsupportedLayerLayerviewDestroyEventHandler = (event: UnsupportedLayerLayerviewDestroyEvent) => void;
-
-  export interface VectorTileLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type VectorTileLayerLayerviewCreateEventHandler = (event: VectorTileLayerLayerviewCreateEvent) => void;
-
-  export interface VectorTileLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type VectorTileLayerLayerviewDestroyEventHandler = (event: VectorTileLayerLayerviewDestroyEvent) => void;
-
-  export interface VectorTileLayerCurrentStyleInfo {
-    serviceUrl: string;
-    styleUrl: string;
-    spriteUrl: string;
-    glyphsUrl: string;
-    style: any;
-    layerDefinition: any;
-  }
-
-  export interface WebTileLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type WebTileLayerLayerviewCreateEventHandler = (event: WebTileLayerLayerviewCreateEvent) => void;
-
-  export interface WebTileLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type WebTileLayerLayerviewDestroyEventHandler = (event: WebTileLayerLayerviewDestroyEvent) => void;
-
-  export interface WMSLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type WMSLayerLayerviewCreateEventHandler = (event: WMSLayerLayerviewCreateEvent) => void;
-
-  export interface WMSLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type WMSLayerLayerviewDestroyEventHandler = (event: WMSLayerLayerviewDestroyEvent) => void;
-
-  export interface WMSLayerFetchImageOptions {
-    allowImageDataAccess?: boolean;
-    pixelRatio?: number;
-    rotation?: number;
-  }
-
-  export interface WMTSLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type WMTSLayerLayerviewCreateEventHandler = (event: WMTSLayerLayerviewCreateEvent) => void;
-
-  export interface WMTSLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type WMTSLayerLayerviewDestroyEventHandler = (event: WMTSLayerLayerviewDestroyEvent) => void;
-
-  export interface BaseDynamicLayerFetchImageOptions {
-    allowImageDataAccess?: boolean;
-  }
-
-  export interface BaseDynamicLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type BaseDynamicLayerLayerviewCreateEventHandler = (event: BaseDynamicLayerLayerviewCreateEvent) => void;
-
-  export interface BaseDynamicLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type BaseDynamicLayerLayerviewDestroyEventHandler = (event: BaseDynamicLayerLayerviewDestroyEvent) => void;
-
-  export interface BaseTileLayerFetchTileOptions {
-    allowImageDataAccess?: boolean;
-  }
-
-  export interface BaseTileLayerLayerviewCreateEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type BaseTileLayerLayerviewCreateEventHandler = (event: BaseTileLayerLayerviewCreateEvent) => void;
-
-  export interface BaseTileLayerLayerviewDestroyEvent {
-    view: View;
-    layerView: LayerView;
-  }
-
-  export type BaseTileLayerLayerviewDestroyEventHandler = (event: BaseTileLayerLayerviewDestroyEvent) => void;
-
-  export interface CodedValueDomainCodedValues {
+  export interface FeatureEditResultError {
     name: string;
-    code: string | number;
-  }
-
-  export interface PixelBlockAddDataPlaneData {
-    pixels: number[][];
-    statistics: any[];
-  }
-
-  export interface PixelBlockStatistics {
-    maxValue?: number;
-    minValue?: number;
-    noDataValue?: number;
-  }
-
-  export interface ClassBreaksRendererClassBreakInfos {
-    minValue: number;
-    maxValue: number;
-    symbol: Symbol;
-    label?: string;
-  }
-
-  export interface ClassBreaksRendererLegendOptions {
-    title: string;
-  }
-
-  export interface UniqueValueRendererLegendOptions {
-    title?: string;
-  }
-
-  export interface UniqueValueRendererUniqueValueInfos {
-    value: string | number;
-    symbol: Symbol;
-    label?: string;
-  }
-
-  export interface PointCloudClassBreaksRendererColorClassBreakInfos {
-    minValue: number;
-    maxValue: number;
-    color: Color;
-    label?: string;
-  }
-
-  export interface PointCloudStretchRendererStops {
-    value: number;
-    label?: string;
-    color: Color;
-  }
-
-  export interface PointCloudUniqueValueRendererColorUniqueValueInfos {
-    values: number[];
-    color: Color;
-    label?: string;
-  }
-
-  export interface FillSymbol3DLayerOutline {
-    color: Color;
-    size: number;
-  }
-
-  export interface IconSymbol3DLayerOutline {
-    color?: Color;
-    size?: number;
-  }
-
-  export interface IconSymbol3DLayerResource {
-    primitive?: string;
-    href?: string;
-  }
-
-  export interface ObjectSymbol3DLayerResource {
-    primitive?: string;
-    href?: string;
-  }
-
-  export interface PointSymbol3DVerticalOffsetProperties {
-    screenLength?: number;
-    minWorldLength?: number;
-    maxWorldLength?: number;
-  }
-  export interface PointSymbol3DVerticalOffset extends Accessor {
-    screenLength: number;
-    minWorldLength?: number;
-    maxWorldLength?: number;
-  }
-
-  export interface Symbol3DStyleOrigin {
-    styleName?: string;
-    styleUrl?: string;
-    name: string;
-  }
-
-  export interface TextSymbol3DLayerFont {
-    family?: string;
-    weight?: string;
-    style?: string;
-  }
-
-  export interface TextSymbol3DLayerHalo {
-    color?: Color;
-    size?: number;
-  }
-
-  export interface LineCallout3DBorderProperties {
-    color?: Color;
-  }
-  export interface LineCallout3DBorder extends Accessor {
-    color?: Color;
-  }
-
-  export interface ClosestFacilityParametersAttributeParameterValues {
-    attributeName: string;
-    parameterName: string;
-    value: string;
-  }
-
-  export interface GeometryServiceFromGeoCoordinateStringParams {
-    strings: string[];
-    sr: SpatialReference | string;
-    conversionType: string;
-    conversionMode?: string;
-  }
-
-  export interface GeometryServiceToGeoCoordinateStringParams {
-    sr: SpatialReference | string;
-    coordinates: number[][];
-    conversionType: string;
-    conversionMode?: string;
-    numOfDigits?: number;
-    rounding?: boolean;
-    addSpaces?: boolean;
-  }
-
-  export interface ProjectParametersTransformation {
-    wkid?: number;
-    wkt?: string;
-  }
-
-  export interface LocatorAddressToLocationsParams {
-    address: any;
-    categories: string[];
-    countryCode: string;
-    distance: number;
-    forStorage: boolean;
-    location: Point;
-    magicKey: string;
-    maxLocations: number;
-    outFields: string[];
-    searchExtent: Extent;
-  }
-
-  export interface LocatorAddressesToLocationsParams {
-    addresses: any[];
-    countryCode: string;
-    categories: string[];
-  }
-
-  export interface LocatorSuggestLocationsParams {
-    categories: string[];
-    distance: number;
-    location: Point;
-    text: string;
-  }
-
-  export interface PrintTemplateExportOptions {
-    width?: number;
-    height?: number;
-    dpi?: number;
-  }
-
-  export interface PrintTemplateLayoutOptions {
-    titleText: string;
-    authorText: string;
-    copyrightText: string;
-    scalebarUnit: string;
-    legendLayers: LegendLayer[];
-    customTextElements: any[];
-  }
-
-  export interface MapViewDragEventOrigin {
-    x: number;
-    y: number;
-  }
-
-  export interface MapViewClickEvent {
-    mapPoint: Point;
-    x: number;
-    y: number;
-    button: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewClickEventHandler = (event: MapViewClickEvent) => void;
-
-  export interface MapViewDoubleClickEvent {
-    mapPoint: Point;
-    x: number;
-    y: number;
-    button: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewDoubleClickEventHandler = (event: MapViewDoubleClickEvent) => void;
-
-  export interface MapViewDragEvent {
-    action: string;
-    x: number;
-    y: number;
-    origin: MapViewDragEventOrigin;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewDragEventHandler = (event: MapViewDragEvent) => void;
-
-  export interface MapViewHoldEvent {
-    mapPoint: Point;
-    x: number;
-    y: number;
-    button: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewHoldEventHandler = (event: MapViewHoldEvent) => void;
-
-  export interface MapViewKeyDownEvent {
-    repeat: boolean;
-    key: string;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewKeyDownEventHandler = (event: MapViewKeyDownEvent) => void;
-
-  export interface MapViewKeyUpEvent {
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewKeyUpEventHandler = (event: MapViewKeyUpEvent) => void;
-
-  export interface MapViewLayerviewCreateEvent {
-    layer: Layer;
-    layerView: LayerView;
-  }
-
-  export type MapViewLayerviewCreateEventHandler = (event: MapViewLayerviewCreateEvent) => void;
-
-  export interface MapViewLayerviewDestroyEvent {
-    layer: Layer;
-    layerView: LayerView;
-  }
-
-  export type MapViewLayerviewDestroyEventHandler = (event: MapViewLayerviewDestroyEvent) => void;
-
-  export interface MapViewConstraints {
-    lods?: LOD[];
-    minScale?: number;
-    maxScale?: number;
-    minZoom?: number;
-    maxZoom?: number;
-    snapToZoom?: boolean;
-    rotationEnabled?: boolean;
-    effectiveLODs?: LOD[];
-    effectiveMinZoom?: number;
-    effectiveMaxZoom?: number;
-    effectiveMinScale?: number;
-    effectiveMaxScale?: number;
-  }
-
-  export interface MapViewGoToOptions {
-    animate?: boolean;
-    duration?: number;
-    easing?: string | Function;
-  }
-
-  export interface MapViewHitTestScreenPoint {
-    x: number;
-    y: number;
-  }
-
-  export interface MapViewToMapScreenPoint {
-    x: number;
-    y: number;
-  }
-
-  export interface MapViewMouseWheelEvent {
-    x: number;
-    y: number;
-    deltaY: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewMouseWheelEventHandler = (event: MapViewMouseWheelEvent) => void;
-
-  export interface MapViewPointerDownEvent {
-    pointerId: number;
-    pointerType: string;
-    x: number;
-    y: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewPointerDownEventHandler = (event: MapViewPointerDownEvent) => void;
-
-  export interface MapViewPointerMoveEvent {
-    pointerId: number;
-    pointerType: string;
-    x: number;
-    y: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewPointerMoveEventHandler = (event: MapViewPointerMoveEvent) => void;
-
-  export interface MapViewPointerUpEvent {
-    pointerId: number;
-    pointerType: string;
-    x: number;
-    y: number;
-    type: string;
-    stopPropagation: Function;
-    timestamp: number;
-    native: any;
-  }
-
-  export type MapViewPointerUpEventHandler = (event: MapViewPointerUpEvent) => void;
-
-  export interface MapViewResizeEvent {
-    oldWidth: number;
-    oldHeight: number;
-    width: number;
-    height: number;
-  }
-
-  export type MapViewResizeEventHandler = (event: MapViewResizeEvent) => void;
-
-  export interface AttributeParamValue {
-    attributeName: string;
-    parameterName: string;
-    value: string;
-  }
-
-  export interface ConfigurationTaskGetDataWorkspaceDetailsParams {
-    dataWorkspaceId: string;
-    user: string;
-  }
-
-  export interface ConfigurationTaskGetUserJobQueryDetailsParams {
-    queryId: number;
-    user: string;
-  }
-
-  export interface AuxRecordDescription {
-    properties: any;
-    recordId: number;
-    tableName: string;
-  }
-
-  export interface JobCreationParameters {
-    loi: Geometry;
-    assignedTo: string;
-    autoCommitWorkflow: boolean;
-    autoExecute: boolean;
-    dataWorkspaceId: string;
-    description: string;
-    dueDate: Date;
-    jobTypeId: number;
-    assignedType: string;
-    name: string;
-    numJobs: string;
-    ownedBy: string;
-    parentJobId: number;
-    parentVersion: string;
-    priority: number;
-    startDate: Date;
-    user: string;
-  }
-
-  export interface JobQueryParameters {
-    aliases: string;
-    fields: string;
-    orderBy: string;
-    tables: string;
-    where: string;
-    user: string;
-  }
-
-  export interface JobTaskAddEmbeddedAttachmentParams {
-    jobId: number;
-    form: any;
-    user: string;
-  }
-
-  export interface JobTaskAddLinkedAttachmentParams {
-    jobId: number;
-    attachmentType: number;
-    path: string;
-    user: string;
-  }
-
-  export interface JobTaskAddLinkedRecordParams {
-    jobId: number;
-    tableName: string;
-    user: string;
-  }
-
-  export interface JobTaskAssignJobsParams {
-    jobIds: number[];
-    assignedType: string;
-    assignedTo: string;
-    user: string;
-  }
-
-  export interface JobTaskCloseJobsParams {
-    jobIds: number[];
-    user: string;
-  }
-
-  export interface JobTaskCreateDependencyParams {
-    jobId: number;
-    heldOnType: string;
-    heldOnValue: number;
-    depJobId: number;
-    depOnType: string;
-    depOnValue: number;
-    user: string;
-  }
-
-  export interface JobTaskCreateHoldParams {
-    jobId: number;
-    holdTypeId: number;
-    comments: string;
-    user: string;
-  }
-
-  export interface JobTaskCreateJobVersionParams {
-    jobId: number;
-    name: string;
-    parent: string;
-    user: string;
-  }
-
-  export interface JobTaskDeleteAttachmentParams {
-    jobId: number;
-    attachmentId: number;
-    user: string;
-  }
-
-  export interface JobTaskDeleteDependencyParams {
-    jobId: number;
-    dependencyId: number;
-    user: string;
-  }
-
-  export interface JobTaskDeleteJobsParams {
-    jobIds: number[];
-    deleteHistory?: boolean;
-    user: string;
-  }
-
-  export interface JobTaskDeleteLinkedRecordParams {
-    jobId: number;
-    tableName: string;
-    recordId: number;
-    user: string;
-  }
-
-  export interface JobTaskGetAttachmentContentUrlParams {
-    jobId: number;
-    attachmentId: number;
-  }
-
-  export interface JobTaskListFieldValuesParams {
-    jobId: number;
-    tableName: string;
-    field: string;
-    user: string;
-  }
-
-  export interface JobTaskListMultiLevelFieldValuesParams {
-    field: string;
-    previousSelectedValues: string[];
-    user: string;
-  }
-
-  export interface JobTaskLogActionParams {
-    jobId: number;
-    activityTypeId: number;
-    comments: string;
-    user: string;
-  }
-
-  export interface JobTaskQueryJobsParams {
-    queryId: number;
-    user: string;
-  }
-
-  export interface JobTaskQueryMultiLevelSelectedValuesParams {
-    field: string;
-    user: string;
-  }
-
-  export interface JobTaskReleaseHoldParams {
-    jobId: number;
-    holdId: number;
-  }
-
-  export interface JobTaskReopenClosedJobsParams {
-    jobIds: number[];
-    user: string;
-  }
-
-  export interface JobTaskSearchJobsParams {
-    text: string;
-    user: string;
-  }
-
-  export interface JobTaskUnassignJobsParams {
-    jobIds: number[];
-    user: string;
-  }
-
-  export interface JobTaskUpdateNotesParams {
-    jobId: number;
-    notes: string;
-    user: string;
-  }
-
-  export interface JobTaskUpdateRecordParams {
-    jobId: number;
-    record: AuxRecordDescription;
-    user: string;
-  }
-
-  export interface JobUpdateParameters {
-    ownedBy: string;
-    assignedTo: string;
-    dataWorkspaceId: string;
-    description: string;
-    dueDate: Date;
-    loi: Geometry;
-    jobId: number;
-    name: string;
-    assignedType: string;
-    parentJobId: number;
-    parentVersion: string;
-    percent: number;
-    priority: number;
-    startDate: Date;
-    status: number;
-    versionName: string;
-    user: string;
-  }
-
-  export interface ChangeRule {
-    description: string;
-    evaluators: any[];
-    id: number;
-    name: string;
-    notifier: any;
-    summarize: boolean;
-  }
-
-  export interface NotificationTaskAddChangeRuleParams {
-    rule: ChangeRule;
-    user: string;
-  }
-
-  export interface NotificationTaskDeleteChangeRuleParams {
-    ruleId: string;
-    user: string;
-  }
-
-  export interface NotificationTaskNotifySessionParams {
-    sessionid: string;
-    deleteAfter: boolean;
-    user: string;
-  }
-
-  export interface NotificationTaskQueryChangeRulesParams {
-    name: string;
-    description: string;
-    searchType: string;
-    user: string;
-  }
-
-  export interface NotificationTaskRunSpatialNotificationOnHistoryParams {
-    dataWorkspaceId: string;
-    from: Date;
-    to: Date;
-    logMatches: boolean;
-    send: boolean;
-    user: string;
-  }
-
-  export interface NotificationTaskSendNotificationParams {
-    jobId: number;
-    notificationType: string;
-    user: string;
-  }
-
-  export interface NotificationTaskSubscribeToNotificationParams {
-    notificationTypeId: number;
-    email: string;
-    user: string;
-  }
-
-  export interface NotificationTaskUnsubscribeFromNotificationParams {
-    notificationTypeId: number;
-    email: string;
-    user: string;
-  }
-
-  export interface ReportTaskGenerateReportParams {
-    reportId: number;
-    user: string;
-  }
-
-  export interface ReportTaskGetReportContentUrlParams {
-    reportId: number;
-    user: number;
-  }
-
-  export interface ReportTaskGetReportDataParams {
-    reportId: number;
-    user: string;
-  }
-
-  export interface TokenTaskParseTokensParams {
-    jobId: any;
-    stringToParse: string;
-    user: string;
-  }
-
-  export interface WorkflowTaskCanRunStepParams {
-    jobId: number;
-    stepId: number;
-    user: string;
-  }
-
-  export interface WorkflowTaskExecuteStepsParams {
-    jobId: number;
-    stepIds: number[];
-    auto: boolean;
-    user: string;
-  }
-
-  export interface WorkflowTaskGetStepDescriptionParams {
-    jobId: number;
-    stepId: number;
-  }
-
-  export interface WorkflowTaskGetStepFileUrlParams {
-    jobId: number;
-    stepId: number;
-  }
-
-  export interface WorkflowTaskGetStepParams {
-    jobId: number;
-    stepId: number;
-  }
-
-  export interface WorkflowTaskMarkStepsAsDoneParams {
-    jobId: number;
-    stepIds: number[];
-    user: string;
-  }
-
-  export interface WorkflowTaskMoveToNextStepParams {
-    jobId: number;
-    stepId: number;
-    returnCode: number;
-    user: string;
-  }
-
-  export interface WorkflowTaskRecreateWorkflowParams {
-    jobId: number;
-    user: string;
-  }
-
-  export interface WorkflowTaskResolveConflictParams {
-    jobId: number;
-    stepId: number;
-    optionReturnCode: number;
-    optionStepIds: number[];
-    user: string;
-  }
-
-  export interface WorkflowTaskSetCurrentStepParams {
-    jobId: number;
-    stepId: number;
-    user: string;
-  }
-
-  export interface ImageryLayerViewPixelData {
-    extent?: Extent;
-    pixelBlock: PixelBlock;
-  }
-
-  export interface StreamLayerViewDataReceivedEvent {
-  }
-
-  export type StreamLayerViewDataReceivedEventHandler = (event: StreamLayerViewDataReceivedEvent) => void;
-
-  export interface StreamLayerViewFilter {
-    geometry?: Extent;
-    where?: string;
-  }
-
-  export interface StreamLayerViewUpdateFilterFilter {
-    geometry?: Extent;
-    where?: string;
-  }
-
-  export interface SlideApplyToOptions {
-    animate: boolean;
-    speedFactor?: number;
-    duration?: number;
-    maxDuration?: number;
-    easing?: string | EasingFunction;
-  }
-
-  export interface SlideCreateFromOptions {
-    screenshot: SlideCreateFromOptionsScreenshot;
-  }
-
-  export interface SlideCreateFromOptionsScreenshot {
-    format: string;
-    quality: number;
-    width: number;
-    height: number;
-  }
-
-  export interface SlideDescriptionProperties {
-    text?: string;
-  }
-  export interface SlideDescription extends Accessor {
-    text?: string;
-  }
-
-  export interface SlideThumbnailProperties {
-    url?: string;
-  }
-  export interface SlideThumbnail extends Accessor {
-    url?: string;
-  }
-
-  export interface SlideTitleProperties {
-    text?: string;
-  }
-  export interface SlideTitle extends Accessor {
-    text?: string;
-  }
-
-  export interface SlideUpdateFromOptions {
-    screenshot: SlideUpdateFromOptionsScreenshot;
-  }
-
-  export interface SlideUpdateFromOptionsScreenshot {
-    format: string;
-    quality: number;
-    width: number;
-    height: number;
-  }
-
-  export interface SlideVisibleLayers extends Collection {
-    id: string;
-  }
-
-  export interface ColorSliderValues {
-    color: Color;
-    value: number;
-    label: string;
-  }
-
-  export interface LegendLayerInfos {
-    title?: string;
-    layer: Layer;
-  }
-
-  export interface PopupDockOptions {
-    breakpoint?: any | boolean;
-    buttonEnabled?: boolean;
-    position?: string | Function;
-  }
-
-  export interface PopupOpenOptions {
-    title?: string;
-    content?: string;
-    location?: Geometry;
-    features?: Graphic[];
-    promises?: IPromise<any>[];
-    updateLocationEnabled?: boolean;
-  }
-
-  export interface SearchViewModelSearchCompleteEventResults {
-    results: SearchViewModelSearchCompleteEventResultsResults[];
-    sourceIndex: number;
-    source: any[];
-  }
-
-  export interface SearchViewModelSearchCompleteEventResultsResults {
-    extent: Extent;
-    feature: Graphic;
-    name: string;
-  }
-
-  export interface SearchViewModelSelectResultEventResult {
-    extent: Extent;
-    feature: Graphic;
-    name: string;
-  }
-
-  export interface SearchViewModelSuggestCompleteEventResults {
-    results: SearchViewModelSuggestCompleteEventResultsResults[];
-    sourceIndex: number;
-    source: any;
-  }
-
-  export interface SearchViewModelSuggestCompleteEventResultsResults {
-    extent: Extent;
-    feature: Graphic;
-    name: string;
-    isCollection: boolean;
-    magicKey: string;
-    text: string;
-  }
-
-  export interface SearchViewModelLoadEvent {
-  }
-
-  export type SearchViewModelLoadEventHandler = (event: SearchViewModelLoadEvent) => void;
-
-  export interface SearchViewModelSearchClearEvent {
-  }
-
-  export type SearchViewModelSearchClearEventHandler = (event: SearchViewModelSearchClearEvent) => void;
-
-  export interface SearchViewModelSearchCompleteEvent {
-    activeSourceIndex: number;
-    errors: Error[];
-    numResults: number;
-    searchTerm: string;
-    results: SearchViewModelSearchCompleteEventResults[];
-  }
-
-  export type SearchViewModelSearchCompleteEventHandler = (event: SearchViewModelSearchCompleteEvent) => void;
-
-  export interface SearchViewModelSearchStartEvent {
-  }
-
-  export type SearchViewModelSearchStartEventHandler = (event: SearchViewModelSearchStartEvent) => void;
-
-  export interface SearchViewModelSelectResultEvent {
-    result: SearchViewModelSelectResultEventResult;
-    source: any;
-    sourceIndex: number;
-  }
-
-  export type SearchViewModelSelectResultEventHandler = (event: SearchViewModelSelectResultEvent) => void;
-
-  export interface SearchViewModelSuggestCompleteEvent {
-    activeSourceIndex: number;
-    errors: Error[];
-    numResults: number;
-    searchTerm: string;
-    results: SearchViewModelSuggestCompleteEventResults[];
-  }
-
-  export type SearchViewModelSuggestCompleteEventHandler = (event: SearchViewModelSuggestCompleteEvent) => void;
-
-  export interface SearchViewModelSuggestStartEvent {
-  }
-
-  export type SearchViewModelSuggestStartEventHandler = (event: SearchViewModelSuggestStartEvent) => void;
-
-  export interface DynamicLayerFetchImageOptions {
-    allowImageDataAccess?: boolean;
-    rotation?: number;
-    pixelRatio?: number;
-  }
-
-  export interface DynamicLayerGetImageUrlOptions {
-    pixelRatio?: number;
-    rotation?: number;
-  }
-
-  export interface ArcGISDynamicMapServiceGetExportImageParametersOptions {
-    rotation?: number;
-  }
-
-  export interface SceneServiceVersion {
-    major: number;
-    minor: number;
-    versionString: string;
-  }
-
-  export interface BreakpointsOwnerBreakpoints {
-    xsmall: number;
-    small: number;
-    medium: number;
-    large: number;
-  }
-
-  export interface configRequest {
-    corsDetection?: boolean;
-    corsDetectionTimeout?: number;
-    corsEnabledServers?: Array<string | configRequestCorsEnabledServers>;
-    forceProxy?: boolean;
-    httpsDomains?: string[];
-    maxUrlLength?: number;
-    proxyUrl?: string;
-    timeout?: number;
-    useCors?: string | boolean;
-    proxyRules?: configRequestProxyRules[];
-  }
-
-  export interface configRequestCorsEnabledServers {
-    host?: string;
-    withCredentials?: boolean;
-  }
-
-  export interface configRequestProxyRules {
-    proxyUrl?: string;
-    urlPrefix?: string;
-  }
-
-  export interface configWorkers {
-    loaderConfig?: configWorkersLoaderConfig;
-  }
-
-  export interface configWorkersLoaderConfig {
-    has?: any;
-    paths?: any;
-    map?: any;
-    packages?: any[];
-  }
-
-  export interface requestEsriRequestOptions {
-    callbackParamName?: string;
-    query?: any;
-    responseType?: string;
-    headers?: any;
-    timeout?: number;
-    method?: string;
-    body?: any | any | string;
-    useProxy?: boolean;
-    cacheBust?: boolean;
-    allowImageDataAccess?: boolean;
-  }
-
-  export interface EachAlwaysResult {
-    promise: IPromise<any>;
-    value: any;
-    error: any;
-  }
-
-  export interface urlUtilsAddProxyRuleRule {
-    proxyUrl: string;
-    urlPrefix: string;
-  }
-
-  export type EventAttachedCallback = (target: any, propName: string, obj: Accessor, eventName: string) => void;
-
-  export interface PausableWatchHandle {
-    remove(): void;
-    pause(): void;
-    resume(): void;
-  }
-
-  export interface decoratorsPropertyPropertyMetadata {
-    dependsOn?: string[];
-    type?: Function;
-    cast?: Function;
-    readOnly?: boolean;
-    aliasOf?: string;
-    value?: any;
-  }
-
-  export interface colorCreateContinuousRendererParams {
-    layer: FeatureLayer | SceneLayer;
-    field: string;
-    normalizationField?: string;
-    basemap?: string | Basemap;
-    theme?: string;
-    colorScheme?: any;
-    legendOptions?: colorCreateContinuousRendererParamsLegendOptions;
-    statistics?: any;
-    minValue?: number;
-    maxValue?: number;
-    defaultSymbolEnabled?: boolean;
-    view?: SceneView;
-    symbolType?: string;
-    colorMixMode?: string;
-  }
-
-  export interface colorCreateContinuousRendererParamsLegendOptions {
-    title: string;
-  }
-
-  export interface colorCreateVisualVariableParams {
-    layer: FeatureLayer | SceneLayer;
-    field: string;
-    normalizationField?: string;
-    basemap?: string | Basemap;
-    theme?: string;
-    colorScheme?: any;
-    legendOptions?: colorCreateVisualVariableParamsLegendOptions;
-    statistics?: any;
-    minValue?: number;
-    maxValue?: number;
-    view?: SceneView;
-    worldScale?: boolean;
-  }
-
-  export interface colorCreateVisualVariableParamsLegendOptions {
-    title: string;
-  }
-
-  export interface locationCreateRendererParams {
-    layer: FeatureLayer | SceneLayer;
-    basemap?: string | Basemap;
-    locationScheme?: any | any | any;
-    view?: SceneView;
-    symbolType?: string;
-    colorMixMode?: string;
-  }
-
-  export interface sizeCreateContinuousRendererParams {
-    layer: FeatureLayer | SceneLayer;
-    field: string;
-    normalizationField?: string;
-    basemap?: string | Basemap;
-    sizeScheme?: any | any | any;
-    legendOptions?: sizeCreateContinuousRendererParamsLegendOptions;
-    statistics?: any;
-    minValue?: number;
-    maxValue?: number;
-    defaultSymbolEnabled?: boolean;
-    view?: SceneView;
-    symbolType?: string;
-  }
-
-  export interface sizeCreateContinuousRendererParamsLegendOptions {
-    title: string;
-  }
-
-  export interface sizeCreateVisualVariablesParams {
-    layer: FeatureLayer | SceneLayer;
-    field: string;
-    normalizationField?: string;
-    basemap?: string | Basemap;
-    sizeScheme?: any | any | any;
-    legendOptions?: sizeCreateVisualVariablesParamsLegendOptions;
-    statistics?: any;
-    minValue?: number;
-    maxValue?: number;
-    view?: SceneView;
-    worldScale?: boolean;
-    axis?: boolean;
-  }
-
-  export interface sizeCreateVisualVariablesParamsLegendOptions {
-    title: string;
-  }
-
-  export interface typeCreateRendererParams {
-    layer: FeatureLayer | SceneLayer;
-    field: string;
-    basemap?: string | Basemap;
-    numTypes?: number;
-    sortBy?: string;
-    typeScheme?: any | any | any;
-    legendOptions?: typeCreateRendererParamsLegendOptions;
-    defaultSymbolEnabled?: boolean;
-    view?: SceneView;
-    symbolType?: string;
-    statistics?: any;
-    colorMixMode?: string;
-  }
-
-  export interface typeCreateRendererParamsLegendOptions {
-    title: string;
-  }
-
-  export interface univariateColorSizeCreateContinuousRendererParams {
-    layer: FeatureLayer | SceneLayer;
-    basemap?: string | Basemap;
-    field: string;
-    normalizationField?: string;
-    statistics?: any;
-    minValue?: number;
-    maxValue?: number;
-    defaultSymbolEnabled?: boolean;
-    colorOptions?: univariateColorSizeCreateContinuousRendererParamsColorOptions;
-    sizeOptions?: univariateColorSizeCreateContinuousRendererParamsSizeOptions;
-    view?: SceneView;
-    symbolType?: string;
-  }
-
-  export interface univariateColorSizeCreateContinuousRendererParamsColorOptions {
-    theme?: string;
-    colorScheme?: any;
-    legendOptions?: univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions;
-  }
-
-  export interface univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions {
-    title: string;
-  }
-
-  export interface univariateColorSizeCreateContinuousRendererParamsSizeOptions {
-    sizeScheme?: any | any | any;
-    legendOptions?: univariateColorSizeCreateContinuousRendererParamsSizeOptionsLegendOptions;
-  }
-
-  export interface univariateColorSizeCreateContinuousRendererParamsSizeOptionsLegendOptions {
-    title: string;
-  }
-
-  export interface univariateColorSizeCreateVisualVariablesParams {
-    layer: FeatureLayer | SceneLayer;
-    basemap?: string | Basemap;
-    field: string;
-    normalizationField?: string;
-    statistics?: any;
-    minValue?: number;
-    maxValue?: number;
-    colorOptions?: univariateColorSizeCreateVisualVariablesParamsColorOptions;
-    sizeOptions?: univariateColorSizeCreateVisualVariablesParamsSizeOptions;
-    view?: SceneView;
-    worldScale?: boolean;
-  }
-
-  export interface univariateColorSizeCreateVisualVariablesParamsColorOptions {
-    theme?: string;
-    colorScheme?: any;
-    legendOptions?: univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions;
-  }
-
-  export interface univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions {
-    title: string;
-  }
-
-  export interface univariateColorSizeCreateVisualVariablesParamsSizeOptions {
-    axis?: boolean;
-    sizeScheme?: any | any | any;
-    legendOptions?: univariateColorSizeCreateVisualVariablesParamsSizeOptionsLegendOptions;
-  }
-
-  export interface univariateColorSizeCreateVisualVariablesParamsSizeOptionsLegendOptions {
-    title: string;
-  }
-
-  export interface classBreaksClassBreaksParams {
-    layer: FeatureLayer | SceneLayer;
-    field?: string;
-    normalizationField?: string;
-    classificationMethod?: string;
-    standardDeviationInterval?: number;
-    minValue?: number;
-    maxValue?: number;
-    numClasses?: number;
-  }
-
-  export interface histogramHistogramParams {
-    layer: FeatureLayer | SceneLayer;
-    field?: string;
-    normalizationField?: string;
-    classificationMethod?: string;
-    standardDeviationInterval?: number;
-    minValue?: number;
-    maxValue?: number;
-    numBins?: number;
-  }
-
-  export interface summaryStatisticsSummaryStatisticsParams {
-    layer: FeatureLayer | SceneLayer;
-    field?: string;
-    normalizationField?: string;
-    features?: Graphic[];
-    minValue?: number;
-    maxValue?: number;
-  }
-
-  export interface uniqueValuesUniqueValuesParams {
-    layer: FeatureLayer | SceneLayer;
-    field: string;
-    features?: Graphic[];
-    returnAllCodedValues?: boolean;
-  }
-
-  export interface colorGetSchemesParams {
-    basemap: string | Basemap;
-    geometryType: string;
-    theme: string;
-    view?: SceneView;
-    worldScale?: boolean;
-  }
-
-  export interface locationGetSchemesParams {
-    basemap: string | Basemap;
-    geometryType: string;
-    view?: SceneView;
-    worldScale?: boolean;
-  }
-
-  export interface sizeGetSchemesParams {
-    basemap: string | Basemap;
-    geometryType: string;
-    view?: SceneView;
-    worldScale?: boolean;
-  }
-
-  export interface typeGetSchemesParams {
-    basemap: string | Basemap;
-    geometryType: string;
-    worldScale?: boolean;
-    view?: SceneView;
-  }
-
-  export interface JobQuery {
-    id: number;
-    name: string;
-  }
-
-  export interface GroupMembership {
-    id: number;
-    name: string;
-  }
-
-  export interface JobQueryContainer {
-    containers: JobQueryContainer[];
-    id: number;
-    name: string;
-    queries: JobQuery[];
-  }
-
-  export interface Privilege {
-    description: string;
-    id: number;
-    name: string;
-  }
-
-  export interface DataWorkspace {
-    id: string;
-    name: string;
-  }
-
-  export interface HoldType {
-    description: string;
-    id: number;
-    name: string;
-  }
-
-  export interface JobPriority {
-    description: string;
-    name: string;
-    value: number;
-  }
-
-  export interface JobStatus {
-    caption: string;
-    description: string;
-    id: number;
-    name: string;
-  }
-
-  export interface JobType {
-    category: string;
-    description: string;
-    id: string;
-    name: string;
-    state: string;
-  }
-
-  export interface ActivityType {
-    desription: string;
-    id: number;
     message: string;
-    name: string;
   }
 
-  export interface NotificationType {
-    attachJobAttachments: boolean;
-    id: number;
-    message: string;
-    senderEmail: string;
-    senderName: string;
-    subject: string;
-    subscribers: string[];
-    type: string;
-  }
-
-  export interface AuxRecord {
-    displayProperty: any;
-    id: number;
-    recordvalues: AuxRecordValue;
-  }
-
-  export interface AuxRecordValue {
-    filter: string;
-    alias: string;
-    data: any;
-    dataType: string;
-    displayOrder: number;
-    displayType: string;
-    domain: string;
-    canUpdate: boolean;
-    length: number;
-    name: string;
-    required: boolean;
-    tableListClass: string;
-    tableListDisplayField: string;
-    tableListStoreField: string;
-    userVisible: boolean;
-  }
-
-  export interface JobVersionInfo {
-    dataWorkspaceId: string;
-    name: string;
-    parent: string;
-    created: boolean;
-    owner: string;
-  }
-
-  export interface QueryFieldInfo {
-    alias: string;
-    length: string;
-    name: string;
-    type: string;
-  }
-
-  export interface DatasetConfiguration {
-    changeCondition: number;
-    changeFields: string;
-    dataset: string;
-    dataWorkspaceId: string;
-    name: string;
-    whereConditions: WhereCondition[];
-  }
-
-  export interface WhereCondition {
-    compareValue: any;
-    field: string;
-    operator: string;
-  }
-
-  export interface ReportDataGroup {
-    aggregateLabel: string;
-    aggregateValue: string;
-    row: string[];
-    value: string;
-  }
-
-  export interface WorkflowConflicts {
-    jobID: number;
-    options: WorkflowOption[];
-    spawnsConcurrency: boolean;
-    stepId: number;
-  }
-
-  export interface WorkflowOption {
-    returnCode: number;
-    steps: WorkflowStepInfo[];
-  }
-
-  export interface WorkflowStepInfo {
-    id: number;
-    name: string;
-  }
-
-  export interface StepType {
-    program: string;
-    arguments: string;
-    executionType: string;
-    id: number;
-    name: string;
-    description: string;
-    stepDescriptionLink: string;
-    stepDescriptionType: string;
-    stepIndicatorType: string;
-    supportedPlatform: string;
-    visible: boolean;
-  }
-
-  export interface WorkflowAnnotationDisplayDetails {
-    centerX: number;
-    centerY: number;
-    fillColor: any;
-    height: number;
-    label: string;
-    labelColor: any;
-    OutlineColor: any;
-    width: number;
-  }
-
-  export interface WorkflowPathDisplayDetails {
-    destStepId: number;
-    sourceStepID: number;
-    label: string;
-    labelColor: any;
-    labelX: number;
-    labelY: number;
-    lineColor: any;
-    pathObject: any;
-  }
-
-  export interface WorkflowStepDisplayDetails {
-    labelColor: any;
-    centerX: number;
-    fillColor: any;
-    height: number;
-    label: string;
-    centerY: number;
-    OutlineColor: any;
-    shape: string;
-    stepId: number;
-    stepType: string;
-    width: number;
-  }
-
-  export interface ColorAndIntensity {
-    color: any;
-    intensity: number;
-  }
-
-  export interface RenderCamera {
-    viewMatrix: any;
-    viewInverseTransposeMatrix: any;
-    projectionMatrix: any;
-    eye: any;
-    center: any;
-    up: any;
-    near: number;
-    far: number;
-    fovX: number;
-    fovY: number;
-  }
-
-  export interface SunLight {
-    direction: any;
-    diffuse: ColorAndIntensity;
-    ambient: ColorAndIntensity;
-  }
-
-  interface Basemap extends Accessor, Loadable, JSONSupport {
-    baseLayers: Collection;
-    id: string;
-    loaded: boolean;
-    portalItem: PortalItem;
-    referenceLayers: Collection;
-    thumbnailUrl: string;
-    title: string;
-
-    clone(): this;
-  }
-
-  interface BasemapConstructor {
-    new(properties?: BasemapProperties): Basemap;
-
-
-    fromId(id: string): Basemap;
-
-    fromJSON(json: any): Basemap;
-  }
-
-  export const Basemap: BasemapConstructor;
-
-  interface BasemapProperties extends LoadableProperties {
-    baseLayers?: Collection | any[];
-    id?: string;
-    loaded?: boolean;
-    portalItem?: PortalItemProperties;
-    referenceLayers?: Collection | any[];
-    thumbnailUrl?: string;
-    title?: string;
-  }
-
-  interface Camera extends Accessor, JSONSupport {
-    fov: number;
-    heading: number;
-    position: Point;
-    tilt: number;
-
-    clone(): this;
-  }
-
-  interface CameraConstructor {
-    new(properties?: CameraProperties): Camera;
-
-    fromJSON(json: any): Camera;
-  }
-
-  export const Camera: CameraConstructor;
-
-  interface CameraProperties {
-    fov?: number;
-    heading?: number;
-    position?: PointProperties;
-    tilt?: number;
-  }
-
-  interface Color {
-    a: number;
-    b: number;
-    g: number;
-    r: number;
-
-    clone(): this;
-    setColor(color: string | number[] | any): Color;
-    toCss(includeAlpha?: boolean): string;
-    toHex(): string;
-    toJSON(): any;
-    toRgb(): number[];
-    toRgba(): number[];
-  }
-
-  interface ColorConstructor {
-
-    blendColors(start: Color, end: Color, weight: number, obj?: Color): Color;
-    new(color: string | number[] | any): Color;
-    fromArray(a: number[], obj?: Color): Color;
-    fromHex(color: string, obj?: Color): Color;
-    fromJSON(json: any): Color;
-    fromRgb(color: string, obj?: Color): Color;
-    fromString(str: string, obj?: Color): Color;
-  }
-
-  export const Color: ColorConstructor;
-
-  interface Graphic extends Accessor, JSONSupport {
-    attributes: any;
-    geometry: Geometry;
-    layer: FeatureLayer | GraphicsLayer;
-    popupTemplate: PopupTemplate;
-    symbol: Symbol;
-    visible: boolean;
-
-    clone(): this;
-    getAttribute(name: string): any;
-    getEffectivePopupTemplate(): PopupTemplate;
-    setAttribute(name: string, newValue: any): void;
-  }
-
-  interface GraphicConstructor {
-    new(properties?: GraphicProperties): Graphic;
-
-    fromJSON(json: any): Graphic;
-  }
-
-  export const Graphic: GraphicConstructor;
-
-  interface GraphicProperties {
-    attributes?: any;
-    geometry?: GeometryProperties;
-    layer?: FeatureLayer | GraphicsLayer;
-    popupTemplate?: PopupTemplateProperties;
-    symbol?: SymbolProperties;
-    visible?: boolean;
-  }
-
-  interface Ground extends Accessor {
-    layers: Collection;
-
-    clone(): this;
-    queryElevation(geometry: Point | Multipoint | Polyline, options?: GroundQueryElevationOptions): IPromise<any>;
-  }
-
-  interface GroundConstructor {
-    new(properties?: GroundProperties): Ground;
-  }
-
-  export const Ground: GroundConstructor;
-
-  interface GroundProperties {
-    layers?: Collection | any[];
-  }
-
-  interface Map extends Accessor, LayersMixin {
-    allLayers: Collection;
-    basemap: Basemap;
-    ground: Ground;
-  }
-
-  interface MapConstructor {
-    new(properties?: MapProperties): Map;
-  }
-
-  export const Map: MapConstructor;
-
-  interface MapProperties extends LayersMixinProperties {
-    allLayers?: Collection | any[];
-    basemap?: BasemapProperties;
-    ground?: GroundProperties;
-  }
-
-  interface PopupTemplate extends Accessor, JSONSupport {
-    actions: Collection;
-    content: string;
-    expressionInfos: PopupTemplateExpressionInfos[];
-    fieldInfos: PopupTemplateFieldInfos[];
-    overwriteActions: boolean;
-    title: string;
-
-    clone(): this;
-  }
-
-  interface PopupTemplateConstructor {
-    new(properties?: PopupTemplateProperties): PopupTemplate;
-
-    fromJSON(json: any): PopupTemplate;
-  }
-
-  export const PopupTemplate: PopupTemplateConstructor;
-
-  interface PopupTemplateProperties {
-    actions?: Collection | any[];
-    content?: string | any[] | Function | IPromise<any>;
-    expressionInfos?: PopupTemplateExpressionInfos[];
-    fieldInfos?: PopupTemplateFieldInfos[];
-    overwriteActions?: boolean;
-    title?: string | Function;
-  }
-
-  interface Viewpoint extends Accessor, JSONSupport {
-    camera: Camera;
-    rotation: number;
-    scale: number;
-    targetGeometry: Geometry;
-
-    clone(): this;
-  }
-
-  interface ViewpointConstructor {
-    new(properties?: ViewpointProperties): Viewpoint;
-
-    fromJSON(json: any): Viewpoint;
-  }
-
-  export const Viewpoint: ViewpointConstructor;
-
-  interface ViewpointProperties {
-    camera?: CameraProperties;
-    rotation?: number;
-    scale?: number;
-    targetGeometry?: GeometryProperties;
-  }
-
-  interface WebMap extends Map, corePromise {
-    applicationProperties: any;
-    bookmarks: any[];
-    initialViewProperties: InitialViewProperties;
-    loaded: boolean;
-    loadError: Error;
-    loadStatus: string;
-    portalItem: PortalItem;
-    presentation: any;
-    sourceVersion: WebMapSourceVersion;
-    tables: any[];
-    widgets: any;
-
-    load(): IPromise<any>;
-  }
-
-  interface WebMapConstructor {
-    new(properties?: WebMapProperties): WebMap;
-  }
-
-  export const WebMap: WebMapConstructor;
-
-  interface WebMapProperties extends MapProperties {
-    applicationProperties?: any;
-    bookmarks?: any[];
-    initialViewProperties?: InitialViewPropertiesProperties;
-    loaded?: boolean;
-    loadError?: Error;
-    loadStatus?: string;
-    portalItem?: PortalItemProperties;
-    presentation?: any;
-    sourceVersion?: WebMapSourceVersion;
-    tables?: any[];
-    widgets?: any;
-  }
-
-  interface WebScene extends Map, corePromise {
-    clippingArea: Extent;
-    clippingEnabled: boolean;
-    initialViewProperties: websceneInitialViewProperties;
-    loaded: boolean;
-    loadError: Error;
-    loadStatus: string;
-    portalItem: PortalItem;
-    presentation: Presentation;
-    sourceVersion: WebSceneSourceVersion;
-
-    load(): IPromise<any>;
-    save(options?: WebSceneSaveOptions): IPromise<any>;
-    saveAs(portalItem: PortalItem, options?: WebSceneSaveAsOptions): IPromise<any>;
-    toJSON(): any;
-    updateFrom(view: SceneView, options?: WebSceneUpdateFromOptions): void;
-  }
-
-  interface WebSceneConstructor {
-    new(properties?: WebSceneProperties): WebScene;
-
-
-    fromJSON(json: any): any;
-  }
-
-  export const WebScene: WebSceneConstructor;
-
-  interface WebSceneProperties extends MapProperties {
-    clippingArea?: ExtentProperties;
-    clippingEnabled?: boolean;
-    initialViewProperties?: websceneInitialViewPropertiesProperties;
-    loaded?: boolean;
-    loadError?: Error;
-    loadStatus?: string;
-    portalItem?: PortalItemProperties;
-    presentation?: PresentationProperties;
-    sourceVersion?: WebSceneSourceVersion;
-  }
-
-
-
-  interface Collection extends Accessor, Evented {
-    length: number;
-
-    add(item: any, index?: number): void;
-    addMany(items: any[] | Collection, index?: number): void;
-    clone(): this;
-    concat(value: any[] | Collection): Collection;
-    every(callback: ItemTestCallback): boolean;
-    filter(callback: ItemTestCallback): Collection;
-    find(callback: ItemTestCallback): any;
-    findIndex(callback: ItemTestCallback): number;
-    flatten(callback: ItemCallback): Collection;
-    forEach(callback: ItemCallback): void;
-    getItemAt(index: number): any;
-    includes(searchElement: any): boolean;
-    indexOf(searchElement: any, fromIndex?: number): number;
-    join(separator?: string): string;
-    lastIndexOf(searchElement: any, fromIndex?: number): number;
-    map(callback: ItemMapCallback): Collection;
-    pop(): any;
-    push(item: any): number;
-    reduce(callback: ItemReduceCallback): any;
-    reduceRight(callback: ItemReduceCallback, initialValue?: any): any;
-    remove(item: any): void;
-    removeAll(): void;
-    removeAt(index: number): any;
-    removeMany(items: any[] | Collection): any;
-    reorder(item: any, index: number): any;
-    reverse(): Collection;
-    shift(): any;
-    slice(begin?: number, end?: number): Collection;
-    some(callback: ItemCallback): boolean;
-    sort(compareFunction?: ItemCompareCallback): void;
-    splice(start: number, deleteCount: number, items: any): any[];
-    toArray(): any[];
-    unshift(items: any): number;
-  }
-
-  interface CollectionConstructor {
-    new(properties?: CollectionProperties): Collection;
-
-
-    isCollection(value: any): boolean;
-    ofType(type: any): any;
-  }
-
-  export const Collection: CollectionConstructor;
-
-  interface CollectionProperties {
-    length?: number;
-  }
-
-  interface Connection {
-    broadcast(methodName: string, data?: any, buffers?: any[]): IPromise<any>[];
-    close(): void;
-    invoke(methodName: string, data?: any, buffers?: any[]): IPromise<any>;
-  }
-
-  interface ConnectionConstructor {
-    new(client: any, id: number): Connection;
-  }
-
-  export const Connection: ConnectionConstructor;
-
-  interface Circle extends Polygon {
-    center: Point | number[];
-    geodesic: boolean;
-    numberOfPoints: number;
-    radius: number;
-    radiusUnit: string;
-  }
-
-  interface CircleConstructor {
-    new(properties?: CircleProperties): Circle;
-
-    fromJSON(json: any): Circle;
-  }
-
-  export const Circle: CircleConstructor;
-
-  interface CircleProperties extends PolygonProperties {
-    center?: Point | number[];
-    geodesic?: boolean;
-    numberOfPoints?: number;
-    radius?: number;
-    radiusUnit?: string;
-  }
-
-  interface Extent extends Geometry {
-    center: Point;
-    height: number;
-    mmax: number;
-    mmin: number;
-    width: number;
-    xmax: number;
-    xmin: number;
-    ymax: number;
-    ymin: number;
-    zmax: number;
-    zmin: number;
-
-    centerAt(point: Point): Extent;
-    contains(geometry: Point | Extent): boolean;
-    equals(extent: Extent): boolean;
-    expand(factor: number): Extent;
-    intersection(extent: Extent): Extent;
-    intersects(geometry: Geometry): boolean;
-    normalize(): Extent[];
-    offset(dx: number, dy: number, dz: number): Extent;
-    union(extent: Extent): Extent;
-  }
-
-  interface ExtentConstructor {
-    new(properties?: ExtentProperties): Extent;
-
-    fromJSON(json: any): Extent;
-  }
-
-  export const Extent: ExtentConstructor;
-
-  interface ExtentProperties extends GeometryProperties {
-    center?: PointProperties;
-    height?: number;
-    mmax?: number;
-    mmin?: number;
-    width?: number;
-    xmax?: number;
-    xmin?: number;
-    ymax?: number;
-    ymin?: number;
-    zmax?: number;
-    zmin?: number;
-  }
-
-  interface Geometry extends Accessor, JSONSupport {
-    cache: any;
-    extent: Extent;
-    hasM: boolean;
-    hasZ: boolean;
-    spatialReference: SpatialReference;
-    type: string;
-
-    clone(): this;
-  }
-
-  interface GeometryConstructor {
-    new(properties?: GeometryProperties): Geometry;
-
-    fromJSON(json: any): Geometry;
-  }
-
-  export const Geometry: GeometryConstructor;
-
-  interface GeometryProperties {
-    cache?: any;
-    extent?: ExtentProperties;
-    hasM?: boolean;
-    hasZ?: boolean;
-    spatialReference?: SpatialReferenceProperties;
-    type?: string;
-  }
-
-  interface Multipoint extends Geometry {
-    points: number[][];
-
-    addPoint(point: Point | number[]): Multipoint;
-    getPoint(index: number): Point;
-    removePoint(index: number): Point;
-    setPoint(index: number, point: Point): Multipoint;
-  }
-
-  interface MultipointConstructor {
-    new(properties?: MultipointProperties): Multipoint;
-
-    fromJSON(json: any): Multipoint;
-  }
-
-  export const Multipoint: MultipointConstructor;
-
-  interface MultipointProperties extends GeometryProperties {
-    points?: number[][];
-  }
-
-  interface Point extends Geometry {
-    latitude: number;
-    longitude: number;
-    m: number;
-    x: number;
-    y: number;
-    z: number;
-
-    copy(other: Point): void;
-    distance(other: Point): number;
-    equals(point: Point): boolean;
-    normalize(): Point;
-  }
-
-  interface PointConstructor {
-    new(properties?: PointProperties): Point;
-
-    fromJSON(json: any): Point;
-  }
-
-  export const Point: PointConstructor;
-
-  interface PointProperties extends GeometryProperties {
-    latitude?: number;
-    longitude?: number;
-    m?: number;
-    x?: number;
-    y?: number;
-    z?: number;
-  }
-
-  interface Polygon extends Geometry {
-    centroid: Point;
-    isSelfIntersecting: boolean;
-    rings: number[][][];
-
-    addRing(ring: Point[] | number[][]): Polygon;
-    contains(point: Point): boolean;
-    getPoint(ringIndex: number, pointIndex: number): Point;
-    insertPoint(ringIndex: number, pointIndex: number, point: Point): Polygon;
-    isClockwise(ring: Point[] | number[][]): boolean;
-    removePoint(ringIndex: number, pointIndex: number): Point[];
-    removeRing(index: number): Point[];
-    setPoint(ringIndex: number, pointIndex: number, point: Point): Polygon;
-  }
-
-  interface PolygonConstructor {
-    new(properties?: PolygonProperties): Polygon;
-
-
-    fromExtent(extent: Extent): Polygon;
-
-    fromJSON(json: any): Polygon;
-  }
-
-  export const Polygon: PolygonConstructor;
-
-  interface PolygonProperties extends GeometryProperties {
-    centroid?: PointProperties;
-    isSelfIntersecting?: boolean;
-    rings?: number[][][];
-  }
-
-  interface Polyline extends Geometry {
-    paths: number[][][];
-
-    addPath(points: number[][]): Polyline;
-    getPoint(pathIndex: number, pointIndex: number): Point;
-    insertPoint(pathIndex: number, pointIndex: number, point: Point): Polyline;
-    removePath(index: number): Point[];
-    removePoint(pathIndex: number, pointIndex: number): Point;
-    setPoint(pathIndex: number, pointIndex: number, point: Point): Polyline;
-  }
-
-  interface PolylineConstructor {
-    new(properties?: PolylineProperties): Polyline;
-
-    fromJSON(json: any): Polyline;
-  }
-
-  export const Polyline: PolylineConstructor;
-
-  interface PolylineProperties extends GeometryProperties {
-    paths?: number[][][];
-  }
-
-  interface ScreenPoint extends Accessor {
-    x: number;
-    y: number;
-  }
-
-  interface ScreenPointConstructor {
-    new(properties?: ScreenPointProperties): ScreenPoint;
-  }
-
-  export const ScreenPoint: ScreenPointConstructor;
-
-  interface ScreenPointProperties {
-    x?: number;
-    y?: number;
-  }
-
-  interface SpatialReference extends Accessor, JSONSupport {
-    isGeographic: boolean;
-    isWebMercator: boolean;
-    isWGS84: boolean;
-    isWrappable: boolean;
-    WebMercator: SpatialReference;
-    WGS84: SpatialReference;
-    wkid: number;
-    wkt: string;
-
-    clone(): this;
-    equals(spatialReference: SpatialReference): boolean;
-  }
-
-  interface SpatialReferenceConstructor {
-    new(properties?: SpatialReferenceProperties): SpatialReference;
-
-    fromJSON(json: any): SpatialReference;
-  }
-
-  export const SpatialReference: SpatialReferenceConstructor;
-
-  interface SpatialReferenceProperties {
-    isGeographic?: boolean;
-    isWebMercator?: boolean;
-    isWGS84?: boolean;
-    isWrappable?: boolean;
-    WebMercator?: SpatialReferenceProperties;
-    WGS84?: SpatialReferenceProperties;
-    wkid?: number;
-    wkt?: string;
-  }
-
-  interface Credential extends Accessor {
-    expires: number;
-    isAdmin: boolean;
-    oAuthState: any;
-    server: string;
-    ssl: boolean;
-    token: string;
-    userId: string;
-
-    destroy(): void;
-    refreshToken(): void;
-  }
-
-  interface CredentialConstructor {
-    new(properties?: CredentialProperties): Credential;
-  }
-
-  export const Credential: CredentialConstructor;
-
-  interface CredentialProperties {
-    expires?: number;
-    isAdmin?: boolean;
-    oAuthState?: any;
-    server?: string;
-    ssl?: boolean;
-    token?: string;
-    userId?: string;
-  }
-
-  interface IdentityManagerBase extends Evented {
-    tokenValidity: number;
-
-    checkSignInStatus(resUrl: string): IPromise<any>;
-    destroyCredentials(): void;
-    findCredential(url: string, userId?: string): Credential;
-    findOAuthInfo(url: string): OAuthInfo;
-    findServerInfo(url: string): ServerInfo;
-    generateToken(serverInfo: ServerInfo, userInfo: any, options?: IdentityManagerBaseGenerateTokenOptions): IPromise<any>;
-    getCredential(url: string, options?: IdentityManagerBaseGetCredentialOptions): IPromise<any>;
-    initialize(json: any): void;
-    isBusy(): boolean;
-    oAuthSignIn(resUrl: string, serverInfo: ServerInfo, oAuthInfo: OAuthInfo, options?: IdentityManagerBaseOAuthSignInOptions): IPromise<any>;
-    registerOAuthInfos(oAuthInfos: OAuthInfo[]): void;
-    registerServers(serverInfos: ServerInfo[]): void;
-    registerToken(properties: IdentityManagerBaseRegisterTokenProperties): void;
-    setProtocolErrorHandler(handlerFunction: IdentityManagerBaseSetProtocolErrorHandlerHandlerFunction): void;
-    setRedirectionHandler(handlerFunction: IdentityManagerBaseSetRedirectionHandlerHandlerFunction): void;
-    signIn(url: string, serverInfo: ServerInfo, options?: IdentityManagerBaseSignInOptions): IPromise<any>;
-    toJSON(): any;
-  }
-
-  interface IdentityManagerBaseConstructor {
-    new(): IdentityManagerBase;
-  }
-
-  export const IdentityManagerBase: IdentityManagerBaseConstructor;
-
-  interface IdentityManager extends IdentityManagerBase {
-    dialog: any;
-
-    setOAuthRedirectionHandler(handlerFunction: HandlerCallback): void;
-    setOAuthResponseHash(hash: string): void;
-
-    on(name: "credential-create", eventHandler: IdentityManagerCredentialCreateEventHandler): IHandle;
-    on(name: "credential-create", modifiers: string[], eventHandler: IdentityManagerCredentialCreateEventHandler): IHandle;
-    on(name: "credentials-destroy", eventHandler: IdentityManagerCredentialsDestroyEventHandler): IHandle;
-    on(name: "credentials-destroy", modifiers: string[], eventHandler: IdentityManagerCredentialsDestroyEventHandler): IHandle;
-  }
-
-  interface IdentityManagerConstructor {
-    new(): IdentityManager;
-  }
-
-  export const IdentityManager: IdentityManagerConstructor;
-
-  interface OAuthInfo extends Accessor, JSONSupport {
-    appId: string;
-    authNamespace: string;
-    expiration: number;
-    locale: string;
-    minTimeUntilExpiration: number;
-    popup: boolean;
-    popupCallbackUrl: string;
-    popupWindowFeatures: string;
-    portalUrl: string;
-
-    clone(): this;
-  }
-
-  interface OAuthInfoConstructor {
-    new(properties?: OAuthInfoProperties): OAuthInfo;
-
-    fromJSON(json: any): OAuthInfo;
-  }
-
-  export const OAuthInfo: OAuthInfoConstructor;
-
-  interface OAuthInfoProperties {
-    appId?: string;
-    authNamespace?: string;
-    expiration?: number;
-    locale?: string;
-    minTimeUntilExpiration?: number;
-    popup?: boolean;
-    popupCallbackUrl?: string;
-    popupWindowFeatures?: string;
-    portalUrl?: string;
-  }
-
-  interface ServerInfo extends Accessor, JSONSupport {
-    adminTokenServiceUrl: string;
-    currentVersion: number;
-    server: string;
-    shortLivedTokenValidity: number;
-    tokenServiceUrl: string;
-  }
-
-  interface ServerInfoConstructor {
-    new(properties?: ServerInfoProperties): ServerInfo;
-
-    fromJSON(json: any): ServerInfo;
-  }
-
-  export const ServerInfo: ServerInfoConstructor;
-
-  interface ServerInfoProperties {
-    adminTokenServiceUrl?: string;
-    currentVersion?: number;
-    server?: string;
-    shortLivedTokenValidity?: number;
-    tokenServiceUrl?: string;
-  }
-
-  interface BaseElevationLayer extends Layer {
-    spatialReference: SpatialReference;
-    tileInfo: TileInfo;
-
-    addResolvingPromise(promiseToLoad: IPromise<any>): IPromise<any>;
-    fetchTile(level: number, row: number, column: number, options?: BaseElevationLayerFetchTileOptions): IPromise<any>;
-    getTileBounds(level: number, row: number, column: number, out?: number[]): number[];
-
-    on(name: "layerview-create", eventHandler: BaseElevationLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: BaseElevationLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: BaseElevationLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: BaseElevationLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface BaseElevationLayerConstructor {
-    new(properties?: BaseElevationLayerProperties): BaseElevationLayer;
-  }
-
-  export const BaseElevationLayer: BaseElevationLayerConstructor;
-
-  interface BaseElevationLayerProperties extends LayerProperties {
-    spatialReference?: SpatialReferenceProperties;
-    tileInfo?: TileInfoProperties;
-  }
-
-  interface CSVLayer extends Layer {
-    copyright: string;
-    delimiter: string;
-    elevationInfo: CSVLayerElevationInfo;
-    featureReduction: CSVLayerFeatureReduction;
-    fields: Field[];
-    labelingInfo: LabelClass[];
-    labelsVisible: boolean;
-    latitudeField: string;
-    legendEnabled: boolean;
-    longitudeField: string;
-    maxScale: number;
-    minScale: number;
-    outFields: string[];
-    popupEnabled: boolean;
-    popupTemplate: PopupTemplate;
-    renderer: Renderer;
-    screenSizePerspectiveEnabled: boolean;
-    url: string;
-
-    on(name: "layerview-create", eventHandler: CSVLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: CSVLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: CSVLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: CSVLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface CSVLayerConstructor {
-    new(properties?: CSVLayerProperties): CSVLayer;
-  }
-
-  export const CSVLayer: CSVLayerConstructor;
-
-  interface CSVLayerProperties extends LayerProperties {
-    copyright?: string;
-    delimiter?: string;
-    elevationInfo?: CSVLayerElevationInfo;
-    featureReduction?: CSVLayerFeatureReduction;
-    fields?: FieldProperties[];
-    labelingInfo?: LabelClassProperties[];
-    labelsVisible?: boolean;
-    latitudeField?: string;
-    legendEnabled?: boolean;
-    longitudeField?: string;
-    maxScale?: number;
-    minScale?: number;
-    outFields?: string[];
-    popupEnabled?: boolean;
-    popupTemplate?: PopupTemplateProperties;
-    renderer?: RendererProperties;
-    screenSizePerspectiveEnabled?: boolean;
-    url?: string;
-  }
-
-  interface ElevationLayer extends Layer, ArcGISMapService, ArcGISCachedService, PortalLayer, TiledLayer {
-    url: string;
-
-    fetchTile(level: number, row: number, column: number, noDataValue?: number): IPromise<any>;
-    queryElevation(geometry: Point | Multipoint | Polyline, options?: ElevationLayerQueryElevationOptions): IPromise<any>;
-
-    on(name: "layerview-create", eventHandler: ElevationLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: ElevationLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: ElevationLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: ElevationLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface ElevationLayerConstructor {
-    new(properties?: ElevationLayerProperties): ElevationLayer;
-
-    fromJSON(json: any): ElevationLayer;
-  }
-
-  export const ElevationLayer: ElevationLayerConstructor;
-
-  interface ElevationLayerProperties extends LayerProperties, ArcGISMapServiceProperties, ArcGISCachedServiceProperties, PortalLayerProperties, TiledLayerProperties {
-    url?: string;
-  }
-
-  interface FeatureLayer extends Layer, PortalLayer, ScaleRangeLayer {
-    capabilities: FeatureLayerCapabilities;
-    copyright: string;
-    definitionExpression: string;
-    displayField: string;
-    elevationInfo: FeatureLayerElevationInfo;
-    featureReduction: FeatureLayerFeatureReduction;
-    fields: Field[];
-    gdbVersion: string;
-    geometryType: string;
-    hasAttachments: boolean;
-    hasM: boolean;
-    hasZ: boolean;
-    labelingInfo: LabelClass[];
-    labelsVisible: boolean;
-    layerId: number;
-    legendEnabled: boolean;
-    objectIdField: string;
-    outFields: string[];
-    popupEnabled: boolean;
-    popupTemplate: PopupTemplate;
-    renderer: Renderer;
-    returnM: boolean;
-    returnZ: boolean;
-    screenSizePerspectiveEnabled: boolean;
-    source: Collection;
-    spatialReference: SpatialReference;
-    templates: FeatureTemplate[];
-    token: string;
-    typeIdField: string;
-    types: FeatureType[];
-    url: string;
-    version: number;
-
-    applyEdits(edits: FeatureLayerApplyEditsEdits): IPromise<any>;
-    createQuery(): Query;
-    getFieldDomain(fieldName: string, options?: FeatureLayerGetFieldDomainOptions): Domain;
-    queryExtent(params?: Query): IPromise<any>;
-    queryFeatureCount(params?: Query): IPromise<any>;
-    queryFeatures(params?: Query): IPromise<any>;
-    queryObjectIds(params?: Query): IPromise<any>;
-
-    on(name: "layerview-create", eventHandler: FeatureLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: FeatureLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: FeatureLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: FeatureLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface FeatureLayerConstructor {
-    new(properties?: FeatureLayerProperties): FeatureLayer;
-
-    fromJSON(json: any): FeatureLayer;
-  }
-
-  export const FeatureLayer: FeatureLayerConstructor;
-
-  interface FeatureLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties {
-    capabilities?: FeatureLayerCapabilities;
-    copyright?: string;
-    definitionExpression?: string;
-    displayField?: string;
-    elevationInfo?: FeatureLayerElevationInfo;
-    featureReduction?: FeatureLayerFeatureReduction;
-    fields?: FieldProperties[];
-    gdbVersion?: string;
-    geometryType?: string;
-    hasAttachments?: boolean;
-    hasM?: boolean;
-    hasZ?: boolean;
-    labelingInfo?: LabelClassProperties[];
-    labelsVisible?: boolean;
-    layerId?: number;
-    legendEnabled?: boolean;
-    objectIdField?: string;
-    outFields?: string[];
-    popupEnabled?: boolean;
-    popupTemplate?: PopupTemplateProperties;
-    renderer?: RendererProperties;
-    returnM?: boolean;
-    returnZ?: boolean;
-    screenSizePerspectiveEnabled?: boolean;
-    source?: Collection | any[];
-    spatialReference?: SpatialReferenceProperties;
-    templates?: FeatureTemplateProperties[];
-    token?: string;
-    typeIdField?: string;
-    types?: FeatureTypeProperties[];
-    url?: string;
-    version?: number;
-  }
-
-  interface GeoRSSLayer extends Layer {
+  interface GeoRSSLayer extends Layer, ScaleRangeLayer {
     lineSymbol: SimpleLineSymbol;
     pointSymbol: PictureMarkerSymbol;
     polygonSymbol: SimpleFillSymbol;
@@ -3426,16 +1691,26 @@ declare namespace __esri {
 
   export const GeoRSSLayer: GeoRSSLayerConstructor;
 
-  interface GeoRSSLayerProperties extends LayerProperties {
+  interface GeoRSSLayerProperties extends LayerProperties, ScaleRangeLayerProperties {
     lineSymbol?: SimpleLineSymbolProperties;
     pointSymbol?: PictureMarkerSymbolProperties;
     polygonSymbol?: SimpleFillSymbolProperties;
     url?: string;
   }
 
+  export interface GeoRSSLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface GeoRSSLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
   interface GraphicsLayer extends Layer, ScaleRangeLayer {
     elevationInfo: GraphicsLayerElevationInfo;
-    graphics: Collection;
+    graphics: Collection<Graphic>;
     screenSizePerspectiveEnabled: boolean;
 
     add(graphic: Graphic): void;
@@ -3458,8 +1733,29 @@ declare namespace __esri {
 
   interface GraphicsLayerProperties extends LayerProperties, ScaleRangeLayerProperties {
     elevationInfo?: GraphicsLayerElevationInfo;
-    graphics?: Collection | any[];
+    graphics?: CollectionProperties<GraphicProperties>;
     screenSizePerspectiveEnabled?: boolean;
+  }
+
+  export interface GraphicsLayerElevationInfo {
+    mode: string;
+    offset?: number;
+    featureExpressionInfo?: GraphicsLayerElevationInfoFeatureExpressionInfo;
+    unit?: string;
+  }
+
+  export interface GraphicsLayerElevationInfoFeatureExpressionInfo {
+    expression?: string;
+  }
+
+  export interface GraphicsLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface GraphicsLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
   }
 
   interface GroupLayer extends Layer, LayersMixin, PortalLayer {
@@ -3481,6 +1777,16 @@ declare namespace __esri {
 
   interface GroupLayerProperties extends LayerProperties, LayersMixinProperties, PortalLayerProperties {
     visibilityMode?: string;
+  }
+
+  export interface GroupLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface GroupLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
   }
 
   interface ImageryLayer extends Layer, ArcGISImageService, ScaleRangeLayer {
@@ -3512,7 +1818,19 @@ declare namespace __esri {
     token?: string;
   }
 
+  export interface ImageryLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface ImageryLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
   interface IntegratedMeshLayer extends Layer, SceneService, PortalLayer {
+    elevationInfo: IntegratedMeshLayerElevationInfo;
+
     on(name: "layerview-create", eventHandler: IntegratedMeshLayerLayerviewCreateEventHandler): IHandle;
     on(name: "layerview-create", modifiers: string[], eventHandler: IntegratedMeshLayerLayerviewCreateEventHandler): IHandle;
     on(name: "layerview-destroy", eventHandler: IntegratedMeshLayerLayerviewDestroyEventHandler): IHandle;
@@ -3528,7 +1846,63 @@ declare namespace __esri {
   export const IntegratedMeshLayer: IntegratedMeshLayerConstructor;
 
   interface IntegratedMeshLayerProperties extends LayerProperties, SceneServiceProperties, PortalLayerProperties {
+    elevationInfo?: IntegratedMeshLayerElevationInfo;
+  }
 
+  export interface IntegratedMeshLayerElevationInfo {
+    mode: string;
+    offset?: number;
+  }
+
+  export interface IntegratedMeshLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface IntegratedMeshLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface KMLLayer extends Layer, PortalLayer, ScaleRangeLayer {
+    allVisibleMapImages: Collection<any>;
+    allVisiblePoints: Collection<Point>;
+    allVisiblePolygons: Collection<Polygon>;
+    allVisiblePolylines: Collection<Polyline>;
+    sublayers: Collection<KMLSublayer>;
+    url: string;
+
+    on(name: "layerview-create", eventHandler: KMLLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: KMLLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: KMLLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: KMLLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface KMLLayerConstructor {
+    new(properties?: KMLLayerProperties): KMLLayer;
+
+    fromJSON(json: any): KMLLayer;
+  }
+
+  export const KMLLayer: KMLLayerConstructor;
+
+  interface KMLLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties {
+    allVisibleMapImages?: CollectionProperties<any>;
+    allVisiblePoints?: CollectionProperties<PointProperties>;
+    allVisiblePolygons?: CollectionProperties<PolygonProperties>;
+    allVisiblePolylines?: CollectionProperties<PolylineProperties>;
+    sublayers?: CollectionProperties<KMLSublayerProperties>;
+    url?: string;
+  }
+
+  export interface KMLLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface KMLLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
   }
 
   interface Layer extends Accessor, Loadable, Evented {
@@ -3548,8 +1922,8 @@ declare namespace __esri {
     new(properties?: LayerProperties): Layer;
 
 
-    fromArcGISServerUrl(params: LayerFromArcGISServerUrlParams): IPromise<any>;
-    fromPortalItem(params: LayerFromPortalItemParams): IPromise<any>;
+    fromArcGISServerUrl(params: LayerFromArcGISServerUrlParams): IPromise<Layer>;
+    fromPortalItem(params: LayerFromPortalItemParams): IPromise<Layer>;
   }
 
   export const Layer: LayerConstructor;
@@ -3565,7 +1939,16 @@ declare namespace __esri {
     visible?: boolean;
   }
 
-  interface MapImageLayer extends Layer, ArcGISMapService, ArcGISDynamicMapService, DynamicLayer {
+  export interface LayerFromArcGISServerUrlParams {
+    url: string;
+    properties?: any;
+  }
+
+  export interface LayerFromPortalItemParams {
+    portalItem: PortalItem;
+  }
+
+  interface MapImageLayer extends Layer, ArcGISMapService, ArcGISDynamicMapService, DynamicLayer, ScaleRangeLayer {
     on(name: "layerview-create", eventHandler: MapImageLayerLayerviewCreateEventHandler): IHandle;
     on(name: "layerview-create", modifiers: string[], eventHandler: MapImageLayerLayerviewCreateEventHandler): IHandle;
     on(name: "layerview-destroy", eventHandler: MapImageLayerLayerviewDestroyEventHandler): IHandle;
@@ -3580,11 +1963,21 @@ declare namespace __esri {
 
   export const MapImageLayer: MapImageLayerConstructor;
 
-  interface MapImageLayerProperties extends LayerProperties, ArcGISMapServiceProperties, ArcGISDynamicMapServiceProperties, DynamicLayerProperties {
+  interface MapImageLayerProperties extends LayerProperties, ArcGISMapServiceProperties, ArcGISDynamicMapServiceProperties, DynamicLayerProperties, ScaleRangeLayerProperties {
 
   }
 
-  interface MapNotesLayer extends Layer, PortalLayer {
+  export interface MapImageLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface MapImageLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface MapNotesLayer extends Layer, PortalLayer, ScaleRangeLayer {
     on(name: "layerview-create", eventHandler: MapNotesLayerLayerviewCreateEventHandler): IHandle;
     on(name: "layerview-create", modifiers: string[], eventHandler: MapNotesLayerLayerviewCreateEventHandler): IHandle;
     on(name: "layerview-destroy", eventHandler: MapNotesLayerLayerviewDestroyEventHandler): IHandle;
@@ -3599,8 +1992,223 @@ declare namespace __esri {
 
   export const MapNotesLayer: MapNotesLayerConstructor;
 
-  interface MapNotesLayerProperties extends LayerProperties, PortalLayerProperties {
+  interface MapNotesLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties {
 
+  }
+
+  export interface MapNotesLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface MapNotesLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface ArcGISCachedService {
+    tileInfo: TileInfo;
+
+    fromJSON(json: any): any;
+    toJSON(): any;
+  }
+
+  interface ArcGISCachedServiceConstructor {
+    new(properties?: ArcGISCachedServiceProperties): ArcGISCachedService;
+
+    fromJSON(json: any): ArcGISCachedService;
+  }
+
+  export const ArcGISCachedService: ArcGISCachedServiceConstructor;
+
+  interface ArcGISCachedServiceProperties {
+    tileInfo?: TileInfoProperties;
+  }
+
+  interface ArcGISDynamicMapService {
+    allSublayers: Collection<Sublayer>;
+    dpi: number;
+    gdbVersion: string;
+    imageFormat: string;
+    imageMaxHeight: number;
+    imageMaxWidth: number;
+    imageTransparency: boolean;
+    sublayers: Collection<Sublayer>;
+
+    createServiceSublayers(): Collection<Sublayer>;
+    findSublayerById(id: number): Sublayer;
+    getExportImageParameters(extent: Extent, width: number, height: number, options?: ArcGISDynamicMapServiceGetExportImageParametersOptions): any;
+  }
+
+  interface ArcGISDynamicMapServiceConstructor {
+    new(): ArcGISDynamicMapService;
+  }
+
+  export const ArcGISDynamicMapService: ArcGISDynamicMapServiceConstructor;
+
+  interface ArcGISDynamicMapServiceProperties {
+    allSublayers?: CollectionProperties<SublayerProperties>;
+    dpi?: number;
+    gdbVersion?: string;
+    imageFormat?: string;
+    imageMaxHeight?: number;
+    imageMaxWidth?: number;
+    imageTransparency?: boolean;
+    sublayers?: CollectionProperties<SublayerProperties>;
+  }
+
+  export interface ArcGISDynamicMapServiceGetExportImageParametersOptions {
+    rotation?: number;
+  }
+
+  interface ArcGISImageService {
+    compressionQuality: number;
+    compressionTolerance: number;
+    copyright: string;
+    definitionExpression: string;
+    domainFields: Field[];
+    fields: Field[];
+    format: string;
+    fullExtent: Extent;
+    hasMultidimensions: boolean;
+    hasRasterAttributeTable: boolean;
+    imageMaxHeight: number;
+    imageMaxWidth: number;
+    mosaicRule: MosaicRule;
+    multidimensionalInfo: any;
+    pixelType: string;
+    popupTemplate: PopupTemplate;
+    rasterAttributeTable: any;
+    rasterAttributeTableFieldPrefix: string;
+    rasterFields: Field[];
+    renderingRule: RasterFunction;
+    spatialReference: SpatialReference;
+    url: string;
+    version: number;
+
+    fetchImage(extent: Extent, width: number, height: number): IPromise<any>;
+    fromJSON(json: any): any;
+    toJSON(): any;
+  }
+
+  interface ArcGISImageServiceConstructor {
+    new(properties?: ArcGISImageServiceProperties): ArcGISImageService;
+
+    fromJSON(json: any): ArcGISImageService;
+  }
+
+  export const ArcGISImageService: ArcGISImageServiceConstructor;
+
+  interface ArcGISImageServiceProperties {
+    compressionQuality?: number;
+    compressionTolerance?: number;
+    copyright?: string;
+    definitionExpression?: string;
+    domainFields?: FieldProperties[];
+    fields?: FieldProperties[];
+    format?: string;
+    fullExtent?: ExtentProperties;
+    hasMultidimensions?: boolean;
+    hasRasterAttributeTable?: boolean;
+    imageMaxHeight?: number;
+    imageMaxWidth?: number;
+    mosaicRule?: MosaicRuleProperties;
+    multidimensionalInfo?: any;
+    pixelType?: string;
+    popupTemplate?: PopupTemplateProperties;
+    rasterAttributeTable?: any;
+    rasterAttributeTableFieldPrefix?: string;
+    rasterFields?: FieldProperties[];
+    renderingRule?: RasterFunctionProperties;
+    spatialReference?: SpatialReferenceProperties;
+    url?: string;
+    version?: number;
+  }
+
+  interface ArcGISMapService {
+    copyright: string;
+    fullExtent: Extent;
+    spatialReference: SpatialReference;
+    token: string;
+  }
+
+  interface ArcGISMapServiceConstructor {
+    new(properties?: ArcGISMapServiceProperties): ArcGISMapService;
+
+    fromJSON(json: any): ArcGISMapService;
+  }
+
+  export const ArcGISMapService: ArcGISMapServiceConstructor;
+
+  interface ArcGISMapServiceProperties {
+    copyright?: string;
+    fullExtent?: ExtentProperties;
+    spatialReference?: SpatialReferenceProperties;
+    token?: string;
+  }
+
+  interface PortalLayer {
+    portalItem: PortalItem;
+  }
+
+  interface PortalLayerConstructor {
+    new(properties?: PortalLayerProperties): PortalLayer;
+
+    fromJSON(json: any): PortalLayer;
+  }
+
+  export const PortalLayer: PortalLayerConstructor;
+
+  interface PortalLayerProperties {
+    portalItem?: PortalItemProperties;
+  }
+
+  interface ScaleRangeLayer {
+    maxScale: number;
+    minScale: number;
+  }
+
+  interface ScaleRangeLayerConstructor {
+    new(): ScaleRangeLayer;
+  }
+
+  export const ScaleRangeLayer: ScaleRangeLayerConstructor;
+
+  interface ScaleRangeLayerProperties {
+    maxScale?: number;
+    minScale?: number;
+  }
+
+  interface SceneService {
+    copyright: string;
+    layerId: number;
+    spatialReference: SpatialReference;
+    token: string;
+    url: string;
+    version: SceneServiceVersion;
+  }
+
+  interface SceneServiceConstructor {
+    new(properties?: SceneServiceProperties): SceneService;
+
+    fromJSON(json: any): SceneService;
+  }
+
+  export const SceneService: SceneServiceConstructor;
+
+  interface SceneServiceProperties {
+    copyright?: string;
+    layerId?: number;
+    spatialReference?: SpatialReferenceProperties;
+    token?: string;
+    url?: string;
+    version?: SceneServiceVersion;
+  }
+
+  export interface SceneServiceVersion {
+    major: number;
+    minor: number;
+    versionString: string;
   }
 
   interface OpenStreetMapLayer extends WebTileLayer {
@@ -3622,9 +2230,20 @@ declare namespace __esri {
 
   }
 
+  export interface OpenStreetMapLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface OpenStreetMapLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
   interface PointCloudLayer extends Layer, SceneService, PortalLayer {
     elevationInfo: PointCloudLayerElevationInfo;
     fields: Field[];
+    legendEnabled: boolean;
     renderer: PointCloudRenderer;
 
     on(name: "layerview-create", eventHandler: PointCloudLayerLayerviewCreateEventHandler): IHandle;
@@ -3644,7 +2263,23 @@ declare namespace __esri {
   interface PointCloudLayerProperties extends LayerProperties, SceneServiceProperties, PortalLayerProperties {
     elevationInfo?: PointCloudLayerElevationInfo;
     fields?: FieldProperties[];
+    legendEnabled?: boolean;
     renderer?: PointCloudRendererProperties;
+  }
+
+  export interface PointCloudLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface PointCloudLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface PointCloudLayerElevationInfo {
+    mode: string;
+    offset?: number;
   }
 
   interface SceneLayer extends Layer, SceneService, PortalLayer {
@@ -3665,9 +2300,9 @@ declare namespace __esri {
     createQuery(): Query;
     getFieldUsageInfo(fieldName: string): any;
     queryExtent(params?: Query): IPromise<any>;
-    queryFeatureCount(params?: Query): IPromise<any>;
-    queryFeatures(params?: Query): IPromise<any>;
-    queryObjectIds(params?: Query): IPromise<any>;
+    queryFeatureCount(params?: Query): IPromise<number>;
+    queryFeatures(params?: Query): IPromise<FeatureSet>;
+    queryObjectIds(params?: Query): IPromise<number[]>;
 
     on(name: "layerview-create", eventHandler: SceneLayerLayerviewCreateEventHandler): IHandle;
     on(name: "layerview-create", modifiers: string[], eventHandler: SceneLayerLayerviewCreateEventHandler): IHandle;
@@ -3699,6 +2334,25 @@ declare namespace __esri {
     screenSizePerspectiveEnabled?: boolean;
   }
 
+  export interface SceneLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface SceneLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface SceneLayerElevationInfo {
+    mode: string;
+    offset?: number;
+  }
+
+  export interface SceneLayerFeatureReduction {
+    type: string;
+  }
+
   interface StreamLayer extends FeatureLayer {
     filter: StreamLayerFilter;
     geometryDefinition: Extent;
@@ -3728,266 +2382,29 @@ declare namespace __esri {
     purgeOptions?: StreamLayerPurgeOptions;
   }
 
-  interface TileLayer extends Layer, ArcGISMapService, ArcGISCachedService, PortalLayer, TiledLayer {
-    attributionDataUrl: string;
-    hasAttributionData: boolean;
-    legendEnabled: boolean;
-    tileServers: string[];
-    url: string;
-
-    fetchTile(level: number, row: number, column: number, options?: TileLayerFetchTileOptions): IPromise<any>;
-    getTileUrl(level: number, row: number, col: number): string;
-
-    on(name: "layerview-create", eventHandler: TileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: TileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: TileLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: TileLayerLayerviewDestroyEventHandler): IHandle;
+  export interface StreamLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
   }
 
-  interface TileLayerConstructor {
-    new(properties?: TileLayerProperties): TileLayer;
-
-    fromJSON(json: any): TileLayer;
+  export interface StreamLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
   }
 
-  export const TileLayer: TileLayerConstructor;
-
-  interface TileLayerProperties extends LayerProperties, ArcGISMapServiceProperties, ArcGISCachedServiceProperties, PortalLayerProperties, TiledLayerProperties {
-    attributionDataUrl?: string;
-    hasAttributionData?: boolean;
-    legendEnabled?: boolean;
-    tileServers?: string[];
-    url?: string;
+  export interface StreamLayerFilter {
+    geometry?: Extent;
+    where?: string;
   }
 
-  interface UnknownLayer extends Layer {
-    on(name: "layerview-create", eventHandler: UnknownLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: UnknownLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: UnknownLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: UnknownLayerLayerviewDestroyEventHandler): IHandle;
+  export interface StreamLayerPurgeOptions {
+    displayCount: number;
+    age: number;
   }
 
-  interface UnknownLayerConstructor {
-    new(properties?: UnknownLayerProperties): UnknownLayer;
-  }
-
-  export const UnknownLayer: UnknownLayerConstructor;
-
-  interface UnknownLayerProperties extends LayerProperties {
-
-  }
-
-  interface UnsupportedLayer extends Layer {
-    on(name: "layerview-create", eventHandler: UnsupportedLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: UnsupportedLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: UnsupportedLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: UnsupportedLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface UnsupportedLayerConstructor {
-    new(properties?: UnsupportedLayerProperties): UnsupportedLayer;
-  }
-
-  export const UnsupportedLayer: UnsupportedLayerConstructor;
-
-  interface UnsupportedLayerProperties extends LayerProperties {
-
-  }
-
-  interface VectorTileLayer extends Layer, PortalLayer, ScaleRangeLayer, TiledLayer {
-    attributionDataUrl: string;
-    currentStyleInfo: VectorTileLayerCurrentStyleInfo;
-    spatialReference: SpatialReference;
-    token: string;
-    url: string;
-
-    loadStyle(style: string | any): IPromise<any>;
-
-    on(name: "layerview-create", eventHandler: VectorTileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: VectorTileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: VectorTileLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: VectorTileLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface VectorTileLayerConstructor {
-    new(properties?: VectorTileLayerProperties): VectorTileLayer;
-
-    fromJSON(json: any): VectorTileLayer;
-  }
-
-  export const VectorTileLayer: VectorTileLayerConstructor;
-
-  interface VectorTileLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties, TiledLayerProperties {
-    attributionDataUrl?: string;
-    currentStyleInfo?: VectorTileLayerCurrentStyleInfo;
-    spatialReference?: SpatialReferenceProperties;
-    token?: string;
-    url?: string | any;
-  }
-
-  interface WebTileLayer extends Layer, TiledLayer, ScaleRangeLayer {
-    copyright: string;
-    spatialReference: SpatialReference;
-    subDomains: string[];
-    tileServers: string[];
-    urlTemplate: string;
-
-    on(name: "layerview-create", eventHandler: WebTileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: WebTileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: WebTileLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: WebTileLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface WebTileLayerConstructor {
-    new(properties?: WebTileLayerProperties): WebTileLayer;
-
-    fromJSON(json: any): WebTileLayer;
-  }
-
-  export const WebTileLayer: WebTileLayerConstructor;
-
-  interface WebTileLayerProperties extends LayerProperties, TiledLayerProperties, ScaleRangeLayerProperties {
-    copyright?: string;
-    spatialReference?: SpatialReferenceProperties;
-    subDomains?: string[];
-    tileServers?: string[];
-    urlTemplate?: string;
-  }
-
-  interface WMSLayer extends Layer, PortalLayer {
-    copyright: string;
-    customLayerParameters: any;
-    customParameters: any;
-    description: string;
-    featureInfoFormat: string;
-    featureInfoUrl: string;
-    fullExtents: Extent[];
-    imageFormat: string;
-    imageMaxHeight: number;
-    imageMaxWidth: number;
-    imageTransparency: boolean;
-    spatialReference: SpatialReference;
-    spatialReferences: number[];
-    sublayers: Collection;
-    version: string;
-
-    fetchImage(extent: Extent, width: number, height: number, options?: WMSLayerFetchImageOptions): IPromise<any>;
-    findSublayerById(id: number): WMSSublayer;
-
-    on(name: "layerview-create", eventHandler: WMSLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: WMSLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: WMSLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: WMSLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface WMSLayerConstructor {
-    new(properties?: WMSLayerProperties): WMSLayer;
-
-    fromJSON(json: any): WMSLayer;
-  }
-
-  export const WMSLayer: WMSLayerConstructor;
-
-  interface WMSLayerProperties extends LayerProperties, PortalLayerProperties {
-    copyright?: string;
-    customLayerParameters?: any;
-    customParameters?: any;
-    description?: string;
-    featureInfoFormat?: string;
-    featureInfoUrl?: string;
-    fullExtents?: ExtentProperties[];
-    imageFormat?: string;
-    imageMaxHeight?: number;
-    imageMaxWidth?: number;
-    imageTransparency?: boolean;
-    spatialReference?: SpatialReferenceProperties;
-    spatialReferences?: number[];
-    sublayers?: Collection | any[];
-    version?: string;
-  }
-
-  interface WMTSLayer extends Layer, PortalLayer {
-    activeLayer: WMTSSublayer;
-    copyright: string;
-    customLayerParameters: any;
-    customParameters: any;
-    serviceMode: string;
-    sublayers: Collection;
-    url: string;
-    version: string;
-
-    findSublayerById(id: string): WMTSSublayer;
-
-    on(name: "layerview-create", eventHandler: WMTSLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: WMTSLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: WMTSLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: WMTSLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface WMTSLayerConstructor {
-    new(properties?: WMTSLayerProperties): WMTSLayer;
-
-    fromJSON(json: any): WMTSLayer;
-  }
-
-  export const WMTSLayer: WMTSLayerConstructor;
-
-  interface WMTSLayerProperties extends LayerProperties, PortalLayerProperties {
-    activeLayer?: WMTSSublayerProperties;
-    copyright?: string;
-    customLayerParameters?: any;
-    customParameters?: any;
-    serviceMode?: string;
-    sublayers?: Collection | any[];
-    url?: string;
-    version?: string;
-  }
-
-  interface BaseDynamicLayer extends Layer {
-    addResolvingPromise(promiseToLoad: IPromise<any>): IPromise<any>;
-    fetchImage(extent: Extent, width: number, height: number, options?: BaseDynamicLayerFetchImageOptions): IPromise<any>;
-    getImageUrl(extent: Extent, width: number, height: number): IPromise<any> | string;
-
-    on(name: "layerview-create", eventHandler: BaseDynamicLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: BaseDynamicLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: BaseDynamicLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: BaseDynamicLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface BaseDynamicLayerConstructor {
-    new(properties?: BaseDynamicLayerProperties): BaseDynamicLayer;
-  }
-
-  export const BaseDynamicLayer: BaseDynamicLayerConstructor;
-
-  interface BaseDynamicLayerProperties extends LayerProperties {
-
-  }
-
-  interface BaseTileLayer extends Layer {
-    spatialReference: SpatialReference;
-    tileInfo: TileInfo;
-
-    addResolvingPromise(promiseToLoad: IPromise<any>): IPromise<any>;
-    fetchTile(level: number, row: number, column: number, options?: BaseTileLayerFetchTileOptions): IPromise<any>;
-    getTileBounds(level: number, row: number, column: number, out?: number[]): number[];
-    getTileUrl(level: number, row: number, column: number): string | IPromise<any>;
-
-    on(name: "layerview-create", eventHandler: BaseTileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-create", modifiers: string[], eventHandler: BaseTileLayerLayerviewCreateEventHandler): IHandle;
-    on(name: "layerview-destroy", eventHandler: BaseTileLayerLayerviewDestroyEventHandler): IHandle;
-    on(name: "layerview-destroy", modifiers: string[], eventHandler: BaseTileLayerLayerviewDestroyEventHandler): IHandle;
-  }
-
-  interface BaseTileLayerConstructor {
-    new(properties?: BaseTileLayerProperties): BaseTileLayer;
-  }
-
-  export const BaseTileLayer: BaseTileLayerConstructor;
-
-  interface BaseTileLayerProperties extends LayerProperties {
-    spatialReference?: SpatialReferenceProperties;
-    tileInfo?: TileInfoProperties;
+  export interface StreamLayerUpdateFilterFilterChanges {
+    geometry: Extent;
+    where: string;
   }
 
   interface CodedValueDomain extends Domain {
@@ -4006,6 +2423,11 @@ declare namespace __esri {
 
   interface CodedValueDomainProperties extends DomainProperties {
     codedValues?: CodedValueDomainCodedValues[];
+  }
+
+  export interface CodedValueDomainCodedValues {
+    name: string;
+    code: string | number;
   }
 
   interface DimensionalDefinition {
@@ -4041,6 +2463,59 @@ declare namespace __esri {
     type?: string;
   }
 
+  interface FeatureTemplate extends Accessor, JSONSupport {
+    description: string;
+    drawingTool: string;
+    name: string;
+    prototype: any;
+    thumbnail: FeatureTemplateThumbnail;
+  }
+
+  interface FeatureTemplateConstructor {
+    new(properties?: FeatureTemplateProperties): FeatureTemplate;
+
+    fromJSON(json: any): FeatureTemplate;
+  }
+
+  export const FeatureTemplate: FeatureTemplateConstructor;
+
+  interface FeatureTemplateProperties {
+    description?: string;
+    drawingTool?: string;
+    name?: string;
+    prototype?: any;
+    thumbnail?: FeatureTemplateThumbnail;
+  }
+
+  export interface FeatureTemplateThumbnail {
+    contentType: any;
+    imageData: string;
+    height: number;
+    width: number;
+  }
+
+  interface FeatureType extends Accessor, JSONSupport {
+    domains: any;
+    id: number | string;
+    name: string;
+    templates: FeatureTemplate[];
+  }
+
+  interface FeatureTypeConstructor {
+    new(properties?: FeatureTypeProperties): FeatureType;
+
+    fromJSON(json: any): FeatureType;
+  }
+
+  export const FeatureType: FeatureTypeConstructor;
+
+  interface FeatureTypeProperties {
+    domains?: any;
+    id?: number | string;
+    name?: string;
+    templates?: FeatureTemplateProperties[];
+  }
+
   interface Field extends Accessor, JSONSupport {
     alias: string;
     domain: Domain;
@@ -4067,52 +2542,6 @@ declare namespace __esri {
     name?: string;
     nullable?: boolean;
     type?: string;
-  }
-
-  interface FeatureTemplate extends Accessor, JSONSupport {
-    description: string;
-    drawingTool: string;
-    name: string;
-    prototype: any;
-    thumbnail: FeatureTemplateThumbnail;
-  }
-
-  interface FeatureTemplateConstructor {
-    new(properties?: FeatureTemplateProperties): FeatureTemplate;
-
-    fromJSON(json: any): FeatureTemplate;
-  }
-
-  export const FeatureTemplate: FeatureTemplateConstructor;
-
-  interface FeatureTemplateProperties {
-    description?: string;
-    drawingTool?: string;
-    name?: string;
-    prototype?: any;
-    thumbnail?: FeatureTemplateThumbnail;
-  }
-
-  interface FeatureType extends Accessor, JSONSupport {
-    domains: any;
-    id: number | string;
-    name: string;
-    templates: FeatureTemplate[];
-  }
-
-  interface FeatureTypeConstructor {
-    new(properties?: FeatureTypeProperties): FeatureType;
-
-    fromJSON(json: any): FeatureType;
-  }
-
-  export const FeatureType: FeatureTypeConstructor;
-
-  interface FeatureTypeProperties {
-    domains?: any;
-    id?: number | string;
-    name?: string;
-    templates?: FeatureTemplateProperties[];
   }
 
   interface ImageParameters extends Accessor {
@@ -4164,6 +2593,56 @@ declare namespace __esri {
 
   }
 
+  interface KMLSublayer extends Accessor, JSONSupport {
+    description: string;
+    id: number;
+    layer: KMLLayer;
+    mapImages: Collection<any>;
+    networkLink: KMLSublayerNetworkLink;
+    points: Collection<Point>;
+    polygons: Collection<Polygon>;
+    polylines: Collection<Polyline>;
+    sublayers: Collection<KMLSublayer>;
+    title: string;
+    visible: boolean;
+  }
+
+  interface KMLSublayerConstructor {
+    new(properties?: KMLSublayerProperties): KMLSublayer;
+
+    fromJSON(json: any): KMLSublayer;
+  }
+
+  export const KMLSublayer: KMLSublayerConstructor;
+
+  interface KMLSublayerProperties {
+    description?: string;
+    id?: number;
+    layer?: KMLLayerProperties;
+    mapImages?: CollectionProperties<any>;
+    networkLink?: KMLSublayerNetworkLink;
+    points?: CollectionProperties<PointProperties>;
+    polygons?: CollectionProperties<PolygonProperties>;
+    polylines?: CollectionProperties<PolylineProperties>;
+    sublayers?: CollectionProperties<KMLSublayerProperties>;
+    title?: string;
+    visible?: boolean;
+  }
+
+  export interface KMLSublayerNetworkLink {
+    id: number;
+    name: string;
+    description: string;
+    visibility: number;
+    refreshMode: string;
+    refreshInterval: number;
+    viewRefreshMode: string;
+    viewRefreshTime: number;
+    viewBoundScale: number;
+    viewFormat: string;
+    httpQuery: string;
+  }
+
   interface LabelClass extends Accessor, JSONSupport {
     labelExpression: string;
     labelExpressionInfo: LabelClassLabelExpressionInfo;
@@ -4174,7 +2653,7 @@ declare namespace __esri {
     useCodedValues: boolean;
     where: string;
 
-    clone(): this;
+    clone(): LabelClass;
   }
 
   interface LabelClassConstructor {
@@ -4191,9 +2670,14 @@ declare namespace __esri {
     labelPlacement?: string;
     maxScale?: number;
     minScale?: number;
-    symbol?: TextSymbol | LabelSymbol3D;
+    symbol?: TextSymbolProperties | LabelSymbol3DProperties;
     useCodedValues?: boolean;
     where?: string;
+  }
+
+  export interface LabelClassLabelExpressionInfo {
+    value?: string;
+    expression: string;
   }
 
   interface LOD extends Accessor, JSONSupport {
@@ -4221,7 +2705,7 @@ declare namespace __esri {
   interface MapImage extends Accessor, JSONSupport {
     extent: Extent;
     height: number;
-    href: number;
+    href: string;
     opacity: number;
     scale: number;
     visible: boolean;
@@ -4239,7 +2723,7 @@ declare namespace __esri {
   interface MapImageProperties {
     extent?: ExtentProperties;
     height?: number;
-    href?: number;
+    href?: string;
     opacity?: number;
     scale?: number;
     visible?: boolean;
@@ -4309,6 +2793,17 @@ declare namespace __esri {
     width?: number;
   }
 
+  export interface PixelBlockAddDataPlaneData {
+    pixels: number[][];
+    statistics: any[];
+  }
+
+  export interface PixelBlockStatistics {
+    maxValue?: number;
+    minValue?: number;
+    noDataValue?: number;
+  }
+
   interface RangeDomain extends Domain {
     maxValue: number;
     minValue: number;
@@ -4361,15 +2856,15 @@ declare namespace __esri {
     opacity: number;
     popupTemplate: PopupTemplate;
     renderer: Renderer;
-    source: any | any;
-    sublayers: Collection;
+    source: DynamicMapLayer | DynamicDataLayer;
+    sublayers: Collection<Sublayer>;
     title: string;
     url: string;
     visible: boolean;
 
-    clone(): this;
+    clone(): Sublayer;
     createQuery(): Query;
-    queryFeatures(params?: Query): IPromise<any>;
+    queryFeatures(params?: Query): IPromise<FeatureSet>;
   }
 
   interface SublayerConstructor {
@@ -4390,16 +2885,65 @@ declare namespace __esri {
     opacity?: number;
     popupTemplate?: PopupTemplateProperties;
     renderer?: RendererProperties;
-    source?: any | any;
-    sublayers?: Collection | any[];
+    source?: DynamicMapLayer | DynamicDataLayer;
+    sublayers?: CollectionProperties<SublayerProperties>;
     title?: string;
     url?: string;
     visible?: boolean;
   }
 
+  export interface DynamicDataLayer {
+    type: string;
+    dataSource: TableDataSource | QueryTableDataSource | RasterDataSource | JoinTableDataSource;
+    fields: DynamicDataLayerFields[];
+  }
+
+  export interface DynamicMapLayer {
+    type: string;
+    mapLayerId: number;
+    gdbVersion: string;
+  }
+
+  export interface JoinTableDataSource {
+    type: string;
+    leftTableKey: string;
+    rightTableKey: string;
+    leftTableSource: DynamicMapLayer | DynamicDataLayer;
+    rightTableSource: DynamicMapLayer | DynamicDataLayer;
+    joinType: string;
+  }
+
+  export interface QueryTableDataSource {
+    type: string;
+    workspaceId: string;
+    query: string;
+    oidFields: string;
+    spatialReference: SpatialReference;
+    geometryType: string;
+  }
+
+  export interface RasterDataSource {
+    type: string;
+    workspaceId: string;
+    dataSourceName: string;
+  }
+
+  export interface TableDataSource {
+    type: string;
+    workspaceId: string;
+    dataSourceName: string;
+    gdbVersion: string;
+  }
+
+  export interface DynamicDataLayerFields {
+    name: string;
+    alias: string;
+  }
+
   interface TileInfo extends Accessor, JSONSupport {
     dpi: number;
     format: string;
+    isWrappable: boolean;
     lods: LOD[];
     origin: Point;
     size: number[];
@@ -4417,6 +2961,7 @@ declare namespace __esri {
   interface TileInfoProperties {
     dpi?: number;
     format?: string;
+    isWrappable?: boolean;
     lods?: LODProperties[];
     origin?: PointProperties;
     size?: number[];
@@ -4428,7 +2973,7 @@ declare namespace __esri {
     id: string;
     tileInfo: TileInfo;
 
-    clone(): this;
+    clone(): TileMatrixSet;
   }
 
   interface TileMatrixSetConstructor {
@@ -4450,14 +2995,17 @@ declare namespace __esri {
     fullExtent: Extent;
     id: number;
     layer: WMSLayer;
+    legendEnabled: boolean;
+    legendUrl: string;
     name: string;
     popupEnabled: boolean;
+    queryable: boolean;
     spatialReferences: number[];
-    sublayers: Collection;
+    sublayers: Collection<WMSSublayer>;
     title: string;
     visible: boolean;
 
-    clone(): this;
+    clone(): WMSSublayer;
   }
 
   interface WMSSublayerConstructor {
@@ -4472,7 +3020,7 @@ declare namespace __esri {
     legendUrl: string;
     title: string;
 
-    clone(): this;
+    clone(): WMTSStyle;
   }
 
   interface WMTSStyleConstructor {
@@ -4498,12 +3046,13 @@ declare namespace __esri {
     imageFormats: string[];
     layer: WMTSLayer;
     styleId: string;
-    styles: Collection;
+    styles: Collection<WMTSStyle>;
+    tileMatrixSet: TileMatrixSet;
     tileMatrixSetId: string;
-    tileMatrixSets: Collection;
+    tileMatrixSets: Collection<TileMatrixSet>;
     title: string;
 
-    clone(): this;
+    clone(): WMTSSublayer;
   }
 
   interface WMTSSublayerConstructor {
@@ -4522,10 +3071,444 @@ declare namespace __esri {
     imageFormats?: string[];
     layer?: WMTSLayerProperties;
     styleId?: string;
-    styles?: Collection | any[];
+    styles?: CollectionProperties<WMTSStyleProperties>;
+    tileMatrixSet?: TileMatrixSetProperties;
     tileMatrixSetId?: string;
-    tileMatrixSets?: Collection | any[];
+    tileMatrixSets?: CollectionProperties<TileMatrixSetProperties>;
     title?: string;
+  }
+
+  interface TiledLayer {
+    tileInfo: TileInfo;
+  }
+
+  interface TiledLayerConstructor {
+    new(properties?: TiledLayerProperties): TiledLayer;
+
+    fromJSON(json: any): TiledLayer;
+  }
+
+  export const TiledLayer: TiledLayerConstructor;
+
+  interface TiledLayerProperties {
+    tileInfo?: TileInfoProperties;
+  }
+
+  interface TileLayer extends Layer, ArcGISMapService, ArcGISCachedService, ScaleRangeLayer, PortalLayer, TiledLayer {
+    attributionDataUrl: string;
+    hasAttributionData: boolean;
+    legendEnabled: boolean;
+    tileServers: string[];
+    url: string;
+
+    fetchTile(level: number, row: number, column: number, options?: TileLayerFetchTileOptions): IPromise<HTMLImageElement | HTMLCanvasElement>;
+    getTileUrl(level: number, row: number, col: number): string;
+
+    on(name: "layerview-create", eventHandler: TileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: TileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: TileLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: TileLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface TileLayerConstructor {
+    new(properties?: TileLayerProperties): TileLayer;
+
+    fromJSON(json: any): TileLayer;
+  }
+
+  export const TileLayer: TileLayerConstructor;
+
+  interface TileLayerProperties extends LayerProperties, ArcGISMapServiceProperties, ArcGISCachedServiceProperties, ScaleRangeLayerProperties, PortalLayerProperties, TiledLayerProperties {
+    attributionDataUrl?: string;
+    hasAttributionData?: boolean;
+    legendEnabled?: boolean;
+    tileServers?: string[];
+    url?: string;
+  }
+
+  export interface TileLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface TileLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface TileLayerFetchTileOptions {
+    allowImageDataAccess?: boolean;
+  }
+
+  interface UnknownLayer extends Layer {
+    on(name: "layerview-create", eventHandler: UnknownLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: UnknownLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: UnknownLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: UnknownLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface UnknownLayerConstructor {
+    new(properties?: UnknownLayerProperties): UnknownLayer;
+  }
+
+  export const UnknownLayer: UnknownLayerConstructor;
+
+  interface UnknownLayerProperties extends LayerProperties {
+
+  }
+
+  export interface UnknownLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface UnknownLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface UnsupportedLayer extends Layer {
+    on(name: "layerview-create", eventHandler: UnsupportedLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: UnsupportedLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: UnsupportedLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: UnsupportedLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface UnsupportedLayerConstructor {
+    new(properties?: UnsupportedLayerProperties): UnsupportedLayer;
+  }
+
+  export const UnsupportedLayer: UnsupportedLayerConstructor;
+
+  interface UnsupportedLayerProperties extends LayerProperties {
+
+  }
+
+  export interface UnsupportedLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface UnsupportedLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface VectorTileLayer extends Layer, PortalLayer, ScaleRangeLayer, TiledLayer {
+    attributionDataUrl: string;
+    currentStyleInfo: VectorTileLayerCurrentStyleInfo;
+    spatialReference: SpatialReference;
+    token: string;
+    url: string | any;
+
+    loadStyle(style: string | any): IPromise<any>;
+
+    on(name: "layerview-create", eventHandler: VectorTileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: VectorTileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: VectorTileLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: VectorTileLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface VectorTileLayerConstructor {
+    new(properties?: VectorTileLayerProperties): VectorTileLayer;
+
+    fromJSON(json: any): VectorTileLayer;
+  }
+
+  export const VectorTileLayer: VectorTileLayerConstructor;
+
+  interface VectorTileLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties, TiledLayerProperties {
+    attributionDataUrl?: string;
+    currentStyleInfo?: VectorTileLayerCurrentStyleInfo;
+    spatialReference?: SpatialReferenceProperties;
+    token?: string;
+    url?: string | any;
+  }
+
+  export interface VectorTileLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface VectorTileLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface VectorTileLayerCurrentStyleInfo {
+    serviceUrl: string;
+    styleUrl: string;
+    spriteUrl: string;
+    glyphsUrl: string;
+    style: any;
+    layerDefinition: any;
+  }
+
+  interface WebTileLayer extends Layer, TiledLayer, ScaleRangeLayer {
+    copyright: string;
+    spatialReference: SpatialReference;
+    subDomains: string[];
+    tileServers: string[];
+    urlTemplate: string;
+
+    on(name: "layerview-create", eventHandler: WebTileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: WebTileLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: WebTileLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: WebTileLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface WebTileLayerConstructor {
+    new(properties?: WebTileLayerProperties): WebTileLayer;
+
+    fromJSON(json: any): WebTileLayer;
+  }
+
+  export const WebTileLayer: WebTileLayerConstructor;
+
+  interface WebTileLayerProperties extends LayerProperties, TiledLayerProperties, ScaleRangeLayerProperties {
+    copyright?: string;
+    spatialReference?: SpatialReferenceProperties;
+    subDomains?: string[];
+    tileServers?: string[];
+    urlTemplate?: string;
+  }
+
+  export interface WebTileLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface WebTileLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface WMSLayer extends Layer, PortalLayer, ScaleRangeLayer {
+    copyright: string;
+    customLayerParameters: any;
+    customParameters: any;
+    description: string;
+    featureInfoFormat: string;
+    featureInfoUrl: string;
+    fullExtents: Extent[];
+    imageFormat: string;
+    imageMaxHeight: number;
+    imageMaxWidth: number;
+    imageTransparency: boolean;
+    legendEnabled: boolean;
+    spatialReference: SpatialReference;
+    spatialReferences: number[];
+    sublayers: Collection<WMSSublayer>;
+    url: string;
+    version: string;
+
+    fetchImage(extent: Extent, width: number, height: number, options?: WMSLayerFetchImageOptions): IPromise<any>;
+    findSublayerById(id: number): WMSSublayer;
+
+    on(name: "layerview-create", eventHandler: WMSLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: WMSLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: WMSLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: WMSLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface WMSLayerConstructor {
+    new(properties?: WMSLayerProperties): WMSLayer;
+
+    fromJSON(json: any): WMSLayer;
+  }
+
+  export const WMSLayer: WMSLayerConstructor;
+
+  interface WMSLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties {
+    copyright?: string;
+    customLayerParameters?: any;
+    customParameters?: any;
+    description?: string;
+    featureInfoFormat?: string;
+    featureInfoUrl?: string;
+    fullExtents?: ExtentProperties[];
+    imageFormat?: string;
+    imageMaxHeight?: number;
+    imageMaxWidth?: number;
+    imageTransparency?: boolean;
+    legendEnabled?: boolean;
+    spatialReference?: SpatialReferenceProperties;
+    spatialReferences?: number[];
+    sublayers?: CollectionProperties<WMSSublayer>;
+    url?: string;
+    version?: string;
+  }
+
+  export interface WMSLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface WMSLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface WMSLayerFetchImageOptions {
+    allowImageDataAccess?: boolean;
+    pixelRatio?: number;
+    rotation?: number;
+  }
+
+  interface WMTSLayer extends Layer, PortalLayer, ScaleRangeLayer {
+    activeLayer: WMTSSublayer;
+    copyright: string;
+    customLayerParameters: any;
+    customParameters: any;
+    serviceMode: string;
+    sublayers: Collection<WMTSSublayer>;
+    url: string;
+    version: string;
+
+    findSublayerById(id: string): WMTSSublayer;
+
+    on(name: "layerview-create", eventHandler: WMTSLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-create", modifiers: string[], eventHandler: WMTSLayerLayerviewCreateEventHandler): IHandle;
+    on(name: "layerview-destroy", eventHandler: WMTSLayerLayerviewDestroyEventHandler): IHandle;
+    on(name: "layerview-destroy", modifiers: string[], eventHandler: WMTSLayerLayerviewDestroyEventHandler): IHandle;
+  }
+
+  interface WMTSLayerConstructor {
+    new(properties?: WMTSLayerProperties): WMTSLayer;
+
+    fromJSON(json: any): WMTSLayer;
+  }
+
+  export const WMTSLayer: WMTSLayerConstructor;
+
+  interface WMTSLayerProperties extends LayerProperties, PortalLayerProperties, ScaleRangeLayerProperties {
+    activeLayer?: WMTSSublayerProperties;
+    copyright?: string;
+    customLayerParameters?: any;
+    customParameters?: any;
+    serviceMode?: string;
+    sublayers?: CollectionProperties<WMTSSublayerProperties>;
+    url?: string;
+    version?: string;
+  }
+
+  export interface WMTSLayerLayerviewCreateEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  export interface WMTSLayerLayerviewDestroyEvent {
+    layerView: LayerView;
+    view: View;
+  }
+
+  interface Map extends Accessor, LayersMixin {
+    allLayers: Collection<Layer>;
+    basemap: Basemap;
+    ground: Ground;
+  }
+
+  interface MapConstructor {
+    new(properties?: MapProperties): Map;
+  }
+
+  export const Map: MapConstructor;
+
+  interface MapProperties extends LayersMixinProperties {
+    allLayers?: CollectionProperties<LayerProperties>;
+    basemap?: BasemapProperties;
+    ground?: GroundProperties;
+  }
+
+  interface PopupTemplate extends Accessor, JSONSupport {
+    actions: Collection<Collection<Action>>;
+    content: string | any[] | Function | IPromise<any>;
+    expressionInfos: PopupTemplateExpressionInfos[];
+    fieldInfos: PopupTemplateFieldInfos[];
+    layerOptions: PopupTemplateLayerOptions;
+    overwriteActions: boolean;
+    title: string | Function;
+
+    clone(): PopupTemplate;
+  }
+
+  interface PopupTemplateConstructor {
+    new(properties?: PopupTemplateProperties): PopupTemplate;
+
+    fromJSON(json: any): PopupTemplate;
+  }
+
+  export const PopupTemplate: PopupTemplateConstructor;
+
+  interface PopupTemplateProperties {
+    actions?: CollectionProperties<CollectionProperties<ActionProperties>>;
+    content?: string | any[] | Function | IPromise<any>;
+    expressionInfos?: PopupTemplateExpressionInfos[];
+    fieldInfos?: PopupTemplateFieldInfos[];
+    layerOptions?: PopupTemplateLayerOptions;
+    overwriteActions?: boolean;
+    title?: string | Function;
+  }
+
+  export interface Attachments {
+    type: string;
+  }
+
+  export interface Fields {
+    type: string;
+    fieldInfos: any[];
+  }
+
+  export interface Media {
+    type: string;
+    mediaInfos: MediaMediaInfos[];
+  }
+
+  export interface PopupTemplateExpressionInfos {
+    name: string;
+    title?: string;
+    expression: string;
+    returnType?: string;
+  }
+
+  export interface PopupTemplateFieldInfos {
+    fieldName: string;
+    format?: PopupTemplateFieldInfosFormat;
+    label?: string;
+    stringFieldOption?: string;
+    tooltip?: string;
+    visible?: boolean;
+  }
+
+  export interface PopupTemplateFieldInfosFormat {
+    dateFormat?: string;
+    digitSeparator?: boolean;
+    places?: number;
+  }
+
+  export interface PopupTemplateLayerOptions {
+    showNoDataRecords: boolean;
+  }
+
+  export interface Text {
+    type: string;
+    text: string;
+  }
+
+  export interface MediaMediaInfos {
+    title: string;
+    caption: string;
+    refreshInterval: number;
+    type: string;
+    value: MediaMediaInfosValue;
+  }
+
+  export interface MediaMediaInfosValue {
+    sourceURL: string;
+    fields: string[];
+    normalizationField: string;
+    theme: string;
+    tooltipField: string;
   }
 
   interface Portal extends Accessor, Loadable {
@@ -4589,11 +3572,11 @@ declare namespace __esri {
     useVectorBasemaps: boolean;
     vectorBasemapGalleryGroupQuery: string;
 
-    fetchBasemaps(): IPromise<any>;
-    fetchFeaturedGroups(): IPromise<any>;
-    queryGroups(queryParams: PortalQueryParams): IPromise<any>;
-    queryItems(queryParams: PortalQueryParams): IPromise<any>;
-    queryUsers(queryParams: PortalQueryParams): IPromise<any>;
+    fetchBasemaps(basemapGalleryGroupQuery?: string): IPromise<Basemap[]>;
+    fetchFeaturedGroups(): IPromise<PortalGroup[]>;
+    queryGroups(queryParams: PortalQueryParams): IPromise<PortalQueryResult>;
+    queryItems(queryParams: PortalQueryParams): IPromise<PortalQueryResult>;
+    queryUsers(queryParams: PortalQueryParams): IPromise<PortalQueryResult>;
   }
 
   interface PortalConstructor {
@@ -4623,7 +3606,7 @@ declare namespace __esri {
     canSignInIDP?: boolean;
     colorSetsGroupQuery?: string;
     commentsEnabled?: boolean;
-    created?: Date;
+    created?: DateProperties;
     culture?: string;
     customBaseUrl?: string;
     defaultBasemap?: BasemapProperties;
@@ -4645,7 +3628,7 @@ declare namespace __esri {
     layerTemplatesGroupQuery?: string;
     loaded?: boolean;
     maxTokenExpirationMinutes?: number;
-    modified?: Date;
+    modified?: DateProperties;
     name?: string;
     portalHostname?: string;
     portalMode?: string;
@@ -4667,6 +3650,11 @@ declare namespace __esri {
     vectorBasemapGalleryGroupQuery?: string;
   }
 
+  export interface PortalFeaturedGroups {
+    owner: string;
+    title: string;
+  }
+
   interface PortalFolder extends Accessor {
     created: Date;
     id: string;
@@ -4682,7 +3670,7 @@ declare namespace __esri {
   export const PortalFolder: PortalFolderConstructor;
 
   interface PortalFolderProperties {
-    created?: Date;
+    created?: DateProperties;
     id?: string;
     portal?: PortalProperties;
     title?: string;
@@ -4706,7 +3694,7 @@ declare namespace __esri {
 
     fetchMembers(): IPromise<any>;
     getThumbnailUrl(width?: number): string;
-    queryItems(queryParams?: PortalQueryParams): IPromise<any>;
+    queryItems(queryParams?: PortalQueryParams): IPromise<PortalQueryResult>;
   }
 
   interface PortalGroupConstructor {
@@ -4717,11 +3705,11 @@ declare namespace __esri {
 
   interface PortalGroupProperties {
     access?: string;
-    created?: Date;
+    created?: DateProperties;
     description?: string;
     id?: string;
     isInvitationOnly?: boolean;
-    modified?: Date;
+    modified?: DateProperties;
     owner?: string;
     portal?: PortalProperties;
     snippet?: string;
@@ -4761,13 +3749,14 @@ declare namespace __esri {
     typeKeywords: string[];
     url: string;
 
-    addRating(rating: number | PortalRating): IPromise<any>;
+    addRating(rating: number | PortalRating): IPromise<PortalRating>;
     deleteRating(): IPromise<any>;
     fetchData(responseType?: string): IPromise<any>;
-    fetchRating(): IPromise<any>;
-    fetchRelatedItems(params: PortalItemFetchRelatedItemsParams): IPromise<any>;
+    fetchRating(): IPromise<PortalRating>;
+    fetchRelatedItems(params: PortalItemFetchRelatedItemsParams): IPromise<PortalItem[]>;
     getThumbnailUrl(width?: number): string;
-    update(params?: PortalItemUpdateParams): IPromise<any>;
+    update(params?: PortalItemUpdateParams): IPromise<PortalItem>;
+    updateThumbnail(params: PortalItemUpdateThumbnailParams): IPromise<PortalItem>;
   }
 
   interface PortalItemConstructor {
@@ -4782,7 +3771,7 @@ declare namespace __esri {
     access?: string;
     accessInformation?: string;
     avgRating?: number;
-    created?: Date;
+    created?: DateProperties;
     culture?: string;
     description?: string;
     extent?: ExtentProperties;
@@ -4792,7 +3781,7 @@ declare namespace __esri {
     itemUrl?: string;
     licenseInfo?: string;
     loaded?: boolean;
-    modified?: Date;
+    modified?: DateProperties;
     name?: string;
     numComments?: number;
     numRatings?: number;
@@ -4809,20 +3798,17 @@ declare namespace __esri {
     url?: string;
   }
 
-  interface PortalRating extends Accessor {
-    created: Date;
-    rating: number;
+  export interface PortalItemFetchRelatedItemsParams {
+    relationshipType: string;
+    direction?: string;
   }
 
-  interface PortalRatingConstructor {
-    new(properties?: PortalRatingProperties): PortalRating;
+  export interface PortalItemUpdateParams {
+    data: string | any;
   }
 
-  export const PortalRating: PortalRatingConstructor;
-
-  interface PortalRatingProperties {
-    created?: Date;
-    rating?: number;
+  export interface PortalItemUpdateThumbnailParams {
+    thumbnail: Blob | string;
   }
 
   interface PortalQueryParams extends Accessor {
@@ -4833,7 +3819,7 @@ declare namespace __esri {
     sortOrder: string;
     start: number;
 
-    clone(): this;
+    clone(): PortalQueryParams;
   }
 
   interface PortalQueryParamsConstructor {
@@ -4871,6 +3857,22 @@ declare namespace __esri {
     total?: number;
   }
 
+  interface PortalRating extends Accessor {
+    created: Date;
+    rating: number;
+  }
+
+  interface PortalRatingConstructor {
+    new(properties?: PortalRatingProperties): PortalRating;
+  }
+
+  export const PortalRating: PortalRatingConstructor;
+
+  interface PortalRatingProperties {
+    created?: DateProperties;
+    rating?: number;
+  }
+
   interface PortalUser extends Accessor {
     access: string;
     created: Date;
@@ -4890,13 +3892,13 @@ declare namespace __esri {
     userContentUrl: string;
     username: string;
 
-    addItem(params: PortalUserAddItemParams): IPromise<any>;
+    addItem(params: PortalUserAddItemParams): IPromise<PortalItem>;
     deleteItem(item: PortalItem): IPromise<any>;
-    fetchFolders(): IPromise<any>;
-    fetchGroups(): IPromise<any>;
+    fetchFolders(): IPromise<PortalFolder[]>;
+    fetchGroups(): IPromise<PortalGroup[]>;
     fetchItems(params: PortalUserFetchItemsParams): IPromise<any>;
     getThumbnailUrl(width?: number): string;
-    queryFavorites(queryParams?: PortalQueryParams): IPromise<any>;
+    queryFavorites(queryParams?: PortalQueryParams): IPromise<PortalQueryResult>;
   }
 
   interface PortalUserConstructor {
@@ -4907,12 +3909,12 @@ declare namespace __esri {
 
   interface PortalUserProperties {
     access?: string;
-    created?: Date;
+    created?: DateProperties;
     culture?: string;
     description?: string;
     email?: string;
     fullName?: string;
-    modified?: Date;
+    modified?: DateProperties;
     orgId?: string;
     portal?: PortalProperties;
     preferredView?: string;
@@ -4925,11 +3927,23 @@ declare namespace __esri {
     username?: string;
   }
 
+  export interface PortalUserAddItemParams {
+    item: PortalItem;
+    data?: string | any;
+    folder?: PortalFolder;
+  }
+
+  export interface PortalUserFetchItemsParams {
+    folder: PortalFolder;
+    num: number;
+    start: number;
+  }
+
   interface ClassBreaksRenderer extends Renderer, VisualVariablesMixin {
     backgroundFillSymbol: FillSymbol;
     classBreakInfos: ClassBreaksRendererClassBreakInfos[];
     defaultSymbol: Symbol;
-    field: string;
+    field: string | Function;
     isMaxInclusive: boolean;
     legendOptions: ClassBreaksRendererLegendOptions;
     normalizationField: string;
@@ -4940,7 +3954,7 @@ declare namespace __esri {
     valueExpressionTitle: string;
 
     addClassBreakInfo(min: number | any, max: number, symbol: Symbol): void;
-    clone(): this;
+    clone(): ClassBreaksRenderer;
     getClassBreakInfo(graphic: Graphic): any;
     removeClassBreakInfo(min: number, max: number): void;
   }
@@ -4968,8 +3982,166 @@ declare namespace __esri {
     valueExpressionTitle?: string;
   }
 
+  export interface ClassBreaksRendererClassBreakInfos {
+    minValue: number;
+    maxValue: number;
+    symbol: Symbol;
+    label?: string;
+  }
+
+  export interface ClassBreaksRendererLegendOptions {
+    title: string;
+  }
+
+  interface PointCloudClassBreaksRenderer extends PointCloudRenderer {
+    colorClassBreakInfos: PointCloudClassBreaksRendererColorClassBreakInfos[];
+    field: string;
+    fieldTransformType: string;
+    type: string;
+
+    clone(): PointCloudClassBreaksRenderer;
+  }
+
+  interface PointCloudClassBreaksRendererConstructor {
+    new(properties?: PointCloudClassBreaksRendererProperties): PointCloudClassBreaksRenderer;
+
+    fromJSON(json: any): PointCloudClassBreaksRenderer;
+  }
+
+  export const PointCloudClassBreaksRenderer: PointCloudClassBreaksRendererConstructor;
+
+  interface PointCloudClassBreaksRendererProperties extends PointCloudRendererProperties {
+    colorClassBreakInfos?: PointCloudClassBreaksRendererColorClassBreakInfos[];
+    field?: string;
+    fieldTransformType?: string;
+    type?: string;
+  }
+
+  export interface PointCloudClassBreaksRendererColorClassBreakInfos {
+    minValue: number;
+    maxValue: number;
+    color: Color;
+    label?: string;
+  }
+
+  interface PointCloudRenderer extends Accessor, JSONSupport {
+    colorModulation: PointCloudRendererColorModulation;
+    pointSizeAlgorithm: PointCloudRendererPointSizeAlgorithm;
+    pointsPerInch: number;
+
+    clone(): PointCloudRenderer;
+  }
+
+  interface PointCloudRendererConstructor {
+    new(properties?: PointCloudRendererProperties): PointCloudRenderer;
+
+    fromJSON(json: any): PointCloudRenderer;
+  }
+
+  export const PointCloudRenderer: PointCloudRendererConstructor;
+
+  interface PointCloudRendererProperties {
+    colorModulation?: PointCloudRendererColorModulation;
+    pointSizeAlgorithm?: PointCloudRendererPointSizeAlgorithm;
+    pointsPerInch?: number;
+  }
+
+  export interface PointCloudRendererColorModulation {
+    field: string;
+    minValue?: number;
+    maxValue?: number;
+  }
+
+  export interface PointCloudRendererPointSizeAlgorithm {
+    type: string;
+    useRealWorldSymbolSizes?: boolean;
+    size?: number;
+    scaleFactor?: number;
+    minSize?: number;
+  }
+
+  interface PointCloudRGBRenderer extends PointCloudRenderer {
+    field: string;
+    type: string;
+
+    clone(): PointCloudRGBRenderer;
+  }
+
+  interface PointCloudRGBRendererConstructor {
+    new(properties?: PointCloudRGBRendererProperties): PointCloudRGBRenderer;
+
+    fromJSON(json: any): PointCloudRGBRenderer;
+  }
+
+  export const PointCloudRGBRenderer: PointCloudRGBRendererConstructor;
+
+  interface PointCloudRGBRendererProperties extends PointCloudRendererProperties {
+    field?: string;
+    type?: string;
+  }
+
+  interface PointCloudStretchRenderer extends PointCloudRenderer {
+    field: string;
+    fieldTransformType: string;
+    stops: PointCloudStretchRendererStops[];
+    type: string;
+
+    clone(): PointCloudStretchRenderer;
+  }
+
+  interface PointCloudStretchRendererConstructor {
+    new(properties?: PointCloudStretchRendererProperties): PointCloudStretchRenderer;
+
+    fromJSON(json: any): PointCloudStretchRenderer;
+  }
+
+  export const PointCloudStretchRenderer: PointCloudStretchRendererConstructor;
+
+  interface PointCloudStretchRendererProperties extends PointCloudRendererProperties {
+    field?: string;
+    fieldTransformType?: string;
+    stops?: PointCloudStretchRendererStops[];
+    type?: string;
+  }
+
+  export interface PointCloudStretchRendererStops {
+    value: number;
+    label?: string;
+    color: Color;
+  }
+
+  interface PointCloudUniqueValueRenderer extends PointCloudRenderer {
+    colorUniqueValueInfos: PointCloudUniqueValueRendererColorUniqueValueInfos[];
+    field: string;
+    fieldTransformType: string;
+    type: string;
+
+    clone(): PointCloudUniqueValueRenderer;
+  }
+
+  interface PointCloudUniqueValueRendererConstructor {
+    new(properties?: PointCloudUniqueValueRendererProperties): PointCloudUniqueValueRenderer;
+
+    fromJSON(json: any): PointCloudUniqueValueRenderer;
+  }
+
+  export const PointCloudUniqueValueRenderer: PointCloudUniqueValueRendererConstructor;
+
+  interface PointCloudUniqueValueRendererProperties extends PointCloudRendererProperties {
+    colorUniqueValueInfos?: PointCloudUniqueValueRendererColorUniqueValueInfos[];
+    field?: string;
+    fieldTransformType?: string;
+    type?: string;
+  }
+
+  export interface PointCloudUniqueValueRendererColorUniqueValueInfos {
+    values: number[];
+    color: Color;
+    label?: string;
+  }
+
   interface Renderer extends Accessor, JSONSupport {
-    authoringInfo: any;
+    authoringInfo: AuthoringInfo;
   }
 
   interface RendererConstructor {
@@ -4981,7 +4153,107 @@ declare namespace __esri {
   export const Renderer: RendererConstructor;
 
   interface RendererProperties {
-    authoringInfo?: any;
+    authoringInfo?: AuthoringInfo;
+  }
+
+  export interface AuthoringInfo {
+    type: string;
+    fields: string[];
+    classificationMethod: string;
+    standardDeviationInterval: number;
+    visualVariables: AuthoringInfoVisualVariables[];
+  }
+
+  export interface ColorVisualVariable {
+    type: string;
+    field: string | Function;
+    normalizationField: string;
+    valueExpression: string;
+    valueExpressionTitle: string;
+    legendOptions: ColorVisualVariableLegendOptions;
+    stops: ColorVisualVariableStops[];
+  }
+
+  export interface OpacityVisualVariable {
+    type: string;
+    field: string | Function;
+    normalizationField: string;
+    valueExpression: string;
+    valueExpressionTitle: string;
+    legendOptions: OpacityVisualVariableLegendOptions;
+    stops: OpacityVisualVariableStops[];
+  }
+
+  export interface RotationVisualVariable {
+    type: string;
+    field: string | Function;
+    valueExpression: string;
+    axis: string;
+    rotationType: string;
+  }
+
+  export interface SizeVisualVariable {
+    maxDataValue: number;
+    type: string;
+    normalizationField: string;
+    valueExpression: string;
+    valueExpressionTitle: string;
+    legendOptions: SizeVisualVariableLegendOptions;
+    axis: string;
+    expression: string;
+    field: string | Function;
+    minDataValue: number;
+    maxSize: string | number | SizeVisualVariable;
+    minSize: string | number | SizeVisualVariable;
+    stops: SizeVisualVariableStops[];
+    valueUnit: string;
+    valueRepresentation: string;
+    useSymbolValue: boolean;
+  }
+
+  export interface AuthoringInfoVisualVariables {
+    type: string;
+    field: string;
+    minSliderValue: number;
+    maxSliderValue: number;
+    theme: string;
+    style: string;
+    units: string;
+    startTime: string | number;
+    endTime: string | number;
+  }
+
+  export interface ColorVisualVariableLegendOptions {
+    title: string;
+    showLegend: boolean;
+  }
+
+  export interface ColorVisualVariableStops {
+    value: number;
+    color: Color;
+    label: string;
+  }
+
+  export interface OpacityVisualVariableLegendOptions {
+    title: string;
+    showLegend: boolean;
+  }
+
+  export interface OpacityVisualVariableStops {
+    value: number;
+    opacity: number;
+    label: string;
+  }
+
+  export interface SizeVisualVariableLegendOptions {
+    title: string;
+    showLegend: boolean;
+  }
+
+  export interface SizeVisualVariableStops {
+    value: number;
+    size: string | number | any;
+    label: string;
   }
 
   interface SimpleRenderer extends Renderer, VisualVariablesMixin {
@@ -4989,7 +4261,7 @@ declare namespace __esri {
     symbol: Symbol;
     type: string;
 
-    clone(): this;
+    clone(): SimpleRenderer;
   }
 
   interface SimpleRendererConstructor {
@@ -5006,10 +4278,666 @@ declare namespace __esri {
     type?: string;
   }
 
+  interface color {
+    createContinuousRenderer(params: colorCreateContinuousRendererParams): IPromise<ContinuousRendererResult>;
+    createPCContinuousRenderer(params: colorCreatePCContinuousRendererParams): IPromise<PCContinuousRendererResult>;
+    createPCTrueColorRenderer(params: colorCreatePCTrueColorRendererParams): IPromise<PCTrueColorRendererResult>;
+    createVisualVariable(params: colorCreateVisualVariableParams): IPromise<VisualVariableResult>;
+  }
+
+  export const color: color;
+
+  export interface colorCreateContinuousRendererParams {
+    layer: FeatureLayer | SceneLayer;
+    field: string;
+    normalizationField?: string;
+    basemap?: string | Basemap;
+    theme?: string;
+    colorScheme?: ColorScheme;
+    legendOptions?: colorCreateContinuousRendererParamsLegendOptions;
+    statistics?: SummaryStatisticsResult;
+    minValue?: number;
+    maxValue?: number;
+    defaultSymbolEnabled?: boolean;
+    view?: SceneView;
+    symbolType?: string;
+    colorMixMode?: string;
+  }
+
+  export interface colorCreateContinuousRendererParamsLegendOptions {
+    title: string;
+  }
+
+  export interface colorCreatePCContinuousRendererParams {
+    layer: PointCloudLayer;
+    field: string;
+    basemap?: string | Basemap;
+    size?: string;
+    density?: number;
+    colorScheme?: ColorScheme;
+    statistics?: SummaryStatisticsResult;
+  }
+
+  export interface colorCreatePCTrueColorRendererParams {
+    layer: PointCloudLayer;
+    size?: string;
+    density?: number;
+  }
+
+  export interface colorCreateVisualVariableParams {
+    layer: FeatureLayer | SceneLayer;
+    field: string;
+    normalizationField?: string;
+    basemap?: string | Basemap;
+    theme?: string;
+    colorScheme?: ColorScheme;
+    legendOptions?: colorCreateVisualVariableParamsLegendOptions;
+    statistics?: SummaryStatisticsResult;
+    minValue?: number;
+    maxValue?: number;
+    view?: SceneView;
+    worldScale?: boolean;
+  }
+
+  export interface colorCreateVisualVariableParamsLegendOptions {
+    title: string;
+  }
+
+  export interface ContinuousRendererResult {
+    renderer: ClassBreaksRenderer;
+    visualVariable: ColorVisualVariable;
+    colorScheme: ColorScheme;
+    defaultValuesUsed: boolean;
+    statistics: SummaryStatisticsResult;
+    basemapId: string;
+  }
+
+  export interface PCContinuousRendererResult {
+    renderer: PointCloudStretchRenderer;
+    colorScheme: ColorScheme;
+    defaultValuesUsed: boolean;
+    statistics: SummaryStatisticsResult;
+    basemapId: string;
+  }
+
+  export interface PCTrueColorRendererResult {
+    renderer: PointCloudRGBRenderer;
+  }
+
+  export interface VisualVariableResult {
+    visualVariable: ColorVisualVariable;
+    colorScheme: ColorScheme;
+    statistics: SummaryStatisticsResult;
+    defaultValuesUsed: boolean;
+    basemapId: string;
+    authoringInfo: AuthoringInfo;
+  }
+
+  interface location {
+    createRenderer(params: locationCreateRendererParams): IPromise<RendererResult>;
+  }
+
+  export const location: location;
+
+  export interface locationCreateRendererParams {
+    layer: FeatureLayer | SceneLayer;
+    basemap?: string | Basemap;
+    locationScheme?: PointLocationScheme | PolylineLocationScheme | PolygonLocationScheme;
+    view?: SceneView;
+    symbolType?: string;
+    colorMixMode?: string;
+  }
+
+  export interface RendererResult {
+    renderer: SimpleRenderer;
+    locationScheme: PointLocationScheme | PolylineLocationScheme | PolygonLocationScheme;
+    basemapId: string;
+  }
+
+  interface size {
+    createContinuousRenderer(params: sizeCreateContinuousRendererParams): IPromise<sizeContinuousRendererResult>;
+    createVisualVariables(params: sizeCreateVisualVariablesParams): IPromise<sizeVisualVariableResult>;
+  }
+
+  export const size: size;
+
+  export interface sizeContinuousRendererResult {
+    renderer: ClassBreaksRenderer;
+    visualVariables: SizeVisualVariable[];
+    sizeScheme: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+    defaultValuesUsed: boolean;
+    statistics: SummaryStatisticsResult;
+    basemapId: string;
+  }
+
+  export interface sizeCreateContinuousRendererParams {
+    layer: FeatureLayer | SceneLayer;
+    field: string;
+    normalizationField?: string;
+    basemap?: string | Basemap;
+    sizeScheme?: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+    legendOptions?: sizeCreateContinuousRendererParamsLegendOptions;
+    statistics?: SummaryStatisticsResult;
+    minValue?: number;
+    maxValue?: number;
+    defaultSymbolEnabled?: boolean;
+    view?: SceneView;
+    symbolType?: string;
+  }
+
+  export interface sizeCreateContinuousRendererParamsLegendOptions {
+    title: string;
+  }
+
+  export interface sizeCreateVisualVariablesParams {
+    layer: FeatureLayer | SceneLayer;
+    field: string;
+    normalizationField?: string;
+    basemap?: string | Basemap;
+    sizeScheme?: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+    legendOptions?: sizeCreateVisualVariablesParamsLegendOptions;
+    statistics?: SummaryStatisticsResult;
+    minValue?: number;
+    maxValue?: number;
+    view?: SceneView;
+    worldScale?: boolean;
+    axis?: boolean;
+  }
+
+  export interface sizeCreateVisualVariablesParamsLegendOptions {
+    title: string;
+  }
+
+  export interface sizeVisualVariableResult {
+    visualVariables: SizeVisualVariable[];
+    sizeScheme: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+    defaultValuesUsed: boolean;
+    statistics: SummaryStatisticsResult;
+    basemapId: string;
+    authoringInfo: AuthoringInfo;
+  }
+
+  interface type {
+    createPCClassRenderer(params: typeCreatePCClassRendererParams): IPromise<PCClassRendererResult>;
+    createRenderer(params: typeCreateRendererParams): IPromise<typeRendererResult>;
+  }
+
+  export const type: type;
+
+  export interface PCClassRendererResult {
+    renderer: PointCloudUniqueValueRenderer;
+  }
+
+  export interface typeRendererResult {
+    renderer: UniqueValueRenderer;
+    uniqueValueInfos: RendererResultUniqueValueInfos[];
+    excludedUniqueValueInfos: any[];
+    typeScheme: PointTypeScheme | PolylineTypeScheme | PolygonTypeScheme | MeshTypeScheme;
+    basemapId: string;
+  }
+
+  export interface typeCreatePCClassRendererParams {
+    layer: PointCloudLayer;
+    field: string;
+    size?: string;
+    density?: number;
+    typeScheme?: PointTypeScheme;
+    statistics?: UniqueValuesResult;
+  }
+
+  export interface typeCreateRendererParams {
+    layer: FeatureLayer | SceneLayer;
+    field: string;
+    basemap?: string | Basemap;
+    numTypes?: number;
+    sortBy?: string;
+    typeScheme?: PointTypeScheme | PolylineTypeScheme | PolygonTypeScheme | MeshTypeScheme;
+    legendOptions?: typeCreateRendererParamsLegendOptions;
+    defaultSymbolEnabled?: boolean;
+    view?: SceneView;
+    symbolType?: string;
+    statistics?: UniqueValuesResult;
+    colorMixMode?: string;
+  }
+
+  export interface typeCreateRendererParamsLegendOptions {
+    title: string;
+  }
+
+  export interface RendererResultUniqueValueInfos {
+    value: string | number;
+    count: number;
+    label: string;
+    symbol: Symbol;
+  }
+
+  interface univariateColorSize {
+    createContinuousRenderer(params: univariateColorSizeCreateContinuousRendererParams): IPromise<univariateColorSizeContinuousRendererResult>;
+    createVisualVariables(params: univariateColorSizeCreateVisualVariablesParams): IPromise<VisualVariablesResult>;
+  }
+
+  export const univariateColorSize: univariateColorSize;
+
+  export interface univariateColorSizeContinuousRendererResult {
+    renderer: ClassBreaksRenderer;
+    color: ContinuousRendererResultColor;
+    size: ContinuousRendererResultSize;
+    defaultValuesUsed: boolean;
+    statistics: SummaryStatisticsResult;
+    basemapId: string;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParams {
+    layer: FeatureLayer | SceneLayer;
+    basemap?: string | Basemap;
+    field: string;
+    normalizationField?: string;
+    statistics?: SummaryStatisticsResult;
+    minValue?: number;
+    maxValue?: number;
+    defaultSymbolEnabled?: boolean;
+    colorOptions?: univariateColorSizeCreateContinuousRendererParamsColorOptions;
+    sizeOptions?: univariateColorSizeCreateContinuousRendererParamsSizeOptions;
+    view?: SceneView;
+    symbolType?: string;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParamsColorOptions {
+    theme?: string;
+    colorScheme?: ColorScheme;
+    legendOptions?: univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions {
+    title: string;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParamsSizeOptions {
+    sizeScheme?: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+    legendOptions?: univariateColorSizeCreateContinuousRendererParamsSizeOptionsLegendOptions;
+  }
+
+  export interface univariateColorSizeCreateContinuousRendererParamsSizeOptionsLegendOptions {
+    title: string;
+  }
+
+  export interface univariateColorSizeCreateVisualVariablesParams {
+    layer: FeatureLayer | SceneLayer;
+    basemap?: string | Basemap;
+    field: string;
+    normalizationField?: string;
+    statistics?: SummaryStatisticsResult;
+    minValue?: number;
+    maxValue?: number;
+    colorOptions?: univariateColorSizeCreateVisualVariablesParamsColorOptions;
+    sizeOptions?: univariateColorSizeCreateVisualVariablesParamsSizeOptions;
+    view?: SceneView;
+    worldScale?: boolean;
+  }
+
+  export interface univariateColorSizeCreateVisualVariablesParamsColorOptions {
+    theme?: string;
+    colorScheme?: ColorScheme;
+    legendOptions?: univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions;
+  }
+
+  export interface univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions {
+    title: string;
+  }
+
+  export interface univariateColorSizeCreateVisualVariablesParamsSizeOptions {
+    axis?: boolean;
+    sizeScheme?: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+    legendOptions?: univariateColorSizeCreateVisualVariablesParamsSizeOptionsLegendOptions;
+  }
+
+  export interface univariateColorSizeCreateVisualVariablesParamsSizeOptionsLegendOptions {
+    title: string;
+  }
+
+  export interface VisualVariablesResult {
+    color: VisualVariablesResultColor;
+    size: VisualVariablesResultSize;
+    defaultValuesUsed: boolean;
+    statistics: SummaryStatisticsResult;
+    basemapId: string;
+    authoringInfo: AuthoringInfo;
+  }
+
+  export interface ContinuousRendererResultColor {
+    visualVariable: ColorVisualVariable;
+    colorScheme: ColorScheme;
+  }
+
+  export interface ContinuousRendererResultSize {
+    visualVariables: SizeVisualVariable[];
+    sizeScheme: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+  }
+
+  export interface VisualVariablesResultColor {
+    visualVariable: ColorVisualVariable;
+    colorScheme: ColorScheme;
+  }
+
+  export interface VisualVariablesResultSize {
+    visualVariables: SizeVisualVariable[];
+    sizeScheme: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme;
+  }
+
+  interface classBreaks {
+    classBreaks(params: classBreaksClassBreaksParams): IPromise<ClassBreaksResult>;
+  }
+
+  const __classBreaksMapped: classBreaks;
+  export const classBreaks: typeof __classBreaksMapped.classBreaks;
+
+
+  export interface classBreaksClassBreaksParams {
+    layer: FeatureLayer | SceneLayer;
+    field?: string;
+    normalizationField?: string;
+    classificationMethod?: string;
+    standardDeviationInterval?: number;
+    minValue?: number;
+    maxValue?: number;
+    numClasses?: number;
+  }
+
+  export interface ClassBreaksResult {
+    classBreaksInfos: ClassBreaksResultClassBreaksInfos[];
+    minValue: number;
+    maxValue: number;
+  }
+
+  export interface ClassBreaksResultClassBreaksInfos {
+    label: string;
+    minValue: number;
+    maxValue: number;
+  }
+
+  interface histogram {
+    histogram(params: histogramHistogramParams): IPromise<HistogramResult>;
+  }
+
+  const __histogramMapped: histogram;
+  export const histogram: typeof __histogramMapped.histogram;
+
+
+  export interface histogramHistogramParams {
+    layer: FeatureLayer | SceneLayer | PointCloudLayer;
+    field?: string;
+    normalizationField?: string;
+    classificationMethod?: string;
+    standardDeviationInterval?: number;
+    minValue?: number;
+    maxValue?: number;
+    numBins?: number;
+  }
+
+  export interface HistogramResult {
+    bins: HistogramResultBins[];
+    minValue: number;
+    maxValue: number;
+  }
+
+  export interface HistogramResultBins {
+    count: number;
+    minValue: number;
+    maxValue: number;
+  }
+
+  interface summaryStatistics {
+    summaryStatistics(params: summaryStatisticsSummaryStatisticsParams): IPromise<SummaryStatisticsResult>;
+  }
+
+  const __summaryStatisticsMapped: summaryStatistics;
+  export const summaryStatistics: typeof __summaryStatisticsMapped.summaryStatistics;
+
+
+  export interface SummaryStatisticsResult {
+    avg: number;
+    count: number;
+    max: number;
+    min: number;
+    stddev: number;
+    sum: number;
+    variance: number;
+  }
+
+  export interface summaryStatisticsSummaryStatisticsParams {
+    layer: FeatureLayer | SceneLayer | PointCloudLayer;
+    field?: string;
+    normalizationField?: string;
+    features?: Graphic[];
+    minValue?: number;
+    maxValue?: number;
+  }
+
+  interface uniqueValues {
+    uniqueValues(params: uniqueValuesUniqueValuesParams): IPromise<UniqueValuesResult>;
+  }
+
+  const __uniqueValuesMapped: uniqueValues;
+  export const uniqueValues: typeof __uniqueValuesMapped.uniqueValues;
+
+
+  export interface UniqueValuesResult {
+    uniqueValueInfos: UniqueValuesResultUniqueValueInfos[];
+  }
+
+  export interface uniqueValuesUniqueValuesParams {
+    layer: FeatureLayer | SceneLayer | PointCloudLayer;
+    field: string;
+    features?: Graphic[];
+    returnAllCodedValues?: boolean;
+  }
+
+  export interface UniqueValuesResultUniqueValueInfos {
+    value: string | number;
+    count: number;
+  }
+
+  interface symbologyColor {
+    cloneScheme(scheme: ColorScheme): ColorScheme;
+    flipColors(scheme: ColorScheme): ColorScheme;
+    getSchemes(params: colorGetSchemesParams): any;
+    getThemes(basemap?: string | Basemap): any[];
+  }
+
+  export const symbologyColor: symbologyColor;
+
+  export interface colorGetSchemesParams {
+    basemap: string | Basemap;
+    geometryType: string;
+    theme: string;
+    view?: SceneView;
+    worldScale?: boolean;
+  }
+
+  export interface ColorScheme {
+    id: string;
+    theme: string;
+    colors: Color[];
+    noDataColor: Color;
+    colorsForClassBreaks: ColorSchemeColorsForClassBreaks[];
+    outline: ColorSchemeOutline;
+    size: number;
+    width: number;
+    opacity: number;
+  }
+
+  export interface ColorSchemeColorsForClassBreaks {
+    colors: Color[];
+    numClasses: number;
+  }
+
+  export interface ColorSchemeOutline {
+    color: Color;
+    width: number;
+  }
+
+  interface symbologyLocation {
+    cloneScheme(scheme: PointLocationScheme | PolylineLocationScheme | PolygonLocationScheme): PointLocationScheme | PolylineLocationScheme | PolygonLocationScheme;
+    getSchemes(params: locationGetSchemesParams): any;
+  }
+
+  export const symbologyLocation: symbologyLocation;
+
+  export interface locationGetSchemesParams {
+    basemap: string | Basemap;
+    geometryType: string;
+    view?: SceneView;
+    worldScale?: boolean;
+  }
+
+  export interface PointLocationScheme {
+    color: Color;
+    outline: PointLocationSchemeOutline;
+    size: number;
+    opacity: number;
+  }
+
+  export interface PolygonLocationScheme {
+    color: Color;
+    outline: PolygonLocationSchemeOutline;
+    opacity: number;
+  }
+
+  export interface PolylineLocationScheme {
+    color: Color;
+    width: number;
+    opacity: number;
+  }
+
+  export interface PointLocationSchemeOutline {
+    color: Color;
+    width: number;
+  }
+
+  export interface PolygonLocationSchemeOutline {
+    color: Color;
+    width: number;
+  }
+
+  interface symbologySize {
+    cloneScheme(scheme: PointSizeScheme | PolylineSizeScheme | PolygonSizeScheme): any;
+    getSchemes(params: sizeGetSchemesParams): any;
+  }
+
+  export const symbologySize: symbologySize;
+
+  export interface PointSizeScheme {
+    color: Color;
+    noDataColor: Color;
+    outline: PointSizeSchemeOutline;
+    size: number;
+    noDataSize: number;
+    minSize: number;
+    maxSize: number;
+    opacity: number;
+  }
+
+  export interface PolygonSizeScheme {
+    marker: PointSizeScheme;
+    background: PolygonSizeSchemeBackground;
+    opacity: number;
+  }
+
+  export interface PolylineSizeScheme {
+    color: Color;
+    noDataColor: Color;
+    width: number;
+    noDataWidth: number;
+    minWidth: number;
+    maxWidth: number;
+    opacity: number;
+  }
+
+  export interface sizeGetSchemesParams {
+    basemap: string | Basemap;
+    geometryType: string;
+    view?: SceneView;
+    worldScale?: boolean;
+  }
+
+  export interface PointSizeSchemeOutline {
+    color: Color;
+    width: number;
+  }
+
+  export interface PolygonSizeSchemeBackground {
+    color: Color;
+    outline: PolygonSizeSchemeBackgroundOutline;
+  }
+
+  export interface PolygonSizeSchemeBackgroundOutline {
+    color: Color;
+    width: number;
+  }
+
+  interface symbologyType {
+    cloneScheme(scheme: PointTypeScheme | PolylineTypeScheme | PolygonTypeScheme | MeshTypeScheme): any;
+    getSchemes(params: typeGetSchemesParams): any;
+  }
+
+  export const symbologyType: symbologyType;
+
+  export interface MeshTypeScheme {
+    colors: Color[];
+    noDataColor: Color;
+    opacity: number;
+  }
+
+  export interface PointTypeScheme {
+    colors: Color[];
+    noDataColor: Color;
+    outline: PointTypeSchemeOutline;
+    size: number;
+    opacity: number;
+  }
+
+  export interface PolygonTypeScheme {
+    colors: Color[];
+    noDataColor: Color;
+    outline: PolygonTypeSchemeOutline;
+    opacity: number;
+  }
+
+  export interface PolylineTypeScheme {
+    colors: Color[];
+    noDataColor: Color;
+    width: number;
+    opacity: number;
+  }
+
+  export interface typeGetSchemesParams {
+    basemap: string | Basemap;
+    geometryType: string;
+    theme?: string;
+    worldScale?: boolean;
+    view?: SceneView;
+  }
+
+  export interface PointTypeSchemeOutline {
+    color: Color;
+    width: number;
+  }
+
+  export interface PolygonTypeSchemeOutline {
+    color: Color;
+    width: number;
+  }
+
+  interface supportJsonUtils {
+    fromJSON(json: any): Renderer;
+  }
+
+  export const supportJsonUtils: supportJsonUtils;
+
   interface UniqueValueRenderer extends Renderer, VisualVariablesMixin {
     defaultLabel: string;
     defaultSymbol: Symbol;
-    field: string;
+    field: string | Function;
     field2: string;
     field3: string;
     fieldDelimiter: string;
@@ -5020,7 +4948,7 @@ declare namespace __esri {
     valueExpressionTitle: string;
 
     addUniqueValueInfo(valueOrInfo: string | number | any, symbol?: Symbol): void;
-    clone(): this;
+    clone(): UniqueValueRenderer;
     getUniqueValueInfo(graphic: Graphic): any;
     removeUniqueValueInfo(value: string): void;
   }
@@ -5047,110 +4975,63 @@ declare namespace __esri {
     valueExpressionTitle?: string;
   }
 
-  interface PointCloudRenderer extends Accessor, JSONSupport {
-    colorModulation: PointCloudRendererColorModulation;
-    pointSizeAlgorithm: PointCloudRendererPointSizeAlgorithm;
-    pointsPerInch: number;
-
-    clone(): this;
+  export interface UniqueValueRendererLegendOptions {
+    title?: string;
   }
 
-  interface PointCloudRendererConstructor {
-    new(properties?: PointCloudRendererProperties): PointCloudRenderer;
-
-    fromJSON(json: any): PointCloudRenderer;
+  export interface UniqueValueRendererUniqueValueInfos {
+    value: string | number;
+    symbol: Symbol;
+    label?: string;
   }
 
-  export const PointCloudRenderer: PointCloudRendererConstructor;
-
-  interface PointCloudRendererProperties {
-    colorModulation?: PointCloudRendererColorModulation;
-    pointSizeAlgorithm?: PointCloudRendererPointSizeAlgorithm;
-    pointsPerInch?: number;
+  interface VisualVariablesMixin {
+    visualVariables: any[];
   }
 
-  interface PointCloudClassBreaksRenderer extends PointCloudRenderer {
-    colorClassBreakInfos: PointCloudClassBreaksRendererColorClassBreakInfos[];
-    field: string;
-    fieldTransformType: string;
-    type: string;
+  interface VisualVariablesMixinConstructor {
+    new(): VisualVariablesMixin;
   }
 
-  interface PointCloudClassBreaksRendererConstructor {
-    new(properties?: PointCloudClassBreaksRendererProperties): PointCloudClassBreaksRenderer;
+  export const VisualVariablesMixin: VisualVariablesMixinConstructor;
 
-    fromJSON(json: any): PointCloudClassBreaksRenderer;
+  interface VisualVariablesMixinProperties {
+    visualVariables?: any[];
   }
 
-  export const PointCloudClassBreaksRenderer: PointCloudClassBreaksRendererConstructor;
-
-  interface PointCloudClassBreaksRendererProperties extends PointCloudRendererProperties {
-    colorClassBreakInfos?: PointCloudClassBreaksRendererColorClassBreakInfos[];
-    field?: string;
-    fieldTransformType?: string;
-    type?: string;
+  interface request {
+    esriRequest(url: string, options?: requestEsriRequestOptions): IPromise<any>;
   }
 
-  interface PointCloudRGBRenderer extends PointCloudRenderer {
-    field: string;
-    type: string;
+  const __requestMapped: request;
+  export const request: typeof __requestMapped.esriRequest;
+
+
+  export interface EsriErrorDetails {
+    getHeader: GetHeader;
+    httpStatus: number;
+    messageCode: string;
+    messages: string[];
+    requestOptions: any;
+    ssl: boolean;
+    subCode: number;
+    url: string;
   }
 
-  interface PointCloudRGBRendererConstructor {
-    new(properties?: PointCloudRGBRendererProperties): PointCloudRGBRenderer;
+  export type GetHeader = (headerName: string) => string;
 
-    fromJSON(json: any): PointCloudRGBRenderer;
-  }
-
-  export const PointCloudRGBRenderer: PointCloudRGBRendererConstructor;
-
-  interface PointCloudRGBRendererProperties extends PointCloudRendererProperties {
-    field?: string;
-    type?: string;
-  }
-
-  interface PointCloudStretchRenderer extends PointCloudRenderer {
-    field: string;
-    fieldTransformType: string;
-    stops: PointCloudStretchRendererStops[];
-    type: string;
-  }
-
-  interface PointCloudStretchRendererConstructor {
-    new(properties?: PointCloudStretchRendererProperties): PointCloudStretchRenderer;
-
-    fromJSON(json: any): PointCloudStretchRenderer;
-  }
-
-  export const PointCloudStretchRenderer: PointCloudStretchRendererConstructor;
-
-  interface PointCloudStretchRendererProperties extends PointCloudRendererProperties {
-    field?: string;
-    fieldTransformType?: string;
-    stops?: PointCloudStretchRendererStops[];
-    type?: string;
-  }
-
-  interface PointCloudUniqueValueRenderer extends PointCloudRenderer {
-    colorUniqueValueInfos: PointCloudUniqueValueRendererColorUniqueValueInfos[];
-    field: string;
-    fieldTransformType: string;
-    type: string;
-  }
-
-  interface PointCloudUniqueValueRendererConstructor {
-    new(properties?: PointCloudUniqueValueRendererProperties): PointCloudUniqueValueRenderer;
-
-    fromJSON(json: any): PointCloudUniqueValueRenderer;
-  }
-
-  export const PointCloudUniqueValueRenderer: PointCloudUniqueValueRendererConstructor;
-
-  interface PointCloudUniqueValueRendererProperties extends PointCloudRendererProperties {
-    colorUniqueValueInfos?: PointCloudUniqueValueRendererColorUniqueValueInfos[];
-    field?: string;
-    fieldTransformType?: string;
-    type?: string;
+  export interface requestEsriRequestOptions {
+    callbackParamName?: string;
+    query?: any;
+    responseType?: string;
+    headers?: any;
+    timeout?: number;
+    method?: string;
+    body?: FormData | HTMLFormElement | string;
+    useProxy?: boolean;
+    cacheBust?: boolean;
+    allowImageDataAccess?: boolean;
+    authMode?: string;
   }
 
   interface Action extends Accessor {
@@ -5160,7 +5041,7 @@ declare namespace __esri {
     title: string;
     visible: boolean;
 
-    clone(): this;
+    clone(): Action;
   }
 
   interface ActionConstructor {
@@ -5177,10 +5058,79 @@ declare namespace __esri {
     visible?: boolean;
   }
 
+  interface LayersMixin {
+    layers: Collection<Layer>;
+
+    add(layers: Layer, index?: number): void;
+    addMany(layers: Layer[], index?: number): void;
+    findLayerById(layerId: string): Layer;
+    remove(layer: Layer): Layer;
+    removeAll(): Layer[];
+    removeMany(layers: Layer[]): Layer[];
+    reorder(layer: Layer, index: number): Layer;
+  }
+
+  interface LayersMixinConstructor {
+    new(): LayersMixin;
+  }
+
+  export const LayersMixin: LayersMixinConstructor;
+
+  interface LayersMixinProperties {
+    layers?: CollectionProperties<LayerProperties>;
+  }
+
+  interface Callout3D extends Accessor, JSONSupport {
+    clone(): Callout3D;
+  }
+
+  interface Callout3DConstructor {
+    new(properties?: Callout3DProperties): Callout3D;
+
+    fromJSON(json: any): Callout3D;
+  }
+
+  export const Callout3D: Callout3DConstructor;
+
+  interface Callout3DProperties {
+
+  }
+
+  interface LineCallout3D extends Callout3D {
+    border: LineCallout3DBorder;
+    color: Color;
+    size: number;
+    type: string;
+
+    clone(): LineCallout3D;
+  }
+
+  interface LineCallout3DConstructor {
+    new(properties?: LineCallout3DProperties): LineCallout3D;
+
+    fromJSON(json: any): LineCallout3D;
+  }
+
+  export const LineCallout3D: LineCallout3DConstructor;
+
+  interface LineCallout3DProperties extends Callout3DProperties {
+    border?: LineCallout3DBorderProperties;
+    color?: Color;
+    size?: number;
+    type?: string;
+  }
+
+  export interface LineCallout3DBorderProperties {
+    color?: Color;
+  }
+  export interface LineCallout3DBorder extends Accessor {
+    color?: Color;
+  }
+
   interface ExtrudeSymbol3DLayer extends Symbol3DLayer {
     size: number;
 
-    clone(): this;
+    clone(): ExtrudeSymbol3DLayer;
   }
 
   interface ExtrudeSymbol3DLayerConstructor {
@@ -5214,7 +5164,7 @@ declare namespace __esri {
   interface FillSymbol3DLayer extends Symbol3DLayer {
     outline: FillSymbol3DLayerOutline;
 
-    clone(): this;
+    clone(): FillSymbol3DLayer;
   }
 
   interface FillSymbol3DLayerConstructor {
@@ -5229,8 +5179,13 @@ declare namespace __esri {
     outline?: FillSymbol3DLayerOutline;
   }
 
+  export interface FillSymbol3DLayerOutline {
+    color: Color;
+    size: number;
+  }
+
   interface Font extends Accessor, JSONSupport {
-    clone(): this;
+    clone(): Font;
   }
 
   interface FontConstructor {
@@ -5251,7 +5206,7 @@ declare namespace __esri {
     resource: IconSymbol3DLayerResource;
     size: number;
 
-    clone(): this;
+    clone(): IconSymbol3DLayer;
   }
 
   interface IconSymbol3DLayerConstructor {
@@ -5269,11 +5224,21 @@ declare namespace __esri {
     size?: number;
   }
 
+  export interface IconSymbol3DLayerOutline {
+    color?: Color;
+    size?: number;
+  }
+
+  export interface IconSymbol3DLayerResource {
+    primitive?: string;
+    href?: string;
+  }
+
   interface LabelSymbol3D extends Symbol3D {
     callout: Callout3D;
     verticalOffset: LabelSymbol3DVerticalOffset;
 
-    clone(): this;
+    clone(): LabelSymbol3D;
   }
 
   interface LabelSymbol3DConstructor {
@@ -5287,6 +5252,17 @@ declare namespace __esri {
   interface LabelSymbol3DProperties extends Symbol3DProperties {
     callout?: Callout3DProperties;
     verticalOffset?: LabelSymbol3DVerticalOffsetProperties;
+  }
+
+  export interface LabelSymbol3DVerticalOffsetProperties {
+    screenLength?: number;
+    minWorldLength?: number;
+    maxWorldLength?: number;
+  }
+  export interface LabelSymbol3DVerticalOffset extends Accessor {
+    screenLength: number;
+    minWorldLength?: number;
+    maxWorldLength?: number;
   }
 
   interface LineSymbol extends Symbol {
@@ -5308,7 +5284,7 @@ declare namespace __esri {
   }
 
   interface LineSymbol3D extends Symbol3D {
-    clone(): this;
+    clone(): LineSymbol3D;
   }
 
   interface LineSymbol3DConstructor {
@@ -5326,7 +5302,7 @@ declare namespace __esri {
   interface LineSymbol3DLayer extends Symbol3DLayer {
     size: number;
 
-    clone(): this;
+    clone(): LineSymbol3DLayer;
   }
 
   interface LineSymbol3DLayerConstructor {
@@ -5362,7 +5338,7 @@ declare namespace __esri {
   }
 
   interface MeshSymbol3D extends Symbol3D {
-    clone(): this;
+    clone(): MeshSymbol3D;
   }
 
   interface MeshSymbol3DConstructor {
@@ -5387,7 +5363,7 @@ declare namespace __esri {
     tilt: number;
     width: number;
 
-    clone(): this;
+    clone(): ObjectSymbol3DLayer;
   }
 
   interface ObjectSymbol3DLayerConstructor {
@@ -5409,6 +5385,29 @@ declare namespace __esri {
     width?: number;
   }
 
+  export interface ObjectSymbol3DLayerResource {
+    primitive?: string;
+    href?: string;
+  }
+
+  interface PathSymbol3DLayer extends Symbol3DLayer {
+    size: number;
+
+    clone(): PathSymbol3DLayer;
+  }
+
+  interface PathSymbol3DLayerConstructor {
+    new(properties?: PathSymbol3DLayerProperties): PathSymbol3DLayer;
+
+    fromJSON(json: any): PathSymbol3DLayer;
+  }
+
+  export const PathSymbol3DLayer: PathSymbol3DLayerConstructor;
+
+  interface PathSymbol3DLayerProperties extends Symbol3DLayerProperties {
+    size?: number;
+  }
+
   interface PictureFillSymbol extends FillSymbol {
     height: number;
     url: string;
@@ -5418,7 +5417,7 @@ declare namespace __esri {
     yoffset: number;
     yscale: number;
 
-    clone(): this;
+    clone(): PictureFillSymbol;
   }
 
   interface PictureFillSymbolConstructor {
@@ -5444,7 +5443,7 @@ declare namespace __esri {
     url: string;
     width: number;
 
-    clone(): this;
+    clone(): PictureMarkerSymbol;
   }
 
   interface PictureMarkerSymbolConstructor {
@@ -5461,29 +5460,11 @@ declare namespace __esri {
     width?: number;
   }
 
-  interface PathSymbol3DLayer extends Symbol3DLayer {
-    size: number;
-
-    clone(): this;
-  }
-
-  interface PathSymbol3DLayerConstructor {
-    new(properties?: PathSymbol3DLayerProperties): PathSymbol3DLayer;
-
-    fromJSON(json: any): PathSymbol3DLayer;
-  }
-
-  export const PathSymbol3DLayer: PathSymbol3DLayerConstructor;
-
-  interface PathSymbol3DLayerProperties extends Symbol3DLayerProperties {
-    size?: number;
-  }
-
   interface PointSymbol3D extends Symbol3D {
     callout: Callout3D;
     verticalOffset: PointSymbol3DVerticalOffset;
 
-    clone(): this;
+    clone(): PointSymbol3D;
   }
 
   interface PointSymbol3DConstructor {
@@ -5499,8 +5480,19 @@ declare namespace __esri {
     verticalOffset?: PointSymbol3DVerticalOffsetProperties;
   }
 
+  export interface PointSymbol3DVerticalOffsetProperties {
+    screenLength?: number;
+    minWorldLength?: number;
+    maxWorldLength?: number;
+  }
+  export interface PointSymbol3DVerticalOffset extends Accessor {
+    screenLength: number;
+    minWorldLength?: number;
+    maxWorldLength?: number;
+  }
+
   interface PolygonSymbol3D extends Symbol3D {
-    clone(): this;
+    clone(): PolygonSymbol3D;
   }
 
   interface PolygonSymbol3DConstructor {
@@ -5519,7 +5511,7 @@ declare namespace __esri {
     color: Color;
     style: string;
 
-    clone(): this;
+    clone(): SimpleFillSymbol;
   }
 
   interface SimpleFillSymbolConstructor {
@@ -5541,7 +5533,7 @@ declare namespace __esri {
     miterLimit: number;
     style: string;
 
-    clone(): this;
+    clone(): SimpleLineSymbol;
   }
 
   interface SimpleLineSymbolConstructor {
@@ -5566,7 +5558,7 @@ declare namespace __esri {
     size: number;
     style: string;
 
-    clone(): this;
+    clone(): SimpleMarkerSymbol;
   }
 
   interface SimpleMarkerSymbolConstructor {
@@ -5584,6 +5576,12 @@ declare namespace __esri {
     size?: number;
     style?: string;
   }
+
+  interface symbolsSupportJsonUtils {
+    fromJSON(json: any): Symbol;
+  }
+
+  export const symbolsSupportJsonUtils: symbolsSupportJsonUtils;
 
   interface Symbol extends Accessor, JSONSupport {
     type: string;
@@ -5603,7 +5601,7 @@ declare namespace __esri {
 
   interface Symbol3D extends Symbol {
     styleOrigin: Symbol3DStyleOrigin;
-    symbolLayers: Collection;
+    symbolLayers: Collection<Symbol3DLayer>;
   }
 
   interface Symbol3DConstructor {
@@ -5616,7 +5614,13 @@ declare namespace __esri {
 
   interface Symbol3DProperties extends SymbolProperties {
     styleOrigin?: Symbol3DStyleOrigin;
-    symbolLayers?: Collection | any[];
+    symbolLayers?: CollectionProperties<Symbol3DLayerProperties>;
+  }
+
+  export interface Symbol3DStyleOrigin {
+    styleName?: string;
+    styleUrl?: string;
+    name: string;
   }
 
   interface Symbol3DLayer extends Accessor, JSONSupport {
@@ -5654,7 +5658,7 @@ declare namespace __esri {
     xoffset: number;
     yoffset: number;
 
-    clone(): this;
+    clone(): TextSymbol;
   }
 
   interface TextSymbolConstructor {
@@ -5689,7 +5693,7 @@ declare namespace __esri {
     size: number;
     text: string;
 
-    clone(): this;
+    clone(): TextSymbol3DLayer;
   }
 
   interface TextSymbol3DLayerConstructor {
@@ -5707,14 +5711,25 @@ declare namespace __esri {
     text?: string;
   }
 
+  export interface TextSymbol3DLayerFont {
+    family?: string;
+    weight?: string;
+    style?: string;
+  }
+
+  export interface TextSymbol3DLayerHalo {
+    color?: Color;
+    size?: number;
+  }
+
   interface WebStyleSymbol extends Symbol {
     name: string;
     portal: Portal;
     styleName: string;
     styleUrl: string;
 
-    clone(): this;
-    fetchSymbol(): IPromise<any>;
+    clone(): WebStyleSymbol;
+    fetchSymbol(): IPromise<PointSymbol3D>;
   }
 
   interface WebStyleSymbolConstructor {
@@ -5732,46 +5747,8 @@ declare namespace __esri {
     styleUrl?: string;
   }
 
-  interface Callout3D extends Accessor, JSONSupport {
-    clone(): this;
-  }
-
-  interface Callout3DConstructor {
-    new(properties?: Callout3DProperties): Callout3D;
-
-    fromJSON(json: any): Callout3D;
-  }
-
-  export const Callout3D: Callout3DConstructor;
-
-  interface Callout3DProperties {
-
-  }
-
-  interface LineCallout3D extends Callout3D {
-    border: LineCallout3DBorder;
-    color: Color;
-    size: number;
-    type: string;
-  }
-
-  interface LineCallout3DConstructor {
-    new(properties?: LineCallout3DProperties): LineCallout3D;
-
-    fromJSON(json: any): LineCallout3D;
-  }
-
-  export const LineCallout3D: LineCallout3DConstructor;
-
-  interface LineCallout3DProperties extends Callout3DProperties {
-    border?: LineCallout3DBorderProperties;
-    color?: Color;
-    size?: number;
-    type?: string;
-  }
-
   interface ClosestFacilityTask extends Task {
-    solve(params: ClosestFacilityParameters, requestOptions?: any): IPromise<any>;
+    solve(params: ClosestFacilityParameters, requestOptions?: any): IPromise<ClosestFacilitySolveResult>;
   }
 
   interface ClosestFacilityTaskConstructor {
@@ -5802,26 +5779,26 @@ declare namespace __esri {
 
   interface GeometryService extends Task {
     areasAndLengths(areasAndLengthsParameters: AreasAndLengthsParameters, requestOptions?: any): IPromise<any>;
-    autoComplete(polygons: Polygon[], polylines: Polyline[], requestOptions?: any): IPromise<any>;
-    buffer(bufferParameters: BufferParameters, requestOptions?: any): IPromise<any>;
-    convexHull(geometries: Geometry[], requestOptions?: any): IPromise<any>;
+    autoComplete(polygons: Polygon[], polylines: Polyline[], requestOptions?: any): IPromise<Polygon>;
+    buffer(bufferParameters: BufferParameters, requestOptions?: any): IPromise<Polygon[]>;
+    convexHull(geometries: Geometry[], requestOptions?: any): IPromise<Geometry>;
     cut(geometries: Geometry[], cutter: Polyline, requestOptions?: any): IPromise<any>;
-    densify(densifyParameters: DensifyParameters, requestOptions?: any): IPromise<any>;
-    difference(geometries: Geometry[], geometry: Geometry, requestOptions?: any): IPromise<any>;
-    distance(params: DistanceParameters, requestOptions?: any): IPromise<any>;
+    densify(densifyParameters: DensifyParameters, requestOptions?: any): IPromise<Geometry[]>;
+    difference(geometries: Geometry[], geometry: Geometry, requestOptions?: any): IPromise<Geometry>;
+    distance(params: DistanceParameters, requestOptions?: any): IPromise<number>;
     fromGeoCoordinateString(params: GeometryServiceFromGeoCoordinateStringParams, requestOptions?: any): IPromise<any>;
-    generalize(params: GeneralizeParameters, requestOptions?: any): IPromise<any>;
-    intersect(geometries: Geometry[], intersector: Geometry, requestOptions?: any): IPromise<any>;
-    labelPoints(polygons: Polygon[], requestOptions?: any): IPromise<any>;
+    generalize(params: GeneralizeParameters, requestOptions?: any): IPromise<Geometry[]>;
+    intersect(geometries: Geometry[], intersector: Geometry, requestOptions?: any): IPromise<Geometry[]>;
+    labelPoints(polygons: Polygon[], requestOptions?: any): IPromise<Point>;
     lengths(params: LengthsParameters, requestOptions?: any): IPromise<any>;
-    offset(params: OffsetParameters, requestOptions?: any): IPromise<any>;
-    project(params: ProjectParameters, requestOptions?: any): IPromise<any>;
-    relation(params: RelationParameters, requestOptions?: any): IPromise<any>;
-    reshape(targetGeometry: Geometry, reshaper: Geometry, requestOptions?: any): IPromise<any>;
-    simplify(geometries: Geometry[], requestOptions?: any): IPromise<any>;
-    toGeoCoordinateString(params: GeometryServiceToGeoCoordinateStringParams, requestOptions?: any): IPromise<any>;
-    trimExtend(params: TrimExtendParameters, requestOptions?: any): IPromise<any>;
-    union(geometries: Geometry[], requestOptions?: any): IPromise<any>;
+    offset(params: OffsetParameters, requestOptions?: any): IPromise<Geometry[]>;
+    project(params: ProjectParameters, requestOptions?: any): IPromise<Geometry[]>;
+    relation(params: RelationParameters, requestOptions?: any): IPromise<Polygon[]>;
+    reshape(targetGeometry: Geometry, reshaper: Geometry, requestOptions?: any): IPromise<Geometry>;
+    simplify(geometries: Geometry[], requestOptions?: any): IPromise<Geometry[]>;
+    toGeoCoordinateString(params: GeometryServiceToGeoCoordinateStringParams, requestOptions?: any): IPromise<string[]>;
+    trimExtend(params: TrimExtendParameters, requestOptions?: any): IPromise<Geometry[]>;
+    union(geometries: Geometry[], requestOptions?: any): IPromise<Geometry>;
   }
 
   interface GeometryServiceConstructor {
@@ -5832,6 +5809,23 @@ declare namespace __esri {
 
   interface GeometryServiceProperties extends TaskProperties {
 
+  }
+
+  export interface GeometryServiceFromGeoCoordinateStringParams {
+    strings: string[];
+    sr: SpatialReference | string;
+    conversionType: string;
+    conversionMode?: string;
+  }
+
+  export interface GeometryServiceToGeoCoordinateStringParams {
+    sr: SpatialReference | string;
+    coordinates: number[][];
+    conversionType: string;
+    conversionMode?: string;
+    numOfDigits?: number;
+    rounding?: boolean;
+    addSpaces?: boolean;
   }
 
   interface Geoprocessor extends Task {
@@ -5878,7 +5872,7 @@ declare namespace __esri {
   }
 
   interface ImageServiceIdentifyTask extends Task {
-    execute(params: ImageServiceIdentifyParameters, requestOptions?: any): IPromise<any>;
+    execute(params: ImageServiceIdentifyParameters, requestOptions?: any): IPromise<ImageServiceIdentifyResult>;
   }
 
   interface ImageServiceIdentifyTaskConstructor {
@@ -5896,10 +5890,10 @@ declare namespace __esri {
     countryCode: string;
     outSpatialReference: SpatialReference;
 
-    addressesToLocations(params: LocatorAddressesToLocationsParams, requestOptions?: any): IPromise<any>;
-    addressToLocations(params: LocatorAddressToLocationsParams, requestOptions?: any): IPromise<any>;
-    locationToAddress(location: Point, distance?: number, requestOptions?: any): IPromise<any>;
-    suggestLocations(params: LocatorSuggestLocationsParams, requestOptions?: any): IPromise<any>;
+    addressesToLocations(params: LocatorAddressesToLocationsParams, requestOptions?: any): IPromise<AddressCandidate[]>;
+    addressToLocations(params: LocatorAddressToLocationsParams, requestOptions?: any): IPromise<AddressCandidate[]>;
+    locationToAddress(location: Point, distance?: number, requestOptions?: any): IPromise<AddressCandidate>;
+    suggestLocations(params: LocatorSuggestLocationsParams, requestOptions?: any): IPromise<SuggestionResult>;
   }
 
   interface LocatorConstructor {
@@ -5914,24 +5908,36 @@ declare namespace __esri {
     outSpatialReference?: SpatialReferenceProperties;
   }
 
-  interface QueryTask extends Task {
-    gdbVersion: string;
-
-    execute(params: Query, requestOptions?: any): IPromise<any>;
-    executeForCount(params: Query, requestOptions?: any): IPromise<any>;
-    executeForExtent(params: Query, requestOptions?: any): IPromise<any>;
-    executeForIds(params: Query, requestOptions?: any): IPromise<any>;
-    executeRelationshipQuery(params: RelationshipQuery, requestOptions?: any): IPromise<any>;
+  export interface LocatorAddressesToLocationsParams {
+    addresses: any[];
+    countryCode: string;
+    categories: string[];
   }
 
-  interface QueryTaskConstructor {
-    new(properties?: QueryTaskProperties): QueryTask;
+  export interface LocatorAddressToLocationsParams {
+    address: any;
+    categories: string[];
+    countryCode: string;
+    distance: number;
+    forStorage: boolean;
+    location: Point;
+    magicKey: string;
+    maxLocations: number;
+    outFields: string[];
+    searchExtent: Extent;
   }
 
-  export const QueryTask: QueryTaskConstructor;
+  export interface LocatorSuggestLocationsParams {
+    categories: string[];
+    distance: number;
+    location: Point;
+    text: string;
+  }
 
-  interface QueryTaskProperties extends TaskProperties {
-    gdbVersion?: string;
+  export interface SuggestionResult {
+    isCollection: boolean;
+    magicKey: string;
+    text: string;
   }
 
   interface PrintTask extends Task {
@@ -5952,8 +5958,28 @@ declare namespace __esri {
     updateDelay?: number;
   }
 
+  interface QueryTask extends Task {
+    gdbVersion: string;
+
+    execute(params: Query, requestOptions?: any): IPromise<FeatureSet>;
+    executeForCount(params: Query, requestOptions?: any): IPromise<number>;
+    executeForExtent(params: Query, requestOptions?: any): IPromise<any>;
+    executeForIds(params: Query, requestOptions?: any): IPromise<number[]>;
+    executeRelationshipQuery(params: RelationshipQuery, requestOptions?: any): IPromise<FeatureSet>;
+  }
+
+  interface QueryTaskConstructor {
+    new(properties?: QueryTaskProperties): QueryTask;
+  }
+
+  export const QueryTask: QueryTaskConstructor;
+
+  interface QueryTaskProperties extends TaskProperties {
+    gdbVersion?: string;
+  }
+
   interface RouteTask extends Task {
-    solve(params: RouteParameters, requestOptions?: any): IPromise<any>;
+    solve(params: RouteParameters, requestOptions?: any): IPromise<RouteResult>;
   }
 
   interface RouteTaskConstructor {
@@ -5967,7 +5993,7 @@ declare namespace __esri {
   }
 
   interface ServiceAreaTask extends Task {
-    solve(params: ServiceAreaParameters, requestOptions?: any): IPromise<any>;
+    solve(params: ServiceAreaParameters, requestOptions?: any): IPromise<ServiceAreaSolveResult>;
   }
 
   interface ServiceAreaTaskConstructor {
@@ -5978,22 +6004,6 @@ declare namespace __esri {
 
   interface ServiceAreaTaskProperties extends TaskProperties {
 
-  }
-
-  interface Task extends Accessor {
-    requestOptions: any;
-    url: string;
-  }
-
-  interface TaskConstructor {
-    new(properties?: TaskProperties): Task;
-  }
-
-  export const Task: TaskConstructor;
-
-  interface TaskProperties {
-    requestOptions?: any;
-    url?: string;
   }
 
   interface AddressCandidate extends Accessor, JSONSupport {
@@ -6087,7 +6097,7 @@ declare namespace __esri {
     outputGeometryPrecision: number;
     outputGeometryPrecisionUnits: string;
     outputLines: string;
-    outSpatialReference: SpatialReference;
+    outSpatialReference: SpatialReference | string;
     pointBarriers: DataLayer | FeatureSet;
     polygonBarriers: DataLayer | FeatureSet;
     polylineBarriers: DataLayer | FeatureSet;
@@ -6125,16 +6135,16 @@ declare namespace __esri {
     directionsStyleName?: string;
     directionsTimeAttribute?: string;
     doNotLocateOnRestrictedElements?: boolean;
-    facilities?: DataLayer | FeatureSet;
+    facilities?: DataLayerProperties | FeatureSetProperties;
     impedanceAttribute?: string;
-    incidents?: DataLayer | FeatureSet;
+    incidents?: DataLayerProperties | FeatureSetProperties;
     outputGeometryPrecision?: number;
     outputGeometryPrecisionUnits?: string;
     outputLines?: string;
-    outSpatialReference?: SpatialReference | string;
-    pointBarriers?: DataLayer | FeatureSet;
-    polygonBarriers?: DataLayer | FeatureSet;
-    polylineBarriers?: DataLayer | FeatureSet;
+    outSpatialReference?: SpatialReferenceProperties | string;
+    pointBarriers?: DataLayerProperties | FeatureSetProperties;
+    polygonBarriers?: DataLayerProperties | FeatureSetProperties;
+    polylineBarriers?: DataLayerProperties | FeatureSetProperties;
     restrictionAttributes?: string[];
     restrictUTurns?: string;
     returnDirections?: boolean;
@@ -6144,10 +6154,16 @@ declare namespace __esri {
     returnPolygonBarriers?: boolean;
     returnPolylineBarriers?: boolean;
     returnRoutes?: boolean;
-    timeOfDay?: Date;
+    timeOfDay?: DateProperties;
     timeOfDayUsage?: string;
     travelDirection?: string;
     useHierarchy?: boolean;
+  }
+
+  export interface ClosestFacilityParametersAttributeParameterValues {
+    attributeName: string;
+    parameterName: string;
+    value: string;
   }
 
   interface ClosestFacilitySolveResult extends Accessor, JSONSupport {
@@ -6234,7 +6250,7 @@ declare namespace __esri {
   export const supportDate: supportDateConstructor;
 
   interface supportDateProperties {
-    date?: Date;
+    date?: DateProperties;
     format?: string;
   }
 
@@ -6513,7 +6529,7 @@ declare namespace __esri {
   export const ImageServiceIdentifyParameters: ImageServiceIdentifyParametersConstructor;
 
   interface ImageServiceIdentifyParametersProperties {
-    geometry?: Point | Polygon;
+    geometry?: PointProperties | PolygonProperties;
     mosaicRule?: MosaicRuleProperties;
     noData?: string | number;
     pixelSize?: SymbolProperties;
@@ -6738,6 +6754,21 @@ declare namespace __esri {
     showLabels?: boolean;
   }
 
+  export interface PrintTemplateExportOptions {
+    width?: number;
+    height?: number;
+    dpi?: number;
+  }
+
+  export interface PrintTemplateLayoutOptions {
+    titleText: string;
+    authorText: string;
+    copyrightText: string;
+    scalebarUnit: string;
+    legendLayers: LegendLayer[];
+    customTextElements: any[];
+  }
+
   interface ProjectParameters extends Accessor {
     geometries: Geometry[];
     outSpatialReference: SpatialReference;
@@ -6760,6 +6791,11 @@ declare namespace __esri {
     outSR?: SpatialReferenceProperties;
     transformation?: ProjectParametersTransformation;
     transformForward?: boolean;
+  }
+
+  export interface ProjectParametersTransformation {
+    wkid?: number;
+    wkt?: string;
   }
 
   interface Query extends Accessor {
@@ -6820,6 +6856,13 @@ declare namespace __esri {
     text?: string;
     units?: string;
     where?: string;
+  }
+
+  export interface QueryQuantizationParameters {
+    extent?: Extent;
+    mode?: string;
+    originPosition?: string;
+    tolerance?: number;
   }
 
   interface RasterData extends Accessor, JSONSupport {
@@ -6942,7 +6985,7 @@ declare namespace __esri {
   interface RouteParametersProperties {
     accumulateAttributes?: string[];
     attributeParameterValues?: AttributeParamValue;
-    barriers?: DataLayer | FeatureSet;
+    barriers?: DataLayerProperties | FeatureSetProperties;
     directionsLanguage?: string;
     directionsLengthUnits?: string;
     directionsOutputType?: string;
@@ -6956,8 +6999,8 @@ declare namespace __esri {
     outputGeometryPrecisionUnits?: string;
     outputLines?: string;
     outSpatialReference?: SpatialReferenceProperties;
-    polygonBarriers?: DataLayer | FeatureSet;
-    polylineBarriers?: DataLayer | FeatureSet;
+    polygonBarriers?: DataLayerProperties | FeatureSetProperties;
+    polylineBarriers?: DataLayerProperties | FeatureSetProperties;
     preserveFirstStop?: boolean;
     preserveLastStop?: boolean;
     restrictionAttributes?: string[];
@@ -6969,11 +7012,17 @@ declare namespace __esri {
     returnRoutes?: boolean;
     returnStops?: boolean;
     returnZ?: boolean;
-    startTime?: Date;
+    startTime?: DateProperties;
     startTimeIsUTC?: boolean;
-    stops?: DataLayer | FeatureSet;
+    stops?: DataLayerProperties | FeatureSetProperties;
     useHierarchy?: boolean;
     useTimeWindows?: boolean;
+  }
+
+  export interface AttributeParamValue {
+    attributeName: string;
+    parameterName: string;
+    value: string;
   }
 
   interface RouteResult extends Accessor, JSONSupport {
@@ -7047,7 +7096,7 @@ declare namespace __esri {
     defaultBreaks?: number[];
     doNotLocateOnRestrictedElements?: boolean;
     excludeSourcesFromPolygons?: string[];
-    facilities?: DataLayer | FeatureSet;
+    facilities?: DataLayerProperties | FeatureSetProperties;
     impedanceAttribute?: string;
     mergeSimilarPolygonRanges?: boolean;
     outputGeometryPrecision?: number;
@@ -7057,9 +7106,9 @@ declare namespace __esri {
     outSpatialReference?: SpatialReferenceProperties;
     overlapLines?: boolean;
     overlapPolygons?: boolean;
-    pointBarriers?: DataLayer | FeatureSet;
-    polygonBarriers?: DataLayer | FeatureSet;
-    polylineBarriers?: DataLayer | FeatureSet;
+    pointBarriers?: DataLayerProperties | FeatureSetProperties;
+    polygonBarriers?: DataLayerProperties | FeatureSetProperties;
+    polylineBarriers?: DataLayerProperties | FeatureSetProperties;
     restrictionAttributes?: string[];
     restrictUTurns?: string;
     returnFacilities?: boolean;
@@ -7068,7 +7117,7 @@ declare namespace __esri {
     returnPolylineBarriers?: boolean;
     splitLinesAtBreaks?: boolean;
     splitPolygonsAtBreaks?: boolean;
-    timeOfDay?: Date;
+    timeOfDay?: DateProperties;
     travelDirection?: string;
     trimOuterPolygon?: boolean;
     trimPolygonDistance?: number;
@@ -7144,20 +7193,36 @@ declare namespace __esri {
     trimExtendTo?: PolylineProperties;
   }
 
+  interface Task extends Accessor {
+    requestOptions: any;
+    url: string;
+  }
+
+  interface TaskConstructor {
+    new(properties?: TaskProperties): Task;
+  }
+
+  export const Task: TaskConstructor;
+
+  interface TaskProperties {
+    requestOptions?: any;
+    url?: string;
+  }
+
   interface ConfigurationTask extends Task {
     url: string;
 
-    getAllGroups(requestOptions?: any): IPromise<any>;
-    getAllUsers(requestOptions?: any): IPromise<any>;
-    getDataWorkspaceDetails(params: ConfigurationTaskGetDataWorkspaceDetailsParams, requestOptions?: any): IPromise<any>;
-    getGroup(groupId: number, requestOptions?: any): IPromise<any>;
-    getJobTypeDetails(jobTypeId: number, requestOptions?: any): IPromise<any>;
-    getPublicJobQueryDetails(queryId: number, requestOptions?: any): IPromise<any>;
-    getServiceInfo(requestOptions?: any): IPromise<any>;
-    getTableRelationshipsDetails(requestOptions?: any): IPromise<any>;
-    getUser(user: string, requestOptions?: any): IPromise<any>;
-    getUserJobQueryDetails(params: ConfigurationTaskGetUserJobQueryDetailsParams, requestOptions?: any): IPromise<any>;
-    getVisibleJobTypes(user: string, requestOptions?: any): IPromise<any>;
+    getAllGroups(requestOptions?: any): IPromise<any[]>;
+    getAllUsers(requestOptions?: any): IPromise<any[]>;
+    getDataWorkspaceDetails(params: ConfigurationTaskGetDataWorkspaceDetailsParams, requestOptions?: any): IPromise<any[]>;
+    getGroup(groupId: number, requestOptions?: any): IPromise<any[]>;
+    getJobTypeDetails(jobTypeId: number, requestOptions?: any): IPromise<JobTypeDetails>;
+    getPublicJobQueryDetails(queryId: number, requestOptions?: any): IPromise<JobQueryDetails>;
+    getServiceInfo(requestOptions?: any): IPromise<WorkflowManagerServiceInfo>;
+    getTableRelationshipsDetails(requestOptions?: any): IPromise<TableRelationship>;
+    getUser(user: string, requestOptions?: any): IPromise<UserDetails>;
+    getUserJobQueryDetails(params: ConfigurationTaskGetUserJobQueryDetailsParams, requestOptions?: any): IPromise<JobQueryDetails>;
+    getVisibleJobTypes(user: string, requestOptions?: any): IPromise<JobType>;
   }
 
   interface ConfigurationTaskConstructor {
@@ -7170,44 +7235,218 @@ declare namespace __esri {
     url?: string;
   }
 
+  export interface ConfigurationTaskGetDataWorkspaceDetailsParams {
+    dataWorkspaceId: string;
+    user: string;
+  }
+
+  export interface ConfigurationTaskGetUserJobQueryDetailsParams {
+    queryId: number;
+    user: string;
+  }
+
+  export interface DataWorkspace {
+    id: string;
+    name: string;
+  }
+
+  export interface GroupMembership {
+    id: number;
+    name: string;
+  }
+
+  export interface HoldType {
+    description: string;
+    id: number;
+    name: string;
+  }
+
+  export interface JobPriority {
+    description: string;
+    name: string;
+    value: number;
+  }
+
+  export interface JobQuery {
+    id: number;
+    name: string;
+  }
+
+  export interface JobQueryContainer {
+    containers: JobQueryContainer[];
+    id: number;
+    name: string;
+    queries: JobQuery[];
+  }
+
+  export interface JobQueryDetails {
+    aliases: string[];
+    fields: string[];
+    id: number;
+    name: string;
+    orderBy: string;
+    tables: string[];
+    where: string;
+  }
+
+  export interface JobStatus {
+    caption: string;
+    description: string;
+    id: number;
+    name: string;
+  }
+
+  export interface JobType {
+    category: string;
+    description: string;
+    id: string;
+    name: string;
+    state: string;
+  }
+
+  export interface JobTypeDetails {
+    defaultParentVersionName: string;
+    autoExecuteCreatedJobs: boolean;
+    category: string;
+    defaultAssignedTo: string;
+    defaultAssignedType: string;
+    defaultDataWorkspaceId: string;
+    defaultDescription: string;
+    defaultDueDate: string;
+    defaultJobDuration: number;
+    canDataWorkspaceChange: boolean;
+    defaultPriority: string;
+    defaultStartDate: Date;
+    description: string;
+    id: string;
+    jobNamingScheme: string;
+    jobVersionNamingScheme: string;
+    mxdNamingScheme: string;
+    name: string;
+    state: string;
+  }
+
+  export interface Privilege {
+    description: string;
+    id: number;
+    name: string;
+  }
+
+  export interface TableRelationship {
+    cardinality: string;
+    linkField: string;
+    tableAlias: string;
+    tableName: string;
+  }
+
+  export interface UserDetails {
+    lastName: string;
+    address: string;
+    faxNumber: string;
+    firstName: string;
+    fullName: string;
+    groups: GroupMembership[];
+    email: string;
+    phoneNumber: string;
+    privileges: Privilege[];
+    roomNumber: string;
+    userName: string;
+    userQueries: JobQueryContainer[];
+    zipCode: string;
+  }
+
+  export interface VersionInfo {
+    access: string;
+    name: string;
+    parent: string;
+  }
+
+  export interface WorkflowManagerServiceInfo {
+    jobPriorities: JobPriority[];
+    activityTypes: ActivityType[];
+    currentVersion: number;
+    dataWorkspaces: DataWorkspace[];
+    holdTypes: HoldType[];
+    configProperties: WorkflowManagerServiceInfoConfigProperties;
+    jobStatuses: JobStatus[];
+    jobTypes: JobType[];
+    notificationTypes: NotificationType[];
+    privileges: Privilege[];
+    publicQueries: JobQueryContainer[];
+  }
+
+  export interface WorkflowManagerServiceInfoConfigProperties {
+    AOIOVERLAP: string;
+    AOISELECTIONCOLOR: number;
+    AUTOASSIGNJOB: boolean;
+    AUTOCLOSEJOB: boolean;
+    AUTOCOMMITWORKFLOW: boolean;
+    AUTOSTATUSASSIGN: boolean;
+    CONFIRMPROCEDURALCHECK: boolean;
+    DEFAULT_SENDER_EMAIL: string;
+    DEFAULT_SENDER_NAME: string;
+    HTML_SUPPORT: string;
+    JOB_ID_START_VALUE: string;
+    PENDING_DAYS_USE_HOLDS: boolean;
+    PROMPTSDEPWD: boolean;
+    REQUIREPROCEDURALCHECKSTART: number;
+    RESTRICT_AOI_OPTION: string;
+    SEND_SN_CUSTOM_POST: boolean;
+    SHOW_STEP_IDS: boolean;
+    SHOW_STEP_PERCENT_COMPLETE: boolean;
+    SMTP_PASSWORD: string;
+    SHOW_PENDING_DAYS: boolean;
+    SMTP_PORT: string;
+    SMTP_PROTOCOL: string;
+    SMTP_SERVER: string;
+    SMTP_USERNAME: string;
+    USE_STEP_STATUS: boolean;
+    USER_STORE: string;
+    USEUSERDOMAIN: boolean;
+    WF_SEL_STEP_FILL_COLOR: number;
+    WF_SEL_STEP_OUTLINE_COLOR: number;
+    WF_SEL_STEP_OUTLINE_WIDTH: number;
+    ZOOMTOAOI: boolean;
+  }
+
   interface JobTask extends Task {
     url: string;
 
-    addEmbeddedAttachment(params: JobTaskAddEmbeddedAttachmentParams, requestOptions?: any): IPromise<any>;
-    addLinkedAttachment(params: JobTaskAddLinkedAttachmentParams, requestOptions?: any): IPromise<any>;
-    addLinkedRecord(params: JobTaskAddLinkedRecordParams, requestOptions?: any): IPromise<any>;
-    assignJobs(params: JobTaskAssignJobsParams, requestOptions?: any): IPromise<any>;
-    closeJobs(params: JobTaskCloseJobsParams, requestOptions?: any): IPromise<any>;
-    createDependency(params: JobTaskCreateDependencyParams, requestOptions?: any): IPromise<any>;
-    createHold(params: JobTaskCreateHoldParams, requestOptions?: any): IPromise<any>;
-    createJobs(params: JobCreationParameters, requestOptions?: any): IPromise<any>;
-    createJobVersion(params: JobTaskCreateJobVersionParams, requestOptions?: any): IPromise<any>;
-    deleteAttachment(params: JobTaskDeleteAttachmentParams, requestOptions?: any): IPromise<any>;
-    deleteDependency(params: JobTaskDeleteDependencyParams, requestOptions?: any): IPromise<any>;
-    deleteJobs(params: JobTaskDeleteJobsParams, requestOptions?: any): IPromise<any>;
-    deleteLinkedRecord(params: JobTaskDeleteLinkedRecordParams, requestOptions?: any): IPromise<any>;
-    getActivityLog(jobId: number, requestOptions?: any): IPromise<any>;
+    addEmbeddedAttachment(params: JobTaskAddEmbeddedAttachmentParams, requestOptions?: any): IPromise<string>;
+    addLinkedAttachment(params: JobTaskAddLinkedAttachmentParams, requestOptions?: any): IPromise<string>;
+    addLinkedRecord(params: JobTaskAddLinkedRecordParams, requestOptions?: any): IPromise<string>;
+    assignJobs(params: JobTaskAssignJobsParams, requestOptions?: any): IPromise<boolean>;
+    closeJobs(params: JobTaskCloseJobsParams, requestOptions?: any): IPromise<boolean>;
+    createDependency(params: JobTaskCreateDependencyParams, requestOptions?: any): IPromise<string>;
+    createHold(params: JobTaskCreateHoldParams, requestOptions?: any): IPromise<string>;
+    createJobs(params: JobCreationParameters, requestOptions?: any): IPromise<string[]>;
+    createJobVersion(params: JobTaskCreateJobVersionParams, requestOptions?: any): IPromise<string>;
+    deleteAttachment(params: JobTaskDeleteAttachmentParams, requestOptions?: any): IPromise<boolean>;
+    deleteDependency(params: JobTaskDeleteDependencyParams, requestOptions?: any): IPromise<boolean>;
+    deleteJobs(params: JobTaskDeleteJobsParams, requestOptions?: any): IPromise<boolean>;
+    deleteLinkedRecord(params: JobTaskDeleteLinkedRecordParams, requestOptions?: any): IPromise<boolean>;
+    getActivityLog(jobId: number, requestOptions?: any): IPromise<any[]>;
     getAttachmentContentUrl(params: JobTaskGetAttachmentContentUrlParams): string;
-    getAttachments(jobId: number, requestOptions?: any): IPromise<any>;
-    getDependencies(jobId: number, requestOptions?: any): IPromise<any>;
-    getExtendedProperties(jobId: number, requestOptions?: any): IPromise<any>;
-    getHolds(jobId: number, requestOptions?: any): IPromise<any>;
-    getJob(jobId: number, requestOptions?: any): IPromise<any>;
-    getJobIds(requestOptions?: any): IPromise<any>;
-    getNotes(jobId: number, requestOptions?: any): IPromise<any>;
-    listFieldValues(params: JobTaskListFieldValuesParams, requestOptions?: any): IPromise<any>;
-    listMultiLevelFieldValues(params: JobTaskListMultiLevelFieldValuesParams, requestOptions?: any): IPromise<any>;
-    logAction(params: JobTaskLogActionParams, requestOptions?: any): IPromise<any>;
-    queryJobs(params: JobTaskQueryJobsParams, requestOptions?: any): IPromise<any>;
-    queryJobsAdHoc(params: JobQueryParameters, requestOptions?: any): IPromise<any>;
-    queryMultiLevelSelectedValues(params: JobTaskQueryMultiLevelSelectedValuesParams, requestOptions?: any): IPromise<any>;
-    releaseHold(params: JobTaskReleaseHoldParams, requestOptions?: any): IPromise<any>;
-    reopenClosedJobs(params: JobTaskReopenClosedJobsParams, requestOptions?: any): IPromise<any>;
-    searchJobs(params: JobTaskSearchJobsParams, requestOptions?: any): IPromise<any>;
-    unassignJobs(params: JobTaskUnassignJobsParams, requestOptions?: any): IPromise<any>;
-    updateJob(params: JobUpdateParameters, requestOptions?: any): IPromise<any>;
-    updateNotes(params: JobTaskUpdateNotesParams, requestOptions?: any): IPromise<any>;
-    updateRecord(params: JobTaskUpdateRecordParams, requestOptions?: any): IPromise<any>;
+    getAttachments(jobId: number, requestOptions?: any): IPromise<JobAttachment>;
+    getDependencies(jobId: number, requestOptions?: any): IPromise<JobDependency>;
+    getExtendedProperties(jobId: number, requestOptions?: any): IPromise<AuxRecordContainer>;
+    getHolds(jobId: number, requestOptions?: any): IPromise<any[]>;
+    getJob(jobId: number, requestOptions?: any): IPromise<JobTaskJobInfo>;
+    getJobIds(requestOptions?: any): IPromise<string[]>;
+    getNotes(jobId: number, requestOptions?: any): IPromise<string>;
+    listFieldValues(params: JobTaskListFieldValuesParams, requestOptions?: any): IPromise<FieldValue>;
+    listMultiLevelFieldValues(params: JobTaskListMultiLevelFieldValuesParams, requestOptions?: any): IPromise<FieldValue>;
+    logAction(params: JobTaskLogActionParams, requestOptions?: any): IPromise<boolean>;
+    queryJobs(params: JobTaskQueryJobsParams, requestOptions?: any): IPromise<QueryResult>;
+    queryJobsAdHoc(params: JobQueryParameters, requestOptions?: any): IPromise<QueryResult>;
+    queryMultiLevelSelectedValues(params: JobTaskQueryMultiLevelSelectedValuesParams, requestOptions?: any): IPromise<string[]>;
+    releaseHold(params: JobTaskReleaseHoldParams, requestOptions?: any): IPromise<boolean>;
+    reopenClosedJobs(params: JobTaskReopenClosedJobsParams, requestOptions?: any): IPromise<boolean>;
+    searchJobs(params: JobTaskSearchJobsParams, requestOptions?: any): IPromise<QueryResult>;
+    unassignJobs(params: JobTaskUnassignJobsParams, requestOptions?: any): IPromise<boolean>;
+    updateJob(params: JobUpdateParameters, requestOptions?: any): IPromise<boolean>;
+    updateNotes(params: JobTaskUpdateNotesParams, requestOptions?: any): IPromise<boolean>;
+    updateRecord(params: JobTaskUpdateRecordParams, requestOptions?: any): IPromise<boolean>;
   }
 
   interface JobTaskConstructor {
@@ -7220,22 +7459,332 @@ declare namespace __esri {
     url?: string;
   }
 
+  export interface ActivityType {
+    desription: string;
+    id: number;
+    message: string;
+    name: string;
+  }
+
+  export interface AuxRecord {
+    displayProperty: any;
+    id: number;
+    recordvalues: AuxRecordValue;
+  }
+
+  export interface AuxRecordContainer {
+    records: AuxRecord;
+    relationshipType: string;
+    tableAlias: string;
+    tableName: string;
+  }
+
+  export interface AuxRecordDescription {
+    properties: any;
+    recordId: number;
+    tableName: string;
+  }
+
+  export interface AuxRecordValue {
+    filter: string;
+    alias: string;
+    data: any;
+    dataType: string;
+    displayOrder: number;
+    displayType: string;
+    domain: string;
+    canUpdate: boolean;
+    length: number;
+    name: string;
+    required: boolean;
+    tableListClass: string;
+    tableListDisplayField: string;
+    tableListStoreField: string;
+    userVisible: boolean;
+  }
+
+  export interface FieldValue {
+    description: string;
+    value: any;
+  }
+
+  export interface JobAttachment {
+    filename: string;
+    folder: string;
+    id: number;
+    storageType: string;
+  }
+
+  export interface JobCreationParameters {
+    loi: Geometry;
+    assignedTo: string;
+    autoCommitWorkflow: boolean;
+    autoExecute: boolean;
+    dataWorkspaceId: string;
+    description: string;
+    dueDate: Date;
+    jobTypeId: number;
+    assignedType: string;
+    name: string;
+    numJobs: string;
+    ownedBy: string;
+    parentJobId: number;
+    parentVersion: string;
+    priority: number;
+    startDate: Date;
+    user: string;
+  }
+
+  export interface JobDependency {
+    depJobId: number;
+    depOnType: string;
+    depOnValue: string;
+    heldOnValue: number;
+    holdOnType: string;
+    id: number;
+    jobID: string;
+  }
+
+  export interface JobTaskJobInfo {
+    name: string;
+    assignedTo: string;
+    childJobIds: number[];
+    createdBy: string;
+    createdDate: Date;
+    dataWorkspaceId: string;
+    description: string;
+    dueDate: Date;
+    endDate: Date;
+    id: number;
+    jobTypeId: number;
+    loi: Geometry;
+    assignedType: string;
+    ownedBy: string;
+    parentJobId: number;
+    parentVersion: string;
+    pendingDays: number;
+    percentageComplete: number;
+    priority: number;
+    stage: string;
+    startDate: Date;
+    status: number;
+    versionExists: boolean;
+    versionInfo: JobVersionInfo;
+    versionName: string;
+  }
+
+  export interface JobQueryParameters {
+    aliases: string;
+    fields: string;
+    orderBy: string;
+    tables: string;
+    where: string;
+    user: string;
+  }
+
+  export interface JobTaskAddEmbeddedAttachmentParams {
+    jobId: number;
+    form: any;
+    user: string;
+  }
+
+  export interface JobTaskAddLinkedAttachmentParams {
+    jobId: number;
+    attachmentType: number;
+    path: string;
+    user: string;
+  }
+
+  export interface JobTaskAddLinkedRecordParams {
+    jobId: number;
+    tableName: string;
+    user: string;
+  }
+
+  export interface JobTaskAssignJobsParams {
+    jobIds: number[];
+    assignedType: string;
+    assignedTo: string;
+    user: string;
+  }
+
+  export interface JobTaskCloseJobsParams {
+    jobIds: number[];
+    user: string;
+  }
+
+  export interface JobTaskCreateDependencyParams {
+    jobId: number;
+    heldOnType: string;
+    heldOnValue: number;
+    depJobId: number;
+    depOnType: string;
+    depOnValue: number;
+    user: string;
+  }
+
+  export interface JobTaskCreateHoldParams {
+    jobId: number;
+    holdTypeId: number;
+    comments: string;
+    user: string;
+  }
+
+  export interface JobTaskCreateJobVersionParams {
+    jobId: number;
+    name: string;
+    parent: string;
+    user: string;
+  }
+
+  export interface JobTaskDeleteAttachmentParams {
+    jobId: number;
+    attachmentId: number;
+    user: string;
+  }
+
+  export interface JobTaskDeleteDependencyParams {
+    jobId: number;
+    dependencyId: number;
+    user: string;
+  }
+
+  export interface JobTaskDeleteJobsParams {
+    jobIds: number[];
+    deleteHistory?: boolean;
+    user: string;
+  }
+
+  export interface JobTaskDeleteLinkedRecordParams {
+    jobId: number;
+    tableName: string;
+    recordId: number;
+    user: string;
+  }
+
+  export interface JobTaskGetAttachmentContentUrlParams {
+    jobId: number;
+    attachmentId: number;
+  }
+
+  export interface JobTaskListFieldValuesParams {
+    jobId: number;
+    tableName: string;
+    field: string;
+    user: string;
+  }
+
+  export interface JobTaskListMultiLevelFieldValuesParams {
+    field: string;
+    previousSelectedValues: string[];
+    user: string;
+  }
+
+  export interface JobTaskLogActionParams {
+    jobId: number;
+    activityTypeId: number;
+    comments: string;
+    user: string;
+  }
+
+  export interface JobTaskQueryJobsParams {
+    queryId: number;
+    user: string;
+  }
+
+  export interface JobTaskQueryMultiLevelSelectedValuesParams {
+    field: string;
+    user: string;
+  }
+
+  export interface JobTaskReleaseHoldParams {
+    jobId: number;
+    holdId: number;
+  }
+
+  export interface JobTaskReopenClosedJobsParams {
+    jobIds: number[];
+    user: string;
+  }
+
+  export interface JobTaskSearchJobsParams {
+    text: string;
+    user: string;
+  }
+
+  export interface JobTaskUnassignJobsParams {
+    jobIds: number[];
+    user: string;
+  }
+
+  export interface JobTaskUpdateNotesParams {
+    jobId: number;
+    notes: string;
+    user: string;
+  }
+
+  export interface JobTaskUpdateRecordParams {
+    jobId: number;
+    record: AuxRecordDescription;
+    user: string;
+  }
+
+  export interface JobUpdateParameters {
+    ownedBy: string;
+    assignedTo: string;
+    dataWorkspaceId: string;
+    description: string;
+    dueDate: Date;
+    loi: Geometry;
+    jobId: number;
+    name: string;
+    assignedType: string;
+    parentJobId: number;
+    parentVersion: string;
+    percent: number;
+    priority: number;
+    startDate: Date;
+    status: number;
+    versionName: string;
+    user: string;
+  }
+
+  export interface JobVersionInfo {
+    dataWorkspaceId: string;
+    name: string;
+    parent: string;
+    created: boolean;
+    owner: string;
+  }
+
+  export interface QueryFieldInfo {
+    alias: string;
+    length: string;
+    name: string;
+    type: string;
+  }
+
+  export interface QueryResult {
+    fields: QueryFieldInfo[];
+    rows: string[];
+  }
+
   interface NotificationTask extends Task {
     url: string;
 
-    addChangeRule(params: NotificationTaskAddChangeRuleParams, requestOptions?: any): IPromise<any>;
-    deleteChangeRule(params: NotificationTaskDeleteChangeRuleParams, requestOptions?: any): IPromise<any>;
-    getAllChangeRules(requestOptions?: any): IPromise<any>;
-    getChangeRule(ruleId: string, requestOptions?: any): IPromise<any>;
-    getChangeRuleMatch(matchId: string, requestOptions?: any): IPromise<any>;
-    getDatabaseTime(dataWorkspaceId: string, requestOptions?: any): IPromise<any>;
-    getSessionMatches(sessionId: string, requestOptions?: any): IPromise<any>;
-    notifySession(params: NotificationTaskNotifySessionParams, requestOptions?: any): IPromise<any>;
-    queryChangeRules(params: NotificationTaskQueryChangeRulesParams, requestOptions?: any): IPromise<any>;
-    runSpatialNotificationOnHistory(params: NotificationTaskRunSpatialNotificationOnHistoryParams, requestOptions?: any): IPromise<any>;
-    sendNotification(params: NotificationTaskSendNotificationParams, requestOptions?: any): IPromise<any>;
-    subscribeToNotification(params: NotificationTaskSubscribeToNotificationParams, requestOptions?: any): IPromise<any>;
-    unsubscribeFromNotification(params: NotificationTaskUnsubscribeFromNotificationParams, requestOptions?: any): IPromise<any>;
+    addChangeRule(params: NotificationTaskAddChangeRuleParams, requestOptions?: any): IPromise<ChangeRule>;
+    deleteChangeRule(params: NotificationTaskDeleteChangeRuleParams, requestOptions?: any): IPromise<boolean>;
+    getAllChangeRules(requestOptions?: any): IPromise<ChangeRule>;
+    getChangeRule(ruleId: string, requestOptions?: any): IPromise<ChangeRule>;
+    getChangeRuleMatch(matchId: string, requestOptions?: any): IPromise<ChangeRule>;
+    getDatabaseTime(dataWorkspaceId: string, requestOptions?: any): IPromise<Date>;
+    getSessionMatches(sessionId: string, requestOptions?: any): IPromise<ChangeRuleMatch>;
+    notifySession(params: NotificationTaskNotifySessionParams, requestOptions?: any): IPromise<boolean>;
+    queryChangeRules(params: NotificationTaskQueryChangeRulesParams, requestOptions?: any): IPromise<ChangeRule>;
+    runSpatialNotificationOnHistory(params: NotificationTaskRunSpatialNotificationOnHistoryParams, requestOptions?: any): IPromise<string>;
+    sendNotification(params: NotificationTaskSendNotificationParams, requestOptions?: any): IPromise<boolean>;
+    subscribeToNotification(params: NotificationTaskSubscribeToNotificationParams, requestOptions?: any): IPromise<boolean>;
+    unsubscribeFromNotification(params: NotificationTaskUnsubscribeFromNotificationParams, requestOptions?: any): IPromise<boolean>;
   }
 
   interface NotificationTaskConstructor {
@@ -7248,14 +7797,135 @@ declare namespace __esri {
     url?: string;
   }
 
+  export interface AOIEvaluator {
+    aoi: Polygon;
+    inverse: boolean;
+    name: string;
+    relation: string;
+    type: string;
+    useJobAOI: boolean;
+  }
+
+  export interface ChangeRule {
+    description: string;
+    evaluators: any[];
+    id: number;
+    name: string;
+    notifier: any;
+    summarize: boolean;
+  }
+
+  export interface ChangeRuleMatch {
+    changeTime: Date;
+    changeType: string;
+    dataset: string;
+    dataWorkspaceId: string;
+    id: string;
+    jobID: string;
+    ruleID: string;
+  }
+
+  export interface DatasetConfiguration {
+    changeCondition: number;
+    changeFields: string;
+    dataset: string;
+    dataWorkspaceId: string;
+    name: string;
+    whereConditions: WhereCondition[];
+  }
+
+  export interface DataSetEvaluator {
+    dataSetConfigurations: DatasetConfiguration[];
+    name: string;
+    type: string;
+  }
+
+  export interface EmailNotifier {
+    attachJobAttachments: boolean;
+    message: string;
+    name: string;
+    senderEmail: string;
+    senderName: string;
+    subject: string;
+    subscribers: string[];
+    type: string;
+  }
+
+  export interface NotificationTaskAddChangeRuleParams {
+    rule: ChangeRule;
+    user: string;
+  }
+
+  export interface NotificationTaskDeleteChangeRuleParams {
+    ruleId: string;
+    user: string;
+  }
+
+  export interface NotificationTaskNotifySessionParams {
+    sessionid: string;
+    deleteAfter: boolean;
+    user: string;
+  }
+
+  export interface NotificationTaskQueryChangeRulesParams {
+    name: string;
+    description: string;
+    searchType: string;
+    user: string;
+  }
+
+  export interface NotificationTaskRunSpatialNotificationOnHistoryParams {
+    dataWorkspaceId: string;
+    from: Date;
+    to: Date;
+    logMatches: boolean;
+    send: boolean;
+    user: string;
+  }
+
+  export interface NotificationTaskSendNotificationParams {
+    jobId: number;
+    notificationType: string;
+    user: string;
+  }
+
+  export interface NotificationTaskSubscribeToNotificationParams {
+    notificationTypeId: number;
+    email: string;
+    user: string;
+  }
+
+  export interface NotificationTaskUnsubscribeFromNotificationParams {
+    notificationTypeId: number;
+    email: string;
+    user: string;
+  }
+
+  export interface NotificationType {
+    attachJobAttachments: boolean;
+    id: number;
+    message: string;
+    senderEmail: string;
+    senderName: string;
+    subject: string;
+    subscribers: string[];
+    type: string;
+  }
+
+  export interface WhereCondition {
+    compareValue: any;
+    field: string;
+    operator: string;
+  }
+
   interface ReportTask extends Task {
     url: string;
 
-    generateReport(params: ReportTaskGenerateReportParams, requestOptions?: any): IPromise<any>;
-    getAllReports(requestOptions?: any): IPromise<any>;
+    generateReport(params: ReportTaskGenerateReportParams, requestOptions?: any): IPromise<string>;
+    getAllReports(requestOptions?: any): IPromise<Report>;
     getReportContentUrl(params: ReportTaskGetReportContentUrlParams): string;
-    getReportData(params: ReportTaskGetReportDataParams, requestOptions?: any): IPromise<any>;
-    getReportStylesheet(reportId: number, requestOptions?: any): IPromise<any>;
+    getReportData(params: ReportTaskGetReportDataParams, requestOptions?: any): IPromise<ReportData>;
+    getReportStylesheet(reportId: number, requestOptions?: any): IPromise<string>;
   }
 
   interface ReportTaskConstructor {
@@ -7268,8 +7938,45 @@ declare namespace __esri {
     url?: string;
   }
 
+  export interface Report {
+    description: string;
+    hierarchy: string;
+    id: number;
+    name: string;
+    title: string;
+  }
+
+  export interface ReportData {
+    columns: string[];
+    description: string;
+    groups: ReportDataGroup[];
+    title: string;
+  }
+
+  export interface ReportDataGroup {
+    aggregateLabel: string;
+    aggregateValue: string;
+    row: string[];
+    value: string;
+  }
+
+  export interface ReportTaskGenerateReportParams {
+    reportId: number;
+    user: string;
+  }
+
+  export interface ReportTaskGetReportContentUrlParams {
+    reportId: number;
+    user: number;
+  }
+
+  export interface ReportTaskGetReportDataParams {
+    reportId: number;
+    user: string;
+  }
+
   interface TokenTask extends Task {
-    parseTokens(params: TokenTaskParseTokensParams, requestOptions?: any): IPromise<any>;
+    parseTokens(params: TokenTaskParseTokensParams, requestOptions?: any): IPromise<string>;
   }
 
   interface TokenTaskConstructor {
@@ -7282,23 +7989,29 @@ declare namespace __esri {
 
   }
 
+  export interface TokenTaskParseTokensParams {
+    jobId: any;
+    stringToParse: string;
+    user: string;
+  }
+
   interface WorkflowTask extends Task {
     url: string;
 
-    canRunStep(params: WorkflowTaskCanRunStepParams, requestOptions?: any): IPromise<any>;
-    executeSteps(params: WorkflowTaskExecuteStepsParams, requestOptions?: any): IPromise<any>;
-    getAllSteps(jobId: number, requestOptions?: any): IPromise<any>;
-    getCurrentSteps(jobId: number, requestOptions?: any): IPromise<any>;
-    getStep(params: WorkflowTaskGetStepParams, requestOptions?: any): IPromise<any>;
-    getStepDescription(params: WorkflowTaskGetStepDescriptionParams, requestOptions?: any): IPromise<any>;
+    canRunStep(params: WorkflowTaskCanRunStepParams, requestOptions?: any): IPromise<string>;
+    executeSteps(params: WorkflowTaskExecuteStepsParams, requestOptions?: any): IPromise<ExecuteInfo>;
+    getAllSteps(jobId: number, requestOptions?: any): IPromise<Step>;
+    getCurrentSteps(jobId: number, requestOptions?: any): IPromise<Step>;
+    getStep(params: WorkflowTaskGetStepParams, requestOptions?: any): IPromise<Step>;
+    getStepDescription(params: WorkflowTaskGetStepDescriptionParams, requestOptions?: any): IPromise<string>;
     getStepFileUrl(params: WorkflowTaskGetStepFileUrlParams): string;
-    getWorkflowDisplayDetails(jobId: number, requestOptions?: any): IPromise<any>;
+    getWorkflowDisplayDetails(jobId: number, requestOptions?: any): IPromise<WorkflowDisplayDetails>;
     getWorkflowImageUrl(jobId: number): string;
-    markStepsAsDone(params: WorkflowTaskMarkStepsAsDoneParams, requestOptions?: any): IPromise<any>;
-    moveToNextStep(params: WorkflowTaskMoveToNextStepParams, requestOptions?: any): IPromise<any>;
-    recreateWorkflow(params: WorkflowTaskRecreateWorkflowParams, requestOptions?: any): IPromise<any>;
-    resolveConflict(params: WorkflowTaskResolveConflictParams, requestOptions?: any): IPromise<any>;
-    setCurrentStep(params: WorkflowTaskSetCurrentStepParams, requestOptions?: any): IPromise<any>;
+    markStepsAsDone(params: WorkflowTaskMarkStepsAsDoneParams, requestOptions?: any): IPromise<ExecuteInfo>;
+    moveToNextStep(params: WorkflowTaskMoveToNextStepParams, requestOptions?: any): IPromise<boolean>;
+    recreateWorkflow(params: WorkflowTaskRecreateWorkflowParams, requestOptions?: any): IPromise<boolean>;
+    resolveConflict(params: WorkflowTaskResolveConflictParams, requestOptions?: any): IPromise<boolean>;
+    setCurrentStep(params: WorkflowTaskSetCurrentStepParams, requestOptions?: any): IPromise<boolean>;
   }
 
   interface WorkflowTaskConstructor {
@@ -7311,19 +8024,641 @@ declare namespace __esri {
     url?: string;
   }
 
-  interface MapView extends View {
+  export interface ExecuteInfo {
+    conflicts: WorkflowConflicts;
+    errorCode: number;
+    errorDescription: string;
+    executionResult: string;
+    hasConflicts: boolean;
+    hasReturnCode: boolean;
+    jobID: number;
+    returnCode: number;
+    stepID: number;
+    threwError: boolean;
+  }
+
+  export interface Step {
+    hasBeenExecuted: boolean;
+    assignedTo: string;
+    async: boolean;
+    autoRun: boolean;
+    canSkip: boolean;
+    canSpawnConcurrency: boolean;
+    commonId: number;
+    defaultPercentComplete: number;
+    assignedType: string;
+    hasBeenStarted: boolean;
+    id: number;
+    name: string;
+    selfCheck: boolean;
+    statusId: number;
+    stepPercentComplete: number;
+    notificationType: string;
+    stepType: StepType;
+  }
+
+  export interface StepType {
+    program: string;
+    arguments: string;
+    executionType: string;
+    id: number;
+    name: string;
+    description: string;
+    stepDescriptionLink: string;
+    stepDescriptionType: string;
+    stepIndicatorType: string;
+    supportedPlatform: string;
+    visible: boolean;
+  }
+
+  export interface WorkflowAnnotationDisplayDetails {
+    centerX: number;
+    centerY: number;
+    fillColor: Color;
+    height: number;
+    label: string;
+    labelColor: Color;
+    OutlineColor: Color;
+    width: number;
+  }
+
+  export interface WorkflowConflicts {
+    jobID: number;
+    options: WorkflowOption[];
+    spawnsConcurrency: boolean;
+    stepId: number;
+  }
+
+  export interface WorkflowDisplayDetails {
+    annotations: WorkflowAnnotationDisplayDetails[];
+    paths: WorkflowPathDisplayDetails[];
+    steps: WorkflowStepDisplayDetails[];
+  }
+
+  export interface WorkflowOption {
+    returnCode: number;
+    steps: WorkflowStepInfo[];
+  }
+
+  export interface WorkflowPathDisplayDetails {
+    destStepId: number;
+    sourceStepID: number;
+    label: string;
+    labelColor: Color;
+    labelX: number;
+    labelY: number;
+    lineColor: Color;
+    pathObject: any;
+  }
+
+  export interface WorkflowStepDisplayDetails {
+    labelColor: Color;
+    centerX: number;
+    fillColor: Color;
+    height: number;
+    label: string;
+    centerY: number;
+    OutlineColor: Color;
+    shape: string;
+    stepId: number;
+    stepType: string;
+    width: number;
+  }
+
+  export interface WorkflowStepInfo {
+    id: number;
+    name: string;
+  }
+
+  export interface WorkflowTaskCanRunStepParams {
+    jobId: number;
+    stepId: number;
+    user: string;
+  }
+
+  export interface WorkflowTaskExecuteStepsParams {
+    jobId: number;
+    stepIds: number[];
+    auto: boolean;
+    user: string;
+  }
+
+  export interface WorkflowTaskGetStepDescriptionParams {
+    jobId: number;
+    stepId: number;
+  }
+
+  export interface WorkflowTaskGetStepFileUrlParams {
+    jobId: number;
+    stepId: number;
+  }
+
+  export interface WorkflowTaskGetStepParams {
+    jobId: number;
+    stepId: number;
+  }
+
+  export interface WorkflowTaskMarkStepsAsDoneParams {
+    jobId: number;
+    stepIds: number[];
+    user: string;
+  }
+
+  export interface WorkflowTaskMoveToNextStepParams {
+    jobId: number;
+    stepId: number;
+    returnCode: number;
+    user: string;
+  }
+
+  export interface WorkflowTaskRecreateWorkflowParams {
+    jobId: number;
+    user: string;
+  }
+
+  export interface WorkflowTaskResolveConflictParams {
+    jobId: number;
+    stepId: number;
+    optionReturnCode: number;
+    optionStepIds: number[];
+    user: string;
+  }
+
+  export interface WorkflowTaskSetCurrentStepParams {
+    jobId: number;
+    stepId: number;
+    user: string;
+  }
+
+  interface Viewpoint extends Accessor, JSONSupport {
+    camera: Camera;
+    rotation: number;
+    scale: number;
+    targetGeometry: Geometry;
+
+    clone(): Viewpoint;
+  }
+
+  interface ViewpointConstructor {
+    new(properties?: ViewpointProperties): Viewpoint;
+
+    fromJSON(json: any): Viewpoint;
+  }
+
+  export const Viewpoint: ViewpointConstructor;
+
+  interface ViewpointProperties {
+    camera?: CameraProperties;
+    rotation?: number;
+    scale?: number;
+    targetGeometry?: GeometryProperties;
+  }
+
+  interface Draw extends Accessor {
+    activeAction: PointDrawAction | PolygonDrawAction | PolylineDrawAction;
+    view: MapView;
+
+    create(drawAction: string): PointDrawAction | PolygonDrawAction | PolylineDrawAction;
+  }
+
+  interface DrawConstructor {
+    new(properties?: DrawProperties): Draw;
+  }
+
+  export const Draw: DrawConstructor;
+
+  interface DrawProperties {
+    activeAction?: PointDrawActionProperties | PolygonDrawActionProperties | PolylineDrawActionProperties;
+    view?: MapViewProperties;
+  }
+
+  interface PointDrawAction extends Accessor, Evented {
+    view: MapView;
+
+    complete(): void;
+
+    on(name: "cursor-update", eventHandler: PointDrawActionCursorUpdateEventHandler): IHandle;
+    on(name: "cursor-update", modifiers: string[], eventHandler: PointDrawActionCursorUpdateEventHandler): IHandle;
+    on(name: "draw-complete", eventHandler: PointDrawActionDrawCompleteEventHandler): IHandle;
+    on(name: "draw-complete", modifiers: string[], eventHandler: PointDrawActionDrawCompleteEventHandler): IHandle;
+  }
+
+  interface PointDrawActionConstructor {
+    new(properties?: PointDrawActionProperties): PointDrawAction;
+  }
+
+  export const PointDrawAction: PointDrawActionConstructor;
+
+  interface PointDrawActionProperties {
+    view?: MapViewProperties;
+  }
+
+  export interface PointDrawActionCursorUpdateEvent {
+    coordinates: number[];
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+  }
+
+  export interface PointDrawActionDrawCompleteEvent {
+    coordinates: number[];
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+  }
+
+  interface PolygonDrawAction extends Accessor, Evented {
+    vertices: number[][];
+    view: MapView;
+
+    canRedo(): boolean;
+    canUndo(): boolean;
+    complete(): void;
+    redo(): void;
+    undo(): void;
+
+    on(name: "cursor-update", eventHandler: PolygonDrawActionCursorUpdateEventHandler): IHandle;
+    on(name: "cursor-update", modifiers: string[], eventHandler: PolygonDrawActionCursorUpdateEventHandler): IHandle;
+    on(name: "vertex-add", eventHandler: PolygonDrawActionVertexAddEventHandler): IHandle;
+    on(name: "vertex-add", modifiers: string[], eventHandler: PolygonDrawActionVertexAddEventHandler): IHandle;
+    on(name: "vertex-remove", eventHandler: PolygonDrawActionVertexRemoveEventHandler): IHandle;
+    on(name: "vertex-remove", modifiers: string[], eventHandler: PolygonDrawActionVertexRemoveEventHandler): IHandle;
+    on(name: "draw-complete", eventHandler: PolygonDrawActionDrawCompleteEventHandler): IHandle;
+    on(name: "draw-complete", modifiers: string[], eventHandler: PolygonDrawActionDrawCompleteEventHandler): IHandle;
+  }
+
+  interface PolygonDrawActionConstructor {
+    new(properties?: PolygonDrawActionProperties): PolygonDrawAction;
+  }
+
+  export const PolygonDrawAction: PolygonDrawActionConstructor;
+
+  interface PolygonDrawActionProperties {
+    vertices?: number[][];
+    view?: MapViewProperties;
+  }
+
+  export interface PolygonDrawActionCursorUpdateEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertexIndex: number;
+    vertices: number[][];
+  }
+
+  export interface PolygonDrawActionDrawCompleteEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertices: number[][];
+  }
+
+  export interface PolygonDrawActionVertexAddEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertexIndex: number;
+    vertices: number[][];
+  }
+
+  export interface PolygonDrawActionVertexRemoveEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertexIndex: number;
+    vertices: number[][];
+  }
+
+  interface PolylineDrawAction extends Accessor, Evented {
+    vertices: number[][];
+    view: MapView;
+
+    canRedo(): boolean;
+    canUndo(): boolean;
+    complete(): void;
+    redo(): void;
+    undo(): void;
+
+    on(name: "cursor-update", eventHandler: PolylineDrawActionCursorUpdateEventHandler): IHandle;
+    on(name: "cursor-update", modifiers: string[], eventHandler: PolylineDrawActionCursorUpdateEventHandler): IHandle;
+    on(name: "vertex-add", eventHandler: PolylineDrawActionVertexAddEventHandler): IHandle;
+    on(name: "vertex-add", modifiers: string[], eventHandler: PolylineDrawActionVertexAddEventHandler): IHandle;
+    on(name: "vertex-remove", eventHandler: PolylineDrawActionVertexRemoveEventHandler): IHandle;
+    on(name: "vertex-remove", modifiers: string[], eventHandler: PolylineDrawActionVertexRemoveEventHandler): IHandle;
+    on(name: "draw-complete", eventHandler: PolylineDrawActionDrawCompleteEventHandler): IHandle;
+    on(name: "draw-complete", modifiers: string[], eventHandler: PolylineDrawActionDrawCompleteEventHandler): IHandle;
+  }
+
+  interface PolylineDrawActionConstructor {
+    new(properties?: PolylineDrawActionProperties): PolylineDrawAction;
+  }
+
+  export const PolylineDrawAction: PolylineDrawActionConstructor;
+
+  interface PolylineDrawActionProperties {
+    vertices?: number[][];
+    view?: MapViewProperties;
+  }
+
+  export interface PolylineDrawActionCursorUpdateEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertexIndex: number;
+    vertices: number[][];
+  }
+
+  export interface PolylineDrawActionDrawCompleteEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertices: number[][];
+  }
+
+  export interface PolylineDrawActionVertexAddEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertexIndex: number;
+    vertices: number[][];
+  }
+
+  export interface PolylineDrawActionVertexRemoveEvent {
+    defaultPrevented: boolean;
+    preventDefault: Function;
+    type: string;
+    vertexIndex: number;
+    vertices: number[][];
+  }
+
+  interface externalRenderers {
+    add(view: SceneView, renderer: ExternalRenderer): void;
+    fromRenderCoordinates(view: SceneView, srcCoordinates: number[] | any, srcStart: number, destCoordinates: number[] | any, destStart: number, destSpatialReference: SpatialReference, count: number): number[] | any;
+    remove(view: SceneView, renderer: ExternalRenderer): void;
+    renderCoordinateTransformAt(view: SceneView, origin: number[] | any, srcSpatialReference?: SpatialReference, dest?: number[] | any): number[] | any;
+    requestRender(view: SceneView): void;
+    toRenderCoordinates(view: SceneView, srcCoordinates: number[] | any, srcStart: number, srcSpatialReference: SpatialReference, destCoordinates: number[] | any, destStart: number, count: number): number[] | any;
+  }
+
+  export const externalRenderers: externalRenderers;
+
+  export interface ColorAndIntensity {
+    color: any;
+    intensity: number;
+  }
+
+  export interface ExternalRenderer {
+    setup(): void;
+    render(): void;
+    dispose(): void;
+  }
+
+  export interface RenderCamera {
+    viewMatrix: any;
+    viewInverseTransposeMatrix: any;
+    projectionMatrix: any;
+    eye: any;
+    center: any;
+    up: any;
+    near: number;
+    far: number;
+    fovX: number;
+    fovY: number;
+  }
+
+  export interface RenderContext {
+    gl: any;
+    camera: RenderCamera;
+    sunLight: SunLight;
+
+    resetWebGLState(): void;
+    bindRenderTarget(): void;
+  }
+
+  export interface SunLight {
+    direction: any;
+    diffuse: ColorAndIntensity;
+    ambient: ColorAndIntensity;
+  }
+
+  interface BreakpointsOwner {
+    breakpoints: BreakpointsOwnerBreakpoints;
+    heightBreakpoint: string;
+    orientation: string;
+    widthBreakpoint: string;
+  }
+
+  interface BreakpointsOwnerConstructor {
+    new(): BreakpointsOwner;
+  }
+
+  export const BreakpointsOwner: BreakpointsOwnerConstructor;
+
+  interface BreakpointsOwnerProperties {
+    breakpoints?: BreakpointsOwnerBreakpoints;
+    heightBreakpoint?: string;
+    orientation?: string;
+    widthBreakpoint?: string;
+  }
+
+  export interface BreakpointsOwnerBreakpoints {
+    xsmall: number;
+    small: number;
+    medium: number;
+    large: number;
+  }
+
+  interface DOMContainer {
+    container: HTMLDivElement | string;
+    height: number;
+    popup: Popup;
+    resizing: boolean;
+    size: number[];
+    suspended: boolean;
+    ui: DefaultUI;
+    width: number;
+  }
+
+  interface DOMContainerConstructor {
+    new(): DOMContainer;
+  }
+
+  export const DOMContainer: DOMContainerConstructor;
+
+  interface DOMContainerProperties {
+    container?: HTMLDivElement | string;
+    height?: number;
+    popup?: PopupProperties;
+    resizing?: boolean;
+    size?: number[];
+    suspended?: boolean;
+    ui?: DefaultUIProperties;
+    width?: number;
+  }
+
+  interface CSVLayerView extends LayerView {
+    highlight(target?: Graphic | Graphic[]): any;
+    queryExtent(params?: Query): IPromise<any>;
+    queryFeatureCount(params?: Query): IPromise<number>;
+    queryFeatures(params?: Query): IPromise<Graphic[]>;
+    queryObjectIds(params?: Query): IPromise<number[]>;
+  }
+
+  interface CSVLayerViewConstructor {
+    new(properties?: CSVLayerViewProperties): CSVLayerView;
+  }
+
+  export const CSVLayerView: CSVLayerViewConstructor;
+
+  interface CSVLayerViewProperties extends LayerViewProperties {
+
+  }
+
+  interface FeatureLayerView extends LayerView {
+    highlight(target?: Graphic | Graphic[] | number | number[]): any;
+    queryExtent(params?: Query): IPromise<any>;
+    queryFeatureCount(params?: Query): IPromise<number>;
+    queryFeatures(params?: Query): IPromise<Graphic[]>;
+    queryObjectIds(params?: Query): IPromise<number[]>;
+  }
+
+  interface FeatureLayerViewConstructor {
+    new(properties?: FeatureLayerViewProperties): FeatureLayerView;
+  }
+
+  export const FeatureLayerView: FeatureLayerViewConstructor;
+
+  interface FeatureLayerViewProperties extends LayerViewProperties {
+
+  }
+
+  interface GraphicsLayerView extends LayerView {
+    highlight(target?: Graphic | Graphic[] | number | number[]): any;
+    queryGraphics(): IPromise<Graphic[]>;
+  }
+
+  interface GraphicsLayerViewConstructor {
+    new(properties?: GraphicsLayerViewProperties): GraphicsLayerView;
+  }
+
+  export const GraphicsLayerView: GraphicsLayerViewConstructor;
+
+  interface GraphicsLayerViewProperties extends LayerViewProperties {
+
+  }
+
+  interface ImageryLayerView extends LayerView {
+    pixelData: ImageryLayerViewPixelData;
+  }
+
+  interface ImageryLayerViewConstructor {
+    new(properties?: ImageryLayerViewProperties): ImageryLayerView;
+  }
+
+  export const ImageryLayerView: ImageryLayerViewConstructor;
+
+  interface ImageryLayerViewProperties extends LayerViewProperties {
+    pixelData?: ImageryLayerViewPixelData;
+  }
+
+  export interface ImageryLayerViewPixelData {
+    extent?: Extent;
+    pixelBlock: PixelBlock;
+  }
+
+  interface LayerView extends Accessor, corePromise {
+    layer: Layer;
+    suspended: boolean;
+    updating: boolean;
+    visible: boolean;
+  }
+
+  interface LayerViewConstructor {
+    new(properties?: LayerViewProperties): LayerView;
+  }
+
+  export const LayerView: LayerViewConstructor;
+
+  interface LayerViewProperties {
+    layer?: LayerProperties;
+    suspended?: boolean;
+    updating?: boolean;
+    visible?: boolean;
+  }
+
+  interface SceneLayerView extends LayerView {
+    highlight(target?: Graphic | Graphic[] | number | number[]): any;
+    queryExtent(params?: Query): IPromise<any>;
+    queryFeatureCount(params?: Query): IPromise<number>;
+    queryFeatures(params?: Query): IPromise<FeatureSet>;
+    queryObjectIds(params?: Query): IPromise<number[]>;
+  }
+
+  interface SceneLayerViewConstructor {
+    new(properties?: SceneLayerViewProperties): SceneLayerView;
+  }
+
+  export const SceneLayerView: SceneLayerViewConstructor;
+
+  interface SceneLayerViewProperties extends LayerViewProperties {
+
+  }
+
+  interface StreamLayerView extends LayerView, Evented {
+    connectionError: Error;
+    connectionStatus: string;
+    filter: StreamLayerViewFilter;
+    graphics: Collection<Graphic>;
+
+    connect(): IPromise<any>;
+    disconnect(): void;
+    updateFilter(filter: StreamLayerViewUpdateFilterFilter): IPromise<any>;
+
+    on(name: "data-received", eventHandler: StreamLayerViewDataReceivedEventHandler): IHandle;
+    on(name: "data-received", modifiers: string[], eventHandler: StreamLayerViewDataReceivedEventHandler): IHandle;
+  }
+
+  interface StreamLayerViewConstructor {
+    new(properties?: StreamLayerViewProperties): StreamLayerView;
+  }
+
+  export const StreamLayerView: StreamLayerViewConstructor;
+
+  interface StreamLayerViewProperties extends LayerViewProperties {
+    connectionError?: Error;
+    connectionStatus?: string;
+    filter?: StreamLayerViewFilter;
+    graphics?: CollectionProperties<GraphicProperties>;
+  }
+
+  export interface StreamLayerViewDataReceivedEvent {
+  }
+
+  export interface StreamLayerViewFilter {
+    geometry?: Extent;
+    where?: string;
+  }
+
+  export interface StreamLayerViewUpdateFilterFilter {
+    geometry?: Extent;
+    where?: string;
+  }
+
+  interface MapView extends View, BreakpointsOwner {
     center: Point;
     constraints: MapViewConstraints;
     extent: Extent;
+    highlightOptions: MapViewHighlightOptions;
     resizeAlign: string;
     rotation: number;
     scale: number;
     viewpoint: Viewpoint;
     zoom: number;
 
-    goTo(target: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint | any, options?: MapViewGoToOptions): IPromise<any>;
+    focus(): void;
+    goTo(target: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint | MapViewGoToTarget, options?: MapViewGoToOptions): IPromise<ViewAnimation>;
     hasEventListener(type: string): boolean;
-    hitTest(screenPoint: MapViewHitTestScreenPoint): IPromise<any>;
+    hitTest(screenPoint: MapViewHitTestScreenPoint): IPromise<HitTestResult>;
     on(type: string | string[], modifiersOrHandler: string[] | EventHandler, handler?: EventHandler): IHandle;
     toMap(screenPoint: MapViewToMapScreenPoint): Point;
     toScreen(point: Point, screenPoint?: ScreenPoint): ScreenPoint;
@@ -7362,10 +8697,11 @@ declare namespace __esri {
 
   export const MapView: MapViewConstructor;
 
-  interface MapViewProperties extends ViewProperties {
+  interface MapViewProperties extends ViewProperties, BreakpointsOwnerProperties {
     center?: PointProperties;
     constraints?: MapViewConstraints;
     extent?: ExtentProperties;
+    highlightOptions?: MapViewHighlightOptions;
     resizeAlign?: string;
     rotation?: number;
     scale?: number;
@@ -7373,7 +8709,185 @@ declare namespace __esri {
     zoom?: number;
   }
 
-  interface SceneView extends View {
+  export interface MapViewClickEvent {
+    button: number;
+    mapPoint: Point;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewDoubleClickEvent {
+    button: number;
+    mapPoint: Point;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewDragEvent {
+    action: string;
+    native: any;
+    origin: MapViewDragEventOrigin;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface HitTestResult {
+    results: HitTestResultResults[];
+  }
+
+  export interface MapViewHoldEvent {
+    button: number;
+    mapPoint: Point;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewKeyDownEvent {
+    key: string;
+    native: any;
+    repeat: boolean;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+  }
+
+  export interface MapViewKeyUpEvent {
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+  }
+
+  export interface MapViewLayerviewCreateEvent {
+    layer: Layer;
+    layerView: LayerView;
+  }
+
+  export interface MapViewLayerviewDestroyEvent {
+    layer: Layer;
+    layerView: LayerView;
+  }
+
+  export interface MapViewConstraints {
+    lods?: LOD[];
+    minScale?: number;
+    maxScale?: number;
+    minZoom?: number;
+    maxZoom?: number;
+    snapToZoom?: boolean;
+    rotationEnabled?: boolean;
+    effectiveLODs?: LOD[];
+    effectiveMinZoom?: number;
+    effectiveMaxZoom?: number;
+    effectiveMinScale?: number;
+    effectiveMaxScale?: number;
+  }
+
+  export interface MapViewGoToOptions {
+    animate?: boolean;
+    duration?: number;
+    easing?: string | Function;
+  }
+
+  export interface MapViewGoToTarget {
+    target?: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint;
+    center?: number[];
+    scale?: number;
+    zoom?: number;
+  }
+
+  export interface MapViewHighlightOptions {
+    color?: Color;
+    haloOpacity?: number;
+    fillOpacity?: number;
+  }
+
+  export interface MapViewHitTestScreenPoint {
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewToMapScreenPoint {
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewMouseWheelEvent {
+    deltaY: number;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewPointerDownEvent {
+    native: any;
+    pointerId: number;
+    pointerType: string;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewPointerMoveEvent {
+    native: any;
+    pointerId: number;
+    pointerType: string;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewPointerUpEvent {
+    native: any;
+    pointerId: number;
+    pointerType: string;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface MapViewResizeEvent {
+    height: number;
+    oldHeight: number;
+    oldWidth: number;
+    width: number;
+  }
+
+  export interface MapViewDragEventOrigin {
+    x: number;
+    y: number;
+  }
+
+  export interface HitTestResultResults {
+    graphic: Graphic;
+    mapPoint: Point;
+  }
+
+  interface SceneView extends View, BreakpointsOwner {
     camera: Camera;
     center: Point;
     clippingArea: Extent;
@@ -7387,9 +8901,10 @@ declare namespace __esri {
     viewpoint: Viewpoint;
     zoom: number;
 
-    goTo(target: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint | Camera | any, options?: SceneViewGoToOptions): IPromise<any>;
+    focus(): void;
+    goTo(target: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint | Camera | SceneViewGoToTarget, options?: SceneViewGoToOptions): IPromise<any>;
     hasEventListener(type: string): boolean;
-    hitTest(screenPoint: SceneViewHitTestScreenPoint): IPromise<any>;
+    hitTest(screenPoint: SceneViewHitTestScreenPoint): IPromise<SceneViewHitTestResult>;
     on(type: string | string[], modifiersOrHandler: string[] | EventHandler, handler?: EventHandler): IHandle;
     toMap(screenPoint: SceneViewToMapScreenPoint, mapPoint?: Point): Point;
     toScreen(point: Point, screenPoint?: ScreenPoint): ScreenPoint;
@@ -7428,7 +8943,7 @@ declare namespace __esri {
 
   export const SceneView: SceneViewConstructor;
 
-  interface SceneViewProperties extends ViewProperties {
+  interface SceneViewProperties extends ViewProperties, BreakpointsOwnerProperties {
     camera?: CameraProperties;
     center?: PointProperties;
     clippingArea?: ExtentProperties;
@@ -7443,12 +8958,318 @@ declare namespace __esri {
     zoom?: number;
   }
 
-  interface View extends Accessor, corePromise, BreakpointsOwner, DOMContainer {
-    allLayerViews: Collection;
+  export interface SceneViewClickEvent {
+    button: number;
+    mapPoint: Point;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewDoubleClickEvent {
+    button: number;
+    mapPoint: Point;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewDragEvent {
+    action: string;
+    native: any;
+    origin: SceneViewDragEventOrigin;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export type EasingFunction = (t: number, duration: number) => number;
+
+  export interface SceneViewHitTestResult {
+    results: SceneViewHitTestResultResults[];
+  }
+
+  export interface SceneViewHoldEvent {
+    button: number;
+    mapPoint: Point;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewKeyDownEvent {
+    key: string;
+    native: any;
+    repeat: boolean;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+  }
+
+  export interface SceneViewKeyUpEvent {
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+  }
+
+  export interface SceneViewLayerviewCreateEvent {
+    layer: Layer;
+    layerView: LayerView;
+  }
+
+  export interface SceneViewLayerviewDestroyEvent {
+    layer: Layer;
+    layerView: LayerView;
+  }
+
+  export interface SceneViewMouseWheelEvent {
+    deltaY: number;
+    native: any;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewPointerDownEvent {
+    native: any;
+    pointerId: number;
+    pointerType: string;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewPointerMoveEvent {
+    native: any;
+    pointerId: number;
+    pointerType: string;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewPointerUpEvent {
+    native: any;
+    pointerId: number;
+    pointerType: string;
+    stopPropagation: Function;
+    timestamp: number;
+    type: string;
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewResizeEvent {
+    height: number;
+    oldHeight: number;
+    oldWidth: number;
+    width: number;
+  }
+
+  export interface SceneViewConstraintsProperties {
+    altitude?: SceneViewConstraintsAltitudeProperties;
+    clipDistance?: SceneViewConstraintsClipDistanceProperties;
+    collision?: SceneViewConstraintsCollision;
+    tilt?: SceneViewConstraintsTiltProperties;
+  }
+  export interface SceneViewConstraints extends Accessor {
+    altitude?: SceneViewConstraintsAltitude;
+    clipDistance?: SceneViewConstraintsClipDistance;
+    collision?: SceneViewConstraintsCollision;
+    tilt?: SceneViewConstraintsTilt;
+  }
+
+  export interface SceneViewConstraintsAltitudeProperties {
+    min?: number;
+    max?: number;
+  }
+  export interface SceneViewConstraintsAltitude extends Accessor {
+    min?: number;
+    max?: number;
+  }
+
+  export interface SceneViewConstraintsClipDistanceProperties {
+    near?: number;
+    far?: number;
+    mode?: string;
+  }
+  export interface SceneViewConstraintsClipDistance extends Accessor {
+    near?: number;
+    far?: number;
+    mode?: string;
+  }
+
+  export interface SceneViewConstraintsCollision {
+    enabled?: boolean;
+  }
+
+  export interface SceneViewConstraintsTiltProperties {
+    max?: number;
+    mode?: string;
+  }
+  export interface SceneViewConstraintsTilt extends Accessor {
+    max?: number;
+    mode?: string;
+  }
+
+  export interface SceneViewEnvironmentProperties {
+    lighting?: SceneViewEnvironmentLightingProperties;
+    atmosphereEnabled?: boolean;
+    atmosphere?: SceneViewEnvironmentAtmosphereProperties;
+    starsEnabled?: boolean;
+  }
+  export interface SceneViewEnvironment extends Accessor {
+    lighting?: SceneViewEnvironmentLighting;
+    atmosphereEnabled?: boolean;
+    atmosphere?: SceneViewEnvironmentAtmosphere;
+    starsEnabled?: boolean;
+  }
+
+  export interface SceneViewEnvironmentAtmosphereProperties {
+    quality?: string;
+  }
+  export interface SceneViewEnvironmentAtmosphere extends Accessor {
+    quality?: string;
+  }
+
+  export interface SceneViewEnvironmentLightingProperties {
+    date?: DateProperties;
+    directShadowsEnabled?: boolean;
+    ambientOcclusionEnabled?: boolean;
+    cameraTrackingEnabled?: boolean;
+  }
+  export interface SceneViewEnvironmentLighting extends Accessor {
+    date?: Date;
+    directShadowsEnabled?: boolean;
+    ambientOcclusionEnabled?: boolean;
+    cameraTrackingEnabled?: boolean;
+  }
+
+  export interface SceneViewGoToOptions {
+    animate?: boolean;
+    speedFactor?: number;
+    duration?: number;
+    maxDuration?: number;
+    easing?: string | EasingFunction;
+  }
+
+  export interface SceneViewGoToTarget {
+    target?: number[] | Geometry | Geometry[] | Graphic | Graphic[] | Viewpoint | Camera;
+    center?: number[];
+    scale?: number;
+    zoom?: number;
+    heading?: number;
+    tilt?: number;
+    position?: number;
+  }
+
+  export interface SceneViewHighlightOptions {
+    color?: Color;
+    haloOpacity?: number;
+    fillOpacity?: number;
+  }
+
+  export interface SceneViewHitTestScreenPoint {
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewToMapScreenPoint {
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewDragEventOrigin {
+    x: number;
+    y: number;
+  }
+
+  export interface SceneViewHitTestResultResults {
+    graphic: Graphic;
+    mapPoint: Point;
+  }
+
+  interface DefaultUI extends UI {
+    components: string[];
+  }
+
+  interface DefaultUIConstructor {
+    new(properties?: DefaultUIProperties): DefaultUI;
+  }
+
+  export const DefaultUI: DefaultUIConstructor;
+
+  interface DefaultUIProperties extends UIProperties {
+    components?: string[];
+  }
+
+  interface UI extends Accessor {
+    container: HTMLElement;
+    height: number;
+    padding: any | number;
+    view: MapView | SceneView;
+    width: number;
+
+    add(component: Widget | HTMLElement | string | any[] | UIAddComponent, position?: string | UIAddPosition): void;
+    empty(position?: string): void;
+    move(component: Widget | HTMLElement | string | any[] | UIMoveComponent, position?: string): void;
+    remove(component: Widget | HTMLElement | string | any[]): void;
+  }
+
+  interface UIConstructor {
+    new(properties?: UIProperties): UI;
+  }
+
+  export const UI: UIConstructor;
+
+  interface UIProperties {
+    container?: HTMLElement;
+    height?: number;
+    padding?: any | number;
+    view?: MapViewProperties | SceneViewProperties;
+    width?: number;
+  }
+
+  export interface UIAddComponent {
+    component: Widget | HTMLElement | string;
+    position?: string;
+    index?: number;
+  }
+
+  export interface UIAddPosition {
+    position?: string;
+    index: number;
+  }
+
+  export interface UIMoveComponent {
+    component: Widget | HTMLElement | string;
+    position?: string;
+  }
+
+  interface View extends Accessor, corePromise, DOMContainer {
+    allLayerViews: Collection<LayerView>;
     animation: ViewAnimation;
-    graphics: Collection;
+    graphics: Collection<Graphic>;
     interacting: boolean;
-    layerViews: Collection;
+    layerViews: Collection<LayerView>;
     map: Map;
     padding: ViewPadding;
     ready: boolean;
@@ -7457,7 +9278,7 @@ declare namespace __esri {
     type: string;
     updating: boolean;
 
-    whenLayerView(layer: Layer): IPromise<any>;
+    whenLayerView(layer: Layer): IPromise<LayerView>;
   }
 
   interface ViewConstructor {
@@ -7466,12 +9287,12 @@ declare namespace __esri {
 
   export const View: ViewConstructor;
 
-  interface ViewProperties extends BreakpointsOwnerProperties, DOMContainerProperties {
-    allLayerViews?: Collection | any[];
+  interface ViewProperties extends DOMContainerProperties {
+    allLayerViews?: CollectionProperties<LayerViewProperties>;
     animation?: ViewAnimationProperties;
-    graphics?: Collection | any[];
+    graphics?: CollectionProperties<GraphicProperties>;
     interacting?: boolean;
-    layerViews?: Collection | any[];
+    layerViews?: CollectionProperties<LayerViewProperties>;
     map?: MapProperties;
     padding?: ViewPadding;
     ready?: boolean;
@@ -7479,6 +9300,13 @@ declare namespace __esri {
     stationary?: boolean;
     type?: string;
     updating?: boolean;
+  }
+
+  export interface ViewPadding {
+    left?: number;
+    top?: number;
+    right?: number;
+    bottom?: number;
   }
 
   interface ViewAnimation extends Accessor, corePromise {
@@ -7500,182 +9328,47 @@ declare namespace __esri {
     target?: ViewpointProperties;
   }
 
-  interface LayerView extends Accessor, corePromise {
-    layer: Layer;
-    suspended: boolean;
-    updating: boolean;
-    visible: boolean;
+  interface WebMap extends Map, corePromise {
+    applicationProperties: any;
+    bookmarks: any[];
+    initialViewProperties: InitialViewProperties;
+    loaded: boolean;
+    loadError: Error;
+    loadStatus: string;
+    portalItem: PortalItem;
+    presentation: any;
+    sourceVersion: WebMapSourceVersion;
+    tables: any[];
+    widgets: any;
+
+    load(): IPromise<any>;
   }
 
-  interface LayerViewConstructor {
-    new(properties?: LayerViewProperties): LayerView;
+  interface WebMapConstructor {
+    new(properties?: WebMapProperties): WebMap;
   }
 
-  export const LayerView: LayerViewConstructor;
+  export const WebMap: WebMapConstructor;
 
-  interface LayerViewProperties {
-    layer?: LayerProperties;
-    suspended?: boolean;
-    updating?: boolean;
-    visible?: boolean;
-  }
-
-  interface CSVLayerView extends LayerView {
-    highlight(target?: Graphic | Graphic[]): any;
-    queryExtent(params?: Query): IPromise<any>;
-    queryFeatureCount(params?: Query): IPromise<any>;
-    queryFeatures(params?: Query): IPromise<any>;
-    queryObjectIds(params?: Query): IPromise<any>;
-  }
-
-  interface CSVLayerViewConstructor {
-    new(properties?: CSVLayerViewProperties): CSVLayerView;
-  }
-
-  export const CSVLayerView: CSVLayerViewConstructor;
-
-  interface CSVLayerViewProperties extends LayerViewProperties {
-
-  }
-
-  interface FeatureLayerView extends LayerView {
-    highlight(target?: Graphic | Graphic[] | number | number[]): any;
-    queryExtent(params?: Query): IPromise<any>;
-    queryFeatureCount(params?: Query): IPromise<any>;
-    queryFeatures(params?: Query): IPromise<any>;
-    queryObjectIds(params?: Query): IPromise<any>;
-  }
-
-  interface FeatureLayerViewConstructor {
-    new(properties?: FeatureLayerViewProperties): FeatureLayerView;
-  }
-
-  export const FeatureLayerView: FeatureLayerViewConstructor;
-
-  interface FeatureLayerViewProperties extends LayerViewProperties {
-
-  }
-
-  interface GraphicsLayerView extends LayerView {
-    highlight(target?: Graphic | Graphic[] | number | number[]): any;
-    queryGraphics(): IPromise<any>;
-  }
-
-  interface GraphicsLayerViewConstructor {
-    new(properties?: GraphicsLayerViewProperties): GraphicsLayerView;
-  }
-
-  export const GraphicsLayerView: GraphicsLayerViewConstructor;
-
-  interface GraphicsLayerViewProperties extends LayerViewProperties {
-
-  }
-
-  interface ImageryLayerView extends LayerView {
-    pixelData: ImageryLayerViewPixelData;
-  }
-
-  interface ImageryLayerViewConstructor {
-    new(properties?: ImageryLayerViewProperties): ImageryLayerView;
-  }
-
-  export const ImageryLayerView: ImageryLayerViewConstructor;
-
-  interface ImageryLayerViewProperties extends LayerViewProperties {
-    pixelData?: ImageryLayerViewPixelData;
-  }
-
-  interface SceneLayerView extends LayerView {
-    highlight(target?: Graphic | Graphic[] | number | number[]): any;
-    queryExtent(params?: Query): IPromise<any>;
-    queryFeatureCount(params?: Query): IPromise<any>;
-    queryFeatures(params?: Query): IPromise<any>;
-    queryObjectIds(params?: Query): IPromise<any>;
-  }
-
-  interface SceneLayerViewConstructor {
-    new(properties?: SceneLayerViewProperties): SceneLayerView;
-  }
-
-  export const SceneLayerView: SceneLayerViewConstructor;
-
-  interface SceneLayerViewProperties extends LayerViewProperties {
-
-  }
-
-  interface StreamLayerView extends Accessor, Evented {
-    connectionError: Error;
-    connectionStatus: string;
-    filter: StreamLayerViewFilter;
-    graphics: Collection;
-
-    connect(): IPromise<any>;
-    disconnect(): void;
-    updateFilter(filter: StreamLayerViewUpdateFilterFilter): IPromise<any>;
-
-    on(name: "data-received", eventHandler: StreamLayerViewDataReceivedEventHandler): IHandle;
-    on(name: "data-received", modifiers: string[], eventHandler: StreamLayerViewDataReceivedEventHandler): IHandle;
-  }
-
-  interface StreamLayerViewConstructor {
-    new(properties?: StreamLayerViewProperties): StreamLayerView;
-  }
-
-  export const StreamLayerView: StreamLayerViewConstructor;
-
-  interface StreamLayerViewProperties {
-    connectionError?: Error;
-    connectionStatus?: string;
-    filter?: StreamLayerViewFilter;
-    graphics?: Collection | any[];
-  }
-
-  interface UI extends Accessor {
-    container: any;
-    height: number;
-    padding: any;
-    view: MapView | SceneView;
-    width: number;
-
-    add(component: Widget | any | string | any | any, position?: string | any): void;
-    empty(position?: string): void;
-    move(component: Widget | any | string | any | any, position?: string): void;
-    remove(component: any | any[]): void;
-  }
-
-  interface UIConstructor {
-    new(properties?: UIProperties): UI;
-  }
-
-  export const UI: UIConstructor;
-
-  interface UIProperties {
-    container?: any;
-    height?: number;
-    padding?: any | number;
-    view?: MapView | SceneView;
-    width?: number;
-  }
-
-  interface DefaultUI extends UI {
-    components: string[];
-  }
-
-  interface DefaultUIConstructor {
-    new(properties?: DefaultUIProperties): DefaultUI;
-  }
-
-  export const DefaultUI: DefaultUIConstructor;
-
-  interface DefaultUIProperties extends UIProperties {
-    components?: string[];
+  interface WebMapProperties extends MapProperties {
+    applicationProperties?: any;
+    bookmarks?: any[];
+    initialViewProperties?: InitialViewPropertiesProperties;
+    loaded?: boolean;
+    loadError?: Error;
+    loadStatus?: string;
+    portalItem?: PortalItemProperties;
+    presentation?: any;
+    sourceVersion?: WebMapSourceVersion;
+    tables?: any[];
+    widgets?: any;
   }
 
   interface InitialViewProperties extends Accessor, corePromise {
     spatialReference: SpatialReference;
     viewpoint: Viewpoint;
 
-    clone(): this;
+    clone(): InitialViewProperties;
   }
 
   interface InitialViewPropertiesConstructor {
@@ -7689,10 +9382,56 @@ declare namespace __esri {
     viewpoint?: ViewpointProperties;
   }
 
+  export interface WebMapSourceVersion {
+    major: number;
+    minor: number;
+  }
+
+  interface WebScene extends Map, corePromise {
+    clippingArea: Extent;
+    clippingEnabled: boolean;
+    heightModelInfo: HeightModelInfo;
+    initialViewProperties: websceneInitialViewProperties;
+    loaded: boolean;
+    loadError: Error;
+    loadStatus: string;
+    portalItem: PortalItem;
+    presentation: Presentation;
+    sourceVersion: WebSceneSourceVersion;
+
+    load(): IPromise<any>;
+    save(options?: WebSceneSaveOptions): IPromise<PortalItem>;
+    saveAs(portalItem: PortalItem, options?: WebSceneSaveAsOptions): IPromise<PortalItem>;
+    toJSON(): any;
+    updateFrom(view: SceneView, options?: WebSceneUpdateFromOptions): void;
+  }
+
+  interface WebSceneConstructor {
+    new(properties?: WebSceneProperties): WebScene;
+
+
+    fromJSON(json: any): any;
+  }
+
+  export const WebScene: WebSceneConstructor;
+
+  interface WebSceneProperties extends MapProperties {
+    clippingArea?: ExtentProperties;
+    clippingEnabled?: boolean;
+    heightModelInfo?: HeightModelInfoProperties;
+    initialViewProperties?: websceneInitialViewPropertiesProperties;
+    loaded?: boolean;
+    loadError?: Error;
+    loadStatus?: string;
+    portalItem?: PortalItemProperties;
+    presentation?: PresentationProperties;
+    sourceVersion?: WebSceneSourceVersion;
+  }
+
   interface Environment extends Accessor {
     lighting: Lighting;
 
-    clone(): this;
+    clone(): Environment;
   }
 
   interface EnvironmentConstructor {
@@ -7711,7 +9450,7 @@ declare namespace __esri {
     viewingMode: string;
     viewpoint: Viewpoint;
 
-    clone(): this;
+    clone(): websceneInitialViewProperties;
   }
 
   interface websceneInitialViewPropertiesConstructor {
@@ -7732,7 +9471,7 @@ declare namespace __esri {
     directShadowsEnabled: boolean;
     displayUTCOffset: number;
 
-    clone(): this;
+    clone(): Lighting;
   }
 
   interface LightingConstructor {
@@ -7742,15 +9481,15 @@ declare namespace __esri {
   export const Lighting: LightingConstructor;
 
   interface LightingProperties {
-    date?: Date;
+    date?: DateProperties;
     directShadowsEnabled?: boolean;
     displayUTCOffset?: number;
   }
 
   interface Presentation extends Accessor {
-    slides: Collection;
+    slides: Collection<Slide>;
 
-    clone(): this;
+    clone(): Presentation;
   }
 
   interface PresentationConstructor {
@@ -7760,42 +9499,119 @@ declare namespace __esri {
   export const Presentation: PresentationConstructor;
 
   interface PresentationProperties {
-    slides?: Collection | any[];
+    slides?: CollectionProperties<SlideProperties>;
   }
 
   interface Slide extends Accessor {
-    basemap: Basemap;
+    basemap: Basemap | string;
     description: SlideDescription;
     environment: Environment;
     id: string;
     thumbnail: SlideThumbnail;
     title: SlideTitle;
     viewpoint: Viewpoint;
-    visibleLayers: SlideVisibleLayers;
+    visibleLayers: Collection<SlideVisibleLayers>;
 
-    applyTo(view: SceneView, options?: SlideApplyToOptions): IPromise<any>;
-    clone(): this;
-    updateFrom(view: SceneView, options?: SlideUpdateFromOptions): IPromise<any>;
+    applyTo(view: SceneView, options?: SlideApplyToOptions): IPromise<Slide>;
+    clone(): Slide;
+    updateFrom(view: SceneView, options?: SlideUpdateFromOptions): IPromise<Slide>;
   }
 
   interface SlideConstructor {
     new(properties?: SlideProperties): Slide;
 
 
-    createFrom(view: SceneView, options?: SlideCreateFromOptions): IPromise<any>;
+    createFrom(view: SceneView, options?: SlideCreateFromOptions): IPromise<Slide>;
   }
 
   export const Slide: SlideConstructor;
 
   interface SlideProperties {
-    basemap?: Basemap | string;
+    basemap?: BasemapProperties | string;
     description?: SlideDescriptionProperties;
     environment?: EnvironmentProperties;
     id?: string;
     thumbnail?: SlideThumbnailProperties;
     title?: SlideTitleProperties;
     viewpoint?: ViewpointProperties;
-    visibleLayers?: SlideVisibleLayers;
+    visibleLayers?: CollectionProperties<SlideVisibleLayersProperties>;
+  }
+
+  export interface SlideApplyToOptions {
+    animate: boolean;
+    speedFactor?: number;
+    duration?: number;
+    maxDuration?: number;
+    easing?: string | EasingFunction;
+  }
+
+  export interface SlideCreateFromOptions {
+    screenshot: SlideCreateFromOptionsScreenshot;
+  }
+
+  export interface SlideCreateFromOptionsScreenshot {
+    format: string;
+    quality: number;
+    width: number;
+    height: number;
+  }
+
+  export interface SlideDescriptionProperties {
+    text?: string;
+  }
+  export interface SlideDescription extends Accessor {
+    text?: string;
+  }
+
+  export interface SlideThumbnailProperties {
+    url?: string;
+  }
+  export interface SlideThumbnail extends Accessor {
+    url?: string;
+  }
+
+  export interface SlideTitleProperties {
+    text?: string;
+  }
+  export interface SlideTitle extends Accessor {
+    text?: string;
+  }
+
+  export interface SlideUpdateFromOptions {
+    screenshot: SlideUpdateFromOptionsScreenshot;
+  }
+
+  export interface SlideUpdateFromOptionsScreenshot {
+    format: string;
+    quality: number;
+    width: number;
+    height: number;
+  }
+
+  export interface SlideVisibleLayersProperties {
+    id?: string;
+  }
+  export interface SlideVisibleLayers extends Accessor {
+    id: string;
+  }
+
+  export interface WebSceneSaveAsOptions {
+    folder?: PortalFolder;
+    ignoreUnsupported?: boolean;
+  }
+
+  export interface WebSceneSaveOptions {
+    ignoreUnsupported?: boolean;
+  }
+
+  export interface WebSceneSourceVersion {
+    major: number;
+    minor: number;
+  }
+
+  export interface WebSceneUpdateFromOptions {
+    environmentExcluded?: boolean;
+    viewpointExcluded?: boolean;
   }
 
   interface Attribution extends Widget {
@@ -7812,9 +9628,22 @@ declare namespace __esri {
   export const Attribution: AttributionConstructor;
 
   interface AttributionProperties extends WidgetProperties {
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: AttributionViewModel;
   }
+
+  interface AttributionViewModel {
+    attributionText: string;
+    itemDelimiter: string;
+    state: string;
+    view: MapView | SceneView;
+  }
+
+  interface AttributionViewModelConstructor {
+    new(properties?: any): AttributionViewModel;
+  }
+
+  export const AttributionViewModel: AttributionViewModelConstructor;
 
   interface BasemapGallery extends Widget {
     activeBasemap: Basemap;
@@ -7834,13 +9663,63 @@ declare namespace __esri {
   interface BasemapGalleryProperties extends WidgetProperties {
     activeBasemap?: BasemapProperties;
     source?: LocalBasemapsSource | PortalBasemapsSource;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: BasemapGalleryViewModelProperties;
   }
 
+  interface BasemapGalleryItem {
+    basemap: Basemap;
+    error: Error;
+    state: string;
+    view: MapView | SceneView;
+  }
+
+  export const BasemapGalleryItem: BasemapGalleryItem;
+
+  interface BasemapGalleryViewModel extends Accessor {
+    activeBasemap: Basemap;
+    items: Collection<BasemapGalleryItem>;
+    source: LocalBasemapsSource | PortalBasemapsSource;
+    state: string;
+    view: MapView | SceneView;
+
+    basemapEquals(basemap1: Basemap, basemap2: Basemap): boolean;
+  }
+
+  interface BasemapGalleryViewModelConstructor {
+    new(properties?: BasemapGalleryViewModelProperties): BasemapGalleryViewModel;
+  }
+
+  export const BasemapGalleryViewModel: BasemapGalleryViewModelConstructor;
+
+  interface BasemapGalleryViewModelProperties {
+    activeBasemap?: BasemapProperties;
+    items?: CollectionProperties<BasemapGalleryItem>;
+    source?: LocalBasemapsSource | PortalBasemapsSource;
+    state?: string;
+    view?: MapViewProperties | SceneViewProperties;
+  }
+
+  interface LocalBasemapsSource {
+    basemaps: Collection<Basemap>;
+    state: string;
+  }
+
+  export const LocalBasemapsSource: LocalBasemapsSource;
+
+  interface PortalBasemapsSource {
+    basemaps: Collection<Basemap>;
+    filterFunction: Function;
+    portal: Portal;
+    query: any | string;
+    state: string;
+  }
+
+  export const PortalBasemapsSource: PortalBasemapsSource;
+
   interface BasemapToggle extends Widget {
     activeBasemap: Basemap;
-    nextBasemap: Basemap;
+    nextBasemap: Basemap | string;
     titleVisible: boolean;
     view: MapView | SceneView;
     viewModel: BasemapToggleViewModel;
@@ -7857,27 +9736,52 @@ declare namespace __esri {
 
   interface BasemapToggleProperties extends WidgetProperties {
     activeBasemap?: BasemapProperties;
-    nextBasemap?: Basemap | string;
+    nextBasemap?: BasemapProperties | string;
     titleVisible?: boolean;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: BasemapToggleViewModelProperties;
+  }
+
+  interface BasemapToggleViewModel extends Accessor, Evented {
+    activeBasemap: Basemap;
+    nextBasemap: Basemap | string;
+    state: string;
+    view: MapView | SceneView;
+
+    toggle(): void;
+  }
+
+  interface BasemapToggleViewModelConstructor {
+    new(properties?: BasemapToggleViewModelProperties): BasemapToggleViewModel;
+
+
+    getThumbnailUrl(basemap: Basemap): string;
+  }
+
+  export const BasemapToggleViewModel: BasemapToggleViewModelConstructor;
+
+  interface BasemapToggleViewModelProperties {
+    activeBasemap?: BasemapProperties;
+    nextBasemap?: BasemapProperties | string;
+    state?: string;
+    view?: MapViewProperties | SceneViewProperties;
   }
 
   interface ColorSlider extends Accessor, Widgette {
     handlesVisible: boolean;
-    histogram: any;
+    histogram: HistogramResult;
     histogramVisible: boolean;
     histogramWidth: number;
     labelsVisible: boolean;
     maxValue: number;
     minValue: number;
     numHandles: number;
-    statistics: any;
+    statistics: ColorSliderStatistics;
     statisticsVisible: boolean;
     syncedHandles: boolean;
     ticksVisible: boolean;
     values: ColorSliderValues[];
-    visualVariable: any;
+    visualVariable: ColorVisualVariable;
   }
 
   interface ColorSliderConstructor {
@@ -7888,19 +9792,32 @@ declare namespace __esri {
 
   interface ColorSliderProperties extends WidgetteProperties {
     handlesVisible?: boolean;
-    histogram?: any;
+    histogram?: HistogramResult;
     histogramVisible?: boolean;
     histogramWidth?: number;
     labelsVisible?: boolean;
     maxValue?: number;
     minValue?: number;
     numHandles?: number;
-    statistics?: any;
+    statistics?: ColorSliderStatistics;
     statisticsVisible?: boolean;
     syncedHandles?: boolean;
     ticksVisible?: boolean;
     values?: ColorSliderValues[];
-    visualVariable?: any;
+    visualVariable?: ColorVisualVariable;
+  }
+
+  export interface ColorSliderStatistics {
+    avg: number;
+    max: number;
+    min: number;
+    stddev: number;
+  }
+
+  export interface ColorSliderValues {
+    color: Color;
+    value: number;
+    label: string;
   }
 
   interface Compass extends Widget {
@@ -7918,15 +9835,35 @@ declare namespace __esri {
   export const Compass: CompassConstructor;
 
   interface CompassProperties extends WidgetProperties {
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: CompassViewModelProperties;
+  }
+
+  interface CompassViewModel extends Accessor {
+    orientation: any;
+    state: string;
+    view: MapView | SceneView;
+
+    reset(): void;
+  }
+
+  interface CompassViewModelConstructor {
+    new(properties?: CompassViewModelProperties): CompassViewModel;
+  }
+
+  export const CompassViewModel: CompassViewModelConstructor;
+
+  interface CompassViewModelProperties {
+    orientation?: any;
+    state?: string;
+    view?: MapViewProperties | SceneViewProperties;
   }
 
   interface Expand extends Widget {
     autoCollapse: boolean;
     collapseIconClass: string;
     collapseTooltip: string;
-    content: any;
+    content: Node | string | Widget;
     expanded: boolean;
     expandIconClass: string;
     expandTooltip: string;
@@ -7950,13 +9887,33 @@ declare namespace __esri {
     autoCollapse?: boolean;
     collapseIconClass?: string;
     collapseTooltip?: string;
-    content?: any | string | Widget;
+    content?: Node | string | WidgetProperties;
     expanded?: boolean;
     expandIconClass?: string;
     expandTooltip?: string;
     iconNumber?: string;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: ExpandViewModelProperties;
+  }
+
+  interface ExpandViewModel extends Accessor {
+    autoCollapse: boolean;
+    expanded: boolean;
+    state: string;
+    view: MapView | SceneView;
+  }
+
+  interface ExpandViewModelConstructor {
+    new(properties?: ExpandViewModelProperties): ExpandViewModel;
+  }
+
+  export const ExpandViewModel: ExpandViewModelConstructor;
+
+  interface ExpandViewModelProperties {
+    autoCollapse?: boolean;
+    expanded?: boolean;
+    state?: string;
+    view?: MapViewProperties | SceneViewProperties;
   }
 
   interface Home extends Widget {
@@ -7975,15 +9932,36 @@ declare namespace __esri {
   export const Home: HomeConstructor;
 
   interface HomeProperties extends WidgetProperties {
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: HomeViewModelProperties;
+    viewpoint?: ViewpointProperties;
+  }
+
+  interface HomeViewModel extends Accessor, Evented {
+    state: string;
+    view: MapView | SceneView;
+    viewpoint: Viewpoint;
+
+    go(): void;
+  }
+
+  interface HomeViewModelConstructor {
+    new(properties?: HomeViewModelProperties): HomeViewModel;
+  }
+
+  export const HomeViewModel: HomeViewModelConstructor;
+
+  interface HomeViewModelProperties {
+    state?: string;
+    view?: MapViewProperties | SceneViewProperties;
     viewpoint?: ViewpointProperties;
   }
 
   interface LayerList extends Widget {
     createActionsFunction: Function;
     listItemCreatedFunction: Function;
-    operationalItems: Collection;
+    operationalItems: Collection<ListItem>;
+    statusIndicatorsVisible: boolean;
     view: MapView | SceneView;
     viewModel: LayerListViewModel;
 
@@ -8000,10 +9978,60 @@ declare namespace __esri {
   interface LayerListProperties extends WidgetProperties {
     createActionsFunction?: Function;
     listItemCreatedFunction?: Function;
-    operationalItems?: Collection | any[];
-    view?: MapView | SceneView;
+    operationalItems?: CollectionProperties<ListItem>;
+    statusIndicatorsVisible?: boolean;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: LayerListViewModelProperties;
   }
+
+  interface LayerListViewModel extends Accessor {
+    createActionsFunction: Function;
+    listItemCreatedFunction: Function;
+    operationalItems: Collection<ListItem>;
+    state: string;
+    view: MapView | SceneView;
+
+    triggerAction(action: Action, item: ListItem): void;
+  }
+
+  interface LayerListViewModelConstructor {
+    new(properties?: LayerListViewModelProperties): LayerListViewModel;
+  }
+
+  export const LayerListViewModel: LayerListViewModelConstructor;
+
+  interface LayerListViewModelProperties {
+    createActionsFunction?: Function;
+    listItemCreatedFunction?: Function;
+    operationalItems?: CollectionProperties<ListItem>;
+    state?: string;
+    view?: MapViewProperties | SceneViewProperties;
+  }
+
+  interface ListItem {
+    actionsOpen: boolean;
+    actionsSections: Collection<Collection<Action>>;
+    children: Collection<ListItem>;
+    error: Error;
+    layer: Layer;
+    layerView: LayerView;
+    open: boolean;
+    parent: ListItem;
+    title: string;
+    updating: boolean;
+    view: MapView | SceneView;
+    visibilityMode: string;
+    visible: boolean;
+    visibleAtCurrentScale: boolean;
+
+    clone(): ListItem;
+  }
+
+  interface ListItemConstructor {
+    new(): ListItem;
+  }
+
+  export const ListItem: ListItemConstructor;
 
   interface Legend extends Widget {
     layerInfos: LegendLayerInfos[];
@@ -8020,7 +10048,12 @@ declare namespace __esri {
 
   interface LegendProperties extends WidgetProperties {
     layerInfos?: LegendLayerInfos[];
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
+  }
+
+  export interface LegendLayerInfos {
+    title?: string;
+    layer: Layer;
   }
 
   interface Locate extends Widget {
@@ -8044,8 +10077,24 @@ declare namespace __esri {
     geolocationOptions?: any;
     goToLocationEnabled?: boolean;
     graphic?: GraphicProperties;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: LocateViewModelProperties;
+  }
+
+  interface LocateViewModel extends Accessor, Evented, GeolocationPositioning {
+    state: string;
+
+    locate(): IPromise<any>;
+  }
+
+  interface LocateViewModelConstructor {
+    new(properties?: LocateViewModelProperties): LocateViewModel;
+  }
+
+  export const LocateViewModel: LocateViewModelConstructor;
+
+  interface LocateViewModelProperties extends GeolocationPositioningProperties {
+    state?: string;
   }
 
   interface NavigationToggle extends Widget {
@@ -8069,9 +10118,31 @@ declare namespace __esri {
     viewModel?: NavigationToggleViewModelProperties;
   }
 
-  interface Popup extends Accessor, Widgette, Evented {
-    actions: Collection;
-    content: string;
+  interface NavigationToggleViewModel extends Accessor {
+    navigationMode: string;
+    state: string;
+    view: SceneView;
+
+    toggle(): void;
+  }
+
+  interface NavigationToggleViewModelConstructor {
+    new(properties?: NavigationToggleViewModelProperties): NavigationToggleViewModel;
+  }
+
+  export const NavigationToggleViewModel: NavigationToggleViewModelConstructor;
+
+  interface NavigationToggleViewModelProperties {
+    navigationMode?: string;
+    state?: string;
+    view?: SceneViewProperties;
+  }
+
+  interface Popup extends Widget, Evented {
+    actions: Collection<Action>;
+    autoCloseEnabled: boolean;
+    collapsed: boolean;
+    content: string | Node;
     currentDockPosition: string;
     dockEnabled: boolean;
     dockOptions: PopupDockOptions;
@@ -8085,12 +10156,14 @@ declare namespace __esri {
     title: string;
     view: MapView | SceneView;
     viewModel: PopupViewModel;
+    visible: boolean;
 
     clear(): void;
     close(): void;
     next(): PopupViewModel;
     open(options?: PopupOpenOptions): void;
     previous(): PopupViewModel;
+    render(): any;
     reposition(): void;
     triggerAction(actionIndex: number): void;
   }
@@ -8101,9 +10174,11 @@ declare namespace __esri {
 
   export const Popup: PopupConstructor;
 
-  interface PopupProperties extends WidgetteProperties {
-    actions?: Collection | any[];
-    content?: string | any;
+  interface PopupProperties extends WidgetProperties {
+    actions?: CollectionProperties<ActionProperties>;
+    autoCloseEnabled?: boolean;
+    collapsed?: boolean;
+    content?: string | Node;
     currentDockPosition?: string;
     dockEnabled?: boolean;
     dockOptions?: PopupDockOptions;
@@ -8115,8 +10190,80 @@ declare namespace __esri {
     selectedFeature?: GraphicProperties;
     selectedFeatureIndex?: number;
     title?: string;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: PopupViewModelProperties;
+    visible?: boolean;
+  }
+
+  interface PopupViewModel extends Accessor, Evented {
+    actions: Collection<Collection<Action>>;
+    autoCloseEnabled: boolean;
+    content: string | Node;
+    featureCount: number;
+    features: Graphic[];
+    highlightEnabled: boolean;
+    location: Point;
+    pendingPromisesCount: number;
+    promiseCount: number;
+    promises: IPromise<any>[];
+    selectedFeature: Graphic;
+    selectedFeatureIndex: number;
+    state: string;
+    title: string;
+    view: MapView | SceneView;
+    visible: boolean;
+
+    clear(): void;
+    next(): PopupViewModel;
+    previous(): PopupViewModel;
+    triggerAction(actionIndex: number): void;
+  }
+
+  interface PopupViewModelConstructor {
+    new(properties?: PopupViewModelProperties): PopupViewModel;
+  }
+
+  export const PopupViewModel: PopupViewModelConstructor;
+
+  interface PopupViewModelProperties {
+    actions?: CollectionProperties<CollectionProperties<ActionProperties>>;
+    autoCloseEnabled?: boolean;
+    content?: string | Node;
+    featureCount?: number;
+    features?: GraphicProperties[];
+    highlightEnabled?: boolean;
+    location?: PointProperties;
+    pendingPromisesCount?: number;
+    promiseCount?: number;
+    promises?: IPromise<any>[];
+    selectedFeature?: GraphicProperties;
+    selectedFeatureIndex?: number;
+    state?: string;
+    title?: string;
+    view?: MapViewProperties | SceneViewProperties;
+    visible?: boolean;
+  }
+
+  export interface PopupDockOptions {
+    breakpoint?: boolean | PopupDockOptionsBreakpoint;
+    buttonEnabled?: boolean;
+    position?: string | Function;
+  }
+
+  export interface PopupDockOptionsBreakpoint {
+    width?: number;
+    height?: number;
+  }
+
+  export interface PopupOpenOptions {
+    title?: string;
+    content?: string;
+    location?: Geometry;
+    features?: Graphic[];
+    promises?: IPromise<any>[];
+    featureMenuOpen?: boolean;
+    updateLocationEnabled?: boolean;
+    collapsed?: boolean;
   }
 
   interface Print extends Widget {
@@ -8137,6 +10284,26 @@ declare namespace __esri {
     printServiceUrl?: string;
     view?: MapViewProperties;
     viewModel?: PrintViewModelProperties;
+  }
+
+  interface PrintViewModel extends Accessor {
+    printServiceUrl: string;
+    updateDelay: number;
+    view: MapView;
+
+    print(printTemplate: PrintTemplate): IPromise<any>;
+  }
+
+  interface PrintViewModelConstructor {
+    new(properties?: PrintViewModelProperties): PrintViewModel;
+  }
+
+  export const PrintViewModel: PrintViewModelConstructor;
+
+  interface PrintViewModelProperties {
+    printServiceUrl?: string;
+    updateDelay?: number;
+    view?: MapViewProperties;
   }
 
   interface ScaleBar extends Widget {
@@ -8161,12 +10328,26 @@ declare namespace __esri {
     viewModel?: ScaleBarViewModelProperties;
   }
 
+  interface ScaleBarViewModel extends Accessor {
+    view: MapView;
+  }
+
+  interface ScaleBarViewModelConstructor {
+    new(properties?: ScaleBarViewModelProperties): ScaleBarViewModel;
+  }
+
+  export const ScaleBarViewModel: ScaleBarViewModelConstructor;
+
+  interface ScaleBarViewModelProperties {
+    view?: MapViewProperties;
+  }
+
   interface Search extends Widget {
     activeSource: FeatureLayer | Locator;
     activeSourceIndex: number;
     allPlaceholder: string;
     autoSelect: boolean;
-    defaultSource: any | any;
+    defaultSource: LocatorSource | FeatureLayerSource;
     maxResults: number;
     maxSuggestions: number;
     minSuggestCharacters: number;
@@ -8179,9 +10360,9 @@ declare namespace __esri {
     searchAllEnabled: boolean;
     searching: boolean;
     searchTerm: string;
-    selectedResult: any;
-    sources: Collection;
-    suggestions: any[];
+    selectedResult: SearchResult;
+    sources: Collection<FeatureLayerSource | LocatorSource>;
+    suggestions: SuggestResult[];
     suggestionsEnabled: boolean;
     view: MapView | SceneView;
     viewModel: SearchViewModel;
@@ -8190,8 +10371,8 @@ declare namespace __esri {
     clear(): void;
     focus(): void;
     render(): any;
-    search(searchTerm?: string | Geometry | any | number[][]): IPromise<any>;
-    suggest(value?: string): IPromise<any>;
+    search(searchTerm?: string | Geometry | SuggestResult | number[][]): IPromise<SearchResponse>;
+    suggest(value?: string): IPromise<SuggestResponse>;
   }
 
   interface SearchConstructor {
@@ -8201,11 +10382,11 @@ declare namespace __esri {
   export const Search: SearchConstructor;
 
   interface SearchProperties extends WidgetProperties {
-    activeSource?: FeatureLayer | Locator;
+    activeSource?: FeatureLayerProperties | LocatorProperties;
     activeSourceIndex?: number;
     allPlaceholder?: string;
     autoSelect?: boolean;
-    defaultSource?: any | any;
+    defaultSource?: LocatorSource | FeatureLayerSource;
     maxResults?: number;
     maxSuggestions?: number;
     minSuggestCharacters?: number;
@@ -8218,17 +10399,366 @@ declare namespace __esri {
     searchAllEnabled?: boolean;
     searching?: boolean;
     searchTerm?: string;
-    selectedResult?: any;
-    sources?: Collection | any[];
-    suggestions?: any[];
+    selectedResult?: SearchResult;
+    sources?: CollectionProperties<FeatureLayerSource | LocatorSource>;
+    suggestions?: SuggestResult[];
     suggestionsEnabled?: boolean;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: SearchViewModelProperties;
+  }
+
+  interface SearchViewModel extends Accessor, Evented {
+    activeSource: FeatureLayer | Locator;
+    activeSourceIndex: number;
+    allPlaceholder: string;
+    autoSelect: boolean;
+    defaultSource: SearchViewModelFeatureLayerSource | SearchViewModelLocatorSource;
+    maxInputLength: number;
+    maxResults: number;
+    maxSuggestions: number;
+    minSuggestCharacters: number;
+    placeholder: string;
+    popupEnabled: boolean;
+    popupOpenOnSelect: boolean;
+    popupTemplate: PopupTemplate;
+    resultGraphic: Graphic;
+    resultGraphicEnabled: boolean;
+    results: any[];
+    searchAllEnabled: boolean;
+    searchTerm: string;
+    selectedResult: any;
+    sources: Collection<FeatureLayerSource | LocatorSource>;
+    suggestionDelay: number;
+    suggestions: SearchViewModelSuggestResult[];
+    suggestionsEnabled: boolean;
+    view: MapView | SceneView;
+
+    clear(): void;
+    search(searchTerm?: string | Geometry | SearchViewModelSuggestResult | number[][]): IPromise<SearchViewModelSearchResponse>;
+    suggest(value?: string): IPromise<SearchViewModelSuggestResponse>;
+
+    on(name: "search-clear", eventHandler: SearchViewModelSearchClearEventHandler): IHandle;
+    on(name: "search-clear", modifiers: string[], eventHandler: SearchViewModelSearchClearEventHandler): IHandle;
+    on(name: "search-start", eventHandler: SearchViewModelSearchStartEventHandler): IHandle;
+    on(name: "search-start", modifiers: string[], eventHandler: SearchViewModelSearchStartEventHandler): IHandle;
+    on(name: "suggest-start", eventHandler: SearchViewModelSuggestStartEventHandler): IHandle;
+    on(name: "suggest-start", modifiers: string[], eventHandler: SearchViewModelSuggestStartEventHandler): IHandle;
+    on(name: "load", eventHandler: SearchViewModelLoadEventHandler): IHandle;
+    on(name: "load", modifiers: string[], eventHandler: SearchViewModelLoadEventHandler): IHandle;
+    on(name: "search-complete", eventHandler: SearchViewModelSearchCompleteEventHandler): IHandle;
+    on(name: "search-complete", modifiers: string[], eventHandler: SearchViewModelSearchCompleteEventHandler): IHandle;
+    on(name: "select-result", eventHandler: SearchViewModelSelectResultEventHandler): IHandle;
+    on(name: "select-result", modifiers: string[], eventHandler: SearchViewModelSelectResultEventHandler): IHandle;
+    on(name: "suggest-complete", eventHandler: SearchViewModelSuggestCompleteEventHandler): IHandle;
+    on(name: "suggest-complete", modifiers: string[], eventHandler: SearchViewModelSuggestCompleteEventHandler): IHandle;
+  }
+
+  interface SearchViewModelConstructor {
+    new(properties?: SearchViewModelProperties): SearchViewModel;
+  }
+
+  export const SearchViewModel: SearchViewModelConstructor;
+
+  interface SearchViewModelProperties {
+    activeSource?: FeatureLayerProperties | LocatorProperties;
+    activeSourceIndex?: number;
+    allPlaceholder?: string;
+    autoSelect?: boolean;
+    defaultSource?: SearchViewModelFeatureLayerSource | SearchViewModelLocatorSource;
+    maxInputLength?: number;
+    maxResults?: number;
+    maxSuggestions?: number;
+    minSuggestCharacters?: number;
+    placeholder?: string;
+    popupEnabled?: boolean;
+    popupOpenOnSelect?: boolean;
+    popupTemplate?: PopupTemplateProperties;
+    resultGraphic?: GraphicProperties;
+    resultGraphicEnabled?: boolean;
+    results?: any[];
+    searchAllEnabled?: boolean;
+    searchTerm?: string;
+    selectedResult?: any;
+    sources?: CollectionProperties<FeatureLayerSource | LocatorSource>;
+    suggestionDelay?: number;
+    suggestions?: SearchViewModelSuggestResult[];
+    suggestionsEnabled?: boolean;
+    view?: MapViewProperties | SceneViewProperties;
+  }
+
+  export interface SearchViewModelFeatureLayerSource {
+    popup: Popup;
+    autoNavigate: boolean;
+    exactMatch: boolean;
+    featureLayer: FeatureLayer;
+    filter: SearchViewModelFeatureLayerSourceFilter;
+    maxResults: number;
+    maxSuggestions: number;
+    minSuggestCharacters: number;
+    name: string;
+    outFields: string[];
+    placeholder: string;
+    displayField: string;
+    popupEnabled: boolean;
+    popupOpenOnSelect: boolean;
+    prefix: string;
+    resultGraphicEnabled: boolean;
+    resultSymbol: Symbol;
+    searchFields: string[];
+    suffix: string;
+    suggestionsEnabled: boolean;
+    suggestionTemplate: string;
+    withinViewEnabled: boolean;
+    zoomScale: number;
+  }
+
+  export interface SearchViewModelLoadEvent {
+  }
+
+  export interface SearchViewModelLocatorSource {
+    placeholder: string;
+    autoNavigate: boolean;
+    countryCode: string;
+    filter: SearchViewModelLocatorSourceFilter;
+    localSearchOptions: SearchViewModelLocatorSourceLocalSearchOptions;
+    locationToAddressDistance: number;
+    locator: Locator;
+    maxResults: number;
+    maxSuggestions: number;
+    minSuggestCharacters: number;
+    name: string;
+    outFields: string[];
+    categories: string[];
+    popup: Popup;
+    popupEnabled: boolean;
+    popupOpenOnSelect: boolean;
+    prefix: string;
+    resultGraphicEnabled: boolean;
+    resultSymbol: Symbol;
+    searchTemplate: string;
+    singleLineFieldName: string;
+    suggestionsEnabled: boolean;
+    suffix: string;
+    withinViewEnabled: boolean;
+    zoomScale: number;
+  }
+
+  export interface SearchViewModelSearchClearEvent {
+  }
+
+  export interface SearchViewModelSearchCompleteEvent {
+    activeSourceIndex: number;
+    errors: Error[];
+    numResults: number;
+    results: SearchViewModelSearchCompleteEventResults[];
+    searchTerm: string;
+  }
+
+  export interface SearchViewModelSearchResponse {
+    activeSourceIndex: number;
+    errors: Error[];
+    numResults: number;
+    searchTerm: string;
+    results: SearchViewModelSearchResponseResults[];
+  }
+
+  export interface SearchViewModelSearchResult {
+    extent: Extent;
+    feature: Graphic;
+    name: string;
+  }
+
+  export interface SearchViewModelSearchStartEvent {
+  }
+
+  export interface SearchViewModelSelectResultEvent {
+    result: SearchViewModelSelectResultEventResult;
+    source: any;
+    sourceIndex: number;
+  }
+
+  export interface SearchViewModelSuggestCompleteEvent {
+    activeSourceIndex: number;
+    errors: Error[];
+    numResults: number;
+    results: SearchViewModelSuggestCompleteEventResults[];
+    searchTerm: string;
+  }
+
+  export interface SearchViewModelSuggestResponse {
+    activeSourceIndex: number;
+    errors: Error[];
+    numResults: number;
+    searchTerm: string;
+    results: SearchViewModelSuggestResponseResults[];
+  }
+
+  export interface SearchViewModelSuggestResult {
+    key: string;
+    text: string;
+    sourceIndex: number;
+  }
+
+  export interface SearchViewModelSuggestStartEvent {
+  }
+
+  export interface SearchViewModelFeatureLayerSourceFilter {
+    where: string;
+    geometry: Geometry;
+  }
+
+  export interface SearchViewModelLocatorSourceFilter {
+    where: string;
+    geometry: Geometry;
+  }
+
+  export interface SearchViewModelLocatorSourceLocalSearchOptions {
+    distance: number;
+    minScale: number;
+  }
+
+  export interface SearchViewModelSearchCompleteEventResults {
+    results: SearchResult[];
+    sourceIndex: number;
+    source: any[];
+  }
+
+  export interface SearchViewModelSearchResponseResults {
+    results: SearchViewModelSearchResult[];
+    sourceIndex: number;
+    source: any;
+  }
+
+  export interface SearchViewModelSelectResultEventResult {
+    extent: Extent;
+    feature: Graphic;
+    name: string;
+  }
+
+  export interface SearchViewModelSuggestCompleteEventResults {
+    results: SearchViewModelSuggestResult[];
+    sourceIndex: number;
+    source: any;
+  }
+
+  export interface SearchViewModelSuggestResponseResults {
+    results: SearchViewModelSuggestResult[];
+    sourceIndex: number;
+    source: any;
+  }
+
+  export interface FeatureLayerSource {
+    popup: Popup;
+    autoNavigate: boolean;
+    exactMatch: boolean;
+    featureLayer: FeatureLayer;
+    filter: FeatureLayerSourceFilter;
+    maxResults: number;
+    maxSuggestions: number;
+    minSuggestCharacters: number;
+    name: string;
+    outFields: string[];
+    placeholder: string;
+    displayField: string;
+    popupEnabled: boolean;
+    popupOpenOnSelect: boolean;
+    prefix: string;
+    resultGraphicEnabled: boolean;
+    resultSymbol: Symbol;
+    searchFields: string[];
+    suffix: string;
+    suggestionsEnabled: boolean;
+    suggestionTemplate: string;
+    withinViewEnabled: boolean;
+    zoomScale: number;
+  }
+
+  export interface LocatorSource {
+    placeholder: string;
+    autoNavigate: boolean;
+    countryCode: string;
+    filter: LocatorSourceFilter;
+    localSearchOptions: LocatorSourceLocalSearchOptions;
+    locationToAddressDistance: number;
+    locator: Locator;
+    maxResults: number;
+    maxSuggestions: number;
+    minSuggestCharacters: number;
+    name: string;
+    outFields: string[];
+    categories: string[];
+    popup: Popup;
+    popupEnabled: boolean;
+    popupOpenOnSelect: boolean;
+    prefix: string;
+    resultGraphicEnabled: boolean;
+    resultSymbol: Symbol;
+    searchTemplate: string;
+    singleLineFieldName: string;
+    suggestionsEnabled: boolean;
+    suffix: string;
+    withinViewEnabled: boolean;
+    zoomScale: number;
+  }
+
+  export interface SearchResponse {
+    activeSourceIndex: number;
+    errors: Error[];
+    numResults: number;
+    searchTerm: string;
+    results: SearchResponseResults[];
+  }
+
+  export interface SearchResult {
+    extent: Extent;
+    feature: Graphic;
+    name: string;
+  }
+
+  export interface SuggestResponse {
+    activeSourceIndex: number;
+    errors: Error[];
+    numResults: number;
+    searchTerm: string;
+    results: SuggestResponseResults[];
+  }
+
+  export interface SuggestResult {
+    key: string;
+    text: string;
+    sourceIndex: number;
+  }
+
+  export interface FeatureLayerSourceFilter {
+    where: string;
+    geometry: Geometry;
+  }
+
+  export interface LocatorSourceFilter {
+    where: string;
+    geometry: Geometry;
+  }
+
+  export interface LocatorSourceLocalSearchOptions {
+    distance: number;
+    minScale: number;
+  }
+
+  export interface SearchResponseResults {
+    results: SearchResult[];
+    sourceIndex: number;
+    source: any;
+  }
+
+  export interface SuggestResponseResults {
+    results: SuggestResult[];
+    sourceIndex: number;
+    source: any;
   }
 
   interface SizeSlider extends Accessor, Widgette {
     handlesVisible: boolean;
-    histogram: any;
+    histogram: HistogramResult;
     histogramVisible: boolean;
     histogramWidth: number;
     labelsVisible: boolean;
@@ -8236,11 +10766,12 @@ declare namespace __esri {
     maxValue: number;
     minSize: number;
     minValue: number;
-    statistics: any;
+    statistics: SizeSliderStatistics;
     statisticsVisible: boolean;
+    symbol: SimpleMarkerSymbol | SimpleLineSymbol;
     ticksVisible: boolean;
     values: number[];
-    visualVariable: any;
+    visualVariable: SizeVisualVariable;
   }
 
   interface SizeSliderConstructor {
@@ -8251,7 +10782,7 @@ declare namespace __esri {
 
   interface SizeSliderProperties extends WidgetteProperties {
     handlesVisible?: boolean;
-    histogram?: any;
+    histogram?: HistogramResult;
     histogramVisible?: boolean;
     histogramWidth?: number;
     labelsVisible?: boolean;
@@ -8259,12 +10790,76 @@ declare namespace __esri {
     maxValue?: number;
     minSize?: number;
     minValue?: number;
-    statistics?: any;
+    statistics?: SizeSliderStatistics;
     statisticsVisible?: boolean;
+    symbol?: SimpleMarkerSymbolProperties | SimpleLineSymbolProperties;
     ticksVisible?: boolean;
     values?: number[];
-    visualVariable?: any;
+    visualVariable?: SizeVisualVariable;
   }
+
+  export interface SizeSliderStatistics {
+    avg?: number;
+    max: number;
+    min: number;
+  }
+
+  interface SketchViewModel extends Accessor, Evented {
+    graphic: Graphic;
+    pointSymbol: SimpleMarkerSymbol;
+    polygonSymbol: SimpleFillSymbol;
+    polylineSymbol: SimpleLineSymbol;
+    state: string;
+    view: MapView;
+
+    create(drawAction: string): void;
+    reset(): void;
+  }
+
+  interface SketchViewModelConstructor {
+    new(properties?: SketchViewModelProperties): SketchViewModel;
+  }
+
+  export const SketchViewModel: SketchViewModelConstructor;
+
+  interface SketchViewModelProperties {
+    graphic?: GraphicProperties;
+    pointSymbol?: SimpleMarkerSymbolProperties;
+    polygonSymbol?: SimpleFillSymbolProperties;
+    polylineSymbol?: SimpleLineSymbolProperties;
+    state?: string;
+    view?: MapViewProperties;
+  }
+
+  interface GeolocationPositioning {
+    geolocationOptions: any;
+    goToLocationEnabled: boolean;
+    graphic: Graphic;
+    view: MapView | SceneView;
+  }
+
+  interface GeolocationPositioningConstructor {
+    new(): GeolocationPositioning;
+  }
+
+  export const GeolocationPositioning: GeolocationPositioningConstructor;
+
+  interface GeolocationPositioningProperties {
+    geolocationOptions?: any;
+    goToLocationEnabled?: boolean;
+    graphic?: GraphicProperties;
+    view?: MapViewProperties | SceneViewProperties;
+  }
+
+  interface widget {
+    accessibleHandler(): Function;
+    join(...classNames: string[]): string;
+    renderable(propertyName?: string | string[]): Function;
+    tsx(selector: string, properties?: any, children?: any): any;
+    vmEvent(eventNames: string | string[]): Function;
+  }
+
+  export const widget: widget;
 
   interface Track extends Widget {
     geolocationOptions: any;
@@ -8290,456 +10885,8 @@ declare namespace __esri {
     goToLocationEnabled?: boolean;
     graphic?: GraphicProperties;
     tracking?: boolean;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
     viewModel?: TrackViewModelProperties;
-  }
-
-  interface UnivariateColorSizeSlider extends Accessor, Widgette {
-    handlesVisible: boolean;
-    histogram: any;
-    histogramVisible: boolean;
-    histogramWidth: number;
-    labelsVisible: boolean;
-    maxSize: number;
-    maxValue: number;
-    minSize: number;
-    minValue: number;
-    statistics: any;
-    statisticsVisible: boolean;
-    ticksVisible: boolean;
-    values: number[];
-    visualVariables: any[];
-  }
-
-  interface UnivariateColorSizeSliderConstructor {
-    new(properties?: UnivariateColorSizeSliderProperties): UnivariateColorSizeSlider;
-  }
-
-  export const UnivariateColorSizeSlider: UnivariateColorSizeSliderConstructor;
-
-  interface UnivariateColorSizeSliderProperties extends WidgetteProperties {
-    handlesVisible?: boolean;
-    histogram?: any;
-    histogramVisible?: boolean;
-    histogramWidth?: number;
-    labelsVisible?: boolean;
-    maxSize?: number;
-    maxValue?: number;
-    minSize?: number;
-    minValue?: number;
-    statistics?: any;
-    statisticsVisible?: boolean;
-    ticksVisible?: boolean;
-    values?: number[];
-    visualVariables?: any[];
-  }
-
-  interface Widget extends Accessor, Evented {
-    container: string;
-    destroyed: boolean;
-    id: string;
-
-    destroy(): void;
-    own(handles: any[]): void;
-    postInitialize(): void;
-    renderNow(): void;
-    scheduleRender(): void;
-    startup(): void;
-  }
-
-  interface WidgetConstructor {
-    new(properties?: WidgetProperties): Widget;
-  }
-
-  export const Widget: WidgetConstructor;
-
-  interface WidgetProperties {
-    container?: string | any;
-    destroyed?: boolean;
-    id?: string;
-  }
-
-  interface Zoom extends Widget {
-    view: MapView | SceneView;
-    viewModel: ZoomViewModel;
-
-    render(): any;
-    zoomIn(): void;
-    zoomOut(): void;
-  }
-
-  interface ZoomConstructor {
-    new(properties?: ZoomProperties): Zoom;
-  }
-
-  export const Zoom: ZoomConstructor;
-
-  interface ZoomProperties extends WidgetProperties {
-    view?: MapView | SceneView;
-    viewModel?: ZoomViewModelProperties;
-  }
-
-  interface AttributionViewModel {
-    attributionText: string;
-    itemDelimiter: string;
-    state: string;
-    view: MapView | SceneView;
-  }
-
-  interface AttributionViewModelConstructor {
-    new(properties?: any): AttributionViewModel;
-  }
-
-  export const AttributionViewModel: AttributionViewModelConstructor;
-
-  interface BasemapGalleryViewModel extends Accessor {
-    activeBasemap: Basemap;
-    items: Collection;
-    source: LocalBasemapsSource | PortalBasemapsSource;
-    state: string;
-    view: MapView | SceneView;
-
-    basemapEquals(basemap1: Basemap, basemap2: Basemap): boolean;
-  }
-
-  interface BasemapGalleryViewModelConstructor {
-    new(properties?: BasemapGalleryViewModelProperties): BasemapGalleryViewModel;
-  }
-
-  export const BasemapGalleryViewModel: BasemapGalleryViewModelConstructor;
-
-  interface BasemapGalleryViewModelProperties {
-    activeBasemap?: BasemapProperties;
-    items?: Collection | any[];
-    source?: LocalBasemapsSource | PortalBasemapsSource;
-    state?: string;
-    view?: MapView | SceneView;
-  }
-
-  interface BasemapToggleViewModel extends Accessor, Evented {
-    activeBasemap: Basemap;
-    nextBasemap: Basemap;
-    state: string;
-    view: MapView | SceneView;
-
-    toggle(): void;
-  }
-
-  interface BasemapToggleViewModelConstructor {
-    new(properties?: BasemapToggleViewModelProperties): BasemapToggleViewModel;
-
-
-    getThumbnailUrl(basemap: Basemap): string;
-  }
-
-  export const BasemapToggleViewModel: BasemapToggleViewModelConstructor;
-
-  interface BasemapToggleViewModelProperties {
-    activeBasemap?: BasemapProperties;
-    nextBasemap?: Basemap | string;
-    state?: string;
-    view?: MapView | SceneView;
-  }
-
-  interface CompassViewModel extends Accessor {
-    orientation: any;
-    state: string;
-    view: MapView | SceneView;
-
-    reset(): void;
-  }
-
-  interface CompassViewModelConstructor {
-    new(properties?: CompassViewModelProperties): CompassViewModel;
-  }
-
-  export const CompassViewModel: CompassViewModelConstructor;
-
-  interface CompassViewModelProperties {
-    orientation?: any;
-    state?: string;
-    view?: MapView | SceneView;
-  }
-
-  interface ExpandViewModel extends Accessor {
-    autoCollapse: boolean;
-    expanded: boolean;
-    state: string;
-    view: MapView | SceneView;
-  }
-
-  interface ExpandViewModelConstructor {
-    new(properties?: ExpandViewModelProperties): ExpandViewModel;
-  }
-
-  export const ExpandViewModel: ExpandViewModelConstructor;
-
-  interface ExpandViewModelProperties {
-    autoCollapse?: boolean;
-    expanded?: boolean;
-    state?: string;
-    view?: MapView | SceneView;
-  }
-
-  interface HomeViewModel extends Accessor, Evented {
-    state: string;
-    view: MapView | SceneView;
-    viewpoint: Viewpoint;
-
-    go(): void;
-  }
-
-  interface HomeViewModelConstructor {
-    new(properties?: HomeViewModelProperties): HomeViewModel;
-  }
-
-  export const HomeViewModel: HomeViewModelConstructor;
-
-  interface HomeViewModelProperties {
-    state?: string;
-    view?: MapView | SceneView;
-    viewpoint?: ViewpointProperties;
-  }
-
-  interface LayerListViewModel extends Accessor {
-    createActionsFunction: Function;
-    listItemCreatedFunction: Function;
-    operationalItems: Collection;
-    state: string;
-    view: MapView | SceneView;
-
-    triggerAction(action: Action, item: ListItem): void;
-  }
-
-  interface LayerListViewModelConstructor {
-    new(properties?: LayerListViewModelProperties): LayerListViewModel;
-  }
-
-  export const LayerListViewModel: LayerListViewModelConstructor;
-
-  interface LayerListViewModelProperties {
-    createActionsFunction?: Function;
-    listItemCreatedFunction?: Function;
-    operationalItems?: Collection | any[];
-    state?: string;
-    view?: MapView | SceneView;
-  }
-
-  interface ListItem {
-    actionsOpen: boolean;
-    actionsSections: Collection;
-    children: Collection;
-    error: Error;
-    layer: Layer;
-    layerView: LayerView;
-    open: boolean;
-    title: string;
-    updating: boolean;
-    view: MapView | SceneView;
-    visibilityMode: string;
-    visible: boolean;
-    visibleAtCurrentScale: boolean;
-
-    clone(): this;
-  }
-
-  interface ListItemConstructor {
-    new(): ListItem;
-  }
-
-  export const ListItem: ListItemConstructor;
-
-  interface LocateViewModel extends Accessor, Evented, GeolocationPositioning {
-    state: string;
-
-    locate(): IPromise<any>;
-  }
-
-  interface LocateViewModelConstructor {
-    new(properties?: LocateViewModelProperties): LocateViewModel;
-  }
-
-  export const LocateViewModel: LocateViewModelConstructor;
-
-  interface LocateViewModelProperties extends GeolocationPositioningProperties {
-    state?: string;
-  }
-
-  interface NavigationToggleViewModel extends Accessor {
-    navigationMode: string;
-    state: string;
-    view: SceneView;
-
-    toggle(): void;
-  }
-
-  interface NavigationToggleViewModelConstructor {
-    new(properties?: NavigationToggleViewModelProperties): NavigationToggleViewModel;
-  }
-
-  export const NavigationToggleViewModel: NavigationToggleViewModelConstructor;
-
-  interface NavigationToggleViewModelProperties {
-    navigationMode?: string;
-    state?: string;
-    view?: SceneViewProperties;
-  }
-
-  interface PrintViewModel extends Accessor {
-    printServiceUrl: string;
-    updateDelay: number;
-    view: MapView;
-
-    print(printTemplate: PrintTemplate): IPromise<any>;
-  }
-
-  interface PrintViewModelConstructor {
-    new(properties?: PrintViewModelProperties): PrintViewModel;
-  }
-
-  export const PrintViewModel: PrintViewModelConstructor;
-
-  interface PrintViewModelProperties {
-    printServiceUrl?: string;
-    updateDelay?: number;
-    view?: MapViewProperties;
-  }
-
-  interface PopupViewModel extends Accessor, Evented {
-    actions: Collection;
-    content: string;
-    featureCount: number;
-    features: Graphic[];
-    highlightEnabled: boolean;
-    location: Point;
-    pendingPromisesCount: number;
-    promises: IPromise<any>[];
-    selectedFeature: Graphic;
-    selectedFeatureIndex: number;
-    state: string;
-    title: string;
-    view: MapView | SceneView;
-
-    clear(): void;
-    next(): PopupViewModel;
-    previous(): PopupViewModel;
-    triggerAction(actionIndex: number): void;
-  }
-
-  interface PopupViewModelConstructor {
-    new(properties?: PopupViewModelProperties): PopupViewModel;
-  }
-
-  export const PopupViewModel: PopupViewModelConstructor;
-
-  interface PopupViewModelProperties {
-    actions?: Collection | any[];
-    content?: string | any;
-    featureCount?: number;
-    features?: GraphicProperties[];
-    highlightEnabled?: boolean;
-    location?: PointProperties;
-    pendingPromisesCount?: number;
-    promises?: IPromise<any>[];
-    selectedFeature?: GraphicProperties;
-    selectedFeatureIndex?: number;
-    state?: string;
-    title?: string;
-    view?: MapView | SceneView;
-  }
-
-  interface ScaleBarViewModel extends Accessor {
-    view: MapView;
-  }
-
-  interface ScaleBarViewModelConstructor {
-    new(properties?: ScaleBarViewModelProperties): ScaleBarViewModel;
-  }
-
-  export const ScaleBarViewModel: ScaleBarViewModelConstructor;
-
-  interface ScaleBarViewModelProperties {
-    view?: MapViewProperties;
-  }
-
-  interface SearchViewModel extends Accessor, Evented {
-    activeSource: FeatureLayer | Locator;
-    activeSourceIndex: number;
-    allPlaceholder: string;
-    autoSelect: boolean;
-    defaultSource: any | any;
-    maxInputLength: number;
-    maxResults: number;
-    maxSuggestions: number;
-    minSuggestCharacters: number;
-    placeholder: string;
-    popupEnabled: boolean;
-    popupOpenOnSelect: boolean;
-    popupTemplate: PopupTemplate;
-    resultGraphic: Graphic;
-    resultGraphicEnabled: boolean;
-    results: any[];
-    searchAllEnabled: boolean;
-    searchTerm: string;
-    selectedResult: any;
-    sources: Collection;
-    suggestionDelay: number;
-    suggestions: any[];
-    suggestionsEnabled: boolean;
-    view: MapView | SceneView;
-
-    cancelSuggest(): void;
-    clear(): void;
-    search(searchTerm?: string | Geometry | any | number[][]): IPromise<any>;
-    suggest(value?: string): IPromise<any>;
-
-    on(name: "suggest-complete", eventHandler: SearchViewModelSuggestCompleteEventHandler): IHandle;
-    on(name: "suggest-complete", modifiers: string[], eventHandler: SearchViewModelSuggestCompleteEventHandler): IHandle;
-    on(name: "search-clear", eventHandler: SearchViewModelSearchClearEventHandler): IHandle;
-    on(name: "search-clear", modifiers: string[], eventHandler: SearchViewModelSearchClearEventHandler): IHandle;
-    on(name: "search-start", eventHandler: SearchViewModelSearchStartEventHandler): IHandle;
-    on(name: "search-start", modifiers: string[], eventHandler: SearchViewModelSearchStartEventHandler): IHandle;
-    on(name: "suggest-start", eventHandler: SearchViewModelSuggestStartEventHandler): IHandle;
-    on(name: "suggest-start", modifiers: string[], eventHandler: SearchViewModelSuggestStartEventHandler): IHandle;
-    on(name: "load", eventHandler: SearchViewModelLoadEventHandler): IHandle;
-    on(name: "load", modifiers: string[], eventHandler: SearchViewModelLoadEventHandler): IHandle;
-    on(name: "search-complete", eventHandler: SearchViewModelSearchCompleteEventHandler): IHandle;
-    on(name: "search-complete", modifiers: string[], eventHandler: SearchViewModelSearchCompleteEventHandler): IHandle;
-    on(name: "select-result", eventHandler: SearchViewModelSelectResultEventHandler): IHandle;
-    on(name: "select-result", modifiers: string[], eventHandler: SearchViewModelSelectResultEventHandler): IHandle;
-  }
-
-  interface SearchViewModelConstructor {
-    new(properties?: SearchViewModelProperties): SearchViewModel;
-  }
-
-  export const SearchViewModel: SearchViewModelConstructor;
-
-  interface SearchViewModelProperties {
-    activeSource?: FeatureLayer | Locator;
-    activeSourceIndex?: number;
-    allPlaceholder?: string;
-    autoSelect?: boolean;
-    defaultSource?: any | any;
-    maxInputLength?: number;
-    maxResults?: number;
-    maxSuggestions?: number;
-    minSuggestCharacters?: number;
-    placeholder?: string;
-    popupEnabled?: boolean;
-    popupOpenOnSelect?: boolean;
-    popupTemplate?: PopupTemplateProperties;
-    resultGraphic?: GraphicProperties;
-    resultGraphicEnabled?: boolean;
-    results?: any[];
-    searchAllEnabled?: boolean;
-    searchTerm?: string;
-    selectedResult?: any;
-    sources?: Collection | any[];
-    suggestionDelay?: number;
-    suggestions?: any[];
-    suggestionsEnabled?: boolean;
-    view?: MapView | SceneView;
   }
 
   interface TrackViewModel extends Accessor, Evented, GeolocationPositioning {
@@ -8759,6 +10906,119 @@ declare namespace __esri {
   interface TrackViewModelProperties extends GeolocationPositioningProperties {
     state?: string;
     tracking?: boolean;
+  }
+
+  interface UnivariateColorSizeSlider extends Accessor, Widgette {
+    handlesVisible: boolean;
+    histogram: HistogramResult;
+    histogramVisible: boolean;
+    histogramWidth: number;
+    labelsVisible: boolean;
+    maxSize: number;
+    maxValue: number;
+    minSize: number;
+    minValue: number;
+    statistics: UnivariateColorSizeSliderStatistics;
+    statisticsVisible: boolean;
+    ticksVisible: boolean;
+    values: number[];
+    visualVariables: any[];
+  }
+
+  interface UnivariateColorSizeSliderConstructor {
+    new(properties?: UnivariateColorSizeSliderProperties): UnivariateColorSizeSlider;
+  }
+
+  export const UnivariateColorSizeSlider: UnivariateColorSizeSliderConstructor;
+
+  interface UnivariateColorSizeSliderProperties extends WidgetteProperties {
+    handlesVisible?: boolean;
+    histogram?: HistogramResult;
+    histogramVisible?: boolean;
+    histogramWidth?: number;
+    labelsVisible?: boolean;
+    maxSize?: number;
+    maxValue?: number;
+    minSize?: number;
+    minValue?: number;
+    statistics?: UnivariateColorSizeSliderStatistics;
+    statisticsVisible?: boolean;
+    ticksVisible?: boolean;
+    values?: number[];
+    visualVariables?: any[];
+  }
+
+  export interface UnivariateColorSizeSliderStatistics {
+    avg: number;
+    max: number;
+    min: number;
+    stddev: number;
+  }
+
+  interface Widget extends Accessor, Evented {
+    container: string | HTMLElement;
+    destroyed: boolean;
+    id: string;
+
+    destroy(): void;
+    own(handles: WatchHandle | WatchHandle[]): void;
+    postInitialize(): void;
+    renderNow(): void;
+    scheduleRender(): void;
+    startup(): void;
+  }
+
+  interface WidgetConstructor {
+    new(properties?: WidgetProperties): Widget;
+  }
+
+  export const Widget: WidgetConstructor;
+
+  interface WidgetProperties {
+    container?: string | HTMLElement;
+    destroyed?: boolean;
+    id?: string;
+  }
+
+  interface Widgette {
+    container: string | HTMLElement;
+    visible: boolean;
+
+    destroy(): void;
+    on(type: string, listener: Function): any;
+  }
+
+  interface WidgetteConstructor {
+    new(): Widgette;
+  }
+
+  export const Widgette: WidgetteConstructor;
+
+  interface WidgetteProperties {
+    container?: string | HTMLElement;
+    visible?: boolean;
+  }
+
+  interface Zoom extends Widget {
+    layout: string;
+    view: MapView | SceneView;
+    viewModel: ZoomViewModel;
+
+    render(): any;
+    zoomIn(): void;
+    zoomOut(): void;
+  }
+
+  interface ZoomConstructor {
+    new(properties?: ZoomProperties): Zoom;
+  }
+
+  export const Zoom: ZoomConstructor;
+
+  interface ZoomProperties extends WidgetProperties {
+    layout?: string;
+    view?: MapViewProperties | SceneViewProperties;
+    viewModel?: ZoomViewModelProperties;
   }
 
   interface ZoomViewModel extends Accessor {
@@ -8781,1652 +11041,114 @@ declare namespace __esri {
     canZoomIn?: boolean;
     canZoomOut?: boolean;
     state?: string;
-    view?: MapView | SceneView;
+    view?: MapViewProperties | SceneViewProperties;
   }
 
-  interface Evented {
-    hasEventListener(type: string): boolean;
-    on(type: string, listener: EventHandler): IHandle;
-  }
-
-  interface EventedConstructor {
-    new(): Evented;
-  }
-
-  export const Evented: EventedConstructor;
-
-  interface JSONSupport {
-    toJSON(): any;
-  }
-
-  interface JSONSupportConstructor {
-    new(): JSONSupport;
-
-
-    fromJSON(json: any): any;
-  }
-
-  export const JSONSupport: JSONSupportConstructor;
-
-  interface Loadable {
-    loadError: Error;
-    loadStatus: string;
-    loadWarnings: any[];
-
-    always(callbackOrErrback?: Function): IPromise<any>;
-    cancelLoad(): void;
-    isFulfilled(): boolean;
-    isRejected(): boolean;
-    isResolved(): boolean;
-    load(): IPromise<any>;
-    otherwise(errback?: Function): IPromise<any>;
-    then(callback?: Function, errback?: Function, progback?: Function): IPromise<any>;
-  }
-
-  interface LoadableConstructor {
-    new(): Loadable;
-  }
-
-  export const Loadable: LoadableConstructor;
-
-  interface LoadableProperties {
-    loadError?: Error;
-    loadStatus?: string;
-    loadWarnings?: any[];
-  }
-
-  interface corePromise {
-    always(callbackOrErrback?: Function): IPromise<any>;
-    isFulfilled(): boolean;
-    isRejected(): boolean;
-    isResolved(): boolean;
-    otherwise(errback?: Function): IPromise<any>;
-    then(callback?: Function, errback?: Function, progback?: Function): IPromise<any>;
-  }
-
-  interface corePromiseConstructor {
-    new(): corePromise;
-  }
-
-  export const corePromise: corePromiseConstructor;
-
-  interface DynamicLayer {
-    portalItem: PortalItem;
-    url: string;
-
-    fetchImage(extent: Extent, width: number, height: number, options?: DynamicLayerFetchImageOptions): IPromise<any>;
-    getImageUrl(extent: Extent, width: number, height: number, options?: DynamicLayerGetImageUrlOptions): IPromise<any> | string;
-  }
-
-  interface DynamicLayerConstructor {
-    new(): DynamicLayer;
-  }
-
-  export const DynamicLayer: DynamicLayerConstructor;
-
-  interface DynamicLayerProperties {
-    portalItem?: PortalItemProperties;
-    url?: string;
-  }
-
-  interface TiledLayer {
-    tileInfo: TileInfo;
-  }
-
-  interface TiledLayerConstructor {
-    new(properties?: TiledLayerProperties): TiledLayer;
-
-    fromJSON(json: any): TiledLayer;
-  }
-
-  export const TiledLayer: TiledLayerConstructor;
-
-  interface TiledLayerProperties {
-    tileInfo?: TileInfoProperties;
-  }
-
-  interface ArcGISCachedService {
-    maxScale: number;
-    minScale: number;
-    tileInfo: TileInfo;
-
-    fromJSON(json: any): any;
-    toJSON(): any;
-  }
-
-  interface ArcGISCachedServiceConstructor {
-    new(properties?: ArcGISCachedServiceProperties): ArcGISCachedService;
-
-    fromJSON(json: any): ArcGISCachedService;
-  }
-
-  export const ArcGISCachedService: ArcGISCachedServiceConstructor;
-
-  interface ArcGISCachedServiceProperties {
-    maxScale?: number;
-    minScale?: number;
-    tileInfo?: TileInfoProperties;
-  }
-
-  interface ArcGISDynamicMapService {
-    allSublayers: Collection;
-    dpi: number;
-    gdbVersion: string;
-    imageFormat: string;
-    imageMaxHeight: number;
-    imageMaxWidth: number;
-    imageTransparency: boolean;
-    sublayers: Collection;
-
-    createServiceSublayers(): Collection;
-    findSublayerById(id: number): Sublayer;
-    getExportImageParameters(extent: Extent, width: number, height: number, options?: ArcGISDynamicMapServiceGetExportImageParametersOptions): any;
-  }
-
-  interface ArcGISDynamicMapServiceConstructor {
-    new(): ArcGISDynamicMapService;
-  }
-
-  export const ArcGISDynamicMapService: ArcGISDynamicMapServiceConstructor;
-
-  interface ArcGISDynamicMapServiceProperties {
-    allSublayers?: Collection | any[];
-    dpi?: number;
-    gdbVersion?: string;
-    imageFormat?: string;
-    imageMaxHeight?: number;
-    imageMaxWidth?: number;
-    imageTransparency?: boolean;
-    sublayers?: Collection | any[];
-  }
-
-  interface ArcGISImageService {
-    compressionQuality: number;
-    compressionTolerance: number;
-    copyright: string;
-    definitionExpression: string;
-    domainFields: Field[];
-    fields: Field[];
-    format: string;
-    fullExtent: Extent;
-    hasMultidimensions: boolean;
-    hasRasterAttributeTable: boolean;
-    imageMaxHeight: number;
-    imageMaxWidth: number;
-    mosaicRule: MosaicRule;
-    multidimensionalInfo: any;
-    pixelType: string;
-    popupTemplate: PopupTemplate;
-    rasterAttributeTable: any;
-    rasterAttributeTableFieldPrefix: string;
-    rasterFields: Field[];
-    renderingRule: RasterFunction;
-    spatialReference: SpatialReference;
-    url: string;
-    version: number;
-
-    fetchImage(extent: Extent, width: number, height: number): IPromise<any>;
-    fromJSON(json: any): any;
-    toJSON(): any;
-  }
-
-  interface ArcGISImageServiceConstructor {
-    new(properties?: ArcGISImageServiceProperties): ArcGISImageService;
-
-    fromJSON(json: any): ArcGISImageService;
-  }
-
-  export const ArcGISImageService: ArcGISImageServiceConstructor;
-
-  interface ArcGISImageServiceProperties {
-    compressionQuality?: number;
-    compressionTolerance?: number;
-    copyright?: string;
-    definitionExpression?: string;
-    domainFields?: FieldProperties[];
-    fields?: FieldProperties[];
-    format?: string;
-    fullExtent?: ExtentProperties;
-    hasMultidimensions?: boolean;
-    hasRasterAttributeTable?: boolean;
-    imageMaxHeight?: number;
-    imageMaxWidth?: number;
-    mosaicRule?: MosaicRuleProperties;
-    multidimensionalInfo?: any;
-    pixelType?: string;
-    popupTemplate?: PopupTemplateProperties;
-    rasterAttributeTable?: any;
-    rasterAttributeTableFieldPrefix?: string;
-    rasterFields?: FieldProperties[];
-    renderingRule?: RasterFunctionProperties;
-    spatialReference?: SpatialReferenceProperties;
-    url?: string;
-    version?: number;
-  }
-
-  interface ArcGISMapService {
-    copyright: string;
-    fullExtent: Extent;
-    spatialReference: SpatialReference;
-    token: string;
-  }
-
-  interface ArcGISMapServiceConstructor {
-    new(properties?: ArcGISMapServiceProperties): ArcGISMapService;
-
-    fromJSON(json: any): ArcGISMapService;
-  }
-
-  export const ArcGISMapService: ArcGISMapServiceConstructor;
-
-  interface ArcGISMapServiceProperties {
-    copyright?: string;
-    fullExtent?: ExtentProperties;
-    spatialReference?: SpatialReferenceProperties;
-    token?: string;
-  }
-
-  interface PortalLayer {
-    portalItem: PortalItem;
-  }
-
-  interface PortalLayerConstructor {
-    new(properties?: PortalLayerProperties): PortalLayer;
-
-    fromJSON(json: any): PortalLayer;
-  }
-
-  export const PortalLayer: PortalLayerConstructor;
-
-  interface PortalLayerProperties {
-    portalItem?: PortalItemProperties;
-  }
-
-  interface ScaleRangeLayer {
-    maxScale: number;
-    minScale: number;
-  }
-
-  interface ScaleRangeLayerConstructor {
-    new(): ScaleRangeLayer;
-  }
-
-  export const ScaleRangeLayer: ScaleRangeLayerConstructor;
-
-  interface ScaleRangeLayerProperties {
-    maxScale?: number;
-    minScale?: number;
-  }
-
-  interface SceneService {
-    copyright: string;
-    layerId: number;
-    spatialReference: SpatialReference;
-    token: string;
-    url: string;
-    version: SceneServiceVersion;
-  }
-
-  interface SceneServiceConstructor {
-    new(properties?: SceneServiceProperties): SceneService;
-
-    fromJSON(json: any): SceneService;
-  }
-
-  export const SceneService: SceneServiceConstructor;
-
-  interface SceneServiceProperties {
-    copyright?: string;
-    layerId?: number;
-    spatialReference?: SpatialReferenceProperties;
-    token?: string;
-    url?: string;
-    version?: SceneServiceVersion;
-  }
-
-  interface VisualVariablesMixin {
-    visualVariables: any[];
-  }
-
-  interface VisualVariablesMixinConstructor {
-    new(): VisualVariablesMixin;
-  }
-
-  export const VisualVariablesMixin: VisualVariablesMixinConstructor;
-
-  interface VisualVariablesMixinProperties {
-    visualVariables?: any[];
-  }
-
-  interface LayersMixin {
-    layers: Collection;
-
-    add(layers: Layer, index?: number): void;
-    addMany(layers: Layer[], index?: number): void;
-    findLayerById(layerId: string): Layer;
-    remove(layer: Layer): Layer;
-    removeAll(): Layer[];
-    removeMany(layers: Layer[]): Layer[];
-    reorder(layer: Layer, index: number): Layer;
-  }
-
-  interface LayersMixinConstructor {
-    new(): LayersMixin;
-  }
-
-  export const LayersMixin: LayersMixinConstructor;
-
-  interface LayersMixinProperties {
-    layers?: Collection | any[];
-  }
-
-  interface BreakpointsOwner {
-    breakpoints: BreakpointsOwnerBreakpoints;
-    heightBreakpoint: string;
-    orientation: string;
-    widthBreakpoint: string;
-  }
-
-  interface BreakpointsOwnerConstructor {
-    new(): BreakpointsOwner;
-  }
-
-  export const BreakpointsOwner: BreakpointsOwnerConstructor;
-
-  interface BreakpointsOwnerProperties {
-    breakpoints?: BreakpointsOwnerBreakpoints;
-    heightBreakpoint?: string;
-    orientation?: string;
-    widthBreakpoint?: string;
-  }
-
-  interface DOMContainer {
-    container: HTMLDivElement | string;
-    height: number;
-    popup: Popup;
-    resizing: boolean;
-    size: number[];
-    suspended: boolean;
-    ui: DefaultUI;
-    width: number;
-  }
-
-  interface DOMContainerConstructor {
-    new(): DOMContainer;
-  }
-
-  export const DOMContainer: DOMContainerConstructor;
-
-  interface DOMContainerProperties {
-    container?: HTMLDivElement | string;
-    height?: number;
-    popup?: PopupProperties;
-    resizing?: boolean;
-    size?: number[];
-    suspended?: boolean;
-    ui?: DefaultUIProperties;
-    width?: number;
-  }
-
-  interface Widgette {
-    container: string | any;
-    visible: boolean;
-
-    destroy(): void;
-  }
-
-  interface WidgetteConstructor {
-    new(): Widgette;
-  }
-
-  export const Widgette: WidgetteConstructor;
-
-  interface WidgetteProperties {
-    container?: string | any;
-    visible?: boolean;
-  }
-
-  interface GeolocationPositioning {
-    geolocationOptions: any;
-    goToLocationEnabled: boolean;
-    graphic: Graphic;
-    view: MapView | SceneView;
-  }
-
-  interface GeolocationPositioningConstructor {
-    new(): GeolocationPositioning;
-  }
-
-  export const GeolocationPositioning: GeolocationPositioningConstructor;
-
-  interface GeolocationPositioningProperties {
-    geolocationOptions?: any;
-    goToLocationEnabled?: boolean;
-    graphic?: GraphicProperties;
-    view?: MapView | SceneView;
-  }
-
-  interface config {
-    geometryServiceUrl: string;
-    geoRSSServiceUrl: string;
-    portalUrl: string;
-    request: configRequest;
-    workers: configWorkers;
-  }
-
-  export const config: config;
-
-  interface kernel {
-    version: string;
-  }
-
-  export const kernel: kernel;
-
-  interface request {
-    esriRequest(url: string, options?: requestEsriRequestOptions): IPromise<any>;
-  }
-
-  const __requestMapped: request;
-  export const request: typeof __requestMapped.esriRequest;
-
-
-  interface lang {
-    clone(elem: any): any;
-  }
-
-  export const lang: lang;
-
-  interface promiseUtils {
-    eachAlways(promises: IPromise<any>[] | any): IPromise<EachAlwaysResult[]> | any;
-    reject<T>(error?: any): IPromise<T>;
-    resolve<T>(value?: T): IPromise<T>;
-  }
-
-  export const promiseUtils: promiseUtils;
-
-  interface requireUtils {
-    when(moduleRequire: any, moduleNames: string[] | string): IPromise<any>;
-  }
-
-  export const requireUtils: requireUtils;
-
-  interface urlUtils {
-    addProxyRule(rule: urlUtilsAddProxyRuleRule): number;
-    getProxyRule(url: string): any;
-    urlToObject(url: string): any;
-  }
-
-  export const urlUtils: urlUtils;
-
-  interface watchUtils {
-    init(obj: Accessor, propertyName: string | string[], callback: WatchCallback): WatchHandle;
-    on(obj: Accessor, propertyName: string, eventName: string, eventHandler: Function, attachedHandler?: EventAttachedCallback, detachedHandler?: EventAttachedCallback): WatchHandle;
-    once(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
-    pausable(obj: Accessor, propertyName: string, callback?: WatchCallback): PausableWatchHandle;
-    watch(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
-    when(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
-    whenDefined(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
-    whenDefinedOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
-    whenFalse(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
-    whenFalseOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
-    whenNot(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
-    whenNotOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
-    whenOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
-    whenTrue(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
-    whenTrueOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
-    whenUndefined(obj: Accessor, propertyName: string, callback: WatchCallback): WatchHandle;
-    whenUndefinedOnce(obj: Accessor, propertyName: string, callback?: WatchCallback): PromisedWatchHandle;
-  }
-
-  export const watchUtils: watchUtils;
-
-  interface decorators {
-    aliasOf(propertyName: string): Function;
-    cast(propertyName: string): Function;
-    cast(classFunction: Function): Function;
-    declared<T>(baseClass: T, ...mixinClasses: any[]): T;
-    property(propertyMetadata?: decoratorsPropertyPropertyMetadata): Function;
-    subclass(declaredClass?: string): Function;
-  }
-
-  export const decorators: decorators;
-
-  interface workers {
-    open(client: any, modulePath: string): IPromise<any>;
-  }
-
-  export const workers: workers;
-
-  interface geometryEngine {
-    buffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): Polygon | Polygon[];
-    clip(geometry: Geometry, envelope: Extent): Geometry;
-    contains(geometry1: Geometry, geometry2: Geometry): boolean;
-    convexHull(geometry: Geometry, merge?: boolean): Geometry | Geometry[];
-    crosses(geometry1: Geometry, geometry2: Geometry): boolean;
-    cut(geometry: Geometry, cutter: Polyline): Geometry[];
-    densify(geometry: Geometry, maxSegmentLength: number, maxSegmentLengthUnit: string | number): Geometry;
-    difference(inputGeometry: Geometry | Geometry[], subtractor: Geometry): Geometry | Geometry[];
-    disjoint(geometry1: Geometry, geometry2: Geometry): boolean;
-    distance(geometry1: Geometry, geometry2: Geometry, distanceUnit: string | number): number;
-    equals(geometry1: Geometry, geometry2: Geometry): boolean;
-    extendedSpatialReferenceInfo(spatialReference: SpatialReference): any;
-    flipHorizontal(geometry: Geometry, flipOrigin?: Point): Geometry;
-    flipVertical(geometry: Geometry, flipOrigin?: Point): Geometry;
-    generalize(geometry: Geometry, maxDeviation: number, removeDegenerateParts?: boolean, maxDeviationUnit?: string | number): Geometry;
-    geodesicArea(geometry: Polygon, unit: string | number): number;
-    geodesicBuffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): Polygon | Polygon[];
-    geodesicDensify(geometry: Polyline | Polygon, maxSegmentLength: number, maxSegmentLengthUnit: string | number): Geometry;
-    geodesicLength(geometry: Geometry, unit: string | number): number;
-    intersect(geometry: Geometry | Geometry[], intersector: Geometry): Geometry | Geometry[];
-    intersects(geometry1: Geometry, geometry2: Geometry): boolean;
-    isSimple(geometry: Geometry): boolean;
-    nearestCoordinate(geometry: Geometry, inputPoint: Point): any;
-    nearestVertex(geometry: Geometry, inputPoint: Point): any;
-    nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): any[];
-    offset(geometry: Geometry | Geometry[], offsetDistance: number, offsetUnit: string | number, joinType: string, bevelRatio?: number, flattenError?: number): Geometry | Geometry[];
-    overlaps(geometry1: Geometry, geometry2: Geometry): boolean;
-    planarArea(geometry: Polygon, unit: string | number): number;
-    planarLength(geometry: Geometry, unit: string | number): number;
-    relate(geometry1: Geometry, geometry2: Geometry, relation: string): boolean;
-    rotate(geometry: Geometry, angle: number, rotationOrigin?: Point): Geometry;
-    simplify(geometry: Geometry): Geometry;
-    symmetricDifference(leftGeometry: Geometry | Geometry[], rightGeometry: Geometry): Geometry | Geometry[];
-    touches(geometry1: Geometry, geometry2: Geometry): boolean;
-    union(geometries: Geometry[]): Geometry;
-    within(geometry1: Geometry, geometry2: Geometry): boolean;
-  }
-
-  export const geometryEngine: geometryEngine;
-
-  interface geometryEngineAsync {
-    buffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): IPromise<any>;
-    clip(geometry: Geometry, envelope: Extent): IPromise<any>;
-    contains(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-    convexHull(geometry: Geometry, merge?: boolean): IPromise<any>;
-    crosses(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-    cut(geometry: Geometry, cutter: Polyline): IPromise<any>;
-    densify(geometry: Geometry, maxSegmentLength: number, maxSegmentLengthUnit: string | number): IPromise<any>;
-    difference(inputGeometry: Geometry | Geometry[], subtractor: Geometry): IPromise<any>;
-    disjoint(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-    distance(geometry1: Geometry, geometry2: Geometry, distanceUnit: string | number): IPromise<any>;
-    equals(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-    extendedSpatialReferenceInfo(spatialReference: SpatialReference): IPromise<any>;
-    flipHorizontal(geometry: Geometry, flipOrigin?: Point): IPromise<any>;
-    flipVertical(geometry: Geometry, flipOrigin?: Point): IPromise<any>;
-    generalize(geometry: Geometry, maxDeviation: number, removeDegenerateParts?: boolean, maxDeviationUnit?: string | number): IPromise<any>;
-    geodesicArea(geometry: Polygon, unit: string | number): IPromise<any>;
-    geodesicBuffer(geometry: Geometry | Geometry[], distance: number | number[], unit: string | number, unionResults?: boolean): IPromise<any>;
-    geodesicDensify(geometry: Polyline | Polygon, maxSegmentLength: number, maxSegmentLengthUnit: string | number): IPromise<any>;
-    geodesicLength(geometry: Geometry, unit: string | number): IPromise<any>;
-    intersect(geometry: Geometry | Geometry[], intersector: Geometry): IPromise<any>;
-    intersects(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-    isSimple(geometry: Geometry): IPromise<any>;
-    nearestCoordinate(geometry: Geometry, inputPoint: Point): IPromise<any>;
-    nearestVertex(geometry: Geometry, inputPoint: Point): IPromise<any>;
-    nearestVertices(geometry: Geometry, inputPoint: Point, searchRadius: number, maxVertexCountToReturn: number): IPromise<any>;
-    offset(geometry: Geometry | Geometry[], offsetDistance: number, offsetUnit: string | number, joinType: string, bevelRatio?: number, flattenError?: number): IPromise<any>;
-    overlaps(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-    planarArea(geometry: Polygon, unit: string | number): IPromise<any>;
-    planarLength(geometry: Geometry, unit: string | number): IPromise<any>;
-    relate(geometry1: Geometry, geometry2: Geometry, relation: string): IPromise<any>;
-    rotate(geometry: Geometry, angle: number, rotationOrigin?: Point): IPromise<any>;
-    simplify(geometry: Geometry): IPromise<any>;
-    symmetricDifference(leftGeometry: Geometry | Geometry[], rightGeometry: Geometry): IPromise<any>;
-    touches(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-    union(geometries: Geometry[]): IPromise<any>;
-    within(geometry1: Geometry, geometry2: Geometry): IPromise<any>;
-  }
-
-  export const geometryEngineAsync: geometryEngineAsync;
-
-  interface jsonUtils {
-    fromJSON(json: any): Geometry;
-    getJsonType(geometry: Geometry): string;
-  }
-
-  export const jsonUtils: jsonUtils;
-
-  interface normalizeUtils {
-    normalizeCentralMeridian(geometries: Geometry[], geometryService?: GeometryService): IPromise<any>;
-  }
-
-  export const normalizeUtils: normalizeUtils;
-
-  interface webMercatorUtils {
-    canProject(source: SpatialReference | any, target: SpatialReference | any): boolean;
-    geographicToWebMercator(geometry: Geometry): Geometry;
-    lngLatToXY(long: number, lat: number): number[];
-    project(geometry: Geometry, spatialReference: SpatialReference | any): Geometry;
-    webMercatorToGeographic(geometry: Geometry): Geometry;
-    xyToLngLat(x: number, y: number): number[];
-  }
-
-  export const webMercatorUtils: webMercatorUtils;
-
-  interface color {
-    createContinuousRenderer(params: colorCreateContinuousRendererParams): IPromise<any>;
-    createVisualVariable(params: colorCreateVisualVariableParams): IPromise<any>;
-  }
-
-  export const color: color;
-
-  interface location {
-    createRenderer(params: locationCreateRendererParams): IPromise<any>;
-  }
-
-  export const location: location;
-
-  interface size {
-    createContinuousRenderer(params: sizeCreateContinuousRendererParams): IPromise<any>;
-    createVisualVariables(params: sizeCreateVisualVariablesParams): IPromise<any>;
-  }
-
-  export const size: size;
-
-  interface type {
-    createRenderer(params: typeCreateRendererParams): IPromise<any>;
-  }
-
-  export const type: type;
-
-  interface univariateColorSize {
-    createContinuousRenderer(params: univariateColorSizeCreateContinuousRendererParams): IPromise<any>;
-    createVisualVariables(params: univariateColorSizeCreateVisualVariablesParams): IPromise<any>;
-  }
-
-  export const univariateColorSize: univariateColorSize;
-
-  interface classBreaks {
-    classBreaks(params: classBreaksClassBreaksParams): IPromise<any>;
-  }
-
-  const __classBreaksMapped: classBreaks;
-  export const classBreaks: typeof __classBreaksMapped.classBreaks;
-
-
-  interface histogram {
-    histogram(params: histogramHistogramParams): IPromise<any>;
-  }
-
-  const __histogramMapped: histogram;
-  export const histogram: typeof __histogramMapped.histogram;
-
-
-  interface summaryStatistics {
-    summaryStatistics(params: summaryStatisticsSummaryStatisticsParams): IPromise<any>;
-  }
-
-  const __summaryStatisticsMapped: summaryStatistics;
-  export const summaryStatistics: typeof __summaryStatisticsMapped.summaryStatistics;
-
-
-  interface uniqueValues {
-    uniqueValues(params: uniqueValuesUniqueValuesParams): IPromise<any>;
-  }
-
-  const __uniqueValuesMapped: uniqueValues;
-  export const uniqueValues: typeof __uniqueValuesMapped.uniqueValues;
-
-
-  interface symbologyColor {
-    cloneScheme(scheme: any): any;
-    flipColors(scheme: any): any;
-    getSchemes(params: colorGetSchemesParams): any;
-    getThemes(basemap?: string | Basemap): any[];
-  }
-
-  export const symbologyColor: symbologyColor;
-
-  interface symbologyLocation {
-    cloneScheme(scheme: any | any | any): any | any | any;
-    getSchemes(params: locationGetSchemesParams): any;
-  }
-
-  export const symbologyLocation: symbologyLocation;
-
-  interface symbologySize {
-    cloneScheme(scheme: any | any | any): any;
-    getSchemes(params: sizeGetSchemesParams): any;
-  }
-
-  export const symbologySize: symbologySize;
-
-  interface symbologyType {
-    cloneScheme(scheme: any | any | any): any;
-    getSchemes(params: typeGetSchemesParams): any;
-  }
-
-  export const symbologyType: symbologyType;
-
-  interface supportJsonUtils {
-    fromJSON(json: any): Renderer;
-  }
-
-  export const supportJsonUtils: supportJsonUtils;
-
-  interface symbolsSupportJsonUtils {
-    fromJSON(json: any): Symbol;
-  }
-
-  export const symbolsSupportJsonUtils: symbolsSupportJsonUtils;
-
-  interface externalRenderers {
-    add(view: SceneView, renderer: any): void;
-    fromRenderCoordinates(view: SceneView, srcCoordinates: number[], srcStart: number, destCoordinates: number[], destStart: number, destSpatialReference: SpatialReference, count: number): number[];
-    remove(view: SceneView, renderer: any): void;
-    renderCoordinateTransformAt(view: SceneView, origin: number[], srcSpatialReference: SpatialReference, dest: number[]): number[];
-    requestRender(view: SceneView): void;
-    toRenderCoordinates(view: SceneView, srcCoordinates: number[], srcStart: number, srcSpatialReference: SpatialReference, destCoordinates: number[], destStart: number, count: number): number[];
-  }
-
-  export const externalRenderers: externalRenderers;
-
-  interface widget {
-    accessibleHandler(): Function;
-    join(...classNames: string[]): string;
-    renderable(propertyName?: string | string[]): Function;
-    tsx(selector: string, properties?: any, children?: any): any;
-    vmEvent(eventNames: string | string[]): Function;
-  }
-
-  export const widget: widget;
-
-  interface BasemapGalleryItem {
-    basemap: Basemap;
-    error: Error;
-    state: string;
-    view: MapView | SceneView;
-  }
-
-  export const BasemapGalleryItem: BasemapGalleryItem;
-
-  interface LocalBasemapsSource {
-    basemaps: Collection;
-    state: string;
-  }
-
-  export const LocalBasemapsSource: LocalBasemapsSource;
-
-  interface PortalBasemapsSource {
-    basemaps: Collection;
-    filterFunction: Function;
-    portal: Portal;
-    state: string;
-  }
-
-  export const PortalBasemapsSource: PortalBasemapsSource;
-}
-
-declare module "esri" {
-  export import PromisedWatchHandle = __esri.PromisedWatchHandle;
-  export import ItemCallback = __esri.ItemCallback;
-
-  export import ItemCompareCallback = __esri.ItemCompareCallback;
-
-  export import ItemMapCallback = __esri.ItemMapCallback;
-
-  export import ItemReduceCallback = __esri.ItemReduceCallback;
-
-  export import ItemTestCallback = __esri.ItemTestCallback;
-
-  export import PortalItemFetchRelatedItemsParams = __esri.PortalItemFetchRelatedItemsParams;
-
-  export import PortalItemUpdateParams = __esri.PortalItemUpdateParams;
-
-  export import PortalUserAddItemParams = __esri.PortalUserAddItemParams;
-
-  export import PortalUserFetchItemsParams = __esri.PortalUserFetchItemsParams;
-
-  export import PortalFeaturedGroups = __esri.PortalFeaturedGroups;
-
-  export import GroundQueryElevationOptions = __esri.GroundQueryElevationOptions;
-
-  export import PopupTemplateExpressionInfos = __esri.PopupTemplateExpressionInfos;
-
-  export import PopupTemplateFieldInfos = __esri.PopupTemplateFieldInfos;
-
-  export import PopupTemplateFieldInfosFormat = __esri.PopupTemplateFieldInfosFormat;
-
-  export import FeatureLayerApplyEditsEdits = __esri.FeatureLayerApplyEditsEdits;
-
-  export import FeatureLayerCapabilities = __esri.FeatureLayerCapabilities;
-
-  export import FeatureLayerCapabilitiesData = __esri.FeatureLayerCapabilitiesData;
-
-  export import FeatureLayerCapabilitiesEditing = __esri.FeatureLayerCapabilitiesEditing;
-
-  export import FeatureLayerCapabilitiesOperations = __esri.FeatureLayerCapabilitiesOperations;
-
-  export import FeatureLayerCapabilitiesQuery = __esri.FeatureLayerCapabilitiesQuery;
-
-  export import FeatureLayerCapabilitiesQueryRelated = __esri.FeatureLayerCapabilitiesQueryRelated;
-
-  export import FeatureLayerElevationInfo = __esri.FeatureLayerElevationInfo;
-
-  export import FeatureLayerFeatureReduction = __esri.FeatureLayerFeatureReduction;
-
-  export import FeatureLayerGetFieldDomainOptions = __esri.FeatureLayerGetFieldDomainOptions;
-
-  export import FeatureLayerLayerviewCreateEvent = __esri.FeatureLayerLayerviewCreateEvent;
-
-  export import FeatureLayerLayerviewCreateEventHandler = __esri.FeatureLayerLayerviewCreateEventHandler;
-
-  export import FeatureLayerLayerviewDestroyEvent = __esri.FeatureLayerLayerviewDestroyEvent;
-
-  export import FeatureLayerLayerviewDestroyEventHandler = __esri.FeatureLayerLayerviewDestroyEventHandler;
-
-  export import GraphicsLayerElevationInfo = __esri.GraphicsLayerElevationInfo;
-
-  export import GraphicsLayerLayerviewCreateEvent = __esri.GraphicsLayerLayerviewCreateEvent;
-
-  export import GraphicsLayerLayerviewCreateEventHandler = __esri.GraphicsLayerLayerviewCreateEventHandler;
-
-  export import GraphicsLayerLayerviewDestroyEvent = __esri.GraphicsLayerLayerviewDestroyEvent;
-
-  export import GraphicsLayerLayerviewDestroyEventHandler = __esri.GraphicsLayerLayerviewDestroyEventHandler;
-
-  export import LayerFromArcGISServerUrlParams = __esri.LayerFromArcGISServerUrlParams;
-
-  export import LayerFromPortalItemParams = __esri.LayerFromPortalItemParams;
-
-  export import FeatureTemplateThumbnail = __esri.FeatureTemplateThumbnail;
-
-  export import LabelClassLabelExpressionInfo = __esri.LabelClassLabelExpressionInfo;
-
-  export import LabelSymbol3DVerticalOffsetProperties = __esri.LabelSymbol3DVerticalOffsetProperties;
-  export import LabelSymbol3DVerticalOffset = __esri.LabelSymbol3DVerticalOffset;
-
-  export import QueryQuantizationParameters = __esri.QueryQuantizationParameters;
-
-  export import ViewPadding = __esri.ViewPadding;
-
-  export import WebMapSourceVersion = __esri.WebMapSourceVersion;
-
-  export import WebSceneSaveAsOptions = __esri.WebSceneSaveAsOptions;
-
-  export import WebSceneSaveOptions = __esri.WebSceneSaveOptions;
-
-  export import WebSceneSourceVersion = __esri.WebSceneSourceVersion;
-
-  export import WebSceneUpdateFromOptions = __esri.WebSceneUpdateFromOptions;
-
-  export import EventHandler = __esri.EventHandler;
-
-  export import SceneViewDragEventOrigin = __esri.SceneViewDragEventOrigin;
-
-  export import SceneViewClickEvent = __esri.SceneViewClickEvent;
-
-  export import SceneViewClickEventHandler = __esri.SceneViewClickEventHandler;
-
-  export import SceneViewDoubleClickEvent = __esri.SceneViewDoubleClickEvent;
-
-  export import SceneViewDoubleClickEventHandler = __esri.SceneViewDoubleClickEventHandler;
-
-  export import SceneViewDragEvent = __esri.SceneViewDragEvent;
-
-  export import SceneViewDragEventHandler = __esri.SceneViewDragEventHandler;
-
-  export import EasingFunction = __esri.EasingFunction;
-
-  export import SceneViewHoldEvent = __esri.SceneViewHoldEvent;
-
-  export import SceneViewHoldEventHandler = __esri.SceneViewHoldEventHandler;
-
-  export import SceneViewKeyDownEvent = __esri.SceneViewKeyDownEvent;
-
-  export import SceneViewKeyDownEventHandler = __esri.SceneViewKeyDownEventHandler;
-
-  export import SceneViewKeyUpEvent = __esri.SceneViewKeyUpEvent;
-
-  export import SceneViewKeyUpEventHandler = __esri.SceneViewKeyUpEventHandler;
-
-  export import SceneViewLayerviewCreateEvent = __esri.SceneViewLayerviewCreateEvent;
-
-  export import SceneViewLayerviewCreateEventHandler = __esri.SceneViewLayerviewCreateEventHandler;
-
-  export import SceneViewLayerviewDestroyEvent = __esri.SceneViewLayerviewDestroyEvent;
-
-  export import SceneViewLayerviewDestroyEventHandler = __esri.SceneViewLayerviewDestroyEventHandler;
-
-  export import SceneViewMouseWheelEvent = __esri.SceneViewMouseWheelEvent;
-
-  export import SceneViewMouseWheelEventHandler = __esri.SceneViewMouseWheelEventHandler;
-
-  export import SceneViewPointerDownEvent = __esri.SceneViewPointerDownEvent;
-
-  export import SceneViewPointerDownEventHandler = __esri.SceneViewPointerDownEventHandler;
-
-  export import SceneViewPointerMoveEvent = __esri.SceneViewPointerMoveEvent;
-
-  export import SceneViewPointerMoveEventHandler = __esri.SceneViewPointerMoveEventHandler;
-
-  export import SceneViewPointerUpEvent = __esri.SceneViewPointerUpEvent;
-
-  export import SceneViewPointerUpEventHandler = __esri.SceneViewPointerUpEventHandler;
-
-  export import SceneViewResizeEvent = __esri.SceneViewResizeEvent;
-
-  export import SceneViewResizeEventHandler = __esri.SceneViewResizeEventHandler;
-
-  export import SceneViewConstraintsProperties = __esri.SceneViewConstraintsProperties;
-  export import SceneViewConstraints = __esri.SceneViewConstraints;
-
-  export import SceneViewConstraintsAltitudeProperties = __esri.SceneViewConstraintsAltitudeProperties;
-  export import SceneViewConstraintsAltitude = __esri.SceneViewConstraintsAltitude;
-
-  export import SceneViewConstraintsClipDistanceProperties = __esri.SceneViewConstraintsClipDistanceProperties;
-  export import SceneViewConstraintsClipDistance = __esri.SceneViewConstraintsClipDistance;
-
-  export import SceneViewConstraintsCollision = __esri.SceneViewConstraintsCollision;
-
-  export import SceneViewConstraintsTiltProperties = __esri.SceneViewConstraintsTiltProperties;
-  export import SceneViewConstraintsTilt = __esri.SceneViewConstraintsTilt;
-
-  export import SceneViewEnvironmentProperties = __esri.SceneViewEnvironmentProperties;
-  export import SceneViewEnvironment = __esri.SceneViewEnvironment;
-
-  export import SceneViewEnvironmentAtmosphereProperties = __esri.SceneViewEnvironmentAtmosphereProperties;
-  export import SceneViewEnvironmentAtmosphere = __esri.SceneViewEnvironmentAtmosphere;
-
-  export import SceneViewEnvironmentLightingProperties = __esri.SceneViewEnvironmentLightingProperties;
-  export import SceneViewEnvironmentLighting = __esri.SceneViewEnvironmentLighting;
-
-  export import SceneViewGoToOptions = __esri.SceneViewGoToOptions;
-
-  export import SceneViewHighlightOptions = __esri.SceneViewHighlightOptions;
-
-  export import SceneViewHitTestScreenPoint = __esri.SceneViewHitTestScreenPoint;
-
-  export import SceneViewToMapScreenPoint = __esri.SceneViewToMapScreenPoint;
-
-  export import WatchHandle = __esri.WatchHandle;
-
-  export import WatchCallback = __esri.WatchCallback;
-
-  export import IdentityManagerBaseGenerateTokenOptions = __esri.IdentityManagerBaseGenerateTokenOptions;
-
-  export import IdentityManagerBaseGetCredentialOptions = __esri.IdentityManagerBaseGetCredentialOptions;
-
-  export import IdentityManagerBaseOAuthSignInOptions = __esri.IdentityManagerBaseOAuthSignInOptions;
-
-  export import IdentityManagerBaseRegisterTokenProperties = __esri.IdentityManagerBaseRegisterTokenProperties;
-
-  export import IdentityManagerBaseSetProtocolErrorHandlerHandlerFunction = __esri.IdentityManagerBaseSetProtocolErrorHandlerHandlerFunction;
-
-  export import IdentityManagerBaseSetRedirectionHandlerHandlerFunction = __esri.IdentityManagerBaseSetRedirectionHandlerHandlerFunction;
-
-  export import IdentityManagerBaseSignInOptions = __esri.IdentityManagerBaseSignInOptions;
-
-  export import IdentityManagerCredentialCreateEvent = __esri.IdentityManagerCredentialCreateEvent;
-
-  export import IdentityManagerCredentialCreateEventHandler = __esri.IdentityManagerCredentialCreateEventHandler;
-
-  export import IdentityManagerCredentialsDestroyEvent = __esri.IdentityManagerCredentialsDestroyEvent;
-
-  export import IdentityManagerCredentialsDestroyEventHandler = __esri.IdentityManagerCredentialsDestroyEventHandler;
-
-  export import HandlerCallback = __esri.HandlerCallback;
-
-  export import BaseElevationLayerFetchTileOptions = __esri.BaseElevationLayerFetchTileOptions;
-
-  export import BaseElevationLayerLayerviewCreateEvent = __esri.BaseElevationLayerLayerviewCreateEvent;
-
-  export import BaseElevationLayerLayerviewCreateEventHandler = __esri.BaseElevationLayerLayerviewCreateEventHandler;
-
-  export import BaseElevationLayerLayerviewDestroyEvent = __esri.BaseElevationLayerLayerviewDestroyEvent;
-
-  export import BaseElevationLayerLayerviewDestroyEventHandler = __esri.BaseElevationLayerLayerviewDestroyEventHandler;
-
-  export import CSVLayerElevationInfo = __esri.CSVLayerElevationInfo;
-
-  export import CSVLayerFeatureReduction = __esri.CSVLayerFeatureReduction;
-
-  export import CSVLayerLayerviewCreateEvent = __esri.CSVLayerLayerviewCreateEvent;
-
-  export import CSVLayerLayerviewCreateEventHandler = __esri.CSVLayerLayerviewCreateEventHandler;
-
-  export import CSVLayerLayerviewDestroyEvent = __esri.CSVLayerLayerviewDestroyEvent;
-
-  export import CSVLayerLayerviewDestroyEventHandler = __esri.CSVLayerLayerviewDestroyEventHandler;
-
-  export import ElevationLayerQueryElevationOptions = __esri.ElevationLayerQueryElevationOptions;
-
-  export import ElevationLayerLayerviewCreateEvent = __esri.ElevationLayerLayerviewCreateEvent;
-
-  export import ElevationLayerLayerviewCreateEventHandler = __esri.ElevationLayerLayerviewCreateEventHandler;
-
-  export import ElevationLayerLayerviewDestroyEvent = __esri.ElevationLayerLayerviewDestroyEvent;
-
-  export import ElevationLayerLayerviewDestroyEventHandler = __esri.ElevationLayerLayerviewDestroyEventHandler;
-
-  export import GeoRSSLayerLayerviewCreateEvent = __esri.GeoRSSLayerLayerviewCreateEvent;
-
-  export import GeoRSSLayerLayerviewCreateEventHandler = __esri.GeoRSSLayerLayerviewCreateEventHandler;
-
-  export import GeoRSSLayerLayerviewDestroyEvent = __esri.GeoRSSLayerLayerviewDestroyEvent;
-
-  export import GeoRSSLayerLayerviewDestroyEventHandler = __esri.GeoRSSLayerLayerviewDestroyEventHandler;
-
-  export import GroupLayerLayerviewCreateEvent = __esri.GroupLayerLayerviewCreateEvent;
-
-  export import GroupLayerLayerviewCreateEventHandler = __esri.GroupLayerLayerviewCreateEventHandler;
-
-  export import GroupLayerLayerviewDestroyEvent = __esri.GroupLayerLayerviewDestroyEvent;
-
-  export import GroupLayerLayerviewDestroyEventHandler = __esri.GroupLayerLayerviewDestroyEventHandler;
-
-  export import ImageryLayerLayerviewCreateEvent = __esri.ImageryLayerLayerviewCreateEvent;
-
-  export import ImageryLayerLayerviewCreateEventHandler = __esri.ImageryLayerLayerviewCreateEventHandler;
-
-  export import ImageryLayerLayerviewDestroyEvent = __esri.ImageryLayerLayerviewDestroyEvent;
-
-  export import ImageryLayerLayerviewDestroyEventHandler = __esri.ImageryLayerLayerviewDestroyEventHandler;
-
-  export import IntegratedMeshLayerLayerviewCreateEvent = __esri.IntegratedMeshLayerLayerviewCreateEvent;
-
-  export import IntegratedMeshLayerLayerviewCreateEventHandler = __esri.IntegratedMeshLayerLayerviewCreateEventHandler;
-
-  export import IntegratedMeshLayerLayerviewDestroyEvent = __esri.IntegratedMeshLayerLayerviewDestroyEvent;
-
-  export import IntegratedMeshLayerLayerviewDestroyEventHandler = __esri.IntegratedMeshLayerLayerviewDestroyEventHandler;
-
-  export import MapImageLayerLayerviewCreateEvent = __esri.MapImageLayerLayerviewCreateEvent;
-
-  export import MapImageLayerLayerviewCreateEventHandler = __esri.MapImageLayerLayerviewCreateEventHandler;
-
-  export import MapImageLayerLayerviewDestroyEvent = __esri.MapImageLayerLayerviewDestroyEvent;
-
-  export import MapImageLayerLayerviewDestroyEventHandler = __esri.MapImageLayerLayerviewDestroyEventHandler;
-
-  export import MapNotesLayerLayerviewCreateEvent = __esri.MapNotesLayerLayerviewCreateEvent;
-
-  export import MapNotesLayerLayerviewCreateEventHandler = __esri.MapNotesLayerLayerviewCreateEventHandler;
-
-  export import MapNotesLayerLayerviewDestroyEvent = __esri.MapNotesLayerLayerviewDestroyEvent;
-
-  export import MapNotesLayerLayerviewDestroyEventHandler = __esri.MapNotesLayerLayerviewDestroyEventHandler;
-
-  export import OpenStreetMapLayerLayerviewCreateEvent = __esri.OpenStreetMapLayerLayerviewCreateEvent;
-
-  export import OpenStreetMapLayerLayerviewCreateEventHandler = __esri.OpenStreetMapLayerLayerviewCreateEventHandler;
-
-  export import OpenStreetMapLayerLayerviewDestroyEvent = __esri.OpenStreetMapLayerLayerviewDestroyEvent;
-
-  export import OpenStreetMapLayerLayerviewDestroyEventHandler = __esri.OpenStreetMapLayerLayerviewDestroyEventHandler;
-
-  export import PointCloudLayerLayerviewCreateEvent = __esri.PointCloudLayerLayerviewCreateEvent;
-
-  export import PointCloudLayerLayerviewCreateEventHandler = __esri.PointCloudLayerLayerviewCreateEventHandler;
-
-  export import PointCloudLayerLayerviewDestroyEvent = __esri.PointCloudLayerLayerviewDestroyEvent;
-
-  export import PointCloudLayerLayerviewDestroyEventHandler = __esri.PointCloudLayerLayerviewDestroyEventHandler;
-
-  export import PointCloudLayerElevationInfo = __esri.PointCloudLayerElevationInfo;
-
-  export import PointCloudRendererColorModulation = __esri.PointCloudRendererColorModulation;
-
-  export import PointCloudRendererPointSizeAlgorithm = __esri.PointCloudRendererPointSizeAlgorithm;
-
-  export import SceneLayerLayerviewCreateEvent = __esri.SceneLayerLayerviewCreateEvent;
-
-  export import SceneLayerLayerviewCreateEventHandler = __esri.SceneLayerLayerviewCreateEventHandler;
-
-  export import SceneLayerLayerviewDestroyEvent = __esri.SceneLayerLayerviewDestroyEvent;
-
-  export import SceneLayerLayerviewDestroyEventHandler = __esri.SceneLayerLayerviewDestroyEventHandler;
-
-  export import SceneLayerElevationInfo = __esri.SceneLayerElevationInfo;
-
-  export import SceneLayerFeatureReduction = __esri.SceneLayerFeatureReduction;
-
-  export import StreamLayerLayerviewCreateEvent = __esri.StreamLayerLayerviewCreateEvent;
-
-  export import StreamLayerLayerviewCreateEventHandler = __esri.StreamLayerLayerviewCreateEventHandler;
-
-  export import StreamLayerLayerviewDestroyEvent = __esri.StreamLayerLayerviewDestroyEvent;
-
-  export import StreamLayerLayerviewDestroyEventHandler = __esri.StreamLayerLayerviewDestroyEventHandler;
-
-  export import StreamLayerFilter = __esri.StreamLayerFilter;
-
-  export import StreamLayerPurgeOptions = __esri.StreamLayerPurgeOptions;
-
-  export import StreamLayerUpdateFilterFilterChanges = __esri.StreamLayerUpdateFilterFilterChanges;
-
-  export import TileLayerLayerviewCreateEvent = __esri.TileLayerLayerviewCreateEvent;
-
-  export import TileLayerLayerviewCreateEventHandler = __esri.TileLayerLayerviewCreateEventHandler;
-
-  export import TileLayerLayerviewDestroyEvent = __esri.TileLayerLayerviewDestroyEvent;
-
-  export import TileLayerLayerviewDestroyEventHandler = __esri.TileLayerLayerviewDestroyEventHandler;
-
-  export import TileLayerFetchTileOptions = __esri.TileLayerFetchTileOptions;
-
-  export import UnknownLayerLayerviewCreateEvent = __esri.UnknownLayerLayerviewCreateEvent;
-
-  export import UnknownLayerLayerviewCreateEventHandler = __esri.UnknownLayerLayerviewCreateEventHandler;
-
-  export import UnknownLayerLayerviewDestroyEvent = __esri.UnknownLayerLayerviewDestroyEvent;
-
-  export import UnknownLayerLayerviewDestroyEventHandler = __esri.UnknownLayerLayerviewDestroyEventHandler;
-
-  export import UnsupportedLayerLayerviewCreateEvent = __esri.UnsupportedLayerLayerviewCreateEvent;
-
-  export import UnsupportedLayerLayerviewCreateEventHandler = __esri.UnsupportedLayerLayerviewCreateEventHandler;
-
-  export import UnsupportedLayerLayerviewDestroyEvent = __esri.UnsupportedLayerLayerviewDestroyEvent;
-
-  export import UnsupportedLayerLayerviewDestroyEventHandler = __esri.UnsupportedLayerLayerviewDestroyEventHandler;
-
-  export import VectorTileLayerLayerviewCreateEvent = __esri.VectorTileLayerLayerviewCreateEvent;
-
-  export import VectorTileLayerLayerviewCreateEventHandler = __esri.VectorTileLayerLayerviewCreateEventHandler;
-
-  export import VectorTileLayerLayerviewDestroyEvent = __esri.VectorTileLayerLayerviewDestroyEvent;
-
-  export import VectorTileLayerLayerviewDestroyEventHandler = __esri.VectorTileLayerLayerviewDestroyEventHandler;
-
-  export import VectorTileLayerCurrentStyleInfo = __esri.VectorTileLayerCurrentStyleInfo;
-
-  export import WebTileLayerLayerviewCreateEvent = __esri.WebTileLayerLayerviewCreateEvent;
-
-  export import WebTileLayerLayerviewCreateEventHandler = __esri.WebTileLayerLayerviewCreateEventHandler;
-
-  export import WebTileLayerLayerviewDestroyEvent = __esri.WebTileLayerLayerviewDestroyEvent;
-
-  export import WebTileLayerLayerviewDestroyEventHandler = __esri.WebTileLayerLayerviewDestroyEventHandler;
-
-  export import WMSLayerLayerviewCreateEvent = __esri.WMSLayerLayerviewCreateEvent;
-
-  export import WMSLayerLayerviewCreateEventHandler = __esri.WMSLayerLayerviewCreateEventHandler;
-
-  export import WMSLayerLayerviewDestroyEvent = __esri.WMSLayerLayerviewDestroyEvent;
-
-  export import WMSLayerLayerviewDestroyEventHandler = __esri.WMSLayerLayerviewDestroyEventHandler;
-
-  export import WMSLayerFetchImageOptions = __esri.WMSLayerFetchImageOptions;
-
-  export import WMTSLayerLayerviewCreateEvent = __esri.WMTSLayerLayerviewCreateEvent;
-
-  export import WMTSLayerLayerviewCreateEventHandler = __esri.WMTSLayerLayerviewCreateEventHandler;
-
-  export import WMTSLayerLayerviewDestroyEvent = __esri.WMTSLayerLayerviewDestroyEvent;
-
-  export import WMTSLayerLayerviewDestroyEventHandler = __esri.WMTSLayerLayerviewDestroyEventHandler;
-
-  export import BaseDynamicLayerFetchImageOptions = __esri.BaseDynamicLayerFetchImageOptions;
-
-  export import BaseDynamicLayerLayerviewCreateEvent = __esri.BaseDynamicLayerLayerviewCreateEvent;
-
-  export import BaseDynamicLayerLayerviewCreateEventHandler = __esri.BaseDynamicLayerLayerviewCreateEventHandler;
-
-  export import BaseDynamicLayerLayerviewDestroyEvent = __esri.BaseDynamicLayerLayerviewDestroyEvent;
-
-  export import BaseDynamicLayerLayerviewDestroyEventHandler = __esri.BaseDynamicLayerLayerviewDestroyEventHandler;
-
-  export import BaseTileLayerFetchTileOptions = __esri.BaseTileLayerFetchTileOptions;
-
-  export import BaseTileLayerLayerviewCreateEvent = __esri.BaseTileLayerLayerviewCreateEvent;
-
-  export import BaseTileLayerLayerviewCreateEventHandler = __esri.BaseTileLayerLayerviewCreateEventHandler;
-
-  export import BaseTileLayerLayerviewDestroyEvent = __esri.BaseTileLayerLayerviewDestroyEvent;
-
-  export import BaseTileLayerLayerviewDestroyEventHandler = __esri.BaseTileLayerLayerviewDestroyEventHandler;
-
-  export import CodedValueDomainCodedValues = __esri.CodedValueDomainCodedValues;
-
-  export import PixelBlockAddDataPlaneData = __esri.PixelBlockAddDataPlaneData;
-
-  export import PixelBlockStatistics = __esri.PixelBlockStatistics;
-
-  export import ClassBreaksRendererClassBreakInfos = __esri.ClassBreaksRendererClassBreakInfos;
-
-  export import ClassBreaksRendererLegendOptions = __esri.ClassBreaksRendererLegendOptions;
-
-  export import UniqueValueRendererLegendOptions = __esri.UniqueValueRendererLegendOptions;
-
-  export import UniqueValueRendererUniqueValueInfos = __esri.UniqueValueRendererUniqueValueInfos;
-
-  export import PointCloudClassBreaksRendererColorClassBreakInfos = __esri.PointCloudClassBreaksRendererColorClassBreakInfos;
-
-  export import PointCloudStretchRendererStops = __esri.PointCloudStretchRendererStops;
-
-  export import PointCloudUniqueValueRendererColorUniqueValueInfos = __esri.PointCloudUniqueValueRendererColorUniqueValueInfos;
-
-  export import FillSymbol3DLayerOutline = __esri.FillSymbol3DLayerOutline;
-
-  export import IconSymbol3DLayerOutline = __esri.IconSymbol3DLayerOutline;
-
-  export import IconSymbol3DLayerResource = __esri.IconSymbol3DLayerResource;
-
-  export import ObjectSymbol3DLayerResource = __esri.ObjectSymbol3DLayerResource;
-
-  export import PointSymbol3DVerticalOffsetProperties = __esri.PointSymbol3DVerticalOffsetProperties;
-  export import PointSymbol3DVerticalOffset = __esri.PointSymbol3DVerticalOffset;
-
-  export import Symbol3DStyleOrigin = __esri.Symbol3DStyleOrigin;
-
-  export import TextSymbol3DLayerFont = __esri.TextSymbol3DLayerFont;
-
-  export import TextSymbol3DLayerHalo = __esri.TextSymbol3DLayerHalo;
-
-  export import LineCallout3DBorderProperties = __esri.LineCallout3DBorderProperties;
-  export import LineCallout3DBorder = __esri.LineCallout3DBorder;
-
-  export import ClosestFacilityParametersAttributeParameterValues = __esri.ClosestFacilityParametersAttributeParameterValues;
-
-  export import GeometryServiceFromGeoCoordinateStringParams = __esri.GeometryServiceFromGeoCoordinateStringParams;
-
-  export import GeometryServiceToGeoCoordinateStringParams = __esri.GeometryServiceToGeoCoordinateStringParams;
-
-  export import ProjectParametersTransformation = __esri.ProjectParametersTransformation;
-
-  export import LocatorAddressToLocationsParams = __esri.LocatorAddressToLocationsParams;
-
-  export import LocatorAddressesToLocationsParams = __esri.LocatorAddressesToLocationsParams;
-
-  export import LocatorSuggestLocationsParams = __esri.LocatorSuggestLocationsParams;
-
-  export import PrintTemplateExportOptions = __esri.PrintTemplateExportOptions;
-
-  export import PrintTemplateLayoutOptions = __esri.PrintTemplateLayoutOptions;
-
-  export import MapViewDragEventOrigin = __esri.MapViewDragEventOrigin;
-
-  export import MapViewClickEvent = __esri.MapViewClickEvent;
-
-  export import MapViewClickEventHandler = __esri.MapViewClickEventHandler;
-
-  export import MapViewDoubleClickEvent = __esri.MapViewDoubleClickEvent;
-
-  export import MapViewDoubleClickEventHandler = __esri.MapViewDoubleClickEventHandler;
-
-  export import MapViewDragEvent = __esri.MapViewDragEvent;
-
-  export import MapViewDragEventHandler = __esri.MapViewDragEventHandler;
-
-  export import MapViewHoldEvent = __esri.MapViewHoldEvent;
-
-  export import MapViewHoldEventHandler = __esri.MapViewHoldEventHandler;
-
-  export import MapViewKeyDownEvent = __esri.MapViewKeyDownEvent;
-
-  export import MapViewKeyDownEventHandler = __esri.MapViewKeyDownEventHandler;
-
-  export import MapViewKeyUpEvent = __esri.MapViewKeyUpEvent;
-
-  export import MapViewKeyUpEventHandler = __esri.MapViewKeyUpEventHandler;
-
-  export import MapViewLayerviewCreateEvent = __esri.MapViewLayerviewCreateEvent;
-
-  export import MapViewLayerviewCreateEventHandler = __esri.MapViewLayerviewCreateEventHandler;
-
-  export import MapViewLayerviewDestroyEvent = __esri.MapViewLayerviewDestroyEvent;
-
-  export import MapViewLayerviewDestroyEventHandler = __esri.MapViewLayerviewDestroyEventHandler;
-
-  export import MapViewConstraints = __esri.MapViewConstraints;
-
-  export import MapViewGoToOptions = __esri.MapViewGoToOptions;
-
-  export import MapViewHitTestScreenPoint = __esri.MapViewHitTestScreenPoint;
-
-  export import MapViewToMapScreenPoint = __esri.MapViewToMapScreenPoint;
-
-  export import MapViewMouseWheelEvent = __esri.MapViewMouseWheelEvent;
-
-  export import MapViewMouseWheelEventHandler = __esri.MapViewMouseWheelEventHandler;
-
-  export import MapViewPointerDownEvent = __esri.MapViewPointerDownEvent;
-
-  export import MapViewPointerDownEventHandler = __esri.MapViewPointerDownEventHandler;
-
-  export import MapViewPointerMoveEvent = __esri.MapViewPointerMoveEvent;
-
-  export import MapViewPointerMoveEventHandler = __esri.MapViewPointerMoveEventHandler;
-
-  export import MapViewPointerUpEvent = __esri.MapViewPointerUpEvent;
-
-  export import MapViewPointerUpEventHandler = __esri.MapViewPointerUpEventHandler;
-
-  export import MapViewResizeEvent = __esri.MapViewResizeEvent;
-
-  export import MapViewResizeEventHandler = __esri.MapViewResizeEventHandler;
-
-  export import AttributeParamValue = __esri.AttributeParamValue;
-
-  export import ConfigurationTaskGetDataWorkspaceDetailsParams = __esri.ConfigurationTaskGetDataWorkspaceDetailsParams;
-
-  export import ConfigurationTaskGetUserJobQueryDetailsParams = __esri.ConfigurationTaskGetUserJobQueryDetailsParams;
-
-  export import AuxRecordDescription = __esri.AuxRecordDescription;
-
-  export import JobCreationParameters = __esri.JobCreationParameters;
-
-  export import JobQueryParameters = __esri.JobQueryParameters;
-
-  export import JobTaskAddEmbeddedAttachmentParams = __esri.JobTaskAddEmbeddedAttachmentParams;
-
-  export import JobTaskAddLinkedAttachmentParams = __esri.JobTaskAddLinkedAttachmentParams;
-
-  export import JobTaskAddLinkedRecordParams = __esri.JobTaskAddLinkedRecordParams;
-
-  export import JobTaskAssignJobsParams = __esri.JobTaskAssignJobsParams;
-
-  export import JobTaskCloseJobsParams = __esri.JobTaskCloseJobsParams;
-
-  export import JobTaskCreateDependencyParams = __esri.JobTaskCreateDependencyParams;
-
-  export import JobTaskCreateHoldParams = __esri.JobTaskCreateHoldParams;
-
-  export import JobTaskCreateJobVersionParams = __esri.JobTaskCreateJobVersionParams;
-
-  export import JobTaskDeleteAttachmentParams = __esri.JobTaskDeleteAttachmentParams;
-
-  export import JobTaskDeleteDependencyParams = __esri.JobTaskDeleteDependencyParams;
-
-  export import JobTaskDeleteJobsParams = __esri.JobTaskDeleteJobsParams;
-
-  export import JobTaskDeleteLinkedRecordParams = __esri.JobTaskDeleteLinkedRecordParams;
-
-  export import JobTaskGetAttachmentContentUrlParams = __esri.JobTaskGetAttachmentContentUrlParams;
-
-  export import JobTaskListFieldValuesParams = __esri.JobTaskListFieldValuesParams;
-
-  export import JobTaskListMultiLevelFieldValuesParams = __esri.JobTaskListMultiLevelFieldValuesParams;
-
-  export import JobTaskLogActionParams = __esri.JobTaskLogActionParams;
-
-  export import JobTaskQueryJobsParams = __esri.JobTaskQueryJobsParams;
-
-  export import JobTaskQueryMultiLevelSelectedValuesParams = __esri.JobTaskQueryMultiLevelSelectedValuesParams;
-
-  export import JobTaskReleaseHoldParams = __esri.JobTaskReleaseHoldParams;
-
-  export import JobTaskReopenClosedJobsParams = __esri.JobTaskReopenClosedJobsParams;
-
-  export import JobTaskSearchJobsParams = __esri.JobTaskSearchJobsParams;
-
-  export import JobTaskUnassignJobsParams = __esri.JobTaskUnassignJobsParams;
-
-  export import JobTaskUpdateNotesParams = __esri.JobTaskUpdateNotesParams;
-
-  export import JobTaskUpdateRecordParams = __esri.JobTaskUpdateRecordParams;
-
-  export import JobUpdateParameters = __esri.JobUpdateParameters;
-
-  export import ChangeRule = __esri.ChangeRule;
-
-  export import NotificationTaskAddChangeRuleParams = __esri.NotificationTaskAddChangeRuleParams;
-
-  export import NotificationTaskDeleteChangeRuleParams = __esri.NotificationTaskDeleteChangeRuleParams;
-
-  export import NotificationTaskNotifySessionParams = __esri.NotificationTaskNotifySessionParams;
-
-  export import NotificationTaskQueryChangeRulesParams = __esri.NotificationTaskQueryChangeRulesParams;
-
-  export import NotificationTaskRunSpatialNotificationOnHistoryParams = __esri.NotificationTaskRunSpatialNotificationOnHistoryParams;
-
-  export import NotificationTaskSendNotificationParams = __esri.NotificationTaskSendNotificationParams;
-
-  export import NotificationTaskSubscribeToNotificationParams = __esri.NotificationTaskSubscribeToNotificationParams;
-
-  export import NotificationTaskUnsubscribeFromNotificationParams = __esri.NotificationTaskUnsubscribeFromNotificationParams;
-
-  export import ReportTaskGenerateReportParams = __esri.ReportTaskGenerateReportParams;
-
-  export import ReportTaskGetReportContentUrlParams = __esri.ReportTaskGetReportContentUrlParams;
-
-  export import ReportTaskGetReportDataParams = __esri.ReportTaskGetReportDataParams;
-
-  export import TokenTaskParseTokensParams = __esri.TokenTaskParseTokensParams;
-
-  export import WorkflowTaskCanRunStepParams = __esri.WorkflowTaskCanRunStepParams;
-
-  export import WorkflowTaskExecuteStepsParams = __esri.WorkflowTaskExecuteStepsParams;
-
-  export import WorkflowTaskGetStepDescriptionParams = __esri.WorkflowTaskGetStepDescriptionParams;
-
-  export import WorkflowTaskGetStepFileUrlParams = __esri.WorkflowTaskGetStepFileUrlParams;
-
-  export import WorkflowTaskGetStepParams = __esri.WorkflowTaskGetStepParams;
-
-  export import WorkflowTaskMarkStepsAsDoneParams = __esri.WorkflowTaskMarkStepsAsDoneParams;
-
-  export import WorkflowTaskMoveToNextStepParams = __esri.WorkflowTaskMoveToNextStepParams;
-
-  export import WorkflowTaskRecreateWorkflowParams = __esri.WorkflowTaskRecreateWorkflowParams;
-
-  export import WorkflowTaskResolveConflictParams = __esri.WorkflowTaskResolveConflictParams;
-
-  export import WorkflowTaskSetCurrentStepParams = __esri.WorkflowTaskSetCurrentStepParams;
-
-  export import ImageryLayerViewPixelData = __esri.ImageryLayerViewPixelData;
-
-  export import StreamLayerViewDataReceivedEvent = __esri.StreamLayerViewDataReceivedEvent;
-
-  export import StreamLayerViewDataReceivedEventHandler = __esri.StreamLayerViewDataReceivedEventHandler;
-
-  export import StreamLayerViewFilter = __esri.StreamLayerViewFilter;
-
-  export import StreamLayerViewUpdateFilterFilter = __esri.StreamLayerViewUpdateFilterFilter;
-
-  export import SlideApplyToOptions = __esri.SlideApplyToOptions;
-
-  export import SlideCreateFromOptions = __esri.SlideCreateFromOptions;
-
-  export import SlideCreateFromOptionsScreenshot = __esri.SlideCreateFromOptionsScreenshot;
-
-  export import SlideDescriptionProperties = __esri.SlideDescriptionProperties;
-  export import SlideDescription = __esri.SlideDescription;
-
-  export import SlideThumbnailProperties = __esri.SlideThumbnailProperties;
-  export import SlideThumbnail = __esri.SlideThumbnail;
-
-  export import SlideTitleProperties = __esri.SlideTitleProperties;
-  export import SlideTitle = __esri.SlideTitle;
-
-  export import SlideUpdateFromOptions = __esri.SlideUpdateFromOptions;
-
-  export import SlideUpdateFromOptionsScreenshot = __esri.SlideUpdateFromOptionsScreenshot;
-
-  export import SlideVisibleLayers = __esri.SlideVisibleLayers;
-
-  export import ColorSliderValues = __esri.ColorSliderValues;
-
-  export import LegendLayerInfos = __esri.LegendLayerInfos;
-
-  export import PopupDockOptions = __esri.PopupDockOptions;
-
-  export import PopupOpenOptions = __esri.PopupOpenOptions;
-
-  export import SearchViewModelSearchCompleteEventResults = __esri.SearchViewModelSearchCompleteEventResults;
-
-  export import SearchViewModelSearchCompleteEventResultsResults = __esri.SearchViewModelSearchCompleteEventResultsResults;
-
-  export import SearchViewModelSelectResultEventResult = __esri.SearchViewModelSelectResultEventResult;
-
-  export import SearchViewModelSuggestCompleteEventResults = __esri.SearchViewModelSuggestCompleteEventResults;
-
-  export import SearchViewModelSuggestCompleteEventResultsResults = __esri.SearchViewModelSuggestCompleteEventResultsResults;
-
-  export import SearchViewModelLoadEvent = __esri.SearchViewModelLoadEvent;
-
-  export import SearchViewModelLoadEventHandler = __esri.SearchViewModelLoadEventHandler;
-
-  export import SearchViewModelSearchClearEvent = __esri.SearchViewModelSearchClearEvent;
-
-  export import SearchViewModelSearchClearEventHandler = __esri.SearchViewModelSearchClearEventHandler;
-
-  export import SearchViewModelSearchCompleteEvent = __esri.SearchViewModelSearchCompleteEvent;
-
-  export import SearchViewModelSearchCompleteEventHandler = __esri.SearchViewModelSearchCompleteEventHandler;
-
-  export import SearchViewModelSearchStartEvent = __esri.SearchViewModelSearchStartEvent;
-
-  export import SearchViewModelSearchStartEventHandler = __esri.SearchViewModelSearchStartEventHandler;
-
-  export import SearchViewModelSelectResultEvent = __esri.SearchViewModelSelectResultEvent;
-
-  export import SearchViewModelSelectResultEventHandler = __esri.SearchViewModelSelectResultEventHandler;
-
-  export import SearchViewModelSuggestCompleteEvent = __esri.SearchViewModelSuggestCompleteEvent;
-
-  export import SearchViewModelSuggestCompleteEventHandler = __esri.SearchViewModelSuggestCompleteEventHandler;
-
-  export import SearchViewModelSuggestStartEvent = __esri.SearchViewModelSuggestStartEvent;
-
-  export import SearchViewModelSuggestStartEventHandler = __esri.SearchViewModelSuggestStartEventHandler;
-
-  export import DynamicLayerFetchImageOptions = __esri.DynamicLayerFetchImageOptions;
-
-  export import DynamicLayerGetImageUrlOptions = __esri.DynamicLayerGetImageUrlOptions;
-
-  export import ArcGISDynamicMapServiceGetExportImageParametersOptions = __esri.ArcGISDynamicMapServiceGetExportImageParametersOptions;
-
-  export import SceneServiceVersion = __esri.SceneServiceVersion;
-
-  export import BreakpointsOwnerBreakpoints = __esri.BreakpointsOwnerBreakpoints;
-
-  export import configRequest = __esri.configRequest;
-
-  export import configRequestCorsEnabledServers = __esri.configRequestCorsEnabledServers;
-
-  export import configRequestProxyRules = __esri.configRequestProxyRules;
-
-  export import configWorkers = __esri.configWorkers;
-
-  export import configWorkersLoaderConfig = __esri.configWorkersLoaderConfig;
-
-  export import requestEsriRequestOptions = __esri.requestEsriRequestOptions;
-
-  export import EachAlwaysResult = __esri.EachAlwaysResult;
-
-  export import urlUtilsAddProxyRuleRule = __esri.urlUtilsAddProxyRuleRule;
-
-  export import EventAttachedCallback = __esri.EventAttachedCallback;
-
-  export import PausableWatchHandle = __esri.PausableWatchHandle;
-
-  export import decoratorsPropertyPropertyMetadata = __esri.decoratorsPropertyPropertyMetadata;
-
-  export import colorCreateContinuousRendererParams = __esri.colorCreateContinuousRendererParams;
-
-  export import colorCreateContinuousRendererParamsLegendOptions = __esri.colorCreateContinuousRendererParamsLegendOptions;
-
-  export import colorCreateVisualVariableParams = __esri.colorCreateVisualVariableParams;
-
-  export import colorCreateVisualVariableParamsLegendOptions = __esri.colorCreateVisualVariableParamsLegendOptions;
-
-  export import locationCreateRendererParams = __esri.locationCreateRendererParams;
+  export type OpenStreetMapLayerLayerviewCreateEventHandler = (event: OpenStreetMapLayerLayerviewCreateEvent) => void;
 
-  export import sizeCreateContinuousRendererParams = __esri.sizeCreateContinuousRendererParams;
+  export type OpenStreetMapLayerLayerviewDestroyEventHandler = (event: OpenStreetMapLayerLayerviewDestroyEvent) => void;
 
-  export import sizeCreateContinuousRendererParamsLegendOptions = __esri.sizeCreateContinuousRendererParamsLegendOptions;
+  export type PointCloudLayerLayerviewCreateEventHandler = (event: PointCloudLayerLayerviewCreateEvent) => void;
 
-  export import sizeCreateVisualVariablesParams = __esri.sizeCreateVisualVariablesParams;
+  export type PointCloudLayerLayerviewDestroyEventHandler = (event: PointCloudLayerLayerviewDestroyEvent) => void;
 
-  export import sizeCreateVisualVariablesParamsLegendOptions = __esri.sizeCreateVisualVariablesParamsLegendOptions;
+  export type PointDrawActionCursorUpdateEventHandler = (event: PointDrawActionCursorUpdateEvent) => void;
 
-  export import typeCreateRendererParams = __esri.typeCreateRendererParams;
+  export type PointDrawActionDrawCompleteEventHandler = (event: PointDrawActionDrawCompleteEvent) => void;
 
-  export import typeCreateRendererParamsLegendOptions = __esri.typeCreateRendererParamsLegendOptions;
+  export type PolygonDrawActionCursorUpdateEventHandler = (event: PolygonDrawActionCursorUpdateEvent) => void;
 
-  export import univariateColorSizeCreateContinuousRendererParams = __esri.univariateColorSizeCreateContinuousRendererParams;
+  export type PolygonDrawActionDrawCompleteEventHandler = (event: PolygonDrawActionDrawCompleteEvent) => void;
 
-  export import univariateColorSizeCreateContinuousRendererParamsColorOptions = __esri.univariateColorSizeCreateContinuousRendererParamsColorOptions;
+  export type PolygonDrawActionVertexAddEventHandler = (event: PolygonDrawActionVertexAddEvent) => void;
 
-  export import univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions = __esri.univariateColorSizeCreateContinuousRendererParamsColorOptionsLegendOptions;
+  export type PolygonDrawActionVertexRemoveEventHandler = (event: PolygonDrawActionVertexRemoveEvent) => void;
 
-  export import univariateColorSizeCreateContinuousRendererParamsSizeOptions = __esri.univariateColorSizeCreateContinuousRendererParamsSizeOptions;
+  export type PolylineDrawActionCursorUpdateEventHandler = (event: PolylineDrawActionCursorUpdateEvent) => void;
 
-  export import univariateColorSizeCreateContinuousRendererParamsSizeOptionsLegendOptions = __esri.univariateColorSizeCreateContinuousRendererParamsSizeOptionsLegendOptions;
+  export type PolylineDrawActionDrawCompleteEventHandler = (event: PolylineDrawActionDrawCompleteEvent) => void;
 
-  export import univariateColorSizeCreateVisualVariablesParams = __esri.univariateColorSizeCreateVisualVariablesParams;
+  export type PolylineDrawActionVertexAddEventHandler = (event: PolylineDrawActionVertexAddEvent) => void;
 
-  export import univariateColorSizeCreateVisualVariablesParamsColorOptions = __esri.univariateColorSizeCreateVisualVariablesParamsColorOptions;
+  export type PolylineDrawActionVertexRemoveEventHandler = (event: PolylineDrawActionVertexRemoveEvent) => void;
 
-  export import univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions = __esri.univariateColorSizeCreateVisualVariablesParamsColorOptionsLegendOptions;
+  export type SceneLayerLayerviewCreateEventHandler = (event: SceneLayerLayerviewCreateEvent) => void;
 
-  export import univariateColorSizeCreateVisualVariablesParamsSizeOptions = __esri.univariateColorSizeCreateVisualVariablesParamsSizeOptions;
+  export type SceneLayerLayerviewDestroyEventHandler = (event: SceneLayerLayerviewDestroyEvent) => void;
 
-  export import univariateColorSizeCreateVisualVariablesParamsSizeOptionsLegendOptions = __esri.univariateColorSizeCreateVisualVariablesParamsSizeOptionsLegendOptions;
+  export type SceneViewClickEventHandler = (event: SceneViewClickEvent) => void;
 
-  export import classBreaksClassBreaksParams = __esri.classBreaksClassBreaksParams;
+  export type SceneViewDoubleClickEventHandler = (event: SceneViewDoubleClickEvent) => void;
 
-  export import histogramHistogramParams = __esri.histogramHistogramParams;
+  export type SceneViewDragEventHandler = (event: SceneViewDragEvent) => void;
 
-  export import summaryStatisticsSummaryStatisticsParams = __esri.summaryStatisticsSummaryStatisticsParams;
+  export type SceneViewHoldEventHandler = (event: SceneViewHoldEvent) => void;
 
-  export import uniqueValuesUniqueValuesParams = __esri.uniqueValuesUniqueValuesParams;
+  export type SceneViewKeyDownEventHandler = (event: SceneViewKeyDownEvent) => void;
 
-  export import colorGetSchemesParams = __esri.colorGetSchemesParams;
+  export type SceneViewKeyUpEventHandler = (event: SceneViewKeyUpEvent) => void;
 
-  export import locationGetSchemesParams = __esri.locationGetSchemesParams;
+  export type SceneViewLayerviewCreateEventHandler = (event: SceneViewLayerviewCreateEvent) => void;
 
-  export import sizeGetSchemesParams = __esri.sizeGetSchemesParams;
+  export type SceneViewLayerviewDestroyEventHandler = (event: SceneViewLayerviewDestroyEvent) => void;
 
-  export import typeGetSchemesParams = __esri.typeGetSchemesParams;
+  export type SceneViewMouseWheelEventHandler = (event: SceneViewMouseWheelEvent) => void;
 
-  export import JobQuery = __esri.JobQuery;
+  export type SceneViewPointerDownEventHandler = (event: SceneViewPointerDownEvent) => void;
 
-  export import GroupMembership = __esri.GroupMembership;
+  export type SceneViewPointerMoveEventHandler = (event: SceneViewPointerMoveEvent) => void;
 
-  export import JobQueryContainer = __esri.JobQueryContainer;
+  export type SceneViewPointerUpEventHandler = (event: SceneViewPointerUpEvent) => void;
 
-  export import Privilege = __esri.Privilege;
+  export type SceneViewResizeEventHandler = (event: SceneViewResizeEvent) => void;
 
-  export import DataWorkspace = __esri.DataWorkspace;
+  export type SearchViewModelLoadEventHandler = (event: SearchViewModelLoadEvent) => void;
 
-  export import HoldType = __esri.HoldType;
+  export type SearchViewModelSearchClearEventHandler = (event: SearchViewModelSearchClearEvent) => void;
 
-  export import JobPriority = __esri.JobPriority;
+  export type SearchViewModelSearchCompleteEventHandler = (event: SearchViewModelSearchCompleteEvent) => void;
 
-  export import JobStatus = __esri.JobStatus;
+  export type SearchViewModelSearchStartEventHandler = (event: SearchViewModelSearchStartEvent) => void;
 
-  export import JobType = __esri.JobType;
+  export type SearchViewModelSelectResultEventHandler = (event: SearchViewModelSelectResultEvent) => void;
 
-  export import ActivityType = __esri.ActivityType;
+  export type SearchViewModelSuggestCompleteEventHandler = (event: SearchViewModelSuggestCompleteEvent) => void;
 
-  export import NotificationType = __esri.NotificationType;
+  export type SearchViewModelSuggestStartEventHandler = (event: SearchViewModelSuggestStartEvent) => void;
 
-  export import AuxRecord = __esri.AuxRecord;
+  export type StreamLayerLayerviewCreateEventHandler = (event: StreamLayerLayerviewCreateEvent) => void;
 
-  export import AuxRecordValue = __esri.AuxRecordValue;
+  export type StreamLayerLayerviewDestroyEventHandler = (event: StreamLayerLayerviewDestroyEvent) => void;
 
-  export import JobVersionInfo = __esri.JobVersionInfo;
+  export type StreamLayerViewDataReceivedEventHandler = (event: StreamLayerViewDataReceivedEvent) => void;
 
-  export import QueryFieldInfo = __esri.QueryFieldInfo;
+  export type TileLayerLayerviewCreateEventHandler = (event: TileLayerLayerviewCreateEvent) => void;
 
-  export import DatasetConfiguration = __esri.DatasetConfiguration;
+  export type TileLayerLayerviewDestroyEventHandler = (event: TileLayerLayerviewDestroyEvent) => void;
 
-  export import WhereCondition = __esri.WhereCondition;
+  export type UnknownLayerLayerviewCreateEventHandler = (event: UnknownLayerLayerviewCreateEvent) => void;
 
-  export import ReportDataGroup = __esri.ReportDataGroup;
+  export type UnknownLayerLayerviewDestroyEventHandler = (event: UnknownLayerLayerviewDestroyEvent) => void;
 
-  export import WorkflowConflicts = __esri.WorkflowConflicts;
+  export type UnsupportedLayerLayerviewCreateEventHandler = (event: UnsupportedLayerLayerviewCreateEvent) => void;
 
-  export import WorkflowOption = __esri.WorkflowOption;
+  export type UnsupportedLayerLayerviewDestroyEventHandler = (event: UnsupportedLayerLayerviewDestroyEvent) => void;
 
-  export import WorkflowStepInfo = __esri.WorkflowStepInfo;
+  export type VectorTileLayerLayerviewCreateEventHandler = (event: VectorTileLayerLayerviewCreateEvent) => void;
 
-  export import StepType = __esri.StepType;
+  export type VectorTileLayerLayerviewDestroyEventHandler = (event: VectorTileLayerLayerviewDestroyEvent) => void;
 
-  export import WorkflowAnnotationDisplayDetails = __esri.WorkflowAnnotationDisplayDetails;
+  export type WebTileLayerLayerviewCreateEventHandler = (event: WebTileLayerLayerviewCreateEvent) => void;
 
-  export import WorkflowPathDisplayDetails = __esri.WorkflowPathDisplayDetails;
+  export type WebTileLayerLayerviewDestroyEventHandler = (event: WebTileLayerLayerviewDestroyEvent) => void;
 
-  export import WorkflowStepDisplayDetails = __esri.WorkflowStepDisplayDetails;
+  export type WMSLayerLayerviewCreateEventHandler = (event: WMSLayerLayerviewCreateEvent) => void;
 
-  export import ColorAndIntensity = __esri.ColorAndIntensity;
+  export type WMSLayerLayerviewDestroyEventHandler = (event: WMSLayerLayerviewDestroyEvent) => void;
 
-  export import RenderCamera = __esri.RenderCamera;
+  export type WMTSLayerLayerviewCreateEventHandler = (event: WMTSLayerLayerviewCreateEvent) => void;
 
-  export import SunLight = __esri.SunLight;
+  export type WMTSLayerLayerviewDestroyEventHandler = (event: WMTSLayerLayerviewDestroyEvent) => void;
 }
 
 declare module "esri/Basemap" {
@@ -10507,6 +11229,11 @@ declare module "esri/geometry/Extent" {
 declare module "esri/geometry/Geometry" {
   import Geometry = __esri.Geometry;
   export = Geometry;
+}
+
+declare module "esri/geometry/HeightModelInfo" {
+  import HeightModelInfo = __esri.HeightModelInfo;
+  export = HeightModelInfo;
 }
 
 declare module "esri/geometry/Multipoint" {
@@ -10607,6 +11334,11 @@ declare module "esri/layers/ImageryLayer" {
 declare module "esri/layers/IntegratedMeshLayer" {
   import IntegratedMeshLayer = __esri.IntegratedMeshLayer;
   export = IntegratedMeshLayer;
+}
+
+declare module "esri/layers/KMLLayer" {
+  import KMLLayer = __esri.KMLLayer;
+  export = KMLLayer;
 }
 
 declare module "esri/layers/Layer" {
@@ -10727,6 +11459,11 @@ declare module "esri/layers/support/ImageParameters" {
 declare module "esri/layers/support/InheritedDomain" {
   import InheritedDomain = __esri.InheritedDomain;
   export = InheritedDomain;
+}
+
+declare module "esri/layers/support/KMLSublayer" {
+  import KMLSublayer = __esri.KMLSublayer;
+  export = KMLSublayer;
 }
 
 declare module "esri/layers/support/LabelClass" {
@@ -11379,6 +12116,26 @@ declare module "esri/views/ui/DefaultUI" {
   export = DefaultUI;
 }
 
+declare module "esri/views/2d/draw/Draw" {
+  import Draw = __esri.Draw;
+  export = Draw;
+}
+
+declare module "esri/views/2d/draw/PointDrawAction" {
+  import PointDrawAction = __esri.PointDrawAction;
+  export = PointDrawAction;
+}
+
+declare module "esri/views/2d/draw/PolylineDrawAction" {
+  import PolylineDrawAction = __esri.PolylineDrawAction;
+  export = PolylineDrawAction;
+}
+
+declare module "esri/views/2d/draw/PolygonDrawAction" {
+  import PolygonDrawAction = __esri.PolygonDrawAction;
+  export = PolygonDrawAction;
+}
+
 declare module "esri/webmap/InitialViewProperties" {
   import InitialViewProperties = __esri.InitialViewProperties;
   export = InitialViewProperties;
@@ -11589,6 +12346,11 @@ declare module "esri/widgets/Zoom/ZoomViewModel" {
   export = ZoomViewModel;
 }
 
+declare module "esri/widgets/Sketch/SketchViewModel" {
+  import SketchViewModel = __esri.SketchViewModel;
+  export = SketchViewModel;
+}
+
 declare module "esri/core/Evented" {
   import Evented = __esri.Evented;
   export = Evented;
@@ -11697,6 +12459,11 @@ declare module "esri/kernel" {
 declare module "esri/request" {
   import request = __esri.request;
   export = request;
+}
+
+declare module "esri/core/Error" {
+  import Error = __esri.Error;
+  export = Error;
 }
 
 declare module "esri/core/lang" {

@@ -119,13 +119,13 @@ declare class telebot {
     static addMethods(...methods: Array<telebot.genericCb | any>): any;
 
     // methods.js
-    keyboard(keyboard: string, opt?: any): any;
+    keyboard(buttons: any[][], opt?: any): any;
 
     button(type: string, text?: string): any;
 
-    inlineKeyboard(inlineKeyboard: string): any;
+    inlineKeyboard(inlineButtons: any[][]): any;
 
-    inlineQueryKeyboard(inlineKeyboard: string): any;
+    inlineQueryKeyboard(config: any[][]): any;
 
     inlineButton(text: string, opt?: any): any;
 

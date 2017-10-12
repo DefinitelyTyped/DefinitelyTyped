@@ -6,6 +6,7 @@
 //                 jwbay <https://github.com/jwbay>
 //                 huhuanming <https://github.com/huhuanming>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Torgeir Hovden <https://github.com/thovden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -22,7 +23,7 @@ export class ElementClass extends Component<any, any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new (props?: Props, context?: any): Component<Props, any>;
+    new(props?: Props, context?: any): Component<Props, any>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
@@ -44,7 +45,7 @@ export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<a
 
 export type Intercepter<T> = (intercepter: T) => void;
 
-export interface CommonWrapper<P, S> {
+export interface CommonWrapper<P = {}, S = {}> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
      * @param predicate
@@ -55,7 +56,7 @@ export interface CommonWrapper<P, S> {
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      * @param node
      */
-    contains(node: ReactElement<any>): boolean;
+    contains(node: ReactElement<any> | string): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
@@ -146,6 +147,16 @@ export interface CommonWrapper<P, S> {
      * Returns the wrapper's underlying nodes.
      */
     getNodes(): Array<ReactElement<any>>;
+
+    /**
+     * Returns the wrapper's underlying node.
+     */
+    getElement(): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying node.
+     */
+    getElements(): Array<ReactElement<any>>;
 
     /**
      * Returns the outer most DOMComponent of the current wrapper.
@@ -246,7 +257,6 @@ export interface CommonWrapper<P, S> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      * @param props
-     * @param [callback]
      */
     setProps<K extends keyof P>(props: Pick<P, K>): this;
 
@@ -342,7 +352,7 @@ export interface CommonWrapper<P, S> {
     every(selector: EnzymeSelector): boolean;
 
     /**
-     * Returns whether or not any of the nodes in the wrapper pass the provided predicate function.
+     * Returns whether or not all of the nodes in the wrapper pass the provided predicate function.
      * @param fn
      */
     everyWhere(fn: (wrapper: this) => boolean): boolean;
@@ -368,9 +378,13 @@ export interface CommonWrapper<P, S> {
     length: number;
 }
 
-export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
+export class ShallowWrapper {
+    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);
+}
+
+export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
-    unmount(): ShallowWrapper<any, any>;
+    unmount(): this;
 
     /**
      * Find every node in the render tree that matches the provided selector.
@@ -386,8 +400,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      * @param selector The selector to match.
      */
     filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter(selector: Partial<P> | string): this;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -420,6 +433,14 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
 
     /**
+     * Strips out all the not host-nodes from the list of nodes
+     *
+     * This method is useful if you want to check for the presence of host nodes
+     * (actually rendered HTML elements) ignoring the React nodes.
+     */
+    hostNodes(): ShallowWrapper<HTMLAttributes>;
+
+    /**
      * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
      * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
      *
@@ -449,9 +470,13 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     parent(): ShallowWrapper<any, any>;
 }
 
-export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
-    unmount(): ReactWrapper<any, any>;
-    mount(): ReactWrapper<any, any>;
+export class ReactWrapper {
+    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper, options?: MountRendererProps);
+}
+
+export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
+    unmount(): this;
+    mount(): this;
 
     /**
      * Returns a wrapper of the node that matches the provided reference name.
@@ -474,6 +499,14 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     detach(): void;
 
     /**
+     * Strips out all the not host-nodes from the list of nodes
+     *
+     * This method is useful if you want to check for the presence of host nodes
+     * (actually rendered HTML elements) ignoring the React nodes.
+     */
+    hostNodes(): ReactWrapper<HTMLAttributes>;
+
+    /**
      * Find every node in the render tree that matches the provided selector.
      * @param selector The selector to match.
      */
@@ -493,8 +526,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * @param selector The selector to match.
      */
     filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter(props: Partial<P> | string): this;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
@@ -541,6 +573,20 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
+
+    /**
+     * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
+     * how the component behaves over time with changing props. Calling this, for instance, will call the
+     * componentWillReceiveProps lifecycle method.
+     *
+     * Similar to setState, this method accepts a props object and will merge it in with the already existing props.
+     * Returns itself.
+     *
+     * NOTE: can only be called on a wrapper instance that is also the root instance.
+     * @param props
+     * @param [callback]
+     */
+    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 }
 
 export interface ShallowRendererProps {
@@ -592,3 +638,14 @@ export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps)
  * @param [options]
  */
 export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
+
+// See https://github.com/airbnb/enzyme/blob/v3.1.0/packages/enzyme/src/EnzymeAdapter.js
+export class EnzymeAdapter {
+}
+
+/**
+ * Configure enzyme to use the correct adapter for the react verstion
+ * This is enabling the Enzyme configuration with adapters in TS
+ * @param options
+ */
+export function configure(options: { adapter: EnzymeAdapter }): void;

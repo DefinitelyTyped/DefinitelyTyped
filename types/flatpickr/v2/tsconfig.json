@@ -8,12 +8,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "flatpickr": [ "flatpickr/v2" ]
+            "flatpickr": [
+                "flatpickr/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

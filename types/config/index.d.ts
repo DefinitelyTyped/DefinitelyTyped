@@ -1,6 +1,8 @@
 // Type definitions for node-config
 // Project: https://github.com/lorenwest/node-config
 // Definitions by: Roman Korneev <https://github.com/RWander>
+//                 Forrest Bice <https://github.com/forrestbice>
+//                 James Donald <https://github.com/jndonald3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -31,12 +33,19 @@ declare namespace c {
 
         // Get the current value of a config environment variable
         getEnv(varName: string): string;
-        
+
         // Return the config for the project based on directory param if not directory then return default one (config).
         loadFileConfigs(configDir: string): any;
 
         // Return the sources for the configurations
         getConfigSources(): IConfigSource[];
+
+        /**
+         * This allows module developers to attach their configurations onto
+         * the 6 years agoInitial 0.4 checkin default configuration object so
+         * they can be configured by the consumers of the module.
+         */
+        setModuleDefaults(moduleName:string, defaults:any): any;
     }
 
     interface IConfig {

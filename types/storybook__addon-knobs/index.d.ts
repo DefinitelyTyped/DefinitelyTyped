@@ -1,6 +1,7 @@
-// Type definitions for @storybook/addon-knobs 3.0
+// Type definitions for @storybook/addon-knobs 3.2
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
+//                 Martynas Kadisa <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -40,6 +41,8 @@ export function select<T>(name: string, options: { [s: string]: T }, value: stri
 export function select(name: string, options: string[], value: string): string;
 
 export function date(name: string, value?: Date): Date;
+
+export function array<T>(name: string, value: T[], separator?: string): T[];
 
 export interface WrapStoryProps {
     context?: object;

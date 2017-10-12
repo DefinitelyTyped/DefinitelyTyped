@@ -10,35 +10,27 @@
 /// <reference types="node" />
 import BigInteger = require("bigi");
 
-export interface Utxo {
-  address: string;
-  amount: number;
-  scriptPubKey: Buffer;
-  txid: string;
-  vout: number;
-}
-
 export interface Output {
     script: Buffer;
     value: number;
 }
 
 export interface Input {
-  script: Buffer;
-  hash: Buffer;
-  index: number;
-  sequence: number;
+    script: Buffer;
+    hash: Buffer;
+    index: number;
+    sequence: number;
 }
 
 export interface Network {
-  bip32: {
-    public: number;
-    private: number;
-  };
-  messagePrefix: string;
-  pubKeyHash: number;
-  scriptHash: number;
-  wif: number;
+    bip32: {
+        public: number;
+        private: number;
+    };
+    messagePrefix: string;
+    pubKeyHash: number;
+    scriptHash: number;
+    wif: number;
 }
 
 export class Block {
@@ -80,7 +72,7 @@ export class ECPair {
 
     getPublicKeyBuffer(): Buffer;
 
-    sign(hash: Buffer): Buffer;
+    sign(hash: Buffer): ECSignature;
 
     toWIF(): string;
 
@@ -140,7 +132,7 @@ export class HDNode {
 
     toBase58(): string;
 
-    verify(hash: Buffer, signature: ECSignature): Buffer;
+    verify(hash: Buffer, signature: ECSignature): boolean;
 
     static HIGHEST_BIT: number;
 
@@ -164,7 +156,7 @@ export class Transaction {
 
     addInput(hash: Buffer, index: number, sequence?: number, scriptSig?: Buffer): number;
 
-    addOutput(scriptPubKey: Buffer, value: number): number;
+    addOutput(scriptPubKey: Buffer | string, value: number): number;
 
     byteLength(): number;
 
@@ -186,7 +178,7 @@ export class Transaction {
 
     setWitness(index: number, witness: any, ...args: any[]): void;
 
-    toBuffer(buffer: Buffer, initialOffset?: number): Buffer;
+    toBuffer(buffer?: Buffer, initialOffset?: number): Buffer;
 
     toHex(): string;
 
@@ -212,11 +204,20 @@ export class Transaction {
 }
 
 export class TransactionBuilder {
+    tx: Transaction;
+    inputs: Array<{ pubKeys: Buffer[],
+                   signatures: Buffer[],
+                   prevOutScript: Buffer,
+                   prevOutType: string,
+                   signType: string,
+                   signScript: Buffer,
+                   witness: boolean} >;
+
     constructor(network?: Network, maximumFeeRate?: number);
 
     addInput(txhash: Buffer | string | Transaction, vout: number, sequence?: number, prevOutScript?: Buffer): number;
 
-    addOutput(scriptPubKey: Buffer | string, value: number): number;
+    addOutput(scriptPubKey: Buffer, value: number): number;
 
     build(): Transaction;
 
@@ -360,11 +361,11 @@ export const opcodes: {
 export namespace address {
     function fromBase58Check(address: string): { hash: Buffer, version: number };
 
-    function fromOutputScript(outputScript: Buffer, network?: Network): { hash: Buffer, version: number };
+    function fromOutputScript(outputScript: Buffer, network?: Network): Buffer;
 
     function toBase58Check(hash: Buffer, version: number): string;
 
-    function toOutputScript(address: string, network?: Network): string;
+    function toOutputScript(address: string, network?: Network): Buffer;
 }
 
 export namespace bufferutils {
@@ -400,7 +401,7 @@ export namespace crypto {
 }
 
 export namespace script {
-    function classifyInput(script: Buffer | Array<Buffer | number>, allowIncomplete: boolean): "pubkeyhash" | "scripthash" | "multisig" | "pubkey" | "nonstandard";
+    function classifyInput(script: Buffer | Array<Buffer | number>, allowIncomplete?: boolean): "pubkeyhash" | "scripthash" | "multisig" | "pubkey" | "nonstandard";
 
     function classifyOutput(script: Buffer | Array<Buffer | number>): "witnesspubkeyhash" | "witnessscripthash" | "pubkeyhash"
         | "scripthash" | "multisig" | "pubkey" | "witnesscommitment" | "nulldata" | "nonstandard";
@@ -430,4 +431,111 @@ export namespace script {
 
         function encode(number: number): Buffer;
     }
+
+    const multisig: {
+        input: {
+            check(script: Buffer, allowIncomplete: boolean): boolean;
+            decode(buffer: Buffer): Array<Buffer | number>;
+            decodeStack(stack: Buffer[], allowIncomplete: boolean): Array<Buffer | number>;
+            encode(signatures: ECSignature[], scriptPubKey: Buffer): Buffer;
+            encodeStack(signatures: ECSignature[], scriptPubKey: Buffer): ECSignature[];
+        };
+        output: {
+            check(script: Buffer, allowIncomplete: boolean): boolean;
+            decode(buffer: Buffer, allowIncomplete: boolean): { m: number; pubKeys: Array<Buffer | number> };
+            encode(m: number, pubKeys: Array<Buffer | number>): Buffer;
+        };
+    };
+
+    const pubKey: {
+        input: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Array<Buffer | number>;
+            decodeStack(stack: Buffer[]): Array<Buffer | number>;
+            encode(signature: ECSignature): Buffer;
+            encodeStack(signature: ECSignature): ECSignature[];
+        };
+
+        output: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Buffer | number;
+            encode(pubKey: Buffer): Buffer;
+        };
+    };
+
+    const pubKeyHash: {
+        input: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): { signature: ECSignature; pubKey: Buffer };
+            decodeStack(stack: Buffer[]): { signature: ECSignature; pubKey: Buffer };
+            encode(signature: ECSignature, pubKey: Buffer): Buffer;
+            encodeStack(signature: ECSignature, pubKey: Buffer): [ECSignature, Buffer];
+        };
+
+        output: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Buffer;
+            encode(pubKeyHash: Buffer): Buffer;
+        };
+    };
+
+    const scriptHash: {
+        input: {
+            check(script: Buffer, allowIncomplete: boolean): boolean;
+            decode(buffer: Buffer): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
+            decodeStack(stack: Buffer[]): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
+            encode(redeemScriptSig: Array<Buffer | number>, redeemScript: Buffer): Buffer;
+            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer;
+        };
+
+        output: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Buffer;
+            encode(scriptHash: Buffer): Buffer;
+        };
+    };
+
+    const witnessCommitment: {
+        output: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Buffer[];
+            encode(commitment: Buffer): Buffer;
+        };
+    };
+
+    const witnessPubKeyHash: {
+        input: {
+            check(script: Buffer): boolean;
+            decodeStack(stack: Buffer[]): { signature: ECSignature; pubKey: Buffer };
+            encodeStack(signature: ECSignature, pubKey: Buffer): [ECSignature, Buffer];
+        };
+
+        output: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Buffer;
+            encode(pubKeyHash: Buffer): Buffer;
+        };
+    };
+
+    const witnessScriptHash: {
+        input: {
+            check(script: Buffer, allowIncomplete: boolean): boolean;
+            decodeStack(stack: Buffer[]): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
+            encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer;
+        };
+
+        output: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Buffer;
+            encode(scriptHash: Buffer): Buffer;
+        };
+    };
+
+    const nullData: {
+        output: {
+            check(script: Buffer): boolean;
+            decode(buffer: Buffer): Buffer;
+            encode(data: Buffer[]): Buffer;
+        };
+    };
 }

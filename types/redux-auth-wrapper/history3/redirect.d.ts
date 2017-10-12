@@ -1,8 +1,8 @@
 import { Action, Store } from "redux";
 import { Location, LocationDescriptorObject } from "history";
-import { AuthBaseConfig, AuthConfig, AuthWrapperDecorator, StateSelector } from "redux-auth-wrapper";
-import { InjectedAuthProps } from "redux-auth-wrapper/authWrapper";
-import { ConnectedAuthWrapperConfig } from "redux-auth-wrapper/connectedAuthWrapper";
+import { AuthBaseConfig, AuthConfig, AuthWrapperDecorator, StateSelector } from "..";
+import { InjectedAuthProps } from "../authWrapper";
+import { ConnectedAuthWrapperConfig } from "../connectedAuthWrapper";
 
 export interface InjectedAuthReduxProps extends InjectedAuthProps {
     redirectPath: string;
@@ -41,15 +41,3 @@ export interface CreateOnEnterConfig<State> extends AuthConfig {
 
 export function createOnEnter<State = {}>(config: CreateOnEnterConfig<State>):
     (store: Store<any>, nextState: State, redirect: (location: LocationDescriptorObject) => void) => void;
-
-export interface LocationHelperConfig<Props> {
-    redirectQueryParamName?: string;
-    locationSelector?(props: Props): LocationDescriptorObject;
-}
-
-export interface LocationHelper<Props> {
-    getRedirectQueryParam(props: Props): string;
-    createRedirectLoc(props: Props, redirectPath: string): LocationDescriptorObject;
-}
-
-export function locationHelperBuilder<Props = {}>(config: LocationHelperConfig<Props>): LocationHelper<Props>;

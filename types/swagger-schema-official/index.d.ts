@@ -151,10 +151,10 @@ export interface Schema extends BaseSchema {
 }
 
 export interface XML {
-  type?: string;
+  name?: string;
   namespace?: string;
   prefix?: string;
-  attribute?: string;
+  attribute?: boolean;
   wrapped?: boolean;
 }
 

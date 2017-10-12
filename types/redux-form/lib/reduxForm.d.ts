@@ -55,6 +55,12 @@ export interface InjectedArrayProps {
     unshift(field: string, value: any): void;
 }
 
+export interface RegisteredField {
+    count: number;
+    name: string;
+    type: "Field" | "FieldArray";
+}
+
 export interface InjectedFormProps<FormData = {}, P = {}> {
     anyTouched: boolean;
     array: InjectedArrayProps;
@@ -82,6 +88,7 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
     untouch(...field: string[]): void;
     valid: boolean;
     warning: any;
+    registeredFields: { [name: string]: RegisteredField }
 }
 
 export interface ConfigProps<FormData = {}, P = {}> {
@@ -123,18 +130,18 @@ export interface FormInstance<FormData, P> extends Component<P> {
 }
 
 export interface DecoratedComponentClass<FormData, P> {
-    new (props?: P, context?: any): FormInstance<FormData, P>;
+    new(props?: P, context?: any): FormInstance<FormData, P>;
 }
 
 export type FormDecorator<FormData, P, Config> =
     (component: ComponentType<P & InjectedFormProps<FormData, P>>) => DecoratedComponentClass<FormData, P & Config>;
 
-declare function reduxForm<FormData = {}, P = {}>(
+export declare function reduxForm<FormData = {}, P = {}>(
     config: ConfigProps<FormData, P>
 ): FormDecorator<FormData, P, Partial<ConfigProps<FormData, P>>>;
 
-declare function reduxForm<FormData = {}, P = {}>(
+export declare function reduxForm<FormData = {}, P = {}>(
     config: Partial<ConfigProps<FormData, P>>
 ): FormDecorator<FormData, P, ConfigProps<FormData, P>>;
 
-
+export default reduxForm;

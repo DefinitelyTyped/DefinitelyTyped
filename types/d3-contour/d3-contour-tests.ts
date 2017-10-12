@@ -38,7 +38,7 @@ function goldsteinPrice(x: number, y: number) {
 
 let size: [number, number];
 let boolFlag: boolean;
-const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: number[], min: number, max: number) => {
+const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: ArrayLike<number>, min?: number, max?: number) => {
     let thresholds: number[];
     thresholds = [values[1], values[2], values[4]];
     return thresholds;
@@ -110,7 +110,7 @@ interface CustomDatum {
 
 // Get contour generator -------------------------------------------------------
 
-let contDensDefault: d3Contour.ContourDensity<[number, number]> = d3Contour.contourDensity();
+const contDensDefault: d3Contour.ContourDensity<[number, number]> = d3Contour.contourDensity();
 let contDensCustom: d3Contour.ContourDensity<CustomDatum> = d3Contour.contourDensity<CustomDatum>();
 
 // Configure contour generator =================================================

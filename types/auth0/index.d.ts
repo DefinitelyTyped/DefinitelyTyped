@@ -7,8 +7,18 @@
 import * as Promise from 'bluebird';
 
 export interface ManagementClientOptions {
-  token: string;
-  domain?: string;
+  token?: string;
+  domain: string;
+  clientId?: string;
+  clientSecret?: string;
+  audience?: string;
+  scope?: string;
+  tokenProvider?: TokenProvider;
+}
+
+export interface TokenProvider {
+  enableCache: boolean;
+  cacheTTLInSeconds?: number;
 }
 
 export interface UserMetadata { }
@@ -360,6 +370,7 @@ export class ManagementClient {
 
   // Users
   getUsers(params?: GetUsersData): Promise<User[]>;
+  getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
 
   getUser(params: ObjectWithId): Promise<User>;

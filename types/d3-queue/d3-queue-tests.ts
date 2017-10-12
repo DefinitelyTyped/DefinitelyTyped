@@ -29,7 +29,7 @@ qWithResults = d3Queue.queue(3);
 
 function delayedHello(name: string, delay: number, callback: (error: any | null) => void) {
     setTimeout(() => {
-        console.log('Hello, ' + name + '!');
+        console.log(`Hello, ${name}!`);
         callback(null);
     }, delay);
 }

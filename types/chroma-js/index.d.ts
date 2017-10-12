@@ -7,7 +7,7 @@
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
-declare namespace Chroma {
+declare namespace chroma {
     interface ColorSpaces {
         rgb: [number, number, number];
         rgba: [number, number, number, number];
@@ -109,7 +109,7 @@ declare namespace Chroma {
          * Blends two colors using RGB channel-wise blend functions.
          */
         blend(color1: string | Color, color2: string | Color,
-              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dogde'): Color;
+              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge'): Color;
 
         /**
          * Returns a random color.
@@ -353,7 +353,7 @@ declare namespace Chroma {
     }
 }
 
-declare var chroma: Chroma.ChromaStatic;
+declare var chroma: chroma.ChromaStatic;
 
 export = chroma;
 export as namespace chroma;

@@ -1,6 +1,6 @@
 // Type definitions for react-widgets 3.2
 // Project: https://github.com/jquense/react-widgets
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten/>, Balázs Sándor <https://github.com/sanyatuning>, Frode Hansen <https://github.com/frodehansen2>
+// Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Balázs Sándor <https://github.com/sanyatuning>, Frode Hansen <https://github.com/frodehansen2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

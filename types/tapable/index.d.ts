@@ -1,5 +1,5 @@
 // Type definitions for tapable v0.2.5
-// Project: http://github.com/webpack/tapable.git
+// Project: https://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

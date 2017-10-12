@@ -1,6 +1,6 @@
 // Type definitions for zeromq 4.5
 // Project: https://github.com/zeromq/zeromq.js
-// Definitions by: Dave McKeown <http://github.com/davemckeown>, Erik Mavrinac <http://github.com/erikma>
+// Definitions by: Dave McKeown <https://github.com/davemckeown>, Erik Mavrinac <https://github.com/erikma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Forked from the DefinitelyTyped 'zmq' project originally created by Dave McKeown,
@@ -80,7 +80,7 @@ export interface Socket {
      * @param addr Socket address
      * @param cb Bind callback
      */
-    bind(addr: string, callback?: (error: string) => void ): Socket;
+    bind(addr: string, callback?: (error: string) => void): Socket;
 
     /**
      * Sync bind.
@@ -97,7 +97,7 @@ export interface Socket {
      * @param addr Socket address
      * @param cb Unind callback
      */
-    unbind(addr: string, callback?: (error: string) => void ): Socket;
+    unbind(addr: string, callback?: (error: string) => void): Socket;
 
     /**
      * Sync unbind.

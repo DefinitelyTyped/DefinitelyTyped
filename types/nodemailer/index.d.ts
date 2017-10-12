@@ -1,6 +1,6 @@
 // Type definitions for Nodemailer 3.1.5
 // Project: https://github.com/andris9/Nodemailer
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
+// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -64,9 +64,13 @@ export declare function createTransport(options?: directTransport.DirectOptions,
  */
 export declare function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
 /**
+ * Create an SMTP transporter using a connection url
+ */
+export declare function createTransport(connectionUrl: string, defaults?: Object): Transporter;
+/**
  * Create an AWS SES transporter
  */
-export declare function createTransport(options?: sesTransport.SesOptions, defaults?: Object): Transporter
+export declare function createTransport(options?: sesTransport.SesOptions, defaults?: Object): Transporter;
 /**
  * Create a transporter from a given implementation
  */

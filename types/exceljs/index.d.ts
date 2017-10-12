@@ -455,6 +455,11 @@ export interface Row extends Style {
 	outlineLevel?: number;
 
 	/**
+	 * The row number
+	 */
+	readonly number: number;
+
+	/**
 	 * Indicate the collapsed state based on outlineLevel
 	 */
 	readonly collapsed: boolean;
