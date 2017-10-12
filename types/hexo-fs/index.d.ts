@@ -426,11 +426,6 @@ export function writeFile(
  */
 export function writeFileSync(path: string, data: any, options?: string | { encoding?: string | null; mode?: string | number; flag?: string }): void;
 
-// Static classes
-export let Stats: Stats;
-export let ReadStream: ReadStream;
-export let WriteStream: WriteStream;
-
 // util
 export function escapeEOL(str: string): string;
 export function escapeBOM(str: string): string;
