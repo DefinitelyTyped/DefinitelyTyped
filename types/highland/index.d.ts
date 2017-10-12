@@ -1137,7 +1137,6 @@ declare namespace Highland {
 		 * });
 		 */
 		through<R, U>(f: (x: R) => U): Stream<U>;
-		//TODO: don't just use `any`, find a way to preserve types with the ReadWriteStream
 		through(thru: NodeJS.ReadWriteStream): Stream<any>;
 
 
