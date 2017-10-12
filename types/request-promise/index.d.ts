@@ -27,4 +27,4 @@ declare namespace requestPromise {
 }
 
 declare var requestPromise: request.RequestAPI<requestPromise.RequestPromise, requestPromise.RequestPromiseOptions, request.RequiredUriUrl>;
-export = requestPromise;
+export default requestPromise = requestPromise;
