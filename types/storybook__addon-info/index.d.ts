@@ -4,6 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+import * as React from 'react';
+import { RenderFunction } from '@storybook/react';
+
+export interface WrapStoryProps {
+  storyFn?: RenderFunction;
+  context?: object;
+  options?: object;
+}
+
 export interface Options {
   text?: string;
   header?: boolean;
@@ -19,4 +28,4 @@ export interface Options {
   maxPropStringLength?: number;
 }
 
-export function withInfo(textOrOptions: string | Options): any;
+export function withInfo(textOrOptions: string | Options): (storyFn: RenderFunction) => () => React.ReactElement<WrapStoryProps>;
