@@ -263,16 +263,7 @@ declare namespace SystemJSLoader {
         };
     }
 
-    interface SystemJSSystemFields {
-        env: string;
-        loaderErrorStack: boolean;
-        packageConfigPaths: string[];
-        pluginFirst: boolean;
-        version: string;
-        warnings: boolean;
-    }
-
-    interface System extends Config, SystemJSSystemFields {
+    interface System extends Config {
         /**
          * For backwards-compatibility with AMD environments, set window.define = System.amdDefine.
          */
@@ -373,5 +364,23 @@ declare namespace SystemJSLoader {
          * Modules list available only with trace=true
          */
         loads: PackageList<any>;
+
+        env: string;
+
+        loaderErrorStack: boolean;
+
+        packageConfigPaths: string[];
+
+        /**
+         * Specify a value of true to have SystemJS conform to the AMD-style plugin syntax, e.g. "text!some/file.txt", over the default of "some/file.txt!text".
+         */
+        pluginFirst: boolean;
+
+        version: string;
+
+        /**
+         * Enables the output of warnings to the console, including deprecation messages.
+         */
+        warnings: boolean;
     }
 }
