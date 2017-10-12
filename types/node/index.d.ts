@@ -4876,23 +4876,23 @@ declare module "crypto" {
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
     export interface Hash extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hash;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hash;
+        update(data: string | Buffer | DataView): Hash;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: string | Buffer): Hmac;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
+        update(data: string | Buffer | DataView): Hmac;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -4903,9 +4903,9 @@ declare module "crypto" {
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
-        update(data: Buffer): Buffer;
+        update(data: Buffer | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: Buffer | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
         update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
@@ -4915,15 +4915,15 @@ declare module "crypto" {
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
-        update(data: string | Buffer): Signer;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Signer;
+        update(data: string | Buffer | DataView): Signer;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: string | { key: string; passphrase: string }): Buffer;
         sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
-        update(data: string | Buffer): Verify;
-        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
+        update(data: string | Buffer | DataView): Verify;
+        update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Verify;
         verify(object: string | Object, signature: Buffer | DataView): boolean;
         verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
