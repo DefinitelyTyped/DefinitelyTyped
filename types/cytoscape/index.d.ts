@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 // Type definitions for Cytoscape.js 3.1.0
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
-=======
-// Type definitions for <SAMPLE> v0.0.1 
-// Project: https://github.com/<SAMPLE>.js
-// Definitions by: Fred Eisele <https://github.com/phreed>
->>>>>>> updated version to 0.0.1
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 
 // Translation from Objects in help to Typescript interface.
