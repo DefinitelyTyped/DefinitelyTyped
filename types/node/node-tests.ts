@@ -3198,8 +3198,9 @@ namespace http2_tests {
             let headersSent: boolean = response.headersSent;
 
             response.setTimeout(0, () => {});
-            response.createPushResponse(outgoingHeaders);
+            response.createPushResponse(outgoingHeaders, () => {});
             response.createPushResponse(outgoingHeaders, (err: Error) => {});
+            response.createPushResponse(outgoingHeaders, (err: Error, res: http2.Http2ServerResponse) => {});
 
             response.writeContinue();
             response.writeHead(200);
