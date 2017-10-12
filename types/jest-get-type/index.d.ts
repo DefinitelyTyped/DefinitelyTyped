@@ -1,5 +1,5 @@
 // Type definitions for jest-get-type 21.0
-// Project: http://facebook.github.io/jest/
+// Project: https://github.com/facebook/jest/tree/master/packages/jest-get-type
 // Definitions by: Alex Coles <https://github.com/myabc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
