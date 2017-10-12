@@ -1085,7 +1085,7 @@ declare namespace GoogleAppsScript {
       /**
        * Returns the currently active spreadsheet, or null if there is none.
        */
-      getActive(): Spreadsheet;
+      getActive(): Spreadsheet | null;
       /**
        * Returns the range of cells that is currently considered active.
        */
