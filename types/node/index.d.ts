@@ -5110,6 +5110,7 @@ declare module "stream" {
             writable: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: Function): void;
+            _writev(chunks: Array<{chunk: any, encoding: string}>, callback: Function): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
@@ -5200,6 +5201,7 @@ declare module "stream" {
             writable: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: Function): void;
+            _writev(chunks: Array<{chunk: any, encoding: string}>, callback: Function): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
