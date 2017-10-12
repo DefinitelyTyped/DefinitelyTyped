@@ -176,8 +176,12 @@ declare namespace request {
         (error: any, response: RequestResponse, body: any): void;
     }
 
+    export type ResponseRequest = CoreOptions & {
+      uri: Url;
+    }
+
 	export interface RequestResponse extends http.IncomingMessage {
-		request: Options;
+		request: ResponseRequest;
 		body: any;
 		timingStart?: number;
 		timings?: {
