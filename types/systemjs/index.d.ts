@@ -3,6 +3,21 @@
 // Definitions by: Ludovic HENIN <https://github.com/ludohenin>, Nathan Walker <https://github.com/NathanWalker>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = SystemJSLoader;
+
+export as namespace SystemJSLoader;
+
+declare global {
+    const SystemJS: typeof SystemJSLoader;
+
+    /**
+     * @deprecated use SystemJS https://github.com/systemjs/systemjs/releases/tag/0.19.10
+     */
+    const System: typeof SystemJSLoader;
+    const __moduleName: string;
+}
+
+declare const SystemJSLoader: SystemJSLoader.System;
 
 declare namespace SystemJSLoader {
 
@@ -362,19 +377,4 @@ declare namespace SystemJSLoader {
          */
         loads: PackageList<any>;
     }
-}
-
-declare var SystemJS: SystemJSLoader.System;
-
-declare var __moduleName: string;
-
-/**
- * @deprecated use SystemJS https://github.com/systemjs/systemjs/releases/tag/0.19.10
- */
-declare const System: SystemJSLoader.System;
-
-declare module "systemjs" {
-    import systemJSLoader = SystemJSLoader;
-    const system: systemJSLoader.System;
-    export = system;
 }
