@@ -1,0 +1,53 @@
+{
+  "name": "@types/cytoscape",
+  "version": "3.1.0",
+  "description": "A set of TypeScript definitions for Cytoscape JS",
+  "main": "",
+  "typings": "index.d.ts",
+  "files": [
+    "index.d.ts"
+  ],
+  "keywords": [
+    "typescript",
+    "cytoscape",
+    "defininition"
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "typescript": "^2.1.1"
+  },
+  "devDependencies": {
+    "ts-node": "^1.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phreed/ts-typings.git"
+  },
+  "author": {
+    "name": "Fred Eisele",
+    "email": "fred.eisele@vanderbilt.edu"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/typescript-typings/typings/issues"
+  },
+  "homepage": "https://github.com/typescript-typings/typings#readme",
+  "engines": {
+    "node": ">=0.12",
+    "npm": ">=2.0.0"
+  },
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "fred.eisele@vanderbilt.edu"
+    }
+  ],
+  "optionalDependencies": {},
+  "preferGlobal": true,
+  "private": false,
+  "publishConfig": {
+    "scope": "@types"
+  }
+}
