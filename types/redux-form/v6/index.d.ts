@@ -16,7 +16,7 @@ export type FieldState = {
     active?: boolean;
     touched?: boolean;
     visited?: boolean;
-    error?: string;
+    error?: any;
 }
 
 export type FieldType = "Field" | "FieldArray";
