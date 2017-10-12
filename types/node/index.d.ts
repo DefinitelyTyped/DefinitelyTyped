@@ -2631,6 +2631,8 @@ declare module "dgram" {
     interface SocketOptions {
         type: SocketType;
         reuseAddr?: boolean;
+        recvBufferSize?: number;
+        sendBufferSize?: number;
     }
 
     export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
@@ -2653,6 +2655,10 @@ declare module "dgram" {
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
         ref(): this;
         unref(): this;
+        setRecvBufferSize(size: number): void;
+        setSendBufferSize(size: number): void;
+        getRecvBufferSize(): number;
+        getSendBufferSize(): number;
 
         /**
          * events.EventEmitter
