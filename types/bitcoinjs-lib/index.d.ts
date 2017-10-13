@@ -66,6 +66,8 @@ export class ECPair {
 
     constructor(d: null | undefined, Q: any, options?: { compressed?: boolean, network?: Network }); // Q should be ECPoint, but not sure how to define such type
 
+    d: BigInteger;
+
     getAddress(): string;
 
     getNetwork(): Network;
