@@ -2,7 +2,7 @@
 // Project: https://github.com/pugjs/babylon-walk
 // Definitions by: Marek Buchar <https://github.com/czbuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4.1
+// TypeScript Version: 2.3
 
 declare module 'babylon-walk' {
    import * as babelTypes from 'babel-types';
