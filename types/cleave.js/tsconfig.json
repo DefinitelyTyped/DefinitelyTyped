@@ -19,8 +19,8 @@
     },
     "files": [
         "cleave.js-tests.tsx",
-        "cleaveOptions.ts",
         "index.d.ts",
+        "options.ts",
         "react/index.d.ts"
     ]
 }

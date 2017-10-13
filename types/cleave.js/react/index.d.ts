@@ -1,8 +1,10 @@
-import * as React from 'react'
-import { CleaveOptions } from '../cleaveOptions';
+import * as React from "react";
+import { CleaveOptions } from "../options";
+
+type InitHandler = (owner: React.ReactInstance) => void;
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-    onInit?: (ownert: React.ReactInstance) => void;
+    onInit?: InitHandler;
     options: CleaveOptions;
 }
 

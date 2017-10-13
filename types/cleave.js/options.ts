@@ -11,12 +11,13 @@ export type CreditCardType =
     | "uatp"
     | "unknown"
     | "visa";
+export type CreditCardTypeChangeHandler = (owner: HTMLInputElement, type: CreditCardType) => void;
 
 export interface CleaveOptions {
     creditCard?: boolean;
     creditCardStrictMode?: boolean;
     creditCardType?: string;
-    onCreditCardTypeChanged?: (ownert: any, type: CreditCardType) => void;
+    onCreditCardTypeChanged?: CreditCardTypeChangeHandler;
 }
 
 // Phone Options
