@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "babylon_walk-tests.ts"
+        "babylon-walk-tests.ts"
     ]
 }
