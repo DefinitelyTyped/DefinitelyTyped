@@ -5,6 +5,7 @@
 //                 Gady Piazza <https://github.com/kikar>
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Gaurav Lahoti <https://github.com/dante-101>
+//                 Andrey Goncharov <https://github.com/keenondrums>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -565,13 +566,13 @@ export interface Collection<TSchema = Default> {
     /** @deprecated Use insertOne, insertMany or bulkWrite */
     insert(docs: Object, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
-    insertMany(docs: Object[], callback: MongoCallback<InsertWriteOpResult>): void;
-    insertMany(docs: Object[], options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
-    insertMany(docs: Object[], options: CollectionInsertManyOptions, callback: MongoCallback<InsertWriteOpResult>): void;
+    insertMany<T = Object>(docs: T[], callback: MongoCallback<InsertWriteOpResult>): void;
+    insertMany<T = Object>(docs: T[], options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
+    insertMany<T = Object>(docs: T[], options: CollectionInsertManyOptions, callback: MongoCallback<InsertWriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertOne
-    insertOne(docs: Object, callback: MongoCallback<InsertOneWriteOpResult>): void;
-    insertOne(docs: Object, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
-    insertOne(docs: Object, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insertOne<T = Object>(docs: T, callback: MongoCallback<InsertOneWriteOpResult>): void;
+    insertOne<T = Object>(docs: T, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult>;
+    insertOne<T = Object>(docs: T, options: CollectionInsertOneOptions, callback: MongoCallback<InsertOneWriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#isCapped
     isCapped(): Promise<any>;
     isCapped(callback: MongoCallback<any>): void;
@@ -625,13 +626,13 @@ export interface Collection<TSchema = Default> {
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(filter: Object, update: Object, options: ReplaceOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateMany
-    updateMany(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateMany(filter: Object, update: Object, options?: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }): Promise<UpdateWriteOpResult>;
-    updateMany(filter: Object, update: Object, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany<T = Object>(filter: Object, update: T, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany<T = Object>(filter: Object, update: T, options?: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }): Promise<UpdateWriteOpResult>;
+    updateMany<T = Object>(filter: Object, update: T, options: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }, callback: MongoCallback<UpdateWriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateOne
-    updateOne(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateOne(filter: Object, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
-    updateOne(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne<T = Object>(filter: Object, update: T, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne<T = Object>(filter: Object, update: T, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
+    updateOne<T = Object>(filter: Object, update: T, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
 }
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
