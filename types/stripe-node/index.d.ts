@@ -4254,6 +4254,11 @@ declare namespace StripeNode {
              * The ID of the plan whose subscriptions will be retrieved
              */
             plan?: string;
+
+            /**
+             * The status of the subscriptions to retrieve.
+             */
+            status?: ISubscription["status"] | "all";
         }
     }
 
