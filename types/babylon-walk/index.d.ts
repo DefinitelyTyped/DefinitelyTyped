@@ -1,0 +1,162 @@
+// Type definitions for babylon-walk 3.10.7
+// Project: https://github.com/pugjs/babylon-walk
+// Definitions by: Marek Buchar <https://github.com/czbuchi>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4.1
+
+export module 'babylon-walk' {
+    import { Node } from 'babel-types';
+
+    export type SimpleVisitor = (node: Node, state: any) => void;
+
+    export type AncestorVisitor = (node: Node, state: any, ancestors: Node[]) => void | (node: Node, ancestors: Node[]) => void;
+
+    export type RecursiveVisitor = (node: Node, state: any, next: (node: Node) => void) => void;
+
+    export type Visitors<V> = {
+        CommentBlock?: V;
+        CommentLine?: V;
+        ArrayExpression?: V;
+        AssignmentExpression?: V;
+        BinaryExpression?: V;
+        Directive?: V;
+        DirectiveLiteral?: V;
+        BlockStatement?: V;
+        BreakStatement?: V;
+        CallExpression?: V;
+        CatchClause?: V;
+        ConditionalExpression?: V;
+        ContinueStatement?: V;
+        DebuggerStatement?: V;
+        DoWhileStatement?: V;
+        EmptyStatement?: V;
+        ExpressionStatement?: V;
+        File?: V;
+        ForInStatement?: V;
+        ForStatement?: V;
+        FunctionDeclaration?: V;
+        FunctionExpression?: V;
+        Identifier?: V;
+        IfStatement?: V;
+        LabeledStatement?: V;
+        StringLiteral?: V;
+        NumericLiteral?: V;
+        NullLiteral?: V;
+        BooleanLiteral?: V;
+        RegExpLiteral?: V;
+        LogicalExpression?: V;
+        MemberExpression?: V;
+        NewExpression?: V;
+        Program?: V;
+        ObjectExpression?: V;
+        ObjectMethod?: V;
+        ObjectProperty?: V;
+        RestElement?: V;
+        ReturnStatement?: V;
+        SequenceExpression?: V;
+        SwitchCase?: V;
+        SwitchStatement?: V;
+        ThisExpression?: V;
+        ThrowStatement?: V;
+        TryStatement?: V;
+        UnaryExpression?: V;
+        UpdateExpression?: V;
+        VariableDeclaration?: V;
+        VariableDeclarator?: V;
+        WhileStatement?: V;
+        WithStatement?: V;
+        AssignmentPattern?: V;
+        ArrayPattern?: V;
+        ArrowFunctionExpression?: V;
+        ClassBody?: V;
+        ClassDeclaration?: V;
+        ClassExpression?: V;
+        ExportAllDeclaration?: V;
+        ExportDefaultDeclaration?: V;
+        ExportNamedDeclaration?: V;
+        ExportSpecifier?: V;
+        ForOfStatement?: V;
+        ImportDeclaration?: V;
+        ImportDefaultSpecifier?: V;
+        ImportNamespaceSpecifier?: V;
+        ImportSpecifier?: V;
+        MetaProperty?: V;
+        ClassMethod?: V;
+        ObjectProperty?: V;
+        ObjectPattern?: V;
+        SpreadElement?: V;
+        Super?: V;
+        TaggedTemplateExpression?: V;
+        TemplateElement?: V;
+        TemplateLiteral?: V;
+        YieldExpression?: V;
+        AnyTypeAnnotation?: V;
+        ArrayTypeAnnotation?: V;
+        BooleanTypeAnnotation?: V;
+        BooleanLiteralTypeAnnotation?: V;
+        NullLiteralTypeAnnotation?: V;
+        ClassImplements?: V;
+        ClassProperty?: V;
+        DeclareClass?: V;
+        DeclareFunction?: V;
+        DeclareInterface?: V;
+        DeclareModule?: V;
+        DeclareTypeAlias?: V;
+        DeclareVariable?: V;
+        ExistentialTypeParam?: V;
+        FunctionTypeAnnotation?: V;
+        FunctionTypeParam?: V;
+        GenericTypeAnnotation?: V;
+        InterfaceExtends?: V;
+        InterfaceDeclaration?: V;
+        IntersectionTypeAnnotation?: V;
+        MixedTypeAnnotation?: V;
+        NullableTypeAnnotation?: V;
+        NumericLiteralTypeAnnotation?: V;
+        NumberTypeAnnotation?: V;
+        StringLiteralTypeAnnotation?: V;
+        StringTypeAnnotation?: V;
+        ThisTypeAnnotation?: V;
+        TupleTypeAnnotation?: V;
+        TypeofTypeAnnotation?: V;
+        TypeAlias?: V;
+        TypeAnnotation?: V;
+        TypeCastExpression?: V;
+        TypeParameterDeclaration?: V;
+        TypeParameterInstantiation?: V;
+        ObjectTypeAnnotation?: V;
+        ObjectTypeCallProperty?: V;
+        ObjectTypeIndexer?: V;
+        ObjectTypeProperty?: V;
+        QualifiedTypeIdentifier?: V;
+        UnionTypeAnnotation?: V;
+        VoidTypeAnnotation?: V;
+        JSXAttribute?: V;
+        JSXClosingElement?: V;
+        JSXElement?: V;
+        JSXEmptyExpression?: V;
+        JSXExpressionContainer?: V;
+        JSXIdentifier?: V;
+        JSXMemberExpression?: V;
+        JSXNamespacedName?: V;
+        JSXOpeningElement?: V;
+        JSXSpreadAttribute?: V;
+        JSXText?: V;
+        Noop?: V;
+        ParenthesizedExpression?: V;
+        AwaitExpression?: V;
+        BindExpression?: V;
+        Decorator?: V;
+        DoExpression?: V;
+        ExportDefaultSpecifier?: V;
+        ExportNamespaceSpecifier?: V;
+        RestProperty?: V;
+        SpreadProperty?: V;
+    };
+        
+    export function simple(node: Node, visitors: Visitors<SimpleVisitor>, state: any): void;
+    
+    export function ancestor(node: Node, visitors: Visitors<AncestorVisitor>, state: any): void;
+    
+    export function recursive(node: Node, visitors: Visitors<RecursiveVisitor>, state: any): void;
+}
