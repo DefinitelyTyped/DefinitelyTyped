@@ -433,6 +433,7 @@ declare namespace NodeJS {
 
     export interface ProcessEnv {
         [key: string]: string | undefined;
+        PATH: string;
     }
 
     export interface WriteStream extends Socket {
