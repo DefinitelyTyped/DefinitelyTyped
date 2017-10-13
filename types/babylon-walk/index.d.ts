@@ -4,12 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4.1
 
-export module 'babylon-walk' {
+declare module 'babylon-walk' {
     import { Node } from 'babel-types';
 
     export type SimpleVisitor = (node: Node, state: any) => void;
 
-    export type AncestorVisitor = (node: Node, state: any, ancestors: Node[]) => void | (node: Node, ancestors: Node[]) => void;
+    type VisitorStateAncestors = (node: Node, state: any, ancestors: Node[]) => void;
+    type VisitorAncestors = (node: Node, ancestors: Node[]) => void;
+
+    export type AncestorVisitor = VisitorStateAncestors | VisitorAncestors;
 
     export type RecursiveVisitor = (node: Node, state: any, next: (node: Node) => void) => void;
 
@@ -82,7 +85,6 @@ export module 'babylon-walk' {
         ImportSpecifier?: V;
         MetaProperty?: V;
         ClassMethod?: V;
-        ObjectProperty?: V;
         ObjectPattern?: V;
         SpreadElement?: V;
         Super?: V;
@@ -155,8 +157,6 @@ export module 'babylon-walk' {
     };
         
     export function simple(node: Node, visitors: Visitors<SimpleVisitor>, state: any): void;
-    
     export function ancestor(node: Node, visitors: Visitors<AncestorVisitor>, state: any): void;
-    
     export function recursive(node: Node, visitors: Visitors<RecursiveVisitor>, state: any): void;
 }
