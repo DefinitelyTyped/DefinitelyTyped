@@ -2939,6 +2939,8 @@ namespace async_hooks_tests {
     class AnotherTestResource extends async_hooks.AsyncResource {
         constructor() {
             super('TEST_RESOURCE', 42);
+            const aId: number = this.asyncId();
+            const tId: number = this.triggerAsyncId();
         }
         run() {
             this.emitBefore();
