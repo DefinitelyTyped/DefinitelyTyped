@@ -2919,7 +2919,8 @@ namespace async_hooks_tests {
         init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
         before: (asyncId: number) => void {},
         after: (asyncId: number) => void {},
-        destroy: (asyncId: number) => void {}
+        destroy: (asyncId: number) => void {},
+        promiseResolve: (asyncId: number) => void {}
     };
 
     const asyncHook = async_hooks.createHook(hooks);

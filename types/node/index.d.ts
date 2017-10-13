@@ -5886,6 +5886,13 @@ declare module "async_hooks" {
         after?(asyncId: number): void;
 
         /**
+         * Called when a promise has resolve() called. This may not be in the same execution id
+         * as the promise itself.
+         * @param asyncId the unique id for the promise that was resolve()d.
+         */
+        promiseResolve?(asyncId: number): void;
+
+        /**
          * Called after the resource corresponding to asyncId is destroyed
          * @param asyncId a unique ID for the async resource
          */
