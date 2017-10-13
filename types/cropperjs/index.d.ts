@@ -284,7 +284,7 @@ declare namespace cropperjs {
     }
     interface ZoomData {
         /**
-         * The original event that was triggered 
+         * The original event that was triggered
          * Options: wheel, touchmove
          */
         originalEvent: Event;
@@ -311,19 +311,19 @@ declare namespace cropperjs {
         /**
         * the offset left of the crop box
         */
-        left: number;
+        left?: number;
         /**
         * the offset top of the crop box
         */
-        top: number;
+        top?: number;
         /**
         * the width of the crop box
         */
-        width: number;
+        width?: number;
         /**
         * the height of the crop box
         */
-        height: number;
+        height?: number;
     }
     interface CanvasData {
         /**
