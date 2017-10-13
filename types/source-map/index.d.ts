@@ -299,9 +299,9 @@ export class SourceNode {
 
     constructor();
     constructor(
-        line: number,
-        column: number,
-        source: string,
+        line: number | null,
+        column: number | null,
+        source: string | null,
         chunks?: Array<(string | SourceNode)> | SourceNode | string,
         name?: string
     );
