@@ -2,8 +2,7 @@ import Ember from 'ember';
 
 let App: any;
 
-App = Ember.Application.create<Ember.Application>();
-
+App = Ember.Application.create();
 App.president = Ember.Object.create({
     name: 'Barack Obama',
 });
@@ -23,8 +22,9 @@ App.president.get('fullName');
 declare class MyPerson extends Ember.Object {
     static createMan(): MyPerson;
 }
+MyPerson.createMan();
 
-const Person1 = Ember.Object.extend<typeof MyPerson>({
+const Person1 = Ember.Object.extend({
     say: (thing: string) => {
         alert(thing);
     },
@@ -33,7 +33,9 @@ const Person1 = Ember.Object.extend<typeof MyPerson>({
 declare class MyPerson2 extends Ember.Object {
     helloWorld(): void;
 }
-const tom = Person1.create<MyPerson2>({
+MyPerson2.create().helloWorld();
+
+const tom = Person1.create({
     name: 'Tom Dale',
     helloWorld() {
         this.say('Hi my name is ' + this.get('name'));
@@ -41,23 +43,8 @@ const tom = Person1.create<MyPerson2>({
 });
 tom.helloWorld();
 
-Person1.reopen({ isPerson: true });
-Person1.create<Ember.Object>().get('isPerson');
-
-Person1.reopenClass({
-    createMan: () => {
-        return Person1.create({ isMan: true });
-    },
-});
-// ReSharper disable once DuplicatingLocalDeclaration
-Person1.createMan().get('isMan');
-
-const person = Person1.create<Ember.Object>({
-    firstName: 'Yehuda',
-    lastName: 'Katz',
-});
-person.addObserver('fullName', null, () => {});
-person.set('firstName', 'Brohuda');
+const PersonReopened = Person1.reopen({ isPerson: true });
+PersonReopened.create().get('isPerson');
 
 App.todosController = Ember.Object.create({
     todos: [Ember.Object.create({ isDone: false })],
@@ -105,17 +92,6 @@ App.userController = Ember.Object.create({
     }),
 });
 
-Ember.Helper.helper(params => {
-    const cents = params[0];
-    return `${cents * 0.01}`;
-});
-
-Ember.Helper.helper((params, hash) => {
-    const cents = params[0];
-    const currency = hash.currency;
-    return `${currency}${cents * 0.01}`;
-});
-
 Handlebars.registerHelper(
     'highlight',
     (property: string, options: any) =>
@@ -124,7 +100,8 @@ Handlebars.registerHelper(
 
 const coolView = App.CoolView.create();
 
-const Person2 = Ember.Object.extend<typeof Ember.Object>({
+const Person2 = Ember.Object.extend({
+    name: '',
     sayHello() {
         console.log('Hello from ' + this.get('name'));
     },
@@ -140,24 +117,25 @@ const arr = Ember.A([Ember.Object.create(), Ember.Object.create()]);
 arr.setEach('name', 'unknown');
 arr.getEach('name');
 
-const Person3 = Ember.Object.extend<typeof Ember.Object>({
-    name: null,
+const Person3 = Ember.Object.extend({
+    name: '',
     isHappy: false,
 });
 const people2 = Ember.A([
     Person3.create({ name: 'Yehuda', isHappy: true }),
     Person3.create({ name: 'Majd', isHappy: false }),
 ]);
-const isHappy = (person: Ember.Object): Boolean => {
+const isHappy = (person: typeof Person3.prototype): boolean => {
     return !!person.get('isHappy');
 };
 people2.every(isHappy);
 people2.any(isHappy);
-people2.everyProperty('isHappy', true);
-people2.someProperty('isHappy', true);
+people2.isEvery('isHappy', true);
+people2.isAny('isHappy', true);
+people2.isAny('isHappy');
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-const promise = new Ember.RSVP.Promise<string, string>((resolve: Function, reject: Function) => {
+const promise = new Ember.RSVP.Promise<string>((resolve: Function, reject: Function) => {
     // on success
     resolve('ok!');
 
@@ -174,6 +152,9 @@ promise.then(
     }
 );
 
+// make sure Ember.RSVP.Promise can be reference as a type
+declare function promiseReturningFunction(urn: string): Ember.RSVP.Promise<string>;
+
 const mix1 = Ember.Mixin.create({
     foo: 1,
 });
@@ -182,27 +163,7 @@ const mix2 = Ember.Mixin.create({
     bar: 2,
 });
 
-const mix3 = Ember.Mixin.create({
-    foo: 3,
-});
-
-const mix4 = Ember.Mixin.create({
-    bar: 4,
-});
-
-const mix5 = Ember.Mixin.create({
-    foo: 5,
-});
-
-const mix6 = Ember.Mixin.create({
-    bar: 6,
-});
-
-const mix7 = Ember.Mixin.create({
-    foo: 7,
-});
-
-const component1 = Ember.Component.extend(mix1, mix2, mix3, mix4, mix5, mix6, mix7, {
+const component1 = Ember.Component.extend(mix1, mix2, {
     lyft: Ember.inject.service(),
     cars: Ember.computed.readOnly('lyft.cars'),
 });
