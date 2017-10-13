@@ -390,10 +390,14 @@ declare namespace cropperjs {
         * the destination width of the output canvas
         */
         width?: number;
+        minWidth?: number;
+        maxWidth?: number;
         /**
         * the destination height of the output canvas
         */
         height?: number;
+        minHeight?: number;
+        maxHeight?: number;
         /**
         * a color to fill any alpha values in the output canvas
         */
