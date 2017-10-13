@@ -3710,8 +3710,8 @@ namespace inspector_tests {
         session.post('Runtime.evaluate', parameter,
             (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
         session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
-            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
-            const resultClassName: string = params.result.className;
+            const exceptionDetails: inspector.Runtime.ExceptionDetails | undefined = params.exceptionDetails;
+            const resultClassName: string | undefined = params.result.className;
         });
         session.post('Runtime.evaluate');
 
