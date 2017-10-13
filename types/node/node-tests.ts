@@ -2147,7 +2147,7 @@ namespace cluster_tests {
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
-            const worker = cluster.workers[key];
+            const worker = cluster.workers[key]!;
             if (worker.isDead()) {
                 console.log('worker %d is dead', worker.process.pid);
             }
