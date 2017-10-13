@@ -694,7 +694,7 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T>(list: T[]): T;
+        head<T>(list: T[]): T | undefined;
         head(list: string): string;
 
         /**
@@ -861,7 +861,7 @@ declare namespace R {
         /**
          * Returns the last element from a list.
          */
-        last<T>(list: T[]): T;
+        last<T>(list: T[]): T | undefined;
         last(list: string): string;
 
         /**
@@ -1814,7 +1814,7 @@ declare namespace R {
          * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
          * all as 'Object'.
          */
-        type(val: any): string;
+        type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
 
         /**
          * Takes a function fn, which takes a single array argument, and returns a function which:
