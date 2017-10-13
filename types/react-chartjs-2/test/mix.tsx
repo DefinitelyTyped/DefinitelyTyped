@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Bar } from 'react-chartjs-2';
+import { ChartData, ChartOptions } from 'chart.js';
 
-const data = {
+const data: ChartData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [{
     label: 'Sales',
@@ -22,13 +23,11 @@ const data = {
     fill: false,
     backgroundColor: '#71B37C',
     borderColor: '#71B37C',
-    hoverBackgroundColor: '#71B37C',
-    hoverBorderColor: '#71B37C',
     yAxisID: 'y-axis-1'
   }]
 };
 
-const options = {
+const options: ChartOptions = {
   responsive: true,
   tooltips: {
     mode: 'label'
@@ -44,9 +43,6 @@ const options = {
         display: true,
         gridLines: {
           display: false
-        },
-        labels: {
-          show: true
         }
       }
     ],
@@ -58,9 +54,6 @@ const options = {
         id: 'y-axis-1',
         gridLines: {
           display: false
-        },
-        labels: {
-          show: true
         }
       },
       {
@@ -70,9 +63,6 @@ const options = {
         id: 'y-axis-2',
         gridLines: {
           display: false
-        },
-        labels: {
-          show: true
         }
       }
     ]

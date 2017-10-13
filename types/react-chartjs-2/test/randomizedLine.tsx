@@ -34,23 +34,21 @@ class Graph extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    let _this = this;
-
     setInterval(() => {
-      let oldDataSet = _this.state;
-      let newData: number[] = [];
+      const oldDataSet = this.state;
+      const newData: number[] = [];
 
-      _this.state.labels.forEach(() => {
+      this.state.labels.forEach(() => {
         newData.push(Math.floor(Math.random() * 100));
       });
 
-      let newDataSet = {
+      const newDataSet = {
         ...oldDataSet
       };
 
       newDataSet.data = newData;
 
-      _this.setState({ datasets: [newDataSet] });
+      this.setState({ datasets: [newDataSet] });
     }, 5000);
   }
 

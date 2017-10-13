@@ -1,6 +1,6 @@
 // Type definitions for dotenv 4.0
 // Project: https://github.com/motdotla/dotenv
-// Definitions by: Jussi Kinnula <https://github.com/jussikinnula/>, Borek Bernard <https://github.com/borekb>, Eric Naeseth <https://github.com/enaeseth>
+// Definitions by: Jussi Kinnula <https://github.com/jussikinnula>, Borek Bernard <https://github.com/borekb>, Eric Naeseth <https://github.com/enaeseth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

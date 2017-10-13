@@ -1,15 +1,15 @@
-import {RNFetchBlob} from "react-native-fetch-blob";
+import { RNFetchBlob } from "react-native-fetch-blob";
 
-let BASE64_IMAGE_STRING = 'some base64 image';
-let PATH_TO_THE_FILE = '/some/path.png';
+const BASE64_IMAGE_STRING = 'some base64 image';
+const PATH_TO_THE_FILE = '/some/path.png';
 
 // Download example: Fetch files that need authorization token
 RNFetchBlob
     .fetch('GET', 'http://www.example.com/images/img1.png', {Authorization: 'Bearer access-token...'})
     .then(res => {
-        let base64Str = res.base64();
-        let text = res.text();
-        let json = res.json();
+        const base64Str = res.base64();
+        const text = res.text();
+        const json = res.json();
     });
 
 // Download to storage directly
@@ -46,7 +46,7 @@ RNFetchBlob
     });
 
 // Use Specific File Path
-let dirs = RNFetchBlob.fs.dirs;
+const dirs = RNFetchBlob.fs.dirs;
 RNFetchBlob
     .config({
         // response data will be saved to this path if it has access right.
@@ -204,7 +204,7 @@ RNFetchBlob.fetch('POST', 'http://www.example.com/upload', {
     });
 
 // Cancel Request
-let task = RNFetchBlob.fetch('GET', 'http://example.com/file/1');
+const task = RNFetchBlob.fetch('GET', 'http://example.com/file/1');
 task.then(() => {
 })
 // handle request cancelled rejection

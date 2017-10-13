@@ -11,7 +11,7 @@ function itemComponent(props: { value: string }) {
     return <span>{props.value}</span>;
 }
 
-class Test extends React.Component<React.Props<{}>, {}> {
+class Test extends React.Component<React.Props<{}>> {
     render() {
         return (
         <div>
@@ -47,7 +47,7 @@ class Test extends React.Component<React.Props<{}>, {}> {
             </div>
             <div>
                 <Calendar disabled readOnly />
-                <Combobox disabled readOnly dropUp />
+                <Combobox disabled readOnly dropUp placeholder={'Some text'}/>
                 <DateTimePicker disabled readOnly dropUp />
                 <DropdownList disabled readOnly dropUp />
                 <Multiselect disabled readOnly dropUp />

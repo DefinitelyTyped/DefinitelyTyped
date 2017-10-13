@@ -9,6 +9,8 @@ function mixpanel_base()
 
     mixpanel.disable(['my_event']);
 
+    mixpanel.time_event('Registered');
+
     mixpanel.track("Registered", {"Gender": "Male", "Age": 21});
 
     mixpanel.track_links("#nav", "Clicked Nav Link");
@@ -32,6 +34,8 @@ function mixpanel_base()
     mixpanel.get_config();
 
     mixpanel.get_property('device');
+
+    mixpanel.reset();
 }
 
 function mixpanel_people()
@@ -55,6 +59,12 @@ function mixpanel_people()
     mixpanel.people.increment({
         counter1: 1,
         counter2: 1
+    });
+
+    mixpanel.people.union('pages_visited', 'homepage');
+    mixpanel.people.union({
+        list1: 'bob',
+        list2: 123
     });
 
     mixpanel.people.append('pages_visited', 'homepage');

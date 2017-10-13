@@ -1,6 +1,6 @@
 // Type definitions for msgpack-lite 0.1
 // Project: https://github.com/kawanet/msgpack-lite
-// Definitions by: Endel Dreyer <https://github.com/endel/>, Edmund Fokschaner <https://github.com/efokschaner>
+// Definitions by: Endel Dreyer <https://github.com/endel>, Edmund Fokschaner <https://github.com/efokschaner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -19,7 +19,7 @@ export function decode(input: Buffer | Uint8Array | number[], options?: DecoderO
 /**
  * create a stream that encodes from JS Object to MessagePack
  */
-export function createEncodeStream(options?: EncoderOptions & stream.TransformOptions ): EncodeStream;
+export function createEncodeStream(options?: EncoderOptions & stream.TransformOptions): EncodeStream;
 
 /**
  * create a stream that decodes from MessagePack (Buffer) to JS Object

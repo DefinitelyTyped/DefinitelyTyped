@@ -1,9 +1,11 @@
 // Type definitions for passport-jwt 2.0
 // Project: https://github.com/themikenicholson/passport-jwt
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
+//                 Alex Young <https://github.com/alsiola/>
+//                 David Ng <https://github.com/davidNHK/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Strategy as PassportStrategy} from 'passport-strategy';
+import { Strategy as PassportStrategy } from 'passport-strategy';
 import {Request} from 'express';
 
 export declare class Strategy extends PassportStrategy {
@@ -12,7 +14,7 @@ export declare class Strategy extends PassportStrategy {
 }
 
 export interface StrategyOptions {
-    secretOrKey: string;
+    secretOrKey: string | Buffer;
     jwtFromRequest: JwtFromRequestFunction;
     issuer?: string;
     audience?: string;
@@ -43,4 +45,6 @@ export declare namespace ExtractJwt {
     export function fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;
     export function fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
     export function fromAuthHeader(): JwtFromRequestFunction;
+    export function fromExtractors(extractors: JwtFromRequestFunction[]): JwtFromRequestFunction;
+    export function fromAuthHeaderAsBearerToken(): JwtFromRequestFunction;
 }

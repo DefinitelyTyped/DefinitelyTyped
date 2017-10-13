@@ -1,13 +1,13 @@
 // Type definitions for Restangular v1.5.0
 // Project: https://github.com/mgonto/restangular
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
 // Support AMD require (copying angular.d.ts approach)
-// allows for import {IRequestConfig} from 'restangular' ES6 approach
+// allows for import { IRequestConfig } from 'restangular' ES6 approach
 import * as angular from 'angular';
 export = restangular;
 export as namespace Restangular;
@@ -39,33 +39,36 @@ declare namespace restangular {
   }
 
   interface IProvider {
-    setBaseUrl(baseUrl: string): void;
-    setExtraFields(fields: string[]): void;
-    setParentless(parentless: boolean, routes: string[]): void;
-    setDefaultHttpFields(httpFields: any): void;
-    addElementTransformer(route: string, transformer: Function): void;
-    addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
-    setTransformOnlyServerElements(active: boolean): void;
-    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): void;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
-    addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
-    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): void;
-    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): void;
-    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): void;
-    setRestangularFields(fields: {[fieldName: string]: string}): void;
-    setMethodOverriders(overriders: string[]): void;
-    setJsonp(jsonp: boolean): void;
-    setDefaultRequestParams(params: any): void;
-    setDefaultRequestParams(method: string, params: any): void;
-    setDefaultRequestParams(methods: string[], params: any): void;
-    setFullResponse(fullResponse: boolean): void;
-    setDefaultHeaders(headers: any): void;
-    setRequestSuffix(suffix: string): void;
-    setUseCannonicalId(useCannonicalId: boolean): void;
-    setEncodeIds(encode: boolean): void;
+    setBaseUrl(baseUrl: string): IProvider;
+    setExtraFields(fields: string[]): IProvider;
+    setParentless(parentless: boolean, routes: string[]): IProvider;
+    setDefaultHttpFields(httpFields: any): IProvider;
+    addElementTransformer(route: string, transformer: Function): IProvider;
+    addElementTransformer(route: string, isCollection: boolean, transformer: Function): IProvider;
+    setTransformOnlyServerElements(active: boolean): IProvider;
+    setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): IProvider;
+    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): IProvider;
+    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): IProvider;
+    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): IProvider;
+    setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): IProvider;
+    addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): IProvider;
+    setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): IProvider;
+    addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): IProvider;
+    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): IProvider;
+    setRestangularFields(fields: {[fieldName: string]: string}): IProvider;
+    setMethodOverriders(overriders: string[]): IProvider;
+    setJsonp(jsonp: boolean): IProvider;
+    setDefaultRequestParams(params: any): IProvider;
+    setDefaultRequestParams(method: string, params: any): IProvider;
+    setDefaultRequestParams(methods: string[], params: any): IProvider;
+    setFullResponse(fullResponse: boolean): IProvider;
+    setDefaultHeaders(headers: any): IProvider;
+    setRequestSuffix(suffix: string): IProvider;
+    setUseCannonicalId(useCannonicalId: boolean): IProvider;
+    setEncodeIds(encode: boolean): IProvider;
+    setSelfLinkAbsoluteUrl(value: boolean): IProvider;
+    setParentless(value: any): IProvider;
+    setPlainByDefault(isPlain: boolean): IProvider;
   }
 
   interface ICustom {
@@ -74,6 +77,7 @@ declare namespace restangular {
     customDELETE(path: string, params?: any, headers?: any): IPromise<any>;
     customPOST(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
     customPUT(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
+    customPATCH(elem?: any, path?: string, params?: any, headers?: any): IPromise<any>;
     customOperation(operation: string, path: string, params?: any, headers?: any, elem?: any): IPromise<any>;
     addRestangularMethod(name: string, operation: string, path?: string, params?: any, headers?: any, elem?: any): IPromise<any>;
   }
@@ -93,7 +97,7 @@ declare namespace restangular {
     extendModel(route: string, extender: (model: IElement) => any): void;
     extendCollection(route: string, extender: (collection: ICollection) => any): void;
   }
-  
+
   interface IScopedService extends IService {
     one(id: number): IElement;
     one(id: string): IElement;
@@ -118,7 +122,7 @@ declare namespace restangular {
     getList(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<any>;
     getList<T>(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<T>;
     put(queryParams?: any, headers?: any): IPromise<any>;
-    post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post(subElement: any, elementToPost?: any, queryParams?: any, headers?: any): IPromise<any>;
     post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     remove(queryParams?: any, headers?: any): IPromise<any>;
     head(queryParams?: any, headers?: any): IPromise<any>;
@@ -131,6 +135,7 @@ declare namespace restangular {
     withHttpConfig(httpConfig: angular.IRequestShortcutConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
+    getRequestedUrl(): string;
     route?: string;
     id?: string;
     reqParams?: any;
@@ -151,5 +156,6 @@ declare namespace restangular {
     plain(): any;
     plain<T>(): T[];
     getRestangularUrl(): string;
+    getRequestedUrl(): string;
   }
 }

@@ -20,7 +20,8 @@ function test_Notify_constructor() {
         notifyClick : ()=> console.log("notifyClick"),
         notifyError : ()=> console.log("notifyError"),
         permissionGranted : ()=> console.log("permissionGranted"),
-        permissionDenied : ()=> console.log("permissionDenied")
+        permissionDenied : ()=> console.log("permissionDenied"),
+        requireInteraction:true
     });
     n.show();
 

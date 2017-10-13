@@ -9,28 +9,47 @@ const allModules = findAllModules();
 for (const { group } of allModules) {
     const outPath = getOutDir(group);
     removeSync(outPath);
+    const outLibPath = getOutLibDir(group);
+    removeSync(outLibPath);
+}
+
+// Create new empty folders
+for (const { group } of allModules) {
+    const outPath = getOutDir(group);
     mkdirSync(outPath);
+    const outLibPath = getOutLibDir(group);
+    mkdirSync(outLibPath);
 }
 
 for (const { group, ids } of allModules) {
     for (const id of ids) {
         writeFileSync(getOutFile(group, `${id}.d.ts`), iconFile(getModuleName(group, id)), 'utf-8');
+        writeFileSync(getOutLibFile(group, `${id}.d.ts`), iconFile(getModuleName(group, id)), 'utf-8');
     }
     writeFileSync(getOutFile(group, 'index.d.ts'), indexFile(group, ids), 'utf-8');
+    writeFileSync(getOutLibFile(group, 'index.d.ts'), indexFile(group, ids), 'utf-8');
 }
 
 function getOutDir(group: string): string {
-    return joinPaths(__dirname, "..", group);
+    return joinPaths(__dirname, '..', group);
 }
 
 function getOutFile(folder: string, fileName: string): string {
     return joinPaths(getOutDir(folder), fileName);
 }
 
+function getOutLibDir(group: string): string {
+    return joinPaths(__dirname, '..', 'lib', group);
+}
+
+function getOutLibFile(folder: string, fileName: string): string {
+    return joinPaths(getOutLibDir(folder), fileName);
+}
+
 function iconFile(name: string): string {
     return `import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class ${name} extends React.Component<IconBaseProps, any> { }
+export default class ${name} extends React.Component<IconBaseProps> { }
 `;
 }
 

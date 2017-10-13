@@ -83,7 +83,7 @@ Xrm.Page.ui.tabs.forEach((tab) => {
 
 /// Demonstrate OnSave event context.
 
-Xrm.Page.data.entity.addOnSave((context) => {
+Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
     const eventArgs = context.getEventArgs();
 
     if (eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose)
@@ -143,7 +143,7 @@ const resultSet: Xrm.Page.AutoCompleteResultSet = {
             // accounts in CRM.
             window.open("http://www.microsoft.com/en-us/dynamics/crm-customer-center/create-or-edit-an-account.aspx");
         }
-    } as Xrm.Page.AutoCompleteCommand
+    }
 };
 resultSet.results.push({
     id: 0,

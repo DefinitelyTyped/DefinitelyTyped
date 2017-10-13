@@ -2,6 +2,7 @@
 // Project: https://github.com/hankbao/electron-notify
 // Definitions by: Daniel Pereira <https://github.com/djpereira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="electron" />
 
@@ -18,7 +19,7 @@ export interface ICustomConfig {
     appIcon?: string,
     pathToModule?: string,
     logging?: boolean,
-    defaultWindow?: Electron.BrowserWindowOptions,
+    defaultWindow?: Electron.BrowserWindowConstructorOptions,
     defaultStyleContainer?: any,
     defaultStyleAppIcon?: any,
     defaultStyleImage?: any,

@@ -6,7 +6,7 @@
 ///<reference types="webpack" />
 
 declare module "webpack-validator" {
-    import {Configuration} from "webpack";
+    import { Configuration } from "webpack";
 
     interface ValidationOptions {
         "no-root-files-node-modules-nameclash"?: boolean;

@@ -39,3 +39,9 @@ gulp.task("inject:transform", () => {
         }))
         .pipe(gulp.dest("build"));
 });
+
+function createOptions(starttag: inject.ITagFunction): inject.IOptions {
+    return {
+        starttag: starttag
+    };
+}

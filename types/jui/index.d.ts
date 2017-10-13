@@ -3,7 +3,7 @@
 // Definitions by: Jin-Ho Park <https://github.com/easylogic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {UIEvent} from 'jui-core';
+import { UIEvent } from 'jui-core';
 
 export interface UIAccordion extends UIEvent {
     (selector: any, options?: {
@@ -26,7 +26,7 @@ export interface UIAccordion extends UIEvent {
          *
          */
         multipanel?: boolean
-    }) : this;
+    }): this;
 
     /**
      * @method activeIndex
@@ -52,7 +52,7 @@ export interface UIAutoComplete {
          * Designates words subject to autofill
          */
         words?: string[]
-    }) : this;
+    }): this;
 
     /**
      * @method update
@@ -61,14 +61,14 @@ export interface UIAutoComplete {
      * @param {Array} words
      *
      */
-     update(newWords: string[]): void;
+    update(newWords: string[]): void;
 
     /**
      * @method close
      * Close the active drop-down
      *
      */
-     close(): void;
+    close(): void;
 
     /**
      * @method list
@@ -76,7 +76,7 @@ export interface UIAutoComplete {
      *
      * @return {Array} words
      */
-     list(): string[];
+    list(): string[];
 }
 
 export interface UIColorPicker {
@@ -85,11 +85,11 @@ export interface UIColorPicker {
         event?: any,
         type?: string,
         color?: string
-    }) : this;
+    }): this;
 
-    getColor(type: string): string|{};
+    getColor(type: string): string | {};
 
-    setColor(value: string|{}): void;
+    setColor(value: string | {}): void;
 }
 
 export interface UICombo {
@@ -130,14 +130,14 @@ export interface UICombo {
          * @cfg {"top"/"bottom"} [position="bottom"]
          * It is possible to determine an initial selection button with a specified value
          */
-        position?: "top"|"bottom",
+        position?: "top" | "bottom",
 
         /**
          * @cfg {Boolean} [flex=true]
          * Drop-down menu is varied by changing the width function
          */
         flex?: boolean
-    }) : this;
+    }): this;
 
     /**
      * @method setIndex
@@ -145,7 +145,7 @@ export interface UICombo {
      *
      * @param {Number} index
      */
-     setIndex(index: number): void;
+    setIndex(index: number): void;
 
     /**
      * @method setValue
@@ -153,7 +153,7 @@ export interface UICombo {
      *
      * @param {Mixed} value
      */
-     setValue(value: any): void;
+    setValue(value: any): void;
 
     /**
      * @method getData
@@ -161,7 +161,7 @@ export interface UICombo {
      *
      * @return {Object}
      */
-     getData(): {};
+    getData(): {};
 
     /**
      * @method getValue
@@ -169,7 +169,7 @@ export interface UICombo {
      *
      * @return {Mixed}
      */
-     getValue(): any;
+    getValue(): any;
 
     /**
      * @method getText
@@ -177,25 +177,25 @@ export interface UICombo {
      *
      * @return {String}
      */
-     getText(): string;
+    getText(): string;
 
     /**
      * @method open
      * Shows the element list of a combo box
      */
-     open(e: any): void;
+    open(e: any): void;
 
     /**
      * @method fold
      * Hides the element list of a combo box
      */
-     fold(): void;
+    fold(): void;
 
     /**
      * @method reload
      * Re-defines a combo box
      */
-     reload(): void;
+    reload(): void;
 }
 
 export interface UIDatePicker {
@@ -206,7 +206,7 @@ export interface UIDatePicker {
          * @cfg {"daily"/"monthly"/"yearly"} [type="daily"]
          * Determines the type of a calendar
          */
-        type?: "daily"|"monthly"|"yearly",
+        type?: "daily" | "monthly" | "yearly",
 
         /**
          * @cfg {String} [titleFormat="yyyy.MM"]
@@ -224,7 +224,7 @@ export interface UIDatePicker {
          * @cfg {Date} [date="now"]
          * Selects a specific date as a basic
          */
-        date?: "now"|Date,
+        date?: "now" | Date,
 
         /**
          * @cfg {Date} [minDate="null"]
@@ -237,7 +237,7 @@ export interface UIDatePicker {
          * Selects a specific maximum date
          */
         maxDate?: Date
-    }) : this;
+    }): this;
 
     /**
      * @method page
@@ -246,7 +246,7 @@ export interface UIDatePicker {
      * @param {Integer} year
      * @param {Integer} month
      */
-     page(y: number, m: number): void;
+    page(y: number, m: number): void;
 
     /**
      * @method prev
@@ -260,7 +260,7 @@ export interface UIDatePicker {
      * Outputs a calendar that fits the next year/month
      *
      */
-     next(e: any, moveYear?: boolean): void;
+    next(e: any, moveYear?: boolean): void;
 
     /**
      * @method select
@@ -268,7 +268,7 @@ export interface UIDatePicker {
      *
      * @param {"year"/"month"/"date"/"timestamp"/"Date"}
      */
-    select( ...args: any[]): void;
+    select(...args: any[]): void;
 
     /**
      * @method addTime
@@ -276,7 +276,7 @@ export interface UIDatePicker {
      *
      * @param {"Integer"/"Date"} time Timestamp or Date
      */
-     addTime(time: number|Date): void;
+    addTime(time: number | Date): void;
 
     /**
      * @method getDate
@@ -284,7 +284,7 @@ export interface UIDatePicker {
      *
      * @return {Date} Date object
      */
-     getDate(): Date;
+    getDate(): Date;
 
     /**
      * @method getTime
@@ -292,7 +292,7 @@ export interface UIDatePicker {
      *
      * @return {Integer} Timestamp
      */
-     getTime(): number;
+    getTime(): number;
 
     /**
      * @method getFormat
@@ -300,13 +300,13 @@ export interface UIDatePicker {
      *
      * @return {String} format Formatted date string
      */
-     getFormat(format: string): string;
+    getFormat(format: string): string;
 
     /**
      * @method reload
      * Reloads the datepicker
      */
-     reload(): void;
+    reload(): void;
 }
 
 export interface UIDropdown {
@@ -377,7 +377,7 @@ export interface UIDropdown {
      * @param {Integer} x
      * @param {Integer} y
      */
-     show(x: number, y: number): void;
+    show(x: number, y: number): void;
 
     /**
      * @method move
@@ -386,13 +386,13 @@ export interface UIDropdown {
      * @param {Integer} x
      * @param {Integer} y
      */
-     move(x: number, y: number): void;
+    move(x: number, y: number): void;
 
     /**
      * @method reload
      * Reloads the dropdown list
      */
-     reload(): void;
+    reload(): void;
 }
 
 export interface UIModal {
@@ -403,7 +403,7 @@ export interface UIModal {
          * @cfg {"black"/"gray"} [color="black"]
          * Determines the color of a modal
          */
-        color?: "black"|"gray",
+        color?: "black" | "gray",
 
         /**
          * @cfg {Float} [opacity=0.4]
@@ -415,7 +415,7 @@ export interface UIModal {
          * @cfg {String/DOMElement} [target="body"]
          * Sets a selector on which a modal is shown
          */
-        target?: string|any,
+        target?: string | any,
 
         /**
          * @cfg {Integer} [index=0]
@@ -434,19 +434,19 @@ export interface UIModal {
          * Automatically hides a modal when clicking on it
          */
         autoHide?: boolean
-    }):  this;
+    }): this;
 
     /**
      * @method hide
      * Hides a modal
      */
-     hide(): void;
+    hide(): void;
 
     /**
      * @method show
      * Shows a modal
      */
-     show(): void;
+    show(): void;
 
     /**
      * @method resize
@@ -463,7 +463,7 @@ export interface UINotify {
          * @cfg {"top"/"top-lefet"/"top-right"/"bottom"/"bottom-left"/"bottom-right"} [position="top-right"]
          * Designates the location where a notice message is added
          */
-        position?: "top"|"top-lefet"|"top-right"|"bottom"|"bottom-left"|"bottom-right",
+        position?: "top" | "top-lefet" | "top-right" | "bottom" | "bottom-left" | "bottom-right",
 
         /**
          * @cfg {Integer} [padding=12]
@@ -524,7 +524,7 @@ export interface UINotify {
     reset(): void;
 }
 
-export interface  UIPaging {
+export interface UIPaging {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
@@ -593,7 +593,7 @@ export interface UIProgress {
         tpl?: any,
         event?: any,
         type?: "simple" | "flat",       // simple or flat
-        orient?: "horizontal"|"vertical", // or vertical,
+        orient?: "horizontal" | "vertical", // or vertical,
         min?: number,
         max?: number,
         value?: number,
@@ -618,7 +618,7 @@ export interface UIProperty {
 
     loadItems(newItems: any[]): void;
 
-    addItem(item: {}|any[]): void;
+    addItem(item: {} | any[]): void;
 
     // remove item by key or title
     removeItem(item: {}): void;
@@ -628,7 +628,7 @@ export interface UIProperty {
      *
      * get a list of  group's title.
      */
-     getGroupList(): any[];
+    getGroupList(): any[];
 
     /**
      * @method collapsed
@@ -637,7 +637,7 @@ export interface UIProperty {
      *
      * @param {String} id
      */
-     collapsed(id: string): void;
+    collapsed(id: string): void;
 
     /**
      * @method expanded
@@ -683,13 +683,13 @@ export interface UISelect {
         event?: any,
         items?: any[],
         placeholder?: string,
-        align?: 'left'|'right',
-        valign?: 'top'|'bottom',
+        align?: 'left' | 'right',
+        valign?: 'top' | 'bottom',
         multi?: boolean
     }): this;
 
-    setValue(value: any|any[]): void;
-    getValue(): any| any[];
+    setValue(value: any | any[]): void;
+    getValue(): any | any[];
     setSelectedIndex(index: number): void;
     getSelectedIndex(): number;
     update(data: any[]): void;
@@ -699,8 +699,8 @@ export interface UISlider {
     (selector: any, options?: {
         tpl?: any,
         event?: any,
-        type?: "single"|"double", // or double
-        orient?: "horizontal"|"vertical", // or vertical,
+        type?: "single" | "double", // or double
+        orient?: "horizontal" | "vertical", // or vertical,
         min?: number,
         max?: number,
         step?: number,
@@ -776,13 +776,13 @@ export interface UISplitter {
          * @cfg {"vertical"/"horizontal"} [direction='vertical']
          * set bar's direction
          */
-        direction?: 'vertical'|'horizontal',
+        direction?: 'vertical' | 'horizontal',
 
         /**
          * @cfg {String/Number} [initSize='50%']
          * set first panel's default width or height
          */
-        initSize?: string|number,
+        initSize?: string | number,
 
         /**
          * @cfg {Number/Array} [minSize=30]
@@ -794,7 +794,7 @@ export interface UISplitter {
          * minSize[1] is second panel's minimum size
          *
          */
-        minSize?: number|number[],
+        minSize?: number | number[],
 
         /**
          * @cfg {String} [items=[]]
@@ -846,7 +846,7 @@ export interface UITab {
          * @cfg {String/DOMElement} [target=""]
          * Determines a selector in the area to become the content of a tab
          */
-        target?: string|any,
+        target?: string | any,
 
         /**
          * @cfg {Integer} [index=0]
@@ -963,7 +963,7 @@ export interface UITooltip {
          * @cfg {"top"/"bottom"/"left"/"right"} [position="top"]
          * Determines the location where a tooltip is shown
          */
-        position?: "top"|"bottom"|"left"|"right",
+        position?: "top" | "bottom" | "left" | "right",
 
         /**
          * @cfg {Integer} [width=150]
@@ -975,7 +975,7 @@ export interface UITooltip {
          * @cfg {"left"/"right"/"center"} [align="left"]
          * Determines the alignment state inside a tooltip
          */
-        align?: "left"|"right"|"center",
+        align?: "left" | "right" | "center",
 
         /**
          * @cfg {Integer} [delay=0]
@@ -1260,25 +1260,25 @@ export interface UIWindow {
          * @cfg {String/Integer} [left="auto"]
          * Determines the X coordinate of a window
          */
-        left?: string|number,
+        left?: string | number,
 
         /**
          * @cfg {String/Integer} [top="auto"]
          * Determines the Y coordinate of a window
          */
-        top?: string|number,
+        top?: string | number,
 
         /**
          * @cfg {String/Integer} [right="auto"]
          * Determines the X coordinate based on the right side of a window
          */
-        right?: string|number,
+        right?: string | number,
 
         /**
          * @cfg {String/Integer} [bottom="auto"]
          * Determines the Y coordinate based on the bottom side of a window
          */
-        bottom?: string|number,
+        bottom?: string | number,
 
         /**
          * @cfg {Boolean} [modal=false]

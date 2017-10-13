@@ -1,78 +1,81 @@
-/// <reference types="angular"/>
+import * as angular from "angular";
+import { ngStorage } from "ngstorage";
 
-import {IStorageService, IStorageProvider} from "ngstorage";
+const app: angular.IModule = angular.module('at', ['ngStorage']);
 
-var app: any;
-app.controller('LocalCtrl', function ($localStorage: IStorageService) {
+app.controller('LocalCtrl', ($localStorage: ngStorage.StorageService) => {
+    if ($localStorage.$supported()) {
+        const store: MyStore & ngStorage.StorageService = $localStorage.$default<MyStore>({
+            counter: 1
+        });
 
-    $localStorage.$default({
-        counter: 1
-    });
+        store.$reset<MyStore>({
+            counter: 1
+        });
 
-    $localStorage.$reset({
-        counter: 1
-    });
-
-    $localStorage.$reset();
-
-    $localStorage.$apply();
-
-    $localStorage.$sync();
+        store.$reset();
+        store.$apply();
+        store.$sync();
+    }
 });
 
-app.controller('SessionCtrl', function ($sessionStorage: IStorageService) {
+app.controller('SessionCtrl', ($sessionStorage: ngStorage.StorageService) => {
+    if ($sessionStorage.$supported()) {
+        const store: MyStore & ngStorage.StorageService = $sessionStorage.$default<MyStore>({
+            counter: 1
+        });
 
-    $sessionStorage.$default({
-        counter: 1
-    });
+        store.$reset<MyStore>({
+            counter: 1
+        });
 
-    $sessionStorage.$reset({
-        counter: 1
-    });
-
-    $sessionStorage.$reset();
-
-    $sessionStorage.$apply();
-
-    $sessionStorage.$sync();
+        store.$reset();
+        store.$apply();
+        store.$sync();
+    }
 });
 
-app.config(['$localStorageProvider', function ($localStorageProvider: IStorageProvider) {
+app.config(($localStorageProvider: ngStorage.StorageProvider) => {
+    if ($localStorageProvider.supported()) {
+        $localStorageProvider.setKeyPrefix('NewPrefix');
+        $localStorageProvider.set('MyKey', { counter: 'value' });
+        $localStorageProvider.get('MyKey');
+        $localStorageProvider.remove('MyKey');
 
-    $localStorageProvider.setKeyPrefix('NewPrefix');
+        const mySerializer = (value: any): string => {
+            return value.toString();
+        };
 
-    $localStorageProvider.get('MyKey');
+        const myDeserializer = (value: string): any => {
+            return value;
+        };
 
-    $localStorageProvider.set('MyKey', {counter: 'value'});
+        $localStorageProvider.setSerializer(mySerializer);
+        $localStorageProvider.setDeserializer(myDeserializer);
+    }
+});
 
-    var mySerializer = function (value: any): string {
-        return value.toString();
-    };
+app.config(($sessionStorageProvider: ngStorage.StorageProvider) => {
+    if ($sessionStorageProvider.supported()) {
+        $sessionStorageProvider.setKeyPrefix('NewPrefix');
+        $sessionStorageProvider.set('MyKey', { counter: 'value' });
+        $sessionStorageProvider.get('MyKey');
+        $sessionStorageProvider.remove('MyKey');
 
-    var myDeserializer = function (value: string): any {
-        return value;
-    };
+        const mySerializer = (value: any): string => {
+            return value.toString();
+        };
 
-    $localStorageProvider.setSerializer(mySerializer);
-    $localStorageProvider.setDeserializer(myDeserializer);
+        const myDeserializer = (value: string): any => {
+            return value;
+        };
+
+        $sessionStorageProvider.setSerializer(mySerializer);
+        $sessionStorageProvider.setDeserializer(myDeserializer);
+    }
+});
+
+interface MyStore {
+    counter?: number;
+    foo?: string;
 }
-]).config(['$sessionStorageProvider', function ($sessionStorageProvider: IStorageProvider) {
-
-    $sessionStorageProvider.setKeyPrefix('NewPrefix');
-
-    $sessionStorageProvider.get('MyKey');
-
-    $sessionStorageProvider.set('MyKey', {counter: 'value'});
-
-    var mySerializer = function (value: any): string {
-        return value.toString();
-    };
-
-    var myDeserializer = function (value: string): any {
-        return value;
-    };
-
-    $sessionStorageProvider.setSerializer(mySerializer);
-    $sessionStorageProvider.setDeserializer(myDeserializer);
-}
-]);

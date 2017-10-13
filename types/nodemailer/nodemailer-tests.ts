@@ -1,5 +1,5 @@
-
 import * as nodemailer from 'nodemailer'
+import * as AWS from 'aws-sdk'
 
 // create reusable transporter object using SMTP transport
 var transporter: nodemailer.Transporter = nodemailer.createTransport({
@@ -9,6 +9,32 @@ var transporter: nodemailer.Transporter = nodemailer.createTransport({
         pass: 'userpass'
     }
 });
+
+// create reusable transporter object using SMTP connection url using default options
+transporter = nodemailer.createTransport("smtps://gmail.user@gmail.com:userpass@gmail/?pool=true");
+
+// create reusable transporter object using SMTP connection url and specify some options
+transporter = nodemailer.createTransport("smtps://gmail.user@gmail.com:userpass@gmail/?pool=true",
+ {
+    from: 'sender@address',
+    headers: {
+        'My-Awesome-Header': '123'
+    }
+ });
+
+// create reusable transporter object using SES transport and set default values for mail options.
+transporter = nodemailer.createTransport({
+    SES: new AWS.SES()
+})
+// create reusable transporter object using SMTP transport and set default values for mail options.
+transporter = nodemailer.createTransport({
+    SES: new AWS.SES()
+}, {
+    from: 'sender@address',
+    headers: {
+        'My-Awesome-Header': '123'
+    }
+})
 
 // create reusable transporter object using SMTP transport and set default values for mail options.
 transporter = nodemailer.createTransport({
@@ -42,20 +68,4 @@ transporter.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInf
 transporter
   .sendMail(mailOptions)
   .then(info => info.messageId)
-// create template based sender function
-var sendPwdReset = transporter.templateSender({
-    subject: 'Password reset for {{username}}!',
-    text: 'Hello, {{username}}, Please go here to reset your password: {{ reset }}',
-    html: '<b>Hello, <strong>{{username}}</strong>, Please <a href="{{ reset }}">go here to reset your password</a>: {{ reset }}</p>'
-}, {
-    from: 'sender@example.com',
-});
-
-// use template based sender to send a message
-sendPwdReset({
-    to: 'receiver@example.com'
-}, {
-    username: 'Node Mailer',
-    reset: 'https://www.example.com/reset?token=<unique-single-use-token>'
-})
-.then(info => info.messageId);
+  .catch(err => {})

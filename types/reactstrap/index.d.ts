@@ -1,8 +1,12 @@
-// Type definitions for reactstrap 4.3
+// Type definitions for reactstrap 4.6
 // Project: https://github.com/reactstrap/reactstrap#readme
-// Definitions by: Ali Hammad Baig <https://github.com/alihammad>, Marco Falkenberg <https://github.com/mfal>
+// Definitions by: Ali Hammad Baig <https://github.com/alihammad>, Marco Falkenberg <https://github.com/mfal>, Danilo Barros <https://github.com/danilobjr>, Fábio Paiva <https://github.com/fabiopaiva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
+
+export interface CSSModule {
+  [className: string]: string;
+}
 
 export { default as Alert } from './lib/Alert';
 export { default as Badge } from './lib/Badge';
@@ -13,6 +17,7 @@ export { default as ButtonDropdown } from './lib/ButtonDropdown';
 export { default as ButtonGroup } from './lib/ButtonGroup';
 export { default as ButtonToolbar } from './lib/ButtonToolbar';
 export { default as Card } from './lib/Card';
+export { default as CardBody } from './lib/CardBody';
 export { default as CardBlock } from './lib/CardBlock';
 export { default as CardColumns } from './lib/CardColumns';
 export { default as CardDeck } from './lib/CardDeck';

@@ -3,18 +3,54 @@ import {
   StyleSheet,
   Text,
   View,
-  ViewStyle
+  ViewStyle,
+  NativeSyntheticEvent,
+  NativeScrollEvent
 } from 'react-native';
-import Swiper from 'react-native-swiper';
+import Swiper, { SwiperState } from 'react-native-swiper';
 
-class SwiperTest extends React.Component<{}, {}> {
+class SwiperTest extends React.Component {
   constructor(props: {}) {
     super(props);
   }
-
+  callback = (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+    state: SwiperState,
+    context: Swiper
+  ) => {
+    console.log(this.callback.name, event, state, context);
+  }
   render(): React.ReactElement<any> {
     return (
       <Swiper
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator
+        showsVerticalScrollIndicator
+        bounces
+        scrollsToTop
+        scrollEnabled
+        removeClippedSubviews
+        automaticallyAdjustContentInsets
+        showsPagination
+        showsButtons
+        loadMinimal
+        loadMinimalSize={1}
+        loop
+        autoplay
+        autoplayTimeout={300}
+        autoplayDirection
+        renderPagination={() => (<View />)}
+        height={100}
+        width={200}
+        nextButton={<View><Text>NEXT</Text></View>}
+        prevButton={<View><Text>PREV</Text></View>}
+        onScrollBeginDrag={this.callback}
+        onMomentumScrollEnd={this.callback}
+        onTouchStartCapture={this.callback}
+        onTouchStart={this.callback}
+        onTouchEnd={this.callback}
+        onResponderRelease={this.callback}
         style={styles.wrapper}>
         <View
           style={styles.slide1}>
@@ -35,28 +71,28 @@ class SwiperTest extends React.Component<{}, {}> {
 
 const styles = StyleSheet.create({
   wrapper: {
-  } as ViewStyle,
+  },
   slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB'
-  } as ViewStyle,
+  },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#97CAE5'
-  } as ViewStyle,
+  },
   slide3: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#92BBD9'
-  } as ViewStyle,
+  },
   text: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold'
-  } as ViewStyle
+  }
 });

@@ -1,6 +1,6 @@
-// Type definitions for webpack-chain 3.0
+// Type definitions for webpack-chain 4.0
 // Project: https://github.com/mozilla-neutrino/webpack-chain
-// Definitions by: Eirikur Nilsson <https://github.com/eirikurn>
+// Definitions by: Eirikur Nilsson <https://github.com/eirikurn>, Paul Sachs <https://github.com/psachs21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as webpack from 'webpack';
@@ -8,9 +8,42 @@ import * as https from 'https';
 
 export = Config;
 
-declare class Config {
+declare namespace __Config {
+	class Chained<Parent> {
+		end(): Parent;
+	}
+
+	class TypedChainedMap<Parent, Value> extends Chained<Parent> {
+		clear(): this;
+		delete(key: string): this;
+		has(key: string): boolean;
+		get(key: string): Value;
+		set(key: string, value: Value): this;
+		merge(obj: { [key: string]: Value }): this;
+		entries(): { [key: string]: Value };
+		values(): Value[];
+		when(condition: boolean, trueBrancher: (obj: this) => void, falseBrancher?: (obj: this) => void): this;
+	}
+
+	class ChainedMap<Parent> extends TypedChainedMap<Parent, any> {}
+
+	class TypedChainedSet<Parent, Value> extends Chained<Parent> {
+		add(value: Value): this;
+		prepend(value: Value): this;
+		clear(): this;
+		delete(key: string): this;
+		has(key: string): boolean;
+		merge(arr: Value[]): this;
+		values(): Value[];
+		when(condition: boolean, trueBrancher: (obj: this) => void, falseBrancher?: (obj: this) => void): this;
+	}
+
+	class ChainedSet<Parent> extends TypedChainedSet<Parent, any> {}
+}
+
+declare class Config extends __Config.ChainedMap<void> {
 	devServer: Config.DevServer;
-	entryPoints: Config.EntryPoints;
+	entryPoints: Config.TypedChainedMap<Config, Config.EntryPoint>;
 	module: Config.Module;
 	node: Config.ChainedMap<this>;
 	output: Config.Output;
@@ -35,42 +68,18 @@ declare class Config {
 	watch(value: boolean): this;
 	watchOptions(value: webpack.Options.WatchOptions): this;
 
-	entry(name: string): Config.ChainedSet<this>;
+	entry(name: string): Config.EntryPoint;
 	plugin(name: string): Config.Plugin<this>;
 
 	toConfig(): webpack.Configuration;
-	merge(obj: any): this;
 }
 
 declare namespace Config {
-	class Chained<Parent> {
-		end(): Parent;
-	}
-
-	class TypedChainedMap<Parent, Value> extends Chained<Parent> {
-		clear(): this;
-		delete(key: string): this;
-		has(key: string): boolean;
-		get(key: string): Value;
-		set(key: string, value: Value): this;
-		merge(obj: { [key: string]: Value }): this;
-		entries(): { [key: string]: Value };
-		values(): Value[];
-	}
-
-	class ChainedMap<Parent> extends TypedChainedMap<Parent, any> {}
-
-	class TypedChainedSet<Parent, Value> extends Chained<Parent> {
-		add(value: Value): this;
-		prepend(value: Value): this;
-		clear(): this;
-		delete(key: string): this;
-		has(key: string): boolean;
-		merge(arr: Value[]): this;
-		values(): Value[];
-	}
-
-	class ChainedSet<Parent> extends TypedChainedSet<Parent, any> {}
+	class Chained<Parent> extends __Config.Chained<Parent> {}
+	class TypedChainedMap<Parent, Value> extends __Config.TypedChainedMap<Parent, Value> {}
+	class ChainedMap<Parent> extends __Config.TypedChainedMap<Parent, any> {}
+	class TypedChainedSet<Parent, Value> extends __Config.TypedChainedSet<Parent, Value> {}
+	class ChainedSet<Parent> extends __Config.TypedChainedSet<Parent, any> {}
 
 	class Plugins<Parent> extends TypedChainedMap<Parent, Plugin<Parent>> {}
 
@@ -83,6 +92,7 @@ declare namespace Config {
 	class Module extends ChainedMap<Config> {
 		rules: TypedChainedMap<this, Rule>;
 		rule(name: string): Rule;
+		noParse(noParse: RegExp | RegExp[] | ((contentPath: string) => boolean)): this;
 	}
 
 	class Output extends ChainedMap<Config> {
@@ -127,11 +137,16 @@ declare namespace Config {
 		noInfo(value: boolean): this;
 		overlay(value: boolean | { warnings?: boolean, errors?: boolean }): this;
 		port(value: number): this;
+		progress(value: boolean): this;
 		proxy(value: any): this;
+		public(value: string): this;
+		publicPath(publicPath: string): this;
 		quiet(value: boolean): this;
 		setup(value: (expressApp: any) => void): this;
+		staticOptions(value: any): this;
 		stats(value: webpack.Options.Stats): this;
 		watchContentBase(value: boolean): this;
+		watchOptions(value: any): this;
 	}
 
 	class Performance extends ChainedMap<Config> {
@@ -141,7 +156,7 @@ declare namespace Config {
 		assetFilter(value: (assetFilename: string) => boolean): this;
 	}
 
-	class EntryPoints extends TypedChainedMap<Config, ChainedMap<Config>> {}
+	class EntryPoint extends TypedChainedSet<Config, string> {}
 
 	class Resolve extends ChainedMap<Config> {
 		alias: TypedChainedMap<this, string>;

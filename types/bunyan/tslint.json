@@ -1,0 +1,7 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // ban-types needs to be disabled to support TypeScript <2.2
+    "ban-types": false
+  }
+}

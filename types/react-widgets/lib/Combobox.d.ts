@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ReactWidgetsCommonDropdownProps} from './CommonProps';
+import { ReactWidgetsCommonDropdownProps } from './CommonProps';
 
 interface ComboBoxMessages {
     /**
@@ -73,6 +73,11 @@ interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass> {
      * the groupBy value will be used.
      */
     groupComponent?: React.ReactType;
+    /**
+     * The same as an input placeholder, only works in browsers that support the placeholder
+     * attribute for inputs
+     */
+    placeholder?: string;
     /**
      * When true the Combobox will suggest, or fill in, values as you type. The suggestions are
      * always "startsWith", meaning it will search from the start of the textField property

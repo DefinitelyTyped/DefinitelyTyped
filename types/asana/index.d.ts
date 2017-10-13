@@ -2,6 +2,7 @@
 // Project: https://github.com/Asana/node-asana
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="bluebird" />
 
@@ -786,12 +787,13 @@ declare namespace asana {
 
         namespace Attachments {
             interface Type extends Resource {
-                created_at: string;
-                permanent_url: string;
-                download_url: string;
-                view_url: string;
-                host: string;
-                parent: Resource;
+                readonly id: number;
+                readonly created_at: string;
+                readonly download_url: string;
+                readonly view_url: string;
+                readonly name: string;
+                readonly host: string;
+                readonly parent: Resource;
             }
         }
 
