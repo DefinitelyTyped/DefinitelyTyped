@@ -1,6 +1,7 @@
 // Type definitions for Cytoscape.js 3.1
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
+//                  Shenghan Gao <https://github.com/wy193777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -157,7 +158,7 @@ export namespace cytoscape {
          *
          * The default is undefined.
          */
-        container?: HtmlElement;
+        container?: HTMLElement | null;
 
         /**
          * An array of [[Elements]] specified as plain objects. For convenience, this option can alternatively be specified as a promise that resolves to the elements JSON.

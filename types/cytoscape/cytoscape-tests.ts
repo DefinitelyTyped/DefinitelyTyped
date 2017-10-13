@@ -47,7 +47,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
 ];
 
 const cy = cytoscape({
-  container: {},
+  container: document.getElementById('cy'),
 
   boxSelectionEnabled: false,
   autounselectify: true,
