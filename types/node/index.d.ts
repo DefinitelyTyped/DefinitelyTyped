@@ -122,7 +122,7 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule | null;
+    parent: NodeModule | null | undefined;
     children: NodeModule[];
 }
 
@@ -705,7 +705,7 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: Module | null;
+        parent: Module | null | undefined;
         children: Module[];
         paths: string[];
 
