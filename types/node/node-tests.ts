@@ -820,10 +820,11 @@ const unzipped: Buffer = zlib.unzipSync(compressMe);
 function simplified_stream_ctor_test() {
     new stream.Readable({
         read(size) {
-            size.toFixed();
+            if (size) { size.toFixed(); }
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            if (error) { error.stack; }
+            cb(error);
         }
     });
 
@@ -838,8 +839,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            if (error) { error.stack; }
+            cb(error);
         },
         final(cb) {
             cb(null);
@@ -848,7 +850,7 @@ function simplified_stream_ctor_test() {
 
     new stream.Duplex({
         read(size) {
-            size.toFixed();
+            if (size) { size.toFixed(); }
         },
         write(chunk, enc, cb) {
             chunk.slice(1);
@@ -874,7 +876,7 @@ function simplified_stream_ctor_test() {
             cb();
         },
         read(size) {
-            size.toFixed();
+            if (size) { size.toFixed(); }
         },
         write(chunk, enc, cb) {
             chunk.slice(1);
@@ -886,8 +888,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
-            error.stack;
+        destroy(error, cb) {
+            if (error) { error.stack; }
+            cb(error);
         },
         allowHalfOpen: true,
         readableObjectMode: true,
