@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.1.0
+// Type definitions for Cytoscape.js 3.1
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -57,10 +57,13 @@
  * A number of interfaces contain nothing as they server to collect interfaces.
  *
  */
+// export as namespace Cy
+// export = cytoscape;
 
-declare namespace Cy {
+export function cytoscape(options?: cytoscape.CytoscapeOptions): cytoscape.Core;
+export function cytoscape(extensionName: string, foo: string, bar: any): cytoscape.Core;
 
-
+export namespace cytoscape {
     interface Position {
         x: number;
         y: number;
@@ -68,7 +71,6 @@ declare namespace Cy {
 
     type HtmlElement = any;
     type CssStyleDeclaration = any;
-
 
     interface ElementDefinition {
         group?: ElementGroup;
@@ -122,10 +124,13 @@ declare namespace Cy {
         id?: string;
         position?: Position;
     }
+
     interface EdgeDefinition extends ElementDefinition {
         data: EdgeDataDefinition;
     }
-    interface EdgeDataDefinition extends ElementDataDefinition { /**
+
+    interface EdgeDataDefinition extends ElementDataDefinition {
+        /**
          * the source node id (edge comes from this node)
          */
         source: string;
@@ -134,13 +139,14 @@ declare namespace Cy {
          */
         target: string;
     }
+
     interface NodeDefinition extends ElementDefinition {
         data: NodeDataDefinition;
     }
+
     interface NodeDataDefinition extends ElementDataDefinition {
         parent?: string;
     }
-
 
     interface CytoscapeOptions {
         ///////////////////////////////////////
@@ -177,13 +183,16 @@ declare namespace Cy {
         ///////////////////////////////////////
         // initial viewport state:
         /**
-         * The initial zoom level of the graph. Make sure to disable viewport manipulation options, such as fit, in your layout so that it is not overridden when the layout is applied. You can set options.minZoom and options.maxZoom to set restrictions on the zoom level.
+         * The initial zoom level of the graph.
+         * Make sure to disable viewport manipulation options, such as fit, in your layout so that it is not overridden when the layout is applied.
+         * You can set options.minZoom and options.maxZoom to set restrictions on the zoom level.
          *
          * The default value is 1.
          */
         zoom?: number;
         /**
-         * The initial panning position of the graph. Make sure to disable viewport manipulation options, such as fit, in your layout so that it is not overridden when the layout is applied.
+         * The initial panning position of the graph. Make sure to disable viewport manipulation options, such as fit,
+         * in your layout so that it is not overridden when the layout is applied.
          */
         pan?: Position;
 
@@ -232,19 +241,33 @@ declare namespace Cy {
          */
         boxSelectionEnabled?: boolean;
         /**
-         * A string indicating the selection behaviour from user input. By default, this is set automatically for you based on the type of input device detected. On touch devices, 'additive' is default — a new selection made by the user adds to the set of currenly selected elements. On mouse-input devices, 'single' is default — a new selection made by the user becomes the entire set of currently selected elements (i.e. the previous elements are unselected).
+         * A string indicating the selection behaviour from user input.
+         * By default, this is set automatically for you based on the type of input device detected.
+         * On touch devices, 'additive' is default — a new selection made by the user adds to the set of currenly selected elements.
+         * On mouse-input devices, 'single' is default — a new selection made by the user becomes the entire set of currently selected elements (i.e. the previous elements are unselected).
          *
          * The default value is (isTouchDevice ? 'additive' : 'single').
          */
         selectionType?: SelectionType;
         /**
-         * A nonnegative integer that indicates the maximum allowable distance that a user may move during a tap gesture, on touch devices and desktop devices respectively. This makes tapping easier for users. These values have sane defaults, so it is not advised to change these options unless you have very good reason for doing so. Larger values will almost certainly have undesirable consequences.
+         * A nonnegative integer that indicates the maximum allowable distance that a user may move during a tap gesture,
+         * on touch devices and desktop devices respectively.
+         *
+         * This makes tapping easier for users.
+         * These values have sane defaults, so it is not advised to change these options unless you have very good reason for doing so.
+         * Larger values will almost certainly have undesirable consequences.
          *
          * The default value is is 8.
          */
         touchTapThreshold?: number;
         /**
-         * A nonnegative integer that indicates the maximum allowable distance that a user may move during a tap gesture, on touch devices and desktop devices respectively. This makes tapping easier for users. These values have sane defaults, so it is not advised to change these options unless you have very good reason for doing so. Larger values will almost certainly have undesirable consequences.
+         * A nonnegative integer that indicates the maximum allowable distance that a user may move during a tap gesture,
+         * on touch devices and desktop devices respectively.
+         *
+         * This makes tapping easier for users.
+         * These values have sane defaults,
+         * so it is not advised to change these options unless you have very good reason for doing so.
+         * Larger values will almost certainly have undesirable consequences.
          *
          * The default value is 4.
          */
@@ -268,64 +291,76 @@ declare namespace Cy {
          */
         autounselectify?: boolean;
 
-
         ///////////////////////////////////////
         // rendering options:
         /**
-         * A convenience option that initialises the Core to run headlessly. You do not need to set this in environments that are implicitly headless (e.g. Node.js). However, it is handy to set headless: true if you want a headless Core in a browser.
+         * A convenience option that initialises the Core to run headlessly.
+         * You do not need to set this in environments that are implicitly headless (e.g. Node.js).
+         * However, it is handy to set headless: true if you want a headless Core in a browser.
          *
          * The default value is false.
          */
         headless?: boolean;
         /**
-         * A boolean that indicates whether styling should be used. For headless (i.e. outside the browser) environments, display is not necessary and so neither is styling necessary — thereby speeding up your code. You can manually enable styling in headless environments if you require it for a special case. Note that it does not make sense to disable style if you plan on rendering the graph.
+         * A boolean that indicates whether styling should be used.
+         * For headless (i.e. outside the browser) environments,
+         * display is not necessary and so neither is styling necessary — thereby speeding up your code.
+         * You can manually enable styling in headless environments if you require it for a special case.
+         * Note that it does not make sense to disable style if you plan on rendering the graph.
          *
          * The default value is true.
          */
         styleEnabled?: boolean;
         /**
-         * When set to true, the renderer does not render edges while the viewport is being manipulated. This makes panning, zooming, dragging, et cetera more responsive for large graphs.
+         * When set to true, the renderer does not render edges while the viewport is being manipulated.
+         * This makes panning, zooming, dragging, et cetera more responsive for large graphs.
          *
          * The default value is false.
          */
         hideEdgesOnViewport?: boolean;
         /**
-         * hen set to true, the renderer does not render labels while the viewport is being manipulated. This makes panning, zooming, dragging, et cetera more responsive for large graphs.
+         * when set to true, the renderer does not render labels while the viewport is being manipulated.
+         * This makes panning, zooming, dragging, et cetera more responsive for large graphs.
          *
          * The default value is false.
          */
         hideLabelsOnViewport?: boolean;
         /**
-         * When set to true, the renderer uses a texture (if supported) during panning and zooming instead of drawing the elements, making large graphs more responsive.
+         * When set to true, the renderer uses a texture (if supported) during panning and zooming instead of drawing the elements,
+         * making large graphs more responsive.
          *
          * The default value is false.
          */
         textureOnViewport?: boolean;
         /**
-         * When set to true, the renderer will use a motion blur effect to make the transition between frames seem smoother. This can significantly increase the perceived performance for a large graphs.
+         * When set to true, the renderer will use a motion blur effect to make the transition between frames seem smoother.
+         * This can significantly increase the perceived performance for a large graphs.
          *
          * The default value is false.
          */
         motionBlur?: boolean;
         /**
-         * When motionBlur: true, this value controls the opacity of motion blur frames. Higher values make the motion blur effect more pronounced.
+         * When motionBlur: true, this value controls the opacity of motion blur frames.
+         * Higher values make the motion blur effect more pronounced.
          *
          * The default value is 0.2.
          */
         motionBlurOpacity?: number;
         /**
-         * Changes the scroll wheel sensitivity when zooming. This is a multiplicative modifier. So, a value between 0 and 1 reduces the sensitivity (zooms slower), and a value greater than 1 increases the sensitivity (zooms faster).
+         * Changes the scroll wheel sensitivity when zooming. This is a multiplicative modifier.
+         * So, a value between 0 and 1 reduces the sensitivity (zooms slower), and a value greater than 1 increases the sensitivity (zooms faster).
          *
          * The default value is 1.
          */
         wheelSensitivity?: number;
         /**
-         * Overrides the screen pixel ratio with a manually set value (1.0 or 0.666 recommended, if set). This can be used to increase performance on high density displays by reducing the effective area that needs to be rendered. If you want to use the hardware's actual pixel ratio at the expense of performance, you can set pixelRatio: 'auto'.
+         * Overrides the screen pixel ratio with a manually set value (1.0 or 0.666 recommended, if set).
+         * This can be used to increase performance on high density displays by reducing the effective area that needs to be rendered.
+         * If you want to use the hardware's actual pixel ratio at the expense of performance, you can set pixelRatio: 'auto'.
          *
          * The default value is 1.
          */
         pixelRatio?: number;
-
     }
 
     /**
@@ -392,7 +427,7 @@ declare namespace Cy {
         /**
          * Get elements in the graph matching the specified selector or filter function.
          */
-        filter(selector: Selector | {(i: number, ele: Singular): boolean}): CollectionElements;
+        filter(selector: Selector | ((i: number, ele: Singular) => boolean)): CollectionElements;
 
         /**
          * Allow for manipulation of elements without triggering multiple style calculations or multiple redraws.
@@ -429,10 +464,10 @@ declare namespace Cy {
      */
     interface CoreGraphManipulationExt {
         /**
-         * Set the scratchpad at a particular namespace, 
-         * where temporary or non-JSON data can be stored. 
+         * Set the scratchpad at a particular namespace,
+         * where temporary or non-JSON data can be stored.
          * App-level scratchpad data should use namespaces prefixed with underscore, like '_foo'.
-         * 
+         *
          * If no parameter provided, the entire scratchpad will be returned.
          * If only namespace provided, the scratchpad with the namespace will be returned.
          *
@@ -455,7 +490,6 @@ declare namespace Cy {
      *  http://js.cytoscape.org/#core/events
      */
     interface CoreEvents {
-
         /**
          * Bind to events that occur in the graph.
          *
@@ -485,7 +519,7 @@ declare namespace Cy {
         addListener(events: EventNames, selector: Selector, handler: EventHandler): void;
         addListener(events: EventNames, selector: Selector, data: any, handler: EventHandler): void;
         addListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector, data?: any): void;
-        
+
         /**
          * Get a promise that is resolved with the first
          * of any of the specified events triggered on the graph.
@@ -541,13 +575,12 @@ declare namespace Cy {
 
         unbind(events: EventNames, selector?: Selector, handler?: EventHandler): void;
         unbind(eventsMap: { [value: string]: EventHandler }, selector?: Selector): void;
-        
+
         unlisten(events: EventNames, selector?: Selector, handler?: EventHandler): void;
         unlisten(eventsMap: { [value: string]: EventHandler }, selector?: Selector): void;
 
         removeListener(events: EventNames, selector?: Selector, handler?: EventHandler): void;
         removeListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector): void;
-
 
         /**
          * Trigger one or more events.
@@ -577,12 +610,11 @@ declare namespace Cy {
      * http://js.cytoscape.org/#core/viewport-manipulation
      */
     interface CoreViewportManipulation {
-
         /**
          * Get the HTML DOM element in which the graph is visualised.
          * A null value is returned if the Core is headless.
          */
-        container(): any | null;
+        container(): any;
 
         /**
          * Pan the graph to the centre of a collection.
@@ -657,7 +689,6 @@ declare namespace Cy {
          * @param bool A truthy value enables user panning; a falsey value disables it.
          */
         userPanningEnabled(bool: boolean): void;
-
         /**
          * Get the zoom level.
          * http://js.cytoscape.org/#cy.zoom
@@ -668,28 +699,17 @@ declare namespace Cy {
          * http://js.cytoscape.org/#cy.zoom
          *
          * @param level The zoom level to set.
-         */
-        zoom(level: number): void;
-        /**
-         * Set the zoom level.
-         * http://js.cytoscape.org/#cy.zoom
-         *
          * @param options The options for zooming.
          */
-        zoom(options: ZoomOptions): void;
+        zoom(level?: number | ZoomOptions): void;
 
         /**
-         * Get whether zooming is enabled.
-         * http://js.cytoscape.org/#cy.zoomingEnabled
-         */
-        zoomingEnabled(): boolean;
-        /**
-         * Set whether zooming is enabled.
+         * Set or get whether zooming is enabled. Get if no parameter provided.
          * http://js.cytoscape.org/#cy.zoomingEnabled
          *
          * @param bool A truthy value enables zooming; a falsey value disables it.
          */
-        zoomingEnabled(bool: boolean): void;
+        zoomingEnabled(bool?: boolean): void;
 
         /**
          * Get whether zooming by user events (e.g. mouse wheel, pinch-to-zoom)
@@ -698,13 +718,13 @@ declare namespace Cy {
          */
         userZoomingEnabled(): boolean;
         /**
-         * Set whether zooming by user events
+         * Get or set whether zooming by user events get if no parameter provided
          * (e.g. mouse wheel, pinch-to-zoom) is enabled.
          * http://js.cytoscape.org/#cy.userZoomingEnabled
          *
          * @param bool A truthy value enables user zooming; a falsey value disables it.
          */
-        userZoomingEnabled(bool: boolean): void;
+        userZoomingEnabled(bool?: boolean): void;
 
         /**
          * Get the minimum zoom level.
@@ -879,24 +899,24 @@ declare namespace Cy {
         /** queue - A boolean indicating whether to queue the animation. */
         queue?: boolean;
         /** complete - A function to call when the animation is done. */
-        complete?: () => void;
+        complete?(): void;
         /** step - A function to call each time the animation steps. */
-        step?: () => void;
+        step(): void;
     }
     interface AnimationOptions extends AnimateOptionsCommon {
         /** queue - A transition-timing-function easing style string that shapes the animation progress curve. */
         easing?: boolean;
         /** complete - A function to call when the animation is done. */
-        complete?: () => void;
+        complete?(): void;
         /** step - A function to call each time the animation steps. */
-        step?: () => void;
+        step?(): void;
     }
 
     interface CoreAnimation {
         /**
-        * Get whether the viewport is currently being animated.
-        * http://js.cytoscape.org/#cy.animated
-        */
+         * Get whether the viewport is currently being animated.
+         * http://js.cytoscape.org/#cy.animated
+         */
         animated(): boolean;
 
         /**
@@ -975,10 +995,10 @@ declare namespace Cy {
     }
 
     /**
-    * Get the entry point to modify the visual style of the graph after initialisation.
-    * http://js.cytoscape.org/#core/style
-    */
-    interface ElementStylesheet extends Stylesheet {
+     * Get the entry point to modify the visual style of the graph after initialisation.
+     * http://js.cytoscape.org/#core/style
+     */
+    interface ElementStylesheet extends StylesheetStyle {
         json(): any;
     }
 
@@ -991,15 +1011,24 @@ declare namespace Cy {
          * Assign a new stylesheet to replace the existing one.
          */
         style(sheet: Stylesheet): Stylesheet;
-
     }
 
     /**
      * http://js.cytoscape.org/#cy.style
      */
-    interface Stylesheet {
+    type Stylesheet = StylesheetStyle | StylesheetCSS;
+
+    interface StylesheetStyle {
         selector: string;
         style: Css.Node | Css.Edge;
+    }
+
+    /**
+     * http://js.cytoscape.org/#cy.style
+     */
+    interface StylesheetCSS {
+        selector: string;
+        css: Css.Node | Css.Edge;
     }
 
     /**
@@ -1045,36 +1074,23 @@ declare namespace Cy {
         /**
          * Export the current graph view as a PNG image in Base64 representation.
          */
-        png(): string;
-        /**
-         * Export the current graph view as a PNG image in Base64 representation.
-         */
-        png(options: ExportOptions): string;
+        png(options?: ExportOptions): string;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpg(): string;
-        /**
-         * Export the current graph view as a JPG image in Base64 representation.
-         */
-        jpg(options: ExportOptions): string;
+        jpg(options?: ExportOptions): string;
 
         /**
          * Export the current graph view as a JPG image in Base64 representation.
          */
-        jpeg(): string;
-        /**
-         * Export the current graph view as a JPG image in Base64 representation.
-         */
-        jpeg(options: ExportOptions): string;
+        jpeg(options?: ExportOptions): string;
 
         /**
          * Export the graph as JSON, the same format used at initialisation.
          */
         json(): string;
     }
-
 
     /**
      * eles --> Cy.Collection
@@ -1100,15 +1116,12 @@ declare namespace Cy {
         SingularData, SingularPosition,
         SingularSelection, SingularStyle, SingularAnimation { }
 
-
     interface ElementsDefinition {
         nodes: NodeDefinition[];
         edges: EdgeDefinition[];
     }
 
-    interface EventHandler {
-        (event: EventObject): void;
-    }
+    type EventHandler = (event: EventObject) => void;
 
     /**
      * The output is a collection of node and edge elements OR single element.
@@ -1135,7 +1148,7 @@ declare namespace Cy {
         NodeCollectionCompound { }
 
     interface SingularElement extends EdgeSingular, NodeSingular {
-        //Intentionally empty.
+        // Intentionally empty.
     }
     /**
      *  edge --> Cy.EdgeSingular
@@ -1150,7 +1163,6 @@ declare namespace Cy {
      */
     interface NodeSingular extends Singular,
         NodeSingularMetadata, NodeSingularPosition, NodeSingularCompound { }
-
 
     /**
      * http://js.cytoscape.org/#collection/graph-manipulation
@@ -1196,9 +1208,9 @@ declare namespace Cy {
      */
     interface SingularGraphManipulation {
         /**
-           * Get whether the element has been removed from the graph.
-           * http://js.cytoscape.org/#ele.removed
-           */
+         * Get whether the element has been removed from the graph.
+         * http://js.cytoscape.org/#ele.removed
+         */
         removed(): boolean;
         /**
          * Get whether the element is inside the graph (i.e. not removed).
@@ -1216,7 +1228,6 @@ declare namespace Cy {
          */
         on(events: EventNames, selector: string, data: any, handler: EventHandler): void;
         on(events: EventNames, selector: string, handler: EventHandler): void;
-        on(events: EventNames, data: any, handler: EventHandler): void;
         on(events: EventNames, handler: EventHandler): void;
         /**
          * http://js.cytoscape.org/#eles.promiseOn
@@ -1235,14 +1246,12 @@ declare namespace Cy {
          */
         one(events: EventNames, selector: string, data: any, handler: EventHandler): void;
         one(events: EventNames, selector: string, handler: EventHandler): void;
-        one(events: EventNames, data: any, handler: EventHandler): void;
         one(events: EventNames, handler: EventHandler): void;
         /**
          * http://js.cytoscape.org/#eles.once
          */
         once(events: EventNames, selector: string, data: any, handler: EventHandler): void;
         once(events: EventNames, selector: string, handler: EventHandler): void;
-        once(events: EventNames, data: any, handler: EventHandler): void;
         once(events: EventNames, handler: EventHandler): void;
         /**
          * http://js.cytoscape.org/#eles.off
@@ -1304,26 +1313,18 @@ declare namespace Cy {
          * @param obj The object containing name- value pairs to update data fields.
          */
         data(obj: any): void;
+
         /**
-        * Get the entire scratchpad object for the element,
-        * at a particular namespace,
-        * where temporary or non-JSON data can be stored.
-        * App-level scratchpad data should use namespaces
-        * prefixed with underscore, like '_foo'.
-        * http://js.cytoscape.org/#ele.scratch
-        * @param namespace A namespace string.
-        */
-        scratch(namespace?: string): Scratchpad;
-        /**
-         * Set the scratchpad at a particular namespace,
+         * Get or set the scratchpad at a particular namespace,
          * where temporary or non-JSON data can be stored.
+         * Get scratchpad if one or no parameter provided.
          * App-level scratchpad data should use namespaces
          * prefixed with underscore, like '_foo'.
          * http://js.cytoscape.org/#ele.scratch
          * @param namespace A namespace string.
          * @param value The value to set at the specified namespace.
          */
-        scratch(namespace: string, value: any): Scratchpad;
+        scratch(namespace?: string, value?: any): Scratchpad;
 
         /**
          * Remove scratchpad data.
@@ -1368,8 +1369,8 @@ declare namespace Cy {
         isEdge(): boolean;
     }
     /**
-    * http://js.cytoscape.org/#collection/data
-    */
+     * http://js.cytoscape.org/#collection/data
+     */
     interface EdgeSingularData {
         /**
          * Get whether the edge is a loop (i.e. source same as target).
@@ -1401,7 +1402,7 @@ declare namespace Cy {
         /**
          * Get the outdegree of a node.
          * @param includeLoops A boolean, indicating whether loops are to be included in degree calculations.
-        */
+         */
         outdegree(includeLoops: boolean): number;
     }
 
@@ -1450,7 +1451,6 @@ declare namespace Cy {
          * @param includeLoops A boolean, indicating whether loops are to be included in degree calculations.
          */
         maxOutdegree(includeLoops: boolean): number;
-
     }
 
     /**
@@ -1502,25 +1502,24 @@ declare namespace Cy {
          * http://js.cytoscape.org/#node.relativePosition
          */
         /**
-       * Get the value of a specified relative position dimension.
-       * @param dimension The position dimension to get.
-       * @param value The value to set to the dimension.
-       * @param pos An object specifying name-value pairs representing dimensions to set.
-       */
+         * Get the value of a specified relative position dimension.
+         * @param dimension The position dimension to get.
+         * @param value The value to set to the dimension.
+         * @param pos An object specifying name-value pairs representing dimensions to set.
+         */
         relativePosition(dimension?: PositionDimension): Position;
         relativePosition(dimension: PositionDimension, value: Position): void;
         relativePosition(pos: { [name: string]: number }): void;
 
         /**
-        * Get the value of a specified relative position dimension.
-        * @param dimension The position dimension to get.
-        * @param value The value to set to the dimension.
-        * @param pos An object specifying name-value pairs representing dimensions to set.
-        */
+         * Get the value of a specified relative position dimension.
+         * @param dimension The position dimension to get.
+         * @param value The value to set to the dimension.
+         * @param pos An object specifying name-value pairs representing dimensions to set.
+         */
         relativePoint(dimension?: PositionDimension): Position;
         relativePoint(dimension: PositionDimension, value: Position): void;
         relativePoint(pos: { [name: string]: number }): void;
-
 
         /**
          * Get whether a node is currently grabbed, meaning the user has hold of the node.
@@ -1543,12 +1542,9 @@ declare namespace Cy {
      * @param ele The element being iterated over for which the function should return a position to set.
      * @param ix The index of the element when iterating over the elements in the collection.
      */
-    interface ElementPositionFunction {
-        (ele: CollectionElements, ix: number): void;
-    }
-    interface ElementCollectionFunction {
-        (ele: CollectionElements, ix: number, eles: CollectionElements): void;
-    }
+    type ElementPositionFunction = (ele: CollectionElements, ix: number) => void;
+    type ElementCollectionFunction = (ele: CollectionElements, ix: number, eles: CollectionElements) => void;
+
     /**
      * http://js.cytoscape.org/#collection/position--dimensions
      */
@@ -1559,14 +1555,11 @@ declare namespace Cy {
          * @param pos An object specifying name-value pairs representing dimensions to set.
          * http://js.cytoscape.org/#nodes.positions
          */
-        positions(handler: ElementPositionFunction): void;
-        positions(pos: Position): void;
+        positions(handler: ElementPositionFunction | Position): void;
 
-        modelPositions(handler: ElementPositionFunction): void;
-        modelPositions(pos: Position): void;
+        modelPositions(handler: ElementPositionFunction | Position): void;
 
-        points(handler: ElementPositionFunction): void;
-        points(pos: Position): void;
+        points(handler: ElementPositionFunction | Position): void;
 
         /**
          * Allow the user to grab the nodes.
@@ -1602,7 +1595,6 @@ declare namespace Cy {
          */
         outerWidth(): number;
 
-
         /**
          * Get the width of the element in rendered dimensions.
          */
@@ -1610,7 +1602,7 @@ declare namespace Cy {
 
         /**
          * Get the outer width of the element (includes width, padding, & border) in rendered dimensions.
-                 */
+         */
         renderedOuterWidth(): number;
 
         /**
@@ -1700,9 +1692,9 @@ declare namespace Cy {
         // pan the graph to the provided position, given as { x, y }
         pan?: Position;
         // callback for the layoutready event
-        ready?: undefined,
+        ready?: undefined;
         // callback for the layoutstop event
-        stop?: undefined,
+        stop?: undefined;
         // a positive value which adjusts spacing between nodes (>1 means greater than usual spacing)
         spacingFactor?: number;
         // zoom level as a positive number to set after animation
@@ -1718,8 +1710,8 @@ declare namespace Cy {
         layoutPositions(layout: string, options: LayoutPositionOptions, handler: ElementPositionFunction): void;
     }
     /**
-    * http://js.cytoscape.org/#collection/layout
-    */
+     * http://js.cytoscape.org/#collection/layout
+     */
     interface LayoutDimensionOptions {
         // Boolean which changes whether label dimensions are included when calculating node dimensions
         nodeDimensionsIncludeLabels: boolean;
@@ -1730,7 +1722,7 @@ declare namespace Cy {
          * Meant for use in layout positioning to do overlap detection.
          * @param options The layout options object.
          */
-        layoutDimensions(options: LayoutDimensionOptions): { x: number; y: number }
+        layoutDimensions(options: LayoutDimensionOptions): { x: number; y: number };
     }
 
     /**
@@ -1776,7 +1768,6 @@ declare namespace Cy {
         unselectify(): void;
     }
 
-
     /**
      * http://js.cytoscape.org/#collection/style
      */
@@ -1818,23 +1809,13 @@ declare namespace Cy {
          * http://js.cytoscape.org/#eles.flashClass
          */
         flashClass(classes: ClassNames, duration?: number): void;
+
         /**
-         * Get a name-value pair object containing visual style
-         * properties and their values for the element.
-         * http://js.cytoscape.org/#eles.style
-         */
-        style(): any;
-        /**
-         * Get a particular style property value.
-         * @param name The name of the visual style property to get.
-         */
-        style(name: string): any;
-         /**
-         * Set a particular style property value.
+         * Get or set a particular style property value.
          * @param name The name of the visual style property to get.
          * @param value The value to which the property is set.
          */
-        style(name: string, value: any): any;
+        style(name?: string, value?: any): any;
     }
 
     /**
@@ -1853,12 +1834,11 @@ declare namespace Cy {
          * style properties and their values for the element.
          * @param name The name of the visual style property to get.
          */
-        renderedStyle(): { [name: string]: any }
+        renderedStyle(): { [name: string]: any };
         renderedStyle(name: string): any;
 
-        renderedCss(): { [name: string]: any }
+        renderedCss(): { [name: string]: any };
         renderedCss(name: string): any;
-
 
         /**
          * Get the numeric value of a style property in
@@ -1910,11 +1890,11 @@ declare namespace Cy {
         /** A boolean indicating whether to queue the animation. */
         queue?: boolean;
         /** A function to call when the animation is done. */
-        complete?: () => void;
+        complete?(): void;
         /** A function to call each time the animation steps. */
-        step?: () => void;
+        step?(): void;
         /** A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing?: () => void;
+        easing?(): void;
     }
     interface ElementAnimateOptionPos {
         /** A position to which the elements will be animated. */
@@ -1965,7 +1945,7 @@ declare namespace Cy {
         /** The duration of the animation in milliseconds. */
         duration: number;
         /** A transition-timing-function easing style string that shapes the animation progress curve. */
-        easing: () => void;
+        easing(): void;
     }
     interface SingularAnimation {
         /**
@@ -1984,7 +1964,6 @@ declare namespace Cy {
          * http://js.cytoscape.org/#ele.delayAnimation
          */
         delayAnimation(duration: number): void;
-
     }
 
     /**
@@ -1994,10 +1973,10 @@ declare namespace Cy {
         // http://js.cytoscape.org/#collection/comparison
 
         /**
-        * Determine whether this collection contains exactly the same elements as another collection.
-        *
-        * @param eles The other elements to compare to.
-        */
+         * Determine whether this collection contains exactly the same elements as another collection.
+         *
+         * @param eles The other elements to compare to.
+         */
         same(eles: Collection): boolean;
 
         /**
@@ -2082,7 +2061,8 @@ declare namespace Cy {
          * Iterate over the elements in the collection using an implementation like the native array function namesake.
          *
          * This function behaves like Array.prototype.forEach() with minor changes for convenience:
-         * You can exit the iteration early by returning false in the iterating function. The Array.prototype.forEach() implementation does not support this, but it is included anyway on account of its utility.
+         * You can exit the iteration early by returning false in the iterating function.
+         * The Array.prototype.forEach() implementation does not support this, but it is included anyway on account of its utility.
          *
          * @param each The function executed each iteration.
          * ele - The current element.
@@ -2102,10 +2082,10 @@ declare namespace Cy {
          */
         eq(index: number): CollectionElements;
         /**
-        * Get an element at a particular index in the collection.
-        *
-        * @param index The index of the element to get.
-        */
+         * Get an element at a particular index in the collection.
+         *
+         * @param index The index of the element to get.
+         */
         [index: number]: CollectionElements;
         /**
          * Get the first element in the collection.
@@ -2119,8 +2099,12 @@ declare namespace Cy {
         /**
          * Get a subset of the elements in the collection based on specified indices.
          *
-         * @param start [optional] An integer that specifies where to start the selection. The first element has an index of 0. Use negative numbers to select from the end of an array.
-         * @param end [optional] An integer that specifies where to end the selection. If omitted, all elements from the start position and to the end of the array will be selected. Use negative numbers to select from the end of an array.
+         * @param start [optional] An integer that specifies where to start the selection.
+         *              The first element has an index of 0.
+         *              Use negative numbers to select from the end of an array.
+         * @param end [optional] An integer that specifies where to end the selection.
+         *            If omitted, all elements from the start position and to the end of the array will be selected.
+         *            Use negative numbers to select from the end of an array.
          */
         slice(start?: number, end?: number): CollectionElements;
     }
@@ -2129,79 +2113,38 @@ declare namespace Cy {
      * http://js.cytoscape.org/#collection/building--filtering
      */
     /**
+     * Get a new collection, resulting from adding the collection with another one
+     *
+     * @param eles The elements or array of elements to add or elements in the graph matching the selector.
      * http://js.cytoscape.org/#eles.union
      */
-    interface CollectionBuildingUnion {
-        /**
-        * Get a new collection, resulting from adding the collection with another one
-        *
-        * @param eles The elements to add.
-        */
-        (eles: Collection): CollectionElements;
-        /**
-         * Get a new collection, resulting from adding the collection with another one
-         *
-         * @param elesArray An array of elements to add.
-         */
-        (elesArray: Collection[]): CollectionElements;
-        /**
-         * Get a new collection, resulting from adding the collection with another one
-         *
-         * @param selector Elements in the graph matching this selector are added.
-         */
-        (selector: Selector): CollectionElements;
-    }
+    type CollectionBuildingUnionFunc = (eles: Collection | Collection[] | Selector) => CollectionElements;
+
     /**
+     * Get a new collection, resulting from the collection without some specified elements.
      * http://js.cytoscape.org/#eles.difference
+     * @param eles The elements that will not be in the resultant collection.
+     *             Elements from the calling collection matching this selector will not be in the resultant collection.
      */
-    interface CollectionBuildingDifference {
-        /**
-        * Get a new collection, resulting from the collection without some specified elements.
-        *
-        * @param eles The elements that will not be in the resultant collection.
-        */
-        (eles: Collection): CollectionElements;
-        /**
-         * Get a new collection, resulting from the collection without some specified elements.
-         *
-         * @param selector Elements from the calling collection matching this selector will not be in the resultant collection.
-         */
-        (selector: Selector): CollectionElements;
-    }
+    type CollectionBuildingDifferenceFunc = (eles: Collection | Selector) => CollectionElements;
+
     /**
+     * Get the elements in both this collection and another specified collection.
      * http://js.cytoscape.org/#eles.intersection
+     * @param eles The elements to intersect with.
+     *             A selector representing the elements to intersect with.
+     *             All elements in the graph matching the selector are used as the passed collection.
      */
-    interface CollectionBuildingIntersection {
-        /**
-        * Get the elements in both this collection and another specified collection.
-        *
-        * @param eles The elements to intersect with.
-        */
-        (eles: Collection): CollectionElements;
-        /**
-         * Get the elements in both this collection and another specified collection.
-         *
-         * @param selector A selector representing the elements to intersect with. All elements in the graph matching the selector are used as the passed collection.
-         */
-        (selector: Selector): CollectionElements;
-    }
+    type CollectionBuildingIntersectionFunc = (eles: Collection | Selector) => CollectionElements;
+
     /**
+     * Get the elements that are in the calling collection or the passed collection but not in both.
      * http://js.cytoscape.org/#eles.symmetricDifference
+     * @param eles The elements to apply the symmetric difference with.
+     *             A selector representing the elements to apply the symmetric difference with.
+     *             All elements in the graph matching the selector are used as the passed collection.
      */
-    interface CollectionSymmetricDifference {
-        /**
-        * Get the elements that are in the calling collection or the passed collection but not in both.
-        *
-        * @param eles The elements to apply the symmetric difference with.
-        */
-        (eles: Collection): CollectionElements;
-        /**
-         * Get the elements that are in the calling collection or the passed collection but not in both.
-         *
-         * @param selector A selector representing the elements to apply the symmetric difference with. All elements in the graph matching the selector are used as the passed collection.
-         */
-        (selector: Selector): CollectionElements;
-    }
+    type CollectionSymmetricDifferenceFunc = (eles: Collection | Selector) => CollectionElements;
     /**
      * http://js.cytoscape.org/#collection/building--filtering
      */
@@ -2210,23 +2153,23 @@ declare namespace Cy {
          * Get a new collection, resulting from adding the collection with another one
          * http://js.cytoscape.org/#eles.union
          */
-        union: CollectionBuildingUnion;
-        //[index: "u"]: CollectionBuildingUnion;
-        add: CollectionBuildingUnion;
-        //[index: "+"]: CollectionBuildingUnion;
-        or: CollectionBuildingUnion;
-        //[index: "|"]: CollectionBuildingUnion;
+        union: CollectionBuildingUnionFunc;
+        // [index: "u"]: CollectionBuildingUnionFunc;
+        add: CollectionBuildingUnionFunc;
+        // [index: "+"]: CollectionBuildingUnionFunc;
+        or: CollectionBuildingUnionFunc;
+        // [index: "|"]: CollectionBuildingUnionFunc;
 
         /**
          * Get a new collection, resulting from the collection without some specified elements.
          * http://js.cytoscape.org/#eles.difference
          */
-        difference: CollectionBuildingDifference;
-        //[index: "\\"]: CollectionBuildingDifference;
-        not: CollectionBuildingDifference;
-        //[index: "!"]: CollectionBuildingDifference;
-        relativeComplement: CollectionBuildingDifference;
-        //[index: "-"]: CollectionBuildingDifference;
+        difference: CollectionBuildingDifferenceFunc;
+        // [index: "\\"]: CollectionBuildingDifferenceFunc;
+        not: CollectionBuildingDifferenceFunc;
+        // [index: "!"]: CollectionBuildingDifferenceFunc;
+        relativeComplement: CollectionBuildingDifferenceFunc;
+        // [index: "-"]: CollectionBuildingDifferenceFunc;
 
         /**
          * Get all elements in the graph that are not in the calling collection.
@@ -2240,30 +2183,30 @@ declare namespace Cy {
          * Get the elements in both this collection and another specified collection.
          * http://js.cytoscape.org/#eles.intersection
          */
-        intersection: CollectionBuildingIntersection;
-        intersect: CollectionBuildingIntersection;
-        and: CollectionBuildingIntersection;
-        //[index: "n"]: CollectionBuildingIntersection;
-        //[index: "&"]: CollectionBuildingIntersection;
-        //[index: "."]: CollectionBuildingIntersection;
+        intersection: CollectionSymmetricDifferenceFunc;
+        intersect: CollectionSymmetricDifferenceFunc;
+        and: CollectionSymmetricDifferenceFunc;
+        // [index: "n"]: CollectionSymmetricDifferenceFunc;
+        // [index: "&"]: CollectionSymmetricDifferenceFunc;
+        // [index: "."]: CollectionSymmetricDifferenceFunc;
 
         /**
          * Get the elements that are in the calling collection
          * or the passed collection but not in both.
          * http://js.cytoscape.org/#eles.symmetricDifference
          */
-        symmetricDifference: CollectionSymmetricDifference;
-        symdiff: CollectionSymmetricDifference;
-        xor: CollectionSymmetricDifference;
-        //[index: "^"]: CollectionSymmetricDifference;
-        //[index: "(+)"]: CollectionSymmetricDifference;
-        //[index: "(-)"]: CollectionSymmetricDifference;
+        symmetricDifference: CollectionSymmetricDifferenceFunc;
+        symdiff: CollectionSymmetricDifferenceFunc;
+        xor: CollectionSymmetricDifferenceFunc;
+        // [index: "^"]: CollectionSymmetricDifferenceFunc;
+        // [index: "(+)"]: CollectionSymmetricDifferenceFunc;
+        // [index: "(-)"]: CollectionSymmetricDifferenceFunc;
 
-        //[index: string]: CollectionBuildingDifference |CollectionBuildingUnion | CollectionBuildingIntersection | CollectionSymmetricDifference;
+        // [index: string]: CollectionBuildingDifferenceFunc |CollectionBuildingUnionFunc | CollectionBuildingDifferenceFunc | CollectionSymmetricDifferenceFunc;
 
         /**
-        * Perform a traditional left/right diff on the two collections.
-        *
+         * Perform a traditional left/right diff on the two collections.
+         *
          * @param selector
          *    A selector representing the elements on the right side of the diff. All elements in the graph matching the selector are used as the passed collection.
          *    The elements on the right side of the diff.
@@ -2283,18 +2226,12 @@ declare namespace Cy {
          * Get a new collection containing elements that are accepted by the specified filter.
          *
          * @param selector The selector to match against.
-         * http://js.cytoscape.org/#eles.filter
-         */
-        filter(selector: Selector): CollectionElements;
-        /**
-         * Get a new collection containing elements that are accepted by the specified filter.
-         *
-         * @filter selector The filter function that returns true for elements to include.
+         * @param filter selector The filter function that returns true for elements to include.
          * i - The index of the current element being considered.
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(filter: (i: number, ele: CollectionElements) => boolean): CollectionElements;
+        filter(selector: Selector | ((i: number, ele: CollectionElements) => boolean)): CollectionElements;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -2309,7 +2246,6 @@ declare namespace Cy {
          * http://js.cytoscape.org/#eles.filter
          */
         edges(selector: Selector): EdgeCollection;
-
 
         /**
          * Get a new collection containing the elements sorted by the
@@ -2335,7 +2271,6 @@ declare namespace Cy {
          * http://js.cytoscape.org/#eles.map
          */
         map(fn: (ele: CollectionElements, i: number, eles: CollectionElements) => any, thisArg?: any): any[];
-
 
         /**
          * Reduce a single value by applying a
@@ -2408,19 +2343,21 @@ declare namespace Cy {
         // http://js.cytoscape.org/#collection/traversing
 
         /**
-        * Get the open neighbourhood of the elements.
-        *
-        * The neighbourhood returned by this function is a bit different than the traditional definition of a "neighbourhood": This returned neighbourhood includes the edges connecting the collection to the neighbourhood. This gives you more flexibility.
-        * An open neighbourhood is one that does not include the original set of elements. If unspecified, a neighbourhood is open by default.
-        *
-        * @param selector [optional] An optional selector that is used to filter the resultant collection.
-        */
+         * Get the open neighbourhood of the elements.
+         *
+         * The neighbourhood returned by this function is a bit different than the traditional definition of a "neighbourhood":
+         * This returned neighbourhood includes the edges connecting the collection to the neighbourhood. This gives you more flexibility.
+         * An open neighbourhood is one that does not include the original set of elements. If unspecified, a neighbourhood is open by default.
+         *
+         * @param selector [optional] An optional selector that is used to filter the resultant collection.
+         */
         neighborhood(selector?: Selector): CollectionElements;
 
         /**
          * Get the open neighbourhood of the elements.
          *
-         * The neighbourhood returned by this function is a bit different than the traditional definition of a "neighbourhood": This returned neighbourhood includes the edges connecting the collection to the neighbourhood. This gives you more flexibility.
+         * The neighbourhood returned by this function is a bit different than the traditional definition of a "neighbourhood":
+         * This returned neighbourhood includes the edges connecting the collection to the neighbourhood. This gives you more flexibility.
          * An open neighbourhood is one that does not include the original set of elements. If unspecified, a neighbourhood is open by default.
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
@@ -2429,7 +2366,8 @@ declare namespace Cy {
         /**
          * Get the closed neighbourhood of the elements.
          *
-         * The neighbourhood returned by this function is a bit different than the traditional definition of a "neighbourhood": This returned neighbourhood includes the edges connecting the collection to the neighbourhood. This gives you more flexibility.
+         * The neighbourhood returned by this function is a bit different than the traditional definition of a "neighbourhood":
+         * This returned neighbourhood includes the edges connecting the collection to the neighbourhood. This gives you more flexibility.
          * A closed neighbourhood is one that does include the original set of elements.
          *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
@@ -2437,16 +2375,17 @@ declare namespace Cy {
         closedNeighborhood(selector?: Selector): CollectionElements;
 
         /**
-         * Get the connected components, considering only the elements in the calling collection. An array of collections is returned, with each collection representing a component.
+         * Get the connected components, considering only the elements in the calling collection.
+         * An array of collections is returned, with each collection representing a component.
          */
         components(): Collection;
     }
     interface EdgeSingularTraversing {
         /**
-        * Get source node of this edge.
-        * @param selector An optional selector that is used to filter the resultant collection.
-        * http://js.cytoscape.org/#edge.source
-        */
+         * Get source node of this edge.
+         * @param selector An optional selector that is used to filter the resultant collection.
+         * http://js.cytoscape.org/#edge.source
+         */
         source(selector?: Selector): NodeCollection;
 
         /**
@@ -2483,7 +2422,9 @@ declare namespace Cy {
         /**
          * Get edges parallel to those in the collection.
          *
-         * Two edges are said to be parallel if they connect the same two nodes. Any two parallel edges may connect nodes in the same direction, in which case the edges share the same source and target. They may alternatively connect nodes in the opposite direction, in which case the source and target are reversed in the second edge.
+         * Two edges are said to be parallel if they connect the same two nodes.
+         * Any two parallel edges may connect nodes in the same direction, in which case the edges share the same source and target.
+         * They may alternatively connect nodes in the opposite direction, in which case the source and target are reversed in the second edge.
          * That is:
          * - edge1.source().id() === edge2.source().id()
          *   && edge1.target().id() === edge2.target().id()
@@ -2502,7 +2443,7 @@ declare namespace Cy {
          * That is:
          * - edge1.source().id() === edge2.source().id()
          *   && edge1.target().id() === edge2.target().id()
-
+         *
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
         codirectedEdges(selector?: Selector): EdgeCollection;
@@ -2514,27 +2455,17 @@ declare namespace Cy {
          * Get the edges connecting the collection to another collection. Direction of the edges does not matter.
          *
          * @param eles The other collection.
-         */
-        edgesWith(eles: Collection): EdgeCollection;
-        /**
-         * Get the edges connecting the collection to another collection. Direction of the edges does not matter.
-         *
          * @param selector The other collection, specified as a selector which is matched against all elements in the graph.
          */
-        edgesWith(selector: Selector): EdgeCollection;
+        edgesWith(eles: Collection | Selector): EdgeCollection;
 
         /**
          * Get the edges coming from the collection (i.e. the source) going to another collection (i.e. the target).
          *
          * @param eles The other collection.
-         */
-        edgesTo(eles: Collection): EdgeCollection;
-        /**
-         * Get the edges coming from the collection (i.e. the source) going to another collection (i.e. the target).
-         *
          * @param selector The other collection, specified as a selector which is matched against all elements in the graph.
          */
-        edgesTo(selector: Selector): EdgeCollection;
+        edgesTo(eles: Collection | Selector): EdgeCollection;
 
         /**
          * Get the edges connected to the nodes in the collection.
@@ -2591,20 +2522,17 @@ declare namespace Cy {
      * http://js.cytoscape.org/#collection/algorithms
      */
 
-
     type WeightFn = (edge: EdgeCollection) => number;
 
-    interface SearchVisitFunction {
-        /**
-         * The handler returns true when it finds the desired node, and it returns false to cancel the search.
-         * i - The index indicating this node is the ith visited node.
-         * depth - How many edge hops away this node is from the root nodes.
-         * v - The current node.
-         * e - The edge connecting the previous node to the current node.
-         * u - The previous node.
-         */
-        (i: number, depth: number, v: NodeCollection, e: EdgeCollection, u: NodeCollection): boolean;
-    }
+    /**
+     * The handler returns true when it finds the desired node, and it returns false to cancel the search.
+     * i - The index indicating this node is the ith visited node.
+     * depth - How many edge hops away this node is from the root nodes.
+     * v - The current node.
+     * e - The edge connecting the previous node to the current node.
+     * u - The previous node.
+     */
+    type SearchVisitFunction = (i: number, depth: number, v: NodeCollection, e: EdgeCollection, u: NodeCollection) => boolean;
     interface SearchFirstOptions {
         /**
          * The root nodes (selector or collection) to start the search from.
@@ -2632,7 +2560,6 @@ declare namespace Cy {
          */
         found: NodeCollection;
     }
-    
 
     /**
      * http://js.cytoscape.org/#eles.dijkstra
@@ -2662,13 +2589,14 @@ declare namespace Cy {
         /**
          * Returns the distance from the source node to node.
          */
-        distanceTo: (node: NodeSingular) => number;
+        distanceTo(node: NodeSingular): number;
 
         /**
          * Returns a collection containing the shortest path from the source node to node.
-         * The path starts with the source node and includes the edges between the nodes in the path such that if pathTo(node)[i] is an edge, then pathTo(node)[i-1] is the previous node in the path and pathTo(node)[i+1] is the next node in the path.
+         * The path starts with the source node and includes the edges between the nodes in the path such that if pathTo(node)[i] is an edge,
+         * then pathTo(node)[i-1] is the previous node in the path and pathTo(node)[i+1] is the next node in the path.
          */
-        pathTo: (node: NodeSingular) => Collection;
+        pathTo(node: NodeSingular): Collection;
     }
     /**
      * http://js.cytoscape.org/#eles.aStar
@@ -2677,7 +2605,7 @@ declare namespace Cy {
         root: Selector | Collection;
         goal: Selector | Collection;
         weight?: WeightFn;
-        heuristic?: (node: NodeCollection) => number;
+        heuristic?(node: NodeCollection): number;
         directed?: boolean;
     }
     /**
@@ -2702,9 +2630,9 @@ declare namespace Cy {
      */
     interface SearchFloydWarshallResult {
         /**
-       * Returns the distance from the source node to node.
-       */
-        distance: (fromNode: NodeSingular | CollectionSelection, toNode: NodeSingular | Selector) => number;
+         * Returns the distance from the source node to node.
+         */
+        distance(fromNode: NodeSingular | CollectionSelection, toNode: NodeSingular | Selector): number;
 
         /**
          * Returns a collection containing the shortest path from the source node to node.
@@ -2713,21 +2641,20 @@ declare namespace Cy {
          * then pathTo(node)[i-1] is the previous node in the path and pathTo(node)[i+1]
          * is the next node in the path.
          */
-        path: (fromNode: NodeSingular | CollectionSelection, toNode: NodeSingular | Selector) => Collection;
+        path(fromNode: NodeSingular | CollectionSelection, toNode: NodeSingular | Selector): Collection;
     }
-
 
     /**
      * http://js.cytoscape.org/#eles.bellmanFord
      */
     interface SearchBellmanFordOptions {
         /**
-        The root node (selector or collection) where the search starts.
-        */
+         * The root node (selector or collection) where the search starts.
+         */
         "root": any;
         /**
          * A function that returns the positive numeric weight for this edge.
-        */
+         */
         "weight"?: WeightFn;
         /**
          * Indicating whether the algorithm should only go along
@@ -2742,14 +2669,15 @@ declare namespace Cy {
         /**
          * function that computes the shortest path from root node to the argument node
          * (either objects or selector string)
-        */
-        pathTo: (node: NodeSingular | Selector) => Collection;
+         */
+        pathTo(node: NodeSingular | Selector): Collection;
 
         /**
          *  function that computes the shortest distance from root node to argument node
          * (either objects or selector string)
-         * */
-        distanceTo: (node: NodeSingular | Selector) => number;
+         *
+         */
+        distanceTo(node: NodeSingular | Selector): number;
 
         /* true/false. If true, pathTo and distanceTo will be undefined */
         hasNegativeWeightCycle: boolean;
@@ -2776,7 +2704,7 @@ declare namespace Cy {
      */
     interface SearchPageRankResult {
         /** function that computes the rank of a given node (either object or selector string) */
-        rank: (node: NodeCollection) => void;
+        rank(node: NodeCollection): void;
     }
 
     /**
@@ -2788,7 +2716,7 @@ declare namespace Cy {
          */
         root: NodeSingular | Selector;
         /**  A function that returns the weight for the edge. */
-        weight?: (edge: EdgeSingular) => number;
+        weight?(edge: EdgeSingular): number;
         /**
          * The alpha value for the centrality calculation, ranging on [0, 1].
          * With value 0 (default), disregards edge weights and solely uses
@@ -2798,7 +2726,8 @@ declare namespace Cy {
          */
         alpha?: number;
         /**  A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
-         * whether the undirected centrality is calculated (false, default). */
+         * whether the undirected centrality is calculated (false, default).
+         */
         directed?: boolean;
     }
     /**
@@ -2819,7 +2748,7 @@ declare namespace Cy {
      */
     interface SearchDegreeCentralityNormalizedOptions {
         /**  A function that returns the weight for the edge. */
-        weight?: (edge: EdgeSingular) => number;
+        weight(edge: EdgeSingular): number;
         /**
          * The alpha value for the centrality calculation, ranging on [0, 1].
          * With value 0 (default), disregards edge weights and solely uses
@@ -2838,14 +2767,14 @@ declare namespace Cy {
      */
     interface SearchDegreeCentralityNormalizedResultUndirected {
         /** the normalised degree centrality of the specified node */
-        degree: (node: NodeSingular) => any;
+        degree(node: NodeSingular): any;
     }
     interface SearchDegreeCentralityNormalizedResultDirected {
         /** the normalised indegree centrality of the specified node */
-        indegree: (node: NodeSingular) => any;
+        indegree(node: NodeSingular): any;
 
         /** the normalised outdegree centrality of the specified node */
-        outdegree: (node: NodeSingular) => any;
+        outdegree(node: NodeSingular): any;
     }
     /**
      * http://js.cytoscape.org/#eles.closenessCentrality
@@ -2856,7 +2785,7 @@ declare namespace Cy {
          */
         root: NodeSingular | Selector;
         /**  A function that returns the weight for the edge. */
-        weight?: (edge: EdgeSingular) => number;
+        weight?(edge: EdgeSingular): number;
 
         /**  A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
          * whether the undirected centrality is calculated (false, default).
@@ -2879,7 +2808,7 @@ declare namespace Cy {
      */
     interface SearchClosenessCentralityNormalizedOptions {
         /**  A function that returns the weight for the edge. */
-        weight?: (edge: EdgeSingular) => number;
+        weight?(edge: EdgeSingular): number;
         directed?: boolean;
         /**
          * A boolean indicating whether the algorithm calculates the
@@ -2897,9 +2826,8 @@ declare namespace Cy {
      * http://js.cytoscape.org/#eles.betweennessCentrality
      */
     interface SearchBetweennessOptions {
-
         /**  A function that returns the weight for the edge. */
-        weight?: (edge: EdgeSingular) => number;
+        weight?(edge: EdgeSingular): number;
 
         /**  A boolean indicating whether the directed indegree and outdegree centrality is calculated (true) or
          * whether the undirected centrality is calculated (false, default).
@@ -2911,11 +2839,11 @@ declare namespace Cy {
      */
     interface SearchBetweennessResult {
         /** returns the betweenness centrality of the specified node */
-        betweenness: (node: NodeSingular) => number;
+        betweenness(node: NodeSingular): number;
 
         /** returns the normalised betweenness centrality of the specified node */
-        betweennessNormalized: (node: NodeSingular) => number;
-        betweennessNormalised: (node: NodeSingular) => number;
+        betweennessNormalized(node: NodeSingular): number;
+        betweennessNormalised(node: NodeSingular): number;
     }
 
     /**
@@ -2923,7 +2851,7 @@ declare namespace Cy {
      */
     interface SearchClosenessCentralityNormalizedOptions {
         /**  A function that returns the weight for the edge. */
-        weight?: (edge: EdgeSingular) => number;
+        weight?(edge: EdgeSingular): number;
         directed?: boolean;
         /**
          * A boolean indicating whether the algorithm calculates the
@@ -2986,7 +2914,7 @@ declare namespace Cy {
          * The optimal result is found with a high probability, but without guarantee.
          * http://js.cytoscape.org/#eles.kargerStein
          */
-        kargerStein(): { cut: EdgeCollection; partitionFirst: NodeCollection; partitionSecond: NodeCollection; }
+        kargerStein(): { cut: EdgeCollection; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
         /**
          * Rank the nodes in the collection using the Page Rank algorithm.
          * http://js.cytoscape.org/#eles.pageRank
@@ -3150,9 +3078,9 @@ declare namespace Cy {
      * http://js.cytoscape.org/#ele.group
      * http://js.cytoscape.org/#notation/elements-json
      *
-    * 'nodes'
-    * 'edges'
-    */
+     * 'nodes'
+     * 'edges'
+     */
     type ElementGroup = "nodes" | "edges";
 
     /**
@@ -3169,7 +3097,6 @@ declare namespace Cy {
      */
     type Scratchpad = any;
 
-
     /**
      * Style in Cytoscape.js follows CSS conventions as closely as possible.
      * In most cases, a property has the same name and behaviour as its corresponding CSS namesake.
@@ -3181,8 +3108,7 @@ declare namespace Cy {
      *
      * http://js.cytoscape.org/#style
      */
-    export namespace Css {
-
+    namespace Css {
         type Colour = string;
 
         /**
@@ -3198,11 +3124,11 @@ declare namespace Cy {
             | "diamond" | "vee" | "rhomboid" | "polygon";
 
         /**
-        * A space-separated list of numbers ranging on [-1, 1],
-        * representing alternating x and y values (i.e. x1 y1 x2 y2, x3 y3 ...).
-        * This represents the points in the polygon for the node’s shape.
-        * The bounding box of the node is given by (-1, -1), (1, -1), (1, 1), (-1, 1).
-        */
+         * A space-separated list of numbers ranging on [-1, 1],
+         * representing alternating x and y values (i.e. x1 y1 x2 y2, x3 y3 ...).
+         * This represents the points in the polygon for the node’s shape.
+         * The bounding box of the node is given by (-1, -1), (1, -1), (1, 1), (-1, 1).
+         */
         type ShapePolygonPoints = string;
 
         /**
@@ -3213,8 +3139,8 @@ declare namespace Cy {
         /**
          * http://js.cytoscape.org/#style/node-body
          */
-        export interface Node extends PaddingNode {
-            "label"?: string
+        interface Node extends PaddingNode {
+            "label"?: string;
             /**
              * The width of the node’s body.
              * This property can take on the special value label
@@ -3230,44 +3156,44 @@ declare namespace Cy {
             /**
              * The shape of the node’s body.
              */
-            "shape"?: NodeShape
+            "shape"?: NodeShape;
             "shape-polygon-points"?: ShapePolygonPoints;
 
-            "opacity"?: number
+            "opacity"?: number;
 
-            "backgroundColor"?: Colour
+            "backgroundColor"?: Colour;
             /**
              * The colour of the node’s body.
              */
-            "background-color"?: Colour
+            "background-color"?: Colour;
             /**
              * Blackens the node’s body for values from 0 to 1;
              * whitens the node’s body for values from 0 to -1.
              */
-            "background-blacken"?: number
+            "background-blacken"?: number;
             /**
              * The opacity level of the node’s background colour.
              */
-            "background-opacity"?: number
+            "background-opacity"?: number;
             /**
              * The size of the node’s border.
              */
-            "border-width"?: number
+            "border-width"?: number;
             /**
              * The style of the node’s border.
              */
-            "border-style"?: LineStyle
+            "border-style"?: LineStyle;
             /**
              * The colour of the node’s border.
              */
-            "border-color"?: Colour
+            "border-color"?: Colour;
             /**
              * The opacity of the node’s border.
              * A value between [0 1].
              */
-            "border-opacity"?: number
+            "border-opacity"?: number;
 
-            "text-opacity"?: number
+            "text-opacity"?: number;
         }
 
         /**
@@ -3276,24 +3202,22 @@ declare namespace Cy {
          * This can be used to add spacing around the label of width: label; height: label; nodes,
          * or it can be used to add spacing between a compound node parent and its children.
          */
-        export interface PaddingNode {
-            "padding-left"?: string
-            "padding-right"?: string
-            "padding-top"?: string
-            "padding-bottom"?: string
+        interface PaddingNode {
+            "padding-left"?: string;
+            "padding-right"?: string;
+            "padding-top"?: string;
+            "padding-bottom"?: string;
         }
 
-
-        type Dictionary = { [key: string]: any };
+        interface Dictionary { [key: string]: any; }
 
         // export interface ElementCss extends CSSStyleDeclaration { }
-
         /**
          * A background image may be applied to a node’s body:
          *
          * http://js.cytoscape.org/#style/background-image
          */
-        export interface BackgroundImage {
+        interface BackgroundImage {
             /**
              * The URL that points to the image that should be used as the node’s background.
              * PNG, JPG, and SVG are supported formats.
@@ -3371,7 +3295,7 @@ declare namespace Cy {
          *
          * http://js.cytoscape.org/#style/pie-chart-background
          */
-        export interface PieChartBackground {
+        interface PieChartBackground {
             /**
              * The diameter of the pie, measured as a percent of node size (e.g. 100%) or an absolute length (e.g. 25px).
              */
@@ -3390,14 +3314,14 @@ declare namespace Cy {
             "pie-i-background-opacity": number;
         }
 
-        export interface Edge extends EdgeLine, EdgeArror { }
+        interface Edge extends EdgeLine, EdgeArror { }
 
         /**
          * These properties affect the styling of an edge’s line:
          *
          * http://js.cytoscape.org/#style/edge-line
          */
-        export interface EdgeLine {
+        interface EdgeLine {
             /**
              * The width of an edge’s line.
              */
@@ -3429,7 +3353,7 @@ declare namespace Cy {
          *
          * http://js.cytoscape.org/#style/bezier-edges
          */
-        export interface BezierEdges {
+        interface BezierEdges {
             /**
              * From the line perpendicular from source to target,
              * this value specifies the distance between successive bezier edges.
@@ -3467,7 +3391,7 @@ declare namespace Cy {
          *
          * http://js.cytoscape.org/#style/unbundled-bezier-edges
          */
-        export interface UnbundledBezierEdges {
+        interface UnbundledBezierEdges {
             /**
              * A series of values that specify for each control point the
              * distance perpendicular to a line formed
@@ -3504,9 +3428,10 @@ declare namespace Cy {
          * For fast, straight line edges (curve - style: haystack):
          * http://js.cytoscape.org/#style/haystack-edges
          */
-        export interface HaystackEdges {
+        interface HaystackEdges {
             /**
-             * A value between 0 and 1 inclusive that indicates the relative radius used to position haystack edges on their connected nodes.The outside of the node is at 1, and the centre of the node is at 0.
+             * A value between 0 and 1 inclusive that indicates the relative radius used to position haystack edges on their connected nodes.
+             * The outside of the node is at 1, and the centre of the node is at 0.
              */
             "haystack-radius": number;
         }
@@ -3515,13 +3440,15 @@ declare namespace Cy {
          * For edges made of several straight lines (curve - style: segments):
          * http://js.cytoscape.org/#style/segments-edges
          */
-        export interface SegmentsEdges {
+        interface SegmentsEdges {
             /**
              * A series of values that specify for each segment point the distance perpendicular to a line formed from source to target, e.g. -20 20 - 20.
              */
             "segment-distances": string;
             /**
-             * A series of values that weights segment points along a line from source to target, e.g. 0.25 0.5 0.75.A value usually ranges on [0, 1], with 0 towards the source node and 1 towards the target node — but larger or smaller values can also be used.
+             * A series of values that weights segment points along a line from source to target,
+             * e.g. 0.25 0.5 0.75.A value usually ranges on [0, 1],
+             * with 0 towards the source node and 1 towards the target node — but larger or smaller values can also be used.
              */
             "segment-weights": string;
             /**
@@ -3535,10 +3462,9 @@ declare namespace Cy {
              */
             "edge-distances": "intersection" | "segment-weights" | "node-position";
         }
-        export type ArrowShape = "tee" | "triangle" | "triangle-tee" |
-            "triangle-backcurve" | "square" | "circle" | "diamond" | "none";
+        type ArrowShape = "tee" | "triangle" | "triangle-tee" | "triangle-backcurve" | "square" | "circle" | "diamond" | "none";
 
-        export type ArrowFill = "filled" | "hollow";
+        type ArrowFill = "filled" | "hollow";
 
         /**
          * Edge arrow
@@ -3555,7 +3481,7 @@ declare namespace Cy {
          * Only mid arrows are supported on haystack edges.
          * http://js.cytoscape.org/#style/edge-arrow
          */
-        export interface EdgeArror {
+        interface EdgeArror {
             /** The colour of the edge’s source arrow. */
             "source-arrow-color"?: Colour;
             /** The colour of the edge’s "mid-source" arrow. */
@@ -3584,11 +3510,10 @@ declare namespace Cy {
             "mid-target-arrow-fill"?: ArrowFill;
         }
 
-
         /**
          * http://js.cytoscape.org/#style/visibility
          */
-        export interface Visibility {
+        interface Visibility {
             /**
              * Whether to display the element; may be element for displayed or none for not displayed.
              * Note that a "display: none" bezier edge does not take up space in its bundle.
@@ -3613,13 +3538,13 @@ declare namespace Cy {
         }
 
         /** https://developer.mozilla.org/en-US/docs/Web/CSS/font-style */
-        export type FontStyle = "normal" | "italic" | "oblique";
+        type FontStyle = "normal" | "italic" | "oblique";
 
         /** https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight */
-        export type FontWeight = number | "normal" | "bold" | "lighter" | "bolder";
+        type FontWeight = number | "normal" | "bold" | "lighter" | "bolder";
 
         /** http://js.cytoscape.org/#style/labels */
-        export type TextTranformation = "none" | "uppercase" | "lowercase";
+        type TextTranformation = "none" | "uppercase" | "lowercase";
 
         /**
          * Labels
@@ -3627,7 +3552,7 @@ declare namespace Cy {
          *
          * http://js.cytoscape.org/#style/labels
          */
-        export interface Labels {
+        interface Labels {
             /**
              * The text to display for an element’s label.
              */
@@ -3641,8 +3566,8 @@ declare namespace Cy {
              */
             "target-label": string;
             /**
-            Basic font styling:
-            */
+             * Basic font styling:
+             */
             /**
              * The colour of the element’s label.
              */
@@ -3852,7 +3777,12 @@ declare namespace Cy {
              */
 
             /**
-             * If zooming makes the effective font size of the label smaller than this, then no label is shown.Note that because of performance optimisations, the label may be shown at font sizes slightly smaller than this value.This effect is more pronounced at larger screen pixel ratios.However, it is guaranteed that the label will be shown at sizes equal to or greater than the value specified.
+             * If zooming makes the effective font size of the label smaller than this,
+             * then no label is shown.Note that because of performance optimisations,
+             * the label may be shown at font sizes slightly smaller than this value.
+             *
+             * This effect is more pronounced at larger screen pixel ratios.However,
+             * it is guaranteed that the label will be shown at sizes equal to or greater than the value specified.
              */
             "min-zoomed-font-size": number;
             /**
@@ -3860,14 +3790,12 @@ declare namespace Cy {
              * You may want a style applied to the text onactive so you know the text is activatable.
              */
             "text-events": "yes" | "no";
-
-
         }
 
         /**
          * http://js.cytoscape.org/#style/events
          */
-        export interface Events {
+        interface Events {
             /**
              * Whether events should occur on an element (e.g.tap, mouseover, etc.).
              *  * For "no", the element receives no events and events simply pass through to the core/viewport.
@@ -3885,7 +3813,7 @@ declare namespace Cy {
          * and are often used in the :active state.
          * http://js.cytoscape.org/#style/overlay
          */
-        export interface Overlay {
+        interface Overlay {
             /**
              * The colour of the overlay.
              */
@@ -3904,7 +3832,7 @@ declare namespace Cy {
          * Note that shadow-blur could seriously impact performance on large graph.
          * http://js.cytoscape.org/#style/shadow
          */
-        export interface Shadow {
+        interface Shadow {
             /**
              * The shadow blur, note that if greater than 0, this could impact performance.
              */
@@ -3930,7 +3858,7 @@ declare namespace Cy {
         /**
          * Transition animation
          */
-        export type TransitionTimingFunction = "linear" | "spring" | "cubic-bezier" | "ease" | "ease-in" | "ease-out" |
+        type TransitionTimingFunction = "linear" | "spring" | "cubic-bezier" | "ease" | "ease-in" | "ease-out" |
             "ease-in-out" | "ease-in-sine" | "ease-out-sine" | "ease-in-out-sine" | "ease-in-quad" |
             "ease-out-quad" | "ease-in-out-quad" | "ease-in-cubic" | "ease-out-cubic" |
             "ease-in-out-cubic" | "ease-in-quart" | "ease-out-quart" | "ease-in-out-quart" |
@@ -3940,7 +3868,7 @@ declare namespace Cy {
         /**
          * http://js.cytoscape.org/#style/transition-animation
          */
-        export interface TransitionAnimation {
+        interface TransitionAnimation {
             /**
              * A comma separated list of style properties to animate in this state.
              */
@@ -3965,7 +3893,7 @@ declare namespace Cy {
          * You can use the special core selector string to set these properties.
          * http://js.cytoscape.org/#style/core
          */
-        export interface Core {
+        interface Core {
             /**
              * Indicator:
              */
@@ -4015,7 +3943,6 @@ declare namespace Cy {
         }
     }
 
-
     /**
      * Events passed to handler callbacks are similar to
      * jQuery event objects in that they wrap native event objects,
@@ -4025,16 +3952,13 @@ declare namespace Cy {
      */
     interface EventObject extends InputEventObject, LayoutEventObject { }
 
-    interface EventHandler {
-        (evt: EventObject): void;
-    }
     /**
      * http://js.cytoscape.org/#events/event-object
      */
     interface AbstractEventObject {
         /** a reference to the corresponding core Core */
         cy: any;
-         /** indicates the element or core that first caused the event */
+        /** indicates the element or core that first caused the event */
         target?: any;
         /** the event type string (e.g. "tap") */
         type: UserInputDeviceEventName | UserInputDeviceEventNameExt;
@@ -4053,7 +3977,8 @@ declare namespace Cy {
     }
     interface LayoutEventObject extends AbstractEventObject {
         /** layout : indicates the corresponding layout that triggered the event
-         * (useful if running multiple layouts simultaneously) */
+         * (useful if running multiple layouts simultaneously)
+         */
         layout: any;
     }
 
@@ -4081,7 +4006,6 @@ declare namespace Cy {
         "touchmove" |
         // when one or more fingers are removed from the screen
         "touchend";
-
 
     /**
      * There are also some higher level events that you can use
@@ -4124,7 +4048,6 @@ declare namespace Cy {
         "boxselect" |
         // triggered on elements when inside the box on boxend
         "box";
-
 
     /**
      * These events are custom to Cytoscape.js. You can bind to these events for collections.
@@ -4184,8 +4107,6 @@ declare namespace Cy {
         // when the viewport is resized (usually by calling cy.resize(), a window resize, or toggling a class on the Cytoscape.js div)
         "resize";
 
-
-
     /**
      * Layouts
      * http://js.cytoscape.org/#layouts
@@ -4218,9 +4139,8 @@ declare namespace Cy {
         CircleLayoutOptions | ConcentricLayoutOptions | BreadthFirstLayoutOptions |
         CoseLayoutOptions;
 
-    interface LayoutHandler {
-        (): void;
-    }
+    type LayoutHandler = () => void;
+
     interface BaseLayoutOptions {
         name: string;
         // on layoutready event
@@ -4248,7 +4168,7 @@ declare namespace Cy {
     }
     interface AnimatedLayoutOptions {
         // whether to transition the node positions
-        animate: boolean;
+        animate?: boolean;
         // duration of animation in ms if enabled
         animationDuration?: number;
         // easing of animation if enabled
@@ -4271,7 +4191,7 @@ declare namespace Cy {
      * http://js.cytoscape.org/#layouts/preset
      */
     interface NodePositionMap { [nodeid: string]: Position; }
-    interface NodePositionFunction { (nodeid: string): Position; }
+    type NodePositionFunction = (nodeid: string) => Position;
     interface PresetLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         name: "preset";
         // map of (node id) => (position obj); or function(node){ return somPos; }
@@ -4281,19 +4201,18 @@ declare namespace Cy {
         // the pan level to set (prob want fit = false if set)
         pan?: number;
         // whether to fit to viewport
-        fit: boolean;
+        fit?: boolean;
         // padding on fit
         padding?: number;
     }
 
-
     interface SortableNode {
         data: { weight: number; };
     }
-    interface SortingFunction {
-        // function(a, b){ return a.data('weight') - b.data('weight') }
-        (a: SortableNode, b: SortableNode): number;
-    }
+
+    // function(a, b){ return a.data('weight') - b.data('weight') }
+    type SortingFunction = (a: SortableNode, b: SortableNode) => number;
+
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
         fit: boolean;
@@ -4329,7 +4248,7 @@ declare namespace Cy {
         // force num of columns in the grid
         cols?: number;
         // returns { row, col } for element
-        position: (nodeid: string) => { row: number; col: number; };
+        position(nodeid: string): { row: number; col: number; };
     }
 
     /**
@@ -4362,17 +4281,18 @@ declare namespace Cy {
         clockwise?: boolean;
 
         // whether levels have an equal radial distance betwen them, may cause bounding box overflow
-        equidistant: false, minNodeSpacing: 10, // min spacing between outside of nodes (used for radius adjustment)
+        equidistant: false;
+        minNodeSpacing: 10; // min spacing between outside of nodes (used for radius adjustment)
         // height of layout area (overrides container height)
-        height: undefined,
+        height: undefined;
         // width of layout area (overrides container width)
-        width: undefined,
+        width: undefined;
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
-        spacingFactor: undefined,
+        spacingFactor: undefined;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric: (node: { degree(): number; }) => number;
+        concentric(node: { degree(): number; }): number;
         // the variation of concentric values in each level
-        levelWidth: (node: { maxDegree(): number; }) => number;
+        levelWidth(node: { maxDegree(): number; }): number;
     }
 
     /**
@@ -4405,14 +4325,14 @@ declare namespace Cy {
         // Extra spacing between components in non-compound graphs
         componentSpacing: number;
         // Node repulsion (non overlapping) multiplier
-        nodeRepulsion: (node: any) => number;
+        nodeRepulsion(node: any): number;
 
         // Node repulsion (overlapping) multiplier
         nodeOverlap: number;
         // Ideal edge (non nested) length
-        idealEdgeLength: (edge: any) => number;
+        idealEdgeLength(edge: any): number;
         // Divisor to compute edge forces
-        edgeElasticity: (edge: any) => number;
+        edgeElasticity(edge: any): number;
 
         // Nesting factor (multiplier) to compute ideal edge length for nested edges
         nestingFactor: number;
@@ -4439,14 +4359,13 @@ declare namespace Cy {
     interface LayoutManipulation {
         /** Start running the layout
          * http://js.cytoscape.org/#layout.run
-        */
+         */
         run(): void;
         start(): void;
         /** Stop running the (asynchronous/discrete) layout
          * http://js.cytoscape.org/#layout.stop
-        */
+         */
         stop(): void;
-
     }
     interface LayoutEvents {
         /**
@@ -4599,21 +4518,4 @@ declare namespace Cy {
          */
         promise(animationEvent?: "completed" | "complete" | "frame"): Promise<EventObject>;
     }
-
-
-
-
-    interface Static {
-        (options?: Cy.CytoscapeOptions): Core;
-        (extensionName: string, foo: string, bar: any): Core;
-        version: string;
-
-        // Promise<T>(): Cy.Promise<T>;
-    }
 }
-
-
-declare module "cytoscape" {
-    export = cytoscape;
-}
-declare var cytoscape: Cy.Static;
