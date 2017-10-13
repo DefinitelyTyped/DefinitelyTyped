@@ -1750,7 +1750,8 @@ declare module "readline" {
         pause(): ReadLine;
         resume(): ReadLine;
         close(): void;
-        write(data: string | Buffer, key?: Key): void;
+        write(data: string | Buffer): void;
+        write(_ignored: any, key: Key): void;
 
         /**
          * events.EventEmitter
