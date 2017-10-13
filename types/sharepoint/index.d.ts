@@ -346,6 +346,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     TableCbxFocusHandler(instance: any, eventArgs: any): void;
     TableMouseoverHandler(instance: any, eventArgs: any): void;
     TotalListItems: number;
+    CurrentUserIsSiteAdmin: boolean;
     WorkflowsAssociated: boolean;
     clvp: any;
     ctxId: number;
