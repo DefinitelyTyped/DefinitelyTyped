@@ -36,6 +36,7 @@
         "tiny-test.d.ts",
         "tools.d.ts",
         "tracker.d.ts",
+        "underscore.d.ts",
         "webapp.d.ts",
         "index.d.ts",
         "meteor-tests.ts"

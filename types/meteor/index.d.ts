@@ -23,4 +23,5 @@
 /// <reference path="./tiny-test.d.ts" />
 /// <reference path="./tools.d.ts" />
 /// <reference path="./tracker.d.ts" />
+/// <reference path="./underscore.d.ts" />
 /// <reference path="./webapp.d.ts" />
