@@ -2648,6 +2648,7 @@ declare module "net" {
 
 declare module "dgram" {
     import * as events from "events";
+    import * as dns from "dns";
 
     interface RemoteInfo {
         address: string;
@@ -2674,6 +2675,7 @@ declare module "dgram" {
         reuseAddr?: boolean;
         recvBufferSize?: number;
         sendBufferSize?: number;
+        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
     export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
@@ -2695,6 +2697,10 @@ declare module "dgram" {
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
+        getRecvBufferSize(): number;
+        getSendBufferSize(): number;
+        setRecvBufferSize(size: number): void;
+        setSendBufferSize(size: number): void;
         ref(): this;
         unref(): this;
         setRecvBufferSize(size: number): void;
