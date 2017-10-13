@@ -4838,7 +4838,7 @@ export class Mesh extends Object3D {
     material: Material | Material[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
-    morphTargetDictionary?: {};
+    morphTargetDictionary?: { [key: string]: number; };
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
     updateMorphTargets(): void;
