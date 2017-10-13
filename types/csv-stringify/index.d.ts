@@ -1,6 +1,7 @@
-// Type definitions for csv-stringify 1.0
+// Type definitions for csv-stringify 1.4
 // Project: https://github.com/wdavidw/node-csv-stringify
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                 Arjen van der Ende <https://github.com/arjenvanderende>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -55,15 +56,24 @@ declare namespace stringify {
          * special values are 'auto', 'unix', 'mac', 'windows', 'unicode'; defaults to 'auto' (discovered in source or 'unix' if no source is specified).
          */
         rowDelimiter?: string;
+        /**
+         * Override serialization of boolean, dates and complex objects.
+         */
+        formatters?: FormatterOpts;
+    }
+
+    interface FormatterOpts {
+        bool?: (value: boolean) => string;
+        date?: (value: Date) => string;
+        object?: (value: any) => string;
     }
 
     interface Stringifier extends NodeJS.ReadWriteStream {
-        // Stringifier stream takes array of strings or Object
-        write(line: string[] | any): boolean;
+        // Stringifier stream takes array of strings or Object, and optional encoding and callback
+        write(line: string[] | any, encoding?: string, cb?: (error: Error | undefined, output: string) => void): boolean;
 
         // repeat declarations from NodeJS.WritableStream to avoid compile error
-        write(buffer: string | Buffer, cb?: () => void): boolean;
-        write(str: string, encoding?: string, cb?: () => void): boolean;
+        write(buffer: string | Buffer, cb?: (error: Error | undefined, output: string) => void): boolean;
     }
 }
 
@@ -75,7 +85,7 @@ declare function stringify(opts?: stringify.StringifyOpts): stringify.Stringifie
 /**
  * Callback version: string in --> callback with string out
  */
-declare function stringify(input: any[][], opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
-declare function stringify(input: any[][], callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, callback: (error: Error | undefined, output: string) => void): void;
 
 export = stringify;

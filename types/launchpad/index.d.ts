@@ -1,4 +1,4 @@
-// Type definitions for launchpad
+// Type definitions for launchpad 0.6.0
 // Project: https://www.npmjs.com/package/launchpad
 // Definitions by: Peter Burns <https://github.com/rictic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,16 +33,6 @@ interface BrowserstackAuth {
 export function browserstack(
     authCreds: BrowserstackAuth,
     cb: (err: any, browserstack: Launcher) => void): void;
-
-interface RemoteConnectionOptions {
-  host: string;
-  username: string;
-  password: string;
-}
-
-export function remote(
-    connectionOpts: RemoteConnectionOptions,
-    cb: (err: any, remoteLauncher: Launcher) => void): void;
 
 interface BrowserPlatformDetails {
   pathQuery?: string;

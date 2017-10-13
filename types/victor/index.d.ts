@@ -1,4 +1,4 @@
-// Type definitions for Victor.js 0.2.5
+// Type definitions for Victor.js 1.1.0
 // Project: http://victorjs.org/
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -90,6 +90,27 @@ declare class Victor
     add(vector:Victor):Victor;
 
     /**
+     * Adds the given scalar to both vector axis.
+     *
+     * @param scalar
+     */
+    addScalar(scalar: number): Victor;
+
+    /**
+     * Adds the given scalar to the X axis.
+     *
+     * @param scalar
+     */
+    addScalarX(scalar: number): Victor;
+
+    /**
+     * Adds the given scalar to the Y axis.
+     *
+     * @param scalar
+     */
+    addScalarY(scalar: number): Victor;
+
+    /**
      * Subtracts another vector's X component from itself.
      * @param vector
      */
@@ -106,6 +127,27 @@ declare class Victor
      * @param vector
      */
     subtract(vector:Victor):Victor;
+
+    /**
+     * Subtracts the given scalar from both axis.
+     *
+     * @param scalar
+     */
+    subtractScalar(scalar: number): Victor;
+
+    /**
+     * Subtracts the given scalar from the X axis.
+     *
+     * @param scalar
+     */
+    subtractScalarX(scalar: number): Victor;
+
+    /**
+     * Subtracts the given scalar from the Y axis.
+     *
+     * @param scalar
+     */
+    subtractScalarY(scalar: number): Victor;
 
     /**
      * Multiplies the X component with the X component of another vector.
@@ -128,21 +170,21 @@ declare class Victor
     /**
      * Multiplies both vector axis by the given scalar value
      *
-     * @param victor
+     * @param scalar
      */
     multiplyScalar(scalar: number): Victor;
 
     /**
      * Multiplies the X axis by the given scalar
      *
-     * @param victor
+     * @param scalar
      */
     multiplyScalarX(scalar: number): Victor;
 
     /**
      * Multiplies the Y axis by the given scalar
      *
-     * @param vector
+     * @param scalar
      */
     multiplyScalarY(scalar: number): Victor;
 
@@ -165,6 +207,27 @@ declare class Victor
     divide(scalar:Victor):Victor;
 
     /**
+     * Divides both vector axis by the given scalar value.
+     *
+     * @param scalar
+     */
+    divideScalar(scalar: number): Victor;
+
+    /**
+     * Divides the X axis by the given scalar value.
+     *
+     * @param scalar
+     */
+    divideScalarX(scalar: number): Victor;
+
+    /**
+     * Divides the Y axis by the given scalar value.
+     *
+     * @param scalar
+     */
+    divideScalarY(scalar: number): Victor;
+
+    /**
      * Inverts the X component.
      */
     invertX():Victor;
@@ -182,23 +245,23 @@ declare class Victor
     /**
      * Performs a linear blend / interpolation of the X component towards another vector.
      * @param vector Number amount Value between 0 and 1. Default: 0.5
-     * @param ammount
+     * @param amount
      */
-    mixX(vector:Victor, ammount:number):Victor;
+    mixX(vector:Victor, amount:number):Victor;
 
     /**
      * Performs a linear blend / interpolation of the Y component towards another vector.
      * @param vector
-     * @param ammount
+     * @param amount
      */
-    mixY(vector:Victor, ammount:number):Victor;
+    mixY(vector:Victor, amount:number):Victor;
 
     /**
      * Performs a linear blend / interpolation towards another vector.
      * @param vector
-     * @param ammount
+     * @param amount
      */
-    mix(vector:Victor, ammount:number):Victor;
+    mix(vector:Victor, amount:number):Victor;
 
     /**
      * Normalizes the vector by scaling it down to a length of 1 while keeping its direction.
@@ -273,6 +336,22 @@ declare class Victor
      * @param bottomRight
      */
     randomizeAny(topLeft:Victor, bottomRight:Victor):Victor;
+
+    /**
+     * Rounds both axis to a certain precision.
+     */
+    toFixed():Victor;
+
+    /**
+     * Sets the vector to zero (0,0).
+     */
+    zero():Victor;
+
+    /**
+     * Projects a vector onto another vector, setting itself to the result.
+     * @param vector
+     */
+    projectOnto(vector:Victor):Victor;
 
     /**
      * Returns the dot product of two vectors.
@@ -372,6 +451,16 @@ declare class Victor
      */
     verticalAngleDeg():number;
 
+    /**
+     * Returns a true if vector is (0, 0).
+     */
+    isZero():boolean;
+
+    /**
+     * Returns a true if this vector is the same as another.
+     * @param vector
+     */
+    isEqualTo(vector:Victor):boolean;
 }
 
 export = Victor;

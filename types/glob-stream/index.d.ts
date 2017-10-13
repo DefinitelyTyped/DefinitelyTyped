@@ -1,5 +1,5 @@
 // Type definitions for glob-stream v3.1.12
-// Project: http://github.com/wearefractal/glob-stream
+// Project: https://github.com/wearefractal/glob-stream
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

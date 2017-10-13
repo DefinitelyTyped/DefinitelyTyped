@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as CopyToClipboard from "react-copy-to-clipboard";
 
-export class Test extends React.Component<any, any> {
+export class Test extends React.Component {
     render() {
         return (
           <CopyToClipboard text={"Hello World"}

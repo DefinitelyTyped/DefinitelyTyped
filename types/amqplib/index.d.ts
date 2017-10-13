@@ -2,6 +2,7 @@
 // Project: https://github.com/squaremo/amqp.node
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>, Nicolás Fantone <https://github.com/nfantone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -39,10 +40,10 @@ export interface Channel extends events.EventEmitter {
     publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish): boolean;
     sendToQueue(queue: string, content: Buffer, options?: Options.Publish): boolean;
 
-    consume(queue: string, onMessage: (msg: Message) => any, options?: Options.Consume): Promise<Replies.Consume>;
+    consume(queue: string, onMessage: (msg: Message | null) => any, options?: Options.Consume): Promise<Replies.Consume>;
 
     cancel(consumerTag: string): Promise<Replies.Empty>;
-    get(queue: string, options?: Options.Get): Promise<Message | boolean>;
+    get(queue: string, options?: Options.Get): Promise<Message | false>;
 
     ack(message: Message, allUpTo?: boolean): void;
     ackAll(): void;

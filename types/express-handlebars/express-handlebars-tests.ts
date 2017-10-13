@@ -1,7 +1,3 @@
-/// <reference types="node" />
-
-
-
 import express = require('express');
 import exphbs = require('express-handlebars');
 

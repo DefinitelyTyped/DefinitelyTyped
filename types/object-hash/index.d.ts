@@ -1,6 +1,6 @@
-// Type definitions for object-hash v0.5.0
+// Type definitions for object-hash v1.1.8
 // Project: https://github.com/puleos/object-hash
-// Definitions by: Michael Zabka <https://github.com/misak113/>
+// Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import HashStatic = ObjectHash.HashStatic;
@@ -12,6 +12,12 @@ declare namespace ObjectHash {
 		algorithm?: string;
 		encoding?: string;
 		excludeValues?: boolean;
+		ignoreUnknown?: boolean;
+		replacer?: (value: any) => any;
+		respectFunctionProperties?: boolean;
+		respectFunctionNames?: boolean;
+		unorderedArrays?: boolean;
+		unorderedSets?: boolean;
 	}
 
 	interface HashTableItem {

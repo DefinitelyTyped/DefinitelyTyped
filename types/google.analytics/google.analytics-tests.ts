@@ -3,7 +3,7 @@ declare function it(desc: string, fn: () => void): void;
 
 describe("tester Google Analytics Tracker _gat object", () => {
     it("can set ga script element", () => {
-        gaClassic = <HTMLScriptElement> document.createElement("script");
+        gaClassic = document.createElement("script");
     });
     it("can set aync to true", () => {
         gaClassic.async = true;

@@ -1,7 +1,11 @@
-// Type definitions for Microsoft SharePoint: 2013.1
+// Type definitions for Microsoft SharePoint: 2016.0
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
-// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>
-// Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions by: Stanislav Vyshchepan <https://github.com/gandjustas>
+//                 Andrey Markeev <https://github.com/andrei-markeev>
+//                 Vincent Biret <https://github.com/baywet>
+//                 Tero Arvola <https://github.com/teroarvola>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="microsoft-ajax" />
 
@@ -153,23 +157,79 @@ declare class JSRequest {
 declare class _spPageContextInfo {
     static alertsEnabled: boolean; // true
     static allowSilverlightPrompt: string; // "True"
+    static blockDownloadsExperienceEnabled: boolean; // true
+    static canUserCreateMicrosoftForm: boolean; // true
+    static cdnPrefix: string; // "static.sharepointonline.com/bld"
     static clientServerTimeDelta: number; // -182
+    static CorrelationId: string; // "6161f99d-10e5-4000-ad30-1016270fe31d"
     static crossDomainPhotosEnabled: boolean; // true
     static currentCultureName: string; // "ru-RU"
     static currentLanguage: number; // 1049
     static currentUICultureName: string; // "ru-RU"
+    static disableAppViews: boolean; // true
+    static disableFlows: boolean; // true
+    static env: string; // "prod"
+    static farmLabel: string; // "US_4_Content"
+    static formDigestValue: string; // "0x5F3FE84E7EE9089C7D11DCDAFFB9E69CF8241E68B9EF071FA92CD419E878AC4F7C16E34696EFA667EFD0712FC1DF4945DDC0D09B5D23153A698A727AF076B5DE,07 Jun 2017 18:55:22 -0000"
+    static formDigestTimeoutSeconds: number; // 1800
+    static groupColor: string; // "#d40ac7"
+    static groupHasHomepage: boolean; // true
+    static groupId: string; //
+    static guestsEnabled: boolean; // true
+    static hasManageWebPermissions: boolean; // true
+    static isAnonymousGuestUser: boolean; // true
+    static isAppWeb: boolean; // true
+    static isExternalGuestUser: boolean; // true
+    static isNoScriptEnabled: boolean; // true
+    static isSiteAdmin: boolean; // true
+    static isSPO: boolean; // true
+    static isTenantDevSite: boolean; // true
+    static isWebWelcomePage: boolean; // true
     static layoutsUrl: string;  // "_layouts/15"
+    static listBaseTemplate: number; // 119
+    static listId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    static listPermsMask: { High: number; Low: number; };
+    static listTitle: string; // "Site Pages"
+    static listUrl: string; // "/sites/site/list"
+    static maximumFileSize: number; // 15360
+    static openInClient: boolean; // true
     static pageListId: string;  // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static pageItemId: number;
+    static pagePermsMask: { High: number; Low: number; };
     static pagePersonalizationScope: string; // 1
+    static PreviewFeaturesEnabled: boolean; // true
+    static preferUserTimeZone: boolean; // false
+    static ProfileUrl: string; // "https://tenant-my.sharepoint.com/person.aspx"
+    static PublishingFeatureOn: boolean; // true
+    static RecycleBinItemCount: number; // -1
+    static serverRedirectedUrl: string;
     static serverRequestPath: string; // "/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
+    static serverTime: string; // "2017-06-07T18:55:22.3499459Z"
     static siteAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com"
+    static siteClassification: string; //
     static siteClientTag: string; // "0$$15.0.4454.1021"
+    static siteColor: string; // "#d40ac7"
+    static siteId: string; // "{3e09a056-f68f-44a3-8e0f-ff2c123b82cb}"
+    static sitePagesEnabled: boolean; // true
     static siteServerRelativeUrl: string; // "/"
+    static siteSubscriptionId: string; // 4eedf5f3-f71f-4e73-82ee-e19081363c8c
+    static supportPoundStorePath: boolean; // true
+    static supportPercentStorePath: boolean; // true
     static systemUserKey: string; // "i:0h.f|membership|10033fff84e7cb2b@live.com"
     static tenantAppVersion: string; // "0"
+    static themeCacheToken: string; // "/sites/site::0:16.0.6525.1206"
+    static themedCssFolderUrl: string;
+    static themedImageFileNames: string;
+    static updateFormDigestPageLoaded: string; // "2017-06-07T18:55:25.821Z"
+    static userDisplayName: string; // "John Doe"
+    static userEmail: string; // "john.doe@fabrikam.onmicrosoft.com"
     static userId: number; // 12
+    static userLoginName: string; // "john.doe@fabrikam.onmicrosoft.com"
+    static viewOnlyExperienceEnabled: boolean; // true
+    static viewId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
+    static webDescription: string; // "Some description"
+    static webId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static webLanguage: number; // 1049
     static webLogoUrl: string; // "/_layouts/15/images/siteIcon.png?rev=23"
     static webPermMasks: { High: number; Low: number; };
@@ -177,6 +237,13 @@ declare class _spPageContextInfo {
     static webTemplate: string; // "17"
     static webTitle: string; // "SPTypeScript"
     static webUIVersion: number; // 15
+}
+
+declare class _spFriendlyUrlPageContextInfo {
+    static termId: string;
+    static termSetId: string;
+    static termStoreId: string;
+    static title: string;
 }
 
 declare function STSHtmlEncode(value: string): string;
@@ -265,6 +332,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     LastSelectedItemIID: number;
     LastRowIndexSelected: number;
     RowFocusTimerID: number;
+    ListTitle: string;
     ListData: any; // SPClientTemplates.ListData_InView | SPClientTemplates.ListData_InForm
     ListSchema: SPClientTemplates.ListSchema;
     ModerationStatus: number;
@@ -273,6 +341,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     SelectAllCbx: HTMLElement;
     SendToLocationName: string;
     SendToLocationUrl: string;
+    SiteTitle: string;
     StateInitDone: boolean;
     TableCbxFocusHandler(instance: any, eventArgs: any): void;
     TableMouseoverHandler(instance: any, eventArgs: any): void;
@@ -1111,6 +1180,7 @@ declare namespace SPClientTemplates {
         ctxType: any; // not in View
         CurrentUserId: number;
         CurrentUserIsSiteAdmin: boolean;
+        LastSelectedItemIID: any;
         dictSel: any;
         /** Absolute path for the list display form */
         displayFormUrl: string;
@@ -3032,7 +3102,7 @@ declare namespace SP {
         set_validationFormula(value: string): void;
         get_validationMessage(): string;
         set_validationMessage(value: string): void;
-        validateSetValue(item: SP.ListItem, value: string): void;
+        validateSetValue<T = any>(item: SP.ListItem<T>, value: string): void;
         updateAndPushChanges(pushChangesToLists: boolean): void;
         update(): void;
         deleteObject(): void;
@@ -3296,7 +3366,7 @@ declare namespace SP {
         get_length(): number;
         get_level(): SP.FileLevel;
         /** Specifies the SPListItem corresponding to this file if this file belongs to a doclib. Values for all fields are returned also. */
-        get_listItemAllFields(): SP.ListItem;
+        get_listItemAllFields<T = any>(): SP.ListItem<T>;
         /** Returns the user that owns the current lock on the file. MUST return null if there is no lock. */
         get_lockedByUser(): SP.User;
         /** Specifies the major version of the file. */
@@ -3402,7 +3472,7 @@ declare namespace SP {
     class Folder extends SP.ClientObject {
         get_contentTypeOrder(): SP.ContentTypeId[];
         get_files(): SP.FileCollection;
-        get_listItemAllFields(): SP.ListItem;
+        get_listItemAllFields<T = any>(): SP.ListItem<T>;
         get_itemCount(): number;
         get_name(): string;
         get_parentFolder(): SP.Folder;
@@ -3538,9 +3608,9 @@ declare namespace SP {
         newMode
     }
     /** Represents a list on a SharePoint Web site. */
-    class List extends SP.SecurableObject {
+    class List<T = any> extends SP.SecurableObject {
         /** Gets item by id. */
-        getItemById(id: number): SP.ListItem;
+        getItemById(id: number): SP.ListItem<T>;
         /** Gets a value that specifies whether the list supports content types. */
         get_allowContentTypes(): boolean;
         /** Gets the list definition type on which the list is based. For lists based on OOTB list definitions, return value corresponds the SP.ListTemplateType enumeration. */
@@ -3750,20 +3820,20 @@ declare namespace SP {
         /** Sends the list to the site recycle bin. */
         recycle(): SP.GuidResult;
         /** Returns collection of list items based on the specified CAML query. */
-        getItems(query: SP.CamlQuery): SP.ListItemCollection;
+        getItems(query: SP.CamlQuery): SP.ListItemCollection<T>;
         /** Creates a new list item in the list. */
-        addItem(parameters: SP.ListItemCreationInformation): SP.ListItem;
+        addItem(parameters: SP.ListItemCreationInformation): SP.ListItem<T>;
     }
     /** Represents a collection of SP.List objects */
     class ListCollection extends SP.ClientObjectCollection<List> {
         /** Gets the list at the specified index in the collection. */
-        itemAt(index: number): SP.List;
+        itemAt<T = any>(index: number): SP.List<T>;
         /** Gets the list at the specified index in the collection. */
-        get_item(index: number): SP.List;
+        get_item<T = any>(index: number): SP.List<T>;
         /** Returns the list with the specified title from the collection. */
-        getByTitle(title: string): SP.List;
+        getByTitle<T = any>(title: string): SP.List<T>;
         /** Returns the list with the specified list identifier. */
-        getById(id: string | SP.Guid): SP.List;
+        getById<T = any>(id: string | SP.Guid): SP.List<T>;
         /** Creates a new list or a document library. */
         add(parameters: SP.ListCreationInformation): SP.List;
         /** Gets a list that is the default location for wiki pages. */
@@ -3830,12 +3900,12 @@ declare namespace SP {
         textField,
     }
     /** Represents an item or row in a list. */
-    class ListItem extends SP.SecurableObject {
-        get_fieldValues(): any;
+    class ListItem<T = any> extends SP.SecurableObject {
+        get_fieldValues(): T;
         /** Gets the specified field value for the list item. Field value is returned as string, but it can be casted to a specific field value type, e.g. SP.LookupFieldValue, etc. */
-        get_item(fieldInternalName: string): any;
+        get_item<K extends keyof T>(fieldInternalName: K): T[K];
         /** Sets the specified field value for the list item. Consider using parseAndSetFieldValue instead. */
-        set_item(fieldInternalName: string, value: any): void;
+        set_item<K extends keyof T>(fieldInternalName: K, value: T[K]): void;
         /** Gets collection of objects that represent attachments for the list item. */
         get_attachmentFiles(): SP.AttachmentCollection;
         /** Gets the content type of the item. */
@@ -3878,10 +3948,10 @@ declare namespace SP {
         /** Validates form values specified for the list item. Errors are returned through hasException and errorMessage properties of the ListItemFormUpdateValue objects */
         validateUpdateListItem(formValues: SP.ListItemFormUpdateValue[], bNewDocumentUpdate: boolean): SP.ListItemFormUpdateValue[];
     }
-    class ListItemCollection extends SP.ClientObjectCollection<ListItem> {
-        itemAt(index: number): SP.ListItem;
-        get_item(index: number): SP.ListItem;
-        getById(id: number | string): SP.ListItem;
+    class ListItemCollection<T = any> extends SP.ClientObjectCollection<ListItem<T>> {
+        itemAt(index: number): SP.ListItem<T>;
+        get_item(index: number): SP.ListItem<T>;
+        getById(id: number | string): SP.ListItem<T>;
         get_listItemCollectionPosition(): SP.ListItemCollectionPosition;
     }
     class ListItemCollectionPosition extends SP.ClientValueObject {
@@ -3906,9 +3976,9 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    class ListItemEntityCollection extends SP.ClientObjectCollection<ListItem> {
-        itemAt(index: number): SP.ListItem;
-        get_item(index: number): SP.ListItem;
+    class ListItemEntityCollection<T> extends SP.ClientObjectCollection<ListItem<T>> {
+        itemAt(index: number): SP.ListItem<T>;
+        get_item(index: number): SP.ListItem<T>;
     }
     class ListItemFormUpdateValue extends SP.ClientValueObject {
         get_errorMessage(): string;
@@ -5555,9 +5625,9 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         class UsageAnalytics extends SP.ClientObject {
-            getAnalyticsItemData: (eventType: number, listItem: SP.ListItem) => AnalyticsItemData;
+            getAnalyticsItemData: <T = any>(eventType: number, listItem: SP.ListItem<T>) => AnalyticsItemData;
 
-            getAnalyticsItemDataForApplicationEventType: (appEventType: SP.Guid, listItem: SP.ListItem) => AnalyticsItemData;
+            getAnalyticsItemDataForApplicationEventType: <T = any>(appEventType: SP.Guid, listItem: SP.ListItem<T>) => AnalyticsItemData;
 
             deleteStandardEventUsageData: (eventType: number) => void;
 
@@ -6316,10 +6386,10 @@ declare namespace SP {
             set_attachment(value: SocialAttachment): SocialAttachment;
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            get_contentItems(): SocialDataItem;
+            get_contentItems(): SocialDataItem[];
             /** Specifies an array consisting of social tags, user mentions, links to documents, links to sites, and generic links.
                 Each element in the array is inserted into the ContentText string if there is a substitution reference to the array element in the string. */
-            set_contentItems(value: SocialDataItem): SocialDataItem;
+            set_contentItems(value: SocialDataItem[]): SocialDataItem[];
             /** Contains the text body of the post. */
             get_contentText(): string;
             /** Contains the text body of the post.
@@ -6805,11 +6875,11 @@ declare namespace SP {
             getFieldValueAsText(value: TaxonomyFieldValue): SP.StringResult;
             getFieldValueAsTaxonomyFieldValue(value: string): TaxonomyFieldValue;
             getFieldValueAsTaxonomyFieldValueCollection(value: string): TaxonomyFieldValueCollection;
-            setFieldValueByTerm(listItem: SP.ListItem, term: Term, lcid: number): void;
-            setFieldValueByTermCollection(listItem: SP.ListItem, terms: TermCollection, lcid: number): void;
-            setFieldValueByCollection(listItem: SP.ListItem, terms: Term[], lcid: number): void;
-            setFieldValueByValue(listItem: SP.ListItem, taxValue: TaxonomyFieldValue): void;
-            setFieldValueByValueCollection(listItem: SP.ListItem, taxValueCollection: TaxonomyFieldValueCollection): void;
+            setFieldValueByTerm<T = any>(listItem: SP.ListItem<T>, term: Term, lcid: number): void;
+            setFieldValueByTermCollection<T = any>(listItem: SP.ListItem<T>, terms: TermCollection, lcid: number): void;
+            setFieldValueByCollection<T = any>(listItem: SP.ListItem<T>, terms: Term[], lcid: number): void;
+            setFieldValueByValue<T = any>(listItem: SP.ListItem<T>, taxValue: TaxonomyFieldValue): void;
+            setFieldValueByValueCollection<T = any>(listItem: SP.ListItem<T>, taxValueCollection: TaxonomyFieldValueCollection): void;
             getFieldValueAsHtml(value: TaxonomyFieldValue): SP.StringResult;
             getValidatedString(value: TaxonomyFieldValue): SP.StringResult;
         }
@@ -6877,7 +6947,7 @@ declare namespace SP {
             static createVideo(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
             static uploadVideo(context: ClientContext, list: List, fileName: string, file: any[], overwriteIfExists: boolean, parentFolderPath: string): StringResult;
             static getEmbedCode(context: ClientContext, videoPath: string, properties: EmbedCodeConfiguration): StringResult;
-            static migrateVideo(context: ClientContext, videoFile: File): SP.ListItem;
+            static migrateVideo<T = any>(context: ClientContext, videoFile: File): SP.ListItem<T>;
         }
     }
 }
@@ -7858,8 +7928,8 @@ declare namespace SP {
             static logCustomAppError(context: SP.ClientRuntimeContext, error: string): SP.IntResult;
             static logCustomRemoteAppError(context: SP.ClientRuntimeContext, productId: SP.Guid, error: string): SP.IntResult;
             static getLocalizedString(context: SP.ClientRuntimeContext, source: string, defaultResourceFile: string, language: number): SP.StringResult;
-            static createNewDiscussion(context: SP.ClientRuntimeContext, list: SP.List, title: string): SP.ListItem;
-            static createNewDiscussionReply(context: SP.ClientRuntimeContext, parent: SP.ListItem): SP.ListItem;
+            static createNewDiscussion<T>(context: SP.ClientRuntimeContext, list: SP.List, title: string): SP.ListItem<T>;
+            static createNewDiscussionReply<T>(context: SP.ClientRuntimeContext, parent: SP.ListItem<T>): SP.ListItem<T>;
             static markDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
             static unmarkDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
             static searchPrincipals(context: SP.ClientRuntimeContext, web: SP.Web, input: string, scopes: SP.Utilities.PrincipalType, sources: SP.Utilities.PrincipalSource, usersContainer: SP.UserCollection, maxCount: number): SP.Utilities.PrincipalInfo[];

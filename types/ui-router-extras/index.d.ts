@@ -1,7 +1,8 @@
 // Type definitions for ui-router-extras 0.1
 // Project: https://github.com/christopherthielen/ui-router-extras
-// Definitions by: Michael Putters <https://github.com/mputters/>, Marcel van de Kamp <https://github.com/marcel-k/>, Viktor Smirnov <https://github.com/LaserUnicorns/>
+// Definitions by: Michael Putters <https://github.com/mputters>, Marcel van de Kamp <https://github.com/marcel-k>, Viktor Smirnov <https://github.com/LaserUnicorns>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular-ui-router" />
 
@@ -47,7 +48,7 @@ declare module 'angular' {
 
         interface IRedirectParams {
             state: string;
-            params?: ui.IStateParamsService;
+            params?: IStateParamsService;
         }
 
         /*
@@ -55,7 +56,7 @@ declare module 'angular' {
          */
         interface IPreviousState {
             state: IState;
-            params?: ui.IStateParamsService;
+            params?: IStateParamsService;
         }
 
         /**
@@ -75,7 +76,7 @@ declare module 'angular' {
              * @param options State options
              * @return Promise
              */
-            go(memoName: string, options?: IStateOptions): angular.IPromise<any>;
+            go(memoName: string, options?: IStateOptions): IPromise<any>;
 
             /**
              * Memorize a state
@@ -95,7 +96,7 @@ declare module 'angular' {
         /**
          * Sticky state
          */
-        interface IStickyState extends angular.ui.IState {
+        interface IStickyState extends IState {
             /*
             * When marking a state sticky, the state must target its own unique named ui-view.
             * Docs: http://christopherthielen.github.io/ui-router-extras/#/sticky
@@ -122,7 +123,7 @@ declare module 'angular' {
             /*
              * Note: named views are mandatory when using sticky states!
              */
-            views?: { [name: string]: angular.ui.IState };
+            views?: { [name: string]: IState };
         }
 
         /**
@@ -135,13 +136,13 @@ declare module 'angular' {
         /**
          * Sticky state provider
          */
-        interface IStickyStateProvider extends angular.IServiceProvider {
+        interface IStickyStateProvider extends IServiceProvider {
             debugMode(): boolean;
             enableDebug(enabled: boolean): boolean;
             registerStickyState(state: IStickyState): void;
         }
 
-        interface IStateProvider extends angular.IServiceProvider {
+        interface IStateProvider extends IServiceProvider {
             state(config: IStickyState): IStateProvider;
             state(name: string, config: IStickyState): IStateProvider;
         }
@@ -194,8 +195,8 @@ declare module 'angular' {
         /**
          * `StateFactory` factories convert `FutureState` into a full UI-Router `state`, or `state` tree
          */
-        type IFutureStateFactory = angular.Injectable<(...args: any[]) => angular.IPromise<ui.IState | undefined>>;
+        type IFutureStateFactory = Injectable<(...args: any[]) => IPromise<IState | undefined>>;
 
-        type IResolveFunction = angular.Injectable<(...args: any[]) => angular.IPromise<any>>;
+        type IResolveFunction = Injectable<(...args: any[]) => IPromise<any>>;
     }
 }

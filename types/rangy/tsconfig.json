@@ -8,6 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "rangy-classapplier.d.ts",
         "rangy-tests.ts"
     ]
 }

@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";
 import { Grid, Cell, findMatch, setBreakpoints, findBreakpoints, getCurrentBreakpoints, optimizedResize, palm, lap, portable, desk } from "react-flexr";
 
-class Example extends React.Component<any, any> {
+class Example extends React.Component {
     render() {
         return (
             <Grid>
@@ -16,7 +16,7 @@ class Example extends React.Component<any, any> {
     }
 }
 
-class Example2 extends React.Component<any, any> {
+class Example2 extends React.Component {
     render() {
         return (
             <Grid>
@@ -52,7 +52,7 @@ class Example2 extends React.Component<any, any> {
     }
 }
 
-class App1 extends React.Component<any, any> {
+class App1 extends React.Component {
     render() {
         const isPalm = findMatch("palm");
 
@@ -89,7 +89,7 @@ function textFxn(req: any, res: any): void {
 
 const breakpoints: string[] | boolean = findBreakpoints();
 
-class App2 extends React.Component<any, any> {
+class App2 extends React.Component {
     componentDidMount() {
         optimizedResize.init( () => {
             if ( findBreakpoints() ) {

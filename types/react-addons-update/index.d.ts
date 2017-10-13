@@ -2,7 +2,7 @@
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -19,7 +19,7 @@ declare module 'react' {
         [key: string]: UpdateSpec;
     }
 
-    type UpdateSpec = UpdateSpecCommand | UpdateSpecPath;
+    type UpdateSpec = number[][] | UpdateSpecCommand | UpdateSpecPath;
 
     interface UpdateArraySpec extends UpdateSpecCommand {
         $push?: any[];

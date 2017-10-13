@@ -43,7 +43,7 @@ function readAllRows() {
     console.log("readAllRows lorem");
     db.all("SELECT rowid AS id, info FROM lorem", (err, rows) => {
         rows.forEach(row => {
-            console.log(row.id + ": " + row.info);
+            console.log(`${row.id}: ${row.info}`);
         });
         readSomeRows();
     });
@@ -52,7 +52,7 @@ function readAllRows() {
 function readSomeRows() {
     console.log("readAllRows lorem");
     db.each("SELECT rowid AS id, info FROM lorem WHERE rowid < ? ", 5, (err, row) => {
-        console.log(row.id + ": " + row.info);
+        console.log(`${row.id}: ${row.info}`);
     }, closeDb);
 }
 
@@ -77,7 +77,7 @@ db.serialize(() => {
   stmt.finalize();
 
   db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
-      console.log(row.id + ": " + row.info);
+      console.log(`${row.id}: ${row.info}`);
   });
 });
 

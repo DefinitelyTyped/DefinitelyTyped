@@ -1,6 +1,8 @@
-// Type definitions for query-string 4.3
+// Type definitions for query-string 5.0
 // Project: https://github.com/sindresorhus/query-string
-// Definitions by: Sam Verschueren <https://github.com/SamVerschueren>, Tanguy Krotoff <https://github.com/tkrotoff>
+// Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
+//                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 HuHuanming <https://github.com/huhuanming>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

@@ -1,4 +1,4 @@
-import {Configuration} from "webpack";
+import { Configuration } from "webpack";
 import validate = require("webpack-validator");
 
 const a: Configuration = {

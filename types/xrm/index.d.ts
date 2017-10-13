@@ -1,10 +1,6 @@
 // Type definitions for Microsoft Dynamics xRM API 8.2
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>
-//                 Matt Ngan <https://github.com/mattngan/>
-//                 Markus Mauch <https://github.com/markusmauch/>
-//                 Daryl LaBar <https://github.com/daryllabar>
-//                 Tully H <https://github.com/clownwilleatme>
+// Definitions by: David Berry <https://github.com/6ix4our>, Matt Ngan <https://github.com/mattngan>, Markus Mauch <https://github.com/markusmauch>, Daryl LaBar <https://github.com/daryllabar>, Tully H <https://github.com/clownwilleatme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -24,198 +20,12 @@ declare namespace Xrm {
         /**
          * Provides a namespace container for the context, data and ui objects.
          */
-        Page: {
-            /**
-             * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
-             */
-            context: Context;
-
-            /**
-             * Provides methods to work with the form.
-             */
-            data: Data;
-
-            /**
-             * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
-             */
-            ui: Ui;
-
-            /**
-             * Gets all attributes.
-             *
-             * @return  An array of attributes.
-             */
-            getAttribute(): Page.Attribute[];
-
-            /**
-             * Gets an attribute matching attributeName.
-             *
-             * @tparam  T   An Attribute type.
-             * @param   {string}    attributeName   Name of the attribute.
-             *
-             * @return  The attribute.
-             */
-            getAttribute<T extends Page.Attribute>(attributeName: string): T;
-
-            /**
-             * Gets an attribute matching attributeName.
-             *
-             * @param   {string}    attributeName   Name of the attribute.
-             *
-             * @return  The attribute.
-             */
-            getAttribute(attributeName: string): Page.Attribute;
-
-            /**
-             * Gets an attribute by index.
-             *
-             * @param   {number}    index   The attribute index.
-             *
-             * @return  The attribute.
-             */
-            getAttribute(index: number): Page.Attribute;
-
-            /**
-             * Gets an attribute.
-             *
-             * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
-             *
-             * @return  An array of attribute.
-             */
-            getAttribute(delegateFunction: Collection.MatchingDelegate<Page.Attribute>): Page.Attribute[];
-
-            /**
-             * Gets all controls.
-             *
-             * @return  An array of controls.
-             */
-            getControl(): Page.Control[];
-
-            /**
-             * Gets a control matching controlName.
-             *
-             * @tparam  T   A Control type
-             * @param   {string}    controlName    Name of the control.
-             *
-             * @return  The control.
-             */
-            getControl<T extends Page.Control>(controlName: string): T;
-
-            /**
-             * Gets a control matching controlName.
-             *
-             * @param   {string}    controlName   Name of the control.
-             *
-             * @return  The control.
-             */
-            getControl(controlName: string): Page.Control;
-
-            /**
-             * Gets a control by index.
-             *
-             * @tparam  T   A Control type
-             * @param   {number}    index   The control index.
-             *
-             * @return  The control.
-             */
-            getControl<T extends Page.Control>(index: number): T;
-
-            /**
-             * Gets a control by index.
-             *
-             * @param   {number}    index   The control index.
-             *
-             * @return  The control.
-             */
-            getControl(index: number): Page.Control;
-
-            /**
-             * Gets a control.
-             *
-             * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
-             *
-             * @return  An array of control.
-             */
-            getControl(delegateFunction: Collection.MatchingDelegate<Page.Control>): Page.Control[];
-        };
+        Page: Page;
 
         /**
          * Provides a container for useful functions not directly related to the current page.
          */
-        Utility: {
-            /**
-             * Displays an alert dialog, with an "OK" button.
-             *
-             * @param   {string}        message         The message.
-             * @param   {function()}    onCloseCallback The "OK" callback.
-             */
-            alertDialog(message: string, onCloseCallback: () => void): void;
-
-            /**
-             * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
-             *
-             * @param   {string}        message             The message.
-             * @param   {function()}    yesCloseCallback    The "OK" callback.
-             * @param   {function()}    noCloseCallback     The "Cancel" callback.
-             */
-            confirmDialog(message: string, yesCloseCallback: () => void, noCloseCallback: () => void): void;
-
-            /**
-             * Query if 'entityType' is an Activity entity.
-             *
-             * @param   {string}    entityType  Type of the entity.
-             *
-             * @return  true if the entity is an Activity, false if not.
-             */
-            isActivityType(entityType: string): boolean;
-
-            /**
-             * Opens quick create.
-             *
-             * @param   {string}    entityLogicalName           The logical name of the entity to create.
-             * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
-             *                                                  based on mapped attribute values.
-             * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
-             *                                                  parameters to the form. Invalid query string parameters will cause an
-             *                                                  error.
-             * @return  {Async.XrmPromise} Returns an asynchronous promise.
-             */
-            openQuickCreate(entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: Utility.OpenParameters):
-                             Async.XrmPromise<Async.QuickCreateSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
-
-            /**
-             * Opens an entity form.
-             *
-             * @param   {string}    name                The entity's logical name.
-             * @param   {string}    id                  (Optional) The unique identifier for the record.
-             * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
-             * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
-             */
-            openEntityForm(name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions): void;
-
-            /**
-             * Opens an HTML Web Resource in a new browser window.
-             *
-             * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
-             *                                      parameters.  See Remarks.
-             * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
-             *                                                 It is advised to use encodeURIcomponent() to encode the value.
-             * @param   {number}    width           (Optional) The width of the new window.
-             * @param   {number}    height          (Optional) The height of the new window.
-             *
-             * @return  A Window reference, containing the opened Web Resource.
-             *
-             * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
-             *          Valid WebResource URL Parameters:   typename
-             *                                              type
-             *                                              id
-             *                                              orgname
-             *                                              userlcid
-             *                                              data (identical to this method's webResourceData parameter)
-             *                                              formid
-             */
-            openWebResource(webResourceName: string, webResourceData?: string, width?: number, height?: number): Window;
-        };
+        Utility: Utility;
 
         /**
          * Provides methods to create and manage records in the mobile clients (for phones tablets).
@@ -227,17 +37,7 @@ declare namespace Xrm {
          *
          * @see {@link https://msdn.microsoft.com/en-us/library/mt790281.aspx} for details.
          */
-        Panel: {
-            /**
-             * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
-             *
-             * @param    {string}    url    URL of the page to be loaded in the side pane static area.
-             * @param    {string}    url    Title of the side pane static area.
-             *
-             * @remarks  This method is only supported for the web client.
-             */
-            LoadPanel(url: string, title: string): void;
-        };
+        Panel: Panel;
     }
 
     /**
@@ -377,6 +177,13 @@ declare namespace Xrm {
         getUserRoles(): string[];
 
         /**
+         * Returns the version number of the Dynamics 365 server.
+         *
+         * @return The version number
+         */
+        getVersion(): string;
+
+        /**
          * Prefixes the current organization's unique name to a string; typically a URL path.
          *
          * @param   {string}    sPath   Local pathname of the resource.
@@ -441,6 +248,121 @@ declare namespace Xrm {
          * @remarks This member may be undefined when Process Flows are not used by the current entity.
          */
         process: Page.data.ProcessManager;
+    }
+
+    interface Page {
+        /**
+         * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
+         */
+        context: Context;
+
+        /**
+         * Provides methods to work with the form.
+         */
+        data: Data;
+
+        /**
+         * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
+         */
+        ui: Ui;
+
+        /**
+         * Gets all attributes.
+         *
+         * @return  An array of attributes.
+         */
+        getAttribute(): Page.Attribute[];
+
+        /**
+         * Gets an attribute matching attributeName.
+         *
+         * @tparam  T   An Attribute type.
+         * @param   {string}    attributeName   Name of the attribute.
+         *
+         * @return  The attribute.
+         */
+        getAttribute<T extends Page.Attribute>(attributeName: string): T;
+
+        /**
+         * Gets an attribute matching attributeName.
+         *
+         * @param   {string}    attributeName   Name of the attribute.
+         *
+         * @return  The attribute.
+         */
+        getAttribute(attributeName: string): Page.Attribute;
+
+        /**
+         * Gets an attribute by index.
+         *
+         * @param   {number}    index   The attribute index.
+         *
+         * @return  The attribute.
+         */
+        getAttribute(index: number): Page.Attribute;
+
+        /**
+         * Gets an attribute.
+         *
+         * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
+         *
+         * @return  An array of attribute.
+         */
+        getAttribute(delegateFunction: Collection.MatchingDelegate<Page.Attribute>): Page.Attribute[];
+
+        /**
+         * Gets all controls.
+         *
+         * @return  An array of controls.
+         */
+        getControl(): Page.Control[];
+
+        /**
+         * Gets a control matching controlName.
+         *
+         * @tparam  T   A Control type
+         * @param   {string}    controlName    Name of the control.
+         *
+         * @return  The control.
+         */
+        getControl<T extends Page.Control>(controlName: string): T;
+
+        /**
+         * Gets a control matching controlName.
+         *
+         * @param   {string}    controlName   Name of the control.
+         *
+         * @return  The control.
+         */
+        getControl(controlName: string): Page.Control;
+
+        /**
+         * Gets a control by index.
+         *
+         * @tparam  T   A Control type
+         * @param   {number}    index   The control index.
+         *
+         * @return  The control.
+         */
+        getControl<T extends Page.Control>(index: number): T;
+
+        /**
+         * Gets a control by index.
+         *
+         * @param   {number}    index   The control index.
+         *
+         * @return  The control.
+         */
+        getControl(index: number): Page.Control;
+
+        /**
+         * Gets a control.
+         *
+         * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
+         *
+         * @return  An array of control.
+         */
+        getControl(delegateFunction: Collection.MatchingDelegate<Page.Control>): Page.Control[];
     }
 
     /**
@@ -550,6 +472,81 @@ declare namespace Xrm {
          * A collection of all the quick view controls on a form using the new form rendering engine (also called "turbo forms").
          */
         quickForms: Collection.ItemCollection<Page.ui.QuickForm>;
+    }
+
+    interface Utility {
+        /**
+         * Displays an alert dialog, with an "OK" button.
+         *
+         * @param   {string}        message         The message.
+         * @param   {function()}    onCloseCallback The "OK" callback.
+         */
+        alertDialog(message: string, onCloseCallback: () => void): void;
+
+        /**
+         * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
+         *
+         * @param   {string}        message             The message.
+         * @param   {function()}    yesCloseCallback    The "OK" callback.
+         * @param   {function()}    noCloseCallback     The "Cancel" callback.
+         */
+        confirmDialog(message: string, yesCloseCallback: () => void, noCloseCallback: () => void): void;
+
+        /**
+         * Query if 'entityType' is an Activity entity.
+         *
+         * @param   {string}    entityType  Type of the entity.
+         *
+         * @return  true if the entity is an Activity, false if not.
+         */
+        isActivityType(entityType: string): boolean;
+
+        /**
+         * Opens quick create.
+         *
+         * @param   {string}    entityLogicalName           The logical name of the entity to create.
+         * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
+         *                                                  based on mapped attribute values.
+         * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
+         *                                                  parameters to the form. Invalid query string parameters will cause an
+         *                                                  error.
+         * @return  {Async.XrmPromise} Returns an asynchronous promise.
+         */
+        openQuickCreate(entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: Utility.OpenParameters):
+            Async.XrmPromise<Async.QuickCreateSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+
+        /**
+         * Opens an entity form.
+         *
+         * @param   {string}    name                The entity's logical name.
+         * @param   {string}    id                  (Optional) The unique identifier for the record.
+         * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
+         * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
+         */
+        openEntityForm(name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions): void;
+
+        /**
+         * Opens an HTML Web Resource in a new browser window.
+         *
+         * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
+         *                                      parameters.  See Remarks.
+         * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
+         *                                                 It is advised to use encodeURIcomponent() to encode the value.
+         * @param   {number}    width           (Optional) The width of the new window.
+         * @param   {number}    height          (Optional) The height of the new window.
+         *
+         * @return  A Window reference, containing the opened Web Resource.
+         *
+         * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
+         *          Valid WebResource URL Parameters:   typename
+         *                                              type
+         *                                              id
+         *                                              orgname
+         *                                              userlcid
+         *                                              data (identical to this method's webResourceData parameter)
+         *                                              formid
+         */
+        openWebResource(webResourceName: string, webResourceData?: string, width?: number, height?: number): Window;
     }
 
     /**
@@ -664,6 +661,18 @@ declare namespace Xrm {
          * @remarks  You cannot delete intersect and activity party entities.
          */
         deleteRecord(entityType: string, id: string): Async.XrmPromise<Async.OfflineOperationSuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+    }
+
+    interface Panel {
+        /**
+         * Displays the web page represented by a URL in the static area in the side pane, which appears on all pages in the web client.
+         *
+         * @param    {string}    url    URL of the page to be loaded in the side pane static area.
+         * @param    {string}    url    Title of the side pane static area.
+         *
+         * @remarks  This method is only supported for the web client.
+         */
+        LoadPanel(url: string, title: string): void;
     }
 
     /**
@@ -884,7 +893,12 @@ declare namespace Xrm {
         /**
          * Status for Xrm.Page.Stage.getStatus().
          */
-        type Status = "active" | "inactive";
+        type StageStatus = "active" | "inactive";
+
+        /**
+         * Status for Xrm.Page.Process.getStatus().
+         */
+        type ProcessStatus = "active" | "aborted" | "finished";
 
         /**
          * Submit Mode for Xrm.Page.Attribute.getSubmitMode() and Xrm.Page.Attribute.setSubmitMode().
@@ -925,6 +939,11 @@ declare namespace Xrm {
          * Attribute types for Xrm.ui.ProcessMonitor Xrm.Page.Attribute.setDisplayState().
          */
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" | "lookup" | "memo" | "money" | "optionset" | "string";
+
+        /**
+         * Direction types for a process stage change event
+         */
+        type StageChangeDirection = "Next" | "Previous";
 
         /**
          * Attribute formats for Xrm.Page.Attribute.getFormat().
@@ -1008,7 +1027,7 @@ declare namespace Xrm {
              *
              * @remarks  This method will return either "active" or "inactive".
              */
-            getStatus(): Status;
+            getStatus(): StageStatus;
 
             /**
              * Returns a collection of steps in the stage.
@@ -1066,15 +1085,6 @@ declare namespace Xrm {
             getDepth(): number;
 
             /**
-             * Gets save-event arguments.
-             *
-             * @return  The event arguments.
-             *
-             * @remarks Returns null for all but the "save" event.
-             */
-            getEventArgs(): SaveEventArguments;
-
-            /**
              * Gets a reference to the object for which event occurred.
              *
              * @return  The event source.
@@ -1106,10 +1116,53 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for a save event context
+         */
+        interface SaveEventContext extends EventContext {
+            /**
+             * Gets save-event arguments.
+             *
+             * @return  The event arguments.
+             *
+             * @remarks Returns null for all but the "save" event.
+             */
+            getEventArgs(): SaveEventArguments;
+        }
+
+        /**
+         * Interface for a process stage change event context
+         */
+        interface StageChangeEventContext extends EventContext {
+            /**
+             * Gets process stage change event arguments.
+             *
+             * @return  The event arguments.
+             *
+             */
+            getEventArgs(): StageChangeEventArguments;
+        }
+
+        interface StageSelectedEventContext extends EventContext {
+            /**
+             * Gets process stage selected event arguments.
+             *
+             * @return  The event arguments.
+             *
+             */
+            getEventArgs(): StageSelectedEventArguments;
+        }
+
+        /**
          * Type for a context-sensitive handler.
          * @param   {EventContext}  context The context.
          */
         type ContextSensitiveHandler = (context: EventContext) => void;
+
+        /**
+         * Type for a process status change handler.
+         * @param   {ProcessStatus}  status The process status.
+         */
+        type ProcessStatusChangeHandler = (status: ProcessStatus) => void;
 
         /**
          * Interface for UI elements with labels.
@@ -1596,6 +1649,15 @@ declare namespace Xrm {
          */
         interface BooleanAttribute extends EnumAttribute {
             /**
+             * Gets the initial value of the attribute.
+             *
+             * @return  The initial value.
+             *
+             * @remarks Valid for OptionSet and boolean attribute types
+             */
+            getInitialValue(): boolean;
+
+            /**
              * Gets the value.
              *
              * @return  true if it succeeds, false if it fails.
@@ -1665,6 +1727,15 @@ declare namespace Xrm {
              *                               timezone
              */
             getFormat(): OptionSetAttributeFormat;
+
+            /**
+             * Gets the initial value of the attribute.
+             *
+             * @return  The initial value.
+             *
+             * @remarks Valid for OptionSet and boolean attribute types
+             */
+            getInitialValue(): number;
 
             /**
              * Gets the option matching a value.
@@ -1890,6 +1961,41 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for process stage change event arguments.
+         */
+        interface StageChangeEventArguments {
+            /**
+             * Gets the direction of the stage change.
+             *
+             * @return  The direction.
+             *
+             * @remarks Values returned are: "next" or "previous"
+             */
+            getDirection(): StageChangeDirection;
+
+            /**
+             * Gets the destination stage object
+             *
+             * @return  The stage object
+             *
+             * @remarks For switching between entities, returns the previous stage object
+             */
+            getStage(): Stage;
+        }
+
+        /**
+         * Interface for process stage selected event arguments.
+         */
+        interface StageSelectedEventArguments {
+            /**
+             * Gets the selected stage object
+             *
+             * @return  The stage object
+             */
+            getStage(): Stage;
+        }
+
+        /**
          * Module for the Xrm.Page.data API.
          */
         namespace data {
@@ -1911,6 +2017,21 @@ declare namespace Xrm {
                  * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
                  */
                 setActiveProcess(processId: string, callbackFunction?: ProcessCallbackDelegate): void;
+
+                /**
+                 * Returns all process instances for the entity record that the calling user has access to.
+                 *
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 */
+                getProcessInstances(callbackFunction: GetProcessInstancesDelegate): void;
+
+                /**
+                 * Sets a process instance as the active instance
+                 *
+                 * @param   {string}    processInstanceId           The Id of the process instance to make the active instance.
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 */
+                setActiveProcessInstance(processInstanceId: string, callbackFunction: SetProcessInstanceDelegate): void;
 
                 /**
                  * Returns a Stage object representing the active stage.
@@ -1975,6 +2096,19 @@ declare namespace Xrm {
                 addOnStageChange(handler: ContextSensitiveHandler): void;
 
                 /**
+                 * Use this to add a function as an event handler for the OnProcessStatusChange event so that it will be called when the
+                 * business process flow status changes.
+                 * @param   {ProcessStatusChangeHandler}   handler The function will be added to the bottom of the event
+                 *                                              handler pipeline. The execution context is automatically
+                 *                                              set to be the first parameter passed to the event handler.
+                 *
+                 *                                              Use a reference to a named function rather than an
+                 *                                              anonymous function if you may later want to remove the
+                 *                                              event handler.
+                 */
+                addOnProcessStatusChange(handler: ProcessStatusChangeHandler): void;
+
+                /**
                  * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
                  * when a business process flow stage is selected.
                  *
@@ -1987,6 +2121,14 @@ declare namespace Xrm {
                  *                                              event handler.
                  */
                 addOnStageSelected(handler: ContextSensitiveHandler): void;
+
+                /**
+                 * Use this to remove a function as an event handler for the OnProcessStatusChange event.
+                 *
+                 * @param   {ProcessStatusChangeHandler}   handler If an anonymous function is set using the addOnProcessStatusChange method it
+                 *                                              cannot be removed using this method.
+                 */
+                removeOnProcessStatusChange(handler: ProcessStatusChangeHandler): void;
 
                 /**
                  * Use this to remove a function as an event handler for the OnStageChange event.
@@ -2019,7 +2161,61 @@ declare namespace Xrm {
                  *                                                          complete.
                  */
                 movePrevious(callbackFunction?: ProcessCallbackDelegate): void;
+
+                /**
+                 * Use this method to get the unique identifier of the process instance
+                 *
+                 * @return  The unique identifier of the process instance
+                 */
+                getInstanceId(): string;
+
+                /**
+                 * Use this method to get the name of the process instance
+                 *
+                 * @return  The name of the process instance
+                 */
+                getInstanceName(): string;
+
+                /**
+                 * Use this method to get the current status of the process instance
+                 *
+                 * @return  The current status of the process
+                 */
+                getStatus(): ProcessStatus;
+
+                /**
+                 * Use this method to set the current status of the process instance
+                 *
+                 * @param   {ProcessStatus}  status         The new status for the process
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 */
+                setStatus(status: ProcessStatus, callbackFunction: ProcessSetStatusDelegate): void;
             }
+
+            /**
+             * Called when method to get active processes is complete
+             *
+             * @param       {string}    status  The result of the get active processes operation.
+             *
+             * @remarks     Returns object with the following key-value pairs:
+             *                          CreatedOn
+             *                          ProcessDefinitionID
+             *                          ProcessDefinitionName
+             *                          ProcessInstanceID
+             *                          ProcessInstanceName
+             *                          StatusCodeName
+             */
+            type GetProcessInstancesDelegate = (object: ProcessDictionary) => void;
+
+            /**
+             * Called when method to set active process is complete
+             *
+             * @param       {string}    status  The result of the set active process operation.
+             *
+             * @remarks     Values returned are: success        (The operation succeeded.)
+             *                                   invalid        (The processInstanceId isn’t valid or the process isn’t enabled.)
+             */
+            type SetProcessInstanceDelegate = (status: string) => void;
 
             /**
              * Called when process change methods have completed.
@@ -2034,6 +2230,17 @@ declare namespace Xrm {
              *                                   unreachable    (The stage exists on a different path.)
              */
             type ProcessCallbackDelegate = (status: string) => void;
+
+            /**
+             * Called when process set status method has completed.
+             *
+             * @param       {ProcessStatus}    status  The new status of the process instance
+             *
+             * @remarks     Values returned are: active
+             *                                   aborted
+             *                                   finished
+             */
+            type ProcessSetStatusDelegate = (status: ProcessStatus) => void;
 
             /**
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
@@ -2592,7 +2799,7 @@ declare namespace Xrm {
                  *
                  * @param   {string}    displayState   Display state of the process flow control, as either "expanded" or "collapsed"
                  */
-                setDisplayState(displayState: ui.DisplayState): void;
+                setDisplayState(displayState: DisplayState): void;
 
                 /**
                  * Sets the visibility state.
@@ -2744,7 +2951,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(): Page.Control[];
+                getControl(): Control[];
 
                 /**
                  * Gets the constituent controls in a quick view control.
@@ -2756,7 +2963,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl<T extends Page.Control>(controlName: string): T;
+                getControl<T extends Control>(controlName: string): T;
 
                 /**
                  * Gets the constituent controls in a quick view control.
@@ -2767,7 +2974,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(controlName: string): Page.Control;
+                getControl(controlName: string): Control;
 
                 /**
                  * Gets a control by index.
@@ -2779,7 +2986,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl<T extends Page.Control>(index: number): T;
+                getControl<T extends Control>(index: number): T;
 
                 /**
                  * Gets a control by index.
@@ -2790,7 +2997,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(index: number): Page.Control;
+                getControl(index: number): Control;
 
                 /**
                  * Gets the controls type.

@@ -1,7 +1,9 @@
-// Type definitions for D3JS d3-queue module v3.0.2
+// Type definitions for D3JS d3-queue module 3.0
 // Project: https://github.com/d3/d3-queue/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Last module patch version validated against: 3.0.2
 
 /**
  * A d3-queue queue object as returned by queue(...)
@@ -17,7 +19,7 @@ export interface Queue {
      * To return multiple results from a single callback, wrap the results in an object or array.
      * @param args Additional, optional arguments to be passed into deferred task on invocation
      */
-    defer(task: (...args: Array<any>) => void, ...args: any[]): this;
+    defer(task: (...args: any[]) => void, ...args: any[]): this;
     /**
      * Aborts any active tasks, invoking each active task’s task.abort function, if any.
      * Also prevents any new tasks from starting, and immediately invokes the queue.await or
@@ -32,7 +34,7 @@ export interface Queue {
      * If an error occurred, there are no additional arguments to the callback. Otherwise,
      * the callback is passed each result as an additional argument.
      */
-    await(callback: (error: any | null, ...results: Array<any>) => void): this;
+    await(callback: (error: any | null, ...results: any[]) => void): this;
     /**
      * Sets the callback to be invoked when all deferred tasks have finished (results array).
      *
@@ -41,7 +43,7 @@ export interface Queue {
      * or null if no error occurred. If an error occurred, there are no additional arguments to the callback.
      * Otherwise, the callback is also passed an array of results as the second argument.
      */
-    awaitAll(callback: (error: any | null, results?: Array<any>) => void): this;
+    awaitAll(callback: (error: any | null, results?: any[]) => void): this;
 }
 
 /**

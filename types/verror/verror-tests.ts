@@ -12,7 +12,7 @@ const verror3 = new VError({
     name: "fooError",
     cause: error,
     info: {
-        "info0": "baz"
+        info0: "baz"
     }
 }, "bar");
 
@@ -25,3 +25,12 @@ const info: { [k: string]: any } = VError.info(verror3);
 const namedCause: Error | null = VError.findCauseByName(verror3, "fooError");
 const stack: string = VError.fullStack(verror3);
 const cause3: Error | null = VError.cause(verror3);
+
+// Added in v1.9
+const hasCause: boolean = VError.hasCauseWithName(error, "name");
+
+// Added in v1.10
+const toList1: null|VError|MultiError = VError.errorFromList([verror1]);
+const toList2: null|Error|MultiError = VError.errorFromList([error, verror1]);
+
+VError.errorForEach(multiError, (error: Error) => {});

@@ -1,5 +1,5 @@
 
-import {createLogger} from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import logger from 'redux-logger';
 import { applyMiddleware, createStore } from 'redux';
 
@@ -24,6 +24,10 @@ let loggerCollapsedBool = createLogger({
 
 let loggerCollapsedPredicate = createLogger({
   collapsed: (getAction, action) => true
+});
+
+let loggerColorsOverallBoolean = createLogger({
+  colors: false
 });
 
 let loggerColorsBoolean = createLogger({

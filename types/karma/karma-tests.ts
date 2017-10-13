@@ -1,6 +1,3 @@
-
-
-
 import gulp = require('gulp');
 import karma = require('karma');
 
@@ -13,7 +10,7 @@ function runKarma(singleRun: boolean): void {
     });
 }
 
-gulp.task('test:unit:karma', ['build:test:unit'], () => runKarma(true));
+gulp.task('test:unit:karma', gulp.parallel('build:test:unit', () => runKarma(true)));
 
 
 
@@ -90,6 +87,10 @@ module.exports = function(config: karma.Config) {
       'progress',
       'coverage'
     ],
+
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
 
     preprocessors: {
       'app.js': ['coverage']

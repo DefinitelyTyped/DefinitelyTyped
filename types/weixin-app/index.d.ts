@@ -2137,6 +2137,24 @@ declare namespace wx {
 	}
 }
 
+declare namespace wx {
+	interface Touch {
+		identifier: number;
+		pageX: number;
+		pageY: number;
+		clientX: number;
+		clientY: number;
+	}
+	interface TouchEvent extends BaseEvent {
+		detail: {
+			x: number;
+			y: number;
+		};
+		touches: Touch[];
+		changedTouches: Touch[];
+	}
+}
+
 declare var App: wx.AppConstructor;
 
 /**

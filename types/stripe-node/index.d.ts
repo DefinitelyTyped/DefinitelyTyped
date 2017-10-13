@@ -1,9 +1,8 @@
-// Type definitions for stripe-node 4.6.0
+// Type definitions for stripe-node 4.7.0
 // Project: https://github.com/stripe/stripe-node/
-// Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal/>
+// Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal>, Sampson Oliver <https://github.com/sampsonjoliver> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="bluebird" />
 /// <reference types="node" />
 
 declare module 'stripe' {
@@ -72,7 +71,8 @@ declare namespace StripeNode {
         orders: resources.Orders;
         products: resources.Products;
         skus: resources.SKUs;
-
+        webhooks: resources.WebHooks;
+        
         setHost(host: string): void;
         setHost(host: string, port: string|number): void;
         setHost(host: string, port: string|number, protocol: string): void;
@@ -3129,6 +3129,25 @@ declare namespace StripeNode {
         interface ISkuAttributes {}
     }
 
+    namespace webhooks {
+        interface StripeWebhookEvent<T> {
+            id: string;
+            object: string;
+            api_version: string;
+            created: Date;
+            data: {
+              object: T;
+            };
+            livemode: boolean;
+            pending_webhooks: number;
+            /**
+             * One of https://stripe.com/docs/api#event_types
+             * E.g. account.updated
+             */
+            type: string;
+        }
+    }
+
     namespace tokens {
         interface IToken extends ICardToken, IBankAccountToken { }
 
@@ -3960,7 +3979,7 @@ declare namespace StripeNode {
              * Australia, Canada, or the United States. Highly recommended to always
              * include this value.
              */
-            cvc?: number;
+            cvc?: string;
 
             /**
              * Cardholder's full name.
@@ -6273,6 +6292,10 @@ declare namespace StripeNode {
              */
             del(skuId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
             del(skuId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+        }
+    
+        class WebHooks {
+            constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
         }
     }
 

@@ -6,12 +6,23 @@
 //                 Severin <https://github.com/seveves>
 //                 kaktus40 <https://github.com/kaktus40>
 //                 Matthieu Maitre <https://github.com/mmaitre314>
+//                 Adam Lewis <https://github.com/supercargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
+export type MomentConstructor1 =
+    (inp?: MomentInput, format?: MomentFormatSpecification, strict?: boolean) => Moment;
+export type MomentConstructor2 =
+    (inp?: MomentInput, format?: MomentFormatSpecification, language?: string, strict?: boolean) => Moment;
+
+export type MomentConstructor = MomentConstructor1 | MomentConstructor2;
 
 export type IdType = string | number;
 export type SubgroupType = IdType;
 export type DateType = Date | number | string;
 export type HeightWidthType = IdType;
+export type TimelineItemType = 'box'| 'point' | 'range' | 'background';
+export type TimelineAlignType = 'auto' | 'center' | 'left' | 'right';
 export type TimelineTimeAxisScaleType = 'millisecond' | 'second' | 'minute' | 'hour' |
   'weekday' | 'day' | 'month' | 'year';
 export type TimelineEventPropertiesResultWhatType = 'item' | 'background' | 'axis' |
@@ -21,6 +32,11 @@ export type TimelineEvents =
   'click' |
   'contextmenu' |
   'doubleClick' |
+  'drop' |
+  'mouseOver' |
+  'mouseDown' |
+  'mouseUp' |
+  'mouseMove' |
   'groupDragged' |
   'changed' |
   'rangechange' |
@@ -79,6 +95,7 @@ export interface DataGroup {
   style?: string;
   subgroupOrder?: string | (() => void);
   title?: string;
+  nestedGroups?: number[];
 }
 
 export interface DataGroupOptions {
@@ -99,12 +116,43 @@ export interface TimelineEditableOption {
   remove?: boolean;
   updateGroup?: boolean;
   updateTime?: boolean;
+  overrideItems?: boolean;
+}
+
+export type TimelineFormatLabelsFunction = (date: Date, scale: string, step: number) => string;
+
+export interface TimelineFormatLabelsOption {
+  millisecond?: string;
+  second?: string;
+  minute?: string;
+  hour?: string;
+  weekday?: string;
+  day?: string;
+  week?: string;
+  month?: string;
+  year?: string;
+}
+
+export interface TimelineFormatOption {
+  minorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction;
+  majorLabels?: TimelineFormatLabelsOption | TimelineFormatLabelsFunction;
 }
 
 export interface TimelineGroupEditableOption {
   add?: boolean;
   remove?: boolean;
   order?: boolean;
+}
+
+export interface TimelineHiddenDateOption {
+  start: DateType;
+  end: DateType;
+  repeat?: 'daily' | 'weekly' | 'monthly' | 'yearly';
+}
+
+export interface TimelineItemsAlwaysDraggableOption {
+  item?: boolean;
+  range?: boolean;
 }
 
 export interface TimelineMarginItem {
@@ -129,37 +177,53 @@ export interface TimelineTimeAxisOption {
   step?: number;
 }
 
+export interface TimelineRollingModeOption {
+  follow?: boolean;
+  offset?: number;
+}
+
+export interface TimelineTooltipOption {
+  followMouse: boolean;
+  overflowMethod: 'cap' | 'flip';
+}
+
 export type TimelineOptionsConfigureFunction = (option: string, path: string[]) => boolean;
 export type TimelineOptionsConfigureType = boolean | TimelineOptionsConfigureFunction;
 export type TimelineOptionsDataAttributesType = boolean | string | string[];
 export type TimelineOptionsEditableType = boolean | TimelineEditableOption;
+export type TimelineOptionsItemCallbackFunction = (item: TimelineItem, callback: (item: TimelineItem | null) => void) => void;
+export type TimelineOptionsGroupCallbackFunction = (group: TimelineGroup, callback: (group: TimelineGroup | null) => void) => void;
 export type TimelineOptionsGroupEditableType = boolean | TimelineGroupEditableOption;
-export type TimelineOptionsGroupOrderType = string | (() => void); // TODO
+export type TimelineOptionsGroupOrderType = string | TimelineOptionsComparisonFunction;
 export type TimelineOptionsGroupOrderSwapFunction = (fromGroup: any, toGroup: any, groups: DataSet<DataGroup>) => void;
+export type TimelineOptionsHiddenDatesType = TimelineHiddenDateOption | TimelineHiddenDateOption[];
+export type TimelineOptionsItemsAlwaysDraggableType = boolean | TimelineItemsAlwaysDraggableOption;
 export type TimelineOptionsMarginType = number | TimelineMarginOption;
 export type TimelineOptionsOrientationType = string | TimelineOrientationOption;
 export type TimelineOptionsSnapFunction = (date: Date, scale: string, step: number) => Date | number;
+export type TimelineOptionsTemplateFunction = (item?: any, element?: any, data?: any) => string;
+export type TimelineOptionsComparisonFunction = (a: any, b: any) => number;
 
 export interface TimelineOptions {
-  align?: string;
+  align?: TimelineAlignType;
   autoResize?: boolean;
   clickToUse?: boolean;
   configure?: TimelineOptionsConfigureType;
   dataAttributes?: TimelineOptionsDataAttributesType;
   editable?: TimelineOptionsEditableType;
   end?: DateType;
-  format?: any; // TODO
+  format?: TimelineFormatOption;
   groupEditable?: TimelineOptionsGroupEditableType;
   groupOrder?: TimelineOptionsGroupOrderType;
   groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction;
-  groupTemplate?(): void; // TODO
+  groupTemplate?: TimelineOptionsTemplateFunction;
   height?: HeightWidthType;
-  hiddenDates?: any; // TODO
+  hiddenDates?: TimelineOptionsHiddenDatesType;
   horizontalScroll?: boolean;
-  itemsAlwaysDraggable?: boolean;
+  itemsAlwaysDraggable?: TimelineOptionsItemsAlwaysDraggableType;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   margin?: TimelineOptionsMarginType;
   max?: DateType;
   maxHeight?: HeightWidthType;
@@ -169,28 +233,33 @@ export interface TimelineOptions {
   moveable?: boolean;
   multiselect?: boolean;
   multiselectPerGroup?: boolean;
-  onAdd?(): void; // TODO
-  onAddGroup?(): void; // TODO
-  onUpdate?(): void; // TODO
-  onMove?(): void; // TODO
-  onMoveGroup?(): void; // TODO
-  onMoving?(): void; // TODO
-  onRemove?(): void; // TODO
-  onRemoveGroup?(): void; // TODO
-  order?(): void; // TODO
+  onAdd?: TimelineOptionsItemCallbackFunction;
+  onAddGroup?: TimelineOptionsGroupCallbackFunction;
+  onUpdate?: TimelineOptionsItemCallbackFunction;
+  onMove?: TimelineOptionsItemCallbackFunction;
+  onMoveGroup?: TimelineOptionsGroupCallbackFunction;
+  onMoving?: TimelineOptionsItemCallbackFunction;
+  onRemove?: TimelineOptionsItemCallbackFunction;
+  onRemoveGroup?: TimelineOptionsGroupCallbackFunction;
+  order?: TimelineOptionsComparisonFunction;
   orientation?: TimelineOptionsOrientationType;
-  rollingMode?: boolean;
+  rollingMode?: TimelineRollingModeOption;
+  rtl?: boolean;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;
   showMinorLabels?: boolean;
+  showTooltips?: boolean;
   stack?: boolean;
+  stackSubgroups?: boolean;
   snap?: TimelineOptionsSnapFunction;
   start?: DateType;
-  template?(): void; // TODO
+  template?: TimelineOptionsTemplateFunction;
+  visibleFrameTemplate?: TimelineOptionsTemplateFunction;
   throttleRedraw?: number;
   timeAxis?: TimelineTimeAxisOption;
   type?: string;
+  tooltip?: TimelineTooltipOption;
   tooltipOnItemUpdateTime?: boolean | { template(item: any): any };
   verticalScroll?: boolean;
   width?: HeightWidthType;
@@ -639,7 +708,7 @@ export interface Graph2dOptions {
   legend?: Graph2dLegendOption;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?: MomentConstructor;
   max?: DateType;
   maxHeight?: HeightWidthType;
   maxMinorChars?: number;
@@ -737,10 +806,10 @@ export class Timeline {
   getCurrentTime(): Date;
   getCustomTime(id?: IdType): Date;
   getEventProperties(event: Event): TimelineEventPropertiesResult;
-  getItemRange(): any; // TODO
+  getItemRange(): { min: Date, max: Date };
   getSelection(): IdType[];
   getVisibleItems(): IdType[];
-  getWindow(): { start: Date, end: Date };
+  getWindow(): TimelineWindow;
   moveTo(time: DateType, options?: TimelineFitOptions): void;
   on(event: TimelineEvents, callback: () => void): void;
   off(event: TimelineEvents, callback: () => void): void;
@@ -754,7 +823,7 @@ export class Timeline {
   setItems(items: DataItemCollectionType): void;
   setOptions(options: TimelineOptions): void;
   setSelection(ids: IdType | IdType[]): void;
-  setWindow(start: DateType, end: DateType, options?: TimelineFitOptions): void;
+  setWindow(start: DateType, end: DateType, options?: TimelineFitOptions, callback?: () => void): void;
 }
 
 export interface TimelineStatic {
@@ -775,19 +844,39 @@ export interface TimelineWindow {
   end: Date;
 }
 
+export interface TimelineItemEditableOption {
+  remove?: boolean;
+  updateGroup?: boolean;
+  updateTime?: boolean;
+}
+
+export type TimelineItemEditableType = boolean | TimelineItemEditableOption;
+
 export interface TimelineItem {
-  id: number;
+  className?: string;
+  align?: TimelineAlignType;
   content: string;
-  group?: number;
-  start: number;
-  end?: number;
-  editable?: boolean;
+  end?: DateType;
+  group?: IdType;
+  id: IdType;
+  start: DateType;
+  style?: string;
+  subgroup?: IdType;
+  title?: string;
+  type?: TimelineItemType;
+  editable?: TimelineItemEditableType;
 }
 
 export interface TimelineGroup {
-  id: number;
-  content: string;
+  className?: string;
+  content: string | HTMLElement;
+  id: IdType;
   style?: string;
+  subgroupOrder?: TimelineOptionsGroupOrderType;
+  title?: string;
+  visible?: boolean;
+  nestedGroups?: IdType[];
+  showNested?: boolean;
 }
 
 export interface VisSelectProperties {
@@ -1702,6 +1791,33 @@ export interface Edge {
   id?: IdType;
 }
 
+export interface Locales {
+    [language: string]: LocaleMessages | undefined;
+    en?: LocaleMessages;
+    de?: LocaleMessages;
+    es?: LocaleMessages;
+    it?: LocaleMessages;
+    nl?: LocaleMessages;
+    'pt-br'?: LocaleMessages;
+    ru?: LocaleMessages;
+}
+
+export interface LocaleMessages {
+    edit: string;
+    del: string;
+    back: string;
+    addNode: string;
+    addEdge: string;
+    editNode: string;
+    editEdge: string;
+    addDescription: string;
+    edgeDescription: string;
+    editEdgeDescription: string;
+    createEdgeError: string;
+    deleteClusterError: string;
+    editClusterError: string;
+}
+
 export interface Options {
   autoResize?: boolean;
 
@@ -1711,7 +1827,7 @@ export interface Options {
 
   locale?: string;
 
-  locales?: string[];
+  locales?: Locales;
 
   clickToUse?: boolean;
 

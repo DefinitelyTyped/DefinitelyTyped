@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 interface Props {
   tag?: React.ReactType;
   inverse?: boolean;
@@ -5,6 +7,7 @@ interface Props {
   block?: boolean;
   outline?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   style?: React.CSSProperties;
 }
 

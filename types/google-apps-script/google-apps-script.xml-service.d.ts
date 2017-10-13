@@ -1,9 +1,9 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module XML_Service {
@@ -283,9 +283,9 @@ declare namespace GoogleAppsScript {
     /**
      * This service allows scripts to parse, navigate, and programmatically create XML documents.
      *
-     *      // Log the title and labels for the first page of blog posts on the Google Apps Developer blog.
+     *      // Log the title and labels for the first page of blog posts on the G Suite Developer blog.
      *      function parseXml() {
-     *        var url = 'http://googleappsdeveloper.blogspot.com/atom.xml';
+     *        var url = 'https://gsuite-developers.googleblog.com/atom.xml';
      *        var xml = UrlFetchApp.fetch(url).getContentText();
      *        var document = XmlService.parse(xml);
      *        var root = document.getRootElement();
@@ -320,7 +320,7 @@ declare namespace GoogleAppsScript {
      *      }
      */
     export interface XmlService {
-      ContentTypes: ContentType
+      ContentTypes: typeof ContentType;
       createCdata(text: string): Cdata;
       createComment(text: string): Comment;
       createDocType(elementName: string): DocType;

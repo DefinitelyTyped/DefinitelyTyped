@@ -1,24 +1,10 @@
-import React = require("react");
-import Joyride from "react-joyride";
+import * as React from "react";
+import Joyride, { Step } from "react-joyride";
 
 class NewComponent extends React.Component<undefined, undefined> {
     j: Joyride;
 
-    render() {
-        return <Joyride ref="j" run holePadding={4} resizeDebounceDelay={100} />;
-    }
-
-    doStuff() {
-        this.j.start(/*autorun*/ true);
-
-        this.j.next();
-
-        this.j.reset(true);
-        this.j.reset(false);
-
-        const { title, position } = this.j.getProgress().step;
-
-        this.j.parseSteps({
+    steps: Step[] = [{
             title: "Title",
             text: "Hurray",
             selector: ".selectable",
@@ -49,6 +35,25 @@ class NewComponent extends React.Component<undefined, undefined> {
             },
             name: "my-name",
             parent: "MyParent"
-        });
+        },
+        {
+            selector: ".other-selectable",
+            text: (<div>Also works</div>)
+        }];
+
+    render() {
+        return <Joyride ref="j" run={true} holePadding={4} resizeDebounceDelay={100} steps={this.steps} autoStart={true} />;
+    }
+
+    doStuff() {
+        this.j.next();
+        this.j.back();
+
+        this.j.reset(true);
+        this.j.reset(false);
+
+        this.j.addTooltip(this.steps[0]);
+
+        const { title, position } = this.j.getProgress().step;
     }
 }
