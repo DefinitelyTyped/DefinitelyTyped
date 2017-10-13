@@ -457,6 +457,7 @@ declare module 'firebird' {
      */
     class Stream extends stream.Stream {
         constructor(blob: FBBlob);
+        /* tslint:disable */
 
         /* NodeJS.ReadStream */
         readable: boolean;
@@ -473,6 +474,7 @@ declare module 'firebird' {
         end(str: string, encoding?: string, cb?: Function): void;
         destroy(error?: Error): void;
 
+        /* tslint:enable */
         check_destroyed(): void;
     }
 }

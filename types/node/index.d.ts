@@ -336,7 +336,6 @@ declare namespace NodeJS {
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
-        _read(size: number): void;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): this;
         pause(): this;
@@ -347,26 +346,17 @@ declare namespace NodeJS {
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
         wrap(oldStream: ReadableStream): this;
-        push(chunk: any, encoding?: string): boolean;
-        destroy(error?: Error): void;
     }
 
     export interface WritableStream extends EventEmitter {
         writable: boolean;
-        _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error, callback: Function): void;
-        _final(callback: Function): void;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        setDefaultEncoding(encoding: string): this;
         end(): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
-        cork(): void;
-        uncork(): void;
-        destroy(error?: Error): void;
-}
+    }
 
     export interface ReadWriteStream extends ReadableStream, WritableStream { }
 
@@ -448,10 +438,20 @@ declare namespace NodeJS {
     export interface WriteStream extends Socket {
         columns?: number;
         rows?: number;
+        _write(chunk: any, encoding: string, callback: Function): void;
+        _destroy(err: Error, callback: Function): void;
+        _final(callback: Function): void;
+        setDefaultEncoding(encoding: string): this;
+        cork(): void;
+        uncork(): void;
+        destroy(error?: Error): void;
     }
     export interface ReadStream extends Socket {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
+        _read(size: number): void;
+        push(chunk: any, encoding?: string): boolean;
+        destroy(error?: Error): void;
     }
 
     export interface Process extends EventEmitter {
