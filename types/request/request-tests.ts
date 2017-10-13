@@ -14,7 +14,7 @@ var buffer: NodeBuffer = new Buffer('foo');
 var num: number = 0;
 var bool: boolean;
 var date: Date;
-var obj: Object;
+var obj: object;
 var dest: string = 'foo';
 
 var uri: string = 'foo-bar';

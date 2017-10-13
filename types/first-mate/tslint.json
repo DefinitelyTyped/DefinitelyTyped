@@ -5,7 +5,6 @@
         "class-name": true,
         "indent": [true, "tabs"],
         "jsdoc-format": true,
-        "linebreak-style": [true, "LF"],
         "max-line-length": [true, 100],
         "quotemark": [true, "double", "avoid-escape"],
         "trailing-comma": [true, {
@@ -24,10 +23,9 @@
             "check-rest-spread",
             "check-preblock"
         ],
-        // TODO
-        "no-any": false,
         // Soon to be defaults.
         "arrow-return-shorthand": [true, "multiline"],
+        "no-any": true,
         "no-floating-promises": true,
         "no-unbound-method": true,
         "no-unsafe-any": true,

@@ -1,4 +1,4 @@
-// Type definitions for Ignite UI
+// Type definitions for Ignite UI 17.2
 // Project: https://github.com/IgniteUI/ignite-ui
 // Definitions by: Ignite UI <https://github.com/IgniteUI>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8677,601 +8677,12 @@ class igTemplating {
 	 */
 	tmpl(template: string, data: Object, args?: any[]): string;
 	clearTmplCache(): void;
-
-	/**
-	 * Encoding < > ' and "
-	 *
-	 * @param value The string to be encoded.
-	 */
-	encode(value: string): string;
 }
 }
 interface IgniteUIStatic {
 igTemplating: typeof Infragistics.igTemplating;
 }
 
-interface ErrorMessageDisplayingEvent {
-	(event: Event, ui: ErrorMessageDisplayingEventUIParam): void;
-}
-
-interface ErrorMessageDisplayingEventUIParam {
-	/**
-	 * Used to obtain reference to the barcode widget.
-	 */
-	owner?: any;
-
-	/**
-	 * Used to get or set the error message that is to be shown.
-	 */
-	errorMessage?: any;
-}
-
-interface DataChangedEvent {
-	(event: Event, ui: DataChangedEventUIParam): void;
-}
-
-interface DataChangedEventUIParam {
-	/**
-	 * Used to obtain reference to the barcode widget.
-	 */
-	owner?: any;
-
-	/**
-	 * Used to obtain the new data.
-	 */
-	newData?: any;
-}
-
-interface IgQRCodeBarcode {
-	/**
-	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
-	width?: string|number;
-
-	/**
-	 * The height of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
-	height?: string|number;
-
-	/**
-	 * Gets or sets the brush to use to fill the backing of the barcode.
-	 */
-	backingBrush?: string;
-
-	/**
-	 * Gets or sets the brush to use for the outline of the backing.
-	 */
-	backingOutline?: string;
-
-	/**
-	 * Gets or sets the stroke thickness of the backing outline.
-	 */
-	backingStrokeThickness?: number;
-
-	/**
-	 * Gets or sets the brush to use to fill the background of the bars.
-	 */
-	barBrush?: string;
-
-	/**
-	 * Gets or sets the brush to use for the label font.
-	 */
-	fontBrush?: string;
-
-	/**
-	 * Gets or sets the font of the text displayed by the control.
-	 */
-	font?: string;
-
-	/**
-	 * Gets or sets the data value.
-	 */
-	data?: string;
-
-	/**
-	 * Gets or sets the message text displayed when some error occurs.
-	 */
-	errorMessageText?: string;
-
-	/**
-	 * Gets or sets the stretch.
-	 *
-	 * Valid values:
-	 * "none"
-	 * "fill"
-	 * "uniform"
-	 * "uniformToFill"
-	 */
-	stretch?: string;
-
-	/**
-	 * Gets or sets a value which specifies how the grid fills within the barcode control dimensions.
-	 *
-	 * Valid values:
-	 * "fillSpace" FillSpace mode ensures that the barcode grid fills the control dimensions.
-	 * "ensureEqualSize" EnsureEqualSize mode ensures that every grid column/row has the same pixels number width/height. The sum of all columns/rows pixels may be less than the width/height of the control.
-	 */
-	barsFillMode?: string;
-
-	/**
-	 * Gets or sets the width (XDimension) to height (YDimension) ratio. It accepts only positive values. This property does not apply for the QR barcode.
-	 */
-	widthToHeightRatio?: number;
-
-	/**
-	 * Gets or sets the X-dimension (narrow element width) for a symbol in mm. It accepts values from 0.01 to 100.
-	 */
-	xDimension?: number;
-
-	/**
-	 * Gets or sets the error correction level of the QR Code symbol.
-	 *
-	 * Valid values:
-	 * "low" Low error correction level allows recovery of 7% of the symbol codewords.
-	 * "medium" Medium error correction level allows recovery of 15% of the symbol codewords.
-	 * "quartil" Quartil error correction level allows recovery of 25% of the symbol codewords.
-	 * "high" High error correction level allows recovery of 30% of the symbol codewords.
-	 */
-	errorCorrectionLevel?: string;
-
-	/**
-	 * Gets or sets the size version of the QR Code symbol.
-	 *
-	 * Valid values:
-	 * "undefined" If set, the QR code barcode sets internally the smallest version that will accommodate the data.
-	 * "version1" Version1 defines size of 21x21 modules for the symbol.
-	 * "version2" Version2 defines size of 25x25 modules for the symbol.
-	 * "version3" Version3 defines size of 29x29 modules for the symbol.
-	 * "version4" Version4 defines size of 33x33 modules for the symbol.
-	 * "version5" Version5 defines size of 37x37 modules for the symbol.
-	 * "version6" Version6 defines size of 41x41 modules for the symbol.
-	 * "version7" Version7 defines size of 45x45 modules for the symbol.
-	 * "version8" Version8 defines size of 49x49 modules for the symbol.
-	 * "version9" Version9 defines size of 53x53 modules for the symbol.
-	 * "version10" Version10 defines size of 57x57 modules for the symbol.
-	 * "version11" Version11 defines size of 61x61 modules for the symbol.
-	 * "version12" Version12 defines size of 65x65 modules for the symbol.
-	 * "version13" Version13 defines size of 69x69 modules for the symbol.
-	 * "version14" Version14 defines size of 73x73 modules for the symbol.
-	 * "version15" Version15 defines size of 77x77 modules for the symbol.
-	 * "version16" Version16 defines size of 81x81 modules for the symbol.
-	 * "version17" Version17 defines size of 85x85 modules for the symbol.
-	 * "version18" Version18 defines size of 89x89 modules for the symbol.
-	 * "version19" Version19 defines size of 93x93 modules for the symbol.
-	 * "version20" Version20 defines size of 97x97 modules for the symbol.
-	 * "version21" Version21 defines size of 101x101 modules for the symbol.
-	 * "version22" Version22 defines size of 105x105 modules for the symbol.
-	 * "version23" Version23 defines size of 109x109 modules for the symbol.
-	 * "version24" Version24 defines size of 113x113 modules for the symbol.
-	 * "version25" Version25 defines size of 117x117 modules for the symbol.
-	 * "version26" Version26 defines size of 121x121 modules for the symbol.
-	 * "version27" Version27 defines size of 125x125 modules for the symbol.
-	 * "version28" Version28 defines size of 129x129 modules for the symbol.
-	 * "version29" Version29 defines size of 133x133 modules for the symbol.
-	 * "version30" Version30 defines size of 137x137 modules for the symbol.
-	 * "version31" Version31 defines size of 141x141 modules for the symbol.
-	 * "version32" Version32 defines size of 145x145 modules for the symbol.
-	 * "version33" Version33 defines size of 149x149 modules for the symbol.
-	 * "version34" Version34 defines size of 153x153 modules for the symbol.
-	 * "version35" Version35 defines size of 157x157 modules for the symbol.
-	 * "version36" Version36 defines size of 161x161 modules for the symbol.
-	 * "version37" Version37 defines size of 165x165 modules for the symbol.
-	 * "version38" Version38 defines size of 169x169 modules for the symbol.
-	 * "version39" Version39 defines size of 173x173 modules for the symbol.
-	 * "version40" Version40 defines size of 177x177 modules for the symbol.
-	 */
-	sizeVersion?: string;
-
-	/**
-	 * Gets or sets the encoding mode for compaction of the QR Code symbol data. The default value is undefined if the Shift_JIS encoding is loaded. Otherwise the default value is byte.
-	 *
-	 * Valid values:
-	 * "undefined" When Undefined encoding mode is set, the QR code barcode internally switches between modes as necessary in order to achieve the most efficient conversion of data into a binary string.
-	 * "numeric" Numeric mode encodes data from decimal digit set (0-9). Normally 3 data characters are represented by 10 bits.
-	 * "alphanumeric" Alphanumerc mode encodes data from a set of 45 characters (digits 0-9, upper case letters A-Z, nine other characters: space, $ % * + _ . / : ). Normally two input characters are represented by 11 bits.
-	 * "byte" In Byte mode the data is encoded at 8 bits per character. The character set of the Byte encoding mode is byte data (by default it is ISO/IEC 8859-1 character set).
-	 * "kanji" The Kanji mode efficiently encodes Kanji characters in accordance with the Shift JIS system based on JIS X 0208. Each two-byte character value is compactedd to a 13-bit binary codeword.
-	 */
-	encodingMode?: string;
-
-	/**
-	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
-	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
-	 */
-	eciNumber?: number;
-
-	/**
-	 * Gets or sets a value indicating whether to show the ECI header.
-	 *
-	 * Valid values:
-	 * "hide" Hide the header.
-	 * "show" Show the header.
-	 */
-	eciHeaderDisplayMode?: string;
-
-	/**
-	 * Gets or sets the FNC1 mode indicator which identifies symbols encoding messages formatted according to specific predefined industry or application specificatoins.
-	 *
-	 * Valid values:
-	 * "none" Do not use any Fnc1 symbols, i.e. the data is not identified according to specific predefined industry or application specifications.
-	 * "gs1" Uses Fnc1 symbol in the first position of the character in Code 128 symbols and designates data formatted in accordance with the GS1 General Specification.
-	 * "industry" Uses Fnc1 symbol in the second position of the character in Code 128 symbols and designates data formatted in accordance with a specific indystry application previously agreed with AIM Inc.
-	 */
-	fnc1Mode?: string;
-
-	/**
-	 * Gets or sets the Application Indicator assigned to identify the specification concerned by AIM International.
-	 * The value is respected only when the Fnc1Mode is set to Industry. Its value may take the form of any single Latin alphabetic character from the set {a - z, A - Z} or a two-digit number.
-	 */
-	applicationIndicator?: string;
-
-	/**
-	 * Occurs when an error has happened.
-	 * Function takes first argument evt and second argument ui.
-	 * Use ui.owner to obtain reference to the barcode widget.
-	 * Use ui.errorMessage to get or set the error message that is to be shown.
-	 */
-	errorMessageDisplaying?: ErrorMessageDisplayingEvent;
-
-	/**
-	 * Occurs when the data has changed.
-	 * Function takes first argument evt and second argument ui.
-	 * Use ui.owner to obtain reference to the barcode widget.
-	 * Use ui.newData to obtain the new data.
-	 */
-	dataChanged?: DataChangedEvent;
-
-	/**
-	 * Option for igQRCodeBarcode
-	 */
-	[optionName: string]: any;
-}
-interface IgQRCodeBarcodeMethods {
-	/**
-	 * Returns information about how the barcode is rendered.
-	 */
-	exportVisualData(): Object;
-
-	/**
-	 * Causes all pending changes of the barcode e.g. by changed property values to be rendered immediately.
-	 */
-	flush(): void;
-
-	/**
-	 * Destroys widget.
-	 */
-	destroy(): void;
-
-	/**
-	 * Re-polls the css styles for the widget. Use this method when the css styles have been modified.
-	 */
-	styleUpdated(): void;
-}
-interface JQuery {
-	data(propertyName: "igQRCodeBarcode"): IgQRCodeBarcodeMethods;
-}
-
-interface JQuery {
-	igQRCodeBarcode(methodName: "exportVisualData"): Object;
-	igQRCodeBarcode(methodName: "flush"): void;
-	igQRCodeBarcode(methodName: "destroy"): void;
-	igQRCodeBarcode(methodName: "styleUpdated"): void;
-
-	/**
-	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "width"): string|number;
-
-	/**
-	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
-
-	/**
-	 * The height of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "height"): string|number;
-
-	/**
-	 * The height of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
-
-	/**
-	 * Gets  the brush to use to fill the backing of the barcode.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingBrush"): string;
-
-	/**
-	 * Sets the brush to use to fill the backing of the barcode.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingBrush", optionValue: string): void;
-
-	/**
-	 * Gets  the brush to use for the outline of the backing.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingOutline"): string;
-
-	/**
-	 * Sets the brush to use for the outline of the backing.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingOutline", optionValue: string): void;
-
-	/**
-	 * Gets  the stroke thickness of the backing outline.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingStrokeThickness"): number;
-
-	/**
-	 * Sets the stroke thickness of the backing outline.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingStrokeThickness", optionValue: number): void;
-
-	/**
-	 * Gets  the brush to use to fill the background of the bars.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "barBrush"): string;
-
-	/**
-	 * Sets the brush to use to fill the background of the bars.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "barBrush", optionValue: string): void;
-
-	/**
-	 * Gets  the brush to use for the label font.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "fontBrush"): string;
-
-	/**
-	 * Sets the brush to use for the label font.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "fontBrush", optionValue: string): void;
-
-	/**
-	 * Gets  the font of the text displayed by the control.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "font"): string;
-
-	/**
-	 * Sets the font of the text displayed by the control.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "font", optionValue: string): void;
-
-	/**
-	 * Gets  the data value.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "data"): string;
-
-	/**
-	 * Sets the data value.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "data", optionValue: string): void;
-
-	/**
-	 * Gets  the message text displayed when some error occurs.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageText"): string;
-
-	/**
-	 * Sets the message text displayed when some error occurs.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageText", optionValue: string): void;
-
-	/**
-	 * Gets  the stretch.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "stretch"): string;
-
-	/**
-	 * Sets the stretch.
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "stretch", optionValue: string): void;
-
-	/**
-	 * Gets  a value which specifies how the grid fills within the barcode control dimensions.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "barsFillMode"): string;
-
-	/**
-	 * Sets a value which specifies how the grid fills within the barcode control dimensions.
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "barsFillMode", optionValue: string): void;
-
-	/**
-	 * Gets  the width (XDimension) to height (YDimension) ratio. It accepts only positive values. This property does not apply for the QR barcode.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "widthToHeightRatio"): number;
-
-	/**
-	 * Sets the width (XDimension) to height (YDimension) ratio. It accepts only positive values. This property does not apply for the QR barcode.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "widthToHeightRatio", optionValue: number): void;
-
-	/**
-	 * Gets  the X-dimension (narrow element width) for a symbol in mm. It accepts values from 0.01 to 100.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "xDimension"): number;
-
-	/**
-	 * Sets the X-dimension (narrow element width) for a symbol in mm. It accepts values from 0.01 to 100.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "xDimension", optionValue: number): void;
-
-	/**
-	 * Gets  the error correction level of the QR Code symbol.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorCorrectionLevel"): string;
-
-	/**
-	 * Sets the error correction level of the QR Code symbol.
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorCorrectionLevel", optionValue: string): void;
-
-	/**
-	 * Gets  the size version of the QR Code symbol.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "sizeVersion"): string;
-
-	/**
-	 * Sets the size version of the QR Code symbol.
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "sizeVersion", optionValue: string): void;
-
-	/**
-	 * Gets  the encoding mode for compaction of the QR Code symbol data. The default value is undefined if the Shift_JIS encoding is loaded. Otherwise the default value is byte.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "encodingMode"): string;
-
-	/**
-	 * Sets the encoding mode for compaction of the QR Code symbol data. The default value is undefined if the Shift_JIS encoding is loaded. Otherwise the default value is byte.
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "encodingMode", optionValue: string): void;
-
-	/**
-	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
-	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciNumber"): number;
-
-	/**
-	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
-	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciNumber", optionValue: number): void;
-
-	/**
-	 * Gets  a value indicating whether to show the ECI header.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciHeaderDisplayMode"): string;
-
-	/**
-	 * Sets a value indicating whether to show the ECI header.
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciHeaderDisplayMode", optionValue: string): void;
-
-	/**
-	 * Gets  the FNC1 mode indicator which identifies symbols encoding messages formatted according to specific predefined industry or application specificatoins.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "fnc1Mode"): string;
-
-	/**
-	 * Sets the FNC1 mode indicator which identifies symbols encoding messages formatted according to specific predefined industry or application specificatoins.
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "fnc1Mode", optionValue: string): void;
-
-	/**
-	 * Gets  the Application Indicator assigned to identify the specification concerned by AIM International.
-	 * The value is respected only when the Fnc1Mode is set to Industry. Its value may take the form of any single Latin alphabetic character from the set {a - z, A - Z} or a two-digit number.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "applicationIndicator"): string;
-
-	/**
-	 * Sets the Application Indicator assigned to identify the specification concerned by AIM International.
-	 * The value is respected only when the Fnc1Mode is set to Industry. Its value may take the form of any single Latin alphabetic character from the set {a - z, A - Z} or a two-digit number.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "applicationIndicator", optionValue: string): void;
-
-	/**
-	 * Occurs when an error has happened.
-	 * Function takes first argument evt and second argument ui.
-	 * Use ui.owner to obtain reference to the barcode widget.
-	 * Use ui.errorMessage to get or set the error message that is to be shown.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageDisplaying"): ErrorMessageDisplayingEvent;
-
-	/**
-	 * Occurs when an error has happened.
-	 * Function takes first argument evt and second argument ui.
-	 * Use ui.owner to obtain reference to the barcode widget.
-	 * Use ui.errorMessage to get or set the error message that is to be shown.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageDisplaying", optionValue: ErrorMessageDisplayingEvent): void;
-
-	/**
-	 * Occurs when the data has changed.
-	 * Function takes first argument evt and second argument ui.
-	 * Use ui.owner to obtain reference to the barcode widget.
-	 * Use ui.newData to obtain the new data.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "dataChanged"): DataChangedEvent;
-
-	/**
-	 * Occurs when the data has changed.
-	 * Function takes first argument evt and second argument ui.
-	 * Use ui.owner to obtain reference to the barcode widget.
-	 * Use ui.newData to obtain the new data.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igQRCodeBarcode(optionLiteral: 'option', optionName: "dataChanged", optionValue: DataChangedEvent): void;
-	igQRCodeBarcode(options: IgQRCodeBarcode): JQuery;
-	igQRCodeBarcode(optionLiteral: 'option', optionName: string): any;
-	igQRCodeBarcode(optionLiteral: 'option', options: IgQRCodeBarcode): JQuery;
-	igQRCodeBarcode(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
-	igQRCodeBarcode(methodName: string, ...methodParams: any[]): any;
-}
 interface DataBindingEvent {
 	(event: Event, ui: DataBindingEventUIParam): void;
 }
@@ -11203,6 +10614,18 @@ interface PropertyChangedEvent {
 
 interface PropertyChangedEventUIParam {}
 
+interface SeriesAddedEvent {
+	(event: Event, ui: SeriesAddedEventUIParam): void;
+}
+
+interface SeriesAddedEventUIParam {}
+
+interface SeriesRemovedEvent {
+	(event: Event, ui: SeriesRemovedEventUIParam): void;
+}
+
+interface SeriesRemovedEventUIParam {}
+
 interface IgCategoryChart {
 	/**
 	 * Gets or sets the data value corresponding to the minimum value of the Y-axis.
@@ -12041,6 +11464,16 @@ interface IgCategoryChart {
 	 * Event raised when a property value is changed.
 	 */
 	propertyChanged?: PropertyChangedEvent;
+
+	/**
+	 * Event raised when a series is initialized
+	 */
+	seriesAdded?: SeriesAddedEvent;
+
+	/**
+	 * Event raised when a series is removed from the CategoryChart
+	 */
+	seriesRemoved?: SeriesRemovedEvent;
 
 	/**
 	 * Event which is raised before data binding.
@@ -13959,6 +13392,30 @@ interface JQuery {
 	 * @optionValue Define event handler function.
 	 */
 	igCategoryChart(optionLiteral: 'option', optionName: "propertyChanged", optionValue: PropertyChangedEvent): void;
+
+	/**
+	 * Event raised when a series is initialized
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "seriesAdded"): SeriesAddedEvent;
+
+	/**
+	 * Event raised when a series is initialized
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "seriesAdded", optionValue: SeriesAddedEvent): void;
+
+	/**
+	 * Event raised when a series is removed from the CategoryChart
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "seriesRemoved"): SeriesRemovedEvent;
+
+	/**
+	 * Event raised when a series is removed from the CategoryChart
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igCategoryChart(optionLiteral: 'option', optionName: "seriesRemoved", optionValue: SeriesRemovedEvent): void;
 
 	/**
 	 * Event which is raised before data binding.
@@ -21227,6 +20684,37 @@ interface JQuery {
 	igColorPickerSplitButton(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igColorPickerSplitButton(methodName: string, ...methodParams: any[]): any;
 }
+interface IgComboLocale {
+	/**
+	 * Gets/Sets text of list item for condition when [filteringType](ui.igcombo#options:filteringType) option is enabled and no match was found.
+	 *
+	 */
+	noMatchFoundText?: any;
+
+	/**
+	 * Gets/Sets title for html element which represent the drop-down button.
+	 *
+	 */
+	dropDownButtonTitle?: any;
+
+	/**
+	 * Gets/Sets title for html element which represent the clear button.
+	 *
+	 */
+	clearButtonTitle?: any;
+
+	/**
+	 * Gets/Sets value that is displayed when input field is empty.
+	 *
+	 */
+	placeHolder?: any;
+
+	/**
+	 * Option for IgComboLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface IgComboLoadOnDemandSettings {
 	/**
 	 * Gets/Sets option to enable load on demand.
@@ -21543,7 +21031,7 @@ interface IgCombo {
 
 	/**
 	 * Sets URL which is used for sending JSON on request for remote filtering (MVC for example). That option is required when [load on demand](ui.igcombo#options:loadOnDemandSettings) is
-	 *                 [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
+	 * [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
 	 *
 	 */
 	dataSourceUrl?: string;
@@ -21600,7 +21088,7 @@ interface IgCombo {
 
 	/**
 	 * Gets/Sets a template used to render an item in list. The igCombo utilizes igTemplating for generating node content templates.
-	 *     More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
+	 * More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
 	 *
 	 */
 	itemTemplate?: string;
@@ -21644,7 +21132,7 @@ interface IgCombo {
 
 	/**
 	 * If set to true, the container of the drop-down list is appended to the body.
-	 *                 If set to false, it is appended to the parent element of the combo.
+	 * If set to false, it is appended to the parent element of the combo.
 	 *
 	 */
 	dropDownAttachedToBody?: boolean;
@@ -21695,10 +21183,33 @@ interface IgCombo {
 	filteringLogic?: string;
 
 	/**
-	 * Gets/Sets text of list item for condition when [filteringType](ui.igcombo#options:filteringType) option is enabled and no match was found. That is an override for the $.ig.Combo.locale.noMatchFoundText.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets text of list item for condition when [filteringType](ui.igcombo#options:filteringType) option is enabled and no match was found.
+	 * Use option [locale.noMatchFoundText](ui.igcombo#options:locale.noMatchFoundText).
 	 */
 	noMatchFoundText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets title for html element which represent the drop-down button.
+	 * Use option [locale.dropDownButtonTitle](ui.igcombo#options:locale.dropDownButtonTitle).
+	 */
+	dropDownButtonTitle?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets title for html element which represent clear button.
+	 * Use option [locale.clearButtonTitle](ui.igcombo#options:locale.clearButtonTitle).
+	 */
+	clearButtonTitle?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets value that is displayed when input field is empty.
+	 * Use option [locale.placeHolder](ui.igcombo#options:locale.placeHolder).
+	 */
+	placeHolder?: string;
+	locale?: IgComboLocale;
 
 	/**
 	 * Gets/Sets container of variables which define load on demand functionality.
@@ -21716,12 +21227,6 @@ interface IgCombo {
 	 *
 	 */
 	visibleItemsCount?: number;
-
-	/**
-	 * Gets/Sets value that is displayed when input field is empty. That is an override for the $.ig.Combo.locale.placeHolder.
-	 *
-	 */
-	placeHolder?: string;
 
 	/**
 	 * Sets gets functionality mode.
@@ -21839,7 +21344,7 @@ interface IgCombo {
 
 	/**
 	 * Gets/Sets list of items to be selected when the combo is initialized. It should contain array of objects with index or value property, then on initialization the matching items will be selected. If initialSelectedItems are not set, the combo is with single selection and it is in a dropdown, readonly or readonlylist [mode](ui.igcombo#options:mode), the first item will be automatically selected.
-	 *             Note: Only items loaded on initialization can be selected. When using [load on demand](ui.igCombo#options:loadOnDemandSettings), selecting an item which is not loaded yet will fail.
+	 * Note: Only items loaded on initialization can be selected. When using [load on demand](ui.igCombo#options:loadOnDemandSettings), selecting an item which is not loaded yet will fail.
 	 *
 	 */
 	initialSelectedItems?: IgComboInitialSelectedItem[];
@@ -21865,29 +21370,17 @@ interface IgCombo {
 
 	/**
 	 * Gets/Sets whether the onscreen keyboard should be shown when the dropdown button is clicked (touch devices only).
-	 *                 Note: The keyboard will still show when the combo input is focused in editable mode.
+	 * Note: The keyboard will still show when the combo input is focused in editable mode.
 	 *
 	 */
 	suppressKeyboard?: boolean;
 
 	/**
 	 * Specifies whether the clear button should be rendered.
-	 *             When the [mode](ui.igcombo#options:mode) is single selection, readonly or readonlylist this option will default to false. It can still be enabled when it is specifically set to true.
+	 * When the [mode](ui.igcombo#options:mode) is single selection, readonly or readonlylist this option will default to false. It can still be enabled when it is specifically set to true.
 	 *
 	 */
 	enableClearButton?: boolean;
-
-	/**
-	 * Gets/Sets title for html element which represent the drop-down button. This is an override for the $.ig.Combo.locale.dropDownButtonTitle.
-	 *
-	 */
-	dropDownButtonTitle?: string;
-
-	/**
-	 * Gets/Sets title for html element which represent clear button (this is an override for the $.ig.Combo.locale.clearButtonTitle).
-	 *
-	 */
-	clearButtonTitle?: string;
 
 	/**
 	 * Gets/Sets drop-down list orientation when open button is clicked.
@@ -22033,6 +21526,9 @@ interface IgCombo {
 	[optionName: string]: any;
 }
 interface IgComboMethods {
+	changeLocale(): void;
+	changeRegional(): void;
+
 	/**
 	 * Performs databinding on the combo box. The [databinding](ui.igcombo#events:dataBinding) and [dataBound](ui.igcombo#events:dataBound) events are always raised.
 	 */
@@ -22171,14 +21667,14 @@ interface IgComboMethods {
 	 *
 	 * @param value Value or array of values matching the valueKey property of item/items to be selected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
-	 *                     additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
-	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 * focusCombo (boolean): Set to true to focus combo after the selection.
+	 * additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
+	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	value(value?: Object, options?: Object, event?: Object): Object;
@@ -22188,14 +21684,14 @@ interface IgComboMethods {
 	 *
 	 * @param $items jQuery object with item or items to be selected.
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
-	 *                     additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
-	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 * focusCombo (boolean): Set to true to focus combo after the selection.
+	 * additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
+	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	select($items: Object, options?: Object, event?: Object): Object;
@@ -22205,14 +21701,14 @@ interface IgComboMethods {
 	 *
 	 * @param index Index or array of indexes of items to be selected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
-	 *                     additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
-	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 * focusCombo (boolean): Set to true to focus combo after the selection.
+	 * additive (boolean): Set to true to select the item without losing other selection. Works only when multi selection is enabled.
+	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	index(index?: Object, options?: Object, event?: Object): Object;
@@ -22221,13 +21717,13 @@ interface IgComboMethods {
 	 * Selects all items from the drop-down list.
 	 *
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     closeDropDown (boolean): Set to true to close the drop down list after the selection.
-	 *                     focusCombo (boolean): Set to true to focus combo after the selection.
-	 *                     keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
-	 *                     keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
-	 *                     keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
-	 *                     keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
+	 * closeDropDown (boolean): Set to true to close the drop down list after the selection.
+	 * focusCombo (boolean): Set to true to focus combo after the selection.
+	 * keepFiltering (boolean): Set to true to keep filtering after the selection. By default the filtering is cleared.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the selection. By default input text is updated.
+	 * keepHighlighting (boolean): Set to true to keep highlighting unchanged after the selection. By default highlighting is removed.
+	 * keepNavItem (boolean): Set to true to keep current navigation item unchanged after the selection. By default the navigation item is changed to the new selected item.
+	 * keepScrollPosition (boolean): Set to true to keep current scroll position. By default the scroll position will change so that the last selected item is visible.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	selectAll(options?: Object, event?: Object): Object;
@@ -22237,8 +21733,8 @@ interface IgComboMethods {
 	 *
 	 * @param value Value or array of values matching the [valueKey](ui.igcombo#options:valueKey) property of item/items to be deselected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 * focusCombo (boolean): Set to true to focus combo after the deselection.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselectByValue(value: Object, options?: Object, event?: Object): Object;
@@ -22248,8 +21744,8 @@ interface IgComboMethods {
 	 *
 	 * @param $items jQuery object with item or items to be deselected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 * focusCombo (boolean): Set to true to focus combo after the deselection.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselect($items: Object, options?: Object, event?: Object): Object;
@@ -22259,8 +21755,8 @@ interface IgComboMethods {
 	 *
 	 * @param index Index or array of indexes of items to be selected
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 * focusCombo (boolean): Set to true to focus combo after the deselection.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselectByIndex(index: Object, options?: Object, event?: Object): Object;
@@ -22269,8 +21765,8 @@ interface IgComboMethods {
 	 * Deselects all selected items from the drop down list.
 	 *
 	 * @param options Object with set of options controlling the behavior of this api method.
-	 *                     focusCombo (boolean): Set to true to focus combo after the deselection.
-	 *                     keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
+	 * focusCombo (boolean): Set to true to focus combo after the deselection.
+	 * keepInputText (boolean): Set to true to keep input text unchanged after the deselection. By default input text is updated.
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [selectionChanging](ui.igcombo#events:selectionChanging) and [selectionChanged](ui.igcombo#events:selectionChanged) events.
 	 */
 	deselectAll(options?: Object, event?: Object): Object;
@@ -22361,6 +21857,8 @@ interface JQuery {
 }
 
 interface JQuery {
+	igCombo(methodName: "changeLocale"): void;
+	igCombo(methodName: "changeRegional"): void;
 	igCombo(methodName: "dataBind"): Object;
 	igCombo(methodName: "refreshValue"): Object;
 	igCombo(methodName: "dataForValue", value: Object): Object;
@@ -22483,14 +21981,14 @@ interface JQuery {
 
 	/**
 	 * Sets URL which is used for sending JSON on request for remote filtering (MVC for example). That option is required when [load on demand](ui.igcombo#options:loadOnDemandSettings) is
-	 *                 [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
+	 * [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "dataSourceUrl"): string;
 
 	/**
 	 * Sets URL which is used for sending JSON on request for remote filtering (MVC for example). That option is required when [load on demand](ui.igcombo#options:loadOnDemandSettings) is
-	 *                 [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
+	 * [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22599,14 +22097,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets a template used to render an item in list. The igCombo utilizes igTemplating for generating node content templates.
-	 *     More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
+	 * More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "itemTemplate"): string;
 
 	/**
 	 * /Sets a template used to render an item in list. The igCombo utilizes igTemplating for generating node content templates.
-	 *     More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
+	 * More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22699,14 +22197,14 @@ interface JQuery {
 
 	/**
 	 * If set to true, the container of the drop-down list is appended to the body.
-	 *                 If set to false, it is appended to the parent element of the combo.
+	 * If set to false, it is appended to the parent element of the combo.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "dropDownAttachedToBody"): boolean;
 
 	/**
 	 * If set to true, the container of the drop-down list is appended to the body.
-	 *                 If set to false, it is appended to the parent element of the combo.
+	 * If set to false, it is appended to the parent element of the combo.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22776,18 +22274,70 @@ interface JQuery {
 	igCombo(optionLiteral: 'option', optionName: "filteringLogic", optionValue: string): void;
 
 	/**
-	 * Gets/Sets text of list item for condition when [filteringType](ui.igcombo#options:filteringType) option is enabled and no match was found. That is an override for the $.ig.Combo.locale.noMatchFoundText.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets text of list item for condition when [filteringType](ui.igcombo#options:filteringType) option is enabled and no match was found.
+	 * Use option [locale.noMatchFoundText](ui.igcombo#options:locale.noMatchFoundText).
 	 */
 	igCombo(optionLiteral: 'option', optionName: "noMatchFoundText"): string;
 
 	/**
-	 * /Sets text of list item for condition when [filteringType](ui.igcombo#options:filteringType) option is enabled and no match was found. That is an override for the $.ig.Combo.locale.noMatchFoundText.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets text of list item for condition when [filteringType](ui.igcombo#options:filteringType) option is enabled and no match was found.
+	 * Use option [locale.noMatchFoundText](ui.igcombo#options:locale.noMatchFoundText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igCombo(optionLiteral: 'option', optionName: "noMatchFoundText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets title for html element which represent the drop-down button.
+	 * Use option [locale.dropDownButtonTitle](ui.igcombo#options:locale.dropDownButtonTitle).
+	 */
+	igCombo(optionLiteral: 'option', optionName: "dropDownButtonTitle"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets title for html element which represent the drop-down button.
+	 * Use option [locale.dropDownButtonTitle](ui.igcombo#options:locale.dropDownButtonTitle).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCombo(optionLiteral: 'option', optionName: "dropDownButtonTitle", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets title for html element which represent clear button.
+	 * Use option [locale.clearButtonTitle](ui.igcombo#options:locale.clearButtonTitle).
+	 */
+	igCombo(optionLiteral: 'option', optionName: "clearButtonTitle"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets title for html element which represent clear button.
+	 * Use option [locale.clearButtonTitle](ui.igcombo#options:locale.clearButtonTitle).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCombo(optionLiteral: 'option', optionName: "clearButtonTitle", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets value that is displayed when input field is empty.
+	 * Use option [locale.placeHolder](ui.igcombo#options:locale.placeHolder).
+	 */
+	igCombo(optionLiteral: 'option', optionName: "placeHolder"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets value that is displayed when input field is empty.
+	 * Use option [locale.placeHolder](ui.igcombo#options:locale.placeHolder).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCombo(optionLiteral: 'option', optionName: "placeHolder", optionValue: string): void;
+	igCombo(optionLiteral: 'option', optionName: "locale"): IgComboLocale;
+	igCombo(optionLiteral: 'option', optionName: "locale", optionValue: IgComboLocale): void;
 
 	/**
 	 * Gets/Sets container of variables which define load on demand functionality.
@@ -22826,20 +22376,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCombo(optionLiteral: 'option', optionName: "visibleItemsCount", optionValue: number): void;
-
-	/**
-	 * Gets/Sets value that is displayed when input field is empty. That is an override for the $.ig.Combo.locale.placeHolder.
-	 *
-	 */
-	igCombo(optionLiteral: 'option', optionName: "placeHolder"): string;
-
-	/**
-	 * /Sets value that is displayed when input field is empty. That is an override for the $.ig.Combo.locale.placeHolder.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igCombo(optionLiteral: 'option', optionName: "placeHolder", optionValue: string): void;
 
 	/**
 	 * Sets gets functionality mode.
@@ -23081,14 +22617,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets list of items to be selected when the combo is initialized. It should contain array of objects with index or value property, then on initialization the matching items will be selected. If initialSelectedItems are not set, the combo is with single selection and it is in a dropdown, readonly or readonlylist [mode](ui.igcombo#options:mode), the first item will be automatically selected.
-	 *             Note: Only items loaded on initialization can be selected. When using [load on demand](ui.igCombo#options:loadOnDemandSettings), selecting an item which is not loaded yet will fail.
+	 * Note: Only items loaded on initialization can be selected. When using [load on demand](ui.igCombo#options:loadOnDemandSettings), selecting an item which is not loaded yet will fail.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "initialSelectedItems"): IgComboInitialSelectedItem[];
 
 	/**
 	 * /Sets list of items to be selected when the combo is initialized. It should contain array of objects with index or value property, then on initialization the matching items will be selected. If initialSelectedItems are not set, the combo is with single selection and it is in a dropdown, readonly or readonlylist [mode](ui.igcombo#options:mode), the first item will be automatically selected.
-	 *             Note: Only items loaded on initialization can be selected. When using [load on demand](ui.igCombo#options:loadOnDemandSettings), selecting an item which is not loaded yet will fail.
+	 * Note: Only items loaded on initialization can be selected. When using [load on demand](ui.igCombo#options:loadOnDemandSettings), selecting an item which is not loaded yet will fail.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -23139,14 +22675,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets whether the onscreen keyboard should be shown when the dropdown button is clicked (touch devices only).
-	 *                 Note: The keyboard will still show when the combo input is focused in editable mode.
+	 * Note: The keyboard will still show when the combo input is focused in editable mode.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
 
 	/**
 	 * /Sets whether the onscreen keyboard should be shown when the dropdown button is clicked (touch devices only).
-	 *                 Note: The keyboard will still show when the combo input is focused in editable mode.
+	 * Note: The keyboard will still show when the combo input is focused in editable mode.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -23155,47 +22691,19 @@ interface JQuery {
 
 	/**
 	 * Gets whether the clear button should be rendered.
-	 *             When the [mode](ui.igcombo#options:mode) is single selection, readonly or readonlylist this option will default to false. It can still be enabled when it is specifically set to true.
+	 * When the [mode](ui.igcombo#options:mode) is single selection, readonly or readonlylist this option will default to false. It can still be enabled when it is specifically set to true.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "enableClearButton"): boolean;
 
 	/**
 	 * Sets whether the clear button should be rendered.
-	 *             When the [mode](ui.igcombo#options:mode) is single selection, readonly or readonlylist this option will default to false. It can still be enabled when it is specifically set to true.
+	 * When the [mode](ui.igcombo#options:mode) is single selection, readonly or readonlylist this option will default to false. It can still be enabled when it is specifically set to true.
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igCombo(optionLiteral: 'option', optionName: "enableClearButton", optionValue: boolean): void;
-
-	/**
-	 * Gets/Sets title for html element which represent the drop-down button. This is an override for the $.ig.Combo.locale.dropDownButtonTitle.
-	 *
-	 */
-	igCombo(optionLiteral: 'option', optionName: "dropDownButtonTitle"): string;
-
-	/**
-	 * /Sets title for html element which represent the drop-down button. This is an override for the $.ig.Combo.locale.dropDownButtonTitle.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igCombo(optionLiteral: 'option', optionName: "dropDownButtonTitle", optionValue: string): void;
-
-	/**
-	 * Gets/Sets title for html element which represent clear button (this is an override for the $.ig.Combo.locale.clearButtonTitle).
-	 *
-	 */
-	igCombo(optionLiteral: 'option', optionName: "clearButtonTitle"): string;
-
-	/**
-	 * /Sets title for html element which represent clear button (this is an override for the $.ig.Combo.locale.clearButtonTitle).
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igCombo(optionLiteral: 'option', optionName: "clearButtonTitle", optionValue: string): void;
 
 	/**
 	 * Gets/Sets drop-down list orientation when open button is clicked.
@@ -23498,6 +23006,49 @@ interface JQuery {
 	igCombo(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igCombo(methodName: string, ...methodParams: any[]): any;
 }
+interface IgDialogLocale {
+	/**
+	 * Gets/Sets the title/tooltip for the close button in the dialog.
+	 *
+	 */
+	closeButtonTitle?: string;
+
+	/**
+	 * Gets/Sets the title/tooltip for the minimize button in the dialog.
+	 *
+	 */
+	minimizeButtonTitle?: string;
+
+	/**
+	 * Gets/Sets the title/tooltip for the maximize button in the dialog.
+	 *
+	 */
+	maximizeButtonTitle?: string;
+
+	/**
+	 * Gets/Sets the title/tooltip for the pin button in the dialog.
+	 *
+	 */
+	pinButtonTitle?: string;
+
+	/**
+	 * Gets/Sets the title/tooltip for the pin button in the dialog.
+	 *
+	 */
+	unpinButtonTitle?: string;
+
+	/**
+	 * Gets/Sets the title/tooltip for the restore button in the dialog.
+	 *
+	 */
+	restoreButtonTitle?: string;
+
+	/**
+	 * Option for IgDialogLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface StateChangingEvent {
 	(event: Event, ui: StateChangingEventUIParam): void;
 }
@@ -23814,40 +23365,41 @@ interface IgDialog {
 	trackFocus?: boolean;
 
 	/**
-	 * Gets/Sets the title/tooltip for the close button in the dialog. That is an override for $.ig.Dialog.locale.closeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the close button in the dialog. Use option [locale.closeButtonTitle](ui.igdialog#options:locale.closeButtonTitle).
 	 */
 	closeButtonTitle?: string;
 
 	/**
-	 * Gets/Sets the title/tooltip for the minimize button in the dialog. That is an override for $.ig.Dialog.locale.minimizeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the minimize button in the dialog. Use option [locale.minimizeButtonTitle](ui.igdialog#options:locale.minimizeButtonTitle).
 	 */
 	minimizeButtonTitle?: string;
 
 	/**
-	 * Gets/Sets the title/tooltip for the maximize button in the dialog. That is an override for $.ig.Dialog.locale.maximizeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the maximize button in the dialog. Use option [locale.minimizeButtonTitle](ui.igdialog#options:locale.minimizeButtonTitle).
 	 */
 	maximizeButtonTitle?: string;
 
 	/**
-	 * Gets/Sets the title/tooltip for the pin button in the dialog. That is an override for $.ig.Dialog.locale.pinButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the pin button in the dialog. Use option [locale.pinButtonTitle](ui.igdialog#options:locale.pinButtonTitle).
 	 */
 	pinButtonTitle?: string;
 
 	/**
-	 * Gets/Sets the title/tooltip for the unpin button in the dialog. That is an override for $.ig.Dialog.locale.unpinButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the unpin button in the dialog. Use option [locale.unpinButtonTitle](ui.igdialog#options:locale.unpinButtonTitle).
 	 */
 	unpinButtonTitle?: string;
 
 	/**
-	 * Gets/Sets the title/tooltip for the restore button in the dialog. That is an override for $.ig.Dialog.locale.restoreButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the restore button in the dialog.  Use option [locale.restoreButtonTitle](ui.igdialog#options:locale.restoreButtonTitle).
 	 */
 	restoreButtonTitle?: string;
+	locale?: IgDialogLocale;
 
 	/**
 	 * Gets/Sets the temporary value for src, which is used while changing the parent of the base element if it is an instance of IFRAME. That allows getting around possible JavaScript exceptions under IE.
@@ -24038,6 +23590,7 @@ interface IgDialogMethods {
 	 * @param newContent The new html content provided as a string. If the parameter is provided then the method acts as a setter.
 	 */
 	content(newContent?: string): Object;
+	changeLocale(): void;
 }
 interface JQuery {
 	data(propertyName: "igDialog"): IgDialogMethods;
@@ -24058,6 +23611,7 @@ interface JQuery {
 	igDialog(methodName: "isTopModal"): boolean;
 	igDialog(methodName: "moveToTop", e?: Object): Object;
 	igDialog(methodName: "content", newContent?: string): Object;
+	igDialog(methodName: "changeLocale"): void;
 
 	/**
 	 * Gets the jquery DIV object which is used as the main container for the dialog.
@@ -24544,88 +24098,90 @@ interface JQuery {
 	igDialog(optionLiteral: 'option', optionName: "trackFocus", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the title/tooltip for the close button in the dialog. That is an override for $.ig.Dialog.locale.closeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the close button in the dialog. Use option [locale.closeButtonTitle](ui.igdialog#options:locale.closeButtonTitle).
 	 */
 	igDialog(optionLiteral: 'option', optionName: "closeButtonTitle"): string;
 
 	/**
-	 * /Sets the title/tooltip for the close button in the dialog. That is an override for $.ig.Dialog.locale.closeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets the title/tooltip for the close button in the dialog. Use option [locale.closeButtonTitle](ui.igdialog#options:locale.closeButtonTitle).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igDialog(optionLiteral: 'option', optionName: "closeButtonTitle", optionValue: string): void;
 
 	/**
-	 * Gets/Sets the title/tooltip for the minimize button in the dialog. That is an override for $.ig.Dialog.locale.minimizeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the minimize button in the dialog. Use option [locale.minimizeButtonTitle](ui.igdialog#options:locale.minimizeButtonTitle).
 	 */
 	igDialog(optionLiteral: 'option', optionName: "minimizeButtonTitle"): string;
 
 	/**
-	 * /Sets the title/tooltip for the minimize button in the dialog. That is an override for $.ig.Dialog.locale.minimizeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets the title/tooltip for the minimize button in the dialog. Use option [locale.minimizeButtonTitle](ui.igdialog#options:locale.minimizeButtonTitle).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igDialog(optionLiteral: 'option', optionName: "minimizeButtonTitle", optionValue: string): void;
 
 	/**
-	 * Gets/Sets the title/tooltip for the maximize button in the dialog. That is an override for $.ig.Dialog.locale.maximizeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the maximize button in the dialog. Use option [locale.minimizeButtonTitle](ui.igdialog#options:locale.minimizeButtonTitle).
 	 */
 	igDialog(optionLiteral: 'option', optionName: "maximizeButtonTitle"): string;
 
 	/**
-	 * /Sets the title/tooltip for the maximize button in the dialog. That is an override for $.ig.Dialog.locale.maximizeButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets the title/tooltip for the maximize button in the dialog. Use option [locale.minimizeButtonTitle](ui.igdialog#options:locale.minimizeButtonTitle).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igDialog(optionLiteral: 'option', optionName: "maximizeButtonTitle", optionValue: string): void;
 
 	/**
-	 * Gets/Sets the title/tooltip for the pin button in the dialog. That is an override for $.ig.Dialog.locale.pinButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the pin button in the dialog. Use option [locale.pinButtonTitle](ui.igdialog#options:locale.pinButtonTitle).
 	 */
 	igDialog(optionLiteral: 'option', optionName: "pinButtonTitle"): string;
 
 	/**
-	 * /Sets the title/tooltip for the pin button in the dialog. That is an override for $.ig.Dialog.locale.pinButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets the title/tooltip for the pin button in the dialog. Use option [locale.pinButtonTitle](ui.igdialog#options:locale.pinButtonTitle).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igDialog(optionLiteral: 'option', optionName: "pinButtonTitle", optionValue: string): void;
 
 	/**
-	 * Gets/Sets the title/tooltip for the unpin button in the dialog. That is an override for $.ig.Dialog.locale.unpinButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the unpin button in the dialog. Use option [locale.unpinButtonTitle](ui.igdialog#options:locale.unpinButtonTitle).
 	 */
 	igDialog(optionLiteral: 'option', optionName: "unpinButtonTitle"): string;
 
 	/**
-	 * /Sets the title/tooltip for the unpin button in the dialog. That is an override for $.ig.Dialog.locale.unpinButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets the title/tooltip for the unpin button in the dialog. Use option [locale.unpinButtonTitle](ui.igdialog#options:locale.unpinButtonTitle).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igDialog(optionLiteral: 'option', optionName: "unpinButtonTitle", optionValue: string): void;
 
 	/**
-	 * Gets/Sets the title/tooltip for the restore button in the dialog. That is an override for $.ig.Dialog.locale.restoreButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets/Sets the title/tooltip for the restore button in the dialog.  Use option [locale.restoreButtonTitle](ui.igdialog#options:locale.restoreButtonTitle).
 	 */
 	igDialog(optionLiteral: 'option', optionName: "restoreButtonTitle"): string;
 
 	/**
-	 * /Sets the title/tooltip for the restore button in the dialog. That is an override for $.ig.Dialog.locale.restoreButtonTitle.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * /Sets the title/tooltip for the restore button in the dialog.  Use option [locale.restoreButtonTitle](ui.igdialog#options:locale.restoreButtonTitle).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igDialog(optionLiteral: 'option', optionName: "restoreButtonTitle", optionValue: string): void;
+	igDialog(optionLiteral: 'option', optionName: "locale"): IgDialogLocale;
+	igDialog(optionLiteral: 'option', optionName: "locale", optionValue: IgDialogLocale): void;
 
 	/**
 	 * Gets/Sets the temporary value for src, which is used while changing the parent of the base element if it is an instance of IFRAME. That allows getting around possible JavaScript exceptions under IE.
@@ -26070,6 +25626,24 @@ interface IgBaseEditor {
 	validatorOptions?: any;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
+
+	/**
 	 * Event which is raised before rendering of the editor completes.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to get a reference to the editor performing rendering.
@@ -26264,6 +25838,9 @@ interface IgBaseEditorMethods {
 	 * Destroys the widget
 	 */
 	destroy(): void;
+	changeLocale($container: Object): void;
+	changeGlobalLanguage(): void;
+	changeGlobalRegional(): void;
 }
 interface JQuery {
 	data(propertyName: "igBaseEditor"): IgBaseEditorMethods;
@@ -26604,12 +26181,6 @@ interface IgTextEditor {
 	toLower?: boolean;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	locale?: any;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -26691,6 +26262,24 @@ interface IgTextEditor {
 	 *
 	 */
 	validatorOptions?: any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
 
 	/**
 	 * Event which is raised when the drop down is opening.
@@ -26894,6 +26483,8 @@ interface IgTextEditor {
 	[optionName: string]: any;
 }
 interface IgTextEditorMethods {
+	changeLocale(): void;
+
 	/**
 	 * Gets the visible text in the editor.
 	 */
@@ -27073,12 +26664,6 @@ interface IgNumericEditor {
 	listItems?: any[];
 
 	/**
-	 * Gets/Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	regional?: any;
-
-	/**
 	 * Gets/Sets the character, which is used as negative sign.
 	 * Note: This option has priority over possible regional settings.
 	 * Note: Even if the default value is null - if internationalization file is provided and it contains default values for those properties the values are imlicitly set.
@@ -27374,12 +26959,6 @@ interface IgNumericEditor {
 	dropDownOnReadOnly?: boolean;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	locale?: any;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -27448,6 +27027,24 @@ interface IgNumericEditor {
 	 *
 	 */
 	validatorOptions?: any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
 
 	/**
 	 * Event which is raised when the drop down is opening.
@@ -27566,6 +27163,8 @@ interface IgNumericEditorMethods {
 	 * Gets current regional.
 	 */
 	getRegionalOption(): string;
+	changeRegional(): void;
+	changeLocale(): void;
 
 	/**
 	 * Gets the visible text in the editor.
@@ -27665,12 +27264,6 @@ interface IgCurrencyEditor {
 	 *
 	 */
 	listItems?: any[];
-
-	/**
-	 * Gets/Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	regional?: any;
 
 	/**
 	 * Gets/Sets the character, which is used as negative sign.
@@ -27968,12 +27561,6 @@ interface IgCurrencyEditor {
 	dropDownOnReadOnly?: boolean;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	locale?: any;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -28044,6 +27631,24 @@ interface IgCurrencyEditor {
 	validatorOptions?: any;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
+
+	/**
 	 * Option for igCurrencyEditor
 	 */
 	[optionName: string]: any;
@@ -28101,6 +27706,7 @@ interface IgCurrencyEditorMethods {
 	 * Gets current regional.
 	 */
 	getRegionalOption(): string;
+	changeRegional(): void;
 }
 interface JQuery {
 	data(propertyName: "igCurrencyEditor"): IgCurrencyEditorMethods;
@@ -28164,12 +27770,6 @@ interface IgPercentEditor {
 	 *
 	 */
 	listItems?: any[];
-
-	/**
-	 * Gets/Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	regional?: any;
 
 	/**
 	 * Gets/Sets the character, which is used as negative sign.
@@ -28441,12 +28041,6 @@ interface IgPercentEditor {
 	dropDownOnReadOnly?: boolean;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	locale?: any;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -28517,6 +28111,24 @@ interface IgPercentEditor {
 	validatorOptions?: any;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
+
+	/**
 	 * Option for igPercentEditor
 	 */
 	[optionName: string]: any;
@@ -28582,18 +28194,13 @@ interface IgPercentEditorMethods {
 	 * Gets current regional.
 	 */
 	getRegionalOption(): string;
+	changeRegional(): void;
 }
 interface JQuery {
 	data(propertyName: "igPercentEditor"): IgPercentEditorMethods;
 }
 
 interface IgMaskEditor {
-	/**
-	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	regional?: any;
-
 	/**
 	 * Gets visibility of the clear button. That option can be set only on initialization.
 	 *
@@ -28802,12 +28409,6 @@ interface IgMaskEditor {
 	toLower?: boolean;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	locale?: any;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -28875,6 +28476,24 @@ interface IgMaskEditor {
 	 *
 	 */
 	validatorOptions?: any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
 	dropDownListOpening?: DropDownListOpeningEvent;
 	dropDownListOpened?: DropDownListOpenedEvent;
 	dropDownListClosing?: DropDownListClosingEvent;
@@ -28921,6 +28540,7 @@ interface IgMaskEditorMethods {
 	 * Checks if the value in the editor is valid. Note: This function will not trigger automatic notifications.
 	 */
 	isValid(): boolean;
+	changeLocale(): void;
 
 	/**
 	 * Gets the visible text in the editor.
@@ -29095,13 +28715,26 @@ interface IgDateEditor {
 	buttonType?: string;
 
 	/**
-	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.
-	 * When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
+	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
 	 * When in edit mode the time period, where the cursor is positioned, is incremented or decremented with the defined delta value.
-	 * The value can be only a positive integer number, otherwise it will be set as 1, or in the cases with double or float the the whole part will be taken.
+	 * Accepted values for deltas are positive integer numbers, and the fractional portion of floating point numbers is ignored.
+	 * spinDelta: {
+	 * year: 4,
+	 * month: 3,
+	 * day: 10,
+	 * hours: 12,
+	 * minutes: 15,
+	 * seconds: 10,
+	 * milliseconds: 100
+	 * }
+	 * Time periods that don't have values use 1 as default.
 	 *
+	 *
+	 * Valid values:
+	 * "number" Value this value it is applied to all time periods - years, days, minutes, etc.
+	 * "object" A configuration object, which defines specific values for each time period. The option can accept the following format:
 	 */
-	spinDelta?: number;
+	spinDelta?: number|Object;
 
 	/**
 	 * Gets/Sets ability to modify only 1 date field on spin events.
@@ -29205,12 +28838,6 @@ interface IgDateEditor {
 	suppressKeyboard?: boolean;
 
 	/**
-	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	regional?: any;
-
-	/**
 	 * Gets ability to enter only specific characters in input-field from keyboard and on paste.
 	 * Notes:
 	 * If "excludeKeys" option contains same characters as this option, then "excludeKeys" has priority.
@@ -29298,12 +28925,6 @@ interface IgDateEditor {
 	preventSubmitOnEnter?: boolean;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	locale?: any;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -29367,6 +28988,24 @@ interface IgDateEditor {
 	validatorOptions?: any;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
+
+	/**
 	 * This event is inherited from a parent widget and it's not triggered in igDateEditor
 	 */
 	dropDownListOpening?: DropDownListOpeningEvent;
@@ -29402,6 +29041,8 @@ interface IgDateEditor {
 	[optionName: string]: any;
 }
 interface IgDateEditorMethods {
+	changeRegional(): void;
+
 	/**
 	 * Gets/Sets editor value.
 	 *
@@ -29493,12 +29134,6 @@ interface ItemSelectedEventUIParam {
 }
 
 interface IgDatePicker {
-	/**
-	 * Gets/Sets the custom regional settings for the editor. If it is a string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	regional?: any;
-
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.
 	 *
@@ -29672,13 +29307,26 @@ interface IgDatePicker {
 	displayTimeOffset?: any;
 
 	/**
-	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.
-	 * When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
+	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
 	 * When in edit mode the time period, where the cursor is positioned, is incremented or decremented with the defined delta value.
-	 * The value can be only a positive integer number, otherwise it will be set as 1, or in the cases with double or float the the whole part will be taken.
+	 * Accepted values for deltas are positive integer numbers, and the fractional portion of floating point numbers is ignored.
+	 * spinDelta: {
+	 * year: 4,
+	 * month: 3,
+	 * day: 10,
+	 * hours: 12,
+	 * minutes: 15,
+	 * seconds: 10,
+	 * milliseconds: 100
+	 * }
+	 * Time periods that don't have values use 1 as default.
 	 *
+	 *
+	 * Valid values:
+	 * "number" Value this value it is applied to all time periods - years, days, minutes, etc.
+	 * "object" A configuration object, which defines specific values for each time period. The option can accept the following format:
 	 */
-	spinDelta?: number;
+	spinDelta?: number|Object;
 
 	/**
 	 * Gets/Sets ability to modify only 1 date field on spin events.
@@ -29838,12 +29486,6 @@ interface IgDatePicker {
 	preventSubmitOnEnter?: boolean;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	locale?: any;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -29907,6 +29549,24 @@ interface IgDatePicker {
 	validatorOptions?: any;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
+
+	/**
 	 * Event which is raised when the drop down is opening.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
@@ -29964,6 +29624,8 @@ interface IgDatePicker {
 	[optionName: string]: any;
 }
 interface IgDatePickerMethods {
+	changeRegional(): void;
+
 	/**
 	 * Returns a reference to the jQuery calendar used as a picker selector
 	 */
@@ -30137,6 +29799,24 @@ interface IgCheckboxEditor {
 	 *
 	 */
 	validatorOptions?: any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
 
 	/**
 	 * Event which is raised before value in editor was changed.
@@ -30369,6 +30049,9 @@ interface JQuery {
 	igBaseEditor(methodName: "isValid"): boolean;
 	igBaseEditor(methodName: "validate"): boolean;
 	igBaseEditor(methodName: "destroy"): void;
+	igBaseEditor(methodName: "changeLocale", $container: Object): void;
+	igBaseEditor(methodName: "changeGlobalLanguage"): void;
+	igBaseEditor(methodName: "changeGlobalRegional"): void;
 
 	/**
 	 * Gets/Sets the width of the control.
@@ -30521,6 +30204,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igBaseEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igBaseEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igBaseEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igBaseEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igBaseEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igBaseEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igBaseEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 
 	/**
 	 * Event which is raised before rendering of the editor completes.
@@ -30816,6 +30543,7 @@ interface JQuery {
 	igBaseEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
+	igTextEditor(methodName: "changeLocale"): void;
 	igTextEditor(methodName: "displayValue"): string;
 	igTextEditor(methodName: "dropDownContainer"): string;
 	igTextEditor(methodName: "showDropDown"): void;
@@ -31203,20 +30931,6 @@ interface JQuery {
 	igTextEditor(optionLiteral: 'option', optionName: "toLower", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	igTextEditor(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * /Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTextEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -31399,6 +31113,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTextEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igTextEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igTextEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 
 	/**
 	 * Event which is raised when the drop down is opening.
@@ -31850,6 +31608,8 @@ interface JQuery {
 	igNumericEditor(methodName: "selectListIndexUp"): void;
 	igNumericEditor(methodName: "selectListIndexDown"): void;
 	igNumericEditor(methodName: "getRegionalOption"): string;
+	igNumericEditor(methodName: "changeRegional"): void;
+	igNumericEditor(methodName: "changeLocale"): void;
 	igNumericEditor(methodName: "displayValue"): string;
 	igNumericEditor(methodName: "dropDownContainer"): string;
 	igNumericEditor(methodName: "showDropDown"): void;
@@ -31879,20 +31639,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "listItems", optionValue: any[]): void;
-
-	/**
-	 * Gets/Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	igNumericEditor(optionLiteral: 'option', optionName: "regional"): any;
-
-	/**
-	 * /Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igNumericEditor(optionLiteral: 'option', optionName: "regional", optionValue: any): void;
 
 	/**
 	 * Gets/Sets the character, which is used as negative sign.
@@ -32485,20 +32231,6 @@ interface JQuery {
 	igNumericEditor(optionLiteral: 'option', optionName: "dropDownOnReadOnly", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	igNumericEditor(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * /Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igNumericEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -32651,6 +32383,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igNumericEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igNumericEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 
 	/**
 	 * Event which is raised when the drop down is opening.
@@ -32815,6 +32591,7 @@ interface JQuery {
 	igCurrencyEditor(methodName: "selectListIndexUp"): void;
 	igCurrencyEditor(methodName: "selectListIndexDown"): void;
 	igCurrencyEditor(methodName: "getRegionalOption"): string;
+	igCurrencyEditor(methodName: "changeRegional"): void;
 
 	/**
 	 * Gets/Sets the string, which is used as positive pattern. The "n" flag represents the value of number.
@@ -32863,20 +32640,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "listItems", optionValue: any[]): void;
-
-	/**
-	 * Gets/Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	igCurrencyEditor(optionLiteral: 'option', optionName: "regional"): any;
-
-	/**
-	 * /Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igCurrencyEditor(optionLiteral: 'option', optionName: "regional", optionValue: any): void;
 
 	/**
 	 * Gets/Sets the character, which is used as negative sign.
@@ -33469,20 +33232,6 @@ interface JQuery {
 	igCurrencyEditor(optionLiteral: 'option', optionName: "dropDownOnReadOnly", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	igCurrencyEditor(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * /Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igCurrencyEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -33635,6 +33384,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCurrencyEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igCurrencyEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igCurrencyEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 	igCurrencyEditor(options: IgCurrencyEditor): JQuery;
 	igCurrencyEditor(optionLiteral: 'option', optionName: string): any;
 	igCurrencyEditor(optionLiteral: 'option', options: IgCurrencyEditor): JQuery;
@@ -33654,6 +33447,7 @@ interface JQuery {
 	igPercentEditor(methodName: "selectListIndexUp"): void;
 	igPercentEditor(methodName: "selectListIndexDown"): void;
 	igPercentEditor(methodName: "getRegionalOption"): string;
+	igPercentEditor(methodName: "changeRegional"): void;
 
 	/**
 	 * Gets/Sets the pattern for positive numeric values, which is used in display (no focus) state.
@@ -33760,20 +33554,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "listItems", optionValue: any[]): void;
-
-	/**
-	 * Gets/Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	igPercentEditor(optionLiteral: 'option', optionName: "regional"): any;
-
-	/**
-	 * /Sets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igPercentEditor(optionLiteral: 'option', optionName: "regional", optionValue: any): void;
 
 	/**
 	 * Gets/Sets the character, which is used as negative sign.
@@ -34332,20 +34112,6 @@ interface JQuery {
 	igPercentEditor(optionLiteral: 'option', optionName: "dropDownOnReadOnly", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	igPercentEditor(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * /Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igPercentEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -34498,6 +34264,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igPercentEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igPercentEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igPercentEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 	igPercentEditor(options: IgPercentEditor): JQuery;
 	igPercentEditor(optionLiteral: 'option', optionName: string): any;
 	igPercentEditor(optionLiteral: 'option', options: IgPercentEditor): JQuery;
@@ -34519,6 +34329,7 @@ interface JQuery {
 	igMaskEditor(methodName: "spinUp"): void;
 	igMaskEditor(methodName: "spinDown"): void;
 	igMaskEditor(methodName: "isValid"): boolean;
+	igMaskEditor(methodName: "changeLocale"): void;
 	igMaskEditor(methodName: "displayValue"): string;
 	igMaskEditor(methodName: "clearButton"): string;
 	igMaskEditor(methodName: "getSelectedText"): string;
@@ -34526,20 +34337,6 @@ interface JQuery {
 	igMaskEditor(methodName: "getSelectionEnd"): number;
 	igMaskEditor(methodName: "insert", string: string): void;
 	igMaskEditor(methodName: "select", start: number, end: number): void;
-
-	/**
-	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	igMaskEditor(optionLiteral: 'option', optionName: "regional"): any;
-
-	/**
-	 * Custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igMaskEditor(optionLiteral: 'option', optionName: "regional", optionValue: any): void;
 
 	/**
 	 * Gets visibility of the clear button. That option can be set only on initialization.
@@ -34972,20 +34769,6 @@ interface JQuery {
 	igMaskEditor(optionLiteral: 'option', optionName: "toLower", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	igMaskEditor(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * /Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igMaskEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -35136,6 +34919,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igMaskEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igMaskEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igMaskEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igMaskEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igMaskEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igMaskEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igMaskEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListOpening"): DropDownListOpeningEvent;
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListOpening", optionValue: DropDownListOpeningEvent): void;
 	igMaskEditor(optionLiteral: 'option', optionName: "dropDownListOpened"): DropDownListOpenedEvent;
@@ -35177,6 +35004,7 @@ interface JQuery {
 	igMaskEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
+	igDateEditor(methodName: "changeRegional"): void;
 	igDateEditor(methodName: "value", newValue?: Date): Date;
 	igDateEditor(methodName: "getSelectedDate"): Date;
 	igDateEditor(methodName: "selectDate", date: Date): void;
@@ -35449,24 +35277,44 @@ interface JQuery {
 	igDateEditor(optionLiteral: 'option', optionName: "buttonType", optionValue: string): void;
 
 	/**
-	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.
-	 * When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
+	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
 	 * When in edit mode the time period, where the cursor is positioned, is incremented or decremented with the defined delta value.
-	 * The value can be only a positive integer number, otherwise it will be set as 1, or in the cases with double or float the the whole part will be taken.
+	 * Accepted values for deltas are positive integer numbers, and the fractional portion of floating point numbers is ignored.
+	 * spinDelta: {
+	 * year: 4,
+	 * month: 3,
+	 * day: 10,
+	 * hours: 12,
+	 * minutes: 15,
+	 * seconds: 10,
+	 * milliseconds: 100
+	 * }
+	 * Time periods that don't have values use 1 as default.
 	 *
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "spinDelta"): number;
+
+	igDateEditor(optionLiteral: 'option', optionName: "spinDelta"): number|Object;
 
 	/**
-	 * /Sets delta-value which is used to increment or decrement the editor date on spin actions.
-	 * When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
+	 * /Sets delta-value which is used to increment or decrement the editor date on spin actions.When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
 	 * When in edit mode the time period, where the cursor is positioned, is incremented or decremented with the defined delta value.
-	 * The value can be only a positive integer number, otherwise it will be set as 1, or in the cases with double or float the the whole part will be taken.
+	 * Accepted values for deltas are positive integer numbers, and the fractional portion of floating point numbers is ignored.
+	 * spinDelta: {
+	 * year: 4,
+	 * month: 3,
+	 * day: 10,
+	 * hours: 12,
+	 * minutes: 15,
+	 * seconds: 10,
+	 * milliseconds: 100
+	 * }
+	 * Time periods that don't have values use 1 as default.
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "spinDelta", optionValue: number): void;
+
+	igDateEditor(optionLiteral: 'option', optionName: "spinDelta", optionValue: number|Object): void;
 
 	/**
 	 * Gets/Sets ability to modify only 1 date field on spin events.
@@ -35709,20 +35557,6 @@ interface JQuery {
 	igDateEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
 
 	/**
-	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	igDateEditor(optionLiteral: 'option', optionName: "regional"): any;
-
-	/**
-	 * Custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDateEditor(optionLiteral: 'option', optionName: "regional", optionValue: any): void;
-
-	/**
 	 * Gets ability to enter only specific characters in input-field from keyboard and on paste.
 	 * Notes:
 	 * If "excludeKeys" option contains same characters as this option, then "excludeKeys" has priority.
@@ -35899,20 +35733,6 @@ interface JQuery {
 	igDateEditor(optionLiteral: 'option', optionName: "preventSubmitOnEnter", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	igDateEditor(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * /Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDateEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -36049,6 +35869,50 @@ interface JQuery {
 	igDateEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igDateEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDateEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igDateEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDateEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igDateEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igDateEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
+
+	/**
 	 * This event is inherited from a parent widget and it's not triggered in igDateEditor
 	 */
 	igDateEditor(optionLiteral: 'option', optionName: "dropDownListOpening"): DropDownListOpeningEvent;
@@ -36126,6 +35990,7 @@ interface JQuery {
 	igDateEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
+	igDatePicker(methodName: "changeRegional"): void;
 	igDatePicker(methodName: "getCalendar"): string;
 	igDatePicker(methodName: "dropDownContainer"): void;
 	igDatePicker(methodName: "findListItemIndex"): void;
@@ -36144,20 +36009,6 @@ interface JQuery {
 	igDatePicker(methodName: "spinUpButton"): string;
 	igDatePicker(methodName: "spinDownButton"): string;
 	igDatePicker(methodName: "isValid"): boolean;
-
-	/**
-	 * Gets/Sets the custom regional settings for the editor. If it is a string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 */
-	igDatePicker(optionLiteral: 'option', optionName: "regional"): any;
-
-	/**
-	 * /Sets the custom regional settings for the editor. If it is a string, then $.ig.regional[stringValue] is assumed.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDatePicker(optionLiteral: 'option', optionName: "regional", optionValue: any): void;
 
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.
@@ -36520,24 +36371,44 @@ interface JQuery {
 	igDatePicker(optionLiteral: 'option', optionName: "displayTimeOffset", optionValue: any): void;
 
 	/**
-	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.
-	 * When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
+	 * Gets/Sets delta-value which is used to increment or decrement the editor date on spin actions.When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
 	 * When in edit mode the time period, where the cursor is positioned, is incremented or decremented with the defined delta value.
-	 * The value can be only a positive integer number, otherwise it will be set as 1, or in the cases with double or float the the whole part will be taken.
+	 * Accepted values for deltas are positive integer numbers, and the fractional portion of floating point numbers is ignored.
+	 * spinDelta: {
+	 * year: 4,
+	 * month: 3,
+	 * day: 10,
+	 * hours: 12,
+	 * minutes: 15,
+	 * seconds: 10,
+	 * milliseconds: 100
+	 * }
+	 * Time periods that don't have values use 1 as default.
 	 *
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "spinDelta"): number;
+
+	igDatePicker(optionLiteral: 'option', optionName: "spinDelta"): number|Object;
 
 	/**
-	 * /Sets delta-value which is used to increment or decrement the editor date on spin actions.
-	 * When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
+	 * /Sets delta-value which is used to increment or decrement the editor date on spin actions.When not editing (focused) the delta is applied on the day if available in the input mask or the lowest available period.
 	 * When in edit mode the time period, where the cursor is positioned, is incremented or decremented with the defined delta value.
-	 * The value can be only a positive integer number, otherwise it will be set as 1, or in the cases with double or float the the whole part will be taken.
+	 * Accepted values for deltas are positive integer numbers, and the fractional portion of floating point numbers is ignored.
+	 * spinDelta: {
+	 * year: 4,
+	 * month: 3,
+	 * day: 10,
+	 * hours: 12,
+	 * minutes: 15,
+	 * seconds: 10,
+	 * milliseconds: 100
+	 * }
+	 * Time periods that don't have values use 1 as default.
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "spinDelta", optionValue: number): void;
+
+	igDatePicker(optionLiteral: 'option', optionName: "spinDelta", optionValue: number|Object): void;
 
 	/**
 	 * Gets/Sets ability to modify only 1 date field on spin events.
@@ -36882,20 +36753,6 @@ interface JQuery {
 	igDatePicker(optionLiteral: 'option', optionName: "preventSubmitOnEnter", optionValue: boolean): void;
 
 	/**
-	 * Gets/Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 */
-	igDatePicker(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * /Sets the strings used for the localization of the component. This includes button titles, error messages etc. Value of the object should contain pairs or key:value members. Note: any sub-option of locale can appear within the main option of igEditor. In this case those values within main options will have highest priority and override corresponding value in locale.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDatePicker(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
 	 * Disables/Enables default notifications for basic validation scenarios built in the editors such as required list selection, value wrapping around or spin limits.
 	 *
 	 */
@@ -37030,6 +36887,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igDatePicker(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igDatePicker(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igDatePicker(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 
 	/**
 	 * Event which is raised when the drop down is opening.
@@ -37338,6 +37239,50 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igCheckboxEditor(optionLiteral: 'option', optionName: "validatorOptions", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igCheckboxEditor(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCheckboxEditor(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igCheckboxEditor(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCheckboxEditor(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igCheckboxEditor(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igCheckboxEditor(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
 
 	/**
 	 * Event which is raised before value in editor was changed.
@@ -37749,7 +37694,7 @@ interface IgFunnelChart {
 	outerLabelAlignment?: string;
 
 	/**
-	 * Gets or sets the how the heights of the funnel slices should be configured.
+	 * Gets or sets how the heights of the funnel slices should be configured.
 	 *
 	 * Valid values:
 	 * "uniform" The slice heights should be uniform.
@@ -37758,12 +37703,12 @@ interface IgFunnelChart {
 	funnelSliceDisplay?: string;
 
 	/**
-	 * Gets or sets the formatter function for inner labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to igFunnelChart.
+	 * Gets or sets the formatter function for inner labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to the funnel chart.
 	 */
 	formatInnerLabel?: any;
 
 	/**
-	 * Gets or sets the formatter function for outer labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to igFunnelChart.
+	 * Gets or sets the formatter function for outer labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to the funnel chart.
 	 */
 	formatOuterLabel?: any;
 
@@ -37855,8 +37800,16 @@ interface IgFunnelChart {
 	 * to appear blurry.
 	 */
 	pixelScalingRatio?: number;
-	outerLabelTextColor?: any;
-	textColor?: any;
+
+	/**
+	 * Gets or sets the brush used for the outer labels.
+	 */
+	outerLabelTextColor?: string;
+
+	/**
+	 * Gets or sets the brush used for the inner labels.
+	 */
+	textColor?: string;
 
 	/**
 	 * The width of the chart.
@@ -38298,13 +38251,13 @@ interface JQuery {
 	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelAlignment", optionValue: string): void;
 
 	/**
-	 * Gets  the how the heights of the funnel slices should be configured.
+	 * Gets  how the heights of the funnel slices should be configured.
 	 */
 
 	igFunnelChart(optionLiteral: 'option', optionName: "funnelSliceDisplay"): string;
 
 	/**
-	 * Sets the how the heights of the funnel slices should be configured.
+	 * Sets how the heights of the funnel slices should be configured.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -38312,24 +38265,24 @@ interface JQuery {
 	igFunnelChart(optionLiteral: 'option', optionName: "funnelSliceDisplay", optionValue: string): void;
 
 	/**
-	 * Gets  the formatter function for inner labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to igFunnelChart.
+	 * Gets  the formatter function for inner labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to the funnel chart.
 	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "formatInnerLabel"): any;
 
 	/**
-	 * Sets the formatter function for inner labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to igFunnelChart.
+	 * Sets the formatter function for inner labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to the funnel chart.
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "formatInnerLabel", optionValue: any): void;
 
 	/**
-	 * Gets  the formatter function for outer labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to igFunnelChart.
+	 * Gets  the formatter function for outer labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to the funnel chart.
 	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "formatOuterLabel"): any;
 
 	/**
-	 * Sets the formatter function for outer labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to igFunnelChart.
+	 * Sets the formatter function for outer labels. Function should return string and it takes 3 parameters: 1st-value of item to format, 2nd-index of item within data, 3rd-reference to the funnel chart.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -38538,10 +38491,30 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igFunnelChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
-	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelTextColor"): any;
-	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelTextColor", optionValue: any): void;
-	igFunnelChart(optionLiteral: 'option', optionName: "textColor"): any;
-	igFunnelChart(optionLiteral: 'option', optionName: "textColor", optionValue: any): void;
+
+	/**
+	 * Gets  the brush used for the outer labels.
+	 */
+	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelTextColor"): string;
+
+	/**
+	 * Sets the brush used for the outer labels.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFunnelChart(optionLiteral: 'option', optionName: "outerLabelTextColor", optionValue: string): void;
+
+	/**
+	 * Gets  the brush used for the inner labels.
+	 */
+	igFunnelChart(optionLiteral: 'option', optionName: "textColor"): string;
+
+	/**
+	 * Sets the brush used for the inner labels.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igFunnelChart(optionLiteral: 'option', optionName: "textColor", optionValue: string): void;
 
 	/**
 	 * The width of the chart.
@@ -38774,6 +38747,19 @@ interface JQuery {
 	igFunnelChart(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igFunnelChart(methodName: string, ...methodParams: any[]): any;
 }
+interface IgGridAppendRowsOnDemandLocale {
+	/**
+	 * Specifies caption text for the "load more data" button.
+	 *
+	 */
+	loadMoreDataButtonText?: string;
+
+	/**
+	 * Option for IgGridAppendRowsOnDemandLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface RowsRequestingEvent {
 	(event: Event, ui: RowsRequestingEventUIParam): void;
 }
@@ -38879,10 +38865,11 @@ interface IgGridAppendRowsOnDemand {
 	loadTrigger?: string;
 
 	/**
-	 * Specifies caption text for the "load more data" button.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Specifies caption text for the "load more data" button. Use option [locale.loadMoreDataButtonText](ui.iggridappendrowsondemand#options:locale.loadMoreDataButtonText).
 	 */
 	loadMoreDataButtonText?: string;
+	locale?: IgGridAppendRowsOnDemandLocale;
 
 	/**
 	 * Event fired before the rows are requested from the remote endpoint.
@@ -39036,18 +39023,20 @@ interface JQuery {
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "loadTrigger", optionValue: string): void;
 
 	/**
-	 * Gets caption text for the "load more data" button.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Gets caption text for the "load more data" button. Use option [locale.loadMoreDataButtonText](ui.iggridappendrowsondemand#options:locale.loadMoreDataButtonText).
 	 */
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "loadMoreDataButtonText"): string;
 
 	/**
-	 * Sets caption text for the "load more data" button.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Sets caption text for the "load more data" button. Use option [locale.loadMoreDataButtonText](ui.iggridappendrowsondemand#options:locale.loadMoreDataButtonText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "loadMoreDataButtonText", optionValue: string): void;
+	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "locale"): IgGridAppendRowsOnDemandLocale;
+	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: "locale", optionValue: IgGridAppendRowsOnDemandLocale): void;
 
 	/**
 	 * Event fired before the rows are requested from the remote endpoint.
@@ -39080,40 +39069,85 @@ interface JQuery {
 	igGridAppendRowsOnDemand(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igGridAppendRowsOnDemand(methodName: string, ...methodParams: any[]): any;
 }
+interface IgGridCellMergingColumnSetting {
+	/**
+	 * Column index. This is a required property in every column setting if columnKey is not set.
+	 *
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Column key. This is a required property in every column setting if columnIndex is not set.
+	 *
+	 */
+	columnKey?: string;
+
+	/**
+	 * Defines when merging should be applied.
+	 *
+	 *
+	 * Valid values:
+	 * "sorting" The column will only be merged when sorted
+	 * "always" The column will always be merged
+	 * "never" No merging will be applied
+	 */
+	mergeOn?: string;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 *
+	 * Valid values:
+	 * "duplicate" Duplicate values in the column will be merged together.
+	 * "null" Merging will be applied for each subsequent null value after a non-null value.
+	 */
+	mergeStrategy?: string|Function;
+
+	/**
+	 * Option for IgGridCellMergingColumnSetting
+	 */
+	[optionName: string]: any;
+}
+
 interface CellsMergingEvent {
 	(event: Event, ui: CellsMergingEventUIParam): void;
 }
 
 interface CellsMergingEventUIParam {
 	/**
-	 * Gets a reference to the row the merged group starts in.
-	 */
-	row?: string;
-
-	/**
-	 * Gets the index of the row the merged group starts in.
-	 */
-	rowIndex?: number;
-
-	/**
-	 * Gets the key of the row the merged group starts in.
-	 */
-	rowKey?: any;
-
-	/**
 	 * Gets reference to igGridCellMerging.
 	 */
 	owner?: any;
 
 	/**
-	 * Gets a reference to the igGrid the igGridCellMerging are initialized for.
+	 * Gets a reference to the row the merged group starts in if available in the DOM.
 	 */
-	grid?: any;
+	row?: string;
 
 	/**
-	 * Gets the cells value which is repeated and caused the merged group to be created.
+	 * Gets the data index of the row the merged group starts in.
 	 */
-	value?: any;
+	rowIndex?: number;
+
+	/**
+	 * Gets the PK of the row the merged group starts in if available.
+	 */
+	rowId?: any;
+
+	/**
+	 * Gets the column key the merge is being executed for.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the first record in the merging chain that the merge is executed for.
+	 */
+	firstRecord?: any;
+
+	/**
+	 * Gets the next record in the merging chain that the merge is executed for.
+	 */
+	record?: any;
 }
 
 interface CellsMergedEvent {
@@ -39122,34 +39156,39 @@ interface CellsMergedEvent {
 
 interface CellsMergedEventUIParam {
 	/**
-	 * Gets a reference to the row the merged group starts in.
-	 */
-	row?: string;
-
-	/**
-	 * Gets the index of the row the merged group starts in.
-	 */
-	rowIndex?: number;
-
-	/**
-	 * Gets the key of the row the merged group starts in.
-	 */
-	rowKey?: any;
-
-	/**
 	 * Gets reference to igGridCellMerging.
 	 */
 	owner?: any;
 
 	/**
-	 * Gets a reference to the igGrid the igGridCellMerging are initialized for.
+	 * Gets a reference to the row the merged group starts in if available in the DOM.
 	 */
-	grid?: any;
+	row?: string;
 
 	/**
-	 * Gets the cells value which is repeated and caused the merged group to be created.
+	 * Gets the data index of the row the merged group starts in.
 	 */
-	value?: any;
+	rowIndex?: number;
+
+	/**
+	 * Gets the PK of the row the merged group starts in if available.
+	 */
+	rowId?: any;
+
+	/**
+	 * Gets the column key the merge is being executed for.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the first record in the merging chain that the merge is executed for.
+	 */
+	firstRecord?: any;
+
+	/**
+	 * Gets the last record in the merging chain that the merge is executed for.
+	 */
+	record?: any;
 
 	/**
 	 * Gets the total count of cells that were merged.
@@ -39159,14 +39198,41 @@ interface CellsMergedEventUIParam {
 
 interface IgGridCellMerging {
 	/**
-	 * controls the initial state
+	 * Defines the type of merging.
 	 *
 	 *
 	 * Valid values:
-	 * "regular" the grid won't be initialized with cells merged
-	 * "merged" the grid will be initialized with cells merged
+	 * "visual" the grid cells will be merged only visually
+	 * "physical" the grid cell will be merged physically throughout rowspan
 	 */
-	initialState?: string;
+	mergeType?: string;
+
+	/**
+	 * Defines when merging should be applied.
+	 *
+	 *
+	 * Valid values:
+	 * "sorting" Only sorted columns will have merging applied
+	 * "always" Merging will be applied to all columns always
+	 * "never" No merging will be applied
+	 */
+	mergeOn?: string;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 *
+	 * Valid values:
+	 * "duplicate" Duplicate values in the column will be merged together.
+	 * "null" Merging will be applied for each subsequent null value after a non-null value.
+	 */
+	mergeStrategy?: string|Function;
+
+	/**
+	 * A list of column settings that specifies hiding options on a per column basis.
+	 *
+	 */
+	columnSettings?: IgGridCellMergingColumnSetting[];
 
 	/**
 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
@@ -39185,7 +39251,32 @@ interface IgGridCellMerging {
 	[optionName: string]: any;
 }
 interface IgGridCellMergingMethods {
+	/**
+	 * Removes all igGridCellMerging UI changes and destroys the widget
+	 */
 	destroy(): void;
+
+	/**
+	 * Merges the specified column unless it is already merged.
+	 *
+	 * @param column The column index or column key to merge.
+	 * @param raiseEvents Specifies if the operation should raise merging-related events.
+	 */
+	mergeColumn(column: Object, raiseEvents: boolean): string;
+
+	/**
+	 * Restores the column to its unmerged state. Does nothing if the column is not merged.
+	 *
+	 * @param column The column index or column key to unmerge.
+	 */
+	unmergeColumn(column: Object): string;
+
+	/**
+	 * Returns the merge state of a column.
+	 *
+	 * @param column The column index or column key to get the state for.
+	 */
+	isMerged(column: Object): boolean;
 }
 interface JQuery {
 	data(propertyName: "igGridCellMerging"): IgGridCellMergingMethods;
@@ -39193,22 +39284,71 @@ interface JQuery {
 
 interface JQuery {
 	igGridCellMerging(methodName: "destroy"): void;
+	igGridCellMerging(methodName: "mergeColumn", column: Object, raiseEvents: boolean): string;
+	igGridCellMerging(methodName: "unmergeColumn", column: Object): string;
+	igGridCellMerging(methodName: "isMerged", column: Object): boolean;
 
 	/**
-	 * Controls the initial state
+	 * Defines the type of merging.
 	 *
 	 */
 
-	igGridCellMerging(optionLiteral: 'option', optionName: "initialState"): string;
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeType"): string;
 
 	/**
-	 * Controls the initial state
+	 * Defines the type of merging.
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
 
-	igGridCellMerging(optionLiteral: 'option', optionName: "initialState", optionValue: string): void;
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeType", optionValue: string): void;
+
+	/**
+	 * Defines when merging should be applied.
+	 *
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeOn"): string;
+
+	/**
+	 * Defines when merging should be applied.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeOn", optionValue: string): void;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeStrategy"): string|Function;
+
+	/**
+	 * Defines the rules merging is based on.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igGridCellMerging(optionLiteral: 'option', optionName: "mergeStrategy", optionValue: string|Function): void;
+
+	/**
+	 * A list of column settings that specifies hiding options on a per column basis.
+	 *
+	 */
+	igGridCellMerging(optionLiteral: 'option', optionName: "columnSettings"): IgGridCellMergingColumnSetting[];
+
+	/**
+	 * A list of column settings that specifies hiding options on a per column basis.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridCellMerging(optionLiteral: 'option', optionName: "columnSettings", optionValue: IgGridCellMergingColumnSetting[]): void;
 
 	/**
 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
@@ -39241,6 +39381,67 @@ interface JQuery {
 	igGridCellMerging(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igGridCellMerging(methodName: string, ...methodParams: any[]): any;
 }
+interface IgGridColumnFixingLocale {
+	/**
+	 * Specifies the tooltip text on the column fixing header icon when column is not fixed.
+	 *                 ```
+	 * //Initialize
+	 * $(".selector").%%ParentWidgetName%%({
+	 * features: [
+	 * {
+	 * name : "ColumnFixing",
+	 *                             locale: { headerFixButtonText : "Click to fix this column"}
+	 * }
+	 * ]
+	 * });
+	 *
+	 *                 //Get
+	 * var headerFixButtonText = $(".selector").%%WidgetName%%("option", "locale").headerFixButtonText;
+	 *
+	 *                 //Set
+	 *                 $(".selector").%%WidgetName%%("option", "locale", { headerFixButtonText : "Click to fix this column"});
+	 */
+	headerFixButtonText?: string;
+
+	/**
+	 * Specifies the tooltip text on the column fixing header icon when column is not fixed.
+	 *                 ```
+	 *                 //Initialize
+	 *                 $(".selector").%%ParentWidgetName%%({
+	 *                     features: [
+	 *                         {
+	 *                             name : "ColumnFixing",
+	 *                             locale: { headerUnfixButtonText : "Click to unfix this column"}
+	 *                         }
+	 *                     ]
+	 *                 });
+	 *
+	 *                 //Get
+	 *                 var headerUnfixButtonText = $(".selector").%%WidgetName%%("option", "locale").headerUnfixButtonText;
+	 *
+	 *                 //Set
+	 *                 $(".selector").%%WidgetName%%("option", "locale", { headerUnfixButtonText : "Click to unfix this column"});
+	 */
+	headerUnfixButtonText?: string;
+
+	/**
+	 * Text of the feature chooser button for fixing a currently unfixed column.
+	 *
+	 */
+	featureChooserTextFixedColumn?: string;
+
+	/**
+	 * Text of the feature chooser button for unfixing a currently fixed column.
+	 *
+	 */
+	featureChooserTextUnfixedColumn?: string;
+
+	/**
+	 * Option for IgGridColumnFixingLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface IgGridColumnFixingColumnSetting {
 	/**
 	 * Identifies the grid column by key. Either key or index must be set in every column setting.
@@ -39410,16 +39611,29 @@ interface ColumnUnfixingRefusedEventUIParam {
 
 interface IgGridColumnFixing {
 	/**
-	 * Specifies the tooltip text on the column fixing header icon when column is not fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Specifies the tooltip text on the column fixing header icon when column is not fixed. Use option [locale.headerFixButtonText](ui.iggridcolumnfixing#options:locale.headerFixButtonText).
 	 */
 	headerFixButtonText?: string;
 
 	/**
-	 * Specifies the tooltip text on the column fixing header icon when column is fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Specifies the tooltip text on the column fixing header icon when column is fixed. Use option [locale.headerUnfixButtonText](ui.iggridcolumnfixing#options:locale.headerUnfixButtonText).
 	 */
 	headerUnfixButtonText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextFixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextFixedColumn).
+	 */
+	featureChooserTextFixedColumn?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextUnfixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextUnfixedColumn).
+	 */
+	featureChooserTextUnfixedColumn?: string;
+	locale?: IgGridColumnFixingLocale;
 
 	/**
 	 * Specifies whether to show the column fixing buttons in header cells/feature chooser.
@@ -39454,18 +39668,6 @@ interface IgGridColumnFixing {
 	 *
 	 */
 	columnSettings?: IgGridColumnFixingColumnSetting[];
-
-	/**
-	 * Text of the feature chooser button for fixing a currently unfixed column.
-	 *
-	 */
-	featureChooserTextFixedColumn?: string;
-
-	/**
-	 * Text of the feature chooser button for unfixing a currently fixed column.
-	 *
-	 */
-	featureChooserTextUnfixedColumn?: string;
 
 	/**
 	 * Minimal visible area in pixels for the unfixed columns. If the end user tries to fix a column(or columns), which causes the width of the fixed columns to grow such that the width of visible area of unfixed columns is less than this option then fixing will be canceled. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#non-fixable-min-width) out for more information.
@@ -39545,6 +39747,7 @@ interface IgGridColumnFixingMethods {
 	 * @param clearRowsHeights Clears row heigths for all visible rows.
 	 */
 	syncHeights(check?: boolean, clearRowsHeights?: boolean): void;
+	changeLocale(): void;
 
 	/**
 	 * Returns whether the column with the specified key is a column group header, when the [multi-column headers](http://www.igniteui.com/help/iggrid-multicolumnheaders-landingpage) feature is used.
@@ -39631,6 +39834,7 @@ interface JQuery {
 	igGridColumnFixing(methodName: "unfixColumn", colIdentifier: Object, target?: string, after?: boolean): Object;
 	igGridColumnFixing(methodName: "checkAndSyncHeights"): void;
 	igGridColumnFixing(methodName: "syncHeights", check?: boolean, clearRowsHeights?: boolean): void;
+	igGridColumnFixing(methodName: "changeLocale"): void;
 	igGridColumnFixing(methodName: "isGroupHeader", colKey: string): boolean;
 	igGridColumnFixing(methodName: "checkFixingAllowed", columns: any[]): boolean;
 	igGridColumnFixing(methodName: "checkUnfixingAllowed", columns: any[]): boolean;
@@ -39645,32 +39849,62 @@ interface JQuery {
 	igGridColumnFixing(methodName: "destroy"): void;
 
 	/**
-	 * Gets the tooltip text on the column fixing header icon when column is not fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Gets the tooltip text on the column fixing header icon when column is not fixed. Use option [locale.headerFixButtonText](ui.iggridcolumnfixing#options:locale.headerFixButtonText).
 	 */
 	igGridColumnFixing(optionLiteral: 'option', optionName: "headerFixButtonText"): string;
 
 	/**
-	 * Sets the tooltip text on the column fixing header icon when column is not fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Sets the tooltip text on the column fixing header icon when column is not fixed. Use option [locale.headerFixButtonText](ui.iggridcolumnfixing#options:locale.headerFixButtonText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnFixing(optionLiteral: 'option', optionName: "headerFixButtonText", optionValue: string): void;
 
 	/**
-	 * Gets the tooltip text on the column fixing header icon when column is fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Gets the tooltip text on the column fixing header icon when column is fixed. Use option [locale.headerUnfixButtonText](ui.iggridcolumnfixing#options:locale.headerUnfixButtonText).
 	 */
 	igGridColumnFixing(optionLiteral: 'option', optionName: "headerUnfixButtonText"): string;
 
 	/**
-	 * Sets the tooltip text on the column fixing header icon when column is fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Sets the tooltip text on the column fixing header icon when column is fixed. Use option [locale.headerUnfixButtonText](ui.iggridcolumnfixing#options:locale.headerUnfixButtonText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnFixing(optionLiteral: 'option', optionName: "headerUnfixButtonText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextFixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextFixedColumn).
+	 */
+	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextFixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextFixedColumn).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextUnfixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextUnfixedColumn).
+	 */
+	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextUnfixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextUnfixedColumn).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn", optionValue: string): void;
+	igGridColumnFixing(optionLiteral: 'option', optionName: "locale"): IgGridColumnFixingLocale;
+	igGridColumnFixing(optionLiteral: 'option', optionName: "locale", optionValue: IgGridColumnFixingLocale): void;
 
 	/**
 	 * Gets whether to show the column fixing buttons in header cells/feature chooser.
@@ -39743,34 +39977,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnFixing(optionLiteral: 'option', optionName: "columnSettings", optionValue: IgGridColumnFixingColumnSetting[]): void;
-
-	/**
-	 * Text of the feature chooser button for fixing a currently unfixed column.
-	 *
-	 */
-	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn"): string;
-
-	/**
-	 * Text of the feature chooser button for fixing a currently unfixed column.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn", optionValue: string): void;
-
-	/**
-	 * Text of the feature chooser button for unfixing a currently fixed column.
-	 *
-	 */
-	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn"): string;
-
-	/**
-	 * Text of the feature chooser button for unfixing a currently fixed column.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn", optionValue: string): void;
 
 	/**
 	 * Minimal visible area in pixels for the unfixed columns. If the end user tries to fix a column(or columns), which causes the width of the fixed columns to grow such that the width of visible area of unfixed columns is less than this option then fixing will be canceled. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#non-fixable-min-width) out for more information.
@@ -39912,6 +40118,97 @@ interface IgGridColumnMovingColumnSetting {
 
 	/**
 	 * Option for IgGridColumnMovingColumnSetting
+	 */
+	[optionName: string]: any;
+}
+
+interface IgGridColumnMovingLocale {
+	/**
+	 * Specifies the apply button text.
+	 *
+	 */
+	movingDialogButtonApplyText?: string;
+
+	/**
+	 * Specifies the cancel button text.
+	 *
+	 */
+	movingDialogButtonCancelText?: string;
+
+	/**
+	 * Specifies caption for each move down button in the column moving dialog.
+	 *
+	 */
+	movingDialogCaptionButtonDesc?: string;
+
+	/**
+	 * Specifies caption for each move up button in the column moving dialog.
+	 *
+	 */
+	movingDialogCaptionButtonAsc?: string;
+
+	/**
+	 * Specifies caption text for the column moving dialog.
+	 *
+	 */
+	movingDialogCaptionText?: string;
+
+	/**
+	 * Specifies caption text for the feature chooser entry.
+	 *
+	 */
+	movingDialogDisplayText?: string;
+
+	/**
+	 * Specifies text for drop tooltip in column moving dialog.
+	 *
+	 */
+	movingDialogDropTooltipText?: string;
+
+	/**
+	 * Specifies title for close dialog button.
+	 *
+	 */
+	movingDialogCloseButtonTitle?: string;
+
+	/**
+	 * Specifies caption for the move left dropdown button.
+	 *
+	 */
+	dropDownMoveLeftText?: string;
+
+	/**
+	 * Specifies caption for the move right dropdown button.
+	 *
+	 */
+	dropDownMoveRightText?: string;
+
+	/**
+	 * Specifies caption for the move first dropdown button.
+	 *
+	 */
+	dropDownMoveFirstText?: string;
+
+	/**
+	 * Specifies caption for the move last dropdown button.
+	 *
+	 */
+	dropDownMoveLastText?: string;
+
+	/**
+	 * Specifies tooltip text for the move indicator.
+	 *
+	 */
+	movingToolTipMove?: string;
+
+	/**
+	 * Specifies caption text for the feature chooser submenu button.
+	 *
+	 */
+	featureChooserSubmenuText?: string;
+
+	/**
+	 * Option for IgGridColumnMovingLocale
 	 */
 	[optionName: string]: any;
 }
@@ -40273,76 +40570,77 @@ interface IgGridColumnMoving {
 	dragHelperOpacity?: number;
 
 	/**
-	 * Specifies caption for each move down button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for each move down button in the column moving dialog. Use option [locale.movingDialogCaptionButtonDesc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonDesc).
 	 */
 	movingDialogCaptionButtonDesc?: string;
 
 	/**
-	 * Specifies caption for each move up button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for each move up button in the column moving dialog. Use option [locale.movingDialogCaptionButtonAsc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonAsc).
 	 */
 	movingDialogCaptionButtonAsc?: string;
 
 	/**
-	 * Specifies caption text for the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the column moving dialog. Use option [locale.movingDialogCaptionText](ui.iggridcolumnmoving#options:locale.movingDialogCaptionText).
 	 */
 	movingDialogCaptionText?: string;
 
 	/**
-	 * Specifies caption text for the feature chooser entry
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the feature chooser entry. Use option [locale.movingDialogDisplayText](ui.iggridcolumnmoving#options:locale.movingDialogDisplayText).
 	 */
 	movingDialogDisplayText?: string;
 
 	/**
-	 * Specifies text for drop tooltip in column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text for drop tooltip in column moving dialog. Use option [locale.movingDialogDropTooltipText](ui.iggridcolumnmoving#options:locale.movingDialogDropTooltipText).
 	 */
 	movingDialogDropTooltipText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move left dropdown button. Use option [locale.dropDownMoveLeftText](ui.iggridcolumnmoving#options:locale.dropDownMoveLeftText).
+	 */
+	dropDownMoveLeftText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move right dropdown button. Use option [locale.dropDownMoveRightText](ui.iggridcolumnmoving#options:locale.dropDownMoveRightText).
+	 */
+	dropDownMoveRightText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move last dropdown button. Use option [locale.dropDownMoveFirstText](ui.iggridcolumnmoving#options:locale.dropDownMoveFirstText).
+	 */
+	dropDownMoveFirstText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move last dropdown button. Use option [locale.dropDownMoveLastText](ui.iggridcolumnmoving#options:locale.dropDownMoveLastText).
+	 */
+	dropDownMoveLastText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the feature chooser submenu button. Use option [locale.movingToolTipMove](ui.iggridcolumnmoving#options:locale.movingToolTipMove).
+	 */
+	movingToolTipMove?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the feature chooser submenu button. Use option [locale.featureChooserSubmenuText](ui.iggridcolumnmoving#options:locale.featureChooserSubmenuText).
+	 */
+	featureChooserSubmenuText?: string;
+	locale?: IgGridColumnMovingLocale;
 
 	/**
 	 * Specifies markup for drop tooltip in column moving dialog
 	 *
 	 */
 	movingDialogDropTooltipMarkup?: string;
-
-	/**
-	 * Specifies caption for the move left dropdown button
-	 *
-	 */
-	dropDownMoveLeftText?: string;
-
-	/**
-	 * Specifies caption for the move right dropdown button
-	 *
-	 */
-	dropDownMoveRightText?: string;
-
-	/**
-	 * Specifies caption for the move first dropdown button
-	 *
-	 */
-	dropDownMoveFirstText?: string;
-
-	/**
-	 * Specifies caption for the move last dropdown button
-	 *
-	 */
-	dropDownMoveLastText?: string;
-
-	/**
-	 * Specifies tooltip text for the move indicator
-	 *
-	 */
-	movingToolTipMove?: string;
-
-	/**
-	 * Specifies caption text for the feature chooser submenu button
-	 *
-	 */
-	featureChooserSubmenuText?: string;
 
 	/**
 	 * Controls containment behavior of column moving dialog.
@@ -40449,6 +40747,8 @@ interface IgGridColumnMoving {
 	[optionName: string]: any;
 }
 interface IgGridColumnMovingMethods {
+	changeLocale(): void;
+
 	/**
 	 * Restoring overwritten functions
 	 */
@@ -40471,6 +40771,7 @@ interface JQuery {
 }
 
 interface JQuery {
+	igGridColumnMoving(methodName: "changeLocale"): void;
 	igGridColumnMoving(methodName: "destroy"): void;
 	igGridColumnMoving(methodName: "moveColumn", column: Object, target: Object, after?: boolean, inDom?: boolean, callback?: Function): void;
 
@@ -40667,74 +40968,160 @@ interface JQuery {
 	igGridColumnMoving(optionLiteral: 'option', optionName: "dragHelperOpacity", optionValue: number): void;
 
 	/**
-	 * Gets caption for each move down button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for each move down button in the column moving dialog. Use option [locale.movingDialogCaptionButtonDesc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonDesc).
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonDesc"): string;
 
 	/**
-	 * Sets caption for each move down button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for each move down button in the column moving dialog. Use option [locale.movingDialogCaptionButtonDesc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonDesc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonDesc", optionValue: string): void;
 
 	/**
-	 * Gets caption for each move up button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for each move up button in the column moving dialog. Use option [locale.movingDialogCaptionButtonAsc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonAsc).
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonAsc"): string;
 
 	/**
-	 * Sets caption for each move up button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for each move up button in the column moving dialog. Use option [locale.movingDialogCaptionButtonAsc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonAsc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonAsc", optionValue: string): void;
 
 	/**
-	 * Gets caption text for the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the column moving dialog. Use option [locale.movingDialogCaptionText](ui.iggridcolumnmoving#options:locale.movingDialogCaptionText).
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionText"): string;
 
 	/**
-	 * Sets caption text for the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the column moving dialog. Use option [locale.movingDialogCaptionText](ui.iggridcolumnmoving#options:locale.movingDialogCaptionText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionText", optionValue: string): void;
 
 	/**
-	 * Gets caption text for the feature chooser entry
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the feature chooser entry. Use option [locale.movingDialogDisplayText](ui.iggridcolumnmoving#options:locale.movingDialogDisplayText).
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDisplayText"): string;
 
 	/**
-	 * Sets caption text for the feature chooser entry
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the feature chooser entry. Use option [locale.movingDialogDisplayText](ui.iggridcolumnmoving#options:locale.movingDialogDisplayText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDisplayText", optionValue: string): void;
 
 	/**
-	 * Gets text for drop tooltip in column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text for drop tooltip in column moving dialog. Use option [locale.movingDialogDropTooltipText](ui.iggridcolumnmoving#options:locale.movingDialogDropTooltipText).
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDropTooltipText"): string;
 
 	/**
-	 * Sets text for drop tooltip in column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text for drop tooltip in column moving dialog. Use option [locale.movingDialogDropTooltipText](ui.iggridcolumnmoving#options:locale.movingDialogDropTooltipText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDropTooltipText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move left dropdown button. Use option [locale.dropDownMoveLeftText](ui.iggridcolumnmoving#options:locale.dropDownMoveLeftText).
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move left dropdown button. Use option [locale.dropDownMoveLeftText](ui.iggridcolumnmoving#options:locale.dropDownMoveLeftText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move right dropdown button. Use option [locale.dropDownMoveRightText](ui.iggridcolumnmoving#options:locale.dropDownMoveRightText).
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move right dropdown button. Use option [locale.dropDownMoveRightText](ui.iggridcolumnmoving#options:locale.dropDownMoveRightText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move last dropdown button. Use option [locale.dropDownMoveFirstText](ui.iggridcolumnmoving#options:locale.dropDownMoveFirstText).
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move last dropdown button. Use option [locale.dropDownMoveFirstText](ui.iggridcolumnmoving#options:locale.dropDownMoveFirstText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move last dropdown button. Use option [locale.dropDownMoveLastText](ui.iggridcolumnmoving#options:locale.dropDownMoveLastText).
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move last dropdown button. Use option [locale.dropDownMoveLastText](ui.iggridcolumnmoving#options:locale.dropDownMoveLastText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the feature chooser submenu button. Use option [locale.movingToolTipMove](ui.iggridcolumnmoving#options:locale.movingToolTipMove).
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the feature chooser submenu button. Use option [locale.movingToolTipMove](ui.iggridcolumnmoving#options:locale.movingToolTipMove).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the feature chooser submenu button. Use option [locale.featureChooserSubmenuText](ui.iggridcolumnmoving#options:locale.featureChooserSubmenuText).
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the feature chooser submenu button. Use option [locale.featureChooserSubmenuText](ui.iggridcolumnmoving#options:locale.featureChooserSubmenuText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText", optionValue: string): void;
+	igGridColumnMoving(optionLiteral: 'option', optionName: "locale"): IgGridColumnMovingLocale;
+	igGridColumnMoving(optionLiteral: 'option', optionName: "locale", optionValue: IgGridColumnMovingLocale): void;
 
 	/**
 	 * Gets markup for drop tooltip in column moving dialog
@@ -40749,90 +41136,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDropTooltipMarkup", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move left dropdown button
-	 *
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText"): string;
-
-	/**
-	 * Sets caption for the move left dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move right dropdown button
-	 *
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText"): string;
-
-	/**
-	 * Sets caption for the move right dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move first dropdown button
-	 *
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText"): string;
-
-	/**
-	 * Sets caption for the move first dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move last dropdown button
-	 *
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText"): string;
-
-	/**
-	 * Sets caption for the move last dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText", optionValue: string): void;
-
-	/**
-	 * Gets tooltip text for the move indicator
-	 *
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove"): string;
-
-	/**
-	 * Sets tooltip text for the move indicator
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove", optionValue: string): void;
-
-	/**
-	 * Gets caption text for the feature chooser submenu button
-	 *
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText"): string;
-
-	/**
-	 * Sets caption text for the feature chooser submenu button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText", optionValue: string): void;
 
 	/**
 	 * Controls containment behavior of column moving dialog.
@@ -41459,6 +41762,7 @@ interface IgGridFeatureChooser {
 }
 interface IgGridFeatureChooserMethods {
 	shouldShowFeatureIcon(key: Object): void;
+	changeLocale(): void;
 
 	/**
 	 * Show feature chooser dialog by the specified column key
@@ -41788,6 +42092,7 @@ interface JQuery {
 }
 interface JQuery {
 	igGridFeatureChooser(methodName: "shouldShowFeatureIcon", key: Object): void;
+	igGridFeatureChooser(methodName: "changeLocale"): void;
 	igGridFeatureChooser(methodName: "showDropDown", columnKey: string): void;
 	igGridFeatureChooser(methodName: "hideDropDown", columnKey: string): void;
 	igGridFeatureChooser(methodName: "getDropDownByColumnKey", columnKey: string): void;
@@ -41908,300 +42213,389 @@ interface IgGridFilteringColumnSetting {
 	[optionName: string]: any;
 }
 
-interface IgGridFilteringNullTexts {
-	startsWith?: string;
-	endsWith?: string;
-	contains?: string;
-	doesNotContain?: string;
-	equals?: string;
-	doesNotEqual?: string;
-	greaterThan?: string;
-	lessThan?: string;
-	greaterThanOrEqualTo?: string;
-	lessThanOrEqualTo?: string;
-	on?: string;
-	notOn?: string;
-	after?: string;
-	before?: string;
-	thisMonth?: string;
-	lastMonth?: string;
-	nextMonth?: string;
-	thisYear?: string;
-	lastYear?: string;
-	nextYear?: string;
-	empty?: string;
-	notEmpty?: string;
-	null?: string;
-	notNull?: string;
+interface IgGridFilteringLocale {
+	/**
+	 * StartsWith null text that will be used for the filter editors.
+	 *
+	 */
+	startsWithNullText?: string;
 
 	/**
-	 * Option for IgGridFilteringNullTexts
+	 * EndsWith null text that will be used for the filter editors.
+	 *
 	 */
-	[optionName: string]: any;
-}
+	endsWithNullText?: string;
 
-interface IgGridFilteringLabels {
-	noFilter?: string;
-	clear?: string;
-	startsWith?: string;
-	endsWith?: string;
-	contains?: string;
-	doesNotContain?: string;
-	equals?: string;
-	doesNotEqual?: string;
-	greaterThan?: string;
-	lessThan?: string;
-	greaterThanOrEqualTo?: string;
-	lessThanOrEqualTo?: string;
+	/**
+	 * Contains null text that will be used for the filter editors.
+	 *
+	 */
+	containsNullText?: string;
+
+	/**
+	 * Does not contain null text that will be used for the filter editors.
+	 *
+	 */
+	doesNotContainNullText?: string;
+
+	/**
+	 * Equals null text that will be used for the filter editors.
+	 *
+	 */
+	equalsNullText?: string;
+
+	/**
+	 * Does not equal null text that will be used for the filter editors.
+	 *
+	 */
+	doesNotEqualNullText?: string;
+
+	/**
+	 * Greater than null text that will be used for the filter editors.
+	 *
+	 */
+	greaterThanNullText?: string;
+
+	/**
+	 * Less than null text that will be used for the filter editors.
+	 *
+	 */
+	lessThanNullText?: string;
+
+	/**
+	 * Greater than or equal to null text that will be used for the filter editors.
+	 *
+	 */
+	greaterThanOrEqualToNullText?: string;
+
+	/**
+	 * Less than or equal to null text that will be used for the filter editors.
+	 *
+	 */
+	lessThanOrEqualToNullText?: string;
+
+	/**
+	 * On null text that will be used for the filter editors.
+	 *
+	 */
+	onNullText?: string;
+
+	/**
+	 * Not on null text that will be used for the filter editors.
+	 *
+	 */
+	notOnNullText?: string;
+
+	/**
+	 * After null text that will be used for the filter editors.
+	 *
+	 */
+	afterNullText?: string;
+
+	/**
+	 * Before null text that will be used for the filter editors.
+	 *
+	 */
+	beforeNullText?: string;
+
+	/**
+	 * Empty null text that will be used for the filter editors.
+	 *
+	 */
+	emptyNullText?: string;
+
+	/**
+	 * Not empty null text that will be used for the filter editors.
+	 *
+	 */
+	notEmptyNullText?: string;
+
+	/**
+	 * Not empty null text that will be used for the filter editors.
+	 *
+	 */
+	nullNullText?: string;
+
+	/**
+	 * Not empty null text that will be used for the filter editors.
+	 *
+	 */
+	notNullNullText?: string;
+
+	/**
+	 * 'Starts with' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	startsWithLabel?: string;
+
+	/**
+	 * 'Starts with' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	endsWithLabel?: string;
+
+	/**
+	 * 'Contains' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	containsLabel?: string;
+
+	/**
+	 * 'Does not contain' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	doesNotContainLabel?: string;
+
+	/**
+	 * 'Equals' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	equalsLabel?: string;
+
+	/**
+	 * 'Does not Equal' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	doesNotEqualLabel?: string;
+
+	/**
+	 * 'Greater Than' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	greaterThanLabel?: string;
+
+	/**
+	 * 'Less Than' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	lessThanLabel?: string;
+
+	/**
+	 * 'Greater Than or Equal' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	greaterThanOrEqualToLabel?: string;
+
+	/**
+	 * 'Less Than or Equal' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	lessThanOrEqualToLabel?: string;
+
+	/**
+	 * 'True' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
 	trueLabel?: string;
-	falseLabel?: string;
-	after?: string;
-	before?: string;
-	today?: string;
-	yesterday?: string;
-	thisMonth?: string;
-	lastMonth?: string;
-	nextMonth?: string;
-	thisYear?: string;
-	lastYear?: string;
-	nextYear?: string;
-	on?: string;
-	notOn?: string;
-	advancedButtonLabel?: string;
-	filterDialogCaptionLabel?: string;
-	filterDialogConditionLabel1?: string;
-	filterDialogConditionLabel2?: string;
-	filterDialogOkLabel?: string;
-	filterDialogCancelLabel?: string;
-	filterDialogAnyLabel?: string;
-	filterDialogAllLabel?: string;
-	filterDialogAddLabel?: string;
-	filterDialogErrorLabel?: string;
-	filterSummaryTitleLabel?: string;
-	filterDialogClearAllLabel?: string;
-	empty?: string;
-	notEmpty?: string;
-	nullLabel?: string;
-	notNull?: string;
-	true?: string;
-	false?: string;
 
 	/**
-	 * Option for IgGridFilteringLabels
+	 * 'False' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	falseLabel?: string;
+
+	/**
+	 * 'After' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	afterLabel?: string;
+
+	/**
+	 * 'Before' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	beforeLabel?: string;
+
+	/**
+	 * 'Today' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	todayLabel?: string;
+
+	/**
+	 * 'Yesterday' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	yesterdayLabel?: string;
+
+	/**
+	 * 'This Month' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	thisMonthLabel?: string;
+
+	/**
+	 * 'Last Month' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	lastMonthLabel?: string;
+
+	/**
+	 * 'Next Month' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	nextMonthLabel?: string;
+
+	/**
+	 * 'This Year' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	thisYearLabel?: string;
+
+	/**
+	 * 'Last Year' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	lastYearLabel?: string;
+
+	/**
+	 * 'Next Year' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	nextYearLabel?: string;
+
+	/**
+	 * 'Clear' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	clearLabel?: string;
+
+	/**
+	 * 'No Filter' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	noFilterLabel?: string;
+
+	/**
+	 * 'On' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	onLabel?: string;
+
+	/**
+	 * 'Not On' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	notOnLabel?: string;
+
+	/**
+	 * 'Advance Button' label that is used for the predefined filtering conditions in the filter dropdowns.
+	 *
+	 */
+	advancedButtonLabel?: string;
+
+	/**
+	 * Specifies the filter dialog caption label.
+	 *
+	 */
+	filterDialogCaptionLabel?: string;
+
+	/**
+	 * Specifies the filter condition label.
+	 *
+	 */
+	filterDialogConditionLabel1?: string;
+
+	/**
+	 * Specifies the filter condition label.
+	 *
+	 */
+	filterDialogConditionLabel2?: string;
+
+	/**
+	 * Specifies the filter condition drop-down label.
+	 *
+	 */
+	filterDialogConditionDropDownLabel?: string;
+
+	/**
+	 * Specifies the dialog's Ok button label.
+	 *
+	 */
+	filterDialogOkLabel?: string;
+
+	/**
+	 * Specifies the dialog's Cancel button label.
+	 *
+	 */
+	filterDialogCancelLabel?: string;
+
+	/**
+	 * Specifies the Any label for the filtering dialog.
+	 *
+	 */
+	filterDialogAnyLabel?: string;
+
+	/**
+	 * Specifies the All label for the filtering dialog.
+	 *
+	 */
+	filterDialogAllLabel?: string;
+
+	/**
+	 * Specifies the Add button label for the filtering dialog.
+	 *
+	 */
+	filterDialogAddLabel?: string;
+
+	/**
+	 * Specifies the Error label for the filtering dialog.
+	 *
+	 */
+	filterDialogErrorLabel?: string;
+
+	/**
+	 * Specifies the Close label for the filtering dialog.
+	 *
+	 */
+	filterDialogCloseLabel?: string;
+
+	/**
+	 * Specifies the Filtering summary title.
+	 *
+	 */
+	filterSummaryTitleLabel?: string;
+
+	/**
+	 * Specifies the summary template for the matching records.
+	 *
+	 */
+	filterSummaryTemplate?: string;
+
+	/**
+	 * Specifies clear all label in the filter dialog.
+	 *
+	 */
+	filterDialogClearAllLabel?: string;
+
+	/**
+	 * Custom tooltip template for the filter button, when a filter is applied.
+	 *
+	 */
+	tooltipTemplate?: string;
+
+	/**
+	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple.
+	 *
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple.
+	 *
+	 */
+	featureChooserTextHide?: string;
+
+	/**
+	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced.
+	 *
+	 */
+	featureChooserTextAdvancedFilter?: string;
+
+	/**
+	 * Option for IgGridFilteringLocale
 	 */
 	[optionName: string]: any;
-}
-
-interface DataFilteringEvent {
-	(event: Event, ui: DataFilteringEventUIParam): void;
-}
-
-interface DataFilteringEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets the column index. Applicable only when filtering mode is "simple".
-	 */
-	columnIndex?: number;
-
-	/**
-	 * Gets the column key. Applicable only when filtering mode is "simple".
-	 */
-	columnKey?: string;
-
-	/**
-	 * Gets the filtering expressions. Filtering expressions could be changed in this event handler and after that data binding is applied. In this way the user could control filtering more easily before applying data-binding.
-	 */
-	newExpressions?: any[];
-}
-
-interface DataFilteredEvent {
-	(event: Event, ui: DataFilteredEventUIParam): void;
-}
-
-interface DataFilteredEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets the column index. Applicable only when filtering mode is "simple".
-	 */
-	columnIndex?: number;
-
-	/**
-	 * Gets the column key. Applicable only when filtering mode is "simple".
-	 */
-	columnKey?: string;
-
-	/**
-	 * Gets the filtered expressions.
-	 */
-	expressions?: any[];
-}
-
-interface FilterDialogOpeningEvent {
-	(event: Event, ui: FilterDialogOpeningEventUIParam): void;
-}
-
-interface FilterDialogOpeningEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to the filtering dialog DOM element.
-	 */
-	dialog?: string;
-}
-
-interface FilterDialogOpenedEvent {
-	(event: Event, ui: FilterDialogOpenedEventUIParam): void;
-}
-
-interface FilterDialogOpenedEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to the filtering dialog DOM element.
-	 */
-	dialog?: string;
-}
-
-interface FilterDialogMovingEvent {
-	(event: Event, ui: FilterDialogMovingEventUIParam): void;
-}
-
-interface FilterDialogMovingEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to filtering dialog DOM element.
-	 */
-	dialog?: string;
-
-	/**
-	 * Gets the original position of the groupby dialog div as { top, left } object, relative to the page.
-	 */
-	originalPosition?: any;
-
-	/**
-	 * Gets the current position of the groupby dialog div as { top, left } object, relative to the page.
-	 */
-	position?: any;
-}
-
-interface FilterDialogFilterAddingEvent {
-	(event: Event, ui: FilterDialogFilterAddingEventUIParam): void;
-}
-
-interface FilterDialogFilterAddingEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to filters table body DOM element.
-	 */
-	filtersTableBody?: string;
-}
-
-interface FilterDialogFilterAddedEvent {
-	(event: Event, ui: FilterDialogFilterAddedEventUIParam): void;
-}
-
-interface FilterDialogFilterAddedEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to the filters table row DOM element.
-	 */
-	filter?: string;
-}
-
-interface FilterDialogClosingEvent {
-	(event: Event, ui: FilterDialogClosingEventUIParam): void;
-}
-
-interface FilterDialogClosingEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-}
-
-interface FilterDialogClosedEvent {
-	(event: Event, ui: FilterDialogClosedEventUIParam): void;
-}
-
-interface FilterDialogClosedEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-}
-
-interface FilterDialogContentsRenderingEvent {
-	(event: Event, ui: FilterDialogContentsRenderingEventUIParam): void;
-}
-
-interface FilterDialogContentsRenderingEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to the filtering dialog DOM element.
-	 */
-	dialogElement?: string;
-}
-
-interface FilterDialogContentsRenderedEvent {
-	(event: Event, ui: FilterDialogContentsRenderedEventUIParam): void;
-}
-
-interface FilterDialogContentsRenderedEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to the filtering dialog DOM element.
-	 */
-	dialogElement?: string;
-}
-
-interface FilterDialogFilteringEvent {
-	(event: Event, ui: FilterDialogFilteringEventUIParam): void;
-}
-
-interface FilterDialogFilteringEventUIParam {
-	/**
-	 * Gets reference to GridFiltering.
-	 */
-	owner?: any;
-
-	/**
-	 * Gets reference to filtering dialog DOM element.
-	 */
-	dialog?: string;
 }
 
 interface IgGridFiltering {
@@ -42226,8 +42620,8 @@ interface IgGridFiltering {
 	renderFC?: boolean;
 
 	/**
-	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'. Use option [locale.filterSummaryTemplate](ui.iggridfiltering#options:locale.filterSummaryTemplate).
 	 */
 	filterSummaryTemplate?: string;
 
@@ -42396,22 +42790,41 @@ interface IgGridFiltering {
 	filterButtonLocation?: string;
 
 	/**
-	 * List of configurable and localized null texts that will be used for the filter editors.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * List of configurable and localized null texts that will be used for the filter editors. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	nullTexts?: IgGridFilteringNullTexts;
+	nullTexts?: string;
 
 	/**
-	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	labels?: IgGridFilteringLabels;
+	labels?: string;
 
 	/**
-	 * Custom tooltip template for the filter button, when a filter is applied.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom tooltip template for the filter button, when a filter is applied. Use option [locale.tooltipTemplate](ui.iggridfiltering#options:locale.tooltipTemplate).
 	 */
 	tooltipTemplate?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserText](ui.iggridfiltering#options:locale.featureChooserText).
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserTextHide](ui.iggridfiltering#options:locale.featureChooserTextHide).
+	 */
+	featureChooserTextHide?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced. Use option [locale.featureChooserTextAdvancedFilter](ui.iggridfiltering#options:locale.featureChooserTextAdvancedFilter).
+	 */
+	featureChooserTextAdvancedFilter?: string;
+	locale?: IgGridFilteringLocale;
 
 	/**
 	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
@@ -42488,24 +42901,6 @@ interface IgGridFiltering {
 	showNullConditions?: boolean;
 
 	/**
-	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	featureChooserText?: string;
-
-	/**
-	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	featureChooserTextHide?: string;
-
-	/**
-	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced.
-	 *
-	 */
-	featureChooserTextAdvancedFilter?: string;
-
-	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
 	 *
 	 */
@@ -42524,142 +42919,12 @@ interface IgGridFiltering {
 	inherit?: boolean;
 
 	/**
-	 * Event fired before a filtering operation is executed (remote request or local).
-	 * Return false in order to cancel filtering operation.
-	 */
-	dataFiltering?: DataFilteringEvent;
-
-	/**
-	 * Event fired after the filtering has been executed and results are rendered.
-	 */
-	dataFiltered?: DataFilteredEvent;
-
-	/**
-	 * Event fired before the filter dropdown is opened for a specific column.
-	 * Return false in order to cancel dropdown opening.
-	 */
-	dropDownOpening?: DropDownOpeningEvent;
-
-	/**
-	 * Event fired after the filter dropdown is opened for a specific column.
-	 */
-	dropDownOpened?: DropDownOpenedEvent;
-
-	/**
-	 * Event fired before the filter dropdown starts closing.
-	 * Return false in order to cancel dropdown closing.
-	 */
-	dropDownClosing?: DropDownClosingEvent;
-
-	/**
-	 * Event fired after a filter column dropdown is completely closed.
-	 */
-	dropDownClosed?: DropDownClosedEvent;
-
-	/**
-	 * Event fired before the advanced filtering dialog is opened.
-	 * Return false in order to cancel filter dialog opening.
-	 */
-	filterDialogOpening?: FilterDialogOpeningEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog is already opened.
-	 */
-	filterDialogOpened?: FilterDialogOpenedEvent;
-
-	/**
-	 * Event fired every time the advanced filter dialog changes its position.
-	 */
-	filterDialogMoving?: FilterDialogMovingEvent;
-
-	/**
-	 * Event fired before a filter row is added to the advanced filter dialog.
-	 * Return false in order to cancel filter adding to the advanced filtering dialog.
-	 */
-	filterDialogFilterAdding?: FilterDialogFilterAddingEvent;
-
-	/**
-	 * Event fired after a filter row is added to the advanced filter dialog.
-	 */
-	filterDialogFilterAdded?: FilterDialogFilterAddedEvent;
-
-	/**
-	 * Event fired before the advanced filter dialog is closed.
-	 * Return false in order to cancel filtering dialog closing.
-	 */
-	filterDialogClosing?: FilterDialogClosingEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog has been closed.
-	 */
-	filterDialogClosed?: FilterDialogClosedEvent;
-
-	/**
-	 * Event fired before the contents of the advanced filter dialog are rendered.
-	 * Return false in order to cancel filtering dialog rendering.
-	 */
-	filterDialogContentsRendering?: FilterDialogContentsRenderingEvent;
-
-	/**
-	 * Event fired after the contents of the advanced filter dialog are rendered.
-	 */
-	filterDialogContentsRendered?: FilterDialogContentsRenderedEvent;
-
-	/**
-	 * Event fired when the OK button in the advanced filter dialog is pressed.
-	 */
-	filterDialogFiltering?: FilterDialogFilteringEvent;
-
-	/**
 	 * Option for igGridFiltering
 	 */
 	[optionName: string]: any;
 }
-interface IgGridFilteringMethods {
-	/**
-	 * Destroys the filtering widget - remove fitler row, unbinds events, returns the grid to its previous state.
-	 */
-	destroy(): void;
-
-	/**
-	 * Returns the count of data records that match filtering conditions
-	 */
-	getFilteringMatchesCount(): number;
-
-	/**
-	 * Toggle filter row when mode is simple or [advancedModeEditorsVisible](ui.iggridfiltering#options:advancedModeEditorsVisible) is true. Otherwise show/hide advanced dialog.
-	 *
-	 * @param event Column key
-	 */
-	toggleFilterRowByFeatureChooser(event: string): void;
-
-	/**
-	 * Applies filtering programmatically and updates the UI by default.
-	 *
-	 * @param expressions An array of filtering expressions, each one having the format {fieldName: , expr: , cond: , logic: } where  fieldName is the key of the column, expr is the actual expression string with which we would like to filter, logic is 'AND' or 'OR', and cond is one of the following strings: "equals", "doesNotEqual", "contains", "doesNotContain", "greaterThan", "lessThan", "greaterThanOrEqualTo", "lessThanOrEqualTo", "true", "false", "null", "notNull", "empty", "notEmpty", "startsWith", "endsWith", "today", "yesterday", "on", "notOn", "thisMonth", "lastMonth", "nextMonth", "before", "after", "thisYear", "lastYear", "nextYear". The difference between the empty and null filtering conditions is that empty includes null, NaN, and undefined, as well as the empty string.
-	 * @param updateUI specifies whether the filter row should be also updated once the grid is filtered
-	 * @param addedFromAdvanced
-	 */
-	filter(expressions: any[], updateUI?: boolean, addedFromAdvanced?: boolean): void;
-
-	/**
-	 * Check whether filterCondition requires or not filtering expression - e.g. if filterCondition is "lastMonth", "thisMonth", "null", "notNull", "true", "false", etc. then filtering expression is NOT required
-	 *
-	 * @param filterCondition filtering condition - e.g. "true", "false",  "yesterday", "empty", "null", etc.
-	 */
-	requiresFilteringExpression(filterCondition: string): boolean;
-}
-interface JQuery {
-	data(propertyName: "igGridFiltering"): IgGridFilteringMethods;
-}
 
 interface JQuery {
-	igGridFiltering(methodName: "destroy"): void;
-	igGridFiltering(methodName: "getFilteringMatchesCount"): number;
-	igGridFiltering(methodName: "toggleFilterRowByFeatureChooser", event: string): void;
-	igGridFiltering(methodName: "filter", expressions: any[], updateUI?: boolean, addedFromAdvanced?: boolean): void;
-	igGridFiltering(methodName: "requiresFilteringExpression", filterCondition: string): boolean;
-
 	/**
 	 * Enables or disables the filtering case sensitivity. Works only for local filtering. If true, it case sensitive filtering is performed. If false, filtering is case insensitive.
 	 *
@@ -42707,14 +42972,14 @@ interface JQuery {
 	igGridFiltering(optionLiteral: 'option', optionName: "renderFC", optionValue: boolean): void;
 
 	/**
-	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'. Use option [locale.filterSummaryTemplate](ui.iggridfiltering#options:locale.filterSummaryTemplate).
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "filterSummaryTemplate"): string;
 
 	/**
-	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'. Use option [locale.filterSummaryTemplate](ui.iggridfiltering#options:locale.filterSummaryTemplate).
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -43015,46 +43280,90 @@ interface JQuery {
 	igGridFiltering(optionLiteral: 'option', optionName: "filterButtonLocation", optionValue: string): void;
 
 	/**
-	 * List of configurable and localized null texts that will be used for the filter editors.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * List of configurable and localized null texts that will be used for the filter editors. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "nullTexts"): IgGridFilteringNullTexts;
+	igGridFiltering(optionLiteral: 'option', optionName: "nullTexts"): string;
 
 	/**
-	 * List of configurable and localized null texts that will be used for the filter editors.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * List of configurable and localized null texts that will be used for the filter editors. Use option [locale](ui.iggridfiltering#options:locale).
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "nullTexts", optionValue: IgGridFilteringNullTexts): void;
+	igGridFiltering(optionLiteral: 'option', optionName: "nullTexts", optionValue: string): void;
 
 	/**
-	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "labels"): IgGridFilteringLabels;
+	igGridFiltering(optionLiteral: 'option', optionName: "labels"): string;
 
 	/**
-	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns. Use option [locale](ui.iggridfiltering#options:locale).
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "labels", optionValue: IgGridFilteringLabels): void;
+	igGridFiltering(optionLiteral: 'option', optionName: "labels", optionValue: string): void;
 
 	/**
-	 * Custom tooltip template for the filter button, when a filter is applied.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom tooltip template for the filter button, when a filter is applied. Use option [locale.tooltipTemplate](ui.iggridfiltering#options:locale.tooltipTemplate).
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "tooltipTemplate"): string;
 
 	/**
-	 * Custom tooltip template for the filter button, when a filter is applied.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom tooltip template for the filter button, when a filter is applied. Use option [locale.tooltipTemplate](ui.iggridfiltering#options:locale.tooltipTemplate).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "tooltipTemplate", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserText](ui.iggridfiltering#options:locale.featureChooserText).
+	 */
+	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserText](ui.iggridfiltering#options:locale.featureChooserText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserTextHide](ui.iggridfiltering#options:locale.featureChooserTextHide).
+	 */
+	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserTextHide](ui.iggridfiltering#options:locale.featureChooserTextHide).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced. Use option [locale.featureChooserTextAdvancedFilter](ui.iggridfiltering#options:locale.featureChooserTextAdvancedFilter).
+	 */
+	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced. Use option [locale.featureChooserTextAdvancedFilter](ui.iggridfiltering#options:locale.featureChooserTextAdvancedFilter).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter", optionValue: string): void;
+	igGridFiltering(optionLiteral: 'option', optionName: "locale"): IgGridFilteringLocale;
+	igGridFiltering(optionLiteral: 'option', optionName: "locale", optionValue: IgGridFilteringLocale): void;
 
 	/**
 	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
@@ -43213,48 +43522,6 @@ interface JQuery {
 	igGridFiltering(optionLiteral: 'option', optionName: "showNullConditions", optionValue: boolean): void;
 
 	/**
-	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserText"): string;
-
-	/**
-	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
-
-	/**
-	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide"): string;
-
-	/**
-	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide", optionValue: string): void;
-
-	/**
-	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced.
-	 *
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter"): string;
-
-	/**
-	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter", optionValue: string): void;
-
-	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
 	 *
 	 */
@@ -43295,212 +43562,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridFiltering(optionLiteral: 'option', optionName: "inherit", optionValue: boolean): void;
-
-	/**
-	 * Event fired before a filtering operation is executed (remote request or local).
-	 * Return false in order to cancel filtering operation.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dataFiltering"): DataFilteringEvent;
-
-	/**
-	 * Event fired before a filtering operation is executed (remote request or local).
-	 * Return false in order to cancel filtering operation.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dataFiltering", optionValue: DataFilteringEvent): void;
-
-	/**
-	 * Event fired after the filtering has been executed and results are rendered.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dataFiltered"): DataFilteredEvent;
-
-	/**
-	 * Event fired after the filtering has been executed and results are rendered.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dataFiltered", optionValue: DataFilteredEvent): void;
-
-	/**
-	 * Event fired before the filter dropdown is opened for a specific column.
-	 * Return false in order to cancel dropdown opening.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownOpening"): DropDownOpeningEvent;
-
-	/**
-	 * Event fired before the filter dropdown is opened for a specific column.
-	 * Return false in order to cancel dropdown opening.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownOpening", optionValue: DropDownOpeningEvent): void;
-
-	/**
-	 * Event fired after the filter dropdown is opened for a specific column.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownOpened"): DropDownOpenedEvent;
-
-	/**
-	 * Event fired after the filter dropdown is opened for a specific column.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownOpened", optionValue: DropDownOpenedEvent): void;
-
-	/**
-	 * Event fired before the filter dropdown starts closing.
-	 * Return false in order to cancel dropdown closing.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownClosing"): DropDownClosingEvent;
-
-	/**
-	 * Event fired before the filter dropdown starts closing.
-	 * Return false in order to cancel dropdown closing.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownClosing", optionValue: DropDownClosingEvent): void;
-
-	/**
-	 * Event fired after a filter column dropdown is completely closed.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownClosed"): DropDownClosedEvent;
-
-	/**
-	 * Event fired after a filter column dropdown is completely closed.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "dropDownClosed", optionValue: DropDownClosedEvent): void;
-
-	/**
-	 * Event fired before the advanced filtering dialog is opened.
-	 * Return false in order to cancel filter dialog opening.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpening"): FilterDialogOpeningEvent;
-
-	/**
-	 * Event fired before the advanced filtering dialog is opened.
-	 * Return false in order to cancel filter dialog opening.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpening", optionValue: FilterDialogOpeningEvent): void;
-
-	/**
-	 * Event fired after the advanced filter dialog is already opened.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpened"): FilterDialogOpenedEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog is already opened.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpened", optionValue: FilterDialogOpenedEvent): void;
-
-	/**
-	 * Event fired every time the advanced filter dialog changes its position.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogMoving"): FilterDialogMovingEvent;
-
-	/**
-	 * Event fired every time the advanced filter dialog changes its position.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogMoving", optionValue: FilterDialogMovingEvent): void;
-
-	/**
-	 * Event fired before a filter row is added to the advanced filter dialog.
-	 * Return false in order to cancel filter adding to the advanced filtering dialog.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdding"): FilterDialogFilterAddingEvent;
-
-	/**
-	 * Event fired before a filter row is added to the advanced filter dialog.
-	 * Return false in order to cancel filter adding to the advanced filtering dialog.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdding", optionValue: FilterDialogFilterAddingEvent): void;
-
-	/**
-	 * Event fired after a filter row is added to the advanced filter dialog.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdded"): FilterDialogFilterAddedEvent;
-
-	/**
-	 * Event fired after a filter row is added to the advanced filter dialog.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdded", optionValue: FilterDialogFilterAddedEvent): void;
-
-	/**
-	 * Event fired before the advanced filter dialog is closed.
-	 * Return false in order to cancel filtering dialog closing.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosing"): FilterDialogClosingEvent;
-
-	/**
-	 * Event fired before the advanced filter dialog is closed.
-	 * Return false in order to cancel filtering dialog closing.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosing", optionValue: FilterDialogClosingEvent): void;
-
-	/**
-	 * Event fired after the advanced filter dialog has been closed.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosed"): FilterDialogClosedEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog has been closed.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosed", optionValue: FilterDialogClosedEvent): void;
-
-	/**
-	 * Event fired before the contents of the advanced filter dialog are rendered.
-	 * Return false in order to cancel filtering dialog rendering.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendering"): FilterDialogContentsRenderingEvent;
-
-	/**
-	 * Event fired before the contents of the advanced filter dialog are rendered.
-	 * Return false in order to cancel filtering dialog rendering.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendering", optionValue: FilterDialogContentsRenderingEvent): void;
-
-	/**
-	 * Event fired after the contents of the advanced filter dialog are rendered.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendered"): FilterDialogContentsRenderedEvent;
-
-	/**
-	 * Event fired after the contents of the advanced filter dialog are rendered.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendered", optionValue: FilterDialogContentsRenderedEvent): void;
-
-	/**
-	 * Event fired when the OK button in the advanced filter dialog is pressed.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFiltering"): FilterDialogFilteringEvent;
-
-	/**
-	 * Event fired when the OK button in the advanced filter dialog is pressed.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igGridFiltering(optionLiteral: 'option', optionName: "filterDialogFiltering", optionValue: FilterDialogFilteringEvent): void;
 	igGridFiltering(options: IgGridFiltering): JQuery;
 	igGridFiltering(optionLiteral: 'option', optionName: string): any;
 	igGridFiltering(optionLiteral: 'option', options: IgGridFiltering): JQuery;
@@ -44668,6 +44729,7 @@ interface IgGridMethods {
 	 * Returns the element holding the data records
 	 */
 	widget(): void;
+	changeRegional(): void;
 
 	/**
 	 * Returns whether grid has non-data fixed columns(e.g. row selectors column)
@@ -45141,6 +45203,7 @@ interface JQuery {
 
 interface JQuery {
 	igGrid(methodName: "widget"): void;
+	igGrid(methodName: "changeRegional"): void;
 	igGrid(methodName: "hasFixedDataSkippedColumns"): boolean;
 	igGrid(methodName: "hasFixedColumns"): boolean;
 	igGrid(methodName: "fixingDirection"): string;
@@ -46369,6 +46432,127 @@ interface IgGridGroupByColumnSettings {
 	[optionName: string]: any;
 }
 
+interface IgGridGroupByLocale {
+	/**
+	 * Specifies the group by area text.
+	 *
+	 */
+	emptyGroupByAreaContent?: string;
+
+	/**
+	 * Specifies the text for the hyperlink which opens the GroupBy Dialog.
+	 *
+	 */
+	emptyGroupByAreaContentSelectColumns?: string;
+
+	/**
+	 * Specifies the caption for the hyperlink which opens the GroupBy Dialog.
+	 *
+	 */
+	emptyGroupByAreaContentSelectColumnsCaption?: string;
+
+	/**
+	 * Specifies the expand groups button tooltip.
+	 *
+	 */
+	expandTooltip?: string;
+
+	/**
+	 * Specifies the collapse groups button tooltip.
+	 *
+	 */
+	collapseTooltip?: string;
+
+	/**
+	 * Specifies the remove group button tooltip.
+	 *
+	 */
+	removeButtonTooltip?: string;
+
+	/**
+	 * Specifies caption for each descending sorted column in GroupBy Dialog.
+	 *
+	 */
+	modalDialogCaptionButtonDesc?: string;
+
+	/**
+	 * Specifies caption for each descending sorted column in GroupBy Dialog.
+	 *
+	 */
+	modalDialogCaptionButtonAsc?: string;
+
+	/**
+	 * Specifies caption for ungroup button in GroupBy Dialog.
+	 *
+	 */
+	modalDialogCaptionButtonUngroup?: string;
+
+	/**
+	 * Specifies text for group button in GroupBy Dialog.
+	 *
+	 */
+	modalDialogGroupByButtonText?: string;
+
+	/**
+	 * Specifies caption text for the GroupBy Dialog.
+	 *
+	 */
+	modalDialogCaptionText?: string;
+
+	/**
+	 * Specifies label for layouts dropdown in the GroupBy Dialog.
+	 *
+	 */
+	modalDialogDropDownLabel?: string;
+
+	/**
+	 * Specifies label for "Clear all" button in the GroupBy Dialog.
+	 *
+	 */
+	modalDialogClearAllButtonLabel?: string;
+
+	/**
+	 * Specifies name of the root layout which is shown for the layouts in the modal dialog tree.
+	 *
+	 */
+	modalDialogRootLevelHierarchicalGrid?: string;
+
+	/**
+	 * Specifies caption of layouts dropdown button in the GroupBy Dialog.
+	 *
+	 */
+	modalDialogDropDownButtonCaption?: string;
+
+	/**
+	 * Specifies text of button which apply changes in modal dialog.
+	 *
+	 */
+	modalDialogButtonApplyText?: string;
+
+	/**
+	 * Specifies text of button which cancel changes in modal dialog.
+	 *
+	 */
+	modalDialogButtonCancelText?: string;
+
+	/**
+	 * Specifies the summary row title.
+	 *
+	 */
+	summaryRowTitle?: string;
+
+	/**
+	 * Specifies the summary icon title.
+	 *
+	 */
+	summaryIconTitle?: string;
+
+	/**
+	 * Option for IgGridGroupByLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface GroupedColumnsChangingEvent {
 	(event: Event, ui: GroupedColumnsChangingEventUIParam): void;
 }
@@ -46764,18 +46948,6 @@ interface IgGridGroupBy {
 	pagingMode?: string;
 
 	/**
-	 * Text that will be shown in the GroupBy area when there are no grouped columns
-	 *
-	 */
-	emptyGroupByAreaContent?: string;
-
-	/**
-	 * Text of the link that opens the [GroupBy Dialog](http://www.igniteui.com/help/iggrid-group-by-dialog-overview).
-	 *
-	 */
-	emptyGroupByAreaContentSelectColumns?: string;
-
-	/**
 	 * Specifies if grouped rows will have an expander image that will allow end users to expand and collapse them. This option can be set only at initialization.
 	 *
 	 */
@@ -46868,88 +47040,101 @@ interface IgGridGroupBy {
 	columnSettings?: IgGridGroupByColumnSettings;
 
 	/**
-	 * Specifies the expand indicator tooltip for grouped rows
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the expand indicator tooltip for grouped rows. Use option [locale.expandTooltip](ui.iggridgroupby#options:locale.expandTooltip).
 	 */
 	expandTooltip?: string;
 
 	/**
-	 * Specifies the collapse indicator tooltip for grouped rows
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the collapse indicator tooltip for grouped rows. Use option [locale.collapseTooltip](ui.iggridgroupby#options:locale.collapseTooltip).
 	 */
 	collapseTooltip?: string;
 
 	/**
-	 * Specifies the tooltip for the remove button
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the tooltip for the remove button. Use option [locale.removeButtonTooltip](ui.iggridgroupby#options:locale.removeButtonTooltip).
 	 */
 	removeButtonTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the text of GroupBy button in the GroupBy Dialog. Use option [locale.modalDialogGroupByButtonText](ui.iggridgroupby#options:locale.modalDialogGroupByButtonText).
+	 */
+	modalDialogGroupByButtonText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for each descending sorted column in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonDesc](ui.iggridgroupby#options:locale.modalDialogCaptionButtonDesc).
+	 */
+	modalDialogCaptionButtonDesc?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for each ascending sorted column in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonAsc](ui.iggridgroupby#options:locale.modalDialogCaptionButtonAsc).
+	 */
+	modalDialogCaptionButtonAsc?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption button ungroup in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonUngroup](ui.iggridgroupby#options:locale.modalDialogCaptionButtonUngroup).
+	 */
+	modalDialogCaptionButtonUngroup?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the GroupBy Dialog. Use option [locale.modalDialogCaptionText](ui.iggridgroupby#options:locale.modalDialogCaptionText).
+	 */
+	modalDialogCaptionText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies label for layouts dropdown in the GroupBy Dialog.  Use option [locale.modalDialogDropDownLabel](ui.iggridgroupby#options:locale.modalDialogDropDownLabel).
+	 */
+	modalDialogDropDownLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption of layouts dropdown button in the GroupBy Dialog. Use option [locale.modalDialogRootLevelHierarchicalGrid](ui.iggridgroupby#options:locale.modalDialogRootLevelHierarchicalGrid).
+	 */
+	modalDialogRootLevelHierarchicalGrid?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption of layouts dropdown button in the GroupBy Dialog. Use option [locale.modalDialogDropDownButtonCaption](ui.iggridgroupby#options:locale.modalDialogDropDownButtonCaption).
+	 */
+	modalDialogDropDownButtonCaption?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies label for "Clear all" button in the GroupBy Dialog. Use option [locale.modalDialogClearAllButtonLabel](ui.iggridgroupby#options:locale.modalDialogClearAllButtonLabel).
+	 */
+	modalDialogClearAllButtonLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the hyperlink which opens the GroupBy Dialog. Use option [locale.emptyGroupByAreaContentSelectColumnsCaption](ui.iggridgroupby#options:locale.emptyGroupByAreaContentSelectColumnsCaption).
+	 */
+	emptyGroupByAreaContentSelectColumnsCaption?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which cancel changes in the GroupBy Dialog. Use option [locale.modalDialogButtonApplyText](ui.iggridgroupby#options:locale.modalDialogButtonApplyText).
+	 */
+	modalDialogButtonApplyText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which cancel changes in the GroupBy Dialog. Use option [locale.modalDialogButtonCancelText](ui.iggridgroupby#options:locale.modalDialogButtonCancelText).
+	 */
+	modalDialogButtonCancelText?: string;
+	locale?: IgGridGroupByLocale;
 
 	/**
 	 * Enables/disables immediate column grouping/ungrouping. When false operation is delayed until after "Apply" button is clicked by the user.
 	 *
 	 */
 	modalDialogGroupByOnClick?: boolean;
-
-	/**
-	 * Specifies the text of GroupBy button in the GroupBy Dialog
-	 *
-	 */
-	modalDialogGroupByButtonText?: string;
-
-	/**
-	 * Specifies caption for each descending sorted column in GroupBy Dialog
-	 *
-	 */
-	modalDialogCaptionButtonDesc?: string;
-
-	/**
-	 * Specifies caption for each ascending sorted column in GroupBy Dialog
-	 *
-	 */
-	modalDialogCaptionButtonAsc?: string;
-
-	/**
-	 * Specifies caption button ungroup in GroupBy Dialog
-	 *
-	 */
-	modalDialogCaptionButtonUngroup?: string;
-
-	/**
-	 * Specifies caption text for the GroupBy Dialog
-	 *
-	 */
-	modalDialogCaptionText?: string;
-
-	/**
-	 * Specifies label for layouts dropdown in the GroupBy Dialog
-	 *
-	 */
-	modalDialogDropDownLabel?: string;
-
-	/**
-	 * Specifies name of the root layout which is shown layouts tree dialog
-	 *
-	 */
-	modalDialogRootLevelHierarchicalGrid?: string;
-
-	/**
-	 * Specifies caption of layouts dropdown button in the GroupBy Dialog
-	 *
-	 */
-	modalDialogDropDownButtonCaption?: string;
-
-	/**
-	 * Specifies label for "Clear all" button in the GroupBy Dialog
-	 *
-	 */
-	modalDialogClearAllButtonLabel?: string;
-
-	/**
-	 * Specifies caption for the hyperlink which opens the GroupBy Dialog
-	 *
-	 */
-	emptyGroupByAreaContentSelectColumnsCaption?: string;
 
 	/**
 	 * Specifies width of layouts dropdown in the GroupBy Dialog
@@ -46988,18 +47173,6 @@ interface IgGridGroupBy {
 	 * "number" The dialog height can be set in pixels as a number. Example values: 800, 700.
 	 */
 	modalDialogHeight?: string|number;
-
-	/**
-	 * Specifies text of button which apply changes in modal dialog
-	 *
-	 */
-	modalDialogButtonApplyText?: string;
-
-	/**
-	 * Specifies text of button which cancel changes in the GroupBy Dialog
-	 *
-	 */
-	modalDialogButtonCancelText?: string;
 
 	/**
 	 * Format grouped column using the formatter set in [igGrid.columns.formatter](ui.iggrid#options:columns.formatter) or [igGrid.columns.format](ui.iggrid#options:columns.format).
@@ -47138,6 +47311,9 @@ interface IgGridGroupBy {
 	[optionName: string]: any;
 }
 interface IgGridGroupByMethods {
+	changeLocale(): void;
+	changeRegional(): void;
+
 	/**
 	 * Open groupby modal dialog
 	 */
@@ -47231,6 +47407,8 @@ interface JQuery {
 }
 
 interface JQuery {
+	igGridGroupBy(methodName: "changeLocale"): void;
+	igGridGroupBy(methodName: "changeRegional"): void;
 	igGridGroupBy(methodName: "openGroupByDialog"): void;
 	igGridGroupBy(methodName: "closeGroupByDialog"): void;
 	igGridGroupBy(methodName: "renderGroupByModalDialog"): void;
@@ -47291,34 +47469,6 @@ interface JQuery {
 	 */
 
 	igGridGroupBy(optionLiteral: 'option', optionName: "pagingMode", optionValue: string): void;
-
-	/**
-	 * Text that will be shown in the GroupBy area when there are no grouped columns
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContent"): string;
-
-	/**
-	 * Text that will be shown in the GroupBy area when there are no grouped columns
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContent", optionValue: string): void;
-
-	/**
-	 * Text of the link that opens the [GroupBy Dialog](http://www.igniteui.com/help/iggrid-group-by-dialog-overview).
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContentSelectColumns"): string;
-
-	/**
-	 * Text of the link that opens the [GroupBy Dialog](http://www.igniteui.com/help/iggrid-group-by-dialog-overview).
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContentSelectColumns", optionValue: string): void;
 
 	/**
 	 * Gets if grouped rows will have an expander image that will allow end users to expand and collapse them. This option can be set only at initialization.
@@ -47521,46 +47671,216 @@ interface JQuery {
 	igGridGroupBy(optionLiteral: 'option', optionName: "columnSettings", optionValue: IgGridGroupByColumnSettings): void;
 
 	/**
-	 * Specifies the expand indicator tooltip for grouped rows
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the expand indicator tooltip for grouped rows. Use option [locale.expandTooltip](ui.iggridgroupby#options:locale.expandTooltip).
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "expandTooltip"): string;
 
 	/**
-	 * Specifies the expand indicator tooltip for grouped rows
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the expand indicator tooltip for grouped rows. Use option [locale.expandTooltip](ui.iggridgroupby#options:locale.expandTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "expandTooltip", optionValue: string): void;
 
 	/**
-	 * Specifies the collapse indicator tooltip for grouped rows
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the collapse indicator tooltip for grouped rows. Use option [locale.collapseTooltip](ui.iggridgroupby#options:locale.collapseTooltip).
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "collapseTooltip"): string;
 
 	/**
-	 * Specifies the collapse indicator tooltip for grouped rows
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the collapse indicator tooltip for grouped rows. Use option [locale.collapseTooltip](ui.iggridgroupby#options:locale.collapseTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "collapseTooltip", optionValue: string): void;
 
 	/**
-	 * Specifies the tooltip for the remove button
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the tooltip for the remove button. Use option [locale.removeButtonTooltip](ui.iggridgroupby#options:locale.removeButtonTooltip).
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "removeButtonTooltip"): string;
 
 	/**
-	 * Specifies the tooltip for the remove button
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the tooltip for the remove button. Use option [locale.removeButtonTooltip](ui.iggridgroupby#options:locale.removeButtonTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "removeButtonTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the text of GroupBy button in the GroupBy Dialog. Use option [locale.modalDialogGroupByButtonText](ui.iggridgroupby#options:locale.modalDialogGroupByButtonText).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogGroupByButtonText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the text of GroupBy button in the GroupBy Dialog. Use option [locale.modalDialogGroupByButtonText](ui.iggridgroupby#options:locale.modalDialogGroupByButtonText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogGroupByButtonText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for each descending sorted column in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonDesc](ui.iggridgroupby#options:locale.modalDialogCaptionButtonDesc).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for each descending sorted column in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonDesc](ui.iggridgroupby#options:locale.modalDialogCaptionButtonDesc).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for each ascending sorted column in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonAsc](ui.iggridgroupby#options:locale.modalDialogCaptionButtonAsc).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for each ascending sorted column in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonAsc](ui.iggridgroupby#options:locale.modalDialogCaptionButtonAsc).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption button ungroup in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonUngroup](ui.iggridgroupby#options:locale.modalDialogCaptionButtonUngroup).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUngroup"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption button ungroup in GroupBy Dialog. Use option [locale.modalDialogCaptionButtonUngroup](ui.iggridgroupby#options:locale.modalDialogCaptionButtonUngroup).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUngroup", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the GroupBy Dialog. Use option [locale.modalDialogCaptionText](ui.iggridgroupby#options:locale.modalDialogCaptionText).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the GroupBy Dialog. Use option [locale.modalDialogCaptionText](ui.iggridgroupby#options:locale.modalDialogCaptionText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets label for layouts dropdown in the GroupBy Dialog.  Use option [locale.modalDialogDropDownLabel](ui.iggridgroupby#options:locale.modalDialogDropDownLabel).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets label for layouts dropdown in the GroupBy Dialog.  Use option [locale.modalDialogDropDownLabel](ui.iggridgroupby#options:locale.modalDialogDropDownLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption of layouts dropdown button in the GroupBy Dialog. Use option [locale.modalDialogRootLevelHierarchicalGrid](ui.iggridgroupby#options:locale.modalDialogRootLevelHierarchicalGrid).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogRootLevelHierarchicalGrid"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption of layouts dropdown button in the GroupBy Dialog. Use option [locale.modalDialogRootLevelHierarchicalGrid](ui.iggridgroupby#options:locale.modalDialogRootLevelHierarchicalGrid).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogRootLevelHierarchicalGrid", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption of layouts dropdown button in the GroupBy Dialog. Use option [locale.modalDialogDropDownButtonCaption](ui.iggridgroupby#options:locale.modalDialogDropDownButtonCaption).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownButtonCaption"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption of layouts dropdown button in the GroupBy Dialog. Use option [locale.modalDialogDropDownButtonCaption](ui.iggridgroupby#options:locale.modalDialogDropDownButtonCaption).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownButtonCaption", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets label for "Clear all" button in the GroupBy Dialog. Use option [locale.modalDialogClearAllButtonLabel](ui.iggridgroupby#options:locale.modalDialogClearAllButtonLabel).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogClearAllButtonLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets label for "Clear all" button in the GroupBy Dialog. Use option [locale.modalDialogClearAllButtonLabel](ui.iggridgroupby#options:locale.modalDialogClearAllButtonLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogClearAllButtonLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the hyperlink which opens the GroupBy Dialog. Use option [locale.emptyGroupByAreaContentSelectColumnsCaption](ui.iggridgroupby#options:locale.emptyGroupByAreaContentSelectColumnsCaption).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContentSelectColumnsCaption"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the hyperlink which opens the GroupBy Dialog. Use option [locale.emptyGroupByAreaContentSelectColumnsCaption](ui.iggridgroupby#options:locale.emptyGroupByAreaContentSelectColumnsCaption).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContentSelectColumnsCaption", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which cancel changes in the GroupBy Dialog. Use option [locale.modalDialogButtonApplyText](ui.iggridgroupby#options:locale.modalDialogButtonApplyText).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonApplyText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which cancel changes in the GroupBy Dialog. Use option [locale.modalDialogButtonApplyText](ui.iggridgroupby#options:locale.modalDialogButtonApplyText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonApplyText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which cancel changes in the GroupBy Dialog. Use option [locale.modalDialogButtonCancelText](ui.iggridgroupby#options:locale.modalDialogButtonCancelText).
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonCancelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which cancel changes in the GroupBy Dialog. Use option [locale.modalDialogButtonCancelText](ui.iggridgroupby#options:locale.modalDialogButtonCancelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonCancelText", optionValue: string): void;
+	igGridGroupBy(optionLiteral: 'option', optionName: "locale"): IgGridGroupByLocale;
+	igGridGroupBy(optionLiteral: 'option', optionName: "locale", optionValue: IgGridGroupByLocale): void;
 
 	/**
 	 * Enables/disables immediate column grouping/ungrouping. When false operation is delayed until after "Apply" button is clicked by the user.
@@ -47575,146 +47895,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogGroupByOnClick", optionValue: boolean): void;
-
-	/**
-	 * Specifies the text of GroupBy button in the GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogGroupByButtonText"): string;
-
-	/**
-	 * Specifies the text of GroupBy button in the GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogGroupByButtonText", optionValue: string): void;
-
-	/**
-	 * Gets caption for each descending sorted column in GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc"): string;
-
-	/**
-	 * Sets caption for each descending sorted column in GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc", optionValue: string): void;
-
-	/**
-	 * Gets caption for each ascending sorted column in GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc"): string;
-
-	/**
-	 * Sets caption for each ascending sorted column in GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc", optionValue: string): void;
-
-	/**
-	 * Gets caption button ungroup in GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUngroup"): string;
-
-	/**
-	 * Sets caption button ungroup in GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUngroup", optionValue: string): void;
-
-	/**
-	 * Gets caption text for the GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionText"): string;
-
-	/**
-	 * Sets caption text for the GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogCaptionText", optionValue: string): void;
-
-	/**
-	 * Gets label for layouts dropdown in the GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownLabel"): string;
-
-	/**
-	 * Sets label for layouts dropdown in the GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownLabel", optionValue: string): void;
-
-	/**
-	 * Gets name of the root layout which is shown layouts tree dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogRootLevelHierarchicalGrid"): string;
-
-	/**
-	 * Sets name of the root layout which is shown layouts tree dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogRootLevelHierarchicalGrid", optionValue: string): void;
-
-	/**
-	 * Gets caption of layouts dropdown button in the GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownButtonCaption"): string;
-
-	/**
-	 * Sets caption of layouts dropdown button in the GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogDropDownButtonCaption", optionValue: string): void;
-
-	/**
-	 * Gets label for "Clear all" button in the GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogClearAllButtonLabel"): string;
-
-	/**
-	 * Sets label for "Clear all" button in the GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogClearAllButtonLabel", optionValue: string): void;
-
-	/**
-	 * Gets caption for the hyperlink which opens the GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContentSelectColumnsCaption"): string;
-
-	/**
-	 * Sets caption for the hyperlink which opens the GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "emptyGroupByAreaContentSelectColumnsCaption", optionValue: string): void;
 
 	/**
 	 * Gets width of layouts dropdown in the GroupBy Dialog
@@ -47789,34 +47969,6 @@ interface JQuery {
 	 */
 
 	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogHeight", optionValue: string|number): void;
-
-	/**
-	 * Gets text of button which apply changes in modal dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonApplyText"): string;
-
-	/**
-	 * Sets text of button which apply changes in modal dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonApplyText", optionValue: string): void;
-
-	/**
-	 * Gets text of button which cancel changes in the GroupBy Dialog
-	 *
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonCancelText"): string;
-
-	/**
-	 * Sets text of button which cancel changes in the GroupBy Dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridGroupBy(optionLiteral: 'option', optionName: "modalDialogButtonCancelText", optionValue: string): void;
 
 	/**
 	 * Format grouped column using the formatter set in [igGrid.columns.formatter](ui.iggrid#options:columns.formatter) or [igGrid.columns.format](ui.iggrid#options:columns.format).
@@ -48144,6 +48296,79 @@ interface IgGridHidingColumnSetting {
 
 	/**
 	 * Option for IgGridHidingColumnSetting
+	 */
+	[optionName: string]: any;
+}
+
+interface IgGridHidingLocale {
+	/**
+	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog.
+	 *
+	 */
+	columnChooserDisplayText?: string;
+
+	/**
+	 * The text displayed in the tooltip of the hidden column indicator.
+	 *
+	 */
+	hiddenColumnIndicatorTooltipText?: string;
+
+	/**
+	 * The text used in the drop down tools menu(Feature Chooser) to hide a column.
+	 *
+	 */
+	columnHideText?: string;
+
+	/**
+	 * The caption of the column chooser dialog.
+	 *
+	 */
+	columnChooserCaptionLabel?: string;
+
+	/**
+	 * The close button tooltip of the column chooser dialog.
+	 *
+	 */
+	columnChooserCloseButtonTooltip?: string;
+
+	/**
+	 * Specifies the hiding column icon tooltip.
+	 *
+	 */
+	hideColumnIconTooltip?: string;
+
+	/**
+	 * The text used in the column chooser to show column.
+	 *
+	 */
+	columnChooserShowText?: string;
+
+	/**
+	 * The text used in the column chooser to hide column.
+	 *
+	 */
+	columnChooserHideText?: string;
+
+	/**
+	 * Text label for reset button.
+	 *
+	 */
+	columnChooserResetButtonLabel?: string;
+
+	/**
+	 * Specifies the text of the button which applies changes in the modal dialog.
+	 *
+	 */
+	columnChooserButtonApplyText?: string;
+
+	/**
+	 * Specifies the text of the button which cancels changes in the modal dialog.
+	 *
+	 */
+	columnChooserButtonCancelText?: string;
+
+	/**
+	 * Option for IgGridHidingLocale
 	 */
 	[optionName: string]: any;
 }
@@ -48484,40 +48709,59 @@ interface IgGridHiding {
 	dropDownAnimationDuration?: number;
 
 	/**
-	 * The caption of the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The caption of the column chooser dialog. Use option [locale.columnChooserCaptionText](ui.iggridhiding#options:locale.columnChooserCaptionText).
 	 */
 	columnChooserCaptionText?: string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog. Use option [locale.columnChooserDisplayText](ui.iggridhiding#options:locale.columnChooserDisplayText).
 	 */
 	columnChooserDisplayText?: string;
 
 	/**
-	 * The text displayed in the tooltip of the hidden column indicator.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text displayed in the tooltip of the hidden column indicator. Use option [locale.hiddenColumnIndicatorTooltipText](ui.iggridhiding#options:locale.hiddenColumnIndicatorTooltipText).
 	 */
 	hiddenColumnIndicatorTooltipText?: string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to hide a column.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to hide a column. Use option [locale.columnHideText](ui.iggridhiding#options:locale.columnHideText).
 	 */
 	columnHideText?: string;
 
 	/**
-	 * The text used in the column chooser to show column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to show column. Use option [locale.columnChooserShowText](ui.iggridhiding#options:locale.columnChooserShowText).
 	 */
 	columnChooserShowText?: string;
 
 	/**
-	 * The text used in the column chooser to hide column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to hide column. Use option [locale.columnChooserHideText](ui.iggridhiding#options:locale.columnChooserHideText).
 	 */
 	columnChooserHideText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text label for reset button. Use option [locale.columnChooserResetButtonLabel](ui.iggridhiding#options:locale.columnChooserResetButtonLabel).
+	 */
+	columnChooserResetButtonLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which apply changes in modal dialog. Use option [locale.columnChooserButtonApplyText](ui.iggridhiding#options:locale.columnChooserButtonApplyText).
+	 */
+	columnChooserButtonApplyText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which cancel changes in modal dialog. Use option [locale.columnChooserButtonCancelText](ui.iggridhiding#options:locale.columnChooserButtonCancelText).
+	 */
+	columnChooserButtonCancelText?: string;
+	locale?: IgGridHidingLocale;
 
 	/**
 	 * Specifies on click show/hide directly to be shown/hidden columns. If columnChooserHideOnClick is false then Apply and Cancel Buttons are shown on the bottom of modal dialog. Columns are Shown/Hidden after the Apply button is clicked
@@ -48526,28 +48770,10 @@ interface IgGridHiding {
 	columnChooserHideOnClick?: boolean;
 
 	/**
-	 * Text label for reset button.
-	 *
-	 */
-	columnChooserResetButtonLabel?: string;
-
-	/**
 	 * Specifies time of milliseconds for animation duration to show/hide modal dialog
 	 *
 	 */
 	columnChooserAnimationDuration?: number;
-
-	/**
-	 * Specifies text of button which apply changes in modal dialog
-	 *
-	 */
-	columnChooserButtonApplyText?: string;
-
-	/**
-	 * Specifies text of button which cancel changes in modal dialog
-	 *
-	 */
-	columnChooserButtonCancelText?: string;
 
 	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
@@ -48647,6 +48873,8 @@ interface IgGridHiding {
 	[optionName: string]: any;
 }
 interface IgGridHidingMethods {
+	changeLocale(): void;
+
 	/**
 	 * Destroys the hiding widget
 	 */
@@ -48667,20 +48895,18 @@ interface IgGridHidingMethods {
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
 	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
 	 */
-	showColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
+	showColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
 	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
 	 */
-	hideColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
+	hideColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides visible columns specified by the array. If the column is hidden the method does nothing.
@@ -48725,11 +48951,12 @@ interface JQuery {
 }
 
 interface JQuery {
+	igGridHiding(methodName: "changeLocale"): void;
 	igGridHiding(methodName: "destroy"): void;
 	igGridHiding(methodName: "showColumnChooser"): void;
 	igGridHiding(methodName: "hideColumnChooser"): void;
-	igGridHiding(methodName: "showColumn", column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
-	igGridHiding(methodName: "hideColumn", column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
+	igGridHiding(methodName: "showColumn", column: Object, callback?: Function): void;
+	igGridHiding(methodName: "hideColumn", column: Object, callback?: Function): void;
 	igGridHiding(methodName: "hideMultiColumns", columns: any[], callback?: Function): void;
 	igGridHiding(methodName: "showMultiColumns", columns: any[], callback?: Function): void;
 	igGridHiding(methodName: "isToRenderButtonReset"): void;
@@ -48826,88 +49053,132 @@ interface JQuery {
 	igGridHiding(optionLiteral: 'option', optionName: "dropDownAnimationDuration", optionValue: number): void;
 
 	/**
-	 * The caption of the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The caption of the column chooser dialog. Use option [locale.columnChooserCaptionText](ui.iggridhiding#options:locale.columnChooserCaptionText).
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserCaptionText"): string;
 
 	/**
-	 * The caption of the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The caption of the column chooser dialog. Use option [locale.columnChooserCaptionText](ui.iggridhiding#options:locale.columnChooserCaptionText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserCaptionText", optionValue: string): void;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog. Use option [locale.columnChooserDisplayText](ui.iggridhiding#options:locale.columnChooserDisplayText).
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserDisplayText"): string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog. Use option [locale.columnChooserDisplayText](ui.iggridhiding#options:locale.columnChooserDisplayText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserDisplayText", optionValue: string): void;
 
 	/**
-	 * The text displayed in the tooltip of the hidden column indicator.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text displayed in the tooltip of the hidden column indicator. Use option [locale.hiddenColumnIndicatorTooltipText](ui.iggridhiding#options:locale.hiddenColumnIndicatorTooltipText).
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "hiddenColumnIndicatorTooltipText"): string;
 
 	/**
-	 * The text displayed in the tooltip of the hidden column indicator.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text displayed in the tooltip of the hidden column indicator. Use option [locale.hiddenColumnIndicatorTooltipText](ui.iggridhiding#options:locale.hiddenColumnIndicatorTooltipText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "hiddenColumnIndicatorTooltipText", optionValue: string): void;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to hide a column.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to hide a column. Use option [locale.columnHideText](ui.iggridhiding#options:locale.columnHideText).
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnHideText"): string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to hide a column.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to hide a column. Use option [locale.columnHideText](ui.iggridhiding#options:locale.columnHideText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnHideText", optionValue: string): void;
 
 	/**
-	 * The text used in the column chooser to show column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to show column. Use option [locale.columnChooserShowText](ui.iggridhiding#options:locale.columnChooserShowText).
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserShowText"): string;
 
 	/**
-	 * The text used in the column chooser to show column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to show column. Use option [locale.columnChooserShowText](ui.iggridhiding#options:locale.columnChooserShowText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserShowText", optionValue: string): void;
 
 	/**
-	 * The text used in the column chooser to hide column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to hide column. Use option [locale.columnChooserHideText](ui.iggridhiding#options:locale.columnChooserHideText).
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserHideText"): string;
 
 	/**
-	 * The text used in the column chooser to hide column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to hide column. Use option [locale.columnChooserHideText](ui.iggridhiding#options:locale.columnChooserHideText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserHideText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text label for reset button. Use option [locale.columnChooserResetButtonLabel](ui.iggridhiding#options:locale.columnChooserResetButtonLabel).
+	 */
+	igGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text label for reset button. Use option [locale.columnChooserResetButtonLabel](ui.iggridhiding#options:locale.columnChooserResetButtonLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which apply changes in modal dialog. Use option [locale.columnChooserButtonApplyText](ui.iggridhiding#options:locale.columnChooserButtonApplyText).
+	 */
+	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which apply changes in modal dialog. Use option [locale.columnChooserButtonApplyText](ui.iggridhiding#options:locale.columnChooserButtonApplyText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which cancel changes in modal dialog. Use option [locale.columnChooserButtonCancelText](ui.iggridhiding#options:locale.columnChooserButtonCancelText).
+	 */
+	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which cancel changes in modal dialog. Use option [locale.columnChooserButtonCancelText](ui.iggridhiding#options:locale.columnChooserButtonCancelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText", optionValue: string): void;
+	igGridHiding(optionLiteral: 'option', optionName: "locale"): IgGridHidingLocale;
+	igGridHiding(optionLiteral: 'option', optionName: "locale", optionValue: IgGridHidingLocale): void;
 
 	/**
 	 * Gets on click show/hide directly to be shown/hidden columns. If columnChooserHideOnClick is false then Apply and Cancel Buttons are shown on the bottom of modal dialog. Columns are Shown/Hidden after the Apply button is clicked
@@ -48924,20 +49195,6 @@ interface JQuery {
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserHideOnClick", optionValue: boolean): void;
 
 	/**
-	 * Text label for reset button.
-	 *
-	 */
-	igGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel"): string;
-
-	/**
-	 * Text label for reset button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel", optionValue: string): void;
-
-	/**
 	 * Gets time of milliseconds for animation duration to show/hide modal dialog
 	 *
 	 */
@@ -48950,34 +49207,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridHiding(optionLiteral: 'option', optionName: "columnChooserAnimationDuration", optionValue: number): void;
-
-	/**
-	 * Gets text of button which apply changes in modal dialog
-	 *
-	 */
-	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText"): string;
-
-	/**
-	 * Sets text of button which apply changes in modal dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText", optionValue: string): void;
-
-	/**
-	 * Gets text of button which cancel changes in modal dialog
-	 *
-	 */
-	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText"): string;
-
-	/**
-	 * Sets text of button which cancel changes in modal dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText", optionValue: string): void;
 
 	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
@@ -49204,6 +49433,25 @@ interface JQuery {
 	igGridHiding(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igGridHiding(methodName: string, ...methodParams: any[]): any;
 }
+interface IgHierarchicalGridLocale {
+	/**
+	 * Specifies the default tooltip applied to an expand column cell, that is currently collapsed.
+	 *
+	 */
+	expandTooltip?: string;
+
+	/**
+	 * Specifies the default tooltip applied to an expand column cell, that is currently expanded.
+	 *
+	 */
+	collapseTooltip?: string;
+
+	/**
+	 * Option for IgHierarchicalGridLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface IgHierarchicalGridColumnLayout {
 	/**
 	 * Specifies the columnLayout key. This is the property that holds the data records for the current column layout.
@@ -49813,16 +50061,17 @@ interface IgHierarchicalGrid {
 	animationDuration?: number;
 
 	/**
-	 * Specifies the default tooltip applied to an expand column cell, that is currently collapsed
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the default tooltip applied to an expand column cell, that is currently collapsed. Use option [locale.columnChooserCaptionText](ui.ighierarchicalgrid#options:locale.expandTooltip).
 	 */
 	expandTooltip?: string;
 
 	/**
-	 * Specifies the default tooltip applied to an expand column cell, that is currently expanded
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the default tooltip applied to an expand column cell, that is currently expanded. Use option [locale.collapseTooltip](ui.ighierarchicalgrid#options:locale.collapseTooltip).
 	 */
 	collapseTooltip?: string;
+	locale?: IgHierarchicalGridLocale;
 
 	/**
 	 * List of columnLayout objects that specify the structure of the child grids. All options that are applicable to a flat grid are also applicable here
@@ -50340,6 +50589,9 @@ interface IgHierarchicalGrid {
 	[optionName: string]: any;
 }
 interface IgHierarchicalGridMethods {
+	changeLocale(): void;
+	changeRegional(): void;
+
 	/**
 	 * Data binds the hierarchical grid. No child grids will be created or rendered by default, unless there is initialExpandDepth >= 0 set.
 	 */
@@ -50443,6 +50695,8 @@ interface JQuery {
 }
 
 interface JQuery {
+	igHierarchicalGrid(methodName: "changeLocale"): void;
+	igHierarchicalGrid(methodName: "changeRegional"): void;
 	igHierarchicalGrid(methodName: "dataBind"): void;
 	igHierarchicalGrid(methodName: "root"): Object;
 	igHierarchicalGrid(methodName: "rootWidget"): Object;
@@ -50618,32 +50872,34 @@ interface JQuery {
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "animationDuration", optionValue: number): void;
 
 	/**
-	 * Gets the default tooltip applied to an expand column cell, that is currently collapsed
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the default tooltip applied to an expand column cell, that is currently collapsed. Use option [locale.columnChooserCaptionText](ui.ighierarchicalgrid#options:locale.expandTooltip).
 	 */
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "expandTooltip"): string;
 
 	/**
-	 * Sets the default tooltip applied to an expand column cell, that is currently collapsed
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the default tooltip applied to an expand column cell, that is currently collapsed. Use option [locale.columnChooserCaptionText](ui.ighierarchicalgrid#options:locale.expandTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "expandTooltip", optionValue: string): void;
 
 	/**
-	 * Gets the default tooltip applied to an expand column cell, that is currently expanded
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the default tooltip applied to an expand column cell, that is currently expanded. Use option [locale.collapseTooltip](ui.ighierarchicalgrid#options:locale.collapseTooltip).
 	 */
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "collapseTooltip"): string;
 
 	/**
-	 * Sets the default tooltip applied to an expand column cell, that is currently expanded
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the default tooltip applied to an expand column cell, that is currently expanded. Use option [locale.collapseTooltip](ui.ighierarchicalgrid#options:locale.collapseTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igHierarchicalGrid(optionLiteral: 'option', optionName: "collapseTooltip", optionValue: string): void;
+	igHierarchicalGrid(optionLiteral: 'option', optionName: "locale"): IgHierarchicalGridLocale;
+	igHierarchicalGrid(optionLiteral: 'option', optionName: "locale", optionValue: IgHierarchicalGridLocale): void;
 
 	/**
 	 * List of columnLayout objects that specify the structure of the child grids. All options that are applicable to a flat grid are also applicable here
@@ -51873,9 +52129,11 @@ interface IgGridMultiColumnHeaders {
 	[optionName: string]: any;
 }
 interface IgGridMultiColumnHeadersMethods {
+	changeLocale(): void;
+
 	/**
 	 * Expands a collapsed group. If the group is expanded, the method does nothing.
-	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is expanded.
@@ -51884,7 +52142,7 @@ interface IgGridMultiColumnHeadersMethods {
 
 	/**
 	 * Collapses an expanded group. If the group is collapsed, the method does nothing.
-	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is collapsed.
@@ -51893,7 +52151,7 @@ interface IgGridMultiColumnHeadersMethods {
 
 	/**
 	 * Toggles a collapsible group.
-	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is toggled.
@@ -51915,6 +52173,7 @@ interface JQuery {
 }
 
 interface JQuery {
+	igGridMultiColumnHeaders(methodName: "changeLocale"): void;
 	igGridMultiColumnHeaders(methodName: "expandGroup", groupKey: string, callback?: Function): void;
 	igGridMultiColumnHeaders(methodName: "collapseGroup", groupKey: string, callback?: Function): void;
 	igGridMultiColumnHeaders(methodName: "toggleGroup", groupKey: string, callback?: Function): void;
@@ -51986,6 +52245,116 @@ interface JQuery {
 	igGridMultiColumnHeaders(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igGridMultiColumnHeaders(methodName: string, ...methodParams: any[]): any;
 }
+interface IgGridPagingLocale {
+	/**
+	 * Text rendered in front of the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
+	 *
+	 */
+	pageSizeDropDownLabel?: string;
+
+	/**
+	 * Trailing text for the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
+	 *
+	 */
+	pageSizeDropDownTrailingLabel?: string;
+
+	/**
+	 * Text for the next page label.
+	 *
+	 */
+	nextPageLabelText?: string;
+
+	/**
+	 * Text for the previous page label.
+	 *
+	 */
+	prevPageLabelText?: string;
+
+	/**
+	 * Text for the first page label.
+	 *
+	 */
+	firstPageLabelText?: string;
+
+	/**
+	 * Text for the last page label.
+	 *
+	 */
+	lastPageLabelText?: string;
+
+	/**
+	 * Leading label text for the drop down from where the page index can be switched.
+	 *
+	 */
+	currentPageDropDownLeadingLabel?: string;
+
+	/**
+	 * Trailing label text for the drop down from where the page index can be switched.
+	 *
+	 */
+	currentPageDropDownTrailingLabel?: string;
+
+	/**
+	 * Tooltip text for the page index drop down.
+	 *
+	 */
+	currentPageDropDownTooltip?: string;
+
+	/**
+	 * Tooltip text for the page size drop down.
+	 *
+	 */
+	pageSizeDropDownTooltip?: string;
+
+	/**
+	 * Tooltip text for the pager records label.
+	 *
+	 */
+	pagerRecordsLabelTooltip?: string;
+
+	/**
+	 * Tooltip text for the previous page button.
+	 *
+	 */
+	prevPageTooltip?: string;
+
+	/**
+	 * Tooltip text for the next page button.
+	 *
+	 */
+	nextPageTooltip?: string;
+
+	/**
+	 * Tooltip text for the first page button.
+	 *
+	 */
+	firstPageTooltip?: string;
+
+	/**
+	 * Tooltip text for the last page button.
+	 *
+	 */
+	lastPageTooltip?: string;
+
+	/**
+	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 * See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
+	 *
+	 */
+	pageTooltipFormat?: string;
+
+	/**
+	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 *
+	 */
+	pagerRecordsLabelTemplate?: string;
+
+	/**
+	 * Option for IgGridPagingLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface PageIndexChangingEvent {
 	(event: Event, ui: PageIndexChangingEventUIParam): void;
 }
@@ -52135,16 +52504,111 @@ interface IgGridPaging {
 	showPageSizeDropDown?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text rendered in front of the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownLabel](ui.iggridpaging#options:locale.pageSizeDropDownLabel).
 	 */
 	pageSizeDropDownLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Trailing text for the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownTrailingLabel](ui.iggridpaging#options:locale.pageSizeDropDownTrailingLabel).
 	 */
 	pageSizeDropDownTrailingLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 * Use option [locale.pagerRecordsLabelTemplate](ui.iggridpaging#options:locale.pagerRecordsLabelTemplate).
+	 */
+	pagerRecordsLabelTemplate?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the next page label. Use option [locale.nextPageLabelText](ui.iggridpaging#options:locale.nextPageLabelText).
+	 */
+	nextPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the previous page label. Use option [locale.prevPageLabelText](ui.iggridpaging#options:locale.prevPageLabelText).
+	 */
+	prevPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the first page label. Use option [locale.firstPageLabelText](ui.iggridpaging#options:locale.firstPageLabelText).
+	 */
+	firstPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the last page label. Use option [locale.lastPageLabelText](ui.iggridpaging#options:locale.lastPageLabelText).
+	 */
+	lastPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Leading label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownLeadingLabel](ui.iggridpaging#options:locale.currentPageDropDownLeadingLabel).
+	 */
+	currentPageDropDownLeadingLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Trailing label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownTrailingLabel](ui.iggridpaging#options:locale.currentPageDropDownTrailingLabel).
+	 */
+	currentPageDropDownTrailingLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page index drop down. Use option [locale.currentPageDropDownTooltip](ui.iggridpaging#options:locale.currentPageDropDownTooltip).
+	 */
+	currentPageDropDownTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page size drop down. Use option [locale.pageSizeDropDownTooltip](ui.iggridpaging#options:locale.pageSizeDropDownTooltip).
+	 */
+	pageSizeDropDownTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the pager records label. Use option [locale.pagerRecordsLabelTooltip](ui.iggridpaging#options:locale.pagerRecordsLabelTooltip).
+	 */
+	pagerRecordsLabelTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the previous page button. Use option [locale.prevPageTooltip](ui.iggridpaging#options:locale.prevPageTooltip).
+	 */
+	prevPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the next page button. Use option [locale.nextPageTooltip](ui.iggridpaging#options:locale.nextPageTooltip).
+	 */
+	nextPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the first page button. Use option [locale.firstPageTooltip](ui.iggridpaging#options:locale.firstPageTooltip).
+	 */
+	firstPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the last page button. Use option [locale.lastPageTooltip](ui.iggridpaging#options:locale.lastPageTooltip).
+	 */
+	lastPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
+	 * Use option [locale.pageTooltipFormat](ui.iggridpaging#options:locale.pageTooltipFormat).
+	 */
+	pageTooltipFormat?: string;
+	locale?: IgGridPagingLocale;
 
 	/**
 	 * Page size dropdown location, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true. Can be rendered above the grid header or inside the pager, next to the page links.
@@ -52163,36 +52627,6 @@ interface IgGridPaging {
 	showPagerRecordsLabel?: boolean;
 
 	/**
-	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
-	 *
-	 */
-	pagerRecordsLabelTemplate?: string;
-
-	/**
-	 * Text for the next page label.
-	 *
-	 */
-	nextPageLabelText?: string;
-
-	/**
-	 * Text for the previous page label.
-	 *
-	 */
-	prevPageLabelText?: string;
-
-	/**
-	 * Text for the first page label.
-	 *
-	 */
-	firstPageLabelText?: string;
-
-	/**
-	 * Text for the last page label.
-	 *
-	 */
-	lastPageLabelText?: string;
-
-	/**
 	 * Option specifying whether to render the first and last page navigation buttons.
 	 *
 	 */
@@ -52203,66 +52637,6 @@ interface IgGridPaging {
 	 *
 	 */
 	showPrevNextPages?: boolean;
-
-	/**
-	 * Leading label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	currentPageDropDownLeadingLabel?: string;
-
-	/**
-	 * Trailing label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	currentPageDropDownTrailingLabel?: string;
-
-	/**
-	 * Tooltip text for the page index drop down.
-	 *
-	 */
-	currentPageDropDownTooltip?: string;
-
-	/**
-	 * Tooltip text for the page size drop down.
-	 *
-	 */
-	pageSizeDropDownTooltip?: string;
-
-	/**
-	 * Tooltip text for the pager records label.
-	 *
-	 */
-	pagerRecordsLabelTooltip?: string;
-
-	/**
-	 * Tooltip text for the previous page button.
-	 *
-	 */
-	prevPageTooltip?: string;
-
-	/**
-	 * Tooltip text for the next page button.
-	 *
-	 */
-	nextPageTooltip?: string;
-
-	/**
-	 * Tooltip text for the first page button.
-	 *
-	 */
-	firstPageTooltip?: string;
-
-	/**
-	 * Tooltip text for the last page button.
-	 *
-	 */
-	lastPageTooltip?: string;
-
-	/**
-	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
-	 *
-	 */
-	pageTooltipFormat?: string;
 
 	/**
 	 * Predefined page sizes that are available to the end user to switch their grid paging to, through a drop down in the grid header.
@@ -52346,6 +52720,8 @@ interface IgGridPaging {
 	[optionName: string]: any;
 }
 interface IgGridPagingMethods {
+	changeLocale(): void;
+
 	/**
 	 * Gets/Sets the current page index, delegates data binding and paging to [$.ig.DataSource](ig.datasource).
 	 *
@@ -52370,6 +52746,7 @@ interface JQuery {
 }
 
 interface JQuery {
+	igGridPaging(methodName: "changeLocale"): void;
 	igGridPaging(methodName: "pageIndex", index?: number): number;
 	igGridPaging(methodName: "pageSize", size?: number): number;
 	igGridPaging(methodName: "destroy"): void;
@@ -52475,32 +52852,252 @@ interface JQuery {
 	igGridPaging(optionLiteral: 'option', optionName: "showPageSizeDropDown", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text rendered in front of the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownLabel](ui.iggridpaging#options:locale.pageSizeDropDownLabel).
 	 */
 	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text rendered in front of the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownLabel](ui.iggridpaging#options:locale.pageSizeDropDownLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Trailing text for the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownTrailingLabel](ui.iggridpaging#options:locale.pageSizeDropDownTrailingLabel).
 	 */
 	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTrailingLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Trailing text for the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownTrailingLabel](ui.iggridpaging#options:locale.pageSizeDropDownTrailingLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTrailingLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 * Use option [locale.pagerRecordsLabelTemplate](ui.iggridpaging#options:locale.pagerRecordsLabelTemplate).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 * Use option [locale.pagerRecordsLabelTemplate](ui.iggridpaging#options:locale.pagerRecordsLabelTemplate).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the next page label. Use option [locale.nextPageLabelText](ui.iggridpaging#options:locale.nextPageLabelText).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the next page label. Use option [locale.nextPageLabelText](ui.iggridpaging#options:locale.nextPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the previous page label. Use option [locale.prevPageLabelText](ui.iggridpaging#options:locale.prevPageLabelText).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the previous page label. Use option [locale.prevPageLabelText](ui.iggridpaging#options:locale.prevPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the first page label. Use option [locale.firstPageLabelText](ui.iggridpaging#options:locale.firstPageLabelText).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the first page label. Use option [locale.firstPageLabelText](ui.iggridpaging#options:locale.firstPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the last page label. Use option [locale.lastPageLabelText](ui.iggridpaging#options:locale.lastPageLabelText).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the last page label. Use option [locale.lastPageLabelText](ui.iggridpaging#options:locale.lastPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Leading label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownLeadingLabel](ui.iggridpaging#options:locale.currentPageDropDownLeadingLabel).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Leading label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownLeadingLabel](ui.iggridpaging#options:locale.currentPageDropDownLeadingLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Trailing label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownTrailingLabel](ui.iggridpaging#options:locale.currentPageDropDownTrailingLabel).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Trailing label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownTrailingLabel](ui.iggridpaging#options:locale.currentPageDropDownTrailingLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page index drop down. Use option [locale.currentPageDropDownTooltip](ui.iggridpaging#options:locale.currentPageDropDownTooltip).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page index drop down. Use option [locale.currentPageDropDownTooltip](ui.iggridpaging#options:locale.currentPageDropDownTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page size drop down. Use option [locale.pageSizeDropDownTooltip](ui.iggridpaging#options:locale.pageSizeDropDownTooltip).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page size drop down. Use option [locale.pageSizeDropDownTooltip](ui.iggridpaging#options:locale.pageSizeDropDownTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the pager records label. Use option [locale.pagerRecordsLabelTooltip](ui.iggridpaging#options:locale.pagerRecordsLabelTooltip).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the pager records label. Use option [locale.pagerRecordsLabelTooltip](ui.iggridpaging#options:locale.pagerRecordsLabelTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the previous page button. Use option [locale.prevPageTooltip](ui.iggridpaging#options:locale.prevPageTooltip).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the previous page button. Use option [locale.prevPageTooltip](ui.iggridpaging#options:locale.prevPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the next page button. Use option [locale.nextPageTooltip](ui.iggridpaging#options:locale.nextPageTooltip).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the next page button. Use option [locale.nextPageTooltip](ui.iggridpaging#options:locale.nextPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the first page button. Use option [locale.firstPageTooltip](ui.iggridpaging#options:locale.firstPageTooltip).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the first page button. Use option [locale.firstPageTooltip](ui.iggridpaging#options:locale.firstPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the last page button. Use option [locale.lastPageTooltip](ui.iggridpaging#options:locale.lastPageTooltip).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the last page button. Use option [locale.lastPageTooltip](ui.iggridpaging#options:locale.lastPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
+	 * Use option [locale.pageTooltipFormat](ui.iggridpaging#options:locale.pageTooltipFormat).
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
+	 * Use option [locale.pageTooltipFormat](ui.iggridpaging#options:locale.pageTooltipFormat).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat", optionValue: string): void;
+	igGridPaging(optionLiteral: 'option', optionName: "locale"): IgGridPagingLocale;
+	igGridPaging(optionLiteral: 'option', optionName: "locale", optionValue: IgGridPagingLocale): void;
 
 	/**
 	 * Page size dropdown location, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true. Can be rendered above the grid header or inside the pager, next to the page links.
@@ -52533,76 +53130,6 @@ interface JQuery {
 	igGridPaging(optionLiteral: 'option', optionName: "showPagerRecordsLabel", optionValue: boolean): void;
 
 	/**
-	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate"): string;
-
-	/**
-	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate", optionValue: string): void;
-
-	/**
-	 * Text for the next page label.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText"): string;
-
-	/**
-	 * Text for the next page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText", optionValue: string): void;
-
-	/**
-	 * Text for the previous page label.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText"): string;
-
-	/**
-	 * Text for the previous page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText", optionValue: string): void;
-
-	/**
-	 * Text for the first page label.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText"): string;
-
-	/**
-	 * Text for the first page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText", optionValue: string): void;
-
-	/**
-	 * Text for the last page label.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText"): string;
-
-	/**
-	 * Text for the last page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText", optionValue: string): void;
-
-	/**
 	 * Option specifying whether to render the first and last page navigation buttons.
 	 *
 	 */
@@ -52629,146 +53156,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridPaging(optionLiteral: 'option', optionName: "showPrevNextPages", optionValue: boolean): void;
-
-	/**
-	 * Leading label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel"): string;
-
-	/**
-	 * Leading label text for the drop down from where the page index can be switched.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel", optionValue: string): void;
-
-	/**
-	 * Trailing label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel"): string;
-
-	/**
-	 * Trailing label text for the drop down from where the page index can be switched.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the page index drop down.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip"): string;
-
-	/**
-	 * Tooltip text for the page index drop down.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the page size drop down.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip"): string;
-
-	/**
-	 * Tooltip text for the page size drop down.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the pager records label.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip"): string;
-
-	/**
-	 * Tooltip text for the pager records label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the previous page button.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the previous page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the next page button.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the next page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the first page button.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the first page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the last page button.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the last page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
-	 *
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat"): string;
-
-	/**
-	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat", optionValue: string): void;
 
 	/**
 	 * Predefined page sizes that are available to the end user to switch their grid paging to, through a drop down in the grid header.
@@ -53863,6 +54250,37 @@ interface JQuery {
 	igGridResponsive(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igGridResponsive(methodName: string, ...methodParams: any[]): any;
 }
+interface IgGridRowSelectorsLocale {
+	/**
+	 * Selected records text for the select/deselect all overlay.
+	 *
+	 */
+	selectedRecordsText?: string;
+
+	/**
+	 * Deselected records text for the select/deselect all overlay.
+	 *
+	 */
+	deselectedRecordsText?: string;
+
+	/**
+	 * Select all text for the select/deselect all overlay.
+	 *
+	 */
+	selectAllText?: string;
+
+	/**
+	 * Deselect all text for the select/deselect all overlay.
+	 *
+	 */
+	deselectAllText?: string;
+
+	/**
+	 * Option for IgGridRowSelectorsLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface RowSelectorClickedEvent {
 	(event: Event, ui: RowSelectorClickedEventUIParam): void;
 }
@@ -54075,6 +54493,7 @@ interface IgGridRowSelectors {
 	 *
 	 */
 	deselectAllForPagingTemplate?: string;
+	locale?: IgGridRowSelectorsLocale;
 
 	/**
 	 * Event fired after a row selector is clicked.
@@ -54098,6 +54517,7 @@ interface IgGridRowSelectors {
 }
 interface IgGridRowSelectorsMethods {
 	destroy(): void;
+	changeLocale(): void;
 }
 interface JQuery {
 	data(propertyName: "igGridRowSelectors"): IgGridRowSelectorsMethods;
@@ -54105,6 +54525,7 @@ interface JQuery {
 
 interface JQuery {
 	igGridRowSelectors(methodName: "destroy"): void;
+	igGridRowSelectors(methodName: "changeLocale"): void;
 
 	/**
 	 * Determines whether the row selectors column should contain row numbering
@@ -54265,6 +54686,8 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridRowSelectors(optionLiteral: 'option', optionName: "deselectAllForPagingTemplate", optionValue: string): void;
+	igGridRowSelectors(optionLiteral: 'option', optionName: "locale"): IgGridRowSelectorsLocale;
+	igGridRowSelectors(optionLiteral: 'option', optionName: "locale", optionValue: IgGridRowSelectorsLocale): void;
 
 	/**
 	 * Event fired after a row selector is clicked.
@@ -55094,6 +55517,697 @@ interface JQuery {
 	igGridSelection(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igGridSelection(methodName: string, ...methodParams: any[]): any;
 }
+interface ButtonOKClickEvent {
+	(event: Event, ui: ButtonOKClickEventUIParam): void;
+}
+
+interface ButtonOKClickEventUIParam {
+	/**
+	 * Gets the reference to the igGridModalDialog widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the igGridModalDialog element.
+	 */
+	modalDialog?: string;
+}
+
+interface ButtonCancelClickEvent {
+	(event: Event, ui: ButtonCancelClickEventUIParam): void;
+}
+
+interface ButtonCancelClickEventUIParam {
+	/**
+	 * Gets the reference to the igGridModalDialog widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the igGridModalDialog element.
+	 */
+	modalDialog?: string;
+}
+
+interface IgGridModalDialog {
+	/**
+	 * The default modal dialog width in pixels.
+	 */
+	modalDialogWidth?: number;
+
+	/**
+	 * The default modal dialog height in pixels.
+	 */
+	modalDialogHeight?: number;
+	renderFooterButtons?: boolean;
+	animationDuration?: number;
+	buttonApplyDisabled?: boolean;
+
+	/**
+	 * If true and Enter is pressed - close modal dialog(NOTE: buttonApplyDisabled should be set to false - otherwise this options is ignored)
+	 */
+	closeModalDialogOnEnter?: boolean;
+
+	/**
+	 * Tab index to assign to containers and buttons inside the dialog
+	 */
+	tabIndex?: number;
+
+	/**
+	 * Event fired before the modal dialog is opened.
+	 */
+	modalDialogOpening?: ModalDialogOpeningEvent;
+
+	/**
+	 * Event fired after the modal dialog is already opened.
+	 */
+	modalDialogOpened?: ModalDialogOpenedEvent;
+
+	/**
+	 * Event fired every time the modal dialog changes its position.
+	 */
+	modalDialogMoving?: ModalDialogMovingEvent;
+
+	/**
+	 * Event fired before the modal dialog is closed.
+	 * The handler function takes arguments evt and ui.
+	 * Use ui.owner to get the reference to the igGridModalDialog widget.
+	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
+	 */
+	modalDialogClosing?: ModalDialogClosingEvent;
+
+	/**
+	 * Event fired after the modal dialog has been closed.
+	 */
+	modalDialogClosed?: ModalDialogClosedEvent;
+
+	/**
+	 * Event fired before the contents of the modal dialog are rendered.
+	 */
+	modalDialogContentsRendering?: ModalDialogContentsRenderingEvent;
+
+	/**
+	 * Event fired after the contents of the modal dialog are rendered.
+	 */
+	modalDialogContentsRendered?: ModalDialogContentsRenderedEvent;
+
+	/**
+	 * Event fired when the button OK/Apply is clicked
+	 */
+	buttonOKClick?: ButtonOKClickEvent;
+
+	/**
+	 * Event fired when the button Cancel is clicked
+	 */
+	buttonCancelClick?: ButtonCancelClickEvent;
+
+	/**
+	 * Option for igGridModalDialog
+	 */
+	[optionName: string]: any;
+}
+interface IgGridModalDialogMethods {
+	openModalDialog(): void;
+	changeLocale(): void;
+	closeModalDialog(accepted: Object, e: Object): void;
+	getCaptionButtonContainer(): void;
+	getFooter(): void;
+	getContent(): void;
+	destroy(): void;
+}
+interface JQuery {
+	data(propertyName: "igGridModalDialog"): IgGridModalDialogMethods;
+}
+
+interface IgEditorFilter {
+	/**
+	 * Option for igEditorFilter
+	 */
+	[optionName: string]: any;
+}
+interface IgEditorFilterMethods {
+	setFocus(delay: Object, toggle: Object): void;
+	remove(): void;
+	exitEditMode(): void;
+	validator(): void;
+	hasInvalidMessage(): void;
+	destroy(): void;
+}
+interface JQuery {
+	data(propertyName: "igEditorFilter"): IgEditorFilterMethods;
+}
+
+declare namespace Infragistics {
+class EditorProvider {
+	/**
+	 * Create handlers cache
+	 *
+	 * @param callbacks
+	 * @param key
+	 * @param editorOptions
+	 * @param tabIndex
+	 * @param format
+	 * @param element
+	 */
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	keyDown(evt: Object, ui: Object): void;
+	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+	getEditor(): void;
+	refreshValue(): void;
+	getValue(): void;
+	setValue(val: Object): void;
+	setFocus(toggle: Object): void;
+	setSize(width: Object, height: Object): void;
+	removeFromParent(): void;
+	destroy(): void;
+	validator(): void;
+	validate(): void;
+	requestValidate(evt: Object): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderBase {
+	/**
+	 * Call parent createEditor
+	 *
+	 * @param callbacks
+	 * @param key
+	 * @param editorOptions
+	 * @param tabIndex
+	 * @param format
+	 * @param element
+	 */
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+	keyDown(evt: Object, ui: Object): void;
+	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+	getEditor(): void;
+	getValue(): void;
+	setValue(val: Object): void;
+	validate(): void;
+	requestValidate(evt: Object): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderText {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	keyDown(evt: Object, ui: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderNumeric {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	getValue(): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderCurrency {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderPercent {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderMask {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderDate {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object, offset: Object): void;
+	setValue(value: Object, fe: Object, newOffset: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderDatePicker {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object, offset: Object): void;
+	removeFromParent(): void;
+	setValue(value: Object, fe: Object, newOffset: Object): void;
+	textChanged(evt: Object, ui: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	destroy(): void;
+	refreshValue(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderBoolean {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	valueChanged(evt: Object, ui: Object): void;
+	refreshValue(): void;
+	getValue(): void;
+	setValue(val: Object): void;
+	setSize(width: Object, height: Object): void;
+	removeFromParent(): void;
+	destroy(): void;
+	textChanged(evt: Object, ui: Object): void;
+	setFocus(): void;
+	validator(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderCombo {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	keyDown(evt: Object, ui: Object): void;
+	internalSelectionChanged(evt: Object, ui: Object): void;
+	selectionChanged(evt: Object, ui: Object): void;
+	refreshValue(): void;
+	getValue(): void;
+	setValue(val: Object, fire: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	validator(): void;
+	destroy(): void;
+	isValid(): void;
+	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+	getEditor(): void;
+	validate(): void;
+	requestValidate(evt: Object): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderObjectCombo {
+	getValue(): void;
+	setValue(val: Object, fire: Object): void;
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	keyDown(evt: Object, ui: Object): void;
+	internalSelectionChanged(evt: Object, ui: Object): void;
+	selectionChanged(evt: Object, ui: Object): void;
+	refreshValue(): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	removeFromParent(): void;
+	validator(): void;
+	destroy(): void;
+	isValid(): void;
+}
+}
+
+declare namespace Infragistics {
+class EditorProviderRating {
+	createEditor(callbacks: Object, key: Object, editorOptions: Object, tabIndex: Object, format: Object, element: Object): void;
+	internalValueChange(evt: Object, ui: Object): void;
+	valueChange(evt: Object, ui: Object): void;
+	setValue(val: Object): void;
+	setSize(width: Object, height: Object): void;
+	setFocus(): void;
+	validator(): void;
+	destroy(): void;
+	isValid(): void;
+	keyDown(evt: Object, ui: Object): void;
+	attachErrorEvents(errorShowing: Object, errorShown: Object, errorHidden: Object): void;
+	getEditor(): void;
+	refreshValue(): void;
+	getValue(): void;
+	removeFromParent(): void;
+	validate(): void;
+	requestValidate(evt: Object): void;
+}
+}
+
+declare namespace Infragistics {
+class SortingExpressionsManager {
+	setGridInstance(grid: Object): void;
+
+	/**
+	 * Insert expr at the first position of the se (sorting expressions) if there are not any other expressions with flag group by
+	 *  otherwise if there are such expressions inserts after the last
+	 *
+	 * @param se
+	 * @param expr
+	 * @param feature
+	 */
+	addSortingExpression(se: Object, expr: Object, feature: Object): void;
+	setFormattersForSortingExprs(exprs: Object, grid: Object): void;
+}
+}
+
+interface JQuery {
+	igGridModalDialog(methodName: "openModalDialog"): void;
+	igGridModalDialog(methodName: "changeLocale"): void;
+	igGridModalDialog(methodName: "closeModalDialog", accepted: Object, e: Object): void;
+	igGridModalDialog(methodName: "getCaptionButtonContainer"): void;
+	igGridModalDialog(methodName: "getFooter"): void;
+	igGridModalDialog(methodName: "getContent"): void;
+	igGridModalDialog(methodName: "destroy"): void;
+
+	/**
+	 * The default modal dialog width in pixels.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogWidth"): number;
+
+	/**
+	 * The default modal dialog width in pixels.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogWidth", optionValue: number): void;
+
+	/**
+	 * The default modal dialog height in pixels.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogHeight"): number;
+
+	/**
+	 * The default modal dialog height in pixels.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogHeight", optionValue: number): void;
+	igGridModalDialog(optionLiteral: 'option', optionName: "renderFooterButtons"): boolean;
+	igGridModalDialog(optionLiteral: 'option', optionName: "renderFooterButtons", optionValue: boolean): void;
+	igGridModalDialog(optionLiteral: 'option', optionName: "animationDuration"): number;
+	igGridModalDialog(optionLiteral: 'option', optionName: "animationDuration", optionValue: number): void;
+	igGridModalDialog(optionLiteral: 'option', optionName: "buttonApplyDisabled"): boolean;
+	igGridModalDialog(optionLiteral: 'option', optionName: "buttonApplyDisabled", optionValue: boolean): void;
+
+	/**
+	 * If true and Enter is pressed - close modal dialog(NOTE: buttonApplyDisabled should be set to false - otherwise this options is ignored)
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "closeModalDialogOnEnter"): boolean;
+
+	/**
+	 * If true and Enter is pressed - close modal dialog(NOTE: buttonApplyDisabled should be set to false - otherwise this options is ignored)
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "closeModalDialogOnEnter", optionValue: boolean): void;
+
+	/**
+	 * Tab index to assign to containers and buttons inside the dialog
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "tabIndex"): number;
+
+	/**
+	 * Tab index to assign to containers and buttons inside the dialog
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "tabIndex", optionValue: number): void;
+
+	/**
+	 * Event fired before the modal dialog is opened.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogOpening"): ModalDialogOpeningEvent;
+
+	/**
+	 * Event fired before the modal dialog is opened.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogOpening", optionValue: ModalDialogOpeningEvent): void;
+
+	/**
+	 * Event fired after the modal dialog is already opened.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogOpened"): ModalDialogOpenedEvent;
+
+	/**
+	 * Event fired after the modal dialog is already opened.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogOpened", optionValue: ModalDialogOpenedEvent): void;
+
+	/**
+	 * Event fired every time the modal dialog changes its position.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogMoving"): ModalDialogMovingEvent;
+
+	/**
+	 * Event fired every time the modal dialog changes its position.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogMoving", optionValue: ModalDialogMovingEvent): void;
+
+	/**
+	 * Event fired before the modal dialog is closed.
+	 * The handler function takes arguments evt and ui.
+	 * Use ui.owner to get the reference to the igGridModalDialog widget.
+	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogClosing"): ModalDialogClosingEvent;
+
+	/**
+	 * Event fired before the modal dialog is closed.
+	 * The handler function takes arguments evt and ui.
+	 * Use ui.owner to get the reference to the igGridModalDialog widget.
+	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogClosing", optionValue: ModalDialogClosingEvent): void;
+
+	/**
+	 * Event fired after the modal dialog has been closed.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogClosed"): ModalDialogClosedEvent;
+
+	/**
+	 * Event fired after the modal dialog has been closed.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogClosed", optionValue: ModalDialogClosedEvent): void;
+
+	/**
+	 * Event fired before the contents of the modal dialog are rendered.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogContentsRendering"): ModalDialogContentsRenderingEvent;
+
+	/**
+	 * Event fired before the contents of the modal dialog are rendered.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogContentsRendering", optionValue: ModalDialogContentsRenderingEvent): void;
+
+	/**
+	 * Event fired after the contents of the modal dialog are rendered.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogContentsRendered"): ModalDialogContentsRenderedEvent;
+
+	/**
+	 * Event fired after the contents of the modal dialog are rendered.
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogContentsRendered", optionValue: ModalDialogContentsRenderedEvent): void;
+
+	/**
+	 * Event fired when the button OK/Apply is clicked
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "buttonOKClick"): ButtonOKClickEvent;
+
+	/**
+	 * Event fired when the button OK/Apply is clicked
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "buttonOKClick", optionValue: ButtonOKClickEvent): void;
+
+	/**
+	 * Event fired when the button Cancel is clicked
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "buttonCancelClick"): ButtonCancelClickEvent;
+
+	/**
+	 * Event fired when the button Cancel is clicked
+	 *
+	 * @optionValue Define event handler function.
+	 */
+	igGridModalDialog(optionLiteral: 'option', optionName: "buttonCancelClick", optionValue: ButtonCancelClickEvent): void;
+	igGridModalDialog(options: IgGridModalDialog): JQuery;
+	igGridModalDialog(optionLiteral: 'option', optionName: string): any;
+	igGridModalDialog(optionLiteral: 'option', options: IgGridModalDialog): JQuery;
+	igGridModalDialog(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
+	igGridModalDialog(methodName: string, ...methodParams: any[]): any;
+}
+interface JQuery {
+	igEditorFilter(methodName: "setFocus", delay: Object, toggle: Object): void;
+	igEditorFilter(methodName: "remove"): void;
+	igEditorFilter(methodName: "exitEditMode"): void;
+	igEditorFilter(methodName: "validator"): void;
+	igEditorFilter(methodName: "hasInvalidMessage"): void;
+	igEditorFilter(methodName: "destroy"): void;
+	igEditorFilter(options: IgEditorFilter): JQuery;
+	igEditorFilter(optionLiteral: 'option', optionName: string): any;
+	igEditorFilter(optionLiteral: 'option', options: IgEditorFilter): JQuery;
+	igEditorFilter(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
+	igEditorFilter(methodName: string, ...methodParams: any[]): any;
+}
+interface IgGridSortingLocale {
+	/**
+	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
+	 *
+	 */
+	sortedColumnTooltipFormat?: string;
+
+	/**
+	 * Unsorted column tooltip.
+	 *
+	 */
+	unsortedColumnTooltip?: string;
+
+	/**
+	 * Ascending text used for header title.
+	 *
+	 */
+	ascending?: string;
+
+	/**
+	 * Descending text used for header title.
+	 *
+	 */
+	descending?: string;
+
+	/**
+	 * Specifies sortby button text for each unsorted column in multiple sorting dialog.
+	 *
+	 */
+	modalDialogSortByButtonText?: string;
+
+	/**
+	 * Specifies reset button text in the modal dialog.
+	 *
+	 */
+	modalDialogResetButton?: string;
+
+	/**
+	 * Specifies caption for each descending sorted column in multiple sorting dialog.
+	 *
+	 */
+	modalDialogCaptionButtonDesc?: string;
+
+	/**
+	 * Specifies caption for each ascending sorted column in multiple sorting dialog.
+	 *
+	 */
+	modalDialogCaptionButtonAsc?: string;
+
+	/**
+	 * Specifies caption for unsort button in multiple sorting dialog.
+	 *
+	 */
+	modalDialogCaptionButtonUnsort?: string;
+
+	/**
+	 * Specifies the text of the feature chooser sorting button.
+	 *
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * Specifies caption text for multiple sorting dialog.
+	 *
+	 */
+	modalDialogCaptionText?: string;
+
+	/**
+	 * Specifies text of button which applies changes in modal dialog.
+	 *
+	 */
+	modalDialogButtonApplyText?: string;
+
+	/**
+	 * Specifies text of button which cancels the changes in the advanced sorting modal dialog.
+	 *
+	 */
+	modalDialogButtonCancelText?: string;
+
+	/**
+	 * Specifies the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
+	 *
+	 */
+	featureChooserSortAsc?: string;
+
+	/**
+	 * Specifies the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
+	 *
+	 */
+	featureChooserSortDesc?: string;
+
+	/**
+	 * Option for IgGridSortingLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface IgGridSortingColumnSetting {
 	/**
 	 * Identifies the grid column by key. Either key or index must be set in every column setting.
@@ -55345,45 +56459,95 @@ interface IgGridSorting {
 	firstSortDirection?: string;
 
 	/**
-	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format
-	 */
-	sortedColumnTooltip?: string;
-
-	/**
 	 * Specifies whether sorting to be applied immediately when click sort/unsort columns when using the multiple sorting dialog. When it is false Apply button shows and sorting is applied when the button is clicked.
 	 *
 	 */
 	modalDialogSortOnClick?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies sortby button text for each unsorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogSortByButtonText](ui.iggridsorting#options:locale.modalDialogSortByButtonText).
 	 */
 	modalDialogSortByButtonText?: string;
 
 	/**
-	 * Specifies sortby button label for each unsorted column in multiple sorting dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies reset button text in multiple sorting dialog.
+	 * Use option [locale.modalDialogResetButton](ui.iggridsorting#options:locale.modalDialogResetButton).
 	 */
 	modalDialogResetButtonLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies caption for each descending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonDesc](ui.iggridsorting#options:locale.modalDialogCaptionButtonDesc).
 	 */
 	modalDialogCaptionButtonDesc?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies caption for each ascending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonAsc](ui.iggridsorting#options:locale.modalDialogCaptionButtonAsc).
 	 */
 	modalDialogCaptionButtonAsc?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies caption for unsort button in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonUnsort](ui.iggridsorting#options:locale.modalDialogCaptionButtonUnsort).
 	 */
 	modalDialogCaptionButtonUnsort?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the text of the feature chooser sorting button.
+	 * Use option [locale.featureChooserText](ui.iggridsorting#options:locale.featureChooserText).
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
+	 * Use option [locale.unsortedColumnTooltip](ui.iggridsorting#options:locale.unsortedColumnTooltip).
+	 */
+	unsortedColumnTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for multiple sorting dialog.
+	 * Use option [locale.modalDialogCaptionText](ui.iggridsorting#options:locale.modalDialogCaptionText).
+	 */
+	modalDialogCaptionText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which apply changes in modal dialog.
+	 * Use option [locale.modalDialogButtonApplyText](ui.iggridsorting#options:locale.modalDialogButtonApplyText).
+	 */
+	modalDialogButtonApplyText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which cancels the changes in the advanced sorting modal dialog.
+	 * Use option [locale.modalDialogButtonCancelText](ui.iggridsorting#options:locale.modalDialogButtonCancelText).
+	 */
+	modalDialogButtonCancelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortAsc](ui.iggridsorting#options:locale.featureChooserSortAsc).
+	 */
+	featureChooserSortAsc?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortDesc](ui.iggridsorting#options:locale.featureChooserSortDesc).
+	 */
+	featureChooserSortDesc?: string;
+	locale?: IgGridSortingLocale;
 
 	/**
 	 * Specifies width of multiple sorting dialog.
@@ -55412,52 +56576,10 @@ interface IgGridSorting {
 	modalDialogAnimationDuration?: number;
 
 	/**
-	 * Specifies the text of the feature chooser sorting button.
-	 *
-	 */
-	featureChooserText?: string;
-
-	/**
-	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
-	 *
-	 */
-	unsortedColumnTooltip?: string;
-
-	/**
 	 * A list of custom column settings that specify custom sorting settings for a specific column (whether sorting is enabled / disabled, default sort direction, first sort direction, etc.).
 	 *
 	 */
 	columnSettings?: IgGridSortingColumnSetting[];
-
-	/**
-	 * Specifies caption text for multiple sorting dialog.
-	 *
-	 */
-	modalDialogCaptionText?: string;
-
-	/**
-	 * Specifies text of button which apply changes in modal dialog.
-	 *
-	 */
-	modalDialogButtonApplyText?: string;
-
-	/**
-	 * Specifies text of button which cancels the changes in the advanced sorting modal dialog.
-	 *
-	 */
-	modalDialogButtonCancelText?: string;
-
-	/**
-	 * Specifies the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
-	 *
-	 */
-	featureChooserSortAsc?: string;
-
-	/**
-	 * Specifies the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
-	 *
-	 */
-	featureChooserSortDesc?: string;
 
 	/**
 	 * Enables/disables sorting persistence when the grid is rebound.
@@ -55562,6 +56684,8 @@ interface IgGridSorting {
 	[optionName: string]: any;
 }
 interface IgGridSortingMethods {
+	changeLocale(): void;
+
 	/**
 	 * Sorts the data in a grid column  and updates the UI.
 	 *
@@ -55572,9 +56696,11 @@ interface IgGridSortingMethods {
 	sortColumn(index: Object, direction: Object, header: Object): void;
 
 	/**
-	 * Sorts the data in grid columns and updates the UI.\
+	 * Sorts the data in grid columns and updates the UI. It accepts optional argument - array of sorting expressions. If passed then sorts the data and sets sorting expressions of the data source. If not passed uses current sorting expressions of the data source.
+	 *
+	 * @param exprs array of sorting expressions. If not set then the method uses expressions defined in sorting settings of the data source.
 	 */
-	sortMultiple(): void;
+	sortMultiple(exprs?: any[]): void;
 
 	/**
 	 * Removes current sorting(for all sorted columns) and updates the UI.
@@ -55621,8 +56747,9 @@ interface JQuery {
 }
 
 interface JQuery {
+	igGridSorting(methodName: "changeLocale"): void;
 	igGridSorting(methodName: "sortColumn", index: Object, direction: Object, header: Object): void;
-	igGridSorting(methodName: "sortMultiple"): void;
+	igGridSorting(methodName: "sortMultiple", exprs?: any[]): void;
 	igGridSorting(methodName: "clearSorting"): void;
 	igGridSorting(methodName: "unsortColumn", index: Object, header: Object): void;
 	igGridSorting(methodName: "destroy"): void;
@@ -55764,18 +56891,6 @@ interface JQuery {
 	igGridSorting(optionLiteral: 'option', optionName: "firstSortDirection", optionValue: string): void;
 
 	/**
-	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "sortedColumnTooltip"): string;
-
-	/**
-	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "sortedColumnTooltip", optionValue: string): void;
-
-	/**
 	 * Gets whether sorting to be applied immediately when click sort/unsort columns when using the multiple sorting dialog. When it is false Apply button shows and sorting is applied when the button is clicked.
 	 *
 	 */
@@ -55790,74 +56905,198 @@ interface JQuery {
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogSortOnClick", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets sortby button text for each unsorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogSortByButtonText](ui.iggridsorting#options:locale.modalDialogSortByButtonText).
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogSortByButtonText"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets sortby button text for each unsorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogSortByButtonText](ui.iggridsorting#options:locale.modalDialogSortByButtonText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogSortByButtonText", optionValue: string): void;
 
 	/**
-	 * Gets sortby button label for each unsorted column in multiple sorting dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets reset button text in multiple sorting dialog.
+	 * Use option [locale.modalDialogResetButton](ui.iggridsorting#options:locale.modalDialogResetButton).
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogResetButtonLabel"): string;
 
 	/**
-	 * Sets sortby button label for each unsorted column in multiple sorting dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets reset button text in multiple sorting dialog.
+	 * Use option [locale.modalDialogResetButton](ui.iggridsorting#options:locale.modalDialogResetButton).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogResetButtonLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets caption for each descending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonDesc](ui.iggridsorting#options:locale.modalDialogCaptionButtonDesc).
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets caption for each descending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonDesc](ui.iggridsorting#options:locale.modalDialogCaptionButtonDesc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets caption for each ascending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonAsc](ui.iggridsorting#options:locale.modalDialogCaptionButtonAsc).
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets caption for each ascending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonAsc](ui.iggridsorting#options:locale.modalDialogCaptionButtonAsc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets caption for unsort button in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonUnsort](ui.iggridsorting#options:locale.modalDialogCaptionButtonUnsort).
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUnsort"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets caption for unsort button in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonUnsort](ui.iggridsorting#options:locale.modalDialogCaptionButtonUnsort).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUnsort", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the text of the feature chooser sorting button.
+	 * Use option [locale.featureChooserText](ui.iggridsorting#options:locale.featureChooserText).
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "featureChooserText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the text of the feature chooser sorting button.
+	 * Use option [locale.featureChooserText](ui.iggridsorting#options:locale.featureChooserText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
+	 * Use option [locale.unsortedColumnTooltip](ui.iggridsorting#options:locale.unsortedColumnTooltip).
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
+	 * Use option [locale.unsortedColumnTooltip](ui.iggridsorting#options:locale.unsortedColumnTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for multiple sorting dialog.
+	 * Use option [locale.modalDialogCaptionText](ui.iggridsorting#options:locale.modalDialogCaptionText).
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for multiple sorting dialog.
+	 * Use option [locale.modalDialogCaptionText](ui.iggridsorting#options:locale.modalDialogCaptionText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which apply changes in modal dialog.
+	 * Use option [locale.modalDialogButtonApplyText](ui.iggridsorting#options:locale.modalDialogButtonApplyText).
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which apply changes in modal dialog.
+	 * Use option [locale.modalDialogButtonApplyText](ui.iggridsorting#options:locale.modalDialogButtonApplyText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which cancels the changes in the advanced sorting modal dialog.
+	 * Use option [locale.modalDialogButtonCancelText](ui.iggridsorting#options:locale.modalDialogButtonCancelText).
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which cancels the changes in the advanced sorting modal dialog.
+	 * Use option [locale.modalDialogButtonCancelText](ui.iggridsorting#options:locale.modalDialogButtonCancelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortAsc](ui.iggridsorting#options:locale.featureChooserSortAsc).
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortAsc](ui.iggridsorting#options:locale.featureChooserSortAsc).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortDesc](ui.iggridsorting#options:locale.featureChooserSortDesc).
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortDesc](ui.iggridsorting#options:locale.featureChooserSortDesc).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc", optionValue: string): void;
+	igGridSorting(optionLiteral: 'option', optionName: "locale"): IgGridSortingLocale;
+	igGridSorting(optionLiteral: 'option', optionName: "locale", optionValue: IgGridSortingLocale): void;
 
 	/**
 	 * Gets width of multiple sorting dialog.
@@ -55906,34 +57145,6 @@ interface JQuery {
 	igGridSorting(optionLiteral: 'option', optionName: "modalDialogAnimationDuration", optionValue: number): void;
 
 	/**
-	 * Gets the text of the feature chooser sorting button.
-	 *
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "featureChooserText"): string;
-
-	/**
-	 * Sets the text of the feature chooser sorting button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
-
-	/**
-	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
-	 *
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip"): string;
-
-	/**
-	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip", optionValue: string): void;
-
-	/**
 	 * A list of custom column settings that specify custom sorting settings for a specific column (whether sorting is enabled / disabled, default sort direction, first sort direction, etc.).
 	 *
 	 */
@@ -55946,76 +57157,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridSorting(optionLiteral: 'option', optionName: "columnSettings", optionValue: IgGridSortingColumnSetting[]): void;
-
-	/**
-	 * Gets caption text for multiple sorting dialog.
-	 *
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText"): string;
-
-	/**
-	 * Sets caption text for multiple sorting dialog.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText", optionValue: string): void;
-
-	/**
-	 * Gets text of button which apply changes in modal dialog.
-	 *
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText"): string;
-
-	/**
-	 * Sets text of button which apply changes in modal dialog.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText", optionValue: string): void;
-
-	/**
-	 * Gets text of button which cancels the changes in the advanced sorting modal dialog.
-	 *
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText"): string;
-
-	/**
-	 * Sets text of button which cancels the changes in the advanced sorting modal dialog.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText", optionValue: string): void;
-
-	/**
-	 * Gets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
-	 *
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc"): string;
-
-	/**
-	 * Sets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc", optionValue: string): void;
-
-	/**
-	 * Gets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
-	 *
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc"): string;
-
-	/**
-	 * Sets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc", optionValue: string): void;
 
 	/**
 	 * Enables/disables sorting persistence when the grid is rebound.
@@ -56337,6 +57478,49 @@ interface IgGridSummariesColumnSetting {
 	[optionName: string]: any;
 }
 
+interface IgGridSummariesLocale {
+	/**
+	 * Text of the button OK in the summaries dropdown
+	 *
+	 */
+	dialogButtonOKText?: string;
+
+	/**
+	 * Text of the button Cancel in the summaries dropdown
+	 *
+	 */
+	dialogButtonCancelText?: string;
+
+	/**
+	 * Get or set text that is shown in the feature chooser dropdown when summaries are hidden
+	 *
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * Get or set text that is shown in the feauture chooser dropdown when summaries are shown
+	 *
+	 */
+	featureChooserTextHide?: string;
+
+	/**
+	 * Empty text template to be shown for empty cells
+	 *
+	 */
+	emptyCellText?: string;
+
+	/**
+	 * Tooltip text for header cell button
+	 *
+	 */
+	summariesHeaderButtonTooltip?: string;
+
+	/**
+	 * Option for IgGridSummariesLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface SummariesCalculatingEvent {
 	(event: Event, ui: SummariesCalculatingEventUIParam): void;
 }
@@ -56471,16 +57655,46 @@ interface IgGridSummaries {
 	type?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text of the button OK in the summaries dropdown
-	 *
+	 * Use option [locale.dialogButtonOKText](ui.iggridsummaries#options:locale.dialogButtonOKText).
 	 */
 	dialogButtonOKText?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text of the button Cancel in the summaries dropdown
-	 *
+	 * Use option [locale.dialogButtonCancelText](ui.iggridsummaries#options:locale.dialogButtonCancelText).
 	 */
 	dialogButtonCancelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Get or set text that is shown in the feature chooser dropdown when summaries are hidden
+	 * Use option [locale.featureChooserText](ui.iggridsummaries#options:locale.featureChooserText).
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Get or set text that is shown in the feauture chooser dropdown when summaries are shown
+	 * Use option [locale.featureChooserTextHide](ui.iggridsummaries#options:locale.featureChooserTextHide).
+	 */
+	featureChooserTextHide?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Empty text template to be shown for empty cells
+	 * Use option [locale.emptyCellText](ui.iggridsummaries#options:locale.emptyCellText).
+	 */
+	emptyCellText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for header cell button
+	 * Use option [locale.summariesHeaderButtonTooltip](ui.iggridsummaries#options:locale.summariesHeaderButtonTooltip).
+	 */
+	summariesHeaderButtonTooltip?: string;
 
 	/**
 	 * Specifies when calculations are made.
@@ -56491,18 +57705,6 @@ interface IgGridSummaries {
 	 * "okcancelbuttons" summaries are updated only when OK button is clicked
 	 */
 	calculateRenderMode?: string;
-
-	/**
-	 * Get or set text that is shown in the feature chooser dropdown when summaries are hidden
-	 *
-	 */
-	featureChooserText?: string;
-
-	/**
-	 * Get or set text that is shown in the feauture chooser dropdown when summaries are shown
-	 *
-	 */
-	featureChooserTextHide?: string;
 
 	/**
 	 * Specifies how compact the summaries are rendered.
@@ -56573,18 +57775,6 @@ interface IgGridSummaries {
 	dropDownDialogAnimationDuration?: number;
 
 	/**
-	 * Empty text template to be shown for empty cells
-	 *
-	 */
-	emptyCellText?: string;
-
-	/**
-	 * Tooltip text for header cell button
-	 *
-	 */
-	summariesHeaderButtonTooltip?: string;
-
-	/**
 	 * Result template for summary result(shown in table cell)
 	 *
 	 */
@@ -56606,6 +57796,7 @@ interface IgGridSummaries {
 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 */
 	inherit?: boolean;
+	locale?: IgGridSummariesLocale;
 
 	/**
 	 * Event fired before drop down is opened for a specific column summary
@@ -56672,6 +57863,8 @@ interface IgGridSummaries {
 	[optionName: string]: any;
 }
 interface IgGridSummariesMethods {
+	changeLocale(): void;
+	changeRegional(): void;
 	destroy(): void;
 
 	/**
@@ -56755,6 +57948,8 @@ interface JQuery {
 }
 
 interface JQuery {
+	igGridSummaries(methodName: "changeLocale"): void;
+	igGridSummaries(methodName: "changeRegional"): void;
 	igGridSummaries(methodName: "destroy"): void;
 	igGridSummaries(methodName: "isSummariesRowsHidden"): void;
 	igGridSummaries(methodName: "calculateSummaries"): void;
@@ -56785,32 +57980,100 @@ interface JQuery {
 	igGridSummaries(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text of the button OK in the summaries dropdown
-	 *
+	 * Use option [locale.dialogButtonOKText](ui.iggridsummaries#options:locale.dialogButtonOKText).
 	 */
 	igGridSummaries(optionLiteral: 'option', optionName: "dialogButtonOKText"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text of the button OK in the summaries dropdown
-	 *
+	 * Use option [locale.dialogButtonOKText](ui.iggridsummaries#options:locale.dialogButtonOKText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridSummaries(optionLiteral: 'option', optionName: "dialogButtonOKText", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text of the button Cancel in the summaries dropdown
-	 *
+	 * Use option [locale.dialogButtonCancelText](ui.iggridsummaries#options:locale.dialogButtonCancelText).
 	 */
 	igGridSummaries(optionLiteral: 'option', optionName: "dialogButtonCancelText"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text of the button Cancel in the summaries dropdown
-	 *
+	 * Use option [locale.dialogButtonCancelText](ui.iggridsummaries#options:locale.dialogButtonCancelText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridSummaries(optionLiteral: 'option', optionName: "dialogButtonCancelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Get or set text that is shown in the feature chooser dropdown when summaries are hidden
+	 * Use option [locale.featureChooserText](ui.iggridsummaries#options:locale.featureChooserText).
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Get or set text that is shown in the feature chooser dropdown when summaries are hidden
+	 * Use option [locale.featureChooserText](ui.iggridsummaries#options:locale.featureChooserText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Get or set text that is shown in the feauture chooser dropdown when summaries are shown
+	 * Use option [locale.featureChooserTextHide](ui.iggridsummaries#options:locale.featureChooserTextHide).
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserTextHide"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Get or set text that is shown in the feauture chooser dropdown when summaries are shown
+	 * Use option [locale.featureChooserTextHide](ui.iggridsummaries#options:locale.featureChooserTextHide).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserTextHide", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Empty text template to be shown for empty cells
+	 * Use option [locale.emptyCellText](ui.iggridsummaries#options:locale.emptyCellText).
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "emptyCellText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Empty text template to be shown for empty cells
+	 * Use option [locale.emptyCellText](ui.iggridsummaries#options:locale.emptyCellText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "emptyCellText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for header cell button
+	 * Use option [locale.summariesHeaderButtonTooltip](ui.iggridsummaries#options:locale.summariesHeaderButtonTooltip).
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "summariesHeaderButtonTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for header cell button
+	 * Use option [locale.summariesHeaderButtonTooltip](ui.iggridsummaries#options:locale.summariesHeaderButtonTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igGridSummaries(optionLiteral: 'option', optionName: "summariesHeaderButtonTooltip", optionValue: string): void;
 
 	/**
 	 * Gets when calculations are made.
@@ -56827,34 +58090,6 @@ interface JQuery {
 	 */
 
 	igGridSummaries(optionLiteral: 'option', optionName: "calculateRenderMode", optionValue: string): void;
-
-	/**
-	 * Get or set text that is shown in the feature chooser dropdown when summaries are hidden
-	 *
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserText"): string;
-
-	/**
-	 * Get or set text that is shown in the feature chooser dropdown when summaries are hidden
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
-
-	/**
-	 * Get or set text that is shown in the feauture chooser dropdown when summaries are shown
-	 *
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserTextHide"): string;
-
-	/**
-	 * Get or set text that is shown in the feauture chooser dropdown when summaries are shown
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "featureChooserTextHide", optionValue: string): void;
 
 	/**
 	 * Gets how compact the summaries are rendered.
@@ -57005,34 +58240,6 @@ interface JQuery {
 	igGridSummaries(optionLiteral: 'option', optionName: "dropDownDialogAnimationDuration", optionValue: number): void;
 
 	/**
-	 * Empty text template to be shown for empty cells
-	 *
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "emptyCellText"): string;
-
-	/**
-	 * Empty text template to be shown for empty cells
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "emptyCellText", optionValue: string): void;
-
-	/**
-	 * Tooltip text for header cell button
-	 *
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "summariesHeaderButtonTooltip"): string;
-
-	/**
-	 * Tooltip text for header cell button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igGridSummaries(optionLiteral: 'option', optionName: "summariesHeaderButtonTooltip", optionValue: string): void;
-
-	/**
 	 * Result template for summary result(shown in table cell)
 	 *
 	 */
@@ -57087,6 +58294,8 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridSummaries(optionLiteral: 'option', optionName: "inherit", optionValue: boolean): void;
+	igGridSummaries(optionLiteral: 'option', optionName: "locale"): IgGridSummariesLocale;
+	igGridSummaries(optionLiteral: 'option', optionName: "locale", optionValue: IgGridSummariesLocale): void;
 
 	/**
 	 * Event fired before drop down is opened for a specific column summary
@@ -57643,12 +58852,6 @@ interface IgGridUpdatingColumnSetting {
 
 interface IgGridUpdatingRowEditDialogOptions {
 	/**
-	 * Specifies the caption of the dialog. If not set, $.ig.GridUpdating.locale.rowEditDialogCaptionLabel is used.
-	 *
-	 */
-	captionLabel?: string;
-
-	/**
 	 * Controls the containment of the dialog's drag operation.
 	 *
 	 *
@@ -57753,6 +58956,61 @@ interface IgGridUpdatingRowEditDialogOptions {
 
 	/**
 	 * Option for IgGridUpdatingRowEditDialogOptions
+	 */
+	[optionName: string]: any;
+}
+
+interface IgGridUpdatingLocale {
+	/**
+	 * Specifies the label for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneLabel is used.
+	 *
+	 */
+	doneLabel?: string;
+
+	/**
+	 * Specifies the title for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneTooltip is used.
+	 *
+	 */
+	doneTooltip?: string;
+
+	/**
+	 * Specifies the label for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelLabel is used.
+	 *
+	 */
+	cancelLabel?: string;
+
+	/**
+	 * Specifies the title for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelTooltip is used.
+	 *
+	 */
+	cancelTooltip?: string;
+
+	/**
+	 * Specifies the label for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowLabel is used.
+	 *
+	 */
+	addRowLabel?: string;
+
+	/**
+	 * Specifies the title for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowTooltip is used.
+	 *
+	 */
+	addRowTooltip?: string;
+
+	/**
+	 * Specifies the label for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowLabel is used.
+	 *
+	 */
+	deleteRowLabel?: string;
+
+	/**
+	 * Specifies the title for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowTooltip is used.
+	 *
+	 */
+	deleteRowTooltip?: string;
+
+	/**
+	 * Option for IgGridUpdatingLocale
 	 */
 	[optionName: string]: any;
 }
@@ -58184,50 +59442,58 @@ interface IgGridUpdating {
 	validation?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneLabel is used.
-	 *
+	 * Use option [locale.doneLabel](ui.iggridupdating#options:locale.doneLabel).
 	 */
 	doneLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneTooltip is used.
-	 *
+	 * Use option [locale.doneTooltip](ui.iggridupdating#options:locale.doneTooltip).
 	 */
 	doneTooltip?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelLabel is used.
-	 *
+	 * Use option [locale.cancelLabel](ui.iggridupdating#options:locale.cancelLabel).
 	 */
 	cancelLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelTooltip is used.
-	 *
+	 * Use option [locale.cancelTooltip](ui.iggridupdating#options:locale.cancelTooltip).
 	 */
 	cancelTooltip?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowLabel is used.
-	 *
+	 * Use option [locale.addRowLabel](ui.iggridupdating#options:locale.addRowLabel).
 	 */
 	addRowLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowTooltip is used.
-	 *
+	 * Use option [locale.addRowTooltip](ui.iggridupdating#options:locale.addRowTooltip).
 	 */
 	addRowTooltip?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowLabel is used.
-	 *
+	 * Use option [locale.deleteRowLabel](ui.iggridupdating#options:locale.deleteRowLabel).
 	 */
 	deleteRowLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowTooltip is used.
-	 *
+	 * Use option [locale.deleteRowTooltip](ui.iggridupdating#options:locale.deleteRowTooltip).
 	 */
 	deleteRowTooltip?: string;
 
@@ -58301,6 +59567,7 @@ interface IgGridUpdating {
 	 * Enables/disables feature inheritance for the child layouts in igHierarchicalGrid.
 	 */
 	inherit?: boolean;
+	locale?: IgGridUpdatingLocale;
 
 	/**
 	 * Event fired before row editing begins.
@@ -58496,6 +59763,8 @@ interface IgGridUpdatingMethods {
 	 * Destroys igGridUpdating.
 	 */
 	destroy(): Object;
+	changeRegional(): void;
+	changeLocale(): void;
 
 	/**
 	 * Shows the delete button for specific row.
@@ -58526,6 +59795,8 @@ interface JQuery {
 	igGridUpdating(methodName: "editorForKey", key: string): Object;
 	igGridUpdating(methodName: "editorForCell", cell: string, create?: boolean): Object;
 	igGridUpdating(methodName: "destroy"): Object;
+	igGridUpdating(methodName: "changeRegional"): void;
+	igGridUpdating(methodName: "changeLocale"): void;
 	igGridUpdating(methodName: "showDeleteButtonFor", row: Object): void;
 	igGridUpdating(methodName: "hideDeleteButton"): void;
 
@@ -58602,112 +59873,128 @@ interface JQuery {
 	igGridUpdating(optionLiteral: 'option', optionName: "validation", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneLabel is used.
-	 *
+	 * Use option [locale.doneLabel](ui.iggridupdating#options:locale.doneLabel).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "doneLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneLabel is used.
-	 *
+	 * Use option [locale.doneLabel](ui.iggridupdating#options:locale.doneLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "doneLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneTooltip is used.
-	 *
+	 * Use option [locale.doneTooltip](ui.iggridupdating#options:locale.doneTooltip).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "doneTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneTooltip is used.
-	 *
+	 * Use option [locale.doneTooltip](ui.iggridupdating#options:locale.doneTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "doneTooltip", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelLabel is used.
-	 *
+	 * Use option [locale.cancelLabel](ui.iggridupdating#options:locale.cancelLabel).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "cancelLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelLabel is used.
-	 *
+	 * Use option [locale.cancelLabel](ui.iggridupdating#options:locale.cancelLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "cancelLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelTooltip is used.
-	 *
+	 * Use option [locale.cancelTooltip](ui.iggridupdating#options:locale.cancelTooltip).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "cancelTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelTooltip is used.
-	 *
+	 * Use option [locale.cancelTooltip](ui.iggridupdating#options:locale.cancelTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "cancelTooltip", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowLabel is used.
-	 *
+	 * Use option [locale.addRowLabel](ui.iggridupdating#options:locale.addRowLabel).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "addRowLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowLabel is used.
-	 *
+	 * Use option [locale.addRowLabel](ui.iggridupdating#options:locale.addRowLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "addRowLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowTooltip is used.
-	 *
+	 * Use option [locale.addRowTooltip](ui.iggridupdating#options:locale.addRowTooltip).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "addRowTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowTooltip is used.
-	 *
+	 * Use option [locale.addRowTooltip](ui.iggridupdating#options:locale.addRowTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "addRowTooltip", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowLabel is used.
-	 *
+	 * Use option [locale.deleteRowLabel](ui.iggridupdating#options:locale.deleteRowLabel).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "deleteRowLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowLabel is used.
-	 *
+	 * Use option [locale.deleteRowLabel](ui.iggridupdating#options:locale.deleteRowLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "deleteRowLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowTooltip is used.
-	 *
+	 * Use option [locale.deleteRowTooltip](ui.iggridupdating#options:locale.deleteRowTooltip).
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "deleteRowTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowTooltip is used.
-	 *
+	 * Use option [locale.deleteRowTooltip](ui.iggridupdating#options:locale.deleteRowTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -58886,6 +60173,8 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igGridUpdating(optionLiteral: 'option', optionName: "inherit", optionValue: boolean): void;
+	igGridUpdating(optionLiteral: 'option', optionName: "locale"): IgGridUpdatingLocale;
+	igGridUpdating(optionLiteral: 'option', optionName: "locale", optionValue: IgGridUpdatingLocale): void;
 
 	/**
 	 * Event fired before row editing begins.
@@ -59347,6 +60636,7 @@ interface IgHtmlEditorMethods {
 	 * Returns the element on which the widget was instantiated
 	 */
 	widget(): void;
+	changeLocale(): void;
 
 	/**
 	 * Resizes the height of the workspace
@@ -59568,6 +60858,7 @@ class ToolbarHelper {
 
 interface JQuery {
 	igHtmlEditor(methodName: "widget"): void;
+	igHtmlEditor(methodName: "changeLocale"): void;
 	igHtmlEditor(methodName: "resizeWorkspace"): void;
 	igHtmlEditor(methodName: "getContent", format: string): string;
 	igHtmlEditor(methodName: "setContent", content: string, format: string): void;
@@ -60056,16 +61347,22 @@ interface IgLayoutManagerGridLayout {
 	cols?: number;
 
 	/**
-	 * Accepts number or string with height in px or percents
+	 * Accepts number, string with height in px, percents,                        or asterisk (*) which will distribute all the height between all the columns equally.
+	 *                         It can also accept an array, specifying height for each column. If more than one column
+	 *                         has an asterisk value, the remaining height will be equally distributed between these columns.
+	 *                     array The column height can be set as an array of heights.
 	 *
 	 */
-	columnHeight?: string|number;
+	columnHeight?: string|number|Array<any>;
 
 	/**
-	 * Accepts number or string with width in px or percents
+	 * Accepts number or string with width in px, percents                        or asterisk (*) which will distribute all the width between all the columns equally.
+	 *                         It can also accept an array, specifying width for each column. If more than one column
+	 *                         has an asterisk value, the remaining width will be equally distributed between these columns.
+	 *                     array The column width can be set as an array of widths.
 	 *
 	 */
-	columnWidth?: string|number;
+	columnWidth?: string|number|Array<any>;
 
 	/**
 	 * Specifies the margin left css property for items
@@ -64320,18 +65617,6 @@ interface JQuery {
 	igMap(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igMap(methodName: string, ...methodParams: any[]): any;
 }
-interface IgNotifierMessages {
-	success?: string;
-	info?: string;
-	warning?: string;
-	error?: string;
-
-	/**
-	 * Option for IgNotifierMessages
-	 */
-	[optionName: string]: any;
-}
-
 interface IgNotifierHeaderTemplate {
 	/**
 	 * Controls whether the popover renders a functional close button
@@ -64402,12 +65687,6 @@ interface IgNotifier {
 	 *
 	 */
 	allowCSSOnTarget?: boolean;
-
-	/**
-	 * A set of default messages for each state
-	 *
-	 */
-	messages?: IgNotifierMessages;
 
 	/**
 	 * Allows rendering a span with the respective state CSS to display jQuery UI framework icons
@@ -64560,6 +65839,8 @@ interface IgNotifier {
 	[optionName: string]: any;
 }
 interface IgNotifierMethods {
+	changeLocale(): void;
+
 	/**
 	 * Triggers a notification with a certain state and optional message. The [notifyLevel](ui.ignotifier#options:notifyLevel) option determines if the notification will be displayed.
 	 *
@@ -64635,6 +65916,7 @@ interface JQuery {
 }
 
 interface JQuery {
+	igNotifier(methodName: "changeLocale"): void;
 	igNotifier(methodName: "notify", state: Object, message?: string): void;
 	igNotifier(methodName: "isVisible"): void;
 	igNotifier(methodName: "destroy"): void;
@@ -64725,20 +66007,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "allowCSSOnTarget", optionValue: boolean): void;
-
-	/**
-	 * A set of default messages for each state
-	 *
-	 */
-	igNotifier(optionLiteral: 'option', optionName: "messages"): IgNotifierMessages;
-
-	/**
-	 * A set of default messages for each state
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igNotifier(optionLiteral: 'option', optionName: "messages", optionValue: IgNotifierMessages): void;
 
 	/**
 	 * Allows rendering a span with the respective state CSS to display jQuery UI framework icons
@@ -66006,6 +67274,8 @@ interface IgPivotDataSelector {
 	[optionName: string]: any;
 }
 interface IgPivotDataSelectorMethods {
+	changeLocale(): void;
+
 	/**
 	 * Updates the data source.
 	 */
@@ -66024,6 +67294,7 @@ interface JQuery {
 }
 
 interface JQuery {
+	igPivotDataSelector(methodName: "changeLocale"): void;
 	igPivotDataSelector(methodName: "update"): void;
 	igPivotDataSelector(methodName: "destroy"): void;
 
@@ -66503,8 +67774,8 @@ interface JQuery {
 interface IgPivotGridDataSourceOptionsXmlaOptionsRequestOptions {
 	/**
 	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
-	 *                         Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
-	 *                         and will prompt the user for credentials.
+	 * Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
+	 * and will prompt the user for credentials.
 	 */
 	withCredentials?: boolean;
 
@@ -66589,13 +67860,13 @@ interface IgPivotGridDataSourceOptionsXmlaOptions {
 
 	/**
 	 * Additional properties sent with every discover request.
-	 *                     The object is treated as a key/value store where each property name is used as the key and the property value as the value.
+	 * The object is treated as a key/value store where each property name is used as the key and the property value as the value.
 	 */
 	discoverProperties?: any;
 
 	/**
 	 * Additional properties sent with every execute request.
-	 *                     The object is treated as a key/value store where each property name is used as the key and the property value as the value.
+	 * The object is treated as a key/value store where each property name is used as the key and the property value as the value.
 	 */
 	executeProperties?: any;
 
@@ -66623,7 +67894,7 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 
 	/**
 	 * Optional="false" An aggregator function called when each cell is evaluated.
-	 *                                     Returns a value for the cell. If the returned value is null, no cell will be created in for the data source result.
+	 * Returns a value for the cell. If the returned value is null, no cell will be created in for the data source result.
 	 */
 	aggregator?: Function;
 
@@ -66641,14 +67912,14 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimension {
 	/**
 	 * A unique name for the measures dimension.
-	 *                                 The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
-	 *                                 [<measuresDimensionMetadata.name>].[<measureMetadata.name>]
+	 * The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
+	 * [<measuresDimensionMetadata.name>].[<measureMetadata.name>]
 	 */
 	name?: string;
 
 	/**
 	 * A caption for the measures dimension.
-	 *                                 The default value is "Measures".
+	 * The default value is "Measures".
 	 */
 	caption?: string;
 
@@ -66666,8 +67937,8 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchieLevel {
 	/**
 	 * Optional="false" A name for the level.
-	 *                                         The unique name of the level is formed using the following pattern:
-	 *                                         {<hierarchy.uniqueName>}.[<levelMetadata.name>]
+	 * The unique name of the level is formed using the following pattern:
+	 * {<hierarchy.uniqueName>}.[<levelMetadata.name>]
 	 */
 	name?: string;
 
@@ -66678,7 +67949,7 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 
 	/**
 	 * A function called for each item of the data source array when level members are created.
-	 *                                         Based on the item parameter the function should return a value that will form the $.ig.Member's name and caption.
+	 * Based on the item parameter the function should return a value that will form the $.ig.Member's name and caption.
 	 */
 	memberProvider?: Function;
 
@@ -66691,8 +67962,8 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchie {
 	/**
 	 * Optional="false" A name for the hierarchy.
-	 *                                     The unique name of the hierarchy is formed using the following pattern:
-	 *                                     [<parentDimension.name>].[<hierarchyMetadata.name>]
+	 * The unique name of the hierarchy is formed using the following pattern:
+	 * [<parentDimension.name>].[<hierarchyMetadata.name>]
 	 */
 	name?: string;
 
@@ -66703,8 +67974,8 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 
 	/**
 	 * The path to be used when displaying the hierarchy in the user interface.
-	 *                                     Nested folders are indicated by a backslash (\).
-	 *                                     The folder hierarchy will appear under parent dimension node.
+	 * Nested folders are indicated by a backslash (\).
+	 * The folder hierarchy will appear under parent dimension node.
 	 */
 	displayFolder?: string;
 
@@ -66798,14 +68069,14 @@ interface IgPivotGridDataSourceOptionsFlatDataOptions {
 
 	/**
 	 * See $.ig.DataSource.
-	 *                     string Specifies the name of the property in which data records are held if the response is wrapped.
-	 *                     null Option is ignored.
+	 * string Specifies the name of the property in which data records are held if the response is wrapped.
+	 * null Option is ignored.
 	 */
 	responseDataKey?: string;
 
 	/**
 	 * String Explicitly set data source type (such as "json"). Please refer to the documentation of $.ig.DataSource and its type property.
-	 *                     null Option is ignored.
+	 * null Option is ignored.
 	 */
 	responseDataType?: string;
 
@@ -66939,7 +68210,7 @@ interface IgPivotGridDragAndDropSettings {
 	appendTo?: any;
 
 	/**
-	 * Specifies the containment for the drag helper. The area inside of which the                helper is contained would be scrollable while dragging.
+	 * Specifies the containment for the drag helper. The area inside of which thehelper is contained would be scrollable while dragging.
 	 *
 	 */
 	containment?: boolean|string|Array<any>;
@@ -67208,7 +68479,7 @@ interface IgPivotGrid {
 
 	/**
 	 * An object that will be used to create an instance of $.ig.OlapXmlaDataSource or $.ig.OlapFlatDataSource.
-	 *             The provided value must contain an object with settings for one of the data source types - xmlaOptions or flatDataOptions.
+	 * The provided value must contain an object with settings for one of the data source types - xmlaOptions or flatDataOptions.
 	 */
 	dataSourceOptions?: IgPivotGridDataSourceOptions;
 
@@ -67219,15 +68490,15 @@ interface IgPivotGrid {
 
 	/**
 	 * A boolean value indicating whether a parent in the columns is in front of its children.
-	 *             If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
-	 *             If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
+	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
+	 * If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 */
 	isParentInFrontForColumns?: boolean;
 
 	/**
 	 * A boolean value indicating whether a parent in the rows is in front of its children.
-	 *             If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
-	 *             If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
+	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
+	 * If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 */
 	isParentInFrontForRows?: boolean;
 
@@ -67242,9 +68513,9 @@ interface IgPivotGrid {
 	compactRowHeaders?: boolean;
 
 	/**
-	 * A value indicating whether the layout that row headers should be arranged.            standard Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on its right.
-	 *             superCompact Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on above or below it (Depending on the isParentInFrontForRows setting).
-	 *             tree All hierarchies in the rows are displayed in a tree-like structure in a single column (The column's width is dependent on the defaultRowHEaderWidth, which can be set to "null" to enable the built-in auto-sizing functionality).
+	 * A value indicating whether the layout that row headers should be arranged.standard Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on its right.
+	 * superCompact Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on above or below it (Depending on the isParentInFrontForRows setting).
+	 * tree All hierarchies in the rows are displayed in a tree-like structure in a single column (The column's width is dependent on the defaultRowHEaderWidth, which can be set to "null" to enable the built-in auto-sizing functionality).
 	 *
 	 *
 	 * Valid values:
@@ -67375,233 +68646,233 @@ interface IgPivotGrid {
 
 	/**
 	 * A function that will be called to determine if an item can be moved in or dropped on an area of the pivot grid.
-	 *             paramType="string" The location where the item will be moved - igPivotGrid, igPivotDataSelector, filters, rows, columns or measures.
-	 *             paramType="string" The type of the item - Hierarchy, Measure or MeasureList.
-	 *             paramType="string" The unique name of the item.
-	 *             returnType="bool"  The function must return true if the item should be accepted.
+	 * paramType="string" The location where the item will be moved - igPivotGrid, igPivotDataSelector, filters, rows, columns or measures.
+	 * paramType="string" The type of the item - Hierarchy, Measure or MeasureList.
+	 * paramType="string" The unique name of the item.
+	 * returnType="bool"  The function must return true if the item should be accepted.
 	 */
 	customMoveValidation?: Function;
 
 	/**
 	 * Fired after the data source has initialized.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.error to see if an error has occured during initialization.
-	 *             Use ui.metadataTreeRoot to get a reference to the root of the data source metatadata root item.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.error to see if an error has occured during initialization.
+	 * Use ui.metadataTreeRoot to get a reference to the root of the data source metatadata root item.
 	 */
 	dataSourceInitialized?: DataSourceInitializedEvent;
 
 	/**
 	 * Fired after the data source has updated.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.error to see if an error has occured during update.
-	 *             Use ui.result to get the result of the update operation.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.error to see if an error has occured during update.
+	 * Use ui.result to get the result of the update operation.
 	 */
 	dataSourceUpdated?: DataSourceUpdatedEvent;
 
 	/**
 	 * Event fired after the headers have been rendered.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.grid to get a reference to the igGrid widget, which holds the headers.
-	 *             Use ui.table to get a reference to the headers table DOM element.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.grid to get a reference to the igGrid widget, which holds the headers.
+	 * Use ui.table to get a reference to the headers table DOM element.
 	 */
 	pivotGridHeadersRendered?: PivotGridHeadersRenderedEvent;
 
 	/**
 	 * Event fired after the whole grid widget has been rendered (including headers, footers, etc.).
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.grid to get reference to the igGrid widget, which represents the data.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.grid to get reference to the igGrid widget, which represents the data.
 	 */
 	pivotGridRendered?: PivotGridRenderedEvent;
 
 	/**
 	 * Fired before the expand of the tuple member.
-	 *             Function takes arguments evt and ui. Return false to cancel the expanding.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui. Return false to cancel the expanding.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	tupleMemberExpanding?: TupleMemberExpandingEvent;
 
 	/**
 	 * Fired after the expand of the tuple member.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	tupleMemberExpanded?: TupleMemberExpandedEvent;
 
 	/**
 	 * Fired before the collapse of the tuple member.
-	 *             Function takes arguments evt and ui. Return false to cancel the collapsing.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui. Return false to cancel the collapsing.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	tupleMemberCollapsing?: TupleMemberCollapsingEvent;
 
 	/**
 	 * Fired after the collapse of the tuple member.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	tupleMemberCollapsed?: TupleMemberCollapsedEvent;
 
 	/**
 	 * Fired before the sorting of the columns.
-	 *             Function takes arguments evt and ui. Return false to cancel the sorting.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.sortDirections to get an array of the tuple indices and sort directions that will be used.
+	 * Function takes arguments evt and ui. Return false to cancel the sorting.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.sortDirections to get an array of the tuple indices and sort directions that will be used.
 	 */
 	sorting?: SortingEvent;
 
 	/**
 	 * Fired after the sorting of the columns.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.sortDirections to get an array of the tuple indices and sort directions that were passed to the table view.
-	 *             Use ui.appliedSortDirections to get an array of the tuple indices and sort directions that were actually applied to the table view.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.sortDirections to get an array of the tuple indices and sort directions that were passed to the table view.
+	 * Use ui.appliedSortDirections to get an array of the tuple indices and sort directions that were actually applied to the table view.
 	 */
 	sorted?: SortedEvent;
 
 	/**
 	 * Fired before the sorting of the headers.
-	 *             Function takes arguments evt and ui. Return false to cancel the sorting.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.levelSortDirections to get an array of the level names and sort directions that will be used.
+	 * Function takes arguments evt and ui. Return false to cancel the sorting.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.levelSortDirections to get an array of the level names and sort directions that will be used.
 	 */
 	headersSorting?: HeadersSortingEvent;
 
 	/**
 	 * Fired after the sorting of the headers.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.levelSortDirections to get an array of the level names and sort directions that were used.
-	 *             Use ui.appliedLevelSortDirections to get an array of the level names and sort directions that were actually applied to the table view.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.levelSortDirections to get an array of the level names and sort directions that were used.
+	 * Use ui.appliedLevelSortDirections to get an array of the level names and sort directions that were actually applied to the table view.
 	 */
 	headersSorted?: HeadersSortedEvent;
 
 	/**
 	 * Fired on drag start. Return false to cancel the dragging.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	dragStart?: DragStartEvent;
 
 	/**
 	 * Fired on drag. Return false to cancel the drag.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	drag?: DragEvent;
 
 	/**
 	 * Fired on drag stop.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	dragStop?: DragStopEvent;
 
 	/**
 	 * Fired before a metadata item drop. Return false to cancel the drop.
-	 *             Use ui.targetElement for a reference to the drop target.
-	 *             Use ui.draggedElement for a reference to the metadata item element.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.metadataIndex to get the index at which the metadata will be inserted.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.targetElement for a reference to the drop target.
+	 * Use ui.draggedElement for a reference to the metadata item element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.metadataIndex to get the index at which the metadata will be inserted.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	metadataDropping?: MetadataDroppingEvent;
 
 	/**
 	 * Fired after a metadata item drop.
-	 *             Use ui.targetElement for a reference to the drop target.
-	 *             Use ui.draggedElement for a reference to the dragged element.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.metadataIndex to get the index at which the metadata is inserted.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.targetElement for a reference to the drop target.
+	 * Use ui.draggedElement for a reference to the dragged element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.metadataIndex to get the index at which the metadata is inserted.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	metadataDropped?: MetadataDroppedEvent;
 
 	/**
 	 * Fired before a metadata item is removed when the user clicks the close icon. Return false to cancel the removing.
-	 *             Use ui.targetElement for a reference to the dragged element.
-	 *             Use ui.metadatato get a reference to the data.
+	 * Use ui.targetElement for a reference to the dragged element.
+	 * Use ui.metadatato get a reference to the data.
 	 */
 	metadataRemoving?: MetadataRemovingEvent;
 
 	/**
 	 * Fired after a metadata item is removed when the user clicks the close icon.
-	 *             Use ui.metadatato get a reference to the data.
+	 * Use ui.metadatato get a reference to the data.
 	 */
 	metadataRemoved?: MetadataRemovedEvent;
 
 	/**
 	 * Fired before the filter members drop down opens. Return false to cancel the opening.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.hierarchy for a reference to the hierarchy.
 	 */
 	filterDropDownOpening?: FilterDropDownOpeningEvent;
 
 	/**
 	 * Fired after the filter members drop down opens.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 */
 	filterDropDownOpened?: FilterDropDownOpenedEvent;
 
 	/**
 	 * Fired after the filter members are loaded.
-	 *             Use ui.parent to get the parent node or the igTree instance in the initial load.
-	 *             Use ui.rootFilterMembers for a collection with the root filter members .
-	 *             Use ui.filterMembers for a collection with the newly loaded filter members.
+	 * Use ui.parent to get the parent node or the igTree instance in the initial load.
+	 * Use ui.rootFilterMembers for a collection with the root filter members .
+	 * Use ui.filterMembers for a collection with the newly loaded filter members.
 	 */
 	filterMembersLoaded?: FilterMembersLoadedEvent;
 
 	/**
 	 * Fired after the OK button in the filter members drop down is clicked. Return false to cancel the applying of the filters.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.filterMembers for a collection with the selected filter members. If all filter members are selected the collection will be empty.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.filterMembers for a collection with the selected filter members. If all filter members are selected the collection will be empty.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 */
 	filterDropDownOk?: FilterDropDownOkEvent;
 
 	/**
 	 * Fired before the filter members drop down closes. Return false to cancel the closing.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 */
 	filterDropDownClosing?: FilterDropDownClosingEvent;
 
 	/**
 	 * Fired after the filter members drop down closes.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.hierarchy for a reference to the hierarchy.
 	 */
 	filterDropDownClosed?: FilterDropDownClosedEvent;
 
@@ -67611,6 +68882,9 @@ interface IgPivotGrid {
 	[optionName: string]: any;
 }
 interface IgPivotGridMethods {
+	changeLocale(): void;
+	changeRegional(): void;
+
 	/**
 	 * Returns the igGrid instance used to render the OLAP data.
 	 */
@@ -67643,24 +68917,24 @@ interface IgPivotGridMethods {
 
 	/**
 	 * Returns an array with the applied sort directions on the igPivotGrid's columns. The returned array contains objects with the following properties:
-	 *             memberNames: The names of the members in the tuple.
-	 *             tupleIndex: The index of the tuple on the column axis in the original unsorted result.
-	 *             sortDirection: The direction of the sort - ascending or descending.
+	 * memberNames: The names of the members in the tuple.
+	 * tupleIndex: The index of the tuple on the column axis in the original unsorted result.
+	 * sortDirection: The direction of the sort - ascending or descending.
 	 */
 	appliedColumnSortDirections(): any[];
 
 	/**
 	 * Returns an array with the applied level sort direction items, which were used for the sorting of the header cells. The returned array contains objects with the following properties:
-	 *             levelUniqueName: Specifies the unique name of the level, which was sorted.
-	 *             sortDirection: The direction of the header sort - ascending or descending.
+	 * levelUniqueName: Specifies the unique name of the level, which was sorted.
+	 * sortDirection: The direction of the header sort - ascending or descending.
 	 */
 	appliedLevelSortDirections(): any[];
 
 	/**
 	 * Destroy is part of the jQuery UI widget API and does the following:
-	 *             1. Remove custom CSS classes that were added.
-	 *             2. Unwrap any wrapping elements such as scrolling divs and other containers.
-	 *             3. Unbind all events that were bound.
+	 * 1. Remove custom CSS classes that were added.
+	 * 2. Unwrap any wrapping elements such as scrolling divs and other containers.
+	 * 3. Unbind all events that were bound.
 	 */
 	destroy(): void;
 }
@@ -67669,6 +68943,8 @@ interface JQuery {
 }
 
 interface JQuery {
+	igPivotGrid(methodName: "changeLocale"): void;
+	igPivotGrid(methodName: "changeRegional"): void;
 	igPivotGrid(methodName: "grid"): Object;
 	igPivotGrid(methodName: "updateGrid"): void;
 	igPivotGrid(methodName: "expandTupleMember", tupleLocation: string, tupleIndex: number, memberIndex: number, shouldUpdate?: boolean): boolean;
@@ -67709,13 +68985,13 @@ interface JQuery {
 
 	/**
 	 * An object that will be used to create an instance of $.ig.OlapXmlaDataSource or $.ig.OlapFlatDataSource.
-	 *             The provided value must contain an object with settings for one of the data source types - xmlaOptions or flatDataOptions.
+	 * The provided value must contain an object with settings for one of the data source types - xmlaOptions or flatDataOptions.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "dataSourceOptions"): IgPivotGridDataSourceOptions;
 
 	/**
 	 * An object that will be used to create an instance of $.ig.OlapXmlaDataSource or $.ig.OlapFlatDataSource.
-	 *             The provided value must contain an object with settings for one of the data source types - xmlaOptions or flatDataOptions.
+	 * The provided value must contain an object with settings for one of the data source types - xmlaOptions or flatDataOptions.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67735,15 +69011,15 @@ interface JQuery {
 
 	/**
 	 * A boolean value indicating whether a parent in the columns is in front of its children.
-	 *             If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
-	 *             If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
+	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
+	 * If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "isParentInFrontForColumns"): boolean;
 
 	/**
 	 * A boolean value indicating whether a parent in the columns is in front of its children.
-	 *             If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
-	 *             If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
+	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
+	 * If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67751,15 +69027,15 @@ interface JQuery {
 
 	/**
 	 * A boolean value indicating whether a parent in the rows is in front of its children.
-	 *             If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
-	 *             If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
+	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
+	 * If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "isParentInFrontForRows"): boolean;
 
 	/**
 	 * A boolean value indicating whether a parent in the rows is in front of its children.
-	 *             If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
-	 *             If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
+	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
+	 * If set to false the query set sorts the members in a level using a post-natural order. In other words, child members precede their parents.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67790,17 +69066,17 @@ interface JQuery {
 	igPivotGrid(optionLiteral: 'option', optionName: "compactRowHeaders", optionValue: boolean): void;
 
 	/**
-	 * A value indicating whether the layout that row headers should be arranged.            standard Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on its right.
-	 *             superCompact Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on above or below it (Depending on the isParentInFrontForRows setting).
-	 *             tree All hierarchies in the rows are displayed in a tree-like structure in a single column (The column's width is dependent on the defaultRowHEaderWidth, which can be set to "null" to enable the built-in auto-sizing functionality).
+	 * A value indicating whether the layout that row headers should be arranged.standard Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on its right.
+	 * superCompact Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on above or below it (Depending on the isParentInFrontForRows setting).
+	 * tree All hierarchies in the rows are displayed in a tree-like structure in a single column (The column's width is dependent on the defaultRowHEaderWidth, which can be set to "null" to enable the built-in auto-sizing functionality).
 	 *
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "rowHeadersLayout"): any;
 
 	/**
-	 * A value indicating whether the layout that row headers should be arranged.            standard Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on its right.
-	 *             superCompact Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on above or below it (Depending on the isParentInFrontForRows setting).
-	 *             tree All hierarchies in the rows are displayed in a tree-like structure in a single column (The column's width is dependent on the defaultRowHEaderWidth, which can be set to "null" to enable the built-in auto-sizing functionality).
+	 * A value indicating whether the layout that row headers should be arranged.standard Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on its right.
+	 * superCompact Each hierarchy in the rows is displayed in a separate column. The child members of a member in the rows are displayed on above or below it (Depending on the isParentInFrontForRows setting).
+	 * tree All hierarchies in the rows are displayed in a tree-like structure in a single column (The column's width is dependent on the defaultRowHEaderWidth, which can be set to "null" to enable the built-in auto-sizing functionality).
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -68087,19 +69363,19 @@ interface JQuery {
 
 	/**
 	 * A function that will be called to determine if an item can be moved in or dropped on an area of the pivot grid.
-	 *             paramType="string" The location where the item will be moved - igPivotGrid, igPivotDataSelector, filters, rows, columns or measures.
-	 *             paramType="string" The type of the item - Hierarchy, Measure or MeasureList.
-	 *             paramType="string" The unique name of the item.
-	 *             returnType="bool"  The function must return true if the item should be accepted.
+	 * paramType="string" The location where the item will be moved - igPivotGrid, igPivotDataSelector, filters, rows, columns or measures.
+	 * paramType="string" The type of the item - Hierarchy, Measure or MeasureList.
+	 * paramType="string" The unique name of the item.
+	 * returnType="bool"  The function must return true if the item should be accepted.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "customMoveValidation"): Function;
 
 	/**
 	 * A function that will be called to determine if an item can be moved in or dropped on an area of the pivot grid.
-	 *             paramType="string" The location where the item will be moved - igPivotGrid, igPivotDataSelector, filters, rows, columns or measures.
-	 *             paramType="string" The type of the item - Hierarchy, Measure or MeasureList.
-	 *             paramType="string" The unique name of the item.
-	 *             returnType="bool"  The function must return true if the item should be accepted.
+	 * paramType="string" The location where the item will be moved - igPivotGrid, igPivotDataSelector, filters, rows, columns or measures.
+	 * paramType="string" The type of the item - Hierarchy, Measure or MeasureList.
+	 * paramType="string" The unique name of the item.
+	 * returnType="bool"  The function must return true if the item should be accepted.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68107,21 +69383,21 @@ interface JQuery {
 
 	/**
 	 * Fired after the data source has initialized.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.error to see if an error has occured during initialization.
-	 *             Use ui.metadataTreeRoot to get a reference to the root of the data source metatadata root item.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.error to see if an error has occured during initialization.
+	 * Use ui.metadataTreeRoot to get a reference to the root of the data source metatadata root item.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "dataSourceInitialized"): DataSourceInitializedEvent;
 
 	/**
 	 * Fired after the data source has initialized.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.error to see if an error has occured during initialization.
-	 *             Use ui.metadataTreeRoot to get a reference to the root of the data source metatadata root item.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.error to see if an error has occured during initialization.
+	 * Use ui.metadataTreeRoot to get a reference to the root of the data source metatadata root item.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68129,21 +69405,21 @@ interface JQuery {
 
 	/**
 	 * Fired after the data source has updated.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.error to see if an error has occured during update.
-	 *             Use ui.result to get the result of the update operation.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.error to see if an error has occured during update.
+	 * Use ui.result to get the result of the update operation.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "dataSourceUpdated"): DataSourceUpdatedEvent;
 
 	/**
 	 * Fired after the data source has updated.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.error to see if an error has occured during update.
-	 *             Use ui.result to get the result of the update operation.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.error to see if an error has occured during update.
+	 * Use ui.result to get the result of the update operation.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68151,19 +69427,19 @@ interface JQuery {
 
 	/**
 	 * Event fired after the headers have been rendered.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.grid to get a reference to the igGrid widget, which holds the headers.
-	 *             Use ui.table to get a reference to the headers table DOM element.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.grid to get a reference to the igGrid widget, which holds the headers.
+	 * Use ui.table to get a reference to the headers table DOM element.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "pivotGridHeadersRendered"): PivotGridHeadersRenderedEvent;
 
 	/**
 	 * Event fired after the headers have been rendered.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.grid to get a reference to the igGrid widget, which holds the headers.
-	 *             Use ui.table to get a reference to the headers table DOM element.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.grid to get a reference to the igGrid widget, which holds the headers.
+	 * Use ui.table to get a reference to the headers table DOM element.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -68171,17 +69447,17 @@ interface JQuery {
 
 	/**
 	 * Event fired after the whole grid widget has been rendered (including headers, footers, etc.).
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.grid to get reference to the igGrid widget, which represents the data.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.grid to get reference to the igGrid widget, which represents the data.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "pivotGridRendered"): PivotGridRenderedEvent;
 
 	/**
 	 * Event fired after the whole grid widget has been rendered (including headers, footers, etc.).
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.grid to get reference to the igGrid widget, which represents the data.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.grid to get reference to the igGrid widget, which represents the data.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -68189,23 +69465,23 @@ interface JQuery {
 
 	/**
 	 * Fired before the expand of the tuple member.
-	 *             Function takes arguments evt and ui. Return false to cancel the expanding.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui. Return false to cancel the expanding.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "tupleMemberExpanding"): TupleMemberExpandingEvent;
 
 	/**
 	 * Fired before the expand of the tuple member.
-	 *             Function takes arguments evt and ui. Return false to cancel the expanding.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui. Return false to cancel the expanding.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68213,23 +69489,23 @@ interface JQuery {
 
 	/**
 	 * Fired after the expand of the tuple member.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "tupleMemberExpanded"): TupleMemberExpandedEvent;
 
 	/**
 	 * Fired after the expand of the tuple member.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68237,23 +69513,23 @@ interface JQuery {
 
 	/**
 	 * Fired before the collapse of the tuple member.
-	 *             Function takes arguments evt and ui. Return false to cancel the collapsing.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui. Return false to cancel the collapsing.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "tupleMemberCollapsing"): TupleMemberCollapsingEvent;
 
 	/**
 	 * Fired before the collapse of the tuple member.
-	 *             Function takes arguments evt and ui. Return false to cancel the collapsing.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui. Return false to cancel the collapsing.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68261,23 +69537,23 @@ interface JQuery {
 
 	/**
 	 * Fired after the collapse of the tuple member.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "tupleMemberCollapsed"): TupleMemberCollapsedEvent;
 
 	/**
 	 * Fired after the collapse of the tuple member.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.dataSource to get a reference to the data source.
-	 *             Use ui.axisName to get the name of axis, which holds the member and the tuple.
-	 *             Use ui.tupleIndex to get the index of the tuple in the axis.
-	 *             Use ui.memberIndex to get the index of the member in the tuple.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.dataSource to get a reference to the data source.
+	 * Use ui.axisName to get the name of axis, which holds the member and the tuple.
+	 * Use ui.tupleIndex to get the index of the tuple in the axis.
+	 * Use ui.memberIndex to get the index of the member in the tuple.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68285,17 +69561,17 @@ interface JQuery {
 
 	/**
 	 * Fired before the sorting of the columns.
-	 *             Function takes arguments evt and ui. Return false to cancel the sorting.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.sortDirections to get an array of the tuple indices and sort directions that will be used.
+	 * Function takes arguments evt and ui. Return false to cancel the sorting.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.sortDirections to get an array of the tuple indices and sort directions that will be used.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "sorting"): SortingEvent;
 
 	/**
 	 * Fired before the sorting of the columns.
-	 *             Function takes arguments evt and ui. Return false to cancel the sorting.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.sortDirections to get an array of the tuple indices and sort directions that will be used.
+	 * Function takes arguments evt and ui. Return false to cancel the sorting.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.sortDirections to get an array of the tuple indices and sort directions that will be used.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68303,19 +69579,19 @@ interface JQuery {
 
 	/**
 	 * Fired after the sorting of the columns.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.sortDirections to get an array of the tuple indices and sort directions that were passed to the table view.
-	 *             Use ui.appliedSortDirections to get an array of the tuple indices and sort directions that were actually applied to the table view.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.sortDirections to get an array of the tuple indices and sort directions that were passed to the table view.
+	 * Use ui.appliedSortDirections to get an array of the tuple indices and sort directions that were actually applied to the table view.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "sorted"): SortedEvent;
 
 	/**
 	 * Fired after the sorting of the columns.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.sortDirections to get an array of the tuple indices and sort directions that were passed to the table view.
-	 *             Use ui.appliedSortDirections to get an array of the tuple indices and sort directions that were actually applied to the table view.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.sortDirections to get an array of the tuple indices and sort directions that were passed to the table view.
+	 * Use ui.appliedSortDirections to get an array of the tuple indices and sort directions that were actually applied to the table view.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68323,17 +69599,17 @@ interface JQuery {
 
 	/**
 	 * Fired before the sorting of the headers.
-	 *             Function takes arguments evt and ui. Return false to cancel the sorting.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.levelSortDirections to get an array of the level names and sort directions that will be used.
+	 * Function takes arguments evt and ui. Return false to cancel the sorting.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.levelSortDirections to get an array of the level names and sort directions that will be used.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "headersSorting"): HeadersSortingEvent;
 
 	/**
 	 * Fired before the sorting of the headers.
-	 *             Function takes arguments evt and ui. Return false to cancel the sorting.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.levelSortDirections to get an array of the level names and sort directions that will be used.
+	 * Function takes arguments evt and ui. Return false to cancel the sorting.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.levelSortDirections to get an array of the level names and sort directions that will be used.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68341,19 +69617,19 @@ interface JQuery {
 
 	/**
 	 * Fired after the sorting of the headers.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.levelSortDirections to get an array of the level names and sort directions that were used.
-	 *             Use ui.appliedLevelSortDirections to get an array of the level names and sort directions that were actually applied to the table view.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.levelSortDirections to get an array of the level names and sort directions that were used.
+	 * Use ui.appliedLevelSortDirections to get an array of the level names and sort directions that were actually applied to the table view.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "headersSorted"): HeadersSortedEvent;
 
 	/**
 	 * Fired after the sorting of the headers.
-	 *             Function takes arguments evt and ui.
-	 *             Use ui.owner to get a reference to the pivot grid.
-	 *             Use ui.levelSortDirections to get an array of the level names and sort directions that were used.
-	 *             Use ui.appliedLevelSortDirections to get an array of the level names and sort directions that were actually applied to the table view.
+	 * Function takes arguments evt and ui.
+	 * Use ui.owner to get a reference to the pivot grid.
+	 * Use ui.levelSortDirections to get an array of the level names and sort directions that were used.
+	 * Use ui.appliedLevelSortDirections to get an array of the level names and sort directions that were actually applied to the table view.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68361,21 +69637,21 @@ interface JQuery {
 
 	/**
 	 * Fired on drag start. Return false to cancel the dragging.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "dragStart"): DragStartEvent;
 
 	/**
 	 * Fired on drag start. Return false to cancel the dragging.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68383,21 +69659,21 @@ interface JQuery {
 
 	/**
 	 * Fired on drag. Return false to cancel the drag.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "drag"): DragEvent;
 
 	/**
 	 * Fired on drag. Return false to cancel the drag.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68405,19 +69681,19 @@ interface JQuery {
 
 	/**
 	 * Fired on drag stop.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "dragStop"): DragStopEvent;
 
 	/**
 	 * Fired on drag stop.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.originalPosition to get a reference to the original position of the draggable element.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.originalPosition to get a reference to the original position of the draggable element.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68425,25 +69701,25 @@ interface JQuery {
 
 	/**
 	 * Fired before a metadata item drop. Return false to cancel the drop.
-	 *             Use ui.targetElement for a reference to the drop target.
-	 *             Use ui.draggedElement for a reference to the metadata item element.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.metadataIndex to get the index at which the metadata will be inserted.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.targetElement for a reference to the drop target.
+	 * Use ui.draggedElement for a reference to the metadata item element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.metadataIndex to get the index at which the metadata will be inserted.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "metadataDropping"): MetadataDroppingEvent;
 
 	/**
 	 * Fired before a metadata item drop. Return false to cancel the drop.
-	 *             Use ui.targetElement for a reference to the drop target.
-	 *             Use ui.draggedElement for a reference to the metadata item element.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.metadataIndex to get the index at which the metadata will be inserted.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.targetElement for a reference to the drop target.
+	 * Use ui.draggedElement for a reference to the metadata item element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.metadataIndex to get the index at which the metadata will be inserted.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68451,25 +69727,25 @@ interface JQuery {
 
 	/**
 	 * Fired after a metadata item drop.
-	 *             Use ui.targetElement for a reference to the drop target.
-	 *             Use ui.draggedElement for a reference to the dragged element.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.metadataIndex to get the index at which the metadata is inserted.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.targetElement for a reference to the drop target.
+	 * Use ui.draggedElement for a reference to the dragged element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.metadataIndex to get the index at which the metadata is inserted.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "metadataDropped"): MetadataDroppedEvent;
 
 	/**
 	 * Fired after a metadata item drop.
-	 *             Use ui.targetElement for a reference to the drop target.
-	 *             Use ui.draggedElement for a reference to the dragged element.
-	 *             Use ui.metadatato get a reference to the data.
-	 *             Use ui.metadataIndex to get the index at which the metadata is inserted.
-	 *             Use ui.helper to get a reference to the helper.
-	 *             Use ui.offset to get a reference to the offset.
-	 *             Use ui.position to get a reference to the current position of the draggable element.
+	 * Use ui.targetElement for a reference to the drop target.
+	 * Use ui.draggedElement for a reference to the dragged element.
+	 * Use ui.metadatato get a reference to the data.
+	 * Use ui.metadataIndex to get the index at which the metadata is inserted.
+	 * Use ui.helper to get a reference to the helper.
+	 * Use ui.offset to get a reference to the offset.
+	 * Use ui.position to get a reference to the current position of the draggable element.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68477,15 +69753,15 @@ interface JQuery {
 
 	/**
 	 * Fired before a metadata item is removed when the user clicks the close icon. Return false to cancel the removing.
-	 *             Use ui.targetElement for a reference to the dragged element.
-	 *             Use ui.metadatato get a reference to the data.
+	 * Use ui.targetElement for a reference to the dragged element.
+	 * Use ui.metadatato get a reference to the data.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "metadataRemoving"): MetadataRemovingEvent;
 
 	/**
 	 * Fired before a metadata item is removed when the user clicks the close icon. Return false to cancel the removing.
-	 *             Use ui.targetElement for a reference to the dragged element.
-	 *             Use ui.metadatato get a reference to the data.
+	 * Use ui.targetElement for a reference to the dragged element.
+	 * Use ui.metadatato get a reference to the data.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68493,13 +69769,13 @@ interface JQuery {
 
 	/**
 	 * Fired after a metadata item is removed when the user clicks the close icon.
-	 *             Use ui.metadatato get a reference to the data.
+	 * Use ui.metadatato get a reference to the data.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "metadataRemoved"): MetadataRemovedEvent;
 
 	/**
 	 * Fired after a metadata item is removed when the user clicks the close icon.
-	 *             Use ui.metadatato get a reference to the data.
+	 * Use ui.metadatato get a reference to the data.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68507,13 +69783,13 @@ interface JQuery {
 
 	/**
 	 * Fired before the filter members drop down opens. Return false to cancel the opening.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.hierarchy for a reference to the hierarchy.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "filterDropDownOpening"): FilterDropDownOpeningEvent;
 
 	/**
 	 * Fired before the filter members drop down opens. Return false to cancel the opening.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.hierarchy for a reference to the hierarchy.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68521,15 +69797,15 @@ interface JQuery {
 
 	/**
 	 * Fired after the filter members drop down opens.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "filterDropDownOpened"): FilterDropDownOpenedEvent;
 
 	/**
 	 * Fired after the filter members drop down opens.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68537,17 +69813,17 @@ interface JQuery {
 
 	/**
 	 * Fired after the filter members are loaded.
-	 *             Use ui.parent to get the parent node or the igTree instance in the initial load.
-	 *             Use ui.rootFilterMembers for a collection with the root filter members .
-	 *             Use ui.filterMembers for a collection with the newly loaded filter members.
+	 * Use ui.parent to get the parent node or the igTree instance in the initial load.
+	 * Use ui.rootFilterMembers for a collection with the root filter members .
+	 * Use ui.filterMembers for a collection with the newly loaded filter members.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "filterMembersLoaded"): FilterMembersLoadedEvent;
 
 	/**
 	 * Fired after the filter members are loaded.
-	 *             Use ui.parent to get the parent node or the igTree instance in the initial load.
-	 *             Use ui.rootFilterMembers for a collection with the root filter members .
-	 *             Use ui.filterMembers for a collection with the newly loaded filter members.
+	 * Use ui.parent to get the parent node or the igTree instance in the initial load.
+	 * Use ui.rootFilterMembers for a collection with the root filter members .
+	 * Use ui.filterMembers for a collection with the newly loaded filter members.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68555,17 +69831,17 @@ interface JQuery {
 
 	/**
 	 * Fired after the OK button in the filter members drop down is clicked. Return false to cancel the applying of the filters.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.filterMembers for a collection with the selected filter members. If all filter members are selected the collection will be empty.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.filterMembers for a collection with the selected filter members. If all filter members are selected the collection will be empty.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "filterDropDownOk"): FilterDropDownOkEvent;
 
 	/**
 	 * Fired after the OK button in the filter members drop down is clicked. Return false to cancel the applying of the filters.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.filterMembers for a collection with the selected filter members. If all filter members are selected the collection will be empty.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.filterMembers for a collection with the selected filter members. If all filter members are selected the collection will be empty.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68573,15 +69849,15 @@ interface JQuery {
 
 	/**
 	 * Fired before the filter members drop down closes. Return false to cancel the closing.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "filterDropDownClosing"): FilterDropDownClosingEvent;
 
 	/**
 	 * Fired before the filter members drop down closes. Return false to cancel the closing.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
-	 *             Use ui.dropDownElement for a reference to the drop down.
+	 * Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.dropDownElement for a reference to the drop down.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -68589,13 +69865,13 @@ interface JQuery {
 
 	/**
 	 * Fired after the filter members drop down closes.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.hierarchy for a reference to the hierarchy.
 	 */
 	igPivotGrid(optionLiteral: 'option', optionName: "filterDropDownClosed"): FilterDropDownClosedEvent;
 
 	/**
 	 * Fired after the filter members drop down closes.
-	 *             Use ui.hierarchy for a reference to the hierarchy.
+	 * Use ui.hierarchy for a reference to the hierarchy.
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -69997,6 +71273,611 @@ interface JQuery {
 	igPopover(optionLiteral: 'option', options: IgPopover): JQuery;
 	igPopover(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igPopover(methodName: string, ...methodParams: any[]): any;
+}
+interface ErrorMessageDisplayingEvent {
+	(event: Event, ui: ErrorMessageDisplayingEventUIParam): void;
+}
+
+interface ErrorMessageDisplayingEventUIParam {
+	/**
+	 * Used to obtain reference to the barcode widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Used to get or set the error message that is to be shown.
+	 */
+	errorMessage?: any;
+}
+
+interface DataChangedEvent {
+	(event: Event, ui: DataChangedEventUIParam): void;
+}
+
+interface DataChangedEventUIParam {
+	/**
+	 * Used to obtain reference to the barcode widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Used to obtain the new data.
+	 */
+	newData?: any;
+}
+
+interface IgQRCodeBarcode {
+	/**
+	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+	width?: string|number;
+
+	/**
+	 * The height of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+	height?: string|number;
+
+	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
+	 * Gets or sets the brush to use to fill the backing of the barcode.
+	 */
+	backingBrush?: string;
+
+	/**
+	 * Gets or sets the brush to use for the outline of the backing.
+	 */
+	backingOutline?: string;
+
+	/**
+	 * Gets or sets the stroke thickness of the backing outline.
+	 */
+	backingStrokeThickness?: number;
+
+	/**
+	 * Gets or sets the brush to use to fill the background of the bars.
+	 */
+	barBrush?: string;
+
+	/**
+	 * Gets or sets the brush to use for the label font.
+	 */
+	fontBrush?: string;
+
+	/**
+	 * Gets or sets the font of the text displayed by the control.
+	 */
+	font?: string;
+
+	/**
+	 * Gets or sets the data value.
+	 */
+	data?: string;
+
+	/**
+	 * Gets or sets the message text displayed when some error occurs.
+	 */
+	errorMessageText?: string;
+
+	/**
+	 * Gets or sets the stretch.
+	 *
+	 * Valid values:
+	 * "none"
+	 * "fill"
+	 * "uniform"
+	 * "uniformToFill"
+	 */
+	stretch?: string;
+
+	/**
+	 * Gets or sets a value which specifies how the grid fills within the barcode control dimensions.
+	 *
+	 * Valid values:
+	 * "fillSpace" FillSpace mode ensures that the barcode grid fills the control dimensions.
+	 * "ensureEqualSize" EnsureEqualSize mode ensures that every grid column/row has the same pixels number width/height. The sum of all columns/rows pixels may be less than the width/height of the control.
+	 */
+	barsFillMode?: string;
+
+	/**
+	 * Gets or sets the width (XDimension) to height (YDimension) ratio. It accepts only positive values. This property does not apply for the QR barcode.
+	 */
+	widthToHeightRatio?: number;
+
+	/**
+	 * Gets or sets the X-dimension (narrow element width) for a symbol in mm. It accepts values from 0.01 to 100.
+	 */
+	xDimension?: number;
+
+	/**
+	 * Gets or sets the error correction level of the QR Code symbol.
+	 *
+	 * Valid values:
+	 * "low" Low error correction level allows recovery of 7% of the symbol codewords.
+	 * "medium" Medium error correction level allows recovery of 15% of the symbol codewords.
+	 * "quartil" Quartil error correction level allows recovery of 25% of the symbol codewords.
+	 * "high" High error correction level allows recovery of 30% of the symbol codewords.
+	 */
+	errorCorrectionLevel?: string;
+
+	/**
+	 * Gets or sets the size version of the QR Code symbol.
+	 *
+	 * Valid values:
+	 * "undefined" If set, the QR code barcode sets internally the smallest version that will accommodate the data.
+	 * "version1" Version1 defines size of 21x21 modules for the symbol.
+	 * "version2" Version2 defines size of 25x25 modules for the symbol.
+	 * "version3" Version3 defines size of 29x29 modules for the symbol.
+	 * "version4" Version4 defines size of 33x33 modules for the symbol.
+	 * "version5" Version5 defines size of 37x37 modules for the symbol.
+	 * "version6" Version6 defines size of 41x41 modules for the symbol.
+	 * "version7" Version7 defines size of 45x45 modules for the symbol.
+	 * "version8" Version8 defines size of 49x49 modules for the symbol.
+	 * "version9" Version9 defines size of 53x53 modules for the symbol.
+	 * "version10" Version10 defines size of 57x57 modules for the symbol.
+	 * "version11" Version11 defines size of 61x61 modules for the symbol.
+	 * "version12" Version12 defines size of 65x65 modules for the symbol.
+	 * "version13" Version13 defines size of 69x69 modules for the symbol.
+	 * "version14" Version14 defines size of 73x73 modules for the symbol.
+	 * "version15" Version15 defines size of 77x77 modules for the symbol.
+	 * "version16" Version16 defines size of 81x81 modules for the symbol.
+	 * "version17" Version17 defines size of 85x85 modules for the symbol.
+	 * "version18" Version18 defines size of 89x89 modules for the symbol.
+	 * "version19" Version19 defines size of 93x93 modules for the symbol.
+	 * "version20" Version20 defines size of 97x97 modules for the symbol.
+	 * "version21" Version21 defines size of 101x101 modules for the symbol.
+	 * "version22" Version22 defines size of 105x105 modules for the symbol.
+	 * "version23" Version23 defines size of 109x109 modules for the symbol.
+	 * "version24" Version24 defines size of 113x113 modules for the symbol.
+	 * "version25" Version25 defines size of 117x117 modules for the symbol.
+	 * "version26" Version26 defines size of 121x121 modules for the symbol.
+	 * "version27" Version27 defines size of 125x125 modules for the symbol.
+	 * "version28" Version28 defines size of 129x129 modules for the symbol.
+	 * "version29" Version29 defines size of 133x133 modules for the symbol.
+	 * "version30" Version30 defines size of 137x137 modules for the symbol.
+	 * "version31" Version31 defines size of 141x141 modules for the symbol.
+	 * "version32" Version32 defines size of 145x145 modules for the symbol.
+	 * "version33" Version33 defines size of 149x149 modules for the symbol.
+	 * "version34" Version34 defines size of 153x153 modules for the symbol.
+	 * "version35" Version35 defines size of 157x157 modules for the symbol.
+	 * "version36" Version36 defines size of 161x161 modules for the symbol.
+	 * "version37" Version37 defines size of 165x165 modules for the symbol.
+	 * "version38" Version38 defines size of 169x169 modules for the symbol.
+	 * "version39" Version39 defines size of 173x173 modules for the symbol.
+	 * "version40" Version40 defines size of 177x177 modules for the symbol.
+	 */
+	sizeVersion?: string;
+
+	/**
+	 * Gets or sets the encoding mode for compaction of the QR Code symbol data. The default value is undefined if the Shift_JIS encoding is loaded. Otherwise the default value is byte.
+	 *
+	 * Valid values:
+	 * "undefined" When Undefined encoding mode is set, the QR code barcode internally switches between modes as necessary in order to achieve the most efficient conversion of data into a binary string.
+	 * "numeric" Numeric mode encodes data from decimal digit set (0-9). Normally 3 data characters are represented by 10 bits.
+	 * "alphanumeric" Alphanumeric mode encodes data from a set of 45 characters (digits 0-9, upper case letters A-Z, nine other characters: space, $ % * + _ . / : ). Normally two input characters are represented by 11 bits.
+	 * "byte" In Byte mode the data is encoded at 8 bits per character. The character set of the Byte encoding mode is byte data (by default it is ISO/IEC 8859-1 character set).
+	 * "kanji" The Kanji mode efficiently encodes Kanji characters in accordance with the Shift JIS system based on JIS X 0208. Each two-byte character value is compacted to a 13-bit binary codeword.
+	 */
+	encodingMode?: string;
+
+	/**
+	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
+	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
+	 */
+	eciNumber?: number;
+
+	/**
+	 * Gets or sets a value indicating whether to show the ECI header.
+	 *
+	 * Valid values:
+	 * "hide" Hide the header.
+	 * "show" Show the header.
+	 */
+	eciHeaderDisplayMode?: string;
+
+	/**
+	 * Gets or sets the FNC1 mode indicator which identifies symbols encoding messages formatted according to specific predefined industry or application specifications.
+	 *
+	 * Valid values:
+	 * "none" Do not use any Fnc1 symbols, i.e. the data is not identified according to specific predefined industry or application specifications.
+	 * "gs1" Uses Fnc1 symbol in the first position of the character in Code 128 symbols and designates data formatted in accordance with the GS1 General Specification.
+	 * "industry" Uses Fnc1 symbol in the second position of the character in Code 128 symbols and designates data formatted in accordance with a specific industry application previously agreed with AIM Inc.
+	 */
+	fnc1Mode?: string;
+
+	/**
+	 * Gets or sets the Application Indicator assigned to identify the specification concerned by AIM International.
+	 * The value is respected only when the Fnc1Mode is set to Industry. Its value may take the form of any single Latin alphabetic character from the set {a - z, A - Z} or a two-digit number.
+	 */
+	applicationIndicator?: string;
+
+	/**
+	 * Occurs when an error has happened.
+	 * Function takes first argument evt and second argument ui.
+	 * Use ui.owner to obtain reference to the barcode widget.
+	 * Use ui.errorMessage to get or set the error message that is to be shown.
+	 */
+	errorMessageDisplaying?: ErrorMessageDisplayingEvent;
+
+	/**
+	 * Occurs when the data has changed.
+	 * Function takes first argument evt and second argument ui.
+	 * Use ui.owner to obtain reference to the barcode widget.
+	 * Use ui.newData to obtain the new data.
+	 */
+	dataChanged?: DataChangedEvent;
+
+	/**
+	 * Option for igQRCodeBarcode
+	 */
+	[optionName: string]: any;
+}
+interface IgQRCodeBarcodeMethods {
+	/**
+	 * Returns information about how the barcode is rendered.
+	 */
+	exportVisualData(): Object;
+
+	/**
+	 * Causes all pending changes of the barcode e.g. by changed property values to be rendered immediately.
+	 */
+	flush(): void;
+
+	/**
+	 * Destroys widget.
+	 */
+	destroy(): void;
+
+	/**
+	 * Re-polls the css styles for the widget. Use this method when the css styles have been modified.
+	 */
+	styleUpdated(): void;
+}
+interface JQuery {
+	data(propertyName: "igQRCodeBarcode"): IgQRCodeBarcodeMethods;
+}
+
+interface JQuery {
+	igQRCodeBarcode(methodName: "exportVisualData"): Object;
+	igQRCodeBarcode(methodName: "flush"): void;
+	igQRCodeBarcode(methodName: "destroy"): void;
+	igQRCodeBarcode(methodName: "styleUpdated"): void;
+
+	/**
+	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "width"): string|number;
+
+	/**
+	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
+
+	/**
+	 * The height of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "height"): string|number;
+
+	/**
+	 * The height of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
+
+	/**
+	 * Gets  the brush to use to fill the backing of the barcode.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingBrush"): string;
+
+	/**
+	 * Sets the brush to use to fill the backing of the barcode.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingBrush", optionValue: string): void;
+
+	/**
+	 * Gets  the brush to use for the outline of the backing.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingOutline"): string;
+
+	/**
+	 * Sets the brush to use for the outline of the backing.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingOutline", optionValue: string): void;
+
+	/**
+	 * Gets  the stroke thickness of the backing outline.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingStrokeThickness"): number;
+
+	/**
+	 * Sets the stroke thickness of the backing outline.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "backingStrokeThickness", optionValue: number): void;
+
+	/**
+	 * Gets  the brush to use to fill the background of the bars.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "barBrush"): string;
+
+	/**
+	 * Sets the brush to use to fill the background of the bars.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "barBrush", optionValue: string): void;
+
+	/**
+	 * Gets  the brush to use for the label font.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "fontBrush"): string;
+
+	/**
+	 * Sets the brush to use for the label font.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "fontBrush", optionValue: string): void;
+
+	/**
+	 * Gets  the font of the text displayed by the control.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "font"): string;
+
+	/**
+	 * Sets the font of the text displayed by the control.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "font", optionValue: string): void;
+
+	/**
+	 * Gets  the data value.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "data"): string;
+
+	/**
+	 * Sets the data value.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "data", optionValue: string): void;
+
+	/**
+	 * Gets  the message text displayed when some error occurs.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageText"): string;
+
+	/**
+	 * Sets the message text displayed when some error occurs.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageText", optionValue: string): void;
+
+	/**
+	 * Gets  the stretch.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "stretch"): string;
+
+	/**
+	 * Sets the stretch.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "stretch", optionValue: string): void;
+
+	/**
+	 * Gets  a value which specifies how the grid fills within the barcode control dimensions.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "barsFillMode"): string;
+
+	/**
+	 * Sets a value which specifies how the grid fills within the barcode control dimensions.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "barsFillMode", optionValue: string): void;
+
+	/**
+	 * Gets  the width (XDimension) to height (YDimension) ratio. It accepts only positive values. This property does not apply for the QR barcode.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "widthToHeightRatio"): number;
+
+	/**
+	 * Sets the width (XDimension) to height (YDimension) ratio. It accepts only positive values. This property does not apply for the QR barcode.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "widthToHeightRatio", optionValue: number): void;
+
+	/**
+	 * Gets  the X-dimension (narrow element width) for a symbol in mm. It accepts values from 0.01 to 100.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "xDimension"): number;
+
+	/**
+	 * Sets the X-dimension (narrow element width) for a symbol in mm. It accepts values from 0.01 to 100.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "xDimension", optionValue: number): void;
+
+	/**
+	 * Gets  the error correction level of the QR Code symbol.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorCorrectionLevel"): string;
+
+	/**
+	 * Sets the error correction level of the QR Code symbol.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorCorrectionLevel", optionValue: string): void;
+
+	/**
+	 * Gets  the size version of the QR Code symbol.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "sizeVersion"): string;
+
+	/**
+	 * Sets the size version of the QR Code symbol.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "sizeVersion", optionValue: string): void;
+
+	/**
+	 * Gets  the encoding mode for compaction of the QR Code symbol data. The default value is undefined if the Shift_JIS encoding is loaded. Otherwise the default value is byte.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "encodingMode"): string;
+
+	/**
+	 * Sets the encoding mode for compaction of the QR Code symbol data. The default value is undefined if the Shift_JIS encoding is loaded. Otherwise the default value is byte.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "encodingMode", optionValue: string): void;
+
+	/**
+	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
+	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciNumber"): number;
+
+	/**
+	 * Each Extended Channel Interpretation (ECI) is designated by a six-digit assignment number: 000000 - 999999.
+	 * The default value depends on the loaded encodings. The default is ECI 000003 (representing ISO/IEC 8859-1) if the ISO/IEC 8859-1 character set is loaded. Otherwise the default value is 000026 (representing UTF-8).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciNumber", optionValue: number): void;
+
+	/**
+	 * Gets  a value indicating whether to show the ECI header.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciHeaderDisplayMode"): string;
+
+	/**
+	 * Sets a value indicating whether to show the ECI header.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "eciHeaderDisplayMode", optionValue: string): void;
+
+	/**
+	 * Gets  the FNC1 mode indicator which identifies symbols encoding messages formatted according to specific predefined industry or application specifications.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "fnc1Mode"): string;
+
+	/**
+	 * Sets the FNC1 mode indicator which identifies symbols encoding messages formatted according to specific predefined industry or application specifications.
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "fnc1Mode", optionValue: string): void;
+
+	/**
+	 * Gets  the Application Indicator assigned to identify the specification concerned by AIM International.
+	 * The value is respected only when the Fnc1Mode is set to Industry. Its value may take the form of any single Latin alphabetic character from the set {a - z, A - Z} or a two-digit number.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "applicationIndicator"): string;
+
+	/**
+	 * Sets the Application Indicator assigned to identify the specification concerned by AIM International.
+	 * The value is respected only when the Fnc1Mode is set to Industry. Its value may take the form of any single Latin alphabetic character from the set {a - z, A - Z} or a two-digit number.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "applicationIndicator", optionValue: string): void;
+
+	/**
+	 * Occurs when an error has happened.
+	 * Function takes first argument evt and second argument ui.
+	 * Use ui.owner to obtain reference to the barcode widget.
+	 * Use ui.errorMessage to get or set the error message that is to be shown.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageDisplaying"): ErrorMessageDisplayingEvent;
+
+	/**
+	 * Occurs when an error has happened.
+	 * Function takes first argument evt and second argument ui.
+	 * Use ui.owner to obtain reference to the barcode widget.
+	 * Use ui.errorMessage to get or set the error message that is to be shown.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "errorMessageDisplaying", optionValue: ErrorMessageDisplayingEvent): void;
+
+	/**
+	 * Occurs when the data has changed.
+	 * Function takes first argument evt and second argument ui.
+	 * Use ui.owner to obtain reference to the barcode widget.
+	 * Use ui.newData to obtain the new data.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "dataChanged"): DataChangedEvent;
+
+	/**
+	 * Occurs when the data has changed.
+	 * Function takes first argument evt and second argument ui.
+	 * Use ui.owner to obtain reference to the barcode widget.
+	 * Use ui.newData to obtain the new data.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "dataChanged", optionValue: DataChangedEvent): void;
+	igQRCodeBarcode(options: IgQRCodeBarcode): JQuery;
+	igQRCodeBarcode(optionLiteral: 'option', optionName: string): any;
+	igQRCodeBarcode(optionLiteral: 'option', options: IgQRCodeBarcode): JQuery;
+	igQRCodeBarcode(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
+	igQRCodeBarcode(methodName: string, ...methodParams: any[]): any;
 }
 interface IgRadialGaugeRange {
 	/**
@@ -73451,6 +75332,12 @@ interface IgScheduler {
 	appointmentDialogSuppress?: boolean;
 
 	/**
+	 * Gets/Sets dataSource of type $.ig.scheduler.ScheduleListDataSource.
+	 *
+	 */
+	dataSource?: any;
+
+	/**
 	 * Fired before agenda view range is changed when using previous and next buttons (fired only in Agenda View)
 	 */
 	agendaRangeChanging?: AgendaRangeChangingEvent;
@@ -73579,6 +75466,7 @@ interface IgSchedulerMethods {
 	 * @param updateAppoinment updateAppoinment
 	 */
 	editAppointment(appointment: Object, updateAppoinment: Object): Object;
+	changeLocale(): void;
 
 	/**
 	 * Destroys the widget
@@ -73619,6 +75507,7 @@ interface JQuery {
 	igScheduler(methodName: "createAppointment", appointment: Object): Object;
 	igScheduler(methodName: "deleteAppointment", appointment: Object): Object;
 	igScheduler(methodName: "editAppointment", appointment: Object, updateAppoinment: Object): Object;
+	igScheduler(methodName: "changeLocale"): void;
 	igScheduler(methodName: "destroy"): void;
 	igScheduler(methodName: "todayButton"): string;
 	igScheduler(methodName: "previousButton"): string;
@@ -73743,6 +75632,20 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igScheduler(optionLiteral: 'option', optionName: "appointmentDialogSuppress", optionValue: boolean): void;
+
+	/**
+	 * Gets/Sets dataSource of type $.ig.scheduler.ScheduleListDataSource.
+	 *
+	 */
+	igScheduler(optionLiteral: 'option', optionName: "dataSource"): any;
+
+	/**
+	 * /Sets dataSource of type $.ig.scheduler.ScheduleListDataSource.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igScheduler(optionLiteral: 'option', optionName: "dataSource", optionValue: any): void;
 
 	/**
 	 * Fired before agenda view range is changed when using previous and next buttons (fired only in Agenda View)
@@ -74335,6 +76238,7 @@ interface IgScroll {
 }
 interface IgScrollMethods {
 	refresh(): void;
+	changeLocale(): void;
 	option(optionName: Object, value: Object): void;
 	destroy(): void;
 }
@@ -74344,6 +76248,7 @@ interface JQuery {
 
 interface JQuery {
 	igScroll(methodName: "refresh"): void;
+	igScroll(methodName: "changeLocale"): void;
 	igScroll(methodName: "option", optionName: Object, value: Object): void;
 	igScroll(methodName: "destroy"): void;
 
@@ -77576,6 +79481,111 @@ interface ActiveWorksheetChangedEventUIParam {
 	newActiveWorksheetName?: string;
 }
 
+interface EditModeExitingEvent {
+	(event: Event, ui: EditModeExitingEventUIParam): void;
+}
+
+interface EditModeExitingEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get or set a boolean indicating whether the changes will be made to the cell's value when edit mode ends.
+	 */
+	acceptChanges?: boolean;
+
+	/**
+	 * Get a boolean indicating if the edit mode is being forced to exit edit mode in which case it cannot be cancelled.
+	 */
+	canCancel?: boolean;
+
+	/**
+	 * Gets the cell for which the control is exiting edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeExitedEvent {
+	(event: Event, ui: EditModeExitedEventUIParam): void;
+}
+
+interface EditModeExitedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the cell for which the control has exited edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeEnteringEvent {
+	(event: Event, ui: EditModeEnteringEventUIParam): void;
+}
+
+interface EditModeEnteringEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the cell for which the control is going into edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeEnteredEvent {
+	(event: Event, ui: EditModeEnteredEventUIParam): void;
+}
+
+interface EditModeEnteredEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the cell for which the control has entered edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeValidationErrorEvent {
+	(event: Event, ui: EditModeValidationErrorEventUIParam): void;
+}
+
+interface EditModeValidationErrorEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get or set the [action](ig.spreadsheet.SpreadsheetEditModeValidationErrorAction)  to take in response to the failed validation.
+	 */
+	action?: string;
+
+	/**
+	 * Get a boolean indicating whether the cell is allowed to stay in edit mode.
+	 */
+	canStayInEditMode?: boolean;
+
+	/**
+	 * Gets the cell for which the control is in edit mode.
+	 */
+	cell?: string;
+
+	/**
+	 * Get the [rule](ig.excel.DataValidationRule) which failed validation.
+	 */
+	validationRule?: string;
+}
+
 interface EditRangePasswordNeededEvent {
 	(event: Event, ui: EditRangePasswordNeededEventUIParam): void;
 }
@@ -77741,10 +79751,22 @@ interface IgSpreadsheet {
 	enterKeyNavigationDirection?: string;
 
 	/**
+	 * Returns or sets the number of decimal places by which a whole number typed in during edit mode should be adjusted when isFixedDecimalEnabled is true
+	 *
+	 */
+	fixedDecimalPlaceCount?: number;
+
+	/**
 	 * Returns or sets a boolean indicating whether the adjacent cell indicated by the enterKeyNavigationDirection should be navigated to when the enter key is pressed.
 	 *
 	 */
 	isEnterKeyNavigationEnabled?: boolean;
+
+	/**
+	 * Returns or sets a boolean indicating whether a fixed decimal place is automatically added when a whole number is entered while in edit mode.
+	 *
+	 */
+	isFixedDecimalEnabled?: boolean;
 
 	/**
 	 * Returns or sets a boolean indicating if the formula bar is displayed within the Spreadsheet.
@@ -77811,6 +79833,24 @@ interface IgSpreadsheet {
 	zoomLevel?: number;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
+
+	/**
 	 * Invoked when an action is executed on the Spreadsheet.
 	 */
 	actionExecuted?: ActionExecutedEvent;
@@ -77834,6 +79874,35 @@ interface IgSpreadsheet {
 	 * Invoked when the activeWorksheet of the Spreadsheet has changed.
 	 */
 	activeWorksheetChanged?: ActiveWorksheetChangedEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is about to end the in-place editing of the activeCell.
+	 */
+	editModeExiting?: EditModeExitingEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has ended the in-place editing of the activeCell.
+	 */
+	editModeExited?: EditModeExitedEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is about to start in-place editing of the activeCell.
+	 */
+	editModeEntering?: EditModeEnteringEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has started in-place editing of the activeCell.
+	 */
+	editModeEntered?: EditModeEnteredEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is exiting edit mode and the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * The EditModeValidationError is raised while exiting edit mode if the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * Since the rule needs to evaluate the value of the cell and potentially other cell's in the Worksheet, the value is first applied to the cell(s) and then is validated. By default if the event is not handled and the
+	 * showErrorMessageForInvalidValue is true, a message box will be displayed to the end user to determine what action to take. One can handle this event and specify the action that should
+	 * be taken using the action.Note: The validation rule will not be evaluated if edit mode is being cancelled such as when the user presses Escape to cancel edit.Note: The action will default to AcceptChange if the ShowErrorMessageForInvalidValue of the validationRule is false; otherwise it will default to ShowPrompt.Note: Like Microsoft Excel, only the validation rule of the active cell is considered even if the update is affecting other cells in the selection.
+	 */
+	editModeValidationError?: EditModeValidationErrorEvent;
 
 	/**
 	 * Invoked when the Spreadsheet is performing an operation on a protected Worksheet and there is a single range that may be unlocked to allow the operation to be performed.
@@ -77890,6 +79959,16 @@ interface IgSpreadsheetMethods {
 	getActiveSelectionCellRangeFormat(): Object;
 
 	/**
+	 * Returns an enumeration used to indicate the current edit mode state.
+	 */
+	getCellEditMode(): Object;
+
+	/**
+	 * Returns a boolean indicating if the control is currently editing the value of the activeCell.
+	 */
+	getIsInEditMode(): boolean;
+
+	/**
 	 * Returns a boolean indicating if the user is currently editing the name of the active worksheet.
 	 */
 	getIsRenamingWorksheet(): boolean;
@@ -77917,11 +79996,14 @@ interface IgSpreadsheetMethods {
 	 * Destroys the widget.
 	 */
 	destroy(): void;
+	changeLocale($container: Object): void;
 
 	/**
 	 * Notify the spreadsheet that style information used for rendering the spreadsheet may have been updated.
 	 */
 	styleUpdated(): void;
+	changeGlobalLanguage(): void;
+	changeGlobalRegional(): void;
 }
 interface JQuery {
 	data(propertyName: "igSpreadsheet"): IgSpreadsheetMethods;
@@ -77931,12 +80013,17 @@ interface JQuery {
 	igSpreadsheet(methodName: "getActivePane"): Object;
 	igSpreadsheet(methodName: "getActiveSelection"): Object;
 	igSpreadsheet(methodName: "getActiveSelectionCellRangeFormat"): Object;
+	igSpreadsheet(methodName: "getCellEditMode"): Object;
+	igSpreadsheet(methodName: "getIsInEditMode"): boolean;
 	igSpreadsheet(methodName: "getIsRenamingWorksheet"): boolean;
 	igSpreadsheet(methodName: "getPanes"): void;
 	igSpreadsheet(methodName: "executeAction", action: Object): boolean;
 	igSpreadsheet(methodName: "flush"): void;
 	igSpreadsheet(methodName: "destroy"): void;
+	igSpreadsheet(methodName: "changeLocale", $container: Object): void;
 	igSpreadsheet(methodName: "styleUpdated"): void;
+	igSpreadsheet(methodName: "changeGlobalLanguage"): void;
+	igSpreadsheet(methodName: "changeGlobalRegional"): void;
 
 	/**
 	 * The width of the spreadsheet. It can be set as a number in pixels, string (px) or percentage (%).
@@ -78095,6 +80182,20 @@ interface JQuery {
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection", optionValue: string): void;
 
 	/**
+	 * Returns  the number of decimal places by which a whole number typed in during edit mode should be adjusted when isFixedDecimalEnabled is true
+	 *
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "fixedDecimalPlaceCount"): number;
+
+	/**
+	 * Returns or sets the number of decimal places by which a whole number typed in during edit mode should be adjusted when isFixedDecimalEnabled is true
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "fixedDecimalPlaceCount", optionValue: number): void;
+
+	/**
 	 * Returns  a boolean indicating whether the adjacent cell indicated by the enterKeyNavigationDirection should be navigated to when the enter key is pressed.
 	 *
 	 */
@@ -78107,6 +80208,20 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igSpreadsheet(optionLiteral: 'option', optionName: "isEnterKeyNavigationEnabled", optionValue: boolean): void;
+
+	/**
+	 * Returns  a boolean indicating whether a fixed decimal place is automatically added when a whole number is entered while in edit mode.
+	 *
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "isFixedDecimalEnabled"): boolean;
+
+	/**
+	 * Returns or sets a boolean indicating whether a fixed decimal place is automatically added when a whole number is entered while in edit mode.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "isFixedDecimalEnabled", optionValue: boolean): void;
 
 	/**
 	 * Returns  a boolean indicating if the formula bar is displayed within the Spreadsheet.
@@ -78247,6 +80362,50 @@ interface JQuery {
 	igSpreadsheet(optionLiteral: 'option', optionName: "zoomLevel", optionValue: number): void;
 
 	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igSpreadsheet(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igSpreadsheet(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
+
+	/**
 	 * Invoked when an action is executed on the Spreadsheet.
 	 */
 	igSpreadsheet(optionLiteral: 'option', optionName: "actionExecuted"): ActionExecutedEvent;
@@ -78305,6 +80464,74 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igSpreadsheet(optionLiteral: 'option', optionName: "activeWorksheetChanged", optionValue: ActiveWorksheetChangedEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet is about to end the in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExiting"): EditModeExitingEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is about to end the in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExiting", optionValue: EditModeExitingEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet has ended the in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExited"): EditModeExitedEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has ended the in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExited", optionValue: EditModeExitedEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet is about to start in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntering"): EditModeEnteringEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is about to start in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntering", optionValue: EditModeEnteringEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet has started in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntered"): EditModeEnteredEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has started in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntered", optionValue: EditModeEnteredEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet is exiting edit mode and the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * The EditModeValidationError is raised while exiting edit mode if the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * Since the rule needs to evaluate the value of the cell and potentially other cell's in the Worksheet, the value is first applied to the cell(s) and then is validated. By default if the event is not handled and the
+	 * showErrorMessageForInvalidValue is true, a message box will be displayed to the end user to determine what action to take. One can handle this event and specify the action that should
+	 * be taken using the action.Note: The validation rule will not be evaluated if edit mode is being cancelled such as when the user presses Escape to cancel edit.Note: The action will default to AcceptChange if the ShowErrorMessageForInvalidValue of the validationRule is false; otherwise it will default to ShowPrompt.Note: Like Microsoft Excel, only the validation rule of the active cell is considered even if the update is affecting other cells in the selection.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeValidationError"): EditModeValidationErrorEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is exiting edit mode and the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * The EditModeValidationError is raised while exiting edit mode if the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * Since the rule needs to evaluate the value of the cell and potentially other cell's in the Worksheet, the value is first applied to the cell(s) and then is validated. By default if the event is not handled and the
+	 * showErrorMessageForInvalidValue is true, a message box will be displayed to the end user to determine what action to take. One can handle this event and specify the action that should
+	 * be taken using the action.Note: The validation rule will not be evaluated if edit mode is being cancelled such as when the user presses Escape to cancel edit.Note: The action will default to AcceptChange if the ShowErrorMessageForInvalidValue of the validationRule is false; otherwise it will default to ShowPrompt.Note: Like Microsoft Excel, only the validation rule of the active cell is considered even if the update is affecting other cells in the selection.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeValidationError", optionValue: EditModeValidationErrorEvent): void;
 
 	/**
 	 * Invoked when the Spreadsheet is performing an operation on a protected Worksheet and there is a single range that may be unlocked to allow the operation to be performed.
@@ -78567,22 +80794,24 @@ interface IgTileManager {
 	 *
 	 *
 	 * Valid values:
-	 * "string" The column width can be set in pixels (px) or percentage (%).
+	 * "string" The column width can be set in pixels (px), percentage (%) or asterisk (*) which will distribute all the width between all the columns equally.
 	 * "number" The column width can be set as a number representing value in pixels.
+	 * "array" The column width can be set as an array, specifying width for each column. If more than one column has an asterisk value, the remaining width will be equally distributed between these columns.
 	 * "null" The column width will be calculated based on the container width and the other options.
 	 */
-	columnWidth?: string|number;
+	columnWidth?: string|number|Array<any>;
 
 	/**
 	 * Gets/Sets the height of each column in the container.
 	 *
 	 *
 	 * Valid values:
-	 * "string" The column height can be set in pixels (px) or percentage (%).
+	 * "string" The column height can be set in pixels (px), percentage (%) or asterisk (*) which will distribute all the height between all the columns equally.
 	 * "number" The column height can be set as a number representing value in pixels.
+	 * "array" The column height can be set as an array, specifying height for each column. If more than one column has an asterisk value, the remaining height will be equally distributed between these columns.
 	 * "null" The column height will be calculated based on the container height and the other options.
 	 */
-	columnHeight?: string|number;
+	columnHeight?: string|number|Array<any>;
 
 	/**
 	 * Gets/Sets the columns count in the container.
@@ -78984,7 +81213,7 @@ interface JQuery {
 	 *
 	 */
 
-	igTileManager(optionLiteral: 'option', optionName: "columnWidth"): string|number;
+	igTileManager(optionLiteral: 'option', optionName: "columnWidth"): string|number|Array<any>;
 
 	/**
 	 * /Sets the width of each column in the container.
@@ -78993,14 +81222,14 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 
-	igTileManager(optionLiteral: 'option', optionName: "columnWidth", optionValue: string|number): void;
+	igTileManager(optionLiteral: 'option', optionName: "columnWidth", optionValue: string|number|Array<any>): void;
 
 	/**
 	 * Gets/Sets the height of each column in the container.
 	 *
 	 */
 
-	igTileManager(optionLiteral: 'option', optionName: "columnHeight"): string|number;
+	igTileManager(optionLiteral: 'option', optionName: "columnHeight"): string|number|Array<any>;
 
 	/**
 	 * /Sets the height of each column in the container.
@@ -79009,7 +81238,7 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 
-	igTileManager(optionLiteral: 'option', optionName: "columnHeight", optionValue: string|number): void;
+	igTileManager(optionLiteral: 'option', optionName: "columnHeight", optionValue: string|number|Array<any>): void;
 
 	/**
 	 * Gets/Sets the columns count in the container.
@@ -79572,6 +81801,25 @@ interface JQuery {
 	igTileManager(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igTileManager(methodName: string, ...methodParams: any[]): any;
 }
+interface IgToolbarLocale {
+	/**
+	 * Gets/Sets collapse button title.
+	 *
+	 */
+	collapseButtonTitle?: any;
+
+	/**
+	 * Gets/Sets expand button title.
+	 *
+	 */
+	expandButtonTitle?: any;
+
+	/**
+	 * Option for IgToolbarLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface ToolbarButtonClickEvent {
 	(event: Event, ui: ToolbarButtonClickEventUIParam): void;
 }
@@ -79680,6 +81928,7 @@ interface IgToolbar {
 	 *
 	 */
 	isExpanded?: boolean;
+	locale?: IgToolbarLocale;
 
 	/**
 	 * Event fired after a click on any toolbar button
@@ -79756,6 +82005,7 @@ interface IgToolbarMethods {
 	 * Returns the element on which the widget was instantiated
 	 */
 	widget(): void;
+	changeLocale(): void;
 
 	/**
 	 * Gets the item by matching the provided index.
@@ -79810,6 +82060,7 @@ interface JQuery {
 
 interface JQuery {
 	igToolbar(methodName: "widget"): void;
+	igToolbar(methodName: "changeLocale"): void;
 	igToolbar(methodName: "getItem", index: Object): Object;
 	igToolbar(methodName: "addItem", item: Object): void;
 	igToolbar(methodName: "removeItem", index: Object): Object;
@@ -79943,6 +82194,8 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igToolbar(optionLiteral: 'option', optionName: "isExpanded", optionValue: boolean): void;
+	igToolbar(optionLiteral: 'option', optionName: "locale"): IgToolbarLocale;
+	igToolbar(optionLiteral: 'option', optionName: "locale", optionValue: IgToolbarLocale): void;
 
 	/**
 	 * Event fired after a click on any toolbar button
@@ -80397,11 +82650,19 @@ interface IgTreeBindings {
 	targetKey?: string;
 
 	/**
-	 * Gets the name of the data source property the value of which would indicate that the
-	 * node is expanded on initial load.
+	 * Gets the name of the data source property the value of which would hold the node`s
+	 * expanded state. The expanded state is represented by a boolean.
 	 *
 	 */
 	expandedKey?: string;
+
+	/**
+	 * Gets the name of the data source property the value of which would hold the node's
+	 * check state. The check state itself is represented by a string enumeration with the
+	 * checked|partially checked|unchecked states being respectively "on|partial|off".
+	 *
+	 */
+	checkedKey?: string;
 
 	/**
 	 * Gets the name of the data source property the value of which is the primary key attribute
@@ -81244,6 +83505,8 @@ interface IgTree {
 	[optionName: string]: any;
 }
 interface IgTreeMethods {
+	changeLocale(): void;
+
 	/**
 	 * Performs databinding on the igTree.
 	 */
@@ -81256,6 +83519,30 @@ interface IgTreeMethods {
 	 * @param event Indicates the browser event which triggered this action, if this is not an API call.
 	 */
 	toggleCheckstate(node: Object, event?: Object): void;
+
+	/**
+	 * Applies a checked state to a node.
+	 *
+	 * @param nodeObj Specifies the node element to apply the state to.
+	 * @param cascadeDir
+	 */
+	checkNode(nodeObj: Object, cascadeDir: Object): void;
+
+	/**
+	 * Applies an unchecked state to a node.
+	 *
+	 * @param nodeObj Specifies the node element to apply the state to.
+	 * @param cascadeDir
+	 */
+	uncheckNode(nodeObj: Object, cascadeDir: Object): void;
+
+	/**
+	 * Applies a partially checked state to a node.
+	 *
+	 * @param nodeObj Specifies the node element to apply the state to.
+	 * @param cascadeDir
+	 */
+	partiallyCheckNode(nodeObj: Object, cascadeDir: Object): void;
 
 	/**
 	 * Toggles the collapse/expand state for the specified node.
@@ -81277,15 +83564,17 @@ interface IgTreeMethods {
 	 * Expands the specified node.
 	 *
 	 * @param node Specifies the node element to expand.
+	 * @param event The original browser event that triggered the expand.
 	 */
-	expand(node: Object): void;
+	expand(node: string, event?: Object): void;
 
 	/**
 	 * Collapses the specified node.
 	 *
 	 * @param node Specifies the node element to collapse.
+	 * @param event The original browser event that triggered the collapse.
 	 */
-	collapse(node: Object): void;
+	collapse(node: string, event?: Object): void;
 
 	/**
 	 * Retrieves the parent node element of the specified node element.
@@ -81474,12 +83763,16 @@ interface JQuery {
 }
 
 interface JQuery {
+	igTree(methodName: "changeLocale"): void;
 	igTree(methodName: "dataBind"): void;
 	igTree(methodName: "toggleCheckstate", node: Object, event?: Object): void;
+	igTree(methodName: "checkNode", nodeObj: Object, cascadeDir: Object): void;
+	igTree(methodName: "uncheckNode", nodeObj: Object, cascadeDir: Object): void;
+	igTree(methodName: "partiallyCheckNode", nodeObj: Object, cascadeDir: Object): void;
 	igTree(methodName: "toggle", node: Object, event?: Object): void;
 	igTree(methodName: "expandToNode", node: Object, toSelect?: boolean): void;
-	igTree(methodName: "expand", node: Object): void;
-	igTree(methodName: "collapse", node: Object): void;
+	igTree(methodName: "expand", node: string, event?: Object): void;
+	igTree(methodName: "collapse", node: string, event?: Object): void;
 	igTree(methodName: "parentNode", node: Object): Object;
 	igTree(methodName: "nodeByPath", nodePath: string): Object;
 	igTree(methodName: "nodesByValue", value: string): Object;
@@ -82173,16 +84466,29 @@ interface JQuery {
 }
 interface IgTreeGridColumnFixing {
 	/**
-	 * Specifies the tooltip text on the column fixing header icon when column is not fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Specifies the tooltip text on the column fixing header icon when column is not fixed. Use option [locale.headerFixButtonText](ui.iggridcolumnfixing#options:locale.headerFixButtonText).
 	 */
 	headerFixButtonText?: string;
 
 	/**
-	 * Specifies the tooltip text on the column fixing header icon when column is fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Specifies the tooltip text on the column fixing header icon when column is fixed. Use option [locale.headerUnfixButtonText](ui.iggridcolumnfixing#options:locale.headerUnfixButtonText).
 	 */
 	headerUnfixButtonText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextFixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextFixedColumn).
+	 */
+	featureChooserTextFixedColumn?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextUnfixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextUnfixedColumn).
+	 */
+	featureChooserTextUnfixedColumn?: string;
+	locale?: IgGridColumnFixingLocale;
 
 	/**
 	 * Specifies whether to show the column fixing buttons in header cells/feature chooser.
@@ -82217,18 +84523,6 @@ interface IgTreeGridColumnFixing {
 	 *
 	 */
 	columnSettings?: IgGridColumnFixingColumnSetting[];
-
-	/**
-	 * Text of the feature chooser button for fixing a currently unfixed column.
-	 *
-	 */
-	featureChooserTextFixedColumn?: string;
-
-	/**
-	 * Text of the feature chooser button for unfixing a currently fixed column.
-	 *
-	 */
-	featureChooserTextUnfixedColumn?: string;
 
 	/**
 	 * Minimal visible area in pixels for the unfixed columns. If the end user tries to fix a column(or columns), which causes the width of the fixed columns to grow such that the width of visible area of unfixed columns is less than this option then fixing will be canceled. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#non-fixable-min-width) out for more information.
@@ -82310,6 +84604,7 @@ interface IgTreeGridColumnFixingMethods {
 	 * @param clearRowsHeights Clears row heigths for all visible rows.
 	 */
 	syncHeights(check?: boolean, clearRowsHeights?: boolean): void;
+	changeLocale(): void;
 
 	/**
 	 * Returns whether the column with the specified key is a column group header, when the [multi-column headers](http://www.igniteui.com/help/iggrid-multicolumnheaders-landingpage) feature is used.
@@ -82392,6 +84687,7 @@ interface JQuery {
 	igTreeGridColumnFixing(methodName: "unfixColumn", colIdentifier: Object, target?: string, after?: boolean): Object;
 	igTreeGridColumnFixing(methodName: "checkAndSyncHeights"): void;
 	igTreeGridColumnFixing(methodName: "syncHeights", check?: boolean, clearRowsHeights?: boolean): void;
+	igTreeGridColumnFixing(methodName: "changeLocale"): void;
 	igTreeGridColumnFixing(methodName: "isGroupHeader", colKey: string): boolean;
 	igTreeGridColumnFixing(methodName: "checkFixingAllowed", columns: any[]): boolean;
 	igTreeGridColumnFixing(methodName: "checkUnfixingAllowed", columns: any[]): boolean;
@@ -82405,32 +84701,62 @@ interface JQuery {
 	igTreeGridColumnFixing(methodName: "getWidthOfFixedColumns", fCols?: any[], excludeNonDataColumns?: boolean, includeHidden?: boolean): number;
 
 	/**
-	 * Gets the tooltip text on the column fixing header icon when column is not fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Gets the tooltip text on the column fixing header icon when column is not fixed. Use option [locale.headerFixButtonText](ui.iggridcolumnfixing#options:locale.headerFixButtonText).
 	 */
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "headerFixButtonText"): string;
 
 	/**
-	 * Sets the tooltip text on the column fixing header icon when column is not fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *             Sets the tooltip text on the column fixing header icon when column is not fixed. Use option [locale.headerFixButtonText](ui.iggridcolumnfixing#options:locale.headerFixButtonText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "headerFixButtonText", optionValue: string): void;
 
 	/**
-	 * Gets the tooltip text on the column fixing header icon when column is fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Gets the tooltip text on the column fixing header icon when column is fixed. Use option [locale.headerUnfixButtonText](ui.iggridcolumnfixing#options:locale.headerUnfixButtonText).
 	 */
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "headerUnfixButtonText"): string;
 
 	/**
-	 * Sets the tooltip text on the column fixing header icon when column is fixed.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Sets the tooltip text on the column fixing header icon when column is fixed. Use option [locale.headerUnfixButtonText](ui.iggridcolumnfixing#options:locale.headerUnfixButtonText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "headerUnfixButtonText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextFixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextFixedColumn).
+	 */
+	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextFixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextFixedColumn).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextUnfixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextUnfixedColumn).
+	 */
+	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 *                 Text of the feature chooser button for unfixing a currently fixed column. Use option [locale.featureChooserTextUnfixedColumn](ui.iggridcolumnfixing#options:locale.featureChooserTextUnfixedColumn).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn", optionValue: string): void;
+	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "locale"): IgGridColumnFixingLocale;
+	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "locale", optionValue: IgGridColumnFixingLocale): void;
 
 	/**
 	 * Gets whether to show the column fixing buttons in header cells/feature chooser.
@@ -82503,34 +84829,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "columnSettings", optionValue: IgGridColumnFixingColumnSetting[]): void;
-
-	/**
-	 * Text of the feature chooser button for fixing a currently unfixed column.
-	 *
-	 */
-	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn"): string;
-
-	/**
-	 * Text of the feature chooser button for fixing a currently unfixed column.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextFixedColumn", optionValue: string): void;
-
-	/**
-	 * Text of the feature chooser button for unfixing a currently fixed column.
-	 *
-	 */
-	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn"): string;
-
-	/**
-	 * Text of the feature chooser button for unfixing a currently fixed column.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnFixing(optionLiteral: 'option', optionName: "featureChooserTextUnfixedColumn", optionValue: string): void;
 
 	/**
 	 * Minimal visible area in pixels for the unfixed columns. If the end user tries to fix a column(or columns), which causes the width of the fixed columns to grow such that the width of visible area of unfixed columns is less than this option then fixing will be canceled. Check [this topic](http://www.igniteui.com/help/iggrid-columnfixing-configuring#non-fixable-min-width) out for more information.
@@ -82742,76 +85040,77 @@ interface IgTreeGridColumnMoving {
 	dragHelperOpacity?: number;
 
 	/**
-	 * Specifies caption for each move down button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for each move down button in the column moving dialog. Use option [locale.movingDialogCaptionButtonDesc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonDesc).
 	 */
 	movingDialogCaptionButtonDesc?: string;
 
 	/**
-	 * Specifies caption for each move up button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for each move up button in the column moving dialog. Use option [locale.movingDialogCaptionButtonAsc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonAsc).
 	 */
 	movingDialogCaptionButtonAsc?: string;
 
 	/**
-	 * Specifies caption text for the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the column moving dialog. Use option [locale.movingDialogCaptionText](ui.iggridcolumnmoving#options:locale.movingDialogCaptionText).
 	 */
 	movingDialogCaptionText?: string;
 
 	/**
-	 * Specifies caption text for the feature chooser entry
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the feature chooser entry. Use option [locale.movingDialogDisplayText](ui.iggridcolumnmoving#options:locale.movingDialogDisplayText).
 	 */
 	movingDialogDisplayText?: string;
 
 	/**
-	 * Specifies text for drop tooltip in column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text for drop tooltip in column moving dialog. Use option [locale.movingDialogDropTooltipText](ui.iggridcolumnmoving#options:locale.movingDialogDropTooltipText).
 	 */
 	movingDialogDropTooltipText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move left dropdown button. Use option [locale.dropDownMoveLeftText](ui.iggridcolumnmoving#options:locale.dropDownMoveLeftText).
+	 */
+	dropDownMoveLeftText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move right dropdown button. Use option [locale.dropDownMoveRightText](ui.iggridcolumnmoving#options:locale.dropDownMoveRightText).
+	 */
+	dropDownMoveRightText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move last dropdown button. Use option [locale.dropDownMoveFirstText](ui.iggridcolumnmoving#options:locale.dropDownMoveFirstText).
+	 */
+	dropDownMoveFirstText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption for the move last dropdown button. Use option [locale.dropDownMoveLastText](ui.iggridcolumnmoving#options:locale.dropDownMoveLastText).
+	 */
+	dropDownMoveLastText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the feature chooser submenu button. Use option [locale.movingToolTipMove](ui.iggridcolumnmoving#options:locale.movingToolTipMove).
+	 */
+	movingToolTipMove?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for the feature chooser submenu button. Use option [locale.featureChooserSubmenuText](ui.iggridcolumnmoving#options:locale.featureChooserSubmenuText).
+	 */
+	featureChooserSubmenuText?: string;
+	locale?: IgGridColumnMovingLocale;
 
 	/**
 	 * Specifies markup for drop tooltip in column moving dialog
 	 *
 	 */
 	movingDialogDropTooltipMarkup?: string;
-
-	/**
-	 * Specifies caption for the move left dropdown button
-	 *
-	 */
-	dropDownMoveLeftText?: string;
-
-	/**
-	 * Specifies caption for the move right dropdown button
-	 *
-	 */
-	dropDownMoveRightText?: string;
-
-	/**
-	 * Specifies caption for the move first dropdown button
-	 *
-	 */
-	dropDownMoveFirstText?: string;
-
-	/**
-	 * Specifies caption for the move last dropdown button
-	 *
-	 */
-	dropDownMoveLastText?: string;
-
-	/**
-	 * Specifies tooltip text for the move indicator
-	 *
-	 */
-	movingToolTipMove?: string;
-
-	/**
-	 * Specifies caption text for the feature chooser submenu button
-	 *
-	 */
-	featureChooserSubmenuText?: string;
 
 	/**
 	 * Controls containment behavior of column moving dialog.
@@ -82919,6 +85218,7 @@ interface IgTreeGridColumnMoving {
 }
 interface IgTreeGridColumnMovingMethods {
 	destroy(): void;
+	changeLocale(): void;
 
 	/**
 	 * Moves a visible column at a specified place, in front or behind a target column or at a target index
@@ -82938,6 +85238,7 @@ interface JQuery {
 
 interface JQuery {
 	igTreeGridColumnMoving(methodName: "destroy"): void;
+	igTreeGridColumnMoving(methodName: "changeLocale"): void;
 	igTreeGridColumnMoving(methodName: "moveColumn", column: Object, target: Object, after?: boolean, inDom?: boolean, callback?: Function): void;
 
 	/**
@@ -83133,74 +85434,160 @@ interface JQuery {
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dragHelperOpacity", optionValue: number): void;
 
 	/**
-	 * Gets caption for each move down button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for each move down button in the column moving dialog. Use option [locale.movingDialogCaptionButtonDesc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonDesc).
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonDesc"): string;
 
 	/**
-	 * Sets caption for each move down button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for each move down button in the column moving dialog. Use option [locale.movingDialogCaptionButtonDesc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonDesc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonDesc", optionValue: string): void;
 
 	/**
-	 * Gets caption for each move up button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for each move up button in the column moving dialog. Use option [locale.movingDialogCaptionButtonAsc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonAsc).
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonAsc"): string;
 
 	/**
-	 * Sets caption for each move up button in the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for each move up button in the column moving dialog. Use option [locale.movingDialogCaptionButtonAsc](ui.iggridcolumnmoving#options:locale.movingDialogCaptionButtonAsc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionButtonAsc", optionValue: string): void;
 
 	/**
-	 * Gets caption text for the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the column moving dialog. Use option [locale.movingDialogCaptionText](ui.iggridcolumnmoving#options:locale.movingDialogCaptionText).
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionText"): string;
 
 	/**
-	 * Sets caption text for the column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the column moving dialog. Use option [locale.movingDialogCaptionText](ui.iggridcolumnmoving#options:locale.movingDialogCaptionText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogCaptionText", optionValue: string): void;
 
 	/**
-	 * Gets caption text for the feature chooser entry
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the feature chooser entry. Use option [locale.movingDialogDisplayText](ui.iggridcolumnmoving#options:locale.movingDialogDisplayText).
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDisplayText"): string;
 
 	/**
-	 * Sets caption text for the feature chooser entry
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the feature chooser entry. Use option [locale.movingDialogDisplayText](ui.iggridcolumnmoving#options:locale.movingDialogDisplayText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDisplayText", optionValue: string): void;
 
 	/**
-	 * Gets text for drop tooltip in column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text for drop tooltip in column moving dialog. Use option [locale.movingDialogDropTooltipText](ui.iggridcolumnmoving#options:locale.movingDialogDropTooltipText).
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDropTooltipText"): string;
 
 	/**
-	 * Sets text for drop tooltip in column moving dialog
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text for drop tooltip in column moving dialog. Use option [locale.movingDialogDropTooltipText](ui.iggridcolumnmoving#options:locale.movingDialogDropTooltipText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDropTooltipText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move left dropdown button. Use option [locale.dropDownMoveLeftText](ui.iggridcolumnmoving#options:locale.dropDownMoveLeftText).
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move left dropdown button. Use option [locale.dropDownMoveLeftText](ui.iggridcolumnmoving#options:locale.dropDownMoveLeftText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move right dropdown button. Use option [locale.dropDownMoveRightText](ui.iggridcolumnmoving#options:locale.dropDownMoveRightText).
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move right dropdown button. Use option [locale.dropDownMoveRightText](ui.iggridcolumnmoving#options:locale.dropDownMoveRightText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move last dropdown button. Use option [locale.dropDownMoveFirstText](ui.iggridcolumnmoving#options:locale.dropDownMoveFirstText).
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move last dropdown button. Use option [locale.dropDownMoveFirstText](ui.iggridcolumnmoving#options:locale.dropDownMoveFirstText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption for the move last dropdown button. Use option [locale.dropDownMoveLastText](ui.iggridcolumnmoving#options:locale.dropDownMoveLastText).
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption for the move last dropdown button. Use option [locale.dropDownMoveLastText](ui.iggridcolumnmoving#options:locale.dropDownMoveLastText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the feature chooser submenu button. Use option [locale.movingToolTipMove](ui.iggridcolumnmoving#options:locale.movingToolTipMove).
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the feature chooser submenu button. Use option [locale.movingToolTipMove](ui.iggridcolumnmoving#options:locale.movingToolTipMove).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for the feature chooser submenu button. Use option [locale.featureChooserSubmenuText](ui.iggridcolumnmoving#options:locale.featureChooserSubmenuText).
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for the feature chooser submenu button. Use option [locale.featureChooserSubmenuText](ui.iggridcolumnmoving#options:locale.featureChooserSubmenuText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText", optionValue: string): void;
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "locale"): IgGridColumnMovingLocale;
+	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "locale", optionValue: IgGridColumnMovingLocale): void;
 
 	/**
 	 * Gets markup for drop tooltip in column moving dialog
@@ -83215,90 +85602,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingDialogDropTooltipMarkup", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move left dropdown button
-	 *
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText"): string;
-
-	/**
-	 * Sets caption for the move left dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLeftText", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move right dropdown button
-	 *
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText"): string;
-
-	/**
-	 * Sets caption for the move right dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveRightText", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move first dropdown button
-	 *
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText"): string;
-
-	/**
-	 * Sets caption for the move first dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveFirstText", optionValue: string): void;
-
-	/**
-	 * Gets caption for the move last dropdown button
-	 *
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText"): string;
-
-	/**
-	 * Sets caption for the move last dropdown button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "dropDownMoveLastText", optionValue: string): void;
-
-	/**
-	 * Gets tooltip text for the move indicator
-	 *
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove"): string;
-
-	/**
-	 * Sets tooltip text for the move indicator
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "movingToolTipMove", optionValue: string): void;
-
-	/**
-	 * Gets caption text for the feature chooser submenu button
-	 *
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText"): string;
-
-	/**
-	 * Sets caption text for the feature chooser submenu button
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridColumnMoving(optionLiteral: 'option', optionName: "featureChooserSubmenuText", optionValue: string): void;
 
 	/**
 	 * Controls containment behavior of column moving dialog.
@@ -83541,6 +85844,25 @@ interface JQuery {
 	igTreeGridColumnMoving(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igTreeGridColumnMoving(methodName: string, ...methodParams: any[]): any;
 }
+interface IgTreeGridFilteringLocale {
+	/**
+	 * Template that is used when filtering is applied and paging is enabled and user goes to another page. It takes precedence over the pagerRecordsLabelTemplate(option from igTreeGridPaging). If it is set to null then it is taken option from igTreeGridPaging.
+	 * Supported options:
+	 * ${currentPageMatches} (filtering)
+	 * ${totalMatches} (filtering)
+	 * ${startRecord} (paging)
+	 * ${endRecord} (paging)
+	 * ${recordCount} (paging)
+	 *
+	 */
+	filterSummaryInPagerTemplate?: string;
+
+	/**
+	 * Option for IgTreeGridFilteringLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface IgTreeGridFiltering {
 	/**
 	 * The property in the response that will hold the total number of records in the data source
@@ -83575,6 +85897,7 @@ interface IgTreeGridFiltering {
 	matchFiltering?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Template that is used when filtering is applied and paging is enabled and user goes to another page. It takes precedence over the pagerRecordsLabelTemplate(option from igTreeGridPaging). If it is set to null then it is taken option from igTreeGridPaging.
 	 * Supported options:
 	 * ${currentPageMatches} (filtering)
@@ -83582,8 +85905,10 @@ interface IgTreeGridFiltering {
 	 * ${startRecord} (paging)
 	 * ${endRecord} (paging)
 	 * ${recordCount} (paging)
+	 * Use option [locale.collapseTooltipText](ui.igtreegrid#options:locale.collapseTooltipText).
 	 */
 	filterSummaryInPagerTemplate?: string;
+	locale?: IgTreeGridFilteringLocale;
 
 	/**
 	 * Enables or disables the filtering case sensitivity. Works only for local filtering. If true, it case sensitive filtering is performed. If false, filtering is case insensitive.
@@ -83606,8 +85931,8 @@ interface IgTreeGridFiltering {
 	renderFC?: boolean;
 
 	/**
-	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'. Use option [locale.filterSummaryTemplate](ui.iggridfiltering#options:locale.filterSummaryTemplate).
 	 */
 	filterSummaryTemplate?: string;
 
@@ -83776,22 +86101,40 @@ interface IgTreeGridFiltering {
 	filterButtonLocation?: string;
 
 	/**
-	 * List of configurable and localized null texts that will be used for the filter editors.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * List of configurable and localized null texts that will be used for the filter editors. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	nullTexts?: IgGridFilteringNullTexts;
+	nullTexts?: string;
 
 	/**
-	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	labels?: IgGridFilteringLabels;
+	labels?: string;
 
 	/**
-	 * Custom tooltip template for the filter button, when a filter is applied.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom tooltip template for the filter button, when a filter is applied. Use option [locale.tooltipTemplate](ui.iggridfiltering#options:locale.tooltipTemplate).
 	 */
 	tooltipTemplate?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserText](ui.iggridfiltering#options:locale.featureChooserText).
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserTextHide](ui.iggridfiltering#options:locale.featureChooserTextHide).
+	 */
+	featureChooserTextHide?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced. Use option [locale.featureChooserTextAdvancedFilter](ui.iggridfiltering#options:locale.featureChooserTextAdvancedFilter).
+	 */
+	featureChooserTextAdvancedFilter?: string;
 
 	/**
 	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
@@ -83868,24 +86211,6 @@ interface IgTreeGridFiltering {
 	showNullConditions?: boolean;
 
 	/**
-	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	featureChooserText?: string;
-
-	/**
-	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	featureChooserTextHide?: string;
-
-	/**
-	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced.
-	 *
-	 */
-	featureChooserTextAdvancedFilter?: string;
-
-	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
 	 *
 	 */
@@ -83904,93 +86229,6 @@ interface IgTreeGridFiltering {
 	inherit?: boolean;
 
 	/**
-	 * Event fired before a filtering operation is executed (remote request or local).
-	 * Return false in order to cancel filtering operation.
-	 */
-	dataFiltering?: DataFilteringEvent;
-
-	/**
-	 * Event fired after the filtering has been executed and results are rendered.
-	 */
-	dataFiltered?: DataFilteredEvent;
-
-	/**
-	 * Event fired before the filter dropdown is opened for a specific column.
-	 * Return false in order to cancel dropdown opening.
-	 */
-	dropDownOpening?: DropDownOpeningEvent;
-
-	/**
-	 * Event fired after the filter dropdown is opened for a specific column.
-	 */
-	dropDownOpened?: DropDownOpenedEvent;
-
-	/**
-	 * Event fired before the filter dropdown starts closing.
-	 * Return false in order to cancel dropdown closing.
-	 */
-	dropDownClosing?: DropDownClosingEvent;
-
-	/**
-	 * Event fired after a filter column dropdown is completely closed.
-	 */
-	dropDownClosed?: DropDownClosedEvent;
-
-	/**
-	 * Event fired before the advanced filtering dialog is opened.
-	 * Return false in order to cancel filter dialog opening.
-	 */
-	filterDialogOpening?: FilterDialogOpeningEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog is already opened.
-	 */
-	filterDialogOpened?: FilterDialogOpenedEvent;
-
-	/**
-	 * Event fired every time the advanced filter dialog changes its position.
-	 */
-	filterDialogMoving?: FilterDialogMovingEvent;
-
-	/**
-	 * Event fired before a filter row is added to the advanced filter dialog.
-	 * Return false in order to cancel filter adding to the advanced filtering dialog.
-	 */
-	filterDialogFilterAdding?: FilterDialogFilterAddingEvent;
-
-	/**
-	 * Event fired after a filter row is added to the advanced filter dialog.
-	 */
-	filterDialogFilterAdded?: FilterDialogFilterAddedEvent;
-
-	/**
-	 * Event fired before the advanced filter dialog is closed.
-	 * Return false in order to cancel filtering dialog closing.
-	 */
-	filterDialogClosing?: FilterDialogClosingEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog has been closed.
-	 */
-	filterDialogClosed?: FilterDialogClosedEvent;
-
-	/**
-	 * Event fired before the contents of the advanced filter dialog are rendered.
-	 * Return false in order to cancel filtering dialog rendering.
-	 */
-	filterDialogContentsRendering?: FilterDialogContentsRenderingEvent;
-
-	/**
-	 * Event fired after the contents of the advanced filter dialog are rendered.
-	 */
-	filterDialogContentsRendered?: FilterDialogContentsRenderedEvent;
-
-	/**
-	 * Event fired when the OK button in the advanced filter dialog is pressed.
-	 */
-	filterDialogFiltering?: FilterDialogFilteringEvent;
-
-	/**
 	 * Option for igTreeGridFiltering
 	 */
 	[optionName: string]: any;
@@ -84001,29 +86239,6 @@ interface IgTreeGridFilteringMethods {
 	 */
 	getFilteringMatchesCount(): number;
 	destroy(): void;
-
-	/**
-	 * Toggle filter row when mode is simple or [advancedModeEditorsVisible](ui.iggridfiltering#options:advancedModeEditorsVisible) is true. Otherwise show/hide advanced dialog.
-	 *
-	 * @param event Column key
-	 */
-	toggleFilterRowByFeatureChooser(event: string): void;
-
-	/**
-	 * Applies filtering programmatically and updates the UI by default.
-	 *
-	 * @param expressions An array of filtering expressions, each one having the format {fieldName: , expr: , cond: , logic: } where  fieldName is the key of the column, expr is the actual expression string with which we would like to filter, logic is 'AND' or 'OR', and cond is one of the following strings: "equals", "doesNotEqual", "contains", "doesNotContain", "greaterThan", "lessThan", "greaterThanOrEqualTo", "lessThanOrEqualTo", "true", "false", "null", "notNull", "empty", "notEmpty", "startsWith", "endsWith", "today", "yesterday", "on", "notOn", "thisMonth", "lastMonth", "nextMonth", "before", "after", "thisYear", "lastYear", "nextYear". The difference between the empty and null filtering conditions is that empty includes null, NaN, and undefined, as well as the empty string.
-	 * @param updateUI specifies whether the filter row should be also updated once the grid is filtered
-	 * @param addedFromAdvanced
-	 */
-	filter(expressions: any[], updateUI?: boolean, addedFromAdvanced?: boolean): void;
-
-	/**
-	 * Check whether filterCondition requires or not filtering expression - e.g. if filterCondition is "lastMonth", "thisMonth", "null", "notNull", "true", "false", etc. then filtering expression is NOT required
-	 *
-	 * @param filterCondition filtering condition - e.g. "true", "false",  "yesterday", "empty", "null", etc.
-	 */
-	requiresFilteringExpression(filterCondition: string): boolean;
 }
 interface JQuery {
 	data(propertyName: "igTreeGridFiltering"): IgTreeGridFilteringMethods;
@@ -84032,9 +86247,6 @@ interface JQuery {
 interface JQuery {
 	igTreeGridFiltering(methodName: "getFilteringMatchesCount"): number;
 	igTreeGridFiltering(methodName: "destroy"): void;
-	igTreeGridFiltering(methodName: "toggleFilterRowByFeatureChooser", event: string): void;
-	igTreeGridFiltering(methodName: "filter", expressions: any[], updateUI?: boolean, addedFromAdvanced?: boolean): void;
-	igTreeGridFiltering(methodName: "requiresFilteringExpression", filterCondition: string): boolean;
 
 	/**
 	 * The property in the response that will hold the total number of records in the data source
@@ -84111,6 +86323,7 @@ interface JQuery {
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "matchFiltering", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Template that is used when filtering is applied and paging is enabled and user goes to another page. It takes precedence over the pagerRecordsLabelTemplate(option from igTreeGridPaging). If it is set to null then it is taken option from igTreeGridPaging.
 	 * Supported options:
 	 * ${currentPageMatches} (filtering)
@@ -84118,10 +86331,12 @@ interface JQuery {
 	 * ${startRecord} (paging)
 	 * ${endRecord} (paging)
 	 * ${recordCount} (paging)
+	 * Use option [locale.collapseTooltipText](ui.igtreegrid#options:locale.collapseTooltipText).
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterSummaryInPagerTemplate"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Template that is used when filtering is applied and paging is enabled and user goes to another page. It takes precedence over the pagerRecordsLabelTemplate(option from igTreeGridPaging). If it is set to null then it is taken option from igTreeGridPaging.
 	 * Supported options:
 	 * ${currentPageMatches} (filtering)
@@ -84129,10 +86344,13 @@ interface JQuery {
 	 * ${startRecord} (paging)
 	 * ${endRecord} (paging)
 	 * ${recordCount} (paging)
+	 * Use option [locale.collapseTooltipText](ui.igtreegrid#options:locale.collapseTooltipText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterSummaryInPagerTemplate", optionValue: string): void;
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "locale"): IgTreeGridFilteringLocale;
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "locale", optionValue: IgTreeGridFilteringLocale): void;
 
 	/**
 	 * Enables or disables the filtering case sensitivity. Works only for local filtering. If true, it case sensitive filtering is performed. If false, filtering is case insensitive.
@@ -84181,14 +86399,14 @@ interface JQuery {
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "renderFC", optionValue: boolean): void;
 
 	/**
-	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'. Use option [locale.filterSummaryTemplate](ui.iggridfiltering#options:locale.filterSummaryTemplate).
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterSummaryTemplate"): string;
 
 	/**
-	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Summary template that will appear in the bottom left corner of the footer. Has the format '${matches} matching records'. Use option [locale.filterSummaryTemplate](ui.iggridfiltering#options:locale.filterSummaryTemplate).
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -84489,46 +86707,88 @@ interface JQuery {
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterButtonLocation", optionValue: string): void;
 
 	/**
-	 * List of configurable and localized null texts that will be used for the filter editors.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * List of configurable and localized null texts that will be used for the filter editors. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "nullTexts"): IgGridFilteringNullTexts;
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "nullTexts"): string;
 
 	/**
-	 * List of configurable and localized null texts that will be used for the filter editors.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * List of configurable and localized null texts that will be used for the filter editors. Use option [locale](ui.iggridfiltering#options:locale).
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "nullTexts", optionValue: IgGridFilteringNullTexts): void;
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "nullTexts", optionValue: string): void;
 
 	/**
-	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns. Use option [locale](ui.iggridfiltering#options:locale).
 	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "labels"): IgGridFilteringLabels;
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "labels"): string;
 
 	/**
-	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * A list of configurable and localized labels that are used for the predefined filtering conditions in the filter dropdowns. Use option [locale](ui.iggridfiltering#options:locale).
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "labels", optionValue: IgGridFilteringLabels): void;
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "labels", optionValue: string): void;
 
 	/**
-	 * Custom tooltip template for the filter button, when a filter is applied.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom tooltip template for the filter button, when a filter is applied. Use option [locale.tooltipTemplate](ui.iggridfiltering#options:locale.tooltipTemplate).
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "tooltipTemplate"): string;
 
 	/**
-	 * Custom tooltip template for the filter button, when a filter is applied.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom tooltip template for the filter button, when a filter is applied. Use option [locale.tooltipTemplate](ui.iggridfiltering#options:locale.tooltipTemplate).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "tooltipTemplate", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserText](ui.iggridfiltering#options:locale.featureChooserText).
+	 */
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserText](ui.iggridfiltering#options:locale.featureChooserText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserTextHide](ui.iggridfiltering#options:locale.featureChooserTextHide).
+	 */
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple. Use option [locale.featureChooserTextHide](ui.iggridfiltering#options:locale.featureChooserTextHide).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced. Use option [locale.featureChooserTextAdvancedFilter](ui.iggridfiltering#options:locale.featureChooserTextAdvancedFilter).
+	 */
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced. Use option [locale.featureChooserTextAdvancedFilter](ui.iggridfiltering#options:locale.featureChooserTextAdvancedFilter).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter", optionValue: string): void;
 
 	/**
 	 * Custom template for add condition area in the filter dialog. The default template is "<div><span>${label1}</span><div><select></select></div><span>${label2}</span></div>".
@@ -84687,48 +86947,6 @@ interface JQuery {
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "showNullConditions", optionValue: boolean): void;
 
 	/**
-	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserText"): string;
-
-	/**
-	 * Feature chooser text when filter is shown and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
-
-	/**
-	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide"): string;
-
-	/**
-	 * Feature chooser text when filter is hidden and filter [mode](ui.iggridfiltering#options:mode) is simple.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextHide", optionValue: string): void;
-
-	/**
-	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced.
-	 *
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter"): string;
-
-	/**
-	 * Feature chooser text when filter [mode](ui.iggridfiltering#options:mode) is advanced.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "featureChooserTextAdvancedFilter", optionValue: string): void;
-
-	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
 	 *
 	 */
@@ -84769,212 +86987,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridFiltering(optionLiteral: 'option', optionName: "inherit", optionValue: boolean): void;
-
-	/**
-	 * Event fired before a filtering operation is executed (remote request or local).
-	 * Return false in order to cancel filtering operation.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dataFiltering"): DataFilteringEvent;
-
-	/**
-	 * Event fired before a filtering operation is executed (remote request or local).
-	 * Return false in order to cancel filtering operation.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dataFiltering", optionValue: DataFilteringEvent): void;
-
-	/**
-	 * Event fired after the filtering has been executed and results are rendered.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dataFiltered"): DataFilteredEvent;
-
-	/**
-	 * Event fired after the filtering has been executed and results are rendered.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dataFiltered", optionValue: DataFilteredEvent): void;
-
-	/**
-	 * Event fired before the filter dropdown is opened for a specific column.
-	 * Return false in order to cancel dropdown opening.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownOpening"): DropDownOpeningEvent;
-
-	/**
-	 * Event fired before the filter dropdown is opened for a specific column.
-	 * Return false in order to cancel dropdown opening.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownOpening", optionValue: DropDownOpeningEvent): void;
-
-	/**
-	 * Event fired after the filter dropdown is opened for a specific column.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownOpened"): DropDownOpenedEvent;
-
-	/**
-	 * Event fired after the filter dropdown is opened for a specific column.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownOpened", optionValue: DropDownOpenedEvent): void;
-
-	/**
-	 * Event fired before the filter dropdown starts closing.
-	 * Return false in order to cancel dropdown closing.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownClosing"): DropDownClosingEvent;
-
-	/**
-	 * Event fired before the filter dropdown starts closing.
-	 * Return false in order to cancel dropdown closing.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownClosing", optionValue: DropDownClosingEvent): void;
-
-	/**
-	 * Event fired after a filter column dropdown is completely closed.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownClosed"): DropDownClosedEvent;
-
-	/**
-	 * Event fired after a filter column dropdown is completely closed.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "dropDownClosed", optionValue: DropDownClosedEvent): void;
-
-	/**
-	 * Event fired before the advanced filtering dialog is opened.
-	 * Return false in order to cancel filter dialog opening.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpening"): FilterDialogOpeningEvent;
-
-	/**
-	 * Event fired before the advanced filtering dialog is opened.
-	 * Return false in order to cancel filter dialog opening.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpening", optionValue: FilterDialogOpeningEvent): void;
-
-	/**
-	 * Event fired after the advanced filter dialog is already opened.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpened"): FilterDialogOpenedEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog is already opened.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogOpened", optionValue: FilterDialogOpenedEvent): void;
-
-	/**
-	 * Event fired every time the advanced filter dialog changes its position.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogMoving"): FilterDialogMovingEvent;
-
-	/**
-	 * Event fired every time the advanced filter dialog changes its position.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogMoving", optionValue: FilterDialogMovingEvent): void;
-
-	/**
-	 * Event fired before a filter row is added to the advanced filter dialog.
-	 * Return false in order to cancel filter adding to the advanced filtering dialog.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdding"): FilterDialogFilterAddingEvent;
-
-	/**
-	 * Event fired before a filter row is added to the advanced filter dialog.
-	 * Return false in order to cancel filter adding to the advanced filtering dialog.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdding", optionValue: FilterDialogFilterAddingEvent): void;
-
-	/**
-	 * Event fired after a filter row is added to the advanced filter dialog.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdded"): FilterDialogFilterAddedEvent;
-
-	/**
-	 * Event fired after a filter row is added to the advanced filter dialog.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFilterAdded", optionValue: FilterDialogFilterAddedEvent): void;
-
-	/**
-	 * Event fired before the advanced filter dialog is closed.
-	 * Return false in order to cancel filtering dialog closing.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosing"): FilterDialogClosingEvent;
-
-	/**
-	 * Event fired before the advanced filter dialog is closed.
-	 * Return false in order to cancel filtering dialog closing.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosing", optionValue: FilterDialogClosingEvent): void;
-
-	/**
-	 * Event fired after the advanced filter dialog has been closed.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosed"): FilterDialogClosedEvent;
-
-	/**
-	 * Event fired after the advanced filter dialog has been closed.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogClosed", optionValue: FilterDialogClosedEvent): void;
-
-	/**
-	 * Event fired before the contents of the advanced filter dialog are rendered.
-	 * Return false in order to cancel filtering dialog rendering.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendering"): FilterDialogContentsRenderingEvent;
-
-	/**
-	 * Event fired before the contents of the advanced filter dialog are rendered.
-	 * Return false in order to cancel filtering dialog rendering.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendering", optionValue: FilterDialogContentsRenderingEvent): void;
-
-	/**
-	 * Event fired after the contents of the advanced filter dialog are rendered.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendered"): FilterDialogContentsRenderedEvent;
-
-	/**
-	 * Event fired after the contents of the advanced filter dialog are rendered.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogContentsRendered", optionValue: FilterDialogContentsRenderedEvent): void;
-
-	/**
-	 * Event fired when the OK button in the advanced filter dialog is pressed.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFiltering"): FilterDialogFilteringEvent;
-
-	/**
-	 * Event fired when the OK button in the advanced filter dialog is pressed.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igTreeGridFiltering(optionLiteral: 'option', optionName: "filterDialogFiltering", optionValue: FilterDialogFilteringEvent): void;
 	igTreeGridFiltering(options: IgTreeGridFiltering): JQuery;
 	igTreeGridFiltering(optionLiteral: 'option', optionName: string): any;
 	igTreeGridFiltering(optionLiteral: 'option', options: IgTreeGridFiltering): JQuery;
@@ -85021,40 +87033,59 @@ interface IgTreeGridHiding {
 	dropDownAnimationDuration?: number;
 
 	/**
-	 * The caption of the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The caption of the column chooser dialog. Use option [locale.columnChooserCaptionText](ui.iggridhiding#options:locale.columnChooserCaptionText).
 	 */
 	columnChooserCaptionText?: string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog. Use option [locale.columnChooserDisplayText](ui.iggridhiding#options:locale.columnChooserDisplayText).
 	 */
 	columnChooserDisplayText?: string;
 
 	/**
-	 * The text displayed in the tooltip of the hidden column indicator.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text displayed in the tooltip of the hidden column indicator. Use option [locale.hiddenColumnIndicatorTooltipText](ui.iggridhiding#options:locale.hiddenColumnIndicatorTooltipText).
 	 */
 	hiddenColumnIndicatorTooltipText?: string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to hide a column.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to hide a column. Use option [locale.columnHideText](ui.iggridhiding#options:locale.columnHideText).
 	 */
 	columnHideText?: string;
 
 	/**
-	 * The text used in the column chooser to show column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to show column. Use option [locale.columnChooserShowText](ui.iggridhiding#options:locale.columnChooserShowText).
 	 */
 	columnChooserShowText?: string;
 
 	/**
-	 * The text used in the column chooser to hide column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to hide column. Use option [locale.columnChooserHideText](ui.iggridhiding#options:locale.columnChooserHideText).
 	 */
 	columnChooserHideText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text label for reset button. Use option [locale.columnChooserResetButtonLabel](ui.iggridhiding#options:locale.columnChooserResetButtonLabel).
+	 */
+	columnChooserResetButtonLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which apply changes in modal dialog. Use option [locale.columnChooserButtonApplyText](ui.iggridhiding#options:locale.columnChooserButtonApplyText).
+	 */
+	columnChooserButtonApplyText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which cancel changes in modal dialog. Use option [locale.columnChooserButtonCancelText](ui.iggridhiding#options:locale.columnChooserButtonCancelText).
+	 */
+	columnChooserButtonCancelText?: string;
+	locale?: IgGridHidingLocale;
 
 	/**
 	 * Specifies on click show/hide directly to be shown/hidden columns. If columnChooserHideOnClick is false then Apply and Cancel Buttons are shown on the bottom of modal dialog. Columns are Shown/Hidden after the Apply button is clicked
@@ -85063,28 +87094,10 @@ interface IgTreeGridHiding {
 	columnChooserHideOnClick?: boolean;
 
 	/**
-	 * Text label for reset button.
-	 *
-	 */
-	columnChooserResetButtonLabel?: string;
-
-	/**
 	 * Specifies time of milliseconds for animation duration to show/hide modal dialog
 	 *
 	 */
 	columnChooserAnimationDuration?: number;
-
-	/**
-	 * Specifies text of button which apply changes in modal dialog
-	 *
-	 */
-	columnChooserButtonApplyText?: string;
-
-	/**
-	 * Specifies text of button which cancel changes in modal dialog
-	 *
-	 */
-	columnChooserButtonCancelText?: string;
 
 	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
@@ -85185,6 +87198,7 @@ interface IgTreeGridHiding {
 }
 interface IgTreeGridHidingMethods {
 	destroy(): void;
+	changeLocale(): void;
 
 	/**
 	 * Shows the Column Chooser dialog. If it is visible the method does nothing.
@@ -85201,20 +87215,18 @@ interface IgTreeGridHidingMethods {
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
 	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
 	 */
-	showColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
+	showColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
 	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param isMultiColumnHeader If it is true then the column is of type multicolumnheader. An identifier for the column should be of type string.
 	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
 	 */
-	hideColumn(column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
+	hideColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides visible columns specified by the array. If the column is hidden the method does nothing.
@@ -85260,10 +87272,11 @@ interface JQuery {
 
 interface JQuery {
 	igTreeGridHiding(methodName: "destroy"): void;
+	igTreeGridHiding(methodName: "changeLocale"): void;
 	igTreeGridHiding(methodName: "showColumnChooser"): void;
 	igTreeGridHiding(methodName: "hideColumnChooser"): void;
-	igTreeGridHiding(methodName: "showColumn", column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
-	igTreeGridHiding(methodName: "hideColumn", column: Object, isMultiColumnHeader?: boolean, callback?: Function): void;
+	igTreeGridHiding(methodName: "showColumn", column: Object, callback?: Function): void;
+	igTreeGridHiding(methodName: "hideColumn", column: Object, callback?: Function): void;
 	igTreeGridHiding(methodName: "hideMultiColumns", columns: any[], callback?: Function): void;
 	igTreeGridHiding(methodName: "showMultiColumns", columns: any[], callback?: Function): void;
 	igTreeGridHiding(methodName: "isToRenderButtonReset"): void;
@@ -85360,88 +87373,132 @@ interface JQuery {
 	igTreeGridHiding(optionLiteral: 'option', optionName: "dropDownAnimationDuration", optionValue: number): void;
 
 	/**
-	 * The caption of the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The caption of the column chooser dialog. Use option [locale.columnChooserCaptionText](ui.iggridhiding#options:locale.columnChooserCaptionText).
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserCaptionText"): string;
 
 	/**
-	 * The caption of the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The caption of the column chooser dialog. Use option [locale.columnChooserCaptionText](ui.iggridhiding#options:locale.columnChooserCaptionText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserCaptionText", optionValue: string): void;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog. Use option [locale.columnChooserDisplayText](ui.iggridhiding#options:locale.columnChooserDisplayText).
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserDisplayText"): string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to launch the column chooser dialog. Use option [locale.columnChooserDisplayText](ui.iggridhiding#options:locale.columnChooserDisplayText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserDisplayText", optionValue: string): void;
 
 	/**
-	 * The text displayed in the tooltip of the hidden column indicator.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text displayed in the tooltip of the hidden column indicator. Use option [locale.hiddenColumnIndicatorTooltipText](ui.iggridhiding#options:locale.hiddenColumnIndicatorTooltipText).
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "hiddenColumnIndicatorTooltipText"): string;
 
 	/**
-	 * The text displayed in the tooltip of the hidden column indicator.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text displayed in the tooltip of the hidden column indicator. Use option [locale.hiddenColumnIndicatorTooltipText](ui.iggridhiding#options:locale.hiddenColumnIndicatorTooltipText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "hiddenColumnIndicatorTooltipText", optionValue: string): void;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to hide a column.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to hide a column. Use option [locale.columnHideText](ui.iggridhiding#options:locale.columnHideText).
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnHideText"): string;
 
 	/**
-	 * The text used in the drop down tools menu(Feature Chooser) to hide a column.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the drop down tools menu(Feature Chooser) to hide a column. Use option [locale.columnHideText](ui.iggridhiding#options:locale.columnHideText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnHideText", optionValue: string): void;
 
 	/**
-	 * The text used in the column chooser to show column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to show column. Use option [locale.columnChooserShowText](ui.iggridhiding#options:locale.columnChooserShowText).
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserShowText"): string;
 
 	/**
-	 * The text used in the column chooser to show column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to show column. Use option [locale.columnChooserShowText](ui.iggridhiding#options:locale.columnChooserShowText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserShowText", optionValue: string): void;
 
 	/**
-	 * The text used in the column chooser to hide column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to hide column. Use option [locale.columnChooserHideText](ui.iggridhiding#options:locale.columnChooserHideText).
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserHideText"): string;
 
 	/**
-	 * The text used in the column chooser to hide column
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * The text used in the column chooser to hide column. Use option [locale.columnChooserHideText](ui.iggridhiding#options:locale.columnChooserHideText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserHideText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text label for reset button. Use option [locale.columnChooserResetButtonLabel](ui.iggridhiding#options:locale.columnChooserResetButtonLabel).
+	 */
+	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text label for reset button. Use option [locale.columnChooserResetButtonLabel](ui.iggridhiding#options:locale.columnChooserResetButtonLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which apply changes in modal dialog. Use option [locale.columnChooserButtonApplyText](ui.iggridhiding#options:locale.columnChooserButtonApplyText).
+	 */
+	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which apply changes in modal dialog. Use option [locale.columnChooserButtonApplyText](ui.iggridhiding#options:locale.columnChooserButtonApplyText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which cancel changes in modal dialog. Use option [locale.columnChooserButtonCancelText](ui.iggridhiding#options:locale.columnChooserButtonCancelText).
+	 */
+	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which cancel changes in modal dialog. Use option [locale.columnChooserButtonCancelText](ui.iggridhiding#options:locale.columnChooserButtonCancelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText", optionValue: string): void;
+	igTreeGridHiding(optionLiteral: 'option', optionName: "locale"): IgGridHidingLocale;
+	igTreeGridHiding(optionLiteral: 'option', optionName: "locale", optionValue: IgGridHidingLocale): void;
 
 	/**
 	 * Gets on click show/hide directly to be shown/hidden columns. If columnChooserHideOnClick is false then Apply and Cancel Buttons are shown on the bottom of modal dialog. Columns are Shown/Hidden after the Apply button is clicked
@@ -85458,20 +87515,6 @@ interface JQuery {
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserHideOnClick", optionValue: boolean): void;
 
 	/**
-	 * Text label for reset button.
-	 *
-	 */
-	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel"): string;
-
-	/**
-	 * Text label for reset button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserResetButtonLabel", optionValue: string): void;
-
-	/**
 	 * Gets time of milliseconds for animation duration to show/hide modal dialog
 	 *
 	 */
@@ -85484,34 +87527,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserAnimationDuration", optionValue: number): void;
-
-	/**
-	 * Gets text of button which apply changes in modal dialog
-	 *
-	 */
-	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText"): string;
-
-	/**
-	 * Sets text of button which apply changes in modal dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonApplyText", optionValue: string): void;
-
-	/**
-	 * Gets text of button which cancel changes in modal dialog
-	 *
-	 */
-	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText"): string;
-
-	/**
-	 * Sets text of button which cancel changes in modal dialog
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridHiding(optionLiteral: 'option', optionName: "columnChooserButtonCancelText", optionValue: string): void;
 
 	/**
 	 * Name of the dialog widget to be used. It should inherit from $.ui.igGridModalDialog.
@@ -85777,6 +87792,25 @@ interface IgTreeGridDataSourceSettings {
 	[optionName: string]: any;
 }
 
+interface IgTreeGridLocale {
+	/**
+	 * Specifies the expansion indicator tooltip text.
+	 *
+	 */
+	expandTooltipText?: string;
+
+	/**
+	 * Specifies the collapse indicator tooltip text.
+	 *
+	 */
+	collapseTooltipText?: string;
+
+	/**
+	 * Option for IgTreeGridLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface IgTreeGrid {
 	/**
 	 * Specifies the indentation (in pixels or percent) for a tree grid row. Nested indentation is achieved by calculating the level times the indentation value. Ex: '10px' or '5%'. Default is 30.
@@ -85797,14 +87831,16 @@ interface IgTreeGrid {
 	showExpansionIndicator?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the expansion indicator tooltip text.
-	 *
+	 * Use option [locale.expandTooltipText](ui.igtreegrid#options:locale.expandTooltipText).
 	 */
 	expandTooltipText?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the collapse indicator tooltip text.
-	 *
+	 * Use option [locale.collapseTooltipText](ui.igtreegrid#options:locale.collapseTooltipText).
 	 */
 	collapseTooltipText?: string;
 
@@ -85861,6 +87897,12 @@ interface IgTreeGrid {
 	 *
 	 */
 	dataSourceSettings?: IgTreeGridDataSourceSettings;
+	locale?: IgTreeGridLocale;
+
+	/**
+	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
+	 */
+	restSettings?: any;
 
 	/**
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
@@ -86133,12 +88175,6 @@ interface IgTreeGrid {
 	updateUrl?: string;
 
 	/**
-	 * Settings related to REST compliant update routines.
-	 *
-	 */
-	restSettings?: IgGridRestSettings;
-
-	/**
 	 * Enables/disables rendering of alternating row styles (odd and even rows receive different styling).
 	 *
 	 */
@@ -86406,6 +88442,7 @@ interface IgTreeGridMethods {
 	 * Returns the element holding the data records
 	 */
 	widget(): void;
+	changeRegional(): void;
 
 	/**
 	 * Returns whether grid has non-data fixed columns(e.g. row selectors column)
@@ -86861,6 +88898,7 @@ interface JQuery {
 	igTreeGrid(methodName: "renderNewChild", rec: Object, parentId?: string): void;
 	igTreeGrid(methodName: "destroy"): Object;
 	igTreeGrid(methodName: "widget"): void;
+	igTreeGrid(methodName: "changeRegional"): void;
 	igTreeGrid(methodName: "hasFixedDataSkippedColumns"): boolean;
 	igTreeGrid(methodName: "hasFixedColumns"): boolean;
 	igTreeGrid(methodName: "fixingDirection"): string;
@@ -86972,28 +89010,32 @@ interface JQuery {
 	igTreeGrid(optionLiteral: 'option', optionName: "showExpansionIndicator", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the expansion indicator tooltip text.
-	 *
+	 * Use option [locale.expandTooltipText](ui.igtreegrid#options:locale.expandTooltipText).
 	 */
 	igTreeGrid(optionLiteral: 'option', optionName: "expandTooltipText"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the expansion indicator tooltip text.
-	 *
+	 * Use option [locale.expandTooltipText](ui.igtreegrid#options:locale.expandTooltipText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGrid(optionLiteral: 'option', optionName: "expandTooltipText", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the collapse indicator tooltip text.
-	 *
+	 * Use option [locale.collapseTooltipText](ui.igtreegrid#options:locale.collapseTooltipText).
 	 */
 	igTreeGrid(optionLiteral: 'option', optionName: "collapseTooltipText"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the collapse indicator tooltip text.
-	 *
+	 * Use option [locale.collapseTooltipText](ui.igtreegrid#options:locale.collapseTooltipText).
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -87130,6 +89172,20 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGrid(optionLiteral: 'option', optionName: "dataSourceSettings", optionValue: IgTreeGridDataSourceSettings): void;
+	igTreeGrid(optionLiteral: 'option', optionName: "locale"): IgTreeGridLocale;
+	igTreeGrid(optionLiteral: 'option', optionName: "locale", optionValue: IgTreeGridLocale): void;
+
+	/**
+	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
+	 */
+	igTreeGrid(optionLiteral: 'option', optionName: "restSettings"): any;
+
+	/**
+	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGrid(optionLiteral: 'option', optionName: "restSettings", optionValue: any): void;
 
 	/**
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
@@ -87680,20 +89736,6 @@ interface JQuery {
 	igTreeGrid(optionLiteral: 'option', optionName: "updateUrl", optionValue: string): void;
 
 	/**
-	 * Settings related to REST compliant update routines.
-	 *
-	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "restSettings"): IgGridRestSettings;
-
-	/**
-	 * Settings related to REST compliant update routines.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "restSettings", optionValue: IgGridRestSettings): void;
-
-	/**
 	 * Enables/disables rendering of alternating row styles (odd and even rows receive different styling).
 	 *
 	 */
@@ -88209,10 +90251,11 @@ interface IgTreeGridMultiColumnHeaders {
 }
 interface IgTreeGridMultiColumnHeadersMethods {
 	destroy(): void;
+	changeLocale(): void;
 
 	/**
 	 * Expands a collapsed group. If the group is expanded, the method does nothing.
-	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is expanded.
@@ -88221,7 +90264,7 @@ interface IgTreeGridMultiColumnHeadersMethods {
 
 	/**
 	 * Collapses an expanded group. If the group is collapsed, the method does nothing.
-	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is collapsed.
@@ -88230,7 +90273,7 @@ interface IgTreeGridMultiColumnHeadersMethods {
 
 	/**
 	 * Toggles a collapsible group.
-	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param groupKey Group key.
 	 * @param callback Specifies a custom function to be called when the group is toggled.
@@ -88248,6 +90291,7 @@ interface JQuery {
 
 interface JQuery {
 	igTreeGridMultiColumnHeaders(methodName: "destroy"): void;
+	igTreeGridMultiColumnHeaders(methodName: "changeLocale"): void;
 	igTreeGridMultiColumnHeaders(methodName: "expandGroup", groupKey: string, callback?: Function): void;
 	igTreeGridMultiColumnHeaders(methodName: "collapseGroup", groupKey: string, callback?: Function): void;
 	igTreeGridMultiColumnHeaders(methodName: "toggleGroup", groupKey: string, callback?: Function): void;
@@ -88318,6 +90362,25 @@ interface JQuery {
 	igTreeGridMultiColumnHeaders(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igTreeGridMultiColumnHeaders(methodName: string, ...methodParams: any[]): any;
 }
+interface IgTreeGridPagingLocale {
+	/**
+	 * Sets/gets the text message shown while loading content of the context row(while processing breadcrumb/immediate parent row). It is set via $.html(). If set to null loading message is not shown.
+	 *
+	 */
+	contextRowLoadingText?: string;
+
+	/**
+	 * Sets/gets the content of the context row when the first record in the page is root(hasn't ancestors) record. It is set via $.html()
+	 *
+	 */
+	contextRowRootText?: string;
+
+	/**
+	 * Option for IgTreeGridPagingLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface ContextRowRenderingEvent {
 	(event: Event, ui: ContextRowRenderingEventUIParam): void;
 }
@@ -88398,14 +90461,16 @@ interface IgTreeGridPaging {
 	contextRowMode?: string;
 
 	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
 	 * Sets/gets the text message shown while loading content of the context row(while processing breadcrumb/immediate parent row). It is set via $.html(). If set to null loading message is not shown.
-	 *
+	 * Use option [locale.contextRowLoadingText](ui.igtreegridpaging#options:locale.contextRowLoadingText)
 	 */
 	contextRowLoadingText?: string;
 
 	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
 	 * Sets/gets the content of the context row when the first record in the page is root(hasn't ancestors) record. It is set via $.html()
-	 *
+	 * Use option [locale.contextRowRootText](ui.igtreegridpaging#options:locale.contextRowRootText)
 	 */
 	contextRowRootText?: string;
 
@@ -88426,6 +90491,7 @@ interface IgTreeGridPaging {
 	 *
 	 */
 	renderContextRowFunc?: Function|string;
+	locale?: IgTreeGridPagingLocale;
 
 	/**
 	 * Number of records loaded and displayed per page.
@@ -88474,16 +90540,110 @@ interface IgTreeGridPaging {
 	showPageSizeDropDown?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text rendered in front of the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownLabel](ui.iggridpaging#options:locale.pageSizeDropDownLabel).
 	 */
 	pageSizeDropDownLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Trailing text for the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownTrailingLabel](ui.iggridpaging#options:locale.pageSizeDropDownTrailingLabel).
 	 */
 	pageSizeDropDownTrailingLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 * Use option [locale.pagerRecordsLabelTemplate](ui.iggridpaging#options:locale.pagerRecordsLabelTemplate).
+	 */
+	pagerRecordsLabelTemplate?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the next page label. Use option [locale.nextPageLabelText](ui.iggridpaging#options:locale.nextPageLabelText).
+	 */
+	nextPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the previous page label. Use option [locale.prevPageLabelText](ui.iggridpaging#options:locale.prevPageLabelText).
+	 */
+	prevPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the first page label. Use option [locale.firstPageLabelText](ui.iggridpaging#options:locale.firstPageLabelText).
+	 */
+	firstPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the last page label. Use option [locale.lastPageLabelText](ui.iggridpaging#options:locale.lastPageLabelText).
+	 */
+	lastPageLabelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Leading label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownLeadingLabel](ui.iggridpaging#options:locale.currentPageDropDownLeadingLabel).
+	 */
+	currentPageDropDownLeadingLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Trailing label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownTrailingLabel](ui.iggridpaging#options:locale.currentPageDropDownTrailingLabel).
+	 */
+	currentPageDropDownTrailingLabel?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page index drop down. Use option [locale.currentPageDropDownTooltip](ui.iggridpaging#options:locale.currentPageDropDownTooltip).
+	 */
+	currentPageDropDownTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page size drop down. Use option [locale.pageSizeDropDownTooltip](ui.iggridpaging#options:locale.pageSizeDropDownTooltip).
+	 */
+	pageSizeDropDownTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the pager records label. Use option [locale.pagerRecordsLabelTooltip](ui.iggridpaging#options:locale.pagerRecordsLabelTooltip).
+	 */
+	pagerRecordsLabelTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the previous page button. Use option [locale.prevPageTooltip](ui.iggridpaging#options:locale.prevPageTooltip).
+	 */
+	prevPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the next page button. Use option [locale.nextPageTooltip](ui.iggridpaging#options:locale.nextPageTooltip).
+	 */
+	nextPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the first page button. Use option [locale.firstPageTooltip](ui.iggridpaging#options:locale.firstPageTooltip).
+	 */
+	firstPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the last page button. Use option [locale.lastPageTooltip](ui.iggridpaging#options:locale.lastPageTooltip).
+	 */
+	lastPageTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
+	 * Use option [locale.pageTooltipFormat](ui.iggridpaging#options:locale.pageTooltipFormat).
+	 */
+	pageTooltipFormat?: string;
 
 	/**
 	 * Page size dropdown location, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true. Can be rendered above the grid header or inside the pager, next to the page links.
@@ -88502,36 +90662,6 @@ interface IgTreeGridPaging {
 	showPagerRecordsLabel?: boolean;
 
 	/**
-	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
-	 *
-	 */
-	pagerRecordsLabelTemplate?: string;
-
-	/**
-	 * Text for the next page label.
-	 *
-	 */
-	nextPageLabelText?: string;
-
-	/**
-	 * Text for the previous page label.
-	 *
-	 */
-	prevPageLabelText?: string;
-
-	/**
-	 * Text for the first page label.
-	 *
-	 */
-	firstPageLabelText?: string;
-
-	/**
-	 * Text for the last page label.
-	 *
-	 */
-	lastPageLabelText?: string;
-
-	/**
 	 * Option specifying whether to render the first and last page navigation buttons.
 	 *
 	 */
@@ -88542,66 +90672,6 @@ interface IgTreeGridPaging {
 	 *
 	 */
 	showPrevNextPages?: boolean;
-
-	/**
-	 * Leading label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	currentPageDropDownLeadingLabel?: string;
-
-	/**
-	 * Trailing label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	currentPageDropDownTrailingLabel?: string;
-
-	/**
-	 * Tooltip text for the page index drop down.
-	 *
-	 */
-	currentPageDropDownTooltip?: string;
-
-	/**
-	 * Tooltip text for the page size drop down.
-	 *
-	 */
-	pageSizeDropDownTooltip?: string;
-
-	/**
-	 * Tooltip text for the pager records label.
-	 *
-	 */
-	pagerRecordsLabelTooltip?: string;
-
-	/**
-	 * Tooltip text for the previous page button.
-	 *
-	 */
-	prevPageTooltip?: string;
-
-	/**
-	 * Tooltip text for the next page button.
-	 *
-	 */
-	nextPageTooltip?: string;
-
-	/**
-	 * Tooltip text for the first page button.
-	 *
-	 */
-	firstPageTooltip?: string;
-
-	/**
-	 * Tooltip text for the last page button.
-	 *
-	 */
-	lastPageTooltip?: string;
-
-	/**
-	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
-	 *
-	 */
-	pageTooltipFormat?: string;
 
 	/**
 	 * Predefined page sizes that are available to the end user to switch their grid paging to, through a drop down in the grid header.
@@ -88696,6 +90766,8 @@ interface IgTreeGridPaging {
 	[optionName: string]: any;
 }
 interface IgTreeGridPagingMethods {
+	changeLocale(): void;
+
 	/**
 	 * Destroys the igTreeGridPaging feature by removing all elements in the pager area, unbinding events, and resetting data to discard data filtering on paging
 	 */
@@ -88730,6 +90802,7 @@ interface JQuery {
 }
 
 interface JQuery {
+	igTreeGridPaging(methodName: "changeLocale"): void;
 	igTreeGridPaging(methodName: "destroy"): void;
 	igTreeGridPaging(methodName: "getContextRow"): Object;
 	igTreeGridPaging(methodName: "getContextRowTextArea"): Object;
@@ -88769,28 +90842,32 @@ interface JQuery {
 	igTreeGridPaging(optionLiteral: 'option', optionName: "contextRowMode", optionValue: string): void;
 
 	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
 	 * Sets/gets the text message shown while loading content of the context row(while processing breadcrumb/immediate parent row). It is set via $.html(). If set to null loading message is not shown.
-	 *
+	 * Use option [locale.contextRowLoadingText](ui.igtreegridpaging#options:locale.contextRowLoadingText)
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "contextRowLoadingText"): string;
 
 	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
 	 * Sets/gets the text message shown while loading content of the context row(while processing breadcrumb/immediate parent row). It is set via $.html(). If set to null loading message is not shown.
-	 *
+	 * Use option [locale.contextRowLoadingText](ui.igtreegridpaging#options:locale.contextRowLoadingText)
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "contextRowLoadingText", optionValue: string): void;
 
 	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
 	 * Sets/gets the content of the context row when the first record in the page is root(hasn't ancestors) record. It is set via $.html()
-	 *
+	 * Use option [locale.contextRowRootText](ui.igtreegridpaging#options:locale.contextRowRootText)
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "contextRowRootText"): string;
 
 	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
 	 * Sets/gets the content of the context row when the first record in the page is root(hasn't ancestors) record. It is set via $.html()
-	 *
+	 * Use option [locale.contextRowRootText](ui.igtreegridpaging#options:locale.contextRowRootText)
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -88839,6 +90916,8 @@ interface JQuery {
 	 */
 
 	igTreeGridPaging(optionLiteral: 'option', optionName: "renderContextRowFunc", optionValue: Function|string): void;
+	igTreeGridPaging(optionLiteral: 'option', optionName: "locale"): IgTreeGridPagingLocale;
+	igTreeGridPaging(optionLiteral: 'option', optionName: "locale", optionValue: IgTreeGridPagingLocale): void;
 
 	/**
 	 * Number of records loaded and displayed per page.
@@ -88941,32 +91020,250 @@ interface JQuery {
 	igTreeGridPaging(optionLiteral: 'option', optionName: "showPageSizeDropDown", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text rendered in front of the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownLabel](ui.iggridpaging#options:locale.pageSizeDropDownLabel).
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Text rendered in front of the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownLabel](ui.iggridpaging#options:locale.pageSizeDropDownLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Trailing text for the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownTrailingLabel](ui.iggridpaging#options:locale.pageSizeDropDownTrailingLabel).
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTrailingLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Trailing text for the page size dropdown, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true.
-	 *
+	 * Use option [locale.pageSizeDropDownTrailingLabel](ui.iggridpaging#options:locale.pageSizeDropDownTrailingLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTrailingLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 * Use option [locale.pagerRecordsLabelTemplate](ui.iggridpaging#options:locale.pagerRecordsLabelTemplate).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
+	 * Use option [locale.pagerRecordsLabelTemplate](ui.iggridpaging#options:locale.pagerRecordsLabelTemplate).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the next page label. Use option [locale.nextPageLabelText](ui.iggridpaging#options:locale.nextPageLabelText).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the next page label. Use option [locale.nextPageLabelText](ui.iggridpaging#options:locale.nextPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the previous page label. Use option [locale.prevPageLabelText](ui.iggridpaging#options:locale.prevPageLabelText).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the previous page label. Use option [locale.prevPageLabelText](ui.iggridpaging#options:locale.prevPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the first page label. Use option [locale.firstPageLabelText](ui.iggridpaging#options:locale.firstPageLabelText).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the first page label. Use option [locale.firstPageLabelText](ui.iggridpaging#options:locale.firstPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the last page label. Use option [locale.lastPageLabelText](ui.iggridpaging#options:locale.lastPageLabelText).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Text for the last page label. Use option [locale.lastPageLabelText](ui.iggridpaging#options:locale.lastPageLabelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Leading label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownLeadingLabel](ui.iggridpaging#options:locale.currentPageDropDownLeadingLabel).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Leading label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownLeadingLabel](ui.iggridpaging#options:locale.currentPageDropDownLeadingLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Trailing label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownTrailingLabel](ui.iggridpaging#options:locale.currentPageDropDownTrailingLabel).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Trailing label text for the drop down from where the page index can be switched. Use option [locale.currentPageDropDownTrailingLabel](ui.iggridpaging#options:locale.currentPageDropDownTrailingLabel).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page index drop down. Use option [locale.currentPageDropDownTooltip](ui.iggridpaging#options:locale.currentPageDropDownTooltip).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page index drop down. Use option [locale.currentPageDropDownTooltip](ui.iggridpaging#options:locale.currentPageDropDownTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page size drop down. Use option [locale.pageSizeDropDownTooltip](ui.iggridpaging#options:locale.pageSizeDropDownTooltip).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the page size drop down. Use option [locale.pageSizeDropDownTooltip](ui.iggridpaging#options:locale.pageSizeDropDownTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the pager records label. Use option [locale.pagerRecordsLabelTooltip](ui.iggridpaging#options:locale.pagerRecordsLabelTooltip).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the pager records label. Use option [locale.pagerRecordsLabelTooltip](ui.iggridpaging#options:locale.pagerRecordsLabelTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the previous page button. Use option [locale.prevPageTooltip](ui.iggridpaging#options:locale.prevPageTooltip).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the previous page button. Use option [locale.prevPageTooltip](ui.iggridpaging#options:locale.prevPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the next page button. Use option [locale.nextPageTooltip](ui.iggridpaging#options:locale.nextPageTooltip).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the next page button. Use option [locale.nextPageTooltip](ui.iggridpaging#options:locale.nextPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the first page button. Use option [locale.firstPageTooltip](ui.iggridpaging#options:locale.firstPageTooltip).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the first page button. Use option [locale.firstPageTooltip](ui.iggridpaging#options:locale.firstPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the last page button. Use option [locale.lastPageTooltip](ui.iggridpaging#options:locale.lastPageTooltip).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text for the last page button. Use option [locale.lastPageTooltip](ui.iggridpaging#options:locale.lastPageTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
+	 * Use option [locale.pageTooltipFormat](ui.iggridpaging#options:locale.pageTooltipFormat).
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
+	 * Use option [locale.pageTooltipFormat](ui.iggridpaging#options:locale.pageTooltipFormat).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat", optionValue: string): void;
 
 	/**
 	 * Page size dropdown location, when [showPageSizeDropDown](ui.iggridpaging#options:showPageSizeDropDown) is set to true. Can be rendered above the grid header or inside the pager, next to the page links.
@@ -88999,76 +91296,6 @@ interface JQuery {
 	igTreeGridPaging(optionLiteral: 'option', optionName: "showPagerRecordsLabel", optionValue: boolean): void;
 
 	/**
-	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate"): string;
-
-	/**
-	 * Custom pager records label template - in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTemplate", optionValue: string): void;
-
-	/**
-	 * Text for the next page label.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText"): string;
-
-	/**
-	 * Text for the next page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageLabelText", optionValue: string): void;
-
-	/**
-	 * Text for the previous page label.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText"): string;
-
-	/**
-	 * Text for the previous page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageLabelText", optionValue: string): void;
-
-	/**
-	 * Text for the first page label.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText"): string;
-
-	/**
-	 * Text for the first page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageLabelText", optionValue: string): void;
-
-	/**
-	 * Text for the last page label.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText"): string;
-
-	/**
-	 * Text for the last page label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageLabelText", optionValue: string): void;
-
-	/**
 	 * Option specifying whether to render the first and last page navigation buttons.
 	 *
 	 */
@@ -89095,146 +91322,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridPaging(optionLiteral: 'option', optionName: "showPrevNextPages", optionValue: boolean): void;
-
-	/**
-	 * Leading label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel"): string;
-
-	/**
-	 * Leading label text for the drop down from where the page index can be switched.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownLeadingLabel", optionValue: string): void;
-
-	/**
-	 * Trailing label text for the drop down from where the page index can be switched.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel"): string;
-
-	/**
-	 * Trailing label text for the drop down from where the page index can be switched.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTrailingLabel", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the page index drop down.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip"): string;
-
-	/**
-	 * Tooltip text for the page index drop down.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "currentPageDropDownTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the page size drop down.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip"): string;
-
-	/**
-	 * Tooltip text for the page size drop down.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pageSizeDropDownTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the pager records label.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip"): string;
-
-	/**
-	 * Tooltip text for the pager records label.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pagerRecordsLabelTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the previous page button.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the previous page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "prevPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the next page button.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the next page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "nextPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the first page button.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the first page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "firstPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text for the last page button.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip"): string;
-
-	/**
-	 * Tooltip text for the last page button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "lastPageTooltip", optionValue: string): void;
-
-	/**
-	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
-	 *
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat"): string;
-
-	/**
-	 * Tooltip text templates of buttons that navigate to a particular page. The format string follows the [igTemplating](http://www.igniteui.com/help/igtemplating-overview) style and syntax. See also the [pageCountLimit](ui.iggridpaging#options:pageCountLimit) option.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridPaging(optionLiteral: 'option', optionName: "pageTooltipFormat", optionValue: string): void;
 
 	/**
 	 * Predefined page sizes that are available to the end user to switch their grid paging to, through a drop down in the grid header.
@@ -89717,6 +91804,7 @@ interface IgTreeGridRowSelectors {
 	 *
 	 */
 	deselectAllForPagingTemplate?: string;
+	locale?: IgGridRowSelectorsLocale;
 
 	/**
 	 * Event fired after a row selector is clicked.
@@ -89740,6 +91828,7 @@ interface IgTreeGridRowSelectors {
 }
 interface IgTreeGridRowSelectorsMethods {
 	destroy(): void;
+	changeLocale(): void;
 
 	/**
 	 * Change the check state of a row by row id
@@ -89799,6 +91888,7 @@ interface JQuery {
 
 interface JQuery {
 	igTreeGridRowSelectors(methodName: "destroy"): void;
+	igTreeGridRowSelectors(methodName: "changeLocale"): void;
 	igTreeGridRowSelectors(methodName: "changeCheckStateById", rowId: Object, toCheck: boolean): void;
 	igTreeGridRowSelectors(methodName: "changeCheckState", index: number, toCheck: boolean): void;
 	igTreeGridRowSelectors(methodName: "toggleCheckStateById", rowId: Object): void;
@@ -89999,6 +92089,8 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "deselectAllForPagingTemplate", optionValue: string): void;
+	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "locale"): IgGridRowSelectorsLocale;
+	igTreeGridRowSelectors(optionLiteral: 'option', optionName: "locale", optionValue: IgGridRowSelectorsLocale): void;
 
 	/**
 	 * Event fired after a row selector is clicked.
@@ -90616,45 +92708,95 @@ interface IgTreeGridSorting {
 	firstSortDirection?: string;
 
 	/**
-	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format
-	 */
-	sortedColumnTooltip?: string;
-
-	/**
 	 * Specifies whether sorting to be applied immediately when click sort/unsort columns when using the multiple sorting dialog. When it is false Apply button shows and sorting is applied when the button is clicked.
 	 *
 	 */
 	modalDialogSortOnClick?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies sortby button text for each unsorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogSortByButtonText](ui.iggridsorting#options:locale.modalDialogSortByButtonText).
 	 */
 	modalDialogSortByButtonText?: string;
 
 	/**
-	 * Specifies sortby button label for each unsorted column in multiple sorting dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies reset button text in multiple sorting dialog.
+	 * Use option [locale.modalDialogResetButton](ui.iggridsorting#options:locale.modalDialogResetButton).
 	 */
 	modalDialogResetButtonLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies caption for each descending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonDesc](ui.iggridsorting#options:locale.modalDialogCaptionButtonDesc).
 	 */
 	modalDialogCaptionButtonDesc?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies caption for each ascending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonAsc](ui.iggridsorting#options:locale.modalDialogCaptionButtonAsc).
 	 */
 	modalDialogCaptionButtonAsc?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies caption for unsort button in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonUnsort](ui.iggridsorting#options:locale.modalDialogCaptionButtonUnsort).
 	 */
 	modalDialogCaptionButtonUnsort?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the text of the feature chooser sorting button.
+	 * Use option [locale.featureChooserText](ui.iggridsorting#options:locale.featureChooserText).
+	 */
+	featureChooserText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
+	 * Use option [locale.unsortedColumnTooltip](ui.iggridsorting#options:locale.unsortedColumnTooltip).
+	 */
+	unsortedColumnTooltip?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies caption text for multiple sorting dialog.
+	 * Use option [locale.modalDialogCaptionText](ui.iggridsorting#options:locale.modalDialogCaptionText).
+	 */
+	modalDialogCaptionText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which apply changes in modal dialog.
+	 * Use option [locale.modalDialogButtonApplyText](ui.iggridsorting#options:locale.modalDialogButtonApplyText).
+	 */
+	modalDialogButtonApplyText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies text of button which cancels the changes in the advanced sorting modal dialog.
+	 * Use option [locale.modalDialogButtonCancelText](ui.iggridsorting#options:locale.modalDialogButtonCancelText).
+	 */
+	modalDialogButtonCancelText?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortAsc](ui.iggridsorting#options:locale.featureChooserSortAsc).
+	 */
+	featureChooserSortAsc?: string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Specifies the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortDesc](ui.iggridsorting#options:locale.featureChooserSortDesc).
+	 */
+	featureChooserSortDesc?: string;
+	locale?: IgGridSortingLocale;
 
 	/**
 	 * Specifies width of multiple sorting dialog.
@@ -90683,52 +92825,10 @@ interface IgTreeGridSorting {
 	modalDialogAnimationDuration?: number;
 
 	/**
-	 * Specifies the text of the feature chooser sorting button.
-	 *
-	 */
-	featureChooserText?: string;
-
-	/**
-	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
-	 *
-	 */
-	unsortedColumnTooltip?: string;
-
-	/**
 	 * A list of custom column settings that specify custom sorting settings for a specific column (whether sorting is enabled / disabled, default sort direction, first sort direction, etc.).
 	 *
 	 */
 	columnSettings?: IgGridSortingColumnSetting[];
-
-	/**
-	 * Specifies caption text for multiple sorting dialog.
-	 *
-	 */
-	modalDialogCaptionText?: string;
-
-	/**
-	 * Specifies text of button which apply changes in modal dialog.
-	 *
-	 */
-	modalDialogButtonApplyText?: string;
-
-	/**
-	 * Specifies text of button which cancels the changes in the advanced sorting modal dialog.
-	 *
-	 */
-	modalDialogButtonCancelText?: string;
-
-	/**
-	 * Specifies the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
-	 *
-	 */
-	featureChooserSortAsc?: string;
-
-	/**
-	 * Specifies the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
-	 *
-	 */
-	featureChooserSortDesc?: string;
 
 	/**
 	 * Enables/disables sorting persistence when the grid is rebound.
@@ -90833,6 +92933,8 @@ interface IgTreeGridSorting {
 	[optionName: string]: any;
 }
 interface IgTreeGridSortingMethods {
+	changeLocale(): void;
+
 	/**
 	 * Returns whether a column with the specified columnKey is sorted(taken from the data source sorting expressions)
 	 *
@@ -90851,9 +92953,11 @@ interface IgTreeGridSortingMethods {
 	sortColumn(index: Object, direction: Object, header: Object): void;
 
 	/**
-	 * Sorts the data in grid columns and updates the UI.\
+	 * Sorts the data in grid columns and updates the UI. It accepts optional argument - array of sorting expressions. If passed then sorts the data and sets sorting expressions of the data source. If not passed uses current sorting expressions of the data source.
+	 *
+	 * @param exprs array of sorting expressions. If not set then the method uses expressions defined in sorting settings of the data source.
 	 */
-	sortMultiple(): void;
+	sortMultiple(exprs?: any[]): void;
 
 	/**
 	 * Removes current sorting(for all sorted columns) and updates the UI.
@@ -90895,10 +92999,11 @@ interface JQuery {
 }
 
 interface JQuery {
+	igTreeGridSorting(methodName: "changeLocale"): void;
 	igTreeGridSorting(methodName: "isColumnSorted", columnKey: string): boolean;
 	igTreeGridSorting(methodName: "destroy"): void;
 	igTreeGridSorting(methodName: "sortColumn", index: Object, direction: Object, header: Object): void;
-	igTreeGridSorting(methodName: "sortMultiple"): void;
+	igTreeGridSorting(methodName: "sortMultiple", exprs?: any[]): void;
 	igTreeGridSorting(methodName: "clearSorting"): void;
 	igTreeGridSorting(methodName: "unsortColumn", index: Object, header: Object): void;
 	igTreeGridSorting(methodName: "openMultipleSortingDialog"): void;
@@ -91067,18 +93172,6 @@ interface JQuery {
 	igTreeGridSorting(optionLiteral: 'option', optionName: "firstSortDirection", optionValue: string): void;
 
 	/**
-	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "sortedColumnTooltip"): string;
-
-	/**
-	 * Custom sorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "sortedColumnTooltip", optionValue: string): void;
-
-	/**
 	 * Gets whether sorting to be applied immediately when click sort/unsort columns when using the multiple sorting dialog. When it is false Apply button shows and sorting is applied when the button is clicked.
 	 *
 	 */
@@ -91093,74 +93186,198 @@ interface JQuery {
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogSortOnClick", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets sortby button text for each unsorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogSortByButtonText](ui.iggridsorting#options:locale.modalDialogSortByButtonText).
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogSortByButtonText"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets sortby button text for each unsorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogSortByButtonText](ui.iggridsorting#options:locale.modalDialogSortByButtonText).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogSortByButtonText", optionValue: string): void;
 
 	/**
-	 * Gets sortby button label for each unsorted column in multiple sorting dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets reset button text in multiple sorting dialog.
+	 * Use option [locale.modalDialogResetButton](ui.iggridsorting#options:locale.modalDialogResetButton).
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogResetButtonLabel"): string;
 
 	/**
-	 * Sets sortby button label for each unsorted column in multiple sorting dialog.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets reset button text in multiple sorting dialog.
+	 * Use option [locale.modalDialogResetButton](ui.iggridsorting#options:locale.modalDialogResetButton).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogResetButtonLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets caption for each descending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonDesc](ui.iggridsorting#options:locale.modalDialogCaptionButtonDesc).
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets caption for each descending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonDesc](ui.iggridsorting#options:locale.modalDialogCaptionButtonDesc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonDesc", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets caption for each ascending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonAsc](ui.iggridsorting#options:locale.modalDialogCaptionButtonAsc).
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets caption for each ascending sorted column in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonAsc](ui.iggridsorting#options:locale.modalDialogCaptionButtonAsc).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonAsc", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets caption for unsort button in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonUnsort](ui.iggridsorting#options:locale.modalDialogCaptionButtonUnsort).
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUnsort"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets caption for unsort button in multiple sorting dialog.
-	 *
+	 * Use option [locale.modalDialogCaptionButtonUnsort](ui.iggridsorting#options:locale.modalDialogCaptionButtonUnsort).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionButtonUnsort", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the text of the feature chooser sorting button.
+	 * Use option [locale.featureChooserText](ui.iggridsorting#options:locale.featureChooserText).
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the text of the feature chooser sorting button.
+	 * Use option [locale.featureChooserText](ui.iggridsorting#options:locale.featureChooserText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
+	 * Use option [locale.unsortedColumnTooltip](ui.iggridsorting#options:locale.unsortedColumnTooltip).
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
+	 * Use option [locale.unsortedColumnTooltip](ui.iggridsorting#options:locale.unsortedColumnTooltip).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets caption text for multiple sorting dialog.
+	 * Use option [locale.modalDialogCaptionText](ui.iggridsorting#options:locale.modalDialogCaptionText).
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets caption text for multiple sorting dialog.
+	 * Use option [locale.modalDialogCaptionText](ui.iggridsorting#options:locale.modalDialogCaptionText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which apply changes in modal dialog.
+	 * Use option [locale.modalDialogButtonApplyText](ui.iggridsorting#options:locale.modalDialogButtonApplyText).
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which apply changes in modal dialog.
+	 * Use option [locale.modalDialogButtonApplyText](ui.iggridsorting#options:locale.modalDialogButtonApplyText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets text of button which cancels the changes in the advanced sorting modal dialog.
+	 * Use option [locale.modalDialogButtonCancelText](ui.iggridsorting#options:locale.modalDialogButtonCancelText).
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets text of button which cancels the changes in the advanced sorting modal dialog.
+	 * Use option [locale.modalDialogButtonCancelText](ui.iggridsorting#options:locale.modalDialogButtonCancelText).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortAsc](ui.iggridsorting#options:locale.featureChooserSortAsc).
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortAsc](ui.iggridsorting#options:locale.featureChooserSortAsc).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc", optionValue: string): void;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Gets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortDesc](ui.iggridsorting#options:locale.featureChooserSortDesc).
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc"): string;
+
+	/**
+	 * This option has been removed as of 2017.2 Volume release.
+	 * Sets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
+	 * Use option [locale.featureChooserSortDesc](ui.iggridsorting#options:locale.featureChooserSortDesc).
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc", optionValue: string): void;
+	igTreeGridSorting(optionLiteral: 'option', optionName: "locale"): IgGridSortingLocale;
+	igTreeGridSorting(optionLiteral: 'option', optionName: "locale", optionValue: IgGridSortingLocale): void;
 
 	/**
 	 * Gets width of multiple sorting dialog.
@@ -91209,34 +93426,6 @@ interface JQuery {
 	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogAnimationDuration", optionValue: number): void;
 
 	/**
-	 * Gets the text of the feature chooser sorting button.
-	 *
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserText"): string;
-
-	/**
-	 * Sets the text of the feature chooser sorting button.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserText", optionValue: string): void;
-
-	/**
-	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
-	 *
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip"): string;
-
-	/**
-	 * Custom unsorted column tooltip in [igTemplating](http://www.igniteui.com/help/igtemplating-overview) format.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "unsortedColumnTooltip", optionValue: string): void;
-
-	/**
 	 * A list of custom column settings that specify custom sorting settings for a specific column (whether sorting is enabled / disabled, default sort direction, first sort direction, etc.).
 	 *
 	 */
@@ -91249,76 +93438,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridSorting(optionLiteral: 'option', optionName: "columnSettings", optionValue: IgGridSortingColumnSetting[]): void;
-
-	/**
-	 * Gets caption text for multiple sorting dialog.
-	 *
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText"): string;
-
-	/**
-	 * Sets caption text for multiple sorting dialog.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogCaptionText", optionValue: string): void;
-
-	/**
-	 * Gets text of button which apply changes in modal dialog.
-	 *
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText"): string;
-
-	/**
-	 * Sets text of button which apply changes in modal dialog.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonApplyText", optionValue: string): void;
-
-	/**
-	 * Gets text of button which cancels the changes in the advanced sorting modal dialog.
-	 *
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText"): string;
-
-	/**
-	 * Sets text of button which cancels the changes in the advanced sorting modal dialog.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "modalDialogButtonCancelText", optionValue: string): void;
-
-	/**
-	 * Gets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
-	 *
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc"): string;
-
-	/**
-	 * Sets the text shown in the feature chooser item for sorting in ascending order (displayed only on touch environment).
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortAsc", optionValue: string): void;
-
-	/**
-	 * Gets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
-	 *
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc"): string;
-
-	/**
-	 * Sets the text shown in the feature chooser item for sorting in descending order (displayed only on touch environment).
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGridSorting(optionLiteral: 'option', optionName: "featureChooserSortDesc", optionValue: string): void;
 
 	/**
 	 * Enables/disables sorting persistence when the grid is rebound.
@@ -91846,13 +93965,7 @@ interface JQuery {
 	igTreeGridTooltips(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igTreeGridTooltips(methodName: string, ...methodParams: any[]): any;
 }
-interface IgTreeGridUpdating {
-	/**
-	 * Specifies whether to enable or disable adding children to rows.
-	 *
-	 */
-	enableAddChild?: boolean;
-
+interface IgTreeGridUpdatingLocale {
 	/**
 	 * Specifies the add child tooltip text.
 	 *
@@ -91864,6 +93977,32 @@ interface IgTreeGridUpdating {
 	 *
 	 */
 	addChildButtonLabel?: string;
+
+	/**
+	 * Option for IgTreeGridUpdatingLocale
+	 */
+	[optionName: string]: any;
+}
+
+interface IgTreeGridUpdating {
+	/**
+	 * Specifies whether to enable or disable adding children to rows.
+	 *
+	 */
+	enableAddChild?: boolean;
+
+	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
+	 * Specifies the add child tooltip text. Use option [locale.enableAddChild](ui.igtreegridupdating#options:locale.enableAddChild).
+	 */
+	addChildTooltip?: string;
+
+	/**
+	 * This option has been deprecated as of the 2017.2 Volume release.
+	 * Specifies the label of the add child button in touch environment. Use option [locale.addChildButtonLabel](ui.igtreegridupdating#options:locale.addChildButtonLabel).
+	 */
+	addChildButtonLabel?: string;
+	locale?: IgTreeGridUpdatingLocale;
 
 	/**
 	 * A list of custom column options that specify editing and validation settings for a specific column.
@@ -91902,50 +94041,58 @@ interface IgTreeGridUpdating {
 	validation?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneLabel is used.
-	 *
+	 * Use option [locale.doneLabel](ui.iggridupdating#options:locale.doneLabel).
 	 */
 	doneLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneTooltip is used.
-	 *
+	 * Use option [locale.doneTooltip](ui.iggridupdating#options:locale.doneTooltip).
 	 */
 	doneTooltip?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelLabel is used.
-	 *
+	 * Use option [locale.cancelLabel](ui.iggridupdating#options:locale.cancelLabel).
 	 */
 	cancelLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelTooltip is used.
-	 *
+	 * Use option [locale.cancelTooltip](ui.iggridupdating#options:locale.cancelTooltip).
 	 */
 	cancelTooltip?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowLabel is used.
-	 *
+	 * Use option [locale.addRowLabel](ui.iggridupdating#options:locale.addRowLabel).
 	 */
 	addRowLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowTooltip is used.
-	 *
+	 * Use option [locale.addRowTooltip](ui.iggridupdating#options:locale.addRowTooltip).
 	 */
 	addRowTooltip?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the label for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowLabel is used.
-	 *
+	 * Use option [locale.deleteRowLabel](ui.iggridupdating#options:locale.deleteRowLabel).
 	 */
 	deleteRowLabel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Specifies the title for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowTooltip is used.
-	 *
+	 * Use option [locale.deleteRowTooltip](ui.iggridupdating#options:locale.deleteRowTooltip).
 	 */
 	deleteRowTooltip?: string;
 
@@ -92128,6 +94275,8 @@ interface IgTreeGridUpdating {
 	[optionName: string]: any;
 }
 interface IgTreeGridUpdatingMethods {
+	changeLocale(): void;
+
 	/**
 	 * Adds a new child to a specific row. It also creates a transaction and updates the UI.
 	 *
@@ -92238,6 +94387,7 @@ interface IgTreeGridUpdatingMethods {
 	 * @param create Requests to create the editor if it has not been created yet.
 	 */
 	editorForCell(cell: string, create?: boolean): Object;
+	changeRegional(): void;
 
 	/**
 	 * Shows the delete button for specific row.
@@ -92256,6 +94406,7 @@ interface JQuery {
 }
 
 interface JQuery {
+	igTreeGridUpdating(methodName: "changeLocale"): void;
 	igTreeGridUpdating(methodName: "addChild", values: Object, parentId: Object): void;
 	igTreeGridUpdating(methodName: "startAddChildFor", parentId: Object, raiseEvents?: Object): void;
 	igTreeGridUpdating(methodName: "showAddChildButtonFor", row: Object): void;
@@ -92272,6 +94423,7 @@ interface JQuery {
 	igTreeGridUpdating(methodName: "isEditing"): boolean;
 	igTreeGridUpdating(methodName: "editorForKey", key: string): Object;
 	igTreeGridUpdating(methodName: "editorForCell", cell: string, create?: boolean): Object;
+	igTreeGridUpdating(methodName: "changeRegional"): void;
 	igTreeGridUpdating(methodName: "showDeleteButtonFor", row: Object): void;
 	igTreeGridUpdating(methodName: "hideDeleteButton"): void;
 
@@ -92290,32 +94442,34 @@ interface JQuery {
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "enableAddChild", optionValue: boolean): void;
 
 	/**
-	 * Gets the add child tooltip text.
-	 *
+	 * This option has been deprecated as of the 2017.2 Volume release.
+	 * Gets the add child tooltip text. Use option [locale.enableAddChild](ui.igtreegridupdating#options:locale.enableAddChild).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addChildTooltip"): string;
 
 	/**
-	 * Sets the add child tooltip text.
-	 *
+	 * This option has been deprecated as of the 2017.2 Volume release.
+	 * Sets the add child tooltip text. Use option [locale.enableAddChild](ui.igtreegridupdating#options:locale.enableAddChild).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addChildTooltip", optionValue: string): void;
 
 	/**
-	 * Gets the label of the add child button in touch environment.
-	 *
+	 * This option has been deprecated as of the 2017.2 Volume release.
+	 * Gets the label of the add child button in touch environment. Use option [locale.addChildButtonLabel](ui.igtreegridupdating#options:locale.addChildButtonLabel).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addChildButtonLabel"): string;
 
 	/**
-	 * Sets the label of the add child button in touch environment.
-	 *
+	 * This option has been deprecated as of the 2017.2 Volume release.
+	 * Sets the label of the add child button in touch environment. Use option [locale.addChildButtonLabel](ui.igtreegridupdating#options:locale.addChildButtonLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addChildButtonLabel", optionValue: string): void;
+	igTreeGridUpdating(optionLiteral: 'option', optionName: "locale"): IgTreeGridUpdatingLocale;
+	igTreeGridUpdating(optionLiteral: 'option', optionName: "locale", optionValue: IgTreeGridUpdatingLocale): void;
 
 	/**
 	 * A list of custom column options that specify editing and validation settings for a specific column.
@@ -92390,112 +94544,128 @@ interface JQuery {
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "validation", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneLabel is used.
-	 *
+	 * Use option [locale.doneLabel](ui.iggridupdating#options:locale.doneLabel).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "doneLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneLabel is used.
-	 *
+	 * Use option [locale.doneLabel](ui.iggridupdating#options:locale.doneLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "doneLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneTooltip is used.
-	 *
+	 * Use option [locale.doneTooltip](ui.iggridupdating#options:locale.doneTooltip).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "doneTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the Done editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.doneTooltip is used.
-	 *
+	 * Use option [locale.doneTooltip](ui.iggridupdating#options:locale.doneTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "doneTooltip", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelLabel is used.
-	 *
+	 * Use option [locale.cancelLabel](ui.iggridupdating#options:locale.cancelLabel).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "cancelLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelLabel is used.
-	 *
+	 * Use option [locale.cancelLabel](ui.iggridupdating#options:locale.cancelLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "cancelLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelTooltip is used.
-	 *
+	 * Use option [locale.cancelTooltip](ui.iggridupdating#options:locale.cancelTooltip).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "cancelTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the Cancel editing button (only applicable when the [showDoneCancelButtons](ui.iggridupdating#options:showDoneCancelButtons) option is enabled). If not set, $.ig.GridUpdating.locale.cancelTooltip is used.
-	 *
+	 * Use option [locale.cancelTooltip](ui.iggridupdating#options:locale.cancelTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "cancelTooltip", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowLabel is used.
-	 *
+	 * Use option [locale.addRowLabel](ui.iggridupdating#options:locale.addRowLabel).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addRowLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowLabel is used.
-	 *
+	 * Use option [locale.addRowLabel](ui.iggridupdating#options:locale.addRowLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addRowLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowTooltip is used.
-	 *
+	 * Use option [locale.addRowTooltip](ui.iggridupdating#options:locale.addRowTooltip).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addRowTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the button starting edit mode for row adding. If not set, $.ig.GridUpdating.locale.addRowTooltip is used.
-	 *
+	 * Use option [locale.addRowTooltip](ui.iggridupdating#options:locale.addRowTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "addRowTooltip", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the label for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowLabel is used.
-	 *
+	 * Use option [locale.deleteRowLabel](ui.iggridupdating#options:locale.deleteRowLabel).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "deleteRowLabel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the label for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowLabel is used.
-	 *
+	 * Use option [locale.deleteRowLabel](ui.iggridupdating#options:locale.deleteRowLabel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "deleteRowLabel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Gets the title for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowTooltip is used.
-	 *
+	 * Use option [locale.deleteRowTooltip](ui.iggridupdating#options:locale.deleteRowTooltip).
 	 */
 	igTreeGridUpdating(optionLiteral: 'option', optionName: "deleteRowTooltip"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Sets the title for the delete button. If not set, $.ig.GridUpdating.locale.deleteRowTooltip is used.
-	 *
+	 * Use option [locale.deleteRowTooltip](ui.iggridupdating#options:locale.deleteRowTooltip).
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -92949,6 +95119,217 @@ interface JQuery {
 	data(propertyName: "igBrowseButton"): IgBrowseButtonMethods;
 }
 
+interface IgUploadLocale {
+	/**
+	 * Get or set label for the first shown browse button. When file is selected for the first time this button is hidden.
+	 *
+	 */
+	labelUploadButton?: string;
+
+	/**
+	 * Get or set label for browse button in main container.
+	 *
+	 */
+	labelAddButton?: string;
+
+	/**
+	 * Get or set label for summary Clear all button. It will be shown only in multiple upload mode.
+	 *
+	 */
+	labelClearAllButton?: string;
+
+	/**
+	 * Get or set template for showing summary template. {0} is count of uploaded files. {1} is total count of file to be uploaded.
+	 *
+	 */
+	labelSummaryTemplate?: string;
+
+	/**
+	 * Get or set template for showing uploading information in summary progress bar. It will be shown only in multiple upload mode. {0} uploaded filesize. {1} - total file size.
+	 *
+	 */
+	labelSummaryProgressBarTemplate?: string;
+
+	/**
+	 * Get or set label for show/hide details button when main container is hidden.
+	 *
+	 */
+	labelShowDetails?: string;
+
+	/**
+	 * Get or set label for show/hide details button when main container is shown.
+	 *
+	 */
+	labelHideDetails?: string;
+
+	/**
+	 * Get or set label for button cancelling all files. Shown only in multiple upload mode.
+	 *
+	 */
+	labelSummaryProgressButtonCancel?: string;
+
+	/**
+	 * Get or set label for start upload batch files. Shown only in multiple upload mode and autostartupload is false.
+	 *
+	 */
+	labelSummaryProgressButtonContinue?: string;
+
+	/**
+	 * Get or set label when upload is finished. Shown only in multiple upload mode.
+	 *
+	 */
+	labelSummaryProgressButtonDone?: string;
+
+	/**
+	 * Get or set filename when it could not be shown the whole file name and should be shorten.
+	 *
+	 */
+	labelProgressBarFileNameContinue?: string;
+
+	/**
+	 * Get or set message shown when max file size of the uploaded file exceeds the limit.
+	 *
+	 */
+	errorMessageFileSizeExceeded?: string;
+
+	/**
+	 * Get or set error message when ajax call to get file status throws error.
+	 *
+	 */
+	errorMessageGetFileStatus?: string;
+
+	/**
+	 * Get or set error message when ajax call to send cancel upload command.
+	 *
+	 */
+	errorMessageCancelUpload?: string;
+
+	/**
+	 * Get or set error message when file is not found.
+	 *
+	 */
+	errorMessageNoSuchFile?: string;
+
+	/**
+	 * Get or set error message different from the other messages.
+	 *
+	 */
+	errorMessageOther?: string;
+
+	/**
+	 * Get or set error message when file extension validation failed.
+	 *
+	 */
+	errorMessageValidatingFileExtension?: string;
+
+	/**
+	 * Get or set error message when AJAX Request to get file size throws error.
+	 *
+	 */
+	errorMessageAJAXRequestFileSize?: string;
+
+	/**
+	 * Get or set error message when maximum allowed files exceeded.
+	 *
+	 */
+	errorMessageMaxUploadedFiles?: string;
+
+	/**
+	 * Get or set error message when maximum simultaneous files is less or equal to 0.
+	 *
+	 */
+	errorMessageMaxSimultaneousFiles?: string;
+
+	/**
+	 * Get or set error message when trying to remove non existing file.
+	 *
+	 */
+	errorMessageTryToRemoveNonExistingFile?: string;
+
+	/**
+	 * Get or set error message when trying to start non existing file.
+	 *
+	 */
+	errorMessageTryToStartNonExistingFile?: string;
+
+	/**
+	 * Get or set error message when trying to drop more than 1 file and mode is single.
+	 *
+	 */
+	errorMessageDropMultipleFilesWhenSingleModel?: string;
+
+	/**
+	 * Get or set title for the first shown browse button. When file is selected for the first time this button is hidden.
+	 *
+	 */
+	titleUploadFileButtonInit?: string;
+
+	/**
+	 * Get or set title for browse button in main container.
+	 *
+	 */
+	titleAddFileButton?: string;
+
+	/**
+	 * Get or set title for the cancel upload button.
+	 *
+	 */
+	titleCancelUploadButton?: string;
+
+	/**
+	 * Get or set title for start upload batch files. Shown only in multiple upload mode and autostartupload is false.
+	 *
+	 */
+	titleSummaryProgressButtonContinue?: string;
+
+	/**
+	 * Get or set title for summary Clear all button. It will be shown only in multiple upload mode.
+	 *
+	 */
+	titleClearUploaded?: string;
+
+	/**
+	 * Get or set title for show details button.
+	 *
+	 */
+	titleShowDetailsButton?: string;
+
+	/**
+	 * Get or set title for hide details button.
+	 *
+	 */
+	titleHideDetailsButton?: string;
+
+	/**
+	 * Get or set title for button cancelling all files. Shown only in multiple upload mode.
+	 *
+	 */
+	titleSummaryProgressButtonCancel?: string;
+
+	/**
+	 * Get or set title when upload is finished. Shown only in multiple upload mode.
+	 *
+	 */
+	titleSummaryProgressButtonDone?: string;
+
+	/**
+	 * Get or set title for Continue button.
+	 *
+	 */
+	titleSingleUploadButtonContinue?: string;
+
+	/**
+	 * Get or set title for summary Clear all button. It will be shown only in multiple upload mode.
+	 *
+	 */
+	titleClearAllButton?: string;
+
+	/**
+	 * Option for IgUploadLocale
+	 */
+	[optionName: string]: any;
+}
+
 interface IgUploadFileExtensionIcons {
 	/**
 	 * Array of string for file extensions
@@ -93256,141 +95637,166 @@ interface IgUpload {
 	autostartupload?: boolean;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for the first shown browse button. When file is selected for the first time this button is hidden.
-	 *
+	 * Use option [locale.labelUploadButton](ui.igupload#options:locale.labelUploadButton).
 	 */
 	labelUploadButton?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for browse button in main container.
-	 *
+	 * Use option [locale.labelAddButton](ui.igupload#options:locale.labelAddButton).
 	 */
 	labelAddButton?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for summary Clear all button. It will be shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelClearAllButton](ui.igupload#options:locale.labelClearAllButton).
 	 */
 	labelClearAllButton?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set template for showing summary template. {0} is count of uploaded files. {1} is total count of file to be uploaded.
-	 *
+	 * Use option [locale.labelSummaryTemplate](ui.igupload#options:locale.labelSummaryTemplate).
 	 */
 	labelSummaryTemplate?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set template for showing uploading information in summary progress bar. It will be shown only in multiple upload mode. {0} uploaded filesize. {1} - total file size.
-	 *
+	 * Use option [locale.labelSummaryProgressBarTemplate](ui.igupload#options:locale.labelSummaryProgressBarTemplate).
 	 */
 	labelSummaryProgressBarTemplate?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for show/hide details button when main container is hidden.
-	 *
+	 * Use option [locale.labelShowDetails](ui.igupload#options:locale.labelShowDetails).
 	 */
 	labelShowDetails?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for show/hide details button when main container is shown.
-	 *
+	 * Use option [locale.labelHideDetails](ui.igupload#options:locale.labelHideDetails).
 	 */
 	labelHideDetails?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for button cancelling all files. Shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonCancel](ui.igupload#options:locale.labelSummaryProgressButtonCancel).
 	 */
 	labelSummaryProgressButtonCancel?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for start upload batch files. Shown only in multiple upload mode and autostartupload is false.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonContinue](ui.igupload#options:locale.labelSummaryProgressButtonContinue).
 	 */
 	labelSummaryProgressButtonContinue?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label when upload is finished. Shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonDone](ui.igupload#options:locale.labelSummaryProgressButtonDone).
 	 */
 	labelSummaryProgressButtonDone?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set filename when it could not be shown the whole file name and should be shorten.
-	 *
+	 * Use option [locale.labelProgressBarFileNameContinue](ui.igupload#options:locale.labelProgressBarFileNameContinue).
 	 */
 	labelProgressBarFileNameContinue?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set message shown when max file size of the uploaded file exceeds the limit.
-	 *
+	 * Use option [locale.errorMessageMaxFileSizeExceeded](ui.igupload#options:locale.errorMessageMaxFileSizeExceeded).
 	 */
 	errorMessageMaxFileSizeExceeded?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when ajax call to get file status throws error.
-	 *
+	 * Use option [locale.errorMessageGetFileStatus](ui.igupload#options:locale.errorMessageGetFileStatus).
 	 */
 	errorMessageGetFileStatus?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when ajax call to send cancel upload command.
-	 *
+	 * Use option [locale.errorMessageCancelUpload](ui.igupload#options:locale.errorMessageCancelUpload).
 	 */
 	errorMessageCancelUpload?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when file is not found.
-	 *
+	 * Use option [locale.errorMessageNoSuchFile](ui.igupload#options:locale.errorMessageNoSuchFile).
 	 */
 	errorMessageNoSuchFile?: string;
 
 	/**
-	 * Get or set error message different from the other messages.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *  Get or set error message different from the other messages.
+	 * Use option [locale.errorMessageOther](ui.igupload#options:locale.errorMessageOther).
 	 */
 	errorMessageOther?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when file extension validation failed.
-	 *
+	 * Use option [locale.errorMessageValidatingFileExtension](ui.igupload#options:locale.errorMessageValidatingFileExtension).
 	 */
 	errorMessageValidatingFileExtension?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when AJAX Request to get file size throws error.
-	 *
+	 * Use option [locale.errorMessageAJAXRequestFileSize](ui.igupload#options:locale.errorMessageAJAXRequestFileSize).
 	 */
 	errorMessageAJAXRequestFileSize?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to remove non existing file.
-	 *
+	 * Use option [locale.errorMessageTryToRemoveNonExistingFile](ui.igupload#options:locale.errorMessageTryToRemoveNonExistingFile).
 	 */
 	errorMessageTryToRemoveNonExistingFile?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to start non existing file.
-	 *
+	 * Use option [locale.errorMessageTryToStartNonExistingFile](ui.igupload#options:locale.errorMessageTryToStartNonExistingFile).
 	 */
 	errorMessageTryToStartNonExistingFile?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when maximum allowed files exceeded.
-	 *
+	 * Use option [locale.errorMessageMaxUploadedFiles](ui.igupload#options:locale.errorMessageMaxUploadedFiles).
 	 */
 	errorMessageMaxUploadedFiles?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when maximum simultaneous files is less or equal to 0.
-	 *
+	 * Use option [locale.errorMessageMaxSimultaneousFiles](ui.igupload#options:locale.errorMessageMaxSimultaneousFiles).
 	 */
 	errorMessageMaxSimultaneousFiles?: string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to drop more than 1 file and mode is single.
+	 * Use option [locale.errorMessageDropMultipleFilesWhenSingleModel](ui.igupload#options:locale.errorMessageDropMultipleFilesWhenSingleModel).
 	 */
 	errorMessageDropMultipleFilesWhenSingleModel?: string;
+	locale?: IgUploadLocale;
 
 	/**
 	 * Get or set URL for uploading.
@@ -93579,6 +95985,7 @@ interface IgUploadMethods {
 	 * @param formNumber id of the form which should be cancelled
 	 */
 	cancelUpload(formNumber: number): void;
+	changeLocale(): void;
 
 	/**
 	 * Destroy the widget
@@ -93640,6 +96047,7 @@ interface JQuery {
 	igUpload(methodName: "addDataFields", formData: Object, fields: any[]): void;
 	igUpload(methodName: "startUpload", formNumber: number): void;
 	igUpload(methodName: "cancelUpload", formNumber: number): void;
+	igUpload(methodName: "changeLocale"): void;
 	igUpload(methodName: "destroy"): void;
 	igUpload(methodName: "getFileInfoData"): Object;
 	igUpload(methodName: "cancelAll"): void;
@@ -93692,324 +96100,374 @@ interface JQuery {
 	igUpload(optionLiteral: 'option', optionName: "autostartupload", optionValue: boolean): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for the first shown browse button. When file is selected for the first time this button is hidden.
-	 *
+	 * Use option [locale.labelUploadButton](ui.igupload#options:locale.labelUploadButton).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelUploadButton"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for the first shown browse button. When file is selected for the first time this button is hidden.
-	 *
+	 * Use option [locale.labelUploadButton](ui.igupload#options:locale.labelUploadButton).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelUploadButton", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for browse button in main container.
-	 *
+	 * Use option [locale.labelAddButton](ui.igupload#options:locale.labelAddButton).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelAddButton"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for browse button in main container.
-	 *
+	 * Use option [locale.labelAddButton](ui.igupload#options:locale.labelAddButton).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelAddButton", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for summary Clear all button. It will be shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelClearAllButton](ui.igupload#options:locale.labelClearAllButton).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelClearAllButton"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for summary Clear all button. It will be shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelClearAllButton](ui.igupload#options:locale.labelClearAllButton).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelClearAllButton", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set template for showing summary template. {0} is count of uploaded files. {1} is total count of file to be uploaded.
-	 *
+	 * Use option [locale.labelSummaryTemplate](ui.igupload#options:locale.labelSummaryTemplate).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryTemplate"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set template for showing summary template. {0} is count of uploaded files. {1} is total count of file to be uploaded.
-	 *
+	 * Use option [locale.labelSummaryTemplate](ui.igupload#options:locale.labelSummaryTemplate).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryTemplate", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set template for showing uploading information in summary progress bar. It will be shown only in multiple upload mode. {0} uploaded filesize. {1} - total file size.
-	 *
+	 * Use option [locale.labelSummaryProgressBarTemplate](ui.igupload#options:locale.labelSummaryProgressBarTemplate).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressBarTemplate"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set template for showing uploading information in summary progress bar. It will be shown only in multiple upload mode. {0} uploaded filesize. {1} - total file size.
-	 *
+	 * Use option [locale.labelSummaryProgressBarTemplate](ui.igupload#options:locale.labelSummaryProgressBarTemplate).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressBarTemplate", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for show/hide details button when main container is hidden.
-	 *
+	 * Use option [locale.labelShowDetails](ui.igupload#options:locale.labelShowDetails).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelShowDetails"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for show/hide details button when main container is hidden.
-	 *
+	 * Use option [locale.labelShowDetails](ui.igupload#options:locale.labelShowDetails).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelShowDetails", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for show/hide details button when main container is shown.
-	 *
+	 * Use option [locale.labelHideDetails](ui.igupload#options:locale.labelHideDetails).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelHideDetails"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for show/hide details button when main container is shown.
-	 *
+	 * Use option [locale.labelHideDetails](ui.igupload#options:locale.labelHideDetails).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelHideDetails", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for button cancelling all files. Shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonCancel](ui.igupload#options:locale.labelSummaryProgressButtonCancel).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressButtonCancel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for button cancelling all files. Shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonCancel](ui.igupload#options:locale.labelSummaryProgressButtonCancel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressButtonCancel", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for start upload batch files. Shown only in multiple upload mode and autostartupload is false.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonContinue](ui.igupload#options:locale.labelSummaryProgressButtonContinue).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressButtonContinue"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label for start upload batch files. Shown only in multiple upload mode and autostartupload is false.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonContinue](ui.igupload#options:locale.labelSummaryProgressButtonContinue).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressButtonContinue", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label when upload is finished. Shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonDone](ui.igupload#options:locale.labelSummaryProgressButtonDone).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressButtonDone"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set label when upload is finished. Shown only in multiple upload mode.
-	 *
+	 * Use option [locale.labelSummaryProgressButtonDone](ui.igupload#options:locale.labelSummaryProgressButtonDone).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelSummaryProgressButtonDone", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set filename when it could not be shown the whole file name and should be shorten.
-	 *
+	 * Use option [locale.labelProgressBarFileNameContinue](ui.igupload#options:locale.labelProgressBarFileNameContinue).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelProgressBarFileNameContinue"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set filename when it could not be shown the whole file name and should be shorten.
-	 *
+	 * Use option [locale.labelProgressBarFileNameContinue](ui.igupload#options:locale.labelProgressBarFileNameContinue).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "labelProgressBarFileNameContinue", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set message shown when max file size of the uploaded file exceeds the limit.
-	 *
+	 * Use option [locale.errorMessageMaxFileSizeExceeded](ui.igupload#options:locale.errorMessageMaxFileSizeExceeded).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageMaxFileSizeExceeded"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set message shown when max file size of the uploaded file exceeds the limit.
-	 *
+	 * Use option [locale.errorMessageMaxFileSizeExceeded](ui.igupload#options:locale.errorMessageMaxFileSizeExceeded).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageMaxFileSizeExceeded", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when ajax call to get file status throws error.
-	 *
+	 * Use option [locale.errorMessageGetFileStatus](ui.igupload#options:locale.errorMessageGetFileStatus).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageGetFileStatus"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when ajax call to get file status throws error.
-	 *
+	 * Use option [locale.errorMessageGetFileStatus](ui.igupload#options:locale.errorMessageGetFileStatus).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageGetFileStatus", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when ajax call to send cancel upload command.
-	 *
+	 * Use option [locale.errorMessageCancelUpload](ui.igupload#options:locale.errorMessageCancelUpload).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageCancelUpload"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when ajax call to send cancel upload command.
-	 *
+	 * Use option [locale.errorMessageCancelUpload](ui.igupload#options:locale.errorMessageCancelUpload).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageCancelUpload", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when file is not found.
-	 *
+	 * Use option [locale.errorMessageNoSuchFile](ui.igupload#options:locale.errorMessageNoSuchFile).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageNoSuchFile"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when file is not found.
-	 *
+	 * Use option [locale.errorMessageNoSuchFile](ui.igupload#options:locale.errorMessageNoSuchFile).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageNoSuchFile", optionValue: string): void;
 
 	/**
-	 * Get or set error message different from the other messages.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *  Get or set error message different from the other messages.
+	 * Use option [locale.errorMessageOther](ui.igupload#options:locale.errorMessageOther).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageOther"): string;
 
 	/**
-	 * Get or set error message different from the other messages.
-	 *
+	 * This option has been removed as of 2017.2 Volume release.
+	 *  Get or set error message different from the other messages.
+	 * Use option [locale.errorMessageOther](ui.igupload#options:locale.errorMessageOther).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageOther", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when file extension validation failed.
-	 *
+	 * Use option [locale.errorMessageValidatingFileExtension](ui.igupload#options:locale.errorMessageValidatingFileExtension).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageValidatingFileExtension"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when file extension validation failed.
-	 *
+	 * Use option [locale.errorMessageValidatingFileExtension](ui.igupload#options:locale.errorMessageValidatingFileExtension).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageValidatingFileExtension", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when AJAX Request to get file size throws error.
-	 *
+	 * Use option [locale.errorMessageAJAXRequestFileSize](ui.igupload#options:locale.errorMessageAJAXRequestFileSize).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageAJAXRequestFileSize"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when AJAX Request to get file size throws error.
-	 *
+	 * Use option [locale.errorMessageAJAXRequestFileSize](ui.igupload#options:locale.errorMessageAJAXRequestFileSize).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageAJAXRequestFileSize", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to remove non existing file.
-	 *
+	 * Use option [locale.errorMessageTryToRemoveNonExistingFile](ui.igupload#options:locale.errorMessageTryToRemoveNonExistingFile).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageTryToRemoveNonExistingFile"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to remove non existing file.
-	 *
+	 * Use option [locale.errorMessageTryToRemoveNonExistingFile](ui.igupload#options:locale.errorMessageTryToRemoveNonExistingFile).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageTryToRemoveNonExistingFile", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to start non existing file.
-	 *
+	 * Use option [locale.errorMessageTryToStartNonExistingFile](ui.igupload#options:locale.errorMessageTryToStartNonExistingFile).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageTryToStartNonExistingFile"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to start non existing file.
-	 *
+	 * Use option [locale.errorMessageTryToStartNonExistingFile](ui.igupload#options:locale.errorMessageTryToStartNonExistingFile).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageTryToStartNonExistingFile", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when maximum allowed files exceeded.
-	 *
+	 * Use option [locale.errorMessageMaxUploadedFiles](ui.igupload#options:locale.errorMessageMaxUploadedFiles).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageMaxUploadedFiles"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when maximum allowed files exceeded.
-	 *
+	 * Use option [locale.errorMessageMaxUploadedFiles](ui.igupload#options:locale.errorMessageMaxUploadedFiles).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageMaxUploadedFiles", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when maximum simultaneous files is less or equal to 0.
-	 *
+	 * Use option [locale.errorMessageMaxSimultaneousFiles](ui.igupload#options:locale.errorMessageMaxSimultaneousFiles).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageMaxSimultaneousFiles"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when maximum simultaneous files is less or equal to 0.
-	 *
+	 * Use option [locale.errorMessageMaxSimultaneousFiles](ui.igupload#options:locale.errorMessageMaxSimultaneousFiles).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageMaxSimultaneousFiles", optionValue: string): void;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to drop more than 1 file and mode is single.
+	 * Use option [locale.errorMessageDropMultipleFilesWhenSingleModel](ui.igupload#options:locale.errorMessageDropMultipleFilesWhenSingleModel).
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageDropMultipleFilesWhenSingleModel"): string;
 
 	/**
+	 * This option has been removed as of 2017.2 Volume release.
 	 * Get or set error message when trying to drop more than 1 file and mode is single.
+	 * Use option [locale.errorMessageDropMultipleFilesWhenSingleModel](ui.igupload#options:locale.errorMessageDropMultipleFilesWhenSingleModel).
 	 *
 	 * @optionValue New value to be set.
 	 */
 	igUpload(optionLiteral: 'option', optionName: "errorMessageDropMultipleFilesWhenSingleModel", optionValue: string): void;
+	igUpload(optionLiteral: 'option', optionName: "locale"): IgUploadLocale;
+	igUpload(optionLiteral: 'option', optionName: "locale", optionValue: IgUploadLocale): void;
 
 	/**
 	 * Get or set URL for uploading.
@@ -94359,14 +96817,19 @@ interface ValidatingEvent {
 
 interface ValidatingEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get current value in target.
+	 * Gets the current value in target.
 	 */
 	value?: any;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface ValidatedEvent {
@@ -94375,24 +96838,44 @@ interface ValidatedEvent {
 
 interface ValidatedEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get current value in target.
+	 * Gets the current value in target.
 	 */
 	value?: any;
 
 	/**
-	 * Used to determine the outcome of the validation.
+	 * Determine the outcome of the validation.
 	 */
-	valid?: any;
+	valid?: boolean;
 
 	/**
-	 * Used to get text of message.
+	 * Get the formatted message text, if any.
 	 */
-	message?: any;
+	message?: string;
+
+	/**
+	 * Get all messages, if any. May be more than one if [executeAllRules](ui.igvalidator#options:executeAllRules) is enabled.
+	 */
+	messages?: any[];
+
+	/**
+	 * Deprecated. Populated with the name of the rule that failed validation, if any.
+	 */
+	rule?: string;
+
+	/**
+	 * Populated with the names of rule that failed validation, if any.
+	 */
+	rules?: any[];
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface SuccessEvent {
@@ -94401,24 +96884,29 @@ interface SuccessEvent {
 
 interface SuccessEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get current value in target.
+	 * Gets the current value in target.
 	 */
 	value?: any;
 
 	/**
-	 * Used to determine the outcome of the validation.
+	 * Determine the outcome of the validation.
 	 */
-	valid?: any;
+	valid?: boolean;
 
 	/**
-	 * Used to get text of message.
+	 * Get the formatted message text, if any.
 	 */
-	message?: any;
+	message?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface ErrorEvent {
@@ -94427,24 +96915,44 @@ interface ErrorEvent {
 
 interface ErrorEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get current value in target.
+	 * Gets the current value in target.
 	 */
 	value?: any;
 
 	/**
-	 * Used to determine the outcome of the validation.
+	 * Determine the outcome of the validation.
 	 */
-	valid?: any;
+	valid?: boolean;
 
 	/**
-	 * Used to get text of message.
+	 * Get the formatted message text.
 	 */
-	message?: any;
+	message?: string;
+
+	/**
+	 * Get all messages. May be more than one if [executeAllRules](ui.igvalidator#options:executeAllRules) is enabled.
+	 */
+	messages?: any[];
+
+	/**
+	 * Deprecated. Populated with the name of the rule that failed validation.
+	 */
+	rule?: string;
+
+	/**
+	 * Populated with the names of rule that failed validation.
+	 */
+	rules?: any[];
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface ErrorShowingEvent {
@@ -94453,19 +96961,24 @@ interface ErrorShowingEvent {
 
 interface ErrorShowingEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface ErrorHidingEvent {
@@ -94474,19 +96987,24 @@ interface ErrorHidingEvent {
 
 interface ErrorHidingEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface ErrorShownEvent {
@@ -94495,19 +97013,24 @@ interface ErrorShownEvent {
 
 interface ErrorShownEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface ErrorHiddenEvent {
@@ -94516,19 +97039,24 @@ interface ErrorHiddenEvent {
 
 interface ErrorHiddenEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface SuccessShowingEvent {
@@ -94537,19 +97065,24 @@ interface SuccessShowingEvent {
 
 interface SuccessShowingEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface SuccessHidingEvent {
@@ -94558,19 +97091,24 @@ interface SuccessHidingEvent {
 
 interface SuccessHidingEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface SuccessShownEvent {
@@ -94579,19 +97117,24 @@ interface SuccessShownEvent {
 
 interface SuccessShownEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface SuccessHiddenEvent {
@@ -94600,19 +97143,24 @@ interface SuccessHiddenEvent {
 
 interface SuccessHiddenEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get text of message.
+	 * Gets the text of message.
 	 */
-	message?: any;
+	message?: string;
 
 	/**
-	 * Used to get reference to the target of the message.
+	 * Gets reference to the target of the message.
 	 */
-	target?: any;
+	target?: string;
+
+	/**
+	 * Populated with options for the specific field in the collection or null.
+	 */
+	fieldOptions?: any;
 }
 
 interface FormValidatingEvent {
@@ -94621,14 +97169,14 @@ interface FormValidatingEvent {
 
 interface FormValidatingEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get reference of the event target form.
+	 * Gets reference to the event target form.
 	 */
-	target?: any;
+	target?: string;
 }
 
 interface FormValidatedEvent {
@@ -94637,19 +97185,19 @@ interface FormValidatedEvent {
 
 interface FormValidatedEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get reference of the event target form.
+	 * Gets reference to the event target form.
 	 */
-	target?: any;
+	target?: string;
 
 	/**
-	 * Used to determine the outcome of the validation.
+	 * Determine the outcome of the validation.
 	 */
-	valid?: any;
+	valid?: boolean;
 }
 
 interface FormErrorEvent {
@@ -94658,14 +97206,14 @@ interface FormErrorEvent {
 
 interface FormErrorEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get reference of the event target form.
+	 * Gets reference to the event target form.
 	 */
-	target?: any;
+	target?: string;
 }
 
 interface FormSuccessEvent {
@@ -94674,21 +97222,21 @@ interface FormSuccessEvent {
 
 interface FormSuccessEventUIParam {
 	/**
-	 * Used to get reference to the igValidator widget.
+	 * Gets reference to the igValidator widget.
 	 */
 	owner?: any;
 
 	/**
-	 * Used to get reference of the event target form.
+	 * Gets reference to the event target form.
 	 */
-	target?: any;
+	target?: string;
 }
 
 interface IgValidator {
 	/**
 	 * Gets/Sets whether validation is triggered when the text in editor changes.
 	 * Note that this is more appropriate for selection controls such as checkbox, combo or rating.
-	 * As it can cause excessive messages with text-based fields, the initail validation can be delayed via the [threshold](ui.igvalidator#options:threshold) option.
+	 * As it can cause excessive messages with text-based fields, the initial validation can be delayed via the [threshold](ui.igvalidator#options:threshold) option.
 	 *
 	 */
 	onchange?: boolean;
@@ -94727,7 +97275,7 @@ interface IgValidator {
 	number?: boolean|Object;
 
 	/**
-	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
+	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependant on JavaScript Date parsing which will accept a wide range of values.
 	 *
 	 *
 	 * Valid values:
@@ -94752,7 +97300,7 @@ interface IgValidator {
 	 *
 	 * Valid values:
 	 * "array" An array of two numbers, where the first value is the minimum and the second is the maximum. (e.g. lengthRange: [ 1, 10] )
-	 * "object" A configuration object with optional error message. Message strings can contain format items for min and max respecitively (e.g. lengthRange: { min: 6, max: 20, errorMessage: "Password must be at least {0} long and no more than {1}." } )
+	 * "object" A configuration object with optional error message. Message strings can contain format items for min and max respectively (e.g. lengthRange: { min: 6, max: 20, errorMessage: "Password must be at least {0} long and no more than {1}." } )
 	 */
 	lengthRange?: Array<any>|Object;
 
@@ -94762,7 +97310,7 @@ interface IgValidator {
 	 *
 	 * Valid values:
 	 * "array" An array of two numbers or dates, where the first is the minimum and the second is the maximum. (e.g. valueRange: [ 1, 10] )
-	 * "object" A configuration object with optional error message. Message strings can contain format items for min and max respecitively (e.g. lengthRange: { min: 6, max: 20, errorMessage: "Value must be between {0} and {1}." } )
+	 * "object" A configuration object with optional error message. Message strings can contain format items for min and max respectively (e.g. lengthRange: { min: 6, max: 20, errorMessage: "Value must be between {0} and {1}." } )
 	 */
 	valueRange?: Array<any>|Object;
 
@@ -94785,6 +97333,13 @@ interface IgValidator {
 	 * "object" A RegExp object or an object with expression and errorMessage properties.
 	 */
 	pattern?: string|Object;
+
+	/**
+	 * Gets/Sets if all rules for a field should be checked, so even if one fails the rest will continue executing.
+	 * Note: This will not force checks on an empty field for rules that don't normally execute without a value.
+	 *
+	 */
+	executeAllRules?: boolean;
 
 	/**
 	 * Gets/Sets a custom jQuery element to be used for validation messages. That inner HTML of the target is modified, can be a SPAN, LABEL or DIV.
@@ -94864,9 +97419,6 @@ interface IgValidator {
 	 * Return false in order to cancel the event and consider the field valid.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	validating?: ValidatingEvent;
 
@@ -94874,37 +97426,18 @@ interface IgValidator {
 	 * Event which is raised after value was validated but before any action takes effect.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.rule is populated with the name of the rule that failed validation, if any.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	validated?: ValidatedEvent;
 
 	/**
 	 * Event raised for valid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 *
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	success?: SuccessEvent;
 
 	/**
 	 * Event raised for invalid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 *
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.rule is populated with the name of the rule that failed validation.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	error?: ErrorEvent;
 
@@ -94913,10 +97446,6 @@ interface IgValidator {
 	 * Return false in order to prevent error message display.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	errorShowing?: ErrorShowingEvent;
 
@@ -94925,10 +97454,6 @@ interface IgValidator {
 	 * Return false in order to keep the error message displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	errorHiding?: ErrorHidingEvent;
 
@@ -94936,10 +97461,6 @@ interface IgValidator {
 	 * Event which is raised after error message was displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	errorShown?: ErrorShownEvent;
 
@@ -94947,10 +97468,6 @@ interface IgValidator {
 	 * Event which is raised after error message was hidden.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	errorHidden?: ErrorHiddenEvent;
 
@@ -94959,10 +97476,6 @@ interface IgValidator {
 	 * Return false in order to prevent success message display.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	successShowing?: SuccessShowingEvent;
 
@@ -94971,10 +97484,6 @@ interface IgValidator {
 	 * Return false in order to keep success message displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	successHiding?: SuccessHidingEvent;
 
@@ -94982,10 +97491,6 @@ interface IgValidator {
 	 * Event which is raised after success message was displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	successShown?: SuccessShownEvent;
 
@@ -94993,20 +97498,14 @@ interface IgValidator {
 	 * Event which is raised after success message was hidden.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	successHidden?: SuccessHiddenEvent;
 
 	/**
 	 * Event triggered on Validator instance level before handling a form submit event.
-	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return erros.
+	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return error.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 */
 	formValidating?: FormValidatingEvent;
 
@@ -95014,9 +97513,6 @@ interface IgValidator {
 	 * Event triggered on Validator instance level after validation on form submit event..
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
-	 * Use ui.valid to determine the outcome of the validation.
 	 */
 	formValidated?: FormValidatedEvent;
 
@@ -95024,8 +97520,6 @@ interface IgValidator {
 	 * Event triggered on Validator instance level after failed validation on form submit event.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 */
 	formError?: FormErrorEvent;
 
@@ -95033,8 +97527,6 @@ interface IgValidator {
 	 * Event triggered on Validator instance level after successful validation on form submit event.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 */
 	formSuccess?: FormSuccessEvent;
 
@@ -95060,14 +97552,14 @@ interface IgValidatorMethods {
 
 	/**
 	 * Hide any possible message(s) (either messageTarget or igNotifier).
-	 * Note: When the validator has a fields colleciton, not passing a field will hide messages on all fields.
+	 * Note: When the validator has a fields collection, not passing a field will hide messages on all fields.
 	 *
 	 * @param field Optional field object, its selector or zero-based index to hide message for.
 	 */
 	hide(field?: Object): void;
 
 	/**
-	 * Gets all current error messages for invalid field(s). Note that this method does not valdiate and states and messages are only updated on validation, so
+	 * Gets all current error messages for invalid field(s). Note that this method does not validate and states and messages are only updated on validation, so
 	 * this can be used on formValidated event or after validate/isValid method calls.
 	 *
 	 * @param field Optional field object, selector or zero-based index for a single field to get error message for.
@@ -95076,7 +97568,7 @@ interface IgValidatorMethods {
 
 	/**
 	 * Check for currently displayed message(s). Takes an optional field.
-	 * Note: When the validator has a fields colleciton, not passing a field will return a cumulative true even if just one field has a visible message.
+	 * Note: When the validator has a fields collection, not passing a field will return a cumulative true even if just one field has a visible message.
 	 *
 	 * @param field Optional field object, selector or zero-based index for a single field to get error message for.
 	 */
@@ -95149,6 +97641,14 @@ class IgValidatorBaseRule {
 	formatMessage(message: string): string;
 
 	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
+
+	/**
 	 * Validates a value against this rule and returns the result.
 	 *
 	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
@@ -95171,6 +97671,7 @@ class IgValidatorRequiredRule {
 
 	constructor(formatItems: any[]);
 	getMessageType(options: Object): void;
+	shouldRun(options: Object): void;
 	isValid(options: Object, value: Object): void;
 
 	/**
@@ -95205,6 +97706,7 @@ class IgValidatorControlRule {
 	 * @param options
 	 */
 	getRuleMessage(options: Object): void;
+	shouldRun(options: Object, value: Object): void;
 	isValid(options: Object): void;
 
 	/**
@@ -95247,6 +97749,14 @@ class IgValidatorNumberRule {
 	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
+
+	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
 }
 }
 interface IgniteUIStatic {
@@ -95281,6 +97791,14 @@ class IgValidatorDateRule {
 	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
+
+	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
 }
 }
 interface IgniteUIStatic {
@@ -95308,6 +97826,14 @@ class IgValidatorLengthRule {
 	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
+
+	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
 }
 }
 interface IgniteUIStatic {
@@ -95355,6 +97881,14 @@ class IgValidatorEqualToRule {
 	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
+
+	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
 }
 }
 interface IgniteUIStatic {
@@ -95389,6 +97923,14 @@ class IgValidatorEmailRule {
 	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
+
+	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
 }
 }
 interface IgniteUIStatic {
@@ -95423,6 +97965,14 @@ class IgValidatorPatternRule {
 	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
+
+	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
 }
 }
 interface IgniteUIStatic {
@@ -95435,6 +97985,7 @@ class IgValidatorCustomRule {
 
 	constructor(formatItems: any[]);
 	getMessageType(): void;
+	shouldRun(options: Object): void;
 	isValid(options: Object, value: Object): void;
 
 	/**
@@ -95493,6 +98044,14 @@ class IgValidatorCreditCardRule {
 	 * @param message The unformatted error message the validator intends to display.
 	 */
 	formatMessage(message: string): string;
+
+	/**
+	 * Checks if rule should run on the current field and/or value.
+	 *
+	 * @param options Options for the validator, if fields are used this parameter is already populated with inherited ones.
+	 * @param value The stringified value to check.
+	 */
+	shouldRun(options: Object, value: string): boolean;
 }
 }
 interface IgniteUIStatic {
@@ -95514,7 +98073,7 @@ interface JQuery {
 	/**
 	 * Gets/Sets whether validation is triggered when the text in editor changes.
 	 * Note that this is more appropriate for selection controls such as checkbox, combo or rating.
-	 * As it can cause excessive messages with text-based fields, the initail validation can be delayed via the [threshold](ui.igvalidator#options:threshold) option.
+	 * As it can cause excessive messages with text-based fields, the initial validation can be delayed via the [threshold](ui.igvalidator#options:threshold) option.
 	 *
 	 */
 	igValidator(optionLiteral: 'option', optionName: "onchange"): boolean;
@@ -95522,7 +98081,7 @@ interface JQuery {
 	/**
 	 * /Sets whether validation is triggered when the text in editor changes.
 	 * Note that this is more appropriate for selection controls such as checkbox, combo or rating.
-	 * As it can cause excessive messages with text-based fields, the initail validation can be delayed via the [threshold](ui.igvalidator#options:threshold) option.
+	 * As it can cause excessive messages with text-based fields, the initial validation can be delayed via the [threshold](ui.igvalidator#options:threshold) option.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -95592,14 +98151,14 @@ interface JQuery {
 	igValidator(optionLiteral: 'option', optionName: "number", optionValue: boolean|Object): void;
 
 	/**
-	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
+	 * Gets/Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependant on JavaScript Date parsing which will accept a wide range of values.
 	 *
 	 */
 
 	igValidator(optionLiteral: 'option', optionName: "date"): boolean|Object;
 
 	/**
-	 * /Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependat on JavaScript Date parsing which will accept a wide range of values.
+	 * /Sets date validation rule options. This can additionally help guide the [valueRange](ui.igvalidator#options:valueRange) validation.Note: Dependant on JavaScript Date parsing which will accept a wide range of values.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -95686,6 +98245,22 @@ interface JQuery {
 	 */
 
 	igValidator(optionLiteral: 'option', optionName: "pattern", optionValue: string|Object): void;
+
+	/**
+	 * Gets/Sets if all rules for a field should be checked, so even if one fails the rest will continue executing.
+	 * Note: This will not force checks on an empty field for rules that don't normally execute without a value.
+	 *
+	 */
+	igValidator(optionLiteral: 'option', optionName: "executeAllRules"): boolean;
+
+	/**
+	 * /Sets if all rules for a field should be checked, so even if one fails the rest will continue executing.
+	 * Note: This will not force checks on an empty field for rules that don't normally execute without a value.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igValidator(optionLiteral: 'option', optionName: "executeAllRules", optionValue: boolean): void;
 
 	/**
 	 * Gets/Sets a custom jQuery element to be used for validation messages. That inner HTML of the target is modified, can be a SPAN, LABEL or DIV.
@@ -95844,9 +98419,6 @@ interface JQuery {
 	 * Return false in order to cancel the event and consider the field valid.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "validating"): ValidatingEvent;
 
@@ -95855,9 +98427,6 @@ interface JQuery {
 	 * Return false in order to cancel the event and consider the field valid.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -95867,12 +98436,6 @@ interface JQuery {
 	 * Event which is raised after value was validated but before any action takes effect.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.rule is populated with the name of the rule that failed validation, if any.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "validated"): ValidatedEvent;
 
@@ -95880,12 +98443,6 @@ interface JQuery {
 	 * Event which is raised after value was validated but before any action takes effect.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.rule is populated with the name of the rule that failed validation, if any.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -95894,24 +98451,12 @@ interface JQuery {
 	/**
 	 * Event raised for valid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 *
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "success"): SuccessEvent;
 
 	/**
 	 * Event raised for valid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 *
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -95920,26 +98465,12 @@ interface JQuery {
 	/**
 	 * Event raised for invalid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 *
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.rule is populated with the name of the rule that failed validation.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "error"): ErrorEvent;
 
 	/**
 	 * Event raised for invalid field after value was validated but before any action takes effect.
 	 * Function takes arguments evt and ui.
-	 *
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.value to get current value in target.
-	 * Use ui.valid to determine the outcome of the validation.
-	 * Use ui.message to get text of message.
-	 * ui.rule is populated with the name of the rule that failed validation.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -95950,10 +98481,6 @@ interface JQuery {
 	 * Return false in order to prevent error message display.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "errorShowing"): ErrorShowingEvent;
 
@@ -95962,10 +98489,6 @@ interface JQuery {
 	 * Return false in order to prevent error message display.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -95976,10 +98499,6 @@ interface JQuery {
 	 * Return false in order to keep the error message displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "errorHiding"): ErrorHidingEvent;
 
@@ -95988,10 +98507,6 @@ interface JQuery {
 	 * Return false in order to keep the error message displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96001,10 +98516,6 @@ interface JQuery {
 	 * Event which is raised after error message was displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "errorShown"): ErrorShownEvent;
 
@@ -96012,10 +98523,6 @@ interface JQuery {
 	 * Event which is raised after error message was displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96025,10 +98532,6 @@ interface JQuery {
 	 * Event which is raised after error message was hidden.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "errorHidden"): ErrorHiddenEvent;
 
@@ -96036,10 +98539,6 @@ interface JQuery {
 	 * Event which is raised after error message was hidden.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96050,10 +98549,6 @@ interface JQuery {
 	 * Return false in order to prevent success message display.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "successShowing"): SuccessShowingEvent;
 
@@ -96062,10 +98557,6 @@ interface JQuery {
 	 * Return false in order to prevent success message display.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96076,10 +98567,6 @@ interface JQuery {
 	 * Return false in order to keep success message displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "successHiding"): SuccessHidingEvent;
 
@@ -96088,10 +98575,6 @@ interface JQuery {
 	 * Return false in order to keep success message displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96101,10 +98584,6 @@ interface JQuery {
 	 * Event which is raised after success message was displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "successShown"): SuccessShownEvent;
 
@@ -96112,10 +98591,6 @@ interface JQuery {
 	 * Event which is raised after success message was displayed.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96125,10 +98600,6 @@ interface JQuery {
 	 * Event which is raised after success message was hidden.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "successHidden"): SuccessHiddenEvent;
 
@@ -96136,10 +98607,6 @@ interface JQuery {
 	 * Event which is raised after success message was hidden.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.message to get text of message.
-	 * Use ui.target to get reference to the target of the message.
-	 * ui.fieldOptions is populated with options for the specific field in the collection or null.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96147,21 +98614,17 @@ interface JQuery {
 
 	/**
 	 * Event triggered on Validator instance level before handling a form submit event.
-	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return erros.
+	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return error.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "formValidating"): FormValidatingEvent;
 
 	/**
 	 * Event triggered on Validator instance level before handling a form submit event.
-	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return erros.
+	 * Return false to cancel to skip validating and potentially allow the submit if no other other validators return error.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96171,9 +98634,6 @@ interface JQuery {
 	 * Event triggered on Validator instance level after validation on form submit event..
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
-	 * Use ui.valid to determine the outcome of the validation.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "formValidated"): FormValidatedEvent;
 
@@ -96181,9 +98641,6 @@ interface JQuery {
 	 * Event triggered on Validator instance level after validation on form submit event..
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
-	 * Use ui.valid to determine the outcome of the validation.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96193,8 +98650,6 @@ interface JQuery {
 	 * Event triggered on Validator instance level after failed validation on form submit event.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "formError"): FormErrorEvent;
 
@@ -96202,8 +98657,6 @@ interface JQuery {
 	 * Event triggered on Validator instance level after failed validation on form submit event.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96213,8 +98666,6 @@ interface JQuery {
 	 * Event triggered on Validator instance level after successful validation on form submit event.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 */
 	igValidator(optionLiteral: 'option', optionName: "formSuccess"): FormSuccessEvent;
 
@@ -96222,8 +98673,6 @@ interface JQuery {
 	 * Event triggered on Validator instance level after successful validation on form submit event.
 	 *
 	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igValidator widget.
-	 * Use ui.target to get reference of the event target form.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -96513,6 +98962,127 @@ interface IgVideoPlayerCommercials {
 
 	/**
 	 * Option for IgVideoPlayerCommercials
+	 */
+	[optionName: string]: any;
+}
+
+interface IgVideoPlayerLocale {
+	/**
+	 * Gets/Sets live stream video title.
+	 *
+	 */
+	liveStream?: boolean;
+
+	/**
+	 * Gets/Sets live video title.
+	 *
+	 */
+	live?: boolean;
+
+	/**
+	 * Gets/Sets paused button title.
+	 *
+	 */
+	paused?: boolean;
+
+	/**
+	 * Gets/Sets playing button title.
+	 *
+	 */
+	playing?: boolean;
+
+	/**
+	 * Gets/Sets play button title.
+	 *
+	 */
+	play?: boolean;
+
+	/**
+	 * Gets/Sets volume button title.
+	 *
+	 */
+	volume?: boolean;
+
+	/**
+	 * Gets/Sets progress label long format.
+	 *
+	 */
+	progressLabelLongFormat?: boolean;
+
+	/**
+	 * Gets/Sets progress label short format.
+	 *
+	 */
+	progressLabelShortFormat?: boolean;
+
+	/**
+	 * Gets/Sets enter fullscreen button title.
+	 *
+	 */
+	enterFullscreen?: boolean;
+
+	/**
+	 * Gets/Sets exit fullscreen button title.
+	 *
+	 */
+	exitFullscreen?: boolean;
+
+	/**
+	 * Gets/Sets skip to button title.
+	 *
+	 */
+	skipTo?: boolean;
+
+	/**
+	 * Gets/Sets buffering label text.
+	 *
+	 */
+	buffering?: boolean;
+
+	/**
+	 * Gets/Sets ad message text.
+	 *
+	 */
+	adMessage?: boolean;
+
+	/**
+	 * Gets/Sets long ad message text.
+	 *
+	 */
+	adMessageLong?: boolean;
+
+	/**
+	 * Gets/Sets ad message text when no duration is specified.
+	 *
+	 */
+	adMessageNoDuration?: boolean;
+
+	/**
+	 * Gets/Sets new ad window title.
+	 *
+	 */
+	adNewWindowTip?: boolean;
+
+	/**
+	 * Gets/Sets related videos text.
+	 *
+	 */
+	relatedVideos?: boolean;
+
+	/**
+	 * Gets/Sets replay button text.
+	 *
+	 */
+	replayButton?: boolean;
+
+	/**
+	 * Gets/Sets replay button tooltip.
+	 *
+	 */
+	replayTooltip?: boolean;
+
+	/**
+	 * Option for IgVideoPlayerLocale
 	 */
 	[optionName: string]: any;
 }
@@ -96840,6 +99410,7 @@ interface IgVideoPlayer {
 	 *
 	 */
 	commercials?: IgVideoPlayerCommercials;
+	locale?: IgVideoPlayerLocale;
 
 	/**
 	 * Occurs when video has ended.
@@ -97015,6 +99586,7 @@ interface IgVideoPlayerMethods {
 	 * Resets the commercials, to be shown again.
 	 */
 	resetCommercialsShow(): void;
+	changeLocale(): void;
 
 	/**
 	 * Toggle control play state. If video is playing it will pause, if video is paused it will play.
@@ -97101,6 +99673,7 @@ interface JQuery {
 	igVideoPlayer(methodName: "showBanner", index: number): void;
 	igVideoPlayer(methodName: "hideBanner", index: number): void;
 	igVideoPlayer(methodName: "resetCommercialsShow"): void;
+	igVideoPlayer(methodName: "changeLocale"): void;
 	igVideoPlayer(methodName: "togglePlay"): void;
 	igVideoPlayer(methodName: "play"): void;
 	igVideoPlayer(methodName: "pause"): void;
@@ -97413,6 +99986,8 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igVideoPlayer(optionLiteral: 'option', optionName: "commercials", optionValue: IgVideoPlayerCommercials): void;
+	igVideoPlayer(optionLiteral: 'option', optionName: "locale"): IgVideoPlayerLocale;
+	igVideoPlayer(optionLiteral: 'option', optionName: "locale", optionValue: IgVideoPlayerLocale): void;
 
 	/**
 	 * Occurs when video has ended.
@@ -97714,6 +100289,95 @@ interface JQuery {
 	igVideoPlayer(optionLiteral: 'option', options: IgVideoPlayer): JQuery;
 	igVideoPlayer(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igVideoPlayer(methodName: string, ...methodParams: any[]): any;
+}
+interface IgWidget {
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	locale?: any;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	language?: string;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+	regional?: string|Object;
+
+	/**
+	 * Option for igWidget
+	 */
+	[optionName: string]: any;
+}
+interface IgWidgetMethods {
+	changeLocale($container: Object): void;
+	changeGlobalLanguage(): void;
+	changeGlobalRegional(): void;
+	destroy(): void;
+}
+interface JQuery {
+	data(propertyName: "igWidget"): IgWidgetMethods;
+}
+
+interface JQuery {
+	igWidget(methodName: "changeLocale", $container: Object): void;
+	igWidget(methodName: "changeGlobalLanguage"): void;
+	igWidget(methodName: "changeGlobalRegional"): void;
+	igWidget(methodName: "destroy"): void;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 */
+	igWidget(optionLiteral: 'option', optionName: "locale"): any;
+
+	/**
+	 * Set/Get the locale setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igWidget(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 */
+	igWidget(optionLiteral: 'option', optionName: "language"): string;
+
+	/**
+	 * Set/Get the locale language setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igWidget(optionLiteral: 'option', optionName: "language", optionValue: string): void;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 */
+
+	igWidget(optionLiteral: 'option', optionName: "regional"): string|Object;
+
+	/**
+	 * Set/Get the regional setting for the widget.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+
+	igWidget(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
+	igWidget(options: IgWidget): JQuery;
+	igWidget(optionLiteral: 'option', optionName: string): any;
+	igWidget(optionLiteral: 'option', options: IgWidget): JQuery;
+	igWidget(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
+	igWidget(methodName: string, ...methodParams: any[]): any;
 }
 interface IgZoombarDefaultZoomWindow {
 	/**
