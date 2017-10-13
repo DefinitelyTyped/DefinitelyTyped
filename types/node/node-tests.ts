@@ -794,26 +794,26 @@ function stream_readable_pipe_test() {
 const compressMe = new Buffer("some data");
 const compressMeString = "compress me!";
 
-zlib.deflate(compressMe, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, (err: Error, result: Buffer) => zlib.inflate(result, (err: Error, result: Buffer) => result));
-zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.deflate(compressMe, (err: Error | null, result: Buffer) => zlib.inflate(result, (err: Error | null, result: Buffer) => result));
+zlib.deflate(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
+zlib.deflate(compressMeString, (err: Error | null, result: Buffer) => zlib.inflate(result, (err: Error | null, result: Buffer) => result));
+zlib.deflate(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflate(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
 const inflated = zlib.inflateSync(zlib.deflateSync(compressMe));
 const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 
-zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.deflateRaw(compressMe, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, (err: Error | null, result: Buffer) => result));
+zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, (err: Error | null, result: Buffer) => result));
+zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
-zlib.gzip(compressMe, (err: Error, result: Buffer) => zlib.gunzip(result, (err: Error, result: Buffer) => result));
-zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
+zlib.gzip(compressMe, (err: Error | null, result: Buffer) => zlib.gunzip(result, (err: Error | null, result: Buffer) => result));
+zlib.gzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => zlib.gunzip(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result));
 const gunzipped: Buffer = zlib.gunzipSync(zlib.gzipSync(compressMe));
 
-zlib.unzip(compressMe, (err: Error, result: Buffer) => result);
-zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result);
+zlib.unzip(compressMe, (err: Error | null, result: Buffer) => result);
+zlib.unzip(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error | null, result: Buffer) => result);
 const unzipped: Buffer = zlib.unzipSync(compressMe);
 
 // Simplified constructors
@@ -1401,7 +1401,7 @@ namespace dgram_tests {
         ds.bind(4123, () => { });
         ds.bind(() => { });
         let ai: dgram.AddressInfo = ds.address();
-        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error | null, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
         ds.setMulticastInterface("127.0.0.1");
@@ -3702,14 +3702,14 @@ namespace inspector_tests {
         session.disconnect();
 
         // Unknown post method
-        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
-        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b', { key: 'value' }, (err: Error | null, params?: object) => {});
+        session.post('A.b', (err: Error | null, params?: object) => {});
         session.post('A.b');
         // Known post method
         const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
         session.post('Runtime.evaluate', parameter,
-            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
-        session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
+            (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post('Runtime.evaluate', (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {
             const exceptionDetails: inspector.Runtime.ExceptionDetails | undefined = params.exceptionDetails;
             const resultClassName: string | undefined = params.result.className;
         });
