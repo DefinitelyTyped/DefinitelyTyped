@@ -59,7 +59,8 @@ async function readFile() {
 	str = await file.read();
 }
 
-file.createReadStream();
+const stream = file.createReadStream();
+stream.close();
 
 async function writeFile() {
 	await file.write("Test");

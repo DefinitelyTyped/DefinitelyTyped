@@ -631,7 +631,7 @@ configuration = {
     performance,
 };
 
-function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: string): void {
+function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap: string | Buffer): void {
     this.cacheable();
 
     this.async();

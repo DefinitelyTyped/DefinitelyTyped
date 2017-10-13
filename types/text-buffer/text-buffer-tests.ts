@@ -199,7 +199,10 @@ sub = buffer.onDidChangePath((path): void => {
 });
 
 sub = buffer.onDidChangeEncoding(() => void {});
+
 sub = buffer.onWillSave(() => void {});
+sub = buffer.onWillSave(() => Promise.resolve());
+
 sub = buffer.onDidSave(() => void {});
 sub = buffer.onDidDelete(() => void {});
 sub = buffer.onWillReload(() => void {});

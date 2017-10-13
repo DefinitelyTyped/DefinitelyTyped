@@ -125,8 +125,8 @@ export interface PDFOptions {
   path?: string;
   scale?: number;
   displayHeaderFooter?: boolean;
-  printBackground?: false;
-  landscape?: false;
+  printBackground?: boolean;
+  landscape?: boolean;
   /**
    * Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty
    * string, which means print all pages.

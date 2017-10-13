@@ -8,12 +8,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "text-buffer": [ "text-buffer/v0" ]
+            "text-buffer": [
+                "text-buffer/v0"
+            ]
         },
         "types": [],
         "noEmit": true,

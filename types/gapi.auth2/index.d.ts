@@ -208,7 +208,7 @@ declare namespace gapi.auth2 {
     login_hint?: string;
     app_package_name?: string;
     openid_realm?: string;
-    include_granted_scope?: boolean;
+    include_granted_scopes?: boolean;
   }
 
   /**

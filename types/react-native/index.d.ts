@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.48
+// Type definitions for react-native 0.49
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -6137,6 +6137,12 @@ export interface ScrollViewPropertiesIOS {
     onScrollAnimationEnd?: () => void
 
     /**
+     * When true, ScrollView allows use of pinch gestures to zoom in and out.
+     * The default value is true.
+     */
+    pinchGestureEnabled?: boolean
+
+    /**
      * This controls how often the scroll event will be fired while scrolling (in events per seconds).
      * A higher number yields better accuracy for code that is tracking the scroll position,
      * but can lead to scroll performance problems due to the volume of information being send over the bridge.
@@ -6398,6 +6404,11 @@ export interface NativeScrollPoint {
     y: number;
 }
 
+export interface NativeScrollVelocity {
+    x: number;
+    y: number;
+}
+
 export interface NativeScrollSize {
     height: number;
     width: number;
@@ -6408,6 +6419,7 @@ export interface NativeScrollEvent {
     contentOffset: NativeScrollPoint;
     contentSize: NativeScrollSize;
     layoutMeasurement: NativeScrollSize;
+    velocity?: NativeScrollVelocity;
     zoomScale: number;
 }
 
@@ -8483,11 +8495,6 @@ export interface ImageStoreStatic {
             failure: (error: any) => void
         ): void
 }
-
-// Network Polyfill
-// TODO: Add proper support for fetch
-export type fetch = (url: string, options?: Object) => Promise<any>
-export const fetch: fetch;
 
 export interface TabsReducerStatic {
     JumpToAction(index: number): any;
