@@ -703,6 +703,23 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 //#endregion
 
+//#region WebHooks tests
+// ##################################################################################
+
+const webhookRequest = {
+  rawBody: '',
+  headers: { 'stripe-signature': '' }
+};
+const webhookSecret = '';
+
+const event = stripe.webhooks.constructEvent<StripeNode.subscriptions.ISubscription>(
+  webhookRequest.rawBody,
+  webhookRequest.headers['stripe-signature'],
+  webhookSecret
+);
+
+//#endregion
+
 //#region Coupons tests
 // ##################################################################################
 

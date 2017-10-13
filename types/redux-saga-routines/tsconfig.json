@@ -4,9 +4,10 @@
         "lib": [
             "es6"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "mqtt-tests.ts"
+        "redux-saga-routines-tests.tsx"
     ]
 }
