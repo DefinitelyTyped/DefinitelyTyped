@@ -1,6 +1,9 @@
 // Type definitions for stripe-node 4.7.0
 // Project: https://github.com/stripe/stripe-node/
-// Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal>, Sampson Oliver <https://github.com/sampsonjoliver> 
+// Definitions by: William Johnston <https://github.com/wjohnsto>
+//                 Peter Harris <https://github.com/codeanimal>
+//                 Sampson Oliver <https://github.com/sampsonjoliver>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -72,7 +75,7 @@ declare namespace StripeNode {
         products: resources.Products;
         skus: resources.SKUs;
         webhooks: resources.WebHooks;
-        
+
         setHost(host: string): void;
         setHost(host: string, port: string|number): void;
         setHost(host: string, port: string|number, protocol: string): void;
@@ -4238,6 +4241,11 @@ declare namespace StripeNode {
 
         interface ISubscriptionListOptions extends IListOptionsCreated {
             /**
+             * The billing mode of the subscriptions to retrieve.
+             */
+            billing?: "charge_automatically" | "send_invoice";
+
+            /**
              * The ID of the customer whose subscriptions will be retrieved
              */
             customer?: string;
@@ -6293,7 +6301,7 @@ declare namespace StripeNode {
             del(skuId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
             del(skuId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
         }
-    
+
         class WebHooks {
             constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
         }
