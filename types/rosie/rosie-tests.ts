@@ -65,6 +65,18 @@ personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstN
 const personObj = Factory.build<Person>('Person');
 if (personObj.firstName !== 'John') { throw new Error('incorrect Person build'); }
 
+class CustomClass {
+  type: string;
+
+  constructor(props: { type: string }) {
+    this.type = props.type;
+  }
+}
+
+const customTestFactory = Factory.define<CustomClass>('test', CustomClass);
+const output = customTestFactory.build({ type: 'foo' });
+if (output.type !== 'foo') { throw new Error('constructor did not receive args'); }
+
 import rosie = require('rosie');
 
 var Factory = rosie.Factory;
