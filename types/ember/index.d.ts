@@ -1214,24 +1214,8 @@ declare module 'ember' {
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce(
-                callbackfn: (
-                    previousValue: T,
-                    currentValue: T,
-                    currentIndex: number,
-                    array: T[]
-                ) => T,
-                initialValue?: T
-            ): T;
-            reduce<U>(
-                callbackfn: (
-                    previousValue: U,
-                    currentValue: T,
-                    currentIndex: number,
-                    array: T[]
-                ) => U,
-                initialValue: U
-            ): U;
+            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
             /**
              * Invokes the named method on every object in the receiver that
              * implements it. This method corresponds to the implementation in
@@ -1627,6 +1611,11 @@ declare module 'ember' {
              * __Required.__ You must implement this method to apply this mixin.
              */
             length: number;
+
+            // NOTE: some array polyfill methods are re-declared here because their signatures
+            // differ between typescript versions 2.4 and 2.6. Since we need to compile against
+            // both, pick the more recent signature and re-declare it here as a tie-breaker.
+
             /**
              * Returns the first item in the array for which the callback returns true.
              * This method works similar to the `filter()` method defined in JavaScript 1.6
@@ -1636,6 +1625,13 @@ declare module 'ember' {
                 predicate: (value: T, index: number, obj: T[]) => boolean,
                 thisArg?: any
             ): T | undefined;
+            /**
+             * This will combine the values of the enumerator into a single value. It
+             * is a useful way to collect a summary value from an enumeration. This
+             * corresponds to the `reduce()` method defined in JavaScript 1.8.
+             */
+            reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+            reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
         }
         const NativeArray: Mixin<NativeArray<any>>;
         /**
