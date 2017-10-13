@@ -20,7 +20,7 @@
     "files": [
         "cleave.js-tests.tsx",
         "index.d.ts",
-        "options.ts",
+        "options.d.ts",
         "react/index.d.ts"
     ]
 }
