@@ -46,7 +46,7 @@ export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObje
 export interface ExtendedFeature<GeometryType extends GeoGeometryObjects, Properties> extends GeoJSON.GeoJsonObject {
     geometry: GeometryType;
     properties: Properties;
-    id?: string;
+    id?: string | number;
 }
 
 /**

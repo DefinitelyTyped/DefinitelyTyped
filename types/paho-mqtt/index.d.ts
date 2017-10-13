@@ -2,6 +2,9 @@
 // Project: https://github.com/eclipse/paho.mqtt.javascript#readme
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+/// <reference path="module.d.ts"/>
 
 declare namespace Paho {
     /**
@@ -388,6 +391,17 @@ declare namespace Paho {
             unsubscribe(filter: string, unsubcribeOptions?: UnsubscribeOptions): void;
         }
 
+        type TypedArray =
+            | Int8Array
+            | Uint8Array
+            | Uint8ClampedArray
+            | Int16Array
+            | Uint16Array
+            | Int32Array
+            | Uint32Array
+            | Float32Array
+            | Float64Array;
+
         /**
          * An application message, sent or received.
          */
@@ -405,8 +419,10 @@ declare namespace Paho {
              */
             readonly duplicate: boolean;
 
-            /** <i>read only</i> The payload as an ArrayBuffer. */
-            readonly payloadBytes: ArrayBuffer;
+            /** <i>read only</i> The payload.
+             * @return Uint8Array if payload is a string. Return the original otherwise.
+             */
+            readonly payloadBytes: ArrayBuffer | TypedArray;
 
             /**
              *  <i>read only</i> The payload as a string if the payload consists of valid UTF-8 characters.
@@ -424,7 +440,7 @@ declare namespace Paho {
              *
              * @default 0
              */
-            qos: number;
+            qos: Qos;
 
             /**
              * If true, the message is to be retained by the server and delivered to both current and future
@@ -439,7 +455,7 @@ declare namespace Paho {
             /**
              * @param {String|ArrayBuffer} payload The message data to be sent.
              */
-            constructor(payload: string | ArrayBuffer);
+            constructor(payload: string | ArrayBuffer | TypedArray);
         }
     }
 }
