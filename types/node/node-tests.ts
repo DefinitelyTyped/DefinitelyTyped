@@ -2929,6 +2929,25 @@ namespace async_hooks_tests {
 
     const tId: number = async_hooks.triggerAsyncId();
     const eId: number = async_hooks.executionAsyncId();
+
+    class TestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE');
+        }
+    }
+
+    class AnotherTestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE', 42);
+        }
+        run() {
+            this.emitBefore();
+            this.emitAfter();
+        }
+        destroy() {
+            this.emitDestroy();
+        }
+    }
 }
 
 ////////////////////////////////////////////////////

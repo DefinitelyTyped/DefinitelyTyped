@@ -5917,6 +5917,46 @@ declare module "async_hooks" {
      * @return an AsyncHooks instance used for disabling and enabling hooks
      */
     export function createHook(options: HookCallbacks): AsyncHook;
+
+    /**
+     * The class AsyncResource was designed to be extended by the embedder's async resources.
+     * Using this users can easily trigger the lifetime events of their own resources.
+     */
+    export class AsyncResource {
+        /**
+         * AsyncResource() is meant to be extended. Instantiating a
+         * new AsyncResource() also triggers init. If triggerAsyncId is omitted then
+         * async_hook.executionAsyncId() is used.
+         * @param type the name of this async resource type
+         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
+         */
+        constructor(type: string, triggerAsyncId?: number)
+
+        /**
+         * Call AsyncHooks before callbacks.
+         */
+        emitBefore(): void;
+
+        /**
+         * Call AsyncHooks after callbacks
+         */
+        emitAfter(): void;
+
+        /**
+         * Call AsyncHooks destroy callbacks.
+         */
+        emitDestroy(): void;
+
+        /**
+         * Return the unique ID assigned to the AsyncResource instance.
+         */
+        asyncId(): number;
+
+        /**
+         * Return the trigger ID for the AsyncResource instance.
+         */
+        triggerAsyncId(): number;
+    }
 }
 
 declare module "http2" {
