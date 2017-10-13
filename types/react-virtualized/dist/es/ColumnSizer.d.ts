@@ -38,7 +38,7 @@ export type ColumnSizerProps = {
 /**
  * High-order component that auto-calculates column-widths for `Grid` cells.
  */
-export class ColumnSizer extends PureComponent<ColumnSizerProps> {
+export class ColumnSizer extends PureComponent<ColumnSizerProps, any> {
     static propTypes: {
         children: Validator<(props: SizedColumnProps) => React.ReactNode>,
         columnMaxWidth: Requireable<number>,

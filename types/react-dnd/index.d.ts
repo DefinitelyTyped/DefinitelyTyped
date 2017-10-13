@@ -1,6 +1,7 @@
-// Type definitions for React DnD v2.0.2
+// Type definitions for React DnD v2.0.3
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Asana <https://asana.com>
+//                 Deni Putra <https://github.com/pesakitan22>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -57,7 +58,7 @@ declare module __ReactDnd {
         window?: Window,
     }
 
-    export class DragDropContextProvider extends React.Component<DragDropContextProviderProps> {
+    export class DragDropContextProvider extends React.Component<DragDropContextProviderProps, any> {
     }
 
     export function DragLayer<P>(
@@ -88,8 +89,8 @@ declare module __ReactDnd {
     // ----------------------------------------------------------------------
 
     interface DragSourceSpec<P> {
-        beginDrag(props: P, monitor?: DragSourceMonitor, component?: React.Component<P>): Object;
-        endDrag?(props: P, monitor?: DragSourceMonitor, component?: React.Component<P>): void;
+        beginDrag(props: P, monitor?: DragSourceMonitor, component?: React.Component<P, any>): Object;
+        endDrag?(props: P, monitor?: DragSourceMonitor, component?: React.Component<P, any>): void;
         canDrag?(props: P, monitor?: DragSourceMonitor): boolean;
         isDragging?(props: P, monitor?: DragSourceMonitor): boolean;
     }
@@ -134,8 +135,8 @@ declare module __ReactDnd {
     // ----------------------------------------------------------------------
 
     interface DropTargetSpec<P> {
-        drop?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P>): Object|void;
-        hover?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P>): void;
+        drop?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P, any>): Object|void;
+        hover?(props: P, monitor?: DropTargetMonitor, component?: React.Component<P, any>): void;
         canDrop?(props: P, monitor?: DropTargetMonitor): boolean;
     }
 
