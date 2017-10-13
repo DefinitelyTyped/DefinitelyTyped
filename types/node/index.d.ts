@@ -5948,12 +5948,12 @@ declare module "async_hooks" {
         emitDestroy(): void;
 
         /**
-         * Return the unique ID assigned to the AsyncResource instance.
+         * @return the unique ID assigned to this AsyncResource instance.
          */
         asyncId(): number;
 
         /**
-         * Return the trigger ID for the AsyncResource instance.
+         * @return the trigger ID for this AsyncResource instance.
          */
         triggerAsyncId(): number;
     }
