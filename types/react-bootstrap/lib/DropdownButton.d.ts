@@ -10,10 +10,11 @@ declare namespace DropdownButton {
         navItem?: boolean;
         noCaret?: boolean;
         pullRight?: boolean;
+        title?: JSX.Element | string;
     }
 
-    export type DropdownButtonProps = DropdownButtonBaseProps & React.HTMLProps<DropdownButton>;
+    export type DropdownButtonProps = DropdownButtonBaseProps | React.HTMLProps<DropdownButton>;
 
 }
-declare class DropdownButton extends React.Component<DropdownButton.DropdownButtonProps> { }
+declare class DropdownButton extends React.Component<DropdownButton.DropdownButtonProps, any> { }
 export = DropdownButton;
