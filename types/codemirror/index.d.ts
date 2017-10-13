@@ -1239,14 +1239,14 @@ declare namespace CodeMirror {
            * Left side of the merge view.
            */
           left: DiffView;
-          leftChunks(): MergeViewDiffChunk;
+          leftChunks(): MergeViewDiffChunk[];
           leftOriginal(): Editor;
 
           /**
            * Right side of the merge view.
            */
           right: DiffView;
-          rightChunks(): MergeViewDiffChunk;
+          rightChunks(): MergeViewDiffChunk[];
           rightOriginal(): Editor;
 
           /**
