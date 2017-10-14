@@ -233,6 +233,10 @@ export interface FrameBase {
     selector: string,
     fn: (...args: Array<Serializable | ElementHandle>) => void
   ): Promise<Serializable>;
+  $$eval(
+    selector: string,
+    fn: (...args: Array<Serializable | ElementHandle>) => void
+  ): Promise<Serializable>;
   addScriptTag(url: string): Promise<void>;
   injectFile(filePath: string): Promise<void>;
   evaluate<T = string>(
