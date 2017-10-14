@@ -24,6 +24,20 @@ var knex = Knex({
 
 var knex = Knex({
   debug: true,
+  client: 'pg',
+  version: '9.5',
+  connection: {
+    user    : 'your_database_user',
+    password: 'your_database_password',
+    server  : 'your_database_server',
+    options : {
+      database: 'myapp_test'
+    }
+  }
+});
+
+var knex = Knex({
+  debug: true,
   client: 'mssql',
   connection: {
     user    : 'your_database_user',

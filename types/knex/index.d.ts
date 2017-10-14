@@ -488,6 +488,7 @@ declare namespace Knex {
         debug?: boolean;
         client?: string;
         dialect?: string;
+        version?: string;
         connection?: string | ConnectionConfig | MariaSqlConnectionConfig |
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
