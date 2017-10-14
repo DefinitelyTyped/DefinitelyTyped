@@ -3,7 +3,7 @@ import * as cors from 'koa2-cors';
 
 const app = new Koa();
 app.use(cors({
-    origin: function (ctx: Koa.Context) {
+    origin(ctx: Koa.Context) {
         if (ctx.url === '/test') {
             return false;
         }

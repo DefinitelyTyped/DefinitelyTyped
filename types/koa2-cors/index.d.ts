@@ -2,12 +2,12 @@
 // Project: https://github.com/zadzbw/koa2-cors#readme
 // Definitions by: xialeistudio <https://github.com/xialeistudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as Koa from 'koa';
-
 declare namespace cors {
     interface Options {
-        origin?: string | boolean | Function;
+        origin?: any;
         exposeHeaders?: string[];
         maxAge?: number;
         credentials?: boolean;
