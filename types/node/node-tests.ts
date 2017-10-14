@@ -1405,14 +1405,17 @@ namespace dgram_tests {
     }
 
     {
-        var ds: dgram.Socket = dgram.createSocket({
+        let ds: dgram.Socket = dgram.createSocket({
             type: 'udp4',
             recvBufferSize: 10000,
             sendBufferSize: 15000
         });
 
-        console.log(ds.getRecvBufferSize());
-        console.log(ds.getSendBufferSize());
+        let size: number;
+        size = ds.getRecvBufferSize();
+        ds.setRecvBufferSize(size);
+        size = ds.getSendBufferSize();
+        ds.setSendBufferSize(size);
     }
 }
 
