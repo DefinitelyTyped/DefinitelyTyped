@@ -1,3 +1,3 @@
-import * as keypair from "keypair";
+import { keypair, KeypairResults } from "keypair";
 
-keypair(); // $ExpectType keypair.Results
+keypair(); // $ExpectType KeypairResults
