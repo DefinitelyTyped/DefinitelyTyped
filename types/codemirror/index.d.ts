@@ -281,7 +281,7 @@ declare namespace CodeMirror {
         /** Returns the position and dimensions of an arbitrary character.pos should be a { line , ch } object.
         This differs from cursorCoords in that it'll give the size of the whole character,
         rather than just the position that the cursor would have when it would sit at that position. */
-        charCoords(pos: CodeMirror.Position, mode: string): { left: number; right: number; top: number; bottom: number; };
+        charCoords(pos: CodeMirror.Position, mode?: string): { left: number; right: number; top: number; bottom: number; };
 
         /** Given an { left , top } object , returns the { line , ch } position that corresponds to it.
         The optional mode parameter determines relative to what the coordinates are interpreted. It may be "window" , "page"(the default) , or "local". */
@@ -304,7 +304,7 @@ declare namespace CodeMirror {
         refresh(): void;
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
-        getTokenAt(pos: CodeMirror.Position): Token;
+        getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
