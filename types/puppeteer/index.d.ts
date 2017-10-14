@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 0.10
+// Type definitions for puppeteer 0.12
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,6 +49,7 @@ export type PageEvents =
   | "framedetached"
   | "framenavigated"
   | "load"
+  | "metrics"
   | "pageerror"
   | "request"
   | "requestfailed"
@@ -118,7 +119,8 @@ export type PDFFormat =
   | "A2"
   | "A3"
   | "A4"
-  | "A5";
+  | "A5"
+  | "A6";
 
 export interface PDFOptions {
   /** If no path is provided, the PDF won't be saved to the disk. */
@@ -143,18 +145,20 @@ export interface PDFOptions {
   };
 }
 
+export interface Box {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export interface ScreenshotOptions {
   path?: string;
   type?: "jpeg" | "png";
   /** The quality of the image, between 0-100. Not applicable to png images. */
   quality?: number;
   fullPage?: boolean;
-  clip?: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  };
+  clip?: Box;
   omitBackground?: boolean;
 }
 
@@ -163,11 +167,28 @@ export interface PageFnOptions {
   timeout?: number;
 }
 
-export interface ElementHandle {
+export class JSHandle {
+  asElement(): ElementHandle | null;
+  dispose(): Promise<void>;
+  executionContext(): ExecutionContext;
+  getProperties(): Promise<Map<string, JSHandle>>;
+  getProperty(name: string): Promise<JSHandle>;
+  jsonValue(): Promise<object>;
+}
+
+export interface ElementHandle extends JSHandle {
+  boundingBox(): Box;
   click(options?: ClickOptions): Promise<void>;
   dispose(): Promise<void>;
+  focus(): Promise<void>;
+  press(
+    key: string,
+    options?: { text?: string; delay?: number }
+  ): Promise<void>;
   hover(): Promise<void>;
   tap(): Promise<void>;
+  toString(): string;
+  type(text: string, options?: { delay?: number }): Promise<void>;
   uploadFile(...filePaths: string[]): Promise<void>;
 }
 
@@ -226,6 +247,14 @@ export interface Response {
 
 export type Serializable = boolean | number | string | object;
 
+export class ExecutionContext {
+  // tslint:disable-next-line ban-types
+  evaluate(fn: string | Function, ...args: any[]): Promise<any>;
+  // tslint:disable-next-line ban-types
+  evaluateHandle(fn: string | Function, ...args: any[]): Promise<JSHandle>;
+  queryObjects(prototypeHandle: JSHandle): JSHandle;
+}
+
 export interface FrameBase {
   $(selector: string): Promise<ElementHandle>;
   $$(selector: string): Promise<ElementHandle[]>;
@@ -237,8 +266,11 @@ export interface FrameBase {
     selector: string,
     fn: (...args: Array<Serializable | ElementHandle>) => void
   ): Promise<Serializable>;
-  addScriptTag(url: string): Promise<void>;
-  injectFile(filePath: string): Promise<void>;
+  addScriptTag(options: {
+    url: string;
+    path: string;
+    content: string;
+  }): Promise<void>;
   evaluate<T = string>(
     fn: T | EvaluateFn<T>,
     ...args: Array<object | ElementHandle>
@@ -261,12 +293,13 @@ export interface FrameBase {
   waitForNavigation(options?: NavigationOptions): Promise<Response>;
   waitForSelector(
     selector: string,
-    options?: { visible: boolean; timeout: number }
+    options?: { visible?: boolean; timeout?: number; hidden?: boolean }
   ): Promise<void>;
 }
 
 export interface Frame extends FrameBase {
   childFrames(): Frame[];
+  executionContext(): ExecutionContext;
   isDetached(): boolean;
   name(): string;
   parentFrame(): Frame | undefined;
@@ -280,11 +313,28 @@ export interface EventObj {
   framedetached: Frame;
   framenavigated: Frame;
   load: undefined;
+  metrics: { title: string; metrics: Metrics };
   pageerror: string;
   request: Request;
   requestfailed: Request;
   requestfinished: Request;
   response: Response;
+}
+
+export interface Metrics {
+  Timestamp: number;
+  Documents: number;
+  Frames: number;
+  JSEventListeners: number;
+  Nodes: number;
+  LayoutCount: number;
+  RecalcStyleCount: number;
+  LayoutDuration: number;
+  RecalcStyleDuration: number;
+  ScriptDuration: number;
+  TaskDuration: number;
+  JSHeapUsedSize: number;
+  JSHeapTotalSize: number;
 }
 
 export interface Page extends FrameBase {
@@ -319,6 +369,7 @@ export interface Page extends FrameBase {
 
   focus(selector: string): Promise<void>;
   frames(): Frame[];
+  getMetrics(): Metrics;
   goBack(options?: Partial<NavigationOptions>): Promise<Response>;
   goForward(options?: Partial<NavigationOptions>): Promise<Response>;
   goto(url: string, options?: Partial<NavigationOptions>): Promise<Response>;
@@ -329,12 +380,14 @@ export interface Page extends FrameBase {
   pdf(options?: Partial<PDFOptions>): Promise<Buffer>;
   plainText(): Promise<string>;
   press(key: string, options?: { text: string; delay: number }): Promise<void>;
+  queryObjects(prototypeHandle: JSHandle): JSHandle;
   reload(options?: NavigationOptions): Promise<Response>;
   screenshot(options?: ScreenshotOptions): Promise<Buffer>;
   setContent(html: string): Promise<void>;
   setCookie(...cookies: Cookie[]): Promise<void>;
   setExtraHTTPHeaders(headers: Headers): Promise<void>;
   setJavaScriptEnabled(enabled: boolean): Promise<void>;
+  setOfflineMode(enabled: boolean): Promise<void>;
   setRequestInterceptionEnabled(value: boolean): Promise<void>;
   setUserAgent(userAgent: string): Promise<void>;
   setViewport(viewport: Viewport): Promise<void>;
@@ -357,6 +410,8 @@ export interface LaunchOptions {
   ignoreHTTPSErrors?: boolean;
   /** Whether to run Chromium in headless mode. Defaults to true. */
   headless?: boolean;
+  devtools?: boolean;
+  env?: Record<string, any>;
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
