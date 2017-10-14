@@ -238,6 +238,20 @@ export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TPro
     tls?: tls.TlsOptions;
 }
 
+export interface RequestOptions {
+    protocol?: string;
+    host?: string;
+    hostname?: string;
+    family?: number;
+    port?: number;
+    localAddress?: string;
+    socketPath?: string;
+    method?: string;
+    path?: string;
+    headers?: HttpHeaders;
+    auth?: string;
+}
+
 export interface ConnectOptions {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
@@ -249,7 +263,7 @@ export interface ConnectOptions {
     retry_max_delay?: number;
     connect_timeout?: number;
     timeout?: number;
-    nodeOptions?: http.ClientRequestArgs;
+    nodeOptions?: RequestOptions;
 }
 
 export interface WSConnectOptions {
