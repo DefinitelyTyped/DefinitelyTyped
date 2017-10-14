@@ -1,3 +1,7 @@
+// Type definitions for keypair 1.0.1
+// Project: https://www.npmjs.com/package/keypair
+// Definitions by: eskelter <https://github.com/eskelter>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace keypair {
     export interface Options {
         bits?: number,

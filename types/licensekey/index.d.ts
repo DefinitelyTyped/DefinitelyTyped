@@ -1,3 +1,7 @@
+// Type definitions for licensekey 2.0.11
+// Project: https://www.npmjs.com/package/licensekey
+// Definitions by: eskelter <https://github.com/eskelter>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module licensekey {
     
     export interface LicenseResult {
