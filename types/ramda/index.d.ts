@@ -10,6 +10,7 @@
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 //                 Charles-Philippe Clermont <https://github.com/charlespwd>
+//                 Samson Keung <https://github.com/samsonkeung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1638,8 +1639,10 @@ declare namespace R {
         /**
          * Checks if a list starts with the provided values
          */
-        startsWith(a: any, list: any): boolean;
-        startsWith(a: any): (list: any) => boolean;
+        startsWith(a: string, list: string): boolean;
+        startsWith(a: string): (list: string) => boolean;
+        startsWith<T>(a: T | T[], list: T[]): boolean;
+        startsWith<T>(a: T | T[]): (list: T[]) => boolean;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
