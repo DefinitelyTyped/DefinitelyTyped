@@ -586,3 +586,5 @@ declare namespace openpgp.util {
 
 
 }
+
+export = openpgp;
