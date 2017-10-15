@@ -944,7 +944,7 @@ declare namespace mapboxgl {
 		"fill-antialias"?: boolean;
 		"fill-opacity"?: number | StyleFunction;
 		"fill-color"?: string | StyleFunction;
-		"fill-outline-color": string | StyleFunction;
+		"fill-outline-color"?: string | StyleFunction;
 		"fill-translate"?: number[];
 		"fill-translate-anchor"?: "map" | "viewport";
 		"fill-pattern"?: "string";
