@@ -6,37 +6,54 @@ TypeScript type definitions for the [Atom Text Editor](https://atom.io/) public 
 
 #### The "atom" Variable
 
-These definitions declare a global static variable named "atom" as ambient. Once these definitions have been referenced within your project, you will be able to access properties and member functions from the [AtomEnvironment](https://atom.io/docs/api/v1.21.0/AtomEnvironment) class off of this variable, as it is an instance of that class.
+These definitions declare a global static variable named "atom" as ambient. This variable is an instance of the [AtomEnvironment](https://atom.io/docs/api/v1.21.0/AtomEnvironment) class.
 
 ```ts
 if (atom.inDevMode()) {}
 ```
 
-#### The Atom Namespace
+#### The "atom" Module
 
-All of the types used by or referenced by the Atom public API have been pulled into the Atom namespace, providing a consistent and easy way to access each of them, without having to care about where that type actually lives within the Atom codebase.
+The following classes are exported within this module:
+- [BufferedNodeProcess](https://atom.io/docs/api/v1.21.0/BufferedNodeProcess)
+- [BufferedProcess](https://atom.io/docs/api/v1.21.0/BufferedProcess)
+- [CompositeDisposable](https://atom.io/docs/api/v1.21.0/CompositeDisposable)
+- [Directory](https://atom.io/docs/api/v1.21.0/Directory)
+- [Disposable](https://atom.io/docs/api/v1.21.0/Disposable)
+- [Emitter](https://atom.io/docs/api/v1.21.0/Emitter)
+- [File](https://atom.io/docs/api/v1.21.0/File)
+- [GitRepository](https://atom.io/docs/api/v1.21.0/GitRepository)
+- [Notification](https://atom.io/docs/api/v1.21.0/Notification)
+- [Point](https://atom.io/docs/api/v1.21.0/Point)
+- [Range](https://atom.io/docs/api/v1.21.0/Range)
+- [Task](https://atom.io/docs/api/v1.21.0/Task)
+- [TextBuffer](https://atom.io/docs/api/v1.21.0/TextBuffer)
+- [TextEditor](https://atom.io/docs/api/v1.21.0/TextEditor)
 
+An example as to how you would use one of these classes in your own code:
 ```ts
-function example(buffer: Atom.TextBuffer) {}
+import { CompositeDisposable } from "atom";
+var subscriptions = new CompositeDisposable;
 ```
 
-#### The AtomCore Namespace
-
-All classes which are core to Atom itself have been provided under the AtomCore namespace.
-
-```ts
-function example(cursor: AtomCore.Cursor) {}
-```
+All other types exported within the ```atom``` module are interfaces, which represent the types referenced and used within the public API that are not directly exported by Atom itself and are thus not constructible.
 
 ### Service Type Definitions
 
-There are many services provided by other Atom packages that you may want to use within your own Atom package. We bundle type definitions for several of these services with these type definitions.
+Our goal is to eventually provide type definitions for Atom packages providing services for use within other Atom packages, though this is currently experimental and prone to change.
+
+The following services are currently supported:
+- [autocomplete-plus](https://atom.io/packages/autocomplete-plus)
+- [status-bar](https://atom.io/packages/status-bar)
+
+A usage example for ```status-bar``` would be:
 
 ```ts
-/// <reference types="atom/services" />
-let completionProvider: Atom.Services.Autocomplete.Provider;
+import { StatusBar } from "atom/status-bar";
+
+export function consumeStatusBar(statusBar: StatusBar) {
+    let tile = statusBar.addLeftTile(item: myElement, priority: 100);
+}
 ```
 
-The currently supported services are:
-- [Autocomplete](https://github.com/atom/autocomplete-plus)
-- [Status Bar](https://github.com/atom/status-bar)
+All types provided by service definitions are interfaces, with the import being elided by TypeScript.
