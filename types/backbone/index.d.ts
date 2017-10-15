@@ -69,7 +69,13 @@ declare namespace Backbone {
     interface ModelDestroyOptions extends Waitable, PersistenceOptions {
     }
 
-    interface CollectionFetchOptions extends PersistenceOptions, Parseable {
+    interface CollectionSetOptions extends Silenceable {
+        add?: boolean,
+        remove?: boolean,
+        merge?: boolean
+    }
+
+    interface CollectionFetchOptions extends CollectionSetOptions, PersistenceOptions, Parseable {
         reset?: boolean;
     }
 
@@ -101,20 +107,19 @@ declare namespace Backbone {
 
     class ModelBase extends Events {
         url: any;
-        parse(response: any, options?: any): any;
         toJSON(options?: any): any;
         sync(...arg: any[]): JQueryXHR;
     }
 
-    class Model extends ModelBase {
+    class Model<TAttributes extends {}> extends ModelBase {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
         **/
         public static extend(properties: any, classProperties?: any): any;
 
-        attributes: any;
-        changed: any[];
+        attributes: Partial<TAttributes>;
+        changed: (keyof TAttributes)[];
         cidPrefix: string;
         cid: string;
         collection: Collection<any>;
@@ -129,35 +134,23 @@ declare namespace Backbone {
         * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
         * That works only if you set it in the constructor or the initialize method.
         **/
-        defaults(): ObjectHash;
+        defaults(): Partial<TAttributes>;
         id: any;
-        idAttribute: string;
+        idAttribute: keyof TAttributes;
         validationError: any;
         urlRoot: any;
 
-        constructor(attributes?: any, options?: any);
-        initialize(attributes?: any, options?: any): void;
+        constructor(attributes?: Partial<TAttributes>, options?: any);
+        initialize(attributes?: Partial<TAttributes>, options?: any): void;
 
         fetch(options?: ModelFetchOptions): JQueryXHR;
+        parse(response: any, options?: any): Partial<TAttributes>;
 
-        /**
-        * For strongly-typed access to attributes, use the `get` method only privately in public getter properties.
-        * @example
-        * get name(): string {
-        *    return super.get("name");
-        * }
-        **/
-        /*private*/ get(attributeName: string): any;
+        get<K extends keyof TAttributes>(attributeName: K): TAttributes[K];
 
-        /**
-        * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
-        * @example
-        * set name(value: string) {
-        *    super.set("name", value);
-        * }
-        **/
-        /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
-        set(obj: any, options?: ModelSetOptions): Model;
+        // TODO: this still doesn't type check!!!
+        set<K extends keyof TAttributes>(attributeName: K, value: TAttributes[K], options?: ModelSetOptions): Model<TAttributes>;
+        set(obj: Partial<TAttributes>, options?: ModelSetOptions): Model<TAttributes>;
 
         /**
          * Return an object containing all the attributes that have changed, or
@@ -166,20 +159,20 @@ declare namespace Backbone {
          * persisted to the server. Unset attributes will be set to undefined.
          * You can also pass an attributes object to diff against the model,
          * determining if there *would be* a change. */
-        changedAttributes(attributes?: any): any;
+        changedAttributes(attributes?: Partial<TAttributes>): Partial<TAttributes> | false;
         clear(options?: Silenceable): any;
-        clone(): Model;
+        clone(): Model<TAttributes>;
         destroy(options?: ModelDestroyOptions): any;
         escape(attribute: string): string;
-        has(attribute: string): boolean;
-        hasChanged(attribute?: string): boolean;
+        has<K extends keyof TAttributes>(attribute: K): boolean;
+        hasChanged<K extends keyof TAttributes>(attribute?: K): boolean;
         isNew(): boolean;
         isValid(options?:any): boolean;
-        previous(attribute: string): any;
+        previous<K extends keyof TAttributes>(attribute: K): any;
         previousAttributes(): any[];
-        save(attributes?: any, options?: ModelSaveOptions): any;
-        unset(attribute: string, options?: Silenceable): Model;
-        validate(attributes: any, options?: any): any;
+        save(attributes?: Partial<TAttributes>, options?: ModelSaveOptions): any;
+        unset<K extends keyof TAttributes>(attribute: K, options?: Silenceable): Model<TAttributes>;
+        validate(attributes: Partial<TAttributes>, options?: any): any;
 
         private _validate(attributes: any, options: any): boolean;
 
@@ -189,8 +182,8 @@ declare namespace Backbone {
         values(): any[];
         pairs(): any[];
         invert(): any;
-        pick(keys: string[]): any;
-        pick(...keys: string[]): any;
+        pick<K extends keyof TAttributes>(keys: K[]): any;
+        pick<K extends keyof TAttributes>(...keys: K[]): any;
         pick(fn: (value: any, key: any, object: any) => any): any;
         omit(keys: string[]): any;
         omit(...keys: string[]): any;
@@ -200,7 +193,7 @@ declare namespace Backbone {
         matches(attrs: any): boolean;
     }
 
-    class Collection<TModel extends Model> extends ModelBase {
+    class Collection<TModel extends Model<any>> extends ModelBase {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -211,10 +204,11 @@ declare namespace Backbone {
         models: TModel[];
         length: number;
 
-        constructor(models?: TModel[] | Object[], options?: any);
-        initialize(models?: TModel[] | Object[], options?: any): void;
+        constructor(models?: TModel[], options?: any);
+        initialize(models?: TModel[], options?: any): void;
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
+        parse(response: any, options?: any): any;
 
         /**
          * Specify a model attribute name (string) or function that will be used to sort the collection.
@@ -227,8 +221,8 @@ declare namespace Backbone {
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
          **/
-        get(id: number|string|Model): TModel;
-        has(key: number|string|Model): boolean;
+        get(id: number|string|Model<any>): TModel;
+        has(key: number|string|Model<any>): boolean;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -236,7 +230,7 @@ declare namespace Backbone {
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
-        set(models?: TModel[], options?: Silenceable): TModel[];
+        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
@@ -247,7 +241,7 @@ declare namespace Backbone {
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
         private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
-        private _isModel(obj: any) : obj is Model;
+        private _isModel(obj: any) : obj is Model<any>;
 
         /**
          * Return a shallow copy of this collection's models, using the same options as native Array#slice.
@@ -371,7 +365,7 @@ declare namespace Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-   interface ViewOptions<TModel extends Model> {
+   interface ViewOptions<TModel extends Model<any>> {
       model?: TModel;
        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
       collection?: Backbone.Collection<any>; //was: Collection<TModel>;
@@ -383,7 +377,7 @@ declare namespace Backbone {
       attributes?: {[id: string]: any};
     }
 
-    class View<TModel extends Model> extends Events {
+    class View<TModel extends Model<any>> extends Events {
 
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -402,7 +396,16 @@ declare namespace Backbone {
 
         $(selector: string): JQuery;
         model: TModel;
-        collection: Collection<TModel>;
+
+        // The TS definition is a bit tricky to get right.
+        // you must define the collection type manually if
+        // You don't want the Backbone.Collection<any>.
+        // Like this:
+        // class MyView extends Backbone.View<MyModel> {
+        // 	collection: MyCollection; // This class extends Backbone.Collection<MyModel>
+        // }
+        collection: Collection<Model<any>>;
+
         //template: (json, options?) => string;
         setElement(element: HTMLElement|JQuery, delegate?: boolean): View<TModel>;
         id: string;
@@ -426,7 +429,7 @@ declare namespace Backbone {
     }
 
     // SYNC
-    function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
+    function sync(method: string, model: Model<any>, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSON: boolean;
