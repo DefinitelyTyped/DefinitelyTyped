@@ -1890,7 +1890,6 @@ class Rectangle {
     R.startsWith(1)([1, 2, 3]);   // => true
     R.startsWith([1], [1, 2, 3]);   // => true
     R.startsWith([1])([1, 2, 3]);   // => true
-
 };
 
 () => {
