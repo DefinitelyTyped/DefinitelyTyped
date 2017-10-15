@@ -430,6 +430,9 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
+        /**
+         * A reference to the element on which the event listener is registered.
+         */
         currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
@@ -442,6 +445,12 @@ declare namespace React {
         isPropagationStopped(): boolean;
         persist(): void;
         // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+        /**
+         * A reference to the element from which the event was originally dispatched.
+         * This might be a child element to the element on which the event listener is registered.
+         *
+         * @see currentTarget
+         */
         target: EventTarget;
         timeStamp: number;
         type: string;
@@ -483,7 +492,13 @@ declare namespace React {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
+        /**
+         * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
+         */
         key: string;
         keyCode: number;
         locale: string;
@@ -502,6 +517,9 @@ declare namespace React {
         clientX: number;
         clientY: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeMouseEvent;
@@ -517,6 +535,9 @@ declare namespace React {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeTouchEvent;
