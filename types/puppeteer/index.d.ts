@@ -238,7 +238,7 @@ export interface FrameBase {
     ...args: Array<object | ElementHandle>
   ): Promise<T>;
   title(): Promise<string>;
-  url(): Promise<string>;
+  url(): string;
   waitFor(
     // fn can be an abritary function
     // tslint:disable-next-line ban-types
