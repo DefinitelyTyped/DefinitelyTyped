@@ -958,9 +958,9 @@ declare namespace mapboxgl {
 		"fill-extrusion-color"?: string | StyleFunction;
 		"fill-extrusion-translate"?: number[];
 		"fill-extrusion-translate-anchor"?: "map" | "viewport";
-		"fill-extrusion-pattern": string;
+		"fill-extrusion-pattern"?: string;
 		"fill-extrusion-height"?: number | StyleFunction;
-		"fill-extrusion-base"?: number;
+		"fill-extrusion-base"?: number | StyleFunction;
 	}
 
 	export interface LineLayout {
