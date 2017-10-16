@@ -1,21 +1,20 @@
-
 import redis = require('redis');
 
-var value: any;
-var valueArr: any[];
-var commandArr: any[][];
-var num: number;
-var str: string;
-var bool: boolean;
-var err: Error;
-var args: any[];
-var options: redis.ClientOpts;
-var client: redis.RedisClient;
-var info: redis.ServerInfo;
-var resCallback: (err: Error, res: any) => void;
-var numCallback: (err: Error, res: number) => void;
-var strCallback: (err: Error, res: string) => void;
-var messageHandler: (channel: string, message: any) => void;
+let value: any;
+let valueArr: any[];
+let commandArr: any[][];
+let num: number;
+let str: string;
+let bool: boolean;
+let err: Error;
+let args: any[];
+let options: redis.ClientOpts;
+let client: redis.RedisClient;
+let info: redis.ServerInfo;
+let resCallback: (err: Error, res: any) => void;
+let numCallback: (err: Error, res: number) => void;
+let strCallback: (err: Error, res: string) => void;
+let messageHandler: (channel: string, message: any) => void;
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -31,10 +30,10 @@ client = redis.createClient(num, str, options);
 function retryStrategyNumber(options: redis.RetryStrategyOptions): number {
   // Ensure that the properties of RetryStrategyOptions are resilient to breaking change.
   // If the properties of the interface changes, the variables below will also need to be adapted.
-  var error: Error = options.error;
-  var total_retry_time: number = options.total_retry_time;
-  var times_connected: number = options.times_connected;
-  var attempt: number = options.attempt;
+  const error: Error = options.error;
+  const total_retry_time: number = options.total_retry_time;
+  const times_connected: number = options.times_connected;
+  const attempt: number = options.attempt;
   return 5000;
 }
 function retryStrategyError(options: redis.RetryStrategyOptions): Error {
