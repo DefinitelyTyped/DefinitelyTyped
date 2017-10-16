@@ -270,7 +270,7 @@ declare namespace Backbone {
         /**
          * Return a shallow copy of this collection's models, using the same options as native Array#slice.
          */
-        slice(min: number, max?: number): TModel[];
+        slice(min?: number, max?: number): TModel[];
 
         // mixins from underscore
 
