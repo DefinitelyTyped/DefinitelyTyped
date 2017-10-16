@@ -54,10 +54,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
-  catch(onReject?: (error: any) => R | PromiseLike<R> | void | PromiseLike<void>): Bluebird<R>;
-  caught(onReject?: (error: any) => R | PromiseLike<R> | void | PromiseLike<void>): Bluebird<R>;
+  catch(onReject?: (error: any) => R | PromiseLike<R | void> | void): Bluebird<R>;
   catch<U>(onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U | R>;
-  caught<U>(onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U | R>;
 
   /**
    * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -74,7 +72,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     filter3: (new (...args: any[]) => E3),
     filter4: (new (...args: any[]) => E4),
     filter5: (new (...args: any[]) => E5),
-    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
   catch<E1, E2, E3, E4, E5>(
     filter1: ((error: E1) => boolean) | (E1 & object),
@@ -82,23 +80,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     filter3: ((error: E3) => boolean) | (E3 & object),
     filter4: ((error: E4) => boolean) | (E4 & object),
     filter5: ((error: E5) => boolean) | (E5 & object),
-    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
-  caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    filter2: (new (...args: any[]) => E2),
-    filter3: (new (...args: any[]) => E3),
-    filter4: (new (...args: any[]) => E4),
-    filter5: (new (...args: any[]) => E5),
-    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
-  caught<E1, E2, E3, E4, E5>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    filter2: ((error: E2) => boolean) | (E2 & object),
-    filter3: ((error: E3) => boolean) | (E3 & object),
-    filter4: ((error: E4) => boolean) | (E4 & object),
-    filter5: ((error: E5) => boolean) | (E5 & object),
-    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
   catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
     filter1: (new (...args: any[]) => E1),
@@ -106,7 +88,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     filter3: (new (...args: any[]) => E3),
     filter4: (new (...args: any[]) => E4),
     filter5: (new (...args: any[]) => E5),
-    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U | void> | void,
   ): Bluebird<U | R>;
   catch<U, E1, E2, E3, E4, E5>(
     filter1: ((error: E1) => boolean) | (E1 & object),
@@ -116,6 +98,132 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     filter5: ((error: E5) => boolean) | (E5 & object),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
+
+  catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<E1, E2, E3, E4>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1, E2, E3, E4>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+
+  catch<E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<E1, E2, E3>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1, E2, E3>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+
+  catch<E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    onReject: (error: E1 | E2) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<E1, E2>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    onReject: (error: E1 | E2) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    onReject: (error: E1 | E2) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1, E2>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    onReject: (error: E1 | E2) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+
+  catch<E1 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    onReject: (error: E1) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<E1>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    onReject: (error: E1) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    onReject: (error: E1) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    onReject: (error: E1) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+
+  /**
+   * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
+   *
+   * Alias `.caught();` for compatibility with earlier ECMAScript version.
+   */
+  caught(onReject?: (error: any) => R | PromiseLike<R | void> | void): Bluebird<R>;
+  caught<U>(onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U | R>;
+
+  /**
+   * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
+   *
+   * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
+   *
+   * Alias `.caught();` for compatibility with earlier ECMAScript version.
+   *
+   * TODO: disallow non-objects
+   */
+  caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
+  caught<E1, E2, E3, E4, E5>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R | void> | void,
+  ): Bluebird<R>;
   caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
     filter1: (new (...args: any[]) => E1),
     filter2: (new (...args: any[]) => E2),
@@ -133,48 +241,20 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
-  catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    filter2: (new (...args: any[]) => E2),
-    filter3: (new (...args: any[]) => E3),
-    filter4: (new (...args: any[]) => E4),
-    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
-  catch<E1, E2, E3, E4>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    filter2: ((error: E2) => boolean) | (E2 & object),
-    filter3: ((error: E3) => boolean) | (E3 & object),
-    filter4: ((error: E4) => boolean) | (E4 & object),
-    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
   caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
     filter1: (new (...args: any[]) => E1),
     filter2: (new (...args: any[]) => E2),
     filter3: (new (...args: any[]) => E3),
     filter4: (new (...args: any[]) => E4),
-    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
   caught<E1, E2, E3, E4>(
     filter1: ((error: E1) => boolean) | (E1 & object),
     filter2: ((error: E2) => boolean) | (E2 & object),
     filter3: ((error: E3) => boolean) | (E3 & object),
     filter4: ((error: E4) => boolean) | (E4 & object),
-    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
-  catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    filter2: (new (...args: any[]) => E2),
-    filter3: (new (...args: any[]) => E3),
-    filter4: (new (...args: any[]) => E4),
-    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
-  catch<U, E1, E2, E3, E4>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    filter2: ((error: E2) => boolean) | (E2 & object),
-    filter3: ((error: E3) => boolean) | (E3 & object),
-    filter4: ((error: E4) => boolean) | (E4 & object),
-    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
   caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
     filter1: (new (...args: any[]) => E1),
     filter2: (new (...args: any[]) => E2),
@@ -190,42 +270,18 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
-  catch<E1 extends Error, E2 extends Error, E3 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    filter2: (new (...args: any[]) => E2),
-    filter3: (new (...args: any[]) => E3),
-    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
-  catch<E1, E2, E3>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    filter2: ((error: E2) => boolean) | (E2 & object),
-    filter3: ((error: E3) => boolean) | (E3 & object),
-    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
   caught<E1 extends Error, E2 extends Error, E3 extends Error>(
     filter1: (new (...args: any[]) => E1),
     filter2: (new (...args: any[]) => E2),
     filter3: (new (...args: any[]) => E3),
-    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
   caught<E1, E2, E3>(
     filter1: ((error: E1) => boolean) | (E1 & object),
     filter2: ((error: E2) => boolean) | (E2 & object),
     filter3: ((error: E3) => boolean) | (E3 & object),
-    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
-  catch<U, E1 extends Error, E2 extends Error, E3 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    filter2: (new (...args: any[]) => E2),
-    filter3: (new (...args: any[]) => E3),
-    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
-  catch<U, E1, E2, E3>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    filter2: ((error: E2) => boolean) | (E2 & object),
-    filter3: ((error: E3) => boolean) | (E3 & object),
-    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
   caught<U, E1 extends Error, E2 extends Error, E3 extends Error>(
     filter1: (new (...args: any[]) => E1),
     filter2: (new (...args: any[]) => E2),
@@ -239,36 +295,16 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
-  catch<E1 extends Error, E2 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    filter2: (new (...args: any[]) => E2),
-    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
-  catch<E1, E2>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    filter2: ((error: E2) => boolean) | (E2 & object),
-    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
   caught<E1 extends Error, E2 extends Error>(
     filter1: (new (...args: any[]) => E1),
     filter2: (new (...args: any[]) => E2),
-    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
   caught<E1, E2>(
     filter1: ((error: E1) => boolean) | (E1 & object),
     filter2: ((error: E2) => boolean) | (E2 & object),
-    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1 | E2) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
-  catch<U, E1 extends Error, E2 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    filter2: (new (...args: any[]) => E2),
-    onReject: (error: E1 | E2) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
-  catch<U, E1, E2>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    filter2: ((error: E2) => boolean) | (E2 & object),
-    onReject: (error: E1 | E2) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
   caught<U, E1 extends Error, E2 extends Error>(
     filter1: (new (...args: any[]) => E1),
     filter2: (new (...args: any[]) => E2),
@@ -280,30 +316,14 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     onReject: (error: E1 | E2) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
-  catch<E1 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
-  catch<E1>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
-  ): Bluebird<R>;
   caught<E1 extends Error>(
     filter1: (new (...args: any[]) => E1),
-    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
   caught<E1>(
     filter1: ((error: E1) => boolean) | (E1 & object),
-    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
+    onReject: (error: E1) => R | PromiseLike<R | void> | void,
   ): Bluebird<R>;
-  catch<U, E1 extends Error>(
-    filter1: (new (...args: any[]) => E1),
-    onReject: (error: E1) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
-  catch<U, E1>(
-    filter1: ((error: E1) => boolean) | (E1 & object),
-    onReject: (error: E1) => U | PromiseLike<U>,
-  ): Bluebird<U | R>;
   caught<U, E1 extends Error>(
     filter1: (new (...args: any[]) => E1),
     onReject: (error: E1) => U | PromiseLike<U>,
@@ -457,7 +477,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * });
    * </code>
    */
-  call(propertyName: string, ...args: any[]): Bluebird<any>;
+  call(propertyName: keyof R, ...args: any[]): Bluebird<any>;
 
   /**
    * This is a convenience method for doing:
@@ -484,8 +504,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Alias `.thenReturn();` for compatibility with earlier ECMAScript version.
    */
   return(): Bluebird<void>;
-  thenReturn(): Bluebird<void>;
   return<U>(value: U): Bluebird<U>;
+  thenReturn(): Bluebird<void>;
   thenReturn<U>(value: U): Bluebird<U>;
 
   /**
@@ -788,12 +808,23 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static coroutine<T, A1, A2, A3, A4, A5, A6>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6, A7>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) => Bluebird<T>;
   static coroutine<T, A1, A2, A3, A4, A5, A6, A7, A8>(generatorFunction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => IterableIterator<any>, options?: Bluebird.CoroutineOptions): (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) => Bluebird<T>;
+
   /**
    * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
    *
    * Passing no value or a non-function will have the effect of removing any kind of handling for possibly unhandled rejections.
    */
   static onPossiblyUnhandledRejection(handler: (reason: any) => any): void;
+
+  /**
+   * Add handler as the handler to call when there is a possibly unhandled rejection.
+   * The default handler logs the error stack to stderr or console.error in browsers.
+   *
+   * Passing no value or a non-function will have the effect of removing any kind of handling for possibly unhandled rejections.
+   *
+   * Note: this hook is specific to the bluebird instance its called on, application developers should use global rejection events.
+   */
+  static onPossiblyUnhandledRejection(handler?: (error: Error, promise: Bluebird<any>) => void): void;
 
   /**
    * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are fulfilled. The promise's fulfillment value is an array with fulfillment values at respective positions to the original array. If any promise in the array rejects, the returned promise is rejected with the rejection reason.
@@ -927,16 +958,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static using<R1, R2, R3, T>(disposer: Bluebird.Disposer<R1>, disposer2: Bluebird.Disposer<R2>, disposer3: Bluebird.Disposer<R3>, executor: (transaction1: R1, transaction2: R2, transaction3: R3) => PromiseLike<T>): Bluebird<T>;
 
   /**
-   * Add handler as the handler to call when there is a possibly unhandled rejection.
-   * The default handler logs the error stack to stderr or console.error in browsers.
-   *
-   * Passing no value or a non-function will have the effect of removing any kind of handling for possibly unhandled rejections.
-   *
-   * Note: this hook is specific to the bluebird instance its called on, application developers should use global rejection events.
-   */
-  static onPossiblyUnhandledRejection(handler?: (error: Error, promise: Bluebird<any>) => void): void;
-
-  /**
    * Configure long stack traces, warnings, monitoring and cancellation.
    * Note that even though false is the default here, a development environment might be detected which automatically
    *  enables long stack traces and warnings.
@@ -1009,7 +1030,7 @@ declare namespace Bluebird {
   /**
    * Signals that an operation has been aborted or cancelled. The default reason used by `.cancel`.
    */
-  class CancellationError extends Error {}
+  class CancellationError extends Error { }
 
   /**
    * A collection of errors. `AggregateError` is an array-like object, with numeric indices and a `.length` property.
@@ -1044,12 +1065,12 @@ declare namespace Bluebird {
   /**
    * returned by `Bluebird.disposer()`.
    */
-  class Disposer<R> {}
+  class Disposer<R> { }
 
   /** @deprecated Use PromiseLike<T> directly. */
   type Thenable<T> = PromiseLike<T>;
 
-  type ResolvableProps<T> = object & { [K in keyof T]: PromiseLike<T[K]> | T[K] };
+  type ResolvableProps<T> = object & {[K in keyof T]: PromiseLike<T[K]> | T[K]};
 
   interface Resolver<R> {
     /**
