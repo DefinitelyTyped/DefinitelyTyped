@@ -239,8 +239,8 @@ declare class Router {
      * Generate URL for route. Takes either map of named `params` or series of
      * arguments (for regular expression routes)
      */
-    url(name: string, params: Object): string;
-    url(name: string, params: Object): Error;
+    url(name: string, params?: Object): string;
+    url(name: string, params?: Object): Error;
 
     /**
      * Match given `path` and return corresponding routes.
