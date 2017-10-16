@@ -1,4 +1,4 @@
-// Type definitions for memory-cache
+// Type definitions for memory-cache 0.2
 // Project: https://github.com/ptarjan/node-cache
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 //                 Travis Thieman <https://github.com/thieman>
