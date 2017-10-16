@@ -2,6 +2,7 @@ import {
   createConnection,
   createServer,
   createClient,
+  Multiplexer,
   Thrift,
   TBinaryProtocol,
   TBufferedTransport,
@@ -126,3 +127,6 @@ const tBinary: Buffer = mockProtocol.readBinary();
 const tString: string = mockProtocol.readString();
 const tTrans: TTransport = mockProtocol.getTransport();
 mockProtocol.skip(Thrift.Type.STRUCT);
+
+const multiplexer = new Multiplexer();
+multiplexer.createClient("mock-service", mockGeneratedService, clientConnection);
