@@ -323,6 +323,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
     ContentTypesEnabled: boolean;
     CurrentSelectedItems: boolean;
     CurrentUserId: number;
+    CurrentUserIsSiteAdmin: boolean;
     EnableMinorVersions: boolean;
     ExternalDataList: boolean;
     HasRelatedCascadeLists: boolean;
