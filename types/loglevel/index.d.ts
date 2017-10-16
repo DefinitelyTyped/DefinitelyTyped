@@ -133,9 +133,19 @@ declare namespace log {
          * The level argument takes is the same values that you might pass to setLevel(). Levels set using
          * setDefaultLevel() never persist to subsequent page loads.
          *
-         * @param level as the value from the enum
+         * @param level as a string, like 'error' (case-insensitive) or as a number from 0 to 5 (or as log.levels. values)
          */
-        setDefaultLevel(level: LogLevel): void;
+        setDefaultLevel(
+            level:
+                LogLevelNumbers
+                | 'trace'
+                | 'debug'
+                | 'info'
+                | 'warn'
+                | 'error'
+                | 'silent'
+                | keyof LogLevel
+        ): void;
 
         /**
          * This gets you a new logger object that works exactly like the root log object, but can have its level and
