@@ -26,6 +26,7 @@ declare namespace CoBody {
         strict?: boolean;
         queryString?: qs.IParseOptions;
         jsonTypes?: string[];
+        returnRawBody?: boolean;
         formTypes?: string[];
         textTypes?: string[];
         encoding?: string;

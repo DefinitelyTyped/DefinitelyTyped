@@ -30,7 +30,7 @@ declare class VError extends Error {
 
     cause(): Error | undefined;
     constructor(options: VError.Options | Error, message: string, ...params: any[]);
-    constructor(message: string, ...params: any[]);
+    constructor(message?: string, ...params: any[]);
 }
 
 declare namespace VError {

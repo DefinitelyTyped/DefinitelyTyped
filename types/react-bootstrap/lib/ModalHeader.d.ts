@@ -5,6 +5,7 @@ declare namespace ModalHeader {
         closeButton?: boolean;
         closeLabel?: string;
         onHide?: Function;
+        bsClass?: string;
     }
 }
 declare class ModalHeader extends React.Component<ModalHeader.ModalHeaderProps> { }
