@@ -49,13 +49,13 @@ declare class Zookeeper extends Client {
 }
 
 declare class Client {
-    client_id?: number;
+    client_id?: string;
     client_password?: any;
-    state?: any;
+    state?: number;
     timeout?: number;
     is_unrecoverable?: boolean;
 
-    a_create(path: string, data: string | Buffer, flags: any, callback: path_callback): void;
+    a_create(path: string, data: string | Buffer, flags: number, callback: path_callback): void;
 
     mkdirp(path: string, callback: (e?: Error) => void): void;
 
