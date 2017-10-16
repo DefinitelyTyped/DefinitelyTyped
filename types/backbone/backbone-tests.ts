@@ -186,6 +186,7 @@ function test_collection() {
     let modelsDict: _.Dictionary<Book[]>;
     let num: number;
 
+    models = books.slice();
     models = books.slice(1);
     models = books.slice(1, 3);
 
