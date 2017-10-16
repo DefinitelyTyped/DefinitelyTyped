@@ -1850,16 +1850,19 @@ export interface Options {
 }
 
 export interface Color {
-  border?: string,
-  background?: string,
+  border?: string;
+
+  background?: string;
+
   highlight?: string | {
-    border?: string,
-    background?: string,
-  },
+    border?: string;
+    background?: string;
+  };
+
   hover?: string | {
-    border?: string,
-    background?: string,
-  }
+    border?: string;
+    background?: string;
+  };
 }
 
 export interface NodeOptions {
