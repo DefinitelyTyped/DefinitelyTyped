@@ -23,9 +23,23 @@ namespace express_tests {
     next(err);
     });
 
-
     app.get('/', function(req, res) {
     res.send('hello world');
+    });
+
+    // Accept json app-wide or on one endpoint.
+    app.use(express.json({ limit: "200kb" }));
+    app.post('/echo', express.json(), (req, res) => {
+        res.json(req.body);
+    });
+
+    // Accept urlencoded app-wide or on one endpoint.
+    app.use(express.urlencoded({
+        extended: false,
+        parameterLimit: 16
+    }));
+    app.post('/search', express.urlencoded(), (req, res) => {
+        res.json(Object.keys(req.body));
     });
 
     const router = express.Router({ caseSensitive: true, mergeParams: true, strict: true });

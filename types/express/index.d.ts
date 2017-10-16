@@ -14,6 +14,7 @@
 /// <reference types="express-serve-static-core" />
 /// <reference types="serve-static" />
 
+import * as bodyParser from "body-parser";
 import * as serveStatic from "serve-static";
 import * as core from "express-serve-static-core";
 
@@ -25,9 +26,21 @@ declare function e(): core.Express;
 declare namespace e {
 
     /**
-     * This is the only built-in middleware function in Express. It serves static files and is based on serve-static.
+     * This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
+     * @since 4.16.0
+     */
+    var json: typeof bodyParser.json;
+
+    /**
+     * This is a built-in middleware function in Express. It serves static files and is based on serve-static.
      */
     var static: typeof serveStatic;
+
+    /**
+     * This is a built-in middleware function in Express. It parses incoming requests with urlencoded payloads and is based on body-parser.
+     * @since 4.16.0
+     */
+    var urlencoded: typeof bodyParser.urlencoded;
 
     export function Router(options?: RouterOptions): core.Router;
 
