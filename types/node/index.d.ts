@@ -5941,6 +5941,13 @@ declare module "async_hooks" {
         after?(asyncId: number): void;
 
         /**
+         * Called when a promise has resolve() called. This may not be in the same execution id
+         * as the promise itself.
+         * @param asyncId the unique id for the promise that was resolve()d.
+         */
+        promiseResolve?(asyncId: number): void;
+
+        /**
          * Called after the resource corresponding to asyncId is destroyed
          * @param asyncId a unique ID for the async resource
          */
@@ -5965,6 +5972,46 @@ declare module "async_hooks" {
      * @return an AsyncHooks instance used for disabling and enabling hooks
      */
     export function createHook(options: HookCallbacks): AsyncHook;
+
+    /**
+     * The class AsyncResource was designed to be extended by the embedder's async resources.
+     * Using this users can easily trigger the lifetime events of their own resources.
+     */
+    export class AsyncResource {
+        /**
+         * AsyncResource() is meant to be extended. Instantiating a
+         * new AsyncResource() also triggers init. If triggerAsyncId is omitted then
+         * async_hook.executionAsyncId() is used.
+         * @param type the name of this async resource type
+         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
+         */
+        constructor(type: string, triggerAsyncId?: number)
+
+        /**
+         * Call AsyncHooks before callbacks.
+         */
+        emitBefore(): void;
+
+        /**
+         * Call AsyncHooks after callbacks
+         */
+        emitAfter(): void;
+
+        /**
+         * Call AsyncHooks destroy callbacks.
+         */
+        emitDestroy(): void;
+
+        /**
+         * @return the unique ID assigned to this AsyncResource instance.
+         */
+        asyncId(): number;
+
+        /**
+         * @return the trigger ID for this AsyncResource instance.
+         */
+        triggerAsyncId(): number;
+    }
 }
 
 declare module "http2" {

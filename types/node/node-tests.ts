@@ -3012,7 +3012,8 @@ namespace async_hooks_tests {
         init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
         before: (asyncId: number) => void {},
         after: (asyncId: number) => void {},
-        destroy: (asyncId: number) => void {}
+        destroy: (asyncId: number) => void {},
+        promiseResolve: (asyncId: number) => void {}
     };
 
     const asyncHook = async_hooks.createHook(hooks);
@@ -3021,6 +3022,27 @@ namespace async_hooks_tests {
 
     const tId: number = async_hooks.triggerAsyncId();
     const eId: number = async_hooks.executionAsyncId();
+
+    class TestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE');
+        }
+    }
+
+    class AnotherTestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE', 42);
+            const aId: number = this.asyncId();
+            const tId: number = this.triggerAsyncId();
+        }
+        run() {
+            this.emitBefore();
+            this.emitAfter();
+        }
+        destroy() {
+            this.emitDestroy();
+        }
+    }
 }
 
 ////////////////////////////////////////////////////
