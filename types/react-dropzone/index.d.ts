@@ -1,11 +1,12 @@
-// Type definitions for react-dropzone 4.1.3
-// Project: https://github.com/okonet/react-dropzone
+// Type definitions for react-dropzone 4.2.0
+// Project: https://github.com/react-dropzone/react-dropzone
 // Definitions by: Mathieu Larouche Dube <https://github.com/matdube>,
 //                 Ivo Jesus <https://github.com/LynxEyes>,
 //                 Luís Rodrigues <https://github.com/goblindegook>,
 //                 Ben Bayard <https://github.com/benbayard>,
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Andris Causs <https://github.com/codeaid>
+//                 Kepler Sticka-Jones <https://github.com/keplersj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -48,4 +49,4 @@ declare class Dropzone extends Component<Dropzone.DropzoneProps> {
     open(): void;
 }
 
-export = Dropzone;
+export default Dropzone;
