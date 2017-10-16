@@ -18,6 +18,12 @@ declare namespace Backbone {
         merge?: boolean;
     }
 
+    interface CollectionSetOptions extends Silenceable {
+        add?: boolean;
+        remove?: boolean;
+        merge?: boolean;
+    }
+
     interface HistoryOptions extends Silenceable {
         pushState?: boolean;
         root?: string;
@@ -236,7 +242,19 @@ declare namespace Backbone {
         remove(model: {}|TModel, options?: Silenceable): TModel;
         remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
-        set(models?: TModel[], options?: Silenceable): TModel[];
+
+        /**
+         *
+         * The set method performs a "smart" update of the collection with the passed list of models.
+         * If a model in the list isn't yet in the collection it will be added; if the model is already in the
+         * collection its attributes will be merged; and if the collection contains any models that aren't present
+         * in the list, they'll be removed. All of the appropriate "add", "remove", and "change" events are fired as
+         * this happens. Returns the touched models in the collection. If you'd like to customize the behavior, you can
+         * disable it with options: {add: false}, {remove: false}, or {merge: false}.
+         * @param models
+         * @param options
+         */
+        set(models?: TModel[], options?: CollectionSetOptions): TModel[];
         shift(options?: Silenceable): TModel;
         sort(options?: Silenceable): Collection<TModel>;
         unshift(model: TModel, options?: AddOptions): TModel;
