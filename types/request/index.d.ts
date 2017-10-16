@@ -282,6 +282,7 @@ declare namespace request {
     }
 
     export interface OAuthOptions {
+        body_hash?: boolean | string;
         callback?: string;
         consumer_key?: string;
         consumer_secret?: string;
