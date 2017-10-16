@@ -401,6 +401,12 @@ namespace v1Changes {
                 validate: false
             });
         }
+
+        function test_set() {
+            var collection = new EmployeeCollection();
+            var model = new Employee();
+            collection.set([model], { add: false, remove: true, merge: false });
+        }
     }
 
     namespace Router {
