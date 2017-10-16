@@ -16,6 +16,7 @@ declare namespace Backbone {
     interface AddOptions extends Silenceable {
         at?: number;
         merge?: boolean;
+        sort?: boolean;
     }
 
     interface CollectionSetOptions extends Silenceable {
