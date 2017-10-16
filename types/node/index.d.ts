@@ -2401,6 +2401,30 @@ declare module "dns" {
 declare module "net" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as dns from "dns";
+
+    export interface SocketConstructorOpts {
+        fd?: number;
+        allowHalfOpen?: boolean;
+        readable?: boolean;
+        writable?: boolean;
+    }
+
+    export interface TcpSocketConnectOpts {
+        port: number;
+        host?: string;
+        localAddress?: string;
+        localPort?: number;
+        hints?: number;
+        family?: number;
+        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+    }
+
+    export interface IpcSocketConnectOpts {
+        path: string;
+    }
+
+    export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -2411,8 +2435,10 @@ declare module "net" {
         write(str: string, encoding?: string, fd?: string): boolean;
         write(data: any, encoding?: string, callback?: Function): void;
 
-        connect(port: number, host?: string, connectionListener?: Function): void;
-        connect(path: string, connectionListener?: Function): void;
+        connect(options: SocketConnectOpts, connectionListener?: Function): this;
+        connect(port: number, host: string, connectionListener?: Function): this;
+        connect(port: number, connectionListener?: Function): this;
+        connect(path: string, connectionListener?: Function): this;
         bufferSize: number;
         setEncoding(encoding?: string): this;
         destroy(err?: any): void;
@@ -2515,7 +2541,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
+        new(options?: SocketConstructorOpts): Socket;
     };
 
     export interface ListenOptions {
@@ -2592,12 +2618,23 @@ declare module "net" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
     }
+
+    export interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number;
+    }
+
+    export interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number;
+    }
+
+    export type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
+
     export function createServer(connectionListener?: (socket: Socket) => void): Server;
     export function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
-    export function connect(options: { port: number, host?: string, localAddress?: string, localPort?: number, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: NetConnectOpts, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
-    export function createConnection(options: { port: number, host?: string, localAddress?: string, localPort?: string, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function createConnection(options: NetConnectOpts, connectionListener?: Function): Socket;
     export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
     export function createConnection(path: string, connectionListener?: Function): Socket;
     export function isIP(input: string): number;
