@@ -520,11 +520,10 @@ bool = fooProm.isResolved();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-anyProm = fooProm.call(str);
-anyProm = fooProm.call(str, 1, 2, 3);
+anyProm = fooProm.call("foo");
+anyProm = fooProm.call("foo", 1, 2, 3);
 
-// TODO enable get() test when implemented
-// barProm = fooProm.get(str);
+voidProm = fooProm.get("foo").then((method) => { str = method(); });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -542,7 +541,7 @@ fooProm = fooProm.thenThrow(err);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.catchReturn(bar);
+fooOrBarProm = fooProm.return(foo).catchReturn(bar);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
