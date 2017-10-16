@@ -29,7 +29,7 @@ class CalendarEvent {
 }
 
 // Basic Example Test
-const BasicExample = React.createClass({
+class BasicExample extends React.Component {
     render() {
         return (
             <BigCalendar
@@ -38,14 +38,14 @@ const BasicExample = React.createClass({
             />
         );
     }
-});
+}
 ReactDOM.render(<BasicExample />, document.body);
 const basicExampleHtml = ReactDOMServer.renderToString(<BasicExample />);
 console.log('Test Results -> BasicExample', basicExampleHtml);
 
 // Full API Example Test - based on API Documentation
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-const FullAPIExample = React.createClass({
+class FullAPIExample extends React.Component {
     render() {
         return (
             <BigCalendar
@@ -91,7 +91,7 @@ const FullAPIExample = React.createClass({
             />
         );
     }
-});
+}
 ReactDOM.render(<FullAPIExample />, document.body);
 const fullApiExampleHtml = ReactDOMServer.renderToString(<FullAPIExample />);
 console.log('Test Results -> FullAPIExample', fullApiExampleHtml);
