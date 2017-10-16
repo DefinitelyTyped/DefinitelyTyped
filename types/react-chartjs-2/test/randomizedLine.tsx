@@ -46,7 +46,7 @@ class Graph extends React.Component<any, any> {
         ...oldDataSet
       };
 
-      newDataSet.data = newData;
+      (newDataSet as any).data = newData;
 
       this.setState({ datasets: [newDataSet] });
     }, 5000);
