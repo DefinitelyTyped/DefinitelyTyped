@@ -396,6 +396,32 @@ function bufferTests() {
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
 
+    // Class Method byteLenght
+    {
+        let len: number;
+        len = Buffer.byteLength("foo");
+        len = Buffer.byteLength("foo", "utf8");
+
+        const b = Buffer.from("bar");
+        len = Buffer.byteLength(b);
+        len = Buffer.byteLength(b, "utf16le");
+
+        const ab = new ArrayBuffer(15);
+        len = Buffer.byteLength(ab);
+        len = Buffer.byteLength(ab, "ascii");
+
+        const dv = new DataView(ab);
+        len = Buffer.byteLength(dv);
+        len = Buffer.byteLength(dv, "utf16le");
+    }
+
+    // Class Method poolSize
+    {
+        let s: number;
+        s = Buffer.poolSize;
+        Buffer.poolSize = 4096;
+    }
+
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
     var a: Buffer | number;
