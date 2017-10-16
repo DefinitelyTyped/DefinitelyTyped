@@ -14,7 +14,8 @@ export declare class Strategy extends PassportStrategy {
 }
 
 export interface StrategyOptions {
-    secretOrKey: string | Buffer;
+    secretOrKey?: string | Buffer;
+    secretOrKeyProvider?: any;
     jwtFromRequest: JwtFromRequestFunction;
     issuer?: string;
     audience?: string;
