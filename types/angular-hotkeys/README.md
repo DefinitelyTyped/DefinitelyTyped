@@ -37,7 +37,7 @@ After installing a package you can import the definition file and begin using it
 
 ```ts
 
-import * as hotkeys from '../../node_modules/@types/angular-hotkeys'
+import { HotkeysProvider } from 'angular-hotkeys';
 
 class FooController  {
     static $inject = [
@@ -45,7 +45,7 @@ class FooController  {
     ];
 
     constructor(
-        private hotkeys: ng.hotkeys.HotkeysProvider
+        private hotkeys: HotkeysProvider
     ) { }
 }
 
