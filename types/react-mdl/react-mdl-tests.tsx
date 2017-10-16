@@ -2,7 +2,6 @@
 
 
 import * as React from 'react';
-import * as createReactClass from 'create-react-class';
 import { Chip, ChipContact,
     Badge,
     FABButton, Button, IconButton,
@@ -29,8 +28,8 @@ import { Chip, ChipContact,
 // all tests are from the examples provided here: https://tleunen.github.io/react-mdl/
 
 // Badge tests
-createReactClass({
-    render: function() {
+class BadgeTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Number badge on icon */}
@@ -51,11 +50,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Chip tests
-createReactClass({
-    render: function() {
+class ChipTests extends React.Component {
+    render() {
         return (
             <div>
                 <Chip>Basic chip</Chip>
@@ -79,11 +78,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Button tests
-createReactClass({
-    render: function() {
+class ButtonTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Colored FAB button */}
@@ -162,11 +161,11 @@ createReactClass({
             </div>
         );
     }
-})
+}
 
 // Card tests
-createReactClass({
-    render: function() {
+class CardTests extends React.Component {
+    render() {
         return (
             <div>
                 <Card shadow={0} style={{width: '512px', margin: 'auto'}}>
@@ -220,11 +219,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Checkbox tests
-createReactClass({
-    render: function() {
+class CheckboxTests extends React.Component {
+    render() {
         return (
             <div>
                 <Checkbox label="With ripple" ripple defaultChecked />
@@ -233,11 +232,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // DataTable tests
-createReactClass({
-    render: function() {
+class DataTableTests extends React.Component {
+    render() {
         return (
             <div>
                 <DataTable
@@ -305,11 +304,14 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Dialog tests
-createReactClass({
-    render: function() {
+class DialogTests extends React.Component<{}, {openDialog: boolean}> {
+    handleOpenDialog() { }
+    handleCloseDialog() { }
+
+    render() {
         return (
             <div>
                 <div>
@@ -356,11 +358,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Grid tests
-createReactClass({
-    render: function() {
+class GridTests extends React.Component {
+    render() {
         return (
             <div>
                 <div style={{width: '80%', margin: 'auto'}}>
@@ -397,11 +399,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // IconToggle tests
-createReactClass({
-    render: function() {
+class IconToggleTests extends React.Component {
+    render() {
         return (
             <div>
                 <IconToggle ripple id="bold" name="format_bold" defaultChecked />
@@ -410,11 +412,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Layout tests
-createReactClass({
-    render: function() {
+class LayoutTests extends React.Component<{}, {activeTab: number}> {
+    render() {
         return (
             <div>
                 {/* Uses a transparent header that draws on top of the layout's background */}
@@ -603,7 +605,7 @@ createReactClass({
                     <Layout fixedHeader>
                         <Header>
                             <HeaderRow title="Title" />
-                            <HeaderTabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })}>
+                            <HeaderTabs activeTab={this.state.activeTab} onChange={(tabId) => {}}>
                                 <Tab>Tab1</Tab>
                                 <Tab>Tab2</Tab>
                                 <Tab>Tab3</Tab>
@@ -690,11 +692,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // List tests
-createReactClass({
-    render: function() {
+class ListTests extends React.Component {
+    render() {
         return (
             <div>
                 <List>
@@ -801,11 +803,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Menu tests
-createReactClass({
-    render: function() {
+class MenuTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Lower left */}
@@ -854,11 +856,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // ProgressBar tests
-createReactClass({
-    render: function() {
+class ProgressBarTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple Progress Bar */}
@@ -872,11 +874,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Radio tests
-createReactClass({
-    render: function() {
+class RadioTests extends React.Component {
+    render() {
         return (
             <div>
                 <RadioGroup name="demo" value="opt1">
@@ -891,11 +893,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Slider tests
-createReactClass({
-    render: function() {
+class SliderTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Default slider */}
@@ -906,11 +908,15 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Snackbar tests
-createReactClass({
-    render: function() {
+class SnackbarTests extends React.Component {
+    handleClickActionSnackbar() {}
+    handleShowSnackbar() {}
+    handleTimeoutSnackbar() {}
+
+    render() {
         return (
             <div>
                 <div>
@@ -933,11 +939,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Spinner tests
-createReactClass({
-    render: function() {
+class SpinnerTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple spinner */}
@@ -948,11 +954,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Switch tests
-createReactClass({
-    render: function() {
+class SwitchTest extends React.Component {
+    render() {
         return (
             <div>
                 <Switch ripple id="switch1" defaultChecked>Ripple switch</Switch>
@@ -961,11 +967,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Tab tests
-createReactClass({
-    render: function() {
+class TabTests extends React.Component<{}, {activeTab: number}> {
+    render() {
         return (
             <div>
                 <div className="demo-tabs">
@@ -981,11 +987,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Textfield tests
-createReactClass({
-    render: function() {
+class TextfieldTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple textfield */}
@@ -1023,11 +1029,11 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // Tooltip tests
-createReactClass({
-    render: function() {
+class TooltipTests extends React.Component {
+    render() {
         return (
             <div>
                 {/* Simple tooltip */}
@@ -1072,15 +1078,15 @@ createReactClass({
             </div>
         );
     }
-});
+}
 
 // MDLComponent tests
-createReactClass({
-    render: function() {
+class MDLComponentTests extends React.Component {
+    render() {
         return (
             <MDLComponent recursive={false}>
                 <div />
             </MDLComponent>
         )
     }
-});
+}

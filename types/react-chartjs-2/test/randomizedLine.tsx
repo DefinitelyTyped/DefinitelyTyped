@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as createReactClass from 'create-react-class';
 import { Line } from 'react-chartjs-2';
 
 const initialState = {
@@ -44,10 +43,9 @@ class Graph extends React.Component<any, any> {
       });
 
       const newDataSet = {
-        ...oldDataSet
+        ...oldDataSet,
+        data: newData
       };
-
-      newDataSet.data = newData;
 
       this.setState({ datasets: [newDataSet] });
     }, 5000);
@@ -60,9 +58,7 @@ class Graph extends React.Component<any, any> {
   }
 }
 
-export default createReactClass({
-  displayName: 'RandomizedDataLineExample',
-
+export default class RandomizedDataLineExample extends React.Component {
   render() {
     return (
       <div>
@@ -71,4 +67,4 @@ export default createReactClass({
       </div>
     );
   }
-});
+}

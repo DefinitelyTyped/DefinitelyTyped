@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as createReactClass from "create-react-class";
 import * as jsnox from "jsnox";
 const $ = jsnox(React);
 
@@ -9,9 +8,9 @@ interface PersonProps {
     age: number;
 }
 
-const Person: React.ClassicComponentClass<PersonProps> = createReactClass<PersonProps, {}>({
+class Person extends React.Component<PersonProps> {
     render(): React.ReactElement<any> { return null; }
-});
+}
 
 const PersonTag = React.createFactory(Person);
 

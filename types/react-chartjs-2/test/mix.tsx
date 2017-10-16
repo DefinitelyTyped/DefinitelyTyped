@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as createReactClass from 'create-react-class';
 import { Bar } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 
@@ -70,9 +69,7 @@ const options: ChartOptions = {
   }
 };
 
-export default createReactClass({
-  displayName: 'MixExample',
-
+export default class MixExample extends React.Component {
   render() {
     return (
       <div>
@@ -84,4 +81,4 @@ export default createReactClass({
       </div>
     );
   }
-});
+}

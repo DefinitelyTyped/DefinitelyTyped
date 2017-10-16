@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as createReactClass from 'create-react-class';
 import { Pie } from 'react-chartjs-2';
 
 const data = {
@@ -23,9 +22,7 @@ const data = {
 	}]
 };
 
-export default createReactClass({
-  displayName: 'PieExample',
-
+export default class PieExample extends React.Component {
   render() {
     return (
       <div>
@@ -34,4 +31,4 @@ export default createReactClass({
       </div>
     );
   }
-});
+}
