@@ -2685,6 +2685,7 @@ declare module "dgram" {
         setBroadcast(flag: boolean): void;
         setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
+        setMulticastInterface(multicastInterface: string): void;
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
