@@ -5156,7 +5156,8 @@ declare module "stream" {
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
@@ -5246,7 +5247,8 @@ declare module "stream" {
         export class Duplex extends Readable implements Writable {
             writable: boolean;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
+            _writev?(chunks: Array<{chunk: any, encoding: string}>, callback: (err?: Error) => void): void;
             _destroy(err: Error, callback: Function): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
