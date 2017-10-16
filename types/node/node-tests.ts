@@ -1436,6 +1436,20 @@ namespace dgram_tests {
             let _rinfo: dgram.AddressInfo = rinfo;
         });
     }
+
+    {
+        let ds: dgram.Socket = dgram.createSocket({
+            type: 'udp4',
+            recvBufferSize: 10000,
+            sendBufferSize: 15000
+        });
+
+        let size: number;
+        size = ds.getRecvBufferSize();
+        ds.setRecvBufferSize(size);
+        size = ds.getSendBufferSize();
+        ds.setSendBufferSize(size);
+    }
 }
 
 ////////////////////////////////////////////////////
