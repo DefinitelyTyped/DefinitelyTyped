@@ -5,8 +5,11 @@
     ],
     "compilerOptions": {
         "module": "commonjs",
+        "lib": ["es5"],
         "target": "es5",
         "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
