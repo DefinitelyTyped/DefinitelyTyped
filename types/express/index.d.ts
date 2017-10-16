@@ -24,7 +24,6 @@ import * as core from "express-serve-static-core";
 declare function e(): core.Express;
 
 declare namespace e {
-
     /**
      * This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
      * @since 4.16.0
@@ -73,7 +72,7 @@ declare namespace e {
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
     interface IRouter<T> extends core.IRouter { }
-    interface IRouterHandler<T> extends core.IRouterHandler<T> { }    
+    interface IRouterHandler<T> extends core.IRouterHandler<T> { }
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
