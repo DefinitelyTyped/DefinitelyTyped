@@ -3342,16 +3342,46 @@ declare namespace React {
     }
 
     interface ReactSVG {
-        svg: SVGFactory;
         animate: SVGFactory;
         circle: SVGFactory;
+        clipPath: SVGFactory;
         defs: SVGFactory;
+        desc: SVGFactory;
         ellipse: SVGFactory;
+        feBlend: SVGFactory;
+        feColorMatrix: SVGFactory;
+        feComponentTransfer: SVGFactory;
+        feComposite: SVGFactory;
+        feConvolveMatrix: SVGFactory;
+        feDiffuseLighting: SVGFactory;
+        feDisplacementMap: SVGFactory;
+        feDistantLight: SVGFactory;
+        feDropShadow: SVGFactory;
+        feFlood: SVGFactory;
+        feFuncA: SVGFactory;
+        feFuncB: SVGFactory;
+        feFuncG: SVGFactory;
+        feFuncR: SVGFactory;
+        feGaussianBlur: SVGFactory;
+        feImage: SVGFactory;
+        feMerge: SVGFactory;
+        feMergeNode: SVGFactory;
+        feMorphology: SVGFactory;
+        feOffset: SVGFactory;
+        fePointLight: SVGFactory;
+        feSpecularLighting: SVGFactory;
+        feSpotLight: SVGFactory;
+        feTile: SVGFactory;
+        feTurbulence: SVGFactory;
+        filter: SVGFactory;
+        foreignObject: SVGFactory;
         g: SVGFactory;
         image: SVGFactory;
         line: SVGFactory;
         linearGradient: SVGFactory;
+        marker: SVGFactory;
         mask: SVGFactory;
+        metadata: SVGFactory;
         path: SVGFactory;
         pattern: SVGFactory;
         polygon: SVGFactory;
@@ -3359,10 +3389,14 @@ declare namespace React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        svg: SVGFactory;
+        switch: SVGFactory;
         symbol: SVGFactory;
         text: SVGFactory;
+        textPath: SVGFactory;
         tspan: SVGFactory;
         use: SVGFactory;
+        view: SVGFactory;
     }
 
     interface ReactDOM extends ReactHTML, ReactSVG { }
