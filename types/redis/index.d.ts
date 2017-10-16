@@ -1,6 +1,6 @@
 // Type definitions for redis 2.6.0
 // Project: https://github.com/mranney/node_redis
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>, Stuart Schechter<https://github.com/UppaJung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -542,20 +542,20 @@ export interface Commands<R> {
     /**
      * Increment the integer value of a key by one.
      */
-    incr(key: string, cb?: Callback<string[]>): R;
-    INCR(key: string, cb?: Callback<string[]>): R;
+    incr(key: string, cb?: Callback<number>): R;
+    INCR(key: string, cb?: Callback<number>): R;
 
     /**
      * Increment the integer value of a key by the given amount.
      */
-    incrby(key: string, increment: number, cb?: Callback<string[]>): R;
-    INCRBY(key: string, increment: number, cb?: Callback<string[]>): R;
+    incrby(key: string, increment: number, cb?: Callback<number>): R;
+    INCRBY(key: string, increment: number, cb?: Callback<number>): R;
 
     /**
      * Increment the float value of a key by the given amount.
      */
-    incrbyfloat(key: string, increment: number, cb?: Callback<string[]>): R;
-    INCRBYFLOAT(key: string, increment: number, cb?: Callback<string[]>): R;
+    incrbyfloat(key: string, increment: number, cb?: Callback<number>): R;
+    INCRBYFLOAT(key: string, increment: number, cb?: Callback<number>): R;
 
     /**
      * Find all keys matching the given pattern.
