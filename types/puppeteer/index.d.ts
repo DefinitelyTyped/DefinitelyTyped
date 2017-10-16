@@ -224,13 +224,15 @@ export interface Response {
   url: string;
 }
 
+export type Serializable = boolean | number | string | object;
+
 export interface FrameBase {
   $(selector: string): Promise<ElementHandle>;
   $$(selector: string): Promise<ElementHandle[]>;
   $eval(
     selector: string,
-    fn: (...args: Array<object | ElementHandle>) => void
-  ): Promise<object>;
+    fn: (...args: Array<Serializable | ElementHandle>) => void
+  ): Promise<Serializable>;
   addScriptTag(url: string): Promise<void>;
   injectFile(filePath: string): Promise<void>;
   evaluate<T = string>(
@@ -291,7 +293,16 @@ export interface Page extends FrameBase {
   click(selector: string, options?: ClickOptions): Promise<void>;
   close(): Promise<void>;
   content(): Promise<string>;
-  cookies(...urls: string[]): Cookie;
+  cookies(...urls: string[]): Promise<Cookie[]>;
+  deleteCookie(
+    ...cookies: Array<{
+      name: string;
+      url?: string;
+      domain?: string;
+      path?: string;
+      secure?: boolean;
+    }>
+  ): Promise<void>;
   emulate(options: Partial<EmulateOptions>): Promise<void>;
   emulateMedia(mediaType: string | null): Promise<void>;
   evaluateOnNewDocument(
