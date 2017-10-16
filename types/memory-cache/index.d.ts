@@ -6,32 +6,32 @@
 
 // Originally imported from: https://github.com/soywiz/typescript-node-definitions/memory-cache.d.ts
 
-declare class CacheClass<K, V> {
-    public put(key: K, value: V, time?: number, timeoutCallback?: (key: K, value: V) => void): V;
-    public get(key: K): V;
-    public del(key: K): void;
-    public clear(): void;
+export class CacheClass<K, V> {
+    put(key: K, value: V, time?: number, timeoutCallback?: (key: K, value: V) => void): V;
+    get(key: K): V;
+    del(key: K): void;
+    clear(): void;
 
-    public size(): number;
-    public memsize(): number;
+    size(): number;
+    memsize(): number;
 
-    public debug(bool: boolean): void;
-    public hits(): number;
-    public misses(): number;
-    public keys(): K[];
+    debug(bool: boolean): void;
+    hits(): number;
+    misses(): number;
+    keys(): K[];
 }
 
-export declare let Cache: typeof CacheClass;
+export const Cache: typeof CacheClass;
 
-export declare function put<V>(key: any, value: V, time?: number, timeoutCallback?: (key: any, value: any) => void): V;
-export declare function get(key: any): any;
-export declare function del(key: any): void;
-export declare function clear(): void;
+export function put<V>(key: any, value: V, time?: number, timeoutCallback?: (key: any, value: any) => void): V;
+export function get(key: any): any;
+export function del(key: any): void;
+export function clear(): void;
 
-export declare function size(): number;
-export declare function memsize(): number;
+export function size(): number;
+export function memsize(): number;
 
-export declare function debug(bool: boolean): void;
-export declare function hits(): number;
-export declare function misses(): number;
-export declare function keys(): any[];
+export function debug(bool: boolean): void;
+export function hits(): number;
+export function misses(): number;
+export function keys(): any[];

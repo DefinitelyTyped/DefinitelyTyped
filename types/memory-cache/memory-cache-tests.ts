@@ -1,19 +1,15 @@
 import memoryCache = require('memory-cache');
 
-var key: any;
-var value: string;
-var bool: boolean;
-var num: number;
-var returnedValue: string;
+const key: any = 'sampleKey';
+let value: string;
+const bool = false;
+let num: number;
+let returnedValue: string;
 
 returnedValue = memoryCache.put(key, value);
 returnedValue = memoryCache.put(key, value, num);
-returnedValue = memoryCache.put(key, value, num, (key) => {
-
-});
-returnedValue = memoryCache.put(key, value, num, (key, value) => {
-
-});
+returnedValue = memoryCache.put(key, value, num, (key) => { });
+returnedValue = memoryCache.put(key, value, num, (key, value) => { });
 
 value = memoryCache.get(key);
 memoryCache.del(key);
@@ -26,11 +22,11 @@ memoryCache.debug(bool);
 num = memoryCache.hits();
 num = memoryCache.misses();
 
-var customCache = new memoryCache.Cache<string, boolean>();
+const customCache = new memoryCache.Cache<string, boolean>();
 
-var customKey: string;
-var customValue: boolean;
-var customKeys: string[];
+const customKey = 'customKey';
+let customValue: boolean;
+let customKeys: string[];
 
 customValue = customCache.put(customKey, customValue);
 customCache.get(customKey);
