@@ -1,5 +1,7 @@
-import * as createReactClass from "create-react-class";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as DOM from "react-dom-factories";
+import * as createReactClass from "create-react-class";
 
 interface Props {
     foo: string;
@@ -9,7 +11,17 @@ interface State {
     bar: number;
 }
 
-createReactClass<Props, State>({
+const props: Props & React.ClassAttributes<{}> = {
+    foo: "foo"
+};
+
+const container: Element = document.createElement("div");
+
+//
+// Top-Level API
+// --------------------------------------------------------------------------
+
+const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Props, State>({
     childContextTypes: {},
     componentDidCatch(err, errorInfo) {
         const msg: string = err.message;
@@ -49,7 +61,46 @@ createReactClass<Props, State>({
     statics: {
         test: 1
     },
+    reset() {
+        this.replaceState(this.getInitialState!());
+    },
     render() {
-        return DOM.div({}, "test");
+        return DOM.div(null,
+            DOM.input({
+                ref: input => this._input = input,
+                value: this.state.bar
+            }));
     }
 });
+
+// React.createFactory
+const classicFactory: React.ClassicFactory<Props> =
+    React.createFactory(ClassicComponent);
+const classicFactoryElement: React.ClassicElement<Props> =
+    classicFactory(props);
+
+// React.createElement
+const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
+
+// React.cloneElement
+const clonedClassicElement: React.ClassicElement<Props> =
+    React.cloneElement(classicElement, props);
+
+// ReactDOM.render
+const classicComponent: React.ClassicComponent<Props> = ReactDOM.render(classicElement, container);
+
+//
+// React Components
+// --------------------------------------------------------------------------
+
+const displayName: string | undefined = ClassicComponent.displayName;
+const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
+const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
+
+//
+// Component API
+// --------------------------------------------------------------------------
+
+// classic
+const isMounted: boolean = classicComponent.isMounted();
+classicComponent.replaceState({ inputValue: "???", seconds: 60 });

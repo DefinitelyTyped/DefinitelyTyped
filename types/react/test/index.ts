@@ -50,34 +50,6 @@ const container: Element = document.createElement("div");
 // Top-Level API
 // --------------------------------------------------------------------------
 
-const ClassicComponent: React.ClassicComponentClass<Props> =
-    createReactClass<Props, State>({
-        displayName: "ClassicComponent",
-        getDefaultProps() {
-            return {
-                hello: "hello",
-                world: "peace",
-                foo: 0,
-            };
-        },
-        getInitialState() {
-            return {
-                inputValue: this.context.someValue,
-                seconds: this.props.foo
-            };
-        },
-        reset() {
-            this.replaceState(this.getInitialState());
-        },
-        render() {
-            return DOM.div(null,
-                DOM.input({
-                    ref: input => this._input = input,
-                    value: this.state.inputValue
-                }));
-        }
-    });
-
 class ModernComponent extends React.Component<Props, State>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
     static propTypes: React.ValidationMap<Props> = {
@@ -180,11 +152,6 @@ const statelessFactory: React.SFCFactory<SCProps> =
 const statelessFactoryElement: React.SFCElement<SCProps> =
     statelessFactory(props);
 
-const classicFactory: React.ClassicFactory<Props> =
-    React.createFactory(ClassicComponent);
-const classicFactoryElement: React.ClassicElement<Props> =
-    classicFactory(props);
-
 const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("div");
 const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
@@ -194,7 +161,6 @@ const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
 const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
-const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
 const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
@@ -229,8 +195,6 @@ const clonedStatelessElement: React.SFCElement<SCProps> =
     // known problem: cloning with optional props don't work properly
     // workaround: cast to actual props type
     React.cloneElement(statelessElement, { foo: 44 } as SCProps);
-const clonedClassicElement: React.ClassicElement<Props> =
-    React.cloneElement(classicElement, props);
 // Clone base DOMElement
 const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
@@ -254,7 +218,6 @@ const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
 const componentElementOrNull: ModernComponent = ReactDOM.render(element, document.getElementById("anelement"));
 const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
 const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, document.getElementById("anelement"));
-const classicComponent: React.ClassicComponent<Props> = ReactDOM.render(classicElement, container);
 const domComponent: Element = ReactDOM.render(domElement, container);
 
 // Other Top-Level API
@@ -275,14 +238,6 @@ const elementProps: Props = element.props;
 const key = element.key;
 
 //
-// React Components
-// --------------------------------------------------------------------------
-
-const displayName: string | undefined = ClassicComponent.displayName;
-const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
-const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
-
-//
 // Component API
 // --------------------------------------------------------------------------
 
@@ -290,10 +245,6 @@ const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propT
 const componentState: State = component.state;
 component.setState({ inputValue: "!!!" });
 component.forceUpdate();
-
-// classic
-const isMounted: boolean = classicComponent.isMounted();
-classicComponent.replaceState({ inputValue: "???", seconds: 60 });
 
 const myComponent = component as MyComponent;
 myComponent.reset();
