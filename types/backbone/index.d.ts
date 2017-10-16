@@ -445,6 +445,7 @@ declare namespace Backbone {
 
     // SYNC
     function sync(method: string, model: Model, options?: JQueryAjaxSettings): any;
+    function sync(method: string, collection: Collection<Model>, options?: JQueryAjaxSettings): any;
     function ajax(options?: JQueryAjaxSettings): JQueryXHR;
     var emulateHTTP: boolean;
     var emulateJSON: boolean;
