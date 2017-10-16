@@ -982,7 +982,7 @@ declare module "url" {
 
     export interface Url extends UrlObject {
         port?: string;
-        query?: string | any;
+        query?: any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
