@@ -1332,6 +1332,7 @@ namespace dgram_tests {
         ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+        ds.setMulticastInterface("127.0.0.1");
     }
 
     {
