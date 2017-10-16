@@ -7,7 +7,7 @@
 import * as Koa from 'koa';
 declare namespace cors {
     interface Options {
-        origin?: any;
+        origin?: string | ((ctx: Koa.Context) => boolean | string);
         exposeHeaders?: string[];
         maxAge?: number;
         credentials?: boolean;
