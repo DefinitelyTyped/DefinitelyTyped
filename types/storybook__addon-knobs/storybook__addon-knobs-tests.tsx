@@ -53,9 +53,9 @@ stories.add('with all knobs', () => {
   enumSelectOptions[SomeEnum.Type1] = "Type 1";
   enumSelectOptions[SomeEnum.Type2] = "Type 2";
   const genericSelect2: SomeEnum = select<SomeEnum>('Some generic select', enumSelectOptions, SomeEnum.Type1);
-  
+
   const genericArray: string[] = array<string>('Some generic array', ['red', 'green', 'blue']);
-  
+
   const genericKnob: X = knob<X>('Some generic knob', { value: 'a', type: 'text' });
 
   const style = {
