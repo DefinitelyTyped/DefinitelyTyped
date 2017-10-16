@@ -4882,6 +4882,9 @@ declare module "tls" {
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
     export function createSecureContext(details: SecureContextOptions): SecureContext;
+    export function getCiphers(): string[];
+
+    export var DEFAULT_ECDH_CURVE: string;
 }
 
 declare module "crypto" {
