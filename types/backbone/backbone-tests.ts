@@ -157,6 +157,9 @@ function test_collection() {
     var book1: Book = new Book({ title: "Title 1", author: "Mike" });
     books.add(book1);
 
+    // Test adding sort option to add.
+    books.add(new Book(), { sort: true });
+
     // Objects can be added to collection by casting to model type.
     // Compiler will check if object properties are valid for the cast.
     // This gives better type checking than declaring an `any` overload.
