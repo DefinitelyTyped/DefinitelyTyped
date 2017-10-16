@@ -418,4 +418,10 @@ namespace v1Changes {
             router.navigate('/employees', true);
         }
     }
+
+    namespace Sync {
+        // Test for Backbone.sync override.
+        Backbone.sync('create', new Employee());
+        Backbone.sync('read', new EmployeeCollection());
+    }
 }
