@@ -487,6 +487,12 @@
             "asOfVersion": "1.4.0"
         },
         {
+            "libraryName": "popper.js",
+            "typingsPackageName": "popper.js",
+            "sourceRepoURL": "https://github.com/FezVrasta/popper.js/",
+            "asOfVersion": "1.11.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
