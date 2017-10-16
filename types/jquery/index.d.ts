@@ -156,7 +156,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.Callbacks/}
      * @since 1.7
      */
-    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<Function>;
+    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
