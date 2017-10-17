@@ -18,7 +18,8 @@ connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
     console.log('The solution is: ', rows[0].solution);
 });
 
-connection.end(function (err) {});
+connection.end(function (err) {
+});
 
 connection = mysql.createConnection({
     host: 'example.org',
@@ -61,8 +62,14 @@ connection.end(function (err) {
 
 connection.destroy();
 
-connection.changeUser({ user: 'john' }, function (err) {
-    if (err) throw err;
+connection.changeUser({user: 'john'}, function (err) {
+    if (err) console.error('SHOULD BE ERROR');
+});
+
+connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'me',
+    password: 'test'
 });
 
 const userId = 'some user provided value';
@@ -118,11 +125,11 @@ connection.config.queryFormat = function (query, values) {
     }.bind(this));
 };
 
-connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" });
+connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"});
 
 const s: stream.Readable = connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"}).stream({highWaterMark: 5});
 
-connection.query('INSERT INTO posts SET ?', { title: 'test' }, function (err, result) {
+connection.query('INSERT INTO posts SET ?', {title: 'test'}, function (err, result) {
     if (err) throw err;
 
     console.log(result.insertId);
@@ -139,6 +146,14 @@ connection.query('UPDATE posts SET ...', function (err, result) {
 
     console.log('changed ' + result.changedRows + ' rows');
 });
+connection.destroy()
+
+connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'me',
+    password: 'test'
+});
+
 
 connection.connect(function (err) {
     if (err) throw err;
@@ -202,10 +217,12 @@ poolCluster.add('SLAVE1', poolConfig);
 poolCluster.add('SLAVE2', poolConfig);
 
 // Target Group : ALL(anonymous, MASTER, SLAVE1-2), Selector : round-robin(default)
-poolCluster.getConnection(function (err, connection) { });
+poolCluster.getConnection(function (err, connection) {
+});
 
 // Target Group : MASTER, Selector : round-robin
-poolCluster.getConnection('MASTER', function (err, connection) { });
+poolCluster.getConnection('MASTER', function (err, connection) {
+});
 
 // Target Group : SLAVE1-2, Selector : order
 // If can't connect to SLAVE1, return SLAVE2. (remove SLAVE1 in the cluster)
@@ -213,14 +230,18 @@ poolCluster.on('remove', function (nodeId) {
     console.log('REMOVED NODE : ' + nodeId); // nodeId = SLAVE1
 });
 
-poolCluster.getConnection('SLAVE*', 'ORDER', function (err, connection) { });
+poolCluster.getConnection('SLAVE*', 'ORDER', function (err, connection) {
+});
 
 // of namespace : of(pattern, selector)
-poolCluster.of('*').getConnection(function (err, connection) { });
+poolCluster.of('*').getConnection(function (err, connection) {
+});
 
 pool = poolCluster.of('SLAVE*', 'RANDOM');
-pool.getConnection(function (err, connection) { });
-pool.getConnection(function (err, connection) { });
+pool.getConnection(function (err, connection) {
+});
+pool.getConnection(function (err, connection) {
+});
 
 const poolClusterWithOptions = mysql.createPoolCluster({
     canRetry: true,
@@ -260,10 +281,10 @@ queryF
 
 const writable = fs.createWriteStream('file.txt');
 connection.query('SELECT * FROM posts')
-    .stream({ highWaterMark: 5 })
+    .stream({highWaterMark: 5})
     .pipe(writable);
 
-connection = mysql.createConnection({ multipleStatements: true });
+connection = mysql.createConnection({multipleStatements: true});
 
 connection.query('SELECT 1; SELECT 2', function (err, results) {
     if (err) throw err;
@@ -303,7 +324,9 @@ connection.query(options, function (err, results) {
 connection.beginTransaction(function (err) {
     const title = 'title';
 
-    if (err) { throw err; }
+    if (err) {
+        throw err;
+    }
     connection.query('INSERT INTO posts SET title=?', title, function (err, result) {
         if (err) {
             connection.rollback(function () {
@@ -332,7 +355,7 @@ connection.beginTransaction(function (err) {
 });
 
 // Kill query after 60s
-connection.query({ sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 60000 }, function (err, rows) {
+connection.query({sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 60000}, function (err, rows) {
     if (err && err.code === 'PROTOCOL_SEQUENCE_TIMEOUT') {
         throw new Error('too long to count table rows!');
     }
@@ -344,9 +367,14 @@ connection.query({ sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 6000
     console.log(rows[0].count + ' rows');
 });
 
-connection = mysql.createConnection({
-    port: 84943, // WRONG PORT
-});
+try {
+    connection = mysql.createConnection({
+        port: 8943, // set wrong port and uncomment throw
+    });
+   // throw new Error('error not thrown')
+} catch (err) {
+    console.error('SHOULD BE WRONG PORT ERROR: ', err)
+}
 
 connection.connect(function (err) {
     console.log(err.code); // 'ECONNREFUSED'
@@ -374,11 +402,12 @@ connection.on('error', function (err) {
 connection.query('USE name_of_db_that_does_not_exist');
 
 // I am Chuck Norris:
-connection.on('error', function () { });
+connection.on('error', function () {
+});
 
-connection = mysql.createConnection({ typeCast: false });
+connection = mysql.createConnection({typeCast: false});
 
-const query1 = connection.query({ sql: '...', typeCast: false }, function (err: Error, results) {
+const query1 = connection.query({sql: '...', typeCast: false}, function (err: Error, results) {
 
 });
 
@@ -393,9 +422,10 @@ connection.query({
 });
 
 connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
-connection = mysql.createConnection({ debug: true });
-connection = mysql.createConnection({ debug: ['ComQueryPacket', 'RowDataPacket'] });
-
+connection = mysql.createConnection({debug: true});
+connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
+/* it lints good
 const type: mysql.Types = mysql.Types.SHORT;
-let info: mysql.IFieldInfo;
+let info: mysql.IFieldInfo = {};
 info.type = type;
+*/
