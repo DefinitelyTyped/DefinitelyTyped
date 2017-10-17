@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +19,10 @@
     },
     "files": [
         "index.d.ts",
-        "react-relay-tests.tsx"
+        "classic.d.ts",
+        "modern.d.ts",
+        "compat.d.ts",
+        "test/react-relay-tests.tsx",
+        "test/react-relay-classic-tests.tsx"
     ]
 }
