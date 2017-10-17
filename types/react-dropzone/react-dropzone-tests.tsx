@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DragEvent, SyntheticEvent } from "react";
-import Dropzone = require("react-dropzone");
+import Dropzone from "react-dropzone";
 import { ImageFile } from "react-dropzone";
 
 class Test extends React.Component {
@@ -11,13 +11,13 @@ class Test extends React.Component {
     this.dz.open();
   }
 
-  handleDropFile = (files: ImageFile[], e: DragEvent<HTMLDivElement>) => {};
+  handleDropFile = (files: ImageFile[], e: DragEvent<HTMLDivElement>) => { };
 
-  handleDropFiles = (accepted: File[], rejected: File[], event: DragEvent<HTMLDivElement>) => {};
+  handleDropFiles = (accepted: File[], rejected: File[], event: DragEvent<HTMLDivElement>) => { };
 
-  handleDefault = (e: SyntheticEvent<HTMLDivElement>) => {}
+  handleDefault = (e: SyntheticEvent<HTMLDivElement>) => { }
 
-  handleFileDialog = () => {}
+  handleFileDialog = () => { }
 
   render() {
     return (
@@ -26,8 +26,8 @@ class Test extends React.Component {
           ref={(node) => { this.dz = node }}
           onClick={this.handleDefault}
           onDrop={this.handleDropFiles}
-          onDropAccepted={this.handleDropFile }
-          onDropRejected={this.handleDropFile }
+          onDropAccepted={this.handleDropFile}
+          onDropRejected={this.handleDropFile}
           onDragStart={this.handleDefault}
           onDragEnter={this.handleDefault}
           onDragLeave={this.handleDefault}
@@ -50,7 +50,7 @@ class Test extends React.Component {
           multiple={false}
           accept="*.png"
           name="dropzone"
-          inputProps={{ id : "dropzone" }}
+          inputProps={{ id: "dropzone" }}
         />
       </div>
     );
