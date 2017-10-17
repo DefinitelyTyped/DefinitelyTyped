@@ -228,8 +228,17 @@ knex.select('*').from('users').join('accounts', function() {
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
+knex.select('*').from('users').join('accounts', function(join: Knex.JoinClause) {
+  if (this !== join) {
+    throw new Error("join() callback call semantics wrong");
+  }
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+
 knex.select('*').from('users').join('accounts', (join: Knex.JoinClause) => {
-    join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
@@ -245,7 +254,7 @@ knex('users').innerJoin('accounts', function() {
 });
 
 knex('users').innerJoin('accounts', (join: Knex.JoinClause) => {
-    join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').leftJoin('accounts', 'users.id', 'accounts.user_id');
@@ -255,7 +264,7 @@ knex.select('*').from('users').leftJoin('accounts', function() {
 });
 
 knex.select('*').from('users').leftJoin('accounts', (join: Knex.JoinClause) => {
-    join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').leftOuterJoin('accounts', 'users.id', 'accounts.user_id');
@@ -271,7 +280,7 @@ knex.select('*').from('users').rightJoin('accounts', function() {
 });
 
 knex.select('*').from('users').rightJoin('accounts', (join: Knex.JoinClause) => {
-    join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').rightOuterJoin('accounts', 'users.id', 'accounts.user_id');
@@ -287,7 +296,7 @@ knex.select('*').from('users').outerJoin('accounts', function() {
 });
 
 knex.select('*').from('users').outerJoin('accounts', (join: Knex.JoinClause) => {
-    join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').fullOuterJoin('accounts', 'users.id', 'accounts.user_id');
@@ -297,7 +306,7 @@ knex.select('*').from('users').fullOuterJoin('accounts', function() {
 });
 
 knex.select('*').from('users').fullOuterJoin('accounts', (join: Knex.JoinClause) => {
-    join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').crossJoin('accounts', 'users.id', 'accounts.user_id');
