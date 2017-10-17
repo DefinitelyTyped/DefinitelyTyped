@@ -12,7 +12,8 @@ import {
     createRefetchContainer,
     requestSubscription,
     QueryRenderer,
-    ModernTypes,
+    RelayRefetchProp,
+    RelayPaginationProp
 } from "react-relay";
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -79,7 +80,7 @@ interface StoryInterface {
     id: string;
 }
 interface FeedStoriesProps {
-    relay: ModernTypes.RelayRefetchProp;
+    relay: RelayRefetchProp;
     feed: {
         stories: { edges: Array<{ node: StoryInterface }> };
     };
@@ -134,7 +135,7 @@ const FeedRefetchContainer = createRefetchContainer(
 // ~~~~~~~~~~~~~~~~~~~~~
 interface FeedProps {
     user: { feed: { edges: Array<{ node: StoryInterface }> } };
-    relay: ModernTypes.RelayPaginationProp;
+    relay: RelayPaginationProp;
 }
 class Feed extends React.Component<FeedProps> {
     render() {
