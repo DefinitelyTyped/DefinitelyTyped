@@ -1,6 +1,15 @@
-import { RelayRuntimeTypes, RelayCommonTypes } from "relay-runtime";
+export {
+    QueryRenderer,
+    commitMutation,
+    createFragmentContainer,
+    createPaginationContainer,
+    createRefetchContainer,
+    fetchQuery,
+    graphql,
+} from "react-relay";
+
+import * as RelayRuntimeTypes from "relay-runtime";
 import { RelayEnvironmentInterface } from "react-relay/classic";
-import {} from "react-relay/modern";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
@@ -13,7 +22,7 @@ type ConcreteOperationDefinition = object;
 // ~~~~~~~~~~~~~~~~~~~~~
 // Util
 // ~~~~~~~~~~~~~~~~~~~~~
-export function getFragment(q: string, v?: RelayCommonTypes.Variables): string;
+export function getFragment(q: string, v?: RelayRuntimeTypes.Variables): string;
 export interface ComponentWithFragment<T> extends React.ComponentClass<T> {
     getFragment: typeof getFragment;
 }
@@ -35,25 +44,25 @@ export type CompatEnvironment = RelayRuntimeTypes.Environment | RelayClassicEnvi
 export function commitUpdate(
     environment: CompatEnvironment,
     config: RelayRuntimeTypes.MutationConfig<any>
-): RelayCommonTypes.Disposable;
+): RelayRuntimeTypes.Disposable;
 export function applyUpdate(
     environment: CompatEnvironment,
     config: RelayRuntimeTypes.OptimisticMutationConfig
-): RelayCommonTypes.Disposable;
+): RelayRuntimeTypes.Disposable;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayCompatContainer
 // ~~~~~~~~~~~~~~~~~~~~~
 export interface GeneratedNodeMap {
-    [key: string]: RelayCommonTypes.GraphQLTaggedNode;
+    [key: string]: RelayRuntimeTypes.GraphQLTaggedNode;
 }
 export function createContainer<T>(
     Component: ReactBaseComponent<T>,
-    fragmentSpec: RelayCommonTypes.GraphQLTaggedNode | GeneratedNodeMap
+    fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
 ): ReactFragmentComponent<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // injectDefaultVariablesProvider
 // ~~~~~~~~~~~~~~~~~~~~~
-export type VariablesProvider = () => RelayCommonTypes.Variables;
+export type VariablesProvider = () => RelayRuntimeTypes.Variables;
 export function injectDefaultVariablesProvider(variablesProvider: VariablesProvider): void;
