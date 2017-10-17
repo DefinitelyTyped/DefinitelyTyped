@@ -1200,7 +1200,7 @@ declare namespace google.maps {
 
     export interface GeocoderGeometry {
         bounds: LatLngBounds;
-        location: LatLng;
+        location: LatLng | LatLngLiteral;
         location_type: GeocoderLocationType;
         viewport: LatLngBounds;
     }
