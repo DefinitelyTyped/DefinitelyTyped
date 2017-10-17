@@ -256,7 +256,7 @@ declare namespace React {
         props?: Q, // should be Q & Attributes
         ...children: ReactNode[]): ReactElement<P>;
 
-    function isValidElement<P>(object: {}): object is ReactElement<P>;
+    function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
     const version: string;
