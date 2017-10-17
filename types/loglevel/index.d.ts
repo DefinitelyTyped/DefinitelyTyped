@@ -29,6 +29,18 @@ declare namespace log {
      */
     type LogLevelNumbers = LogLevel[keyof LogLevel];
 
+    /**
+     * Possible log level descriptors, may be string, lower or upper case, or number.
+     */
+    type LogLevelDesc = LogLevelNumbers
+        | 'trace'
+        | 'debug'
+        | 'info'
+        | 'warn'
+        | 'error'
+        | 'silent'
+        | keyof LogLevel;
+
     type LoggingMethod = (...message: any[]) => void;
 
     type MethodFactory = (methodName: string, level: LogLevelNumbers, loggerName: string) => LoggingMethod;
@@ -92,18 +104,7 @@ declare namespace log {
          *     back to cookies if not. If neither is available in the current environment (i.e. in Node), or if you pass
          *     false as the optional 'persist' second argument, persistence will be skipped.
          */
-        setLevel(
-            level:
-                LogLevelNumbers
-                | 'trace'
-                | 'debug'
-                | 'info'
-                | 'warn'
-                | 'error'
-                | 'silent'
-                | keyof LogLevel,
-            persist?: boolean
-        ): void;
+        setLevel(level: LogLevelDesc, persist?: boolean): void;
 
         /**
          * If you're using another JavaScript library that exposes a 'log' global, you can run into conflicts with loglevel.
@@ -135,17 +136,7 @@ declare namespace log {
          *
          * @param level as a string, like 'error' (case-insensitive) or as a number from 0 to 5 (or as log.levels. values)
          */
-        setDefaultLevel(
-            level:
-                LogLevelNumbers
-                | 'trace'
-                | 'debug'
-                | 'info'
-                | 'warn'
-                | 'error'
-                | 'silent'
-                | keyof LogLevel
-        ): void;
+        setDefaultLevel(level: LogLevelDesc): void;
 
         /**
          * This gets you a new logger object that works exactly like the root log object, but can have its level and
