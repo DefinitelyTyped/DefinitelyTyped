@@ -1,6 +1,6 @@
 import StripeNode = require('stripe');
 
-var stripe = StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K")
+var stripe = new StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K")
 
 stripe.setApiVersion('2016-03-07');
 
