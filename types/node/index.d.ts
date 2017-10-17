@@ -345,7 +345,7 @@ declare namespace NodeJS {
         unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
-        wrap(oldStream: ReadableStream): ReadableStream;
+        wrap(oldStream: ReadableStream): this;
     }
 
     export interface WritableStream extends EventEmitter {
@@ -438,10 +438,21 @@ declare namespace NodeJS {
     export interface WriteStream extends Socket {
         columns?: number;
         rows?: number;
+        _write(chunk: any, encoding: string, callback: Function): void;
+        _destroy(err: Error, callback: Function): void;
+        _final(callback: Function): void;
+        setDefaultEncoding(encoding: string): this;
+        cork(): void;
+        uncork(): void;
+        destroy(error?: Error): void;
     }
     export interface ReadStream extends Socket {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
+        _read(size: number): void;
+        _destroy(err: Error, callback: Function): void;
+        push(chunk: any, encoding?: string): boolean;
+        destroy(error?: Error): void;
     }
 
     export interface Process extends EventEmitter {
@@ -2430,7 +2441,9 @@ declare module "net" {
 
     export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
-    export interface Socket extends stream.Duplex {
+    export class Socket extends stream.Duplex {
+        constructor(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; });
+
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -2543,10 +2556,6 @@ declare module "net" {
         prependOnceListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
-
-    export var Socket: {
-        new(options?: SocketConstructorOpts): Socket;
-    };
 
     export interface ListenOptions {
         port?: number;
@@ -2679,7 +2688,7 @@ declare module "dgram" {
     export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    export interface Socket extends events.EventEmitter {
+    export class Socket extends events.EventEmitter {
         send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
@@ -2757,7 +2766,7 @@ declare module "fs" {
      */
     export type PathLike = string | Buffer | URL;
 
-    export interface Stats {
+    export class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -2814,7 +2823,7 @@ declare module "fs" {
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
 
-    export interface ReadStream extends stream.Readable {
+    export class ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
         bytesRead: number;
@@ -2846,7 +2855,7 @@ declare module "fs" {
         prependOnceListener(event: "close", listener: () => void): this;
     }
 
-    export interface WriteStream extends stream.Writable {
+    export class WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
@@ -5084,7 +5093,7 @@ declare module "stream" {
             isPaused(): boolean;
             unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
-            wrap(oldStream: NodeJS.ReadableStream): Readable;
+            wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
             _destroy(err: Error, callback: Function): void;
             destroy(error?: Error): void;

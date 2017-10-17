@@ -2066,6 +2066,36 @@ namespace child_process_tests {
             let _sendHandle: net.Socket | net.Server = sendHandle;
         });
     }
+    {
+        process.stdin.setEncoding('utf8');
+
+        process.stdin.on('readable', () => {
+            const chunk = process.stdin.read();
+            if (chunk !== null) {
+              process.stdout.write(`data: ${chunk}`);
+            }
+        });
+
+        process.stdin.on('end', () => {
+            process.stdout.write('end');
+        });
+
+        process.stdin.pipe(process.stdout);
+
+        console.log(process.stdin.isTTY);
+        console.log(process.stdout.isTTY);
+
+        console.log(process.stdin instanceof net.Socket);
+        console.log(process.stdout instanceof fs.ReadStream);
+
+        var stdin: stream.Readable = process.stdin;
+        console.log(stdin instanceof net.Socket);
+        console.log(stdin instanceof fs.ReadStream);
+
+        var stdout: stream.Writable = process.stdout;
+        console.log(stdout instanceof net.Socket);
+        console.log(stdout instanceof fs.WriteStream);
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
