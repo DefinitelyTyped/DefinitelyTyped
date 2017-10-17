@@ -396,6 +396,32 @@ function bufferTests() {
         const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     }
 
+    // Class Method byteLenght
+    {
+        let len: number;
+        len = Buffer.byteLength("foo");
+        len = Buffer.byteLength("foo", "utf8");
+
+        const b = Buffer.from("bar");
+        len = Buffer.byteLength(b);
+        len = Buffer.byteLength(b, "utf16le");
+
+        const ab = new ArrayBuffer(15);
+        len = Buffer.byteLength(ab);
+        len = Buffer.byteLength(ab, "ascii");
+
+        const dv = new DataView(ab);
+        len = Buffer.byteLength(dv);
+        len = Buffer.byteLength(dv, "utf16le");
+    }
+
+    // Class Method poolSize
+    {
+        let s: number;
+        s = Buffer.poolSize;
+        Buffer.poolSize = 4096;
+    }
+
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
     var a: Buffer | number;
@@ -799,6 +825,9 @@ function simplified_stream_ctor_test() {
         },
         destroy(error) {
             error.stack;
+        },
+        final(cb) {
+            cb(null);
         }
     });
 
@@ -950,6 +979,9 @@ namespace tls_tests {
             port: 55
         };
         var tlsSocket = tls.connect(connOpts);
+
+        const ciphers: string[] = tls.getCiphers();
+        const curve: string = tls.DEFAULT_ECDH_CURVE;
     }
 
     {
@@ -1332,6 +1364,7 @@ namespace dgram_tests {
         ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
         });
         ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+        ds.setMulticastInterface("127.0.0.1");
     }
 
     {
@@ -1402,6 +1435,20 @@ namespace dgram_tests {
             let _msg: Buffer = msg;
             let _rinfo: dgram.AddressInfo = rinfo;
         });
+    }
+
+    {
+        let ds: dgram.Socket = dgram.createSocket({
+            type: 'udp4',
+            recvBufferSize: 10000,
+            sendBufferSize: 15000
+        });
+
+        let size: number;
+        size = ds.getRecvBufferSize();
+        ds.setRecvBufferSize(size);
+        size = ds.getSendBufferSize();
+        ds.setSendBufferSize(size);
     }
 }
 
@@ -1669,6 +1716,14 @@ namespace readline_tests {
 
         readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
+    }
+
+    {
+        let stream: NodeJS.ReadableStream;
+        let readLineInterface: readline.ReadLine;
+
+        readline.emitKeypressEvents(stream);
+        readline.emitKeypressEvents(stream, readLineInterface);
     }
 
     {
@@ -2356,6 +2411,19 @@ namespace console_tests {
 
 namespace net_tests {
     {
+        const connectOpts: net.NetConnectOpts = {
+            allowHalfOpen: true,
+            family: 4,
+            host: "localhost",
+            port: 443,
+            timeout: 10E3
+        };
+        const socket: net.Socket = net.createConnection(connectOpts, (): void => {
+            // nothing
+        });
+    }
+
+    {
         let server = net.createServer();
         // Check methods which return server instances by chaining calls
         server = server.listen(0)
@@ -2375,6 +2443,13 @@ namespace net_tests {
     }
 
     {
+        const constructorOpts: net.SocketConstructorOpts = {
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        };
+
         /**
          * net.Socket - events.EventEmitter
          *   1. close
@@ -2386,18 +2461,36 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket = new net.Socket({
-            fd: 1,
-            allowHalfOpen: false,
-            readable: false,
-            writable: false
-        });
+        let _socket: net.Socket = new net.Socket(constructorOpts);
 
         let bool: boolean;
         let buffer: Buffer;
         let error: Error;
         let str: string;
         let num: number;
+
+        let ipcConnectOpts: net.IpcSocketConnectOpts = {
+            path: "/"
+        };
+        let tcpConnectOpts: net.TcpSocketConnectOpts = {
+            family: 4,
+            hints: 0,
+            host: "localhost",
+            localAddress: "10.0.0.1",
+            localPort: 1234,
+            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void => {
+                // nothing
+            },
+            port: 80
+        };
+        _socket = _socket.connect(ipcConnectOpts);
+        _socket = _socket.connect(ipcConnectOpts, (): void => {});
+        _socket = _socket.connect(tcpConnectOpts);
+        _socket = _socket.connect(tcpConnectOpts, (): void => {});
+        _socket = _socket.connect(80, "localhost");
+        _socket = _socket.connect(80, "localhost", (): void => {});
+        _socket = _socket.connect(80);
+        _socket = _socket.connect(80, (): void => {});
 
         /// addListener
 
@@ -2919,7 +3012,8 @@ namespace async_hooks_tests {
         init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
         before: (asyncId: number) => void {},
         after: (asyncId: number) => void {},
-        destroy: (asyncId: number) => void {}
+        destroy: (asyncId: number) => void {},
+        promiseResolve: (asyncId: number) => void {}
     };
 
     const asyncHook = async_hooks.createHook(hooks);
@@ -2928,6 +3022,27 @@ namespace async_hooks_tests {
 
     const tId: number = async_hooks.triggerAsyncId();
     const eId: number = async_hooks.executionAsyncId();
+
+    class TestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE');
+        }
+    }
+
+    class AnotherTestResource extends async_hooks.AsyncResource {
+        constructor() {
+            super('TEST_RESOURCE', 42);
+            const aId: number = this.asyncId();
+            const tId: number = this.triggerAsyncId();
+        }
+        run() {
+            this.emitBefore();
+            this.emitAfter();
+        }
+        destroy() {
+            this.emitDestroy();
+        }
+    }
 }
 
 ////////////////////////////////////////////////////

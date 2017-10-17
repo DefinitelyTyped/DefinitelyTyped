@@ -6,23 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "strictNullChecks": true,
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
-        "paths": {
-            "turf": [
-                "turf/v2"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "turf-tests.ts"
+        "react-dom-factories-tests.ts"
     ]
 }

@@ -143,6 +143,16 @@ declare namespace karma {
         configFile: string;
     }
 
+    // taken from log4js 1.x typings which are gone...
+    interface Log4jsAppenderConfigBase {
+        type: string;
+        category?: string;
+        layout?: {
+            type: string;
+            [key: string]: any
+        }
+    }
+
     interface ConfigOptions {
         /**
          * @description Enable or disable watching files and executing the tests whenever one of these files changes.
