@@ -4023,6 +4023,7 @@ declare namespace StripeNode {
     }
 
     namespace subscriptions {
+        type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -4105,7 +4106,7 @@ declare namespace StripeNode {
              * card details will not lead to Stripe retrying the latest invoice.). After receiving updated card details from a customer,
              * you may choose to reopen and pay their closed invoices.
              */
-            status: "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+            status: SubscriptionStatus;
 
             /**
              * If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer.
@@ -4258,7 +4259,7 @@ declare namespace StripeNode {
             /**
              * The status of the subscriptions to retrieve.
              */
-            status?: ISubscription["status"] | "all";
+            status?: SubscriptionStatus | "all";
         }
     }
 
