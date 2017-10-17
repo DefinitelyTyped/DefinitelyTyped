@@ -3,18 +3,18 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var signals: signals.SignalWrapper<any>;
+declare var signals: signals.SignalWrapper;
 
 export = signals;
 export as namespace signals;
 
 declare namespace signals {
 
-    interface SignalWrapper<T> {
+    interface SignalWrapper<T = any> {
         Signal: Signal<T>
     }
 
-    interface SignalBinding<T> {
+    interface SignalBinding<T = any> {
         active: boolean;
         context: any;
         params: any;
