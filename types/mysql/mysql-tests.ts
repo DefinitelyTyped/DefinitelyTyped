@@ -3,10 +3,10 @@ import mysql = require('mysql');
 import stream = require('stream');
 
 /// Connections
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host: 'localhost',
     user: 'me',
-    password: 'secret'
+    password: 'test'
 });
 
 connection.connect();
@@ -64,7 +64,7 @@ connection.changeUser({ user: 'john' }, function (err) {
     if (err) throw err;
 });
 
-var userId = 'some user provided value';
+const userId = 'some user provided value';
 var sql = 'SELECT * FROM users WHERE id = ' + connection.escape(userId);
 connection.query(sql, function (err, results) {
     // ...
@@ -79,7 +79,7 @@ var query = connection.query('INSERT INTO posts SET ?', post, function (err, res
 });
 console.log(query.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
 
-var queryStr = "SELECT * FROM posts WHERE title=" + mysql.escape("Hello MySQL");
+const queryStr = "SELECT * FROM posts WHERE title=" + mysql.escape("Hello MySQL");
 
 console.log(queryStr); // SELECT * FROM posts WHERE title='Hello MySQL'
 
@@ -95,8 +95,8 @@ connection.query(sql, function (err, results) {
     // ...
 });
 
-var userIdNum = 1;
-var columns = ['username', 'email'];
+const userIdNum = 1;
+const columns = ['username', 'email'];
 var query = connection.query('SELECT ?? FROM ?? WHERE id = ?', [columns, 'users', userIdNum], function (err, results) {
     // ...
 });
@@ -104,12 +104,8 @@ var query = connection.query('SELECT ?? FROM ?? WHERE id = ?', [columns, 'users'
 console.log(query.sql); // SELECT `username`, `email` FROM `users` WHERE id = 1
 
 var sql = "SELECT * FROM ?? WHERE ?? = ?";
-var inserts = ['users', 'id', userId];
+const inserts = ['users', 'id', userId];
 sql = mysql.format(sql, inserts);
-
-var sql = "INSERT INTO posts SET ?";
-var post = { id: 1, title: 'Hello MySQL' };
-sql = mysql.format(sql, post);
 
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
@@ -123,7 +119,7 @@ connection.config.queryFormat = function (query, values) {
 
 connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" });
 
-var s: stream.Readable = connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" }).stream({ highWaterMark: 5 });
+const s: stream.Readable = connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"}).stream({highWaterMark: 5});
 
 connection.query('INSERT INTO posts SET ?', { title: 'test' }, function (err, result) {
     if (err) throw err;
@@ -155,7 +151,7 @@ connection.ping(function (err) {
 
 /// Pools
 
-var poolConfig = {
+const poolConfig = {
     connectionLimit: 10,
     host: 'example.org',
     user: 'bob',
@@ -197,7 +193,7 @@ pool.getConnection(function (err, connection) {
 /// PoolClusters
 
 // create
-var poolCluster = mysql.createPoolCluster();
+const poolCluster = mysql.createPoolCluster();
 
 poolCluster.add(poolConfig); // anonymous group
 poolCluster.add('MASTER', poolConfig);
@@ -213,7 +209,7 @@ poolCluster.getConnection('MASTER', function (err, connection) { });
 // Target Group : SLAVE1-2, Selector : order
 // If can't connect to SLAVE1, return SLAVE2. (remove SLAVE1 in the cluster)
 poolCluster.on('remove', function (nodeId) {
-    console.log('REMOVED NODE : ' + nodeId); // nodeId = SLAVE1 
+    console.log('REMOVED NODE : ' + nodeId); // nodeId = SLAVE1
 });
 
 poolCluster.getConnection('SLAVE*', 'ORDER', function (err, connection) { });
@@ -225,7 +221,7 @@ var pool = poolCluster.of('SLAVE*', 'RANDOM');
 pool.getConnection(function (err, connection) { });
 pool.getConnection(function (err, connection) { });
 
-var poolClusterWithOptions = mysql.createPoolCluster({
+const poolClusterWithOptions = mysql.createPoolCluster({
     canRetry: true,
     removeNodeErrorCount: 3,
     restoreNodeTimeout: 1000,
@@ -249,7 +245,7 @@ query
         // Pausing the connnection is useful if your processing involves I/O
         connection.pause();
 
-        var processRow = (row: any, cb: () => void) => {
+        const processRow = (row: any, cb: () => void) => {
             cb();
         };
 
@@ -261,7 +257,7 @@ query
         // all rows have been received
     });
 
-var writable = fs.createWriteStream('file.txt');
+const writable = fs.createWriteStream('file.txt');
 connection.query('SELECT * FROM posts')
     .stream({ highWaterMark: 5 })
     .pipe(writable);
@@ -286,7 +282,7 @@ query
         // index refers to the statement this result belongs to (starts at 0)
     });
 
-var options = { sql: '...', nestTables: true };
+const options = {sql: '...', nestTables: true};
 
 connection.query(options, function (err, results) {
     /* results will be an array like this now:
@@ -304,7 +300,7 @@ connection.query(options, function (err, results) {
 });
 
 connection.beginTransaction(function (err) {
-    var title = 'title';
+    const title = 'title';
 
     if (err) { throw err; }
     connection.query('INSERT INTO posts SET title=?', title, function (err, result) {
@@ -314,7 +310,7 @@ connection.beginTransaction(function (err) {
             });
         }
 
-        var log = 'Post ' + result.insertId + ' added';
+        const log = 'Post ' + result.insertId + ' added';
 
         connection.query('INSERT INTO log SET data=?', log, function (err, result) {
             if (err) {
@@ -361,7 +357,7 @@ connection.query('SELECT 1', function (err) {
     console.log(err.fatal); // true
 });
 
-connection.query('USE name_of_db_that_does_not_exist', function (err, rows) {
+connection.query('USE name_of_db_that_does_not_exist', function (err: mysql.IError, rows) {
     console.log(err.code); // 'ER_BAD_DB_ERROR'
 });
 
@@ -381,7 +377,7 @@ connection.on('error', function () { });
 
 connection = mysql.createConnection({ typeCast: false });
 
-var query = connection.query({ sql: '...', typeCast: false }, function (err, results) {
+const query = connection.query({ sql: '...', typeCast: false }, function (err: Error, results) {
 
 });
 
@@ -399,6 +395,6 @@ connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
 connection = mysql.createConnection({ debug: true });
 connection = mysql.createConnection({ debug: ['ComQueryPacket', 'RowDataPacket'] });
 
-var type: mysql.FieldType = mysql.FieldType.SHORT;
-var info: mysql.IFieldInfo;
+const type: mysql.Types = mysql.Types.SHORT;
+let info: mysql.IFieldInfo;
 info.type = type;
