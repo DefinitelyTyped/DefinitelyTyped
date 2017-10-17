@@ -58,19 +58,18 @@
  * A number of interfaces contain nothing as they server to collect interfaces.
  *
  */
-// export as namespace Cy
-// export = cytoscape;
+export = cytoscape;
+export as namespace cytoscape;
 
-export function cytoscape(options?: cytoscape.CytoscapeOptions): cytoscape.Core;
-export function cytoscape(extensionName: string, foo: string, bar: any): cytoscape.Core;
+declare function cytoscape(options?: cytoscape.CytoscapeOptions): cytoscape.Core;
+declare function cytoscape(extensionName: string, foo: string, bar: any): cytoscape.Core;
 
-export namespace cytoscape {
+declare namespace cytoscape {
     interface Position {
         x: number;
         y: number;
     }
 
-    type HtmlElement = any;
     type CssStyleDeclaration = any;
 
     interface ElementDefinition {
