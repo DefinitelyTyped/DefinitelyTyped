@@ -1,11 +1,4 @@
-import {
-    Environment,
-    Network,
-    RecordSource,
-    Store,
-    ConnectionHandler,
-    ViewerHandler,
-} from 'relay-runtime';
+import { Environment, Network, RecordSource, Store, ConnectionHandler, ViewerHandler } from "relay-runtime";
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -15,13 +8,9 @@ const store = new Store(source);
 // ~~~~~~~~~~~~~~~~~~~~~
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
-function fetchQuery(
-    operation: any,
-    variables: { [key: string]: string },
-    cacheConfig: {},
-) {
-    return fetch('/graphql', {
-        method: 'POST',
+function fetchQuery(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
+    return fetch("/graphql", {
+        method: "POST",
         body: JSON.stringify({
             query: operation.text, // GraphQL text from input
             variables,
@@ -50,10 +39,10 @@ const environment = new Environment({
 function handlerProvider(handle: any) {
     switch (handle) {
         // Augment (or remove from) this list:
-        case 'connection': return ConnectionHandler;
-        case 'viewer': return ViewerHandler;
+        case "connection":
+            return ConnectionHandler;
+        case "viewer":
+            return ViewerHandler;
     }
-    throw new Error(
-        `handlerProvider: No handler provided for ${handle}`
-    );
+    throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
