@@ -63,7 +63,7 @@ function JQueryStatic() {
     }
 
     function ajaxSettings() {
-        // $ExpectType JQuery.AjaxSettings
+        // $ExpectType AjaxSettings<any>
         $.ajaxSettings;
     }
 
