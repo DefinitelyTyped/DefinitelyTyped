@@ -63,8 +63,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
-   *
-   * TODO: disallow non-objects
    */
   catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
     filter1: (new (...args: any[]) => E1),
@@ -205,8 +203,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
-   *
-   * TODO: disallow non-objects
    */
   caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
     filter1: (new (...args: any[]) => E1),
@@ -364,7 +360,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
 
   /**
    * Like `.catch()` but rethrows the error
-   * TODO: disallow non-objects
    */
   tapCatch<U>(onReject: (error?: any) => U | PromiseLike<U>): Bluebird<R>;
 
@@ -533,7 +528,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * </code>
    *
    * in the case where `value` doesn't change its value. That means `value` is bound at the time of calling `.catchReturn()`
-   * TODO: disallow non-objects
    */
   catchReturn<U>(value: U): Bluebird<R | U>;
 
@@ -577,7 +571,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * });
    * </code>
    * Same limitations apply as with `.catchReturn()`.
-   * TODO: disallow non-objects
    */
   catchThrow(reason: Error): Bluebird<R>;
 
