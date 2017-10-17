@@ -2504,7 +2504,7 @@
 /types/react/v15/                                        @bbenezech @pzavolinsky @digiguru @ericanderson @morcerf @tkrotoff @DovydasNavickas @onigoetz
 /types/react/                                            @johnnyreilly @bbenezech @pzavolinsky @digiguru @ericanderson @morcerf @tkrotoff @DovydasNavickas @onigoetz @richseviora
 /types/react-app/                                        @prakarshpandey
-/types/react-autosuggest/                                @nicolas-schmitt @pjo256 @robessog @tbayne
+/types/react-autosuggest/                                @nicolas-schmitt @pjo256 @robessog @tbayne @cdeutsch
 /types/react-body-classname/                             @mhegazy
 /types/react-bootstrap/                                  @walkerburgin @vsiao @danilojrr @Batbold-Gansukh @octatone @chengsieuly @katbusch
 /types/react-bootstrap-date-picker/                      @LKay @ssi-hu-antal-bodnar

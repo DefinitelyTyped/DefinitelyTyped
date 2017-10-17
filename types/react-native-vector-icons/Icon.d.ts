@@ -187,8 +187,8 @@ export interface TabBarItemIOSProps extends TabBarItemProperties {
 export class Icon extends React.Component<IconProps, any> {
   static getImageSource(
     name: string,
-    color: string,
-    size?: number
+    size?: number,
+    color?: string,
   ): Promise<ImageSource>;
   static loadFont(
     file?: string

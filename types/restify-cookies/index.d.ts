@@ -16,6 +16,10 @@ declare module 'restify' {
     secure?: boolean;
   }
 
+  interface Request {
+    cookies: any;
+  }
+
   interface Response {
     setCookie(key: string, val: string, options?: CookieOptions): void;
   }
