@@ -345,7 +345,7 @@ declare namespace nano {
   }
 
   interface DocumentScopeFollowUpdatesParams {
-    inlucde_docs?: boolean;
+    include_docs?: boolean;
     since?: string;
     heartbeat?: number;
     feed?: "continuous";
