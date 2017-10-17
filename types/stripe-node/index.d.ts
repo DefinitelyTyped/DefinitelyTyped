@@ -1,6 +1,9 @@
-// Type definitions for stripe-node 4.7.0
+// Type definitions for stripe-node 4.7
 // Project: https://github.com/stripe/stripe-node/
-// Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal>, Sampson Oliver <https://github.com/sampsonjoliver> 
+// Definitions by: William Johnston <https://github.com/wjohnsto>
+//                 Peter Harris <https://github.com/codeanimal>
+//                 Sampson Oliver <https://github.com/sampsonjoliver>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -72,7 +75,7 @@ declare namespace StripeNode {
         products: resources.Products;
         skus: resources.SKUs;
         webhooks: resources.WebHooks;
-        
+
         setHost(host: string): void;
         setHost(host: string, port: string|number): void;
         setHost(host: string, port: string|number, protocol: string): void;
@@ -4020,6 +4023,7 @@ declare namespace StripeNode {
     }
 
     namespace subscriptions {
+        type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -4102,7 +4106,7 @@ declare namespace StripeNode {
              * card details will not lead to Stripe retrying the latest invoice.). After receiving updated card details from a customer,
              * you may choose to reopen and pay their closed invoices.
              */
-            status: "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+            status: SubscriptionStatus;
 
             /**
              * If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to the customer.
@@ -4238,6 +4242,11 @@ declare namespace StripeNode {
 
         interface ISubscriptionListOptions extends IListOptionsCreated {
             /**
+             * The billing mode of the subscriptions to retrieve.
+             */
+            billing?: "charge_automatically" | "send_invoice";
+
+            /**
              * The ID of the customer whose subscriptions will be retrieved
              */
             customer?: string;
@@ -4246,6 +4255,11 @@ declare namespace StripeNode {
              * The ID of the plan whose subscriptions will be retrieved
              */
             plan?: string;
+
+            /**
+             * The status of the subscriptions to retrieve.
+             */
+            status?: SubscriptionStatus | "all";
         }
     }
 
@@ -6293,7 +6307,7 @@ declare namespace StripeNode {
             del(skuId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
             del(skuId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
         }
-    
+
         class WebHooks {
             constructEvent<T>(requestBody: any, signature: string | string[], endpointSecret: string): webhooks.StripeWebhookEvent<T>;
         }
