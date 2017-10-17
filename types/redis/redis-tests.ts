@@ -2,8 +2,8 @@ import redis = require('redis');
 
 const value: any = 'any value';
 const commandArr: any[][] = [];
-const num: number = 0;
-const str: string = 'any string';
+const num = 0;
+const str = 'any string';
 const err: Error = new Error();
 const args: any[] = [];
 const resCallback: (err: Error, res: any) => void = () => null;
