@@ -26,7 +26,7 @@ declare namespace signals {
         isOnce(): boolean;
     }
 
-    interface Signal<T> {
+    interface Signal<T = any> {
         /**
          * Custom event broadcaster
          * <br />- inspired by Robert Penner's AS3 Signals.
