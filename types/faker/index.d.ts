@@ -64,6 +64,7 @@ declare namespace Faker {
 			future(years?: number, refDate?: string|Date): Date;
 			between(from: string|number|Date, to: string|Date): Date;
 			recent(days?: number): Date;
+			soon(days?: number): Date;
 			month(options?: { abbr?: boolean, context?: boolean }): string;
 			weekday(options?: { abbr?: boolean, context?: boolean }): string;
 		};
@@ -80,6 +81,8 @@ declare namespace Faker {
 			currencyName(): string;
 			currencySymbol(): string;
 			bitcoinAddress(): string;
+			ethereumAddress(): string;
+			iban(formatted? :boolean): string
 			bic(): string
 		};
 
@@ -106,7 +109,6 @@ declare namespace Faker {
 			userCard(): Faker.UserCard;
 			createTransaction(): Faker.Transaction;
 		};
-
 
 		image: {
 			image(): string;
@@ -186,11 +188,12 @@ declare namespace Faker {
 			objectElement<T>(object?: { [key: string]: T }, field?: any): T;
 			uuid(): string;
 			boolean(): boolean;
-			word(): string; // TODO: have ability to return specific type of word? As in: noun, adjective, verb, etc
+			word(type?: string): string;
 			words(count?: number): string;
 			image(): string;
 			locale(): string;
 			alphaNumeric(count?: number): string;
+			hexaDecimal(count?: number): string;
 		};
 
 		system: {
@@ -201,8 +204,8 @@ declare namespace Faker {
 			commonFileExt(): string;
 			fileType(): string;
 			fileExt(mimeType: string): string;
-			//directoryPath(): string;
-			//filePath(): string;
+			directoryPath(): string;
+			filePath(): string;
 			semver(): string;
 		};
 
@@ -312,10 +315,6 @@ declare module "faker/locale/de_AT" {
 }
 
 declare module "faker/locale/de_CH" {
-	export = fakerStatic;
-}
-
-declare module "faker/locale/el_GR" {
 	export = fakerStatic;
 }
 
