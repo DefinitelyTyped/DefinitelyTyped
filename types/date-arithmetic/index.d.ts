@@ -7,8 +7,11 @@ type Unit = 'second' | 'minutes' | 'hours' | 'day' | 'week' | 'month' | 'year' |
 
 /** dateArithmetic Public Instance Methods */
 interface dateArithmeticStatic {
-    /** Add specified amount of units to a  provided date and return new date as a result */
+    /** Add specified amount of units to a provided date and return new date as a result */
     add(date: Date, num: number, unit: Unit): Date;
+
+    /** Subtract specified amount of units from a provided date and return new date as a result */
+    subtract(date: Date, num: number, unit: Unit): Date;
 }
 
 declare module 'dateArithmetic' {
