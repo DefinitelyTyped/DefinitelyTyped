@@ -7,12 +7,17 @@
 /// <reference types="node" />
 import * as fs from "fs";
 
-type callback = (info: object) => void;
+interface Info {
+    _filename: string;
+    filename: string;
+    size: number;
+}
 
 interface Youtubedl {
     (url: string, arg: string[], opt: {[key: string]: string}): this;
-    on(event: string, func: callback): this;
+    on(event: string, func: (info: Info) => void): this;
     pipe(stream: fs.WriteStream): this;
 }
 
-export = Youtubedl;
+declare var youtubedl: Youtubedl;
+export = youtubedl;
