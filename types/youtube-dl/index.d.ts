@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import 'node';
+/// <reference types="node" />
 import * as fs from "fs";
 
 type callback = (info: object) => void;
