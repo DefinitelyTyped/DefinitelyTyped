@@ -154,6 +154,11 @@ declare namespace jest {
      */
     function setMock<T>(moduleName: string, moduleExports: T): typeof jest;
     /**
+     * Set the default timeout interval for tests and before/after hooks in milliseconds.
+     * Note: The default timeout interval is 5 seconds if this method is not called.
+     */
+    function setTimeout(timeout: number): typeof jest;
+    /**
      * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
      */
     function spyOn<T extends {}, M extends keyof T>(object: T, method: M): SpyInstance<T[M]>;
