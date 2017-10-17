@@ -426,6 +426,9 @@ export function writeFile(
  */
 export function writeFileSync(path: string, data: any, options?: string | { encoding?: string | null; mode?: string | number; flag?: string }): void;
 
+// Static classes
+export { Stats, ReadStream, WriteStream } from 'graceful-fs';
+
 // util
 export function escapeEOL(str: string): string;
 export function escapeBOM(str: string): string;
