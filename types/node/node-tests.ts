@@ -339,6 +339,16 @@ namespace fs_tests {
         const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
         typeof v2 === "string" ? s = v2 : b = v2;
     }
+
+    {
+        fs.copyFile('/path/to/src', '/path/to/dest', (err) => console.error(err));
+        fs.copyFile('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL, (err) => console.error(err));
+
+        fs.copyFileSync('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL);
+
+        const cf = util.promisify(fs.copyFile);
+        cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
+    }
 }
 
 ///////////////////////////////////////////////////////
