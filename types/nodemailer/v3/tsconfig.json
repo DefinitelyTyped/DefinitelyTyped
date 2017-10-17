@@ -6,11 +6,11 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "nodemailer": [
@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "nodemailer-smtp-transport-tests.ts"
+        "nodemailer-tests.ts"
     ]
 }
