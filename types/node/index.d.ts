@@ -2697,10 +2697,6 @@ declare module "dgram" {
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
-        getRecvBufferSize(): number;
-        getSendBufferSize(): number;
-        setRecvBufferSize(size: number): void;
-        setSendBufferSize(size: number): void;
         ref(): this;
         unref(): this;
         setRecvBufferSize(size: number): void;
