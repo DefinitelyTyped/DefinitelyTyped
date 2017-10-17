@@ -109,6 +109,8 @@ export class StatsD {
    * @param {Callback} callback Callback when message is done being delivered. Optional.
    */
   increment(stat: string | string[], value?: number, sampleRate?: number, tags?: string[], callback?: Callback): void;
+  increment(stat: string | string[], value: any, sampleRateOrTags?: number | string [], callback?: Callback): void;
+  increment(stat: string | string[], value: any, callback?: Callback): void;
 
   /**
    * Sends a stat across the wire

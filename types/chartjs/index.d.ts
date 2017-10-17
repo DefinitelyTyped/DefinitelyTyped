@@ -120,6 +120,10 @@ interface ChartScalesOptions {
 interface ScaleTicksOptions {
     min?: number;
     max?: number;
+    maxTicksLimit?: number;
+    suggestedMin?: number;
+    suggestedMax?: number;
+    stepSize?: number;
 }
 
 interface ChartTitle {

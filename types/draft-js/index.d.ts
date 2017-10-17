@@ -1,4 +1,4 @@
-// Type definitions for Draft.js v0.10.1
+// Type definitions for Draft.js v0.10.3
 // Project: https://facebook.github.io/draft-js/
 // Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
 //                 Eelco Lempsink <https://github.com/eelco>
@@ -111,11 +111,11 @@ declare namespace Draft {
 
                 ariaActiveDescendantID?: string;
                 ariaAutoComplete?: string;
+                ariaControls?: string;
                 ariaDescribedBy?: string;
                 ariaExpanded?: boolean;
-                ariaHasPopup?: boolean;
                 ariaLabel?: string;
-                ariaOwneeID?: string;
+                ariaMultiline?: boolean;
 
                 webDriverTestID?: string;
 
@@ -320,6 +320,12 @@ declare namespace Draft {
              * to indicate whether an event was handled or not.
              */
             type DraftHandleValue = "handled" | "not-handled";
+
+            /**
+             * A type that defines if an fragment shall be inserted before or after
+             * another fragment or if the selected fragment shall be replaced
+             */
+            type DraftInsertionType = "replace" | "before" | "after";
         }
 
         namespace Decorators {
@@ -828,6 +834,7 @@ declare namespace Draft {
 
             class AtomicBlockUtils {
                 static insertAtomicBlock(editorState: EditorState, entityKey: string, character: string): EditorState;
+                static moveAtomicBlock(editorState: EditorState, atomicBlock: ContentBlock, targetRange: SelectionState, insertionMode?: DraftInsertionType): EditorState;
             }
 
             /**
@@ -938,6 +945,13 @@ import genKey = Draft.Model.Keys.generateRandomKey;
 import getDefaultKeyBinding = Draft.Component.Utils.getDefaultKeyBinding;
 import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRect;
 
+import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
+import DraftDragType = Draft.Model.Constants.DraftDragType;
+import DraftBlockType = Draft.Model.Constants.DraftBlockType;
+import DraftRemovalDirection = Draft.Model.Constants.DraftRemovalDirection;
+import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
+import DraftInsertionType = Draft.Model.Constants.DraftInsertionType;
+
 export {
     Editor,
     EditorProps,
@@ -970,5 +984,12 @@ export {
 
     genKey,
     getDefaultKeyBinding,
-    getVisibleSelectionRect
+    getVisibleSelectionRect,
+
+    DraftEditorCommand,
+    DraftDragType,
+    DraftBlockType,
+    DraftRemovalDirection,
+    DraftHandleValue,
+    DraftInsertionType,
 };

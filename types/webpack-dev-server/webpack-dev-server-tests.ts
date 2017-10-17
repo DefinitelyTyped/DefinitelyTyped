@@ -12,6 +12,9 @@ server.listen(8080);
 // Configuration can be used as a type
 const config: WebpackDevServer.Configuration = {
     // webpack-dev-server options
+    inline: true,
+    // Toggle between the dev-server's two different modes --- inline (default, recommended for HMR) or iframe.
+
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
 
@@ -71,4 +74,11 @@ const config: WebpackDevServer.Configuration = {
 
 // API example
 server = new WebpackDevServer(compiler, config);
+server.listen(8080, "localhost", () => {});
+
+// HTTPS example
+server = new WebpackDevServer(compiler, {
+    publicPath: "/assets/",
+    https: true
+});
 server.listen(8080, "localhost", () => {});

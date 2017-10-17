@@ -344,6 +344,15 @@ plugin = new webpack.optimize.OccurrenceOrderPlugin(preferEntry);
 plugin = new webpack.optimize.UglifyJsPlugin(options);
 plugin = new webpack.optimize.UglifyJsPlugin();
 plugin = new webpack.optimize.UglifyJsPlugin({
+    parallel: true
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
+    parallel: {
+        cache: true,
+        workers: 2
+    }
+});
+plugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
         warnings: false
     }
@@ -622,7 +631,7 @@ configuration = {
     performance,
 };
 
-function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: string): void {
+function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap: string | Buffer): void {
     this.cacheable();
 
     this.async();

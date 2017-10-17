@@ -1,6 +1,8 @@
-// Type definitions for sanitize-html 1.13.0
+// Type definitions for sanitize-html 1.14.1
 // Project: https://github.com/punkave/sanitize-html
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Afshin Darian <https://github.com/afshin>
+// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                 Afshin Darian <https://github.com/afshin>
+//                 BehindTheMath <https://github.com/BehindTheMath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = sanitize;
@@ -38,6 +40,8 @@ declare namespace sanitize {
     allowedAttributes?: { [index: string]: string[] } | boolean;
     allowedClasses?: { [index: string]: string[] } | boolean;
     allowedSchemes?: string[] | boolean;
+    allowedSchemesByTag?: { [index: string]: string[] } | boolean;
+    allowProtocolRelative?: boolean;
     allowedTags?: string[] | boolean;
     exclusiveFilter?: (frame: IFrame) => boolean;
     nonTextTags?: string[];

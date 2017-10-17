@@ -251,3 +251,7 @@ const client = zookeeper.createClient(
         console.log('Node: %s is created.', path);
     });
 }
+
+{
+    new zookeeper.Event(zookeeper.Event.NODE_CREATED, 'test', '/test');
+}

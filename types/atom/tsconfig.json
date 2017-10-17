@@ -7,21 +7,19 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "q": [ "q/v0" ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "api-docs.d.ts",
-        "atom-tests.ts"
+        "atom-tests.ts",
+        "services/index.d.ts"
     ]
 }

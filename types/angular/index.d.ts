@@ -392,6 +392,7 @@ declare namespace angular {
         $rollbackViewValue(): void;
         $commitViewValue(): void;
         $isEmpty(value: any): boolean;
+        $overrideModelOptions(options: INgModelOptions): void;
 
         $viewValue: any;
 
@@ -2078,7 +2079,7 @@ declare namespace angular {
             get<T>(name: '$xhrFactory'): IXhrFactory<T>;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: {new(...args: any[]): T}, locals?: any): T;
-            invoke(inlineAnnotatedFunction: any[]): any;
+            invoke(inlineAnnotatedFunction: any[], context?: any, locals?: any): any;
             invoke<T>(func: (...args: any[]) => T, context?: any, locals?: any): T;
             invoke(func: Function, context?: any, locals?: any): any;
             strictDi: boolean;
