@@ -289,10 +289,9 @@ declare namespace karma {
          */
         logLevel?: string;
         /**
-         * @default [{type: 'console'}]
-         * @description A list of log appenders to be used. See the documentation for [log4js] for more information.
+         * @description change to any, because is not compatibility with log4js 2.x
          */
-        loggers?: Log4jsAppenderConfigBase[];
+        loggers?: any[];
         /**
          * @default {}
          * @description Redefine default mapping from file extensions to MIME-type.
