@@ -170,7 +170,7 @@ export class SeleniumServer extends DriverService {
      * @throws {Error} If the path to the Selenium jar is not specified or if an
      *     invalid port is specified.
      **/
-    constructor(jar: String, opt_options: SeleniumServer.Options);
+    constructor(jar: string, opt_options?: SeleniumServer.Options);
 }
 
 export namespace SeleniumServer {
@@ -190,18 +190,15 @@ export namespace SeleniumServer {
      *     process. Defaults to inheriting the current process's environment.
      * - `stdio` - IO configuration for the spawned server process. For more
      *     information, refer to the documentation of `child_process.spawn`.
-     *
-     * @typedef {{
-     *   loopback: (boolean|undefined),
-     *   port: (number|!IThenable<number>),
-     *   args: !(Array<string>|IThenable<!Array<string>>),
-     *   jvmArgs: (!Array<string>|!IThenable<!Array<string>>|undefined),
-     *   env: (!Object<string, string>|undefined),
-     *   stdio: (string|!Array<string|number|!stream.Stream|null|undefined>|
-     *           undefined)
-     * }}
      */
-    interface Options { }
+    interface Options {
+        loopback?: boolean|undefined;
+        port?: number|webdriver.promise.IThenable<number>;
+        args?: string[]|webdriver.promise.IThenable<string[]>;
+        jvmArgs?: string[]|webdriver.promise.IThenable<string[]>|undefined;
+        env?: {[key: string]: string}|undefined;
+        stdio?: string|Array<string|number|null|undefined>|undefined
+    }
 }
 
 /**
