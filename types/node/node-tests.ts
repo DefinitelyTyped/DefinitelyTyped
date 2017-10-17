@@ -557,7 +557,9 @@ namespace url_tests {
 
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true);
-        assert.equal(helloUrl.query.hello, 'world');
+        if (typeof helloUrl.query !== 'string') {
+            assert.equal(helloUrl.query.hello, 'world');
+        }
     }
 
     {
