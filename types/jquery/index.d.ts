@@ -42,6 +42,11 @@ type _Promise<T> = Promise<T>;
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**
+     * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1}
+     * @deprecated Use jQuery.ajaxSetup(options)
+     */
+    ajaxSettings: JQuery.AjaxSettings;
+    /**
      * A factory function that returns a chainable utility object with methods to register multiple
      * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
      * any synchronous or asynchronous function.

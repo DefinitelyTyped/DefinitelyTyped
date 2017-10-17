@@ -6,7 +6,6 @@
 //                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
-//                 Daniel Imms <https://github.com/Tyriar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************

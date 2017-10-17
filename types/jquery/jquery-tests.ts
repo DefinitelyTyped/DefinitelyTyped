@@ -62,6 +62,11 @@ function JQueryStatic() {
         $();
     }
 
+    function ajaxSettings() {
+        // $ExpectType JQuery.AjaxSettings
+        $.ajaxSettings;
+    }
+
     function Event() {
         // $ExpectType EventStatic<HTMLElement>
         $.Event;
