@@ -240,7 +240,7 @@ describe('Assymetric matchers', () => {
 });
 
 describe('setTimeout', () => {
-    it('works as expected', () => {
+    it('works as expected', done => {
         jest.setTimeout(1000);
         
         setTimeout(() => {
