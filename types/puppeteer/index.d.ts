@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 0.10
+// Type definitions for puppeteer 0.12
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -240,7 +240,7 @@ export interface FrameBase {
     ...args: Array<object | ElementHandle>
   ): Promise<T>;
   title(): Promise<string>;
-  url(): Promise<string>;
+  url(): string;
   waitFor(
     // fn can be an abritary function
     // tslint:disable-next-line ban-types
