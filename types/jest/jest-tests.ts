@@ -244,9 +244,9 @@ describe('setTimeout', () => {
         jest.setTimeout(1000);
 
         setTimeout(() => {
-                expect(true).toBeTruthy();
-                done();
-            }, 900);
+            expect(true).toBeTruthy();
+            done();
+        }, 900);
     });
 });
 
