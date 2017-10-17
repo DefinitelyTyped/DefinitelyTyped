@@ -6,11 +6,11 @@
 
 /* tslint:disable:max-line-length */
 
-interface NightwatchCustomPageObjects {
+export interface NightwatchCustomPageObjects {
     page: {};
 }
 
-interface NightwatchDesiredCapabilities {
+export interface NightwatchDesiredCapabilities {
     /**
      * The name of the browser being used; should be one of {android|chrome|firefox|htmlunit|internet explorer|iPhone|iPad|opera|safari}.
      */
@@ -111,26 +111,26 @@ interface NightwatchDesiredCapabilities {
     };
 }
 
-interface NightwatchScreenshotOptions {
+export interface NightwatchScreenshotOptions {
     enabled?: boolean;
     on_failure?: boolean;
     on_error?: boolean;
     path?: string;
 }
 
-interface NightwatchTestRunner {
+export interface NightwatchTestRunner {
     "type"?: string;
     options?: {
         ui?: string;
     };
 }
 
-interface NightwatchTestWorker {
+export interface NightwatchTestWorker {
     enabled: boolean;
     workers: string;
 }
 
-interface NightwatchOptions {
+export interface NightwatchOptions {
     /**
      * An array of folders (excluding subfolders) where the tests are located.
      */
@@ -200,7 +200,7 @@ interface NightwatchOptions {
     test_runner?: string | NightwatchTestRunner;
 }
 
-interface NightwatchSeleniumOptions {
+export interface NightwatchSeleniumOptions {
     /**
      * Whether or not to manage the selenium process automatically.
      */
@@ -250,7 +250,7 @@ interface NightwatchSeleniumOptions {
     cli_args: any;
 }
 
-interface NightwatchTestSettingGeneric {
+export interface NightwatchTestSettingGeneric {
     /**
      * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
      */
@@ -352,7 +352,7 @@ interface NightwatchTestSettingGeneric {
     skip_testcases_on_fail: boolean;
 }
 
-interface NightwatchTestSettingScreenshots extends NightwatchTestSettingGeneric {
+export interface NightwatchTestSettingScreenshots extends NightwatchTestSettingGeneric {
     /**
      * Selenium generates screenshots when command errors occur. With on_failure set to true, also generates screenshots for failing or erroring tests. These are saved on the disk.
      * Since v0.7.5 you can disable screenshots for command errors by setting "on_error" to false.
@@ -367,26 +367,26 @@ interface NightwatchTestSettingScreenshots extends NightwatchTestSettingGeneric 
     screenshots: NightwatchScreenshotOptions;
 }
 
-interface NightwatchTestOptions extends NightwatchTestSettingGeneric {
+export interface NightwatchTestOptions extends NightwatchTestSettingGeneric {
     screenshots: boolean;
     screenshotsPath: string;
 }
 
-interface NightwatchTestSuite {
+export interface NightwatchTestSuite {
     name: string;
     "module": string;
     group: string;
     results: any;
 }
 
-interface NightwatchAssertionsError {
+export interface NightwatchAssertionsError {
     name: string;
     message: string;
     showDiff: boolean;
     stack: string;
 }
 
-interface NightwatchLanguageChains {
+export interface NightwatchLanguageChains {
     to: Expect;
     be: Expect;
     been: Expect;
@@ -401,11 +401,11 @@ interface NightwatchLanguageChains {
     of: Expect;
 }
 
-interface NightwatchTestSettings {
+export interface NightwatchTestSettings {
     [key: string]: NightwatchTestSettingScreenshots;
 }
 
-interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
+export interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     /**
      * Returns the DOM Element
      * @param property: Css / Id property of the DOM element
@@ -496,7 +496,7 @@ interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     visible: this;
 }
 
-interface NightwatchAssertions extends NightwatchBrowser {
+export interface NightwatchAssertions extends NightwatchBrowser {
     /**
      * Checks if the given attribute of an element contains the expected value.
      * @param selector: The selector (CSS / Xpath) used to locate the element.
@@ -649,17 +649,17 @@ interface NightwatchAssertions extends NightwatchBrowser {
     NightwatchAssertionsError: NightwatchAssertionsError;
 }
 
-interface NightwatchTypedCallbackResult<T> {
+export interface NightwatchTypedCallbackResult<T> {
     status: number;
     value: T;
     state: Error | string;
 }
 
 // tslint:disable-next-line:no-empty-interface
-interface NightwatchCallbackResult extends NightwatchTypedCallbackResult<any> {
+export interface NightwatchCallbackResult extends NightwatchTypedCallbackResult<any> {
 }
 
-interface NightwatchLogEntry {
+export interface NightwatchLogEntry {
     /**
      * The log entry message.
      */
@@ -676,7 +676,7 @@ interface NightwatchLogEntry {
     level: string;
 }
 
-interface NightwatchKeys {
+export interface NightwatchKeys {
     /** Releases all held modifier keys. */
     "NULL": string;
     /** OS-specific keystroke sequence that performs a cancel action. */
@@ -799,7 +799,7 @@ interface NightwatchKeys {
     "COMMAND": string;
 }
 
-interface NightwatchAPI {
+export interface NightwatchAPI {
     assert: NightwatchAssertions;
 
     expect: Expect;
@@ -2256,12 +2256,12 @@ interface NightwatchAPI {
 }
 
 /* tslint:disable-next-line:no-empty-interface */
-interface NightwatchCustomCommands {}
+export interface NightwatchCustomCommands {}
 
 /* tslint:disable-next-line:no-empty-interface */
-interface NightwatchCustomAssertions {}
+export interface NightwatchCustomAssertions {}
 
-interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
+export interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, NightwatchCustomAssertions, NightwatchCustomPageObjects { }
 
 /**
  * Performs an assertion
@@ -2273,9 +2273,9 @@ interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomCommands, Nig
  * @param abortOnFailure
  * @param originalStackTrace
  */
-type NightwatchTest = (browser: NightwatchBrowser) => void;
+export type NightwatchTest = (browser: NightwatchBrowser) => void;
 
-interface NightwatchTests {
+export interface NightwatchTests {
     [key: string]: NightwatchTest;
 }
 
@@ -2289,7 +2289,7 @@ interface NightwatchTests {
  * @param abortOnFailure
  * @param originalStackTrace
  */
-type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: any, message?: string, abortOnFailure?: boolean, originalStackTrace?: string) => void;
+export type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: any, message?: string, abortOnFailure?: boolean, originalStackTrace?: string) => void;
 
 /**
  * Abstract assertion class that will subclass all defined assertions
@@ -2303,7 +2303,7 @@ type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: a
  * - @param {function} command
  * - @param {function} - Optional failure
  */
-interface NightwatchAssertion {
+export interface NightwatchAssertion {
     expected: (() => void) | boolean;
     message: string;
     pass(...args: any[]): any;
@@ -2313,12 +2313,12 @@ interface NightwatchAssertion {
     api?: NightwatchAPI;
 }
 
-interface NightwatchClient {
+export interface NightwatchClient {
     api: NightwatchAPI;
     assertion: NightwatchAssert;
 }
 
-interface Nightwatch {
+export interface Nightwatch {
     api: NightwatchAPI;
     client: NightwatchClient;
 }

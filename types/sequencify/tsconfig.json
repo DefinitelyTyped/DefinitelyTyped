@@ -1,23 +1,24 @@
 {
+    "files": [
+        "index.d.ts",
+        "sequencify-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "lib": [
+            "es6"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "turf-tests.ts"
-    ]
+    }
 }
