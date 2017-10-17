@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RelayCommonTypes } from "relay-runtime";
+import * as RelayRuntimeTypes from "relay-runtime";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
@@ -20,24 +20,24 @@ export interface FragmentResolver {
     dispose(): void;
     resolve(
         fragment: RelayQuery["Fragment"],
-        dataIDs: RelayCommonTypes.DataID | RelayCommonTypes.DataID[]
+        dataIDs: RelayRuntimeTypes.DataID | RelayRuntimeTypes.DataID[]
     ): StoreReaderData | StoreReaderData[] | undefined | null;
 }
 
 export interface RelayEnvironmentInterface {
     forceFetch(
-        querySet: RelayCommonTypes.RelayQuerySet,
-        onReadyStateChange: RelayCommonTypes.ReadyStateChangeCallback
-    ): RelayCommonTypes.Abortable;
+        querySet: RelayRuntimeTypes.RelayQuerySet,
+        onReadyStateChange: RelayRuntimeTypes.ReadyStateChangeCallback
+    ): RelayRuntimeTypes.Abortable;
     getFragmentResolver(fragment: RelayQuery["Fragment"], onNext: () => void): FragmentResolver;
     getStoreData(): RelayStoreData;
     primeCache(
-        querySet: RelayCommonTypes.RelayQuerySet,
-        onReadyStateChange: RelayCommonTypes.ReadyStateChangeCallback
-    ): RelayCommonTypes.Abortable;
+        querySet: RelayRuntimeTypes.RelayQuerySet,
+        onReadyStateChange: RelayRuntimeTypes.ReadyStateChangeCallback
+    ): RelayRuntimeTypes.Abortable;
     read(
         node: RelayQuery["Node"],
-        dataID: RelayCommonTypes.DataID,
+        dataID: RelayRuntimeTypes.DataID,
         options?: StoreReaderOptions
     ): StoreReaderData | void;
     readQuery(root: RelayQuery["Root"], options?: StoreReaderOptions): StoreReaderData[] | void;
