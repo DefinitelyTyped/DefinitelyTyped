@@ -192,12 +192,12 @@ export namespace SeleniumServer {
      *     information, refer to the documentation of `child_process.spawn`.
      */
     interface Options {
-        loopback?: boolean|undefined;
+        loopback?: boolean;
         port?: number|webdriver.promise.IThenable<number>;
         args?: string[]|webdriver.promise.IThenable<string[]>;
-        jvmArgs?: string[]|webdriver.promise.IThenable<string[]>|undefined;
-        env?: {[key: string]: string}|undefined;
-        stdio?: string|Array<string|number|null|undefined>|undefined
+        jvmArgs?: string[]|webdriver.promise.IThenable<string[]>;
+        env?: {[key: string]: string};
+        stdio?: string|Array<string|number>
     }
 }
 
