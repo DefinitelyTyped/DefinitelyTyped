@@ -1,9 +1,12 @@
-// Type definitions for faker v4.1.0
+// Type definitions for faker 4.1
 // Project: http://marak.com/faker.js/
-// Definitions by: Ben Swartz <https://github.com/bensw>, Bas Pennings <https://github.com/basp>, Yuki Kokubun <https://github.com/Kuniwak>
+// Definitions by: Ben Swartz <https://github.com/bensw>,
+//                 Bas Pennings <https://github.com/basp>,
+//                 Yuki Kokubun <https://github.com/Kuniwak>,
+//                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var fakerStatic: Faker.FakerStatic;
+declare const fakerStatic: Faker.FakerStatic;
 
 declare namespace Faker {
 	interface FakerStatic {
@@ -75,14 +78,14 @@ declare namespace Faker {
 			account(length?: number): string;
 			accountName(): string;
 			mask(length?: number, parens?: boolean, elipsis?: boolean): string;
-			amount(min?:number, max?: number, dec?: number, symbol?: string): string;
+			amount(min?: number, max?: number, dec?: number, symbol?: string): string;
 			transactionType(): string;
 			currencyCode(): string;
 			currencyName(): string;
 			currencySymbol(): string;
 			bitcoinAddress(): string;
 			ethereumAddress(): string;
-			iban(formatted? :boolean): string
+			iban(formatted?: boolean): string
 			bic(): string
 		};
 
@@ -104,10 +107,10 @@ declare namespace Faker {
 			shuffle<T>(o: T[]): T[];
 			shuffle(): string[];
 			mustache(str: string, data: { [key: string]: string|((substring: string, ...args: any[]) => string) }): string;
-			createCard(): Faker.Card;
-			contextualCard(): Faker.ContextualCard;
-			userCard(): Faker.UserCard;
-			createTransaction(): Faker.Transaction;
+			createCard(): Card;
+			contextualCard(): ContextualCard;
+			userCard(): UserCard;
+			createTransaction(): Transaction;
 		};
 
 		image: {

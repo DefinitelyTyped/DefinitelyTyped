@@ -1,5 +1,3 @@
-
-
 let resultStr: string;
 let resultBool: boolean;
 let resultNum: number;
@@ -17,7 +15,7 @@ resultStr = faker.address.cityPrefix();
 resultStr = faker.address.citySuffix();
 resultStr = faker.address.streetName();
 resultStr = faker.address.streetAddress();
-resultStr = faker.address.streetAddress(false);;
+resultStr = faker.address.streetAddress(false);
 resultStr = faker.address.streetSuffix();
 resultStr = faker.address.streetPrefix();
 resultStr = faker.address.secondaryAddress();
@@ -101,7 +99,7 @@ resultStr = faker.hacker.ingverb();
 resultStr = faker.hacker.phrase();
 
 resultStr = faker.helpers.randomize();
-resultNum = faker.helpers.randomize([1,2,3,4]);
+resultNum = faker.helpers.randomize([1, 2, 3, 4]);
 resultStr = faker.helpers.randomize(['foo', 'bar', 'quux']);
 resultStr = faker.helpers.slugify('foo bar quux');
 resultStr = faker.helpers.replaceSymbolWithNumber('foo# bar#');
@@ -172,7 +170,6 @@ resultStr = faker.name.jobType();
 resultStr = faker.phone.phoneNumber();
 resultStr = faker.phone.phoneNumber('#');
 resultStr = faker.phone.phoneNumberFormat();
-// https://github.com/Marak/faker.js/blob/master/lib/phone_number.js#L9-L13
 resultStr = faker.phone.phoneNumberFormat(0);
 resultStr = faker.phone.phoneFormats();
 
@@ -184,7 +181,7 @@ resultNum = faker.random.number({
 	precision: 0
 });
 resultStr = faker.random.arrayElement();
-resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'])
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
 resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();
@@ -200,13 +197,13 @@ resultStr = faker.random.alphaNumeric(0);
 resultStr = faker.random.hexaDecimal();
 resultStr = faker.random.hexaDecimal(3);
 
-resultStr = faker.system.fileName( "foo", "bar" );
-resultStr = faker.system.commonFileName( "foo", "bar" );
+resultStr = faker.system.fileName("foo", "bar");
+resultStr = faker.system.commonFileName("foo", "bar");
 resultStr = faker.system.mimeType();
 resultStr = faker.system.commonFileType();
 resultStr = faker.system.commonFileExt();
 resultStr = faker.system.fileType();
-resultStr = faker.system.fileExt( "foo" );
+resultStr = faker.system.fileExt("foo");
 resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();
