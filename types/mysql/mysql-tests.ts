@@ -1,3 +1,4 @@
+// ignore
 import fs = require('fs');
 import mysql = require('mysql');
 import stream = require('stream');
@@ -65,7 +66,7 @@ connection.changeUser({ user: 'john' }, function (err) {
 });
 
 const userId = 'some user provided value';
-var sql = 'SELECT * FROM users WHERE id = ' + connection.escape(userId);
+let sql = 'SELECT * FROM users WHERE id = ' + connection.escape(userId);
 connection.query(sql, function (err, results) {
     // ...
 });
@@ -73,37 +74,37 @@ connection.query('SELECT * FROM users WHERE id = ?', [userId], function (err, re
     // ...
 });
 
-var post = { id: 1, title: 'Hello MySQL' };
-var query = connection.query('INSERT INTO posts SET ?', post, function (err, result) {
+const post = {id: 1, title: 'Hello MySQL'};
+const queryx = connection.query('INSERT INTO posts SET ?', post, function (err, result) {
     // Neat!
 });
-console.log(query.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
+console.log(queryx.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
 
 const queryStr = "SELECT * FROM posts WHERE title=" + mysql.escape("Hello MySQL");
 
 console.log(queryStr); // SELECT * FROM posts WHERE title='Hello MySQL'
 
-var sorter = 'date';
-var sql = 'SELECT * FROM posts ORDER BY ' + connection.escapeId(sorter);
+let sorter = 'date';
+sql = 'SELECT * FROM posts ORDER BY ' + connection.escapeId(sorter);
 connection.query(sql, function (err, results) {
     // ...
 });
 
-var sorter = 'date';
-var sql = 'SELECT * FROM posts ORDER BY ' + connection.escapeId('posts.' + sorter);
+sorter = 'date';
+sql = 'SELECT * FROM posts ORDER BY ' + connection.escapeId('posts.' + sorter);
 connection.query(sql, function (err, results) {
     // ...
 });
 
 const userIdNum = 1;
 const columns = ['username', 'email'];
-var query = connection.query('SELECT ?? FROM ?? WHERE id = ?', [columns, 'users', userIdNum], function (err, results) {
+const queryy = connection.query('SELECT ?? FROM ?? WHERE id = ?', [columns, 'users', userIdNum], function (err, results) {
     // ...
 });
 
-console.log(query.sql); // SELECT `username`, `email` FROM `users` WHERE id = 1
+console.log(queryy.sql); // SELECT `username`, `email` FROM `users` WHERE id = 1
 
-var sql = "SELECT * FROM ?? WHERE ?? = ?";
+sql = "SELECT * FROM ?? WHERE ?? = ?";
 const inserts = ['users', 'id', userId];
 sql = mysql.format(sql, inserts);
 
@@ -158,7 +159,7 @@ const poolConfig = {
     password: 'secret'
 };
 
-var pool = mysql.createPool(poolConfig);
+let pool = mysql.createPool(poolConfig);
 
 pool.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
     if (err) throw err;
@@ -217,7 +218,7 @@ poolCluster.getConnection('SLAVE*', 'ORDER', function (err, connection) { });
 // of namespace : of(pattern, selector)
 poolCluster.of('*').getConnection(function (err, connection) { });
 
-var pool = poolCluster.of('SLAVE*', 'RANDOM');
+pool = poolCluster.of('SLAVE*', 'RANDOM');
 pool.getConnection(function (err, connection) { });
 pool.getConnection(function (err, connection) { });
 
@@ -233,8 +234,8 @@ poolCluster.end();
 
 /// Queries
 
-var query = connection.query('SELECT * FROM posts');
-query
+const queryF = connection.query('SELECT * FROM posts');
+queryF
     .on('error', function (err) {
         // Handle error, an 'end' event will be emitted after this as well
     })
@@ -272,9 +273,9 @@ connection.query('SELECT 1; SELECT 2', function (err, results) {
     console.log(results[1]); // [{2: 2}]
 });
 
-var query = connection.query('SELECT 1; SELECT 2');
+const queryH = connection.query('SELECT 1; SELECT 2');
 
-query
+queryH
     .on('fields', function (fields, index) {
         // the fields for the result rows that follow
     })
@@ -377,7 +378,7 @@ connection.on('error', function () { });
 
 connection = mysql.createConnection({ typeCast: false });
 
-const query = connection.query({ sql: '...', typeCast: false }, function (err: Error, results) {
+const query1 = connection.query({ sql: '...', typeCast: false }, function (err: Error, results) {
 
 });
 
