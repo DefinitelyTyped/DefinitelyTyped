@@ -2181,7 +2181,7 @@ declare module "url" {
         pathname?: string;
         port?: string | number;
         protocol?: string;
-        query?: string | null | { [key: string]: string };
+        query?: string | null | { [key: string]: string | string[] };
         search?: string;
         slashes?: boolean;
     }
