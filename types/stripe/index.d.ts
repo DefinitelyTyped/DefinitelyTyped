@@ -1,4 +1,4 @@
-// Type definitions for stripe-node 4.7
+// Type definitions for stripe 4.7
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -8,17 +8,10 @@
 
 /// <reference types="node" />
 
-declare module 'stripe' {
-    var out: StripeNode.StripeExport;
-    export = out;
-}
+declare function StripeNode(apiKey: string, version?: string): StripeNode.Stripe;
+export = StripeNode;
 
 declare namespace StripeNode {
-    interface StripeExport extends StripeStatic {
-        new (apiKey: string, version?: string): Stripe;
-        (apiKey: string, version?: string): Stripe;
-    }
-
     interface StripeStatic {
         DEFAULT_HOST: string;
         DEFAULT_PORT: string;
