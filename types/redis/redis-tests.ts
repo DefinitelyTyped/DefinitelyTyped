@@ -1,29 +1,28 @@
 import redis = require('redis');
 
-let value: any;
-let valueArr: any[];
-let commandArr: any[][];
-let num: number;
-let str: string;
-let bool: boolean;
-let err: Error;
-let args: any[];
-let options: redis.ClientOpts;
-let client: redis.RedisClient;
-let info: redis.ServerInfo;
-let resCallback: (err: Error, res: any) => void;
-let numCallback: (err: Error, res: number) => void;
-let strCallback: (err: Error, res: string) => void;
-let messageHandler: (channel: string, message: any) => void;
+const value: any = 'any value';
+const commandArr: any[][] = [];
+const num: number = 0;
+const str: string = 'any string';
+const err: Error = new Error();
+const args: any[] = [];
+const resCallback: (err: Error, res: any) => void = () => null;
+const numCallback: (err: Error, res: number) => void = () => null;
+const strCallback: (err: Error, res: string) => void = () => null;
+const messageHandler: (channel: string, message: any) => void = () => null;
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-bool = redis.debug_mode;
+const debug_mode: boolean = redis.debug_mode;
 redis.print(err, value);
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-client = redis.createClient(num, str, options);
+const options: redis.ClientOpts = {
+    host: "localhost",
+    port: 6379,
+};
+let client: redis.RedisClient = redis.createClient(num, str, options);
 
 // Test the `retry_strategy` property
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -47,12 +46,12 @@ client = redis.createClient({
 });
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-bool = client.connected;
-num = client.retry_delay;
-num = client.retry_backoff;
-valueArr = client.command_queue;
-valueArr = client.offline_queue;
-info = client.server_info;
+const connected: boolean = client.connected;
+const retry_delay: number = client.retry_delay;
+const retry_backoff: number = client.retry_backoff;
+const command_queue: any[] = client.command_queue;
+const offline_queue: any[] = client.offline_queue;
+const info: redis.ServerInfo = client.server_info;
 
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
