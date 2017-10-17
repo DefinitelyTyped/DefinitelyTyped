@@ -127,6 +127,9 @@ export interface WhenOptions<T> {
 export interface ReferenceOptions {
     separator?: string;
     contextPrefix?: string;
+    default?: any;
+    strict?: boolean;
+    functions?: boolean;
 }
 
 export interface IPOptions {
