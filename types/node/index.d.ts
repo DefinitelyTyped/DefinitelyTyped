@@ -6616,7 +6616,7 @@ declare module "http2" {
         writeContinue(): void;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
         writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders): void;
-        createPushResponse(headers: OutgoingHttpHeaders, callback?: (err: Error) => void): void;
+        createPushResponse(headers: OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
