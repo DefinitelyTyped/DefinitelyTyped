@@ -1,6 +1,7 @@
 import * as React from "react";
 import { DragEvent, SyntheticEvent } from "react";
-import Dropzone from "react-dropzone";
+import * as Dropzone from "react-dropzone";
+import DropzoneEs from "react-dropzone";
 import { ImageFile } from "react-dropzone";
 
 class Test extends React.Component {
@@ -52,6 +53,7 @@ class Test extends React.Component {
           name="dropzone"
           inputProps={{ id: "dropzone" }}
         />
+        <DropzoneEs />
       </div>
     );
   }
