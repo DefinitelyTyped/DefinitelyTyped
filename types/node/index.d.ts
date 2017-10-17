@@ -2648,7 +2648,6 @@ declare module "net" {
 
 declare module "dgram" {
     import * as events from "events";
-    import * as dns from "dns";
 
     interface RemoteInfo {
         address: string;
@@ -2675,7 +2674,6 @@ declare module "dgram" {
         reuseAddr?: boolean;
         recvBufferSize?: number;
         sendBufferSize?: number;
-        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
     export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
