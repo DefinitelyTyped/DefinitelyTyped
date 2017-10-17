@@ -108,10 +108,10 @@ interface NodeRequire extends NodeRequireFunction {
 }
 
 interface NodeExtensions {
-  '.js': (m: NodeModule, filename: string) => any;
-  '.json': (m: NodeModule, filename: string) => any;
-  '.node': (m: NodeModule, filename: string) => any;
-  [ext: string]: (m: NodeModule, filename: string) => any;
+    '.js': (m: NodeModule, filename: string) => any;
+    '.json': (m: NodeModule, filename: string) => any;
+    '.node': (m: NodeModule, filename: string) => any;
+    [ext: string]: (m: NodeModule, filename: string) => any;
 }
 
 declare var require: NodeRequire;
@@ -4260,6 +4260,9 @@ declare module "fs" {
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
         export const S_IXOTH: number;
+
+        /** Constant for fs.copyFile. Flag indicating the destination file should not be overwritten if it already exists. */
+        export const COPYFILE_EXCL: number;
     }
 
     /**
@@ -4342,6 +4345,54 @@ declare module "fs" {
      * @param fd A file descriptor.
      */
     export function fdatasyncSync(fd: number): void;
+
+    /**
+     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * No arguments other than a possible exception are given to the callback function.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     */
+    export function copyFile(src: PathLike, dest: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    /**
+     * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * No arguments other than a possible exception are given to the callback function.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     * @param flags An integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     */
+    export function copyFile(src: PathLike, dest: PathLike, flags: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace copyFile {
+        /**
+         * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
+         * No arguments other than a possible exception are given to the callback function.
+         * Node.js makes no guarantees about the atomicity of the copy operation.
+         * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+         * to remove the destination.
+         * @param src A path to the source file.
+         * @param dest A path to the destination file.
+         * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+         */
+        export function __promisify__(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
+    }
+
+    /**
+     * Synchronously copies src to dest. By default, dest is overwritten if it already exists.
+     * Node.js makes no guarantees about the atomicity of the copy operation.
+     * If an error occurs after the destination file has been opened for writing, Node.js will attempt
+     * to remove the destination.
+     * @param src A path to the source file.
+     * @param dest A path to the destination file.
+     * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     */
+    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
 }
 
 declare module "path" {
@@ -6404,8 +6455,8 @@ declare module "http2" {
     export type ClientSessionOptions = SessionOptions;
     export type ServerSessionOptions = SessionOptions;
 
-    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
-    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions {}
+    export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions { }
+    export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions { }
 
     export interface ServerOptions extends ServerSessionOptions {
         allowHTTP1?: boolean;
