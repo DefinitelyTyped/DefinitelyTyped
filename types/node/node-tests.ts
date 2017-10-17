@@ -2937,6 +2937,7 @@ namespace constants_tests {
     num = constants.O_NOATIME;
     num = constants.O_NOFOLLOW;
     num = constants.O_SYNC;
+    num = constants.O_DSYNC;
     num = constants.O_DIRECT;
     num = constants.O_NONBLOCK;
     num = constants.S_IRWXU;

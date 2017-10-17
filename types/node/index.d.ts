@@ -4190,6 +4190,9 @@ declare module "fs" {
         /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O. */
         export const O_SYNC: number;
 
+        /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O with write operations waiting for data integrity. */
+        export const O_DSYNC: number;
+
         /** Constant for fs.open(). Flag indicating to open the symbolic link itself rather than the resource it is pointing to. */
         export const O_SYMLINK: number;
 
@@ -5735,6 +5738,7 @@ declare module "constants" {
     export var O_NOATIME: number;
     export var O_NOFOLLOW: number;
     export var O_SYNC: number;
+    export var O_DSYNC: number;
     export var O_SYMLINK: number;
     export var O_DIRECT: number;
     export var O_NONBLOCK: number;
