@@ -52,6 +52,7 @@ var $multiEl = $('selector', 'selector', 'selector');
  */
 
 // attr
+$el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
 

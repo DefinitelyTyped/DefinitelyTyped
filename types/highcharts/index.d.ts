@@ -4221,7 +4221,7 @@ declare namespace Highcharts {
          * @default true
          * @since 4.1.9
          */
-        softTreshold?: boolean;
+        softThreshold?: boolean;
         /**
          * Whether to stack the values of each series on top of each other. Possible values are null to disable, 'normal' to
          * stack by value or 'percent'.

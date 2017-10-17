@@ -13,13 +13,12 @@ class TestController {
 
 app.controller('TestController', TestController);
 
-var barConfig: angular.loadingBar.ILoadingBarProvider[] = [];
-barConfig.push({
-    includeSpinner: true,
-    includeBar: true,
-    spinnerTemplate: 'template',
-    latencyThreshold: 100,
-    startSize: 0.02,
-    loadingBarTemplate: '',
-    autoIncrement: true
-});
+var barConfig: angular.loadingBar.ILoadingBarProvider;
+
+barConfig.includeSpinner = false;
+barConfig.includeBar = false;
+barConfig.spinnerTemplate = 'someOtherTemplateString';
+barConfig.latencyThreshold = 70;
+barConfig.startSize = 0.05;
+barConfig.loadingBarTemplate = 'anotherTemplateString';
+barConfig.autoIncrement = false;

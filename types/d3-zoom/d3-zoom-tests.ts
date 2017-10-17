@@ -135,6 +135,24 @@ svgZoom = svgZoom.filter(function(d, i, group) {
 let filterFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => boolean;
 filterFn = svgZoom.filter();
 
+// set and get touchable ---------------------------------------------------------
+
+let touchableFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => boolean;
+
+// chainable
+
+svgZoom = svgZoom.touchable(true);
+
+svgZoom = svgZoom.touchable(function(d, i, group) {
+    const that: SVGRectElement = this;
+    const datum: SVGDatum = d;
+    const g: SVGRectElement[] | NodeListOf<SVGRectElement> = group;
+    return "ontouchstart" in this && datum.height > 0;
+});
+
+// getter
+touchableFn = svgZoom.touchable();
+
 // wheelDelta() ----------------------------------------------------------------
 
 // chainable

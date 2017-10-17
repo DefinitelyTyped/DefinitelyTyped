@@ -23,7 +23,13 @@ const Component = (props: {}) => {
             <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
             <Tooltip />
             <ReferenceLine />
-            <ReferenceArea />
+            <ReferenceArea
+                stroke="red"
+                fill="red"
+                y2={1}
+                strokeOpacity={0.2}
+                fillOpacity={0.1}
+            />
         </LineChart>
     );
 };

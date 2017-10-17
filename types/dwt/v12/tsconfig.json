@@ -7,19 +7,22 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "dwt": [ "dwt/v12" ]
+            "dwt": [
+                "dwt/v12"
+            ]
         },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-      "index.d.ts",
+        "index.d.ts",
         "dwt-tests.ts"
     ]
 }

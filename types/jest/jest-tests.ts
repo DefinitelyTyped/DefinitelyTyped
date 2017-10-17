@@ -199,10 +199,14 @@ describe('Assymetric matchers', () => {
     it('works', () => {
         expect({
             timestamp: 1480807810388,
-            text: 'Some text content, but we care only about *this part*'
+            text: 'Some text content, but we care only about *this part*',
+            color: '#bada55',
+            greeting: 'hello, world!',
         }).toEqual({
             timestamp: expect.any(Number),
-            text: expect.stringMatching('*this part*')
+            text: expect.stringMatching('*this part*'),
+            color: expect.stringMatching(/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i),
+            greeting: expect.stringContaining('hello'),
         });
 
         const callback = jest.fn();
@@ -232,6 +236,17 @@ describe('Assymetric matchers', () => {
             b: expect.anything()
         };
         expect(callback).toHaveBeenCalledWith(test);
+    });
+});
+
+describe('setTimeout', () => {
+    it('works as expected', done => {
+        jest.setTimeout(1000);
+
+        setTimeout(() => {
+            expect(true).toBeTruthy();
+            done();
+        }, 900);
     });
 });
 

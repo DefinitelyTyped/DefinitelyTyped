@@ -21,23 +21,28 @@
 // but it has the notable advantage of making ESTree much easier to use as
 // an end user.
 
-interface BaseNode {
+interface BaseNodeWithoutComments {
   // Every leaf interface that extends BaseNode must specify a type property.
   // The type property should be a string literal. For example, Identifier
   // has: `type: "Identifier"`
-
-  leadingComments?: Array<Comment>;
-  trailingComments?: Array<Comment>;
+  type: string;
   loc?: SourceLocation | null;
   range?: [number, number];
 }
+
+interface BaseNode extends BaseNodeWithoutComments {
+  leadingComments?: Array<Comment>;
+  trailingComments?: Array<Comment>;
+}
+
 export type Node =
     Identifier | Literal | Program | Function | SwitchCase | CatchClause |
     VariableDeclarator | Statement | Expression | Property |
     AssignmentProperty | Super | TemplateElement | SpreadElement | Pattern |
     ClassBody | Class | MethodDefinition | ModuleDeclaration | ModuleSpecifier;
 
-export interface Comment {
+export interface Comment extends BaseNodeWithoutComments {
+  type: "Line" | "Block";
   value: string;
 }
 
@@ -74,13 +79,13 @@ interface BaseFunction extends BaseNode {
 export type Function =
     FunctionDeclaration | FunctionExpression | ArrowFunctionExpression;
 
-
 export type Statement =
     ExpressionStatement | BlockStatement | EmptyStatement |
     DebuggerStatement | WithStatement | ReturnStatement | LabeledStatement |
     BreakStatement | ContinueStatement | IfStatement | SwitchStatement |
     ThrowStatement | TryStatement | WhileStatement | DoWhileStatement |
     ForStatement | ForInStatement | ForOfStatement | Declaration;
+
 interface BaseStatement extends BaseNode { }
 
 export interface EmptyStatement extends BaseStatement {
@@ -186,6 +191,7 @@ export interface DebuggerStatement extends BaseStatement {
 
 export type Declaration =
       FunctionDeclaration | VariableDeclaration | ClassDeclaration;
+
 interface BaseDeclaration extends BaseStatement { }
 
 export interface FunctionDeclaration extends BaseFunction, BaseDeclaration {
@@ -214,6 +220,7 @@ type Expression =
     CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
     TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
     AwaitExpression;
+
 export interface BaseExpression extends BaseNode { }
 
 export interface ThisExpression extends BaseExpression {
@@ -254,7 +261,7 @@ export interface SequenceExpression extends BaseExpression {
 export interface UnaryExpression extends BaseExpression {
   type: "UnaryExpression";
   operator: UnaryOperator;
-  prefix: boolean;
+  prefix: true;
   argument: Expression;
 }
 
@@ -317,6 +324,7 @@ export interface MemberExpression extends BaseExpression, BasePattern {
 export type Pattern =
     Identifier | ObjectPattern | ArrayPattern | RestElement |
     AssignmentPattern | MemberExpression;
+
 interface BasePattern extends BaseNode { }
 
 export interface SwitchCase extends BaseNode {
@@ -341,17 +349,17 @@ export type Literal = SimpleLiteral | RegExpLiteral;
 export interface SimpleLiteral extends BaseNode, BaseExpression {
   type: "Literal";
   value: string | boolean | number | null;
-  raw: string;
+  raw?: string;
 }
 
 export interface RegExpLiteral extends BaseNode, BaseExpression {
   type: "Literal";
-  value: RegExp;
+  value?: RegExp | null;
   regex: {
     pattern: string;
     flags: string;
   };
-  raw: string;
+  raw?: string;
 }
 
 export type UnaryOperator =

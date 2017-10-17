@@ -318,7 +318,7 @@ declare namespace Chart {
         lineWidth?: number;
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
-        drawticks?: boolean;
+        drawTicks?: boolean;
         tickMarkLength?: number;
         zeroLineWidth?: number;
         zeroLineColor?: ChartColor;
@@ -432,20 +432,6 @@ declare namespace Chart {
         type?: ScaleType | string;
         display?: boolean;
         position?: PositionType | string;
-        beforeUpdate?(scale?: any): void;
-        beforeSetDimension?(scale?: any): void;
-        beforeDataLimits?(scale?: any): void;
-        beforeBuildTicks?(scale?: any): void;
-        beforeTickToLabelConversion?(scale?: any): void;
-        beforeCalculateTickRotation?(scale?: any): void;
-        beforeFit?(scale?: any): void;
-        afterUpdate?(scale?: any): void;
-        afterSetDimension?(scale?: any): void;
-        afterDataLimits?(scale?: any): void;
-        afterBuildTicks?(scale?: any): void;
-        afterTickToLabelConversion?(scale?: any): void;
-        afterCalculateTickRotation?(scale?: any): void;
-        afterFit?(scale?: any): void;
         gridLines?: GridLineOptions;
         scaleLabel?: ScaleTitleOptions;
         ticks?: TickOptions;
@@ -463,6 +449,20 @@ declare namespace Chart {
         gridLines?: GridLineOptions;
         barThickness?: number;
         scaleLabel?: ScaleTitleOptions;
+        beforeUpdate?(scale?: any): void;
+        beforeSetDimension?(scale?: any): void;
+        beforeDataLimits?(scale?: any): void;
+        beforeBuildTicks?(scale?: any): void;
+        beforeTickToLabelConversion?(scale?: any): void;
+        beforeCalculateTickRotation?(scale?: any): void;
+        beforeFit?(scale?: any): void;
+        afterUpdate?(scale?: any): void;
+        afterSetDimension?(scale?: any): void;
+        afterDataLimits?(scale?: any): void;
+        afterBuildTicks?(scale?: any): void;
+        afterTickToLabelConversion?(scale?: any): void;
+        afterCalculateTickRotation?(scale?: any): void;
+        afterFit?(scale?: any): void;
     }
 
     interface ChartXAxe extends CommonAxe {

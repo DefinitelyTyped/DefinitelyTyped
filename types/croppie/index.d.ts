@@ -1,6 +1,7 @@
-// Type definitions for croppie 2.4
+// Type definitions for croppie 2.5
 // Project: https://github.com/Foliotek/Croppie
 // Definitions by: Connor Peet <https://github.com/connor4312>
+//                 dklmuc <https://github.com/dklmuc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default class Croppie {
@@ -31,7 +32,10 @@ export type CropType = 'square' | 'circle';
 
 export type Format = 'jpeg' | 'png' | 'webp';
 
+export type Type = 'canvas' | 'base64' | 'html' | 'blob' | 'rawcanvas';
+
 export interface ResultOptions {
+    type?: Type;
     size?: 'viewport' | 'original' | { width: number, height: number };
     format?: Format;
     quality?: number;
