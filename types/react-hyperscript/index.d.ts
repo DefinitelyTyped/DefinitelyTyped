@@ -6,11 +6,10 @@
 
 import { ComponentClass, StatelessComponent, ReactElement } from 'react';
 
-type ReactHyperScript = <P>(
+declare function h<P>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,
     properties?: P,
     children?: ReadonlyArray<ReactElement<any>> | string
-) => ReactElement<P>;
+): ReactElement<P>;
 
-declare const h: ReactHyperScript;
 export = h;
