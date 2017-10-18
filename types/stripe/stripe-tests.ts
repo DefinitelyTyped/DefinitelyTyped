@@ -1,10 +1,8 @@
-import StripeNode = require('stripe');
+import Stripe = require('stripe');
 
-var stripeTor = new StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K");
-var stripe = StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K")
+var stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K")
 
 stripe.setApiVersion('2016-03-07');
-
 
 //#region Balance tests
 // ##################################################################################
@@ -168,7 +166,7 @@ stripe.charges.updateRefund(
     "ch_15fvyXEe31JkLCeQOo0SwFk9",
     "re_15jzA4Ee31JkLCeQcxbTbjaL",
     { metadata: { key: "value" } },
-    function (err: StripeNode.IStripeError, refund: StripeNode.refunds.IRefund) {
+    function (err: Stripe.IStripeError, refund: Stripe.refunds.IRefund) {
         // asynchronously called
 
     }
@@ -315,13 +313,13 @@ stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     { source: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
     function (err, source) {
-        var card = <StripeNode.ICard>source;
-        var bankAcc = <StripeNode.IBankAccount>source;
+        var card = <Stripe.ICard>source;
+        var bankAcc = <Stripe.IBankAccount>source;
     }
 );
 stripe.customers.createSource("cus_5rfJKDJkuxzh5Q", { source: "tok_15V2YhEe31JkLCeQy9iUgsJX" }).then(function (source) {
-    var card = <StripeNode.ICard>source;
-    var bankAcc = <StripeNode.IBankAccount>source;
+    var card = <Stripe.ICard>source;
+    var bankAcc = <Stripe.IBankAccount>source;
 });
 
 stripe.customers.createSource(
@@ -336,7 +334,7 @@ stripe.customers.createSource(
     },
     function (err, card) {
         // asynchronously called
-        var obj: StripeNode.ICard = card;
+        var obj: Stripe.ICard = card;
     }
 );
 stripe.customers.createSource(
@@ -351,21 +349,21 @@ stripe.customers.createSource(
     }).then(
     function (card) {
         // asynchronously called
-        var obj: StripeNode.ICard = card;
+        var obj: Stripe.ICard = card;
     }
 );
 
 stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     { source: "btok_8E264Lxsbyvj3E" },
-    function (err: StripeNode.IStripeError, bankAcc: StripeNode.IBankAccount) {
+    function (err: Stripe.IStripeError, bankAcc: Stripe.IBankAccount) {
         // asynchronously called
         bankAcc.bank_name;
     }
 );
 stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
-    { source: "btok_8E264Lxsbyvj3E" }).then(function (bankAcc: StripeNode.IBankAccount) {
+    { source: "btok_8E264Lxsbyvj3E" }).then(function (bankAcc: Stripe.IBankAccount) {
         // asynchronously called
         bankAcc.bank_name;
     }
@@ -376,14 +374,14 @@ stripe.customers.retrieveCard(
     "card_15fvyXEe31JkLCeQ9KMktP5S",
     function (err, card) {
         // asynchronously called
-        var obj: StripeNode.ICard = card;
+        var obj: Stripe.ICard = card;
     }
 );
 stripe.customers.retrieveCard(
     "cus_5rfJKDJkuxzh5Q",
     "card_15fvyXEe31JkLCeQ9KMktP5S").then(function (card) {
         // asynchronously called
-        var obj: StripeNode.ICard = card;
+        var obj: Stripe.ICard = card;
     });
 
 stripe.customers.updateCard(
@@ -392,7 +390,7 @@ stripe.customers.updateCard(
     { name: "Jane Austen" },
     function (err, card) {
         // asynchronously called
-        var obj: StripeNode.ICard = card;
+        var obj: Stripe.ICard = card;
     }
 );
 
@@ -401,7 +399,7 @@ stripe.customers.updateCard(
     "card_15fvyXEe31JkLCeQ9KMktP5S",
     { name: "Jane Austen" }).then(function (card) {
         // asynchronously called
-        var obj: StripeNode.ICard = card;
+        var obj: Stripe.ICard = card;
     });
 
 stripe.customers.deleteCard(
@@ -635,21 +633,21 @@ stripe.accounts.list(
 // ##################################################################################
 
 stripe.accounts.createExternalAccount("", { external_account: "btok_8E264Lxsbyvj3E" }, function (err, extAcc) {
-    var card = <StripeNode.ICard>extAcc;
-    var bankAcc = <StripeNode.IBankAccount>extAcc;
+    var card = <Stripe.ICard>extAcc;
+    var bankAcc = <Stripe.IBankAccount>extAcc;
 });
 stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkLCeQy9iUgsJX" }).then(function (extAcc) {
-    var card = <StripeNode.ICard>extAcc;
-    var bankAcc = <StripeNode.IBankAccount>extAcc;
+    var card = <Stripe.ICard>extAcc;
+    var bankAcc = <Stripe.IBankAccount>extAcc;
 });
 
 stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkLCeQy9iUgsJX" }, { stripe_account: "acct_17wV8KOoqMF9a2xk" }).then(function (extAcc) {
-    var card = <StripeNode.ICard>extAcc;
-    var bankAcc = <StripeNode.IBankAccount>extAcc;
+    var card = <Stripe.ICard>extAcc;
+    var bankAcc = <Stripe.IBankAccount>extAcc;
 });
 stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkLCeQy9iUgsJX" }, "acct_17wV8KOoqMF9a2xk").then(function (extAcc) {
-    var card = <StripeNode.ICard>extAcc;
-    var bankAcc = <StripeNode.IBankAccount>extAcc;
+    var card = <Stripe.ICard>extAcc;
+    var bankAcc = <Stripe.IBankAccount>extAcc;
 });
 
 //#endregion
@@ -712,7 +710,7 @@ const webhookRequest = {
 };
 const webhookSecret = '';
 
-const event = stripe.webhooks.constructEvent<StripeNode.subscriptions.ISubscription>(
+const event = stripe.webhooks.constructEvent<Stripe.subscriptions.ISubscription>(
   webhookRequest.rawBody,
   webhookRequest.headers['stripe-signature'],
   webhookSecret
@@ -752,7 +750,7 @@ stripe.coupons.retrieve("25OFF").then(function (coupon) {
 
 stripe.coupons.update("25OFF", {
     metadata: { key: "value" }
-}, function (err: StripeNode.IStripeError, coupon: StripeNode.coupons.ICoupon) {
+}, function (err: Stripe.IStripeError, coupon: Stripe.coupons.ICoupon) {
     // asynchronously called
 });
 stripe.coupons.update("25OFF", {
