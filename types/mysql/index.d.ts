@@ -1,15 +1,15 @@
-// Type definitions for mysql 2.15.0
+// Type definitions for mysql 2.15
 // Project: https://github.com/mysqljs/mysql
-// Definitions by: William Johnston <https://github.com/wjohnsto>
-//		   Kacper Polak <https://github.com/kacepe>
+// Definitions by:  William Johnston <https://github.com/wjohnsto>
+// 	                Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-///<reference types="node" />
-
+/// <reference types="node" />
+// TypeScript Version: 2.1
 
 import stream = require("stream");
 import tls = require("tls");
 
-interface IEscape {
+export interface MysqlEscapeFunctions {
     escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
     escapeId(value: string, forbidQualified?: boolean): string;
@@ -17,79 +17,57 @@ interface IEscape {
     format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 }
 
-/**
- * @deprecated
- */
+// implements MysqlEscapeFunctions
+export function escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
-interface IMySql {
-}
+export function escapeId(value: string, forbidQualified?: boolean): string;
 
-// implements IEscape
-declare function escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
+export function format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 
-declare function escapeId(value: string, forbidQualified?: boolean): string;
+export function createConnection(connectionUri: string | MysqlConnectionConfig): MysqlConnection;
 
-declare function format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
+export function createPool(config: MysqlPoolConfig | string): MysqlPool;
 
-declare function createConnection(connectionUri: string): IConnection;
-declare function createConnection(config: IConnectionConfig): IConnection;
+export function createPoolCluster(config?: MysqlPoolClusterConfig): MysqlPoolCluster;
 
-declare function createPool(config: IPoolConfig): IPool;
-declare function createPool(connectionUri: string): IPool;
+export function raw(sql: string): () => string;
 
-declare function createPoolCluster(config?: IPoolClusterConfig): IPoolCluster;
-
-declare function raw(sql: string): () => string;
-
-
-interface IConnection extends IEscape {
-    config: IConnectionConfig;
+export interface MysqlConnection extends MysqlEscapeFunctions {
+    config: MysqlConnectionConfig;
 
     state: 'connected' | 'authenticated' | 'disconnected' | 'protocol_error' | string;
 
     threadId: number | null;
 
-    createQuery: IQueryFunction;
+    createMysqlQuery: MysqlQueryFunction;
 
-    connect(): void;
+    connect(callback?: (err: MysqlError, ...args: any[]) => void): void;
 
-    connect(callback: (err: IError, ...args: any[]) => void): void;
+    connect(options: any, callback?: (err: MysqlError, ...args: any[]) => void): void;
 
-    connect(options: any, callback?: (err: IError, ...args: any[]) => void): void;
+    changeUser(options: MysqlConnectionOptions, callback?: (err: MysqlError) => void): void;
+    changeUser(callback: (err: MysqlError) => void): void;
 
-    changeUser(options: IConnectionOptions, callback: (err: IError) => void): void;
+    beginTransaction(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
 
-    changeUser(callback: (err: IError) => void): void;
+    beginTransaction(callback: (err: MysqlError) => void): void;
 
-    changeUser(options: IConnectionOptions): void;
+    commit(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    commit(callback: (err: MysqlError) => void): void;
 
-    beginTransaction(options?: IQueryOptions, callback?: (err: IError) => void): void;
+    rollback(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    rollback(callback: (err: MysqlError) => void): void;
 
-    beginTransaction(callback: (err: IError) => void): void;
+    query: MysqlQueryFunction;
 
-    commit(options?: IQueryOptions, callback?: (err: IError) => void): void;
+    ping(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    ping(callback: (err: MysqlError) => void): void;
 
-    commit(callback: (err: IError) => void): void;
+    statistics(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    statistics(callback: (err: MysqlError) => void): void;
 
-    rollback(options?: IQueryOptions, callback?: (err: IError) => void): void;
-
-    rollback(callback: (err: IError) => void): void;
-
-    query: IQueryFunction;
-
-    ping(options?: IQueryOptions, callback?: (err: IError) => void): void;
-
-    ping(callback: (err: IError) => void): void;
-
-    statistics(options?: IQueryOptions, callback?: (err: IError) => void): void;
-
-    statistics(callback: (err: IError) => void): void;
-
-    end(): void;
-
-    end(callback: (err: IError, ...args: any[]) => void): void;
-
-    end(options: any, callback: (err: IError, ...args: any[]) => void): void;
+    end(callback?: (err: MysqlError, ...args: any[]) => void): void;
+    end(options: any, callback: (err: MysqlError, ...args: any[]) => void): void;
 
     destroy(): void;
 
@@ -97,20 +75,20 @@ interface IConnection extends IEscape {
 
     resume(): void;
 
-    on(ev: 'drain' | 'connect', callback: () => void): IConnection;
+    on(ev: 'drain' | 'connect', callback: () => void): MysqlConnection;
 
-    on(ev: 'end', callback: (err?: IError) => void): IConnection;
+    on(ev: 'end', callback: (err?: MysqlError) => void): MysqlConnection;
 
-    on(ev: 'fields', callback: (fields: any[]) => void): IConnection;
+    on(ev: 'fields', callback: (fields: any[]) => void): MysqlConnection;
 
-    on(ev: 'error', callback: (err: IError) => void): IConnection;
+    on(ev: 'error', callback: (err: MysqlError) => void): MysqlConnection;
 
-    on(ev: 'enqueue', callback: (...args: any[]) => void): IConnection;
+    on(ev: 'enqueue', callback: (...args: any[]) => void): MysqlConnection;
 
     on(ev: string, callback: (...args: any[]) => void): this;
 }
 
-interface IPoolConnection extends IConnection {
+export interface MysqlPoolMysqlConnection extends MysqlConnection {
     release(): void;
 
     end(): void;
@@ -118,66 +96,60 @@ interface IPoolConnection extends IConnection {
     destroy(): void;
 }
 
-interface IPool extends IEscape {
-    config: IPoolConfig;
+export interface MysqlPool extends MysqlEscapeFunctions {
+    config: MysqlPoolConfig;
 
-    getConnection(callback: (err: IError, connection: IPoolConnection) => void): void;
+    getConnection(callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
 
-    acquireConnection(connection: IPoolConnection, callback: (err: IError, connection: IPoolConnection) => void): void;
+    acquireConnection(connection: MysqlPoolMysqlConnection, callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
 
-    releaseConnection(connection: IPoolConnection): void;
+    releaseConnection(connection: MysqlPoolMysqlConnection): void;
 
-    end(): void;
+    end(callback?: (err: MysqlError) => void): void;
 
-    end(callback: (err: IError) => void): void;
+    query: MysqlQueryFunction;
 
-    query: IQueryFunction;
+    on(ev: 'connection' | 'acquire' | 'release', callback: (connection: MysqlPoolMysqlConnection) => void): MysqlPool;
 
-    on(ev: 'connection' | 'acquire' | 'release', callback: (connection: IPoolConnection) => void): IPool;
+    on(ev: 'error', callback: (err: MysqlError) => void): MysqlPool;
 
-    on(ev: 'error', callback: (err: IError) => void): IPool;
+    on(ev: 'enqueue', callback: (err?: MysqlError) => void): MysqlPool;
 
-    on(ev: 'enqueue', callback: (err?: IError) => void): IPool;
-
-    on(ev: string, callback: (...args: any[]) => void): IPool;
+    on(ev: string, callback: (...args: any[]) => void): MysqlPool;
 }
 
-interface IPoolCluster {
-    config: IPoolClusterConfig;
+export interface MysqlPoolCluster {
+    config: MysqlPoolClusterConfig;
 
-    add(config: IPoolConfig): void;
+    add(config: MysqlPoolConfig): void;
 
-    add(id: string, config: IPoolConfig): void;
+    add(id: string, config: MysqlPoolConfig): void;
 
-    end(callback?: (err: IError) => void): void;
+    end(callback?: (err: MysqlError) => void): void;
 
-    of(pattern?: string): IPool;
-
-    of(pattern: string, selector: string): IPool;
-
-    of(pattern: undefined | null | false, selector: string): IPool;
+    of(pattern: string, selector?: string): MysqlPool;
+    of(pattern: undefined | null | false, selector: string): MysqlPool;
 
     /**
      * remove all pools which match pattern
      */
     remove(pattern: string): void;
 
-    getConnection(callback: (err: IError, connection: IPoolConnection) => void): void;
+    getConnection(callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
 
-    getConnection(pattern: string, callback: (err: IError, connection: IPoolConnection) => void): void;
+    getConnection(pattern: string, callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
 
-    getConnection(pattern: string, selector: string, callback: (err: IError, connection: IPoolConnection) => void): void;
+    getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
 
-    on(ev: string, callback: (...args: any[]) => void): IPoolCluster;
+    on(ev: string, callback: (...args: any[]) => void): MysqlPoolCluster;
 
-    on(ev: 'remove' | 'offline' | 'remove', callback: (nodeId: string) => void): IPoolCluster;
+    on(ev: 'remove' | 'offline' | 'remove', callback: (nodeId: string) => void): MysqlPoolCluster;
 }
 
+// related to MysqlQuery
+export type packetCallback = (packet: any) => void;
 
-// related to IQuery
-type packetCallback = (packet: any) => void;
-
-interface IQuery {
+export interface MysqlQuery {
     /**
      * Template query
      */
@@ -191,7 +163,7 @@ interface IQuery {
     /**
      * Default true
      */
-    typeCast: boolean;
+    typeCast?: MysqlTypeCast;
 
     /**
      * Default false
@@ -217,61 +189,50 @@ interface IQuery {
     FieldPacket: packetCallback;
     EofPacket: packetCallback;
 
-    RowDataPacket: (packet: any, parser: any, connection: IConnection) => void;
+    RowDataPacket(packet: any, parser: any, connection: MysqlConnection): void;
 
     /**
      * Creates a Readable stream with the given options
      *
      * @param options The options for the stream. (see readable-stream package)
      */
-    stream(options?: stream.ReadableOptions | any): stream.Readable;
+    stream(options?: stream.ReadableOptions): stream.Readable;
 
-    on(ev: string, callback: (...args: any[]) => void): IQuery;
+    on(ev: string, callback: (...args: any[]) => void): MysqlQuery;
 
-    on(ev: 'result', callback: (row: any, index: number) => void): IQuery;
+    on(ev: 'result', callback: (row: any, index: number) => void): MysqlQuery;
 
-    on(ev: 'error', callback: (err: IError) => void): IQuery;
+    on(ev: 'error', callback: (err: MysqlError) => void): MysqlQuery;
 
-    on(ev: 'fields', callback: (fields: IFieldInfo[], index: number) => void): IQuery;
+    on(ev: 'fields', callback: (fields: MysqlFieldInfo[], index: number) => void): MysqlQuery;
 
-    on(ev: 'packet', callback: (packet: any) => void): IQuery;
+    on(ev: 'packet', callback: (packet: any) => void): MysqlQuery;
 
-    on(ev: 'end', callback: () => void): IQuery;
+    on(ev: 'end', callback: () => void): MysqlQuery;
 }
 
-type queryCallback = (err: IError, results?: any, fields?: IFieldInfo[]) => void;
-
-interface IQueryFunction {
-    (query: IQuery): IQuery;
-
-    (callback: queryCallback): IQuery;
-
-    (sql: string): IQuery;
-
-    (sql: string, callback: queryCallback): IQuery;
-
-    (sql: string, values: any[]): IQuery;
-
-    (sql: string, values: any[], callback: queryCallback): IQuery;
-
-    (sql: string, values: any): IQuery;
-
-    (sql: string, values: any, callback: queryCallback): IQuery;
-
-    (options: IQueryOptions): IQuery;
-
-    (options: IQueryOptions, callback: queryCallback): IQuery;
-
-    (options: IQueryOptions, values: any[]): IQuery;
-
-    (options: IQueryOptions, values: any[], callback: queryCallback): IQuery;
-
-    (options: IQueryOptions, values: any): IQuery;
-
-    (options: IQueryOptions, values: any, callback: queryCallback): IQuery;
+export interface GeometryType extends Array<{x: number, y: number} | GeometryType> {
+    x: number;
+    y: number;
 }
 
-interface IQueryOptions {
+export type MysqlTypeCast = boolean | (
+    (field: MysqlFieldInfo
+        & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null |  GeometryType},
+    next: () => void) => any);
+
+export type queryCallback = (err: MysqlError | null, results?: any, fields?: MysqlFieldInfo[]) => void;
+
+// values can be non [], see custom format (https://github.com/mysqljs/mysql#custom-format)
+export interface MysqlQueryFunction {
+    (query: MysqlQuery): MysqlQuery;
+
+    (options: string | MysqlQueryOptions, callback?: queryCallback): MysqlQuery;
+
+    (options: string, values: any, callback?: queryCallback): MysqlQuery;
+}
+
+export interface MysqlQueryOptions {
     /**
      * The SQL for the query
      */
@@ -311,11 +272,10 @@ interface IQueryOptions {
      *
      * You can find which field function you need to use by looking at: RowDataPacket.prototype._typeCast
      */
-    typeCast?: any;
+    typeCast?: MysqlTypeCast;
 }
 
-
-interface IConnectionOptions {
+export interface MysqlConnectionOptions {
     /**
      * The MySQL user to authenticate as
      */
@@ -344,7 +304,7 @@ interface IConnectionOptions {
     timeout?: number;
 }
 
-interface IConnectionConfig extends IConnectionOptions {
+export interface MysqlConnectionConfig extends MysqlConnectionOptions {
     /**
      * The hostname of the database you are connecting to. (Default: localhost)
      */
@@ -405,12 +365,12 @@ interface IConnectionConfig extends IConnectionOptions {
      *
      * You can find which field function you need to use by looking at: RowDataPacket.prototype._typeCast
      */
-    typeCast?: any;
+    typeCast?: MysqlTypeCast;
 
     /**
      * A custom query format function
      */
-    queryFormat?: (query: string, values: any) => void;
+    queryFormat?(query: string, values: any): void;
 
     /**
      * When dealing with big numbers (BIGINT and DECIMAL columns) in the database, you should enable this option
@@ -464,7 +424,7 @@ interface IConnectionConfig extends IConnectionOptions {
     ssl?: tls.SecureContextOptions & { rejectUnauthorized?: boolean };
 }
 
-interface IPoolConfig extends IConnectionConfig {
+export interface MysqlPoolConfig extends MysqlConnectionConfig {
     /**
      * The milliseconds before a timeout occurs during the connection acquisition. This is slightly different from connectTimeout,
      * because acquiring a pool connection does not always involve making a connection. (Default: 10 seconds)
@@ -484,13 +444,13 @@ interface IPoolConfig extends IConnectionConfig {
     connectionLimit?: number;
 
     /**
-     * The maximum number of connection requests the pool will queue before returning an error from getConnection. If set to 0, there
+     * The maximum number of connection requests the pool will queue before returning an error from getMysqlConnection. If set to 0, there
      * is no limit to the number of queued connection requests. (Default: 0)
      */
     queueLimit?: number;
 }
 
-interface IPoolClusterConfig {
+export interface MysqlPoolClusterConfig {
     /**
      * If true, PoolCluster will attempt to reconnect when connection fails. (Default: true)
      */
@@ -517,7 +477,7 @@ interface IPoolClusterConfig {
     defaultSelector?: string;
 }
 
-interface IError extends Error {
+export interface MysqlError extends Error {
     /**
      * Either a MySQL server error (e.g. 'ER_ACCESS_DENIED_ERROR'),
      * a node.js error (e.g. 'ECONNREFUSED') or an internal error
@@ -561,7 +521,7 @@ interface IError extends Error {
     sql?: string;
 }
 
-declare const enum Types {
+export const enum Types {
     DECIMAL = 0x00, // aka DECIMAL (http://dev.mysql.com/doc/refman/5.0/en/precision-math-decimal-changes.html)
     TINY = 0x01, // aka TINYINT, 1 byte
     SHORT = 0x02, // aka SMALLINT, 2 bytes
@@ -595,7 +555,7 @@ declare const enum Types {
     GEOMETRY = 0xff, // aka GEOMETRY
 }
 
-interface IFieldInfo {
+export interface MysqlFieldInfo {
     catalog: string;
     db: string;
     table: string;
@@ -610,5 +570,4 @@ interface IFieldInfo {
     default?: string;
     zeroFill: boolean;
     protocol41: boolean;
-
 }
