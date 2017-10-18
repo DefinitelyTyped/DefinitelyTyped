@@ -332,7 +332,7 @@ declare namespace lunr {
          * @param {lunr.Index~queryBuilder} fn - A function that is used to build the query.
          * @returns {lunr.Index~Result[]}
          */
-        query(fn: Index.QueryBuilder): Index.Result;
+        query(fn: Index.QueryBuilder): Index.Result[];
 
         /**
          * Prepares the index for JSON serialization.
@@ -550,6 +550,7 @@ declare namespace lunr {
          * match that term against a {@link lunr.Index}.
          *
          * @typedef {Object} lunr.Query~Clause
+         * @property {string} term
          * @property {string[]} fields - The fields in an index this clause should be matched against.
          * @property {number} [boost=1] - Any boost that should be applied when matching this clause.
          * @property {number} [editDistance] - Whether the term should have fuzzy matching applied, and how fuzzy the match should be.
@@ -557,6 +558,7 @@ declare namespace lunr {
          * @property {number} [wildcard=0] - Whether the term should have wildcards appended or prepended.
          */
         interface Clause {
+            term: string;
             fields: string[];
             boost: number;
             editDistance: number;

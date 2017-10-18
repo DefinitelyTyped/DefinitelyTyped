@@ -173,8 +173,6 @@ declare namespace React {
     // Top Level API
     // ----------------------------------------------------------------------
 
-    function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
-
     // DOM Elements
     function createFactory<T extends HTMLElement>(
         type: keyof ReactHTML): HTMLFactory<T>;
@@ -264,10 +262,8 @@ declare namespace React {
         props?: Q, // should be Q & Attributes
         ...children: ReactNode[]): ReactElement<P>;
 
-    function isValidElement<P>(object: {}): object is ReactElement<P>;
+    function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-    const DOM: ReactDOM;
-    const PropTypes: ReactPropTypes;
     const Children: ReactChildren;
     const version: string;
 
@@ -436,6 +432,9 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
+        /**
+         * A reference to the element on which the event listener is registered.
+         */
         currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
@@ -448,6 +447,12 @@ declare namespace React {
         isPropagationStopped(): boolean;
         persist(): void;
         // If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
+        /**
+         * A reference to the element from which the event was originally dispatched.
+         * This might be a child element to the element on which the event listener is registered.
+         *
+         * @see currentTarget
+         */
         target: EventTarget;
         timeStamp: number;
         type: string;
@@ -489,7 +494,13 @@ declare namespace React {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
+        /**
+         * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
+         */
         key: string;
         keyCode: number;
         locale: string;
@@ -508,6 +519,9 @@ declare namespace React {
         clientX: number;
         clientY: number;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeMouseEvent;
@@ -523,6 +537,9 @@ declare namespace React {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
+        /**
+         * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
+         */
         getModifierState(key: string): boolean;
         metaKey: boolean;
         nativeEvent: NativeTouchEvent;
@@ -2584,6 +2601,7 @@ declare namespace React {
         media?: string;
         rel?: string;
         target?: string;
+        type?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -3348,16 +3366,46 @@ declare namespace React {
     }
 
     interface ReactSVG {
-        svg: SVGFactory;
         animate: SVGFactory;
         circle: SVGFactory;
+        clipPath: SVGFactory;
         defs: SVGFactory;
+        desc: SVGFactory;
         ellipse: SVGFactory;
+        feBlend: SVGFactory;
+        feColorMatrix: SVGFactory;
+        feComponentTransfer: SVGFactory;
+        feComposite: SVGFactory;
+        feConvolveMatrix: SVGFactory;
+        feDiffuseLighting: SVGFactory;
+        feDisplacementMap: SVGFactory;
+        feDistantLight: SVGFactory;
+        feDropShadow: SVGFactory;
+        feFlood: SVGFactory;
+        feFuncA: SVGFactory;
+        feFuncB: SVGFactory;
+        feFuncG: SVGFactory;
+        feFuncR: SVGFactory;
+        feGaussianBlur: SVGFactory;
+        feImage: SVGFactory;
+        feMerge: SVGFactory;
+        feMergeNode: SVGFactory;
+        feMorphology: SVGFactory;
+        feOffset: SVGFactory;
+        fePointLight: SVGFactory;
+        feSpecularLighting: SVGFactory;
+        feSpotLight: SVGFactory;
+        feTile: SVGFactory;
+        feTurbulence: SVGFactory;
+        filter: SVGFactory;
+        foreignObject: SVGFactory;
         g: SVGFactory;
         image: SVGFactory;
         line: SVGFactory;
         linearGradient: SVGFactory;
+        marker: SVGFactory;
         mask: SVGFactory;
+        metadata: SVGFactory;
         path: SVGFactory;
         pattern: SVGFactory;
         polygon: SVGFactory;
@@ -3365,10 +3413,14 @@ declare namespace React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        svg: SVGFactory;
+        switch: SVGFactory;
         symbol: SVGFactory;
         text: SVGFactory;
+        textPath: SVGFactory;
         tspan: SVGFactory;
         use: SVGFactory;
+        view: SVGFactory;
     }
 
     interface ReactDOM extends ReactHTML, ReactSVG { }

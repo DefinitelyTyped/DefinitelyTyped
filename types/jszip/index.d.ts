@@ -28,7 +28,7 @@ interface InputByType {
     text: string;
     binarystring: string;
     array: number[];
-    unit8array: Uint8Array;
+    uint8array: Uint8Array;
     arraybuffer: ArrayBuffer;
     blob: Blob;
 }
@@ -38,7 +38,7 @@ interface OutputByType {
     text: string;
     binarystring: string;
     array: number[];
-    unit8array: Uint8Array;
+    uint8array: Uint8Array;
     arraybuffer: ArrayBuffer;
     blob: Blob;
     nodebuffer: Buffer;
