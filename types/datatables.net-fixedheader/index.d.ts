@@ -1,16 +1,57 @@
 // Type definitions for datatables.net-fixedheader 3.1
 // Project: https://datatables.net/extensions/fixedheader/
-// Definitions by: Jared Szechy <https://github.com/szechyjs>
+// Definitions by: Jared Szechy <https://github.com/szechyjs>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 
 declare namespace DataTables {
-    interface Settings {
+    export interface Settings {
         /*
          * FixedHeader extension options
          */
         fixedHeader?: boolean | FixedHeaderSettings;
+    }
+
+    export interface StaticFunctions {
+        FixedHeader: FixedHeaderStaticFunctions;
+    }
+
+    export interface FixedHeaderStaticFunctions {
+        new (dt: DataTables.Api, settings: boolean|FixedHeaderSettings):void;
+        version: string;
+        defaults: FixedHeaderSettings;
+    }
+
+    export interface Api {
+        fixedHeader: FixedHeaderApi;
+    }
+
+    export interface FixedHeaderApi {
+        /**
+         * Recalculate the position of the DataTable on the page and adjust the fixed element as appropriate.
+         */
+        adjust(): DataTables.Api;
+
+        /**
+         * Disable the fixed elements
+         */
+        disable(): DataTables.Api;
+
+        /**
+         * Enable / disable the fixed elements
+         */
+        enable(enable: boolean): DataTables.Api;
+
+        /**
+         * Get the fixed footer's offset.
+         */
+        footerOffset(offset: number): DataTables.Api;
+
+        /**
+         * Get the fixed header's offset.
+         */
+        headerOffset(offset: number): DataTables.Api;
     }
 
     /*
