@@ -3,4 +3,6 @@
 // Definitions by: Will Ockmore <https://github.com/will-ockmore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function stemmer(value: string): string;
+declare function stemmer(value: string): string;
+
+export = stemmer;
