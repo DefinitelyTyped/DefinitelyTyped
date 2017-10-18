@@ -166,7 +166,7 @@ namespace Signals.AdvancedTests {
   myObject.started.dispatch(); //nothing happens
 
   //Check if binding will execute only once
-  var binding1:signals.SignalBinding<any> = myObject.started.add(function(){
+  var binding1:signals.SignalBinding<{}> = myObject.started.add(function(){
     alert('foo bar');
   });
   var binding2:signals.SignalBinding<() => void> = myObject.started.addOnce(function(){
@@ -188,10 +188,10 @@ namespace Signals.AdvancedTests {
   myObject.started.dispatch(); //will alert "it's over 9000!"
 
   //Add default parameters to Signal dispatch (v0.6.3+)
-  var binding:signals.SignalBinding<() => void> = myObject.started.add(function(a:string, b:string, c:string){
+  var binding3:signals.SignalBinding<string> = myObject.started.add(function(a:string, b:string, c:string){
     alert(a +' '+ b +' '+ c);
   });
-  binding.params = ['lorem', 'ipsum']; //set default parameters of the binding
+  binding3.params = ['lorem', 'ipsum']; //set default parameters of the binding
   myObject.started.dispatch('dolor'); //will alert "lorem ipsum dolor"
 
   //Check if Signal has specific listener (v0.7.0+)
