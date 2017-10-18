@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "tabris-plugin-firebase-tests.ts"
+        "react-hyperscript-tests.ts"
     ]
 }

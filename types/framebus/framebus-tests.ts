@@ -1,6 +1,6 @@
 import * as framebus from "framebus";
 
-const popup = window.open('https://example.com');
+const popup = window.open('https://example.com')!;
 framebus.include(popup);
 framebus.emit('hello popup and friends!');
 
