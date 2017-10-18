@@ -1033,7 +1033,7 @@ namespace http_tests {
         request.abort();
     }
 
-	const options: http.RequestOptions = {
+	const options: http.ClientRequestArgs = {
         timeout: 30000
 	};
 }

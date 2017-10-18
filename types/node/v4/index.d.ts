@@ -565,19 +565,30 @@ declare module "http" {
     import * as net from "net";
     import * as stream from "stream";
 
-    export interface RequestOptions {
+    // incoming headers will never contain number
+    export interface IncomingHttpHeaders {
+        [header: string]: string | string[];
+    }
+
+    // outgoing headers allows numbers (as they are converted internally to strings)
+    export interface OutgoingHttpHeaders {
+        [header: string]: number | string | string[] | undefined;
+    }
+
+    export interface ClientRequestArgs {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number;
+        port?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
         path?: string;
-        headers?: { [key: string]: any };
+        headers?: OutgoingHttpHeaders;
         auth?: string;
-        agent?: Agent|boolean;
+        agent?: Agent | boolean;
+        timeout?: number;
     }
 
     export interface Server extends net.Server {
@@ -600,8 +611,8 @@ declare module "http" {
         write(str: string, encoding?: string, fd?: string): boolean;
 
         writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
-        writeHead(statusCode: number, headers?: any): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
         statusCode: number;
         statusMessage: string;
         headersSent: boolean;
@@ -610,7 +621,7 @@ declare module "http" {
         getHeader(name: string): string;
         removeHeader(name: string): void;
         write(chunk: any, encoding?: string): any;
-        addTrailers(headers: any): void;
+        addTrailers(headers: OutgoingHttpHeaders): void;
 
         // Extended base methods
         end(): void;
@@ -636,7 +647,7 @@ declare module "http" {
         setHeader(name: string, value: string | string[]): void;
         getHeader(name: string): string;
         removeHeader(name: string): void;
-        addTrailers(headers: any): void;
+        addTrailers(headers: OutgoingHttpHeaders): void;
 
         // Extended base methods
         end(): void;
@@ -647,10 +658,10 @@ declare module "http" {
     }
     export interface IncomingMessage extends events.EventEmitter, stream.Readable {
         httpVersion: string;
-        headers: any;
+        headers: IncomingHttpHeaders;
         rawHeaders: string[];
-        trailers: any;
-        rawTrailers: any;
+        trailers: OutgoingHttpHeaders;
+        rawTrailers: string[];
         setTimeout(msecs: number, callback: Function): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
@@ -720,7 +731,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) =>void ): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions | string, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: ClientRequestArgs | string, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -916,7 +927,7 @@ declare module "https" {
         SNICallback?: (servername: string) => any;
     }
 
-    export interface RequestOptions extends http.RequestOptions {
+    export interface RequestOptions extends http.ClientRequestArgs {
         pfx?: any;
         key?: any;
         passphrase?: string;
