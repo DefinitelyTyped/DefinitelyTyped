@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class TiKeyOutline extends React.Component<IconBaseProps> { }
+declare class TiKeyOutline extends React.Component<IconBaseProps> { }
+export = TiKeyOutline;

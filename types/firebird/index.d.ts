@@ -12,6 +12,8 @@
  * Original document is [here](https://www.npmjs.com/package/firebird).
  */
 declare module 'firebird' {
+    import * as stream from 'stream';
+
     /**
      * @see createConnection() method will create Firebird Connection object for you
      */
@@ -453,24 +455,14 @@ declare module 'firebird' {
      * You may pipe strm to/from NodeJS Stream objects (fs or socket).
      * You may also look at [NodeJS Streams reference](https://nodejs.org/api/stream.html).
      */
-    class Stream implements NodeJS.ReadWriteStream {
+    class Stream extends stream.Stream {
         constructor(blob: FBBlob);
-
-        /* Following lines is JUST AS NodeJS.ReadStream, NodeJS.WriteStream, and NodeJS.Emmiter */
         /* tslint:disable */
 
         /* NodeJS.ReadStream */
         readable: boolean;
-        read(size?: number): string | Buffer;
-        setEncoding(encoding: string | null): this;
         pause(): this;
         resume(): this;
-        isPaused(): boolean;
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
 
         /* NodeJS.WriteStream */
         writable: boolean;
@@ -480,22 +472,9 @@ declare module 'firebird' {
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
-
-        /* EventEmitter */
-        addListener(event: string | symbol, listener: Function): this;
-        on(event: string | symbol, listener: Function): this;
-        once(event: string | symbol, listener: Function): this;
-        removeListener(event: string | symbol, listener: Function): this;
-        removeAllListeners(event?: string | symbol): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string | symbol): Function[];
-        emit(event: string | symbol, ...args: any[]): boolean;
-        listenerCount(type: string | symbol): number;
-        prependListener(event: string | symbol, listener: Function): this;
-        prependOnceListener(event: string | symbol, listener: Function): this;
-        eventNames(): (string | symbol)[];
+        destroy(error?: Error): void;
 
         /* tslint:enable */
+        check_destroyed(): void;
     }
 }

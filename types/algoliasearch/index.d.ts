@@ -1,7 +1,8 @@
-// Type definitions for algoliasearch-client-js 3.18.1
+// Type definitions for algoliasearch-client-js 3.18.2
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
+//                 Aurélien Hervé <https://github.com/aherve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace algoliasearch {
@@ -146,7 +147,7 @@ declare namespace algoliasearch {
          * @param filters
          * https://github.com/algolia/algoliasearch-client-js#generate-key---generatesecuredapikey
          */
-        generateSecuredApiKey(key: string, filters: AlgoliaSecuredApiOptions): void;
+        generateSecuredApiKey(key: string, filters: AlgoliaSecuredApiOptions): string;
         /**
          * Perform multiple operations with one API call to reduce latency
          * @param action
@@ -326,7 +327,7 @@ declare namespace algoliasearch {
          * @param cb(err, res)
          * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
          */
-        saveObjects(objects: [{}], cb: (err: Error, res: any) => void): void;
+        saveObjects(objects: object[], cb: (err: Error, res: any) => void): void;
         /**
          * Update parameters of a specific object
          * @param object
@@ -540,7 +541,7 @@ declare namespace algoliasearch {
          * return {Promise}
          * https://github.com/algolia/algoliasearch-client-js#update-objects---saveobjects
          */
-        saveObjects(objects: [{}]): Promise<any> ;
+        saveObjects(objects: object[]): Promise<any> ;
         /**
          * Update parameters of a specific object
          * @param object
