@@ -28,7 +28,7 @@ interface Buffer {
 	/** Shorthand for `ref.reinterpretUntilZeros`. */
 	reinterpretUntilZeros(size: number, offset?: number): Buffer;
 	/** Shorthand for `ref.writeCString`. */
-	writeCString(offset: number, string: string, encoding?: string): void;
+	writeCString(offset: number, input: string, encoding?: string): void;
 	/** Shorthand for `ref.writeInt64BE`. */
 	writeInt64BE(offset: number, input: number | string): any;
 	/** Shorthand for `ref.writeInt64LE`. */
