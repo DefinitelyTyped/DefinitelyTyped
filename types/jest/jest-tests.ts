@@ -239,6 +239,17 @@ describe('Assymetric matchers', () => {
     });
 });
 
+describe('setTimeout', () => {
+    it('works as expected', done => {
+        jest.setTimeout(1000);
+
+        setTimeout(() => {
+            expect(true).toBeTruthy();
+            done();
+        }, 900);
+    });
+});
+
 describe('Extending extend', () => {
     it('works', () => {
         expect.extend({

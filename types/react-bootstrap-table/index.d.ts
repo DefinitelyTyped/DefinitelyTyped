@@ -177,7 +177,7 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	/**
 	 * Set CSV filename (e.g. items.csv). Default is spreadsheet.csv
 	 */
-	csvFileName?: string;
+	csvFileName?: () => string | string;
 	/**
 	 * Enable row selection on table. selectRow accept an object which have the following properties
 	 */

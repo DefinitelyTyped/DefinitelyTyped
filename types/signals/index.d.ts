@@ -78,6 +78,7 @@ declare namespace signals {
          */
         addOnce<G extends T>(listener: (...params: G[]) => void, listenerContext?: any, priority?: Number): SignalBinding<G>;
 
+
         /**
          * Dispatch/Broadcast Signal to all listeners added to the queue.
          *

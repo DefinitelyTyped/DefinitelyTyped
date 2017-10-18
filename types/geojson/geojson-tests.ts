@@ -2,6 +2,7 @@ let featureCollection: GeoJSON.FeatureCollection<any> =  {
     type: "FeatureCollection",
     features: [
         {
+            id: 1234,
             type: "Feature",
             geometry: {
                 type: "Point",
@@ -12,6 +13,7 @@ let featureCollection: GeoJSON.FeatureCollection<any> =  {
             }
         },
         {
+            id: "stringid",
             type: "Feature",
             geometry: {
                 type: "LineString",

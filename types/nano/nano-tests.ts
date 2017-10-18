@@ -141,7 +141,9 @@ const attGet: NodeJS.ReadableStream = mydb.attachment.get("new_string", "att");
 /*
  * Multipart
  */
-mydb.multipart.insert({ name: "baz" }, [{}], "foobaz", (error, foo) => {});
+const attachment = { name: 'rabbit.png', data: 'some data', content_type: 'image/png' };
+
+mydb.multipart.insert({ name: "baz" }, [attachment], "foobaz", (error, foo) => {});
 mydb.multipart.get("foobaz", (error: any, foobaz: any, headers: any) => {});
 
 /*

@@ -1,20 +1,37 @@
-// Type definitions for memory-cache
+// Type definitions for memory-cache 0.2
 // Project: https://github.com/ptarjan/node-cache
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
+//                 Travis Thieman <https://github.com/thieman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Imported from: https://github.com/soywiz/typescript-node-definitions/memory-cache.d.ts
+// Originally imported from: https://github.com/soywiz/typescript-node-definitions/memory-cache.d.ts
 
+export class CacheClass<K, V> {
+    put(key: K, value: V, time?: number, timeoutCallback?: (key: K, value: V) => void): V;
+    get(key: K): V;
+    del(key: K): void;
+    clear(): void;
 
-export declare function put(key: any, value: any, time?: number, timeoutCallback?: (key: any, value: any) => void): void;
-export declare function get(key: any): any;
-export declare function del(key: any): void;
-export declare function clear(): void;
+    size(): number;
+    memsize(): number;
 
-export declare function size(): number;
-export declare function memsize(): number;
+    debug(bool: boolean): void;
+    hits(): number;
+    misses(): number;
+    keys(): K[];
+}
 
-export declare function debug(bool: boolean): void;
-export declare function hits(): number;
-export declare function misses(): number;
-export declare function keys(): any;
+export const Cache: typeof CacheClass;
+
+export function put<V>(key: any, value: V, time?: number, timeoutCallback?: (key: any, value: any) => void): V;
+export function get(key: any): any;
+export function del(key: any): void;
+export function clear(): void;
+
+export function size(): number;
+export function memsize(): number;
+
+export function debug(bool: boolean): void;
+export function hits(): number;
+export function misses(): number;
+export function keys(): any[];

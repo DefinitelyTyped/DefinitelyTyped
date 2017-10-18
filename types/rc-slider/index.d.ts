@@ -163,3 +163,6 @@ export interface HandleProps extends CommonApiProps {
 export default class Slider extends React.Component<SliderProps> { }
 export class Range extends React.Component<RangeProps> { }
 export class Handle extends React.Component<HandleProps> { }
+
+export function createSliderWithTooltip(slider: typeof Slider): new() => Slider;
+export function createSliderWithTooltip(range: typeof Range): new() => Range;

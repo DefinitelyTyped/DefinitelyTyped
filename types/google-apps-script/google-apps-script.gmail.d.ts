@@ -14,7 +14,7 @@ declare namespace GoogleAppsScript {
     export interface GmailApp {
       createLabel(name: string): GmailLabel;
       deleteLabel(label: GmailLabel): GmailApp;
-      getAliases(): String[];
+      getAliases(): string[];
       getChatThreads(): GmailThread[];
       getChatThreads(start: Integer, max: Integer): GmailThread[];
       getDraftMessages(): GmailMessage[];

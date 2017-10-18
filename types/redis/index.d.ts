@@ -11,7 +11,7 @@ import { EventEmitter } from 'events';
 import { Duplex } from 'stream';
 
 export interface RetryStrategyOptions {
-    error: Error;
+    error: NodeJS.ErrnoException;
     total_retry_time: number;
     times_connected: number;
     attempt: number;
