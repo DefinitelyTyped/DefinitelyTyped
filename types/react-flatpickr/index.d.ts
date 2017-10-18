@@ -5,12 +5,18 @@
 // TypeScript Version: 2.3
 
 import { Component, DetailedHTMLProps, InputHTMLAttributes } from 'react';
-import { EventCallback, Options } from 'flatpickr';
+import { Hook, Options } from 'flatpickr';
 
-export interface DateTimePickerProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+type HTMLProps =
+    {onChange?: Hook}       // needed because there is a conflit with div and input props
+    | DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+    | DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+;
+
+export type DateTimePickerProps = HTMLProps & {
     defaultValue?: string;
     options?: Options;
-    onChange?: EventCallback;
+    onChange?: Hook;
     value?: string;
 }
 
