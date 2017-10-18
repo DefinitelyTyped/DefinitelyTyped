@@ -1997,7 +1997,6 @@ declare namespace DataTables {
         afnSortData: Object;
         aoFeatures: any[];
         builder: string;
-        buttons: Object;
         classes: ExtClassesSettings;
         errMode: string;
         feature: any[];
