@@ -206,6 +206,14 @@ declare namespace Knex {
         orOn(column1: string, column2: string): JoinClause;
         orOn(column1: string, raw: Raw): JoinClause;
         orOn(column1: string, operator: string, column2: string): JoinClause;
+        onIn(column1: string, values: any[]): JoinClause;
+        onNotIn(column1: string, values: any[]): JoinClause;
+        onNull(column1: string): JoinClause;
+        onNotNull(column1: string): JoinClause;
+        onExists(callback: Function): JoinClause;
+        onNotExists(callback: Function): JoinClause;
+        onBetween(column1: string, range: any[]): JoinClause;
+        onNotBetween(column1: string, range: any[]): JoinClause;
         using(column: string | string[] | Raw | { [key: string]: string | Raw }): JoinClause;
         type(type: string): JoinClause;
     }
