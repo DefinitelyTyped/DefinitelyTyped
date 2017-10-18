@@ -62,8 +62,10 @@ personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstN
 // You can go past five dependencies, but you need to specify types
 personFactory.attr('secretCode', ['firstName', 'lastName', 'age', 'age', 'firstName', 'firstName'], (firstName: string, lastName: string, age1: number, age2: number, firstNameAgain: string, firstNameThisIsTooMuch: string) => ({ name: firstNameAgain, value: age1 + age2 }));
 
-const personObj = Factory.build<Person>('Person');
-if (personObj.firstName !== 'John') { throw new Error('incorrect Person build'); }
+// Having defined 'Person', `build` will return an object of type Person, using the generic type.
+const person = Factory.build<Person>('Person');
+let aString = '';
+aString = person.firstName;
 
 class CustomClass {
   type: string;
@@ -73,9 +75,22 @@ class CustomClass {
   }
 }
 
-const customTestFactory = Factory.define<CustomClass>('test', CustomClass);
-const output = customTestFactory.build({ type: 'foo' });
-if (output.type !== 'foo') { throw new Error('constructor did not receive args'); }
+Factory.define<CustomClass>('CustomClass', CustomClass);
+
+class CustomClass2 {
+  constructor(prop1: string, prop2: string, prop3: string) {
+  }
+}
+
+Factory.define<CustomClass2>('CustomClass2', CustomClass2);
+
+class CustomClassWithoutConstructor {
+  constructor() {
+    // set some state
+  }
+}
+
+Factory.define<CustomClassWithoutConstructor>('CustomClassWithoutConstructor', CustomClassWithoutConstructor);
 
 import rosie = require('rosie');
 
