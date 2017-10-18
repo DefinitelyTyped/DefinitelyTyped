@@ -2,6 +2,7 @@
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00/>
 //                 Christopher Eck <https://github.com/chrisleck>
+//                 Yoga Aliarham <https://github.com/aliarham11>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
