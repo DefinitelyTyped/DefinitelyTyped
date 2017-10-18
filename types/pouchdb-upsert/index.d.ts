@@ -61,9 +61,9 @@ declare namespace PouchDB {
   type UpsertDiffCallback<Content extends {}> = (doc: Core.Document<Content>) => Core.Document<Content> | boolean;
 
   interface UpsertResponse {
-    id: string
-    rev: string
-    updated: boolean
+    id: string;
+    rev: string;
+    updated: boolean;
   }
 }
 
