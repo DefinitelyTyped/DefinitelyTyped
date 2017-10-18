@@ -56,5 +56,5 @@ function test_events() {
 }
 
 function test_list_ports() {
-    SerialPort.list((err: string, ports: SerialPort.portConfig[]) => {});
+    SerialPort.list((err: string, ports: SerialPort.PortConfig[]) => {});
 }
