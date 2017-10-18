@@ -6,18 +6,18 @@ export {
     createRefetchContainer,
     fetchQuery,
     graphql,
-} from "react-relay";
+} from "./index";
 
 import * as RelayRuntimeTypes from "relay-runtime";
-import { RelayEnvironmentInterface } from "react-relay/classic";
+import { RelayEnvironmentInterface } from "./classic";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
 // ~~~~~~~~~~~~~~~~~~~~~
-type ConcreteFragment = any;
-type ConcreteBatch = any;
-type ConcreteFragmentDefinition = object;
-type ConcreteOperationDefinition = object;
+export type ConcreteFragment = any;
+export type ConcreteBatch = any;
+export type ConcreteFragmentDefinition = object;
+export type ConcreteOperationDefinition = object;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Util

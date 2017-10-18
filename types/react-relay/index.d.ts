@@ -19,11 +19,11 @@ import * as RelayRuntimeTypes from "relay-runtime";
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
 // ~~~~~~~~~~~~~~~~~~~~~
-type ConcreteFragment = any;
-type ConcreteBatch = any;
-type ConcreteFragmentDefinition = object;
-type ConcreteOperationDefinition = object;
-type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
+export type ConcreteFragment = any;
+export type ConcreteBatch = any;
+export type ConcreteFragmentDefinition = object;
+export type ConcreteOperationDefinition = object;
+export type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayProp
@@ -51,9 +51,9 @@ export type GraphQLTaggedNode =
           classic(relayQL: typeof RelayQL): ConcreteFragmentDefinition | ConcreteOperationDefinition;
       };
 /**
-   * Runtime function to correspond to the `graphql` tagged template function.
-   * All calls to this function should be transformed by the plugin.
-   */
+ * Runtime function to correspond to the `graphql` tagged template function.
+ * All calls to this function should be transformed by the plugin.
+ */
 export interface GraphqlInterface {
     (strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
     experimental(strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
