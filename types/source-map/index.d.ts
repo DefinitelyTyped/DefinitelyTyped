@@ -6,6 +6,8 @@
 
 export as namespace sourceMap;
 
+export type SourceMapUrl = string;
+
 export interface StartOfSourceMap {
     file?: string;
     sourceRoot?: string;
@@ -189,9 +191,9 @@ export interface SourceMapConsumerConstructor {
     GREATEST_LOWER_BOUND: number;
     LEAST_UPPER_BOUND: number;
 
-    new (rawSourceMap: RawSourceMap): BasicSourceMapConsumer;
-    new (rawSourceMap: RawIndexMap): IndexedSourceMapConsumer;
-    new (rawSourceMap: RawSourceMap | RawIndexMap | string): BasicSourceMapConsumer | IndexedSourceMapConsumer;
+    new (rawSourceMap: RawSourceMap, sourceMapUrl?: SourceMapUrl): BasicSourceMapConsumer;
+    new (rawSourceMap: RawIndexMap, sourceMapUrl?: SourceMapUrl): IndexedSourceMapConsumer;
+    new (rawSourceMap: RawSourceMap | RawIndexMap | string, sourceMapUrl?: SourceMapUrl): BasicSourceMapConsumer | IndexedSourceMapConsumer;
 
     /**
      * Create a BasicSourceMapConsumer from a SourceMapGenerator.
@@ -199,7 +201,7 @@ export interface SourceMapConsumerConstructor {
      * @param sourceMap
      *        The source map that will be consumed.
      */
-    fromSourceMap(sourceMap: SourceMapGenerator): BasicSourceMapConsumer;
+    fromSourceMap(sourceMap: SourceMapGenerator, sourceMapUrl?: SourceMapUrl): BasicSourceMapConsumer;
 }
 
 export const SourceMapConsumer: SourceMapConsumerConstructor;
