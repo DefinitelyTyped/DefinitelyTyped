@@ -1,4 +1,4 @@
-// Type definitions for stripe-node 4.7
+// Type definitions for stripe 4.7
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -8,87 +8,78 @@
 
 /// <reference types="node" />
 
-declare module 'stripe' {
-    var out: StripeNode.StripeExport;
-    export = out;
+declare class Stripe {
+    DEFAULT_HOST: string;
+    DEFAULT_PORT: string;
+    DEFAULT_BASE_PATH: string;
+    DEFAULT_API_VERSION: string;
+    DEFAULT_TIMEOUT: number;
+    PACKAGE_VERSION: string;
+    USER_AGENT: {
+        bindings_version: string;
+        lang: string;
+        lang_version: string;
+        platform: string;
+        publisher: string;
+        uname: string;
+    };
+    USER_AGENT_SERIALIZED: string;
+
+    resources: typeof Stripe.resources;
+    StripeResource: typeof Stripe.StripeResource;
+
+    constructor(apiKey: string, version?: string);
+
+    accounts: Stripe.resources.Accounts;
+    balance: Stripe.resources.Balance;
+    charges: Stripe.resources.Charges;
+    coupons: Stripe.resources.Coupons;
+    customers: Stripe.resources.Customers;
+    disputes: Stripe.resources.Disputes;
+    events: Stripe.resources.Events;
+    invoices: Stripe.resources.Invoices;
+    invoiceItems: Stripe.resources.InvoiceItems;
+    plans: Stripe.resources.Plans;
+    /**
+     * @deprecated
+     */
+    recipientCards: Stripe.resources.RecipientCards;
+    /**
+     * @deprecated
+     */
+    recipients: Stripe.resources.Recipients;
+    subscriptions: Stripe.resources.Subscriptions;
+    tokens: Stripe.resources.Tokens;
+    transfers: Stripe.resources.Transfers;
+    applicationFees: Stripe.resources.ApplicationFees;
+    fileUploads: Stripe.resources.FileUploads;
+    bitcoinReceivers: Stripe.resources.BitcoinReceivers;
+    refunds: Stripe.resources.Refunds;
+    countrySpecs: Stripe.resources.CountrySpecs;
+    orders: Stripe.resources.Orders;
+    products: Stripe.resources.Products;
+    skus: Stripe.resources.SKUs;
+    webhooks: Stripe.resources.WebHooks;
+
+    setHost(host: string): void;
+    setHost(host: string, port: string|number): void;
+    setHost(host: string, port: string|number, protocol: string): void;
+
+    setProtocol(protocol: string): void;
+    setPort(port: string|number): void;
+    setApiVersion(version?: string): void;
+    setApiKey(key?: string): void;
+    setTimeout(timeout?: number): void;
+    setHttpAgent(agent: string): void;
+    getConstant(c: string): any;
+    getClientUserAgent(response: (userAgent: string) => void): void;
 }
+export = Stripe;
 
-declare namespace StripeNode {
-    interface StripeExport extends StripeStatic {
-        new (apiKey: string, version?: string): Stripe;
-        (apiKey: string, version?: string): Stripe;
-    }
-
-    interface StripeStatic {
-        DEFAULT_HOST: string;
-        DEFAULT_PORT: string;
-        DEFAULT_BASE_PATH: string;
-        DEFAULT_API_VERSION: string;
-        DEFAULT_TIMEOUT: number;
-        PACKAGE_VERSION: string;
-        USER_AGENT: {
-            bindings_version: string;
-            lang: string;
-            lang_version: string;
-            platform: string;
-            publisher: string;
-            uname: string;
-        };
-        USER_AGENT_SERIALIZED: string;
-
-        resources: typeof resources;
-        StripeResource: typeof StripeResource;
-    }
-
+declare namespace Stripe {
     // Helper
     type IBankAccount = bankAccounts.IBankAccount;
     type ICard = cards.ICard;
-
-    interface Stripe extends StripeStatic {
-        accounts: resources.Accounts;
-        balance: resources.Balance;
-        charges: resources.Charges;
-        coupons: resources.Coupons;
-        customers: resources.Customers;
-        disputes: resources.Disputes;
-        events: resources.Events;
-        invoices: resources.Invoices;
-        invoiceItems: resources.InvoiceItems;
-        plans: resources.Plans;
-        /**
-         * @deprecated
-         */
-        recipientCards: resources.RecipientCards;
-        /**
-         * @deprecated
-         */
-        recipients: resources.Recipients;
-        subscriptions: resources.Subscriptions;
-        tokens: resources.Tokens;
-        transfers: resources.Transfers;
-        applicationFees: resources.ApplicationFees;
-        fileUploads: resources.FileUploads;
-        bitcoinReceivers: resources.BitcoinReceivers;
-        refunds: resources.Refunds;
-        countrySpecs: resources.CountrySpecs;
-        orders: resources.Orders;
-        products: resources.Products;
-        skus: resources.SKUs;
-        webhooks: resources.WebHooks;
-
-        setHost(host: string): void;
-        setHost(host: string, port: string|number): void;
-        setHost(host: string, port: string|number, protocol: string): void;
-
-        setProtocol(protocol: string): void;
-        setPort(port: string|number): void;
-        setApiVersion(version?: string): void;
-        setApiKey(key?: string): void;
-        setTimeout(timeout?: number): void;
-        setHttpAgent(agent: string): void;
-        getConstant(c: string): any;
-        getClientUserAgent(response: (userAgent: string) => void): void;
-    }
 
     namespace accounts {
         interface IAccount extends IResourceObject, IAccountShared {
