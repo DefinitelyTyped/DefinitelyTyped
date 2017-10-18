@@ -1,5 +1,5 @@
-// Type definitions for node-mysql 2.15.0
-// Project: https://github.com/felixge/node-mysql
+// Type definitions for mysql 2.15.0
+// Project: https://github.com/mysqljs/mysql
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //		   Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
