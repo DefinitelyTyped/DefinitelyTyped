@@ -1128,7 +1128,7 @@ declare namespace DataTables {
          *
          * @param table Selector string for table
          */
-        Api(selector: string | Node | Node[] | JQuery) : any;
+        Api: new (selector: string | Node | Node[] | JQuery) => DataTables.Api;
 
         /**
          * Default Settings

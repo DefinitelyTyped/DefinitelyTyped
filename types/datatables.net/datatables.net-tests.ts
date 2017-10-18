@@ -944,7 +944,7 @@ $(document).ready(function () {
     var static_4: DataTables.JQueryDataTables = $("selector").dataTable();
     var static_5: DataTables.Api = $("selector").dataTable().api();
 
-    // var static_6 = new $.fn.dataTable.Api("selector");
+    var static_6 = new $.fn.dataTable.Api("selector");
 
     var version: boolean = $.fn.dataTable.versionCheck("1.10.0");
     var isDataTable: boolean = $.fn.dataTable.isDataTable("selector");
