@@ -1,6 +1,7 @@
 // Type definitions for JS-Signals
 // Project: http://millermedeiros.github.io/js-signals/
 // Definitions by: Diullei Gomes <https://github.com/diullei>
+//                 Luc <https://github.com/quelu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var signals: signals.SignalWrapper;
@@ -59,7 +60,7 @@ declare namespace signals {
          * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
          * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
          */
-        add(listener: (...params: T[]) => void, listenerContext?: any, priority?: Number): SignalBinding<T>;
+        add<G extends T>(listener: (...params: G[]) => void, listenerContext?: any, priority?: Number): SignalBinding<G>;
 
         /**
         * Add listener to the signal that should be removed after first execution (will be executed only once).
@@ -68,14 +69,14 @@ declare namespace signals {
         * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
         * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
         */
-        addOnce(listener: (...params: T[]) => void, listenerContext?: any, priority?: Number): SignalBinding<T>;
+        addOnce<G extends T>(listener: (...params: G[]) => void, listenerContext?: any, priority?: Number): SignalBinding<G>;
 
         /**
          * Dispatch/Broadcast Signal to all listeners added to the queue.
          *
          * @param params Parameters that should be passed to each handler.
          */
-        dispatch(...params: T[]): void;
+        dispatch<G extends T>(...params: G[]): void;
 
         /**
          * Remove all bindings from signal and destroy any reference to external objects (destroy Signal object).
@@ -100,12 +101,12 @@ declare namespace signals {
         /**
          * Check if listener was attached to Signal.
          */
-        has(listener: (...params: T[]) => void, context?: any): boolean;
+        has<G extends T>(listener: (...params: G[]) => void, context?: any): boolean;
 
         /**
          * Remove a single listener from the dispatch queue.
          */
-        remove(listener: (...params: T[]) => void, context?: any): Function;
+        remove<G extends T>(listener: (...params: G[]) => void, context?: any): (...params: G[]) => void;
 
         removeAll(): void;
     }
