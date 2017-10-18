@@ -17,6 +17,13 @@ interface IEscape {
     format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 }
 
+/**
+ * @deprecated
+ */
+
+interface IMySql {
+}
+
 // implements IEscape
 declare function escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
