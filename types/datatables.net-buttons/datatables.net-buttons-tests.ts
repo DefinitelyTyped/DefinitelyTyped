@@ -156,8 +156,38 @@ var config_3: DataTables.ButtonsSettings = {
     }
 }
 
+// Statics
+var buttons = new $.fn.dataTable.Buttons($("selector").DataTable(), config_3);
+var version = $.fn.dataTable.Buttons.version;
+
 $.fn.dataTable.Buttons.defaults = {
     buttons: []
 };
 
 $.fn.dataTable.ext.buttons.collection.className += ' dropdown-toggle';
+
+// API
+var dt = $("selector").DataTable();
+
+var export_1 = dt.buttons.exportData({
+    columns: '',
+});
+
+dt.buttons.resize();
+
+dt.button(0).action( function( e, dt, button, config ) {
+    console.log( 'Button activated' );
+} );
+
+dt.button().add( 0, {
+    action: function ( e, dt, button, config ) {
+        dt.ajax.reload();
+    },
+    text: 'Reload table'
+} );
+
+dt.button( 0 )
+.nodes()
+.css( 'background', 'blue' );
+
+dt.buttons().destroy();

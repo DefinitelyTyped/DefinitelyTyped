@@ -1,6 +1,6 @@
 // Type definitions for JQuery DataTables Buttons extension 1.4.0
 // Project: http://datatables.net/extensions/buttons/
-// Definitions by: Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>
+// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -19,12 +19,171 @@ declare namespace DataTables {
         Buttons: ButtonStaticFunctions;
     }
 
+    export interface ButtonStaticFunctions {
+        new (dt: DataTables.Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]):void;
+        version: string;
+        defaults: ButtonsSettings;
+    }
+
     interface ExtSettings {
         buttons: ExtButtonsSettings;
     }
 
-    export interface ButtonStaticFunctions {
-        defaults: ButtonsSettings;
+    export interface Api {
+        button(): ButtonApi;
+        button(buttonSelector: any): ButtonApi;
+        button(groupSelector: any, buttonSelector: any): ButtonApi;
+        buttons: ButtonsGlobalApi;
+    }
+
+    export interface ButtonsGlobalApi {
+        (): ButtonsApi;
+        (buttonSelector: any): ButtonsApi;
+        (groupSelector: any, buttonSelector: any): ButtonsApi;
+
+        /**
+         * Resize the Flash movie clips to take account of the current button dimensions.
+         */
+        resize(): DataTables.Api;
+
+        /**
+         * Display / hide an information message to the end user to indicate that something has happened.
+         */
+        info(title: string, message?: string, time?: number): DataTables.Api;
+
+        /**
+         * Get export meta information that is common to many different button types.
+         */
+        exportInfo(options?: ButtonsApiExportInfoParameter): ButtonsApiExportInfoReturn;
+
+        /**
+         * Obtain data from a DataTable that is suitable for exporting by saving into a file or copying to clipboard.
+         */
+        exportData(options?: ButtonsApiExportDataParameter): ButtonsApiExportDataReturn;
+    }
+
+    export interface ButtonApi {
+        /**
+         * Get the action function for the selected button.
+         */
+        action(): FunctionButtonAction;
+
+        /**
+         * Set the action function for the selected button.
+         */
+        action(set: FunctionButtonAction): DataTables.Api;
+
+        /**
+         * Get the active state for the selected button.
+         */
+        active(): boolean;
+        
+        /**
+         * Set the active state for the selected button.
+         */
+        active(state: boolean): DataTables.Api;
+
+        /**
+         * Create a new button, adding it to the selected button instance and inserting immediately into the document.
+         */
+        add(index: number | string, config: string|FunctionButtom|ButtonSettings): DataTables.Api;
+
+        /**
+         * Disable the selected buttons.
+         */
+        disable(): DataTables.Api;
+
+        /**
+         * Set the enabled state for the selected button.
+         */
+        enable(state?: boolean): DataTables.Api;
+
+        /**
+         * Get a jQuery object that contains a reference to the node for the selected button.
+         */
+        node(): JQuery;
+        nodes(): JQuery;
+
+        /**
+         * Determine if a button is currently in the processing state or not.
+         */
+        processing(): boolean;
+
+        /**
+         * Set the processing state for the selected button.
+         */
+        processing(set: boolean): DataTables.Api;
+
+        /**
+         * Set the processing state for the selected button.
+         */
+        processing(set: boolean): DataTables.Api;
+
+        /**
+         * Remove the selected button from the display. The button is destroyed and can no longer be used once removed.
+         */
+        remove(): DataTables.Api;
+
+        /**
+         * Get the display text for the selected button.
+         */
+        text(): DataTables.Api;
+
+        /**
+         * Set the display text for the selected button
+         */
+        text(title: string | FunctionButtonText): DataTables.Api;
+
+        /**
+         * Programmatically trigger the action of the selected button.
+         */
+        trigger(): DataTables.Api;
+    }
+
+    export interface ButtonsApi extends ButtonApi {
+        /**
+         * Get a jQuery instance that contains a reference to the button container instance.
+         */
+        container(): JQuery;
+        containers(): JQuery;
+
+        /**
+         * Destroy the selected button instances, removing the container and all button elements from the document.
+         */
+        destroy(): DataTables.Api;
+    }
+
+    interface ButtonsApiExportInfoParameter {
+        extension?: string | (() => string);
+        filename?: string | (() => string);
+        messageBottom?: null | string | (() => string);
+        messageTop?: null | string | (() => string);
+        title?: null | string | (() => string);
+    }
+
+    interface ButtonsApiExportInfoReturn {
+        filename: string;
+        messageTop: string;
+        messageBottom: string;
+        title: string;
+    }
+
+    interface ButtonsApiExportDataParameter {
+        rows?: any;
+        columns?: any;
+        modifier?: any;
+        orthogonal?: string;
+        stripHtml?: boolean;
+        stripNewlines?: boolean;
+        decodeEntities?: boolean;
+        trim?: boolean;
+        format?: any;
+    }
+
+    interface ButtonsApiExportDataReturn {
+        header: string[];
+        footer: string[];
+        body: string[];
     }
 
     //#region "Button Settings"
@@ -143,9 +302,8 @@ declare namespace DataTables {
         (dt: DataTables.Api, node: JQuery, config: any): void
     }
 
-    // api object?
     export interface FunctionButtonAction {
-        (e: any, dt: DataTables.Api, node: JQuery, config: any): void
+        (e: any, dt: DataTables.Api, node: JQuery, config: ButtonSettings): void
     }
 
     export interface FunctionButtonCustomize {
