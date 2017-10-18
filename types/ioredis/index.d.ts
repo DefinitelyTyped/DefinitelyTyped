@@ -335,6 +335,12 @@ declare module IORedis {
         hscan(args: any[], callback?: ResCallbackT<any>): any;
         zscan(...args: any[]): any;
         zscan(args: any[], callback?: ResCallbackT<any>): any;
+        pfmerge(...args: any[]): any;
+        pfmerge(args: any[], callback?: ResCallbackT<any>): any;
+        pfadd(...args: any[]): any;
+        pfadd(args: any[], callback?: ResCallbackT<any>): any;
+        pfcount(...args: any[]): any;
+        pfcount(args: any[], callback?: ResCallbackT<any>): any;
 
         pipeline(): Pipeline;
         pipeline(commands: string[][]): Pipeline;
