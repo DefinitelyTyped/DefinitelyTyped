@@ -6,6 +6,8 @@
 
 import { ComponentClass, StatelessComponent, ReactElement } from 'react';
 
+declare namespace h {}
+
 declare function h<P>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,
     properties?: P,
