@@ -9,7 +9,7 @@
 import stream = require("stream");
 import tls = require("tls");
 
-export interface MysqlEscapeFunctions {
+export interface EscapeFunctions {
     escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
     escapeId(value: string, forbidQualified?: boolean): string;
@@ -17,53 +17,53 @@ export interface MysqlEscapeFunctions {
     format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 }
 
-// implements MysqlEscapeFunctions
+// implements EscapeFunctions
 export function escape(value: any, stringifyObjects?: boolean, timeZone?: string): string;
 
 export function escapeId(value: string, forbidQualified?: boolean): string;
 
 export function format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
 
-export function createConnection(connectionUri: string | MysqlConnectionConfig): MysqlConnection;
+export function createConnection(connectionUri: string | ConnectionConfig): Connection;
 
-export function createPool(config: MysqlPoolConfig | string): MysqlPool;
+export function createPool(config: PoolConfig | string): Pool;
 
-export function createPoolCluster(config?: MysqlPoolClusterConfig): MysqlPoolCluster;
+export function createPoolCluster(config?: PoolClusterConfig): PoolCluster;
 
 export function raw(sql: string): () => string;
 
-export interface MysqlConnection extends MysqlEscapeFunctions {
-    config: MysqlConnectionConfig;
+export interface Connection extends EscapeFunctions {
+    config: ConnectionConfig;
 
     state: 'connected' | 'authenticated' | 'disconnected' | 'protocol_error' | string;
 
     threadId: number | null;
 
-    createMysqlQuery: MysqlQueryFunction;
+    createQuery: QueryFunction;
 
     connect(callback?: (err: MysqlError, ...args: any[]) => void): void;
 
     connect(options: any, callback?: (err: MysqlError, ...args: any[]) => void): void;
 
-    changeUser(options: MysqlConnectionOptions, callback?: (err: MysqlError) => void): void;
+    changeUser(options: ConnectionOptions, callback?: (err: MysqlError) => void): void;
     changeUser(callback: (err: MysqlError) => void): void;
 
-    beginTransaction(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    beginTransaction(options?: QueryOptions, callback?: (err: MysqlError) => void): void;
 
     beginTransaction(callback: (err: MysqlError) => void): void;
 
-    commit(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    commit(options?: QueryOptions, callback?: (err: MysqlError) => void): void;
     commit(callback: (err: MysqlError) => void): void;
 
-    rollback(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    rollback(options?: QueryOptions, callback?: (err: MysqlError) => void): void;
     rollback(callback: (err: MysqlError) => void): void;
 
-    query: MysqlQueryFunction;
+    query: QueryFunction;
 
-    ping(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    ping(options?: QueryOptions, callback?: (err: MysqlError) => void): void;
     ping(callback: (err: MysqlError) => void): void;
 
-    statistics(options?: MysqlQueryOptions, callback?: (err: MysqlError) => void): void;
+    statistics(options?: QueryOptions, callback?: (err: MysqlError) => void): void;
     statistics(callback: (err: MysqlError) => void): void;
 
     end(callback?: (err: MysqlError, ...args: any[]) => void): void;
@@ -75,20 +75,20 @@ export interface MysqlConnection extends MysqlEscapeFunctions {
 
     resume(): void;
 
-    on(ev: 'drain' | 'connect', callback: () => void): MysqlConnection;
+    on(ev: 'drain' | 'connect', callback: () => void): Connection;
 
-    on(ev: 'end', callback: (err?: MysqlError) => void): MysqlConnection;
+    on(ev: 'end', callback: (err?: MysqlError) => void): Connection;
 
-    on(ev: 'fields', callback: (fields: any[]) => void): MysqlConnection;
+    on(ev: 'fields', callback: (fields: any[]) => void): Connection;
 
-    on(ev: 'error', callback: (err: MysqlError) => void): MysqlConnection;
+    on(ev: 'error', callback: (err: MysqlError) => void): Connection;
 
-    on(ev: 'enqueue', callback: (...args: any[]) => void): MysqlConnection;
+    on(ev: 'enqueue', callback: (...args: any[]) => void): Connection;
 
     on(ev: string, callback: (...args: any[]) => void): this;
 }
 
-export interface MysqlPoolMysqlConnection extends MysqlConnection {
+export interface PoolConnection extends Connection {
     release(): void;
 
     end(): void;
@@ -96,60 +96,60 @@ export interface MysqlPoolMysqlConnection extends MysqlConnection {
     destroy(): void;
 }
 
-export interface MysqlPool extends MysqlEscapeFunctions {
-    config: MysqlPoolConfig;
+export interface Pool extends EscapeFunctions {
+    config: PoolConfig;
 
-    getConnection(callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
+    getConnection(callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    acquireConnection(connection: MysqlPoolMysqlConnection, callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
+    acquireConnection(connection: PoolConnection, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    releaseConnection(connection: MysqlPoolMysqlConnection): void;
+    releaseConnection(connection: PoolConnection): void;
 
     end(callback?: (err: MysqlError) => void): void;
 
-    query: MysqlQueryFunction;
+    query: QueryFunction;
 
-    on(ev: 'connection' | 'acquire' | 'release', callback: (connection: MysqlPoolMysqlConnection) => void): MysqlPool;
+    on(ev: 'connection' | 'acquire' | 'release', callback: (connection: PoolConnection) => void): Pool;
 
-    on(ev: 'error', callback: (err: MysqlError) => void): MysqlPool;
+    on(ev: 'error', callback: (err: MysqlError) => void): Pool;
 
-    on(ev: 'enqueue', callback: (err?: MysqlError) => void): MysqlPool;
+    on(ev: 'enqueue', callback: (err?: MysqlError) => void): Pool;
 
-    on(ev: string, callback: (...args: any[]) => void): MysqlPool;
+    on(ev: string, callback: (...args: any[]) => void): Pool;
 }
 
-export interface MysqlPoolCluster {
-    config: MysqlPoolClusterConfig;
+export interface PoolCluster {
+    config: PoolClusterConfig;
 
-    add(config: MysqlPoolConfig): void;
+    add(config: PoolConfig): void;
 
-    add(id: string, config: MysqlPoolConfig): void;
+    add(id: string, config: PoolConfig): void;
 
     end(callback?: (err: MysqlError) => void): void;
 
-    of(pattern: string, selector?: string): MysqlPool;
-    of(pattern: undefined | null | false, selector: string): MysqlPool;
+    of(pattern: string, selector?: string): Pool;
+    of(pattern: undefined | null | false, selector: string): Pool;
 
     /**
      * remove all pools which match pattern
      */
     remove(pattern: string): void;
 
-    getConnection(callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
+    getConnection(callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    getConnection(pattern: string, callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
+    getConnection(pattern: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: MysqlPoolMysqlConnection) => void): void;
+    getConnection(pattern: string, selector: string, callback: (err: MysqlError, connection: PoolConnection) => void): void;
 
-    on(ev: string, callback: (...args: any[]) => void): MysqlPoolCluster;
+    on(ev: string, callback: (...args: any[]) => void): PoolCluster;
 
-    on(ev: 'remove' | 'offline' | 'remove', callback: (nodeId: string) => void): MysqlPoolCluster;
+    on(ev: 'remove' | 'offline' | 'remove', callback: (nodeId: string) => void): PoolCluster;
 }
 
-// related to MysqlQuery
+// related to Query
 export type packetCallback = (packet: any) => void;
 
-export interface MysqlQuery {
+export interface Query {
     /**
      * Template query
      */
@@ -163,7 +163,7 @@ export interface MysqlQuery {
     /**
      * Default true
      */
-    typeCast?: MysqlTypeCast;
+    typeCast?: TypeCast;
 
     /**
      * Default false
@@ -189,7 +189,7 @@ export interface MysqlQuery {
     FieldPacket: packetCallback;
     EofPacket: packetCallback;
 
-    RowDataPacket(packet: any, parser: any, connection: MysqlConnection): void;
+    RowDataPacket(packet: any, parser: any, connection: Connection): void;
 
     /**
      * Creates a Readable stream with the given options
@@ -198,17 +198,17 @@ export interface MysqlQuery {
      */
     stream(options?: stream.ReadableOptions): stream.Readable;
 
-    on(ev: string, callback: (...args: any[]) => void): MysqlQuery;
+    on(ev: string, callback: (...args: any[]) => void): Query;
 
-    on(ev: 'result', callback: (row: any, index: number) => void): MysqlQuery;
+    on(ev: 'result', callback: (row: any, index: number) => void): Query;
 
-    on(ev: 'error', callback: (err: MysqlError) => void): MysqlQuery;
+    on(ev: 'error', callback: (err: MysqlError) => void): Query;
 
-    on(ev: 'fields', callback: (fields: MysqlFieldInfo[], index: number) => void): MysqlQuery;
+    on(ev: 'fields', callback: (fields: FieldInfo[], index: number) => void): Query;
 
-    on(ev: 'packet', callback: (packet: any) => void): MysqlQuery;
+    on(ev: 'packet', callback: (packet: any) => void): Query;
 
-    on(ev: 'end', callback: () => void): MysqlQuery;
+    on(ev: 'end', callback: () => void): Query;
 }
 
 export interface GeometryType extends Array<{x: number, y: number} | GeometryType> {
@@ -216,23 +216,23 @@ export interface GeometryType extends Array<{x: number, y: number} | GeometryTyp
     y: number;
 }
 
-export type MysqlTypeCast = boolean | (
-    (field: MysqlFieldInfo
+export type TypeCast = boolean | (
+    (field: FieldInfo
         & { type: string, length: number, string(): string, buffer(): Buffer, geometry(): null |  GeometryType},
     next: () => void) => any);
 
-export type queryCallback = (err: MysqlError | null, results?: any, fields?: MysqlFieldInfo[]) => void;
+export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
 
 // values can be non [], see custom format (https://github.com/mysqljs/mysql#custom-format)
-export interface MysqlQueryFunction {
-    (query: MysqlQuery): MysqlQuery;
+export interface QueryFunction {
+    (query: Query): Query;
 
-    (options: string | MysqlQueryOptions, callback?: queryCallback): MysqlQuery;
+    (options: string | QueryOptions, callback?: queryCallback): Query;
 
-    (options: string, values: any, callback?: queryCallback): MysqlQuery;
+    (options: string, values: any, callback?: queryCallback): Query;
 }
 
-export interface MysqlQueryOptions {
+export interface QueryOptions {
     /**
      * The SQL for the query
      */
@@ -272,10 +272,10 @@ export interface MysqlQueryOptions {
      *
      * You can find which field function you need to use by looking at: RowDataPacket.prototype._typeCast
      */
-    typeCast?: MysqlTypeCast;
+    typeCast?: TypeCast;
 }
 
-export interface MysqlConnectionOptions {
+export interface ConnectionOptions {
     /**
      * The MySQL user to authenticate as
      */
@@ -304,7 +304,7 @@ export interface MysqlConnectionOptions {
     timeout?: number;
 }
 
-export interface MysqlConnectionConfig extends MysqlConnectionOptions {
+export interface ConnectionConfig extends ConnectionOptions {
     /**
      * The hostname of the database you are connecting to. (Default: localhost)
      */
@@ -365,7 +365,7 @@ export interface MysqlConnectionConfig extends MysqlConnectionOptions {
      *
      * You can find which field function you need to use by looking at: RowDataPacket.prototype._typeCast
      */
-    typeCast?: MysqlTypeCast;
+    typeCast?: TypeCast;
 
     /**
      * A custom query format function
@@ -403,7 +403,7 @@ export interface MysqlConnectionConfig extends MysqlConnectionOptions {
     debug?: boolean | string[] | Types[];
 
     /**
-     * Generates stack traces on Error to include call site of library entrance ("long stack traces"). Slight
+     * Generates stack traces on errors to include call site of library entrance ("long stack traces"). Slight
      * performance penalty for most calls. (Default: true)
      */
     trace?: boolean;
@@ -424,7 +424,7 @@ export interface MysqlConnectionConfig extends MysqlConnectionOptions {
     ssl?: tls.SecureContextOptions & { rejectUnauthorized?: boolean };
 }
 
-export interface MysqlPoolConfig extends MysqlConnectionConfig {
+export interface PoolConfig extends ConnectionConfig {
     /**
      * The milliseconds before a timeout occurs during the connection acquisition. This is slightly different from connectTimeout,
      * because acquiring a pool connection does not always involve making a connection. (Default: 10 seconds)
@@ -444,13 +444,13 @@ export interface MysqlPoolConfig extends MysqlConnectionConfig {
     connectionLimit?: number;
 
     /**
-     * The maximum number of connection requests the pool will queue before returning an error from getMysqlConnection. If set to 0, there
+     * The maximum number of connection requests the pool will queue before returning an error from getConnection. If set to 0, there
      * is no limit to the number of queued connection requests. (Default: 0)
      */
     queueLimit?: number;
 }
 
-export interface MysqlPoolClusterConfig {
+export interface PoolClusterConfig {
     /**
      * If true, PoolCluster will attempt to reconnect when connection fails. (Default: true)
      */
@@ -555,7 +555,7 @@ export const enum Types {
     GEOMETRY = 0xff, // aka GEOMETRY
 }
 
-export interface MysqlFieldInfo {
+export interface FieldInfo {
     catalog: string;
     db: string;
     table: string;
