@@ -12,7 +12,7 @@ function testUpsert_WithPromise_AndReturnDoc() {
   db.upsert(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
     // Make some updates....
     return doc;
-  }).then((res: PouchDB.Core.Document<UpsertDocModel>) => {
+  }).then((res: PouchDB.UpsertResponse) => {
   });
 }
 
@@ -20,7 +20,7 @@ function testUpsert_WithPromise_AndReturnBoolean() {
   db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
     // Make some updates....
     return false;
-  }).then((res: PouchDB.Core.Document<UpsertDocModel>) => {
+  }).then((res: PouchDB.UpsertResponse) => {
   });
 }
 
@@ -28,7 +28,7 @@ function testUpsert_WithCallback_AndReturnDoc() {
   db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
     // Make some updates....
     return doc;
-  }, (res: PouchDB.Core.Document<UpsertDocModel>) => {});
+  }, (res: PouchDB.UpsertResponse) => {});
 }
 
 function testUpsert_WithCallback_AndReturnBoolean() {
@@ -36,13 +36,13 @@ function testUpsert_WithCallback_AndReturnBoolean() {
   db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
     // Make some updates....
     return false;
-  }, (res: PouchDB.Core.Document<UpsertDocModel>) => {});
+  }, (res: PouchDB.UpsertResponse) => {});
 }
 
 function testPutIfNotExists_WithPromise() {
-  db.putIfNotExists(docToUpsert).then((res: PouchDB.Core.Document<UpsertDocModel>) => {});
+  db.putIfNotExists(docToUpsert).then((res: PouchDB.UpsertResponse) => {});
 }
 
 function testPutIfNotExists_WithCallback() {
-  db.putIfNotExists(docToUpsert, (res: PouchDB.Core.Document<UpsertDocModel>) => {});
+  db.putIfNotExists(docToUpsert, (res: PouchDB.UpsertResponse) => {});
 }
