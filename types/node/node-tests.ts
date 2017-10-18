@@ -557,7 +557,9 @@ namespace url_tests {
 
     {
         var helloUrl = url.parse('http://example.com/?hello=world', true);
-        assert.equal(helloUrl.query.hello, 'world');
+        if (typeof helloUrl.query !== 'string') {
+            assert.equal(helloUrl.query.hello, 'world');
+        }
     }
 
     {
@@ -3286,9 +3288,16 @@ namespace http2_tests {
         serverHttp2Stream.respondWithFD(0);
         serverHttp2Stream.respondWithFD(0, headers);
         serverHttp2Stream.respondWithFD(0, headers, options2);
+        let options3: http2.ServerStreamFileResponseOptionsWithError = {
+            onError: (err: NodeJS.ErrnoException) => {},
+            statCheck: (stats: fs.Stats, headers: http2.IncomingHttpHeaders, statOptions: http2.StatOptions) => {},
+            getTrailers: (trailers: http2.IncomingHttpHeaders) => {},
+            offset: 0,
+            length: 0
+        };
         serverHttp2Stream.respondWithFile('');
         serverHttp2Stream.respondWithFile('', headers);
-        serverHttp2Stream.respondWithFile('', headers, options2);
+        serverHttp2Stream.respondWithFile('', headers, options3);
     }
 
     // Http2Server / Http2SecureServer

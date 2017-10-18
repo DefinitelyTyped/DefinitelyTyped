@@ -797,7 +797,7 @@ declare module "querystring" {
     }
 
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): any;
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): { [key: string]: string | string[] };
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
@@ -2181,7 +2181,7 @@ declare module "url" {
         pathname?: string;
         port?: string | number;
         protocol?: string;
-        query?: string | { [key: string]: any; };
+        query?: string | null | { [key: string]: string | string[] };
         search?: string;
         slashes?: boolean;
     }
@@ -6118,6 +6118,10 @@ declare module "http2" {
         length?: number;
     }
 
+    export interface ServerStreamFileResponseOptionsWithError extends ServerStreamFileResponseOptions {
+        onError?: (err: NodeJS.ErrnoException) => void;
+    }
+
     export interface Http2Stream extends stream.Duplex {
         readonly aborted: boolean;
         readonly destroyed: boolean;
@@ -6264,7 +6268,7 @@ declare module "http2" {
         pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (pushStream: ServerHttp2Stream) => void): void;
         respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
         respondWithFD(fd: number, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
-        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
+        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptionsWithError): void;
     }
 
     // Http2Session
