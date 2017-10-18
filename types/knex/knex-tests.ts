@@ -241,7 +241,23 @@ knex.select('*').from('users').join('contacts', function() {
 });
 
 knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
   this.on('users.id', '=', 'contacts.id').onNotIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotIn('contacts.id', [7, 15, 23, 41])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotIn('contacts.id', [7, 15, 23, 41])
 });
 
 knex.select('*').from('users').join('contacts', function() {
@@ -249,11 +265,39 @@ knex.select('*').from('users').join('contacts', function() {
 });
 
 knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
   this.on('users.id', '=', 'contacts.id').onNotNull('contacts.email')
 });
 
 knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotNull('contacts.email')
+});
+
+knex.select('*').from('users').join('contacts', function() {
   this.on('users.id', '=', 'contacts.id').onExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnExists(function() {
     this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
   })
 });
@@ -265,11 +309,39 @@ knex.select('*').from('users').join('contacts', function() {
 });
 
 knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  })
+});
+
+knex.select('*').from('users').join('contacts', function() {
   this.on('users.id', '=', 'contacts.id').onBetween('contacts.id', [5, 30])
 });
 
 knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
   this.on('users.id', '=', 'contacts.id').onNotBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotBetween('contacts.id', [5, 30])
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotBetween('contacts.id', [5, 30])
 });
 
 knex.select('*').from('users').join('contacts', function() {
