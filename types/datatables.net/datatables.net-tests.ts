@@ -940,7 +940,54 @@ $(document).ready(function () {
     // With object parameter type, returns DataTables.DataTable when "api" property is true.
     var static_2: DataTables.Api = <DataTables.Api>staticFn.tables({ "visible": true, "api": true });
 
+    var static_3: DataTables.Api = $("selector").DataTable();
+    var static_4: DataTables.JQueryDataTables = $("selector").dataTable();
+    var static_5: DataTables.Api = $("selector").dataTable().api();
+
+    // var static_6 = new $.fn.dataTable.Api("selector");
+
+    var version: boolean = $.fn.dataTable.versionCheck("1.10.0");
+    var isDataTable: boolean = $.fn.dataTable.isDataTable("selector");
+    var escapeRegex: string = $.fn.dataTable.util.escapeRegex("");
+
+    var throttle_1 = $.fn.dataTable.util.throttle(function(data){
+        table.search(data).draw();
+    });
+
+    var throttle_2 = $.fn.dataTable.util.throttle(function(data){
+        table.search(data).draw();
+    }, 100);
+
+    var defaults = $.fn.dataTable.defaults;
+
     //#endregion "Methods-Static"
+
+    //#region "Default Overwrite"
+
+    /* Default table settings */
+    var defaults :DataTables.Settings = {
+        dom: "<'row'<'col-lg-5'f><'col-lg-7'Bl>>"
+        + "<'row'<'col-lg-12't>>"
+        + "<'row'<'col-lg-5'i><'col-lg-7'p>>Ox",
+        paging: true,
+        pagingType: "bootstrap",
+        stateSave: true,
+        language: {
+            infoEmpty: "Empty"
+        }
+    };
+
+    /* Default class names */
+    var default_classes : DataTables.ExtClassesSettings = {
+        sWrapper: "dataTables_wrapper dt-bootstrap4",
+        sFilterInput: "form-control",
+        sLength: "dataTables_length",
+        sLengthSelect: "form-control custom-select",
+        sProcessing: "dataTables_processing panel panel-default",
+        sPageButton: "paginate_button page-item",
+    };
+
+    //#endregion "Default Overwrite"
 
     //#region "Methods-Table"
 

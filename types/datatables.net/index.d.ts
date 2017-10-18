@@ -13,15 +13,28 @@
 
 interface JQuery {
     DataTable(opts?: DataTables.Settings): DataTables.Api;
+    dataTable: DataTables.StaticFunctions;
 }
 
-//TODO: Wrong, as jquery.d.ts has no interface for fn
-//interface JQueryStatic {
-//    dataTable: DataTables.StaticFunctions;
-//}
-
 declare namespace DataTables {
+    export interface JQueryDataTables extends JQuery {
+        /**
+         * Returns DataTables API instance
+         * Usage:
+         * $( selector ).dataTable().api();
+         */
+        api(): DataTables.Api;
+    }
+
     export interface Api extends CoreMethods {
+
+        /**
+        * Returns DataTables API instance
+        *
+        * @param table Selector string for table
+        */
+        (selector: string | Node | Node[] | JQuery) : Api;
+
         /**
         * Get the data for the whole table.
         */
@@ -1074,38 +1087,60 @@ declare namespace DataTables {
 
     export interface StaticFunctions {
         /**
-        * Check is a table node is a DataTable or not
-        *
-        * @param table Selector string for table
-        */
+         * Returns JQuery Object
+         * 
+         * Usage:
+         * $( selector ).dataTable();
+         */
+        (): JQueryDataTables;
+
+        /**
+         * Check is a table node is a DataTable or not
+         *
+         * Usage:
+         * $.fn.dataTable.isDataTable("selector");
+         * @param table Selector string for table
+         */
         isDataTable(table: string): boolean;
 
         /**
-        * Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.
-        *
-        * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
-        * Since 1.10.8 this option can also be given as an object.
-        */
+         * Get all DataTable tables that have been initialised - optionally you can select to get only currently visible tables and / or retrieve the tables as API instances.
+         *
+         * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
+         * Since 1.10.8 this option can also be given as an object.
+         */
         tables(visible?: boolean | ObjectTablesStatic): DataTables.Api[] | DataTables.Api;
 
         /**
-        * Version number compatibility check function
-        *
-        * @param version Version string
-        */
+         * Version number compatibility check function
+         *
+         * Usage:
+         * $.fn.dataTable.versionCheck("1.10.0");
+         * @param version Version string
+         */
         versionCheck(version: string): boolean;
 
         /**
-        * Utils
-        */
+         * Utils
+         */
         util: StaticUtilFunctions;
 
         /**
-        * Check is a table node is a DataTable or not
-        *
-        * @param table Selector string for table
-        */
-        Api(selector: string | Node | Node[] | JQuery): DataTables.Api;
+         * Get DataTable API instance
+         *
+         * @param table Selector string for table
+         */
+        Api(selector: string | Node | Node[] | JQuery) : any;
+
+        /**
+         * Default Settings
+         */
+        defaults: Settings;
+
+        /**
+         * Default Settings
+         */
+        ext: ExtSettings;
     }
 
     export interface StaticUtilFunctions {
@@ -1122,7 +1157,14 @@ declare namespace DataTables {
         * @param fn Function
         * @param period ms
         */
-        throttle(fn: Function, period?: number): Function;
+        throttle(fn: FunctionThrottle, period?: number): Function;
+    }
+
+    interface FunctionThrottle {
+        /*
+        * @param data Value
+        */
+        (data: any): void;
     }
 
     interface ObjectTablesStatic {
@@ -1949,4 +1991,214 @@ declare namespace DataTables {
     }
     //#endregion "SettingsLegacy"
 
+    //#region "ext internal"
+
+    interface ExtSettings {
+        aTypes: any[];
+        afnFiltering: any[];
+        afnSortData: Object;
+        aoFeatures: any[];
+        builder: string;
+        buttons: Object;
+        classes: ExtClassesSettings;
+        errMode: string;
+        feature: any[];
+        fnVersionCheck(version: string): string;
+        iApiIndex: number;
+        internal: Object;
+        legacy: Object;
+        oApi: Object;
+        oJUIClasses: Object;
+        oPagination: Object;
+        oSort: Object;
+        oStdClasses: ExtClassesSettings;
+        ofnSearch: Object;
+        order: Object;
+        pager: Object;
+        renderer: Object;
+        sVersion: string;
+        search: any[];
+        selector: Object;
+        type: Object;
+    }
+
+    interface ExtClassesSettings {
+        /**
+         * Default Value: 
+         * dataTable 
+         */
+        sTable?: string; 
+
+        /**
+         * Default Value: 
+         * no-footer 
+         */
+        sNoFooter?: string; 
+
+        /**
+         * Default Value: 
+         * paginate_button 
+         */
+        sPageButton?: string; 
+
+        /**
+         * Default Value: 
+         * current 
+         */
+        sPageButtonActive?: string; 
+
+        /**
+         * Default Value: 
+         * disabled 
+         */
+        sPageButtonDisabled?: string; 
+
+        /**
+         * Default Value: 
+         * odd 
+         */
+        sStripeOdd?: string; 
+
+        /**
+         * Default Value: 
+         * even 
+         */
+        sStripeEven?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_empty 
+         */
+        sRowEmpty?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_wrapper 
+         */
+        sWrapper?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_filter 
+         */
+        sFilter?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_info 
+         */
+        sInfo?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_paginate paging_ 
+         */
+        sPaging?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_length 
+         */
+        sLength?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_processing 
+         */
+        sProcessing?: string; 
+
+        /**
+         * Default Value: 
+         * sorting_asc 
+         */
+        sSortAsc?: string; 
+
+        /**
+         * Default Value: 
+         * sorting_desc 
+         */
+        sSortDesc?: string; 
+
+        /**
+         * Default Value: 
+         * sorting 
+         */
+        sSortable?: string; 
+
+        /**
+         * Default Value: 
+         * sorting_asc_disabled 
+         */
+        sSortableAsc?: string; 
+
+        /**
+         * Default Value: 
+         * sorting_desc_disabled 
+         */
+        sSortableDesc?: string; 
+
+        /**
+         * Default Value: 
+         * sorting_disabled 
+         */
+        sSortableNone?: string; 
+
+        /**
+         * Default Value: 
+         * sorting_ 
+         */
+        sSortColumn?: string; 
+
+        sFilterInput?: string; 
+        sLengthSelect?: string;
+
+        /**
+         * Default Value: 
+         * dataTables_scroll 
+         */
+        sScrollWrapper?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_scrollHead 
+         */
+        sScrollHead?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_scrollHeadInner 
+         */
+        sScrollHeadInner?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_scrollBody 
+         */
+        sScrollBody?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_scrollFoot 
+         */
+        sScrollFoot?: string; 
+
+        /**
+         * Default Value: 
+         * dataTables_scrollFootInner 
+         */
+        sScrollFootInner?: string; 
+
+        sHeaderTH?: string; 
+        sFooterTH?: string; 
+        sSortJUIAsc?: string; 
+        sSortJUIDesc?: string; 
+        sSortJUI?: string; 
+        sSortJUIAscAllowed?: string; 
+        sSortJUIDescAllowed?: string; 
+        sSortJUIWrapper?: string; 
+        sSortIcon?: string; 
+        sJUIHeader?: string; 
+        sJUIFooter?: string; 
+    }
+    //#endregion "ext internal"
 }
