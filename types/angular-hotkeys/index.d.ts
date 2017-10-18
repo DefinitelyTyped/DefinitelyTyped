@@ -5,7 +5,6 @@
 //                 Cyril Gandon <https://github.com/cyrilgandon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-// Readme written by David Valentine <https://github.com/dvalenti314>
 
 import * as ng from 'angular';
 
