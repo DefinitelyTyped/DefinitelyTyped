@@ -368,7 +368,7 @@ interface CompatProps {
     relay: RelayPaginationPropCompat;
 }
 
-export class CompatComponent extends React.Component<CompatProps, {}> {
+export class CompatComponent extends React.Component<CompatProps> {
     markNotificationAsRead(source: string, storyID: string) {
         markNotificationAsReadCompat(this.props.relay.environment, source, storyID);
     }
