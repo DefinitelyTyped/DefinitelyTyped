@@ -95,6 +95,19 @@ jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
   // if ignoreExpration == false and token is expired, err == expired token
 });
 
+// Verify with keyfunc - success
+jwt.verify(token, 
+  function(header, callback) { callback(null, 'shhhhh') },
+  function(err, decoded) { console.log(err, decoded) }
+);
+
+// Verify with keyfunc - error
+jwt.verify(token, 
+  function(header, callback) { callback(new Error('error') ) },
+  function(err, decoded) { console.log(err, decoded) }
+);
+
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
