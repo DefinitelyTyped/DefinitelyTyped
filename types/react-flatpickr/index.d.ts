@@ -7,8 +7,7 @@
 import { Component, DetailedHTMLProps, InputHTMLAttributes, HTMLAttributes } from 'react';
 import { Hook, Options } from 'flatpickr';
 
-type HTMLProps =
-    {onChange?: Hook}       // needed because there is a conflit with div and input props
+type HTMLProps = {onChange?: Hook}       // needed because there is a conflit with div and input props
     | DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
     | DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 ;
