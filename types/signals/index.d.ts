@@ -46,35 +46,31 @@ declare namespace signals {
         /**
          * If Signal should keep record of previously dispatched parameters and automatically
          * execute listener during add()/addOnce() if Signal was already dispatched before.
-         *
-         * @type {boolean}
          */
         memorize: boolean;
 
         /**
          * Signals Version Number
-         *
-         * @type {string}
          */
         VERSION: string;
 
         /**
          * Add a listener to the signal.
          *
-         * @param {(...params: G[]) => void} listener Signal handler function.
-         * @param {*} [listenerContext] Context on which listener will be executed (object that should represent the `this` variable inside listener function).
-         * @param {Number} [priority] The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
-         * @returns {SignalBinding<G>} An Object representing the binding between the Signal and listener.
+         * @param listener Signal handler function.
+         * @param listenerContext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
+         * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
+         * @returns An Object representing the binding between the Signal and listener.
          */
         add<G extends T>(listener: (...params: G[]) => void, listenerContext?: any, priority?: Number): SignalBinding<G>;
 
         /**
          * Add listener to the signal that should be removed after first execution (will be executed only once).
          *
-         * @param {(...params: G[]) => void} listener Signal handler function.
-         * @param {*} [listenerContext] Context on which listener will be executed (object that should represent the `this` variable inside listener function).
-         * @param {Number} [priority] The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
-         * @returns {SignalBinding<G>} An Object representing the binding between the Signal and listener.
+         * @param listener Signal handler function.
+         * @param listenerContext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
+         * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
+         * @returns An Object representing the binding between the Signal and listener.
          */
         addOnce<G extends T>(listener: (...params: G[]) => void, listenerContext?: any, priority?: Number): SignalBinding<G>;
 
@@ -82,7 +78,7 @@ declare namespace signals {
         /**
          * Dispatch/Broadcast Signal to all listeners added to the queue.
          *
-         * @param {...G[]} params  Parameters that should be passed to each handler.
+         * @param params  Parameters that should be passed to each handler.
          */
         dispatch<G extends T>(...params: G[]): void;
 
@@ -99,9 +95,6 @@ declare namespace signals {
 
         /**
          * Returns a number of listeners attached to the Signal.
-         *
-         * @returns {number} Number of listeners attached to the Signal.
-
          */
         getNumListeners(): number;
 
@@ -114,18 +107,18 @@ declare namespace signals {
         /**
          * Check if listener was attached to Signal.
          *
-         * @param {(...params: G[]) => void} listener Signal handler function.
-         * @param {*} [context] Context on which listener will be executed (object that should represent the `this` variable inside listener function).
-         * @returns {boolean} If Signal has the specified listener.
+         * @param  listener Signal handler function.
+         * @param context Context on which listener will be executed (object that should represent the `this` variable inside listener function).
+         * @returns If Signal has the specified listener.
          */
         has<G extends T>(listener: (...params: G[]) => void, context?: any): boolean;
 
         /**
          * Remove a single listener from the dispatch queue.
          *
-         * @param {(...params: G[]) => void} listener Signal handler function.
-         * @param {*} [context] Context on which listener will be executed (object that should represent the `this` variable inside listener function).
-         * @returns {(...params: G[]) => void} Listener handler function.
+         * @param listener Signal handler function.
+         * @param context Context on which listener will be executed (object that should represent the `this` variable inside listener function).
+         * @returns Listener handler function.
          */
         remove<G extends T>(listener: (...params: G[]) => void, context?: any): (...params: G[]) => void;
 
