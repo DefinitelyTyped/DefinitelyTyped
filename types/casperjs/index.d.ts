@@ -1,6 +1,7 @@
-// Type definitions for CasperJS v1.0.29
+// Type definitions for CasperJS v1.1.4
 // Project: http://casperjs.org/
 // Definitions by: Jed Mao <https://github.com/jedmao>
+//                 Uriel Chemouni <https://github.com/urielch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="phantomjs" />
@@ -23,21 +24,21 @@ export class Casper {
 	// Methods
 	back(): Casper;
 	base64encode(url: string, method?: string, data?: any): string;
-	bypass(nb: number): any;
-	click(selector: string): boolean;
+	bypass(nb: number): Casper;
+	click(selector: string, X?: number | string, Y?: number | string): boolean;
 	clickLabel(label: string, tag?: string): boolean;
-	capture(targetFilePath: string, clipRect: ClipRect): Casper;
-	captureBase64(format: string): string;
-	captureBase64(format: string, area: string): string;
-	captureBase64(format: string, area: ClipRect): string;
-	captureBase64(format: string, area: any): string;
-	captureSelector(targetFile: string, selector: string): Casper;
+	capture(targetFilePath: string, clipRect?: ClipRect, imgOptions?: ImgOptions): Casper;
+	captureBase64(format: string, area?: string | ClipRect | CasperSelector): string;
+	captureSelector(targetFile: string, selector: string, imgOptions?: ImgOptions): Casper;
 	clear(): Casper;
+	clearCache(): Casper;
+	clearMemoryCache(): Casper;
 	debugHTML(selector?: string, outer?: boolean): Casper;
 	debugPage(): Casper;
 	die(message: string, status?: number): Casper;
-	download(url: string, target?: string, method?: string, data?: any): Casper;
+	download(url: string, target: string, method?: string, data?: any): Casper;
 	each<T>(array: T[], fn: (this: Casper, item: T, index: number) => void): Casper;
+	eachThen(array: any[], then?: FunctionThen): Casper;
 	echo(message: string, style?: string): Casper;
 	evaluate<T>(fn: (...args: any[]) => T, ...args: any[]): T
 	evaluateOrDie(fn: () => any, message?: string, status?: number): Casper;
@@ -52,7 +53,7 @@ export class Casper {
 	getCurrentUrl(): string;
 	getElementAttribute(selector: string, attribute: string): string;
 	getElementsAttribute(selector: string, attribute: string): string;
-	getElementBounds(selector: string): ElementBounds;
+	getElementBounds(selector: string, page?: boolean): ElementBounds | null;
 	getElementsBounds(selector: string): ElementBounds[];
 	getElementInfo(selector: string): ElementInfo;
 	getElementsInfo(selector: string): ElementInfo;
@@ -61,67 +62,105 @@ export class Casper {
 	getHTML(selector?: string, outer?: boolean): string;
 	getPageContent(): string;
 	getTitle(): string;
-	mouseEvent(type: string, selector: string): boolean;
+	mouseEvent(type: string, selector: string, X?: number|string, Y?: number|string): boolean;
+	newPage(): any;
 	open(location: string, settings: OpenSettings): Casper;
-	reload(then?: (response: HttpResponse) => void): Casper;
-	repeat(times: number, then: Function): Casper;
-	resourceExists(test: Function): boolean;
-	resourceExists(test: string): boolean;
-	run(onComplete: Function, time?: number): Casper;
+	reload(then?: FunctionThen): Casper;
+	repeat(times: number, then: FunctionThen): Casper;
+	resourceExists(test: string | Function | RegExp): boolean;
+	run(onComplete?: Function, time?: number): Casper;
 	scrollTo(x: number, y: number): Casper;
 	scrollToBottom(): Casper;
-	sendKeys(selector: string, keys: string, options?: any): Casper;
+	sendKeys(selector: string, keys: string, options?: KeyOptions): Casper;
 	setHttpAuth(username: string, password: string): Casper;
-	start(url?: string, then?: (response: HttpResponse) => void): Casper;
-	status(asString: boolean): any;
+	setMaxListeners(maxListeners: number):Casper;
+	start(url?: string, then?: FunctionThen): Casper;
+	status(): number;
+	status(asString: true): string;
+	status(asString: false): number;
+	switchToFrame(frameInfo: string | number): Casper;
+	switchToMainFrame(): Casper;
+	switchToParentFrame(): Casper;
 	then(fn: (this: Casper) => void): Casper;
 	thenBypass(nb: number): Casper;
 	thenBypassIf(condition: any, nb: number): Casper;
 	thenBypassUnless(condition: any, nb: number): Casper;
-	thenClick(selector: string): Casper;
+	thenClick(selector: string, then?: FunctionThen): Casper;
 	thenEvaluate(fn: () => any, ...args: any[]): Casper;
 	thenOpen(location: string, then?: (response: HttpResponse) => void): Casper;
 	thenOpen(location: string, options?: OpenSettings, then?: (response: HttpResponse) => void): Casper;
-	thenOpenAndEvaluate(location: string, then?: Function, ...args: any[]): Casper;
+	thenOpenAndEvaluate(location: string, then?: FunctionThen, ...args: any[]): Casper;
 	toString(): string;
 	unwait(): Casper;
-	userAgent(agent: string): string;
-	viewport(width: number, height: number): Casper;
+	// 2017-10-19 Doc said returning String but code return Casper Object.
+	userAgent(agent: string): Casper;
+	viewport(width: number, height: number, then?: FunctionThen): Casper;
 	visible(selector: string): boolean;
-	wait(timeout: number, then?: Function): Casper;
-	waitFor(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForAlert(then: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForPopup(urlPattern: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForPopup(urlPattern: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForUrl(url: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForUrl(url: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitWhileSelector(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForResource(testFx: Function, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForText(pattern: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitForText(pattern: RegExp, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitUntilVisible(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
-	waitWhileVisible(selector: string, then?: Function, onTimeout?: Function, timeout?: number): Casper;
+	wait(timeout: number, then?: FunctionThen): Casper;
+	waitFor(testFx: Function, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number, details?: any): Casper;
+	waitForAlert(then: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitForExec(command: string | null, parameter: string[], then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitForPopup(urlPattern: RegExp | string | number | FindByUrlNameTitle, then?: FunctionThen, onTimeout?: Function, timeout?: number): Casper;
+	waitForResource(testFx: RegExp | string | ((resource:{url:string})=>boolean), then?: FunctionThen, onTimeout?: Function, timeout?: number): Casper;
+	waitForUrl(url: RegExp | string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitForSelector(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitWhileSelector(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitForSelectorTextChange(selectors: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitForText(pattern: RegExp | string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitUntilVisible(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+	waitWhileVisible(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
 	warn(message: string): Casper;
-	withFrame(frameInfo: string, then: Function): Casper;
-	withFrame(frameInfo: number, then: Function): Casper;
-	withPopup(popupInfo: string, step: Function): Casper;
-	withPopup(popupInfo: RegExp, step: Function): Casper;
+	withFrame(frameInfo: string | number, then: FunctionThen): Casper;
+	withPopup(popupInfo: RegExp | string | number | FindByUrlNameTitle, step: FunctionThen): Casper;
+	withSelectorScope(selector: string, then: FunctionThen): Casper;
 	zoom(factor: number): Casper;
-	removeAllFilters(filter: string): Casper;
-	setFilter(filter: string, cb: Function): boolean;
+	// do not exists anymore
+	// removeAllFilters(filter: string): Casper;
+	// do not exists anymore
+	// setFilter(filter: string, cb: Function): boolean;
+}
+
+type FunctionThen = (this: Casper, response: HttpResponse) => void;
+type FunctionOnTimeout  = (this: Casper, timeout: number, details: any) => void;
+// not visible in doc
+//interface QtRuntimeObject {
+//	id?: any;
+//	url?: string
+//}
+// see modules/pagestack.js in casperjs
+interface FindByUrlNameTitle {
+	url?: string;
+	title?: string;
+	windowName?: string;
+}
+
+interface Header {
+	name: string;
+	value: string;
+}
+
+interface CasperSelector {
+	type?: 'xpath' | 'css';
+	path: string;
+}
+
+interface KeyOptions {
+	reset?: boolean;
+	keepFocus?: boolean;
+	modifiers?: string; // combinaison of 'ctrl+alt+shift+meta+keypad'
 }
 
 interface HttpResponse {
 	contentType: string;
-	headers: any[];
+	headers: Header[];
 	id: number;
-	redirectURL: string;
+	redirectURL: string | null;
 	stage: string;
 	status: number;
 	statusText: string;
 	time: string;
 	url: string;
+	data: any;
 }
 
 interface OpenSettings {
