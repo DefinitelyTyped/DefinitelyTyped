@@ -2171,7 +2171,7 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface UrlObject {
+    export interface InputUrlObject {
         auth?: string;
         hash?: string;
         host?: string;
@@ -2186,13 +2186,13 @@ declare module "url" {
         slashes?: boolean;
     }
 
-    export interface Url extends UrlObject {
+    export interface OutputUrlObject extends InputUrlObject {
         port?: string;
     }
 
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
+    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): OutputUrlObject;
     export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: UrlObject | string): string;
+    export function format(urlObject: InputUrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
     export interface URLFormatOptions {
