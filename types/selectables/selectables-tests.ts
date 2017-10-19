@@ -10,3 +10,6 @@ dr.disable();
 
 // enable again
 dr.enable();
+
+// set options
+dr.options.key = 'altKey';

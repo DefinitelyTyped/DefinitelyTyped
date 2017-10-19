@@ -6,6 +6,8 @@
 export = Selectables;
 
 declare class Selectables {
+    options: Selectables.Options;
+
     constructor(options: Selectables.Options);
 
     enable(): void;
