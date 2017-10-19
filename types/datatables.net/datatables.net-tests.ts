@@ -781,7 +781,7 @@ const column_visible_get = column.visible();
 let column_visible_set = column.visible(false);
 column_visible_set = column.visible(false, true);
 alert('Column index 0 is ' +
-    (dt.column(0).visible() === true ? 'visible' : 'not visible')
+    (dt.column(0).visible() ? 'visible' : 'not visible')
 );
 for (let i = 0; i < 4; i++) {
     dt.column(i).visible(false, false);
