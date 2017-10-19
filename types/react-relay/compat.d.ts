@@ -33,7 +33,6 @@ export type ReactFragmentComponent<T> = ComponentWithFragment<T> | StatelessWith
 export type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 export type RelayClassicEnvironment = RelayEnvironmentInterface;
 
-
 // ~~~~~~~~~~~~~~~~~~~~~
 // RelayCompatTypes
 // ~~~~~~~~~~~~~~~~~~~~~
