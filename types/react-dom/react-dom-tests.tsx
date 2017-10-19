@@ -31,6 +31,20 @@ describe('ReactDOM', () => {
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
     });
+
+    it('createPortal', () => {
+        const rootElement = document.createElement('div');
+        const portalTarget = document.createElement('div');
+
+        class ClassComponent extends React.Component {
+            render() {
+                return ReactDOM.createPortal(<div />, portalTarget);
+            }
+        }
+
+        ReactDOM.createPortal(React.createElement('div'), portalTarget);
+        ReactDOM.render(<ClassComponent />, rootElement);
+    });
 });
 
 describe('ReactDOMServer', () => {
