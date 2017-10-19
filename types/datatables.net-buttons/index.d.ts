@@ -1,6 +1,6 @@
-// Type definitions for JQuery DataTables Buttons extension 1.4.0
+// Type definitions for JQuery DataTables Buttons extension 1.4
 // Project: http://datatables.net/extensions/buttons/
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>
+// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>, Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,19 +8,19 @@
 /// <reference types="datatables.net"/>
 
 declare namespace DataTables {
-    export interface Settings {
+    interface Settings {
         /**
          * Buttons extension options
          */
         buttons?: boolean | string[] | ButtonsSettings | ButtonSettings[];
     }
 
-    export interface StaticFunctions {
+    interface StaticFunctions {
         Buttons: ButtonStaticFunctions;
     }
 
-    export interface ButtonStaticFunctions {
-        new (dt: DataTables.Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]):void;
+    interface ButtonStaticFunctions {
+        new (dt: DataTables.Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]): undefined;
         version: string;
         defaults: ButtonsSettings;
     }
@@ -29,16 +29,14 @@ declare namespace DataTables {
         buttons: ExtButtonsSettings;
     }
 
-    export interface Api {
+    interface Api {
         button(): ButtonApi;
-        button(buttonSelector: any): ButtonApi;
         button(groupSelector: any, buttonSelector: any): ButtonApi;
         buttons: ButtonsGlobalApi;
     }
 
-    export interface ButtonsGlobalApi {
+    interface ButtonsGlobalApi {
         (): ButtonsApi;
-        (buttonSelector: any): ButtonsApi;
         (groupSelector: any, buttonSelector: any): ButtonsApi;
 
         /**
@@ -52,7 +50,7 @@ declare namespace DataTables {
         info(title: string, message?: string, time?: number): DataTables.Api;
 
         /**
-         * Get export meta information that is common to many different button types.
+         * Get meta information that is common to many different button types.
          */
         exportInfo(options?: ButtonsApiExportInfoParameter): ButtonsApiExportInfoReturn;
 
@@ -62,7 +60,7 @@ declare namespace DataTables {
         exportData(options?: ButtonsApiExportDataParameter): ButtonsApiExportDataReturn;
     }
 
-    export interface ButtonApi {
+    interface ButtonApi {
         /**
          * Get the action function for the selected button.
          */
@@ -77,7 +75,7 @@ declare namespace DataTables {
          * Get the active state for the selected button.
          */
         active(): boolean;
-        
+
         /**
          * Set the active state for the selected button.
          */
@@ -125,14 +123,9 @@ declare namespace DataTables {
         remove(): DataTables.Api;
 
         /**
-         * Get the display text for the selected button.
+         * Get / Set the display text for the selected button
          */
-        text(): DataTables.Api;
-
-        /**
-         * Set the display text for the selected button
-         */
-        text(title: string | FunctionButtonText): DataTables.Api;
+        text(title?: string | FunctionButtonText): DataTables.Api;
 
         /**
          * Programmatically trigger the action of the selected button.
@@ -140,7 +133,7 @@ declare namespace DataTables {
         trigger(): DataTables.Api;
     }
 
-    export interface ButtonsApi extends ButtonApi {
+    interface ButtonsApi extends ButtonApi {
         /**
          * Get a jQuery instance that contains a reference to the button container instance.
          */
@@ -275,7 +268,7 @@ declare namespace DataTables {
         titleAttr?: string;
     }
 
-    export interface ButtonKey {
+    interface ButtonKey {
         key?: string;
         shiftKey?: boolean;
         altKey?: boolean;
@@ -286,40 +279,26 @@ declare namespace DataTables {
     /**
      * A function that will be executed upon creation of the buttons.
      */
-    export interface FunctionButtom {
-        (dt: DataTables.Api): ButtomSettingsCommon
-    }
+    type FunctionButtom = (dt: DataTables.Api) => ButtomSettingsCommon;
 
-    export interface FunctionButtonText {
-        (dt: DataTables.Api, node: JQuery, config: any): string
-    }
+    type FunctionButtonText = (dt: DataTables.Api, node: JQuery, config: any) => string;
 
-    export interface FunctionButtonAvailable {
-        (dt: DataTables.Api, config: any): boolean
-    }
+    type FunctionButtonAvailable = (dt: DataTables.Api, config: any) => boolean;
 
-    export interface FunctionButtonInit {
-        (dt: DataTables.Api, node: JQuery, config: any): void
-    }
+    type FunctionButtonInit = (dt: DataTables.Api, node: JQuery, config: any) => void;
 
-    export interface FunctionButtonAction {
-        (e: any, dt: DataTables.Api, node: JQuery, config: ButtonSettings): void
-    }
+    type FunctionButtonAction = (e: any, dt: DataTables.Api, node: JQuery, config: ButtonSettings) => void;
 
-    export interface FunctionButtonCustomize {
-        (win: Window|string): void
-    }
+    type FunctionButtonCustomize = (win: Window|string) => void;
 
-    export interface FunctionExtButtonsCollectionText {
-        (a: any): string;
-    }
+    type FunctionExtButtonsCollectionText = (a: any) => string;
 
     interface ExtButtonsSettings {
         collection: ExtButtonsCollectionSettings;
     }
 
     interface ExtButtonsCollectionSettings {
-        action: FunctionButtonAction,
+        action: FunctionButtonAction;
         autoClose: boolean;
         background: boolean;
         backgroundClassName: string;
@@ -334,17 +313,16 @@ declare namespace DataTables {
     //#region "Add-Ons"
 
     /**
-    * Buttons extension options
-    */
-    export interface ButtonSettings extends ButtomSettingsCommon {
-
+     * Buttons extension options
+     */
+    interface ButtonSettings extends ButtomSettingsCommon {
         //#region (HTML-)File-Export
 
         /**
          * CSV / EXCEL: Define what the exported filename should be
          */
         filename?: string;
-        
+
         /**
          * COPY / CSV: field separator
          */
@@ -402,8 +380,8 @@ declare namespace DataTables {
         /**
          * COPY / CSV / EXCEL / PDF / PRINT: show header
          */
-        exportOptions?: ButtonExportOptions | Object;
-        
+        exportOptions?: ButtonExportOptions | object;
+
         /**
          * COPY / CSV / EXCEL / PDF / PRINT: show header
          */
@@ -423,7 +401,7 @@ declare namespace DataTables {
          * COPY / PRINT: title
          */
         title?: string;
-        
+
         /**
          * COPY / EXCEL / PDF / PRINT: field separator
          */
@@ -437,7 +415,7 @@ declare namespace DataTables {
         /**
          * PDF / PRINT: Extra message
          */
-        message?: string|DataTables.Api|JQuery|Object;
+        message?: string|DataTables.Api|JQuery|object;
 
         /**
          * PRINT: Show print dialoge on click
@@ -445,7 +423,7 @@ declare namespace DataTables {
         autoPrint?: boolean;
 
         //#endregion Export and Print
-    
+
         //#region ColVis
 
         /**
@@ -461,17 +439,13 @@ declare namespace DataTables {
         //#endregion ColVis
     }
 
-    export interface ButtonExportOptions {
+    interface ButtonExportOptions {
         columns?: string | number | string[] | number[];
     }
 
-    export interface FunctionButtonCustomizeData {
-        (content: any): void;
-    }
+    type FunctionButtonCustomizeData = (content: any) => void;
 
-    export interface FunctionButtonColvisColumnText {
-        (dt: DataTables.Api, i: number, title: string):string;
-    }
+    type FunctionButtonColvisColumnText = (dt: DataTables.Api, i: number, title: string) => string;
 
     //#endregion "button-settings
 }

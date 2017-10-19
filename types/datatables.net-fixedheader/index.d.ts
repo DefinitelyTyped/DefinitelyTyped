@@ -1,33 +1,33 @@
 // Type definitions for datatables.net-fixedheader 3.1
 // Project: https://datatables.net/extensions/fixedheader/
-// Definitions by: Jared Szechy <https://github.com/szechyjs>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>
+// Definitions by: Jared Szechy <https://github.com/szechyjs>, Kiarash Ghiaseddin <https://github.com/Silver-Connection>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 
 declare namespace DataTables {
-    export interface Settings {
+    interface Settings {
         /*
          * FixedHeader extension options
          */
         fixedHeader?: boolean | FixedHeaderSettings;
     }
 
-    export interface StaticFunctions {
+    interface StaticFunctions {
         FixedHeader: FixedHeaderStaticFunctions;
     }
 
-    export interface FixedHeaderStaticFunctions {
-        new (dt: DataTables.Api, settings: boolean|FixedHeaderSettings):void;
+    interface FixedHeaderStaticFunctions {
+        new (dt: DataTables.Api, settings: boolean | FixedHeaderSettings): undefined;
         version: string;
         defaults: FixedHeaderSettings;
     }
 
-    export interface Api {
+    interface Api {
         fixedHeader: FixedHeaderApi;
     }
 
-    export interface FixedHeaderApi {
+    interface FixedHeaderApi {
         /**
          * Recalculate the position of the DataTable on the page and adjust the fixed element as appropriate.
          */

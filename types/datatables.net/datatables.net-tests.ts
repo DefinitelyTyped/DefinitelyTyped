@@ -54,7 +54,7 @@ $(document).ready(function () {
         }
     };
 
-    var colRenderObject: DataTables.ObjectColumnRender = {
+    var colRenderObject: DataTables.ObjectColumnData = {
         _: "phone",
         filter: "phone_filter",
         display: "phone_display",
@@ -290,7 +290,9 @@ $(document).ready(function () {
         {
             ajax: {
                 data: ajaxDataFunc,
-                dataSrc: function (data: any) { },
+                dataSrc: function (data: any) {
+                    return[];
+                 },
             },
         };
 

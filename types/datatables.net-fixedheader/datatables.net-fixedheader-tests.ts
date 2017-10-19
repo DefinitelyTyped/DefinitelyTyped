@@ -1,4 +1,4 @@
-var config_1: DataTables.Settings = {
+let config_1: DataTables.Settings = {
     // FixedHeader extension options
     fixedHeader: {
         footer: true,
@@ -8,18 +8,18 @@ var config_1: DataTables.Settings = {
     }
 };
 
-var dt: DataTables.Api = $("selector").DataTable({
+let dt: DataTables.Api = $("selector").DataTable({
     fixedHeader: true
 });
 
 // Statics
-var fixed_1 = new $.fn.dataTable.FixedHeader(dt, { 
+let fixed_1 = new $.fn.dataTable.FixedHeader(dt, { 
     footer: true,
 });
 
-var fixed_2 = new $.fn.dataTable.FixedHeader(dt, true);
+let fixed_2 = new $.fn.dataTable.FixedHeader(dt, true);
 
-var version = $.fn.dataTable.FixedHeader.version;
+let version = $.fn.dataTable.FixedHeader.version;
 
 $.fn.dataTable.FixedHeader.defaults.footer = false;
 
