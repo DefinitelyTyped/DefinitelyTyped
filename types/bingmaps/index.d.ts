@@ -1,4 +1,4 @@
-﻿// Type definitions for Microsoft.Maps 8.0 (Change set e6d7cc4)
+﻿// Type definitions for Microsoft.Maps 8.0 (Change set 60e5430)
 // Project: https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions
 // Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,6 @@
  *  The Bing Maps V8 developer API.
  */
 declare module Microsoft.Maps {
-    /*
-    * Custom Map Styles
-    */
 
     /** The styles options that can be applied to map elements. */
     export interface IMapElementStyle {
@@ -66,9 +63,9 @@ declare module Microsoft.Maps {
     export interface ISettingsStyle {
         /** A hex color value that all land is first flushed to before things are drawn on it. */
         landColor?: string;
-
-        /** Specifies whether or not to draw elevation shading on the map. */
-        shadedReliefVisible?: boolean;
+		
+		/** Specifies whether or not to draw elevation shading on the map. */
+		shadedReliefVisible?: boolean;
     }
 
     /** Map Elements which can be styled. */
@@ -154,8 +151,8 @@ declare module Microsoft.Maps {
 
         /** A building which provides medical services. */
         medicalBuilding?: IMapElementStyle;
-
-        /** A military area. */
+	
+		/** A military area. */
         military?: IMapElementStyle;
 
         /** A natural point of interest. */
@@ -172,6 +169,9 @@ declare module Microsoft.Maps {
 
         /** Icon representing the peak of a mountain. */
         peak?: IMapElementStyle;
+
+        /** Extracted pitches such as a baseball field or tennis court. */
+        playingField?: IMapElementStyle;
 
         /** All point features that are rendered with an icon of some sort */
         point?: IMapElementStyle;
@@ -215,9 +215,9 @@ declare module Microsoft.Maps {
         /** A shopping center or mall. */
         shoppingCenter?: IMapElementStyle;
 
-        /** Area of a stadium. */
-        stadium?: IMapElementStyle;
-
+		/** Area of a stadium. */
+		stadium?: IMapElementStyle;
+		
         /** A street. */
         street?: IMapElementStyle;
 
@@ -269,13 +269,8 @@ declare module Microsoft.Maps {
         /** The version of the style syntax used. */
         version: string;
     }
-}
-
-/*
-* Core Bing Maps V8 API.
- */
-declare module Microsoft.Maps {
-    //////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
     /// Enumerations
     //////////////////////////////////////////////
 
@@ -295,9 +290,9 @@ declare module Microsoft.Maps {
     export enum MapTypeId {
         /** The aerial map type which uses top-down satellite & airplane imagery. */
         aerial,
-
-        /** High resolution aerial imagery taken at 45 degrees to the ground, from 4 different directions. */
-        birdseye,
+		
+		/** High resolution aerial imagery taken at 45 degrees to the ground, from 4 different directions. */
+		birdseye,
 
         /** A darker version of the road maps. */
         canvasDark,
@@ -411,7 +406,7 @@ declare module Microsoft.Maps {
         /** The post code, postal code, or ZIP code of an address. An example is a US ZIP code, such as “98152”. */
         postalCode: string;
     }
-
+    
     /** The event args for when a layer frame is being loaded in an AnimtedTileLayer. **/
     export interface IAnimatedFrameEventArgs {
         /** The animated tile layer that the frame belongs to. **/
@@ -456,9 +451,9 @@ declare module Microsoft.Maps {
     /** Base data layer interface. */
     export interface IDataLayer extends ILayer {
         /** Clears all data in the layer. */
-        clear(): void;
+        clear(): void;	
     }
-
+		
     /** A standard dictionary object (associative array). */
     export interface IDictionary<T> {
         [K: string]: T;
@@ -601,9 +596,9 @@ declare module Microsoft.Maps {
 
         /** The type of the object that fired the event.This will always be 'infobox'. **/
         targetType: string;
-
-        /** Original mouse event from the browser. */
-        originalEvent?: MouseEvent;
+		
+		/** Original mouse event from the browser. */
+		originalEvent?: MouseEvent;
     }
 
     /** Map or View options */
@@ -628,15 +623,22 @@ declare module Microsoft.Maps {
         allowInfoboxOverflow?: boolean;
 
         /** The color to use for the map control background. The default color is #EAE8E1. This property can only be set when using the Map constructor. */
-        backgroundColor?: string | Color;
+        backgroundColor?: string | Color;   
 
         /** Custom map styles used to modify the look and feel of the base map. */
         customMapStyle?: ICustomMapStyle;
 
-        /** A boolean value indicating whether to disable the user’s ability to control the using the keyboard. Default: false */
-        disableKeyboardInput?: boolean;
+        /**
+        * A boolean indicating whether to disable the bird’s eye map type. The default value is false. If this property is set to true, bird’s eye will be removed
+        * from the map navigation control and the birdseye MapTypeId is disabled. Additionally, the auto map type will only display road or aerial.
+        * This property can only be set when using the Map constructor.
+        */
+        disableBirdseye?: boolean;
+		
+		/** A boolean value indicating whether to disable the user’s ability to control the using the keyboard. Default: false */
+		disableKeyboardInput?: boolean;
 
-        /** A boolean value indicating if mousing over the map type selector should open it or not. Default: true */
+        /** A boolean value indicating if mousing over the map type selector should open it or not. Default: false */
         disableMapTypeSelectorMouseOver?: boolean;
 
         /** A boolean value indicating whether to disable the user's ability to pan the map. Default: false */
@@ -661,7 +663,7 @@ declare module Microsoft.Maps {
         * levels. Default false
         * This property can only be set when using the Map constructor.
         **/
-        disableStreetsideAutoCoverage?: boolean;
+        disableStreetsideAutoCoverage?: boolean; 
 
         /** A boolean value indicating whether to disable the user's ability to zoom in or out. Default: false */
         disableZooming?: boolean;
@@ -671,6 +673,13 @@ declare module Microsoft.Maps {
         * This property can only be set when using the Map constructor.
         */
         enableClickableLogo?: boolean;
+
+        /**
+        * A boolean value indicating if CORS (Cross-origin Resource Sharing) should be enabled for tiles. Useful if directly accessing the canvas to generate an image of the map. Default: false
+        * Known Limitations: IE and Edge will not cache tiles when CORS is enabled. Chrome throws errors when this property is set enabled and custom tile layers don’t have CORS enabled on the server.
+        * This property can only be set when using the Map constructor.
+        */
+        enableCORS?: boolean;
 
         /**
         * A boolean value indicating whether to use the inertia animation effect during map navigation. Default: true
@@ -793,14 +802,14 @@ declare module Microsoft.Maps {
         /** The event that occurred. */
         eventName: string;
 
-        /** A boolean indicating if the primary button, such as the left mouse button or a tap on a touch screen, was used during a mouse down or up event. */
-        isPrimary: boolean;
+		/** A boolean indicating if the primary button, such as the left mouse button or a tap on a touch screen, was used during a mouse down or up event. */
+		isPrimary: boolean;
 
-        /** A boolean indicating if the secondary mouse button, such as the right mouse button, was used during a mouse down or up event. */
-        isSecondary: boolean;
+		/** A boolean indicating if the secondary mouse button, such as the right mouse button, was used during a mouse down or up event. */
+		isSecondary: boolean;
 
-        /** If the target is a shape, this will be the layer that the shape is in. */
-        layer: Layer;
+		/** If the target is a shape, this will be the layer that the shape is in. */
+		layer: Layer;
 
         /** The map location of where the event occurred. */
         location: Location;
@@ -1020,7 +1029,7 @@ declare module Microsoft.Maps {
         /** Sets the options for all polygons. */
         polygonOptions?: IPolygonOptions;
     }
-
+    
     /** Interface to specify style css while registering a module */
     export interface IStyleUrl {
         /** List of style css urls o be downloaded */
@@ -1083,6 +1092,9 @@ declare module Microsoft.Maps {
 
         /** The location of the center of the map view. If both bounds and center are specified, bounds takes precedence over center. */
         center?: Location;
+
+        /**	The amount the center is shifted in pixels.This property is ignored if center is not specified. */
+        centerOffset?: Point;
 
         /**
         * The directional heading of the map. The heading is represented in geometric degrees with 0 or 360 = North, 90 = East,
@@ -1401,7 +1413,7 @@ declare module Microsoft.Maps {
          * @param handler The callback function to handle the event when triggered. 
          * @returns The handler id.
          */
-        export function addHandler(target: Pushpin, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): IHandlerId;
+        export function  addHandler(target: Pushpin, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): IHandlerId;
 
         /**
         * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
@@ -1411,7 +1423,7 @@ declare module Microsoft.Maps {
         * @param handler The callback function to handle the event when triggered. 
         * @returns The handler id.
         */
-        export function addHandler(target: Polyline | Polygon, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): IHandlerId;
+        export function  addHandler(target: Polyline | Polygon, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
@@ -1421,7 +1433,7 @@ declare module Microsoft.Maps {
          * @param handler The callback function to handle the event when triggered. 
          * @returns The handler id.
          */
-        export function addHandler(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): IHandlerId;
+        export function  addHandler(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
@@ -1431,7 +1443,7 @@ declare module Microsoft.Maps {
          * @param handler The callback function to handle the event when triggered. 
          * @returns The handler id.
          */
-        export function addHandler(target: Layer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): IHandlerId;
+        export function  addHandler(target: Layer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): IHandlerId;
 
         /**
         * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
@@ -1442,7 +1454,7 @@ declare module Microsoft.Maps {
         * @param handler The callback function to handle the event when triggered. 
         * @returns The handler id.
         */
-        export function addHandler(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void): IHandlerId;
+        export function  addHandler(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
@@ -1451,7 +1463,7 @@ declare module Microsoft.Maps {
          * @param handler The callback function to handle the event when triggered. 
          * @returns The handler id.
          */
-        export function addHandler(target: any, eventName: string, handler: (eventArg?: any) => void): IHandlerId;
+        export function  addHandler(target: any, eventName: string, handler: (eventArg?: any) => void): IHandlerId;
 
         /////////////////////////////////////
         /// addOne Definitions
@@ -1464,7 +1476,7 @@ declare module Microsoft.Maps {
          * click, dblclick, mapresize, maptypechanged, mousedown, mousemove, mouseout, mouseover, mouseup, mousewheel, rightclick, viewchange, viewchangeend, viewchangestart
          * @param handler The callback function to handle the event when triggered.
          */
-        export function addOne(target: Map, eventName: string, handler: (eventArg?: IMouseEventArgs | IMapTypeChangeEventArgs) => void): void;
+        export function  addOne(target: Map, eventName: string, handler: (eventArg?: IMouseEventArgs | IMapTypeChangeEventArgs) => void): void;
 
         /**
          * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
@@ -1473,7 +1485,7 @@ declare module Microsoft.Maps {
          * changed, click, dblclick, drag, dragend, dragstart, mousedown, mouseout, mouseover, mouseup
          * @param handler The callback function to handle the event when triggered.
          */
-        export function addOne(target: Pushpin, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): void;
+        export function  addOne(target: Pushpin, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): void;
 
         /**
          * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
@@ -1482,7 +1494,7 @@ declare module Microsoft.Maps {
          * changed, click, dblclick, mousedown, mouseout, mouseover, mouseup
          * @param handler The callback function to handle the event when triggered.
          */
-        export function addOne(target: Polyline | Polygon, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): void;
+        export function  addOne(target: Polyline | Polygon, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void): void;
 
         /**
          * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
@@ -1491,7 +1503,7 @@ declare module Microsoft.Maps {
          * click, infoboxChanged, mouseenter, mouseleave
          * @param handler The callback function to handle the event when triggered. 
          */
-        export function addOne(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): void;
+        export function  addOne(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): void;
 
         /**
          * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
@@ -1500,7 +1512,7 @@ declare module Microsoft.Maps {
          * click, dblclick, mousedown, mouseout, mouseover, mouseup, rightclick
          * @param handler The callback function to handle the event when triggered.
          */
-        export function addOne(target: Layer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): void;
+        export function  addOne(target: Layer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): void;
 
         /**
          * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
@@ -1510,7 +1522,7 @@ declare module Microsoft.Maps {
          * • entityremoved
          * @param handler The callback function to handle the event when triggered.
          */
-        export function addOne(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void): void;
+        export function  addOne(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void): void;
 
         /**
          * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
@@ -1518,7 +1530,7 @@ declare module Microsoft.Maps {
          * @param eventName The type of event to attach.
          * @param handler The callback function to handle the event when triggered.
          */
-        export function addOne(target: any, eventName: string, handler: (eventArg?: any) => void): void;
+        export function  addOne(target: any, eventName: string, handler: (eventArg?: any) => void): void;
 
         /////////////////////////////////////
         /// addThrottledHandler Definitions
@@ -1533,7 +1545,7 @@ declare module Microsoft.Maps {
          * @param throttleInterval throttle interval (in ms)
          * @returns The handler id.
          */
-        export function addThrottledHandler(target: Map, eventName: string, handler: (eventArg?: IMouseEventArgs | IMapTypeChangeEventArgs) => void, throttleInterval: number): IHandlerId;
+        export function  addThrottledHandler(target: Map, eventName: string, handler: (eventArg?: IMouseEventArgs | IMapTypeChangeEventArgs) => void, throttleInterval: number): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
@@ -1544,7 +1556,7 @@ declare module Microsoft.Maps {
          * @param throttleInterval throttle interval (in ms)
          * @returns The handler id.
          */
-        export function addThrottledHandler(target: Pushpin, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void, throttleInterval: number): IHandlerId;
+        export function  addThrottledHandler(target: Pushpin, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void, throttleInterval: number): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
@@ -1555,7 +1567,7 @@ declare module Microsoft.Maps {
          * @param throttleInterval throttle interval (in ms)
          * @returns The handler id.
          */
-        export function addThrottledHandler(target: Polyline | Polygon, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void, throttleInterval: number): IHandlerId;
+        export function  addThrottledHandler(target: Polyline | Polygon, eventName: string, handler: (eventArg?: IMouseEventArgs | IPrimitiveChangedEventArgs) => void, throttleInterval: number): IHandlerId;
 
         /**
         * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
@@ -1565,7 +1577,7 @@ declare module Microsoft.Maps {
         * @param handler The callback function to handle the event when triggered. 
         * @returns The handler id.
         */
-        export function addThrottledHandler(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): IHandlerId;
+        export function  addThrottledHandler(target: Infobox, eventName: string, handler: (eventArg?: IInfoboxEventArgs) => void): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
@@ -1576,7 +1588,7 @@ declare module Microsoft.Maps {
          * @param throttleInterval throttle interval (in ms)
          * @returns The handler id.
          */
-        export function addThrottledHandler(target: Layer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void, throttleInterval: number): IHandlerId;
+        export function  addThrottledHandler(target: Layer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void, throttleInterval: number): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
@@ -1588,7 +1600,7 @@ declare module Microsoft.Maps {
          * @param throttleInterval throttle interval (in ms)
          * @returns The handler id.
          */
-        export function addThrottledHandler(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void, throttleInterval: number): IHandlerId;
+        export function  addThrottledHandler(target: EntityCollection, eventName: string, handler: (eventArg?: IEntityCollectionChangedEventArgs) => void, throttleInterval: number): IHandlerId;
 
         /**
          * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
@@ -1598,7 +1610,7 @@ declare module Microsoft.Maps {
          * @param throttleInterval throttle interval (in ms)
          * @returns The handler id.
          */
-        export function addThrottledHandler(target: any, eventName: string, handler: (eventArg?: any) => void, throttleInterval: number): IHandlerId;
+        export function  addThrottledHandler(target: any, eventName: string, handler: (eventArg?: any) => void, throttleInterval: number): IHandlerId;
 
         /////////////////////////////////////
         /// All other definitions
@@ -1610,7 +1622,7 @@ declare module Microsoft.Maps {
          * @param eventName The name of the event to check to see is attached.
          * @returns A boolean indicating if the specified event type is attached to the object.
          */
-        export function hasHandler(target: any, eventName: string): boolean;
+        export function  hasHandler(target: any, eventName: string): boolean;
 
         /**
          * Invokes an event on the target. This causes all handlers for the specified event name to be called.
@@ -1618,13 +1630,13 @@ declare module Microsoft.Maps {
          * @param eventName The name of the event to invoke.
          * @param args Arguments for the event handler.
          */
-        export function invoke(target: any, evenName: string, args: any): void;
+        export function  invoke(target: any, evenName: string, args: any): void;
 
         /**
          * Detaches the specified handler from the event. The handlerId is returned by the addHandler and addThrottledHandler methods.
          * @param handlerId The handler id of the event to remove.
          */
-        export function removeHandler(handlerId: IHandlerId): void;
+        export function  removeHandler(handlerId: IHandlerId): void;
     }
 
     /**
@@ -1854,9 +1866,9 @@ declare module Microsoft.Maps {
     * while also providing providing a performance benefit over manually looping through each shape and performing these tasks.
     */
     export class Layer implements IDataLayer {
-
-        /** Optional property to store any additional metadata for this layer. */
-        public metadata: any;
+		
+		/** Optional property to store any additional metadata for this layer. */
+		public metadata: any;
 
         /**
          * @constructor
@@ -2217,12 +2229,12 @@ declare module Microsoft.Maps {
 		* Gets the streetside panorama information closest to the specified bounding box and returns using a success callback function. 
 		* This information can then be used to set the map view to that streetside panorama.
 		*/
-        public static getClosestPanorama(bounds: LocationRect, success: (panoramaInfo: IPanoramaInfo) => void, missingCoverage: () => void): void;
+		public static getClosestPanorama(bounds: LocationRect, success: (panoramaInfo: IPanoramaInfo) => void, missingCoverage: () => void)	: void;
 
-        /** Returns the branch name; release, experimental, frozen. */
-        public static getVersion(): string;
+		/** Returns the branch name; release, experimental, frozen. */
+		public static getVersion() : string;
 
-
+		
         /** Deletes the Map object and releases any associated resources. */
         public dispose(): void;
 
@@ -2585,7 +2597,7 @@ declare module Microsoft.Maps {
          * @returns CSS cursor string when polyline has events on it.
          */
         public getCursor(): string;
-
+        
         /**
          * Returns whether the polyline is generalizable based on zoom level or not.
          * @returns whether the polyline is generalizable based on zoom level or not.
@@ -2775,7 +2787,7 @@ declare module Microsoft.Maps {
 
         /** The zoom level of the tile. */
         public zoom: number;
-
+        
         /**
          * @constructor
          * @param x The integer x position of the tile within the tile layer at the specified zoom level.
@@ -2784,7 +2796,7 @@ declare module Microsoft.Maps {
          * @param width The tile's width in pixels. Default value: 256
          * @param height The tile's height in pixels. Default value: 256
          */
-        constructor(x: number, y: number, zoom: number, width?: number, height?: number)
+        constructor(x: number, y: number, zoom: number, width?: number, height?: number) 
 
         /**
          * Compares two PyramidTileId objects and returns a boolean indicating if the two PyramidTileId are equal.
@@ -2855,7 +2867,7 @@ declare module Microsoft.Maps {
 
     /** Represents a tile layer that can be overlaid on top of the map. */
     export class TileLayer implements ILayer {
-        /** Optional property to store any additional metadata for this layer. */
+         /** Optional property to store any additional metadata for this layer. */
         public metadata: any;
 
         /**
@@ -2956,497 +2968,6 @@ declare module Microsoft.Maps {
         * @returns The pixel width of each tile in the tile source.
         */
         public getWidth(): number;
-    }
-}
-
-declare module Microsoft.Maps {
-    /** Options used to customize the autosuggest functionality. */
-    export interface IAutosuggestOptions {
-        /** Specifies if street address suggestions should be returned. Default: true */
-        addressSuggestions?: boolean;
-
-        /**
-        * Specifies if the user’s location should be auto detected using their IP address, if no location information is provided
-        * in the userLocation property. Default: true
-        */
-        autoDetectLocation?: boolean;
-
-        /**
-        * A bounding box that is used to help influence the results such that locations that are in or near this bounding box
-        * are given more weight than they would normally.
-        */
-        bounds?: LocationRect;
-
-        /**
-        * A reference to a map instance. If the useMapView property is set to true, the bounding box of the map view will be used
-        * to influence the weight of suggestions.
-        */
-        map?: Map;
-
-        /** The maximum number of results to return. Can be any value between 1 and 10. Default: 5 */
-        maxResults?: number;
-
-        /** Specifies if place suggestions (city, landmark, etc.) should be returned. Default: true */
-        placeSuggestions?: boolean;
-
-        /**
-        * Indicates if the maps bounding box should be used to influence the suggested results. Ignored if the bounds property is
-        * set. Default: true
-        */
-        useMapView?: boolean;
-
-        /** A coordinate indicating where the user is located. This will influence the results to be more relevant to the user. */
-        userLocation?: Location;
-    }
-
-    /** Represents the suggestion result from the Autosuggest manager. */
-    export interface ISuggestionResult {
-        /** A structured address object for the result.  */
-        address: IAddress;
-
-        /** A LocationRect that can be used to set the map view over the result. */
-        bestView: LocationRect;
-
-        /** Unique entity id to be used for searching the entity. */
-        entityId: string;
-
-        /** The type of the result; Address, Place */
-        entityType: string;
-
-        /** The sub type of result; Address, RoadBlock, PopulatedPlace, CountryRegion, etc. */
-        entitySubType: string;
-
-        /** A nicely formatted suggestion string for the result based on market. */
-        formattedSuggestion: string;
-
-        /**
-        * The coordinate of the result. This value is only returned for place (city, landmarks) results and not for addresses.
-        * Street addresses will need to be geocoded to get their location.
-        */
-        location: Location;
-
-        /** A secondary title that provides additional context to the title value of the suggestion. **/
-        subtitle: string;
-
-        /** The display title for the result (i.e. “Redmond”). */
-        title: string;
-    }
-
-    /**
-     * The AutosuggestManager is the primary class in the Autosuggest module that powers the autosuggest functionality.
-     * @requires The Microsoft.Maps.Autosuggest module.
-     */
-    export class AutosuggestManager {
-        /**
-        * @constructor
-        * @requires The Microsoft.Maps.Autosuggest module.
-        * @param options The options to use with the autosuggest manager.
-        */
-        constructor(options?: IAutosuggestOptions);
-
-        /**
-        * Attaches the Autosuggest functionality to an input box.
-        * @param suggestionBoxId The HTML element identifier of the input box.
-        * @param suggestionContainerId The Id of container where suggestions will be displayed.
-        * @param selectedSuggestionCallback A reference to a callback function that will be called when a user selects a suggestion from the Autosuggest UI.
-        */
-        public attachAutosuggest(suggestionBoxId: string, suggestionContainerId: string, selectedSuggestionCallback: (result: ISuggestionResult) => void): void;
-
-        /** Detaches the autosuggest functionality from the input box, freeing any resources it has or events it has tied to. */
-        public detachAutosuggest(): void;
-
-        /** Disposes the Autosuggest object, freeing any resources it has or events it has tied to. */
-        public dispose(): void;
-
-        /**
-        * Gets the options currently used by the autosuggest manager.
-        * @returns The options currently used by the autosuggest manager.
-        */
-        public getOptions(): IAutosuggestOptions;
-
-        /**
-        * Sets the options currently used by the autosuggest manager.
-        * @param options The options to use with the autosuggest manager.
-        */
-        public setOptions(options?: IAutosuggestOptions): void;
-    }
-}
-
-declare module Microsoft.Maps {
-    /** The options used to customize how the ClusterLayer functions. */
-    export interface IClusterLayerOptions {
-        /**
-        * A callback function that is fired after the clustering for a map view has completed. This is useful if you want to generate a list of locations based on what is in the current view.
-        */
-        callback?: () => void;
-
-        /**
-        * A callback function that allows you to process a clustered pushpin before it is added to a layer. This is useful if you want to add events or set style options on the clustered pushpin.
-        */
-        clusteredPinCallback?: (pin: ClusterPushpin) => void;
-
-        /**
-        * Indicates if the layer should cluster the locations or not. Default: true
-        */
-        clusteringEnabled?: boolean;
-
-        /**
-        * Defines how clusters are positioned on the map. Default: MeanAverage
-        */
-        clusterPlacementType?: ClusterPlacementType;
-
-        /**
-        * The width and height of the gird cells used for clustering in pixels. Default: 45
-        */
-        gridSize?: number;
-
-        /**
-        * Offsets the placement of clustered pushpins by a set number of pixels. This option is only available when the placement type is set to GridCenter.
-        * This is useful if you have multiple cluster layers on the map and you want to offset the clustered pushpins between the layers so that they are visible,
-        * otherwise the clusters from the different layers would overlap completely.
-        */
-        layerOffset?: Point;
-
-        /**
-        * A boolean indicating if the layer is visible or not.
-        */
-        visible?: boolean;
-
-        /**
-        * The z-index of the layer.
-        */
-        zIndex?: number;
-    }
-
-    /**
-    * Used to specify how a clustered pushpin should be positioned relative to the pushpins it contains.
-    * @requires The Microsoft.Maps.Clustering module.
-    */
-    export enum ClusterPlacementType {
-        /**
-        * Mean Average placement calculates the average position of a group of coordinates. This method creates a more realistic representation of the data,
-        * however requires more processing power and increases the chances of pushpins overlapping.
-        */
-        MeanAverage,
-
-        /**
-        * This method is the simplest way to represent a cluster. It places the cluster at the first location in the cluster. This method may not accurately
-        * represent the data but requires little processing power.
-        */
-        FirstLocation
-    }
-
-    /**
-     * This class extends the Pushpin class and has all the same methods and properties plus the following properties.
-     * @requires The Microsoft.Maps.Clustering module.
-     */
-    export class ClusterPushpin extends Pushpin {
-        /** An array of all the pushpins that are in the cluster. */
-        containedPushpins: Pushpin[];
-
-        /**
-        * The grid cell key that can be used retrieve the clustered pushpin(s) from the clustering layer. This is useful when creating a clickable list that
-        * link items in the list to clusters or pushpins on the map. Your list just needs to store the gridKey value.
-        */
-        gridKey: number;
-    }
-
-    /**
-     * This class allows you to easily add in client side clustering to your application. Client Side Clustering is a method where pushpins that are close
-     * together are grouped and represented as a single pushpin, often using a different icon to indicate the cluster. This is a great way to improve both
-     * the user experience and performance of the map.
-     * @requires The Microsoft.Maps.Clustering module.
-     */
-    export class ClusterLayer implements IDataLayer {
-        /**
-        * @constructor
-        * @requires The Microsoft.Maps.Clustering module.
-        * @param pushpins An array of pushpins to cluster in the layer.
-        * @param options The options used to customize how the ClusterLayer functions.
-        */
-        constructor(pushpins: Pushpin[], options?: IClusterLayerOptions);
-
-        /** Clears all the data in the cluster layer. */
-        public clear(): void;
-
-        /**
-        * Gets all the pushpins that are in the current map view. If clustering is disabled, all pushpins in the clustering layer are returned.
-        * @returns All the pushpins that are in the current map view. If clustering is disabled, all pushpins in the clustering layer are returned.
-        */
-        public getDisplayedPushpins(): Pushpin[];
-
-        /**
-        * Gets the current options used by the cluster layer.
-        * @returns The current options used by the cluster layer.
-        */
-        public getOptions(): IClusterLayerOptions;
-
-        /**
-        * Gets all pushpins that are in the layers.
-        * @returns An array of all the pushpins that are in the layers.
-        */
-        public getPushpins(): Pushpin[];
-
-        /**
-        * Gets the original pushpins that are in the specified grid cell.
-        * @param The gridKey index to retrieve the pushpins for.
-        * @returns The original pushpins that are in the specified grid cell.
-        */
-        public getPushpinsByGridKey(gridKey: number): Pushpin[];
-
-        /**
-        * Gets the pushpin in the specified cluster grid cell which can be either a ClusterPushpin if there are multiple pushpins in a cell or a single Pushpin.
-        * @param The gridKey index to retrieve the pushpins for.
-        * @returns The pushpin in the specified cluster grid cell which can be either a ClusterPushpin if there are multiple pushpins in a cell or a single Pushpin.
-        */
-        public getClusterPushpinByGridKey(gridKey: number): ClusterPushpin  |  Pushpin;
-
-        /**
-        * Sets the clustering options to use in the layer.
-        * @params options The clustering options to use in the layer.
-        */
-        public setOptions(options: IClusterLayerOptions): void;
-
-        /**
-        * Sets the array of pushpins that are used in the clustering layer.
-        * @param pushpins An array of pushpins that are to be used by the clustering layer.
-        */
-        public setPushpins(pushpins: Pushpin[]): void;
-    }
-}
-
-declare module Microsoft.Maps {
-
-    /** 
-     * The contour layer options
-     */
-    interface IContourLayerOptions {
-        /** The z-index of this layer */
-        zIndex?: number;
-
-        /** Whether the layer is visible */
-        visible?: boolean;
-
-        /** A callback function which defines the color of the contour line fill. */
-        colorCallback?: (contourValue: number | string) => string | Color;
-
-        /** The polygon options that apply to all contour lines of this layer */
-        polygonOptions?: IPolygonOptions;
-    }
-
-    /**
-     * The contour line of a contour layer
-     */
-    export class ContourLine extends Polygon {
-        /** The contour lines that are directly nested inside this contour line */
-        public innerContourLines: ContourLine[];
-
-        /** The outer/parent contour line of this contour */
-        public outerContourLine: ContourLine;
-
-        /** The data value associated with this contour line */
-        public contourValue: number | string;
-
-        /**
-         * @constructor
-         * @param boundary The boundary of this contour line
-         * @param contourValue The value associated with this contour line
-         */
-        constructor(boundary: Location[], contourValue?: number | string);
-    }
-
-    /**
-     * The contour layer class.
-     */
-    export class ContourLayer extends Layer {
-        /**
-         * @constructor
-         * @param contourLines The contour lines that compose this layer.
-         * @param options The contour layer options.
-         */
-        constructor(contourLines: ContourLine[], options?: IContourLayerOptions);
-
-        /**
-         * Clears all data on the contour layer.
-         */
-        public clear(): void;
-
-        /**
-         * Gets the contour lines of this layer.
-         * @returns The contour lines of this layer.
-         */
-        public getContourLines(): ContourLine[];
-
-        /**
-         * Gets the polygons that were generated from the contour lines in this layer.
-         * @returns The polygons that were generated from the contour lines in this layer.
-         */
-        public getContourPolygons(): Polygon[];
-
-        /**
-         * Retrieves the options of this contour layer.
-         * @returns The options of this contour layer.
-         */
-        public getOptions(): IContourLayerOptions;
-
-        /**
-         * Sets the contour lines used to calculate the polygon areas of this layer.
-         * @param contourLines The contour lines used to calculate the polygon areas of this layer.
-         */
-        public setContourLines(contourLines: ContourLine[]): void;
-
-        /**
-         * Sets the options of the contour layer.
-         * @param options The new options to update the layer.
-         */
-        public setOptions(options: IContourLayerOptions): void;
-    }
-}
-
-declare module Microsoft.Maps {
-
-    /**
-     * Specifies the shape of data bin rendered in the layer.
-     */
-    export enum DataBinType {
-        /* Renders data bins as circles in a square grid. */
-        circle,
-
-        /* Renders data bins as hexagons with a flat top edge. */
-        hexagon,
-
-        /* Renders data bins as circles in a hexagonal grid. */
-        hexCircle,
-
-        /* Renders data bins as hexagons with a pointy top corner. */
-        pointyHexagon,
-
-        /* Renders data bins as a square grid. */
-        square
-    }
-
-    /**
-     * A set options the define how a data binning layer is rendered.
-     */
-    export interface IDataBinningOptions {
-        /* The name of a property in the Pushpin.metadata object on which to perform calculations (average, count, sum) against the pushpins in each data bin. */
-        aggregationProperty?: string;
-
-        /*
-         * A callback function which defines the color a data bin polygon should be. This callback recieves data bin information
-         * along with the min and max calculated metrics for the data set. If set, this callback function must return a color value.
-         */
-        colorCallback?: (binInfo: IDataBinInfo, min: IDataBinMetrics, max: IDataBinMetrics) => string | Color;
-
-        /* The shape of the data bin to generate. Default: hexagon */
-        dataBinType?: DataBinType;
-
-        /* The distance units of the radius option. Default: meters */
-        distanceUnits?: SpatialMath.DistanceUnits;
-
-        /* The default options used for rendering the data bin polygons. */
-        polygonOptions?: IPolygonOptions;
-
-        /*
-         * A spatial distance which will be converted into a pixel distance at the equater and used to generate symetrically sized data bins
-         * that have the apprimate spatial distance radius. Default: 1000
-         */
-        radius?: number;
-
-        /*
-         * A callback function which defines how much to scale a data bins size. This callback recieves data bin information
-         * along with the min and max calculated metrics for the data set. If set, this callback function must return a number between 0 and 1.
-         */
-        scaleCallback?: (binInfo: IDataBinInfo, min: IDataBinMetrics, max: IDataBinMetrics) => number;
-    }
-
-    /**
-    * A set of values calculated from the pushpins in a data bin.
-    */
-    export interface IDataBinMetrics {
-
-        /* The average value of the aggregation property of the pushpins in a data bin. */
-        average?: number;
-
-        /* The number of pushpins in a data bin. */
-        count?: number;
-
-        /* The number of pushpins in the data bin who's aggregation property has a value. */
-        countNotBlank?: number;
-
-        /* The number of pushpins in the data bin who's aggregation property is a valid number. */
-        countNumbers?: number;
-
-        /* The sum of the aggregation property of the pushpins in a data bin.  */
-        sum?: number;
-    }
-
-    /**
-    * The result of a calculated data bin.
-    */
-    export interface IDataBinInfo {
-        /* An array of all the pushpins that are in the data bin. */
-        containedPushpins: Microsoft.Maps.Pushpin[];
-
-        /* A set of calculated metric values determined using the aggregationProperty value of all the pushpins contained in the data bin. */
-        metrics: IDataBinMetrics;
-    }
-
-    /**
-     *  A polygon which represents a data bin on the map and contains the data bin information. 
-     */
-
-    export class DataBinPolygon extends Polygon {
-        /* Information about the data bin; the contained pushpins and calculated metrics. */
-        public dataBinInfo: IDataBinInfo;
-    }
-
-    /**
-     * This class provides a data binning visualization for the map. It takes in an array of pushpins, groups them into
-     * symmetrical shapes that fit together in a grid such as hexagons. Aggregation of data values are done and can be
-     * used to customize how the data bins are rendered on the map (i.e. scale / color) .
-     */
-    export class DataBinningLayer extends Layer {
-        /**
-         * Initializes the data binning layer.
-         * @param pushpins The array of pushpins that are used to generate the data bins.
-         * @param options The options used for calculating and rendering the data bins.
-         */
-        constructor(pushpins?: Pushpin[], options?: IDataBinningOptions);
-
-        /**
-         * Gets the options used for calculating and rendering the data bins.
-         * @returns The options used for calculating and rendering the data bins.
-         */
-        public getOptions(): IDataBinningOptions;
-
-        /**
-         * Gets all pushpins that are in the layers.
-         * @returns All pushpins that are in the layers.
-         */
-        public getPushpins(): Pushpin[];
-
-        /**
-         * Sets the array of pushpins that are used to generate the data bins.
-         * @param pushpins The array of pushpins that are used to generate the data bins.
-         */
-        public setPushpins(pushpins: Pushpin[]): void;
-
-        /**
-         * Clears all the data in the data binning layer.
-         */
-        public clear(): void;
-
-        /**
-         * Cleans up any resources this object is consuming.
-         */
-        public dispose(): void;
-
-        /**
-         * Sets the options used for calculating and rendering the data bins.
-         * @param options The options used for calculating and rendering the data bins.
-         */
-        public setOptions(options: IDataBinningOptions): void;
     }
 }
 
@@ -3775,7 +3296,7 @@ declare module Microsoft.Maps.Directions {
         timeWithTraffic: number;
     }
 
-    /** Contains information about a transit line. */
+    /** Contains information about a transit line. */ 
     export interface ITransitLine {
         /** The short name for the transit line. */
         abbreviatedName: string;
@@ -3978,6 +3499,11 @@ declare module Microsoft.Maps.Directions {
         public dispose(): void;
 
         /**
+         * Returns all current pushpins for the rendered route.This includes pushpins created by addWaypoint and viaPoints created due to drag and drop.
+         */
+        public getAllPushpins(): Pushpin[];	
+
+        /**
          * Gets all the waypoints in the directions manager.
          * @returns All the waypoints in the directions manager.
          */
@@ -4000,7 +3526,7 @@ declare module Microsoft.Maps.Directions {
          * @returns The directions request options.
          */
         public getRequestOptions(): IDirectionsRequestOptions;
-
+        
         /**
          * Gets the current calculated route(s)
          * @returns The current calculated route(s). If the route was not successfully calculated, null is returned.
@@ -4025,11 +3551,11 @@ declare module Microsoft.Maps.Directions {
          */
         public setRequestOptions(options: IDirectionsRequestOptions): void;
 
-        /**
-         * Displays an input panel for calculating directions in the specified container. Provides autosuggest for location inputs.
-         * @param inputContainerId The id name of the HTML container in which to render the directions input panel.
-         */
-        public showInputPanel(inputContainerId: string): void;
+       /**
+        * Displays an input panel for calculating directions in the specified container. Provides autosuggest for location inputs.
+        * @param inputContainerId The id name of the HTML container in which to render the directions input panel.
+        */
+        public showInputPanel(inputContainerId: string): void;        
     }
 }
 
@@ -4084,6 +3610,63 @@ declare module Microsoft.Maps {
 }
 
 declare module Microsoft.Maps {
+
+    /**
+     * Values used to identify and enable the items shown in the drawing bar.
+     */
+    export enum DrawingBarAction {
+        /** No action */
+        none,
+
+        /** Create point primitive */
+        point,
+
+        /** Create polyline primitive */
+        polyline,
+
+        /** Create polygon primitive */
+        polygon,
+
+        /** Create ellipse primitive */
+        ellipse,
+
+        /** Create rectangle primitive */
+        rectangle6,
+
+        /** Erase existing primitive */
+        erase,
+
+        /** Edit existing primitive */
+        edit,
+
+        /** Change stroke style */
+        strokeStyle,
+
+        /** Change fill style */
+        fillStyle,
+
+        /** Set stroke line thickness */
+        lineThickness,
+
+        /** Set stroke dash style */
+        strokeDash,
+
+        /** Show debug menu */
+        debug,
+
+        /** All items */
+        all,
+
+        /** All shape creation items */
+        createShapes,
+
+        /** All shape editing items */
+        editShapes,
+
+        /** All shape styling items */
+        styleShapes
+    }
+
     /** An object that contains the event arguments for when the drawing mode changes in the drawing tools. **/
     export interface IDrawingModeChangedData {
 
@@ -4094,13 +3677,24 @@ declare module Microsoft.Maps {
         mode: DrawingTools.DrawingMode;
     }
 
-    /** An object that contains options to change the settings of the drawing manager.  */
-    export interface IDrawingManagerOptions {
-        /** The fill color used for pushpins and polygons. */
-        fill: string | Color;
-
-        /** The stroke color used for polylines and polygons. */
-        stroke: string | Color;
+    /**
+     * Collection of options for the various DrawingTool methods
+     */
+    export interface IDrawingToolOptions {
+        /** Set of buttons to show in the drawing bar */
+        drawingBarActions?: DrawingBarAction;
+    }
+	
+	/** An object that contains options to change the settings of the drawing manager.  */
+    export interface IDrawingManagerOptions extends IDrawingToolOptions {
+        /** Set of buttons to show in the drawing bar. */
+        drawingBarActions?: DrawingBarAction;
+        
+		/** The fill color used for pushpins and polygons. */
+		fillColor?: string | Color;
+		
+		/** The stroke color used for polylines and polygons. */
+		strokeColor?:	string | Color;
     }
 
     /**
@@ -4114,8 +3708,8 @@ declare module Microsoft.Maps {
         • @param data The shape(s) to be added to the layer.
         • @param index The index at which to insert the shape into the layer.
         */
-        add(data: IPrimitive  |  IPrimitive[], index?: number): void;
-
+        add(data: IPrimitive | IPrimitive[], index?: number): void;
+   
         /**
         * Disposes the drawing manager instance.
         */
@@ -4165,12 +3759,12 @@ declare module Microsoft.Maps {
         * @param mode The drawing mode to set the DrawingManager to.
         */
         setDrawingMode(mode: DrawingTools.DrawingMode): void;
-
+		
 		/**
 		* Sets the drawing tool options.
 		* @param options The options to use with the drawing manager. 
 		*/
-        setOptions(options: IDrawingManagerOptions): void;
+		setOptions(options: IDrawingManagerOptions): void;
 
         /**
         * Replaces all shapes in the layer with the new array of shapes that have been provided.
@@ -4212,6 +3806,13 @@ declare module Microsoft.Maps {
          * @param finished A callback function to return the completed shape with.
          */
         public finish(finished?: (shape: IPrimitive) => void): void;
+
+        /**
+         * Shows the drawing toolbar, if it isn't already visible.
+         * @param options - Options for this DrawingTool operation. Specifically,
+         * the drawingBarActions property is used to customize the drawing bar view.
+         */
+        public showDrawingBar(options?: IDrawingToolOptions): void;
 
         /**
         * Creates a drawing manager which allows multi-shape editing and displays the toolbar.
@@ -4292,7 +3893,6 @@ declare module Microsoft.Maps {
          */
         export function addThrottledHandler(target: DrawingManager, eventName: string, handler: (eventArg?: IPrimitive | DrawingTools.DrawingMode) => void, throttleInterval: number): IHandlerId;
     }
-
 }
 
 declare module Microsoft.Maps.DrawingTools {
@@ -4376,13 +3976,13 @@ declare module Microsoft.Maps {
      * @requires The Microsoft.Maps.GeoJson module.
      */
     export module GeoJson {
-        /**
-        * Reads the data from a given url and returns the shapes.
-        * @param url GeoJson download url.
-        * @param callback Callback function that needs to be called once the data is downloaded and parsed.
-        * @param jsonpQueryParam The name of the url query param to make a jsonp request.
-        * @param styles Styles that needs to be applied.
-        */
+       /**
+       * Reads the data from a given url and returns the shapes.
+       * @param url GeoJson download url.
+       * @param callback Callback function that needs to be called once the data is downloaded and parsed.
+       * @param jsonpQueryParam The name of the url query param to make a jsonp request.
+       * @param styles Styles that needs to be applied.
+       */
         export function readFromUrl(url: string, callback: (data: IPrimitive | IPrimitive[]) => void, jsonpQueryParam?: string, styles?: IStylesOptions): void;
 
         /**
@@ -4402,8 +4002,9 @@ declare module Microsoft.Maps {
     }
 }
 
-declare module Microsoft.Maps {
 
+declare module Microsoft.Maps {
+    
     /** 
     * An enumeration of different GeoXML file formats.
     * @requires The Microsoft.Maps.GeoXml module.
@@ -4596,7 +4197,7 @@ declare module Microsoft.Maps {
         /** The XML format to write the shapes to. Default: Kml */
         xmlFormat?: GeoXmlFormat;
     }
-
+    
     /**
     * The options for customizing screen overlays.
     */
@@ -4625,7 +4226,7 @@ declare module Microsoft.Maps {
          * @param options The options to customize the screen overlay.
          */
         constructor(htmlElement?: string | HTMLElement, options?: IKmlScreenOverlayOptions);
-
+        
         /**
         * Clears the screen overlay.
         */
@@ -4673,20 +4274,20 @@ declare module Microsoft.Maps {
          */
         public setVisible(visible: boolean): void;
     }
-
+    
     /**
      * A static class that contains functions for reading and writing geospatial XML data.
      * @requires The Microsoft.Maps.GeoXml module.
      */
     export module GeoXml {
-
+        
         /**
          * Takes a geospatial XML string or a ArrayBuffer and parses the XML data into Bing Maps shapes.
          * @param xml The XML as a string or ArrayBuffer to read.
          * @param options The read options.
          */
         export function read(xml: string | ArrayBuffer, options: IGeoXmlReadOptions): IGeoXmlDataSet;
-
+        
         /**
          * Takes an URL to an XML or zipped XML file and parses the XML data into Bing Maps shapes.
          * @param xml The URL to XML data to read.
@@ -4701,7 +4302,7 @@ declare module Microsoft.Maps {
          * @param options A set of options that customize how the XML is writen.
          */
         export function write(shapes: Map | IPrimitive | IPrimitive[] | Layer | GroundOverlay[] | IGeoXmlDataSet, options?: IGeoXmlWriteOptions): string;
-
+        
         /**
          * Writes Bing Maps shape data to a geospatial XML file embedded in a compressed file.
          * @param shapes The Bing Maps shapes, or map to retrieve shapes from, to write.
@@ -4727,7 +4328,7 @@ declare module Microsoft.Maps {
          * @param options The options used to render the layer.
          */
         constructor(dataSource?: string | ArrayBuffer, isUrl?: boolean, options?: IGeoXmlLayerOptions);
-
+        
         /**
          * Removes all the data in the layer.
          */
@@ -4781,7 +4382,52 @@ declare module Microsoft.Maps {
          */
         public setVisible(visible: boolean): void;
     }
+
+
+    export module Events {
+        /////////////////////////////////////
+        /// addHandler Definitions
+        ////////////////////////////////////
+
+        /**
+        * Attaches the handler for the event that is thrown by the target. Use the return object to remove the handler using the removeHandler method.
+        * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
+        * @param eventName The type of event to attach. Supported Events:
+        * click, dblclick, mousedown, mouseout, mouseover, mouseup, rightclick
+        * @param handler The callback function to handle the event when triggered. 
+        * @returns The handler id.
+        */
+        export function addHandler(target: GeoXmlLayer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): IHandlerId;
+        
+        /////////////////////////////////////
+        /// addOne Definitions
+        ////////////////////////////////////
+        
+        /**
+         * Attaches the handler for the event that is thrown by the target, but only triggers the handler the first once after being attached.
+         * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
+         * @param eventName The type of event to attach. Supported Events:
+         * click, dblclick, mousedown, mouseout, mouseover, mouseup, rightclick
+         * @param handler The callback function to handle the event when triggered.
+         */
+        export function addOne(target: GeoXmlLayer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): void;
+
+        /////////////////////////////////////
+        /// addThrottledHandler Definitions
+        ////////////////////////////////////
+
+        /**
+        * Attaches the handler for the event that is thrown by the target, where the minimum interval between events (in milliseconds) is specified as a parameter.
+        * @param target The object to attach the event to; Map, IPrimitive, Infobox, Layer, DrawingTools, DrawingManager, DirectionsManager, etc.
+        * @param eventName The type of event to attach. Supported Events:
+        * click, dblclick, mousedown, mouseout, mouseover, mouseup, rightclick
+        * @param handler The callback function to handle the event when triggered. 
+        * @returns The handler id.
+        */
+        export function addThrottledHandler(target: GeoXmlLayer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): IHandlerId;
+    }
 }
+
 
 declare module Microsoft.Maps {
     /** Options for customizing how the heat map is rendered. */
@@ -4807,12 +4453,12 @@ declare module Microsoft.Maps {
         * The opacity of the HeatMapLayer canvas. Value should be a decimal between 0 and 1. Default: 1
         */
         opacity?: number;
-
+        
         /**
         * The radius to draw each data point on the map. Default: 10
         */
         radius?: number;
-
+        
         /**
         * The distance units of the radius. Possible values are:
         * 
@@ -4846,7 +4492,7 @@ declare module Microsoft.Maps {
 
         /** Disposes the heat map layer. */
         public dispose(): void;
-
+        
         /**
          * Gets a boolean indicating if the heat map layer is visible or not.
          * @returns A boolean indicating if the heat map layer is visible or not.
@@ -4881,10 +4527,15 @@ declare module Microsoft.Maps {
         * @deprecated
         * Shows the heat map layer.
         */
-        public show(): void;
+        public show(): void;        
     }
 }
 
+
+/**
+ * Provides an easy method for geocoding address and searching for points of interest from JavaScript.
+ * @requires The Microsoft.Maps.Search module.
+ */
 declare module Microsoft.Maps.Search {
 
     /** 
@@ -4930,9 +4581,9 @@ declare module Microsoft.Maps.Search {
     export interface IGeocodeLocation {
         /** The latitude of the location. */
         latitude: number;
-
-        /** The longitude of the location. */
-        longitude: number;
+		
+		/** The longitude of the location. */
+		longitude: number;
 
         /** The name of this geocode location match. */
         name: string;
@@ -4941,7 +4592,7 @@ declare module Microsoft.Maps.Search {
 		 * The precision of this geocode location match. 
 		 * Possible Values: Interpolated, InterpolatedOffset, Rooftop, Parcel
 		 */
-        precision: string;
+        precision: string ;
     }
 
     /** An object that represents an place result. */
@@ -5015,7 +4666,7 @@ declare module Microsoft.Maps.Search {
         userData?: any;
 
         /** A string containing the address or place to be matched to a location on the map.  */
-        where: string;
+         where: string;
     }
 
     /** The options for a reverse geocode request. */
@@ -5095,6 +4746,7 @@ declare module Microsoft.Maps.Search {
         public reverseGeocode(request: ReverseGeocodeRequestOptions): void;
     }
 }
+
 
 /**
  * This module wraps the Query and GeoData REST API’s in the Bing Spatial Dara Services and expose them as an easy to use JavaScript library.
@@ -5214,10 +4866,10 @@ declare module Microsoft.Maps.SpatialDataService {
 
         /** The culture associated with this entity. Example: en */
         OfficialCulture: string;
-
+    
         /** The approximate population within this entity. Example: PopClass20000to99999 */
         PopulationClass: string;
-
+    
         /** The regional culture associated with this entity. */
         RegionalCulture: string;
     }
@@ -5252,7 +4904,7 @@ declare module Microsoft.Maps.SpatialDataService {
         Copyright: string;
 
         /** The location provided in the query that generated this result. */
-        location: string | Location;
+        location: string |  Location;
 
         /** Results of the boundary data. */
         results: IGeoDataResult[];
@@ -5337,7 +4989,7 @@ declare module Microsoft.Maps.SpatialDataService {
     /**
     * A Fitler object that defines the logic behind a filter expression that can be executed against a JSON object or generate
     * a filter string that can be used with the Bing Spatial Data Services.
-    */
+    */ 
     export interface IFilter {
         /**
         * Executes the filter logic against a JSON object and returns a boolean indicating if the object meets the requirements of the Filter.
@@ -5437,7 +5089,7 @@ declare module Microsoft.Maps.SpatialDataService {
         /** Intersection object. Can be a well known text string or a LocationRect object (only for intersects filter). */
         intersects?: string | LocationRect | IPrimitive;
     }
-
+    
     /** Options for find near route query API. */
     export interface IFindNearRouteOptions extends ISpatialFilterOptions {
         /** 
@@ -5539,6 +5191,7 @@ declare module Microsoft.Maps.SpatialDataService {
     }
 }
 
+
 /**
  * This module provides a bunch of useful spatial math calculations.
  * @requires The Microsoft.Maps.SpatialMath module.
@@ -5618,15 +5271,15 @@ declare module Microsoft.Maps.SpatialMath {
      **/
     export function convertDistance(distance: number, fromUnits: DistanceUnits, toUnits: DistanceUnits): number;
 
-    /**
-    * Calculates an array of locations that form a cardinal spline between the specified array of locations.
-    * @param locations The array of locations to calculate the spline through.
-    * @param tension A number that indicates the tightness of the curve. Can be any number, although a value between 0 and 1 is usually used. Default: 0.5
-    * @param nodeSize Number of nodes to insert between each Location. Default: 15
-    * @param close A boolean indicating if the spline should be a closed ring or not. Default: false
-    * @returns An array of locations that form a cardinal spline between the specified array of locations.
-    */
-    export function getCardinalSpline(locations: Location[], tension?: number, nodeSize?: number, close?: boolean): Location[];
+     /**
+     * Calculates an array of locations that form a cardinal spline between the specified array of locations.
+     * @param locations The array of locations to calculate the spline through.
+     * @param tension A number that indicates the tightness of the curve. Can be any number, although a value between 0 and 1 is usually used. Default: 0.5
+     * @param nodeSize Number of nodes to insert between each Location. Default: 15
+     * @param close A boolean indicating if the spline should be a closed ring or not. Default: false
+     * @returns An array of locations that form a cardinal spline between the specified array of locations.
+     */
+    export function getCardinalSpline(locations: Location[], tension ?: number, nodeSize ?: number, close ?: boolean): Location[];
 
     /**
      * Calculates a destination Location based on a starting Location, a heading, a distance, and a distance unit type.
@@ -5964,7 +5617,7 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
      * @param highAccuracy If set to true, uses the more accurate Vincenty algorithm for calcuating distances. Otherwise the faster Haversine formula is used. 
      * @returns The distance between all Locations in a polyline or the perimeter of a ploygon on the surface of a earth in the specifed units.
      */
-    export function calculateLength(shape: IPrimitive | IPrimitive[], units?: DistanceUnits, highAccuracy?: boolean): number;
+    export function calculateLength(shape: IPrimitive | IPrimitive[], units ?: DistanceUnits, highAccuracy ?: boolean): number;
 
     /**
      * Takes a shape and returns a copy of it that meets the requirements of an SQL Geography type and other OGC compliant systems. Polylines & Polygons can't be self intersecting. For Polygons, 
@@ -6066,28 +5719,6 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
     export function voronoiDiagram(shapes: Location | IPrimitive | (Location | IPrimitive)[], clipRegion?: LocationRect | Polygon, options?: IPolygonOptions): Polygon[];
 }
 
-declare module Microsoft.Maps {
-    /**
-     * Class responsible for readon/writing geo data in well known text format
-     * @requires The Microsoft.Maps.WellKnownText module.
-     */
-    export module WellKnownText {
-        /**
-         * Reads the data in wellknowntext format and returns the shapes. Multi-Geometry type shapes are returned as an array of shapes.
-         * @param wkt The well known text string that needs to be parsed into shapes.
-         * @param styles Styles to apply to the shapes.
-         * @returns One of more shapes.
-         */
-        export function read(wkt: string, styles?: IStylesOptions): IPrimitive | IPrimitive[];
-
-        /**
-         * Writes the data into wellknowntext format.
-         * @param data The data that needs to be serialized.
-         * @returns Well known text formatted string.
-         */
-        export function write(data: IPrimitive | IPrimitive[]): string;
-    }
-}
 
 /**
  * Adds a traffic incident and flow data to the map.
@@ -6155,5 +5786,537 @@ declare module Microsoft.Maps.Traffic {
         /** Displays the traffic legend. */
         public showLegend(): void;
 
+    }
+}
+
+
+declare module Microsoft.Maps {
+    /**
+     * Class responsible for readon/writing geo data in well known text format
+     * @requires The Microsoft.Maps.WellKnownText module.
+     */
+    export module WellKnownText {
+        /**
+         * Reads the data in wellknowntext format and returns the shapes. Multi-Geometry type shapes are returned as an array of shapes.
+         * @param wkt The well known text string that needs to be parsed into shapes.
+         * @param styles Styles to apply to the shapes.
+         * @returns One of more shapes.
+         */
+        export function read(wkt: string, styles?: IStylesOptions): IPrimitive | IPrimitive[];
+
+        /**
+         * Writes the data into wellknowntext format.
+         * @param data The data that needs to be serialized.
+         * @returns Well known text formatted string.
+         */
+        export function write(data: IPrimitive | IPrimitive[]): string;
+    }
+}
+
+
+declare module Microsoft.Maps {
+    /** Options used to customize the autosuggest functionality. */
+    export interface IAutosuggestOptions {
+        /** Specifies if street address suggestions should be returned. Default: true */
+        addressSuggestions?: boolean;
+
+        /**
+        * Specifies if the user’s location should be auto detected using their IP address, if no location information is provided
+        * in the userLocation property. Default: true
+        */
+        autoDetectLocation?: boolean;
+
+        /**
+        * A bounding box that is used to help influence the results such that locations that are in or near this bounding box
+        * are given more weight than they would normally.
+        */
+        bounds?: LocationRect;
+
+        /**
+        * A string specifying the ISO 3166-1 alpha-2 country region code which is used to limit suggests to a single country.
+        * https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+        */
+        countryCode?: string;
+
+        /**
+        * A reference to a map instance. If the useMapView property is set to true, the bounding box of the map view will be used
+        * to influence the weight of suggestions.
+        */
+        map?: Map;
+
+        /** The maximum number of results to return. Can be any value between 1 and 10. Default: 5 */
+        maxResults?: number;
+
+        /** Specifies if place suggestions (city, landmark, etc.) should be returned. Default: true */
+        placeSuggestions?: boolean;
+
+        /**
+        * Indicates if the maps bounding box should be used to influence the suggested results. Ignored if the bounds property is
+        * set. Default: true
+        */
+        useMapView?: boolean;
+
+        /** A coordinate indicating where the user is located. This will influence the results to be more relevant to the user. */
+        userLocation?: Location;
+    }
+
+    /** Represents the suggestion result from the Autosuggest manager. */
+    export interface ISuggestionResult {
+        /** A structured address object for the result.  */
+        address: IAddress;
+
+        /** A LocationRect that can be used to set the map view over the result. */
+        bestView: LocationRect;
+
+        /** Unique entity id to be used for searching the entity. */
+        entityId: string;
+
+        /** The type of the result; Address, Place */
+        entityType: string;
+
+        /** The sub type of result; Address, RoadBlock, PopulatedPlace, CountryRegion, etc. */
+        entitySubType: string;
+
+        /** A nicely formatted suggestion string for the result based on market. */
+        formattedSuggestion: string;
+
+        /**
+        * The coordinate of the result. This value is only returned for place (city, landmarks) results and not for addresses.
+        * Street addresses will need to be geocoded to get their location.
+        */
+        location: Location;
+
+        /** A secondary title that provides additional context to the title value of the suggestion. **/
+        subtitle: string;
+
+        /** The display title for the result (i.e. “Redmond”). */
+        title: string;
+    }
+
+    /**
+     * The AutosuggestManager is the primary class in the Autosuggest module that powers the autosuggest functionality.
+     * @requires The Microsoft.Maps.Autosuggest module.
+     */
+    export class AutosuggestManager {
+       /**
+       * @constructor
+       * @requires The Microsoft.Maps.Autosuggest module.
+       * @param options The options to use with the autosuggest manager.
+       */
+        constructor(options?: IAutosuggestOptions);
+
+        /**
+        * Attaches the Autosuggest functionality to an input box.
+        * @param suggestionBoxId The HTML element identifier of the input box.
+        * @param suggestionContainerId The Id of container where suggestions will be displayed.
+        * @param selectedSuggestionCallback A reference to a callback function that will be called when a user selects a suggestion from the Autosuggest UI.
+        */
+        public attachAutosuggest(suggestionBoxId: string, suggestionContainerId: string, selectedSuggestionCallback: (result: ISuggestionResult) => void) : void;
+
+        /** Detaches the autosuggest functionality from the input box, freeing any resources it has or events it has tied to. */
+        public detachAutosuggest(): void;
+
+        /** Disposes the Autosuggest object, freeing any resources it has or events it has tied to. */
+        public dispose(): void;
+
+        /**
+        * Gets the options currently used by the autosuggest manager.
+        * @returns The options currently used by the autosuggest manager.
+        */
+        public getOptions(): IAutosuggestOptions;
+
+        /**
+         * Programmatically retrieves suggestions for queries without the need to attach a textbox to the AutosuggestManager.
+         * @param query The text to get suggestions for.
+         * @param callback The callback function to return the suggestions to.
+         */
+        public getSuggestions(query: string, callback: (suggestions: ISuggestionResult[], query: string) => void): void;
+
+        /**
+        * Sets the options currently used by the autosuggest manager.
+        * @param options The options to use with the autosuggest manager.
+        */
+        public setOptions(options?: IAutosuggestOptions): void;
+    }
+}
+
+
+declare module Microsoft.Maps {
+    /** The options used to customize how the ClusterLayer functions. */
+    export interface IClusterLayerOptions {
+        /**
+        * A callback function that is fired after the clustering for a map view has completed. This is useful if you want to generate a list of locations based on what is in the current view.
+        */
+        callback?: () => void;
+
+        /**
+        * A callback function that allows you to process a clustered pushpin before it is added to a layer. This is useful if you want to add events or set style options on the clustered pushpin.
+        */
+        clusteredPinCallback?: (pin: ClusterPushpin) => void;
+
+        /**
+        * Indicates if the layer should cluster the locations or not. Default: true
+        */
+        clusteringEnabled?: boolean;
+
+        /**
+        * Defines how clusters are positioned on the map. Default: MeanAverage
+        */
+        clusterPlacementType?: ClusterPlacementType;
+
+        /**
+        * The width and height of the gird cells used for clustering in pixels. Default: 45
+        */
+        gridSize?: number;
+
+        /**
+        * Offsets the placement of clustered pushpins by a set number of pixels. This option is only available when the placement type is set to GridCenter.
+        * This is useful if you have multiple cluster layers on the map and you want to offset the clustered pushpins between the layers so that they are visible,
+        * otherwise the clusters from the different layers would overlap completely.
+        */
+        layerOffset?: Point;
+
+        /**
+        * A boolean indicating if the layer is visible or not.
+        */
+        visible?: boolean;
+
+        /**
+        * The z-index of the layer.
+        */
+        zIndex?: number;
+    }
+
+    /**
+    * Used to specify how a clustered pushpin should be positioned relative to the pushpins it contains.
+    * @requires The Microsoft.Maps.Clustering module.
+    */
+    export enum ClusterPlacementType {
+        /**
+        * Mean Average placement calculates the average position of a group of coordinates. This method creates a more realistic representation of the data,
+        * however requires more processing power and increases the chances of pushpins overlapping.
+        */
+        MeanAverage,
+
+        /**
+        * This method is the simplest way to represent a cluster. It places the cluster at the first location in the cluster. This method may not accurately
+        * represent the data but requires little processing power.
+        */
+        FirstLocation
+    }
+
+    /**
+     * This class extends the Pushpin class and has all the same methods and properties plus the following properties.
+     * @requires The Microsoft.Maps.Clustering module.
+     */
+    export class ClusterPushpin extends Pushpin {
+        /** An array of all the pushpins that are in the cluster. */
+        containedPushpins: Pushpin[];
+
+        /**
+        * The grid cell key that can be used retrieve the clustered pushpin(s) from the clustering layer. This is useful when creating a clickable list that
+        * link items in the list to clusters or pushpins on the map. Your list just needs to store the gridKey value.
+        */
+        gridKey: number;
+    }
+
+    /**
+     * This class allows you to easily add in client side clustering to your application. Client Side Clustering is a method where pushpins that are close
+     * together are grouped and represented as a single pushpin, often using a different icon to indicate the cluster. This is a great way to improve both
+     * the user experience and performance of the map.
+     * @requires The Microsoft.Maps.Clustering module.
+     */
+    export class ClusterLayer implements IDataLayer {
+        /**
+        * @constructor
+        * @requires The Microsoft.Maps.Clustering module.
+        * @param pushpins An array of pushpins to cluster in the layer.
+        * @param options The options used to customize how the ClusterLayer functions.
+        */
+        constructor(pushpins: Pushpin[], options?: IClusterLayerOptions);
+
+        /** Clears all the data in the cluster layer. */
+        public clear(): void;
+
+        /**
+        * Gets all the pushpins that are in the current map view. If clustering is disabled, all pushpins in the clustering layer are returned.
+        * @returns All the pushpins that are in the current map view. If clustering is disabled, all pushpins in the clustering layer are returned.
+        */
+        public getDisplayedPushpins(): Pushpin[];
+
+        /**
+        * Gets the current options used by the cluster layer.
+        * @returns The current options used by the cluster layer.
+        */
+        public getOptions(): IClusterLayerOptions;
+
+        /**
+        * Gets all pushpins that are in the layers.
+        * @returns An array of all the pushpins that are in the layers.
+        */
+        public getPushpins(): Pushpin[];
+
+        /**
+        * Gets the original pushpins that are in the specified grid cell.
+        * @param The gridKey index to retrieve the pushpins for.
+        * @returns The original pushpins that are in the specified grid cell.
+        */
+        public getPushpinsByGridKey(gridKey: number): Pushpin[];
+
+        /**
+        * Gets the pushpin in the specified cluster grid cell which can be either a ClusterPushpin if there are multiple pushpins in a cell or a single Pushpin.
+        * @param The gridKey index to retrieve the pushpins for.
+        * @returns The pushpin in the specified cluster grid cell which can be either a ClusterPushpin if there are multiple pushpins in a cell or a single Pushpin.
+        */
+        public getClusterPushpinByGridKey(gridKey: number): ClusterPushpin | Pushpin;
+
+        /**
+        * Sets the clustering options to use in the layer.
+        * @params options The clustering options to use in the layer.
+        */
+        public setOptions(options: IClusterLayerOptions): void;
+
+        /**
+        * Sets the array of pushpins that are used in the clustering layer.
+        * @param pushpins An array of pushpins that are to be used by the clustering layer.
+        */
+        public setPushpins(pushpins: Pushpin[]): void;
+    }
+}
+
+
+declare module Microsoft.Maps {
+
+    /** 
+     * The contour layer options
+     */
+    interface IContourLayerOptions {
+        /** The z-index of this layer */
+        zIndex?: number;
+
+        /** Whether the layer is visible */
+        visible?: boolean;
+
+        /** A callback function which defines the color of the contour line fill. */
+        colorCallback?: (contourValue: number | string) => string | Color;
+
+        /** The polygon options that apply to all contour lines of this layer */
+        polygonOptions?: IPolygonOptions;
+    }
+
+    /**
+     * The contour line of a contour layer
+     */
+    export class ContourLine extends Polygon {
+        /** The contour lines that are directly nested inside this contour line */
+        public innerContourLines: ContourLine[];
+
+        /** The outer/parent contour line of this contour */
+        public outerContourLine: ContourLine;
+
+        /** The data value associated with this contour line */
+        public contourValue: number | string;
+
+        /**
+         * @constructor
+         * @param boundary The boundary of this contour line
+         * @param contourValue The value associated with this contour line
+         */
+        constructor(boundary: Location[], contourValue?: number | string);
+    }
+
+    /**
+     * The contour layer class.
+     */
+    export class ContourLayer extends Layer {
+        /**
+         * @constructor
+         * @param contourLines The contour lines that compose this layer.
+         * @param options The contour layer options.
+         */
+        constructor(contourLines: ContourLine[], options?: IContourLayerOptions);
+
+        /**
+         * Clears all data on the contour layer.
+         */
+        public clear(): void;
+
+        /**
+         * Gets the contour lines of this layer.
+         * @returns The contour lines of this layer.
+         */
+        public getContourLines(): ContourLine[];
+
+        /**
+         * Gets the polygons that were generated from the contour lines in this layer.
+         * @returns The polygons that were generated from the contour lines in this layer.
+         */
+        public getContourPolygons(): Polygon[];
+
+        /**
+         * Retrieves the options of this contour layer.
+         * @returns The options of this contour layer.
+         */
+        public getOptions(): IContourLayerOptions;
+
+        /**
+         * Sets the contour lines used to calculate the polygon areas of this layer.
+         * @param contourLines The contour lines used to calculate the polygon areas of this layer.
+         */
+        public setContourLines(contourLines: ContourLine[]): void;
+
+        /**
+         * Sets the options of the contour layer.
+         * @param options The new options to update the layer.
+         */
+        public setOptions(options: IContourLayerOptions): void;
+    }
+}
+
+
+declare module Microsoft.Maps {
+
+    /**
+     * Specifies the shape of data bin rendered in the layer.
+     */
+    export enum DataBinType {
+        /* Renders data bins as circles in a square grid. */
+        circle,
+
+        /* Renders data bins as hexagons with a flat top edge. */
+        hexagon,
+
+        /* Renders data bins as circles in a hexagonal grid. */
+        hexCircle,
+
+        /* Renders data bins as hexagons with a pointy top corner. */
+        pointyHexagon,
+
+        /* Renders data bins as a square grid. */
+        square
+    }
+
+    /**
+     * A set options the define how a data binning layer is rendered.
+     */
+    export interface IDataBinningOptions {
+        /* The name of a property in the Pushpin.metadata object on which to perform calculations (average, count, sum) against the pushpins in each data bin. */
+        aggregationProperty?: string;
+
+        /*
+         * A callback function which defines the color a data bin polygon should be. This callback recieves data bin information
+         * along with the min and max calculated metrics for the data set. If set, this callback function must return a color value.
+         */
+        colorCallback?: (binInfo: IDataBinInfo, min: IDataBinMetrics, max: IDataBinMetrics) => string | Color;
+
+        /* The shape of the data bin to generate. Default: hexagon */
+        dataBinType?: DataBinType;
+
+        /* The distance units of the radius option. Default: meters */
+        distanceUnits?: SpatialMath.DistanceUnits;
+
+        /* The default options used for rendering the data bin polygons. */
+        polygonOptions?: IPolygonOptions;
+
+        /*
+         * A spatial distance which will be converted into a pixel distance at the equater and used to generate symetrically sized data bins
+         * that have the apprimate spatial distance radius. Default: 1000
+         */
+        radius?: number;
+
+        /*
+         * A callback function which defines how much to scale a data bins size. This callback recieves data bin information
+         * along with the min and max calculated metrics for the data set. If set, this callback function must return a number between 0 and 1.
+         */
+        scaleCallback?: (binInfo: IDataBinInfo, min: IDataBinMetrics, max: IDataBinMetrics) => number;
+    }
+
+    /**
+    * A set of values calculated from the pushpins in a data bin.
+    */
+    export interface IDataBinMetrics {
+
+        /* The average value of the aggregation property of the pushpins in a data bin. */
+        average?: number;
+
+        /* The number of pushpins in a data bin. */
+        count?: number;
+
+        /* The number of pushpins in the data bin who's aggregation property has a value. */
+        countNotBlank?: number;
+
+        /* The number of pushpins in the data bin who's aggregation property is a valid number. */
+        countNumbers?: number;
+
+        /* The sum of the aggregation property of the pushpins in a data bin.  */
+        sum?: number;
+    }
+
+    /**
+    * The result of a calculated data bin.
+    */
+    export interface IDataBinInfo {
+        /* An array of all the pushpins that are in the data bin. */
+        containedPushpins: Microsoft.Maps.Pushpin[];
+
+        /* A set of calculated metric values determined using the aggregationProperty value of all the pushpins contained in the data bin. */
+        metrics: IDataBinMetrics;
+    }
+
+    /**
+     *  A polygon which represents a data bin on the map and contains the data bin information. 
+     */
+
+    export class DataBinPolygon extends Polygon {
+        /* Information about the data bin; the contained pushpins and calculated metrics. */
+        public dataBinInfo: IDataBinInfo;
+    }
+
+    /**
+     * This class provides a data binning visualization for the map. It takes in an array of pushpins, groups them into
+     * symmetrical shapes that fit together in a grid such as hexagons. Aggregation of data values are done and can be
+     * used to customize how the data bins are rendered on the map (i.e. scale / color) .
+     */
+    export class DataBinningLayer extends Layer {
+        /**
+         * Initializes the data binning layer.
+         * @param pushpins The array of pushpins that are used to generate the data bins.
+         * @param options The options used for calculating and rendering the data bins.
+         */
+        constructor(pushpins?: Pushpin[], options?: IDataBinningOptions);
+
+        /**
+         * Gets the options used for calculating and rendering the data bins.
+         * @returns The options used for calculating and rendering the data bins.
+         */
+        public getOptions(): IDataBinningOptions;
+
+        /**
+         * Gets all pushpins that are in the layers.
+         * @returns All pushpins that are in the layers.
+         */
+        public getPushpins(): Pushpin[];
+
+        /**
+         * Sets the array of pushpins that are used to generate the data bins.
+         * @param pushpins The array of pushpins that are used to generate the data bins.
+         */
+        public setPushpins(pushpins: Pushpin[]): void;
+
+        /**
+         * Clears all the data in the data binning layer.
+         */
+        public clear(): void;
+
+        /**
+         * Cleans up any resources this object is consuming.
+         */
+        public dispose(): void;
+
+        /**
+         * Sets the options used for calculating and rendering the data bins.
+         * @param options The options used for calculating and rendering the data bins.
+         */
+        public setOptions(options: IDataBinningOptions): void;
     }
 }
