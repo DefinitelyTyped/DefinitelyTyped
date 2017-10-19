@@ -11608,7 +11608,7 @@ declare namespace _ {
     }
 
     //_.cloneDeepWith
-    type CloneDeepWithCustomizer<TValue, TResult> = (value: TValue, key?: number|string, object?: any, stack?: any) => TResult;
+    type CloneDeepWithCustomizer = (value: any, key?: number|string, object?: any, stack?: any) => any;
 
     interface LoDashStatic {
         /**
@@ -11620,7 +11620,7 @@ declare namespace _ {
          */
         cloneDeepWith<TResult>(
             value: any,
-            customizer?: CloneDeepWithCustomizer<any, TResult>
+            customizer?: CloneDeepWithCustomizer
         ): TResult;
 
         /**
@@ -11628,7 +11628,7 @@ declare namespace _ {
          */
         cloneDeepWith<T, TResult>(
             value: T,
-            customizer?: CloneDeepWithCustomizer<T, TResult>
+            customizer?: CloneDeepWithCustomizer
         ): TResult;
     }
 
