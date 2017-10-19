@@ -15,14 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "classic.d.ts",
-        "compat.d.ts",
-        "test/react-relay-tests.tsx",
-        "test/react-relay-classic-tests.tsx"
+        "relay-runtime-tests.tsx"
     ]
 }
