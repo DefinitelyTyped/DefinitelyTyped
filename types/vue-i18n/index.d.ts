@@ -2,6 +2,7 @@
 // Project: https://github.com/kazupon/vue-i18n
 // Definitions by: Kombu <https://github.com/aicest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import Vue, { PluginFunction } from 'vue';
 
