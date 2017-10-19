@@ -1107,6 +1107,7 @@ declare namespace R {
          * Any extraneous parameters will not be passed to the supplied function.
          */
         nAry(n: number, fn: (...arg: any[]) => any): (...a: any[]) => any;
+        nAry(n: number): (fn: (...arg: any[]) => any) => (...a: any[]) => any;
 
         /**
          * Negates its argument.
