@@ -9,7 +9,7 @@
 import * as Stream from 'stream';
 
 declare class SerialPort extends Stream.Duplex {
-  constructor(path: string, callback?: SerialPort.ErrorCallback)
+	constructor(path: string, callback?: SerialPort.ErrorCallback);
 	constructor(path: string, options?: SerialPort.OpenOptions, callback?: SerialPort.ErrorCallback);
 
 	open(callback?: SerialPort.ErrorCallback): void;

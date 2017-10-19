@@ -61,7 +61,7 @@ declare namespace SerialPort {
 
 	type callback = (error: any) => void;
 
-	export interface Parsers {
+	interface Parsers {
 		Raw: serialParser;
 		Readline: readlineParser;
 		ByteLength: byteLengthParser;
@@ -69,7 +69,7 @@ declare namespace SerialPort {
 	}
 
 	// https://github.com/EmergingTechnologyAdvisors/node-serialport/blob/4.0.7/README.md#user-content-serialport-path-options-opencallback
-	export interface Options {
+	interface Options {
 		autoOpen?: boolean;
 		lock?: boolean;
 		baudRate?: 115200|57600|38400|19200|9600|4800|2400|1800|1200|600|300|200|150|134|110|75|50|number;
