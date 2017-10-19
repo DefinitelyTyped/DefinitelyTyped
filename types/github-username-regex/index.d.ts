@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const githubUsernameRegex: RegExp;
-export default githubUsernameRegex;
+export = githubUsernameRegex;
