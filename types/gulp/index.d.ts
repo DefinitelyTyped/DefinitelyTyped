@@ -5,11 +5,11 @@
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as vfs from "vinyl-fs";
-import * as chokidar from "chokidar";
-import * as Undertaker from "undertaker";
-import * as fs from "fs";
-import { Duplex } from "stream";
+import * as vfs from 'vinyl-fs';
+import * as chokidar from 'chokidar';
+import * as Undertaker from 'undertaker';
+import * as fs from 'fs';
+import { Duplex } from 'stream';
 
 declare namespace GulpClient {
     type Globs = string | string[];
@@ -33,14 +33,12 @@ declare namespace GulpClient {
          * Can be piped to and it will write files. Re-emits all data passed to it so you can pipe to multiple folders.
          * Folders that don't exist will be created.
          * @param path The path (output folder) to write files to. Or a function that returns it, the function will be provided a vinyl File instance.
-         * @param options
          */
         dest: DestMethod;
 
         /**
          * Functions exactly like gulp.dest, but will create symlinks instead of copying a directory.
          * @param folder A folder path or a function that receives in a file and returns a folder path.
-         * @param options
          */
         symlink: typeof vfs.symlink;
 
@@ -70,7 +68,11 @@ declare namespace GulpClient {
 
     interface WatchMethod {
         (globs: Globs, fn?: Undertaker.TaskFunction): fs.FSWatcher;
-        (globs: Globs, opts?: WatchOptions, fn?: Undertaker.TaskFunction): fs.FSWatcher;
+        (
+            globs: Globs,
+            opts?: WatchOptions,
+            fn?: Undertaker.TaskFunction
+        ): fs.FSWatcher;
     }
 
     type SrcMethod = typeof vfs.src;

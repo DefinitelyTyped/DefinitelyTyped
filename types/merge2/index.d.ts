@@ -20,11 +20,36 @@
  *
  * @return         A merged duplex stream
  */
-declare function merge2(a: Streams, options?: merge2.Options): merge2.Merge2Stream;
-declare function merge2(a: Streams, b: Streams, options?: merge2.Options): merge2.Merge2Stream;
-declare function merge2(a: Streams, b: Streams, c: Streams, options?: merge2.Options): merge2.Merge2Stream;
-declare function merge2(a: Streams, b: Streams, c: Streams, d: Streams, options?: merge2.Options): merge2.Merge2Stream;
-declare function merge2(a: Streams, b: Streams, c: Streams, d: Streams, e: Streams, options?: merge2.Options): merge2.Merge2Stream;
+declare function merge2(
+    a: Streams,
+    options?: merge2.Options
+): merge2.Merge2Stream;
+declare function merge2(
+    a: Streams,
+    b: Streams,
+    options?: merge2.Options
+): merge2.Merge2Stream;
+declare function merge2(
+    a: Streams,
+    b: Streams,
+    c: Streams,
+    options?: merge2.Options
+): merge2.Merge2Stream;
+declare function merge2(
+    a: Streams,
+    b: Streams,
+    c: Streams,
+    d: Streams,
+    options?: merge2.Options
+): merge2.Merge2Stream;
+declare function merge2(
+    a: Streams,
+    b: Streams,
+    c: Streams,
+    d: Streams,
+    e: Streams,
+    options?: merge2.Options
+): merge2.Merge2Stream;
 declare function merge2(...args: Streams[]): merge2.Merge2Stream;
 
 type Streams = merge2.StreamType | merge2.StreamType[];
@@ -52,7 +77,6 @@ declare namespace merge2 {
          *             If you set end === false in options, this event give you a notice that
          *             you should add more streams to merge, or end the mergedStream.
          *
-         * @param      {string} event  The 'queueDrain' event
          *
          * @return     This stream
          */
