@@ -796,8 +796,10 @@ declare module "querystring" {
         decodeURIComponent?: Function;
     }
 
+    interface ParsedUrlQuery { [key: string]: string | string[]; }
+
     export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
-    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): { [key: string]: string | string[] };
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
@@ -2171,6 +2173,8 @@ declare module "child_process" {
 }
 
 declare module "url" {
+    import { ParsedUrlQuery } from 'querystring';
+
     export interface InputUrlObject {
         auth?: string;
         hash?: string;
@@ -2181,7 +2185,7 @@ declare module "url" {
         pathname?: string;
         port?: string | number;
         protocol?: string;
-        query?: string | null | { [key: string]: string | string[] };
+        query?: string | null | ParsedUrlQuery;
         search?: string;
         slashes?: boolean;
     }
