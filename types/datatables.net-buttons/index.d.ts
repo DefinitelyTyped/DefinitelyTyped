@@ -30,14 +30,12 @@ declare namespace DataTables {
     }
 
     interface Api {
-        button(): ButtonApi;
-        button(groupSelector: any, buttonSelector: any): ButtonApi;
+        button(groupSelector?: any, buttonSelector?: any): ButtonApi;
         buttons: ButtonsGlobalApi;
     }
 
     interface ButtonsGlobalApi {
-        (): ButtonsApi;
-        (groupSelector: any, buttonSelector: any): ButtonsApi;
+        (groupSelector?: any, buttonSelector?: any): ButtonsApi;
 
         /**
          * Resize the Flash movie clips to take account of the current button dimensions.

@@ -13,7 +13,7 @@ let dt: DataTables.Api = $("selector").DataTable({
 });
 
 // Statics
-let fixed_1 = new $.fn.dataTable.FixedHeader(dt, { 
+let fixed_1 = new $.fn.dataTable.FixedHeader(dt, {
     footer: true,
 });
 
@@ -32,5 +32,3 @@ dt.fixedHeader.enable(true);
 dt
     .fixedHeader.footerOffset(10)
     .fixedHeader.headerOffset(10);
-
-    
