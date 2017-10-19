@@ -509,7 +509,13 @@ namespace TestInjector {
         }
 
         const anyFunction: Function = foobar;
-        const anyResult: string = $injector.invoke(anyFunction);
+        let anyResult: string = $injector.invoke(anyFunction);
+
+        const inlineAnnotatedFunction: any[] = [false, foobar];
+        anyResult = $injector.invoke(inlineAnnotatedFunction);
+        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext', 'anyLocals');
+        anyResult = $injector.invoke(inlineAnnotatedFunction, 'anyContext');
+        anyResult = $injector.invoke(inlineAnnotatedFunction, undefined, 'anyLocals');
     }
 }
 

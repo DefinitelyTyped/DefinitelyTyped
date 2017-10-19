@@ -105,8 +105,9 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language): JSX.Element {
-        return <span>{suggestion.name}</span>;
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+        const className = params.isHighlighted ? "highlighted" : undefined;
+        return <span className={className}>{suggestion.name}</span>;
     }
     // endregion region Event handlers
     protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
@@ -223,7 +224,8 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
 
         this.state = {
             value: '',
-            suggestions: this.getSuggestions('')
+            suggestions: this.getSuggestions(''),
+            highlighted: ''
         };
     }
     // endregion region Rendering methods
@@ -248,6 +250,10 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
             renderSuggestion={this.renderSuggestion}
             renderSectionTitle={this.renderSectionTitle}
             getSectionSuggestions={this.getSectionSuggestions}
+            onSuggestionHighlighted={this.onSuggestionHighlighted}
+            highlightFirstSuggestion={true}
+            renderInputComponent={this.renderInputComponent}
+            renderSuggestionsContainer={this.renderSuggestionsContainer}
             inputProps={inputProps}/>;
     }
 
@@ -256,12 +262,29 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         alert(`Selected language is ${language.name} (${language.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language): JSX.Element {
-        return <span>{suggestion.name}</span>;
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+        const className = params.isHighlighted ? "highlighted" : undefined;
+        return <span className={className}>{suggestion.name}</span>;
     }
 
     protected renderSectionTitle(section: LanguageGroup): JSX.Element {
         return <strong>{section.title}</strong>;
+    }
+
+    protected renderInputComponent(inputProps: Autosuggest.InputProps): JSX.Element {
+        return (
+            <div>
+                <input {...inputProps} />
+            </div>
+        );
+    }
+
+    protected renderSuggestionsContainer(containerProps: any, children: any, query: string): JSX.Element {
+        return (
+            <div {...containerProps}>
+                <span>{children}</span>
+            </div>
+        );
     }
     // endregion region Event handlers
     protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
@@ -302,6 +325,12 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
 
     protected getSectionSuggestions(section: LanguageGroup) {
         return section.languages;
+    }
+
+    protected onSuggestionHighlighted(params: Autosuggest.SuggestionHighlightedParams): void {
+        this.setState({
+            highlighted: params.suggestion
+        });
     }
     // endregion
 }
@@ -364,9 +393,9 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
             inputProps={inputProps}/>;
     }
 
-    protected renderSuggestion(suggestion: Person, {value, valueBeforeUpDown}: any): JSX.Element {
+    protected renderSuggestion(suggestion: Person, params: Autosuggest.RenderSuggestionParams): JSX.Element {
         const suggestionText = `${suggestion.first} ${suggestion.last}`;
-        const query = (valueBeforeUpDown || value).trim();
+        const query = params.query.trim();
         const parts = suggestionText
             .split(' ')
             .map((part: string) => {
