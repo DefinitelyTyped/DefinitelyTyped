@@ -87,9 +87,7 @@ export interface SecretCallback {
     (err: Error, secretOrPrivateKey: string | Buffer): void;
 }
 
-export interface SecretFunc {
-    (header: object, callback: SecretCallback): void;
-}
+export type SecretFunc = (header: object, callback: (err: Error, secretOrPrivateKey?: string | Buffer) => void) => void;
 
 export type Secret = string | Buffer | {key: string, passphrase: string}
 
