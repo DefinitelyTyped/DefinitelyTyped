@@ -18,7 +18,7 @@ declare namespace DataTables {
     }
 
     interface FixedHeaderStaticFunctions {
-        new (dt: DataTables.Api, settings: boolean | FixedHeaderSettings): undefined;
+        new (dt: Api, settings: boolean | FixedHeaderSettings): undefined;
         version: string;
         defaults: FixedHeaderSettings;
     }
@@ -31,27 +31,27 @@ declare namespace DataTables {
         /**
          * Recalculate the position of the DataTable on the page and adjust the fixed element as appropriate.
          */
-        adjust(): DataTables.Api;
+        adjust(): Api;
 
         /**
          * Disable the fixed elements
          */
-        disable(): DataTables.Api;
+        disable(): Api;
 
         /**
          * Enable / disable the fixed elements
          */
-        enable(enable: boolean): DataTables.Api;
+        enable(enable: boolean): Api;
 
         /**
          * Get the fixed footer's offset.
          */
-        footerOffset(offset: number): DataTables.Api;
+        footerOffset(offset: number): Api;
 
         /**
          * Get the fixed header's offset.
          */
-        headerOffset(offset: number): DataTables.Api;
+        headerOffset(offset: number): Api;
     }
 
     /*

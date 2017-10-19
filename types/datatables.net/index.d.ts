@@ -21,7 +21,7 @@ declare namespace DataTables {
          * Usage:
          * $( selector ).dataTable().api();
          */
-        api(): DataTables.Api;
+        api(): Api;
     }
 
     interface Api extends CoreMethods {
@@ -218,7 +218,7 @@ declare namespace DataTables {
          * @param event Event name to remove.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        off(event: string, callback?: ((e: Event, settings: DataTables.Settings, json: any) => void)): Api;
+        off(event: string, callback?: ((e: Event, settings: Settings, json: any) => void)): Api;
 
         /**
          * Table events listener.
@@ -226,7 +226,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        on(event: string, callback: ((e: Event, settings: DataTables.Settings, json: any) => void)): Api;
+        on(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -234,7 +234,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        one(event: string, callback: ((e: Event, settings: DataTables.Settings, json: any) => void)): Api;
+        one(event: string, callback: ((e: Event, settings: Settings, json: any) => void)): Api;
 
         /**
          * Page Methods / object
@@ -1091,7 +1091,7 @@ declare namespace DataTables {
          * @param visible As a boolean value this options is used to indicate if you want all tables on the page should be returned (false), or visible tables only (true).
          * Since 1.10.8 this option can also be given as an object.
          */
-        tables(visible?: boolean | objectTablesStatic): DataTables.Api[] | DataTables.Api;
+        tables(visible?: boolean | objectTablesStatic): Api[] | Api;
 
         /**
          * Version number compatibility check function
@@ -1112,7 +1112,7 @@ declare namespace DataTables {
          *
          * @param table Selector string for table
          */
-        Api: new (selector: string | Node | Node[] | JQuery) => DataTables.Api;
+        Api: new (selector: string | Node | Node[] | JQuery) => Api;
 
         /**
          * Default Settings
@@ -1623,7 +1623,7 @@ declare namespace DataTables {
     interface CellMetaSettings {
         row: number;
         col: number;
-        settings: DataTables.Settings;
+        settings: Settings;
     }
 
     //#endregion "colunm-settings"

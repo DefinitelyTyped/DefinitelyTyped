@@ -20,7 +20,7 @@ declare namespace DataTables {
     }
 
     interface ButtonStaticFunctions {
-        new (dt: DataTables.Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]): undefined;
+        new (dt: Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]): undefined;
         version: string;
         defaults: ButtonsSettings;
     }
@@ -40,12 +40,12 @@ declare namespace DataTables {
         /**
          * Resize the Flash movie clips to take account of the current button dimensions.
          */
-        resize(): DataTables.Api;
+        resize(): Api;
 
         /**
          * Display / hide an information message to the end user to indicate that something has happened.
          */
-        info(title: string, message?: string, time?: number): DataTables.Api;
+        info(title: string, message?: string, time?: number): Api;
 
         /**
          * Get meta information that is common to many different button types.
@@ -67,7 +67,7 @@ declare namespace DataTables {
         /**
          * Set the action function for the selected button.
          */
-        action(set: FunctionButtonAction): DataTables.Api;
+        action(set: FunctionButtonAction): Api;
 
         /**
          * Get the active state for the selected button.
@@ -77,22 +77,22 @@ declare namespace DataTables {
         /**
          * Set the active state for the selected button.
          */
-        active(state: boolean): DataTables.Api;
+        active(state: boolean): Api;
 
         /**
          * Create a new button, adding it to the selected button instance and inserting immediately into the document.
          */
-        add(index: number | string, config: string|FunctionButtom|ButtonSettings): DataTables.Api;
+        add(index: number | string, config: string|FunctionButtom|ButtonSettings): Api;
 
         /**
          * Disable the selected buttons.
          */
-        disable(): DataTables.Api;
+        disable(): Api;
 
         /**
          * Set the enabled state for the selected button.
          */
-        enable(state?: boolean): DataTables.Api;
+        enable(state?: boolean): Api;
 
         /**
          * Get a jQuery object that contains a reference to the node for the selected button.
@@ -108,27 +108,27 @@ declare namespace DataTables {
         /**
          * Set the processing state for the selected button.
          */
-        processing(set: boolean): DataTables.Api;
+        processing(set: boolean): Api;
 
         /**
          * Set the processing state for the selected button.
          */
-        processing(set: boolean): DataTables.Api;
+        processing(set: boolean): Api;
 
         /**
          * Remove the selected button from the display. The button is destroyed and can no longer be used once removed.
          */
-        remove(): DataTables.Api;
+        remove(): Api;
 
         /**
          * Get / Set the display text for the selected button
          */
-        text(title?: string | FunctionButtonText): DataTables.Api;
+        text(title?: string | FunctionButtonText): Api;
 
         /**
          * Programmatically trigger the action of the selected button.
          */
-        trigger(): DataTables.Api;
+        trigger(): Api;
     }
 
     interface ButtonsApi extends ButtonApi {
@@ -141,7 +141,7 @@ declare namespace DataTables {
         /**
          * Destroy the selected button instances, removing the container and all button elements from the document.
          */
-        destroy(): DataTables.Api;
+        destroy(): Api;
     }
 
     interface ButtonsApiExportInfoParameter {
@@ -277,15 +277,15 @@ declare namespace DataTables {
     /**
      * A function that will be executed upon creation of the buttons.
      */
-    type FunctionButtom = (dt: DataTables.Api) => ButtomSettingsCommon;
+    type FunctionButtom = (dt: Api) => ButtomSettingsCommon;
 
-    type FunctionButtonText = (dt: DataTables.Api, node: JQuery, config: any) => string;
+    type FunctionButtonText = (dt: Api, node: JQuery, config: any) => string;
 
-    type FunctionButtonAvailable = (dt: DataTables.Api, config: any) => boolean;
+    type FunctionButtonAvailable = (dt: Api, config: any) => boolean;
 
-    type FunctionButtonInit = (dt: DataTables.Api, node: JQuery, config: any) => void;
+    type FunctionButtonInit = (dt: Api, node: JQuery, config: any) => void;
 
-    type FunctionButtonAction = (e: any, dt: DataTables.Api, node: JQuery, config: ButtonSettings) => void;
+    type FunctionButtonAction = (e: any, dt: Api, node: JQuery, config: ButtonSettings) => void;
 
     type FunctionButtonCustomize = (win: Window|string) => void;
 
@@ -413,7 +413,7 @@ declare namespace DataTables {
         /**
          * PDF / PRINT: Extra message
          */
-        message?: string|DataTables.Api|JQuery|object;
+        message?: string|Api|JQuery|object;
 
         /**
          * PRINT: Show print dialoge on click
@@ -443,7 +443,7 @@ declare namespace DataTables {
 
     type FunctionButtonCustomizeData = (content: any) => void;
 
-    type FunctionButtonColvisColumnText = (dt: DataTables.Api, i: number, title: string) => string;
+    type FunctionButtonColvisColumnText = (dt: Api, i: number, title: string) => string;
 
     //#endregion "button-settings
 }
