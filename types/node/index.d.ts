@@ -6112,7 +6112,7 @@ declare module "http2" {
     }
 
     export interface ServerStreamFileResponseOptions {
-        statCheck?: (stats: fs.Stats, headers: IncomingHttpHeaders, statOptions: StatOptions) => void;
+        statCheck?: (stats: fs.Stats, headers: IncomingHttpHeaders, statOptions: StatOptions) => void|boolean;
         getTrailers?: (trailers: IncomingHttpHeaders) => void;
         offset?: number;
         length?: number;
