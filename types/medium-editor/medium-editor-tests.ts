@@ -14,7 +14,7 @@ var editor = new MediumEditor('.editable', {
     delay: 1000,
     targetBlank: true,
     toolbar: {
-        buttons: ['bold', 'italic', 'quote'],
+        buttons: ['bold', 'italic', 'quote', { name: 'underline', classList: ['icon-strike'] }],
         diffLeft: 25,
         diffTop: 10,
     },

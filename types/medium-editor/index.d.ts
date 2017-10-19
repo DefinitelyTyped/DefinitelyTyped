@@ -94,7 +94,7 @@ declare namespace MediumEditor {
     export interface ToolbarOptions {
         align?: string;
         allowMultiParagraphSelection?: boolean;
-        buttons?: string[];
+        buttons?: Button[];
         diffLeft?: number;
         diffTop?: number;
         firstButtonClass?: string;
@@ -162,6 +162,20 @@ declare namespace MediumEditor {
         unwrapTags?: string[];
     }
 
+    export interface ButtonOptions {
+        name?: string;
+        action?: string;
+        aria?: string;
+        tagNames?: string[];
+        style?: { prop: string, value: string };
+        useQueryState?: boolean;
+        contentDefault?: string;
+        contentFA?: string;
+        classList?: string[];
+        attrs?: { [key: string]: string };
+    }
+
+    export type Button = string | ButtonOptions;
     export type elementType = string | HTMLElement | HTMLElement[] | NodeList | NodeListOf<Element> | HTMLCollection;
     export type selectionObject = {start: number, end: number};
 }
