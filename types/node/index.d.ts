@@ -2175,7 +2175,7 @@ declare module "child_process" {
 declare module "url" {
     import { ParsedUrlQuery } from 'querystring';
 
-    export interface InputUrlObject {
+    export interface UrlObject {
         auth?: string;
         hash?: string;
         host?: string;
@@ -2190,13 +2190,13 @@ declare module "url" {
         slashes?: boolean;
     }
 
-    export interface OutputUrlObject extends InputUrlObject {
+    export interface Url extends UrlObject {
         port?: string;
     }
 
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): OutputUrlObject;
+    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
     export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: InputUrlObject | string): string;
+    export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
     export interface URLFormatOptions {
