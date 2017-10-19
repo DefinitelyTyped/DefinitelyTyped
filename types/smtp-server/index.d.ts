@@ -12,6 +12,7 @@
 import { EventEmitter } from 'events';
 import * as net from 'net';
 import * as shared from 'nodemailer/lib/shared';
+import { Readable } from 'stream';
 import * as tls from 'tls';
 
 export type ms = number;
@@ -250,7 +251,7 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     /**
      * the callback to handle incoming messages (see details https://github.com/andris9/smtp-server#processing-incoming-message)
      */
-    onData?(stream: NodeJS.ReadableStream, session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onData?(stream: Readable, session: SMTPServerSession, callback: (err: Error | null) => void): void;
     /**
      * the callback that informs about closed client connection
      */
@@ -289,7 +290,7 @@ export class SMTPServer extends EventEmitter {
     onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null, response: SMTPServerAuthenticationResponse) => void): void;
     onClose(session: SMTPServerSession, callback: (err: Error | null) => void): void;
     onConnect(session: SMTPServerSession, callback: (err: Error | null) => void): void;
-    onData(stream: NodeJS.ReadableStream, session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onData(stream: Readable, session: SMTPServerSession, callback: (err: Error | null) => void): void;
     onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err: Error | null) => void): void;
     onRcptTo(address: SMTPServerAddress, session: SMTPServerSession, callback: (err: Error | null) => void): void;
 

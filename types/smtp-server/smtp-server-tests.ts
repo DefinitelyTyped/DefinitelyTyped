@@ -1,4 +1,5 @@
 import { SMTPServer, SMTPServerAddress, SMTPServerAuthentication, SMTPServerAuthenticationResponse, SMTPServerOptions, SMTPServerSession } from 'smtp-server';
+import { Readable } from 'stream';
 
 const options: SMTPServerOptions = {
     hideSTARTTLS: true,
@@ -38,7 +39,7 @@ function onRcptTo(to: SMTPServerAddress, session: SMTPServerSession, callback: (
     callback(null);
 }
 
-function onData(stream: NodeJS.ReadableStream, session: SMTPServerSession, callback: (err: Error | null) => void): void {
+function onData(stream: Readable, session: SMTPServerSession, callback: (err: Error | null) => void): void {
     console.log(`[${session.id}] onData started`);
 
     let messageLength = 0;
