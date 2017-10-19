@@ -1,6 +1,6 @@
 import * as parent from 'parent-package-json';
 
-const hasParent = parent();
+const hasParent = parent('/optional/path/', 1);
 
 if (hasParent !== false) {
     const pathToParent: string = hasParent.path;
