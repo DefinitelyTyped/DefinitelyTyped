@@ -3,8 +3,7 @@
 // Definitions by: Kombu <https://github.com/aicest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Vue from 'vue';
-import { PluginFunction } from 'vue';
+import Vue, { PluginFunction } from 'vue';
 
 declare namespace VueI18n {
     type Path = string;

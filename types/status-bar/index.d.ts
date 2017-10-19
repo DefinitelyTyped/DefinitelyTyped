@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="space-pen" />
-/// <reference types="text-buffer" />
+/// <reference types="text-buffer/v0" />
 
 declare namespace StatusBar {
 	interface IStatusBarViewStatic {

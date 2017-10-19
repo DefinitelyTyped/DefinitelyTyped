@@ -98,6 +98,7 @@ export declare class Job extends events.EventEmitter {
     ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string | number): Job;
+    priority(): number | string;
     attempt(fn: Function): Job;
     reattempt(attempt: number, fn?: Function): void;
     attempts(n: number): Job;

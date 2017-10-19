@@ -295,6 +295,12 @@
             "asOfVersion": "0.2.29"
         },
         {
+            "libraryName": "js-data",
+            "typingsPackageName": "js-data",
+            "sourceRepoURL": "https://github.com/js-data/js-data",
+            "asOfVersion": "3.0.0"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
@@ -349,6 +355,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "log4js",
+            "typingsPackageName": "log4js",
+            "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
+            "asOfVersion": "2.3.5"
+        },
+        {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
@@ -389,6 +401,12 @@
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "MQTT",
+            "typingsPackageName": "mqtt",
+            "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
+            "asOfVersion": "2.5.0"
         },
         {
             "libraryName": "ng-table",
@@ -469,6 +487,12 @@
             "asOfVersion": "1.4.0"
         },
         {
+            "libraryName": "popper.js",
+            "typingsPackageName": "popper.js",
+            "sourceRepoURL": "https://github.com/FezVrasta/popper.js/",
+            "asOfVersion": "1.11.0"
+        },
+        {
             "libraryName": "Prando",
             "typingsPackageName": "prando",
             "sourceRepoURL": "https://github.com/zeh/prando",
@@ -503,6 +527,12 @@
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
             "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "realm",
+            "typingsPackageName": "realm",
+            "sourceRepoURL": "https://github.com/realm/realm-js",
+            "asOfVersion": "1.13.0"
         },
         {
             "libraryName": "Redux",

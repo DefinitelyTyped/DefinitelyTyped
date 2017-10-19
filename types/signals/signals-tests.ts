@@ -1,8 +1,8 @@
 import signals = require("signals");
 // lifted from https://github.com/millermedeiros/js-signals/wiki/Examples
 interface TestObject {
-  started: signals.Signal;
-  stopped: signals.Signal;
+  started: signals.Signal<any>;
+  stopped: signals.Signal<any>;
 }
 
 namespace Signals.Tests {
@@ -144,11 +144,11 @@ namespace Signals.AdvancedTests {
   var handler = function(){
     alert('foo bar');
   };
-  var binding: signals.SignalBinding = myObject.started.add(handler); //methods `add()` and `addOnce()` returns a SignalBinding object
+  var binding: signals.SignalBinding<() => void> = myObject.started.add(handler); //methods `add()` and `addOnce()` returns a SignalBinding object
   binding.execute(); //will alert "foo bar"
 
   //Retrieve anonymous listener
-  var binding:signals.SignalBinding = myObject.started.add(function(){
+  var binding:signals.SignalBinding<() => void> = myObject.started.add(function(){
     alert('foo bar');
   });
 
@@ -157,7 +157,7 @@ namespace Signals.AdvancedTests {
   var anonymousHandler = binding.getListener(); //reference to the anonymous function
 
   //Remove / Detach anonymous listener
-  var binding:signals.SignalBinding = myObject.started.add(function(){
+  var binding:signals.SignalBinding<() => void> = myObject.started.add(function(){
     alert('foo bar');
   });
   myObject.started.dispatch(); //will alert "foo bar"
@@ -166,10 +166,10 @@ namespace Signals.AdvancedTests {
   myObject.started.dispatch(); //nothing happens
 
   //Check if binding will execute only once
-  var binding1:signals.SignalBinding = myObject.started.add(function(){
+  var binding1:signals.SignalBinding<any> = myObject.started.add(function(){
     alert('foo bar');
   });
-  var binding2:signals.SignalBinding = myObject.started.addOnce(function(){
+  var binding2:signals.SignalBinding<() => void> = myObject.started.addOnce(function(){
     alert('foo bar');
   });
   alert(binding1.isOnce()); //alert "false"
@@ -180,7 +180,7 @@ namespace Signals.AdvancedTests {
   var obj = {
     foo : "it's over 9000!"
   };
-  var binding:signals.SignalBinding = myObject.started.add(function(){
+  var binding:signals.SignalBinding<() => void> = myObject.started.add(function(){
     alert(this.foo);
   });
   myObject.started.dispatch(); //will alert "bar"
@@ -188,7 +188,7 @@ namespace Signals.AdvancedTests {
   myObject.started.dispatch(); //will alert "it's over 9000!"
 
   //Add default parameters to Signal dispatch (v0.6.3+)
-  var binding:signals.SignalBinding = myObject.started.add(function(a:string, b:string, c:string){
+  var binding:signals.SignalBinding<() => void> = myObject.started.add(function(a:string, b:string, c:string){
     alert(a +' '+ b +' '+ c);
   });
   binding.params = ['lorem', 'ipsum']; //set default parameters of the binding

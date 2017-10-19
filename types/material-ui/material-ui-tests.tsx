@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {
-  Component, ComponentClass, CSSProperties, PropTypes,
+  Component, ComponentClass, CSSProperties,
   StatelessComponent, ReactElement, ReactInstance, ValidationMap
 } from 'react';
 import * as ReactDOM from 'react-dom';
+import * as PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { muiThemeable } from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';

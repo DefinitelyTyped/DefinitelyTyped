@@ -9,11 +9,12 @@ import FormData = require('form-data');
 var value: any;
 var str: string;
 var strOrUndef: string | undefined;
+var strOrTrueOrUndef: string | true | undefined;
 var buffer: NodeBuffer = new Buffer('foo');
 var num: number = 0;
 var bool: boolean;
 var date: Date;
-var obj: Object;
+var obj: object;
 var dest: string = 'foo';
 
 var uri: string = 'foo-bar';
@@ -76,7 +77,7 @@ var aws: request.AWSOptions = { secret: 'foo' };
 str = aws.secret;
 strOrUndef = aws.bucket;
 
-var oauth: request.OAuthOptions = {};
+var oauth: request.OAuthOptions = { body_hash: 'foo' };
 strOrUndef = oauth.callback;
 strOrUndef = oauth.consumer_key;
 strOrUndef = oauth.consumer_secret;
@@ -84,6 +85,7 @@ strOrUndef = oauth.token;
 strOrUndef = oauth.token_secret;
 strOrUndef = oauth.transport_method;
 strOrUndef = oauth.verifier;
+strOrTrueOrUndef = oauth.body_hash;
 
 var options: request.Options = {
 	url: str,
@@ -466,7 +468,7 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
       { consumer_key: CONSUMER_KEY
       , consumer_secret: CONSUMER_SECRET
       , token: auth_data.oauth_token
-      , token_secret: req_data.oauth_token_secret
+      , token_secret: req_data.oauth_token_secret as string
       , verifier: auth_data.oauth_verifier
       }
     , url = 'https://api.twitter.com/oauth/access_token'

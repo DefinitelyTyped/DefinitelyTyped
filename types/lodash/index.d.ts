@@ -3010,6 +3010,14 @@ declare namespace _ {
          * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
          * // => [{ 'x': 1 }, { 'x': 2 }]
          */
+        uniqBy(
+            array: string | null | undefined,
+            iteratee: StringIterator<any>
+        ): string[];
+
+        /**
+         * @see _.uniqBy
+         */
         uniqBy<T>(
             array: List<T> | null | undefined,
             iteratee: ListIteratee<T>
@@ -3020,6 +3028,14 @@ declare namespace _ {
         /**
          * @see _.uniqBy
          */
+        uniqBy(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            iteratee: StringIterator<any>
+        ): LoDashImplicitWrapper<string[]>;
+
+        /**
+         * @see _.uniqBy
+         */
         uniqBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee: ListIteratee<T>
@@ -3027,6 +3043,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.uniqBy
+         */
+        uniqBy(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            iteratee: StringIterator<any>
+        ): LoDashExplicitWrapper<string[]>;
+
         /**
          * @see _.uniqBy
          */
@@ -3134,6 +3158,14 @@ declare namespace _ {
          * _.sortedUniqBy([1.1, 1.2, 2.3, 2.4], Math.floor);
          * // => [1.1, 2.2]
          */
+        sortedUniqBy(
+            array: string | null | undefined,
+            iteratee: StringIterator<any>
+        ): string[];
+
+        /**
+         * @see _.sortedUniqBy
+         */
         sortedUniqBy<T>(
             array: List<T> | null | undefined,
             iteratee: ListIteratee<T>
@@ -3144,6 +3176,14 @@ declare namespace _ {
         /**
          * @see _.sortedUniqBy
          */
+        sortedUniqBy(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            iteratee: StringIterator<any>
+        ): LoDashImplicitWrapper<string[]>;
+
+        /**
+         * @see _.sortedUniqBy
+         */
         sortedUniqBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee: ListIteratee<T>
@@ -3151,6 +3191,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.sortedUniqBy
+         */
+        sortedUniqBy(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            iteratee: StringIterator<any>
+        ): LoDashExplicitWrapper<string[]>;
+
         /**
          * @see _.sortedUniqBy
          */
@@ -5450,6 +5498,14 @@ declare namespace _ {
          * @param thisArg The this binding of iteratee.
          * @return Returns the composed aggregate object.
          */
+        groupBy(
+            collection: string | null | undefined,
+            iteratee?: StringIterator<any>
+        ): Dictionary<string[]>;
+
+        /**
+         * @see _.groupBy
+         */
         groupBy<T>(
             collection: List<T> | null | undefined,
             iteratee?: ListIteratee<T>
@@ -5476,6 +5532,14 @@ declare namespace _ {
         /**
          * @see _.groupBy
          */
+        groupBy(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<any>
+        ): LoDashImplicitWrapper<Dictionary<string[]>>;
+
+        /**
+         * @see _.groupBy
+         */
         groupBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee?: ListIteratee<T>
@@ -5499,6 +5563,14 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.groupBy
+         */
+        groupBy(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            iteratee?: StringIterator<any>
+        ): LoDashExplicitWrapper<Dictionary<string[]>>;
+
         /**
          * @see _.groupBy
          */
@@ -6054,8 +6126,8 @@ declare namespace _ {
         ): TResult | undefined;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: List<T> | null | undefined,
             callback: MemoListIterator<T, TResult, List<T>>
@@ -6070,8 +6142,8 @@ declare namespace _ {
         ): TResult | undefined;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
             callback: MemoListIterator<T, TResult, NumericDictionary<T>>
@@ -6089,8 +6161,8 @@ declare namespace _ {
         ): TResult;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             callback: MemoListIterator<T, TResult, List<T>>,
@@ -6107,8 +6179,8 @@ declare namespace _ {
         ): TResult;
 
         /**
-        * @see _.reduce
-        **/
+         * @see _.reduce
+         **/
         reduce<T, TResult>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
             callback: MemoListIterator<T, TResult, NumericDictionary<T>>,
@@ -9709,7 +9781,7 @@ declare namespace _ {
     }
 
     //_.isMatchWith
-    type isMatchWithCustomizer = (value: any, other: any, indexOrKey?: number|string) => boolean;
+    type isMatchWithCustomizer = (value: any, other: any, indexOrKey: number|string) => boolean;
 
     interface LoDashStatic {
         /**
@@ -13743,7 +13815,7 @@ declare namespace _ {
     }
 
     //_.mergeWith
-    type MergeWithCustomizer = (value: any, srcValue: any, key: string, object: any, source: any) => any;
+    type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"]
 
     interface LoDashStatic {
         /**

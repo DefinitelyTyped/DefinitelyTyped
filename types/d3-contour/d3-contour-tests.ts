@@ -38,7 +38,7 @@ function goldsteinPrice(x: number, y: number) {
 
 let size: [number, number];
 let boolFlag: boolean;
-const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: number[], min: number, max: number) => {
+const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: ArrayLike<number>, min?: number, max?: number) => {
     let thresholds: number[];
     thresholds = [values[1], values[2], values[4]];
     return thresholds;

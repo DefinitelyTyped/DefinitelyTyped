@@ -104,7 +104,9 @@ declare namespace CodeMirror {
     function signal(target: any, name: string, ...args: any[]): void;
 
     type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
-
+    
+    type CoordsMode = 'window' | 'page' | 'local';
+    
     interface Token {
         /** The character(on the given line) at which the token starts. */
         start: number;
@@ -196,12 +198,15 @@ declare namespace CodeMirror {
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
         removeLineClass(line: any, where: string, class_?: string): CodeMirror.LineHandle;
 
-        /**
-         * Compute the line at the given pixel height.
-         *
-         * `mode` is the relative element to use to compute this line - defaults to 'page' if not specified
-         */
-        lineAtHeight(height: number, mode?: 'window' | 'page' | 'local'): number
+        /** Compute the line at the given pixel height. mode is the relative element
+        to use to compute this line, it may be "window", "page" (the default), or "local" */
+        lineAtHeight(height: number, mode?: CoordsMode): number;
+        
+        /** Computes the height of the top of a line, in the coordinate system specified by mode, it may be "window", 
+        "page" (the default), or "local". When a line below the bottom of the document is specified, the returned value 
+        is the bottom of the last line in the document. By default, the position of the actual text is returned. 
+        If includeWidgets is true and the line has line widgets, the position above the first line widget is returned. */
+        heightAtLine(line: any, mode?: CoordsMode, includeWidgets?: boolean): number;
 
         /** Returns the line number, text content, and marker status of the given line, which can be either a number or a line handle. */
         lineInfo(line: any): {
@@ -267,25 +272,28 @@ declare namespace CodeMirror {
         scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin: number): void;
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local" , they will be relative to the top-left corner of the editable document.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where is a boolean indicating whether you want the start(true) or the end(false) of the selection. */
-        cursorCoords(where: boolean, mode: string): { left: number; top: number; bottom: number; };
+        cursorCoords(where: boolean, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
-        If mode is "local" , they will be relative to the top-left corner of the editable document.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
         If it is "page" or not given, they are relative to the top-left corner of the page.
         where specifies the precise position at which you want to measure. */
-        cursorCoords(where: CodeMirror.Position, mode: string): { left: number; top: number; bottom: number; };
+        cursorCoords(where: CodeMirror.Position, mode?: CoordsMode): { left: number; top: number; bottom: number; };
 
-        /** Returns the position and dimensions of an arbitrary character.pos should be a { line , ch } object.
+        /** Returns the position and dimensions of an arbitrary character. pos should be a { line , ch } object.
+        If mode is "local", they will be relative to the top-left corner of the editable document.
+        If it is "page" or not given, they are relative to the top-left corner of the page.
         This differs from cursorCoords in that it'll give the size of the whole character,
         rather than just the position that the cursor would have when it would sit at that position. */
-        charCoords(pos: CodeMirror.Position, mode: string): { left: number; right: number; top: number; bottom: number; };
+        charCoords(pos: CodeMirror.Position, mode?: CoordsMode): { left: number; right: number; top: number; bottom: number; };
 
         /** Given an { left , top } object , returns the { line , ch } position that corresponds to it.
-        The optional mode parameter determines relative to what the coordinates are interpreted. It may be "window" , "page"(the default) , or "local". */
-        coordsChar(object: { left: number; top: number; }, mode?: string): CodeMirror.Position;
+        The optional mode parameter determines relative to what the coordinates are interpreted. 
+        It may be "window", "page" (the default), or "local". */
+        coordsChar(object: { left: number; top: number; }, mode?: CoordsMode): CodeMirror.Position;
 
         /** Returns the line height of the default font for the editor. */
         defaultTextHeight(): number;
@@ -304,7 +312,7 @@ declare namespace CodeMirror {
         refresh(): void;
 
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
-        getTokenAt(pos: CodeMirror.Position): Token;
+        getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
 
         /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
         getLineTokens(line: number, precise?: boolean): Token[];
@@ -1239,14 +1247,14 @@ declare namespace CodeMirror {
            * Left side of the merge view.
            */
           left: DiffView;
-          leftChunks(): MergeViewDiffChunk;
+          leftChunks(): MergeViewDiffChunk[];
           leftOriginal(): Editor;
 
           /**
            * Right side of the merge view.
            */
           right: DiffView;
-          rightChunks(): MergeViewDiffChunk;
+          rightChunks(): MergeViewDiffChunk[];
           rightOriginal(): Editor;
 
           /**

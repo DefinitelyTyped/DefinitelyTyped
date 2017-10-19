@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 0.10
+// Type definitions for puppeteer 0.12
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -125,8 +125,8 @@ export interface PDFOptions {
   path?: string;
   scale?: number;
   displayHeaderFooter?: boolean;
-  printBackground?: false;
-  landscape?: false;
+  printBackground?: boolean;
+  landscape?: boolean;
   /**
    * Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty
    * string, which means print all pages.
@@ -224,13 +224,15 @@ export interface Response {
   url: string;
 }
 
+export type Serializable = boolean | number | string | object;
+
 export interface FrameBase {
   $(selector: string): Promise<ElementHandle>;
   $$(selector: string): Promise<ElementHandle[]>;
   $eval(
     selector: string,
-    fn: (...args: Array<object | ElementHandle>) => void
-  ): Promise<object>;
+    fn: (...args: Array<Serializable | ElementHandle>) => void
+  ): Promise<Serializable>;
   addScriptTag(url: string): Promise<void>;
   injectFile(filePath: string): Promise<void>;
   evaluate<T = string>(
@@ -238,7 +240,7 @@ export interface FrameBase {
     ...args: Array<object | ElementHandle>
   ): Promise<T>;
   title(): Promise<string>;
-  url(): Promise<string>;
+  url(): string;
   waitFor(
     // fn can be an abritary function
     // tslint:disable-next-line ban-types
@@ -291,7 +293,16 @@ export interface Page extends FrameBase {
   click(selector: string, options?: ClickOptions): Promise<void>;
   close(): Promise<void>;
   content(): Promise<string>;
-  cookies(...urls: string[]): Cookie;
+  cookies(...urls: string[]): Promise<Cookie[]>;
+  deleteCookie(
+    ...cookies: Array<{
+      name: string;
+      url?: string;
+      domain?: string;
+      path?: string;
+      secure?: boolean;
+    }>
+  ): Promise<void>;
   emulate(options: Partial<EmulateOptions>): Promise<void>;
   emulateMedia(mediaType: string | null): Promise<void>;
   evaluateOnNewDocument(

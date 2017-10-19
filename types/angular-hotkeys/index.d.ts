@@ -10,6 +10,10 @@
 
 import * as ng from 'angular';
 
+export type HotkeysProvider = ng.hotkeys.HotkeysProvider;
+export type HotkeysProviderChained = ng.hotkeys.HotkeysProviderChained;
+export type Hotkey = ng.hotkeys.Hotkey;
+
 declare module 'angular' {
     export namespace hotkeys {
 
