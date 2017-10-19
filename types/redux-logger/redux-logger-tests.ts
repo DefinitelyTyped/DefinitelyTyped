@@ -1,4 +1,3 @@
-
 import { createLogger } from 'redux-logger';
 import logger from 'redux-logger';
 import { applyMiddleware, createStore } from 'redux';
@@ -11,11 +10,11 @@ let loggerSimpleOpts = createLogger({
   logger: console,
   logErrors: true,
   predicate: (getState, action) => true,
-  stateTransformer: (state) => state,
-  actionTransformer: (action) => action,
-  errorTransformer: (error) => error,
+  stateTransformer: state => state,
+  actionTransformer: action => action,
+  errorTransformer: error => error,
   diff: true,
-  diffPredicate: (getState, action) => true,
+  diffPredicate: (getState, action) => true
 });
 
 let loggerCollapsedBool = createLogger({
@@ -24,6 +23,11 @@ let loggerCollapsedBool = createLogger({
 
 let loggerCollapsedPredicate = createLogger({
   collapsed: (getAction, action) => true
+});
+
+let loggerCollapsedLogEntryPredicate = createLogger({
+  collapsed: (getAction, action, logEntry) =>
+    logEntry !== undefined && !logEntry.error
 });
 
 let loggerColorsOverallBoolean = createLogger({
@@ -42,10 +46,10 @@ let loggerColorsBoolean = createLogger({
 
 let loggerColorsFunction = createLogger({
   colors: {
-    title: (action) => '#000',
-    prevState: (state) => '#000',
-    action: (action) => '#000',
-    nextState: (state) => '#000',
+    title: action => '#000',
+    prevState: state => '#000',
+    action: action => '#000',
+    nextState: state => '#000',
     error: (error, prevState) => '#000'
   }
 });
@@ -55,14 +59,14 @@ let loggerLevelString = createLogger({
 });
 
 let loggerLevelFunction = createLogger({
-  level: (action) => 'log'
+  level: action => 'log'
 });
 
 let loggerLevelObjectFunction = createLogger({
   level: {
-    prevState: (state) => 'log',
-    action: (action) => 'log',
-    nextState: (state) => 'log',
+    prevState: state => 'log',
+    action: action => 'log',
+    nextState: state => 'log',
     error: (error, prevState) => 'log'
   }
 });
@@ -90,6 +94,7 @@ let createStoreWithMiddleware = applyMiddleware(
   loggerSimpleOpts,
   loggerCollapsedBool,
   loggerCollapsedPredicate,
+  loggerCollapsedLogEntryPredicate,
   loggerColorsBoolean,
   loggerColorsFunction,
   loggerLevelString,

@@ -6,11 +6,15 @@
 
 export as namespace ReduxLogger;
 
-import * as Redux from "redux";
+import * as Redux from 'redux';
 
 export const logger: Redux.Middleware;
 
-export type LoggerPredicate = (getState: () => any, action: any) => boolean;
+export type LoggerPredicate = (
+  getState: () => any,
+  action: any,
+  logEntry?: LogEntryObject
+) => boolean;
 
 export type StateToString = (state: any) => string;
 export type ActionToString = (action: any) => string;
@@ -29,6 +33,16 @@ export interface LevelObject {
   action?: string | boolean | ActionToString;
   nextState?: string | boolean | StateToString;
   error?: string | boolean | ErrorToString;
+}
+
+export interface LogEntryObject {
+  action?: string | boolean | ActionToString;
+  error?: (error: any) => any;
+  nextState?: (state: any) => any;
+  prevState?: (state: any) => any;
+  started?: number;
+  startedTime?: Date;
+  took?: number;
 }
 
 export interface ReduxLoggerOptions {
