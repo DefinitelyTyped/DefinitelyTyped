@@ -358,7 +358,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      * option component to render in dropdown
      */
-    optionComponent?: React.ComponentType;
+    optionComponent?: React.ComponentType<TValue>;
     /**
      * function which returns a custom way to render the options in the menu
      */
@@ -423,7 +423,7 @@ export interface ReactSelectProps<TValue = OptionValues> extends React.Props<Rea
     /**
      *  value component to render
      */
-    valueComponent?: React.ComponentType;
+    valueComponent?: React.ComponentType<TValue>;
 
     /**
      *  optional style to apply to the component wrapper
