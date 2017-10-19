@@ -1,18 +1,17 @@
-// Type definitions for CasperJS v1.1.4
+// Type definitions for CasperJS 1.1
 // Project: http://casperjs.org/
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 Uriel Chemouni <https://github.com/urielch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="phantomjs" />
 
-
 export function create(options?: CasperOptions): Casper;
 
-export function selectXPath(expression: string): Object;
+export function selectXPath(expression: string): object;
 
 export class Casper {
-
 	constructor(options: CasperOptions);
 
 	test: Tester;
@@ -40,7 +39,7 @@ export class Casper {
 	each<T>(array: T[], fn: (this: Casper, item: T, index: number) => void): Casper;
 	eachThen(array: any[], then?: FunctionThen): Casper;
 	echo(message: string, style?: string): Casper;
-	evaluate<T>(fn: (...args: any[]) => T, ...args: any[]): T
+	evaluate<T>(fn: (...args: any[]) => T, ...args: any[]): T;
 	evaluateOrDie(fn: () => any, message?: string, status?: number): Casper;
 	exit(status?: number): Casper;
 	exists(selector: string): boolean;
@@ -73,11 +72,10 @@ export class Casper {
 	scrollToBottom(): Casper;
 	sendKeys(selector: string, keys: string, options?: KeyOptions): Casper;
 	setHttpAuth(username: string, password: string): Casper;
-	setMaxListeners(maxListeners: number):Casper;
+	setMaxListeners(maxListeners: number): Casper;
 	start(url?: string, then?: FunctionThen): Casper;
-	status(): number;
+	status(asString?: false): number;
 	status(asString: true): string;
-	status(asString: false): number;
 	switchToFrame(frameInfo: string | number): Casper;
 	switchToMainFrame(): Casper;
 	switchToParentFrame(): Casper;
@@ -92,7 +90,7 @@ export class Casper {
 	thenOpenAndEvaluate(location: string, then?: FunctionThen, ...args: any[]): Casper;
 	toString(): string;
 	unwait(): Casper;
-	// 2017-10-19 Doc said returning String but code return Casper Object.
+	// 2017-10-19 Doc said returning String but code return Casper object.
 	userAgent(agent: string): Casper;
 	viewport(width: number, height: number, then?: FunctionThen): Casper;
 	visible(selector: string): boolean;
@@ -101,7 +99,7 @@ export class Casper {
 	waitForAlert(then: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
 	waitForExec(command: string | null, parameter: string[], then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
 	waitForPopup(urlPattern: RegExp | string | number | FindByUrlNameTitle, then?: FunctionThen, onTimeout?: Function, timeout?: number): Casper;
-	waitForResource(testFx: RegExp | string | ((resource:{url:string})=>boolean), then?: FunctionThen, onTimeout?: Function, timeout?: number): Casper;
+	waitForResource(testFx: RegExp | string | ((resource: {url: string}) => boolean), then?: FunctionThen, onTimeout?: Function, timeout?: number): Casper;
 	waitForUrl(url: RegExp | string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
 	waitForSelector(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
 	waitWhileSelector(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
@@ -120,37 +118,42 @@ export class Casper {
 	// setFilter(filter: string, cb: Function): boolean;
 }
 
-type FunctionThen = (this: Casper, response: HttpResponse) => void;
-type FunctionOnTimeout  = (this: Casper, timeout: number, details: any) => void;
+export type FunctionThen = (this: Casper, response: HttpResponse) => void;
+export type FunctionOnTimeout  = (this: Casper, timeout: number, details: any) => void;
 // not visible in doc
-//interface QtRuntimeObject {
-//	id?: any;
-//	url?: string
-//}
+// interface QtRuntimeObject {id?: any; url?: string;}
 // see modules/pagestack.js in casperjs
-interface FindByUrlNameTitle {
+
+export interface ImgOptions {
+	// format to set the image format manually, avoiding relying on the filename
+	format?: string;
+	// quality to set the image quality, from 1 to 100
+	quality?: number;
+}
+
+export interface FindByUrlNameTitle {
 	url?: string;
 	title?: string;
 	windowName?: string;
 }
 
-interface Header {
+export interface Header {
 	name: string;
 	value: string;
 }
 
-interface CasperSelector {
+export interface CasperSelector {
 	type?: 'xpath' | 'css';
 	path: string;
 }
 
-interface KeyOptions {
+export interface KeyOptions {
 	reset?: boolean;
 	keepFocus?: boolean;
 	modifiers?: string; // combinaison of 'ctrl+alt+shift+meta+keypad'
 }
 
-interface HttpResponse {
+export interface HttpResponse {
 	contentType: string;
 	headers: Header[];
 	id: number;
@@ -163,20 +166,20 @@ interface HttpResponse {
 	data: any;
 }
 
-interface OpenSettings {
+export interface OpenSettings {
 	method: string;
 	data: any;
 	headers: any;
 }
 
-interface ElementBounds {
+export interface ElementBounds {
 	top: number;
 	left: number;
 	width: number;
 	height: number;
 }
 
-interface ElementInfo {
+export interface ElementInfo {
 	nodeName: string;
 	attributes: any;
 	tag: string;
@@ -189,7 +192,7 @@ interface ElementInfo {
 	visible: boolean;
 }
 
-interface CasperOptions {
+export interface CasperOptions {
 	clientScripts?: any[];
 	exitOnError?: boolean;
 	httpStatusHandlers?: any;
@@ -218,7 +221,7 @@ interface CasperOptions {
 	waitTimeout?: number;
 }
 
-interface ClientUtils {
+export interface ClientUtils {
 	echo(message: string): void;
 	encode(contents: string): void;
 	exists(selector: string): void;
@@ -239,12 +242,12 @@ interface ClientUtils {
 	visible(selector: string): void;
 }
 
-interface Colorizer {
+export interface Colorizer {
 	colorize(text: string, styleName: string): void;
 	format(text: string, style: any): void;
 }
 
-interface Tester {
+export interface Tester {
 	assert(condition: boolean, message?: string): any;
 	assertDoesntExist(selector: string, message?: string): any;
 	assertElementCount(selctor: string, expected: number, message?: string): any;
@@ -274,15 +277,14 @@ interface Tester {
 	assertTruthy(subject: any, message?: string): any;
 	assertType(input: any, type: string, message?: string): any;
 	assertInstanceOf(input: any, ctor: Function, message?: string): any;
-	assertUrlMatch(pattern: string, message?: string): any;
-	assertUrlMatch(pattern: RegExp, message?: string): any;
+	assertUrlMatch(pattern: RegExp | string, message?: string): any;
 	assertVisible(selector: string, message?: string): any;
 
 	/* since 1.1 */
 	begin(description: string, planned: number, suite: Function): any;
 	begin(description: string, suite: Function): any;
-	begin(description: string, planned: number, config: Object): any;
-	begin(description: string, config: Object): any;
+	begin(description: string, planned: number, config: object): any;
+	begin(description: string, config: object): any;
 
 	colorize(message: string, style: string): any;
 	comment(message: string): any;
@@ -301,12 +303,12 @@ interface Tester {
 	tearDown(fn: Function): any;
 }
 
-interface Cases {
+export interface Cases {
 	length: number;
 	cases: Case[];
 }
 
-interface Case {
+export interface Case {
 	success: boolean;
 	type: string;
 	standard: string;
@@ -314,12 +316,12 @@ interface Case {
 	values: CaseValues;
 }
 
-interface CaseValues {
+export interface CaseValues {
 	subject: boolean;
 	expected: boolean;
 }
 
-interface Utils {
+export interface Utils {
 	betterTypeOf(input: any): any;
 	dump(value: any): any;
 	fileExt(file: string): any;
