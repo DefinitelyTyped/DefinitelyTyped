@@ -79,4 +79,4 @@ declare namespace GulpClient {
 }
 
 declare const GulpClient: GulpClient.Gulp;
-export = GulpClient;
+export default GulpClient;
