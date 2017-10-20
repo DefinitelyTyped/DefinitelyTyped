@@ -1036,7 +1036,6 @@ namespace smtp_connection_test {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
                 if (err) throw err;
-                console.log(info);
                 connection.reset(() => {
                     if (err) throw err;
                     connection.quit();
