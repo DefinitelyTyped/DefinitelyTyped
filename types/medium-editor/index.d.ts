@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace MediumEditor {
-    export class MediumEditor {
+    export interface MediumEditor {
         // Initialization Functions
-        constructor(elements: elementType, options?: CoreOptions);
+        new(elements: elementType, options?: CoreOptions): MediumEditor;
         destroy(): void;
         setup(): void;
         addElements(elements: elementType): void;
@@ -178,6 +178,8 @@ declare namespace MediumEditor {
     }
 }
 
+declare var MediumEditor: MediumEditor.MediumEditor;
+
 declare module "medium-editor" {
-    export = MediumEditor.MediumEditor;
+    export = MediumEditor;
 }
