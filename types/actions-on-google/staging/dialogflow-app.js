@@ -49,6 +49,22 @@ error.log = console.error.bind(console);
 // ---------------------------------------------------------------------------
 //                   Dialogflow support
 // ---------------------------------------------------------------------------
+/**
+ * @typedef {object} DialogflowAppOptions JSON configuration.
+ * @property {TODO} request - Express HTTP request object.
+ * @property {TODO} response - Express HTTP response object.
+ * @property {TODO=} sessionStarted - Function callback when session starts.
+ *     Only called if webhook is enabled for welcome/triggering intents, and
+ *     called from Web Simulator or Google Home device (i.e., not Dialogflow simulator).
+*/
+
+/**
+ * @typedef {object} DialogState TODO
+ */
+
+/**
+ * @typedef {object} AskTellResponse TODO
+ */
 
 /**
  * This is the class that handles the communication with Dialogflow's fulfillment API.
@@ -63,12 +79,7 @@ class DialogflowApp extends AssistantApp {
    * const app = new DialogflowApp({request: request, response: response,
    *   sessionStarted:sessionStarted});
    *
-   * @param {Object} options JSON configuration.
-   * @param {Object} options.request Express HTTP request object.
-   * @param {Object} options.response Express HTTP response object.
-   * @param {Function=} options.sessionStarted Function callback when session starts.
-   *     Only called if webhook is enabled for welcome/triggering intents, and
-   *     called from Web Simulator or Google Home device (i.e., not Dialogflow simulator).
+   * @param {DialogflowAppOptions} options JSON configuration.
    * @dialogflow
    */
   constructor (options) {
@@ -521,7 +532,7 @@ class DialogflowApp extends AssistantApp {
    * @param {string|SimpleResponse|RichResponse} inputPrompt The input prompt
    *     response.
    * @param {Array<string>=} noInputs Array of re-prompts when the user does not respond (max 3).
-   * @return {Object} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @dialogflow
    */
   ask (inputPrompt, noInputs) {
@@ -575,7 +586,7 @@ class DialogflowApp extends AssistantApp {
    * @param {string|RichResponse|SimpleResponse} inputPrompt The input prompt
    *     response.
    * @param {List} list List built with {@link AssistantApp#buildList|buildList}.
-   * @return {Object} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @dialogflow
    */
   askWithList (inputPrompt, list) {
@@ -655,7 +666,7 @@ class DialogflowApp extends AssistantApp {
    *     response.
    * @param {Carousel} carousel Carousel built with
    *     {@link AssistantApp#buildCarousel|buildCarousel}.
-   * @return {Object} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @dialogflow
    */
   askWithCarousel (inputPrompt, carousel) {
@@ -721,7 +732,7 @@ class DialogflowApp extends AssistantApp {
    *
    * @param {string|SimpleResponse|RichResponse} speechResponse Final response.
    *     Spoken response can be SSML.
-   * @return {(Object|null)} The response that is sent back to Assistant.
+   * @return {AskTellResponse} The response that is sent back to Assistant.
    * @dialogflow
    */
   tell (speechResponse) {
@@ -758,7 +769,7 @@ class DialogflowApp extends AssistantApp {
    * app.handleRequest(actionMap);
    *
    * @param {string} name Name of the context. Dialogflow converts to lowercase.
-   * @param {int} [lifespan=1] Context lifespan.
+   * @param {number} [lifespan=1] Context lifespan.
    * @param {Object=} parameters Context JSON parameters.
    * @return {null|undefined} Null if the context name is not defined.
    * @dialogflow
@@ -785,7 +796,7 @@ class DialogflowApp extends AssistantApp {
 
   /**
    * Dialogflow {@link https://dialogflow.com/docs/concept-contexts|Context}.
-   * @typedef {Object} Context
+   * @typedef {object} Context
    * @property {string} name - Full name of the context.
    * @property {Object} parameters - Parameters carried within this context.
                                      See {@link https://dialogflow.com/docs/concept-actions#section-extracting-values-from-contexts|here}.

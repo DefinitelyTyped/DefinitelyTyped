@@ -28,61 +28,69 @@ const ORDER_LOCATION_LIMIT = 2;
 const GENERIC_EXTENSION_TYPE = 'type.googleapis.com/google.actions.v2.orders.GenericExtension';
 
 /**
+ * Amount type.
+ * @typedef {object} Amount
+ * @property {string} currencyCode - Currency code of price.
+ * @property {number} units - Unit count of price.
+ * @property {number} [nanos] - Partial unit count of price.
+ */
+
+/**
  * Price type.
- * @typedef {Object} Price
+ * @typedef {object} Price
  * @property {string} type - One of Transaction.PriceType.
- * @property {Object} amount
- * @property {string} amount.currencyCode - Currency code of price.
- * @property {number} amount.units - Unit count of price.
- * @property {number=} amount.nanos - Partial unit count of price.
+ * @property {Amount} amount
  */
 
 /**
  * Order rejection info.
- * @typedef {Object} RejectionInfo
+ * @typedef {object} RejectionInfo
  * @property {string} type - One of Transaction.RejectionType.
  * @property {string} reason - Reason for the order rejection.
  */
 
 /**
  * Order receipt info.
- * @typedef {Object} ReceiptInfo
+ * @typedef {object} ReceiptInfo
  * @property {string} confirmedActionOrderId - Action provided order ID. Used
  *     when the order has been received by the integrator.
  */
 
 /**
  * Order cancellation info.
- * @typedef {Object} CancellationInfo
+ * @typedef {object} CancellationInfo
  * @property {string} reason - Reason for the cancellation.
  */
 
 /**
+ * UTC timestamp.
+ * @typedef {object} Timestamp
+ * @property {number} seconds - Seconds since Unix epoch.
+ * @property {number} [nanos] - Partial seconds since Unix epoch.
+ */
+
+/**
  * Order transit info.
- * @typedef {Object} TransitInfo
- * @property {Object} updatedTime - UTC timestamp of the transit update.
- * @property {number} updatedTime.seconds - Seconds since Unix epoch.
- * @property {number=} updatedTime.nanos - Partial seconds since Unix epoch.
+ * @typedef {object} TransitInfo
+ * @property {Timestamp} updatedTime - UTC timestamp of the transit update.
  */
 
 /**
  * Order fulfillment info.
- * @typedef {Object} FulfillmentInfo
- * @property {Object} deliveryTime - UTC timestamp of the fulfillment update.
- * @property {number} deliveryTime.seconds - Seconds since Unix epoch.
- * @property {number=} deliveryTime.nanos - Partial seconds since Unix epoch.
+ * @typedef {object} FulfillmentInfo
+ * @property {Timestamp} deliveryTime - UTC timestamp of the fulfillment update.
  */
 
 /**
  * Order return info.
- * @typedef {Object} ReturnInfo
+ * @typedef {object} ReturnInfo
  * @property {string} reason - Reason for the return.
  */
 
 /**
  * Transaction config for transactions not involving a Google provided
  * payment instrument.
- * @typedef {Object} ActionPaymentTransactionConfig
+ * @typedef {object} ActionPaymentTransactionConfig
  * @property {boolean} deliveryAddressRequired - True if delivery address is
  *     required for the transaction.
  * @property {boolean} type - One of Transactions.PaymentType.
@@ -94,7 +102,7 @@ const GENERIC_EXTENSION_TYPE = 'type.googleapis.com/google.actions.v2.orders.Gen
 /**
  * Transaction config for transactions involving a Google provided payment
  * instrument.
- * @typedef {Object} GooglePaymentTransactionConfig
+ * @typedef {object} GooglePaymentTransactionConfig
  * @property {boolean} deliveryAddressRequired - True if delivery address is
  *     required for the transaction.
  * @property {Object} tokenizationParameters - Tokenization parameters provided
@@ -108,29 +116,34 @@ const GENERIC_EXTENSION_TYPE = 'type.googleapis.com/google.actions.v2.orders.Gen
 
  /**
  * Customer information requested as part of the transaction
- * @typedef {Object} CustomerInfoOptions
+ * @typedef {object} CustomerInfoOptions
  * @property {Array<string>} customerInfoProperties - one of
  *    Transactions.CustomerInfoProperties
  */
 
+ /**
+  * Postal address type.
+  * @typedef {object} PostalAddress
+  * @property {string} regionCode
+  * @property {string} languageCode
+  * @property {string} postalCode
+  * @property {string} administrativeArea
+  * @property {string} locality
+  * @property {Array<string>} addressLines
+  * @property {string} recipients
+  */
+
 /**
  * Generic Location type.
- * @typedef {Object} Location
- * @property {Object} postalAddress
- * @property {string} postalAddress.regionCode
- * @property {string} postalAddress.languageCode
- * @property {string} postalAddress.postalCode
- * @property {string} postalAddress.administrativeArea
- * @property {string} postalAddress.locality
- * @property {Array<string>} postalAddress.addressLines
- * @property {string} postalAddress.recipients
+ * @typedef {object} Location
+ * @property {PostalAddress} postalAddress
  * @property {string} phoneNumber
  * @property {string} notes
  */
 
 /**
  * Decision and order information returned when calling getTransactionDecision().
- * @typedef {Object} TransactionDecision
+ * @typedef {object} TransactionDecision
  * @property {string} userDecision - One of Transactions.ConfirmationDecision.
  * @property {Object} checkResult
  * @property {string} checkResult.resultType - One of Transactions.ResultType.
@@ -146,394 +159,69 @@ const GENERIC_EXTENSION_TYPE = 'type.googleapis.com/google.actions.v2.orders.Gen
  * @property {Object} order.paymentInfo
  * @property {Object} order.customerInfo
  * @property {string} order.customerInfo.email - Customer email.
- * @property {DeliveryAddress} deliveryAddress - The delivery address if user
+ * @property {Location} deliveryAddress - The delivery address if user
  *     requested. Will appear if userDecision is
  *     Transactions.DELIVERY_ADDRESS_UPDATED.
  */
 
-/**
- * Values related to supporting transactions.
- * @readonly
- * @type {Object}
- */
-const TransactionValues = {
-  /**
-   * List of transaction card networks available when paying with Google.
-   * @readonly
-   * @enum {string}
-   */
-  CardNetwork: {
-    /**
-     * Unspecified.
-     */
-    UNSPECIFIED: 'UNSPECIFIED',
-    /**
-     * American Express.
-     */
-    AMEX: 'AMEX',
-    /**
-     * Discover.
-     */
-    DISCOVER: 'DISCOVER',
-    /**
-     * Master Card.
-     */
-    MASTERCARD: 'MASTERCARD',
-    /**
-     * Visa.
-     */
-    VISA: 'VISA',
-    /**
-     * JCB.
-     */
-    JCB: 'JCB'
-  },
-  /**
-   * List of possible item types.
-   * @readonly
-   * @enum {string}
-   */
-  ItemType: {
-    /**
-     * Unspecified.
-     */
-    UNSPECIFIED: 'UNSPECIFIED',
-    /**
-     * Regular.
-     */
-    REGULAR: 'REGULAR',
-    /**
-     * Tax.
-     */
-    TAX: 'TAX',
-    /**
-     * Discount
-     */
-    DISCOUNT: 'DISCOUNT',
-    /**
-     * Gratuity
-     */
-    GRATUITY: 'GRATUITY',
-    /**
-     * Delivery
-     */
-    DELIVERY: 'DELIVERY',
-    /**
-     * Subtotal
-     */
-    SUBTOTAL: 'SUBTOTAL',
-    /**
-     * Fee. For everything else, there's fee.
-     */
-    FEE: 'FEE'
-  },
-  /**
-   * List of price types.
-   * @readonly
-   * @enum {string}
-   */
-  PriceType: {
-    /**
-     * Unknown.
-     */
-    UNKNOWN: 'UNKNOWN',
-    /**
-     * Estimate.
-     */
-    ESTIMATE: 'ESTIMATE',
-    /**
-     * Actual.
-     */
-    ACTUAL: 'ACTUAL'
-  },
-  /**
-   * List of possible item types.
-   * @readonly
-   * @enum {string}
-   */
-  PaymentType: {
-    /**
-     * Unspecified.
-     */
-    UNSPECIFIED: 'UNSPECIFIED',
-    /**
-     * Payment card.
-     */
-    PAYMENT_CARD: 'PAYMENT_CARD',
-    /**
-     * Bank.
-     */
-    BANK: 'BANK',
-    /**
-     * Loyalty program.
-     */
-    LOYALTY_PROGRAM: 'LOYALTY_PROGRAM',
-    /**
-     * On order fulfillment, such as cash on delivery.
-     */
-    ON_FULFILLMENT: 'ON_FULFILLMENT',
-    /**
-     * Gift card.
-     */
-    GIFT_CARD: 'GIFT_CARD'
-  },
-  /**
-   * List of customer information properties that can be requested.
-   * @readonly
-   * @enum {string}
-   */
-  CustomerInfoProperties: {
-    EMAIL: 'EMAIL'
-  },
-  /**
-   * List of possible order confirmation user decisions
-   * @readonly
-   * @enum {string}
-   */
-  ConfirmationDecision: {
-    /**
-     * Order was approved by user.
-     */
-    ACCEPTED: 'ORDER_ACCEPTED',
-    /**
-     * Order was declined by user.
-     */
-    REJECTED: 'ORDER_REJECTED',
-    /**
-     * Order was not declined, but the delivery address was updated during
-     * confirmation.
-     */
-    DELIVERY_ADDRESS_UPDATED: 'DELIVERY_ADDRESS_UPDATED',
-    /**
-     * Order was not declined, but the cart was updated during confirmation.
-     */
-    CART_CHANGE_REQUESTED: 'CART_CHANGE_REQUESTED'
-  },
-  /**
-   * List of possible order states.
-   * @readonly
-   * @enum {string}
-   */
-  OrderState: {
-    /**
-     * Order was rejected.
-     */
-    REJECTED: 'REJECTED',
-    /**
-     * Order was confirmed by integrator and is active.
-     */
-    CONFIRMED: 'CONFIRMED',
-    /**
-     * User cancelled the order.
-     */
-    CANCELLED: 'CANCELLED',
-    /**
-     * Order is being delivered.
-     */
-    IN_TRANSIT: 'IN_TRANSIT',
-    /**
-     * User performed a return.
-     */
-    RETURNED: 'RETURNED',
-    /**
-     * User received what was ordered.
-     */
-    FULFILLED: 'FULFILLED'
-  },
-  /**
-   * List of possible actions to take on the order.
-   * @readonly
-   * @enum {string}
-   */
-  OrderAction: {
-    /**
-     * View details.
-     */
-    VIEW_DETAILS: 'VIEW_DETAILS',
-    /**
-     * Modify order.
-     */
-    MODIFY: 'MODIFY',
-    /**
-     * Cancel order.
-     */
-    CANCEL: 'CANCEL',
-    /**
-     * Return order.
-     */
-    RETURN: 'RETURN',
-    /**
-     * Exchange order.
-     */
-    EXCHANGE: 'EXCHANGE',
-    /**
-     * Email.
-     */
-    EMAIL: 'EMAIL',
-    /**
-     * Call.
-     */
-    CALL: 'CALL',
-    /**
-     * Reorder.
-     */
-    REORDER: 'REORDER',
-    /**
-     * Review.
-     */
-    REVIEW: 'REVIEW'
-  },
-  /**
-   * List of possible types of order rejection.
-   * @readonly
-   * @enum {string}
-   */
-  RejectionType: {
-    /**
-     * Unknown
-     */
-    UNKNOWN: 'UNKNOWN',
-    /**
-     * Payment was declined.
-     */
-    PAYMENT_DECLINED: 'PAYMENT_DECLINED'
-  },
-  /**
-   * List of possible order state objects.
-   * @readonly
-   * @enum {string}
-   */
-  OrderStateInfo: {
-    /**
-     * Information about order rejection. Used with {@link RejectionInfo}.
-     */
-    REJECTION: 'rejectionInfo',
-    /**
-     * Information about order receipt. Used with {@link ReceiptInfo}.
-     */
-    RECEIPT: 'receipt',
-    /**
-     * Information about order cancellation. Used with {@link CancellationInfo}.
-     */
-    CANCELLATION: 'cancellationInfo',
-    /**
-     * Information about in-transit order. Used with {@link TransitInfo}.
-     */
-    IN_TRANSIT: 'inTransitInfo',
-    /**
-     * Information about order fulfillment. Used with {@link FulfillmentInfo}.
-     */
-    FULFILLMENT: 'fulfillmentInfo',
-    /**
-     * Information about order return. Used with {@link ReturnInfo}.
-     */
-    RETURN: 'returnInfo'
-  },
-  /**
-   * List of possible order transaction requirements check result types.
-   * @readonly
-   * @enum {string}
-   */
-  ResultType: {
-    /**
-     * Unspecified.
-     */
-    UNSPECIFIED: 'RESULT_TYPE_UNSPECIFIED',
-    /**
-     * OK to continue transaction.
-     */
-    OK: 'OK',
-    /**
-     * User is expected to take action, e.g. enable payments, to continue
-     * transaction.
-     */
-    USER_ACTION_REQUIRED: 'USER_ACTION_REQUIRED',
-    /**
-     * Transactions are not supported on current device/surface.
-     */
-    ASSISTANT_SURFACE_NOT_SUPPORTED: 'ASSISTANT_SURFACE_NOT_SUPPORTED',
-    /**
-     * Transactions are not supported for current region/country.
-     */
-    REGION_NOT_SUPPORTED: 'REGION_NOT_SUPPORTED'
-  },
-  /**
-   * List of possible user decisions to give delivery address.
-   * @readonly
-   * @enum {string}
-   */
-  DeliveryAddressDecision: {
-    /**
-     * Unknown.
-     */
-    UNKNOWN: 'UNKNOWN_USER_DECISION',
-    /**
-     * User granted delivery address.
-     */
-    ACCEPTED: 'ACCEPTED',
-    /**
-     * User denied to give delivery address.
-     */
-    REJECTED: 'REJECTED'
-  },
-  /**
-   * List of possible order location types.
-   * @readonly
-   * @enum {string}
-   */
-  LocationType: {
-    /**
-     * Unknown.
-     */
-    UNKNOWN: 'UNKNOWN',
-    /**
-     * Delivery location for an order.
-     */
-    DELIVERY: 'DELIVERY',
-    /**
-     * Business location of order provider.
-     */
-    BUSINESS: 'BUSINESS',
-    /**
-     * Origin of the order.
-     */
-    ORIGIN: 'ORIGIN',
-    /**
-     * Destination of the order.
-     */
-    DESTINATION: 'DESTINATION'
-  },
-  /**
-   * List of possible order time types.
-   * @readonly
-   * @enum {string}
-   */
-  TimeType: {
-    /**
-     * Unknown.
-     */
-    UNKNOWN: 'UNKNOWN',
-    /**
-     * Date of delivery for the order.
-     */
-    DELIVERY_DATE: 'DELIVERY_DATE',
-    /**
-     * Estimated Time of Arrival for order.
-     */
-    ETA: 'ETA',
-    /**
-     * Reservation time.
-     */
-    RESERVATION_SLOT: 'RESERVATION_SLOT'
-  }
-};
+ /**
+  * Values related to supporting transactions.
+  * @readonly
+  * @typedef {object} TransactionValues
+  * @property {any} CardNetwork - List of transaction card networks available when paying with Google.
+  * @property {any} ItemType - List of possible item types.
+  * @property {any} PriceType - List of price types.
+  * @property {any} PaymentType - List of possible item types.
+  * @property {any} CustomerInfoProperties - List of customer information properties that can be requested.
+  * @property {any} ConfirmationDecision - List of possible order confirmation user decisions
+  * @property {any} OrderState - List of possible order states.
+  * @property {any} OrderAction - List of possible actions to take on the order.
+  * @property {any} RejectionType - List of possible types of order rejection.
+  * @property {any} OrderStateInfo - List of possible order state objects.
+  * @property {any} ResultType - List of possible order transaction requirements check result types.
+  * @property {any} DeliveryAddressDecision - List of possible user decisions to give delivery address.
+  * @property {any} LocationType - List of possible order location types.
+  * @property {any} TimeType - List of possible order time types.
+  */
+
+ /**
+  * List of transaction card networks available when paying with Google.
+  * @readonly
+  * @enum {string}
+  */
+ const CardNetwork = {
+   /**
+    * Unspecified.
+    */
+   UNSPECIFIED: 'UNSPECIFIED',
+   /**
+    * American Express.
+    */
+   AMEX: 'AMEX',
+   /**
+    * Discover.
+    */
+   DISCOVER: 'DISCOVER',
+   /**
+    * Master Card.
+    */
+   MASTERCARD: 'MASTERCARD',
+   /**
+    * Visa.
+    */
+   VISA: 'VISA',
+   /**
+    * JCB.
+    */
+   JCB: 'JCB'
+ }
 
 /**
  * Valid keys for the TransactionValues.OrderStateInfo enum.
  * @readonly
  * @enum {string}
  */
-const reverseOrderStateInfo = Object.keys(TransactionValues.OrderStateInfo)
+const reverseOrderStateInfo = Object.keys(OrderStateInfo)
   .reduce((reverseValues, infoType) => {
     reverseValues[TransactionValues.OrderStateInfo[infoType]] = infoType;
     return reverseValues;
@@ -575,7 +263,7 @@ const Order = class {
 
     /**
      * TOS for the order.
-     * @type {String}
+     * @type {string}
      */
     this.termsOfServiceUrl = undefined;
 
@@ -1134,7 +822,7 @@ const OrderUpdate = class {
 
     /**
      * UTC timestamp of the order update.
-     * @type {Object}
+     * @type {Timestamp}
      */
     this.updateTime = undefined;
 
@@ -1227,7 +915,7 @@ const OrderUpdate = class {
    * Set the user notification content of the order update.
    *
    * @param {string} title Title of the notification.
-   * @param {text} text Text of the notification.
+   * @param {Object} text Text of the notification.
    * @return {OrderUpdate} Returns current constructed OrderUpdate.
    */
   setUserNotification (title, text) {
