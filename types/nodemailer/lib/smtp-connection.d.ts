@@ -88,6 +88,12 @@ declare namespace SMTPConnection {
         rejectedErrors?: SMTPError[];
         /** the last response received from the server */
         response: string;
+        /** how long was envelope prepared */
+        envelopeTime: number;
+        /** how long was send stream prepared */
+        messageTime: number;
+        /** how many bytes were streamed */
+        messageSize: number;
     }
 
     interface Options {
