@@ -8,9 +8,9 @@ const video = youtubedl('http://www.youtube.com/watch?v=90AiXO1pAiA',
   { cwd: __dirname });
 
 // Will be called when the download starts.
-video.on('info', (info) => {
+video.on('info', (info: youtubedl.Info) => {
   console.log('Download started');
-  console.log('filename: ' + info._filename);
+  console.log('_filename: ' + info._filename);
   console.log('filename: ' + info.filename);
   console.log('size: ' + info.size);
 });
