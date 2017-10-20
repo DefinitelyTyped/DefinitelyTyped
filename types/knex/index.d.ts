@@ -179,7 +179,7 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: TableName, clause: (this: JoinClause) => void): QueryBuilder;
+        (tableName: TableName, clause: (this: JoinClause, join: JoinClause) => void): QueryBuilder;
         (tableName: TableName, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
@@ -615,6 +615,17 @@ declare namespace Knex {
         priorityRange?: number;
         validate?: Function;
         log?: boolean;
+
+        // generic-pool v3 configs
+        maxWaitingClients?: number;
+        testOnBorrow?: boolean;
+        acquireTimeoutMillis?: number;
+        fifo?: boolean;
+        autostart?: boolean;
+        evictionRunIntervalMillis?: number;
+        numTestsPerRun?: number;
+        softIdleTimeoutMillis?: number;
+        Promise?: any;
     }
 
     interface MigratorConfig {

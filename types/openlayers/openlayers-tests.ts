@@ -703,7 +703,8 @@ jsonValue = geojsonFormat.writeGeometryObject(geometry, writeOptions);
 // ol.interactions
 //
 let modify: ol.interaction.Modify = new ol.interaction.Modify({
-    features: new ol.Collection<ol.Feature>(featureArray)
+    insertVertexCondition: ol.events.condition.never,
+    features: new ol.Collection<ol.Feature>(featureArray),
 });
 
 let draw: ol.interaction.Draw = new ol.interaction.Draw({
@@ -802,3 +803,13 @@ styleRegularShape = new ol.style.RegularShape({
 //
 
 let value = ol.proj.METERS_PER_UNIT['degrees'];
+
+numberValue = ol.Sphere.getArea(geometry, {
+    projection: projection,
+    radius: numberValue,
+});
+
+numberValue = ol.Sphere.getLength(geometry, {
+    projection: projection,
+    radius: numberValue,
+});

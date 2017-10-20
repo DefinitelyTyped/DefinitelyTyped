@@ -1,4 +1,4 @@
-// Type definitions for Mixpanel 2.11
+// Type definitions for Mixpanel 2.13.0
 // Project: https://mixpanel.com/
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
@@ -8,11 +8,13 @@ interface Mixpanel
 {
     people:Mixpanel.People;
 
-    init(token:string, config?:{[index:string]:any}, libraryName?:string):Mixpanel;
+    init(token:string, config?:Mixpanel.Config, libraryName?:string):Mixpanel;
 
     push(item:any[]):void;
 
     disable(events?:string[]):void;
+
+    time_event(eventName:string):void;
 
     track(eventName:string, params?:{[index:string]:any}, callback?:() => void):void;
 
@@ -53,6 +55,10 @@ declare namespace Mixpanel
 
         set_once(key:string, value:any, callback?:() => void):void;
 
+        union(prop: string, values:any, callback?:() => void):void;
+
+        union(keys:{[index:string]:any}, callback?:() => void):void;
+
         increment(key:string):void;
 
         increment(keys:{[index:string]:number}):void;
@@ -68,6 +74,59 @@ declare namespace Mixpanel
         clear_charges():void;
 
         delete_user():void;
+    }
+
+    interface Config
+    {
+        api_host?: string;
+
+        app_host?: string;
+
+        cdn?: string;
+
+        persistence?: string;
+
+        persistence_name?: string;
+
+        cookie_name?: string;
+
+        autotrack?: boolean;
+
+        cross_subdomain_cookie?: boolean;
+
+        store_google?: boolean;
+
+        save_referrer?: boolean;
+
+        test?: boolean;
+
+        verbose?: boolean;
+
+        img?: boolean;
+
+        track_pageview?: boolean;
+
+        debug?: boolean;
+
+        upgrade?: boolean;
+
+        disable_persistence?: boolean;
+
+        disable_cookie?: boolean;
+
+        secure_cookie?: boolean;
+
+        ip?: boolean;
+
+        loaded?: (lib:Mixpanel) => void;
+
+        track_links_timeout?: number;
+
+        cookie_expiration?: number;
+
+        property_blacklist?: string[];
+
+        [other:string]:any
     }
 }
 

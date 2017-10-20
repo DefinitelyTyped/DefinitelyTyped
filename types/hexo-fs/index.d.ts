@@ -2,6 +2,7 @@
 // Project: http://hexo.io/
 // Definitions by: segayuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import Promise = require('bluebird');
 import {
@@ -427,9 +428,7 @@ export function writeFile(
 export function writeFileSync(path: string, data: any, options?: string | { encoding?: string | null; mode?: string | number; flag?: string }): void;
 
 // Static classes
-export let Stats: Stats;
-export let ReadStream: ReadStream;
-export let WriteStream: WriteStream;
+export { Stats, ReadStream, WriteStream } from 'graceful-fs';
 
 // util
 export function escapeEOL(str: string): string;

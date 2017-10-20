@@ -9,7 +9,7 @@
 //                 Ika <https://github.com/ikatyang>
 //                 Waseem Dahman <https://github.com/wsmd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -153,6 +153,11 @@ declare namespace jest {
      * for the specified module.
      */
     function setMock<T>(moduleName: string, moduleExports: T): typeof jest;
+    /**
+     * Set the default timeout interval for tests and before/after hooks in milliseconds.
+     * Note: The default timeout interval is 5 seconds if this method is not called.
+     */
+    function setTimeout(timeout: number): typeof jest;
     /**
      * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
      */
@@ -488,12 +493,12 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T> extends Function, MockInstance<T> {
+    interface Mock<T = {}> extends Function, MockInstance<T> {
         new (...args: any[]): T;
         (...args: any[]): any;
     }
 
-    interface SpyInstance<T> extends MockInstance<T> {
+    interface SpyInstance<T = {}> extends MockInstance<T> {
         mockRestore(): void;
     }
 

@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 2.8
+// Type definitions for Enzyme 3.1
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
@@ -639,9 +639,13 @@ export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps)
  */
 export function render<P, S>(node: ReactElement<P>, options?: any): Cheerio;
 
+// See https://github.com/airbnb/enzyme/blob/v3.1.0/packages/enzyme/src/EnzymeAdapter.js
+export class EnzymeAdapter {
+}
+
 /**
  * Configure enzyme to use the correct adapter for the react verstion
  * This is enabling the Enzyme configuration with adapters in TS
  * @param options
  */
-export function configure(options: { adapter: any }): void;
+export function configure(options: { adapter: EnzymeAdapter }): void;

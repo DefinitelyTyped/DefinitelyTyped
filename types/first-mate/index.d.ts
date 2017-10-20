@@ -19,11 +19,11 @@ declare global {
 				maxTokensPerLine?: number;
 				maxLineLength?: number;
 
-				injections?: any;
-				injectionSelector?: any;
+				injections?: object;
+				injectionSelector?: ScopeSelector;
 				patterns?: ReadonlyArray<object>;
 				repository?: object;
-				firstLineMatch?: any;
+				firstLineMatch?: boolean;
 			}
 		}
 
