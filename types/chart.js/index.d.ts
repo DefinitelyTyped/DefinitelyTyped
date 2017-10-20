@@ -28,8 +28,8 @@ declare class Chart {
     getElementAtEvent: (e: any) => {};
     getElementsAtEvent: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
-    ctx: CanvasRenderingContext2D|null;
-    canvas: HTMLCanvasElement|null;
+    ctx: CanvasRenderingContext2D | null;
+    canvas: HTMLCanvasElement | null;
     chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
 
@@ -153,7 +153,8 @@ declare namespace Chart {
         responsiveAnimationDuration?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
-        onClick?(any?: any): any;
+        onClick?(event: MouseEvent, active: any[]): void;
+        onHover?(event: MouseEvent, active: any[]): void;
         title?: ChartTitleOptions;
         legend?: ChartLegendOptions;
         tooltips?: ChartTooltipOptions;
@@ -239,7 +240,7 @@ declare namespace Chart {
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
-        position?: "average"|"nearest";
+        position?: "average" | "nearest";
         caretPadding?: number;
         displayColors?: boolean;
         borderColor?: ChartColor;
@@ -315,14 +316,14 @@ declare namespace Chart {
     }
 
     interface ChartLayoutOptions {
-      padding?: ChartLayoutPaddingObject | number;
+        padding?: ChartLayoutPaddingObject | number;
     }
 
     interface ChartLayoutPaddingObject {
-      top?: number;
-      right?: number;
-      bottom?: number;
-      left?: number;
+        top?: number;
+        right?: number;
+        bottom?: number;
+        left?: number;
     }
 
     interface GridLineOptions {
@@ -350,7 +351,7 @@ declare namespace Chart {
     interface TickOptions {
         autoSkip?: boolean;
         autoSkipPadding?: boolean;
-        callback?(value: any, index: any, values: any): string|number;
+        callback?(value: any, index: any, values: any): string | number;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
