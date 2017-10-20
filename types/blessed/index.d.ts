@@ -1691,7 +1691,7 @@ declare namespace Blessed {
              * callback function which should be called with the search string. The search string is then used to
              * jump to an item that is found in items.
             */
-            search?: () => void;
+            search?: (err: any, value?: string) => void;
             /**
              * Whether the list is interactive and can have items selected (Default: true).
             */
