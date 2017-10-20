@@ -160,6 +160,7 @@ declare namespace Chart {
         hover?: ChartHoverOptions;
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
+        layout?: ChartLayoutOptions;
         scales?: ChartScales;
         showLines?: boolean;
         spanGaps?: boolean;
@@ -312,6 +313,18 @@ declare namespace Chart {
         borderColor?: ChartColor;
         borderSkipped?: string;
     }
+
+    interface ChartLayoutOptions {
+      padding?: ChartLayoutPaddingObject | number;
+    }
+
+    interface ChartLayoutPaddingObject {
+      top?: number;
+      right?: number;
+      bottom?: number;
+      left?: number;
+    }
+
     interface GridLineOptions {
         display?: boolean;
         color?: ChartColor;
