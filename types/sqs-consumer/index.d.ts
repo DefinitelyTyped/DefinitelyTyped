@@ -6,7 +6,7 @@
 /// <reference types="node" />
 import { SQS } from "aws-sdk";
 
-export type ConsumerDone = (error?: Error) => void;
+export type ConsumerDone = (error?: SQSError) => void;
 
 export interface Options {
   queueUrl: string;
@@ -21,9 +21,12 @@ export interface Options {
   sqs?: SQS;
 }
 
-export interface Consumer extends NodeJS.EventEmitter {
+declare class SQSError extends Error {}
+
+declare class Consumer extends NodeJS.EventEmitter {
   start(): void;
   stop(): void;
+  static create(opts: Options): Consumer;
 }
 
-export function create(opts: Options): Consumer;
+export default Consumer;

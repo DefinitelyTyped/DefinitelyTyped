@@ -1,4 +1,4 @@
-import * as Consumer from "sqs-consumer";
+import Consumer, { ConsumerDone } from "sqs-consumer";
 import { SQS } from "aws-sdk";
 
 const app = Consumer.create({
@@ -21,7 +21,7 @@ const app2 = Consumer.create({
 });
 
 // Test message handler.
-const handleMessage = (message: SQS.Message, done: Consumer.ConsumerDone) => {
+const handleMessage = (message: SQS.Message, done: ConsumerDone) => {
 	done();
 };
 
