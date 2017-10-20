@@ -239,16 +239,16 @@ async.parallelLimit({
 
 
 function whileFn(callback: any) {
-    count++;
-    setTimeout(callback, 1000);
+    setTimeout(() => callback(null, ++count), 1000);
 }
 
 function whileTest() { return count < 5; }
+function doWhileTest(count: number) { return count < 5; }
 var count = 0;
 async.whilst(whileTest, whileFn, function (err) { });
 async.until(whileTest, whileFn, function (err) { });
-async.doWhilst(whileFn, whileTest, function (err) { });
-async.doUntil(whileFn, whileTest, function (err) { });
+async.doWhilst(whileFn, doWhileTest, function (err) { });
+async.doUntil(whileFn, doWhileTest, function (err) { });
 
 async.during(function (testCallback) { testCallback(new Error(), false); }, function (callback) { callback() }, function (error) { console.log(error) });
 async.doDuring(function (callback) { callback() }, function (testCallback) { testCallback(new Error(), false); }, function (error) { console.log(error) });
