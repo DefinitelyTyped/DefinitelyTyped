@@ -5,8 +5,8 @@
 
 import * as ReactDnd from "react-dnd";
 
-export default function createTouchBackend(options: TouchBackendOptions): ReactDnd.Backend | any;
+export default function createTouchBackend(options: TouchBackendOptions): ReactDnd.Backend;
 
 export interface TouchBackendOptions {
-    enableMouseEvents?: boolean
+    enableMouseEvents?: boolean;
 }
