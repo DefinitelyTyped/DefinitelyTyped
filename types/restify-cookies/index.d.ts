@@ -11,9 +11,10 @@ declare module 'restify' {
     maxAge?: number;
     domain?: string;
     path?: string;
-    expires?: string;
+    expires?: Date;
     httpOnly?: boolean;
     secure?: boolean;
+    sameSite?: boolean|'lax'|'strict';
   }
 
   interface Request {
