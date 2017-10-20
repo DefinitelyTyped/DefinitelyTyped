@@ -60,6 +60,33 @@ export interface GetUsersData {
   search_engine?: string;
 }
 
+export interface Rule {
+  /**
+   * The name of the rule.
+   */
+  name?: string;
+  /**
+   * The rule's identifier.
+   */
+  id?: string;
+  /**
+   * The code to be executed when the rule runs.
+   */
+  script?: string;
+  /**
+   * The rule's execution stage.
+   */
+  stage?: string;
+  /**
+   * `true` if the connection is enabled, `false` otherwise.
+   */
+  enabled?: boolean;
+  /**
+   * The rule's order in relation to other rules. A rule with a lower order than another rule executes first.
+   */
+  order?: number;
+}
+
 export interface User {
   email?: string;
   email_verified?: boolean;
@@ -352,20 +379,20 @@ export class ManagementClient {
 
 
   // Rules
-  getRules(): Promise<User>;
-  getRules(cb: (err: Error, data: any) => void): void;
+  getRules(): Promise<Rule[]>;
+  getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
-  getRule(params: ClientParams): Promise<User>;
-  getRule(params: ClientParams, cb: (err: Error, data: any) => void): void;
+  getRule(params: ClientParams): Promise<Rule>;
+  getRule(params: ClientParams, cb: (err: Error, rule: Rule) => void): void;
 
-  createRules(data: Data): Promise<User>;
-  createRules(data: Data, cb: (err: Error, data: any) => void): void;
+  createRule(data: Data): Promise<Rule>;
+  createRule(data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  updateRule(params: ObjectWithId, data: Data): Promise<User>;
-  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, data: any) => void): void;
+  updateRule(params: ObjectWithId, data: Data): Promise<Rule>;
+  updateRule(params: ObjectWithId, data: Data, cb: (err: Error, rule: Rule) => void): void;
 
-  deleteRule(params: ObjectWithId): Promise<User>;
-  deleteRule(params: ObjectWithId, cb: (err: Error, data: any) => void): void;
+  deleteRule(params: ObjectWithId): Promise<void>;
+  deleteRule(params: ObjectWithId, cb: (err: Error) => void): void;
 
 
   // Users
@@ -377,7 +404,7 @@ export class ManagementClient {
   getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
 
   createUser(data: CreateUserData): Promise<User>;
-  createUser(data: CreateUserData, cb: (err: Error, data: User) => void): void;
+  createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
 
   updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
   updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
