@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Clusterize {
-    constructor(options: ClusterizeOptions);
+    constructor(options: Clusterize.Options);
 
     destroy(clean?: boolean): void;
     refresh(force?: boolean): void;
@@ -16,24 +16,26 @@ declare class Clusterize {
     prepend(rows: string[]): void;
 }
 
-interface ClusterizeOptions {
-    scrollId: string;
-    contentId: string;
-    rows?: string[];
-    tag?: string;
-    rows_in_block?: number;
-    blocks_in_cluster?: number;
-    show_no_data_row?: boolean;
-    no_data_text?: string;
-    no_data_class?: string;
-    keep_parity?: boolean;
-    callbacks?: ClusterizeCallbacks;
-}
+declare namespace Clusterize {
+    interface Options {
+        scrollId: string;
+        contentId: string;
+        rows?: string[];
+        tag?: string;
+        rows_in_block?: number;
+        blocks_in_cluster?: number;
+        show_no_data_row?: boolean;
+        no_data_text?: string;
+        no_data_class?: string;
+        keep_parity?: boolean;
+        callbacks?: Callbacks;
+    }
 
-interface ClusterizeCallbacks {
-    clusterWillChange?(cb: () => any): any;
-    clusterChanged?(cb: () => any): any;
-    scrollingProgress?(cb: (progress: number) => any): any;
+    interface Callbacks {
+        clusterWillChange?(cb: () => any): void;
+        clusterChanged?(cb: () => any): void;
+        scrollingProgress?(cb: (progress: number) => any): void;
+    }
 }
 
 export = Clusterize;

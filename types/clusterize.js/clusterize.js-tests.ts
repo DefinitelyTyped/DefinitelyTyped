@@ -1,6 +1,7 @@
 import Clusterize = require('clusterize.js');
 
-const clusterize = new Clusterize({ contentId: '', scrollId: '' });
+const options: Clusterize.Options = { contentId: '', scrollId: '' };
+const clusterize = new Clusterize(options);
 
 clusterize.append(['<li></li>']);
 
