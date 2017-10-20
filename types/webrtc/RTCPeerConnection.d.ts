@@ -142,10 +142,10 @@ interface RTCRtpCodecParameters {
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpparameters
 interface RTCRtpParameters {
     transactionId: string;
-    //encodings: RTCRtpEncodingParameters[];
-    //headerExtensions: RTCRtpHeaderExtensionParameters[];
-    //rtcp: RTCRtcpParameters;
-    //codecs: RTCRtpCodecParameters[];
+    encodings: RTCRtpEncodingParameters[];
+    headerExtensions: RTCRtpHeaderExtensionParameters[];
+    rtcp: RTCRtcpParameters;
+    codecs: RTCRtpCodecParameters[];
     degradationPreference?: RTCDegradationPreference; // default = 'balanced'
 }
 
@@ -165,10 +165,10 @@ interface RTCRtcCapabilities {
 
 // https://www.w3.org/TR/webrtc/#dom-rtcrtpsender
 interface RTCRtpSender {
-    //readonly track?: MediaStreamTrack;
-    //readonly transport?: RTCDtlsTransport;
-    //readonly rtcpTransport?: RTCDtlsTransport;
-    setParameters(parameters?: RTCRtpParameters): Promise<void>;
+    readonly track?: MediaStreamTrack;
+    readonly transport?: RTCDtlsTransport;
+    readonly rtcpTransport?: RTCDtlsTransport;
+    setParameters(parameters: Partial<RTCRtpParameters>): Promise<void>;
     getParameters(): RTCRtpParameters;
     replaceTrack(withTrack: MediaStreamTrack): Promise<void>;
 }
