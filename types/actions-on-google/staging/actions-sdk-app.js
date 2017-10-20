@@ -39,6 +39,25 @@ error.log = console.error.bind(console);
 // ---------------------------------------------------------------------------
 
 /**
+ * @typedef {object} ActionsSdkAppOptions JSON configuration.
+ * @property {TODO} request - Express HTTP request object.
+ * @property {TODO} response - Express HTTP response object.
+ * @property {TODO=} sessionStarted - Function callback when session starts.
+*/
+
+/**
+ * @typedef {object} DialogState TODO
+ */
+
+ /**
+  * @typedef {object} AskTellResponse TODO
+  */
+
+/**
+ * @typedef {object} InputPrompt TODO
+ */
+
+/**
  * This is the class that handles the conversation API directly from Assistant,
  * providing implementation for all the methods available in the API.
  */
@@ -52,10 +71,7 @@ class ActionsSdkApp extends AssistantApp {
    * const app = new ActionsSdkApp({request: request, response: response,
    *   sessionStarted:sessionStarted});
    *
-   * @param {Object} options JSON configuration.
-   * @param {Object} options.request Express HTTP request object.
-   * @param {Object} options.response Express HTTP response object.
-   * @param {Function=} options.sessionStarted Function callback when session starts.
+   * @param {ActionsSdkAppOptions} options JSON configuration.
    * @actionssdk
    */
   constructor (options) {
@@ -95,7 +111,7 @@ class ActionsSdkApp extends AssistantApp {
    *   });
    *
    * @param {string} projectId Google Cloud Project ID for the Assistant app.
-   * @return {Promise<LoginTicket>} Promise resolving with google-auth-library LoginTicket
+   * @return {TODO} Promise resolving with google-auth-library LoginTicket
    *     if request is from a valid source, otherwise rejects with the error reason
    *     for an invalid token.
    * @actionssdk
@@ -174,7 +190,7 @@ class ActionsSdkApp extends AssistantApp {
    * const app = new ActionsSdkApp({request: request, response: response});
    * const dialogState = app.getDialogState();
    *
-   * @return {Object} JSON object provided to the Assistant in the previous
+   * @return {any} JSON object provided to the Assistant in the previous
    *     user turn or {} if no value.
    * @actionssdk
    */
@@ -353,11 +369,11 @@ class ActionsSdkApp extends AssistantApp {
    *
    * app.handleRequest(actionMap);
    *
-   * @param {Object|SimpleResponse|RichResponse} inputPrompt Holding initial and
+   * @param {InputPrompt|SimpleResponse|RichResponse} inputPrompt Holding initial and
    *     no-input prompts.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by App.
-   * @return {(Object|null)} The response that is sent to Assistant to ask user to provide input.
+   * @return {AskTellResponse} The response that is sent to Assistant to ask user to provide input.
    * @actionssdk
    */
   ask (inputPrompt, dialogState) {
@@ -403,12 +419,12 @@ class ActionsSdkApp extends AssistantApp {
    * actionMap.set(app.StandardIntents.OPTION, optionIntent);
    * app.handleRequest(actionMap);
    *
-   * @param {Object|SimpleResponse|RichResponse} inputPrompt Holding initial and
+   * @param {InputPrompt|SimpleResponse|RichResponse} inputPrompt Holding initial and
    *     no-input prompts. Cannot contain basic card.
    * @param {List} list List built with {@link AssistantApp#buildList|buildList}.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant.
-   * @return {(Object|null)} The response that is sent to Assistant to ask user to provide input.
+   * @return {AskTellResponse} The response that is sent to Assistant to ask user to provide input.
    * @actionssdk
    */
   askWithList (inputPrompt, list, dialogState) {
@@ -475,13 +491,13 @@ class ActionsSdkApp extends AssistantApp {
    * actionMap.set(app.StandardIntents.OPTION, optionIntent);
    * app.handleRequest(actionMap);
    *
-   * @param {Object|SimpleResponse|RichResponse} inputPrompt Holding initial and
+   * @param {InputPrompt|SimpleResponse|RichResponse} inputPrompt Holding initial and
    *     no-input prompts. Cannot contain basic card.
    * @param {Carousel} carousel Carousel built with
    *      {@link AssistantApp#buildCarousel|buildCarousel}.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant.
-   * @return {(Object|null)} The response that is sent to Assistant to ask user to provide input.
+   * @return {AskTellResponse} The response that is sent to Assistant to ask user to provide input.
    * @actionssdk
    */
   askWithCarousel (inputPrompt, carousel, dialogState) {
@@ -549,7 +565,7 @@ class ActionsSdkApp extends AssistantApp {
    *
    * @param {string|SimpleResponse|RichResponse} textToSpeech Final response.
    *     Spoken response can be SSML.
-   * @return {(Object|null)} The HTTP response that is sent back to Assistant.
+   * @return {AskTellResponse} The HTTP response that is sent back to Assistant.
    * @actionssdk
    */
   tell (textToSpeech) {
@@ -605,7 +621,7 @@ class ActionsSdkApp extends AssistantApp {
    * @param {boolean} isSsml Indicates whether the text to speech is SSML or not.
    * @param {string} initialPrompt The initial prompt the App asks the user.
    * @param {Array<string>=} noInputs Array of re-prompts when the user does not respond (max 3).
-   * @return {Object} An {@link https://developers.google.com/actions/reference/conversation#InputPrompt|InputPrompt object}.
+   * @return {InputPrompt} An {@link https://developers.google.com/actions/reference/conversation#InputPrompt|InputPrompt object}.
    * @actionssdk
    */
   buildInputPrompt (isSsml, initialPrompt, noInputs) {

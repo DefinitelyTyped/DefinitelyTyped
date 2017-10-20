@@ -53,6 +53,231 @@ debug.log = console.log.bind(console);
 error.log = console.error.bind(console);
 
 /**
+ * List of standard intents that the app provides.
+ * @readonly
+ * @enum {string}
+ * @actionssdk
+ * @dialogflow
+ */
+const StandardIntents = {
+  /** App fires MAIN intent for queries like [talk to $app]. */
+  MAIN: this.isNotApiVersionOne_() ? 'actions.intent.MAIN' : 'assistant.intent.action.MAIN',
+  /** App fires TEXT intent when action issues ask intent. */
+  TEXT: this.isNotApiVersionOne_() ? 'actions.intent.TEXT' : 'assistant.intent.action.TEXT',
+  /** App fires PERMISSION intent when action invokes askForPermission. */
+  PERMISSION: this.isNotApiVersionOne_() ? 'actions.intent.PERMISSION' : 'assistant.intent.action.PERMISSION',
+  /** App fires OPTION intent when user chooses from options provided. */
+  OPTION: 'actions.intent.OPTION',
+  /** App fires TRANSACTION_REQUIREMENTS_CHECK intent when action sets up transaction. */
+  TRANSACTION_REQUIREMENTS_CHECK: 'actions.intent.TRANSACTION_REQUIREMENTS_CHECK',
+  /** App fires DELIVERY_ADDRESS intent when action asks for delivery address. */
+  DELIVERY_ADDRESS: 'actions.intent.DELIVERY_ADDRESS',
+  /** App fires TRANSACTION_DECISION intent when action asks for transaction decision. */
+  TRANSACTION_DECISION: 'actions.intent.TRANSACTION_DECISION',
+  /** App fires CONFIRMATION intent when requesting affirmation from user. */
+  CONFIRMATION: 'actions.intent.CONFIRMATION',
+  /** App fires DATETIME intent when requesting date/time from user. */
+  DATETIME: 'actions.intent.DATETIME',
+  /** App fires SIGN_IN intent when requesting sign-in from user. */
+  SIGN_IN: 'actions.intent.SIGN_IN',
+  /** App fires NO_INPUT intent when user doesn't provide input. */
+  NO_INPUT: 'actions.intent.NO_INPUT',
+  /** App fires CANCEL intent when user exits app mid-dialog. */
+  CANCEL: 'actions.intent.CANCEL',
+  /** App fires NEW_SURFACE intent when requesting handoff to a new surface from user. */
+  NEW_SURFACE: 'actions.intent.NEW_SURFACE'
+};
+
+/**
+ * List of supported permissions the app supports.
+ * @readonly
+ * @enum {string}
+ * @actionssdk
+ * @dialogflow
+ */
+const SupportedPermissions = {
+  /**
+   * The user's name as defined in the
+   * {@link https://developers.google.com/actions/reference/conversation#UserProfile|UserProfile object}
+   */
+  NAME: 'NAME',
+  /**
+   * The location of the user's current device, as defined in the
+   * {@link https://developers.google.com/actions/reference/conversation#Location|Location object}.
+   */
+  DEVICE_PRECISE_LOCATION: 'DEVICE_PRECISE_LOCATION',
+  /**
+   * City and zipcode corresponding to the location of the user's current device, as defined in the
+   * {@link https://developers.google.com/actions/reference/conversation#Location|Location object}.
+   */
+  DEVICE_COARSE_LOCATION: 'DEVICE_COARSE_LOCATION'
+};
+
+/**
+ * List of built-in argument names.
+ * @readonly
+ * @enum {string}
+ * @actionssdk
+ * @dialogflow
+ */
+const BuiltInArgNames = {
+  /** Permission granted argument. */
+  PERMISSION_GRANTED: this.isNotApiVersionOne_() ? 'PERMISSION' : 'permission_granted',
+  /** Option selected argument. */
+  OPTION: 'OPTION',
+  /** Transaction requirements check result argument. */
+  TRANSACTION_REQ_CHECK_RESULT: 'TRANSACTION_REQUIREMENTS_CHECK_RESULT',
+  /** Delivery address value argument. */
+  DELIVERY_ADDRESS_VALUE: 'DELIVERY_ADDRESS_VALUE',
+  /** Transactions decision argument. */
+  TRANSACTION_DECISION_VALUE: 'TRANSACTION_DECISION_VALUE',
+  /** Confirmation argument. */
+  CONFIRMATION: 'CONFIRMATION',
+  /** DateTime argument. */
+  DATETIME: 'DATETIME',
+  /** Sign in status argument. */
+  SIGN_IN: 'SIGN_IN',
+  /** Reprompt count for consecutive NO_INPUT intents. */
+  REPROMPT_COUNT: 'REPROMPT_COUNT',
+  /** Flag representing finality of NO_INPUT intent. */
+  IS_FINAL_REPROMPT: 'IS_FINAL_REPROMPT',
+  /** New surface value argument. */
+  NEW_SURFACE: 'NEW_SURFACE'
+};
+
+/**
+ * List of built-in argument names.
+ * @readonly
+ * @enum {string}
+ * @actionssdk
+ * @dialogflow
+ */
+const BuiltInArgNames = {
+  /** Permission granted argument. */
+  PERMISSION_GRANTED: this.isNotApiVersionOne_() ? 'PERMISSION' : 'permission_granted',
+  /** Option selected argument. */
+  OPTION: 'OPTION',
+  /** Transaction requirements check result argument. */
+  TRANSACTION_REQ_CHECK_RESULT: 'TRANSACTION_REQUIREMENTS_CHECK_RESULT',
+  /** Delivery address value argument. */
+  DELIVERY_ADDRESS_VALUE: 'DELIVERY_ADDRESS_VALUE',
+  /** Transactions decision argument. */
+  TRANSACTION_DECISION_VALUE: 'TRANSACTION_DECISION_VALUE',
+  /** Confirmation argument. */
+  CONFIRMATION: 'CONFIRMATION',
+  /** DateTime argument. */
+  DATETIME: 'DATETIME',
+  /** Sign in status argument. */
+  SIGN_IN: 'SIGN_IN',
+  /** Reprompt count for consecutive NO_INPUT intents. */
+  REPROMPT_COUNT: 'REPROMPT_COUNT',
+  /** Flag representing finality of NO_INPUT intent. */
+  IS_FINAL_REPROMPT: 'IS_FINAL_REPROMPT',
+  /** New surface value argument. */
+  NEW_SURFACE: 'NEW_SURFACE'
+};
+
+/**
+ * List of possible conversation stages, as defined in the
+ * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
+ * @readonly
+ * @enum {number}
+ * @actionssdk
+ * @dialogflow
+ */
+const ConversationStages = {
+  /**
+   * Unspecified conversation state.
+   */
+  UNSPECIFIED: this.isNotApiVersionOne_() ? 'UNSPECIFIED' : 0,
+  /**
+   * A new conversation.
+   */
+  NEW: this.isNotApiVersionOne_() ? 'NEW' : 1,
+  /**
+   * An active (ongoing) conversation.
+   */
+  ACTIVE: this.isNotApiVersionOne_() ? 'ACTIVE' : 2
+};
+
+/**
+ * List of surface capabilities supported by the app.
+ * @readonly
+ * @enum {string}
+ * @actionssdk
+ * @dialogflow
+ */
+const SurfaceCapabilities = {
+  /**
+   * The ability to output audio.
+   */
+  AUDIO_OUTPUT: 'actions.capability.AUDIO_OUTPUT',
+  /**
+   * The ability to output on a screen
+   */
+  SCREEN_OUTPUT: 'actions.capability.SCREEN_OUTPUT'
+};
+
+/**
+ * List of possible user input types.
+ * @readonly
+ * @enum {number}
+ * @actionssdk
+ * @dialogflow
+ */
+const InputTypes = {
+  /**
+   * Unspecified.
+   */
+  UNSPECIFIED: this.isNotApiVersionOne_() ? 'UNSPECIFIED' : 0,
+  /**
+   * Input given by touch.
+   */
+  TOUCH: this.isNotApiVersionOne_() ? 'TOUCH' : 1,
+  /**
+   * Input given by voice (spoken).
+   */
+  VOICE: this.isNotApiVersionOne_() ? 'VOICE' : 2,
+  /**
+   * Input given by keyboard (typed).
+   */
+  KEYBOARD: this.isNotApiVersionOne_() ? 'KEYBOARD' : 3
+};
+
+/**
+ * List of possible sign in result status values.
+ * @readonly
+ * @enum {string}
+ * @actionssdk
+ * @dialogflow
+ */
+const SignInStatus = {
+  // Unknown status.
+  UNSPECIFIED: 'SIGN_IN_STATUS_UNSPECIFIED',
+  // User successfully completed the account linking.
+  OK: 'OK',
+  // Cancelled or dismissed account linking.
+  CANCELLED: 'CANCELLED',
+  // System or network error.
+  ERROR: 'ERROR'
+};
+
+/**
+ * @typedef {object} AssistantAppOptions JSON configuration.
+ * @property {TODO} request - Express HTTP request object.
+ * @property {TODO} response - Express HTTP response object.
+ * @property {TODO=} sessionStarted - Function callback when session starts.
+*/
+
+/**
+ * @typedef {object} DialogState TODO
+ */
+
+/**
+ * @typedef {object} AskTellResponse TODO
+ */
+
+/**
  * The Actions on Google client library AssistantApp base class.
  *
  * This class contains the methods that are shared between platforms to support the conversation API
@@ -65,10 +290,7 @@ class AssistantApp {
    * Should not be instantiated; rather instantiate one of the subclasses
    * {@link ActionsSdkApp} or {@link DialogflowApp}.
    *
-   * @param {Object} options JSON configuration.
-   * @param {Object} options.request Express HTTP request object.
-   * @param {Object} options.response Express HTTP response object.
-   * @param {Function=} options.sessionStarted Function callback when session starts.
+   * @param {AssistantAppOptions} options JSON configuration.
    * @param {function(): *} requestData Function that returns the
    *     request data object to be processed.
    */
@@ -204,95 +426,29 @@ class AssistantApp {
     /**
      * List of standard intents that the app provides.
      * @readonly
-     * @enum {string}
+     * @type {TODO}
      * @actionssdk
      * @dialogflow
      */
-    this.StandardIntents = {
-      /** App fires MAIN intent for queries like [talk to $app]. */
-      MAIN: this.isNotApiVersionOne_() ? 'actions.intent.MAIN' : 'assistant.intent.action.MAIN',
-      /** App fires TEXT intent when action issues ask intent. */
-      TEXT: this.isNotApiVersionOne_() ? 'actions.intent.TEXT' : 'assistant.intent.action.TEXT',
-      /** App fires PERMISSION intent when action invokes askForPermission. */
-      PERMISSION: this.isNotApiVersionOne_() ? 'actions.intent.PERMISSION' : 'assistant.intent.action.PERMISSION',
-      /** App fires OPTION intent when user chooses from options provided. */
-      OPTION: 'actions.intent.OPTION',
-      /** App fires TRANSACTION_REQUIREMENTS_CHECK intent when action sets up transaction. */
-      TRANSACTION_REQUIREMENTS_CHECK: 'actions.intent.TRANSACTION_REQUIREMENTS_CHECK',
-      /** App fires DELIVERY_ADDRESS intent when action asks for delivery address. */
-      DELIVERY_ADDRESS: 'actions.intent.DELIVERY_ADDRESS',
-      /** App fires TRANSACTION_DECISION intent when action asks for transaction decision. */
-      TRANSACTION_DECISION: 'actions.intent.TRANSACTION_DECISION',
-      /** App fires CONFIRMATION intent when requesting affirmation from user. */
-      CONFIRMATION: 'actions.intent.CONFIRMATION',
-      /** App fires DATETIME intent when requesting date/time from user. */
-      DATETIME: 'actions.intent.DATETIME',
-      /** App fires SIGN_IN intent when requesting sign-in from user. */
-      SIGN_IN: 'actions.intent.SIGN_IN',
-      /** App fires NO_INPUT intent when user doesn't provide input. */
-      NO_INPUT: 'actions.intent.NO_INPUT',
-      /** App fires CANCEL intent when user exits app mid-dialog. */
-      CANCEL: 'actions.intent.CANCEL',
-      /** App fires NEW_SURFACE intent when requesting handoff to a new surface from user. */
-      NEW_SURFACE: 'actions.intent.NEW_SURFACE'
-    };
+    this.StandardIntents = StandardIntents;
 
     /**
      * List of supported permissions the app supports.
      * @readonly
-     * @enum {string}
+     * @type {TODO}
      * @actionssdk
      * @dialogflow
      */
-    this.SupportedPermissions = {
-      /**
-       * The user's name as defined in the
-       * {@link https://developers.google.com/actions/reference/conversation#UserProfile|UserProfile object}
-       */
-      NAME: 'NAME',
-      /**
-       * The location of the user's current device, as defined in the
-       * {@link https://developers.google.com/actions/reference/conversation#Location|Location object}.
-       */
-      DEVICE_PRECISE_LOCATION: 'DEVICE_PRECISE_LOCATION',
-      /**
-       * City and zipcode corresponding to the location of the user's current device, as defined in the
-       * {@link https://developers.google.com/actions/reference/conversation#Location|Location object}.
-       */
-      DEVICE_COARSE_LOCATION: 'DEVICE_COARSE_LOCATION'
-    };
+    this.SupportedPermissions = SupportedPermissions;
 
     /**
      * List of built-in argument names.
      * @readonly
-     * @enum {string}
+     * @type {TODO}
      * @actionssdk
      * @dialogflow
      */
-    this.BuiltInArgNames = {
-      /** Permission granted argument. */
-      PERMISSION_GRANTED: this.isNotApiVersionOne_() ? 'PERMISSION' : 'permission_granted',
-      /** Option selected argument. */
-      OPTION: 'OPTION',
-      /** Transaction requirements check result argument. */
-      TRANSACTION_REQ_CHECK_RESULT: 'TRANSACTION_REQUIREMENTS_CHECK_RESULT',
-      /** Delivery address value argument. */
-      DELIVERY_ADDRESS_VALUE: 'DELIVERY_ADDRESS_VALUE',
-      /** Transactions decision argument. */
-      TRANSACTION_DECISION_VALUE: 'TRANSACTION_DECISION_VALUE',
-      /** Confirmation argument. */
-      CONFIRMATION: 'CONFIRMATION',
-      /** DateTime argument. */
-      DATETIME: 'DATETIME',
-      /** Sign in status argument. */
-      SIGN_IN: 'SIGN_IN',
-      /** Reprompt count for consecutive NO_INPUT intents. */
-      REPROMPT_COUNT: 'REPROMPT_COUNT',
-      /** Flag representing finality of NO_INPUT intent. */
-      IS_FINAL_REPROMPT: 'IS_FINAL_REPROMPT',
-      /** New surface value argument. */
-      NEW_SURFACE: 'NEW_SURFACE'
-    };
+    this.BuiltInArgNames = BuiltInArgNames;
 
     /**
      * The property name used when specifying an input value data spec.
@@ -334,86 +490,38 @@ class AssistantApp {
      * List of possible conversation stages, as defined in the
      * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
      * @readonly
-     * @enum {number}
+     * @type {TODO}
      * @actionssdk
      * @dialogflow
      */
-    this.ConversationStages = {
-      /**
-       * Unspecified conversation state.
-       */
-      UNSPECIFIED: this.isNotApiVersionOne_() ? 'UNSPECIFIED' : 0,
-      /**
-       * A new conversation.
-       */
-      NEW: this.isNotApiVersionOne_() ? 'NEW' : 1,
-      /**
-       * An active (ongoing) conversation.
-       */
-      ACTIVE: this.isNotApiVersionOne_() ? 'ACTIVE' : 2
-    };
+    this.ConversationStages = ConversationStages;
 
     /**
      * List of surface capabilities supported by the app.
      * @readonly
-     * @enum {string}
+     * @type {TODO}
      * @actionssdk
      * @dialogflow
      */
-    this.SurfaceCapabilities = {
-      /**
-       * The ability to output audio.
-       */
-      AUDIO_OUTPUT: 'actions.capability.AUDIO_OUTPUT',
-      /**
-       * The ability to output on a screen
-       */
-      SCREEN_OUTPUT: 'actions.capability.SCREEN_OUTPUT'
-    };
+    this.SurfaceCapabilities = SurfaceCapabilities;
 
     /**
      * List of possible user input types.
      * @readonly
-     * @enum {number}
+     * @type {TODO}
      * @actionssdk
      * @dialogflow
      */
-    this.InputTypes = {
-      /**
-       * Unspecified.
-       */
-      UNSPECIFIED: this.isNotApiVersionOne_() ? 'UNSPECIFIED' : 0,
-      /**
-       * Input given by touch.
-       */
-      TOUCH: this.isNotApiVersionOne_() ? 'TOUCH' : 1,
-      /**
-       * Input given by voice (spoken).
-       */
-      VOICE: this.isNotApiVersionOne_() ? 'VOICE' : 2,
-      /**
-       * Input given by keyboard (typed).
-       */
-      KEYBOARD: this.isNotApiVersionOne_() ? 'KEYBOARD' : 3
-    };
+    this.InputTypes = InputTypes;
 
     /**
      * List of possible sign in result status values.
      * @readonly
-     * @enum {string}
+     * @type {TODO}
      * @actionssdk
      * @dialogflow
      */
-    this.SignInStatus = {
-      // Unknown status.
-      UNSPECIFIED: 'SIGN_IN_STATUS_UNSPECIFIED',
-      // User successfully completed the account linking.
-      OK: 'OK',
-      // Cancelled or dismissed account linking.
-      CANCELLED: 'CANCELLED',
-      // System or network error.
-      ERROR: 'ERROR'
-    };
+    this.SignInStatus = SignInStatus;
 
     /**
      * API version describes version of the Assistant request.
@@ -431,7 +539,7 @@ class AssistantApp {
     /**
      * Values related to supporting {@link Transactions}.
      * @readonly
-     * @type {object}
+     * @type {TODO}
      */
     this.Transactions = TransactionValues;
 
@@ -497,7 +605,6 @@ class AssistantApp {
    * app.handleRequest(actionMap);
    *
    * @param {(Function|Map)} handler The handler (or Map of handlers) for the request.
-   * @return {undefined}
    * @actionssdk
    * @dialogflow
    */
@@ -588,9 +695,9 @@ class AssistantApp {
    *     prompt prefix (action phrase) we ask the user.
    * @param {Array<string>} permissions Array of permissions App supports, each of
    *     which comes from AssistantApp.SupportedPermissions.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-   * @return {(Object|null)} A response is sent to Assistant to ask for the user's permission; for any
+   * @return {AskTellResponse} A response is sent to Assistant to ask for the user's permission; for any
    *     invalid input, we return null.
    * @actionssdk
    * @dialogflow
@@ -662,9 +769,9 @@ class AssistantApp {
    *     transactionConfig Configuration for the transaction. Includes payment
    *     options and order options. Optional if order has no payment or
    *     delivery.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-   * @return {(Object|null)} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @actionssdk
    * @dialogflow
    */
@@ -724,13 +831,13 @@ class AssistantApp {
    * actionMap.set(TXN_COMPLETE, txnComplete);
    * app.handleRequest(actionMap);
    *
-   * @param {Object} order Order built with buildOrder().
+   * @param {Order} order Order built with buildOrder().
    * @param {ActionPaymentTransactionConfig|GooglePaymentTransactionConfig}
    *     transactionConfig Configuration for the transaction. Includes payment
    *     options and order options.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-   * @return {(Object|null)} HTTP response
+   * @return {AskTellResponse} HTTP response
    * @dialogflow
    */
   askForTransactionDecision (order, transactionConfig, dialogState) {
@@ -819,9 +926,9 @@ class AssistantApp {
    *     prompt prefix (action phrase) we ask the user.
    * @param {string} permission One of the permissions Assistant supports, each of
    *     which comes from AssistantApp.SupportedPermissions.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant.
-   * @return {(Object|null)} A response is sent to the Assistant to ask for the user's permission;
+   * @return {AskTellResponse} A response is sent to the Assistant to ask for the user's permission;
    *     for any invalid input, we return null.
    * @actionssdk
    * @dialogflow
@@ -911,9 +1018,9 @@ class AssistantApp {
    * app.handleRequest(actionMap);
    *
    * @param {string} reason Reason given to user for asking delivery address.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant.
-   * @return {Object} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @actionssdk
    * @dialogflow
    */
@@ -961,9 +1068,9 @@ class AssistantApp {
    * @param {string=} prompt The confirmation prompt presented to the user to
    *     query for an affirmative or negative response. If undefined or null,
    *     Google will use a generic yes/no prompt.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-   * @return {(Object|null)} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @actionssdk
    * @dialogflow
    */
@@ -1018,9 +1125,9 @@ class AssistantApp {
    * @param {string=} timePrompt The prompt used to specifically ask for the
    *     time if not provided by user. If undefined or null, Google will use a
    *     generic prompt.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-   * @return {(Object|null)} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @actionssdk
    * @dialogflow
    */
@@ -1075,9 +1182,9 @@ class AssistantApp {
    * actionMap.set(SIGN_IN, signIn);
    * app.handleRequest(actionMap);
    *
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-   * @return {(Object|null)} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @actionssdk
    * @dialogflow
    */
@@ -1128,9 +1235,9 @@ class AssistantApp {
    *     new surface device.
    * @param {Array<string>} capabilities The list of capabilities required in
    *     the surface.
-   * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+   * @param {DialogState=} dialogState JSON object the app uses to hold dialog state that
    *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-   * @return {(Object|null)} HTTP response.
+   * @return {AskTellResponse} HTTP response.
    * @dialogflow
    * @actionssdk
    */
@@ -1146,7 +1253,7 @@ class AssistantApp {
 
   /**
    * User provided date/time info.
-   * @typedef {Object} DateTime
+   * @typedef {object} DateTime
    * @property {Object} date
    * @property {number} date.year
    * @property {number} date.month
@@ -1157,9 +1264,10 @@ class AssistantApp {
    * @property {number} time.seconds
    * @property {number} time.nanos
    */
+
   /**
    * User's permissioned name info.
-   * @typedef {Object} UserName
+   * @typedef {object} UserName
    * @property {string} displayName - User's display name.
    * @property {string} givenName - User's given name.
    * @property {string} familyName - User's family name.
@@ -1167,7 +1275,7 @@ class AssistantApp {
 
   /**
    * User's permissioned device location.
-   * @typedef {Object} DeviceLocation
+   * @typedef {object} DeviceLocation
    * @property {Object} coordinates - {latitude, longitude}. Requested with
    *     SupportedPermissions.DEVICE_PRECISE_LOCATION.
    * @property {string} address - Full, formatted street address. Requested with
@@ -1180,7 +1288,7 @@ class AssistantApp {
 
   /**
    * User object.
-   * @typedef {Object} User
+   * @typedef {object} User
    * @property {string} userId - Random string ID for Google user.
    * @property {UserName} userName - User name information. Null if not
    *     requested with {@link AssistantApp#askForPermission|askForPermission(SupportedPermissions.NAME)}.
@@ -1190,13 +1298,13 @@ class AssistantApp {
 
   /**
    * Actions on Google Surface.
-   * @typedef {Object} Surface
+   * @typedef {object} Surface
    * @property {Array<Capability>} capabilities - Capabilities of the surface.
    */
 
   /**
    * Surface capability.
-   * @typedef {Object} Capability
+   * @typedef {object} Capability
    * @property {string} name - Name of the capability.
    */
 
@@ -1331,7 +1439,7 @@ class AssistantApp {
   /**
    * Gets type of input used for this request.
    *
-   * @return {number} One of AssistantApp.InputTypes.
+   * @return {number|string} One of AssistantApp.InputTypes.
    *     Null if no input type given.
    * @dialogflow
    * @actionssdk

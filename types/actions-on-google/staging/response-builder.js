@@ -30,28 +30,28 @@ const CAROUSEL_ITEM_LIMIT = 10;
 
 /**
  * Simple Response type.
- * @typedef {Object} SimpleResponse
+ * @typedef {object} SimpleResponse
  * @property {string} speech - Speech to be spoken to user. SSML allowed.
- * @property {string} displayText - Optional text to be shown to user
+ * @property {string} [displayText] - Optional text to be shown to user
  */
 
 /**
  * Suggestions to show with response.
- * @typedef {Object} Suggestion
+ * @typedef {object} Suggestion
  * @property {string} title - Text of the suggestion.
  */
 
 /**
  * Link Out Suggestion. Used in rich response as a suggestion chip which, when
  * selected, links out to external URL.
- * @typedef {Object} LinkOutSuggestion
+ * @typedef {object} LinkOutSuggestion
  * @property {string} title - Text shown on the suggestion chip.
  * @property {string} url - String URL to open.
  */
 
 /**
  * Image type shown on visual elements.
- * @typedef {Object} Image
+ * @typedef {object} Image
  * @property {string} url - Image source URL.
  * @property {string} accessibilityText - Text to replace for image for
  *     accessibility.
@@ -61,24 +61,15 @@ const CAROUSEL_ITEM_LIMIT = 10;
 
 /**
  * Basic Card Button. Shown below basic cards. Open a URL when selected.
- * @typedef {Object} Button
+ * @typedef {object} Button
  * @property {string} title - Text shown on the button.
  * @property {Object} openUrlAction - Action to take when selected.
  * @property {string} openUrlAction.url - String URL to open.
  */
 
 /**
- * Option item. Used in actions.intent.OPTION intent.
- * @typedef {Object} OptionItem
- * @property {OptionInfo} optionInfo - Option item identifier information.
- * @property {string} title - Name of the item.
- * @property {string} description - Optional text describing the item.
- * @property {Image} image - Square image to show for this item.
- */
-
-/**
  * Option info. Provides unique identifier for a given OptionItem.
- * @typedef {Object} OptionInfo
+ * @typedef {object} OptionInfo
  * @property {string} key - Unique string ID for this option.
  * @property {Array<string>} synonyms - Synonyms that can be used by the user
  *     to indicate this option if they do not use the key.
@@ -498,7 +489,7 @@ const List = class {
 
     /**
      * List of 2-20 items to show in this list. Required.
-     * @type {Array<OptionItems>}
+     * @type {Array<OptionItem>}
      */
     this.items = [];
 
@@ -578,7 +569,7 @@ const Carousel = class {
   constructor (carousel) {
     /**
      * List of 2-20 items to show in this carousel. Required.
-     * @type {Array<OptionItems>}
+     * @type {Array<OptionItem>}
      */
     this.items = [];
 
