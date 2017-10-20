@@ -1,14 +1,13 @@
-
 import CircularJSON = require('circular-json');
 
-var replacer = (key: any, val: any) => {
+const replacer = (key: any, val: any) => {
   return val;
-}
+};
 
-var replacerArray = ['a', 'x'];
+const replacerArray = ['a', 'x'];
 
 // implements JSON interface
-var json_obj: JSON = CircularJSON;
+const json_obj: JSON = CircularJSON;
 
 CircularJSON.parse('{"a":"b"}');
 
