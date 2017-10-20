@@ -1,27 +1,62 @@
+import * as express from 'express';
+
+import { AssistantApp } from './assistant-app';
+import { Carousel, List, RichResponse, SimpleResponse } from './response-builder';
+
+// ---------------------------------------------------------------------------
+//                   Dialogflow support
+// ---------------------------------------------------------------------------
 
 /**
- * @typedef {object} DialogflowAppOptions JSON configuration.
- * @property {TODO} request - Express HTTP request object.
- * @property {TODO} response - Express HTTP response object.
- * @property {TODO=} sessionStarted - Function callback when session starts.
- *     Only called if webhook is enabled for welcome/triggering intents, and
- *     called from Web Simulator or Google Home device (i.e., not Dialogflow simulator).
+ * Dialogflow {@link https://dialogflow.com/docs/concept-contexts|Context}.
  */
+declare type Context = {
+    /** Full name of the context. */
+    name: string;
+    /**
+     * Parameters carried within this context.
+     * See {@link https://dialogflow.com/docs/concept-actions#section-extracting-values-from-contexts|here}.
+     */
+    parameters: object;
+    /** Remaining number of intents */
+    lifespan: number;
+};
+
 declare type DialogflowAppOptions = {
-    request: any;
-    response: any;
-    sessionStarted: any;
+    /** Express HTTP request object. */
+    request: express.Request;
+    /** Express HTTP response object. */
+    response: express.Response;
+    /**
+     * Function callback when session starts.
+     * Only called if webhook is enabled for welcome/triggering intents, and
+     * called from Web Simulator or Google Home device (i.e., not Dialogflow simulator).
+     */
+    sessionStarted?: () => any;
 };
 
 /**
  * This is the class that handles the communication with Dialogflow's fulfillment API.
  */
-declare class DialogflowApp {
+declare class DialogflowApp extends AssistantApp {
+    /**
+     * Constructor for DialogflowApp object.
+     * To be used in the Dialogflow fulfillment webhook logic.
+     *
+     * @example
+     * const DialogflowApp = require('actions-on-google').DialogflowApp;
+     * const app = new DialogflowApp({request: request, response: response,
+     *   sessionStarted:sessionStarted});
+     *
+     * @param {DialogflowAppOptions} options
+     * @dialogflow
+     */
     constructor(options: DialogflowAppOptions);
 
     /**
      * @deprecated
      * Verifies whether the request comes from Dialogflow.
+     *
      * @param {string} key The header key specified by the developer in the
      *     Dialogflow Fulfillment settings of the app.
      * @param {string} value The private value specified by the developer inside the
@@ -33,6 +68,7 @@ declare class DialogflowApp {
 
     /**
      * Verifies whether the request comes from Dialogflow.
+     *
      * @param {string} key The header key specified by the developer in the
      *     Dialogflow Fulfillment settings of the app.
      * @param {string} value The private value specified by the developer inside the
@@ -47,21 +83,26 @@ declare class DialogflowApp {
      * {@link AssistantApp#handleRequest|handleRequest},
      * the client library will automatically handle the incoming intents.
      * 'Intent' in the Dialogflow context translates into the current action.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
+     *
      * function responseHandler (app) {
      *   const intent = app.getIntent();
      *   switch (intent) {
      *     case WELCOME_INTENT:
      *       app.ask('Welcome to action snippets! Say a number.');
      *       break;
+     *
      *     case NUMBER_INTENT:
      *       const number = app.getArgument(NUMBER_ARGUMENT);
      *       app.tell('You said ' + number);
      *       break;
      *   }
      * }
+     *
      * app.handleRequest(responseHandler);
+     *
      * @return {string} Intent id or null if no value (action name).
      * @dialogflow
      */
@@ -71,29 +112,35 @@ declare class DialogflowApp {
      * Get the argument value by name from the current intent. If the argument
      * is included in originalRequest, and is not a text argument, the entire
      * argument object is returned.
+     *
      * Note: If incoming request is using an API version under 2 (e.g. 'v1'),
      * the argument object will be in Proto2 format (snake_case, etc).
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
+     *
      * function welcomeIntent (app) {
      *   app.ask('Welcome to action snippets! Say a number.');
      * }
+     *
      * function numberIntent (app) {
      *   const number = app.getArgument(NUMBER_ARGUMENT);
      *   app.tell('You said ' + number);
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string} argName Name of the argument.
      * @return {Object} Argument value matching argName
      *     or null if no matching argument.
      * @dialogflow
      */
-    getArgument(argName: string): any;
+    getArgument(argName: string): object;
 
     /**
      * Get the context argument value by name from the current intent. Context
@@ -101,41 +148,49 @@ declare class DialogflowApp {
      * lifespan of the given context. If the context argument has an original
      * value, usually representing the underlying entity value, that will be given
      * as part of the return object.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
      * const OUT_CONTEXT = 'output_context';
      * const NUMBER_ARG = 'myNumberArg';
+     *
      * function welcomeIntent (app) {
      *   const parameters = {};
      *   parameters[NUMBER_ARG] = '42';
      *   app.setContext(OUT_CONTEXT, 1, parameters);
      *   app.ask('Welcome to action snippets! Ask me for your number.');
      * }
+     *
      * function numberIntent (app) {
      *   const number = app.getContextArgument(OUT_CONTEXT, NUMBER_ARG);
      *   // number === { value: 42 }
      *   app.tell('Your number is  ' + number.value);
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string} contextName Name of the context.
      * @param {string} argName Name of the argument.
      * @return {Object} Object containing value property and optional original
      *     property matching context argument. Null if no matching argument.
      * @dialogflow
      */
-    getContextArgument(contextName: string, argName: string): any;
+    getContextArgument(contextName: string, argName: string): object;
 
     /**
      * Returns the RichResponse constructed in Dialogflow response builder.
+     *
      * @example
      * const app = new App({request: req, response: res});
+     *
      * function tellFact (app) {
      *   let fact = 'Google was founded in 1998';
+     *
      *   if (app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT)) {
      *     app.ask(app.getIncomingRichResponse().addSimpleResponse('Here\'s a ' +
      *       'fact for you. ' + fact + ' Which one do you want to hear about ' +
@@ -145,9 +200,12 @@ declare class DialogflowApp {
      *       'do you want to hear about next, Google\'s history or headquarters?');
      *   }
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set('tell.fact', tellFact);
+     *
      * app.handleRequest(actionMap);
+     *
      * @return {RichResponse} RichResponse created in Dialogflow. If no RichResponse was
      *     created, an empty RichResponse is returned.
      * @dialogflow
@@ -156,8 +214,10 @@ declare class DialogflowApp {
 
     /**
      * Returns the List constructed in Dialogflow response builder.
+     *
      * @example
      * const app = new App({request: req, response: res});
+     *
      * function pickOption (app) {
      * if (app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT)) {
      *     app.askWithList('Which of these looks good?',
@@ -168,9 +228,12 @@ declare class DialogflowApp {
      *     app.ask('What would you like?');
      *   }
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set('pick.option', pickOption);
+     *
      * app.handleRequest(actionMap);
+     *
      * @return {List} List created in Dialogflow. If no List was created, an empty
      *     List is returned.
      * @dialogflow
@@ -179,8 +242,10 @@ declare class DialogflowApp {
 
     /**
      * Returns the Carousel constructed in Dialogflow response builder.
+     *
      * @example
      * const app = new App({request: req, response: res});
+     *
      * function pickOption (app) {
      * if (app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT)) {
      *     app.askWithCarousel('Which of these looks good?',
@@ -191,9 +256,12 @@ declare class DialogflowApp {
      *     app.ask('What would you like?');
      *   }
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set('pick.option', pickOption);
+     *
      * app.handleRequest(actionMap);
+     *
      * @return {Carousel} Carousel created in Dialogflow. If no Carousel was created,
      *     an empty Carousel is returned.
      * @dialogflow
@@ -202,8 +270,10 @@ declare class DialogflowApp {
 
     /**
      * Returns the option key user chose from options response.
+     *
      * @example
      * const app = new App({request: req, response: res});
+     *
      * function pickOption (app) {
      *   if (app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT)) {
      *     app.askWithCarousel('Which of these looks good?',
@@ -214,13 +284,17 @@ declare class DialogflowApp {
      *     app.ask('What would you like?');
      *   }
      * }
+     *
      * function optionPicked (app) {
      *   app.ask('You picked ' + app.getSelectedOption());
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set('pick.option', pickOption);
      * actionMap.set('option.picked', optionPicked);
+     *
      * app.handleRequest(actionMap);
+     *
      * @return {string} Option key of selected item. Null if no option selected or
      *     if current intent is not OPTION intent.
      * @dialogflow
@@ -230,39 +304,47 @@ declare class DialogflowApp {
     /**
      * Asks to collect the user's input.
      * {@link https://developers.google.com/actions/policies/general-policies#user_experience|The guidelines when prompting the user for a response must be followed at all times}.
+     *
      * NOTE: Due to a bug, if you specify the no-input prompts,
      * the mic is closed after the 3rd prompt, so you should use the 3rd prompt
      * for a bye message until the bug is fixed.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
+     *
      * function welcomeIntent (app) {
      *   app.ask('Welcome to action snippets! Say a number.',
      *     ['Say any number', 'Pick a number', 'We can stop here. See you soon.']);
      * }
+     *
      * function numberIntent (app) {
      *   const number = app.getArgument(NUMBER_ARGUMENT);
      *   app.tell('You said ' + number);
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string|SimpleResponse|RichResponse} inputPrompt The input prompt
      *     response.
      * @param {Array<string>=} noInputs Array of re-prompts when the user does not respond (max 3).
-     * @return {AskTellResponse} HTTP response.
+     * @return {express.Response|null} HTTP response.
      * @dialogflow
      */
-    ask(inputPrompt: string | SimpleResponse | RichResponse, noInputs?: string[]): AskTellResponse;
+    ask(inputPrompt: string | SimpleResponse | RichResponse, noInputs?: string[]): express.Response | null;
 
     /**
      * Asks to collect the user's input with a list.
+     *
      * @example
      * const app = new DialogflowApp({request, response});
      * const WELCOME_INTENT = 'input.welcome';
      * const OPTION_INTENT = 'option.select';
+     *
      * function welcomeIntent (app) {
      *   app.askWithList('Which of these looks good?',
      *     app.buildList('List title')
@@ -275,6 +357,7 @@ declare class DialogflowApp {
      *          .setTitle('Title of Second List Item'),
      *      ]));
      * }
+     *
      * function optionIntent (app) {
      *   if (app.getSelectedOption() === SELECTION_KEY_ONE) {
      *     app.tell('Number one is a great choice!');
@@ -282,24 +365,28 @@ declare class DialogflowApp {
      *     app.tell('Number two is a great choice!');
      *   }
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(OPTION_INTENT, optionIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string|RichResponse|SimpleResponse} inputPrompt The input prompt
      *     response.
      * @param {List} list List built with {@link AssistantApp#buildList|buildList}.
-     * @return {AskTellResponse} HTTP response.
+     * @return {express.Response|null} HTTP response.
      * @dialogflow
      */
-    askWithList(inputPrompt: string | RichResponse | SimpleResponse, list: List): AskTellResponse;
+    askWithList(inputPrompt: string | RichResponse | SimpleResponse, list: List): express.Response | null;
 
     /**
      * Asks to collect the user's input with a carousel.
+     *
      * @example
      * const app = new DialogflowApp({request, response});
      * const WELCOME_INTENT = 'input.welcome';
      * const OPTION_INTENT = 'option.select';
+     *
      * function welcomeIntent (app) {
      *   app.askWithCarousel('Which of these looks good?',
      *     app.buildCarousel()
@@ -312,6 +399,7 @@ declare class DialogflowApp {
      *          .setTitle('Number two'),
      *      ]));
      * }
+     *
      * function optionIntent (app) {
      *   if (app.getSelectedOption() === SELECTION_KEY_ONE) {
      *     app.tell('Number one is a great choice!');
@@ -319,79 +407,94 @@ declare class DialogflowApp {
      *     app.tell('Number two is a great choice!');
      *   }
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(OPTION_INTENT, optionIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string|RichResponse|SimpleResponse} inputPrompt The input prompt
      *     response.
      * @param {Carousel} carousel Carousel built with
      *     {@link AssistantApp#buildCarousel|buildCarousel}.
-     * @return {AskTellResponse} HTTP response.
+     * @return {express.Response|null} HTTP response.
      * @dialogflow
      */
-    askWithCarousel(inputPrompt: string | RichResponse | SimpleResponse, carousel: Carousel): AskTellResponse;
+    askWithCarousel(inputPrompt: string | RichResponse | SimpleResponse, carousel: Carousel): express.Response | null;
 
     /**
      * Tells the Assistant to render the speech response and close the mic.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * const WELCOME_INTENT = 'input.welcome';
      * const NUMBER_INTENT = 'input.number';
+     *
      * function welcomeIntent (app) {
      *   app.ask('Welcome to action snippets! Say a number.');
      * }
+     *
      * function numberIntent (app) {
      *   const number = app.getArgument(NUMBER_ARGUMENT);
      *   app.tell('You said ' + number);
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string|SimpleResponse|RichResponse} speechResponse Final response.
      *     Spoken response can be SSML.
-     * @return {AskTellResponse} The response that is sent back to Assistant.
+     * @return {express.Response|null} The response that is sent back to Assistant.
      * @dialogflow
      */
-    tell(speechResponse: string | SimpleResponse | RichResponse): AskTellResponse;
+    tell(speechResponse: string | SimpleResponse | RichResponse): express.Response | null;
 
     /**
      * Set a new context for the current intent.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * const CONTEXT_NUMBER = 'number';
      * const NUMBER_ARGUMENT = 'myNumber';
+     *
      * function welcomeIntent (app) {
      *   app.setContext(CONTEXT_NUMBER);
      *   app.ask('Welcome to action snippets! Say a number.');
      * }
+     *
      * function numberIntent (app) {
      *   const number = app.getArgument(NUMBER_ARGUMENT);
      *   app.tell('You said ' + number);
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string} name Name of the context. Dialogflow converts to lowercase.
      * @param {number} [lifespan=1] Context lifespan.
      * @param {Object=} parameters Context JSON parameters.
      * @return {null|undefined} Null if the context name is not defined.
      * @dialogflow
      */
-    setContext(name: string, lifespan?: number, parameters?: any): any | any;
+    setContext(name: string, lifespan?: number, parameters?: any): null | undefined;
 
     /**
      * Returns the incoming contexts for this intent.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * const CONTEXT_NUMBER = 'number';
      * const NUMBER_ARGUMENT = 'myNumber';
+     *
      * function welcomeIntent (app) {
      *   app.setContext(CONTEXT_NUMBER);
      *   app.ask('Welcome to action snippets! Say a number.');
      * }
+     *
      * function numberIntent (app) {
      *   let contexts = app.getContexts();
      *   // contexts === [{
@@ -405,25 +508,30 @@ declare class DialogflowApp {
      *   const number = app.getArgument(NUMBER_ARGUMENT);
      *   app.tell('You said ' + number);
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
+     *
      * @return {Context[]} Empty if no active contexts.
      * @dialogflow
      */
-    getContexts(): (Context)[];
+    getContexts(): Context[];
 
     /**
      * Returns the incoming context by name for this intent.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * const CONTEXT_NUMBER = 'number';
      * const NUMBER_ARGUMENT = 'myNumber';
+     *
      * function welcomeIntent (app) {
      *   app.setContext(CONTEXT_NUMBER);
      *   app.ask('Welcome to action snippets! Say a number.');
      * }
+     *
      * function numberIntent (app) {
      *   let context = app.getContext(CONTEXT_NUMBER);
      *   // context === {
@@ -437,39 +545,29 @@ declare class DialogflowApp {
      *   const number = app.getArgument(NUMBER_ARGUMENT);
      *   app.tell('You said ' + number);
      * }
+     *
      * const actionMap = new Map();
      * actionMap.set(WELCOME_INTENT, welcomeIntent);
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
+     *
      * @param {string} name The name of the Context to retrieve.
      * @return {Object} Context value matching name
      *     or null if no matching context.
      * @dialogflow
      */
-    getContext(name: string): any;
+    getContext(name: string): object;
 
     /**
      * Gets the user's raw input query.
+     *
      * @example
      * const app = new DialogflowApp({request: request, response: response});
      * app.tell('You said ' + app.getRawInput());
+     *
      * @return {string} User's raw query or null if no value.
      * @dialogflow
      */
     getRawInput(): string;
 
 }
-
-/**
- * Dialogflow {@link https://dialogflow.com/docs/concept-contexts|Context}.
- * @typedef {object} Context
- * @property {string} name - Full name of the context.
- * @property {Object} parameters - Parameters carried within this context.
- * See {@link https://dialogflow.com/docs/concept-actions#section-extracting-values-from-contexts|here}.
- * @property {number} lifespan - Remaining number of intents
- */
-declare type Context = {
-    name: string;
-    parameters: any;
-    lifespan: number;
-};

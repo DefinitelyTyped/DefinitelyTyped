@@ -1,6 +1,6 @@
-// Type definitions for actions-on-google 1.5
+// Type definitions for actions-on-google 1.5.1
 // Project: https://github.com/actions-on-google/actions-on-google-nodejs
-// Definitions by: Joel Hegg <https://github.com/joelhegg>, Pilwon Huh <https://github.com/pilwon>
+// Definitions by: Joel Hegg <https://github.com/joelhegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -12,7 +12,7 @@
 import * as Transactions from './transactions';
 import * as Responses from './response-builder';
 
-export { AssistantApp, AssistantAppOptions, RequestHandler, SessionStartedFunction, State } from './assistant-app';
+export { AssistantApp } from './assistant-app';
 export { ActionsSdkApp, ActionsSdkAppOptions } from './actions-sdk-app';
 export { DialogflowApp, DialogflowAppOptions } from './dialogflow-app';
 export { Transactions };
