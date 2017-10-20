@@ -6,9 +6,6 @@ const replacer = (key: any, val: any) => {
 
 const replacerArray = ['a', 'x'];
 
-// implements JSON interface
-const json_obj: JSON = CircularJSON;
-
 CircularJSON.parse('{"a":"b"}');
 
 CircularJSON.parse('{"a":"b"}', replacer);

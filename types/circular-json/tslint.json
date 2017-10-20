@@ -1,7 +1,3 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		"dt-header": false,
-		"interface-name": false
-	}
+	"extends": "dtslint/dt.json"
 }
