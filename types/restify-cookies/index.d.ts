@@ -14,6 +14,7 @@ declare module 'restify' {
     expires?: Date;
     httpOnly?: boolean;
     secure?: boolean;
+    sameSite?: boolean|'lax'|'strict';
   }
 
   interface Request {
