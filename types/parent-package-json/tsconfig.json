@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-			"dom"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "vue-scrollto-tests.ts"
+        "parent-package-json-tests.ts"
     ]
 }
