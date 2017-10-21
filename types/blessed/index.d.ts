@@ -1,12 +1,12 @@
 // Type definitions for blessed 0.1
 // Project: https://github.com/chjj/blessed
-// Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
+// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>, Steve Kellock <https://github.com/skellock>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 import * as stream from "stream";
 import * as child_process from "child_process";
 
@@ -39,8 +39,8 @@ export namespace Widgets {
             hover?: boolean;
             focus?: boolean;
             label?: string;
-            track?: { bg?: string; fg?: string; };
-            scrollbar?: { bg?: string; fg?: string; };
+            track?: { bg?: string; fg?: string };
+            scrollbar?: { bg?: string; fg?: string };
         }
 
         interface TBorder {
@@ -76,7 +76,7 @@ export namespace Widgets {
             /**
              * Shape of the cursor. Can be: block, underline, or line.
              */
-            shape: 'block'|'underline'|'line';
+            shape: "block" | "underline" | "line";
 
             /**
              * Whether the cursor blinks.
@@ -173,8 +173,7 @@ export namespace Widgets {
         destroy(): void;
     }
 
-    interface IOptions {
-    }
+    interface IOptions {}
 
     interface IHasOptions<T extends IOptions> {
         options: T;
@@ -212,7 +211,10 @@ export namespace Widgets {
         setup(): void;
         term(is: any): boolean;
         readTerminfo(term: string): string;
-        parseTerminfo(data: any, file: string): {
+        parseTerminfo(
+            data: any,
+            file: string
+        ): {
             header: {
                 dataSize: number;
                 headerSize: number;
@@ -230,8 +232,8 @@ export namespace Widgets {
                     strCount: number;
                     strTableSize: number;
                     lastStrTableOffset: number;
-                }
-            }
+                };
+            };
             name: string;
             names: string[];
             desc: string;
@@ -253,6 +255,18 @@ export namespace Widgets {
         focusable?: boolean;
     }
 
+    type NodeEventType =
+        /** Received when node is added to a parent. */
+        | "adopt"
+        /** Received when node is removed from it's current parent. */
+        | "remove"
+        /** Received when node gains a new parent. */
+        | "reparent"
+        /** Received when node is attached to the screen directly or somewhere in its ancestry. */
+        | "attach"
+        /** Received when node is detached from the screen directly or somewhere in its ancestry. */
+        | "detach";
+
     abstract class Node extends EventEmitter implements IHasOptions<INodeOptions>, IDestroyable {
         constructor(options: INodeOptions);
 
@@ -266,17 +280,17 @@ export namespace Widgets {
         /**
          * An object for any miscellanous user data.
          */
-        data: { [index: string]: any; };
+        data: { [index: string]: any };
 
         /**
          * An object for any miscellanous user data.
          */
-        _: { [index: string]: any; };
+        _: { [index: string]: any };
 
         /**
          * An object for any miscellanous user data.
          */
-        $: { [index: string]: any; };
+        $: { [index: string]: any };
 
         /**
          * Type of the node (e.g. box).
@@ -363,20 +377,57 @@ export namespace Widgets {
         set(name: string, value: any): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-
-        on(event:
-            /** Received when node is added to a parent. */
-            | "adopt"
-            /** Received when node is removed from it's current parent. */
-            | "remove"
-            /** Received when node gains a new parent. */
-            | "reparent"
-            /** Received when node is attached to the screen directly or somewhere in its ancestry. */
-            | "attach"
-            /** Received when node is detached from the screen directly or somewhere in its ancestry. */
-            | "detach"
-            , callback: (arg: Node) => void): this;
+        on(event: NodeEventType, callback: (arg: Node) => void): this;
     }
+
+    type NodeScreenEventType =
+        /**
+         * Received when the terminal window focuses/blurs. Requires a terminal supporting the
+         * focus protocol and focus needs to be passed to program.enableMouse().
+         */
+        | "focus"
+        /**
+         * Received when the terminal window focuses/blurs. Requires a terminal supporting the
+         * focus protocol and focus needs to be passed to program.enableMouse().
+         */
+        | "blur"
+        /**
+         * Element was clicked (slightly smarter than mouseup).
+         */
+        | "click"
+        | "element click"
+        | "element mouseover"
+        | "element mouseout"
+        | "element mouseup";
+
+    type NodeMouseEventType =
+        | "mouse"
+        | "mouseout"
+        | "mouseover"
+        | "mousedown"
+        | "mouseup"
+        | "mousewheel"
+        | "wheeldown"
+        | "wheelup"
+        | "mousemove";
+
+    type NodeGenericEventType =
+        /** Received on screen resize. */
+        | "resize"
+        /** Received before render. */
+        | "prerender"
+        /** Received on render. */
+        | "render"
+        /** Received when the screen is destroyed (only useful when using multiple screens). */
+        | "destroy"
+        /** Received when the element is moved. */
+        | "move"
+        /** Received when element is shown. */
+        | "show"
+        /** Received when element becomes hidden. */
+        | "hide"
+        | "set content"
+        | "parsed content";
 
     class NodeWithEvents extends Node {
         /**
@@ -396,72 +447,14 @@ export namespace Widgets {
         removeKey(name: string, listener: (ch: any, key: Events.IKeyEventArg) => void): void;
 
         on(event: string, listener: (ch: any, key: Events.IKeyEventArg) => void): this;
-
-        /**
-         * Received on mouse events.
-         */
-        on(event:
-            "mouse"
-            | "mouseout"
-            | "mouseover"
-            | "mousedown"
-            | "mouseup"
-            | "mousewheel"
-            | "wheeldown"
-            | "wheelup"
-            | "mousemove"
-            , callback: (arg: Events.IMouseEventArg) => void): this;
-
-        /**
-         * Received on key events.
-         */
+        /** Received on mouse events. */
+        on(event: NodeMouseEventType, callback: (arg: Events.IMouseEventArg) => void): this;
+        /** Received on key events. */
         on(event: "keypress", callback: (ch: string, key: Events.IKeyEventArg) => void): this;
-
-        on(event:
-            /**
-             * Received when the terminal window focuses/blurs. Requires a terminal supporting the
-             * focus protocol and focus needs to be passed to program.enableMouse().
-             */
-            | "focus"
-            /**
-             * Received when the terminal window focuses/blurs. Requires a terminal supporting the
-             * focus protocol and focus needs to be passed to program.enableMouse().
-             */
-            | "blur"
-            /**
-             * Element was clicked (slightly smarter than mouseup).
-             */
-            | "click"
-            | "element click"
-            | "element mouseover"
-            | "element mouseout"
-            | "element mouseup"
-            , callback: (arg: Screen) => void): this;
-
-        /**
-         * Received when blessed notices something untoward (output is not a tty, terminfo not found, etc).
-         */
+        on(event: NodeScreenEventType, callback: (arg: Screen) => void): this;
+        /** Received when blessed notices something untoward (output is not a tty, terminfo not found, etc). */
         on(event: "warning", callback: (text: string) => void): this;
-
-        on(event:
-            /** Received on screen resize. */
-            | "resize"
-            /** Received before render. */
-            | "prerender"
-            /** Received on render. */
-            | "render"
-            /** Received when the screen is destroyed (only useful when using multiple screens). */
-            | "destroy"
-            /** Received when the element is moved. */
-            | "move"
-            /** Received when element is shown. */
-            | "show"
-            /** Received when element becomes hidden. */
-            | "hide"
-            | "set content"
-            | "parsed content"
-            ,
-            callback: () => void): this;
+        on(event: NodeGenericEventType, callback: () => void): this;
     }
 
     interface IScreenOptions extends INodeOptions {
@@ -975,7 +968,12 @@ export namespace Widgets {
         /**
          * Spawn a process in the foreground, return to blessed app after exit. Executes callback on error or exit.
          */
-        exec(file: string, args: string[], options: NodeChildProcessExecOptions, callback: (...args: any[]) => void): child_process.ChildProcess;
+        exec(
+            file: string,
+            args: string[],
+            options: NodeChildProcessExecOptions,
+            callback: (...args: any[]) => void
+        ): child_process.ChildProcess;
 
         /**
          * Read data from text editor.
@@ -1243,7 +1241,7 @@ export namespace Widgets {
         yl: number;
         yi: number;
         base: number;
-        _contentEnd: { x: number; y: number; };
+        _contentEnd: { x: number; y: number };
         notop: Types.TTopLeft;
         noleft: Types.TTopLeft;
         noright: Types.TPosition;
@@ -1642,7 +1640,7 @@ export namespace Widgets {
          * Object enabling a scrollbar.
          * Style of the scrollbar track if present (takes regular style options).
          */
-        scrollbar?: { style?: any; track?: any; ch?: string; };
+        scrollbar?: { style?: any; track?: any; ch?: string };
     }
 
     interface ScrollableTextOptions extends ScrollableBoxOptions {
@@ -1734,8 +1732,7 @@ export namespace Widgets {
      * A scrollable text box which can display and scroll text, as well as handle
      * pre-existing newlines and escape codes.
      */
-    class ScrollableTextElement extends ScrollableBoxElement {
-    }
+    class ScrollableTextElement extends ScrollableBoxElement {}
 
     /**
      * A box element which draws a simple box containing content or other elements.
@@ -1867,6 +1864,17 @@ export namespace Widgets {
         invertSelected?: boolean;
     }
 
+    type ListElementEventType =
+        /** List was canceled (when esc is pressed with the keys option). */
+        | "cancel"
+        /** Either a select or a cancel event was received. */
+        | "action"
+        | "create item"
+        | "add item"
+        | "remove item"
+        | "insert item"
+        | "set items";
+
     class ListElement extends BoxElement implements IHasOptions<ListOptions<ListElementStyle>> {
         constructor(opts: ListOptions<ListElementStyle>);
 
@@ -1976,24 +1984,9 @@ export namespace Widgets {
         fuzzyFind(arg: string | RegExp | (() => void)): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-
-        /**
-         * Received when an item is selected.
-         */
+        /** Received when an item is selected. */
         on(event: "select", callback: (item: BoxElement, index: number) => void): this;
-
-        on(event:
-            /** List was canceled (when esc is pressed with the keys option). */
-            | "cancel"
-            /** Either a select or a cancel event was received. */
-            | "action"
-            | "create item"
-            | "add item"
-            | "remove item"
-            | "insert item"
-            | "set items"
-            , callback: () => void): this;
-
+        on(event: ListElementEventType, callback: () => void): this;
         on(event: "select item", callback: (item: BlessedElement, index: number) => void): this;
     }
 
@@ -2036,17 +2029,10 @@ export namespace Widgets {
         reset(callback?: () => void): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-
-        /**
-         * Received when an item is selected.
-         */
+        /** Received when an item is selected. */
         on(event: "cd", callback: (file: string, cwd: string) => void): this;
-
-        /**
-         * Received when an item is selected.
-         */
+        /** Received when an item is selected. */
         on(event: "file", callback: (file: string) => void): this;
-
         on(event: "error", callback: (err: any, file: string) => void): this;
         on(event: "refresh", callback: () => void): this;
     }
@@ -2192,7 +2178,7 @@ export namespace Widgets {
         selectTab(index: number): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "set items" | "remove item" |  "select tab", callback: () => void): this;
+        on(event: "set items" | "remove item" | "select tab", callback: () => void): this;
     }
 
     interface FormOptions extends BoxOptions {
@@ -2246,16 +2232,12 @@ export namespace Widgets {
         reset(): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-
-        /**
-         * Form is submitted. Receives a data object.
-         */
+        /** Form is submitted. Receives a data object. */
         on(event: "submit", callback: (out: TFormData) => void): this;
-
         on(event: "cancel" | "reset", callback: () => void): this;
     }
 
-    interface InputOptions extends BoxOptions { }
+    interface InputOptions extends BoxOptions {}
 
     abstract class InputElement extends BoxElement {
         constructor(opts: InputOptions);
@@ -2270,6 +2252,16 @@ export namespace Widgets {
          */
         inputOnFocus?: boolean;
     }
+
+    type TextareaElementEventType =
+        /** Value is an error. */
+        | "error"
+        /** Value is submitted (enter). */
+        | "submit"
+        /** Value is discared (escape). */
+        | "cancel"
+        /** Either submit or cancel. */
+        | "action";
 
     class TextareaElement extends InputElement implements IHasOptions<TextareaOptions> {
         constructor(opts: TextareaOptions);
@@ -2346,17 +2338,7 @@ export namespace Widgets {
         setValue(text: string): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-
-        on(event:
-            /** Value is an error. */
-            | "error"
-            /** Value is submitted (enter). */
-            | "submit"
-            /** Value is discared (escape). */
-            | "cancel"
-            /** Either submit or cancel. */
-            | "action"
-            , callback: (err: any) => void): this;
+        on(event: TextareaElementEventType, callback: (err: any) => void): this;
     }
 
     interface TextboxOptions extends TextareaOptions {
@@ -2390,7 +2372,7 @@ export namespace Widgets {
         censor: boolean;
     }
 
-    interface ButtonOptions extends BoxOptions { }
+    interface ButtonOptions extends BoxOptions {}
 
     class ButtonElement extends InputElement implements IHasOptions<ButtonOptions> {
         constructor(opts: ButtonOptions);
@@ -2463,7 +2445,7 @@ export namespace Widgets {
         toggle(): void;
     }
 
-    interface RadioSetOptions extends BoxOptions { }
+    interface RadioSetOptions extends BoxOptions {}
 
     /**
      * An element wrapping RadioButtons. RadioButtons within this element will be mutually exclusive
@@ -2473,7 +2455,7 @@ export namespace Widgets {
         constructor(opts: RadioSetOptions);
     }
 
-    interface RadioButtonOptions extends BoxOptions { }
+    interface RadioButtonOptions extends BoxOptions {}
 
     /**
      * A radio button which can be used in a form element.
@@ -2482,7 +2464,7 @@ export namespace Widgets {
         constructor(opts: RadioButtonOptions);
     }
 
-    interface PromptOptions extends BoxOptions { }
+    interface PromptOptions extends BoxOptions {}
 
     /**
      * A prompt box containing a text input, okay, and cancel buttons (automatically hidden).
@@ -2500,7 +2482,7 @@ export namespace Widgets {
         readInput(text: string, value: string, callback: (err: any, value: string) => void): void;
     }
 
-    interface QuestionOptions extends BoxOptions { }
+    interface QuestionOptions extends BoxOptions {}
 
     /**
      * A question box containing okay and cancel buttons (automatically hidden).
@@ -2516,7 +2498,7 @@ export namespace Widgets {
         ask(question: string, callback: (err: any, value: string) => void): void;
     }
 
-    interface MessageOptions extends BoxOptions { }
+    interface MessageOptions extends BoxOptions {}
 
     /**
      * A box containing a message to be displayed (automatically hidden).
@@ -2542,7 +2524,7 @@ export namespace Widgets {
         error(text: string, callback: () => void): void;
     }
 
-    interface LoadingOptions extends BoxOptions { }
+    interface LoadingOptions extends BoxOptions {}
 
     /**
      * A box with a spinning line to denote loading (automatically hidden).
@@ -2619,8 +2601,7 @@ export namespace Widgets {
         reset(): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-
-        on(event: | "reset" | "complete" , callback: () => void): this;
+        on(event: "reset" | "complete", callback: () => void): this;
     }
 
     interface LogOptions extends ScrollableTextOptions {
@@ -2729,7 +2710,7 @@ export namespace Widgets {
         /**
          * can be line, underline, and block.
          */
-        cursor?: 'line'|'underline'|'block';
+        cursor?: "line" | "underline" | "block";
 
         terminal?: string;
 
@@ -3014,7 +2995,7 @@ export namespace Widgets {
 }
 
 export namespace widget {
-    class Terminal extends Widgets.TerminalElement { }
+    class Terminal extends Widgets.TerminalElement {}
 }
 
 export function screen(options?: Widgets.IScreenOptions): Widgets.Screen;
@@ -3048,5 +3029,5 @@ export function layout(options?: Widgets.LayoutOptions): Widgets.LayoutElement;
 export function escape(item: any): any;
 
 export const colors: {
-    match(hexColor: string): string
+    match(hexColor: string): string;
 };
