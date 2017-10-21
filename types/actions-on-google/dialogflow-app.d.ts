@@ -48,7 +48,6 @@ export class DialogflowApp extends AssistantApp {
      * const app = new DialogflowApp({request: request, response: response,
      *   sessionStarted:sessionStarted});
      *
-     * @param {DialogflowAppOptions} options
      * @dialogflow
      */
     constructor(options: DialogflowAppOptions);
@@ -57,11 +56,11 @@ export class DialogflowApp extends AssistantApp {
      * @deprecated
      * Verifies whether the request comes from Dialogflow.
      *
-     * @param {string} key The header key specified by the developer in the
+     * @param key The header key specified by the developer in the
      *     Dialogflow Fulfillment settings of the app.
-     * @param {string} value The private value specified by the developer inside the
+     * @param value The private value specified by the developer inside the
      *     fulfillment header.
-     * @return {boolean} True if the request comes from Dialogflow.
+     * @return True if the request comes from Dialogflow.
      * @dialogflow
      */
     isRequestFromApiAi(key: string, value: string): boolean;
@@ -69,11 +68,11 @@ export class DialogflowApp extends AssistantApp {
     /**
      * Verifies whether the request comes from Dialogflow.
      *
-     * @param {string} key The header key specified by the developer in the
+     * @param key The header key specified by the developer in the
      *     Dialogflow Fulfillment settings of the app.
-     * @param {string} value The private value specified by the developer inside the
+     * @param value The private value specified by the developer inside the
      *     fulfillment header.
-     * @return {boolean} True if the request comes from Dialogflow.
+     * @return True if the request comes from Dialogflow.
      * @dialogflow
      */
     isRequestFromDialogflow(key: string, value: string): boolean;
@@ -103,7 +102,7 @@ export class DialogflowApp extends AssistantApp {
      *
      * app.handleRequest(responseHandler);
      *
-     * @return {string} Intent id or null if no value (action name).
+     * @return Intent id or null if no value (action name).
      * @dialogflow
      */
     getIntent(): string;
@@ -135,8 +134,8 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string} argName Name of the argument.
-     * @return {Object} Argument value matching argName
+     * @param argName Name of the argument.
+     * @return Argument value matching argName
      *     or null if no matching argument.
      * @dialogflow
      */
@@ -174,9 +173,9 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string} contextName Name of the context.
-     * @param {string} argName Name of the argument.
-     * @return {Object} Object containing value property and optional original
+     * @param contextName Name of the context.
+     * @param argName Name of the argument.
+     * @return Object containing value property and optional original
      *     property matching context argument. Null if no matching argument.
      * @dialogflow
      */
@@ -206,7 +205,7 @@ export class DialogflowApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {RichResponse} RichResponse created in Dialogflow. If no RichResponse was
+     * @return RichResponse created in Dialogflow. If no RichResponse was
      *     created, an empty RichResponse is returned.
      * @dialogflow
      */
@@ -234,7 +233,7 @@ export class DialogflowApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {List} List created in Dialogflow. If no List was created, an empty
+     * @return List created in Dialogflow. If no List was created, an empty
      *     List is returned.
      * @dialogflow
      */
@@ -262,7 +261,7 @@ export class DialogflowApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {Carousel} Carousel created in Dialogflow. If no Carousel was created,
+     * @return Carousel created in Dialogflow. If no Carousel was created,
      *     an empty Carousel is returned.
      * @dialogflow
      */
@@ -295,7 +294,7 @@ export class DialogflowApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {string} Option key of selected item. Null if no option selected or
+     * @return Option key of selected item. Null if no option selected or
      *     if current intent is not OPTION intent.
      * @dialogflow
      */
@@ -329,10 +328,10 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string|SimpleResponse|RichResponse} inputPrompt The input prompt
+     * @param inputPrompt The input prompt
      *     response.
-     * @param {Array<string>=} noInputs Array of re-prompts when the user does not respond (max 3).
-     * @return {express.Response|null} HTTP response.
+     * @param noInputs Array of re-prompts when the user does not respond (max 3).
+     * @return HTTP response.
      * @dialogflow
      */
     ask(inputPrompt: string | SimpleResponse | RichResponse, noInputs?: string[]): express.Response | null;
@@ -371,10 +370,10 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(OPTION_INTENT, optionIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string|RichResponse|SimpleResponse} inputPrompt The input prompt
+     * @param inputPrompt The input prompt
      *     response.
-     * @param {List} list List built with {@link AssistantApp#buildList|buildList}.
-     * @return {express.Response|null} HTTP response.
+     * @param.list List built with {@link AssistantApp#buildList|buildList}
+     * @return HTTP response.
      * @dialogflow
      */
     askWithList(inputPrompt: string | RichResponse | SimpleResponse, list: List): express.Response | null;
@@ -413,11 +412,11 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(OPTION_INTENT, optionIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string|RichResponse|SimpleResponse} inputPrompt The input prompt
+     * @param inputPrompt The input prompt
      *     response.
-     * @param {Carousel} carousel Carousel built with
+     * @param carousel Carousel built with
      *     {@link AssistantApp#buildCarousel|buildCarousel}.
-     * @return {express.Response|null} HTTP response.
+     * @return HTTP response.
      * @dialogflow
      */
     askWithCarousel(inputPrompt: string | RichResponse | SimpleResponse, carousel: Carousel): express.Response | null;
@@ -444,9 +443,9 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string|SimpleResponse|RichResponse} speechResponse Final response.
+     * @param speechResponse Final response.
      *     Spoken response can be SSML.
-     * @return {express.Response|null} The response that is sent back to Assistant.
+     * @return The response that is sent back to Assistant.
      * @dialogflow
      */
     tell(speechResponse: string | SimpleResponse | RichResponse): express.Response | null;
@@ -474,10 +473,10 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string} name Name of the context. Dialogflow converts to lowercase.
-     * @param {number} [lifespan=1] Context lifespan.
-     * @param {Object=} parameters Context JSON parameters.
-     * @return {null|undefined} Null if the context name is not defined.
+     * @param name Name of the context. Dialogflow converts to lowercase.
+     * @param [lifespan=1] Context lifespan.
+     * @param parameters Context JSON parameters.
+     * @return Null if the context name is not defined.
      * @dialogflow
      */
     setContext(name: string, lifespan?: number, parameters?: any): null | undefined;
@@ -514,7 +513,7 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @return {Context[]} Empty if no active contexts.
+     * @return Empty if no active contexts.
      * @dialogflow
      */
     getContexts(): Context[];
@@ -551,8 +550,8 @@ export class DialogflowApp extends AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string} name The name of the Context to retrieve.
-     * @return {Object} Context value matching name
+     * @param name The name of the Context to retrieve.
+     * @return Context value matching name
      *     or null if no matching context.
      * @dialogflow
      */
@@ -565,7 +564,7 @@ export class DialogflowApp extends AssistantApp {
      * const app = new DialogflowApp({request: request, response: response});
      * app.tell('You said ' + app.getRawInput());
      *
-     * @return {string} User's raw query or null if no value.
+     * @return User's raw query or null if no value.
      * @dialogflow
      */
     getRawInput(): string;
