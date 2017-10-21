@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.0
+// Type definitions for React Router 4.2
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
