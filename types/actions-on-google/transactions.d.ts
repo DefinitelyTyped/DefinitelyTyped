@@ -205,7 +205,6 @@ export const TransactionValues: {
 
 /**
  * List of transaction card networks available when paying with Google.
- * @enum {string}
  */
 export enum CardNetwork {
     /**
@@ -236,7 +235,6 @@ export enum CardNetwork {
 
 /**
  * List of possible item types.
- * @enum {string}
  */
 export enum ItemType {
     /**
@@ -275,7 +273,6 @@ export enum ItemType {
 
 /**
  * List of price types.
- * @enum {string}
  */
 export enum PriceType {
     /**
@@ -294,7 +291,6 @@ export enum PriceType {
 
 /**
  * List of possible item types.
- * @enum {string}
  */
 export enum PaymentType {
     /**
@@ -325,7 +321,6 @@ export enum PaymentType {
 
 /**
  * List of customer information properties that can be requested.
- * @enum {string}
  */
 export enum CustomerInfoProperties {
     EMAIL
@@ -333,7 +328,6 @@ export enum CustomerInfoProperties {
 
 /**
  * List of possible order confirmation user decisions
- * @enum {string}
  */
 export enum ConfirmationDecision {
     /**
@@ -357,7 +351,6 @@ export enum ConfirmationDecision {
 
 /**
  * List of possible order states.
- * @enum {string}
  */
 export enum OrderState {
     /**
@@ -388,7 +381,6 @@ export enum OrderState {
 
 /**
  * List of possible actions to take on the order.
- * @enum {string}
  */
 export enum OrderAction {
     /**
@@ -431,7 +423,6 @@ export enum OrderAction {
 
 /**
  * List of possible types of order rejection.
- * @enum {string}
  */
 export enum RejectionType {
     /**
@@ -446,7 +437,6 @@ export enum RejectionType {
 
 /**
  * List of possible order state objects.
- * @enum {string}
  */
 export enum OrderStateInfo {
     /**
@@ -477,7 +467,6 @@ export enum OrderStateInfo {
 
 /**
  * List of possible order transaction requirements check result types.
- * @enum {string}
  */
 export enum ResultType {
     /**
@@ -505,7 +494,6 @@ export enum ResultType {
 
 /**
  * List of possible user decisions to give delivery address.
- * @enum {string}
  */
 export enum DeliveryAddressDecision {
     /**
@@ -524,7 +512,6 @@ export enum DeliveryAddressDecision {
 
 /**
  * List of possible order location types.
- * @enum {string}
  */
 export enum LocationType {
     /**
@@ -551,7 +538,6 @@ export enum LocationType {
 
 /**
  * List of possible order time types.
- * @enum {string}
  */
 export enum TimeType {
     /**
@@ -579,7 +565,7 @@ export class Order {
     /**
      * Constructor for Order.
      *
-     * @param {string} orderId Unique identifier for the order.
+     * @param orderId Unique identifier for the order.
      */
     constructor(orderId: string);
 
@@ -600,7 +586,6 @@ export class Order {
 
     /**
      * Image for the order.
-     * @type {Image}
      */
     image?: Image;
 
@@ -623,66 +608,66 @@ export class Order {
     /**
      * Set the cart for this order.
      *
-     * @param {Cart} cart Cart for this order.
-     * @return {Order} Returns current constructed Order.
+     * @param cart Cart for this order.
+     * @return Returns current constructed Order.
      */
     setCart(cart: Cart): Order;
 
     /**
      * Adds a single item or list of items to the non-cart items list.
      *
-     * @param {LineItem|Array<LineItem>} items Line Items to add.
-     * @return {Order} Returns current constructed Order.
+     * @param items Line Items to add.
+     * @return Returns current constructed Order.
      */
     addOtherItems(items: LineItem | LineItem[]): Order;
 
     /**
      * Sets the image for this order.
      *
-     * @param {string} url Image source URL.
-     * @param {string} accessibilityText Text to replace for image for
+     * @param url Image source URL.
+     * @param accessibilityText Text to replace for image for
      *     accessibility.
-     * @param {number=} width Width of the image.
-     * @param {number=} height Height of the image.
-     * @return {Order} Returns current constructed Order.
+     * @param width Width of the image.
+     * @param height Height of the image.
+     * @return Returns current constructed Order.
      */
     setImage(url: string, accessibilityText: string, width?: number, height?: number): Order;
 
     /**
      * Set the TOS for this order.
      *
-     * @param {string} url String URL of the TOS.
-     * @return {Order} Returns current constructed Order.
+     * @param url String URL of the TOS.
+     * @return Returns current constructed Order.
      */
     setTermsOfService(url: string): Order;
 
     /**
      * Sets the total price for this order.
      *
-     * @param {PriceType} priceType One of TransactionValues.PriceType.
-     * @param {string} currencyCode Currency code of price.
-     * @param {number} units Unit count of price.
-     * @param {number=} nanos Partial unit count of price.
-     * @return {Order} Returns current constructed Order.
+     * @param priceType One of TransactionValues.PriceType.
+     * @param currencyCode Currency code of price.
+     * @param units Unit count of price.
+     * @param nanos Partial unit count of price.
+     * @return Returns current constructed Order.
      */
     setTotalPrice(priceType: PriceType, currencyCode: string, units: number, nanos?: number): Order;
 
     /**
      * Adds an associated location to the order. Up to 2 locations can be added.
      *
-     * @param {LocationType} type One of TransactionValues.LocationType.
-     * @param {Location} location Location to add.
-     * @return {Order} Returns current constructed Order.
+     * @param type One of TransactionValues.LocationType.
+     * @param location Location to add.
+     * @return Returns current constructed Order.
      */
     addLocation(type: LocationType, location: Location): Order;
 
     /**
      * Sets an associated time to the order.
      *
-     * @param {TimeType} type One of TransactionValues.TimeType.
-     * @param {string} time Time to add. Time should be ISO 8601 representation
+     * @param type One of TransactionValues.TimeType.
+     * @param time Time to add. Time should be ISO 8601 representation
      *     of time value. Could be date, datetime, or duration.
-     * @return {Order} Returns current constructed Order.
+     * @return Returns current constructed Order.
      */
     setTime(type: TimeType, time: string): Order;
 }
@@ -694,7 +679,7 @@ export class Cart {
     /**
      * Constructor for Cart.
      *
-     * @param {string=} cartId Optional unique identifier for the cart.
+     * @param cartId Optional unique identifier for the cart.
      */
     constructor(cartId?: string);
 
@@ -726,33 +711,33 @@ export class Cart {
     /**
      * Set the merchant for this cart.
      *
-     * @param {string} id Merchant ID.
-     * @param {string} name Name of the merchant.
-     * @return {Cart} Returns current constructed Cart.
+     * @param id Merchant ID.
+     * @param name Name of the merchant.
+     * @return Returns current constructed Cart.
      */
     setMerchant(id: string, name: string): Cart;
 
     /**
      * Set the notes for this cart.
      *
-     * @param {string} notes Notes.
-     * @return {Cart} Returns current constructed Cart.
+     * @param notes Notes.
+     * @return Returns current constructed Cart.
      */
     setNotes(notes: string): Cart;
 
     /**
      * Adds a single item or list of items to the cart.
      *
-     * @param {LineItem|Array<LineItem>} items Line Items to add.
-     * @return {Cart} Returns current constructed Cart.
+     * @param items Line Items to add.
+     * @return Returns current constructed Cart.
      */
     addLineItems(items: LineItem | LineItem[]): Cart;
 
     /**
      * Adds a single item or list of items to the non-items list of this cart.
      *
-     * @param {LineItem|Array<LineItem>} items Line Items to add.
-     * @return {Cart} Returns current constructed Cart.
+     * @param items Line Items to add.
+     * @return Returns current constructed Cart.
      */
     addOtherItems(items: LineItem | LineItem[]): Cart;
 }
@@ -764,8 +749,8 @@ export class LineItem {
     /**
      * Constructor for LineItem.
      *
-     * @param {string} lineItemId Unique identifier for the item.
-     * @param {string} name Name of the item.
+     * @param lineItemId Unique identifier for the item.
+     * @param name Name of the item.
      */
     constructor(lineItemId: string, name: string);
 
@@ -791,7 +776,6 @@ export class LineItem {
 
     /**
      * Image of the item.
-     * @type {Image}
      */
     image?: Image;
 
@@ -819,63 +803,63 @@ export class LineItem {
      * Adds a single item or list of items or notes to the sublines. Only valid
      * if item type is REGULAR.
      *
-     * @param {string|LineItem|Array<string|LineItem>} items Sublines to add.
-     * @return {LineItem} Returns current constructed LineItem.
+     * @param items Sublines to add.
+     * @return Returns current constructed LineItem.
      */
     addSublines(items: string | LineItem | Array<string | LineItem>): LineItem;
 
     /**
      * Sets the image for this item.
      *
-     * @param {string} url Image source URL.
-     * @param {string} accessibilityText Text to replace for image for
+     * @param url Image source URL.
+     * @param accessibilityText Text to replace for image for
      *     accessibility.
-     * @param {number=} width Width of the image.
-     * @param {number=} height Height of the image.
-     * @return {LineItem} Returns current constructed LineItem.
+     * @param width Width of the image.
+     * @param height Height of the image.
+     * @return Returns current constructed LineItem.
      */
     setImage(url: string, accessibilityText: string, width?: number, height?: number): LineItem;
 
     /**
      * Sets the price of this item.
      *
-     * @param {PriceType} priceType One of TransactionValues.PriceType.
-     * @param {string} currencyCode Currency code of price.
-     * @param {number} units Unit count of price.
-     * @param {number=} nanos Partial unit count of price.
-     * @return {LineItem} Returns current constructed LineItem.
+     * @param priceType One of TransactionValues.PriceType.
+     * @param currencyCode Currency code of price.
+     * @param units Unit count of price.
+     * @param nanos Partial unit count of price.
+     * @return Returns current constructed LineItem.
      */
     setPrice(priceType: PriceType, currencyCode: string, units: number, nanos?: number): LineItem;
 
     /**
      * Set the type of the item.
      *
-     * @param {ItemType} type Type of the item. One of TransactionValues.ItemType.
-     * @return {LineItem} Returns current constructed LineItem.
+     * @param type Type of the item. One of TransactionValues.ItemType.
+     * @return Returns current constructed LineItem.
      */
     setType(type: ItemType): LineItem;
 
     /**
      * Set the quantity of the item.
      *
-     * @param {number} quantity Quantity of the item.
-     * @return {LineItem} Returns current constructed LineItem.
+     * @param quantity Quantity of the item.
+     * @return Returns current constructed LineItem.
      */
     setQuantity(quantity: number): LineItem;
 
     /**
      * Set the description of the item.
      *
-     * @param {string} description Description of the item.
-     * @return {LineItem} Returns current constructed LineItem.
+     * @param description Description of the item.
+     * @return Returns current constructed LineItem.
      */
     setDescription(description: string): LineItem;
 
     /**
      * Set the Offer ID of the item.
      *
-     * @param {string} offerId Offer ID of the item.
-     * @return {LineItem} Returns current constructed LineItem.
+     * @param offerId Offer ID of the item.
+     * @return Returns current constructed LineItem.
      */
     setOfferId(offerId: string): LineItem;
 }
@@ -887,8 +871,8 @@ export class OrderUpdate {
     /**
      * Constructor for OrderUpdate.
      *
-     * @param {string} orderId Unique identifier of the order.
-     * @param {boolean} isGoogleOrderId True if the order ID is provided by
+     * @param orderId Unique identifier of the order.
+     * @param isGoogleOrderId True if the order ID is provided by
      *     Google. False if the order ID is app provided.
      */
     constructor(orderId: string, isGoogleOrderId: boolean);
@@ -936,91 +920,91 @@ export class OrderUpdate {
     /**
      * Set the Google provided order ID of the order.
      *
-     * @param {string} orderId Google provided order ID.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @param orderId Google provided order ID.
+     * @return Returns current constructed OrderUpdate.
      */
     setGoogleOrderId(orderId: string): OrderUpdate;
 
     /**
      * Set the Action provided order ID of the order.
      *
-     * @param {string} orderId Action provided order ID.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @param orderId Action provided order ID.
+     * @return Returns current constructed OrderUpdate.
      */
     setActionOrderId(orderId: string): OrderUpdate;
 
     /**
      * Set the state of the order.
      *
-     * @param {OrderState} state One of TransactionValues.OrderState.
-     * @param {string} label Label for the order state.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @param state One of TransactionValues.OrderState.
+     * @param label Label for the order state.
+     * @return Returns current constructed OrderUpdate.
      */
     setOrderState(state: OrderState, label: string): OrderUpdate;
 
     /**
      * Set the update time of the order.
      *
-     * @param {number} seconds Seconds since Unix epoch.
-     * @param {number=} nanos Partial time units.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @param seconds Seconds since Unix epoch.
+     * @param nanos Partial time units.
+     * @return Returns current constructed OrderUpdate.
      */
     setUpdateTime(seconds: number, nanos?: number): OrderUpdate;
 
     /**
      * Set the user notification content of the order update.
      *
-     * @param {string} title Title of the notification.
-     * @param {Object} text Text of the notification.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @param title Title of the notification.
+     * @param text Text of the notification.
+     * @return Returns current constructed OrderUpdate.
      */
     setUserNotification(title: string, text: object): OrderUpdate;
 
     /**
      * Sets the total price for this order.
      *
-     * @param {PriceType} priceType One of TransactionValues.PriceType.
-     * @param {string} currencyCode Currency code of price.
-     * @param {number} units Unit count of price.
-     * @param {number=} nanos Partial unit count of price.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @param priceType One of TransactionValues.PriceType.
+     * @param currencyCode Currency code of price.
+     * @param units Unit count of price.
+     * @param nanos Partial unit count of price.
+     * @return Returns current constructed OrderUpdate.
      */
     setTotalPrice(priceType: PriceType, currencyCode: string, units: number, nanos?: number): OrderUpdate;
 
     /**
      * Adds an actionable item for the user to manage the order.
      *
-     * @param {OrderAction} type One of TransactionValues.OrderActions.
-     * @param {string} label Button label.
-     * @param {string} url URL to open when button is clicked.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @param type One of TransactionValues.OrderActions.
+     * @param label Button label.
+     * @param url URL to open when button is clicked.
+     * @return Returns current constructed OrderUpdate.
      */
     addOrderManagementAction(type: OrderAction, label: string, url: string): OrderUpdate;
 
     /**
      * Adds a single price update for a particular line item in the order.
      *
-     * @param {string} itemId Line item ID for the order item updated.
-     * @param {PriceType} priceType One of TransactionValues.PriceType.
-     * @param {string} currencyCode Currency code of new price.
-     * @param {number} units Unit count of new price.
-     * @param {number=} nanos Partial unit count of new price.
-     * @param {string=} reason Reason for the price change. Required unless a
+     * @param itemId Line item ID for the order item updated.
+     * @param priceType One of TransactionValues.PriceType.
+     * @param currencyCode Currency code of new price.
+     * @param units Unit count of new price.
+     * @param nanos Partial unit count of new price.
+     * @param reason Reason for the price change. Required unless a
      *     reason for this line item change was already declared in
      *     addLineItemStateUpdate.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @return Returns current constructed OrderUpdate.
      */
     addLineItemPriceUpdate(itemId: string, priceType: PriceType, currencyCode: string, units: number, nanos?: number, reason?: string): OrderUpdate;
 
     /**
      * Adds a single state update for a particular line item in the order.
      *
-     * @param {string} itemId Line item ID for the order item updated.
-     * @param {OrderState} state One of TransactionValues.OrderState.
-     * @param {string} label Label for the new item state.
-     * @param {string=} reason Reason for the price change. This will overwrite
+     * @param itemId Line item ID for the order item updated.
+     * @param state One of TransactionValues.OrderState.
+     * @param label Label for the new item state.
+     * @param reason Reason for the price change. This will overwrite
      *     any reason given in addLineitemPriceUpdate.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @return Returns current constructed OrderUpdate.
      */
     addLineItemStateUpdate(itemId: string, state: OrderState, label: string, reason?: string): OrderUpdate;
 
@@ -1029,11 +1013,11 @@ export class OrderUpdate {
      * type, and any accompanying data. This should only be called once per
      * order update.
      *
-     * @param {string} type One of TransactionValues.OrderStateInfo.
-     * @param {Object} data Proper Object matching the data necessary for the info
+     * @param type One of TransactionValues.OrderStateInfo.
+     * @param data Proper Object matching the data necessary for the info
      *     type. For instance, for the TransactionValues.OrderStateInfo.RECEIPT info
      *     type, use the {@link ReceiptInfo} data type.
-     * @return {OrderUpdate} Returns current constructed OrderUpdate.
+     * @return Returns current constructed OrderUpdate.
      */
     setInfo(type: string, data: object): OrderUpdate;
 }

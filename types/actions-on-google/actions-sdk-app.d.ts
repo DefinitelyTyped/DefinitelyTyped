@@ -30,7 +30,6 @@ export class ActionsSdkApp extends AssistantApp {
      * const app = new ActionsSdkApp({request: request, response: response,
      *   sessionStarted:sessionStarted});
      *
-     * @param {ActionsSdkAppOptions} options
      * @actionssdk
      */
     constructor(options: ActionsSdkAppOptions);
@@ -51,8 +50,8 @@ export class ActionsSdkApp extends AssistantApp {
      *     response.status(400).send();
      *   });
      *
-     * @param {string} projectId Google Cloud Project ID for the Assistant app.
-     * @return {Promise<LoginTicket>} Promise resolving with google-auth-library LoginTicket
+     * @param projectId Google Cloud Project ID for the Assistant app.
+     * @return Promise resolving with google-auth-library LoginTicket
      *     if request is from a valid source, otherwise rejects with the error reason
      *     for an invalid token.
      * @actionssdk
@@ -66,7 +65,7 @@ export class ActionsSdkApp extends AssistantApp {
      * const app = new ActionsSdkApp({request: request, response: response});
      * const apiVersion = app.getApiVersion();
      *
-     * @return {string} Version value or null if no value.
+     * @return Version value or null if no value.
      * @actionssdk
      */
     getApiVersion(): string;
@@ -78,7 +77,7 @@ export class ActionsSdkApp extends AssistantApp {
      * const app = new ActionsSdkApp({request: request, response: response});
      * app.tell('You said ' + app.getRawInput());
      *
-     * @return {string} User's raw query or null if no value.
+     * @return User's raw query or null if no value.
      * @actionssdk
      */
     getRawInput(): string;
@@ -91,7 +90,7 @@ export class ActionsSdkApp extends AssistantApp {
      * const app = new ActionsSdkApp({request: request, response: response});
      * const dialogState = app.getDialogState();
      *
-     * @return {any} JSON object provided to the Assistant in the previous
+     * @return JSON object provided to the Assistant in the previous
      *     user turn or {} if no value.
      * @actionssdk
      */
@@ -105,7 +104,7 @@ export class ActionsSdkApp extends AssistantApp {
      * const app = new ActionsSdkApp({request: request, response: response});
      * const actionVersionLabel = app.getActionVersionLabel();
      *
-     * @return {string} The specified version label or null if unspecified.
+     * @return The specified version label or null if unspecified.
      * @actionssdk
      */
     getActionVersionLabel(): string;
@@ -118,7 +117,7 @@ export class ActionsSdkApp extends AssistantApp {
      * const app = new ActionsSdkApp({request: request, response: response});
      * const conversationId = app.getConversationId();
      *
-     * @return {string} Conversation ID or null if no value.
+     * @return Conversation ID or null if no value.
      * @actionssdk
      */
     getConversationId(): string;
@@ -147,7 +146,7 @@ export class ActionsSdkApp extends AssistantApp {
      *
      * app.handleRequest(responseHandler);
      *
-     * @return {string} Intent id or null if no value.
+     * @return Intent id or null if no value.
      * @actionssdk
      */
     getIntent(): string;
@@ -159,8 +158,8 @@ export class ActionsSdkApp extends AssistantApp {
      * Note: If incoming request is using an API version under 2 (e.g. 'v1'),
      * the argument object will be in Proto2 format (snake_case, etc).
      *
-     * @param {string} argName Name of the argument.
-     * @return {string} Argument value matching argName
+     * @param argName Name of the argument.
+     * @return Argument value matching argName
      *     or null if no matching argument.
      * @actionssdk
      */
@@ -193,7 +192,7 @@ export class ActionsSdkApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @return {string} Option key of selected item. Null if no option selected or
+     * @return Option key of selected item. Null if no option selected or
      *     if current intent is not OPTION intent.
      * @actionssdk
      */
@@ -232,11 +231,11 @@ export class ActionsSdkApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @param {Object|SimpleResponse|RichResponse} inputPrompt Holding initial and
+     * @param inputPrompt Holding initial and
      *     no-input prompts.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by App.
-     * @return {express.Response|null} The response that is sent to Assistant to ask user to provide input.
+     * @return The response that is sent to Assistant to ask user to provide input.
      * @actionssdk
      */
     ask(inputPrompt: object | SimpleResponse | RichResponse, dialogState?: object): express.Response | null;
@@ -273,12 +272,12 @@ export class ActionsSdkApp extends AssistantApp {
      * actionMap.set(app.StandardIntents.OPTION, optionIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {Object|SimpleResponse|RichResponse} inputPrompt Holding initial and
+     * @param inputPrompt Holding initial and
      *     no-input prompts. Cannot contain basic card.
-     * @param {List} list List built with {@link AssistantApp#buildList|buildList}.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param list List built with {@link AssistantApp#buildList|buildList}.
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant.
-     * @return {express.Response|null} The response that is sent to Assistant to ask user to provide input.
+     * @return The response that is sent to Assistant to ask user to provide input.
      * @actionssdk
      */
     askWithList(inputPrompt: object | SimpleResponse | RichResponse, list: List, dialogState?: object): express.Response | null;
@@ -315,13 +314,13 @@ export class ActionsSdkApp extends AssistantApp {
      * actionMap.set(app.StandardIntents.OPTION, optionIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {Object|SimpleResponse|RichResponse} inputPrompt Holding initial and
+     * @param inputPrompt Holding initial and
      *     no-input prompts. Cannot contain basic card.
-     * @param {Carousel} carousel Carousel built with
+     * @param carousel Carousel built with
      *      {@link AssistantApp#buildCarousel|buildCarousel}.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant.
-     * @return {express.Response|null} The response that is sent to Assistant to ask user to provide input.
+     * @return The response that is sent to Assistant to ask user to provide input.
      * @actionssdk
      */
     askWithCarousel(inputPrompt: object | SimpleResponse | RichResponse, carousel: Carousel, dialogState?: object): express.Response | null;
@@ -357,9 +356,9 @@ export class ActionsSdkApp extends AssistantApp {
      *
      * app.handleRequest(actionMap);
      *
-     * @param {string|SimpleResponse|RichResponse} textToSpeech Final response.
+     * @param textToSpeech Final response.
      *     Spoken response can be SSML.
-     * @return {express.Response|null} The HTTP response that is sent back to Assistant.
+     * @return The HTTP response that is sent back to Assistant.
      * @actionssdk
      */
     tell(textToSpeech: string | SimpleResponse | RichResponse): express.Response | null;
@@ -381,10 +380,10 @@ export class ActionsSdkApp extends AssistantApp {
      *     ['Say any number', 'Pick a number', 'What is the number?']);
      * app.ask(inputPrompt);
      *
-     * @param {boolean} isSsml Indicates whether the text to speech is SSML or not.
-     * @param {string} initialPrompt The initial prompt the App asks the user.
-     * @param {Array<string>=} noInputs Array of re-prompts when the user does not respond (max 3).
-     * @return {Object} An {@link https://developers.google.com/actions/reference/conversation#InputPrompt|InputPrompt object}.
+     * @param isSsml Indicates whether the text to speech is SSML or not.
+     * @param initialPrompt The initial prompt the App asks the user.
+     * @param noInputs Array of re-prompts when the user does not respond (max 3).
+     * @return.
      * @actionssdk
      */
     buildInputPrompt(isSsml: boolean, initialPrompt: string, noInputs?: string[]): object;

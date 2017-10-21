@@ -77,7 +77,7 @@ export class RichResponse {
     /**
      * Constructor for RichResponse. Accepts optional RichResponse to clone.
      *
-     * @param {RichResponse=} richResponse Optional RichResponse to clone.
+     * @param richResponse Optional RichResponse to clone.
      */
     constructor(richResponse?: RichResponse);
 
@@ -100,43 +100,43 @@ export class RichResponse {
     /**
      * Adds a SimpleResponse to list of items.
      *
-     * @param {string|SimpleResponse} simpleResponse Simple response to present to
+     * @param simpleResponse Simple response to present to
      *     user. If just a string, display text will not be set.
-     * @return {RichResponse} Returns current constructed RichResponse.
+     * @return Returns current constructed RichResponse.
      */
     addSimpleResponse(simpleResponse: string | SimpleResponse): RichResponse;
 
     /**
      * Adds a BasicCard to list of items.
      *
-     * @param {BasicCard} basicCard Basic card to include in response.
-     * @return {RichResponse} Returns current constructed RichResponse.
+     * @param basicCard Basic card to include in response.
+     * @return Returns current constructed RichResponse.
      */
     addBasicCard(basicCard: BasicCard): RichResponse;
 
     /**
      * Adds a single suggestion or list of suggestions to list of items.
      *
-     * @param {string|Array<string>} suggestions Either a single string suggestion
+     * @param suggestions Either a single string suggestion
      *     or list of suggestions to add.
-     * @return {RichResponse} Returns current constructed RichResponse.
+     * @return Returns current constructed RichResponse.
      */
     addSuggestions(suggestions: string | string[]): RichResponse;
 
     /**
      * Returns true if the given suggestion text is valid to be added to the suggestion list. A valid
      * text string is not longer than 25 characters.
-     * @param {string} suggestionText Text to validate as suggestion.
-     * @return {boolean} True if the text is valid, false otherwise.s
+     * @param suggestionText Text to validate as suggestion.
+     * @return True if the text is valid, false otherwise.s
      */
     isValidSuggestionText(suggestionText: string): boolean;
 
     /**
      * Sets the suggestion link for this rich response.
      *
-     * @param {string} destinationName Name of the link out destination.
-     * @param {string} suggestionUrl - String URL to open when suggestion is used.
-     * @return {RichResponse} Returns current constructed RichResponse.
+     * @param destinationName Name of the link out destination.
+     * @param suggestionUrl - String URL to open when suggestion is used.
+     * @return Returns current constructed RichResponse.
      */
     addSuggestionLink(destinationName: string, suggestionUrl: string): RichResponse;
 
@@ -144,8 +144,8 @@ export class RichResponse {
      * Adds an order update to this response. Use after a successful transaction
      * decision to confirm the order.
      *
-     * @param {OrderUpdate} orderUpdate OrderUpdate object to add.
-     * @return {RichResponse} Returns current constructed RichResponse.
+     * @param orderUpdate OrderUpdate object to add.
+     * @return Returns current constructed RichResponse.
      */
     addOrderUpdate(orderUpdate: OrderUpdate): RichResponse;
 }
@@ -157,7 +157,7 @@ export class BasicCard {
     /**
      * Constructor for BasicCard. Accepts optional BasicCard to clone.
      *
-     * @param {BasicCard=} basicCard Optional BasicCard to clone.
+     * @param basicCard Optional BasicCard to clone.
      */
     constructor(basicCard?: BasicCard);
 
@@ -189,45 +189,45 @@ export class BasicCard {
     /**
      * Sets the title for this Basic Card.
      *
-     * @param {string} title Title to show on card.
-     * @return {BasicCard} Returns current constructed BasicCard.
+     * @param title Title to show on card.
+     * @return Returns current constructed BasicCard.
      */
     setTitle(title: string): BasicCard;
 
     /**
      * Sets the subtitle for this Basic Card.
      *
-     * @param {string} subtitle Subtitle to show on card.
-     * @return {BasicCard} Returns current constructed BasicCard.
+     * @param subtitle Subtitle to show on card.
+     * @return Returns current constructed BasicCard.
      */
     setSubtitle(subtitle: string): BasicCard;
 
     /**
      * Sets the body text for this Basic Card.
      *
-     * @param {string} bodyText Body text to show on card.
-     * @return {BasicCard} Returns current constructed BasicCard.
+     * @param bodyText Body text to show on card.
+     * @return Returns current constructed BasicCard.
      */
     setBodyText(bodyText: string): BasicCard;
 
     /**
      * Sets the image for this Basic Card.
      *
-     * @param {string} url Image source URL.
-     * @param {string} accessibilityText Text to replace for image for
+     * @param url Image source URL.
+     * @param accessibilityText Text to replace for image for
      *     accessibility.
-     * @param {number=} width Width of the image.
-     * @param {number=} height Height of the image.
-     * @return {BasicCard} Returns current constructed BasicCard.
+     * @param width Width of the image.
+     * @param height Height of the image.
+     * @return Returns current constructed BasicCard.
      */
     setImage(url: string, accessibilityText: string, width?: number, height?: number): BasicCard;
 
     /**
      * Adds a button below card.
      *
-     * @param {string} text Text to show on button.
-     * @param {string} url URL to open when button is selected.
-     * @return {BasicCard} Returns current constructed BasicCard.
+     * @param text Text to show on button.
+     * @param url URL to open when button is selected.
+     * @return Returns current constructed BasicCard.
      */
     addButton(text: string, url: string): BasicCard;
 }
@@ -240,7 +240,7 @@ export class List {
      * Constructor for List. Accepts optional List to clone, string title, or
      * list of items to copy.
      *
-     * @param {(List|string|Array<OptionItem>)=} list Either a list to clone, a title
+     * @param list Either a list to clone, a title
      *     to set for a new List, or an array of OptionItem to initialize a new
      *     list.
      */
@@ -259,16 +259,16 @@ export class List {
     /**
      * Sets the title for this List.
      *
-     * @param {string} title Title to show on list.
-     * @return {List} Returns current constructed List.
+     * @param title Title to show on list.
+     * @return Returns current constructed List.
      */
     setTitle(title: string): List;
 
     /**
      * Adds a single item or list of items to the list.
      *
-     * @param {OptionItem|Array<OptionItem>} optionItems OptionItems to add.
-     * @return {List} Returns current constructed List.
+     * @param optionItems OptionItems to add.
+     * @return Returns current constructed List.
      */
     addItems(optionItems: OptionItem | OptionItem[]): List;
 }
@@ -281,7 +281,7 @@ export class Carousel {
      * Constructor for Carousel. Accepts optional Carousel to clone or list of
      * items to copy.
      *
-     * @param {(Carousel|Array<OptionItem>)=} carousel Either a carousel to clone
+     * @param carousel Either a carousel to clone
      *     or an array of OptionItem to initialize a new carousel
      */
     constructor(carousel?: Carousel | OptionItem[]);
@@ -294,8 +294,8 @@ export class Carousel {
     /**
      * Adds a single item or list of items to the carousel.
      *
-     * @param {OptionItem|Array<OptionItem>} optionItems OptionItems to add.
-     * @return {Carousel} Returns current constructed Carousel.
+     * @param optionItems OptionItems to add.
+     * @return Returns current constructed Carousel.
      */
     addItems(optionItems: OptionItem | OptionItem[]): Carousel;
 }
@@ -307,7 +307,7 @@ export class OptionItem {
     /**
      * Constructor for OptionItem. Accepts optional OptionItem to clone.
      *
-     * @param {OptionItem=} optionItem Optional OptionItem to clone.
+     * @param optionItem Optional OptionItem to clone.
      */
     constructor(optionItem?: OptionItem);
 
@@ -334,28 +334,28 @@ export class OptionItem {
     /**
      * Sets the title for this Option Item.
      *
-     * @param {string} title Title to show on item.
-     * @return {OptionItem} Returns current constructed OptionItem.
+     * @param title Title to show on item.
+     * @return Returns current constructed OptionItem.
      */
     setTitle(title: string): OptionItem;
 
     /**
      * Sets the description for this Option Item.
      *
-     * @param {string} description Description to show on item.
-     * @return {OptionItem} Returns current constructed OptionItem.
+     * @param description Description to show on item.
+     * @return Returns current constructed OptionItem.
      */
     setDescription(description: string): OptionItem;
 
     /**
      * Sets the image for this Option Item.
      *
-     * @param {string} url Image source URL.
-     * @param {string} accessibilityText Text to replace for image for
+     * @param url Image source URL.
+     * @param accessibilityText Text to replace for image for
      *     accessibility.
-     * @param {number=} width Width of the image.
-     * @param {number=} height Height of the image.
-     * @return {OptionItem} Returns current constructed OptionItem.
+     * @param width Width of the image.
+     * @param height Height of the image.
+     * @return Returns current constructed OptionItem.
      */
     setImage(url: string, accessibilityText: string, width?: number, height?: number): OptionItem;
 
@@ -363,24 +363,24 @@ export class OptionItem {
      * Sets the key for the OptionInfo of this Option Item. This will be returned
      * as an argument in the resulting actions.intent.OPTION intent.
      *
-     * @param {string} key Key to uniquely identify this item.
-     * @return {OptionItem} Returns current constructed OptionItem.
+     * @param key Key to uniquely identify this item.
+     * @return Returns current constructed OptionItem.
      */
     setKey(key: string): OptionItem;
 
     /**
      * Adds a single synonym or list of synonyms to item.
      *
-     * @param {string|Array<string>} synonyms Either a single string synonyms
+     * @param synonyms Either a single string synonyms
      *     or list of synonyms to add.
-     * @return {OptionItem} Returns current constructed OptionItem.
+     * @return Returns current constructed OptionItem.
      */
     addSynonyms(synonyms: string | string[]): OptionItem;
 }
 
 /**
  * Check if given text contains SSML.
- * @param {string} text Text to check.
- * @return {boolean} True if text contains SSML, false otherwise.
+ * @param text Text to check.
+ * @return True if text contains SSML, false otherwise.
  */
 export function isSsml(text: string): boolean;

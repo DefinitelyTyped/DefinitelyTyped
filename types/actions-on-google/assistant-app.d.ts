@@ -6,7 +6,6 @@ import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, L
 
 /**
  * List of standard intents that the app provides.
- * @enum {string}
  * @actionssdk
  * @dialogflow
  */
@@ -67,7 +66,6 @@ export enum StandardIntents {
 
 /**
  * List of supported permissions the app supports.
- * @enum {string}
  * @actionssdk
  * @dialogflow
  */
@@ -91,7 +89,6 @@ export enum SupportedPermissions {
 
 /**
  * List of built-in argument names.
- * @enum {string}
  * @actionssdk
  * @dialogflow
  */
@@ -145,7 +142,6 @@ export enum BuiltInArgNames {
 /**
  * List of possible conversation stages, as defined in the
  * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
- * @enum {number|string}
  * @actionssdk
  * @dialogflow
  */
@@ -166,7 +162,6 @@ export enum ConversationStages {
 
 /**
  * List of surface capabilities supported by the app.
- * @enum {string}
  * @actionssdk
  * @dialogflow
  */
@@ -183,7 +178,6 @@ export enum SurfaceCapabilities {
 
 /**
  * List of possible user input types.
- * @enum {number|string}
  * @actionssdk
  * @dialogflow
  */
@@ -208,7 +202,6 @@ export enum InputTypes {
 
 /**
  * List of possible sign in result status values.
- * @enum {string}
  * @actionssdk
  * @dialogflow
  */
@@ -322,7 +315,6 @@ export class AssistantApp {
 
     /**
      * List of standard intents that the app provides.
-     * @readonly
      * @actionssdk
      * @dialogflow
      */
@@ -330,7 +322,6 @@ export class AssistantApp {
 
     /**
      * List of supported permissions the app supports.
-     * @readonly
      * @actionssdk
      * @dialogflow
      */
@@ -338,7 +329,6 @@ export class AssistantApp {
 
     /**
      * List of built-in argument names.
-     * @readonly
      * @actionssdk
      * @dialogflow
      */
@@ -347,7 +337,6 @@ export class AssistantApp {
     /**
      * List of possible conversation stages, as defined in the
      * {@link https://developers.google.com/actions/reference/conversation#Conversation|Conversation object}.
-     * @readonly
      * @actionssdk
      * @dialogflow
      */
@@ -355,7 +344,6 @@ export class AssistantApp {
 
     /**
      * List of surface capabilities supported by the app.
-     * @readonly
      * @actionssdk
      * @dialogflow
      */
@@ -363,7 +351,6 @@ export class AssistantApp {
 
     /**
      * List of possible user input types.
-     * @readonly
      * @actionssdk
      * @dialogflow
      */
@@ -371,7 +358,6 @@ export class AssistantApp {
 
     /**
      * List of possible sign in result status values.
-     * @readonly
      * @actionssdk
      * @dialogflow
      */
@@ -379,7 +365,6 @@ export class AssistantApp {
 
     /**
      * Values related to supporting {@link Transactions}.
-     * @readonly
      */
     readonly Transactions: typeof TransactionValues;
 
@@ -438,8 +423,7 @@ export class AssistantApp {
      * actionMap.set(NAME_ACTION, makeName);
      * app.handleRequest(actionMap);
      *
-     * @param {(Function|Map)} handler The handler (or Map of handlers) for the request.
-     * @return {undefined}
+     * @param handler The handler (or Map of handlers) for the request.
      * @actionssdk
      * @dialogflow
      */
@@ -488,13 +472,13 @@ export class AssistantApp {
      * actionMap.set(GET_RIDE_ACTION, sendRide);
      * app.handleRequest(actionMap);
      *
-     * @param {string} context Context why the permission is being asked; it's the TTS
+     * @param context Context why the permission is being asked; it's the TTS
      *     prompt prefix (action phrase) we ask the user.
-     * @param {Array<string>} permissions Array of permissions App supports, each of
+     * @param permissions Array of permissions App supports, each of
      *     which comes from AssistantApp.SupportedPermissions.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return {express.Response|null} A response is sent to Assistant to ask for the user's permission; for any
+     * @return A response is sent to Assistant to ask for the user's permission; for any
      *     invalid input, we return null.
      * @actionssdk
      * @dialogflow
@@ -531,13 +515,13 @@ export class AssistantApp {
      * actionMap.set(TXN_REQ_COMPLETE, txnReqCheck);
      * app.handleRequest(actionMap);
      *
-     * @param {ActionPaymentTransactionConfig|GooglePaymentTransactionConfig=}
+     * @param
      *     transactionConfig Configuration for the transaction. Includes payment
      *     options and order options. Optional if order has no payment or
      *     delivery.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return {express.Response|null} HTTP response.
+     * @return HTTP response.
      * @actionssdk
      * @dialogflow
      */
@@ -573,13 +557,13 @@ export class AssistantApp {
      * actionMap.set(TXN_COMPLETE, txnComplete);
      * app.handleRequest(actionMap);
      *
-     * @param {Order} order Order built with buildOrder().
-     * @param {ActionPaymentTransactionConfig|GooglePaymentTransactionConfig}
+     * @param order Order built with buildOrder().
+     * @param
      *     transactionConfig Configuration for the transaction. Includes payment
      *     options and order options.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return {express.Response|null} HTTP response
+     * @return HTTP response
      * @dialogflow
      */
     askForTransactionDecision(order: Order, transactionConfig: ActionPaymentTransactionConfig | GooglePaymentTransactionConfig, dialogState?: object): express.Response | null;
@@ -627,13 +611,13 @@ export class AssistantApp {
      * actionMap.set(GET_RIDE_ACTION, sendRide);
      * app.handleRequest(actionMap);
      *
-     * @param {string} context Context why permission is asked; it's the TTS
+     * @param context Context why permission is asked; it's the TTS
      *     prompt prefix (action phrase) we ask the user.
-     * @param {string} permission One of the permissions Assistant supports, each of
+     * @param permission One of the permissions Assistant supports, each of
      *     which comes from AssistantApp.SupportedPermissions.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant.
-     * @return {express.Response|null} A response is sent to the Assistant to ask for the user's permission;
+     * @return A response is sent to the Assistant to ask for the user's permission;
      *     for any invalid input, we return null.
      * @actionssdk
      * @dialogflow
@@ -659,7 +643,7 @@ export class AssistantApp {
      *  // Use the requested permission(s) to get the user a ride
      * }
      *
-     * @return {boolean} true if permissions granted.
+     * @return true if permissions granted.
      * @dialogflow
      * @actionssdk
      */
@@ -715,10 +699,10 @@ export class AssistantApp {
      * actionMap.set(DELIVERY_INTENT, addressIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string} reason Reason given to user for asking delivery address.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param reason Reason given to user for asking delivery address.
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant.
-     * @return {express.Response|null} HTTP response.
+     * @return HTTP response.
      * @actionssdk
      * @dialogflow
      */
@@ -749,12 +733,12 @@ export class AssistantApp {
      * actionMap.set(CONFIRMATION, confirmation);
      * app.handleRequest(actionMap);
      *
-     * @param {string=} prompt The confirmation prompt presented to the user to
+     * @param prompt The confirmation prompt presented to the user to
      *     query for an affirmative or negative response. If undefined or null,
      *     Google will use a generic yes/no prompt.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return {express.Response|null} HTTP response.
+     * @return HTTP response.
      * @actionssdk
      * @dialogflow
      */
@@ -788,18 +772,18 @@ export class AssistantApp {
      * actionMap.set(DATETIME, datetime);
      * app.handleRequest(actionMap);
      *
-     * @param {string=} initialPrompt The initial prompt used to ask for a
+     * @param initialPrompt The initial prompt used to ask for a
      *     date and time. If undefined or null, Google will use a generic
      *     prompt.
-     * @param {string=} datePrompt The prompt used to specifically ask for the
+     * @param datePrompt The prompt used to specifically ask for the
      *     date if not provided by user. If undefined or null, Google will use a
      *     generic prompt.
-     * @param {string=} timePrompt The prompt used to specifically ask for the
+     * @param timePrompt The prompt used to specifically ask for the
      *     time if not provided by user. If undefined or null, Google will use a
      *     generic prompt.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return {express.Response | null} HTTP response.
+     * @return HTTP response.
      * @actionssdk
      * @dialogflow
      */
@@ -839,9 +823,9 @@ export class AssistantApp {
      * actionMap.set(SIGN_IN, signIn);
      * app.handleRequest(actionMap);
      *
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return {express.Response|null} HTTP response.
+     * @return HTTP response.
      * @actionssdk
      * @dialogflow
      */
@@ -881,15 +865,15 @@ export class AssistantApp {
      * actionMap.set(SHOW_IMAGE, showImage);
      * app.handleRequest(actionMap);
      *
-     * @param {string} context Context why new surface is requested; it's the TTS
+     * @param context Context why new surface is requested; it's the TTS
      *     prompt prefix (action phrase) we ask the user.
-     * @param {string} notificationTitle Title of the notification appearing on
+     * @param notificationTitle Title of the notification appearing on
      *     new surface device.
-     * @param {Array<SurfaceCapabilities>} capabilities The list of capabilities required in
+     * @param capabilities The list of capabilities required in
      *     the surface.
-     * @param {Object=} dialogState JSON object the app uses to hold dialog state that
+     * @param dialogState JSON object the app uses to hold dialog state that
      *     will be circulated back by Assistant. Used in {@link ActionsSdkAssistant}.
-     * @return {express.Response|null} HTTP response.
+     * @return HTTP response.
      * @dialogflow
      * @actionssdk
      */
@@ -907,7 +891,7 @@ export class AssistantApp {
      * const app = new ActionsSdkApp({request: request, response: response});
      * const userId = app.getUser().userId;
      *
-     * @return {User} Null if no value.
+     * @return Null if no value.
      * @actionssdk
      * @dialogflow
      */
@@ -940,7 +924,7 @@ export class AssistantApp {
      * actionMap.set(REQUEST_PERMISSION_ACTION, requestPermission);
      * actionMap.set(SAY_NAME_ACTION, sayName);
      * app.handleRequest(actionMap);
-     * @return {UserName} Null if name permission is not granted.
+     * @return Null if name permission is not granted.
      * @actionssdk
      * @dialogflow
      */
@@ -955,7 +939,7 @@ export class AssistantApp {
      * const app = new DialogflowApp({request, response});
      * const locale = app.getUserLocale();
      *
-     * @return {string} User's locale, e.g. 'en-US'. Null if no locale given.
+     * @return User's locale, e.g. 'en-US'. Null if no locale given.
      * @actionssdk
      * @dialogflow
      */
@@ -978,7 +962,7 @@ export class AssistantApp {
      *   sendCarTo(app.getDeviceLocation().coordinates);
      * }
      *
-     * @return {DeviceLocation} Null if location permission is not granted.
+     * @return Null if location permission is not granted.
      * @actionssdk
      * @dialogflow
      */
@@ -986,7 +970,7 @@ export class AssistantApp {
 
     /**
      * Gets type of input used for this request.
-     * @return {number|string} One of AssistantApp.InputTypes.
+     * @return One of AssistantApp.InputTypes.
      *     Null if no input type given.
      * @dialogflow
      * @actionssdk
@@ -1020,8 +1004,8 @@ export class AssistantApp {
      * actionMap.set(NUMBER_INTENT, numberIntent);
      * app.handleRequest(actionMap);
      *
-     * @param {string} argName Name of the argument.
-     * @return {Object} Argument value matching argName
+     * @param argName Name of the argument.
+     * @return Argument value matching argName
      *     or null if no matching argument.
      * @dialogflow
      * @actionssdk
@@ -1032,7 +1016,7 @@ export class AssistantApp {
      * Gets transactability of user. Only use after calling
      * askForTransactionRequirements. Null if no result given.
      *
-     * @return {string} One of Transactions.ResultType.
+     * @return One of Transactions.ResultType.
      * @dialogflow
      * @actionssdk
      */
@@ -1041,7 +1025,7 @@ export class AssistantApp {
     /**
      * Gets order delivery address. Only use after calling askForDeliveryAddress.
      *
-     * @return {Location} Delivery address information. Null if user
+     * @return Delivery address information. Null if user
      *     denies permission, or no address given.
      * @dialogflow
      * @actionssdk
@@ -1052,7 +1036,7 @@ export class AssistantApp {
      * Gets transaction decision information. Only use after calling
      * askForTransactionDecision.
      *
-     * @return {TransactionDecision} Transaction decision data. Returns object with
+     * @return Transaction decision data. Returns object with
      *     userDecision only if user declines. userDecision will be one of
      *     Transactions.ConfirmationDecision. Null if no decision given.
      * @dialogflow
@@ -1063,7 +1047,7 @@ export class AssistantApp {
     /**
      * Gets confirmation decision. Use after askForConfirmation.
      *
-     * @return {(boolean|null)} False if user replied with negative response. Null if no user
+     * @return False if user replied with negative response. Null if no user
      *     confirmation decision given.
      * @dialogflow
      * @actionssdk
@@ -1073,7 +1057,7 @@ export class AssistantApp {
     /**
      * Gets user provided date and time. Use after askForDateTime.
      *
-     * @return {DateTime} Date and time given by the user. Null if no user
+     * @return Date and time given by the user. Null if no user
      *     date and time given.
      * @dialogflow
      * @actionssdk
@@ -1083,7 +1067,7 @@ export class AssistantApp {
     /**
      * Gets status of user sign in request.
      *
-     * @return {string} Result of user sign in request. One of
+     * @return Result of user sign in request. One of
      * DialogflowApp.SignInStatus or ActionsSdkApp.SignInStatus
      * Null if no sign in status.
      * @dialogflow
@@ -1094,8 +1078,8 @@ export class AssistantApp {
     /**
      * Returns true if user device has a given surface capability.
      *
-     * @param {string} requestedCapability Must be one of {@link SurfaceCapabilities}.
-     * @return {boolean} True if user device has the given capability.
+     * @param requestedCapability Must be one of {@link SurfaceCapabilities}.
+     * @return True if user device has the given capability.
      *
      * @example
      * const app = new DialogflowApp({request: req, response: res});
@@ -1120,7 +1104,7 @@ export class AssistantApp {
     /**
      * Gets surface capabilities of user device.
      *
-     * @return {Array<string>} Supported surface capabilities, as defined in
+     * @return Supported surface capabilities, as defined in
      *     AssistantApp.SurfaceCapabilities.
      * @dialogflow
      * @actionssdk
@@ -1130,7 +1114,7 @@ export class AssistantApp {
     /**
      * Returns the set of other available surfaces for the user.
      *
-     * @return {Array<Surface>} Empty if no available surfaces.
+     * @return Empty if no available surfaces.
      * @actionssdk
      * @dialogflow
      */
@@ -1141,9 +1125,9 @@ export class AssistantApp {
      * capabilities. Available surfaces capabilities may exist on surfaces other
      * than that used for an ongoing conversation.
      *
-     * @param {string|Array<string>} capabilities Must be one of
+     * @param capabilities Must be one of
      *     {@link SurfaceCapabilities}.
-     * @return {boolean} True if user has a capability available on some surface.
+     * @return True if user has a capability available on some surface.
      *
      * @dialogflow
      * @actionssdk
@@ -1153,7 +1137,7 @@ export class AssistantApp {
     /**
      * Returns the result of the AskForNewSurface helper.
      *
-     * @return {boolean} True if user has triggered conversation on a new device
+     * @return True if user has triggered conversation on a new device
      *     following the NEW_SURFACE intent.
      * @actionssdk
      * @dialogflow
@@ -1165,7 +1149,7 @@ export class AssistantApp {
      * mode in the (Actions console)[console.actions.google.com] to test
      * transactions.
      *
-     * @return {boolean} True if app is being used in Sandbox mode.
+     * @return True if app is being used in Sandbox mode.
      * @dialogflow
      * @actionssdk
      */
@@ -1199,7 +1183,7 @@ export class AssistantApp {
      * actionMap.set(app.StandardIntents.NO_INPUT, noInput);
      * app.handleRequest(actionMap);
      *
-     * @return {number} The current reprompt count. Null if no reprompt count
+     * @return The current reprompt count. Null if no reprompt count
      *     available (e.g. not in the NO_INPUT intent).
      * @dialogflow
      * @actionssdk
@@ -1234,7 +1218,7 @@ export class AssistantApp {
      * actionMap.set(app.StandardIntents.NO_INPUT, noInput);
      * app.handleRequest(actionMap);
      *
-     * @return {boolean} True if in a NO_INPUT intent and this is the final turn
+     * @return True if in a NO_INPUT intent and this is the final turn
      *     of dialog.
      * @dialogflow
      * @actionssdk
@@ -1248,44 +1232,44 @@ export class AssistantApp {
     /**
      * Constructs RichResponse with chainable property setters.
      *
-     * @param {RichResponse=} richResponse RichResponse to clone.
-     * @return {RichResponse} Constructed RichResponse.
+     * @param richResponse RichResponse to clone.
+     * @return Constructed RichResponse.
      */
     buildRichResponse(richResponse?: RichResponse): RichResponse;
 
     /**
      * Constructs BasicCard with chainable property setters.
      *
-     * @param {string=} bodyText Body text of the card. Can be set using setTitle
+     * @param bodyText Body text of the card. Can be set using setTitle
      *     instead.
-     * @return {BasicCard} Constructed BasicCard.
+     * @return Constructed BasicCard.
      */
     buildBasicCard(bodyText?: string): BasicCard;
 
     /**
      * Constructs List with chainable property setters.
      *
-     * @param {string=} title A title to set for a new List.
-     * @return {List} Constructed List.
+     * @param title A title to set for a new List.
+     * @return Constructed List.
      */
     buildList(title?: string): List;
 
     /**
      * Constructs Carousel with chainable property setters.
      *
-     * @return {Carousel} Constructed Carousel.
+     * @return Constructed Carousel.
      */
     buildCarousel(): Carousel;
 
     /**
      * Constructs OptionItem with chainable property setters.
      *
-     * @param {string=} key A unique key to identify this option. This key will
+     * @param key A unique key to identify this option. This key will
      *     be returned as an argument in the resulting actions.intent.OPTION
      *     intent.
-     * @param {string|Array<string>=} synonyms A list of synonyms which the user may
+     * @param synonyms A list of synonyms which the user may
      *     use to identify this option instead of the option key.
-     * @return {OptionItem} Constructed OptionItem.
+     * @return Constructed OptionItem.
      */
     buildOptionItem(key?: string, synonyms?: string | string[]): OptionItem;
 
@@ -1296,16 +1280,16 @@ export class AssistantApp {
     /**
      * Constructs Order with chainable property setters.
      *
-     * @param {string} orderId Unique identifier for the order.
-     * @return {Order} Constructed Order.
+     * @param orderId Unique identifier for the order.
+     * @return Constructed Order.
      */
     buildOrder(orderId: string): Order;
 
     /**
      * Constructs Cart with chainable property setters.
      *
-     * @param {string=} cartId Unique identifier for the cart.
-     * @return {Cart} Constructed Cart.
+     * @param cartId Unique identifier for the cart.
+     * @return Constructed Cart.
      */
     buildCart(cartId?: string): Cart;
 
@@ -1314,19 +1298,19 @@ export class AssistantApp {
      * Because of a previous bug, the parameters are swapped compared to
      * the LineItem constructor to prevent a breaking change.
      *
-     * @param {string} name Name of the line item.
-     * @param {string} id Unique identifier for the item.
-     * @return {LineItem} Constructed LineItem.
+     * @param name Name of the line item.
+     * @param id Unique identifier for the item.
+     * @return Constructed LineItem.
      */
     buildLineItem(name: string, id: string): LineItem;
 
     /**
      * Constructs OrderUpdate with chainable property setters.
      *
-     * @param {string} orderId Unique identifier of the order.
-     * @param {boolean} isGoogleOrderId True if the order ID is provided by
+     * @param orderId Unique identifier of the order.
+     * @param isGoogleOrderId True if the order ID is provided by
      *     Google. False if the order ID is app provided.
-     * @return {OrderUpdate} Constructed OrderUpdate.
+     * @return Constructed OrderUpdate.
      */
     buildOrderUpdate(orderId: string, isGoogleOrderId: boolean): OrderUpdate;
 }
