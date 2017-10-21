@@ -13,6 +13,7 @@ declare class sftp {
   get(remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<NodeJS.ReadableStream>;
   put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
   mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
+  rmdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
   delete(remoteFilePath: string): Promise<void>;
   rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
   end(): Promise<void>;
