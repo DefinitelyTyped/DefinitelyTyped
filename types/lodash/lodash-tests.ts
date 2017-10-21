@@ -298,6 +298,7 @@ namespace TestDifferenceBy {
     {
         let result: TResult[];
 
+        result = _.differenceBy(array);
         result = _.differenceBy<TResult>(array, arrayParam);
         result = _.differenceBy<TResult>(array, listParam, arrayParam);
         result = _.differenceBy<TResult>(array, arrayParam, listParam, arrayParam);
@@ -326,6 +327,7 @@ namespace TestDifferenceBy {
         result = _.differenceBy(array, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
         result = _.differenceBy<TResult>(array, listParam, arrayParam, listParam, arrayParam, listParam, arrayParam, {a: 1});
 
+        result = _.differenceBy(list);
         result = _.differenceBy<TResult>(list, listParam);
         result = _.differenceBy<TResult>(list, arrayParam, listParam);
         result = _.differenceBy<TResult>(list, listParam, arrayParam, listParam);
@@ -473,6 +475,123 @@ namespace TestDifferenceBy {
         result = _(list).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, {a: 1});
         result = _(list).chain().differenceBy(listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
         result = _(list).chain().differenceBy(arrayParam, listParam, arrayParam, listParam, arrayParam, listParam, {a: 1});
+    }
+
+    {
+        interface T1 {
+            a: string;
+            b: string;
+        }
+        interface T2 {
+            a: string;
+            b: number;
+        }
+        interface T3 {
+            a: string;
+            b: boolean;
+        }
+        interface T4 {
+            a: string;
+            b: any[];
+        }
+
+        const t1: T1 = { a: 'a', b: 'b' };
+        const t2: T2 = { a: 'a', b: 30 };
+        const t3: T3 = { a: 'a', b: true };
+        const t4: T4 = { a: 'a', b: [] };
+
+        // $ExpectType T1[]
+        _.differenceBy([t1], [t2], 'name');
+        // $ExpectType T1[]
+        _.differenceBy([t1], [t2], (value) => {
+            value; // $ExpectType T1 | T2
+        });
+        // $ExpectType T1[]
+        _.differenceBy([t1], [t2, t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType (T1 | T2)[]
+        _.differenceBy([t1, t2], [t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType T1[]
+        _.differenceBy([t1], [t2], [t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType T1[]
+        _.differenceBy([t1], [t2], [t3], [t4], (value) => {
+            value; // $ExpectType T1 | T2 | T3 | T4
+        });
+        // $ExpectType T1[]
+        _.differenceBy([t1], [t2], [t3], [t4], [''], (value) => {
+            value; // $ExpectType string | T1 | T2 | T3 | T4
+        });
+        // $ExpectType T1[]
+        _.differenceBy([t1], [t2], [t3], [t4], [''], [42], (value) => {
+            value; // $ExpectType string | number | T1 | T2 | T3 | T4
+        });
+
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceBy([t2], 'name');
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceBy([t2], (value) => {
+            value; // $ExpectType T1 | T2
+        });
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceBy([t2, t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType LoDashImplicitWrapper<(T1 | T2)[]>
+        _([t1, t2]).differenceBy([t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceBy([t2], [t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceBy([t2], [t3], [t4], (value) => {
+            value; // $ExpectType T1 | T2 | T3 | T4
+        });
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceBy([t2], [t3], [t4], [''], (value) => {
+            value; // $ExpectType string | T1 | T2 | T3 | T4
+        });
+        // $ExpectType LoDashImplicitWrapper<T1[]>
+        _([t1]).differenceBy([t2], [t3], [t4], [''], [42], (value) => {
+            value; // $ExpectType string | number | T1 | T2 | T3 | T4
+        });
+
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceBy([t2], 'name');
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceBy([t2], (value) => {
+            value; // $ExpectType T1 | T2
+        });
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceBy([t2, t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType LoDashExplicitWrapper<(T1 | T2)[]>
+        _.chain([t1, t2]).differenceBy([t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceBy([t2], [t3], (value) => {
+            value; // $ExpectType T1 | T2 | T3
+        });
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceBy([t2], [t3], [t4], (value) => {
+            value; // $ExpectType T1 | T2 | T3 | T4
+        });
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceBy([t2], [t3], [t4], [''], (value) => {
+            value; // $ExpectType string | T1 | T2 | T3 | T4
+        });
+        // $ExpectType LoDashExplicitWrapper<T1[]>
+        _.chain([t1]).differenceBy([t2], [t3], [t4], [''], [42], (value) => {
+            value; // $ExpectType string | number | T1 | T2 | T3 | T4
+        });
     }
 }
 

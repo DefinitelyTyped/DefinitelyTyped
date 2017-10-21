@@ -581,64 +581,64 @@ declare namespace _ {
          * @param iteratee The iteratee invoked per element.
          * @returns Returns the new array of filtered values.
          */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
+        differenceBy<T1, T2>(
+            array: List<T1> | null | undefined,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee?: ValueIteratee<T1 | T2 | T3>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+        ): T1[];
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6>(
+            array: List<T1> | null | undefined,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+        ): T1[];
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
             array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            values5: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            array: List<T> | null | undefined,
-            ...values: Array<List<T> | ValueIteratee<T>>
+            ...values: any[]
         ): T[];
     }
 
@@ -646,64 +646,64 @@ declare namespace _ {
         /**
          * @see _.differenceBy
          */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
+        differenceBy<T1, T2>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee?: ValueIteratee<T1 | T2 | T3>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+        ): LoDashImplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6>(
+            this: LoDashImplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+        ): LoDashImplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            values5: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashImplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashImplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>
+            ...values: any[]
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -711,64 +711,64 @@ declare namespace _ {
         /**
          * @see _.differenceBy
          */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values?: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
+        differenceBy<T1, T2>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values?: List<T2>,
+            iteratee?: ValueIteratee<T1 | T2>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            iteratee?: ValueIteratee<T1 | T2 | T3>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4 | T5>
+        ): LoDashExplicitWrapper<T1[]>;
+
+        /**
+         * @see _.differenceBy
+         */
+        differenceBy<T1, T2, T3, T4, T5, T6>(
+            this: LoDashExplicitWrapper<List<T1> | null | undefined>,
+            values1: List<T2>,
+            values2: List<T3>,
+            values3: List<T4>,
+            values4: List<T5>,
+            values5: List<T6>,
+            iteratee?: ValueIteratee<T1 | T2 | T3 | T4 | T5 | T6>
+        ): LoDashExplicitWrapper<T1[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            values1: List<T>,
-            values2: List<T>,
-            values3: List<T>,
-            values4: List<T>,
-            values5: List<T>,
-            iteratee?: ValueIteratee<T>
-        ): LoDashExplicitWrapper<T[]>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            this: LoDashExplicitWrapper<List<T> | null | undefined>,
-            ...values: Array<List<T> | ValueIteratee<T>>
+            ...values: any[]
         ): LoDashExplicitWrapper<T[]>;
     }
 
