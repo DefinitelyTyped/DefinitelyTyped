@@ -1,4 +1,4 @@
-// Type definitions for gulp-jsonminify v1.0.0
+// Type definitions for gulp-jsonminify v1.0
 // Project: https://github.com/tcarlsen/gulp-jsonminify
 // Definitions by: Pine Mizune <https://github.com/pine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
