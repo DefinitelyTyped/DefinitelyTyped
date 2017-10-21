@@ -61,7 +61,7 @@ declare namespace WebpackDevServer {
         setup?: expressAppHook; // will be depreacted in v3.0.0 and replaced by before
         socket?: string;
         staticOptions?: serveStatic.ServeStaticOptions;
-        stats?: webpack.compiler.StatsOptions| webpack.compiler.StatsToStringOptions;
+        stats?: webpack.compiler.StatsOptions | webpack.compiler.StatsToStringOptions;
         useLocalIp?: boolean;
         watchContentBase?: boolean;
         watchOptions?: webpack.WatchOptions;
@@ -70,20 +70,15 @@ declare namespace WebpackDevServer {
 
 declare class WebpackDevServer {
     constructor(
-        webpack: webpack.compiler.Compiler,
+        webpack: webpack.Compiler | webpack.MultiCompiler,
         config: WebpackDevServer.Configuration
     );
 
-    listen(
-        port: number,
-        hostname: string,
-        callback?: (...args: any[]) => any
-    ): http.Server;
+    listen(port: number, hostname: string, callback?: (error?: Error) => void): http.Server;
 
-    listen(
-        port: number,
-        callback?: (...args: any[]) => any
-    ): http.Server;
+    listen(port: number, callback?: (error?: Error) => void): http.Server;
+
+    close(callback?: () => void): void;
 }
 
 export = WebpackDevServer;
