@@ -4783,6 +4783,13 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
+        flatMap(
+            collection: object | null | undefined
+        ): any[];
+
+        /**
+         * @see _.flatMap
+         */
         flatMap<T, TResult>(
             collection: List<T> | null | undefined,
             iteratee: ListIterator<T, Many<TResult>>
@@ -4820,12 +4827,18 @@ declare namespace _ {
             iteratee: object
         ): boolean[];
     }
+    type T234 = number[][0];
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.flatMap
          */
         flatMap<T>(this: LoDashImplicitWrapper<List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): LoDashImplicitWrapper<T[]>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): LoDashImplicitWrapper<any[]>;
 
         /**
          * @see _.flatMap
@@ -4871,6 +4884,11 @@ declare namespace _ {
          * @see _.flatMap
          */
         flatMap<T>(this: LoDashExplicitWrapper<List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined>): LoDashExplicitWrapper<T[]>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): LoDashExplicitWrapper<any[]>;
 
         /**
          * @see _.flatMap

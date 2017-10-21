@@ -4462,6 +4462,21 @@ namespace TestFlatMap {
         result = _(objNumericDictionary).chain().flatMap(['a', 42]);
         result = _(objNumericDictionary).chain().flatMap({a: 42});
     }
+
+    {
+        interface SampleObject {
+            bar: number;
+            foo: string[];
+        }
+        const obj: SampleObject = {
+            bar: 1,
+            foo: [''],
+        };
+
+        const result1: Array<string | number> = _.flatMap(obj);
+        const result2: _.LoDashImplicitWrapper<Array<string | number>> = _(obj).flatMap();
+        const result3: _.LoDashExplicitWrapper<Array<string | number>> = _.chain(obj).flatMap();
+    }
 }
 
 // _.flatMapDeep
