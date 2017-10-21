@@ -3,6 +3,7 @@
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
 //                 Zheyang Song <https://github.com/ZheyangSong>
+//                 Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as webpack from 'webpack';
