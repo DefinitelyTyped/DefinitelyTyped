@@ -2969,9 +2969,8 @@ declare module Microsoft.Maps {
         */
         public getWidth(): number;
     }
-}
 
-declare module Microsoft.Maps.Directions {
+export module Directions {
     /////////////////////////////////////
     /// Enumerations
     ////////////////////////////////////
@@ -3559,7 +3558,6 @@ declare module Microsoft.Maps.Directions {
     }
 }
 
-declare module Microsoft.Maps {
     /** A static class that manages events within the map SDK. */
     module Events {
         /////////////////////////////////////
@@ -3607,9 +3605,6 @@ declare module Microsoft.Maps {
          */
         export function addThrottledHandler(target: Directions.DirectionsManager, eventName: string, handler: (eventArg?: Directions.IDirectionsEventArgs | Directions.IDirectionsErrorEventArgs) => void, throttleInterval: number): IHandlerId;
     }
-}
-
-declare module Microsoft.Maps {
 
     /**
      * Values used to identify and enable the items shown in the drawing bar.
@@ -3893,9 +3888,8 @@ declare module Microsoft.Maps {
          */
         export function addThrottledHandler(target: DrawingManager, eventName: string, handler: (eventArg?: IPrimitive | DrawingTools.DrawingMode) => void, throttleInterval: number): IHandlerId;
     }
-}
 
-declare module Microsoft.Maps.DrawingTools {
+export module DrawingTools {
     /**
     * The different drawing modes that the drawing manager can be set to.
     * @requires The Microsoft.Maps.DrawingTools module.
@@ -3932,8 +3926,6 @@ declare module Microsoft.Maps.DrawingTools {
         polyline
     }
 }
-
-declare module Microsoft.Maps {
 
     /** GeoJSON object definition */
     export interface IGeoJsonObject {
@@ -4000,10 +3992,6 @@ declare module Microsoft.Maps {
         */
         export function write(data: IPrimitive | IPrimitive[]): IGeoJsonObject;
     }
-}
-
-
-declare module Microsoft.Maps {
     
     /** 
     * An enumeration of different GeoXML file formats.
@@ -4426,10 +4414,7 @@ declare module Microsoft.Maps {
         */
         export function addThrottledHandler(target: GeoXmlLayer, eventName: string, handler: (eventArg?: IMouseEventArgs) => void): IHandlerId;
     }
-}
 
-
-declare module Microsoft.Maps {
     /** Options for customizing how the heat map is rendered. */
     export interface IHeatMapLayerOptions {
         /**
@@ -4529,14 +4514,12 @@ declare module Microsoft.Maps {
         */
         public show(): void;        
     }
-}
-
 
 /**
  * Provides an easy method for geocoding address and searching for points of interest from JavaScript.
  * @requires The Microsoft.Maps.Search module.
  */
-declare module Microsoft.Maps.Search {
+export module Search {
 
     /** 
      * Defines the geocoding level of the location match found by the geocoder.
@@ -4747,12 +4730,11 @@ declare module Microsoft.Maps.Search {
     }
 }
 
-
 /**
  * This module wraps the Query and GeoData REST API’s in the Bing Spatial Dara Services and expose them as an easy to use JavaScript library.
  * @requires The Microsoft.Maps.SpatialDataService module.
  */
-declare module Microsoft.Maps.SpatialDataService {
+export module SpatialDataService {
 
     //////////////////////////////////////////////
     /// GeoData API
@@ -5191,12 +5173,11 @@ declare module Microsoft.Maps.SpatialDataService {
     }
 }
 
-
 /**
  * This module provides a bunch of useful spatial math calculations.
  * @requires The Microsoft.Maps.SpatialMath module.
  */
-declare module Microsoft.Maps.SpatialMath {
+export module SpatialMath {
 
     /**
      * Distance Unit enumerator
@@ -5384,104 +5365,101 @@ declare module Microsoft.Maps.SpatialMath {
      * Location object is returned. If string is in an invalid format, null is returned.
      */
     export function tryParseDegMinSec(input: string): number | Location;
-}
 
+	//////////////////////////////////////////////
+	/// Tile Calculations
+	//////////////////////////////////////////////
 
-//////////////////////////////////////////////
-/// Tile Calculations
-//////////////////////////////////////////////
+	/**
+	* A colleciton of mathematical algorithms based on the tile pyramid used by Bign Maps.
+	* @requires The Microsoft.Maps.SpatialMath module.
+	*/
+	export module Tiles {
+		//Based on https://msdn.microsoft.com/en-us/library/bb259689.aspx
 
-/**
-* A colleciton of mathematical algorithms based on the tile pyramid used by Bign Maps.
-* @requires The Microsoft.Maps.SpatialMath module.
-*/
-declare module Microsoft.Maps.SpatialMath.Tiles {
-    //Based on https://msdn.microsoft.com/en-us/library/bb259689.aspx
+		/**
+		 * Calculates the full width of the map in pixels at a specific zoom level from -180 degrees to 180 degrees.
+		 * @param zoom Zoom level to calculate width at.
+		 * @param tileWidth Width of tile.
+		 * @returns Width of map in pixels.
+		 **/
+		export function mapSize(zoom: number): number;
 
-    /**
-     * Calculates the full width of the map in pixels at a specific zoom level from -180 degrees to 180 degrees.
-     * @param zoom Zoom level to calculate width at.
-     * @param tileWidth Width of tile.
-     * @returns Width of map in pixels.
-     **/
-    export function mapSize(zoom: number): number;
+		/**
+		 * Calculates the Ground resolution at a specific degree of latitude in the specified units per pixel.
+		 * @param latitude Degree of latitude to calculate resolution at.
+		 * @param zoom Zoom level to calculate resolution at.
+		 * @param units Distance unit type to calculate resolution in.
+		 * @returns Ground resolution in distance unit per pixels.
+		 **/
+		export function groundResolution(latitude: number, zoom: number, units?: SpatialMath.DistanceUnits): number;
 
-    /**
-     * Calculates the Ground resolution at a specific degree of latitude in the specified units per pixel.
-     * @param latitude Degree of latitude to calculate resolution at.
-     * @param zoom Zoom level to calculate resolution at.
-     * @param units Distance unit type to calculate resolution in.
-     * @returns Ground resolution in distance unit per pixels.
-     **/
-    export function groundResolution(latitude: number, zoom: number, units?: SpatialMath.DistanceUnits): number;
+		/**
+		 * Converts a Pixel coordinate into a Geospatial Location at a specified zoom level. 
+		 * Global Pixel coordinates are relative to the top left corner of the map (90, -180)
+		 * @param point Pixel coordinate.
+		 * @param zoom Zoom level.
+		 * @returns A Location that is at the specified pixel location at a specified zoom level.
+		 **/
+		export function globalPixelToLocation(point: Point, zoom: number): Location;
 
-    /**
-     * Converts a Pixel coordinate into a Geospatial Location at a specified zoom level. 
-     * Global Pixel coordinates are relative to the top left corner of the map (90, -180)
-     * @param point Pixel coordinate.
-     * @param zoom Zoom level.
-     * @returns A Location that is at the specified pixel location at a specified zoom level.
-     **/
-    export function globalPixelToLocation(point: Point, zoom: number): Location;
+		/**
+		 * Converts a point from latitude/longitude WGS-84 Location (in degrees)
+		 * into pixel XY coordinates at a specified level of detail.
+		 * @param loc Location to convert to a global pixel.
+		 * @param zoom Level of detail, from 1 (lowest detail) to 23 (highest detail).
+		 * @returns Point object containing the the global pixel location of a Location.
+		 **/
+		export function locationToGlobalPixel(loc: Location, zoom: number): Point;
 
-    /**
-     * Converts a point from latitude/longitude WGS-84 Location (in degrees)
-     * into pixel XY coordinates at a specified level of detail.
-     * @param loc Location to convert to a global pixel.
-     * @param zoom Level of detail, from 1 (lowest detail) to 23 (highest detail).
-     * @returns Point object containing the the global pixel location of a Location.
-     **/
-    export function locationToGlobalPixel(loc: Location, zoom: number): Point;
+		/**
+		 * Calculates the PyramidTileId that a global pixel intersects with at a specific zoom level.
+		 * @param pixel The pixel coordinate to calculate the tile for.
+		 * @param zoom The zoom level to calculate the tile for.
+		 * @returns A PyramidTileId that a global pixel intersects with at a specific zoom level.
+		 **/
+		export function globalPixelToTile(pixel: Point, zoom: number): PyramidTileId;
 
-    /**
-     * Calculates the PyramidTileId that a global pixel intersects with at a specific zoom level.
-     * @param pixel The pixel coordinate to calculate the tile for.
-     * @param zoom The zoom level to calculate the tile for.
-     * @returns A PyramidTileId that a global pixel intersects with at a specific zoom level.
-     **/
-    export function globalPixelToTile(pixel: Point, zoom: number): PyramidTileId;
+		/**
+		 * Converts a PyramidTileId into a global pixel coordinates of the upper-left pixel of the specified tile.
+		 * @param tile A PyramidTileId to calculate the upper-left pixel for.
+		 * @returns Global pixel coordinate of the top left corner of a tile.
+		 **/
+		export function tileToGlobalPixel(tile: PyramidTileId): Point;
 
-    /**
-     * Converts a PyramidTileId into a global pixel coordinates of the upper-left pixel of the specified tile.
-     * @param tile A PyramidTileId to calculate the upper-left pixel for.
-     * @returns Global pixel coordinate of the top left corner of a tile.
-     **/
-    export function tileToGlobalPixel(tile: PyramidTileId): Point;
+		/**
+		 * Calculates the PyramidTileId that a Location object intersects with at a specific zoom level.
+		 * @param loc The location to calulate the tile for.
+		 * @param zoom The zoom level to use to calculate the tile.
+		 * @returns A PyramidTileId that a Location object intersects with at a specific zoom level.
+		 **/
+		export function locationToTile(loc: Location, zoom: number): PyramidTileId;
 
-    /**
-     * Calculates the PyramidTileId that a Location object intersects with at a specific zoom level.
-     * @param loc The location to calulate the tile for.
-     * @param zoom The zoom level to use to calculate the tile.
-     * @returns A PyramidTileId that a Location object intersects with at a specific zoom level.
-     **/
-    export function locationToTile(loc: Location, zoom: number): PyramidTileId;
+		/**
+		 * Calculates all the PyramidTileId's that are within a LocationRect at a specific zoom level.
+		 * @param bounds A LocationRect to search for tiles in.
+		 * @param zoom The zoom level to calculate tiles for.
+		 * @returns A list of PyramidTileId's that are within the specified LocationRect and zoom level.
+		 **/
+		export function getTilesInBounds(bounds: LocationRect, zoom: number): PyramidTileId[];
 
-    /**
-     * Calculates all the PyramidTileId's that are within a LocationRect at a specific zoom level.
-     * @param bounds A LocationRect to search for tiles in.
-     * @param zoom The zoom level to calculate tiles for.
-     * @returns A list of PyramidTileId's that are within the specified LocationRect and zoom level.
-     **/
-    export function getTilesInBounds(bounds: LocationRect, zoom: number): PyramidTileId[];
+		/**
+		 * Calculates the LocationRect (bounding box) of a PyramidTileId.
+		 * @param tile A PyramidTileId to calculate the LocationRect of.
+		 * @returns The bounding box of a tile.
+		 **/
+		export function tileToLocationRect(tile: PyramidTileId): LocationRect;
+	}
 
-    /**
-     * Calculates the LocationRect (bounding box) of a PyramidTileId.
-     * @param tile A PyramidTileId to calculate the LocationRect of.
-     * @returns The bounding box of a tile.
-     **/
-    export function tileToLocationRect(tile: PyramidTileId): LocationRect;
-}
+	//////////////////////////////////////////////
+	/// Geometry Calculations
+	//////////////////////////////////////////////
 
-
-//////////////////////////////////////////////
-/// Geometry Calculations
-//////////////////////////////////////////////
-
-/**
-* A colleciton of geometry calculations that can be performed against Bing Maps shapes.
-* @requires The Microsoft.Maps.SpatialMath module.
-*/
-declare module Microsoft.Maps.SpatialMath.Geometry {
+	/**
+	* A colleciton of geometry calculations that can be performed against Bing Maps shapes.
+	* @requires The Microsoft.Maps.SpatialMath module.
+	*/
+	export module Geometry {
 
     /** Defines how the end of a line should be buffered. */
     export enum BufferEndCap {
@@ -5718,13 +5696,13 @@ declare module Microsoft.Maps.SpatialMath.Geometry {
      */
     export function voronoiDiagram(shapes: Location | IPrimitive | (Location | IPrimitive)[], clipRegion?: LocationRect | Polygon, options?: IPolygonOptions): Polygon[];
 }
-
+}
 
 /**
  * Adds a traffic incident and flow data to the map.
  * @requires The Microsoft.Maps.Traffic module.
  */
-declare module Microsoft.Maps.Traffic {
+export module Traffic {
     /** Options that can be customized in the Traffic manager. */
     export interface ITrafficOptions {
         /** Displays the traffic flow layer. */
@@ -5789,8 +5767,6 @@ declare module Microsoft.Maps.Traffic {
     }
 }
 
-
-declare module Microsoft.Maps {
     /**
      * Class responsible for readon/writing geo data in well known text format
      * @requires The Microsoft.Maps.WellKnownText module.
@@ -5811,10 +5787,7 @@ declare module Microsoft.Maps {
          */
         export function write(data: IPrimitive | IPrimitive[]): string;
     }
-}
 
-
-declare module Microsoft.Maps {
     /** Options used to customize the autosuggest functionality. */
     export interface IAutosuggestOptions {
         /** Specifies if street address suggestions should be returned. Default: true */
@@ -5938,10 +5911,7 @@ declare module Microsoft.Maps {
         */
         public setOptions(options?: IAutosuggestOptions): void;
     }
-}
 
-
-declare module Microsoft.Maps {
     /** The options used to customize how the ClusterLayer functions. */
     export interface IClusterLayerOptions {
         /**
@@ -6082,10 +6052,6 @@ declare module Microsoft.Maps {
         */
         public setPushpins(pushpins: Pushpin[]): void;
     }
-}
-
-
-declare module Microsoft.Maps {
 
     /** 
      * The contour layer options
@@ -6171,10 +6137,6 @@ declare module Microsoft.Maps {
          */
         public setOptions(options: IContourLayerOptions): void;
     }
-}
-
-
-declare module Microsoft.Maps {
 
     /**
      * Specifies the shape of data bin rendered in the layer.
