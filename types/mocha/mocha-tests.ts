@@ -413,8 +413,7 @@ function test_require_constructor_allOptions() {
         ui: 'tdd',
         reporter: 'dot',
         timeout: 500,
-        bail: true,
-        require: ['ts-node/register']
+        bail: true
     });
 }
 
