@@ -253,7 +253,7 @@ export interface Request {
   resourceType: ResourceType;
   url: string;
 
-  abort(errorCode: ErrorCode): Promise<void>;
+  abort(errorCode?: ErrorCode): Promise<void>;
   continue(overrides?: Overrides): Promise<void>;
   failure(): RequestError;
   respond(response: RequestResponse): Promise<void>;
@@ -489,7 +489,7 @@ export interface Page extends FrameBase {
   ): Promise<void>;
 
   // Argument `fn` can be an arbitrary function
-  exposeFunction(name: string, puppeteerFunction: () => void): Promise<void>;
+  exposeFunction(name: string, puppeteerFunction: (...args: string[]) => void): Promise<void>;
 
   focus(selector: string): Promise<void>;
 

@@ -41,7 +41,7 @@ import * as puppeteer from "puppeteer";
 // The following examples are taken from the docs itself
 puppeteer.launch().then(async browser => {
   const page = await browser.newPage();
-  page.on("console", (...args) => {
+  page.on("console", (e, ...args) => {
     for (let i = 0; i < args.length; ++i) console.log(`${i}: ${args[i]}`);
   });
   page.evaluate(() => console.log(5, "hello", { foo: "bar" }));
