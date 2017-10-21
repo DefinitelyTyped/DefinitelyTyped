@@ -52,5 +52,6 @@ export interface NavLinkProps extends LinkProps {
     exact?: boolean;
     strict?: boolean;
     isActive?<P>(match: match<P>, location: H.Location): boolean;
+    location?: H.Location;
 }
 export class NavLink extends React.Component<NavLinkProps> {}
