@@ -10,12 +10,6 @@ export interface Option {
     timeout?: number;
 }
 
-/**
- * ping
- * @param options {Object}
- * @param callback {Function}
- * @return void
- */
 export function ping(options: Option,
               callback: (error: Error, result: {
                   address: string,
@@ -31,13 +25,6 @@ export function ping(options: Option,
                   }
               }) => void): void;
 
-/**
- * probe
- * @param address [string]
- * @param port [number]
- * @param callback {Function}
- * @return void
- */
 export function probe(address: string, port: number,
                callback: (error: Error, result: {
                    address: string,
