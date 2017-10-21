@@ -10,7 +10,7 @@ import { Carousel, List, RichResponse, SimpleResponse } from './response-builder
 /**
  * Dialogflow {@link https://dialogflow.com/docs/concept-contexts|Context}.
  */
-declare type Context = {
+export interface Context {
     /** Full name of the context. */
     name: string;
     /**
@@ -20,9 +20,9 @@ declare type Context = {
     parameters: object;
     /** Remaining number of intents */
     lifespan: number;
-};
+}
 
-declare type DialogflowAppOptions = {
+export interface DialogflowAppOptions {
     /** Express HTTP request object. */
     request: express.Request;
     /** Express HTTP response object. */
@@ -32,13 +32,13 @@ declare type DialogflowAppOptions = {
      * Only called if webhook is enabled for welcome/triggering intents, and
      * called from Web Simulator or Google Home device (i.e., not Dialogflow simulator).
      */
-    sessionStarted?: () => any;
-};
+    sessionStarted?(): any;
+}
 
 /**
  * This is the class that handles the communication with Dialogflow's fulfillment API.
  */
-declare class DialogflowApp extends AssistantApp {
+export class DialogflowApp extends AssistantApp {
     /**
      * Constructor for DialogflowApp object.
      * To be used in the Dialogflow fulfillment webhook logic.
@@ -569,5 +569,4 @@ declare class DialogflowApp extends AssistantApp {
      * @dialogflow
      */
     getRawInput(): string;
-
 }

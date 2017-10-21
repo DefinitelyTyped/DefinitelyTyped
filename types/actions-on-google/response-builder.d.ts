@@ -7,36 +7,36 @@ import { OrderUpdate } from './transactions';
 /**
  * Simple Response type.
  */
-declare type SimpleResponse = {
+export interface SimpleResponse {
     /** Speech to be spoken to user. SSML allowed. */
     speech: string;
     /** Optional text to be shown to user */
     displayText?: string;
-};
+}
 
 /**
  * Suggestions to show with response.
  */
-declare type Suggestion = {
+export interface Suggestion {
     /** Text of the suggestion. */
     title: string;
-};
+}
 
 /**
  * Link Out Suggestion. Used in rich response as a suggestion chip which, when
  * selected, links out to external URL.
  */
-declare type LinkOutSuggestion = {
+export interface LinkOutSuggestion {
     /** Text shown on the suggestion chip. */
     title: string;
     /** String URL to open. */
     url: string;
-};
+}
 
 /**
  * Image type shown on visual elements.
  */
-declare type Image = {
+export interface Image {
     /** Image source URL. */
     url: string;
     /** Text to replace for image for accessibility. */
@@ -45,12 +45,12 @@ declare type Image = {
     width: number;
     /** Height of the image. */
     height: number;
-};
+}
 
 /**
  * Basic Card Button. Shown below basic cards. Open a URL when selected.
  */
-declare type Button = {
+export interface Button {
     /** Text shown on the button. */
     title: string;
     /** Action to take when selected. */
@@ -58,22 +58,22 @@ declare type Button = {
       /** String URL to open. */
       url: string;
     };
-};
+}
 
 /**
  * Option info. Provides unique identifier for a given OptionItem.
  */
-declare type OptionInfo = {
+export interface OptionInfo {
     /** Unique string ID for this option. */
     key: string;
     /** Synonyms that can be used by the user to indicate this option if they do not use the key. */
     synonyms: string[];
-};
+}
 
 /**
  * Class for initializing and constructing Rich Responses with chainable interface.
  */
-declare class RichResponse {
+export class RichResponse {
     /**
      * Constructor for RichResponse. Accepts optional RichResponse to clone.
      *
@@ -85,7 +85,7 @@ declare class RichResponse {
      * Ordered list of either SimpleResponse objects or BasicCard objects.
      * First item must be SimpleResponse. There can be at most one card.
      */
-    items: (SimpleResponse | BasicCard)[];
+    items: Array<SimpleResponse | BasicCard>;
 
     /**
      * Ordered list of text suggestions to display. Optional.
@@ -148,13 +148,12 @@ declare class RichResponse {
      * @return {RichResponse} Returns current constructed RichResponse.
      */
     addOrderUpdate(orderUpdate: OrderUpdate): RichResponse;
-
 }
 
 /**
  * Class for initializing and constructing Basic Cards with chainable interface.
  */
-declare class BasicCard {
+export class BasicCard {
     /**
      * Constructor for BasicCard. Accepts optional BasicCard to clone.
      *
@@ -231,13 +230,12 @@ declare class BasicCard {
      * @return {BasicCard} Returns current constructed BasicCard.
      */
     addButton(text: string, url: string): BasicCard;
-
 }
 
 /**
  * Class for initializing and constructing Lists with chainable interface.
  */
-declare class List {
+export class List {
     /**
      * Constructor for List. Accepts optional List to clone, string title, or
      * list of items to copy.
@@ -273,13 +271,12 @@ declare class List {
      * @return {List} Returns current constructed List.
      */
     addItems(optionItems: OptionItem | OptionItem[]): List;
-
 }
 
 /**
  * Class for initializing and constructing Carousel with chainable interface.
  */
-declare class Carousel {
+export class Carousel {
     /**
      * Constructor for Carousel. Accepts optional Carousel to clone or list of
      * items to copy.
@@ -301,13 +298,12 @@ declare class Carousel {
      * @return {Carousel} Returns current constructed Carousel.
      */
     addItems(optionItems: OptionItem | OptionItem[]): Carousel;
-
 }
 
 /**
  * Class for initializing and constructing Option Items with chainable interface.
  */
-declare class OptionItem {
+export class OptionItem {
     /**
      * Constructor for OptionItem. Accepts optional OptionItem to clone.
      *
@@ -380,7 +376,6 @@ declare class OptionItem {
      * @return {OptionItem} Returns current constructed OptionItem.
      */
     addSynonyms(synonyms: string | string[]): OptionItem;
-
 }
 
 /**
@@ -388,4 +383,4 @@ declare class OptionItem {
  * @param {string} text Text to check.
  * @return {boolean} True if text contains SSML, false otherwise.
  */
-declare function isSsml(text: string): boolean;
+export function isSsml(text: string): boolean;

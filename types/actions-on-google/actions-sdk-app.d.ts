@@ -7,20 +7,20 @@ import { Carousel, List, RichResponse, SimpleResponse } from './response-builder
 //                   Actions SDK support
 // ---------------------------------------------------------------------------
 
-declare type ActionsSdkAppOptions = {
+export interface ActionsSdkAppOptions {
     /** Express HTTP request object. */
     request: express.Request;
     /** Express HTTP response object. */
     response: express.Response;
     /** Function callback when session starts. */
-    sessionStarted?: () => any;
-};
+    sessionStarted?(): any;
+}
 
 /**
  * This is the class that handles the conversation API directly from Assistant,
  * providing implementation for all the methods available in the API.
  */
-declare class ActionsSdkApp extends AssistantApp {
+export class ActionsSdkApp extends AssistantApp {
     /**
      * Constructor for ActionsSdkApp object.
      * To be used in the Actions SDK HTTP endpoint logic.
@@ -388,5 +388,4 @@ declare class ActionsSdkApp extends AssistantApp {
      * @actionssdk
      */
     buildInputPrompt(isSsml: boolean, initialPrompt: string, noInputs?: string[]): object;
-
 }
