@@ -1,4 +1,4 @@
-// Type definitions for webpack 3.0
+// Type definitions for webpack 3.8
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -613,7 +613,7 @@ declare namespace webpack {
         }
     }
 
-    abstract class MultiCompiler implements ICompiler {
+    abstract class MultiCompiler extends Tapable implements ICompiler {
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
