@@ -3,7 +3,9 @@ import * as webpack from 'webpack';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 
 const compiler = webpack({});
+const multiCompiler = webpack([]);
 
+const webpackDevMiddlewareInstanceMulti =  webpackDevMiddleware(multiCompiler);
 let webpackDevMiddlewareInstance = webpackDevMiddleware(compiler);
 
 webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {

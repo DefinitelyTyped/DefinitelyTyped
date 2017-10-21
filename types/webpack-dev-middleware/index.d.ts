@@ -9,7 +9,7 @@ import * as webpack from 'webpack';
 export = WebpackDevMiddleware;
 
 declare function WebpackDevMiddleware(
-	compiler: webpack.ICompiler,
+	compiler: webpack.Compiler | webpack.MultiCompiler,
 	options?: WebpackDevMiddleware.Options
 ): WebpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
