@@ -7,6 +7,8 @@
 
 import * as angular from 'angular';
 
+export = angulartics;//AMD/Require module support
+export as namespace angulartics;//UMD module support
 declare namespace angulartics {
 
     interface IAngularticsStatic {
@@ -45,7 +47,7 @@ declare namespace angulartics {
         trackExceptions(value: boolean): void;
         developerMode(value: boolean): void;
 
-        registerPageTrack(callback:(path:string, location?:angular.ILocationService) => any): void;
+        registerPageTrack(callback: (path: string, location?: angular.ILocationService) => any): void;
         registerEventTrack(callback: (eventName: string, properties?: any) => any): void;
         registerTransactionTrack(callback: any): void;
         registerSetAlias(callback: (alias: string) => any): void;
