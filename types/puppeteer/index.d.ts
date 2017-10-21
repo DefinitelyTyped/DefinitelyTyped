@@ -70,9 +70,9 @@ export interface ClickOptions {
   /** defaults to 1 */
   clickCount?: number;
   /**
-     * Time to wait between mousedown and mouseup in milliseconds.
-     * Defaults to 0.
-     */
+   * Time to wait between mousedown and mouseup in milliseconds.
+   * Defaults to 0.
+   */
   delay?: number;
 }
 
@@ -130,9 +130,9 @@ export interface PDFOptions {
   printBackground?: boolean;
   landscape?: boolean;
   /**
-     * Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty
-     * string, which means print all pages.
-     */
+   * Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty
+   * string, which means print all pages.
+   */
   pageRanges?: string;
   format?: PDFFormat;
   width?: string;
@@ -265,7 +265,7 @@ export interface Response {
 
   headers: Headers;
 
-  json(): Promise<Object>;
+  json(): Promise<object>;
 
   ok: boolean;
 
@@ -335,8 +335,6 @@ export interface FrameBase {
 
   executionContext(): ExecutionContext;
 
-  url(): Promise<string>;
-
   title(): Promise<string>;
 
   url(): string;
@@ -394,7 +392,7 @@ export interface JSHandle {
 
   getProperty(properyName: string): Promise<JSHandle>;
 
-  jsonValue(): Promise<Object>;
+  jsonValue(): Promise<object>;
 }
 
 export interface Metric {
@@ -491,7 +489,7 @@ export interface Page extends FrameBase {
   ): Promise<void>;
 
   // Argument `fn` can be an arbitrary function
-  exposeFunction(name: string, puppeteerFunction: Function): Promise<void>;
+  exposeFunction(name: string, puppeteerFunction: () => void): Promise<void>;
 
   focus(selector: string): Promise<void>;
 
@@ -515,7 +513,7 @@ export interface Page extends FrameBase {
 
   pdf(options?: Partial<PDFOptions>): Promise<Buffer>;
 
-  queryObjects(prototypeHandle: JSHandle): Promise<JSHandle>
+  queryobjects(prototypeHandle: JSHandle): Promise<JSHandle>;
 
   plainText(): Promise<string>;
 
@@ -580,37 +578,37 @@ export interface LaunchOptions {
   /** Whether to run Chromium in headless mode. Defaults to true. */
   headless?: boolean;
   /**
-     * Path to a Chromium executable to run instead of bundled Chromium. If
-     * executablePath is a relative path, then it is resolved relative to current
-     * working directory.
-     */
+   * Path to a Chromium executable to run instead of bundled Chromium. If
+   * executablePath is a relative path, then it is resolved relative to current
+   * working directory.
+   */
   executablePath?: string;
   /**
-     * Slows down Puppeteer operations by the specified amount of milliseconds.
-     * Useful so that you can see what is going on.
-     */
+   * Slows down Puppeteer operations by the specified amount of milliseconds.
+   * Useful so that you can see what is going on.
+   */
   slowMo?: number;
   /**
-     * Additional arguments to pass to the Chromium instance. List of Chromium
-     * flags can be found here.
-     */
+   * Additional arguments to pass to the Chromium instance. List of Chromium
+   * flags can be found here.
+   */
   args?: string[];
   /** Close chrome process on Ctrl-C. Defaults to true. */
   handleSIGINT?: boolean;
   /**
-     * Maximum time in milliseconds to wait for the Chrome instance to start.
-     * Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
-     */
+   * Maximum time in milliseconds to wait for the Chrome instance to start.
+   * Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
+   */
   timeout?: number;
   /**
-     * Whether to pipe browser process stdout and stderr into process.stdout and
-     * process.stderr. Defaults to false.
-     */
+   * Whether to pipe browser process stdout and stderr into process.stdout and
+   * process.stderr. Defaults to false.
+   */
   dumpio?: boolean;
   /** Path to a User Data Directory. */
   userDataDir?: string;
   /** Specify environment variables that will be visible to Chromium. Defaults to process.env  */
-  env?: Object;
+  env?: object;
   /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
   devtools?: boolean;
 }
