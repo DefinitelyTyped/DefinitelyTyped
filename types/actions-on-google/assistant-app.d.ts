@@ -2,7 +2,7 @@ import * as express from 'express';
 
 import { BasicCard, Carousel, List, OptionItem, RichResponse } from './response-builder';
 import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, LineItem,
-         Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
+         Location, Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
 
 /**
  * List of standard intents that the app provides.
@@ -10,7 +10,7 @@ import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, L
  * @actionssdk
  * @dialogflow
  */
-declare enum StandardIntents {
+export enum StandardIntents {
     /**
      * App fires MAIN intent for queries like [talk to $app].
      */
@@ -71,7 +71,7 @@ declare enum StandardIntents {
  * @actionssdk
  * @dialogflow
  */
-declare enum SupportedPermissions {
+export enum SupportedPermissions {
     /**
      * The user's name as defined in the
      * {@link https://developers.google.com/actions/reference/conversation#UserProfile|UserProfile object}
@@ -95,7 +95,7 @@ declare enum SupportedPermissions {
  * @actionssdk
  * @dialogflow
  */
-declare enum BuiltInArgNames {
+export enum BuiltInArgNames {
     /**
      * Permission granted argument.
      */
@@ -149,7 +149,7 @@ declare enum BuiltInArgNames {
  * @actionssdk
  * @dialogflow
  */
-declare enum ConversationStages {
+export enum ConversationStages {
     /**
      * Unspecified conversation state.
      */
@@ -170,7 +170,7 @@ declare enum ConversationStages {
  * @actionssdk
  * @dialogflow
  */
-declare enum SurfaceCapabilities {
+export enum SurfaceCapabilities {
     /**
      * The ability to output audio.
      */
@@ -187,7 +187,7 @@ declare enum SurfaceCapabilities {
  * @actionssdk
  * @dialogflow
  */
-declare enum InputTypes {
+export enum InputTypes {
     /**
      * Unspecified.
      */
@@ -212,7 +212,7 @@ declare enum InputTypes {
  * @actionssdk
  * @dialogflow
  */
-declare enum SignInStatus {
+export enum SignInStatus {
     /**
      * Unknown status.
      */
@@ -234,7 +234,7 @@ declare enum SignInStatus {
 /**
  * User provided date/time info.
  */
-declare type DateTime = {
+export interface DateTime {
     date: {
         year: number;
         month: number;
@@ -246,24 +246,24 @@ declare type DateTime = {
         seconds: number;
         nanos: number;
     };
-};
+}
 
 /**
  * User's permissioned name info.
  */
-declare type UserName = {
+export interface UserName {
     /** User's display name. */
     displayName: string;
     /** User's given name. */
     givenName: string;
     /** User's family name. */
     familyName: string;
-};
+}
 
 /**
  * User's permissioned device location.
  */
-declare type DeviceLocation = {
+export interface DeviceLocation {
     /** {latitude, longitude}. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
     coordinates: object;
     /** Full, formatted street address. Requested with SupportedPermissions.DEVICE_PRECISE_LOCATION. */
@@ -272,35 +272,35 @@ declare type DeviceLocation = {
     zipCode: string;
     /** Device city. Requested with SupportedPermissions.DEVICE_COARSE_LOCATION. */
     city: string;
-};
+}
 
 /**
  * User object.
  */
-declare type User = {
+export interface User {
     /** Random string ID for Google user. */
     userId: string;
     /** User name information. Null if not requested with {@link AssistantApp#askForPermission|askForPermission(SupportedPermissions.NAME)}. */
     userName: UserName;
     /** Unique Oauth2 token. Only available with account linking. */
     accessToken: string;
-};
+}
 
 /**
  * Actions on Google Surface.
  */
-declare type Surface = {
+export interface Surface {
     /** Capabilities of the surface. */
     capabilities: Capability[];
-};
+}
 
 /**
  * Surface capability.
  */
-declare type Capability = {
+export interface Capability {
     /** Name of the capability. */
     name: string;
-};
+}
 
 /**
  * The Actions on Google client library AssistantApp base class.
@@ -309,7 +309,7 @@ declare type Capability = {
  * protocol from Assistant. It also exports the 'State' class as a helper to represent states by
  * name.
  */
-declare class AssistantApp {
+export class AssistantApp {
     /**
      * The session state.
      */
@@ -1329,5 +1329,4 @@ declare class AssistantApp {
      * @return {OrderUpdate} Constructed OrderUpdate.
      */
     buildOrderUpdate(orderId: string, isGoogleOrderId: boolean): OrderUpdate;
-
 }

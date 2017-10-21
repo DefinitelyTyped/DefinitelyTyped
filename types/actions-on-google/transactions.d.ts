@@ -8,7 +8,7 @@ import { Image } from './response-builder';
 /**
  * Price type.
  */
-declare type Price = {
+export interface Price {
     /** One of Transaction.PriceType. */
     type: PriceType;
     amount: {
@@ -19,38 +19,38 @@ declare type Price = {
         /** Partial unit count of price. */
         nanos?: number;
     };
-};
+}
 
 /**
  * Order rejection info.
  */
-declare type RejectionInfo = {
+export interface RejectionInfo {
     /** One of Transaction.RejectionType. */
     type: RejectionType;
     /** Reason for the order rejection. */
     reason: string;
-};
+}
 
 /**
  * Order receipt info.
  */
-declare type ReceiptInfo = {
+export interface ReceiptInfo {
     /** Action provided order ID. Used when the order has been received by the integrator. */
     confirmedActionOrderId: string;
-};
+}
 
 /**
  * Order cancellation info.
  */
-declare type CancellationInfo = {
+export interface CancellationInfo {
     /** Reason for the cancellation. */
     reason: string;
-};
+}
 
 /**
  * Order transit info.
  */
-declare type TransitInfo = {
+export interface TransitInfo {
     /** UTC timestamp of the transit update. */
     updatedTime: {
         /** Seconds since Unix epoch. */
@@ -58,12 +58,12 @@ declare type TransitInfo = {
         /** Partial seconds since Unix epoch. */
         nanos?: number;
     };
-};
+}
 
 /**
  * Order fulfillment info.
  */
-declare type FulfillmentInfo = {
+export interface FulfillmentInfo {
     /** UTC timestamp of the fulfillment update. */
     deliveryTime: {
         /** Seconds since Unix epoch. */
@@ -71,21 +71,21 @@ declare type FulfillmentInfo = {
         /** Partial seconds since Unix epoch. */
         nanos?: number;
     };
-};
+}
 
 /**
  * Order return info.
  */
-declare type ReturnInfo = {
+export interface ReturnInfo {
     /** Reason for the return. */
     reason: string;
-};
+}
 
 /**
  * Transaction config for transactions not involving a Google provided
  * payment instrument.
  */
-declare type ActionPaymentTransactionConfig = {
+export interface ActionPaymentTransactionConfig {
     /** True if delivery address is required for the transaction. */
     deliveryAddressRequired: boolean;
     /** One of Transactions.PaymentType. */
@@ -93,13 +93,13 @@ declare type ActionPaymentTransactionConfig = {
     /** The name of the instrument displayed on receipt. For example, for card payment, could be "VISA-1234". */
     displayName: string;
     customerInfoOptions?: CustomerInfoOptions;
-};
+}
 
 /**
  * Transaction config for transactions involving a Google provided payment
  * instrument.
  */
-declare type GooglePaymentTransactionConfig = {
+export interface GooglePaymentTransactionConfig {
     /** True if delivery address is required for the transaction. */
     deliveryAddressRequired: boolean;
     /** Tokenization parameters provided by payment gateway. */
@@ -109,19 +109,19 @@ declare type GooglePaymentTransactionConfig = {
     /** True if prepaid cards are not allowed for transaction. */
     prepaidCardDisallowed: boolean;
     customerInfoOptions?: CustomerInfoOptions;
-};
+}
 
 /**
  * Customer information requested as part of the transaction
  */
-declare type CustomerInfoOptions = {
+export interface CustomerInfoOptions {
     customerInfoProperties: string[];
-};
+}
 
 /**
  * Generic Location type.
  */
-declare type Location = {
+export interface Location {
     postalAddress: {
         regionCode: string;
         languageCode: string;
@@ -133,12 +133,12 @@ declare type Location = {
     };
     phoneNumber: string;
     notes: string;
-};
+}
 
 /**
  * Decision and order information returned when calling getTransactionDecision().
  */
-declare type TransactionDecision = {
+export interface TransactionDecision {
     /** One of Transactions.ConfirmationDecision. */
     userDecision: ConfirmationDecision;
     checkResult: {
@@ -167,12 +167,12 @@ declare type TransactionDecision = {
      * Will appear if userDecision is Transactions.DELIVERY_ADDRESS_UPDATED.
      */
     deliveryAddress: Location;
-};
+}
 
 /**
  * Values related to supporting transactions
  */
-declare const TransactionValues: {
+export const TransactionValues: {
     /** List of transaction card networks available when paying with Google. */
     readonly CardNetwork: typeof CardNetwork;
     /** List of possible item types. */
@@ -207,7 +207,7 @@ declare const TransactionValues: {
  * List of transaction card networks available when paying with Google.
  * @enum {string}
  */
-declare enum CardNetwork {
+export enum CardNetwork {
     /**
      * Unspecified.
      */
@@ -238,7 +238,7 @@ declare enum CardNetwork {
  * List of possible item types.
  * @enum {string}
  */
-declare enum ItemType {
+export enum ItemType {
     /**
      * Unspecified.
      */
@@ -277,7 +277,7 @@ declare enum ItemType {
  * List of price types.
  * @enum {string}
  */
-declare enum PriceType {
+export enum PriceType {
     /**
      * Unknown.
      */
@@ -296,7 +296,7 @@ declare enum PriceType {
  * List of possible item types.
  * @enum {string}
  */
-declare enum PaymentType {
+export enum PaymentType {
     /**
      * Unspecified.
      */
@@ -327,7 +327,7 @@ declare enum PaymentType {
  * List of customer information properties that can be requested.
  * @enum {string}
  */
-declare enum CustomerInfoProperties {
+export enum CustomerInfoProperties {
     EMAIL
 }
 
@@ -335,7 +335,7 @@ declare enum CustomerInfoProperties {
  * List of possible order confirmation user decisions
  * @enum {string}
  */
-declare enum ConfirmationDecision {
+export enum ConfirmationDecision {
     /**
      * Order was approved by user.
      */
@@ -359,7 +359,7 @@ declare enum ConfirmationDecision {
  * List of possible order states.
  * @enum {string}
  */
-declare enum OrderState {
+export enum OrderState {
     /**
      * Order was rejected.
      */
@@ -390,7 +390,7 @@ declare enum OrderState {
  * List of possible actions to take on the order.
  * @enum {string}
  */
-declare enum OrderAction {
+export enum OrderAction {
     /**
      * View details.
      */
@@ -433,7 +433,7 @@ declare enum OrderAction {
  * List of possible types of order rejection.
  * @enum {string}
  */
-declare enum RejectionType {
+export enum RejectionType {
     /**
      * Unknown
      */
@@ -448,7 +448,7 @@ declare enum RejectionType {
  * List of possible order state objects.
  * @enum {string}
  */
-declare enum OrderStateInfo {
+export enum OrderStateInfo {
     /**
      * Information about order rejection. Used with {@link RejectionInfo}.
      */
@@ -479,7 +479,7 @@ declare enum OrderStateInfo {
  * List of possible order transaction requirements check result types.
  * @enum {string}
  */
-declare enum ResultType {
+export enum ResultType {
     /**
      * Unspecified.
      */
@@ -507,7 +507,7 @@ declare enum ResultType {
  * List of possible user decisions to give delivery address.
  * @enum {string}
  */
-declare enum DeliveryAddressDecision {
+export enum DeliveryAddressDecision {
     /**
      * Unknown.
      */
@@ -526,7 +526,7 @@ declare enum DeliveryAddressDecision {
  * List of possible order location types.
  * @enum {string}
  */
-declare enum LocationType {
+export enum LocationType {
     /**
      * Unknown.
      */
@@ -553,7 +553,7 @@ declare enum LocationType {
  * List of possible order time types.
  * @enum {string}
  */
-declare enum TimeType {
+export enum TimeType {
     /**
      * Unknown.
      */
@@ -575,7 +575,7 @@ declare enum TimeType {
 /**
  * Class for initializing and constructing Order with chainable interface.
  */
-declare class Order {
+export class Order {
     /**
      * Constructor for Order.
      *
@@ -685,13 +685,12 @@ declare class Order {
      * @return {Order} Returns current constructed Order.
      */
     setTime(type: TimeType, time: string): Order;
-
 }
 
 /**
  * Class for initializing and constructing Cart with chainable interface.
  */
-declare class Cart {
+export class Cart {
     /**
      * Constructor for Cart.
      *
@@ -756,13 +755,12 @@ declare class Cart {
      * @return {Cart} Returns current constructed Cart.
      */
     addOtherItems(items: LineItem | LineItem[]): Cart;
-
 }
 
 /**
  * Class for initializing and constructing LineItem with chainable interface.
  */
-declare class LineItem {
+export class LineItem {
     /**
      * Constructor for LineItem.
      *
@@ -789,7 +787,7 @@ declare class LineItem {
     /**
      * Sublines for current item. Only valid if item type is REGULAR.
      */
-    subLines?: (string | LineItem)[];
+    subLines?: Array<string | LineItem>;
 
     /**
      * Image of the item.
@@ -824,7 +822,7 @@ declare class LineItem {
      * @param {string|LineItem|Array<string|LineItem>} items Sublines to add.
      * @return {LineItem} Returns current constructed LineItem.
      */
-    addSublines(items: string | LineItem | (string | LineItem)[]): LineItem;
+    addSublines(items: string | LineItem | Array<string | LineItem>): LineItem;
 
     /**
      * Sets the image for this item.
@@ -880,13 +878,12 @@ declare class LineItem {
      * @return {LineItem} Returns current constructed LineItem.
      */
     setOfferId(offerId: string): LineItem;
-
 }
 
 /**
  * Class for initializing and constructing OrderUpdate with chainable interface.
  */
-declare class OrderUpdate {
+export class OrderUpdate {
     /**
      * Constructor for OrderUpdate.
      *
@@ -1039,5 +1036,4 @@ declare class OrderUpdate {
      * @return {OrderUpdate} Returns current constructed OrderUpdate.
      */
     setInfo(type: string, data: object): OrderUpdate;
-
 }
