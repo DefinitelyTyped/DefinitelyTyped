@@ -98,6 +98,8 @@ declare namespace webpack {
         stats?: Options.Stats;
         /** Performance options */
         performance?: Options.Performance;
+        /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
+        parallelism?: number;
     }
 
     interface Entry {
@@ -167,6 +169,8 @@ declare namespace webpack {
          * </ul>
          */
         libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
+        /** Configure which module or modules will be exposed via the `libraryTarget` */
+        libraryExport?: string | string[];
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
         /** Prefixes every line of the source in the bundle with this string. */
@@ -181,7 +185,7 @@ declare namespace webpack {
         /** A array of applied post loaders. */
         postLoaders?: Rule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
-        noParse?: RegExp | RegExp[];
+        noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
         unknownContextRecursive?: boolean;
         unknownContextRegExp?: RegExp;
@@ -420,7 +424,7 @@ declare namespace webpack {
     type ConditionSpec = TestConditionSpec | OrConditionSpec | AndConditionSpec | NotConditionSpec;
 
     // tslint:disable-next-line:no-empty-interface
-    interface ConditionArray extends Array<Condition> {}
+    interface ConditionArray extends Array<Condition> { }
     type Condition = string | RegExp | ((absPath: string) => boolean) | ConditionSpec | ConditionArray;
 
     interface OldLoader {
@@ -663,6 +667,8 @@ declare namespace webpack {
             assetsSort?: string;
             /** Add information about cached (not built) modules */
             cached?: boolean;
+            /** Show cached assets (setting this to `false` only shows emitted files) */
+            cachedAssets?: true,
             /** Add children information */
             children?: boolean;
             /** Add built modules information to chunk information */
@@ -675,16 +681,32 @@ declare namespace webpack {
             chunksSort?: string;
             /** Context directory for request shortening */
             context?: string;
-            /** Add details to errors (like resolving log) */
-            errorDetails?: boolean;
+            /** Display the distance from the entry point for each module */
+            depth?: false;
+            /** Display the entry points with the corresponding bundles */
+            entrypoints?: boolean;
+            /** Add --env information */
+            env?: boolean;
             /** Add errors */
             errors?: boolean;
+            /** Add details to errors (like resolving log) */
+            errorDetails?: boolean;
+            /** Exclude assets from being displayed in stats */
+            excludeAssets?: StatsExcludeFilter;
+            /** Exclude modules from being displayed in stats */
+            excludeModules?: StatsExcludeFilter;
+            /** See excludeModules */
+            exclude?: StatsExcludeFilter;
             /** Add the hash of the compilation */
             hash?: boolean;
+            /** Set the maximum number of modules to be shown */
+            maxModules?: number;
             /** Add built modules information */
             modules?: boolean;
             /** Sort the modules by a field */
             modulesSort?: string;
+            /** Show dependencies and origin of warnings/errors */
+            moduleTrace?: number;
             /** Add public path information */
             publicPath?: boolean;
             /** Add information about the reasons why modules are included */
@@ -697,9 +719,19 @@ declare namespace webpack {
             version?: boolean;
             /** Add warnings */
             warnings?: boolean;
+            /** Show which exports of a module are used */
+            usedExports?: boolean;
+            /** Filter warnings to be shown */
+            warningsFilter?: string | RegExp | (string | RegExp)[] | ((warning: string) => boolean);
+            /** Show performance hint when file size exceeds `performance.maxAssetSize` */
+            performance?: boolean;
+            /** Show the exports of the modules */
+            providedExports?: boolean;
         }
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
+
+        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | ((assetName: string) => boolean)[];
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
@@ -735,7 +767,7 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: {[key: string]: any});
+        constructor(definitions: { [key: string]: any });
     }
 
     class DllPlugin extends Plugin {
@@ -861,7 +893,7 @@ declare namespace webpack {
     }
 
     class NamedChunksPlugin extends Plugin {
-        constructor(nameResolver?: (chunk: any) => string | null );
+        constructor(nameResolver?: (chunk: any) => string | null);
     }
 
     class NoEmitOnErrorsPlugin extends Plugin {
@@ -888,11 +920,11 @@ declare namespace webpack {
     }
 
     class EnvironmentPlugin extends Plugin {
-        constructor(envs: string[] | {[key: string]: any});
+        constructor(envs: string[] | { [key: string]: any });
     }
 
     class ProvidePlugin extends Plugin {
-        constructor(definitions: {[key: string]: any});
+        constructor(definitions: { [key: string]: any });
     }
 
     class SourceMapDevToolPlugin extends Plugin {
@@ -926,7 +958,7 @@ declare namespace webpack {
     }
 
     namespace optimize {
-        class ModuleConcatenationPlugin extends Plugin {}
+        class ModuleConcatenationPlugin extends Plugin { }
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
         }
@@ -1280,7 +1312,7 @@ declare namespace webpack {
              * @param content
              * @param sourceMap
              */
-            emitFile(name: string, content: Buffer|string, sourceMap: any): void;
+            emitFile(name: string, content: Buffer | string, sourceMap: any): void;
 
             /**
              * Access to the compilation's inputFileSystem property.
