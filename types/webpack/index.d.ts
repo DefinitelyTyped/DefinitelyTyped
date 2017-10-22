@@ -723,7 +723,7 @@ declare namespace webpack {
             /** Show which exports of a module are used */
             usedExports?: boolean;
             /** Filter warnings to be shown */
-            warningsFilter?: string | RegExp | Array<string | RegExp> | ((warning: string) => boolean);
+            warningsFilter?: string | string[] | RegExp | RegExp[] | ((warning: string) => boolean);
             /** Show performance hint when file size exceeds `performance.maxAssetSize` */
             performance?: boolean;
             /** Show the exports of the modules */
