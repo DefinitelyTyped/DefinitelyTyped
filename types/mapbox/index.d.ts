@@ -366,12 +366,12 @@ declare global {
 		///////////////////////////// CONFIGURATION //////////////////////////
 		//////////////////////////////////////////////////////////////////////
 
-		class config {
-			static FORCE_HTTPS: boolean;
+		namespace config {
+			const FORCE_HTTPS: boolean;
 
-			static HTTP_URLS: string[];
+			const HTTP_URLS: string[];
 
-			static HTTPS_URLS: string[];
+			const HTTPS_URLS: string[];
 		}
 	}
 }
