@@ -1,10 +1,22 @@
 import * as tp from 'tcp-ping';
 
-tp.ping({
-    address: "localhost",
-    port: 8080
-}, (err, result) => {
-});
+// $ExpectType void
+tp.ping({}, () => {});
 
-tp.probe("localhost", 8080, (err, result) => {
-});
+// $ExpectError
+tp.ping();
+
+// $ExpectError
+tp.ping({});
+
+// $ExpectType void
+tp.probe("localhost", 8080, () => {});
+
+// $ExpectError
+tp.probe("localhost", 8080);
+
+// $ExpectError
+tp.probe("localhost");
+
+// $ExpectError
+tp.probe();
