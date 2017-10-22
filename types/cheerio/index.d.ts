@@ -255,6 +255,7 @@ interface CheerioElement {
     children: CheerioElement[];
     childNodes: CheerioElement[];
     lastChild: CheerioElement;
+    firstChild: CheerioElement;
     next: CheerioElement;
     nextSibling: CheerioElement;
     prev: CheerioElement;
