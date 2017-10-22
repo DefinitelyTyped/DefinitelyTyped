@@ -109,8 +109,8 @@ puppeteer.launch().then(async browser => {
     else interceptedRequest.continue();
   });
 
-  page.type("Hello"); // Types instantly
-  page.type("World", { delay: 100 }); // Types slower, like a user
+  page.type("html", "Hello"); // Types instantly
+  page.type("html", "World", { delay: 100 }); // Types slower, like a user
 
   const watchDog = page.waitForFunction("window.innerWidth < 100");
   page.setViewport({ width: 50, height: 50 });
@@ -128,7 +128,7 @@ puppeteer.launch().then(async browser => {
     await page.goto(currentURL);
   }
 
-  page.type("Hello World!");
+  page.type("input", "Hello World!");
   page.press("ArrowLeft");
 
   page.keyboard.down("Shift");
