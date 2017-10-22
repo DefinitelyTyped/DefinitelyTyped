@@ -32,7 +32,6 @@ declare class Server extends events.EventEmitter {
    * @param req - Client request.
    * @param res - Client response.
    * @param options - Additionnal options.
-   * @param
    */
   web(
     req: http.IncomingMessage,

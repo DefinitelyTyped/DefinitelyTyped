@@ -34,5 +34,5 @@ async function runTests(): Promise<number> {
 	};
 
 	num = await defaultMochaRunner(runnerArgs);
-	return await testRunner(runnerArgs);
+	return testRunner(runnerArgs);
 }
