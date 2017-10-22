@@ -7,6 +7,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
 //                 Ahmed T. Ali <https://github.com/ahmed-taj>
+//                 Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
