@@ -154,15 +154,12 @@ export function lstat(path: string | Buffer): Promise<Stats>;
 /**
  * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
  *
- * @param path
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: string | Buffer, callback: (err?: NodeJS.ErrnoException | null) => void): void;
 /**
  * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
  *
- * @param path
- * @param mode
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function mkdir(path: string | Buffer, mode: number | string, callback: (err?: NodeJS.ErrnoException | null) => void): void;
@@ -200,7 +197,6 @@ export function rename(oldPath: string, newPath: string): Promise<void>;
 /**
  * Asynchronous rmdir - removes the directory specified in {path}
  *
- * @param path
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function rmdir(path: string | Buffer, callback: (err?: NodeJS.ErrnoException | null) => void): void;
@@ -219,7 +215,6 @@ export function truncate(path: string | Buffer, len?: number): Promise<void>;
 /**
  * Asynchronous unlink - deletes the file specified in {path}
  *
- * @param path
  * @param callback No arguments other than a possible exception are given to the completion callback.
  */
 export function unlink(path: string | Buffer, callback: (err?: NodeJS.ErrnoException | null) => void): void;
@@ -245,7 +240,6 @@ export function writeFile(file: string | Buffer | number, data: any, options: { 
 /**
  * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
  *
- * @param prefix
  * @param callback The created folder path is passed as a string to the callback's second parameter.
  */
 export function mkdtemp(prefix: string): Promise<string>;

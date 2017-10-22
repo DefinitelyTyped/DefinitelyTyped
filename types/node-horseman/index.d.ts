@@ -103,7 +103,9 @@ declare class horseman {
     /** Fire a mouse event. */
     mouseEvent(type?: string, x?: number, y?: number, button?: string): this;
 
-    /** Handles page events. * eventType can be one of:
+    /**
+     * Handles page events.
+     * eventType can be one of:
      *  initialized - callback()
      *  loadStarted - callback()
      *  loadFinished - callback(status)

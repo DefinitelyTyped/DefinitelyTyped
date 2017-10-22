@@ -43,7 +43,7 @@ interface ExecaReturns {
 type ExecaError = Error & ExecaReturns;
 
 interface ExecaChildPromise {
-    catch<TResult = never>(onrejected?: ((reason: ExecaError) => TResult | PromiseLike<TResult>) | undefined | null): Promise<ExecaReturns | TResult>;
+    catch<TResult = never>(onrejected?: ((reason: ExecaError) => TResult | PromiseLike<TResult>) | null): Promise<ExecaReturns | TResult>;
 }
 type ExecaChildProcess = ChildProcess & ExecaChildPromise & Promise<ExecaReturns>;
 
