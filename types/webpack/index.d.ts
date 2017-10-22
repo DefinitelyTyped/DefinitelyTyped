@@ -669,7 +669,7 @@ declare namespace webpack {
             /** Add information about cached (not built) modules */
             cached?: boolean;
             /** Show cached assets (setting this to `false` only shows emitted files) */
-            cachedAssets?: true,
+            cachedAssets?: true;
             /** Add children information */
             children?: boolean;
             /** Add built modules information to chunk information */
@@ -723,7 +723,7 @@ declare namespace webpack {
             /** Show which exports of a module are used */
             usedExports?: boolean;
             /** Filter warnings to be shown */
-            warningsFilter?: string | RegExp | (string | RegExp)[] | ((warning: string) => boolean);
+            warningsFilter?: string | RegExp | Array<string | RegExp> | ((warning: string) => boolean);
             /** Show performance hint when file size exceeds `performance.maxAssetSize` */
             performance?: boolean;
             /** Show the exports of the modules */
@@ -732,7 +732,7 @@ declare namespace webpack {
 
         type ToJsonOptions = Preset | ToJsonOptionsObject;
 
-        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | ((assetName: string) => boolean)[];
+        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | Array<(assetName: string) => boolean>;
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
