@@ -12,7 +12,7 @@
 // TypeScript Version: 2.4
 // There is a known issue in TypeScript, which doesnt allow decorators to change the signature of the classes 
 // they are decorating. Due to this, if you are using @connect() decorator in your code,
-// you will see a bunch of errors from TypeScript. The current workaround is to use connect() a function call on
+// you will see a bunch of errors from TypeScript. The current workaround is to use connect() as a function call on
 // a separate line instead of as a decorator. Discussed in this github issue:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20796
     
