@@ -27,7 +27,7 @@ export interface TouchBackendOptions {
     delayMouseStart?: number;
     /**
      * Number of milliseconds delay before the touch/click is considered a drag.
-     * @obsolete: replaced by delayTouchStart and delayMouseStart, but is still supported at present.
+     * @deprecated replaced by delayTouchStart and delayMouseStart, but is still supported at present.
      */
     delay?: number;
 }
