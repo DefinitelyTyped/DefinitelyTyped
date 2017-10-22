@@ -1000,6 +1000,7 @@ declare namespace R {
          * additional call to fn; instead, the cached result for that set of arguments will be returned.
          */
         memoize(fn: (...a: any[]) => any): (...a: any[]) => any;
+        memoize<T>(fn: (...a: any[]) => T): (...a: any[]) => T;
 
         /**
          * Create a new object with the own properties of a
@@ -1159,6 +1160,7 @@ declare namespace R {
          * returned in subsequent invocations.
          */
         once(fn: (...a: any[]) => any): (...a: any[]) => any;
+        once<T>(fn: (...a: any[]) => T): (...a: any[]) => T;
 
         /**
          * A function that returns the first truthy of two arguments otherwise the last argument. Note that this is
@@ -1192,6 +1194,7 @@ declare namespace R {
          * original function's arguments list. In some libraries this function is named `applyLeft`.
          */
         partial(fn: (...a: any[]) => any, ...args: any[]): (...a: any[]) => any;
+        partial<T>(fn: (...a: any[]) => T, ...args: any[]): (...a: any[]) => T;
 
         /**
          * Accepts as its arguments a function and any number of values and returns a function that,
