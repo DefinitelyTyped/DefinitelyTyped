@@ -261,11 +261,11 @@ R.times(i, 5);
 })();
 
 (() => {
-    function multiply(a: number, b: number) {
+    function multiply(a: number, b: number): number {
         return a * b;
     }
 
-    const double = R.partial(multiply, 2);
+    const double = R.partial<number>(multiply, 2);
     double(2); // => 4
 
     function greet(salutation: string, title: string, firstName: string, lastName: string) {
@@ -300,12 +300,20 @@ R.times(i, 5);
     // Note that argument order matters
     memoTrackedAdd(2, 1); // => 3
     numberOfCalls; // => 3
+
+    function stringLength(str: string): number {
+      return str.length;
+    }
+    const memoStringLength = R.memoize<number>(stringLength);
+    const isLong = memoStringLength('short') > 10; // false
 })();
 
 (() => {
     const addOneOnce = R.once((x: number) => x + 1);
     addOneOnce(10); // => 11
     addOneOnce(addOneOnce(50)); // => 11
+
+    const str = R.once<string>(() => 'test')();
 })();
 
 (() => {
