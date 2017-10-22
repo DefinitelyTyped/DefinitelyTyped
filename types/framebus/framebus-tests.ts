@@ -1,7 +1,9 @@
 import * as framebus from "framebus";
 
-const popup = window.open('https://example.com')!;
+const popup: any = window.open('https://example.com');
+
 framebus.include(popup);
+
 framebus.emit('hello popup and friends!');
 
 framebus.target('https://example.com').on('my cool event', () => {});
