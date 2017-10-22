@@ -396,19 +396,19 @@ export interface JSHandle {
 }
 
 export interface Metric {
-    Timestamp: number;
-    Documents: number;
-    Frames: number;
-    JSEventListeners: number;
-    Nodes: number;
-    LayoutCount: number;
-    RecalcStyleCount: number;
-    LayoutDuration: number;
-    RecalcStyleDuration: number;
-    ScriptDuration: number;
-    TaskDuration: number;
-    JSHeapUsedSize: number;
-    JSHeapTotalSize: number;
+  Timestamp: number;
+  Documents: number;
+  Frames: number;
+  JSEventListeners: number;
+  Nodes: number;
+  LayoutCount: number;
+  RecalcStyleCount: number;
+  LayoutDuration: number;
+  RecalcStyleDuration: number;
+  ScriptDuration: number;
+  TaskDuration: number;
+  JSHeapUsedSize: number;
+  JSHeapTotalSize: number;
 }
 
 export interface Metrics {
@@ -546,7 +546,7 @@ export interface Page extends FrameBase {
   touchscreen: Touchscreen;
   tracing: Tracing;
 
-  type(text: string, options?: { delay: number }): Promise<void>;
+  type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
   viewport(): Viewport;
 }
