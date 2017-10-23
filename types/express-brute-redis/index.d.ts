@@ -7,7 +7,6 @@ import { ClientOpts } from "redis";
 
 /**
  * @summary Redis store for Express Brute
- * @class
  */
 declare class express_brute_redis {
     /**
@@ -23,24 +22,16 @@ declare class express_brute_redis {
 
     /**
      * @summary Sets a key in Redis storage.
-     * @param key
-     * @param value
-     * @param lifetime
-     * @param callback
      */
     set(key: string, value: string, lifetime?: number, callback?: (sender: express_brute_redis) => void): void;
 
     /**
      * @summary Gets a key in Redis storage.
-     * @param key
-     * @param callback
      */
     get(key: string, callback?: (err: Error, data: any) => void): void;
 
     /**
      * @summary Resets a key in Redis storage.
-     * @param key
-     * @param callback
      */
     reset(key: string, callback?: (err: Error, data: any) => void, ...args: any[]): void;
 }
