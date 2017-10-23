@@ -89,19 +89,19 @@ export interface GeometryCollection extends GeoJsonObject {
 /***
 * https://tools.ietf.org/html/rfc7946#section-3.2
 */
-export interface Feature<T extends GeometryObject> extends GeoJsonObject {
+export interface Feature<G extends GeometryObject, P = any> extends GeoJsonObject {
     type: 'Feature';
-    geometry: T;
-    properties: any;
+    geometry: G;
+    properties: P;
     id?: string | number;
 }
 
 /***
 * http://geojson.org/geojson-spec.html#feature-collection-objects
 */
-export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject {
+export interface FeatureCollection<G extends GeometryObject, P = any> extends GeoJsonObject {
     type: 'FeatureCollection';
-    features: Array<Feature<T>>;
+    features: Array<Feature<G, P>>;
 }
 
 /***
