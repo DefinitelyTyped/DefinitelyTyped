@@ -19,6 +19,7 @@ export interface StrategyOption {
 
     scope?: string[];
     userAgent?: string;
+    state?: boolean;
 
     authorizationURL?: string;
     tokenURL?: string;
