@@ -603,7 +603,9 @@ declare namespace __ReactMDL {
         name?: string;
         title?: string;
     }
-    class Textfield extends __MDLComponent<TextfieldProps> { }
+    class Textfield extends __MDLComponent<TextfieldProps> {
+        inputRef?: HTMLInputElement;
+    }
 
 
     interface TooltipProps extends MDLHTMLAttributes, React.DOMAttributes<Tooltip> {
