@@ -134,7 +134,6 @@ interface SliderPlugin<TJQuery> {
     (methodName: string, ...args: any[]): TJQuery;
     /**
      * Creates a slider from the current element.
-     * @param options
      */
     (options?: SliderOptions): TJQuery;
 }
@@ -163,9 +162,6 @@ declare class Slider {
     /**
      * Set a new value for the slider. If optional triggerSlideEvent parameter is true, 'slide' events will be triggered.
      * If optional triggerChangeEvent parameter is true, 'change' events will be triggered.
-     * @param newValue
-     * @param triggerSlideEvent
-     * @param triggerChangeEvent
      */
     setValue(newValue: number, triggerSlideEvent?: boolean, triggerChangeEvent?: boolean): this;
     /**
@@ -186,13 +182,10 @@ declare class Slider {
     isEnabled(): boolean;
     /**
      * Updates the slider's attributes
-     * @param attribute
-     * @param value
      */
     setAttribute(attribute: string, value: any): this;
     /**
      * Get the slider's attributes
-     * @param attribute
      */
     getAttribute(attribute: string): any;
     /**

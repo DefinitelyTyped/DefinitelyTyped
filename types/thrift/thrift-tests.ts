@@ -23,11 +23,9 @@ interface MockServiceHandlers {
 }
 
 class MockProcessor {
-  constructor() {}
 }
 
 class MockClient {
-  constructor() {}
 }
 
 const mockServiceHandlers: MockServiceHandlers = {

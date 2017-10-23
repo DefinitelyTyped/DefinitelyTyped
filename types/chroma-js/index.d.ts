@@ -34,9 +34,6 @@ declare namespace chroma {
         /**
          * Create a color in the specified color space using a, b and c as values.
          *
-         * @param a
-         * @param b
-         * @param c
          * @param colorSpace The color space to use. Defaults to "rgb".
          * @return the color object.
          */
