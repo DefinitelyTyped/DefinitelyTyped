@@ -28,10 +28,10 @@ import kefirConfig from "recompose/kefirObservableConfig";
 
 function testMapProps() {
     interface InnerProps {
-        inn: number
-        other: string
-     }
-    interface OutterProps { out: string }
+        inn: number;
+        other: string;
+    }
+    interface OutterProps { out: string; }
     const InnerComponent = ({inn}: InnerProps) => <div>{inn}</div>;
 
     const enhancer = mapProps((props: OutterProps) => ({ inn: 123 }));
@@ -41,58 +41,58 @@ function testMapProps() {
             other='foo'
             out='bar'
         />
-    )
+    );
 }
 
 function testWithProps() {
-    interface InnerProps { inn: number }
-    interface OutterProps { out: number }
+    interface InnerProps { inn: number; }
+    interface OutterProps { out: number; }
     const InnerComponent = ({inn}: InnerProps) => <div>{inn}</div>;
 
     const enhancer = withProps((props: OutterProps) => ({ inn: props.out }));
     const Enhanced = enhancer(InnerComponent);
     const rendered = (
         <Enhanced out={123}/>
-    )
+    );
 
     const enhancer2 = withProps({ inn: 123 });
     const Enhanced2 = enhancer2(InnerComponent);
     const Rendered2 = (
         <Enhanced2/>
-    )
+    );
 }
 
 function testWithPropsOnChange() {
-    interface InnerProps { inn: number }
-    interface OutterProps { out: number }
+    interface InnerProps { inn: number; }
+    interface OutterProps { out: number; }
     const InnerComponent = ({inn}: InnerProps) => <div>{inn}</div>;
 
     const enhancer = withProps((props: OutterProps) => ({ inn: props.out }));
     const Enhanced = enhancer(InnerComponent);
     const rendered = (
         <Enhanced out={123}/>
-    )
+    );
 
     const enhancer2 = withProps({ inn: 123 });
     const Enhanced2 = enhancer2(InnerComponent);
     const Rendered2 = (
         <Enhanced2/>
-    )
+    );
 }
 
 function testWithHandlers() {
     interface InnerProps {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
-        onChange: Function;
+        onChange: React.ChangeEventHandler<HTMLDivElement>;
         foo: string;
     }
     interface HandlerProps {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
-        onChange: Function;
+        onChange: React.ChangeEventHandler<HTMLDivElement>;
     }
     interface OutterProps { out: number; }
     const InnerComponent: React.StatelessComponent<InnerProps> = ({onChange, onSubmit}) =>
-      <div onClick={onSubmit}></div>;
+        (<div onClick={onSubmit}></div>);
 
     const enhancer = withHandlers<OutterProps, HandlerProps>({
       onChange: (props) => (e: any) => {},
@@ -104,7 +104,7 @@ function testWithHandlers() {
             foo="bar"
             out={42}
         />
-    )
+    );
 
     const enhancer2 = withHandlers<OutterProps, HandlerProps>((props) => ({
       onChange: (props) => (e: any) => {},
@@ -116,7 +116,7 @@ function testWithHandlers() {
             foo="bar"
             out={42}
         />
-    )
+    );
 }
 
 function testDefaultProps() {
@@ -127,7 +127,7 @@ function testDefaultProps() {
     const Enhanced = enhancer(innerComponent);
     const rendered = (
         <Enhanced c={42} />
-    )
+    );
 }
 
 function testRenameProp() {
@@ -144,13 +144,20 @@ function testRenameProps() {
     interface OutterProps { a: string; b: number; }
     const innerComponent: React.StatelessComponent<InnerProps> = ({c, d}: InnerProps) => <div>{c}, {d}</div>;
 
-    const enhancer = renameProps({ a:"c", b: "d" });
+    const enhancer = renameProps({ a: "c", b: "d" });
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
 }
 
 function testFlattenProp() {
-    interface InnerProps { a: string; b: string; y: {c: string; d: number;} }
-    interface OutterProps { x: {a: string; b: number;}; y: {c: string; d: number;} }
+    interface InnerProps {
+        a: string;
+        b: string;
+        y: { c: string; d: number; };
+    }
+    interface OutterProps {
+        x: { a: string; b: number; };
+        y: { c: string; d: number; };
+    }
     const innerComponent: React.StatelessComponent<InnerProps> = (props: InnerProps) => <div></div>;
 
     const enhancer = flattenProp("x");
@@ -158,10 +165,13 @@ function testFlattenProp() {
 }
 
 function testWithState() {
-    interface InnerProps { count: number; setCount: (count: number) => number }
-    interface OutterProps { title: string }
+    interface InnerProps {
+        count: number;
+        setCount(count: number): number;
+    }
+    interface OutterProps { title: string; }
     const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
-      <div onClick={() => props.setCount(0)}></div>;
+        (<div onClick={() => props.setCount(0)}></div>);
 
     // We can't infer types for TOutter with this form because
     // Typescript only allows all or nothing
@@ -186,9 +196,12 @@ function testWithState() {
 
 function testWithStateHandlers() {
     interface State { counter: number; }
-    interface Updaters { add: (n: number) => State; }
+    interface Updaters { add(n: number): State; }
     type InnerProps = State & Updaters;
-    interface OutterProps { initialCounter: number, power: number }
+    interface OutterProps {
+        initialCounter: number;
+        power: number;
+    }
     const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
         <div>
             <div>{`Counter: ${props.counter}`}</div>
@@ -208,9 +221,9 @@ function testWithStateHandlers() {
 }
 
 function testWithReducer() {
-    interface State { count: number }
-    interface Action { type: string }
-    interface InnerProps { title: string; count: number; dispatch: (a: Action) => void; }
+    interface State { count: number; }
+    interface Action { type: string; }
+    interface InnerProps { title: string; count: number; dispatch(a: Action): void; }
     interface OutterProps { title: string; bar: number; }
     const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
       <div onClick={() => props.dispatch({type: "INCREMENT"})}></div>;
@@ -237,8 +250,8 @@ function testWithReducer() {
 }
 
 function testBranch() {
-    interface InnerProps { count: number; update: () => void; }
-    interface OutterProps { toggled: boolean }
+    interface InnerProps { count: number; update(): void; }
+    interface OutterProps { toggled: boolean; }
 
     const innerComponent: React.StatelessComponent<InnerProps> = (props: InnerProps) =>
       <div onClick={() => props.update()}>{props.count}</div>;
@@ -252,14 +265,14 @@ function testBranch() {
     const enhancer2 = branch(
       (props: OutterProps) => props.toggled,
       renderComponent(innerComponent),
-    )
+    );
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
     const enhanced2: React.ComponentClass<OutterProps> = enhancer2(innerComponent);
 }
 
 function testRenderComponent() {
-    interface InnerProps { count: number; update: () => void; }
-    interface OutterProps { toggled: boolean }
+    interface InnerProps { count: number; update(): void; }
+    interface OutterProps { toggled: boolean; }
 
     const innerComponent = () => <div>Hello</div>;
 
@@ -268,15 +281,15 @@ function testRenderComponent() {
 }
 
 function testWithObservableConfig() {
-  let componentFromStreamMost = componentFromStreamWithConfig(mostConfig)
-  componentFromStreamMost = componentFromStream
+  let componentFromStreamMost = componentFromStreamWithConfig(mostConfig);
+  componentFromStreamMost = componentFromStream;
 
-  let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig)
-  mapPropsStreamMost = mapPropsStream
+  let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig);
+  mapPropsStreamMost = mapPropsStream;
 
-  let createEventHandlerMost = createEventHandlerWithConfig(mostConfig)
-  let { handler: handler, stream: stream } = createEventHandler()
-  createEventHandlerMost = createEventHandler
+  let createEventHandlerMost = createEventHandlerWithConfig(mostConfig);
+  let { handler: handler, stream: stream } = createEventHandler();
+  createEventHandlerMost = createEventHandler;
 }
 
 function testOnlyUpdateForKeys() {
@@ -284,8 +297,8 @@ function testOnlyUpdateForKeys() {
         foo: number;
         bar: string;
     }
-    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
-    onlyUpdateForKeys<Props>(['foo'])(component)
+    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>;
+    onlyUpdateForKeys<Props>(['foo'])(component);
     // This should be a compile error
     // onlyUpdateForKeys<Props>(['fo'])(component)
 }
