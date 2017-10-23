@@ -224,3 +224,27 @@ const pt: GeoJSON.Feature<GeoJSON.Point> = {
 pt.properties.foo;
 pt.properties.hello;
 pt.properties[1];
+
+// Optional generic for properties
+
+interface TestProperty {
+    foo: "bar" | "baz";
+    hello: string;
+}
+
+const typedPropertiesFeature: GeoJSON.Feature<GeoJSON.Point, TestProperty> = {
+    type: "Feature",
+    properties: {
+        foo: "bar",
+        hello: "world",
+    },
+    geometry: {
+        type: "Point",
+        coordinates: [0, 0]
+    }
+};
+
+const typedPropertiesFeatureCollection: GeoJSON.FeatureCollection<GeoJSON.Point, TestProperty> = {
+    type: "FeatureCollection",
+    features: [typedPropertiesFeature]
+};
