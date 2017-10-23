@@ -21,8 +21,7 @@ export interface FrameBus {
     unsub(event: string, fn: (...args: any[]) => any): boolean;
     off(event: string, fn: (...args: any[]) => any): boolean;
 }
-/*~ If this module has methods, declare them as functions like so.
- */
+
 /**
  * let popup = window.open('https://example.com');
  * framebus.include(popup);
