@@ -1,9 +1,11 @@
 // Linter 2.x
 // https://atom.io/packages/linter
 
+import { Disposable, Point, Range, TextEditor } from "./index";
+
 export interface ReplacementSolution {
     title?: string;
-    position: TextBuffer.Range;
+    position: Range;
     priority?: number;
     currentText?: string;
     replaceWith: string;
@@ -11,7 +13,7 @@ export interface ReplacementSolution {
 
 export interface CallbackSolution {
     title?: string;
-    position: TextBuffer.Range;
+    position: Range;
     priority?: number;
     // tslint:disable-next-line:no-any
     apply(): any;
@@ -24,7 +26,7 @@ export interface Message {
         file: string;
 
         /** The range of the message in the editor. */
-        position: TextBuffer.Range;
+        position: Range;
     };
 
     /** A reference to a different location in the editor. */
@@ -33,7 +35,7 @@ export interface Message {
         file: string;
 
         /** The point being referenced in that file. */
-        position?: TextBuffer.Point;
+        position?: Point;
     };
 
     /** An HTTP link to a resource explaining the issue. Default is a google search. */
@@ -63,8 +65,8 @@ export interface IndieDelegate {
     clearMessages(): void;
     setMessages(filePath: string, messages: Message[]): void;
     setAllMessages(messages: Message[]): void;
-    onDidUpdate(callback: () => void): EventKit.Disposable;
-    onDidDestroy(callback: () => void): EventKit.Disposable;
+    onDidUpdate(callback: () => void): Disposable;
+    onDidDestroy(callback: () => void): Disposable;
     dispose(): void;
 }
 
@@ -73,5 +75,5 @@ export interface LinterProvider {
     scope: "file"|"project";
     lintsOnChange: boolean;
     grammarScopes: string[];
-    lint(textEditor: AtomCore.TextEditor): Message[]|void|Promise<Message[]|undefined>;
+    lint(textEditor: TextEditor): Message[]|void|Promise<Message[]|undefined>;
 }

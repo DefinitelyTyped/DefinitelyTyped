@@ -1,16 +1,18 @@
 // Autocomplete Plus 2.x
 // https://atom.io/packages/autocomplete-plus
 
+import { Point, ScopeDescriptor, TextEditor } from "./index";
+
 /** The parameters passed into getSuggestions by Autocomplete+. */
 export interface SuggestionsRequestedEvent {
     /** The current TextEditor. */
-    editor: AtomCore.TextEditor;
+    editor: TextEditor;
 
     /** The position of the cursor. */
-    bufferPosition: TextBuffer.Point;
+    bufferPosition: Point;
 
     /** The scope descriptor for the current cursor position. */
-    scopeDescriptor: AtomCore.ScopeDescriptor;
+    scopeDescriptor: ScopeDescriptor;
 
     /** The prefix for the word immediately preceding the current cursor position. */
     prefix: string;
@@ -21,8 +23,8 @@ export interface SuggestionsRequestedEvent {
 
 /** The parameters passed into onDidInsertSuggestion by Autocomplete+. */
 export interface SuggestionInsertedEvent {
-    editor: AtomCore.TextEditor;
-    triggerPosition: TextBuffer.Point;
+    editor: TextEditor;
+    triggerPosition: Point;
     suggestion: TextSuggestion|SnippetSuggestion;
 }
 
