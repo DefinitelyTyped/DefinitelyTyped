@@ -12,5 +12,9 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "js-base64-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "test/js-base64-module.test.ts",
+        "test/js-base64-global.test.ts"
+    ]
 }

@@ -3,8 +3,6 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Tommy Lent <https://github.com/tlent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace Base64;
-
 export namespace Base64 {
     const VERSION: string;
 
@@ -31,10 +29,17 @@ export namespace Base64 {
     function extendString(): void;
 }
 
+// Helper to allow referencing Base64 from inside the global declaration without creating a self reference
+/* tslint:disable:strict-export-declare-modifiers */
+type Base64_ = typeof Base64;
+/* tslint:enable:strict-export-declare-modifiers */
+
 declare global {
     interface String {
         fromBase64(): string;
         toBase64(uriSafe?: boolean): string;
         toBase64URI(): string;
     }
+
+    const Base64: Base64_;
 }
