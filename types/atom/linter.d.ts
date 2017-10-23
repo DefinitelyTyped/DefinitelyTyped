@@ -53,7 +53,8 @@ export interface Message {
     /** Possible solutions (which the user can invoke at will). */
     solutions?: Array<ReplacementSolution|CallbackSolution>;
 
-    /** Markdown long description of the error. Accepts a callback so that you can
+    /**
+     *  Markdown long description of the error. Accepts a callback so that you can
      *  do things like HTTP requests.
      */
     description?: string|(() => Promise<string>|string);

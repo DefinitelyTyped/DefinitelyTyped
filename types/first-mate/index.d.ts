@@ -9,7 +9,8 @@
 declare global {
     /** TextMate helpers. */
     namespace FirstMate {
-        /** The option objects that the user is expected to fill out and provide to
+        /**
+         *  The option objects that the user is expected to fill out and provide to
          *  specific API calls.
          */
         namespace Options {
@@ -41,20 +42,23 @@ declare global {
                 /** The string of text that was tokenized. */
                 line: string;
 
-                /** An array of integer scope ids and strings. Positive ids indicate the
+                /**
+                 *  An array of integer scope ids and strings. Positive ids indicate the
                  *  beginning of a scope, and negative tags indicate the end. To resolve ids
                  *  to scope names, call GrammarRegistry::scopeForId with the absolute
                  *  value of the id.
                  */
                 tags: Array<number|string>;
 
-                /** This is a dynamic property. Invoking it will incur additional overhead,
+                /**
+                 *  This is a dynamic property. Invoking it will incur additional overhead,
                  *  but will automatically translate the `tags` into token objects with `value`
                  *  and `scopes` properties.
                  */
                 tokens: GrammarToken[];
 
-                /** An array of rules representing the tokenized state at the end of the line.
+                /**
+                 *  An array of rules representing the tokenized state at the end of the line.
                  *  These should be passed back into this method when tokenizing the next line
                  *  in the file.
                  */
@@ -82,13 +86,15 @@ declare global {
             onDidUpdate(callback: () => void): EventKit.Disposable;
 
             // Tokenizing
-            /** Tokenize all lines in the given text.
+            /**
+             *  Tokenize all lines in the given text.
              *  @param text A string containing one or more lines.
              *  @return An array of token arrays for each line tokenized.
              */
             tokenizeLines(text: string): Structures.GrammarToken[][];
 
-            /** Tokenizes the line of text.
+            /**
+             *  Tokenizes the line of text.
              *  @param line A string of text to tokenize.
              *  @param ruleStack An optional array of rules previously returned from this
              *  method. This should be null when tokenizing the first line in the file.
@@ -98,7 +104,8 @@ declare global {
              */
             tokenizeLine(line: string, ruleStack?: null, firstLine?: boolean):
                 Structures.TokenizeLineResult;
-            /** Tokenizes the line of text.
+            /**
+             *  Tokenizes the line of text.
              *  @param line A string of text to tokenize.
              *  @param ruleStack An optional array of rules previously returned from this
              *  method. This should be null when tokenizing the first line in the file.
@@ -121,13 +128,15 @@ declare global {
             maxLineLength: number;
 
             // Event Subscription
-            /** Invoke the given callback when a grammar is added to the registry.
+            /**
+             *  Invoke the given callback when a grammar is added to the registry.
              *  @param callback The callback to be invoked whenever a grammar is added.
              *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
              */
             onDidAddGrammar(callback: (grammar: Grammar) => void): EventKit.Disposable;
 
-            /** Invoke the given callback when a grammar is updated due to a grammar it
+            /**
+             *  Invoke the given callback when a grammar is updated due to a grammar it
              *  depends on being added or removed from the registry.
              *  @param callback The callback to be invoked whenever a grammar is updated.
              *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
@@ -135,18 +144,21 @@ declare global {
             onDidUpdateGrammar(callback: (grammar: Grammar) => void): EventKit.Disposable;
 
             // Managing Grammars
-            /** Get all the grammars in this registry.
+            /**
+             *  Get all the grammars in this registry.
              *  @return A non-empty array of Grammar instances.
              */
             getGrammars(): Grammar[];
 
-            /** Get a grammar with the given scope name.
+            /**
+             *  Get a grammar with the given scope name.
              *  @param scopeName A string such as `source.js`.
              *  @return A Grammar or undefined.
              */
             grammarForScopeName(scopeName: string): Grammar|undefined;
 
-            /** Add a grammar to this registry.
+            /**
+             *  Add a grammar to this registry.
              *  A 'grammar-added' event is emitted after the grammar is added.
              *  @param grammar The Grammar to add. This should be a value previously returned
              *  from ::readGrammar or ::readGrammarSync.
@@ -155,38 +167,44 @@ declare global {
              */
             addGrammar(grammar: Grammar): EventKit.Disposable;
 
-            /** Remove the given grammar from this registry.
+            /**
+             *  Remove the given grammar from this registry.
              *  @param grammar The grammar to remove. This should be a grammar previously
              *  added to the registry from ::addGrammar.
              */
             removeGrammar(grammar: Grammar): void;
 
-            /** Remove the grammar with the given scope name.
+            /**
+             *  Remove the grammar with the given scope name.
              *  @param scopeName A string such as `source.js`.
              *  @return Returns the removed Grammar or undefined.
              */
             removeGrammarForScopeName(scopeName: string): Grammar|undefined;
 
-            /** Read a grammar synchronously but don't add it to the registry.
+            /**
+             *  Read a grammar synchronously but don't add it to the registry.
              *  @param grammarPath The absolute file path to a grammar.
              *  @return The newly loaded Grammar.
              */
             readGrammarSync(grammarPath: string): Grammar;
 
-            /** Read a grammar asynchronously but don't add it to the registry.
+            /**
+             *  Read a grammar asynchronously but don't add it to the registry.
              *  @param grammarPath The absolute file path to the grammar.
              *  @param callback The function to be invoked once the Grammar has been read in.
              */
             readGrammar(grammarPath: string, callback: (error: Error|null, grammar?: Grammar) =>
                 void): void;
 
-            /** Read a grammar synchronously and add it to this registry.
+            /**
+             *  Read a grammar synchronously and add it to this registry.
              *  @param grammarPath The absolute file path to the grammar.
              *  @return The newly loaded Grammar.
              */
             loadGrammarSync(grammarPath: string): Grammar;
 
-            /** Read a grammar asynchronously and add it to the registry.
+            /**
+             *  Read a grammar asynchronously and add it to the registry.
              *  @param grammarPath The absolute file path to the grammar.
              *  @param callback The function to be invoked once the Grammar has been read in
              *  and added to the registry.
@@ -194,7 +212,8 @@ declare global {
             loadGrammar(grammarPath: string, callback: (error: Error|null, grammar?: Grammar) =>
                 void): void;
 
-            /** Convert compact tags representation into convenient, space-inefficient tokens.
+            /**
+             *  Convert compact tags representation into convenient, space-inefficient tokens.
              *  @param lineText The text of the tokenized line.
              *  @param tags The tags returned from a call to Grammar::tokenizeLine().
              *  @return An array of Token instances decoded from the given tags.
@@ -209,24 +228,28 @@ declare global {
         }
 
         interface ScopeSelector {
-            /** Check if this scope selector matches the scopes.
+            /**
+             *  Check if this scope selector matches the scopes.
              *  @param scopes A single scope or an array of them to be compared against.
              *  @return A boolean indicating whether or not this ScopeSelector matched.
              */
             matches(scopes: string|ReadonlyArray<string>): boolean;
 
-            /** Gets the prefix of this scope selector.
+            /**
+             *  Gets the prefix of this scope selector.
              *  @param scopes The scopes to match a prefix against.
              *  @return The matching prefix, if there is one.
              */
             getPrefix(scopes: string|ReadonlyArray<string>): string|undefined;
 
-            /** Convert this TextMate scope selector to a CSS selector.
+            /**
+             *  Convert this TextMate scope selector to a CSS selector.
              *  @return A string with the CSSSelector representation of this ScopeSelector.
              */
             toCssSelector(): string;
 
-            /** Convert this TextMate scope selector to a CSS selector, prefixing scopes
+            /**
+             *  Convert this TextMate scope selector to a CSS selector, prefixing scopes
              *  with `syntax--`.
              *  @return A string with the syntax-specific CSSSelector representation of this
              *  ScopeSelector.
@@ -236,7 +259,8 @@ declare global {
 
         /** The static side to the ScopeSelector class. */
         interface ScopeSelectorStatic {
-            /** Create a new scope selector.
+            /**
+             *  Create a new scope selector.
              *  @param source The string to parse as a scope selector.
              *  @return A newly constructed ScopeSelector.
              */

@@ -17,7 +17,8 @@ declare global {
     const atom: AtomEnvironment;
 }
 
-/** Invoke a callback with each filesystem event that occurs beneath a specified path.
+/**
+ *  Invoke a callback with each filesystem event that occurs beneath a specified path.
  *  If you only need to watch events within the project's root paths, use
  *  Project::onDidChangeFiles instead.
  */
@@ -26,7 +27,8 @@ export function watchPath(rootPath: string, options: {}, eventCallback: (events:
 
 // Essential Classes ==========================================================
 
-/** Atom global for dealing with packages, themes, menus, and the window.
+/**
+ *  Atom global for dealing with packages, themes, menus, and the window.
  *  An instance of this class is always available as the atom global.
  */
 export interface AtomEnvironment {
@@ -89,7 +91,8 @@ export interface AtomEnvironment {
     /** Invoke the given callback whenever ::beep is called. */
     onDidBeep(callback: () => void): Disposable;
 
-    /** Invoke the given callback when there is an unhandled error, but before
+    /**
+     *  Invoke the given callback when there is an unhandled error, but before
      *  the devtools pop open.
      */
     onWillThrowError(callback: (event: PreventableExceptionThrownEvent) => void): Disposable;
@@ -97,7 +100,8 @@ export interface AtomEnvironment {
     /** Invoke the given callback whenever there is an unhandled error. */
     onDidThrowError(callback: (event: ExceptionThrownEvent) => void): Disposable;
 
-    /** Invoke the given callback as soon as the shell environment is loaded (or
+    /**
+     *  Invoke the given callback as soon as the shell environment is loaded (or
      *  immediately if it was already loaded).
      */
     whenShellEnvironmentLoaded(callback: () => void): Disposable;
@@ -115,7 +119,8 @@ export interface AtomEnvironment {
     /** Get the version of the Atom application. */
     getVersion(): string;
 
-    /** Gets the release channel of the Atom application.
+    /**
+     *  Gets the release channel of the Atom application.
      *  Returns the release channel, which can be 'dev', 'beta', or 'stable'.
      */
     getReleaseChannel(): "dev"|"beta"|"stable";
@@ -193,7 +198,8 @@ export interface AtomEnvironment {
     /** Visually and audibly trigger a beep. */
     beep(): void;
 
-    /** A flexible way to open a dialog akin to an alert dialog.
+    /**
+     *  A flexible way to open a dialog akin to an alert dialog.
      *  Returns the chosen button index number if the buttons option was an array.
      */
     confirm(options: {
@@ -202,7 +208,8 @@ export interface AtomEnvironment {
         buttons?: ReadonlyArray<string>,
     }): void;
 
-    /** A flexible way to open a dialog akin to an alert dialog.
+    /**
+     *  A flexible way to open a dialog akin to an alert dialog.
      *  Returns the chosen button index number if the buttons option was an array.
      */
     confirm(options: {
@@ -224,7 +231,8 @@ export interface AtomEnvironment {
     executeJavaScriptInDevTools(code: string): void;
 }
 
-/** A simple color class returned from Config::get when the value at the key path is
+/**
+ *  A simple color class returned from Config::get when the value at the key path is
  *  of type 'color'.
  */
 export interface Color {
@@ -235,7 +243,8 @@ export interface Color {
     toRGBAString(): string;
 }
 
-/** Associates listener functions with commands in a context-sensitive way
+/**
+ *  Associates listener functions with commands in a context-sensitive way
  *  using CSS selectors.
  */
 export interface CommandRegistry {
@@ -269,20 +278,23 @@ export interface CommandRegistry {
     onDidDispatch(callback: (event: CommandEvent) => void): Disposable;
 }
 
-/** An object that aggregates multiple Disposable instances together into a
+/**
+ *  An object that aggregates multiple Disposable instances together into a
  *  single disposable, so they can all be disposed as a group.
  */
 export class CompositeDisposable implements DisposableLike {
     /** Construct an instance, optionally with one or more disposables. */
     constructor(...disposables: DisposableLike[]);
 
-    /** Dispose all disposables added to this composite disposable.
+    /**
+     *  Dispose all disposables added to this composite disposable.
      *  If this object has already been disposed, this method has no effect.
      */
     dispose(): void;
 
     // Managing Disposables
-    /** Add disposables to be disposed when the composite is disposed.
+    /**
+     *  Add disposables to be disposed when the composite is disposed.
      *  If this object has already been disposed, this method has no effect.
      */
     add(...disposables: DisposableLike[]): void;
@@ -293,7 +305,8 @@ export class CompositeDisposable implements DisposableLike {
     /** Alias to CompositeDisposable::remove. */
     delete(disposable: DisposableLike): void;
 
-    /** Clear all disposables. They will not be disposed by the next call to
+    /**
+     *  Clear all disposables. They will not be disposed by the next call to
      *  dispose.
      */
     clear(): void;
@@ -302,12 +315,14 @@ export class CompositeDisposable implements DisposableLike {
 /** Used to access all of Atom's configuration details. */
 export interface Config {
     // Config Subscription
-    /** Add a listener for changes to a given key path. This is different than ::onDidChange in
+    /**
+     *  Add a listener for changes to a given key path. This is different than ::onDidChange in
      *  that it will immediately call your callback with the current value of the config entry.
      */
     // tslint:disable-next-line:no-any
     observe(keyPath: string, callback: (value: any) => void): Disposable;
-    /** Add a listener for changes to a given key path. This is different than ::onDidChange in
+    /**
+     *  Add a listener for changes to a given key path. This is different than ::onDidChange in
      *  that it will immediately call your callback with the current value of the config entry.
      */
     // tslint:disable:no-any
@@ -315,18 +330,21 @@ export interface Config {
         callback: (value: any) => void): Disposable;
     // tslint:enable:no-any
 
-    /** Add a listener for changes to a given key path. If keyPath is not specified, your
+    /**
+     *  Add a listener for changes to a given key path. If keyPath is not specified, your
      *  callback will be called on changes to any key.
      */
     // tslint:disable-next-line:no-any
     onDidChange<T = any>(callback: (values: { newValue: T, oldValue: T }) => void): Disposable;
-    /** Add a listener for changes to a given key path. If keyPath is not specified, your
+    /**
+     *  Add a listener for changes to a given key path. If keyPath is not specified, your
      *  callback will be called on changes to any key.
      */
     // tslint:disable-next-line:no-any
     onDidChange<T = any>(keyPath: string, callback: (values: { newValue: T,
         oldValue: T }) => void): Disposable;
-    /** Add a listener for changes to a given key path. If keyPath is not specified, your
+    /**
+     *  Add a listener for changes to a given key path. If keyPath is not specified, your
      *  callback will be called on changes to any key.
      */
     // tslint:disable-next-line:no-any
@@ -340,7 +358,8 @@ export interface Config {
         scope?: string[]|ScopeDescriptor }): any;
     // tslint:enable:no-any
 
-    /** Sets the value for a configuration setting.
+    /**
+     *  Sets the value for a configuration setting.
      *  This value is stored in Atom's internal configuration file.
      */
     // tslint:disable-next-line:no-any
@@ -350,7 +369,8 @@ export interface Config {
     /** Restore the setting at keyPath to its default value. */
     unset(keyPath: string, options?: { scopeSelector?: string, source?: string }): void;
 
-    /** Get all of the values for the given key-path, along with their associated
+    /**
+     *  Get all of the values for the given key-path, along with their associated
      *  scope selector.
      */
     // tslint:disable:no-any
@@ -358,12 +378,14 @@ export interface Config {
         scope?: ScopeDescriptor }): Array<{ scopeDescriptor: ScopeDescriptor, value: any}>;
     // tslint:enable:no-any
 
-    /** Get an Array of all of the source Strings with which settings have been added
+    /**
+     *  Get an Array of all of the source Strings with which settings have been added
      *  via ::set.
      */
     getSources(): string[];
 
-    /** Retrieve the schema for a specific key path. The schema will tell you what type
+    /**
+     *  Retrieve the schema for a specific key path. The schema will tell you what type
      *  the keyPath expects, and other metadata about the config option.
      */
     getSchema(keyPath: string): object|null;
@@ -371,14 +393,16 @@ export interface Config {
     /** Get the string path to the config file being used. */
     getUserConfigPath(): string;
 
-    /** Suppress calls to handler functions registered with ::onDidChange and ::observe
+    /**
+     *  Suppress calls to handler functions registered with ::onDidChange and ::observe
      *  for the duration of callback. After callback executes, handlers will be called
      *  once if the value for their key-path has changed.
      */
     transact(callback: () => void): void;
 }
 
-/** Represents a decoration that follows a DisplayMarker. A decoration is basically
+/**
+ *  Represents a decoration that follows a DisplayMarker. A decoration is basically
  *  a visual representation of a marker. It allows you to add CSS classes to line
  *  numbers in the gutter, lines, and add selection-line regions around marked ranges
  *  of text.
@@ -388,7 +412,8 @@ export interface Decoration {
     id: number;
 
     // Construction and Destruction
-    /** Destroy this marker decoration.
+    /**
+     *  Destroy this marker decoration.
      *  You can also destroy the marker if you own it, which will destroy this decoration.
      */
     destroy(): void;
@@ -411,20 +436,23 @@ export interface Decoration {
     /** Returns the Decoration's properties. */
     getProperties(): DecorationOptions;
 
-    /** Update the marker with new Properties. Allows you to change the decoration's
+    /**
+     *  Update the marker with new Properties. Allows you to change the decoration's
      *  class.
      */
     setProperties(newProperties: DecorationOptions): void;
 }
 
-/** Represents a buffer annotation that remains logically stationary even as the
+/**
+ *  Represents a buffer annotation that remains logically stationary even as the
  *  buffer changes. This is used to represent cursors, folds, snippet targets,
  *  misspelled words, and anything else that needs to track a logical location
  *  in the buffer over time.
  */
 export interface DisplayMarker {
     // Construction and Destruction
-    /** Destroys the marker, causing it to emit the 'destroyed' event. Once destroyed,
+    /**
+     *  Destroys the marker, causing it to emit the 'destroyed' event. Once destroyed,
      *  a marker cannot be restored by undo/redo operations.
      */
     destroy(): void;
@@ -440,12 +468,14 @@ export interface DisplayMarker {
     onDidDestroy(callback: () => void): Disposable;
 
     // TextEditorMarker Details
-    /** Returns a boolean indicating whether the marker is valid. Markers can be
+    /**
+     *  Returns a boolean indicating whether the marker is valid. Markers can be
      *  invalidated when a region surrounding them in the buffer is changed.
      */
     isValid(): boolean;
 
-    /** Returns a boolean indicating whether the marker has been destroyed. A marker
+    /**
+     *  Returns a boolean indicating whether the marker has been destroyed. A marker
      *  can be invalid without being destroyed, in which case undoing the invalidating
      *  operation would restore the marker.
      */
@@ -454,12 +484,14 @@ export interface DisplayMarker {
     /** Returns a boolean indicating whether the head precedes the tail. */
     isReversed(): boolean;
 
-    /** Returns a boolean indicating whether changes that occur exactly at the marker's
+    /**
+     *  Returns a boolean indicating whether changes that occur exactly at the marker's
      *  head or tail cause it to move.
      */
     isExclusive(): boolean;
 
-    /** Get the invalidation strategy for this marker.
+    /**
+     *  Get the invalidation strategy for this marker.
      *  Valid values include: never, surround, overlap, inside, and touch.
      */
     getInvalidationStrategy(): string;
@@ -477,7 +509,8 @@ export interface DisplayMarker {
     /** Compares this marker to another based on their ranges. */
     compare(other: DisplayMarker): number;
 
-    /** Returns a boolean indicating whether this marker is equivalent to another
+    /**
+     *  Returns a boolean indicating whether this marker is equivalent to another
      *  marker, meaning they have the same range and options.
      */
     isEqual(other: DisplayMarker): boolean;
@@ -497,13 +530,15 @@ export interface DisplayMarker {
     setScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean,
         clipDirection?: "backward"|"forward"|"closest" }): void;
 
-    /** Retrieves the screen position of the marker's start. This will always be
+    /**
+     *  Retrieves the screen position of the marker's start. This will always be
      *  less than or equal to the result of DisplayMarker::getEndScreenPosition.
      */
     getStartScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
         Point;
 
-    /** Retrieves the screen position of the marker's end. This will always be
+    /**
+     *  Retrieves the screen position of the marker's end. This will always be
      *  greater than or equal to the result of DisplayMarker::getStartScreenPosition.
      */
     getEndScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
@@ -537,12 +572,14 @@ export interface DisplayMarker {
     setTailScreenPosition(screenPosition: PointCompatible,
         options?: { clipDirection: "backward"|"forward"|"closest" }): void;
 
-    /** Retrieves the buffer position of the marker's start. This will always be less
+    /**
+     *  Retrieves the buffer position of the marker's start. This will always be less
      *  than or equal to the result of DisplayMarker::getEndBufferPosition.
      */
     getStartBufferPosition(): Point;
 
-    /** Retrieves the buffer position of the marker's end. This will always be greater
+    /**
+     *  Retrieves the buffer position of the marker's end. This will always be greater
      *  than or equal to the result of DisplayMarker::getStartBufferPosition.
      */
     getEndBufferPosition(): Point;
@@ -550,19 +587,22 @@ export interface DisplayMarker {
     /** Returns a boolean indicating whether the marker has a tail. */
     hasTail(): boolean;
 
-    /** Plants the marker's tail at the current head position. After calling the
+    /**
+     *  Plants the marker's tail at the current head position. After calling the
      *  marker's tail position will be its head position at the time of the call,
      *  regardless of where the marker's head is moved.
      */
     plantTail(): void;
 
-    /** Removes the marker's tail. After calling the marker's head position will be
+    /**
+     *  Removes the marker's tail. After calling the marker's head position will be
      *  reported as its current tail position until the tail is planted again.
      */
     clearTail(): void;
 }
 
-/** Experimental: A container for a related set of markers at the DisplayLayer level.
+/**
+ *  Experimental: A container for a related set of markers at the DisplayLayer level.
  *  Wraps an underlying MarkerLayer on the TextBuffer.
  *
  *  This API is experimental and subject to change on any release.
@@ -582,13 +622,15 @@ export interface DisplayMarkerLayer {
     /** Subscribe to be notified synchronously when this layer is destroyed. */
     onDidDestroy(callback: () => void): Disposable;
 
-    /** Subscribe to be notified asynchronously whenever markers are created, updated,
+    /**
+     *  Subscribe to be notified asynchronously whenever markers are created, updated,
      *  or destroyed on this layer. Prefer this method for optimal performance when
      *  interacting with layers that could contain large numbers of markers.
      */
     onDidUpdate(callback: () => void): Disposable;
 
-    /** Subscribe to be notified synchronously whenever markers are created on this
+    /**
+     *  Subscribe to be notified synchronously whenever markers are created on this
      *  layer. Avoid this method for optimal performance when interacting with layers
      *  that could contain large numbers of markers.
      */
@@ -600,7 +642,8 @@ export interface DisplayMarkerLayer {
         invalidate?: "never"|"surround"|"overlap"|"inside"|"touch", exclusive?:
         boolean, clipDirection?: "backward"|"forward"|"closest" }): DisplayMarker;
 
-    /** Create a marker on this layer with its head at the given screen position
+    /**
+     *  Create a marker on this layer with its head at the given screen position
      *  and no tail.
      */
     markScreenPosition(screenPosition: PointCompatible, options?: { invalidate?:
@@ -612,7 +655,8 @@ export interface DisplayMarkerLayer {
         reversed?: boolean, invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
         exclusive?: boolean }): DisplayMarker;
 
-    /** Create a marker on this layer with its head at the given buffer position
+    /**
+     *  Create a marker on this layer with its head at the given buffer position
      *  and no tail.
      */
     markBufferPosition(bufferPosition: PointCompatible, options?: { invalidate?:
@@ -629,7 +673,8 @@ export interface DisplayMarkerLayer {
     /** Get the number of markers in the marker layer. */
     getMarkerCount(): number;
 
-    /** Find markers in the layer conforming to the given parameters.
+    /**
+     *  Find markers in the layer conforming to the given parameters.
      *
      *  This method finds markers based on the given properties. Markers can be associated
      *  with custom properties that will be compared with basic equality. In addition,
@@ -650,13 +695,15 @@ export class Disposable implements DisposableLike {
     /** A callback which will be called within dispose(). */
     disposalAction?(): void;
 
-    /** Perform the disposal action, indicating that the resource associated
+    /**
+     *  Perform the disposal action, indicating that the resource associated
      *  with this disposable is no longer needed.
      */
     dispose(): void;
 }
 
-/** Utility class to be used when implementing event-based APIs that allows
+/**
+ *  Utility class to be used when implementing event-based APIs that allows
  *  for handlers registered via ::on to be invoked with calls to ::emit.
  */
 export class Emitter implements DisposableLike {
@@ -674,13 +721,15 @@ export class Emitter implements DisposableLike {
     // tslint:disable-next-line:no-any
     on(eventName: string, handler: (value: any) => void): Disposable;
 
-    /** Register the given handler function to be invoked the next time an event
+    /**
+     *  Register the given handler function to be invoked the next time an event
      *  with the given name is emitted via ::emit.
      */
     // tslint:disable-next-line:no-any
     once(eventName: string, handler: (value: any) => void): Disposable;
 
-    /** Register the given handler function to be invoked before all other
+    /**
+     *  Register the given handler function to be invoked before all other
      *  handlers existing at the time of subscription whenever events by the
      *  given name are emitted via ::emit.
      */
@@ -693,7 +742,8 @@ export class Emitter implements DisposableLike {
     emit(eventName: string, value?: any): void;
 }
 
-/** Represents a decoration that applies to every marker on a given layer. Created via
+/**
+ *  Represents a decoration that applies to every marker on a given layer. Created via
  *  TextEditor::decorateMarkerLayer.
  */
 export interface LayerDecoration {
@@ -714,7 +764,8 @@ export interface LayerDecoration {
         void;
 }
 
-/** Represents a buffer annotation that remains logically stationary even as
+/**
+ *  Represents a buffer annotation that remains logically stationary even as
  *  the buffer changes.
  */
 export interface Marker {
@@ -722,7 +773,8 @@ export interface Marker {
     id: number;
 
     // Lifecycle
-    /** Creates and returns a new Marker with the same properties as this
+    /**
+     *  Creates and returns a new Marker with the same properties as this
      *  marker.
      */
     copy(options?: CopyMarkerOptions): Marker;
@@ -747,12 +799,14 @@ export interface Marker {
     /** Returns a point representing the marker's current tail position. */
     getTailPosition(): Point;
 
-    /** Returns a point representing the start position of the marker, which
+    /**
+     *  Returns a point representing the start position of the marker, which
      *  could be the head or tail position, depending on its orientation.
      */
     getStartPosition(): Point;
 
-    /** Returns a point representing the end position of the marker, which
+    /**
+     *  Returns a point representing the end position of the marker, which
      *  could be the head or tail position, depending on its orientation.
      */
     getEndPosition(): Point;
@@ -769,7 +823,8 @@ export interface Marker {
     /** Is the marker destroyed? */
     isDestroyed(): boolean;
 
-    /** Returns a boolean indicating whether changes that occur exactly at
+    /**
+     *  Returns a boolean indicating whether changes that occur exactly at
      *  the marker's head or tail cause it to move.
      */
     isExclusive(): boolean;
@@ -778,39 +833,46 @@ export interface Marker {
     getInvalidationStrategy(): string;
 
     // Mutating Markers
-    /** Sets the range of the marker.
+    /**
+     *  Sets the range of the marker.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
     setRange(range: RangeCompatible, params?: { reversed?: boolean, exclusive?:
         boolean }): boolean;
 
-    /** Sets the head position of the marker.
+    /**
+     *  Sets the head position of the marker.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
     setHeadPosition(position: PointCompatible): boolean;
 
-    /** Sets the tail position of the marker.
+    /**
+     *  Sets the tail position of the marker.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
     setTailPosition(position: PointCompatible): boolean;
 
-    /** Removes the marker's tail.
+    /**
+     *  Removes the marker's tail.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
     clearTail(): boolean;
 
-    /** Plants the marker's tail at the current head position.
+    /**
+     *  Plants the marker's tail at the current head position.
      *  Returns a boolean indicating whether or not the marker was updated.
      */
     plantTail(): boolean;
 
     // Comparison
-    /** Returns a boolean indicating whether this marker is equivalent to
+    /**
+     *  Returns a boolean indicating whether this marker is equivalent to
      *  another marker, meaning they have the same range and options.
      */
     isEqual(other: Marker): boolean;
 
-    /** Compares this marker to another based on their ranges.
+    /**
+     *  Compares this marker to another based on their ranges.
      *  Returns "-1" if this marker precedes the argument.
      *  Returns "0" if this marker is equivalent to the argument.
      *  Returns "1" if this marker follows the argument.
@@ -856,12 +918,14 @@ export interface MarkerLayer {
         |"overlap"|"inside"|"touch", exclusive?: boolean }): Marker;
 
     // Event Subscription
-    /** Subscribe to be notified asynchronously whenever markers are created,
+    /**
+     *  Subscribe to be notified asynchronously whenever markers are created,
      *  updated, or destroyed on this layer.
      */
     onDidUpdate(callback: () => void): Disposable;
 
-    /** Subscribe to be notified synchronously whenever markers are created on
+    /**
+     *  Subscribe to be notified synchronously whenever markers are created on
      *  this layer.
      */
     onDidCreateMarker(callback: (marker: Marker) => void): Disposable;
@@ -890,7 +954,8 @@ export class Notification {
     /** Returns the Notification's message. */
     getMessage(): string;
 
-    /** Dismisses the notification, removing it from the UI. Calling this
+    /**
+     *  Dismisses the notification, removing it from the UI. Calling this
      *  programmatically will call all callbacks added via onDidDismiss.
      */
     dismiss(): void;
@@ -936,7 +1001,8 @@ export class Point {
     column: number;
 
     // Construction
-    /** Create a Point from an array containing two numbers representing the
+    /**
+     *  Create a Point from an array containing two numbers representing the
      *  row and column.
      */
     static fromObject(object: [number, number]): Point;
@@ -957,14 +1023,16 @@ export class Point {
     /** Returns the given Point that is earlier in the buffer. */
     static min(point1: PointCompatible, point2: PointCompatible): Point;
 
-    /** Compare another Point to this Point instance.
+    /**
+     *  Compare another Point to this Point instance.
      *  Returns -1 if this point precedes the argument.
      *  Returns 0 if this point is equivalent to the argument.
      *  Returns 1 if this point follows the argument.
      */
     compare(other: PointCompatible): number;
 
-    /** Returns a boolean indicating whether this point has the same row and
+    /**
+     *  Returns a boolean indicating whether this point has the same row and
      *  column as the given Point.
      */
     isEqual(other: PointCompatible): boolean;
@@ -972,7 +1040,8 @@ export class Point {
     /** Returns a Boolean indicating whether this point precedes the given Point. */
     isLessThan(other: PointCompatible): boolean;
 
-    /** Returns a Boolean indicating whether this point precedes or is equal to
+    /**
+     *  Returns a Boolean indicating whether this point precedes or is equal to
      *  the given Point.
      */
     isLessThanOrEqual(other: PointCompatible): boolean;
@@ -980,7 +1049,8 @@ export class Point {
     /** Returns a Boolean indicating whether this point follows the given Point. */
     isGreaterThan(other: PointCompatible): boolean;
 
-    /** Returns a Boolean indicating whether this point follows or is equal to
+    /**
+     *  Returns a Boolean indicating whether this point follows or is equal to
      *  the given Point.
      */
     isGreaterThanOrEqual(other: PointCompatible): boolean;
@@ -989,12 +1059,14 @@ export class Point {
     /** Makes this point immutable and returns itself. */
     freeze(): Readonly<Point>;
 
-    /** Build and return a new point by adding the rows and columns of the
+    /**
+     *  Build and return a new point by adding the rows and columns of the
      *  given point.
      */
     translate(other: PointCompatible): Point;
 
-    /** Build and return a new Point by traversing the rows and columns
+    /**
+     *  Build and return a new Point by traversing the rows and columns
      *  specified by the given point.
      */
     traverse(other: PointCompatible): Point;
@@ -1042,7 +1114,8 @@ export class Range {
     /** Is the start position of this range equal to the end position? */
     isEmpty(): boolean;
 
-    /** Returns a boolean indicating whether this range starts and ends on the
+    /**
+     *  Returns a boolean indicating whether this range starts and ends on the
      *  same row.
      */
     isSingleLine(): boolean;
@@ -1054,7 +1127,8 @@ export class Range {
     getRows(): number[];
 
     // Operations
-    /** Freezes the range and its start and end point so it becomes immutable
+    /**
+     *  Freezes the range and its start and end point so it becomes immutable
      *  and returns itself.
      */
     freeze(): Readonly<Range>;
@@ -1063,31 +1137,36 @@ export class Range {
     /** Returns a new range that contains this range and the given range. */
     union(other: RangeLike): Range;
 
-    /** Build and return a new range by translating this range's start and end
+    /**
+     *  Build and return a new range by translating this range's start and end
      *  points by the given delta(s).
      */
     translate(startDelta: PointCompatible, endDelta?: PointCompatible): Range;
 
-    /** Build and return a new range by traversing this range's start and end
+    /**
+     *  Build and return a new range by traversing this range's start and end
      *  points by the given delta.
      */
     traverse(delta: PointCompatible): Range;
 
     // Comparison
-    /** Compare two Ranges.
+    /**
+     *  Compare two Ranges.
      *  Returns -1 if this range starts before the argument or contains it.
      *  Returns 0 if this range is equivalent to the argument.
      *  Returns 1 if this range starts after the argument or is contained by it.
      */
     compare(otherRange: RangeCompatible): number;
 
-    /** Returns a Boolean indicating whether this range has the same start and
+    /**
+     *  Returns a Boolean indicating whether this range has the same start and
      *  end points as the given Range.
      */
     isEqual(otherRange: RangeCompatible): boolean;
 
     // NOTE: this function doesn't actually take a range-compatible parameter.
-    /** Returns a Boolean indicating whether this range starts and ends on the
+    /**
+     *  Returns a Boolean indicating whether this range starts and ends on the
      *  same row as the argument.
      */
     coversSameRows(otherRange: RangeLike): boolean;
@@ -1102,12 +1181,14 @@ export class Range {
     /** Returns a boolean indicating whether this range contains the given point. */
     containsPoint(point: PointCompatible, exclusive?: boolean): boolean;
 
-    /** Returns a boolean indicating whether this range intersects the given
+    /**
+     *  Returns a boolean indicating whether this range intersects the given
      *  row number.
      */
     intersectsRow(row: number): boolean;
 
-    /** Returns a boolean indicating whether this range intersects the row range
+    /**
+     *  Returns a boolean indicating whether this range intersects the row range
      *  indicated by the given startRow and endRow numbers.
      */
     intersectsRowRange(startRow: number, endRow: number): boolean;
@@ -1117,7 +1198,8 @@ export class Range {
     toString(): string;
 }
 
-/** This class represents all essential editing state for a single TextBuffer,
+/**
+ *  This class represents all essential editing state for a single TextBuffer,
  *  including cursor and selection positions, folds, and soft wraps.
  */
 export class TextEditor {
@@ -1134,18 +1216,21 @@ export class TextEditor {
     /** Calls your callback when the buffer's path, and therefore title, has changed. */
     onDidChangePath(callback: (path: string) => void): Disposable;
 
-    /** Invoke the given callback synchronously when the content of the buffer
+    /**
+     *  Invoke the given callback synchronously when the content of the buffer
      *  changes.
      */
     onDidChange(callback: (event: EditorChangedEvent[]) => void): Disposable;
 
-    /** Invoke callback when the buffer's contents change. It is emit
+    /**
+     *  Invoke callback when the buffer's contents change. It is emit
      *  asynchronously 300ms after the last buffer change. This is a good place
      *  to handle changes to the buffer without compromising typing performance.
      */
     onDidStopChanging(callback: (event: BufferStoppedChangingEvent) => void): Disposable;
 
-    /** Calls your callback when a Cursor is moved. If there are multiple cursors,
+    /**
+     *  Calls your callback when a Cursor is moved. If there are multiple cursors,
      *  your callback will be called for each cursor.
      */
     onDidChangeCursorPosition(callback: (event: CursorPositionChangedEvent) => void):
@@ -1163,7 +1248,8 @@ export class TextEditor {
     /** Retrieves the current TextBuffer. */
     getBuffer(): TextBuffer;
 
-    /** Calls your callback when a Gutter is added to the editor. Immediately calls
+    /**
+     *  Calls your callback when a Gutter is added to the editor. Immediately calls
      *  your callback for each existing gutter.
      */
     observeGutters(callback: (gutter: Gutter) => void): Disposable;
@@ -1180,12 +1266,14 @@ export class TextEditor {
     /** Calls your callback when the buffer's encoding has changed. */
     onDidChangeEncoding(callback: (encoding: string) => void): Disposable;
 
-    /** Calls your callback when the grammar that interprets and colorizes the text
+    /**
+     *  Calls your callback when the grammar that interprets and colorizes the text
      *  has been changed. Immediately calls your callback with the current grammar.
      */
     observeGrammar(callback: (grammar: Grammar) => void): Disposable;
 
-    /** Calls your callback when the grammar that interprets and colorizes the text
+    /**
+     *  Calls your callback when the grammar that interprets and colorizes the text
      *  has been changed.
      */
     onDidChangeGrammar(callback: (grammar: Grammar) => void): Disposable;
@@ -1193,7 +1281,8 @@ export class TextEditor {
     /** Calls your callback when the result of ::isModified changes. */
     onDidChangeModified(callback: (modified: boolean) => void): Disposable;
 
-    /** Calls your callback when the buffer's underlying file changes on disk at a
+    /**
+     *  Calls your callback when the buffer's underlying file changes on disk at a
      *  moment when the result of ::isModified is true.
      */
     onDidConflict(callback: () => void): Disposable;
@@ -1204,7 +1293,8 @@ export class TextEditor {
     /** Calls your callback after text has been inserted. */
     onDidInsertText(callback: (event: { text: string }) => void): Disposable;
 
-    /** Calls your callback when a Cursor is added to the editor. Immediately calls
+    /**
+     *  Calls your callback when a Cursor is added to the editor. Immediately calls
      *  your callback for each existing cursor.
      */
     observeCursors(callback: (cursor: Cursor) => void): Disposable;
@@ -1215,7 +1305,8 @@ export class TextEditor {
     /** Calls your callback when a Cursor is removed from the editor. */
     onDidRemoveCursor(callback: (cursor: Cursor) => void): Disposable;
 
-    /** Calls your callback when a Selection is added to the editor. Immediately
+    /**
+     *  Calls your callback when a Selection is added to the editor. Immediately
      *  calls your callback for each existing selection.
      */
     observeSelections(callback: (selection: Selection) => void): Disposable;
@@ -1226,7 +1317,8 @@ export class TextEditor {
     /** Calls your callback when a Selection is removed from the editor. */
     onDidRemoveSelection(callback: (selection: Selection) => void): Disposable;
 
-    /** Calls your callback with each Decoration added to the editor. Calls your
+    /**
+     *  Calls your callback with each Decoration added to the editor. Calls your
      *  callback immediately for any existing decorations.
      */
     observeDecorations(callback: (decoration: Decoration) => void): Disposable;
@@ -1241,13 +1333,15 @@ export class TextEditor {
     onDidChangePlaceholderText(callback: (placeholderText: string) => void): Disposable;
 
     // File Details
-    /** Get the editor's title for display in other parts of the UI such as the tabs.
+    /**
+     *  Get the editor's title for display in other parts of the UI such as the tabs.
      *  If the editor's buffer is saved, its title is the file name. If it is unsaved,
      *  its title is "untitled".
      */
     getTitle(): string;
 
-    /** Get unique title for display in other parts of the UI, such as the window title.
+    /**
+     *  Get unique title for display in other parts of the UI, such as the window title.
      *  If the editor's buffer is unsaved, its title is "untitled" If the editor's
      *  buffer is saved, its unique title is formatted as one of the following,
      *
@@ -1272,12 +1366,14 @@ export class TextEditor {
     setEncoding(encoding: string): void;
 
     // File Operations
-    /** Saves the editor's text buffer.
+    /**
+     *  Saves the editor's text buffer.
      *  See TextBuffer::save for more details.
      */
     save(): Promise<void>;
 
-    /** Saves the editor's text buffer as the given path.
+    /**
+     *  Saves the editor's text buffer as the given path.
      *  See TextBuffer::saveAs for more details.
      */
     saveAs(filePath: string): Promise<void>;
@@ -1292,27 +1388,32 @@ export class TextEditor {
     /** Returns a number representing the number of lines in the buffer. */
     getLineCount(): number;
 
-    /** Returns a number representing the number of screen lines in the editor.
+    /**
+     *  Returns a number representing the number of screen lines in the editor.
      *  This accounts for folds.
      */
     getScreenLineCount(): number;
 
-    /** Returns a number representing the last zero-indexed buffer row number of
+    /**
+     *  Returns a number representing the last zero-indexed buffer row number of
      *  the editor.
      */
     getLastBufferRow(): number;
 
-    /** Returns a number representing the last zero-indexed screen row number of
+    /**
+     *  Returns a number representing the last zero-indexed screen row number of
      *  the editor.
      */
     getLastScreenRow(): number;
 
-    /** Returns a string representing the contents of the line at the given
+    /**
+     *  Returns a string representing the contents of the line at the given
      *  buffer row.
      */
     lineTextForBufferRow(bufferRow: number): string;
 
-    /** Returns a string representing the contents of the line at the given
+    /**
+     *  Returns a string representing the contents of the line at the given
      *  screen row.
      */
     lineTextForScreenRow(screenRow: number): string;
@@ -1341,41 +1442,48 @@ export class TextEditor {
     /** For each selection, replace the selected text with a newline. */
     insertNewline(): void;
 
-    /** For each selection, if the selection is empty, delete the character following
+    /**
+     *  For each selection, if the selection is empty, delete the character following
      *  the cursor. Otherwise delete the selected text.
      */
     delete(): void;
 
-    /** For each selection, if the selection is empty, delete the character preceding
+    /**
+     *  For each selection, if the selection is empty, delete the character preceding
      *  the cursor. Otherwise delete the selected text.
      */
     backspace(): void;
 
-    /** Mutate the text of all the selections in a single transaction.
+    /**
+     *  Mutate the text of all the selections in a single transaction.
      *  All the changes made inside the given function can be reverted with a single
      *  call to ::undo.
      */
     mutateSelectedText(fn: (selection: Selection, index: number) => void): void;
 
-    /** For each selection, transpose the selected text.
+    /**
+     *  For each selection, transpose the selected text.
      *  If the selection is empty, the characters preceding and following the cursor
      *  are swapped. Otherwise, the selected characters are reversed.
      */
     transpose(): void;
 
-    /** Convert the selected text to upper case.
+    /**
+     *  Convert the selected text to upper case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
     upperCase(): void;
 
-    /** Convert the selected text to lower case.
+    /**
+     *  Convert the selected text to lower case.
      *  For each selection, if the selection is empty, converts the containing word
      *  to upper case. Otherwise convert the selected text to upper case.
      */
     lowerCase(): void;
 
-    /** Toggle line comments for rows intersecting selections.
+    /**
+     *  Toggle line comments for rows intersecting selections.
      *  If the current grammar doesn't support comments, does nothing.
      */
     toggleLineCommentsInSelection(): void;
@@ -1386,12 +1494,14 @@ export class TextEditor {
     /** For each cursor, insert a newline at the end of the preceding line. */
     insertNewlineAbove(): void;
 
-    /** For each selection, if the selection is empty, delete all characters of the
+    /**
+     *  For each selection, if the selection is empty, delete all characters of the
      *  containing word that precede the cursor. Otherwise delete the selected text.
      */
     deleteToBeginningOfWord(): void;
 
-    /** Similar to ::deleteToBeginningOfWord, but deletes only back to the previous
+    /**
+     *  Similar to ::deleteToBeginningOfWord, but deletes only back to the previous
      *  word boundary.
      */
     deleteToPreviousWordBoundary(): void;
@@ -1399,28 +1509,33 @@ export class TextEditor {
     /** Similar to ::deleteToEndOfWord, but deletes only up to the next word boundary. */
     deleteToNextWordBoundary(): void;
 
-    /** For each selection, if the selection is empty, delete all characters of the
+    /**
+     *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
     deleteToBeginningOfSubword(): void;
 
-    /** For each selection, if the selection is empty, delete all characters of the
+    /**
+     *  For each selection, if the selection is empty, delete all characters of the
      *  containing subword following the cursor. Otherwise delete the selected text.
      */
     deleteToEndOfSubword(): void;
 
-    /** For each selection, if the selection is empty, delete all characters of the
+    /**
+     *  For each selection, if the selection is empty, delete all characters of the
      *  containing line that precede the cursor. Otherwise delete the selected text.
      */
     deleteToBeginningOfLine(): void;
 
-    /** For each selection, if the selection is not empty, deletes the selection
+    /**
+     *  For each selection, if the selection is not empty, deletes the selection
      *  otherwise, deletes all characters of the containing line following the cursor.
      *  If the cursor is already at the end of the line, deletes the following newline.
      */
     deleteToEndOfLine(): void;
 
-    /** For each selection, if the selection is empty, delete all characters of the
+    /**
+     *  For each selection, if the selection is empty, delete all characters of the
      *  containing word following the cursor. Otherwise delete the selected text.
      */
     deleteToEndOfWord(): void;
@@ -1435,14 +1550,16 @@ export class TextEditor {
     /** Redo the last change. */
     redo(): void;
 
-    /** Batch multiple operations as a single undo/redo step.
+    /**
+     *  Batch multiple operations as a single undo/redo step.
      *  Any group of operations that are logically grouped from the perspective of undoing
      *  and redoing should be performed in a transaction. If you want to abort the transaction,
      *  call ::abortTransaction to terminate the function's execution and revert any changes
      *  performed up to the abortion.
      */
     transact(fn: () => void): void;
-    /** Batch multiple operations as a single undo/redo step.
+    /**
+     *  Batch multiple operations as a single undo/redo step.
      *  Any group of operations that are logically grouped from the perspective of undoing
      *  and redoing should be performed in a transaction. If you want to abort the transaction,
      *  call ::abortTransaction to terminate the function's execution and revert any changes
@@ -1450,24 +1567,28 @@ export class TextEditor {
      */
     transact(groupingInterval: number, fn: () => void): void;
 
-    /** Abort an open transaction, undoing any operations performed so far within the
+    /**
+     *  Abort an open transaction, undoing any operations performed so far within the
      *  transaction.
      */
     abortTransaction(): void;
 
-    /** Create a pointer to the current state of the buffer for use with ::revertToCheckpoint
+    /**
+     *  Create a pointer to the current state of the buffer for use with ::revertToCheckpoint
      *  and ::groupChangesSinceCheckpoint.
      */
     createCheckpoint(): number;
 
-    /** Revert the buffer to the state it was in when the given checkpoint was created.
+    /**
+     *  Revert the buffer to the state it was in when the given checkpoint was created.
      *  The redo stack will be empty following this operation, so changes since the checkpoint
      *  will be lost. If the given checkpoint is no longer present in the undo history, no
      *  changes will be made to the buffer and this method will return false.
      */
     revertToCheckpoint(checkpoint: number): boolean;
 
-    /** Group all changes since the given checkpoint into a single transaction for purposes
+    /**
+     *  Group all changes since the given checkpoint into a single transaction for purposes
      *  of undo/redo.
      *  If the given checkpoint is no longer present in the undo history, no grouping will be
      *  performed and this method will return false.
@@ -1492,7 +1613,8 @@ export class TextEditor {
     /** Clip the given Point to a valid position in the buffer. */
     clipBufferPosition(bufferPosition: PointCompatible): Point;
 
-    /** Clip the start and end of the given range to valid positions in the buffer.
+    /**
+     *  Clip the start and end of the given range to valid positions in the buffer.
      *  See ::clipBufferPosition for more information.
      */
     clipBufferRange(range: RangeCompatible): Range;
@@ -1501,20 +1623,23 @@ export class TextEditor {
     clipScreenPosition(screenPosition: PointCompatible, options?:
         { clipDirection?: "backward"|"forward"|"closest"}): Point;
 
-    /** Clip the start and end of the given range to valid positions on screen.
+    /**
+     *  Clip the start and end of the given range to valid positions on screen.
      *  See ::clipScreenPosition for more information.
      */
     clipScreenRange(range: RangeCompatible, options?: { clipDirection?:
         "backward"|"forward"|"closest"}): Range;
 
     // Decorations
-    /** Add a decoration that tracks a DisplayMarker. When the marker moves, is
+    /**
+     *  Add a decoration that tracks a DisplayMarker. When the marker moves, is
      *  invalidated, or is destroyed, the decoration will be updated to reflect
      *  the marker's state.
      */
     decorateMarker(marker: DisplayMarker, decorationParams: DecorationOptions): Decoration;
 
-    /** Add a decoration to every marker in the given marker layer. Can be used to
+    /**
+     *  Add a decoration to every marker in the given marker layer. Can be used to
      *  decorate a large number of markers without having to create and manage many
      *  individual decorations.
      */
@@ -1537,7 +1662,8 @@ export class TextEditor {
     getOverlayDecorations(propertyFilter?: DecorationOptions): Decoration[];
 
     // Markers
-    /** Create a marker on the default marker layer with the given range in buffer coordinates.
+    /**
+     *  Create a marker on the default marker layer with the given range in buffer coordinates.
      *  This marker will maintain its logical location as the buffer is changed, so if you mark
      *  a particular word, the marker will remain over that word even if the word's location
      *  in the buffer changes.
@@ -1548,7 +1674,8 @@ export class TextEditor {
         invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
     }): DisplayMarker;
 
-    /** Create a marker on the default marker layer with the given range in screen coordinates.
+    /**
+     *  Create a marker on the default marker layer with the given range in screen coordinates.
      *  This marker will maintain its logical location as the buffer is changed, so if you mark
      *  a particular word, the marker will remain over that word even if the word's location in
      *  the buffer changes.
@@ -1558,14 +1685,16 @@ export class TextEditor {
         invalidate?: "never"|"surround"|"overlap"|"inside" |"touch",
     }): DisplayMarker;
 
-    /** Create a marker on the default marker layer with the given buffer position and no tail.
+    /**
+     *  Create a marker on the default marker layer with the given buffer position and no tail.
      *  To group multiple markers together in their own private layer, see ::addMarkerLayer.
      */
     markBufferPosition(bufferPosition: PointCompatible, options?: {
         invalidate?: "never"|"surround"|"overlap"|"inside"|"touch",
     }): DisplayMarker;
 
-    /** Create a marker on the default marker layer with the given screen position and no tail.
+    /**
+     *  Create a marker on the default marker layer with the given screen position and no tail.
      *  To group multiple markers together in their own private layer, see ::addMarkerLayer.
      */
     markScreenPosition(screenPosition: PointCompatible, options?: {
@@ -1573,7 +1702,8 @@ export class TextEditor {
         clipDirection?: "backward"|"forward"|"closest",
     }): DisplayMarker;
 
-    /** Find all DisplayMarkers on the default marker layer that match the given properties.
+    /**
+     *  Find all DisplayMarkers on the default marker layer that match the given properties.
      *
      *  This method finds markers based on the given properties. Markers can be associated
      *  with custom properties that will be compared with basic equality. In addition, there
@@ -1589,7 +1719,8 @@ export class TextEditor {
     /** Get a DisplayMarkerLayer by id. */
     getMarkerLayer(id: number): DisplayMarkerLayer|undefined;
 
-    /** Get the default DisplayMarkerLayer.
+    /**
+     *  Get the default DisplayMarkerLayer.
      *  All marker APIs not tied to an explicit layer interact with this default layer.
      */
     getDefaultMarkerLayer(): DisplayMarkerLayer;
@@ -1610,7 +1741,8 @@ export class TextEditor {
     /** Get the position of all the cursor positions in buffer coordinates. */
     getCursorBufferPositions(): Point[];
 
-    /** Move the cursor to the given position in buffer coordinates.
+    /**
+     *  Move the cursor to the given position in buffer coordinates.
      *  If there are multiple cursors, they will be consolidated to a single cursor.
      */
     setCursorBufferPosition(position: PointCompatible, options?: { autoscroll?: boolean }):
@@ -1625,7 +1757,8 @@ export class TextEditor {
     /** Get the position of all the cursor positions in screen coordinates. */
     getCursorScreenPositions(): Point[];
 
-    /** Move the cursor to the given position in screen coordinates.
+    /**
+     *  Move the cursor to the given position in screen coordinates.
      *  If there are multiple cursors, they will be consolidated to a single cursor.
      */
     setCursorScreenPosition(position: PointCompatible, options?: { autoscroll?: boolean }):
@@ -1673,12 +1806,14 @@ export class TextEditor {
     /** Move every cursor to the end of its surrounding word. */
     moveToEndOfWord(): void;
 
-    /** Move every cursor to the top of the buffer.
+    /**
+     *  Move every cursor to the top of the buffer.
      *  If there are multiple cursors, they will be merged into a single cursor.
      */
     moveToTop(): void;
 
-    /** Move every cursor to the bottom of the buffer.
+    /**
+     *  Move every cursor to the bottom of the buffer.
      *  If there are multiple cursors, they will be merged into a single cursor.
      */
     moveToBottom(): void;
@@ -1717,7 +1852,8 @@ export class TextEditor {
     /** Get an Array of all Cursors. */
     getCursors(): Cursor[];
 
-    /** Get all Cursorss, ordered by their position in the buffer instead of the
+    /**
+     *  Get all Cursorss, ordered by their position in the buffer instead of the
      *  order in which they were added.
      */
     getCursorsOrderedByBufferPosition(): Cursor[];
@@ -1729,18 +1865,21 @@ export class TextEditor {
     /** Get the Range of the most recently added selection in buffer coordinates. */
     getSelectedBufferRange(): Range;
 
-    /** Get the Ranges of all selections in buffer coordinates.
+    /**
+     *  Get the Ranges of all selections in buffer coordinates.
      *  The ranges are sorted by when the selections were added. Most recent at the end.
      */
     getSelectedBufferRanges(): Range[];
 
-    /** Set the selected range in buffer coordinates. If there are multiple selections,
+    /**
+     *  Set the selected range in buffer coordinates. If there are multiple selections,
      *  they are reduced to a single selection with the given range.
      */
     setSelectedBufferRange(bufferRange: RangeCompatible, options?:
         { reversed?: boolean, preserveFolds?: boolean}): void;
 
-    /** Set the selected ranges in buffer coordinates. If there are multiple selections,
+    /**
+     *  Set the selected ranges in buffer coordinates. If there are multiple selections,
      *  they are replaced by new selections with the given ranges.
      */
     setSelectedBufferRanges(bufferRanges: ReadonlyArray<RangeCompatible>, options?:
@@ -1749,18 +1888,21 @@ export class TextEditor {
     /** Get the Range of the most recently added selection in screen coordinates. */
     getSelectedScreenRange(): Range;
 
-    /** Get the Ranges of all selections in screen coordinates.
+    /**
+     *  Get the Ranges of all selections in screen coordinates.
      *  The ranges are sorted by when the selections were added. Most recent at the end.
      */
     getSelectedScreenRanges(): Range[];
 
-    /** Set the selected range in screen coordinates. If there are multiple selections,
+    /**
+     *  Set the selected range in screen coordinates. If there are multiple selections,
      *  they are reduced to a single selection with the given range.
      */
     setSelectedScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean }):
         void;
 
-    /** Set the selected ranges in screen coordinates. If there are multiple selections,
+    /**
+     *  Set the selected ranges in screen coordinates. If there are multiple selections,
      *  they are replaced by new selections with the given ranges.
      */
     setSelectedScreenRanges(screenRanges: ReadonlyArray<RangeCompatible>, options?:
@@ -1774,87 +1916,102 @@ export class TextEditor {
     addSelectionForScreenRange(screenRange: RangeCompatible, options?:
         { reversed?: boolean, preserveFolds?: boolean }): Selection;
 
-    /** Select from the current cursor position to the given position in buffer coordinates.
+    /**
+     *  Select from the current cursor position to the given position in buffer coordinates.
      *  This method may merge selections that end up intersecting.
      */
     selectToBufferPosition(position: PointCompatible): void;
 
-    /** Select from the current cursor position to the given position in screen coordinates.
+    /**
+     *  Select from the current cursor position to the given position in screen coordinates.
      *  This method may merge selections that end up intersecting.
      */
     selectToScreenPosition(position: PointCompatible): void;
 
-    /** Move the cursor of each selection one character upward while preserving the
+    /**
+     *  Move the cursor of each selection one character upward while preserving the
      *  selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectUp(rowCount?: number): void;
 
-    /** Move the cursor of each selection one character downward while preserving
+    /**
+     *  Move the cursor of each selection one character downward while preserving
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectDown(rowCount?: number): void;
 
-    /** Move the cursor of each selection one character leftward while preserving
+    /**
+     *  Move the cursor of each selection one character leftward while preserving
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectLeft(columnCount?: number): void;
 
-    /** Move the cursor of each selection one character rightward while preserving
+    /**
+     *  Move the cursor of each selection one character rightward while preserving
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectRight(columnCount?: number): void;
 
-    /** Select from the top of the buffer to the end of the last selection in the buffer.
+    /**
+     *  Select from the top of the buffer to the end of the last selection in the buffer.
      *  This method merges multiple selections into a single selection.
      */
     selectToTop(): void;
 
-    /** Selects from the top of the first selection in the buffer to the end of the buffer.
+    /**
+     *  Selects from the top of the first selection in the buffer to the end of the buffer.
      *  This method merges multiple selections into a single selection.
      */
     selectToBottom(): void;
 
-    /** Select all text in the buffer.
+    /**
+     *  Select all text in the buffer.
      *  This method merges multiple selections into a single selection.
      */
     selectAll(): void;
 
-    /** Move the cursor of each selection to the beginning of its line while preserving
+    /**
+     *  Move the cursor of each selection to the beginning of its line while preserving
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectToBeginningOfLine(): void;
 
-    /** Move the cursor of each selection to the first non-whitespace character of its
+    /**
+     *  Move the cursor of each selection to the first non-whitespace character of its
      *  line while preserving the selection's tail position. If the cursor is already
      *  on the first character of the line, move it to the beginning of the line.
      *  This method may merge selections that end up intersecting.
      */
     selectToFirstCharacterOfLine(): void;
 
-    /** Move the cursor of each selection to the end of its line while preserving the
+    /**
+     *  Move the cursor of each selection to the end of its line while preserving the
      *  selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectToEndOfLine(): void;
 
-    /** Expand selections to the beginning of their containing word.
+    /**
+     *  Expand selections to the beginning of their containing word.
      *  Operates on all selections. Moves the cursor to the beginning of the containing
      *  word while preserving the selection's tail position.
      */
     selectToBeginningOfWord(): void;
 
-    /** Expand selections to the end of their containing word.
+    /**
+     *  Expand selections to the end of their containing word.
      *  Operates on all selections. Moves the cursor to the end of the containing word
      *  while preserving the selection's tail position.
      */
     selectToEndOfWord(): void;
 
-    /** For each cursor, select the containing line.
+    /**
+     *  For each cursor, select the containing line.
      *  This method merges selections on successive lines.
      */
     selectLinesContainingCursors(): void;
@@ -1862,43 +2019,50 @@ export class TextEditor {
     /** Select the word surrounding each cursor. */
     selectWordsContainingCursors(): void;
 
-    /** For each selection, move its cursor to the preceding subword boundary while
+    /**
+     *  For each selection, move its cursor to the preceding subword boundary while
      *  maintaining the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectToPreviousSubwordBoundary(): void;
 
-    /** For each selection, move its cursor to the next subword boundary while maintaining
+    /**
+     *  For each selection, move its cursor to the next subword boundary while maintaining
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectToNextSubwordBoundary(): void;
 
-    /** For each selection, move its cursor to the preceding word boundary while
+    /**
+     *  For each selection, move its cursor to the preceding word boundary while
      *  maintaining the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectToPreviousWordBoundary(): void;
 
-    /** For each selection, move its cursor to the next word boundary while maintaining
+    /**
+     *  For each selection, move its cursor to the next word boundary while maintaining
      *  the selection's tail position.
      *  This method may merge selections that end up intersecting.
      */
     selectToNextWordBoundary(): void;
 
-    /** Expand selections to the beginning of the next word.
+    /**
+     *  Expand selections to the beginning of the next word.
      *  Operates on all selections. Moves the cursor to the beginning of the next word
      *  while preserving the selection's tail position.
      */
     selectToBeginningOfNextWord(): void;
 
-    /** Expand selections to the beginning of the next paragraph.
+    /**
+     *  Expand selections to the beginning of the next paragraph.
      *  Operates on all selections. Moves the cursor to the beginning of the next
      *  paragraph while preserving the selection's tail position.
      */
     selectToBeginningOfNextParagraph(): void;
 
-    /** Expand selections to the beginning of the next paragraph.
+    /**
+     *  Expand selections to the beginning of the next paragraph.
      *  Operates on all selections. Moves the cursor to the beginning of the next
      *  paragraph while preserving the selection's tail position.
      */
@@ -1913,7 +2077,8 @@ export class TextEditor {
     /** Get current Selections. */
     getSelections(): Selection[];
 
-    /** Get all Selections, ordered by their position in the buffer instead of the
+    /**
+     *  Get all Selections, ordered by their position in the buffer instead of the
      *  order in which they were added.
      */
     getSelectionsOrderedByBufferPosition(): Selection[];
@@ -1925,27 +2090,31 @@ export class TextEditor {
     selectionIntersectsBufferRange(bufferRange: RangeLike): boolean;
 
     // Searching and Replacing
-    /** Scan regular expression matches in the entire buffer, calling the given
+    /**
+     *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      *
      *  ::scan functions as the replace method as well via the replace.
      */
     scan(regex: RegExp, options: ScanContextOptions, iterator: (params:
         ContextualBufferScanResult) => void): void;
-    /** Scan regular expression matches in the entire buffer, calling the given
+    /**
+     *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      *
      *  ::scan functions as the replace method as well via the replace.
      */
     scan(regex: RegExp, iterator: (params: BufferScanResult) => void): void;
 
-    /** Scan regular expression matches in a given range, calling the given iterator.
+    /**
+     *  Scan regular expression matches in a given range, calling the given iterator.
      *  function on each match.
      */
     scanInBufferRange(regex: RegExp, range: RangeCompatible, iterator:
         (params: BufferScanResult) => void): void;
 
-    /** Scan regular expression matches in a given range in reverse order, calling the
+    /**
+     *  Scan regular expression matches in a given range in reverse order, calling the
      *  given iterator function on each match.
      */
     backwardsScanInBufferRange(regex: RegExp, range: RangeCompatible,
@@ -1964,7 +2133,8 @@ export class TextEditor {
     /** Get the on-screen length of tab characters. */
     getTabLength(): number;
 
-    /** Set the on-screen length of tab characters. Setting this to a number will
+    /**
+     *  Set the on-screen length of tab characters. Setting this to a number will
      *  override the editor.tabLength setting.
      */
     setTabLength(tabLength: number): void;
@@ -1972,7 +2142,8 @@ export class TextEditor {
     /** Determine if the buffer uses hard or soft tabs. */
     usesSoftTabs(): boolean|undefined;
 
-    /** Get the text representing a single level of indent.
+    /**
+     *  Get the text representing a single level of indent.
      *  If soft tabs are enabled, the text is composed of N spaces, where N is the
      *  tab length. Otherwise the text is a tab character (\t).
      */
@@ -1992,14 +2163,16 @@ export class TextEditor {
     getSoftWrapColumn(): number;
 
     // Indentation
-    /** Get the indentation level of the given buffer row.
+    /**
+     *  Get the indentation level of the given buffer row.
      *  Determines how deeply the given row is indented based on the soft tabs and tab
      *  length settings of this editor. Note that if soft tabs are enabled and the tab
      *  length is 2, a row with 4 leading spaces would have an indentation level of 2.
      */
     indentationForBufferRow(bufferRow: number): number;
 
-    /** Set the indentation level for the given buffer row.
+    /**
+     *  Set the indentation level for the given buffer row.
      *  Inserts or removes hard tabs or spaces based on the soft tabs and tab length settings
      *  of this editor in order to bring it to the given indentation level. Note that if soft
      *  tabs are enabled and the tab length is 2, a row with 4 leading spaces would have an
@@ -2014,7 +2187,8 @@ export class TextEditor {
     /** Outdent rows intersecting selections by one level. */
     outdentSelectedRows(): void;
 
-    /** Get the indentation level of the given line of text.
+    /**
+     *  Get the indentation level of the given line of text.
      *  Determines how deeply the given line is indented based on the soft tabs and tab length
      *  settings of this editor. Note that if soft tabs are enabled and the tab length is 2,
      *  a row with 4 leading spaces would have an indentation level of 2.
@@ -2028,13 +2202,15 @@ export class TextEditor {
     /** Get the current Grammar of this editor. */
     getGrammar(): Grammar;
 
-    /** Set the current Grammar of this editor.
+    /**
+     *  Set the current Grammar of this editor.
      *  Assigning a grammar will cause the editor to re-tokenize based on the new grammar.
      */
     setGrammar(grammar: Grammar): void;
 
     // Managing Syntax Scopes
-    /** Returns a ScopeDescriptor that includes this editor's language.
+    /**
+     *  Returns a ScopeDescriptor that includes this editor's language.
      *  e.g. [".source.ruby"], or [".source.coffee"].
      */
     getRootScopeDescriptor(): ScopeDescriptor;
@@ -2042,7 +2218,8 @@ export class TextEditor {
     /** Get the syntactic scopeDescriptor for the given position in buffer coordinates. */
     scopeDescriptorForBufferPosition(bufferPosition: PointCompatible): ScopeDescriptor;
 
-    /** Get the range in buffer coordinates of all tokens surrounding the cursor
+    /**
+     *  Get the range in buffer coordinates of all tokens surrounding the cursor
      *  that match the given scope selector.
      */
     bufferRangeForScopeAtCursor(scopeSelector: string): Range;
@@ -2057,25 +2234,29 @@ export class TextEditor {
     /** For each selection, cut the selected text. */
     cutSelectedText(): void;
 
-    /** For each selection, replace the selected text with the contents of the clipboard.
+    /**
+     *  For each selection, replace the selected text with the contents of the clipboard.
      *  If the clipboard contains the same number of selections as the current editor,
      *  each selection will be replaced with the content of the corresponding clipboard
      *  selection text.
      */
     pasteText(options?: TextInsertionOptions): void;
 
-    /** For each selection, if the selection is empty, cut all characters of the
+    /**
+     *  For each selection, if the selection is empty, cut all characters of the
      *  containing screen line following the cursor. Otherwise cut the selected text.
      */
     cutToEndOfLine(): void;
 
-    /** For each selection, if the selection is empty, cut all characters of the
+    /**
+     *  For each selection, if the selection is empty, cut all characters of the
      *  containing buffer line following the cursor. Otherwise cut the selected text.
      */
     cutToEndOfBufferLine(): void;
 
     // Folds
-    /** Fold the most recent cursor's row based on its indentation level.
+    /**
+     *  Fold the most recent cursor's row based on its indentation level.
      *  The fold will extend from the nearest preceding line with a lower indentation
      *  level up to the nearest following row with a lower indentation level.
      */
@@ -2084,7 +2265,8 @@ export class TextEditor {
     /** Unfold the most recent cursor's row by one level. */
     unfoldCurrentRow(): void;
 
-    /** Fold the given row in buffer coordinates based on its indentation level.
+    /**
+     *  Fold the given row in buffer coordinates based on its indentation level.
      *  If the given row is foldable, the fold will begin there. Otherwise, it will
      *  begin at the first foldable row preceding the given row.
      */
@@ -2105,12 +2287,14 @@ export class TextEditor {
     /** Fold all foldable lines at the given indent level. */
     foldAllAtIndentLevel(level: number): void;
 
-    /** Determine whether the given row in buffer coordinates is foldable.
+    /**
+     *  Determine whether the given row in buffer coordinates is foldable.
      *  A foldable row is a row that starts a row range that can be folded.
      */
     isFoldableAtBufferRow(bufferRow: number): boolean;
 
-    /** Determine whether the given row in screen coordinates is foldable.
+    /**
+     *  Determine whether the given row in screen coordinates is foldable.
      *  A foldable row is a row that starts a row range that can be folded.
      */
     isFoldableAtScreenRow(bufferRow: number): boolean;
@@ -2160,7 +2344,8 @@ export class TextEditor {
     /** Retrieves the greyed out placeholder of a mini editor. */
     getPlaceholderText(): string;
 
-    /** Set the greyed out placeholder of a mini editor. Placeholder text will be
+    /**
+     *  Set the greyed out placeholder of a mini editor. Placeholder text will be
      *  displayed when the editor has no content.
      */
     setPlaceholderText(placeholderText: string): void;
@@ -2181,18 +2366,21 @@ export interface TextEditorRegistry {
     /** Keep a TextEditor's configuration in sync with Atom's settings. */
     maintainConfig(editor: TextEditor): Disposable;
 
-    /** Set a TextEditor's grammar based on its path and content, and continue
+    /**
+     *  Set a TextEditor's grammar based on its path and content, and continue
      *  to update its grammar as gramamrs are added or updated, or the editor's
      *  file path changes.
      */
     maintainGrammar(editor: TextEditor): Disposable;
 
-    /** Force a TextEditor to use a different grammar than the one that would
+    /**
+     *  Force a TextEditor to use a different grammar than the one that would
      *  otherwise be selected for it.
      */
     setGrammarOverride(editor: TextEditor, scopeName: string): void;
 
-    /** Retrieve the grammar scope name that has been set as a grammar override
+    /**
+     *  Retrieve the grammar scope name that has been set as a grammar override
      *  for the given TextEditor.
      */
     getGrammarOverride(editor: TextEditor): string|null;
@@ -2232,17 +2420,20 @@ export interface TooltipManager {
     findTooltips(target: HTMLElement): Tooltip[];
 }
 
-/** ViewRegistry handles the association between model and view types in Atom.
+/**
+ *  ViewRegistry handles the association between model and view types in Atom.
  *  We call this association a View Provider. As in, for a given model, this class
  *  can provide a view via ::getView, as long as the model/view association was
  *  registered via ::addViewProvider.
  */
 export interface ViewRegistry {
-    /** Add a provider that will be used to construct views in the workspace's view
+    /**
+     *  Add a provider that will be used to construct views in the workspace's view
      *  layer based on model objects in its model layer.
      */
     addViewProvider(createView: (model: object) => HTMLElement|undefined): Disposable;
-    /** Add a provider that will be used to construct views in the workspace's view
+    /**
+     *  Add a provider that will be used to construct views in the workspace's view
      *  layer based on model objects in its model layer.
      */
     // tslint:disable-next-line:no-any
@@ -2256,12 +2447,14 @@ export interface ViewRegistry {
 /** Represents the state of the user interface for the entire window. */
 export interface Workspace {
     // Event Subscription
-    /** Invoke the given callback with all current and future text editors in
+    /**
+     *  Invoke the given callback with all current and future text editors in
      *  the workspace.
      */
     observeTextEditors(callback: (editor: TextEditor) => void): Disposable;
 
-    /** Invoke the given callback with all current and future panes items in the
+    /**
+     *  Invoke the given callback with all current and future panes items in the
      *  workspace.
      */
     observePaneItems(callback: (item: object) => void): Disposable;
@@ -2272,22 +2465,26 @@ export interface Workspace {
     /** Invoke the given callback when the active pane item stops changing. */
     onDidStopChangingActivePaneItem(callback: (item: object) => void): Disposable;
 
-    /** Invoke the given callback when a text editor becomes the active text editor and
+    /**
+     *  Invoke the given callback when a text editor becomes the active text editor and
      *  when there is no longer an active text editor.
      */
     onDidChangeActiveTextEditor(callback: (editor?: TextEditor) => void): Disposable;
 
-    /** Invoke the given callback with the current active pane item and with all
+    /**
+     *  Invoke the given callback with the current active pane item and with all
      *  future active pane items in the workspace.
      */
     observeActivePaneItem(callback: (item: object) => void): Disposable;
 
-    /** Invoke the given callback with the current active text editor (if any), with all
+    /**
+     *  Invoke the given callback with the current active text editor (if any), with all
      *  future active text editors, and when there is no longer an active text editor.
      */
     observeActiveTextEditor(callback: (editor?: TextEditor) => void): Disposable;
 
-    /** Invoke the given callback whenever an item is opened. Unlike ::onDidAddPaneItem,
+    /**
+     *  Invoke the given callback whenever an item is opened. Unlike ::onDidAddPaneItem,
      *  observers will be notified for items that are already present in the workspace
      *  when they are reopened.
      */
@@ -2308,7 +2505,8 @@ export interface Workspace {
     /** Invoke the given callback when the active pane changes. */
     onDidChangeActivePane(callback: (pane: Pane) => void): Disposable;
 
-    /** Invoke the given callback with the current active pane and when the
+    /**
+     *  Invoke the given callback with the current active pane and when the
      *  active pane changes.
      */
     observeActivePane(callback: (pane: Pane) => void): Disposable;
@@ -2316,7 +2514,8 @@ export interface Workspace {
     /** Invoke the given callback when a pane item is added to the workspace. */
     onDidAddPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
 
-    /** Invoke the given callback when a pane item is about to be destroyed,
+    /**
+     *  Invoke the given callback when a pane item is about to be destroyed,
      *  before the user is prompted to save it.
      */
     onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
@@ -2328,35 +2527,41 @@ export interface Workspace {
     onDidAddTextEditor(callback: (event: TextEditorObservedEvent) => void): Disposable;
 
     // Opening
-    /** Opens the given URI in Atom asynchronously. If the URI is already open,
+    /**
+     *  Opens the given URI in Atom asynchronously. If the URI is already open,
      *  the existing item for that URI will be activated. If no URI is given, or
      *  no registered opener can open the URI, a new empty TextEditor will be created.
      */
     open(uri: string, options?: WorkspaceOpenOptions): Promise<object>;
-    /** Opens the given item in Atom asynchronously. If the item is already open,
+    /**
+     *  Opens the given item in Atom asynchronously. If the item is already open,
      *  the existing item will be activated. If no item is given, a new empty TextEditor
      *  will be created.
      */
     open<T extends ViewModel = ViewModel>(item: T, options?: WorkspaceOpenOptions):
         Promise<T>;
-    /** Opens the given URI in Atom asynchronously. If the URI is already open,
+    /**
+     *  Opens the given URI in Atom asynchronously. If the URI is already open,
      *  the existing item for that URI will be activated. If no URI is given, or
      *  no registered opener can open the URI, a new empty TextEditor will be created.
      */
     open(): Promise<TextEditor>;
 
-    /** Search the workspace for items matching the given URI and hide them.
+    /**
+     *  Search the workspace for items matching the given URI and hide them.
      *  Returns a boolean indicating whether any items were found (and hidden).
      */
     hide(itemOrURI: object|string): boolean;
 
-    /** Search the workspace for items matching the given URI. If any are found,
+    /**
+     *  Search the workspace for items matching the given URI. If any are found,
      *  hide them. Otherwise, open the URL.
      *  Returns a Promise that resolves when the item is shown or hidden.
      */
     toggle(itemOrURI: object|string): Promise<void>;
 
-    /** Creates a new item that corresponds to the provided URI.
+    /**
+     *  Creates a new item that corresponds to the provided URI.
      *  If no URI is given, or no registered opener can open the URI, a new empty TextEditor
      *  will be created.
      */
@@ -2365,7 +2570,8 @@ export interface Workspace {
     /** Returns a boolean that is true if object is a TextEditor. */
     isTextEditor(object: object): boolean;
 
-    /** Asynchronously reopens the last-closed item's URI if it hasn't already
+    /**
+     *  Asynchronously reopens the last-closed item's URI if it hasn't already
      *  been reopened.
      */
     reopenItem(): Promise<object|undefined>;
@@ -2506,7 +2712,8 @@ export interface Workspace {
         autoFocus?: boolean,
     }): Panel<T>;
 
-    /** Returns the Panel associated with the given item or null when the item
+    /**
+     *  Returns the Panel associated with the given item or null when the item
      *  has no panel.
      */
     panelForItem<T>(item: T): Panel<T>|null;
@@ -2529,12 +2736,14 @@ export interface Workspace {
 /** The central container for the editor window capable of holding items. */
 export interface WorkspaceCenter {
     // Event Subscription
-    /** Invoke the given callback with all current and future text editors in the
+    /**
+     *  Invoke the given callback with all current and future text editors in the
      *  workspace center.
      */
     observeTextEditors(callback: (editor: TextEditor) => void): Disposable;
 
-    /** Invoke the given callback with all current and future panes items in the
+    /**
+     *  Invoke the given callback with all current and future panes items in the
      *  workspace center.
      */
     observePaneItems(callback: (item: object) => void): Disposable;
@@ -2545,7 +2754,8 @@ export interface WorkspaceCenter {
     /** Invoke the given callback when the active pane item stops changing. */
     onDidStopChangingActivePaneItem(callback: (item: object) => void): Disposable;
 
-    /** Invoke the given callback with the current active pane item and with all future
+    /**
+     *  Invoke the given callback with the current active pane item and with all future
      *  active pane items in the workspace center.
      */
     observeActivePaneItem(callback: (item: object) => void): Disposable;
@@ -2565,7 +2775,8 @@ export interface WorkspaceCenter {
     /** Invoke the given callback when the active pane changes. */
     onDidChangeActivePane(callback: (pane: Pane) => void): Disposable;
 
-    /** Invoke the given callback with the current active pane and when the active pane
+    /**
+     *  Invoke the given callback with the current active pane and when the active pane
      *  changes.
      */
     observeActivePane(callback: (pane: Pane) => void): Disposable;
@@ -2573,7 +2784,8 @@ export interface WorkspaceCenter {
     /** Invoke the given callback when a pane item is added to the workspace center. */
     onDidAddPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
 
-    /** Invoke the given callback when a pane item is about to be destroyed, before the user
+    /**
+     *  Invoke the given callback when a pane item is about to be destroyed, before the user
      *  is prompted to save it.
      */
     onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
@@ -2625,7 +2837,8 @@ export interface WorkspaceCenter {
 
 // Extended Classes ===========================================================
 
-/** A wrapper which provides standard error/output line buffering for
+/**
+ *  A wrapper which provides standard error/output line buffering for
  *  Node's ChildProcess.
  */
 export class BufferedProcess {
@@ -2634,7 +2847,8 @@ export class BufferedProcess {
     constructor(options: ProcessOptions);
 
     // Event Subscription
-    /** Will call your callback when an error will be raised by the process. Usually
+    /**
+     *  Will call your callback when an error will be raised by the process. Usually
      *  this is due to the command not being available or not on the PATH. You can
      *  call handle() on the object passed to your callback to indicate that you
      *  have handled this error.
@@ -2650,7 +2864,8 @@ export class BufferedProcess {
     start(): void;
 }
 
-/** Like BufferedProcess, but accepts a Node script as the command to run.
+/**
+ *  Like BufferedProcess, but accepts a Node script as the command to run.
  *  This is necessary on Windows since it doesn't support shebang #! lines.
  */
 export class BufferedNodeProcess extends BufferedProcess {
@@ -2666,7 +2881,8 @@ export interface Clipboard {
     /** Read the text from the clipboard. */
     read(): string;
 
-    /** Read the text from the clipboard and return both the text and the associated
+    /**
+     *  Read the text from the clipboard and return both the text and the associated
      *  metadata.
      */
     readWithMetadata(): { text: string, metadata: object };
@@ -2678,7 +2894,8 @@ export interface ContextMenuManager {
     add(itemsBySelector: { [key: string]: ReadonlyArray<ContextMenuOptions> }): Disposable;
 }
 
-/** The Cursor class represents the little blinking line identifying where text
+/**
+ *  The Cursor class represents the little blinking line identifying where text
  *  can be inserted.
  */
 export interface Cursor {
@@ -2729,12 +2946,14 @@ export interface Cursor {
     isAtEndOfLine(): boolean;
 
     // Cursor Position Details
-    /** Returns the underlying DisplayMarker for the cursor. Useful with overlay
+    /**
+     *  Returns the underlying DisplayMarker for the cursor. Useful with overlay
      *  Decorations.
      */
     getMarker(): DisplayMarker;
 
-    /** Identifies if the cursor is surrounded by whitespace.
+    /**
+     *  Identifies if the cursor is surrounded by whitespace.
      *  "Surrounded" here means that the character directly before and after the cursor
      *  are both whitespace.
      */
@@ -2752,12 +2971,14 @@ export interface Cursor {
     /** Retrieves the scope descriptor for the cursor's current position. */
     getScopeDescriptor(): ScopeDescriptor;
 
-    /** Returns true if this cursor has no non-whitespace characters before its
+    /**
+     *  Returns true if this cursor has no non-whitespace characters before its
      *  current position.
      */
     hasPrecedingCharactersOnLine(): boolean;
 
-    /** Identifies if this cursor is the last in the TextEditor.
+    /**
+     *  Identifies if this cursor is the last in the TextEditor.
      *  "Last" is defined as the most recently added cursor.
      */
     isLastCursor(): boolean;
@@ -2827,12 +3048,14 @@ export interface Cursor {
     moveToBeginningOfPreviousParagraph(): void;
 
     // Local Positions and Ranges
-    /** Returns buffer position of previous word boundary. It might be on the current
+    /**
+     *  Returns buffer position of previous word boundary. It might be on the current
      *  word, or the previous word.
      */
     getPreviousWordBoundaryBufferPosition(options?: { wordRegex?: RegExp }): Point;
 
-    /** Returns buffer position of the next word boundary. It might be on the current
+    /**
+     *  Returns buffer position of the next word boundary. It might be on the current
      *  word, or the previous word.
      */
     getNextWordBoundaryBufferPosition(options?: { wordRegex?: RegExp }): Point;
@@ -2859,7 +3082,8 @@ export interface Cursor {
     /** Returns the buffer Range for the current line. */
     getCurrentLineBufferRange(options?: { includeNewline?: boolean }): Range;
 
-    /** Retrieves the range for the current paragraph.
+    /**
+     *  Retrieves the range for the current paragraph.
      *  A paragraph is defined as a block of text surrounded by empty lines or comments.
      */
     getCurrentParagraphBufferRange(): Range;
@@ -2875,7 +3099,8 @@ export interface Cursor {
     isVisible(): boolean;
 
     // Comparing to another cursor
-    /** Compare this cursor's buffer position to another cursor's buffer position.
+    /**
+     *  Compare this cursor's buffer position to another cursor's buffer position.
      *  See Point::compare for more details.
      */
     compare(otherCursor: Cursor): number;
@@ -2909,7 +3134,8 @@ export class Directory {
     /** Configures a new Directory instance, no files are accessed. */
     constructor(directoryPath: string, symlink?: boolean);
 
-    /** Creates the directory on disk that corresponds to ::getPath() if no such
+    /**
+     *  Creates the directory on disk that corresponds to ::getPath() if no such
      *  directory already exists.
      */
     create(mode?: number): Promise<boolean>;
@@ -2928,7 +3154,8 @@ export class Directory {
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
 
-    /** Returns a promise that resolves to a boolean, true if the directory\
+    /**
+     *  Returns a promise that resolves to a boolean, true if the directory
      *  exists, false otherwise.
      */
     exists(): Promise<boolean>;
@@ -2936,18 +3163,21 @@ export class Directory {
     /** Returns a boolean, true if the directory exists, false otherwise. */
     existsSync(): boolean;
 
-    /** Return a boolean, true if this Directory is the root directory of the
+    /**
+     *  Return a boolean, true if this Directory is the root directory of the
      *  filesystem, or false if it isn't.
      */
     isRoot(): boolean;
 
     // Managing Paths
-    /** This may include unfollowed symlinks or relative directory entries.
+    /**
+     *  This may include unfollowed symlinks or relative directory entries.
      *  Or it may be fully resolved, it depends on what you give it.
      */
     getPath(): string;
 
-    /** All relative directory entries are removed and symlinks are resolved to
+    /**
+     *  All relative directory entries are removed and symlinks are resolved to
      *  their final destination.
      */
     getRealPathSync(): string;
@@ -2962,12 +3192,14 @@ export class Directory {
     /** Traverse to the parent directory. */
     getParent(): Directory;
 
-    /** Traverse within this Directory to a child File. This method doesn't actually
+    /**
+     *  Traverse within this Directory to a child File. This method doesn't actually
      *  check to see if the File exists, it just creates the File object.
      */
     getFile(filename: string): File;
 
-    /** Traverse within this a Directory to a child Directory. This method doesn't actually
+    /**
+     *  Traverse within this a Directory to a child Directory. This method doesn't actually
      *  check to see if the Directory exists, it just creates the Directory object.
      */
     getSubdirectory(dirname: string): Directory;
@@ -2978,7 +3210,8 @@ export class Directory {
     /** Reads file entries in this directory from disk asynchronously. */
     getEntries(callback: (error: Error, entries: Array<File|Directory>) => void): void;
 
-    /** Determines if the given path (real or symbolic) is inside this directory. This
+    /**
+     *  Determines if the given path (real or symbolic) is inside this directory. This
      *  method does not actually check if the path exists, it just checks if the path
      *  is under this directory.
      */
@@ -2994,12 +3227,14 @@ export interface Dock {
     /** Show the dock without focusing it. */
     show(): void;
 
-    /** Hide the dock and activate the WorkspaceCenter if the dock was was previously
+    /**
+     *  Hide the dock and activate the WorkspaceCenter if the dock was was previously
      *  focused.
      */
     hide(): void;
 
-    /** Toggle the dock's visibility without changing the Workspace's active pane
+    /**
+     *  Toggle the dock's visibility without changing the Workspace's active pane
      *  container.
      */
     toggle(): void;
@@ -3011,7 +3246,8 @@ export interface Dock {
     /** Invoke the given callback when the visibility of the dock changes. */
     onDidChangeVisible(callback: (visible: boolean) => void): Disposable;
 
-    /** Invoke the given callback with the current and all future visibilities of
+    /**
+     *  Invoke the given callback with the current and all future visibilities of
      *  the dock.
      */
     observeVisible(callback: (visible: boolean) => void): Disposable;
@@ -3019,7 +3255,8 @@ export interface Dock {
     /** Invoke the given callback with all current and future panes items in the dock. */
     observePaneItems(callback: (item: object) => void): Disposable;
 
-    /** Invoke the given callback when the active pane item changes.
+    /**
+     *  Invoke the given callback when the active pane item changes.
      *
      *  Because observers are invoked synchronously, it's important not to perform any
      *  expensive operations via this method. Consider ::onDidStopChangingActivePaneItem
@@ -3030,7 +3267,8 @@ export interface Dock {
     /** Invoke the given callback when the active pane item stops changing. */
     onDidStopChangingActivePaneItem(callback: (item: object) => void): Disposable;
 
-    /** Invoke the given callback with the current active pane item and with all future
+    /**
+     *  Invoke the given callback with the current active pane item and with all future
      *  active pane items in the dock.
      */
     observeActivePaneItem(callback: (item: object) => void): Disposable;
@@ -3050,7 +3288,8 @@ export interface Dock {
     /** Invoke the given callback when the active pane changes. */
     onDidChangeActivePane(callback: (pane: Pane) => void): Disposable;
 
-    /** Invoke the given callback with the current active pane and when the active
+    /**
+     *  Invoke the given callback with the current active pane and when the active
      *  pane changes.
      */
     observeActivePane(callback: (pane: Pane) => void): Disposable;
@@ -3058,7 +3297,8 @@ export interface Dock {
     /** Invoke the given callback when a pane item is added to the dock. */
     onDidAddPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
 
-    /** Invoke the given callback when a pane item is about to be destroyed, before the user is
+    /**
+     *  Invoke the given callback when a pane item is about to be destroyed, before the user is
      *  prompted to save it.
      */
     onWillDestroyPaneItem(callback: (event: PaneItemObservedEvent) => void): Disposable;
@@ -3093,7 +3333,8 @@ export class File {
     /** Configures a new File instance, no files are accessed. */
     constructor(filePath: string, symlink?: boolean);
 
-    /** Creates the file on disk that corresponds to ::getPath() if no such file
+    /**
+     *  Creates the file on disk that corresponds to ::getPath() if no such file
      *  already exists.
      */
     create(): Promise<boolean>;
@@ -3108,7 +3349,8 @@ export class File {
     /** Invoke the given callback when the file is deleted. */
     onDidDelete(callback: () => void): Disposable;
 
-    /** Invoke the given callback when there is an error with the watch. When
+    /**
+     *  Invoke the given callback when there is an error with the watch. When
      *  your callback has been invoked, the file will have unsubscribed from the
      *  file watches.
      */
@@ -3125,7 +3367,8 @@ export class File {
     /** Returns a boolean indicating whether or not this is a symbolic link. */
     isSymbolicLink(): boolean;
 
-    /** Returns a promise that resolves to a boolean, true if the file exists,
+    /**
+     *  Returns a promise that resolves to a boolean, true if the file exists,
      *  false otherwise.
      */
     exists(): Promise<boolean>;
@@ -3152,7 +3395,8 @@ export class File {
     /** Returns this file's completely resolved string path. */
     getRealPathSync(): string;
 
-    /** Returns a promise that resolves to the file's completely resolved
+    /**
+     *  Returns a promise that resolves to the file's completely resolved
      *  string path.
      */
     getRealPath(): Promise<string>;
@@ -3198,12 +3442,14 @@ export class GitRepository {
     isDestroyed(): boolean;
 
     // Event Subscription
-    /** Invoke the given callback when this GitRepository's destroy() method is
+    /**
+     *  Invoke the given callback when this GitRepository's destroy() method is
      *  invoked.
      */
     onDidDestroy(callback: () => void): Disposable;
 
-    /** Invoke the given callback when a specific file's status has changed. When
+    /**
+     *  Invoke the given callback when a specific file's status has changed. When
      *  a file is updated, reloaded, etc, and the status changes, this will be fired.
      */
     onDidChangeStatus(callback: (event: RepoStatusChangedEvent) => void): Disposable;
@@ -3236,7 +3482,8 @@ export class GitRepository {
     /** Is the given path a submodule in the repository? */
     isSubmodule(path: string): boolean;
 
-    /** Returns the number of commits behind the current branch is from the its
+    /**
+     *  Returns the number of commits behind the current branch is from the its
      *  upstream remote branch. The default reference is the HEAD.
      *  @param reference The branch reference name.
      *  @param path The path in the repository to get this ifnromation for, only
@@ -3246,7 +3493,8 @@ export class GitRepository {
      */
     getAheadBehindCount(reference: string, path?: string): { ahead: number, behind: number };
 
-    /** Get the cached ahead/behind commit counts for the current branch's
+    /**
+     *  Get the cached ahead/behind commit counts for the current branch's
      *  upstream branch.
      */
     getCachedUpstreamAheadBehindCount(path?: string): { ahead: number, behind: number };
@@ -3257,7 +3505,8 @@ export class GitRepository {
     /** Returns the origin url of the repository. */
     getOriginURL(path?: string): string;
 
-    /** Returns the upstream branch for the current HEAD, or null if there is no
+    /**
+     *  Returns the upstream branch for the current HEAD, or null if there is no
      *  upstream branch for the current HEAD.
      */
     getUpstreamBranch(path?: string): string|null;
@@ -3294,19 +3543,22 @@ export class GitRepository {
     isStatusNew(status: number): boolean;
 
     // Retrieving Diffs
-    /** Retrieves the number of lines added and removed to a path.
+    /**
+     *  Retrieves the number of lines added and removed to a path.
      *  This compares the working directory contents of the path to the HEAD version.
      */
     getDiffStats(path: string): { added: number, deleted: number };
 
-    /** Retrieves the line diffs comparing the HEAD version of the given path
+    /**
+     *  Retrieves the line diffs comparing the HEAD version of the given path
      *  and the given text.
      */
     getLineDiffs(path: string, text: string): Array<{ oldStart: number,
         newStart: number, oldLines: number, newLines: number }>;
 
     // Checking Out
-    /** Restore the contents of a path in the working directory and index to the
+    /**
+     *  Restore the contents of a path in the working directory and index to the
      *  version at HEAD.
      */
     checkoutHead(path: string): boolean;
@@ -3324,13 +3576,15 @@ export interface Grammar {
     onDidUpdate(callback: () => void): Disposable;
 
     // Tokenizing
-    /** Tokenize all lines in the given text.
+    /**
+     *  Tokenize all lines in the given text.
      *  @param text A string containing one or more lines.
      *  @return An array of token arrays for each line tokenized.
      */
     tokenizeLines(text: string): GrammarToken[][];
 
-    /** Tokenizes the line of text.
+    /**
+     *  Tokenizes the line of text.
      *  @param line A string of text to tokenize.
      *  @param ruleStack An optional array of rules previously returned from this
      *  method. This should be null when tokenizing the first line in the file.
@@ -3339,7 +3593,8 @@ export interface Grammar {
      *  @return An object representing the result of the tokenize.
      */
     tokenizeLine(line: string, ruleStack?: null, firstLine?: boolean): TokenizeLineResult;
-    /** Tokenizes the line of text.
+    /**
+     *  Tokenizes the line of text.
      *  @param line A string of text to tokenize.
      *  @param ruleStack An optional array of rules previously returned from this
      *  method. This should be null when tokenizing the first line in the file.
@@ -3354,13 +3609,15 @@ export interface Grammar {
 /** Registry containing one or more grammars. */
 export interface GrammarRegistry {
     // Event Subscription
-    /** Invoke the given callback when a grammar is added to the registry.
+    /**
+     *  Invoke the given callback when a grammar is added to the registry.
      *  @param callback The callback to be invoked whenever a grammar is added.
      *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
      */
     onDidAddGrammar(callback: (grammar: Grammar) => void): Disposable;
 
-    /** Invoke the given callback when a grammar is updated due to a grammar it
+    /**
+     *  Invoke the given callback when a grammar is updated due to a grammar it
      *  depends on being added or removed from the registry.
      *  @param callback The callback to be invoked whenever a grammar is updated.
      *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
@@ -3368,18 +3625,21 @@ export interface GrammarRegistry {
     onDidUpdateGrammar(callback: (grammar: Grammar) => void): Disposable;
 
     // Managing Grammars
-    /** Get all the grammars in this registry.
+    /**
+     *  Get all the grammars in this registry.
      *  @return A non-empty array of Grammar instances.
      */
     getGrammars(): Grammar[];
 
-    /** Get a grammar with the given scope name.
+    /**
+     *  Get a grammar with the given scope name.
      *  @param scopeName A string such as `source.js`.
      *  @return A Grammar or undefined.
      */
     grammarForScopeName(scopeName: string): Grammar|undefined;
 
-    /** Add a grammar to this registry.
+    /**
+     *  Add a grammar to this registry.
      *  A 'grammar-added' event is emitted after the grammar is added.
      *  @param grammar The Grammar to add. This should be a value previously returned
      *  from ::readGrammar or ::readGrammarSync.
@@ -3388,38 +3648,44 @@ export interface GrammarRegistry {
      */
     addGrammar(grammar: Grammar): Disposable;
 
-    /** Remove the given grammar from this registry.
+    /**
+     *  Remove the given grammar from this registry.
      *  @param grammar The grammar to remove. This should be a grammar previously
      *  added to the registry from ::addGrammar.
      */
     removeGrammar(grammar: Grammar): void;
 
-    /** Remove the grammar with the given scope name.
+    /**
+     *  Remove the grammar with the given scope name.
      *  @param scopeName A string such as `source.js`.
      *  @return Returns the removed Grammar or undefined.
      */
     removeGrammarForScopeName(scopeName: string): Grammar|undefined;
 
-    /** Read a grammar synchronously but don't add it to the registry.
+    /**
+     *  Read a grammar synchronously but don't add it to the registry.
      *  @param grammarPath The absolute file path to a grammar.
      *  @return The newly loaded Grammar.
      */
     readGrammarSync(grammarPath: string): Grammar;
 
-    /** Read a grammar asynchronously but don't add it to the registry.
+    /**
+     *  Read a grammar asynchronously but don't add it to the registry.
      *  @param grammarPath The absolute file path to the grammar.
      *  @param callback The function to be invoked once the Grammar has been read in.
      */
     readGrammar(grammarPath: string, callback: (error: Error|null, grammar?: Grammar) =>
         void): void;
 
-    /** Read a grammar synchronously and add it to this registry.
+    /**
+     *  Read a grammar synchronously and add it to this registry.
      *  @param grammarPath The absolute file path to the grammar.
      *  @return The newly loaded Grammar.
      */
     loadGrammarSync(grammarPath: string): Grammar;
 
-    /** Read a grammar asynchronously and add it to the registry.
+    /**
+     *  Read a grammar asynchronously and add it to the registry.
      *  @param grammarPath The absolute file path to the grammar.
      *  @param callback The function to be invoked once the Grammar has been read in
      *  and added to the registry.
@@ -3427,7 +3693,8 @@ export interface GrammarRegistry {
     loadGrammar(grammarPath: string, callback: (error: Error|null, grammar?: Grammar) =>
         void): void;
 
-    /** Convert compact tags representation into convenient, space-inefficient tokens.
+    /**
+     *  Convert compact tags representation into convenient, space-inefficient tokens.
      *  @param lineText The text of the tokenized line.
      *  @param tags The tags returned from a call to Grammar::tokenizeLine().
      *  @return An array of Token instances decoded from the given tags.
@@ -3458,14 +3725,16 @@ export interface Gutter {
     /** Determine whether the gutter is visible. */
     isVisible(): boolean;
 
-    /** Add a decoration that tracks a DisplayMarker. When the marker moves, is
+    /**
+     *  Add a decoration that tracks a DisplayMarker. When the marker moves, is
      *  invalidated, or is destroyed, the decoration will be updated to reflect
      *  the marker's state.
      */
     decorateMarker(marker: DisplayMarker, decorationParams: DecorationOptions): Decoration;
 }
 
-/** History manager for remembering which projects have been opened.
+/**
+ *  History manager for remembering which projects have been opened.
  *  An instance of this class is always available as the atom.history global.
  *  The project history is used to enable the 'Reopen Project' menu.
  */
@@ -3473,7 +3742,8 @@ export interface HistoryManager {
     /** Obtain a list of previously opened projects. */
     getProjects(): ProjectHistory[];
 
-    /** Clear all projects from the history.
+    /**
+     *  Clear all projects from the history.
      *  Note: This is not a privacy function - other traces will still exist, e.g.
      *  window state.
      */
@@ -3483,7 +3753,8 @@ export interface HistoryManager {
     onDidChangeProjects(callback: (args: { reloaded: boolean }) => void): Disposable;
 }
 
-/** Allows commands to be associated with keystrokes in a context-sensitive way.
+/**
+ *  Allows commands to be associated with keystrokes in a context-sensitive way.
  *  In Atom, you can access a global instance of this object via `atom.keymaps`.
  */
 export interface KeymapManager {
@@ -3539,13 +3810,15 @@ export interface KeymapManager {
     loadKeymap(bindingsPath: string, options?: { watch?: boolean, priority?: number }):
         void;
 
-    /** Cause the keymap to reload the key bindings file at the given path whenever
+    /**
+     *  Cause the keymap to reload the key bindings file at the given path whenever
      *  it changes.
      */
     watchKeymap(filePath: string, options?: { priority: number }): void;
 
     // Managing Keyboard Events
-    /** Dispatch a custom event associated with the matching key binding for the
+    /**
+     *  Dispatch a custom event associated with the matching key binding for the
      *  given `KeyboardEvent` if one can be found.
      */
     handleKeyboardEvent(event: KeyboardEvent): void;
@@ -3556,7 +3829,8 @@ export interface KeymapManager {
     /** Customize translation of raw keyboard events to keystroke strings. */
     addKeystrokeResolver(resolver: (event: AddedKeystrokeResolverEvent) => string): Disposable;
 
-    /** Get the number of milliseconds allowed before pending states caused by
+    /**
+     *  Get the number of milliseconds allowed before pending states caused by
      *  partial matches of multi-keystroke bindings are terminated.
      */
     getPartialMatchTimeout(): number;
@@ -3571,7 +3845,8 @@ export interface MenuManager {
     update(): void;
 }
 
-/** Loads and activates a package's main module and resources such as stylesheets,
+/**
+ *  Loads and activates a package's main module and resources such as stylesheets,
  *  keymaps, grammar, editor properties, and menus.
  */
 export interface Package {
@@ -3586,12 +3861,14 @@ export interface Package {
     onDidDeactivate(callback: () => void): Disposable;
 
     // Native Module Compatibility
-    /** Are all native modules depended on by this package correctly compiled
+    /**
+     *  Are all native modules depended on by this package correctly compiled
      *  against the current version of Atom?
      */
     isCompatible(): boolean;
 
-    /** Rebuild native modules in this package's dependencies for the current
+    /**
+     *  Rebuild native modules in this package's dependencies for the current
      *  version of Atom.
      */
     rebuild(): Promise<{ code: number, stdout: string, stderr: string }>;
@@ -3703,7 +3980,8 @@ export interface Pane {
     /** Invoke the given callback when the value of the ::isActive property changes. */
     onDidChangeActive(callback: (active: boolean) => void): Disposable;
 
-    /** Invoke the given callback with the current and future values of the ::isActive
+    /**
+     *  Invoke the given callback with the current and future values of the ::isActive
      *  property.
      */
     observeActive(callback: (active: boolean) => void): Disposable;
@@ -3726,17 +4004,20 @@ export interface Pane {
     /** Invoke the given callback when the value of ::getActiveItem changes. */
     onDidChangeActiveItem(callback: (activeItem: object) => void): Disposable;
 
-    /** Invoke the given callback when ::activateNextRecentlyUsedItem has been called,
+    /**
+     *  Invoke the given callback when ::activateNextRecentlyUsedItem has been called,
      *  either initiating or continuing a forward MRU traversal of pane items.
      */
     onChooseNextMRUItem(callback: (nextRecentlyUsedItem: object) => void): Disposable;
 
-    /** Invoke the given callback when ::activatePreviousRecentlyUsedItem has been called,
+    /**
+     *  Invoke the given callback when ::activatePreviousRecentlyUsedItem has been called,
      *  either initiating or continuing a reverse MRU traversal of pane items.
      */
     onChooseLastMRUItem(callback: (previousRecentlyUsedItem: object) => void): Disposable;
 
-    /** Invoke the given callback when ::moveActiveItemToTopOfStack has been called,
+    /**
+     *  Invoke the given callback when ::moveActiveItemToTopOfStack has been called,
      *  terminating an MRU traversal of pane items and moving the current active item
      *  to the top of the stack. Typically bound to a modifier (e.g. CTRL) key up event.
      */
@@ -3807,7 +4088,8 @@ export interface Pane {
     saveActiveItem<T = void>(nextAction?: (error?: Error) => T):
         Promise<T>|undefined;
 
-    /** Prompt the user for a location and save the active item with the path
+    /**
+     *  Prompt the user for a location and save the active item with the path
      *  they select.
      */
     saveActiveItemAs<T = void>(nextAction?: (error?: Error) => T):
@@ -3817,7 +4099,8 @@ export interface Pane {
     saveItem<T = void>(item: object, nextAction?: (error?: Error) => T):
         Promise<T>|undefined;
 
-    /** Prompt the user for a location and save the active item with the path
+    /**
+     *  Prompt the user for a location and save the active item with the path
      *  they select.
      */
     saveItemAs<T = void>(item: object, nextAction?: (error?: Error) => T):
@@ -3871,7 +4154,8 @@ export interface Pane {
     }): Pane;
 }
 
-/** A container representing a panel on the edges of the editor window. You
+/**
+ *  A container representing a panel on the edges of the editor window. You
  *  should not create a Panel directly, instead use Workspace::addTopPanel and
  *  friends to add panels.
  */
@@ -3910,7 +4194,8 @@ export interface Panel<T = object> {
 
 /** Manage a subscription to filesystem events that occur beneath a root directory. */
 export interface PathWatcher extends DisposableLike {
-    /** Return a Promise that will resolve when the underlying native watcher is
+    /**
+     *  Return a Promise that will resolve when the underlying native watcher is
      *  ready to begin sending events.
      */
     getStartPromise(): Promise<void>;
@@ -3918,7 +4203,8 @@ export interface PathWatcher extends DisposableLike {
     /** Invokes a function when any errors related to this watcher are reported. */
     onDidError(callback: (error: Error) => void): Disposable;
 
-    /** Unsubscribe all subscribers from filesystem events. Native resources will be
+    /**
+     *  Unsubscribe all subscribers from filesystem events. Native resources will be
      *  release asynchronously, but this watcher will stop broadcasting events
      *  immediately.
      */
@@ -3934,7 +4220,8 @@ export interface Project {
     /** Invoke the given callback when a text buffer is added to the project. */
     onDidAddBuffer(callback: (buffer: TextBuffer) => void): Disposable;
 
-    /** Invoke the given callback with all current and future text buffers in
+    /**
+     *  Invoke the given callback with all current and future text buffers in
      *  the project.
      */
     observeBuffers(callback: (buffer: TextBuffer) => void): Disposable;
@@ -3959,7 +4246,8 @@ export interface Project {
     /** Add a path to the project's list of root paths. */
     addPath(projectPath: string): void;
 
-    /** Access a promise that resolves when the filesystem watcher associated with a
+    /**
+     *  Access a promise that resolves when the filesystem watcher associated with a
      *  project root directory is ready to begin receiving events.
      */
     getWatcherPromise(projectPath: string): Promise<PathWatcher>;
@@ -3973,18 +4261,21 @@ export interface Project {
     /** Get the relative path from the project directory to the given path. */
     relativize(fullPath: string): string;
 
-    /** Get the path to the project directory that contains the given path, and
+    /**
+     *  Get the path to the project directory that contains the given path, and
      *  the relative path from that project directory to the given path.
      */
     relativizePath(fullPath: string): [string|null, string];
 
-    /** Determines whether the given path (real or symbolic) is inside the
+    /**
+     *  Determines whether the given path (real or symbolic) is inside the
      *  project's directory.
      */
     contains(pathToCheck: string): boolean;
 }
 
-/** Wraps an array of strings. The Array describes a path from the root of the
+/**
+ *  Wraps an array of strings. The Array describes a path from the root of the
  *  syntax tree to a token including all scope names for the entire path.
  */
 export interface ScopeDescriptor {
@@ -4029,7 +4320,8 @@ export interface Selection {
     /** Determines if the selection contains anything. */
     isEmpty(): boolean;
 
-    /** Determines if the ending position of a marker is greater than the starting position.
+    /**
+     *  Determines if the ending position of a marker is greater than the starting position.
      *  This can happen when, for example, you highlight text "up" in a TextBuffer.
      */
     isReversed(): boolean;
@@ -4070,12 +4362,14 @@ export interface Selection {
     /** Selects all the text one position below the cursor. */
     selectDown(rowCount?: number): void;
 
-    /** Selects all the text from the current cursor position to the top of the
+    /**
+     *  Selects all the text from the current cursor position to the top of the
      *  buffer.
      */
     selectToTop(): void;
 
-    /** Selects all the text from the current cursor position to the bottom of
+    /**
+     *  Selects all the text from the current cursor position to the bottom of
      *  the buffer.
      */
     selectToBottom(): void;
@@ -4083,27 +4377,32 @@ export interface Selection {
     /** Selects all the text in the buffer. */
     selectAll(): void;
 
-    /** Selects all the text from the current cursor position to the beginning of
+    /**
+     *  Selects all the text from the current cursor position to the beginning of
      *  the line.
      */
     selectToBeginningOfLine(): void;
 
-    /** Selects all the text from the current cursor position to the first character
+    /**
+     *  Selects all the text from the current cursor position to the first character
      *  of the line.
      */
     selectToFirstCharacterOfLine(): void;
 
-    /** Selects all the text from the current cursor position to the end of the
+    /**
+     *  Selects all the text from the current cursor position to the end of the
      *  screen line.
      */
     selectToEndOfLine(): void;
 
-    /** Selects all the text from the current cursor position to the end of the
+    /**
+     *  Selects all the text from the current cursor position to the end of the
      *  buffer line.
      */
     selectToEndOfBufferLine(): void;
 
-    /** Selects all the text from the current cursor position to the beginning
+    /**
+     *  Selects all the text from the current cursor position to the beginning
      *  of the word.
      */
     selectToBeginningOfWord(): void;
@@ -4111,7 +4410,8 @@ export interface Selection {
     /** Selects all the text from the current cursor position to the end of the word. */
     selectToEndOfWord(): void;
 
-    /** Selects all the text from the current cursor position to the beginning of
+    /**
+     *  Selects all the text from the current cursor position to the beginning of
      *  the next word.
      */
     selectToBeginningOfNextWord(): void;
@@ -4128,12 +4428,14 @@ export interface Selection {
     /** Selects text to the next subword boundary. */
     selectToNextSubwordBoundary(): void;
 
-    /** Selects all the text from the current cursor position to the beginning of
+    /**
+     *  Selects all the text from the current cursor position to the beginning of
      *  the next paragraph.
      */
     selectToBeginningOfNextParagraph(): void;
 
-    /** Selects all the text from the current cursor position to the beginning of
+    /**
+     *  Selects all the text from the current cursor position to the beginning of
      *  the previous paragraph.
      */
     selectToBeginningOfPreviousParagraph(): void;
@@ -4141,7 +4443,8 @@ export interface Selection {
     /** Modifies the selection to encompass the current word. */
     selectWord(): void;
 
-    /** Expands the newest selection to include the entire word on which the
+    /**
+     *  Expands the newest selection to include the entire word on which the
      *  cursors rests.
      */
     expandOverWord(): void;
@@ -4149,7 +4452,8 @@ export interface Selection {
     /** Selects an entire line in the buffer. */
     selectLine(row: number): void;
 
-    /** Expands the newest selection to include the entire line on which the cursor
+    /**
+     *  Expands the newest selection to include the entire line on which the cursor
      *  currently rests.
      *  It also includes the newline character.
      */
@@ -4159,53 +4463,63 @@ export interface Selection {
     /** Replaces text at the current selection. */
     insertText(text: string, options?: TextInsertionOptions): void;
 
-    /** Removes the first character before the selection if the selection is empty
+    /**
+     *  Removes the first character before the selection if the selection is empty
      *  otherwise it deletes the selection.
      */
     backspace(): void;
 
-    /** Removes the selection or, if nothing is selected, then all characters from
+    /**
+     *  Removes the selection or, if nothing is selected, then all characters from
      *  the start of the selection back to the previous word boundary.
      */
     deleteToPreviousWordBoundary(): void;
 
-    /** Removes the selection or, if nothing is selected, then all characters from
+    /**
+     *  Removes the selection or, if nothing is selected, then all characters from
      *  the start of the selection up to the next word boundary.
      */
     deleteToNextWordBoundary(): void;
 
-    /** Removes from the start of the selection to the beginning of the current
+    /**
+     *  Removes from the start of the selection to the beginning of the current
      *  word if the selection is empty otherwise it deletes the selection.
      */
     deleteToBeginningOfWord(): void;
 
-    /** Removes from the beginning of the line which the selection begins on all
+    /**
+     *  Removes from the beginning of the line which the selection begins on all
      *  the way through to the end of the selection.
      */
     deleteToBeginningOfLine(): void;
 
-    /** Removes the selection or the next character after the start of the selection
+    /**
+     *  Removes the selection or the next character after the start of the selection
      *  if the selection is empty.
      */
     delete(): void;
 
-    /** If the selection is empty, removes all text from the cursor to the end of
+    /**
+     *  If the selection is empty, removes all text from the cursor to the end of
      *  the line. If the cursor is already at the end of the line, it removes the following
      *  newline. If the selection isn't empty, only deletes the contents of the selection.
      */
     deleteToEndOfLine(): void;
 
-    /** Removes the selection or all characters from the start of the selection to
+    /**
+     *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
     deleteToEndOfWord(): void;
 
-    /** Removes the selection or all characters from the start of the selection to
+    /**
+     *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
     deleteToBeginningOfSubword(): void;
 
-    /** Removes the selection or all characters from the start of the selection to
+    /**
+     *  Removes the selection or all characters from the start of the selection to
      *  the end of the current word if nothing is selected.
      */
     deleteToEndOfSubword(): void;
@@ -4213,12 +4527,14 @@ export interface Selection {
     /** Removes only the selected text. */
     deleteSelectedText(): void;
 
-    /** Removes the line at the beginning of the selection if the selection is empty
+    /**
+     *  Removes the line at the beginning of the selection if the selection is empty
      *  unless the selection spans multiple lines in which case all lines are removed.
      */
     deleteLine(): void;
 
-    /** Joins the current line with the one below it. Lines will be separated by a single space.
+    /**
+     *  Joins the current line with the one below it. Lines will be separated by a single space.
      *  If there selection spans more than one line, all the lines are joined together.
      */
     joinLines(): void;
@@ -4226,12 +4542,14 @@ export interface Selection {
     /** Removes one level of indent from the currently selected rows. */
     outdentSelectedRows(): void;
 
-    /** Sets the indentation level of all selected rows to values suggested by the
+    /**
+     *  Sets the indentation level of all selected rows to values suggested by the
      *  relevant grammars.
      */
     autoIndentSelectedRows(): void;
 
-    /** Wraps the selected lines in comments if they aren't currently part of a comment.
+    /**
+     *  Wraps the selected lines in comments if they aren't currently part of a comment.
      *  Removes the comment if they are currently wrapped in a comment.
      */
     toggleLineComments(): void;
@@ -4261,20 +4579,23 @@ export interface Selection {
     /** Moves the selection up one row. */
     addSelectionAbove(): void;
 
-    /** Combines the given selection into this selection and then destroys the
+    /**
+     *  Combines the given selection into this selection and then destroys the
      *  given selection.
      */
     merge(otherSelection: Selection, options?: { preserveFolds?: boolean,
         autoscroll?: boolean }): void;
 
     // Comparing to other selections
-    /** Compare this selection's buffer range to another selection's buffer range.
+    /**
+     *  Compare this selection's buffer range to another selection's buffer range.
      *  See Range::compare for more details.
      */
     compare(otherSelection: Selection): number;
 }
 
-/** A singleton instance of this class available via atom.styles, which you can
+/**
+ *  A singleton instance of this class available via atom.styles, which you can
  *  use to globally query and observe the set of active style sheets.
  */
 export interface StyleManager {
@@ -4318,14 +4639,16 @@ export class Task {
     // NOTE: this is actually the best we can do here with the REST parameter
     // for this appearing in the beginning of the parameter list, which isn't
     // aligned with the ES6 spec.
-    /** Starts the task.
+    /**
+     *  Starts the task.
      *  Throws an error if this task has already been terminated or if sending a
      *  message to the child process fails.
      */
     // tslint:disable-next-line:no-any
     start(...args: any[]): void;
 
-    /** Send message to the task.
+    /**
+     *  Send message to the task.
      *  Throws an error if this task has already been terminated or if sending a
      *  message to the child process fails.
      */
@@ -4335,7 +4658,8 @@ export class Task {
     // tslint:disable-next-line:no-any
     on(eventName: string, callback: (param: any) => void): Disposable;
 
-    /** Forcefully stop the running task.
+    /**
+     *  Forcefully stop the running task.
      *  No more events are emitted once this method is called.
      */
     terminate(): void;
@@ -4344,7 +4668,8 @@ export class Task {
     cancel(): boolean;
 }
 
-/** A mutable text container with undo/redo support and the ability to
+/**
+ *  A mutable text container with undo/redo support and the ability to
  *  annotate logical regions in the text.
  */
 export class TextBuffer {
@@ -4354,12 +4679,14 @@ export class TextBuffer {
     /** Create a new buffer backed by the given file path. */
     static load(source: string, params?: BufferLoadOptions): Promise<TextBuffer>;
 
-    /** Create a new buffer backed by the given file path. For better performance,
+    /**
+     *  Create a new buffer backed by the given file path. For better performance,
      *  use TextBuffer.load instead.
      */
     static loadSync(filePath: string, params?: BufferLoadOptions): TextBuffer;
 
-    /** Restore a TextBuffer based on an earlier state created using the
+    /**
+     *  Restore a TextBuffer based on an earlier state created using the
      *  TextBuffer::serialize method.
      */
     static deserialize(params: object): Promise<TextBuffer>;
@@ -4370,35 +4697,41 @@ export class TextBuffer {
     constructor(params?: {
         /** The initial string text of the buffer. */
         text?: string
-        /** A function that returns a Boolean indicating whether the buffer should
+        /**
+         *  A function that returns a Boolean indicating whether the buffer should
          *  be destroyed if its file is deleted.
          */
         shouldDestroyOnFileDelete?(): boolean
     });
 
     // Event Subscription
-    /** Invoke the given callback synchronously before the content of the buffer
+    /**
+     *  Invoke the given callback synchronously before the content of the buffer
      *  changes.
      */
     onWillChange(callback: (event: BufferChangingEvent) => void): Disposable;
 
-    /** Invoke the given callback synchronously when the content of the buffer
+    /**
+     *  Invoke the given callback synchronously when the content of the buffer
      *  changes. You should probably not be using this in packages.
      */
     onDidChange(callback: (event: BufferChangedEvent) => void): Disposable;
 
-    /** Invoke the given callback synchronously when a transaction finishes with
+    /**
+     *  Invoke the given callback synchronously when a transaction finishes with
      *  a list of all the changes in the transaction.
      */
     onDidChangeText(callback: (event: BufferStoppedChangingEvent) => void): Disposable;
 
-    /** Invoke the given callback asynchronously following one or more changes after
+    /**
+     *  Invoke the given callback asynchronously following one or more changes after
      *  ::getStoppedChangingDelay milliseconds elapse without an additional change.
      */
     onDidStopChanging(callback: (event: BufferStoppedChangingEvent) => void):
         Disposable;
 
-    /** Invoke the given callback when the in-memory contents of the buffer become
+    /**
+     *  Invoke the given callback when the in-memory contents of the buffer become
      *  in conflict with the contents of the file on disk.
      */
     onDidConflict(callback: () => void): Disposable;
@@ -4406,7 +4739,8 @@ export class TextBuffer {
     /** Invoke the given callback if the value of ::isModified changes. */
     onDidChangeModified(callback: (modified: boolean) => void): Disposable;
 
-    /** Invoke the given callback when all marker ::onDidChange observers have been
+    /**
+     *  Invoke the given callback when all marker ::onDidChange observers have been
      *  notified following a change to the buffer.
      */
     onDidUpdateMarkers(callback: () => void): Disposable;
@@ -4419,7 +4753,8 @@ export class TextBuffer {
     /** Invoke the given callback when the value of ::getEncoding changes. */
     onDidChangeEncoding(callback: (encoding: string) => void): Disposable;
 
-    /** Invoke the given callback before the buffer is saved to disk. If the
+    /**
+     *  Invoke the given callback before the buffer is saved to disk. If the
      *  given callback returns a promise, then the buffer will not be saved until
      *  the promise resolves.
      */
@@ -4431,12 +4766,14 @@ export class TextBuffer {
     /** Invoke the given callback after the file backing the buffer is deleted. */
     onDidDelete(callback: () => void): Disposable;
 
-    /** Invoke the given callback before the buffer is reloaded from the contents
+    /**
+     *  Invoke the given callback before the buffer is reloaded from the contents
      *  of its file on disk.
      */
     onWillReload(callback: () => void): Disposable;
 
-    /** Invoke the given callback after the buffer is reloaded from the contents
+    /**
+     *  Invoke the given callback after the buffer is reloaded from the contents
      *  of its file on disk.
      */
     onDidReload(callback: () => void): Disposable;
@@ -4448,19 +4785,22 @@ export class TextBuffer {
     onWillThrowWatchError(callback: (errorObject: HandleableErrorEvent) => void):
         Disposable;
 
-    /** Get the number of milliseconds that will elapse without a change before
+    /**
+     *  Get the number of milliseconds that will elapse without a change before
      *  ::onDidStopChanging observers are invoked following a change.
      */
     getStoppedChangingDelay(): number;
 
     // File Details
-    /** Determine if the in-memory contents of the buffer differ from its contents
+    /**
+     *  Determine if the in-memory contents of the buffer differ from its contents
      *  on disk.
      *  If the buffer is unsaved, always returns true unless the buffer is empty.
      */
     isModified(): boolean;
 
-    /** Determine if the in-memory contents of the buffer conflict with the on-disk
+    /**
+     *  Determine if the in-memory contents of the buffer conflict with the on-disk
      *  contents of its associated file.
      */
     isInConflict(): boolean;
@@ -4502,7 +4842,8 @@ export class TextBuffer {
     /** Get the line ending for the given 0-indexed row. */
     lineEndingForRow(row: number): string|undefined;
 
-    /** Get the length of the line for the given 0-indexed row, without its line
+    /**
+     *  Get the length of the line for the given 0-indexed row, without its line
      *  ending.
      */
     lineLengthForRow(row: number): number;
@@ -4510,12 +4851,14 @@ export class TextBuffer {
     /** Determine if the given row contains only whitespace. */
     isRowBlank(row: number): boolean;
 
-    /** Given a row, find the first preceding row that's not blank.
+    /**
+     *  Given a row, find the first preceding row that's not blank.
      *  Returns a number or null if there's no preceding non-blank row.
      */
     previousNonBlankRow(startRow: number): number|null;
 
-    /** Given a row, find the next row that's not blank.
+    /**
+     *  Given a row, find the next row that's not blank.
      *  Returns a number or null if there's no next non-blank row.
      */
     nextNonBlankRow(startRow: number): number|null;
@@ -4524,7 +4867,8 @@ export class TextBuffer {
     /** Replace the entire contents of the buffer with the given text. */
     setText(text: string): Range;
 
-    /** Replace the current buffer contents by applying a diff based on the
+    /**
+     *  Replace the current buffer contents by applying a diff based on the
      *  given text.
      */
     setTextViaDiff(text: string): void;
@@ -4555,7 +4899,8 @@ export class TextBuffer {
     addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean }):
         MarkerLayer;
 
-    /** Get a MarkerLayer by id.
+    /**
+     *  Get a MarkerLayer by id.
      *  Returns a MarkerLayer or `` if no layer exists with the given id.
      */
     getMarkerLayer(id: string): MarkerLayer|undefined;
@@ -4595,34 +4940,40 @@ export class TextBuffer {
     transact<T>(groupingInterval: number, fn: () => T): T;
     transact<T>(fn: () => T): T;
 
-    /** Call within a transaction to terminate the function's execution and
+    /**
+     *  Call within a transaction to terminate the function's execution and
      *  revert any changes performed up to the abortion.
      */
     abortTransaction(): void;
 
-    /** Clear the undo stack. When calling this method within a transaction,
+    /**
+     *  Clear the undo stack. When calling this method within a transaction,
      *  the ::onDidChangeText event will not be triggered because the information
      *  describing the changes is lost.
      */
     clearUndoStack(): void;
 
-    /** Create a pointer to the current state of the buffer for use with
+    /**
+     *  Create a pointer to the current state of the buffer for use with
      *  ::revertToCheckpoint and ::groupChangesSinceCheckpoint.
      */
     createCheckpoint(): number;
 
-    /** Revert the buffer to the state it was in when the given checkpoint was created.
+    /**
+     *  Revert the buffer to the state it was in when the given checkpoint was created.
      *  Returns a boolean indicating whether the operation succeeded.
      */
     revertToCheckpoint(checkpoint: number): boolean;
 
-    /** Group all changes since the given checkpoint into a single transaction for
+    /**
+     *  Group all changes since the given checkpoint into a single transaction for
      *  purposes of undo/redo.
      *  Returns a boolean indicating whether the operation succeeded.
      */
     groupChangesSinceCheckpoint(checkpoint: number): boolean;
 
-    /** Returns a list of changes since the given checkpoint.
+    /**
+     *  Returns a list of changes since the given checkpoint.
      *  If the given checkpoint is no longer present in the undo history, this method
      *  will return an empty Array.
      */
@@ -4641,43 +4992,51 @@ export class TextBuffer {
     }>;
 
     // Search and Replace
-    /** Scan regular expression matches in the entire buffer, calling the given
+    /**
+     *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      */
     scan(regex: RegExp, iterator: (params: BufferScanResult) => void): void;
-    /** Scan regular expression matches in the entire buffer, calling the given
+    /**
+     *  Scan regular expression matches in the entire buffer, calling the given
      *  iterator function on each match.
      */
     scan(regex: RegExp, options: ScanContextOptions, iterator: (params:
         ContextualBufferScanResult) => void): void;
 
-    /** Scan regular expression matches in the entire buffer in reverse order,
+    /**
+     *  Scan regular expression matches in the entire buffer in reverse order,
      *  calling the given iterator function on each match.
      */
     backwardsScan(regex: RegExp, iterator: (params: BufferScanResult) => void): void;
-    /** Scan regular expression matches in the entire buffer in reverse order,
+    /**
+     *  Scan regular expression matches in the entire buffer in reverse order,
      *  calling the given iterator function on each match.
      */
     backwardsScan(regex: RegExp, options: ScanContextOptions, iterator: (params:
         ContextualBufferScanResult) => void): void;
 
-    /** Scan regular expression matches in a given range , calling the given
+    /**
+     *  Scan regular expression matches in a given range , calling the given
      *  iterator function on each match.
      */
     scanInRange(regex: RegExp, range: RangeCompatible, iterator:
         (params: BufferScanResult) => void): void;
-    /** Scan regular expression matches in a given range , calling the given
+    /**
+     *  Scan regular expression matches in a given range , calling the given
      *  iterator function on each match.
      */
     scanInRange(regex: RegExp, range: RangeCompatible, options: ScanContextOptions,
         iterator: (params: ContextualBufferScanResult) => void): void;
 
-    /** Scan regular expression matches in a given range in reverse order,
+    /**
+     *  Scan regular expression matches in a given range in reverse order,
      *  calling the given iterator function on each match.
      */
     backwardsScanInRange(regex: RegExp, range: RangeCompatible, iterator:
         (params: BufferScanResult) => void): void;
-    /** Scan regular expression matches in a given range in reverse order,
+    /**
+     *  Scan regular expression matches in a given range in reverse order,
      *  calling the given iterator function on each match.
      */
     backwardsScanInRange(regex: RegExp, range: RangeCompatible, options: ScanContextOptions,
@@ -4708,12 +5067,14 @@ export class TextBuffer {
     /** Get the range for the given row. */
     rangeForRow(row: number, includeNewline: boolean): Range;
 
-    /** Convert a position in the buffer in row/column coordinates to an absolute
+    /**
+     *  Convert a position in the buffer in row/column coordinates to an absolute
      *  character offset, inclusive of line ending characters.
      */
     characterIndexForPosition(position: Point|[number, number]): number;
 
-    /** Convert an absolute character offset, inclusive of newlines, to a position
+    /**
+     *  Convert an absolute character offset, inclusive of newlines, to a position
      *  in the buffer in row/column coordinates.
      */
     positionForCharacterIndex(offset: number): Point;
@@ -4738,7 +5099,8 @@ export class TextBuffer {
 /** Handles loading and activating available themes. */
 export interface ThemeManager {
     // Event Subscription
-    /** Invoke callback when style sheet changes associated with updating the
+    /**
+     *  Invoke callback when style sheet changes associated with updating the
      *  list of active themes have completed.
      */
     onDidChangeActiveThemes(callback: () => void): Disposable;
@@ -4767,12 +5129,14 @@ export interface ThemeManager {
 // specific API calls.
 
 export interface AddedKeystrokeResolverEvent {
-    /** The currently resolved keystroke string. If your function returns a falsy
+    /**
+     *  The currently resolved keystroke string. If your function returns a falsy
      *  value, this is how Atom will resolve your keystroke.
      */
     keystroke: string;
 
-    /** The raw DOM 3 `KeyboardEvent` being resolved. See the DOM API documentation
+    /**
+     *  The raw DOM 3 `KeyboardEvent` being resolved. See the DOM API documentation
      *  for more details.
      */
     event: KeyboardEvent;
@@ -4780,7 +5144,8 @@ export interface AddedKeystrokeResolverEvent {
     /** The OS-specific name of the current keyboard layout. */
     layoutName: string;
 
-    /** An object mapping DOM 3 `KeyboardEvent.code` values to objects with the
+    /**
+     *  An object mapping DOM 3 `KeyboardEvent.code` values to objects with the
      *  typed character for that key in each modifier state, based on the current
      *  operating system layout.
      */
@@ -4810,7 +5175,8 @@ export interface BufferStoppedChangingEvent {
     changes: TextChange[];
 }
 
-/** This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
+/**
+ *  This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
  *  method, as well as versions of the ::stopPropagation methods that record the
  *  intent to stop propagation so event bubbling can be properly simulated for
  *  detached elements.
@@ -4878,17 +5244,20 @@ export interface DisplayMarkerChangedEvent {
     /** Boolean indicating whether the marker now has a tail */
     hasTail: boolean;
 
-    /** -DEPRECATED- Object containing the marker's custom properties before the change.
+    /**
+     *  -DEPRECATED- Object containing the marker's custom properties before the change.
      *  @deprecated
      */
     oldProperties: object;
 
-    /** -DEPRECATED- Object containing the marker's custom properties after the change.
+    /**
+     *  -DEPRECATED- Object containing the marker's custom properties after the change.
      *  @deprecated
      */
     newProperties: object;
 
-    /** Boolean indicating whether this change was caused by a textual change to the
+    /**
+     *  Boolean indicating whether this change was caused by a textual change to the
      *  buffer or whether the marker was manipulated directly via its public API.
      */
     textChanged: boolean;
@@ -4941,7 +5310,8 @@ export type FilesystemChangeEvent = Array<{
     /** The absolute path to the filesystem entry that was acted upon. */
     path: string;
 
-    /** For rename events, a string containing the filesystem entry's former
+    /**
+     *  For rename events, a string containing the filesystem entry's former
      *  absolute path.
      */
     oldPath?: string;
@@ -4962,7 +5332,8 @@ export interface HandleableErrorEvent {
     /** The error object. */
     error: Error;
 
-    /** Call this function to indicate you have handled the error.
+    /**
+     *  Call this function to indicate you have handled the error.
      *  The error will not be thrown if this function is called.
      */
     handle(): void;
@@ -4998,17 +5369,20 @@ export interface MarkerChangedEvent {
     /** Boolean indicating whether the marker now has a tail. */
     hasTail: boolean;
 
-    /** -DEPRECATED- Object containing the marker's custom properties before the change.
+    /**
+     *  -DEPRECATED- Object containing the marker's custom properties before the change.
      *  @deprecated
      */
     oldProperties: object;
 
-    /** -DEPRECATED- Object containing the marker's custom properties after the change.
+    /**
+     *  -DEPRECATED- Object containing the marker's custom properties after the change.
      *  @deprecated
      */
     newProperties: object;
 
-    /** Boolean indicating whether this change was caused by a textual
+    /**
+     *  Boolean indicating whether this change was caused by a textual
      *  change to the buffer or whether the marker was manipulated directly
      *  via its public API.
      */
@@ -5059,7 +5433,8 @@ export interface PathWatchErrorThrownEvent {
     /** The error object. */
     error: Error;
 
-    /** Call this function to indicate you have handled the error.
+    /**
+     *  Call this function to indicate you have handled the error.
      *  The error will not be thrown if this function is called.
      */
     handle(): void;
@@ -5072,7 +5447,8 @@ export interface PreventableExceptionThrownEvent extends ExceptionThrownEvent {
 export interface RepoStatusChangedEvent {
     path: string;
 
-    /** This value can be passed to ::isStatusModified or ::isStatusNew to get more
+    /**
+     *  This value can be passed to ::isStatusModified or ::isStatusNew to get more
      *  information.
      */
     pathStatus: number;
@@ -5105,14 +5481,16 @@ export interface BufferLoadOptions {
     /** The file's encoding. */
     encoding?: string;
 
-    /** A function that returns a boolean indicating whether the buffer should
+    /**
+     *  A function that returns a boolean indicating whether the buffer should
      *  be destroyed if its file is deleted.
      */
     shouldDestroyOnFileDelete?(): boolean;
 }
 
 export interface BuildEnvironmentOptions {
-    /** An object responsible for Atom's interaction with the browser process and host OS.
+    /**
+     *  An object responsible for Atom's interaction with the browser process and host OS.
      *  Use buildDefaultApplicationDelegate for a default instance.
      */
     applicationDelegate?: object;
@@ -5126,7 +5504,8 @@ export interface BuildEnvironmentOptions {
     /** A path to the configuration directory (usually ~/.atom). */
     configDirPath?: string;
 
-    /** A boolean indicating whether the Atom environment should save or load state
+    /**
+     *  A boolean indicating whether the Atom environment should save or load state
      *  from the file system. You probably want this to be false.
      */
     enablePersistence?: boolean;
@@ -5136,12 +5515,14 @@ export interface ContextMenuOptions {
     /** The menu item's label. */
     label?: string;
 
-    /** The command to invoke on the target of the right click that invoked the
+    /**
+     *  The command to invoke on the target of the right click that invoked the
      *  context menu.
      */
     command?: string;
 
-    /** Whether the menu item should be clickable. Disabled menu items typically
+    /**
+     *  Whether the menu item should be clickable. Disabled menu items typically
      *  appear grayed out. Defaults to true.
      */
     enabled?: boolean;
@@ -5149,7 +5530,8 @@ export interface ContextMenuOptions {
     /** An array of additional items. */
     submenu?: ReadonlyArray<ContextMenuOptions>;
 
-    /** If you want to create a separator, provide an item with type: 'separator'
+    /**
+     *  If you want to create a separator, provide an item with type: 'separator'
      *  and no other keys.
      */
     type?: "separator";
@@ -5157,12 +5539,14 @@ export interface ContextMenuOptions {
     /** Whether the menu item should appear in the menu. Defaults to true. */
     visible?: boolean;
 
-    /** A function that is called on the item each time a context menu is created
+    /**
+     *  A function that is called on the item each time a context menu is created
      *  via a right click.
      */
     created?(event: Event): void;
 
-    /** A function that is called to determine whether to display this item on a
+    /**
+     *  A function that is called to determine whether to display this item on a
      *  given context menu deployment.
      */
     shouldDisplay?(event: Event): void;
@@ -5178,7 +5562,8 @@ export interface CopyMarkerOptions {
     /** Determines the rules by which changes to the buffer invalidate the marker. */
     invalidate?: "never"|"surround"|"overlap"|"inside"|"touch";
 
-    /** Indicates whether insertions at the start or end of the marked range should
+    /**
+     *  Indicates whether insertions at the start or end of the marked range should
      *  be interpreted as happening outside the marker.
      */
     exclusive?: boolean;
@@ -5241,12 +5626,14 @@ export interface FindDisplayMarkerOptions {
     /** Only include markers ending at this row in screen coordinates. */
     endScreenRow?: number;
 
-    /** Only include markers intersecting this Array of [startRow, endRow] in
+    /**
+     *  Only include markers intersecting this Array of [startRow, endRow] in
      *  buffer coordinates.
      */
     intersectsBufferRowRange?: [number, number];
 
-    /** Only include markers intersecting this Array of [startRow, endRow] in
+    /**
+     *  Only include markers intersecting this Array of [startRow, endRow] in
      *  screen coordinates.
      */
     intersectsScreenRowRange?: [number, number];
@@ -5320,12 +5707,14 @@ export interface NodeProcessOptions {
     /** The options object to pass to Node's ChildProcess.spawn method. */
     options?: SpawnProcessOptions;
 
-    /** The callback that receives a single argument which contains the standard
+    /**
+     *  The callback that receives a single argument which contains the standard
      *  output from the command.
      */
     stdout?(data: string): void;
 
-    /** The callback that receives a single argument which contains the standard
+    /**
+     *  The callback that receives a single argument which contains the standard
      *  error output from the command.
      */
     stderr?(data: string): void;
@@ -5347,7 +5736,8 @@ export interface NotificationOptions {
 }
 
 export interface ProcessOptions extends NodeProcessOptions {
-    /** Whether the command will automatically start when this BufferedProcess is
+    /**
+     *  Whether the command will automatically start when this BufferedProcess is
      *  created.
      */
     autoStart?: boolean;
@@ -5362,39 +5752,46 @@ export interface ScanContextOptions {
 }
 
 export interface SharedDecorationOptions {
-    /** This CSS class will be applied to the decorated line number, line, highlight,
+    /**
+     *  This CSS class will be applied to the decorated line number, line, highlight,
      *  or overlay.
      */
     class?: string;
 
-    /** An HTMLElement or a model Object with a corresponding view registered. Only
+    /**
+     *  An HTMLElement or a model Object with a corresponding view registered. Only
      *  applicable to the gutter, overlay and block types.
      */
     item?: HTMLElement;
 
-    /** If true, the decoration will only be applied to the head of the DisplayMarker.
+    /**
+     *  If true, the decoration will only be applied to the head of the DisplayMarker.
      *  Only applicable to the line and line-number types.
      */
     onlyHead?: boolean;
 
-    /** If true, the decoration will only be applied if the associated DisplayMarker
+    /**
+     *  If true, the decoration will only be applied if the associated DisplayMarker
      *  is empty. Only applicable to the gutter, line, and line-number types.
      */
     onlyEmpty?: boolean;
 
-    /** If true, the decoration will only be applied if the associated DisplayMarker
+    /**
+     *  If true, the decoration will only be applied if the associated DisplayMarker
      *  is non-empty. Only applicable to the gutter, line, and line-number types.
      */
     onlyNonEmpty?: boolean;
 
-    /** Only applicable to decorations of type overlay and block. Controls where the
+    /**
+     *  Only applicable to decorations of type overlay and block. Controls where the
      *  view is positioned relative to the TextEditorMarker. Values can be
      *  'head' (the default) or 'tail' for overlay decorations, and 'before' (the default)
      *  or 'after' for block decorations.
      */
     position?: "head"|"tail"|"before"|"after";
 
-    /** Only applicable to decorations of type overlay. Determines whether the decoration
+    /**
+     *  Only applicable to decorations of type overlay. Determines whether the decoration
      *  adjusts its horizontal or vertical position to remain fully visible when it would
      *  otherwise overflow the editor. Defaults to true.
      */
@@ -5420,7 +5817,8 @@ export interface SpawnProcessOptions {
     /** Sets the group identity of the process. */
     gid?: number;
 
-    /** If true, runs command inside of a shell. Uses "/bin/sh" on UNIX, and process.env.ComSpec
+    /**
+     *  If true, runs command inside of a shell. Uses "/bin/sh" on UNIX, and process.env.ComSpec
      *  on Windows. A different shell can be specified as a string.
      */
     shell?: boolean | string;
@@ -5443,7 +5841,8 @@ export interface TooltipOptions {
     /** Appends the tooltip to a specific element. */
     container?: string|HTMLElement|false;
 
-    /** Delay showing and hiding the tooltip (ms) - does not apply to manual
+    /**
+     *  Delay showing and hiding the tooltip (ms) - does not apply to manual
      *  trigger type.
      */
     delay?: number|{ show: number, hide: number };
@@ -5454,7 +5853,8 @@ export interface TooltipOptions {
     /** How to position the tooltip. */
     placement?: "top"|"bottom"|"left"|"right"|"auto";
 
-    /** If a selector is provided, tooltip objects will be delegated to the
+    /**
+     *  If a selector is provided, tooltip objects will be delegated to the
      *  specified targets.
      */
     selector?: string;
@@ -5462,13 +5862,15 @@ export interface TooltipOptions {
     /** Base HTML to use when creating the tooltip. */
     template?: string;
 
-    /** Default title value if title attribute isn't present.
+    /**
+     *  Default title value if title attribute isn't present.
      *  If a function is given, it will be called with its this reference set to
      *  the element that the tooltip is attached to.
      */
     title?: string|HTMLElement|(() => string);
 
-    /** How tooltip is triggered - click | hover | focus | manual.
+    /**
+     *  How tooltip is triggered - click | hover | focus | manual.
      *  You may pass multiple triggers; separate them with a space.
      */
     trigger?: string;
@@ -5481,7 +5883,8 @@ export interface WorkspaceOpenOptions {
     /** A number indicating which column to move the cursor to initially. Defaults to 0. */
     initialColumn?: number;
 
-    /** Either 'left', 'right', 'up' or 'down'. If 'left', the item will be opened in
+    /**
+     *  Either 'left', 'right', 'up' or 'down'. If 'left', the item will be opened in
      *  leftmost pane of the current active pane's row. If 'right', the item will be
      *  opened in the rightmost pane of the current active pane's row. If only one pane
      *  exists in the row, a new pane will be created. If 'up', the item will be opened
@@ -5491,29 +5894,34 @@ export interface WorkspaceOpenOptions {
      */
     split?: "left"|"right"|"up"|"down";
 
-    /** A boolean indicating whether to call Pane::activate on containing pane.
+    /**
+     *  A boolean indicating whether to call Pane::activate on containing pane.
      *  Defaults to true.
      */
     activatePane?: boolean;
 
-    /** A boolean indicating whether to call Pane::activateItem on containing pane.
+    /**
+     *  A boolean indicating whether to call Pane::activateItem on containing pane.
      *  Defaults to true.
      */
     activateItem?: boolean;
 
-    /** A Boolean indicating whether or not the item should be opened in a pending state.
+    /**
+     *  A Boolean indicating whether or not the item should be opened in a pending state.
      *  Existing pending items in a pane are replaced with new pending items when they
      *  are opened.
      */
     pending?: boolean;
 
-    /** A boolean. If true, the workspace will attempt to activate an existing item for
+    /**
+     *  A boolean. If true, the workspace will attempt to activate an existing item for
      *  the given URI on any pane. If false, only the active pane will be searched for
      *  an existing item for the same URI. Defaults to false.
      */
     searchAllPanes?: boolean;
 
-    /** A String containing the name of the location in which this item should be opened.
+    /**
+     *  A String containing the name of the location in which this item should be opened.
      *  If omitted, Atom will fall back to the last location in which a user has placed
      *  an item with the same URI or, if this is a new URI, the default location specified
      *  by the item.
@@ -5631,7 +6039,8 @@ export interface KeyBinding {
     /** Determines whether the given keystroke matches any contained within this binding. */
     matches(keystroke: string): boolean;
 
-    /** Compare another KeyBinding to this instance.
+    /**
+     *  Compare another KeyBinding to this instance.
      *  Returns <= -1 if the argument is considered lesser or of lower priority.
      *  Returns 0 if this binding is equivalent to the argument.
      *  Returns >= 1 if the argument is considered greater or of higher priority.
@@ -5660,13 +6069,15 @@ export interface TestRunnerParams {
     /** An array of paths to tests to run. Could be paths to files or directories. */
     testPaths: string[];
 
-    /** A function that can be called to construct an instance of the atom global.
+    /**
+     *  A function that can be called to construct an instance of the atom global.
      *  No atom global will be explicitly assigned, but you can assign one in your
      *  runner if desired.
      */
     buildAtomEnvironment(options: BuildEnvironmentOptions): AtomEnvironment;
 
-    /** A function that builds a default instance of the application delegate, suitable
+    /**
+     *  A function that builds a default instance of the application delegate, suitable
      *  to be passed as the applicationDelegate parameter to buildAtomEnvironment.
      */
     buildDefaultApplicationDelegate(): object;
@@ -5674,7 +6085,8 @@ export interface TestRunnerParams {
     /** An optional path to a log file to which test output should be logged. */
     logFile: string;
 
-    /** A boolean indicating whether or not the tests are being run from the command
+    /**
+     *  A boolean indicating whether or not the tests are being run from the command
      *  line via atom --test.
      */
     headless: boolean;
@@ -5695,27 +6107,31 @@ export interface TokenizeLineResult {
     /** The string of text that was tokenized. */
     line: string;
 
-    /** An array of integer scope ids and strings. Positive ids indicate the
+    /**
+     *  An array of integer scope ids and strings. Positive ids indicate the
      *  beginning of a scope, and negative tags indicate the end. To resolve ids
      *  to scope names, call GrammarRegistry::scopeForId with the absolute
      *  value of the id.
      */
     tags: Array<number|string>;
 
-    /** This is a dynamic property. Invoking it will incur additional overhead,
+    /**
+     *  This is a dynamic property. Invoking it will incur additional overhead,
      *  but will automatically translate the `tags` into token objects with `value`
      *  and `scopes` properties.
      */
     tokens: GrammarToken[];
 
-    /** An array of rules representing the tokenized state at the end of the line.
+    /**
+     *  An array of rules representing the tokenized state at the end of the line.
      *  These should be passed back into this method when tokenizing the next line
      *  in the file.
      */
     ruleStack: GrammarRule[];
 }
 
-/** This tooltip class is derived from Bootstrap 3, but modified to not require
+/**
+ *  This tooltip class is derived from Bootstrap 3, but modified to not require
  *  jQuery, which is an expensive dependency we want to eliminate.
  */
 export interface Tooltip {
