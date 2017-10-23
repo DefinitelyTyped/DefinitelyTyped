@@ -6,6 +6,7 @@ Base64.atob(''); // $ExpectType string
 Base64.btoa(''); // $ExpectType string
 Base64.fromBase64(''); // $ExpectType string
 Base64.toBase64(''); // $ExpectType string
+Base64.toBase64('', true); // $ExpectType string
 Base64.btou(''); // $ExpectType string
 Base64.utob(''); // $ExpectType string
 
