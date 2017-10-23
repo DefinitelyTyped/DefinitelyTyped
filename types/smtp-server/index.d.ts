@@ -235,27 +235,27 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     /**
      * The callback to handle authentications (see details https://github.com/andris9/smtp-server#handling-authentication)
      */
-    onAuth?(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null, response: SMTPServerAuthenticationResponse) => void): void;
+    onAuth?(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response: SMTPServerAuthenticationResponse) => void): void;
     /**
      * The callback to handle the client connection. (see details https://github.com/andris9/smtp-server#validating-client-connection)
      */
-    onConnect?(session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onConnect?(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
      * the callback to validate MAIL FROM commands (see details https://github.com/andris9/smtp-server#validating-sender-addresses)
      */
-    onMailFrom?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onMailFrom?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
      * The callback to validate RCPT TO commands (see details https://github.com/andris9/smtp-server#validating-recipient-addresses)
      */
-    onRcptTo?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onRcptTo?(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
      * the callback to handle incoming messages (see details https://github.com/andris9/smtp-server#processing-incoming-message)
      */
-    onData?(stream: Readable, session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onData?(stream: Readable, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
      * the callback that informs about closed client connection
      */
-    onClose?(session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onClose?(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
 }
 
 /** Creates a SMTP server instance */
@@ -282,23 +282,23 @@ export class SMTPServer extends EventEmitter {
     /* tslint:enable:unified-signatures */
 
     /** Closes the server */
-    close(callback: (err: Error | null) => void): void;
+    close(callback: (err?: Error | null) => void): void;
 
     updateSecureContext(options: tls.TlsOptions): void;
 
     /** Authentication handler. Override this */
-    onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null, response: SMTPServerAuthenticationResponse) => void): void;
-    onClose(session: SMTPServerSession, callback: (err: Error | null) => void): void;
-    onConnect(session: SMTPServerSession, callback: (err: Error | null) => void): void;
-    onData(stream: Readable, session: SMTPServerSession, callback: (err: Error | null) => void): void;
-    onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err: Error | null) => void): void;
-    onRcptTo(address: SMTPServerAddress, session: SMTPServerSession, callback: (err: Error | null) => void): void;
+    onAuth(auth: SMTPServerAuthentication, session: SMTPServerSession, callback: (err: Error | null | undefined, response: SMTPServerAuthenticationResponse) => void): void;
+    onClose(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onConnect(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onData(stream: Readable, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onRcptTo(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
 
     addListener(event: 'close', listener: () => void): this;
     addListener(event: 'error', listener: (err: Error) => void): this;
 
     emit(event: 'close'): boolean;
-    emit(event: 'error', error: Error): boolean;
+    emit(event: 'error', err: Error): boolean;
 
     on(event: 'close', listener: () => void): this;
     on(event: 'error', listener: (err: Error) => void): this;
