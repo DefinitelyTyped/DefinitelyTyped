@@ -1,9 +1,9 @@
-// Type definitions for js-base64 v2.3.2
+// Type definitions for js-base64 2.3
 // Project: https://github.com/dankogai/js-base64
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Tommy Lent <https://github.com/tlent/>
+// Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Tommy Lent <https://github.com/tlent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
+/*
 ## TODO
 
 add methods:
@@ -19,36 +19,14 @@ add methods:
 - [ ] noConflict
  */
 
-declare module 'js-base64' {
-    namespace JSBase64 {
-        const Base64: Base64Static;
-        interface Base64Static {
-            /**
-             * .encode
-             * @param {String} string
-             * @return {String}
-             */
-            encode(base64: string): string;
+export as namespace Base64;
 
-            /**
-             * .encodeURI
-             * @param {String} string
-             * @return {String}
-             */
-            encodeURI(base64: string): string;
+export namespace Base64 {
+    const VERSION: string;
 
-            /**
-             * .decode
-             * @param {String} string
-             * @return {String}
-             */
-            decode(base64: string): string;
+    function encode(s: string): string;
 
-            /**
-             * Library version
-             */
-            VERSION: string;
-        }
-    }
-    export = JSBase64;
+    function encodeURI(s: string): string;
+
+    function decode(base64: string): string;
 }
