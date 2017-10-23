@@ -2,6 +2,7 @@ import * as webpack from 'webpack';
 import * as WebpackDevServer from 'webpack-dev-server';
 import * as core from 'express-serve-static-core';
 const compiler = webpack({});
+const multipleCompiler = webpack([]);
 
 // basic example
 let server = new WebpackDevServer(compiler, {
@@ -81,4 +82,11 @@ server = new WebpackDevServer(compiler, {
     publicPath: "/assets/",
     https: true
 });
+
 server.listen(8080, "localhost", () => {});
+
+server.close();
+
+// multiple compilers
+
+server = new WebpackDevServer(multipleCompiler, config);
