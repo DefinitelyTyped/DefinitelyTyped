@@ -1884,6 +1884,15 @@ class Rectangle {
 };
 
 () => {
+    R.startsWith("a", "abc");   // => true
+    R.startsWith("a")("abc");   // => true
+    R.startsWith(1, [1, 2, 3]);   // => true
+    R.startsWith(1)([1, 2, 3]);   // => true
+    R.startsWith([1], [1, 2, 3]);   // => true
+    R.startsWith([1])([1, 2, 3]);   // => true
+};
+
+() => {
     R.add(2, 3);       // =>  5
     R.add(7)(10);      // => 17
     R.add("Hello", " World");  // =>  "Hello World"
