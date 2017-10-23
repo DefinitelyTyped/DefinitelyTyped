@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-feedparser-tests.ts"
+        "feedparser-tests.ts"
     ]
 }
