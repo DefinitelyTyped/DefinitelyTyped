@@ -128,6 +128,8 @@ declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
 
     var clock: () => Clock;
+    
+    var matchersUtil: MatchersUtil;
 
     function any(aclass: any): Any;
 
