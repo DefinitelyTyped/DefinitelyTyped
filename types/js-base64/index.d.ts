@@ -33,8 +33,8 @@ export namespace Base64 {
 
 declare global {
     interface String {
-        fromBase64?(): string;
-        toBase64?(uriSafe?: boolean): string;
-        toBase64URI?(): string;
+        fromBase64(): string;
+        toBase64(uriSafe?: boolean): string;
+        toBase64URI(): string;
     }
 }
