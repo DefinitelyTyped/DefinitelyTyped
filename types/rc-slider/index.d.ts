@@ -1,4 +1,4 @@
-// Type definitions for rc-slider 8.1
+// Type definitions for rc-slider 8.2
 // Project: https://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>, Alexander Mattoni <https://github.com/mattoni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -103,6 +103,16 @@ export interface CommonApiProps {
      * The style used for the track base color.
      */
     railStyle?: React.CSSProperties;
+
+    /**
+     * The style used for the dots.
+     */
+    dotStyle?: React.CSSProperties;
+
+    /**
+     * The style used for the active dots.
+     */
+    activeDotStyle?: React.CSSProperties;
 }
 
 export interface SliderProps extends CommonApiProps {
