@@ -64,70 +64,71 @@ import zipObject from "./zipObject";
 import zipObjectDeep from "./zipObjectDeep";
 import zipWith from "./zipWith";
 
-export default {
-  chunk,
-  compact,
-  concat,
-  difference,
-  differenceBy,
-  differenceWith,
-  drop,
-  dropRight,
-  dropRightWhile,
-  dropWhile,
-  fill,
-  findIndex,
-  findLastIndex,
-  first,
-  flatten,
-  flattenDeep,
-  flattenDepth,
-  fromPairs,
-  head,
-  indexOf,
-  initial,
-  intersection,
-  intersectionBy,
-  intersectionWith,
-  join,
-  last,
-  lastIndexOf,
-  nth,
-  pull,
-  pullAll,
-  pullAllBy,
-  pullAllWith,
-  pullAt,
-  remove,
-  reverse,
-  slice,
-  sortedIndex,
-  sortedIndexBy,
-  sortedIndexOf,
-  sortedLastIndex,
-  sortedLastIndexBy,
-  sortedLastIndexOf,
-  sortedUniq,
-  sortedUniqBy,
-  tail,
-  take,
-  takeRight,
-  takeRightWhile,
-  takeWhile,
-  union,
-  unionBy,
-  unionWith,
-  uniq,
-  uniqBy,
-  uniqWith,
-  unzip,
-  unzipWith,
-  without,
-  xor,
-  xorBy,
-  xorWith,
-  zip,
-  zipObject,
-  zipObjectDeep,
-  zipWith
+declare const defaultExport: {
+  chunk: typeof chunk;
+  compact: typeof compact;
+  concat: typeof concat;
+  difference: typeof difference;
+  differenceBy: typeof differenceBy;
+  differenceWith: typeof differenceWith;
+  drop: typeof drop;
+  dropRight: typeof dropRight;
+  dropRightWhile: typeof dropRightWhile;
+  dropWhile: typeof dropWhile;
+  fill: typeof fill;
+  findIndex: typeof findIndex;
+  findLastIndex: typeof findLastIndex;
+  first: typeof first;
+  flatten: typeof flatten;
+  flattenDeep: typeof flattenDeep;
+  flattenDepth: typeof flattenDepth;
+  fromPairs: typeof fromPairs;
+  head: typeof head;
+  indexOf: typeof indexOf;
+  initial: typeof initial;
+  intersection: typeof intersection;
+  intersectionBy: typeof intersectionBy;
+  intersectionWith: typeof intersectionWith;
+  join: typeof join;
+  last: typeof last;
+  lastIndexOf: typeof lastIndexOf;
+  nth: typeof nth;
+  pull: typeof pull;
+  pullAll: typeof pullAll;
+  pullAllBy: typeof pullAllBy;
+  pullAllWith: typeof pullAllWith;
+  pullAt: typeof pullAt;
+  remove: typeof remove;
+  reverse: typeof reverse;
+  slice: typeof slice;
+  sortedIndex: typeof sortedIndex;
+  sortedIndexBy: typeof sortedIndexBy;
+  sortedIndexOf: typeof sortedIndexOf;
+  sortedLastIndex: typeof sortedLastIndex;
+  sortedLastIndexBy: typeof sortedLastIndexBy;
+  sortedLastIndexOf: typeof sortedLastIndexOf;
+  sortedUniq: typeof sortedUniq;
+  sortedUniqBy: typeof sortedUniqBy;
+  tail: typeof tail;
+  take: typeof take;
+  takeRight: typeof takeRight;
+  takeRightWhile: typeof takeRightWhile;
+  takeWhile: typeof takeWhile;
+  union: typeof union;
+  unionBy: typeof unionBy;
+  unionWith: typeof unionWith;
+  uniq: typeof uniq;
+  uniqBy: typeof uniqBy;
+  uniqWith: typeof uniqWith;
+  unzip: typeof unzip;
+  unzipWith: typeof unzipWith;
+  without: typeof without;
+  xor: typeof xor;
+  xorBy: typeof xorBy;
+  xorWith: typeof xorWith;
+  zip: typeof zip;
+  zipObject: typeof zipObject;
+  zipObjectDeep: typeof zipObjectDeep;
+  zipWith: typeof zipWith;
 };
+export default defaultExport;

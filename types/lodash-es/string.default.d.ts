@@ -30,36 +30,37 @@ import upperCase from "./upperCase";
 import upperFirst from "./upperFirst";
 import words from "./words";
 
-export default {
-  camelCase,
-  capitalize,
-  deburr,
-  endsWith,
-  escape,
-  escapeRegExp,
-  kebabCase,
-  lowerCase,
-  lowerFirst,
-  pad,
-  padEnd,
-  padStart,
-  parseInt,
-  repeat,
-  replace,
-  snakeCase,
-  split,
-  startCase,
-  startsWith,
-  template,
-  templateSettings,
-  toLower,
-  toUpper,
-  trim,
-  trimEnd,
-  trimStart,
-  truncate,
-  unescape,
-  upperCase,
-  upperFirst,
-  words
+declare const defaultExport: {
+  camelCase: typeof camelCase;
+  capitalize: typeof capitalize;
+  deburr: typeof deburr;
+  endsWith: typeof endsWith;
+  escape: typeof escape;
+  escapeRegExp: typeof escapeRegExp;
+  kebabCase: typeof kebabCase;
+  lowerCase: typeof lowerCase;
+  lowerFirst: typeof lowerFirst;
+  pad: typeof pad;
+  padEnd: typeof padEnd;
+  padStart: typeof padStart;
+  parseInt: typeof parseInt;
+  repeat: typeof repeat;
+  replace: typeof replace;
+  snakeCase: typeof snakeCase;
+  split: typeof split;
+  startCase: typeof startCase;
+  startsWith: typeof startsWith;
+  template: typeof template;
+  templateSettings: typeof templateSettings;
+  toLower: typeof toLower;
+  toUpper: typeof toUpper;
+  trim: typeof trim;
+  trimEnd: typeof trimEnd;
+  trimStart: typeof trimStart;
+  truncate: typeof truncate;
+  unescape: typeof unescape;
+  upperCase: typeof upperCase;
+  upperFirst: typeof upperFirst;
+  words: typeof words;
 };
+export default defaultExport;

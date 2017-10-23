@@ -31,37 +31,38 @@ import times from "./times";
 import toPath from "./toPath";
 import uniqueId from "./uniqueId";
 
-export default {
-  attempt,
-  bindAll,
-  cond,
-  conforms,
-  constant,
-  defaultTo,
-  flow,
-  flowRight,
-  identity,
-  iteratee,
-  matches,
-  matchesProperty,
-  method,
-  methodOf,
-  mixin,
-  noop,
-  nthArg,
-  over,
-  overEvery,
-  overSome,
-  property,
-  propertyOf,
-  range,
-  rangeRight,
-  stubArray,
-  stubFalse,
-  stubObject,
-  stubString,
-  stubTrue,
-  times,
-  toPath,
-  uniqueId
+declare const defaultExport: {
+  attempt: typeof attempt;
+  bindAll: typeof bindAll;
+  cond: typeof cond;
+  conforms: typeof conforms;
+  constant: typeof constant;
+  defaultTo: typeof defaultTo;
+  flow: typeof flow;
+  flowRight: typeof flowRight;
+  identity: typeof identity;
+  iteratee: typeof iteratee;
+  matches: typeof matches;
+  matchesProperty: typeof matchesProperty;
+  method: typeof method;
+  methodOf: typeof methodOf;
+  mixin: typeof mixin;
+  noop: typeof noop;
+  nthArg: typeof nthArg;
+  over: typeof over;
+  overEvery: typeof overEvery;
+  overSome: typeof overSome;
+  property: typeof property;
+  propertyOf: typeof propertyOf;
+  range: typeof range;
+  rangeRight: typeof rangeRight;
+  stubArray: typeof stubArray;
+  stubFalse: typeof stubFalse;
+  stubObject: typeof stubObject;
+  stubString: typeof stubString;
+  stubTrue: typeof stubTrue;
+  times: typeof times;
+  toPath: typeof toPath;
+  uniqueId: typeof uniqueId;
 };
+export default defaultExport;

@@ -27,33 +27,34 @@ import size from "./size";
 import some from "./some";
 import sortBy from "./sortBy";
 
-export default {
-  countBy,
-  each,
-  eachRight,
-  every,
-  filter,
-  find,
-  findLast,
-  flatMap,
-  flatMapDeep,
-  flatMapDepth,
-  forEach,
-  forEachRight,
-  groupBy,
-  includes,
-  invokeMap,
-  keyBy,
-  map,
-  orderBy,
-  partition,
-  reduce,
-  reduceRight,
-  reject,
-  sample,
-  sampleSize,
-  shuffle,
-  size,
-  some,
-  sortBy
+declare const defaultExport: {
+  countBy: typeof countBy;
+  each: typeof each;
+  eachRight: typeof eachRight;
+  every: typeof every;
+  filter: typeof filter;
+  find: typeof find;
+  findLast: typeof findLast;
+  flatMap: typeof flatMap;
+  flatMapDeep: typeof flatMapDeep;
+  flatMapDepth: typeof flatMapDepth;
+  forEach: typeof forEach;
+  forEachRight: typeof forEachRight;
+  groupBy: typeof groupBy;
+  includes: typeof includes;
+  invokeMap: typeof invokeMap;
+  keyBy: typeof keyBy;
+  map: typeof map;
+  orderBy: typeof orderBy;
+  partition: typeof partition;
+  reduce: typeof reduce;
+  reduceRight: typeof reduceRight;
+  reject: typeof reject;
+  sample: typeof sample;
+  sampleSize: typeof sampleSize;
+  shuffle: typeof shuffle;
+  size: typeof size;
+  some: typeof some;
+  sortBy: typeof sortBy;
 };
+export default defaultExport;

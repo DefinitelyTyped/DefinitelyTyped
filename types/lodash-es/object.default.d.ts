@@ -46,52 +46,53 @@ import updateWith from "./updateWith";
 import values from "./values";
 import valuesIn from "./valuesIn";
 
-export default {
-  assign,
-  assignIn,
-  assignInWith,
-  assignWith,
-  at,
-  create,
-  defaults,
-  defaultsDeep,
-  entries,
-  entriesIn,
-  extend,
-  extendWith,
-  findKey,
-  findLastKey,
-  forIn,
-  forInRight,
-  forOwn,
-  forOwnRight,
-  functions,
-  functionsIn,
-  get,
-  has,
-  hasIn,
-  invert,
-  invertBy,
-  invoke,
-  keys,
-  keysIn,
-  mapKeys,
-  mapValues,
-  merge,
-  mergeWith,
-  omit,
-  omitBy,
-  pick,
-  pickBy,
-  result,
-  set,
-  setWith,
-  toPairs,
-  toPairsIn,
-  transform,
-  unset,
-  update,
-  updateWith,
-  values,
-  valuesIn
+declare const defaultExport: {
+  assign: typeof assign;
+  assignIn: typeof assignIn;
+  assignInWith: typeof assignInWith;
+  assignWith: typeof assignWith;
+  at: typeof at;
+  create: typeof create;
+  defaults: typeof defaults;
+  defaultsDeep: typeof defaultsDeep;
+  entries: typeof entries;
+  entriesIn: typeof entriesIn;
+  extend: typeof extend;
+  extendWith: typeof extendWith;
+  findKey: typeof findKey;
+  findLastKey: typeof findLastKey;
+  forIn: typeof forIn;
+  forInRight: typeof forInRight;
+  forOwn: typeof forOwn;
+  forOwnRight: typeof forOwnRight;
+  functions: typeof functions;
+  functionsIn: typeof functionsIn;
+  get: typeof get;
+  has: typeof has;
+  hasIn: typeof hasIn;
+  invert: typeof invert;
+  invertBy: typeof invertBy;
+  invoke: typeof invoke;
+  keys: typeof keys;
+  keysIn: typeof keysIn;
+  mapKeys: typeof mapKeys;
+  mapValues: typeof mapValues;
+  merge: typeof merge;
+  mergeWith: typeof mergeWith;
+  omit: typeof omit;
+  omitBy: typeof omitBy;
+  pick: typeof pick;
+  pickBy: typeof pickBy;
+  result: typeof result;
+  set: typeof set;
+  setWith: typeof setWith;
+  toPairs: typeof toPairs;
+  toPairsIn: typeof toPairsIn;
+  transform: typeof transform;
+  unset: typeof unset;
+  update: typeof update;
+  updateWith: typeof updateWith;
+  values: typeof values;
+  valuesIn: typeof valuesIn;
 };
+export default defaultExport;

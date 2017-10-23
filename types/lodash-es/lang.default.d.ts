@@ -55,61 +55,62 @@ import toPlainObject from "./toPlainObject";
 import toSafeInteger from "./toSafeInteger";
 import toString from "./toString";
 
-export default {
-  castArray,
-  clone,
-  cloneDeep,
-  cloneDeepWith,
-  cloneWith,
-  conformsTo,
-  eq,
-  gt,
-  gte,
-  isArguments,
-  isArray,
-  isArrayBuffer,
-  isArrayLike,
-  isArrayLikeObject,
-  isBoolean,
-  isBuffer,
-  isDate,
-  isElement,
-  isEmpty,
-  isEqual,
-  isEqualWith,
-  isError,
-  isFinite,
-  isFunction,
-  isInteger,
-  isLength,
-  isMap,
-  isMatch,
-  isMatchWith,
-  isNaN,
-  isNative,
-  isNil,
-  isNull,
-  isNumber,
-  isObject,
-  isObjectLike,
-  isPlainObject,
-  isRegExp,
-  isSafeInteger,
-  isSet,
-  isString,
-  isSymbol,
-  isTypedArray,
-  isUndefined,
-  isWeakMap,
-  isWeakSet,
-  lt,
-  lte,
-  toArray,
-  toFinite,
-  toInteger,
-  toLength,
-  toNumber,
-  toPlainObject,
-  toSafeInteger,
-  toString
+declare const defaultExport: {
+  castArray: typeof castArray;
+  clone: typeof clone;
+  cloneDeep: typeof cloneDeep;
+  cloneDeepWith: typeof cloneDeepWith;
+  cloneWith: typeof cloneWith;
+  conformsTo: typeof conformsTo;
+  eq: typeof eq;
+  gt: typeof gt;
+  gte: typeof gte;
+  isArguments: typeof isArguments;
+  isArray: typeof isArray;
+  isArrayBuffer: typeof isArrayBuffer;
+  isArrayLike: typeof isArrayLike;
+  isArrayLikeObject: typeof isArrayLikeObject;
+  isBoolean: typeof isBoolean;
+  isBuffer: typeof isBuffer;
+  isDate: typeof isDate;
+  isElement: typeof isElement;
+  isEmpty: typeof isEmpty;
+  isEqual: typeof isEqual;
+  isEqualWith: typeof isEqualWith;
+  isError: typeof isError;
+  isFinite: typeof isFinite;
+  isFunction: typeof isFunction;
+  isInteger: typeof isInteger;
+  isLength: typeof isLength;
+  isMap: typeof isMap;
+  isMatch: typeof isMatch;
+  isMatchWith: typeof isMatchWith;
+  isNaN: typeof isNaN;
+  isNative: typeof isNative;
+  isNil: typeof isNil;
+  isNull: typeof isNull;
+  isNumber: typeof isNumber;
+  isObject: typeof isObject;
+  isObjectLike: typeof isObjectLike;
+  isPlainObject: typeof isPlainObject;
+  isRegExp: typeof isRegExp;
+  isSafeInteger: typeof isSafeInteger;
+  isSet: typeof isSet;
+  isString: typeof isString;
+  isSymbol: typeof isSymbol;
+  isTypedArray: typeof isTypedArray;
+  isUndefined: typeof isUndefined;
+  isWeakMap: typeof isWeakMap;
+  isWeakSet: typeof isWeakSet;
+  lt: typeof lt;
+  lte: typeof lte;
+  toArray: typeof toArray;
+  toFinite: typeof toFinite;
+  toInteger: typeof toInteger;
+  toLength: typeof toLength;
+  toNumber: typeof toNumber;
+  toPlainObject: typeof toPlainObject;
+  toSafeInteger: typeof toSafeInteger;
+  toString: typeof toString;
 };
+export default defaultExport;

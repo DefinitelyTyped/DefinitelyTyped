@@ -1,3 +1,6 @@
 import now from "./now";
 
-export default { now };
+declare const defaultExport: {
+  now: typeof now;
+};
+export default defaultExport;

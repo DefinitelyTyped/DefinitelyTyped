@@ -62,7 +62,8 @@ async function main() {
         console.log('  ' + defaultModule);
 
         writeFileSync(path.join("..", defaultModule), `${extractedResults[index].map(val => `import ${val} from "./${val}";`).join('\n')}\n
-export default { ${extractedResults[index].join(', ')} };\n`);
+declare const defaultExport: {\n${extractedResults[index].map(val => `${val}: typeof ${val};`).join('\n')} };
+export default defaultExport;\n`);
 
         // output group file
         const groupFilename = `${group}.d.ts`;
@@ -84,7 +85,7 @@ export { default } from './${group}.default';\n`);
     // output test file
     console.log('lodash-es-tests.ts');
     writeFileSync(path.join('..', 'lodash-es-tests.ts'), `${flattenModules.map(val => `import ${val} from "lodash-es/${val}";`).join('\n')}\n
-${flattenModules.map(val => `import { ${val} as ${val}1 } from 'lodash-es';`).join('\n')}\n`);
+import { ${flattenModules.map(val => `${val} as ${val}1`).join(',')}} from 'lodash-es';\n`);
 
     // output tsconfig
     console.log('tsconfig.json');
@@ -93,7 +94,9 @@ ${flattenModules.map(val => `import { ${val} as ${val}1 } from 'lodash-es';`).jo
 }
 
 function formatFile(contents) {
-    return prettier.format(contents);
+    return prettier.format(contents, {
+        parser: 'typescript'
+    });
 }
 
 function writeFileSync(filePath: string, contents) {
@@ -146,6 +149,7 @@ function tsconfig(files) {
             noImplicitAny: true,
             noImplicitThis: true,
             strictNullChecks: true,
+            strictFunctionTypes: true,
             baseUrl: "../",
             typeRoots: [
                 "../"

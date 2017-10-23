@@ -14,20 +14,21 @@ import subtract from "./subtract";
 import sum from "./sum";
 import sumBy from "./sumBy";
 
-export default {
-  add,
-  ceil,
-  divide,
-  floor,
-  max,
-  maxBy,
-  mean,
-  meanBy,
-  min,
-  minBy,
-  multiply,
-  round,
-  subtract,
-  sum,
-  sumBy
+declare const defaultExport: {
+  add: typeof add;
+  ceil: typeof ceil;
+  divide: typeof divide;
+  floor: typeof floor;
+  max: typeof max;
+  maxBy: typeof maxBy;
+  mean: typeof mean;
+  meanBy: typeof meanBy;
+  min: typeof min;
+  minBy: typeof minBy;
+  multiply: typeof multiply;
+  round: typeof round;
+  subtract: typeof subtract;
+  sum: typeof sum;
+  sumBy: typeof sumBy;
 };
+export default defaultExport;
