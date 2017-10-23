@@ -9,6 +9,7 @@
 //                 phanalpha <https://github.com/phanalpha>
 //                 charlesfamu <https://github.com/charlesfamu>
 //                 Tim Wang <https://github.com/timwangdev>
+//                 Qibang Sun <https://github.com/bang88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -722,3 +723,7 @@ export interface HeaderBackButtonProps {
 }
 
 export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
+/**
+ * Header Component
+ */
+export const Header: React.ComponentClass<HeaderProps>;
