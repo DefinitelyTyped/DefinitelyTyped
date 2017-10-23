@@ -3077,6 +3077,7 @@ declare global {
     /**
      * 格式化一个浮点函数
      *
+     * @param precision Default 4
      */
     function _N(num: number, precision?: number): string;
 
