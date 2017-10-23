@@ -18,7 +18,7 @@ export namespace Base64 {
 
     function fromBase64(base64: string): string;
 
-    function toBase64(s: string): string;
+    function toBase64(s: string, uriSafe?: boolean): string;
 
     function btou(s: string): string;
 
