@@ -664,7 +664,7 @@ declare module "http" {
         [header: string]: number | string | string[] | undefined;
     }
 
-    export interface ClientRequestArgs {
+    export interface RequestOptions {
         protocol?: string;
         host?: string;
         hostname?: string;
@@ -679,6 +679,8 @@ declare module "http" {
         agent?: Agent | boolean;
         timeout?: number;
     }
+
+    export type ClientRequestArgs = RequestOptions
 
     export interface Server extends net.Server {
         setTimeout(msecs: number, callback: Function): void;
@@ -826,7 +828,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: ClientRequestArgs | string, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -1399,7 +1401,7 @@ declare module "https" {
         SNICallback?: (servername: string, cb: (err: Error, ctx: tls.SecureContext) => any) => any;
     }
 
-    export interface RequestOptions extends http.ClientRequestArgs {
+    export interface RequestOptions extends http.RequestOptions {
         pfx?: any;
         key?: any;
         passphrase?: string;
