@@ -58,7 +58,7 @@ interface EventSubscription {
     subscriber: EventSubscriptionVendor;
 
     /**
-     * @param {EventSubscriptionVendor} subscriber the subscriber that controls
+     * @param subscriber the subscriber that controls
      *   this subscription.
      */
     new(subscriber: EventSubscriptionVendor): EventSubscription
@@ -80,15 +80,13 @@ interface EventSubscriptionVendor {
     /**
      * Adds a subscription keyed by an event type.
      *
-     * @param {string} eventType
-     * @param {EventSubscription} subscription
      */
     addSubscription(eventType: string, subscription: EventSubscription): EventSubscription
 
     /**
      * Removes a bulk set of the subscriptions.
      *
-     * @param {?string} eventType - Optional name of the event type whose
+     * @param eventType - Optional name of the event type whose
      *   registered supscriptions to remove, if null remove all subscriptions.
      */
     removeAllSubscriptions(eventType?: string): void
@@ -97,7 +95,6 @@ interface EventSubscriptionVendor {
      * Removes a specific subscription. Instead of calling this function, call
      * `subscription.remove()` directly.
      *
-     * @param {object} subscription
      */
     removeSubscription(subscription: any): void
 
@@ -108,8 +105,6 @@ interface EventSubscriptionVendor {
      * Note: This array can be potentially sparse as subscriptions are deleted
      * from it when they are removed.
      *
-     * @param {string} eventType
-     * @returns {?array}
      */
     getSubscriptionsForType(eventType: string): EventSubscription[]
 }
@@ -123,13 +118,13 @@ interface EmitterSubscription extends EventSubscription {
     context: any
 
     /**
-     * @param {EventEmitter} emitter - The event emitter that registered this
+     * @param emitter - The event emitter that registered this
      *   subscription
-     * @param {EventSubscriptionVendor} subscriber - The subscriber that controls
+     * @param subscriber - The subscriber that controls
      *   this subscription
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param listener - Function to invoke when the specified event is
      *   emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
     new(emitter: EventEmitter, subscriber: EventSubscriptionVendor, listener: () => any, context: any): EmitterSubscription
@@ -149,10 +144,10 @@ interface EventEmitterListener {
      * emitted. An optional calling context may be provided. The data arguments
      * emitted will be passed to the listener function.
      *
-     * @param {string} eventType - Name of the event to listen to
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke when the specified event is
      *   emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
     addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription
@@ -160,9 +155,8 @@ interface EventEmitterListener {
 
 interface EventEmitter extends EventEmitterListener {
     /**
-     * @constructor
      *
-     * @param {EventSubscriptionVendor} subscriber - Optional subscriber instance
+     * @param subscriber - Optional subscriber instance
      *   to use. If omitted, a new subscriber will be created for the emitter.
      */
     new(subscriber?: EventSubscriptionVendor): EventEmitter
@@ -171,10 +165,10 @@ interface EventEmitter extends EventEmitterListener {
      * Similar to addListener, except that the listener is removed after it is
      * invoked once.
      *
-     * @param {string} eventType - Name of the event to listen to
-     * @param {function} listener - Function to invoke only once when the
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke only once when the
      *   specified event is emitted
-     * @param {*} context - Optional context object to use when invoking the
+     * @param context - Optional context object to use when invoking the
      *   listener
      */
     once(eventType: string, listener: (...args: any[]) => any, context: any): EmitterSubscription
@@ -183,7 +177,7 @@ interface EventEmitter extends EventEmitterListener {
      * Removes all of the registered listeners, including those registered as
      * listener maps.
      *
-     * @param {?string} eventType - Optional name of the event whose registered
+     * @param eventType - Optional name of the event whose registered
      *   listeners to remove
      */
     removeAllListeners(eventType?: string): void
@@ -221,8 +215,7 @@ interface EventEmitter extends EventEmitterListener {
      * Returns an array of listeners that are currently registered for the given
      * event.
      *
-     * @param {string} eventType - Name of the event to query
-     * @returns {array}
+     * @param eventType - Name of the event to query
      */
     listeners(eventType: string): EmitterSubscription[]
 
@@ -230,8 +223,8 @@ interface EventEmitter extends EventEmitterListener {
      * Emits an event of the given type with the given data. All handlers of that
      * particular type will be notified.
      *
-     * @param {string} eventType - Name of the event to emit
-     * @param {...*} Arbitrary arguments to be passed to each registered listener
+     * @param eventType - Name of the event to emit
+     * @param Arbitrary arguments to be passed to each registered listener
      *
      * @example
      *   emitter.addListener('someEvent', function(message) {
@@ -245,8 +238,8 @@ interface EventEmitter extends EventEmitterListener {
     /**
      * Removes the given listener for event of specific type.
      *
-     * @param {string} eventType - Name of the event to emit
-     * @param {function} listener - Function to invoke when the specified event is
+     * @param eventType - Name of the event to emit
+     * @param listener - Function to invoke when the specified event is
      *   emitted
      *
      * @example
@@ -468,18 +461,18 @@ export type AppConfig = {
  * sure the JS execution environment is setup before other modules are
  * `require`d.
  */
-export class AppRegistry {
-    static registerConfig(config: AppConfig[]): void;
+export namespace AppRegistry {
+    function registerConfig(config: AppConfig[]): void;
 
-    static registerComponent( appKey: string, getComponentFunc: ComponentProvider ): string;
+    function registerComponent( appKey: string, getComponentFunc: ComponentProvider ): string;
 
-    static registerRunnable(appKey: string, func: Runnable): string;
+    function registerRunnable(appKey: string, func: Runnable): string;
 
-    static getAppKeys(): string[];
+    function getAppKeys(): string[];
 
-    static unmountApplicationComponentAtRootTag(rootTag: number): void;
+    function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
-    static runApplication(appKey: string, appParameters: any): void;
+    function runApplication(appKey: string, appParameters: any): void;
 }
 
 export interface LayoutAnimationTypes {
@@ -929,8 +922,6 @@ export interface DocumentSelectionState extends EventEmitter {
      * Apply an update to the state. If either offset value has changed,
      * set the values and emit the `change` event. Otherwise no-op.
      *
-     * @param {number} anchor
-     * @param {number} focus
      */
     update(anchor: number, focus: number): void
 
@@ -938,7 +929,6 @@ export interface DocumentSelectionState extends EventEmitter {
      * Given a max text length, constrain our selection offsets to ensure
      * that the selection remains strictly within the text range.
      *
-     * @param {number} maxLength
      */
     constrainLength(maxLength: number): void
 
@@ -1255,14 +1245,14 @@ interface TextInputState {
     currentlyFocusedField(): number
 
     /**
-     * @param {number} TextInputID id of the text field to focus
+     * @param TextInputID id of the text field to focus
      * Focuses the specified text field
      * noop if the text field was already focused
      */
     focusTextInput(textFieldID?: number): void
 
     /**
-     * @param {number} textFieldID id of the text field to focus
+     * @param textFieldID id of the text field to focus
      * Unfocuses the specified text field
      * noop if it wasn't focused
      */
@@ -2216,13 +2206,11 @@ export interface SegmentedControlIOSProperties extends ViewProperties {
     /**
      * Callback that is called when the user taps a segment;
      * passes the event as an argument
-     * @param event
      */
     onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
 
     /**
      * Callback that is called when the user taps a segment; passes the segment's value as an argument
-     * @param value
      */
     onValueChange?: (value: string) => void
 
@@ -2582,7 +2570,6 @@ export interface DrawerLayoutAndroidProperties extends ViewProperties {
 
     /**
      * Function called whenever there is an interaction with the navigation view.
-     * @param event
      */
     onDrawerSlide?: (event: DrawerSlideEvent) => void
 
@@ -2596,7 +2583,6 @@ export interface DrawerLayoutAndroidProperties extends ViewProperties {
      * - settling, meaning that there was an interaction with the
      *   navigation view, and the navigation view is now finishing
      *   it's closing or opening animation
-     * @param event
      */
     onDrawerStateChanged?: (event: "Idle" | "Dragging" | "Settling") => void
 
@@ -2710,8 +2696,6 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
      * following parameters:
      * - itemValue: the value prop of the item that was selected
      * - itemPosition: the index of the selected item in this picker
-     * @param itemValue
-     * @param itemPosition
      */
     onValueChange?: (itemValue: any, itemPosition: number) => void
 
@@ -3035,13 +3019,11 @@ export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesA
 
     /**
      * Callback called when the user finishes changing the value (e.g. when the slider is released).
-     * @param value
      */
     onSlidingComplete?: (value: number) => void
 
     /**
      * Callback continuously called while the user is dragging the slider.
-     * @param value
      */
     onValueChange?: (value: number) => void
 
@@ -3515,7 +3497,7 @@ export interface FlatListProperties<ItemT> extends VirtualizedListProperties<Ite
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentType<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered when the list is empty.
@@ -3713,7 +3695,7 @@ export interface SectionBase<ItemT> {
 
     renderItem?: ListRenderItem<ItemT>
 
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
@@ -3727,7 +3709,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between adjacent Items within each section.
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered when the list is empty.
@@ -3747,7 +3729,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered in between each section.
      */
-    SectionSeparatorComponent?: React.ComponentClass<any> | null
+    SectionSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -4456,8 +4438,6 @@ export interface TouchableWithoutFeedbackAndroidProperties {
     /**
      * Indicates to accessibility services to treat UI component like a native one.
      * Works for Android only.
-     *
-     * @enum('none', 'button', 'radiobutton_checked', 'radiobutton_unchecked' )
      */
     accessibilityComponentType?: 'none' | 'button' | 'radiobutton_checked' | 'radiobutton_unchecked'
 }
@@ -4769,7 +4749,6 @@ interface InteractionMixin {
     /**
      * Schedule work for after all interactions have completed.
      *
-     * @param {function} callback
      */
     runAfterInteractions(callback: () => any): void
 }
@@ -4783,14 +4762,13 @@ interface SubscribableMixin {
      * the subscription and therefore can guarantee it is retained in a way that
      * will be cleaned up.
      *
-     * @param {EventEmitter} eventEmitter emitter to subscribe to.
-     * @param {string} eventType Type of event to listen to.
-     * @param {function} listener Function to invoke when event occurs.
-     * @param {object} context Object to use as listener context.
+     * @param eventEmitter emitter to subscribe to.
+     * @param eventType Type of event to listen to.
+     * @param listener Function to invoke when event occurs.
+     * @param context Object to use as listener context.
      */
     addListenerOn( eventEmitter: any, eventType: string, listener: () => any, context: any ): void
 }
-
 
 // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
 export namespace StyleSheet {
@@ -4946,8 +4924,6 @@ export interface SystraceStatic {
      * Measures multiple methods of a class. For example, you can do:
      * Systrace.measureMethods(JSON, 'JSON', ['parse', 'stringify']);
      *
-     * @param object
-     * @param objectName
      * @param methodNames Map from method names to method display names.
      */
     measureMethods(object: any, objectName: string, methodNames: Array<string>): void
@@ -4956,10 +4932,7 @@ export interface SystraceStatic {
      * Returns an profiled version of the input function. For example, you can:
      * JSON.parse = Systrace.measure('JSON', 'parse', JSON.parse);
      *
-     * @param objName
-     * @param fnName
-     * @param {function} func
-     * @return {function} replacement function
+     * @return replacement function
      */
     measure<T extends Function>(objName: string, fnName: string, func: T): T
 }
@@ -5237,7 +5210,6 @@ export interface PixelRatioStatic {
     /**
      * Converts a layout size (dp) to pixel size (px).
      * Guaranteed to return an integer number.
-     * @param layoutSize
      */
     getPixelSizeForLayoutSize(layoutSize: number): number
 
@@ -5247,7 +5219,6 @@ export interface PixelRatioStatic {
      * on a device with a PixelRatio of 3,
      * PixelRatio.roundToNearestPixel(8.4) = 8.33,
      * which corresponds to exactly (8.33 * 3) = 25 pixels.
-     * @param layoutSize
      */
     roundToNearestPixel(layoutSize: number): number
 
@@ -5307,8 +5278,8 @@ export interface ScaledSize {
  *
  * Example: `var {height, width} = Dimensions.get('window');`
  *
- * @param {string} dim Name of dimension as defined when calling `set`.
- * @returns {Object?} Value for the dimension.
+ * @param dim Name of dimension as defined when calling `set`.
+ * @returns Value for the dimension.
  * @see https://facebook.github.io/react-native/docs/dimensions.html#content
  */
 export interface Dimensions {
@@ -5323,30 +5294,30 @@ export interface Dimensions {
      * example, using inline styles rather than setting a value in a
      * StyleSheet).
      * Example: var {height, width} = Dimensions.get('window');
-     @param {string} dim Name of dimension as defined when calling set.
-     @returns {Object?} Value for the dimension.
+     @param dim Name of dimension as defined when calling set.
+     @returns Value for the dimension.
      */
     get(dim: "window" | "screen"): ScaledSize;
 
     /**
      * This should only be called from native code by sending the didUpdateDimensions event.
-     * @param {object} dims Simple string-keyed object of dimensions to set
+     * @param dims Simple string-keyed object of dimensions to set
      */
     set( dims: {[key: string]: any} ): void;
 
     /**
      * Add an event listener for dimension changes
      *
-     * @param {string} type the type of event to listen to
-     * @param {function} handler the event handler
+     * @param type the type of event to listen to
+     * @param handler the event handler
      */
     addEventListener(type: "change", handler: () => void): void;
 
     /**
      * Remove an event listener
      *
-     * @param {string} type the type of event
-     * @param {function} handler the event handler
+     * @param type the type of event
+     * @param handler the event handler
      */
     removeEventListener(type: "change", handler: () => void): void;
 }
@@ -5371,7 +5342,6 @@ export interface InteractionManagerStatic extends EventEmitterListener {
     /**
      * Schedule a function to run after all interactions have completed.
      * Returns a cancellable
-     * @param fn
      */
     runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask): {
         then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>,
@@ -5509,7 +5479,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
     /**
      * Invoke this from an `onTouchEnd` event.
      *
-     * @param {SyntheticEvent} e Event.
+     * @param e Event.
      */
     scrollResponderHandleTouchEnd(e: ScrollResponderEvent): void
 
@@ -5558,7 +5528,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * responder). The `onResponderReject` won't fire in that case - it only
      * fires when a *current* responder rejects our request.
      *
-     * @param {SyntheticEvent} e Touch Start event.
+     * @param e Touch Start event.
      */
     scrollResponderHandleTouchStart(e: ScrollResponderEvent): void
 
@@ -5571,7 +5541,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * responder). The `onResponderReject` won't fire in that case - it only
      * fires when a *current* responder rejects our request.
      *
-     * @param {SyntheticEvent} e Touch Start event.
+     * @param e Touch Start event.
      */
     scrollResponderHandleTouchMove(e: ScrollResponderEvent): void
 
@@ -5617,10 +5587,10 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * This method should be used as the callback to onFocus in a TextInputs'
      * parent view. Note that any module using this mixin needs to return
      * the parent view's ref in getScrollViewRef() in order to use this method.
-     * @param {any} nodeHandle The TextInput node handle
-     * @param {number} additionalOffset The scroll view's top "contentInset".
+     * @param nodeHandle The TextInput node handle
+     * @param additionalOffset The scroll view's top "contentInset".
      *        Default is 0.
-     * @param {bool} preventNegativeScrolling Whether to allow pulling the content
+     * @param preventNegativeScrolling Whether to allow pulling the content
      *        down to make it meet the keyboard's top. Default is false.
      */
     scrollResponderScrollNativeHandleToKeyboard(nodeHandle: any, additionalOffset?: number, preventNegativeScrollOffset?: boolean): void
@@ -5630,10 +5600,10 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * screen - even if has some content inset. We then measure the offsets of the
      * keyboard, and compensate both for the scroll view's "contentInset".
      *
-     * @param {number} left Position of input w.r.t. table view.
-     * @param {number} top Position of input w.r.t. table view.
-     * @param {number} width Width of the text input.
-     * @param {number} height Height of the text input.
+     * @param left Position of input w.r.t. table view.
+     * @param top Position of input w.r.t. table view.
+     * @param width Width of the text input.
+     * @param height Height of the text input.
      */
     scrollResponderInputMeasureAndScrollToKeyboard(left: number, top: number, width: number, height: number): void
 
@@ -6356,7 +6326,6 @@ export interface AlertIOSStatic {
 
     /**
      * Create and display a popup alert.
-     * @static
      * @method alert
      * @param title The dialog's title.
      * @param message An optional message that appears below
@@ -6374,7 +6343,6 @@ export interface AlertIOSStatic {
 
     /**
      * Create and display a prompt to enter some text.
-     * @static
      * @method prompt
      * @param title The dialog's title.
      * @param message An optional message that appears above the text
@@ -6664,7 +6632,7 @@ export interface CameraRollStatic {
     /**
      * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
      *
-     * @param {object} params See getPhotosParamChecker.
+     * @param params See getPhotosParamChecker.
      */
     getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
 }
@@ -6973,7 +6941,7 @@ export interface PanResponderInstance {
  */
 export interface PanResponderStatic {
     /**
-     * @param {PanResponderCallbacks} config Enhanced versions of all of the responder callbacks
+     * @param config Enhanced versions of all of the responder callbacks
      * that provide not only the typical `ResponderSyntheticEvent`, but also the
      * `PanResponder` gesture state.  Simply replace the word `Responder` with
      * `PanResponder` in each of the typical `onResponder*` callbacks. For
@@ -7264,14 +7232,10 @@ export interface SettingsStatic {
 }
 
 
-/**
- * @enum('default', 'light-content', 'dark-content')
- */
+
 export type StatusBarStyle = "default" | "light-content" | "dark-content"
 
-/**
- * @enum('fade', 'slide')
- */
+
 export type StatusBarAnimation = "none" | "fade" | "slide"
 
 export interface StatusBarPropertiesIOS {

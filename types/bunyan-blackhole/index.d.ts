@@ -7,8 +7,8 @@ import * as Logger from "bunyan";
 
 /**
  * Constructor.
- * @param {string} [name] name of the blackhole Logger
- * @return {Logger} A bunyan logger .
+ * @param name name of the blackhole Logger
+ * @return A bunyan logger .
  */
 declare function bunyanBlackHole(name: string): Logger;
 export = bunyanBlackHole;

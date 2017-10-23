@@ -33,7 +33,7 @@ And since any object is assignable to {}, we would lose the type safety of the P
 Therefore, the type of props is left as Q, which should work for most cases.
 If you need to call cloneElement with key or ref, you'll need a type cast:
 interface ButtonProps {
-    label: string,
+    label: string;
     isDisabled?: boolean;
 }
 var element: React.CElement<ButtonProps, Button>;
@@ -2493,6 +2493,7 @@ declare namespace React {
         allowFullScreen?: boolean;
         allowTransparency?: boolean;
         alt?: string;
+        as?: string;
         async?: boolean;
         autoComplete?: string;
         autoFocus?: boolean;
@@ -2602,6 +2603,7 @@ declare namespace React {
         rel?: string;
         target?: string;
         type?: string;
+        as?: string;
     }
 
     // tslint:disable-next-line:no-empty-interface
@@ -2787,6 +2789,7 @@ declare namespace React {
         rel?: string;
         sizes?: string;
         type?: string;
+        as?: string;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {

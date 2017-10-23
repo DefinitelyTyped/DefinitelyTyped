@@ -13,7 +13,7 @@ file = new File("Test.file");
 new File("Test.file", false);
 
 async function fileCreation() {
-	bool = await file.create();
+    bool = await file.create();
 }
 
 // Event Subscription
@@ -28,13 +28,13 @@ bool = file.isDirectory();
 bool = file.isSymbolicLink();
 
 async function fileExists() {
-	bool = await file.exists();
+    bool = await file.exists();
 }
 
 bool = file.existsSync();
 
 async function getFileDigest() {
-	str = await file.getDigest();
+    str = await file.getDigest();
 }
 
 str = file.getDigestSync();
@@ -46,7 +46,7 @@ str = file.getPath();
 str = file.getRealPathSync();
 
 async function getFileRealPath() {
-	str = await file.getRealPath();
+    str = await file.getRealPath();
 }
 
 str = file.getBaseName();
@@ -56,14 +56,14 @@ dir = file.getParent();
 
 // Reading and Writing
 async function readFile() {
-	str = await file.read();
+    str = await file.read();
 }
 
 const stream = file.createReadStream();
 stream.close();
 
 async function writeFile() {
-	await file.write("Test");
+    await file.write("Test");
 }
 
 file.createWriteStream();
@@ -75,8 +75,8 @@ dir = new Directory("Test.file");
 new Directory("Test.file", true);
 
 async function createDirectory() {
-	bool = await dir.create();
-	bool = await dir.create(0o0777);
+    bool = await dir.create();
+    bool = await dir.create(0o0777);
 }
 
 // Event Subscription
@@ -88,7 +88,7 @@ bool = dir.isDirectory();
 bool = dir.isSymbolicLink();
 
 async function directoryExists() {
-	bool = await dir.exists();
+    bool = await dir.exists();
 }
 
 bool = dir.existsSync();

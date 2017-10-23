@@ -88,13 +88,13 @@ declare namespace Bull {
 
         /**
          * Removes a job from the queue and from any lists it may be included in.
-         * @returns {Promise} A promise that resolves when the job is removed.
+         * @returns A promise that resolves when the job is removed.
          */
         remove(): Promise<void>;
 
         /**
          * Re-run a job that has failed.
-         * @returns {Promise} A promise that resolves when the job is scheduled for retry.
+         * @returns A promise that resolves when the job is scheduled for retry.
          */
         retry(): Promise<void>;
 
