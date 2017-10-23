@@ -1,10 +1,13 @@
-import { ScenarioContext, RequestResponse, ResponseRequest, Next } from 'artillery';
+import { ScenarioContext, Next } from 'artillery';
 
-function test(scenarioContext: ScenarioContext, req: RequestResponse, rep: ResponseRequest, next: Next) {
-    scenarioContext.vars = {};
-    scenarioContext.vars.testing = "value";
-    scenarioContext.vars.testing2 = 1;
+let scenarioContext: ScenarioContext = {vars: {}};
+scenarioContext.vars = {};
+scenarioContext.vars.testing = "value";
+scenarioContext.vars.testing2 = 1;
 
-    next();
-    next(new Error());
-}
+let next: Next = (error: Error) => {
+    // do nothing.
+};
+
+next();
+next(new Error());
