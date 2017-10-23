@@ -563,7 +563,7 @@ declare namespace Knex {
         connectTimeout?: number;
         stringifyObjects?: boolean;
         insecureAuth?: boolean;
-        typeCast?: boolean;
+        typeCast?: any;
         queryFormat?: (query: string, values: any) => string;
         supportBigNumbers?: boolean;
         bigNumberStrings?: boolean;
