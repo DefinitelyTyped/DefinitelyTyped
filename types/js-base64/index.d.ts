@@ -8,7 +8,7 @@ export as namespace Base64;
 export namespace Base64 {
     const VERSION: string;
 
-    function encode(s: string): string;
+    function encode(s: string, uriSafe: boolean): string;
 
     function encodeURI(s: string): string;
 
@@ -27,4 +27,14 @@ export namespace Base64 {
     function utob(s: string): string;
 
     function noConflict(): typeof Base64;
+
+    function extendString(): void;
+}
+
+declare global {
+    interface String {
+        fromBase64?(): string;
+        toBase64?(uriSafe: boolean): string;
+        toBase64URI?(): string;
+    }
 }
