@@ -6078,7 +6078,7 @@ declare module "http2" {
 
     export interface ServerStreamResponseOptions {
         endStream?: boolean;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
     }
 
     export interface StatOptions {
@@ -6087,8 +6087,8 @@ declare module "http2" {
     }
 
     export interface ServerStreamFileResponseOptions {
-        statCheck?: (stats: fs.Stats, headers: IncomingHttpHeaders, statOptions: StatOptions) => void|boolean;
-        getTrailers?: (trailers: IncomingHttpHeaders) => void;
+        statCheck?: (stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions) => void|boolean;
+        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
         offset?: number;
         length?: number;
     }
@@ -6262,7 +6262,7 @@ declare module "http2" {
         exclusive?: boolean;
         parent?: number;
         weight?: number;
-        getTrailers?: (trailers: IncomingHttpHeaders, flags: number) => void;
+        getTrailers?: (trailers: OutgoingHttpHeaders, flags: number) => void;
     }
 
     export interface SessionShutdownOptions {
