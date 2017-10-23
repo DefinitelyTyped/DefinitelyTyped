@@ -21,7 +21,7 @@ add methods:
 
 declare module 'js-base64' {
     namespace JSBase64 {
-        const Base64: Base64Static
+        const Base64: Base64Static;
         interface Base64Static {
             /**
              * .encode
@@ -35,20 +35,20 @@ declare module 'js-base64' {
              * @param {String} string
              * @return {String}
              */
-            encodeURI(base64: string): string
+            encodeURI(base64: string): string;
 
             /**
              * .decode
              * @param {String} string
              * @return {String}
              */
-            decode(base64: string): string
+            decode(base64: string): string;
 
             /**
              * Library version
              */
-            VERSION:string
+            VERSION: string;
         }
     }
-    export = JSBase64
+    export = JSBase64;
 }
