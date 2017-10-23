@@ -28,6 +28,7 @@ import {
     Transitioner,
     addNavigationHelpers,
     HeaderBackButton,
+    Header,
 } from 'react-navigation';
 
 // Constants
